@@ -24,3 +24,11 @@
 
 You will want to customize the values within /etc/slapt-getrc.
 See README for more details.
+
+
+- Using cvs: -----------------------------------------------
+
+CVSROOT=:pserver:anonymous@jaos.org:/var/cvs
+login with empty password
+cvs checkout slapt-get
+
