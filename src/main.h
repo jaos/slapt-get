@@ -55,7 +55,6 @@ void version_info(void);
 #define PATCHES_LIST "FILE_LIST"
 #define PATCHES_LIST_L "patches_list"
 #define PATCHDIR "patches/"
-#define RC_LOCATION "/etc/slapt-getrc"
 #define REMOVE_CMD "/sbin/removepkg "
 #define INSTALL_CMD "/sbin/installpkg "
 #define UPGRADE_CMD "/sbin/upgradepkg "

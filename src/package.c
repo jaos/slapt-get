@@ -19,7 +19,7 @@
 #include <main.h>
 
 /* parse the PACKAGES.TXT file */
-struct pkg_list *parse_pkg_list(void){
+struct pkg_list *get_available_pkgs(void){
 	regex_t name_regex, location_regex, size_c_regex, size_u_regex;
 	ssize_t bytes_read;
 	int regexec_return;
@@ -329,7 +329,7 @@ pkg_info_t *get_newest_pkg(pkg_info_t **pkgs,const char *pkg_name,int pkg_count)
 }
 
 /* parse the update list */
-struct pkg_list *parse_update_pkg_list(void){
+struct pkg_list *get_update_pkgs(void){
 	FILE *fh;
 	size_t getline_len;
 	ssize_t bytes_read;

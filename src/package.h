@@ -48,11 +48,11 @@ struct pkg_list {
  * FUNCTION DEFINITIONS
  */
 /* parse the PACKAGES.TXT file */
-struct pkg_list *parse_pkg_list(void);
+struct pkg_list *get_available_pkgs(void);
 /* retrieve list of installed pkgs */
 struct pkg_list *get_installed_pkgs(void);
 /* return list of update pkgs */
-struct pkg_list *parse_update_pkg_list(void);
+struct pkg_list *get_update_pkgs(void);
 /* generate a short description */
 char *gen_short_pkg_description(pkg_info_t *);
 /* retrieve the newest pkg from pkg_info_t list */

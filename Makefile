@@ -2,12 +2,12 @@ PROGRAM_NAME=slapt-get
 VERSION=0.9.2
 CC=gcc
 CURLFLAGS=`curl-config --libs`
-DEFINES=-DPROGRAM_NAME="\"$(PROGRAM_NAME)\"" -DVERSION="\"$(VERSION)\""
-CFLAGS=-W -Werror -Wall -O2 -ansi -pedantic -Iinclude $(DEFINES)
 OBJS=src/configuration.o src/package.o src/curl.o src/action.o src/main.o
 RCDEST=/etc/slapt-getrc
 RCSOURCE=example.slapt-getrc
 SBINDIR=/sbin/
+DEFINES=-DPROGRAM_NAME="\"$(PROGRAM_NAME)\"" -DVERSION="\"$(VERSION)\"" -DRC_LOCATION="\"$(RCDEST)\""
+CFLAGS=-W -Werror -Wall -O2 -ansi -pedantic -Iinclude $(DEFINES)
 
 default: all
 

@@ -33,9 +33,9 @@ void pkg_action_install(const rc_config *global_config,const char *pkg_name){
 	struct pkg_list *upgrades;
 	struct pkg_list *current;
 
-	upgrades = parse_update_pkg_list();
+	upgrades = get_update_pkgs();
 	installed = get_installed_pkgs();
-	current = parse_pkg_list();
+	current = get_available_pkgs();
 
 	if( (pkg = get_newest_pkg(current->pkgs,pkg_name,current->pkg_count)) == NULL ){
 		fprintf(stderr,"No Such package: %s\n",pkg_name);
@@ -76,7 +76,7 @@ void pkg_action_list(void){
 	struct pkg_list *pkgs = NULL;
 	int iterator;
 
-	pkgs = parse_pkg_list();
+	pkgs = get_available_pkgs();
 
 	for(iterator = 0; iterator < pkgs->pkg_count; iterator++ ){
 		char *short_description = gen_short_pkg_description(pkgs->pkgs[iterator]);
@@ -145,7 +145,7 @@ void pkg_action_search(const char *pattern){
 	}
 
 	/* read in pkg data */
-	pkgs = parse_pkg_list();
+	pkgs = get_available_pkgs();
 
 	for(iterator = 0; iterator < pkgs->pkg_count; iterator++ ){
 		if( (regexec(&regex,pkgs->pkgs[iterator]->name,nmatch,pmatch,0) == 0)
@@ -165,7 +165,7 @@ void pkg_action_show(const char *pkg_name){
 	pkg_info_t *pkg;
 	struct pkg_list *available_pkgs;
 
-	available_pkgs = parse_pkg_list();
+	available_pkgs = get_available_pkgs();
 
 	pkg = get_newest_pkg(available_pkgs->pkgs,pkg_name,available_pkgs->pkg_count);
 
@@ -207,7 +207,7 @@ void pkg_action_upgrade(const rc_config *global_config,pkg_info_t *installed_pkg
 	struct pkg_list *update_pkgs;
 	int cmp_result;
 
-	update_pkgs = parse_update_pkg_list();
+	update_pkgs = get_update_pkgs();
 
 	/* if we found an update, make sure it's version is greater */
 	if( (update_pkg = get_newest_pkg(update_pkgs->pkgs,installed_pkg->name,update_pkgs->pkg_count)) != NULL ){
@@ -247,8 +247,8 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 	/* then use get_newest_pkg() to pull newest from each list */
 	printf("Reading Package Lists... ");
 	installed_pkgs = get_installed_pkgs();
-	update_pkgs = parse_update_pkg_list();
-	current_pkgs = parse_pkg_list();
+	update_pkgs = get_update_pkgs();
+	current_pkgs = get_available_pkgs();
 	printf("Done\n");
 
 	for(iterator = 0; iterator < installed_pkgs->pkg_count;iterator++){
