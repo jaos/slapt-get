@@ -1,10 +1,10 @@
 
-0.9.7i Dec 14, 2003
+0.9.7i Dec 17, 2003
  * added slapt-get source to example slapt-getrc
  * updated source creation script, runs PACKAGESTXT and MD5 on all now
  * added --disable-dep-check to skip the dependency checking
  * added support for ROOT enviroment variable for location of packages logs 
-   overriding /var/log/packages ("Keary Griffin" <keary@mindless.com>)
+   overriding /var/log/packages ("Keary Griffin" <keary@mindless.com>) (FAQ 34)
  * removed check for package existance in the installed pkg list (will now show duplicates)
  * honor --reinstall with upgrades ("Keary Griffin" <keary@mindless.com>)
  * --install now accepts pkg-version ("Keary Griffin" <keary@mindless.com>)

@@ -32,6 +32,7 @@ Frequenty Asked Questions:
 31. How would I script an ldd dependency hack with slapt-get?
 32. Does EXCLUDE work for install as well as upgrade and dist-upgrade?
 33. What about package conflicts?  How can I specify a conflict for my package?
+34. Is the ROOT environment variable honored for install and upgrading?
 
 
 
@@ -704,5 +705,13 @@ Frequenty Asked Questions:
  libgnomecups packages are in conflict if they are below a certain version,
  (supposing that the older versions do not support lprng).  The third entry,
  cups, is a direct conflict, without any compatible version.
+
+
+34. Is the ROOT environment variable honored for install and upgrading?
+
+ Yes, if you have been using ROOT with installpkg and upgradepkg, slapt-get
+ will modify where it looks for the package logs based on this environment
+ variable.
+
 
 
