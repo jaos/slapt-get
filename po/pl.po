@@ -380,6 +380,10 @@ msgid "Failed to calloc list->pkgs[list->pkg_count]\n"
 msgstr "Nie powiodlo sie calloc list->pkgs[list->pkg_count]\n"
 
 #, c-format
+msgid "%s-%s is to be installed\n"
+msgstr "%s-%s is to be installed\n"
+
+#, c-format
 msgid "Preparing to install %s-%s\n"
 msgstr "Przygotowanie do instalacji %s-%s\n"
 
@@ -388,8 +392,16 @@ msgid "Failed to execute command: [%s]\n"
 msgstr "Nie powiodlo sie wykonanie polecenia: [%s]\n"
 
 #, c-format
+msgid "%s-%s is to be upgraded to version %s\n"
+msgstr "%s-%s is to be upgraded to version %s\n"
+
+#, c-format
 msgid "Preparing to replace %s-%s with %s-%s\n"
 msgstr "Przygotowanie do zastapienia %s-%s przez %s-%s\n"
+
+#, c-format
+msgid "%s-%s is to be removed\n"
+msgstr "%s-%s is to be removed\n"
 
 #, c-format
 msgid "Failed to compile regex [%s]\n"
@@ -439,3 +451,9 @@ msgstr "Po rozpakowaniu %dK miejsce na dysku bedzie zwolnione.\n"
 #, c-format
 msgid "After unpacking %dK of additional disk space will be used.\n"
 msgstr "Po rozpakowaniu %dK dodatkowe miejsce na dysku zostanie uzyte.\n"
+
+msgid "Do you want to continue? [y/N] "
+msgstr "Do you want to continue? [y/N] "
+
+msgid "Abort.\n"
+msgstr "Abort.\n"
