@@ -34,6 +34,7 @@ Frequenty Asked Questions:
 33. What about package conflicts?  How can I specify a conflict for my package?
 34. Is the ROOT environment variable honored for install and upgrading?
 35. How do I specify the exact version of a package to install?
+36. Why is upgradepkg complaining it cannot find installpkg or removepkg, with sudo?
 
 
 
@@ -725,5 +726,16 @@ Frequenty Asked Questions:
 
  For example, to install pkgtools version 9.0.0-i386-1, use 'pkgtools-9.0.0-i386-1'
  as the --install argument.
+
+
+36. Why is upgradepkg complaining it cannot find installpkg or removepkg, with sudo?
+
+ Right from the sudo man page's Security Notes section:
+
+  "Note, however, that the actual PATH environment variable is not modified and
+   is passed unchanged to the program that sudo executes."
+
+ Make sure you include /sbin in your shell's PATH environment variable before using
+ slapt-get via sudo.  Or use su - -c 'slapt-get [options] [arg]s'.
 
 
