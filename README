@@ -1,0 +1,85 @@
+Copyright (C) 2003 Jason Woodward <woodwardj at jaos dot org>
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Library General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
+
+
+Table of Contents:
+ 1. Features
+ 2. Requirements
+ 3. Installation
+ 4. jaospkgrc
+ 5. Troubleshooting
+
+
+
+ 1. Features
+
+    Jaospkg tries to emulate Debian's apt-get as closely as possible.
+
+    * cache package data and update data from mirror site
+    * show packages that are available (from cached data)
+    * allow packages to be retrieved and installed by name
+    * allow updates to be retrieved and applied (frontent to updatepkg)
+    * show description of packages
+    * list installed packages
+    * remove packages (frontent to removepkg)
+    * --dist-upgrade from one slackware release to another
+    * exclude packages from upgrades
+
+
+
+ 2. Requirements
+
+    The following packages are required: make, gcc, curl, glibc,
+    kernel-headers, binutils, zlib, and openssl
+
+ 3. Installation
+
+    See INSTALL.
+
+
+
+ 4. jaospkgrc
+
+    The jaospkgrc file consists currently of the following keys:
+     MIRROR
+     WORKINGDIR
+
+    Choose mirror from slackware.com mirror list:
+    lynx -source http://www.slackware.com/getslack/|grep -i href \
+     |awk -F "HREF=" '{print $2}'|cut -f2 -d'"'
+
+    The MIRROR must be a path to a valid slackware release directory.
+
+    WORKINGDIR will hold the package data and downloaded packages.
+
+    EXCLUDE is a comma seperated list of pkgs you want excluded from
+    updating.
+
+
+
+ 5. Troubleshooting
+
+   Probably lots of bugs.  email bug reports to me:
+    Jason Woodward <woodwardj at jaos dot org>
+
+   Make sure --update is ran and downloaded *_list files are good.
+
+   Some mirrors are incomplete and the downloaded file is actually html specifying
+    the webservers error message.  Run --clean to purge tgz files within WORKINGDIR.
+
+
+

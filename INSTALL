@@ -1,0 +1,11 @@
+To install:
+
+ $ make
+ $ make install
+
+ Edit /etc/jaospkgrc (see README for details)
+
+To uninstall:
+
+ $ make uninstall
+

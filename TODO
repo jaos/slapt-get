@@ -1,0 +1,8 @@
+JaosPKG is pretty feature complete.  At the moment, bug fixes are the most important.
+
+Future enhancements, fixes, or features:
+
+ * file check before downloading pkg (don't download twice, incorp md5sum checking)
+ * source pkg handling
+ * jaospkg_upgrade_all() calls jaospkg_upgrade() just like jaospkg_install() does
+

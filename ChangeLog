@@ -1,0 +1,43 @@
+
+0.8 Sep 02, 2003
+ * --remove target now accepts multiple arguments
+  ( --remove pkg1 pkg2 pkg3 pkg4 )
+ * --upgrade speed improvement (optimizations)
+ * --dist-upgrade works for --upgrade
+ * -ansi compatible now as well as -pedantic
+ * introduced struct pkg_list, updated funcs returning pkg_list **
+ * --upgrade now prompts before upgrading the package
+ * --no-prompt option for overriding --upgrade prompt
+ * --re-install option to install even if already installed
+ * added EXCLUDE option in jaospkgrc (to exclude pkgs)
+ * --ignore-excludes for --upgrade
+
+0.7: Aug 28, 2003 
+ * now creates directories within WORKINGDIR for each packages location
+  (patches/packages/kde, slackware/a/ for example)
+ * --install target now accepts multiple arguments
+  ( --install pkg1 pkg2 pkg3 pkg4 )
+ * --simulate option (do not attempt to install, do not download)
+ * --version option
+
+0.6: Aug 27, 2003
+ * fixed memory leaks
+ * --download-only flag so install/upgrade command not ran
+
+0.5:  Aug 26, 2003
+ * --upgrade now works
+ * install will install most recent version (including available updates)
+
+0.4: Aug 24, 2003
+ * now parsing PACKAGES.TXT instead of FILELIST.TXT
+ * --show to show description of packages
+
+0.3: Aug 22, 2003
+ * --search with POSIX regular expressions
+
+0.2: Aug 18, 2003
+ * --list to list packages
+ * --installed to view currently installed packages
+
+0.1: Aug 15, 2003
+ * initial version
