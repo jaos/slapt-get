@@ -445,7 +445,6 @@ struct pkg_list *get_installed_pkgs(void){
 	while( (file = readdir(pkg_log_dir)) != NULL ){
 		ip_regex.reg_return = regexec(&ip_regex.regex,file->d_name,ip_regex.nmatch,ip_regex.pmatch,0);
 		if( ip_regex.reg_return == 0 ){
-			pkg_info_t *existing_pkg = NULL;
 			pkg_info_t *tmp_pkg;
 			tmp_pkg = malloc( sizeof *tmp_pkg );
 			if( tmp_pkg == NULL ){
