@@ -31,6 +31,12 @@ SOURCE=ftp://sunsite.cnlab-switch.ch/mirror/slackware/slackware-9.1/
 #SOURCE=http://slackpacks.tchelinux.com.br/
 #SOURCE=http://users.lichtsnel.nl/pub/slackware/
 
+# slapt source
+#SOURCE=http://software.jaos.org/slackpacks/8.1/
+#SOURCE=http://software.jaos.org/slackpacks/9.0/
+#SOURCE=http://software.jaos.org/slackpacks/9.1/
+#SOURCE=http://software.jaos.org/slackpacks/current/
+
 # pull from your cdrom
 #SOURCE=file:///mnt/cdrom/
 
