@@ -171,7 +171,7 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	if( global_config->no_md5_check == 0 ){
 
 		/* check to see if the md5sum is correct */
-		printf("verifying %s md5 sum...",pkg->name);
+		printf("verifying %s md5 checksum...",pkg->name);
 		if( strcmp(md5_sum_of_file,md5_sum) != 0 ){
 			fprintf(stderr,"md5 sum for %s is not correct!\n",pkg->name);
 			#if DEBUG == 1
