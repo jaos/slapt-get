@@ -277,7 +277,7 @@ Frequenty Asked Questions:
 
  You can use the following for a dropline exclude (from example slapt-getrc):
  
-  EXCLUDE=kernel-ide,kernel-source,kernel-headers,kernel-modules,lilo,.*-dl$,devs
+  EXCLUDE=kernel-ide,kernel-source,kernel-headers,kernel-modules,lilo,.*-[0-9]dl$,devs
 
 
 16. How can I generate an exclude list for an entire disk set?
