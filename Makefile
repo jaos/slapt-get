@@ -31,4 +31,15 @@ uninstall:
 clean:
 	-if [ -f $(PROGNAME) ]; then rm $(PROGNAME);fi
 	-rm src/*.o
+	-if [ -d slackpkg ]; then rm -rf slackpkg ;fi
+
+slackpkg: $(PROGNAME)
+	@mkdir slackpkg
+	@mkdir -p slackpkg/sbin
+	@mkdir -p slackpkg/etc
+	@cp $(PROGNAME) ./slackpkg/sbin/
+	@cp example.jaospkgrc ./slackpkg/etc/
+	@mkdir -p ./slackpkg/usr/doc/$(PROGNAME)/
+	@cp COPYING Changelog INSTALL README TODO ./slackpkg/usr/doc/$(PROGNAME)/
+	@( cd slackpkg; makepkg $(PROGNAME)-0.8.tgz )
 
