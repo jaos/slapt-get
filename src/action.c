@@ -166,12 +166,29 @@ void pkg_action_list(void){
 				bool_installed == 1
 					? _("yes")
 					: _("no"),
-				short_description == NULL
-					? ""
-					: short_description
+				(short_description == NULL) ? "" : short_description
 			);
 			free(short_description);
 		}
+	}
+	for(i = 0; i < installed_pkgs->pkg_count;++i){
+		char *short_description = NULL;
+		if( get_exact_pkg(pkgs,
+				installed_pkgs->pkgs[i]->name,
+				installed_pkgs->pkgs[i]->version
+			) != NULL 
+		) continue;
+
+		short_description = gen_short_pkg_description(installed_pkgs->pkgs[i]);
+
+		printf("%s %s [inst=%s]: %s\n",
+			installed_pkgs->pkgs[i]->name,
+			installed_pkgs->pkgs[i]->version,
+			_("yes"),
+			(short_description == NULL) ? "" : short_description
+		);
+			free(short_description);
+
 	}
 
 	free_pkg_list(pkgs);
