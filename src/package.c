@@ -27,7 +27,10 @@ struct pkg_list *get_available_pkgs(void){
 	pkg_list_fh = open_file(PKG_LIST_L,"r");
 	if( pkg_list_fh == NULL ){
 		fprintf(stderr,_("Perhaps you want to run --update?\n"));
-		return NULL;
+		list = malloc( sizeof *list );
+		list->pkgs = malloc( sizeof *list->pkgs );
+		list->pkg_count = 0;
+		return list; /* return an empty list */
 	}
 	list = parse_packages_txt(pkg_list_fh);
 	fclose(pkg_list_fh);
@@ -399,7 +402,7 @@ struct pkg_list *get_installed_pkgs(void){
 		if( errno ){
 			perror(PKG_LOG_DIR);
 		}
-		return NULL;
+		return list;
 	}
 
 	/* compile our regex */
@@ -1441,7 +1444,7 @@ pkg_info_t *get_pkg_by_details(struct pkg_list *list,char *name,char *version,ch
 }
 
 /* update package data from mirror url */
-void update_pkg_cache(const rc_config *global_config, int (*callback)(void *,double,double,double,double)){
+void update_pkg_cache(const rc_config *global_config){
 	int i;
 	FILE *pkg_list_fh;
 	FILE *patches_list_fh;
@@ -1459,7 +1462,7 @@ void update_pkg_cache(const rc_config *global_config, int (*callback)(void *,dou
 		#else
 		printf(_("Retrieving package data [%s]...\n"),global_config->sources.url[i]);
 		#endif
-		if( get_mirror_data_from_source(tmp_file,global_config->sources.url[i],PKG_LIST,callback) == 0 ){
+		if( get_mirror_data_from_source(tmp_file,global_config->sources.url[i],PKG_LIST) == 0 ){
 			rewind(tmp_file); /* make sure we are back at the front of the file */
 			available_pkgs = parse_packages_txt(tmp_file);
 			write_pkg_data(global_config->sources.url[i],pkg_list_fh,available_pkgs);
@@ -1480,7 +1483,7 @@ void update_pkg_cache(const rc_config *global_config, int (*callback)(void *,dou
 		#else
 		printf(_("Retrieving extras list [%s]...\n"),global_config->sources.url[i]);
 		#endif
-		if( get_mirror_data_from_source(tmp_file,global_config->sources.url[i],EXTRAS_LIST,progress_callback) == 0 ){
+		if( get_mirror_data_from_source(tmp_file,global_config->sources.url[i],EXTRAS_LIST) == 0 ){
 			rewind(tmp_file); /* make sure we are back at the front of the file */
 			available_pkgs = parse_packages_txt(tmp_file);
 			write_pkg_data(global_config->sources.url[i],pkg_list_fh,available_pkgs);
@@ -1501,7 +1504,7 @@ void update_pkg_cache(const rc_config *global_config, int (*callback)(void *,dou
 		#else
 		printf(_("Retrieving patch list [%s]...\n"),global_config->sources.url[i]);
 		#endif
-		if( get_mirror_data_from_source(patches_list_fh,global_config->sources.url[i],PATCHES_LIST,progress_callback) == 0 ){
+		if( get_mirror_data_from_source(patches_list_fh,global_config->sources.url[i],PATCHES_LIST) == 0 ){
 			rewind(patches_list_fh); /* make sure we are back at the front of the file */
 			available_pkgs = parse_packages_txt(patches_list_fh);
 			write_pkg_data(global_config->sources.url[i],pkg_list_fh,available_pkgs);
@@ -1523,7 +1526,7 @@ void update_pkg_cache(const rc_config *global_config, int (*callback)(void *,dou
 		#else
 		printf(_("Retrieving checksum list [%s]...\n"),global_config->sources.url[i]);
 		#endif
-		if( get_mirror_data_from_source(checksum_list_fh,global_config->sources.url[i],CHECKSUM_FILE,progress_callback) == 0 ){
+		if( get_mirror_data_from_source(checksum_list_fh,global_config->sources.url[i],CHECKSUM_FILE) == 0 ){
 			#if USE_CURL_PROGRESS == 0
 			printf(_("Done\n"));
 			#endif

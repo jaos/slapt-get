@@ -139,7 +139,7 @@ int main( int argc, char *argv[] ){
 	}
 
 	if( do_action == UPDATE ){
-		update_pkg_cache(global_config,progress_callback);
+		update_pkg_cache(global_config);
 	}else if( do_action == INSTALL ){
 		if (optind < argc) {
 			int i;

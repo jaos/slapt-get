@@ -36,7 +36,6 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 	printf( _("Reading Package Lists... ") );
 	installed = get_installed_pkgs();
 	all = get_available_pkgs();
-	if( all == NULL || installed == NULL ) exit(1);
 	printf( _("Done\n") );
 
 	init_transaction(&tran);
@@ -164,7 +163,6 @@ void pkg_action_list(void){
 
 	pkgs = get_available_pkgs();
 	installed = get_installed_pkgs();
-	if( pkgs == NULL || installed == NULL ) exit(1);
 
 	for(i = 0; i < pkgs->pkg_count; i++ ){
 		/* this should eliminate the printing of updates */
@@ -220,7 +218,6 @@ void pkg_action_remove(const rc_config *global_config,const pkg_action_args_t *a
 
 	installed = get_installed_pkgs();
 	available = get_available_pkgs();
-	if( available == NULL || installed == NULL ) exit(1);
 	init_transaction(&tran);
 
 	for(i = 0; i < action_args->count; i++){
@@ -270,7 +267,6 @@ void pkg_action_search(const char *pattern){
 	/* read in pkg data */
 	pkgs = get_available_pkgs();
 	installed = get_installed_pkgs();
-	if( pkgs == NULL || installed == NULL ) exit(1);
 	matches = malloc( sizeof *matches );
 	matches->pkgs = malloc( sizeof *matches->pkgs * pkgs->pkg_count );
 	matches->pkg_count = 0;

@@ -159,7 +159,6 @@ FILE *open_file(const char *file_name,const char *mode){
 		if( errno ){
 			perror(file_name);
 		}
-		fprintf(stderr,_("Perhaps you want to run --update?\n"));
 		return NULL;
 	}
 	return fh;

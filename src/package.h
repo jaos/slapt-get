@@ -125,5 +125,5 @@ pkg_info_t *parse_dep_entry(struct pkg_list *,struct pkg_list *,pkg_info_t *,cha
 struct pkg_list *is_required_by(struct pkg_list *, pkg_info_t *);
 
 /* update the local package cache */
-void update_pkg_cache(const rc_config *, int (*)(void *,double,double,double,double));
+void update_pkg_cache(const rc_config *);
 
