@@ -256,6 +256,7 @@ void pkg_action_search(const char *pattern){
 	pkgs = get_available_pkgs();
 	installed_pkgs = get_installed_pkgs();
 
+	/* save the searches for available and installed */
 	matches = search_pkg_list(pkgs,pattern);
 	imatches = search_pkg_list(installed_pkgs,pattern);
 
