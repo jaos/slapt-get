@@ -388,6 +388,8 @@ char *gen_short_pkg_description(pkg_info_t *pkg){
 
 struct pkg_list *get_installed_pkgs(void){
 	DIR *pkg_log_dir;
+	char *root_env_entry = NULL;
+	char *pkg_log_dirname = NULL;
 	struct dirent *file;
 	sg_regex ip_regex;
 	pkg_info_t **realloc_tmp;
@@ -397,13 +399,28 @@ struct pkg_list *get_installed_pkgs(void){
 	list->pkg_count = 0;
 	ip_regex.nmatch = MAX_REGEX_PARTS;
 
-	/* open our pkg_log_dir */
-	if( (pkg_log_dir = opendir(PKG_LOG_DIR)) == NULL ){
+	/* Generate package log directory using ROOT env variable if set */
+	root_env_entry = getenv(ROOT_ENV_NAME);
+	pkg_log_dirname = calloc(
+		strlen(PKG_LOG_DIR)+
+		(root_env_entry ? strlen(root_env_entry) : 0) + 1 ,
+		sizeof *pkg_log_dirname
+	);
+	if(root_env_entry){
+		strcpy(pkg_log_dirname, root_env_entry);
+	}else{
+		*pkg_log_dirname = '\0';
+		strcat(pkg_log_dirname, PKG_LOG_DIR);
+	}
+
+	if( (pkg_log_dir = opendir(pkg_log_dirname)) == NULL ){
 		if( errno ){
-			perror(PKG_LOG_DIR);
+			perror(pkg_log_dirname);
 		}
+		free(pkg_log_dirname);
 		return list;
 	}
+	free(pkg_log_dirname);
 
 	/* compile our regex */
 	ip_regex.reg_return = regcomp(&ip_regex.regex, PKG_LOG_PATTERN, REG_EXTENDED|REG_NEWLINE);
