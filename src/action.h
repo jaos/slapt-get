@@ -16,15 +16,12 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/* variable defs */
 struct _pkg_action_args {
 	char **pkgs;
 	int count;
 };
 typedef struct _pkg_action_args pkg_action_args_t;
-/* */
 
-/* FUNCTION DEFINITIONS */
 void pkg_action_clean(const rc_config *);
 void pkg_action_install(const rc_config *,const pkg_action_args_t *);
 void pkg_action_list(void);

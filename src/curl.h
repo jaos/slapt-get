@@ -22,8 +22,6 @@ struct head_request_t {
 	size_t size;
 };
                                                                                                                              
-/* FUNCTION DEFINITIONS */
-
 /* this is the main download routine */
 int download_data(FILE *,const char *);
 

@@ -16,7 +16,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/* variable defs */
 struct _transaction {
 	struct pkg_list *install_pkgs;
 	struct pkg_upgrade_list *upgrade_pkgs;
@@ -24,9 +23,7 @@ struct _transaction {
 	struct pkg_list *exclude_pkgs;
 };
 typedef struct _transaction transaction;
-/* */
 
-/* FUNCTION DEFINITIONS */
 void init_transaction(transaction *);
 int handle_transaction(const rc_config *,transaction *);
 void add_install_to_transaction(transaction *,pkg_info_t *);

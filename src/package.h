@@ -35,9 +35,6 @@
 #define DESCRIPTION_LEN 1024
 #define REQUIRED_LEN 1024
 
-/*
- * VARIABLE DEFINITIONS
- */
 struct _pkg_info {
 	char name[NAME_LEN];
 	char version[VERSION_LEN];
@@ -62,10 +59,6 @@ struct pkg_upgrade_list {
 	pkg_upgrade_t **pkgs;
 	int pkg_count;
 };
-
-/*
- * FUNCTION DEFINITIONS
- */
 
 /* parse the PACKAGES.TXT file */
 struct pkg_list *parse_packages_txt(FILE *);

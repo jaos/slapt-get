@@ -16,7 +16,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/* std includes */
 #define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
@@ -35,22 +34,16 @@
 #include <openssl/evp.h>
 #include <libintl.h>
 #include <locale.h>
-/* */
 
-/* local includes */
 #include "configuration.h"
 #include "package.h"
 #include "curl.h"
 #include "transaction.h"
 #include "action.h"
-/* */
 
-/* function defs */
 void usage(void);
 void version_info(void);
-/* */
 
-/* variable defs */
 #define MAX_REGEX_PARTS 10
 struct _sg_regex {
 	regex_t regex;
@@ -63,7 +56,6 @@ enum action {
 	UPDATE = 1, INSTALL, REMOVE, SHOW, SEARCH, UPGRADE,
 	LIST, INSTALLED, CLEAN, SHOWVERSION
 };
-/* */
 
 #define DEBUG 0
 #define DO_NOT_UNLINK_BAD_FILES 1
