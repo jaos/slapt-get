@@ -33,8 +33,18 @@ rc_config *read_rc_config(const char *file_name){
 			perror("global_config malloc");
 		}
 	}
-
+	/* initialize */
 	global_config->sources.count = 0;
+	global_config->download_only = 0;
+	global_config->simulate = 0;
+	global_config->ignore_excludes = 0;
+	global_config->no_md5_check = 0;
+	global_config->dist_upgrade = 0;
+	global_config->no_dep = 0;
+	global_config->disable_dep_check = 0;
+	global_config->print_uris = 0;
+	global_config->dl_stats = 0;
+	/* global_config->exclude_list->count = 0; */ /* initialized later */
 
 	rc = open_file(file_name,"r");
 	if( rc == NULL ) exit(1);
@@ -116,17 +126,6 @@ rc_config *read_rc_config(const char *file_name){
 		fprintf(stderr,_("SOURCE directive not set within %s.\n"),file_name);
 		return NULL;
 	}
-
-	/* initialize */
-	global_config->download_only = 0;
-	global_config->simulate = 0;
-	global_config->ignore_excludes = 0;
-	global_config->no_md5_check = 0;
-	global_config->dist_upgrade = 0;
-	global_config->no_dep = 0;
-	global_config->disable_dep_check = 0;
-	global_config->print_uris = 0;
-	global_config->dl_stats = 0;
 
 	/* create the working directory if needed */
 	working_dir_init(global_config);
