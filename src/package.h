@@ -150,6 +150,4 @@ struct pkg_list *lookup_pkg_conflicts(struct pkg_list *avail_pkgs,struct pkg_lis
 pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,char *dep_entry);
 /* return list of packages required by */
 struct pkg_list *is_required_by(const rc_config *global_config,struct pkg_list *avail, pkg_info_t *pkg);
-/* parse the exclude list */
-struct exclude_list *parse_exclude(char *line);
 
