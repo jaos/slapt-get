@@ -41,7 +41,7 @@ pkg: $(PROGRAM_NAME)
 	-@cp $(PROGRAM_NAME) ./pkg/sbin/
 	-@cp example.slapt-getrc ./pkg/etc/slapt-getrc
 	-@mkdir -p ./pkg/usr/doc/$(PROGRAM_NAME)-$(VERSION)/
-	-@cp COPYING Changelog INSTALL README TODO ./pkg/usr/doc/$(PROGRAM_NAME)-$(VERSION)/
+	-@cp COPYING Changelog INSTALL README FAQ TODO ./pkg/usr/doc/$(PROGRAM_NAME)-$(VERSION)/
 	-@cp slack-desc pkg/install/
 	-@cp $(PROGRAM_NAME).8 pkg/usr/man/man8/
 	@( cd pkg; makepkg -c y $(PROGRAM_NAME)-$(VERSION).tgz )
