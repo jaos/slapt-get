@@ -26,12 +26,12 @@ void pkg_action_clean(const rc_config *global_config){
 /* install pkg */
 void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *action_args){
 	int i;
-	pkg_info_t *installed_pkg;
-	pkg_info_t *pkg;
 	transaction tran;
-
+	sg_regex pkg_nv;
 	struct pkg_list *installed;
 	struct pkg_list *all;
+	pkg_info_t *pkg = NULL;
+	pkg_info_t *installed_pkg = NULL;
 
 	printf("Reading Package Lists... ");
 	installed = get_installed_pkgs();
@@ -40,20 +40,49 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 
 	init_transaction(&tran);
 
+	pkg_nv.nmatch = MAX_REGEX_PARTS;
+	regcomp(&pkg_nv.regex,PKG_NAMEVER,REG_EXTENDED|REG_NEWLINE);
+
+	(void)pkg;
+
 	for(i = 0; i < action_args->count; i++){
 
-		/* make sure there is a package called action_args->pkgs[i] */
-		if( (pkg = get_newest_pkg(all,action_args->pkgs[i])) == NULL ){
-			fprintf(stderr,"No Such package: %s\n",action_args->pkgs[i]);
-			continue;
-		}
+		if( regexec(&pkg_nv.regex,action_args->pkgs[i],pkg_nv.nmatch,pkg_nv.pmatch,0) == 0 ){
+			/* if there is no version part */
+			if( (pkg_nv.pmatch[2].rm_eo - pkg_nv.pmatch[2].rm_so) == 0 ){
+				/* make sure there is a package called action_args->pkgs[i] */
+				if( (pkg = get_newest_pkg(all,action_args->pkgs[i])) == NULL ){
+					fprintf(stderr,"No Such package: %s\n",action_args->pkgs[i]);
+					continue;
+				}
+				installed_pkg = get_newest_pkg(installed,action_args->pkgs[i]);
+			}else{
+				char name[NAME_LEN];
+				char version[VERSION_LEN];
+				strncpy(name,
+					action_args->pkgs[i] + pkg_nv.pmatch[1].rm_so,
+					pkg_nv.pmatch[1].rm_eo - pkg_nv.pmatch[1].rm_so
+				);
+				name[pkg_nv.pmatch[1].rm_eo - pkg_nv.pmatch[1].rm_so] = '\0';
+				strncpy(version,
+					action_args->pkgs[i] + pkg_nv.pmatch[2].rm_so,
+					pkg_nv.pmatch[2].rm_eo - pkg_nv.pmatch[2].rm_so
+				);
+				version[pkg_nv.pmatch[2].rm_eo - pkg_nv.pmatch[2].rm_so] = '\0';
+				/* make sure there is a package called action_args->pkgs[i] */
+				if( (pkg = get_exact_pkg(all,name,version)) == NULL ){
+					fprintf(stderr,"No Such package: %s\n",action_args->pkgs[i]);
+					continue;
+				}
+				installed_pkg = get_exact_pkg(installed,name,version);
+			}
+
+		}else{
+			installed_pkg = get_newest_pkg(installed,action_args->pkgs[i]);
+		}	
 
 		/* if it's not already installed, install it */
-		if(
-			(installed_pkg
-				= get_newest_pkg(installed,action_args->pkgs[i])
-			) == NULL
-		){
+		if( installed_pkg == NULL ){
 			int c;
 			struct pkg_list *deps;
 			deps = lookup_pkg_dependencies(all,installed,pkg);
@@ -114,17 +143,17 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 /* list pkgs */
 void pkg_action_list(void){
 	struct pkg_list *pkgs = NULL;
-	int iterator;
+	int i;
 
 	pkgs = get_available_pkgs();
 
-	for(iterator = 0; iterator < pkgs->pkg_count; iterator++ ){
+	for(i = 0; i < pkgs->pkg_count; i++ ){
 		/* this should eliminate the printing of updates */
-		if( strstr(pkgs->pkgs[iterator]->description,"no description") == NULL ){
-			char *short_description = gen_short_pkg_description(pkgs->pkgs[iterator]);
+		if( strstr(pkgs->pkgs[i]->description,"no description") == NULL ){
+			char *short_description = gen_short_pkg_description(pkgs->pkgs[i]);
 			printf("%s - %s : %s\n",	
-				pkgs->pkgs[iterator]->name,	
-				pkgs->pkgs[iterator]->version,	
+				pkgs->pkgs[i]->name,	
+				pkgs->pkgs[i]->version,	
 				short_description
 			);
 			free(short_description);
@@ -137,15 +166,15 @@ void pkg_action_list(void){
 
 /* list installed pkgs */
 void pkg_action_list_installed(void){
-	int iterator;
+	int i;
 	struct pkg_list *installed_pkgs = NULL;
 
 	installed_pkgs = get_installed_pkgs();
 
-	for(iterator = 0; iterator < installed_pkgs->pkg_count; iterator++ ){
+	for(i = 0; i < installed_pkgs->pkg_count; i++ ){
 		printf("%s - %s\n",
-			installed_pkgs->pkgs[iterator]->name,
-			installed_pkgs->pkgs[iterator]->version
+			installed_pkgs->pkgs[i]->name,
+			installed_pkgs->pkgs[i]->version
 		);
 	}
 
@@ -208,7 +237,11 @@ void pkg_action_search(const char *pattern){
 	search_pkg_list(pkgs,matches,pattern);
 	for(i = 0; i < matches->pkg_count; i++){
 		char *short_description = gen_short_pkg_description(matches->pkgs[i]);
-		printf("%s - %s\n",matches->pkgs[i]->name,short_description);
+		printf("%s - %s : %s\n",	
+			matches->pkgs[i]->name,	
+			matches->pkgs[i]->version,	
+			short_description
+		);
 		free(short_description);
 	}
 
