@@ -69,7 +69,7 @@ int download_data(FILE *fh,const char *url,size_t bytes,int use_curl_dl_stats){
 		}else if( strstr(url,PATCHES_LIST) != NULL ){
 			return_code = 0;
 		}else{
-			fprintf(stderr,_("Failed to download: %s:%d\n"),curl_err_buff,response);
+			fprintf(stderr,_("Failed to download: %s\n"),curl_err_buff);
 			return_code = -1;
 		}
 	}
