@@ -475,19 +475,6 @@ int add_deps_to_trans(const rc_config *global_config, transaction *tran, struct 
 	/* loop through the deps */
 	for(c = 0; c < deps->pkg_count;c++){
 
-		/* if this pkg is excluded */
-		if( is_excluded(global_config,deps->pkgs[c]) == 1 ){
-			if( get_exact_pkg(installed_pkgs,deps->pkgs[c]->name,deps->pkgs[c]->version) == NULL ){
-				printf(_("%s, which is required by %s, is excluded\n"),deps->pkgs[c]->name,pkg->name);
-				add_exclude_to_transaction(tran,pkg);
-				free(deps->pkgs);
-				free(deps);
-				return 1;
-			}else{
-				printf("excluded dependency of %s-%s is installed\n",deps->pkgs[c]->name,deps->pkgs[c]->version);
-			}
-		}
-
 		/* only check if it is not already present in trans */
 		if( search_transaction(tran,deps->pkgs[c]) == 0 ){
 

@@ -1073,6 +1073,15 @@ struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,struct p
 		/* recurse for each dep found */
 		if( tmp_pkg != NULL ){
 
+			/* if this pkg is excluded */
+			if( is_excluded(global_config,tmp_pkg) == 1 ){
+				if( get_exact_pkg(installed_pkgs,tmp_pkg->name,tmp_pkg->version) == NULL ){
+					printf(_("%s, which is required by %s, is excluded\n"),tmp_pkg->name,pkg->name);
+					deps->pkg_count = -1;
+					return deps;
+				}
+			}
+
 			/* if tmp_pkg is not already in the deps pkg_list */
 			if( get_newest_pkg(deps,tmp_pkg->name) == NULL ){
 				struct pkg_list *tmp_pkgs_deps = NULL;
