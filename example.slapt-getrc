@@ -3,7 +3,7 @@
 # MIRROR=ftp://distro.ibiblio.org/pub/Linux/distributions/slackware/slackware-9.1/
 MIRROR=ftp://distro.ibiblio.org/pub/Linux/distributions/slackware/slackware-9.0/
 WORKINGDIR=/var/slapt-get
-EXCLUDE=kernel-ide,kernel-source,kernel-headers,kernel-modules
+EXCLUDE=kernel-ide,kernel-source,kernel-headers,kernel-modules,lilo
 
 # MIRROR=ftp://mirror.aarnet.edu.au/pub/slackware/slackware-9.0/
 # MIRROR=http://mirror.aarnet.edu.au/pub/slackware/slackware-9.0/
