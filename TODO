@@ -4,6 +4,7 @@ Future enhancements, fixes, or features:
 
  * test dependency tracking (get the word out about adding ./install/slack-required)
  * Translate gettext po files (volunteers needed)
+ * slack-conflicts support
  * curses/gtk frontend
 
  * mirror fall back in case pkg is not available on current mirror
