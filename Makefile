@@ -37,9 +37,11 @@ slackpkg: $(PROGNAME)
 	@mkdir slackpkg
 	@mkdir -p slackpkg/sbin
 	@mkdir -p slackpkg/etc
+	@mkdir -p slackpkg/install
 	@cp $(PROGNAME) ./slackpkg/sbin/
-	@cp example.jaospkgrc ./slackpkg/etc/
+	@cp example.jaospkgrc ./slackpkg/etc/jaospkgrc
 	@mkdir -p ./slackpkg/usr/doc/$(PROGNAME)/
 	@cp COPYING Changelog INSTALL README TODO ./slackpkg/usr/doc/$(PROGNAME)/
-	@( cd slackpkg; makepkg $(PROGNAME)-0.8.tgz )
+	@cp slack-desc slackpkg/install/
+	@( cd slackpkg; makepkg -c y $(PROGNAME)-0.8.tgz )
 

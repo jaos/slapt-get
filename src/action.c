@@ -231,10 +231,6 @@ void jaospkg_upgrade_all(rc_config *global_config){
 
 	for(iterator = 0; iterator < installed_pkgs->pkg_count;iterator++){
 
-		/* skip if excluded */
-		if( is_excluded(global_config,installed_pkgs->pkgs[iterator]->name) == 1 )
-			continue;
-
 		/* see if we have an available update for the pkg */
 		update_pkg = get_newest_pkg(
 			update_pkgs->pkgs,
