@@ -10,7 +10,7 @@ NONLIBOBJS=src/action.o src/main.o
 RCDEST=/etc/slapt-get/slapt-getrc
 RCSOURCE=example.slapt-getrc
 LOCALESDIR=/usr/share/locale
-SBINDIR=/sbin/
+SBINDIR=/usr/sbin/
 DEFINES=-DPROGRAM_NAME="\"$(PROGRAM_NAME)\"" -DVERSION="\"$(VERSION)\"" -DRC_LOCATION="\"$(RCDEST)\"" -DENABLE_NLS -DLOCALESDIR="\"$(LOCALESDIR)\""
 CFLAGS=-W -Werror -Wall -O2 -ansi -pedantic -Iinclude $(DEFINES) # add -fPIC for amd64
 
@@ -55,7 +55,7 @@ doinstall:
 	ln -s /usr/lib/libslapt-$(VERSION).so /usr/lib/libslapt.so
 
 uninstall:
-	-rm /sbin/$(PROGRAM_NAME)
+	-rm /$(SBINDIR)/$(PROGRAM_NAME)
 	-@echo leaving $(RCDEST)
 	-rm /usr/man/man8/$(PROGRAM_NAME).8.gz
 	-@echo leaving /var/$(PROGRAM_NAME)
@@ -83,15 +83,15 @@ withlibslaptpkg: withlibslapt dopkg
 
 dopkg:
 	@mkdir pkg
-	@mkdir -p pkg/sbin
+	@mkdir -p pkg/$(SBINDIR)
 	@mkdir -p pkg/etc/slapt-get
 	@mkdir -p pkg/install
 	@mkdir -p pkg/usr/man/man8
 	@for i in `ls po/ --ignore=slapt-get.pot --ignore=CVS |sed 's/.po//'` ;do mkdir -p pkg$(LOCALESDIR)/$$i/LC_MESSAGES; msgfmt -o pkg$(LOCALESDIR)/$$i/LC_MESSAGES/slapt-get.mo po/$$i.po; done
-	@cp $(PROGRAM_NAME) ./pkg/sbin/
-	@chown root:bin ./pkg/sbin
-	@chown root:bin ./pkg/sbin/$(PROGRAM_NAME)
-	@strip ./pkg/sbin/$(PROGRAM_NAME)
+	@cp $(PROGRAM_NAME) ./pkg/$(SBINDIR)
+	@chown root:bin ./pkg/$(SBINDIR)
+	@chown root:bin ./pkg/$(SBINDIR)/$(PROGRAM_NAME)
+	@strip ./pkg/$(SBINDIR)/$(PROGRAM_NAME)
 	@echo "# See /usr/doc/$(PROGRAM_NAME)-$(VERSION)/example.slapt-getrc " > ./pkg/etc/slapt-get/slapt-getrc.new
 	@echo "# for example source entries and configuration hints." >> ./pkg/etc/slapt-get/slapt-getrc.new
 	@cat example.slapt-getrc |grep -v '^#'|grep -v '^$$' >> ./pkg/etc/slapt-get/slapt-getrc.new
