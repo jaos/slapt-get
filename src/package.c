@@ -140,6 +140,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 		] = '\0';
 
 		/* mirror */
+		tmp_pkg->mirror[0] = '\0';
 		f_pos = ftell(pkg_list_fh);
 		if(getline(&getline_buffer,&getline_len,pkg_list_fh) != EOF){
 			mirror_regex.reg_return = regexec(
@@ -176,6 +177,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 		}
 
 		/* location */
+		tmp_pkg->location[0] = '\0';
 		if( (getline(&getline_buffer,&getline_len,pkg_list_fh) != EOF) ){
 
 			location_regex.reg_return = regexec(
@@ -288,8 +290,8 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 		}
 
 		/* required, if provided */
-		f_pos = ftell(pkg_list_fh);
 		tmp_pkg->required[0] = '\0';
+		f_pos = ftell(pkg_list_fh);
 		if(
 			((bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh)) != EOF)
 			&& ((char_pointer = strstr(getline_buffer,"PACKAGE REQUIRED")) != NULL)
@@ -327,6 +329,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 		}
 
 		/* md5 checksum */
+		tmp_pkg->md5[0] = '\0'; /* just in case the md5sum is empty */
 		f_pos = ftell(pkg_list_fh);
 		if(
 			((bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh)) != EOF)
@@ -354,12 +357,11 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 		}
 
 		/* description */
+		tmp_pkg->description[0] = '\0';
 		if(
 			(getline(&getline_buffer,&getline_len,pkg_list_fh) != EOF)
 			&& (strstr(getline_buffer,"PACKAGE DESCRIPTION") != NULL)
 		){
-
-			tmp_pkg->description[0] = '\0';
 
 			while( 1 ){
 				if( (bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh)) != EOF ){
