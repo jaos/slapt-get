@@ -1,4 +1,8 @@
 
+0.9.5 Oct 01, 2003
+ * fixed pkg name so that slack-desc shows up... wasn't following
+   new package naming convention.  Thanks Luke Yelavich <luke@audioslack.com>
+
 0.9.4 Sep 29, 2003
  * downloads CHECKSUMS.md5 from mirror
  * md5 sum's each package after downloading (from CHECKSUMS.md5 data)

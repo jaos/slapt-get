@@ -1,5 +1,5 @@
 PROGRAM_NAME=slapt-get
-VERSION=0.9.4
+VERSION=0.9.5
 CC=gcc
 CURLFLAGS=`curl-config --libs`
 OBJS=src/configuration.o src/package.o src/curl.o src/action.o src/main.o
@@ -45,5 +45,5 @@ pkg: $(PROGRAM_NAME)
 	-@cp COPYING Changelog INSTALL README FAQ TODO ./pkg/usr/doc/$(PROGRAM_NAME)-$(VERSION)/
 	-@cp slack-desc pkg/install/
 	-@cp $(PROGRAM_NAME).8 pkg/usr/man/man8/
-	@( cd pkg; makepkg -c y $(PROGRAM_NAME)-$(VERSION).tgz )
+	@( cd pkg; makepkg -c y $(PROGRAM_NAME)-$(VERSION)-i386-1.tgz )
 
