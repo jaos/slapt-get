@@ -521,15 +521,27 @@ int add_deps_to_trans(const rc_config *global_config, transaction_t *tran, struc
 
 			if( (dep_installed = get_newest_pkg(installed_pkgs,deps->pkgs[c]->name)) == NULL ){
 
-				if ( is_conflicted(tran,avail_pkgs,installed_pkgs,deps->pkgs[c]) == NULL )
+				if ( is_conflicted(tran,avail_pkgs,installed_pkgs,deps->pkgs[c]) == NULL ){
 					add_install_to_transaction(tran,deps->pkgs[c]);
+				}else{
+					/* free_pkg_list(deps); */
+					free(deps->pkgs);
+					free(deps);
+					return -1;
+				}
 
 			}else{
 
 				/* add only if its a valid upgrade */
 				if(cmp_pkg_versions(dep_installed->version,deps->pkgs[c]->version) < 0 ){
-					if ( is_conflicted(tran,avail_pkgs,installed_pkgs,deps->pkgs[c]) == NULL )
+					if ( is_conflicted(tran,avail_pkgs,installed_pkgs,deps->pkgs[c]) == NULL ){
 						add_upgrade_to_transaction(tran,dep_installed,deps->pkgs[c]);
+					}else{
+						/* free_pkg_list(deps); */
+						free(deps->pkgs);
+						free(deps);
+						return -1;
+					}
 
 				}
 			}
