@@ -332,7 +332,7 @@ msgstr "erro ao ler descrição do pacote\n"
 
 #, c-format
 msgid "Failed to realloc %s\n"
-msgstr "Falha para realloc"
+msgstr "Falha para realloc\n"
 
 msgid "Failed to compile regex\n"
 msgstr "Falha ao compilar regex\n"

@@ -1,5 +1,6 @@
 
-0.9.9e Nov 27, 2004
+0.9.9e Dec 01, 2004
+ * fixed pt_PT translation, missing \n
  * --upgrade now checks to see if there is multiple installed packages and
    uses the newest one
  * rewrote pkg_action_search()
