@@ -1,5 +1,7 @@
 
-0.9.9g Jan 13, 2005
+0.9.9g Jan 14, 2005
+ * fixed exclude parsing regression, adding any trailing commas
+ * added --compile script to FAQ, contributed by Piotr Simon
  * added missing free for tmp required_of_required_by pkg_list structure in
    required_by()
  * added missing free_regex() calls in parse_meta_entry()
