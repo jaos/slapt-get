@@ -473,11 +473,11 @@ msgid "specify alternate slapt-getrc location"
 msgstr "spesifiser alternativ lokasjon for slapt-getrc"
 
 msgid "Suggested packages:\n"
-msgstr ""
+msgstr "Anbefalte pakker:\"
 
 msgid "Maximum length of working directory (%d) exceeded.\n"
-msgstr ""
+msgstr "Maksimal lengde på arbeidfolder (%d) er overskredet.\n"
 
 msgid "Maximum length of excludes (%d) exceeded.\n"
-msgstr ""
+msgstr "Maksimal lengde på eksklusjoner (%d) er overskredet.\n"
 
