@@ -35,61 +35,41 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 
 	init_transaction(&tran);
 
-	/* compile our regex */
-	pkg_regex.nmatch = MAX_REGEX_PARTS;
-	pkg_regex.reg_return = regcomp(&pkg_regex.regex, PKG_LOG_PATTERN, REG_EXTENDED|REG_NEWLINE);
-	if( pkg_regex.reg_return != 0 ){
-		size_t regerror_size;
-		char errbuf[1024];
-		size_t errbuf_size = 1024;
-		fprintf(stderr, _("Failed to compile regex\n"));
-
-		if( (regerror_size = regerror(pkg_regex.reg_return, &pkg_regex.regex,errbuf,errbuf_size)) ){
-			printf(_("Regex Error: %s\n"),errbuf);
-		}
-		exit(1);
-	}
+	init_regex(&pkg_regex,PKG_LOG_PATTERN);
 
 	for(i = 0; i < action_args->count; i++){
 
 		/* Use regex to see if they specified a particular version */
-		pkg_regex.reg_return = regexec(&pkg_regex.regex,action_args->pkgs[i], pkg_regex.nmatch,pkg_regex.pmatch,0);
+		execute_regex(&pkg_regex,action_args->pkgs[i]);
 
 		/* If so, parse it out and try to get that version only */
 		if( pkg_regex.reg_return == 0 ){
 
-			pkg_info_t *tmp_pkg;
-			tmp_pkg = malloc( sizeof *tmp_pkg );
-			if( tmp_pkg == NULL ){
-				fprintf(stderr,_("Failed to malloc %s\n"),"tmp_pkg");
-				exit(1);
-			}
+			char pkg_name[NAME_LEN];
+			char pkg_version[VERSION_LEN];
 
 			strncpy(
-				tmp_pkg->name,
+				pkg_name,
 				action_args->pkgs[i] + pkg_regex.pmatch[1].rm_so,
 				pkg_regex.pmatch[1].rm_eo - pkg_regex.pmatch[1].rm_so
 			);
-
-			tmp_pkg->name[ pkg_regex.pmatch[1].rm_eo - pkg_regex.pmatch[1].rm_so ] = '\0';
+			pkg_name[ pkg_regex.pmatch[1].rm_eo - pkg_regex.pmatch[1].rm_so ] = '\0';
 
 			strncpy(
-				tmp_pkg->version,
+				pkg_version,
 				action_args->pkgs[i] + pkg_regex.pmatch[2].rm_so,
 				pkg_regex.pmatch[2].rm_eo - pkg_regex.pmatch[2].rm_so
 			);
+			pkg_version[ pkg_regex.pmatch[2].rm_eo - pkg_regex.pmatch[2].rm_so ] = '\0';
 
-			tmp_pkg->version[ pkg_regex.pmatch[2].rm_eo - pkg_regex.pmatch[2].rm_so ] = '\0';
-			pkg = get_exact_pkg(avail_pkgs, tmp_pkg->name, tmp_pkg->version);
+			pkg = get_exact_pkg(avail_pkgs, pkg_name, pkg_version);
 
 			if( pkg == NULL ){
-				fprintf(stderr,_("No such package: %s\n"),tmp_pkg->name);
+				fprintf(stderr,_("No such package: %s\n"),pkg_name);
 				continue;
 			}
 
-			installed_pkg = get_newest_pkg(installed_pkgs,tmp_pkg->name);
-
-			free(tmp_pkg);
+			installed_pkg = get_newest_pkg(installed_pkgs,pkg_name);
 
 		/* If regex doesnt match, find latest version of request */
 		}else{
@@ -112,7 +92,7 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 					/* make sure it is not already present from a dep check */
 					if( search_transaction(&tran,pkg) == 0 ){
 
-						if ( is_conflicted(global_config,&tran,avail_pkgs,installed_pkgs,pkg) == 0 )
+						if ( is_conflicted(&tran,avail_pkgs,installed_pkgs,pkg) == 0 )
 							add_install_to_transaction(&tran,pkg);
 
 					}
@@ -130,7 +110,7 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 					/* make sure it is not already present from a dep check */
 					if( search_transaction(&tran,pkg) == 0 ){
 
-						if ( is_conflicted(global_config,&tran,avail_pkgs,installed_pkgs,pkg) == 0 )
+						if ( is_conflicted(&tran,avail_pkgs,installed_pkgs,pkg) == 0 )
 							add_upgrade_to_transaction(&tran,installed_pkg,pkg);
 
 					}
@@ -147,7 +127,7 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 	free_pkg_list(installed_pkgs);
 	free_pkg_list(avail_pkgs);
 
-	regfree(&pkg_regex.regex);
+	free_regex(&pkg_regex);
 
 	handle_transaction(global_config,&tran);
 
@@ -238,6 +218,8 @@ void pkg_action_remove(const rc_config *global_config,const pkg_action_args_t *a
 
 			}
 
+			/* don't free, list of pointers to other packages that will be freed later */
+			/* free_pkg_list(deps); */
 			free(deps->pkgs);
 			free(deps);
 
@@ -267,11 +249,9 @@ void pkg_action_search(const char *pattern){
 	/* read in pkg data */
 	pkgs = get_available_pkgs();
 	installed_pkgs = get_installed_pkgs();
-	matches = malloc( sizeof *matches );
-	matches->pkgs = malloc( sizeof *matches->pkgs * pkgs->pkg_count );
-	matches->pkg_count = 0;
 
-	search_pkg_list(pkgs,matches,pattern);
+	matches = search_pkg_list(pkgs,pattern);
+
 	for(i = 0; i < matches->pkg_count; i++){
 		int bool_installed = 0;
 		char *short_description = gen_short_pkg_description(matches->pkgs[i]);
@@ -291,6 +271,8 @@ void pkg_action_search(const char *pattern){
 		free(short_description);
 	}
 
+	/* don't free, list of pointers to other packages that will be freed later */
+	/* free_pkg_list(matches) */
 	free(matches->pkgs);
 	free(matches);
 	free_pkg_list(pkgs);
@@ -310,33 +292,15 @@ void pkg_action_show(const char *pkg_name){
 	installed_pkgs = get_installed_pkgs();
 	if( avail_pkgs == NULL || installed_pkgs == NULL ) exit(1);
 
-	/* compile our regex */
-	pkg_regex.nmatch = MAX_REGEX_PARTS;
-	pkg_regex.reg_return = regcomp(&pkg_regex.regex, PKG_LOG_PATTERN, REG_EXTENDED|REG_NEWLINE);
-	if( pkg_regex.reg_return != 0 ){
-		size_t regerror_size;
-		char errbuf[1024];
-		size_t errbuf_size = 1024;
-		fprintf(stderr, _("Failed to compile regex\n"));
-
-		if( (regerror_size = regerror(pkg_regex.reg_return, &pkg_regex.regex,errbuf,errbuf_size)) ){
-			printf(_("Regex Error: %s\n"),errbuf);
-		}
-		exit(1);
-	}
+	init_regex(&pkg_regex,PKG_LOG_PATTERN);
 
 	/* Use regex to see if they specified a particular version */
-	pkg_regex.reg_return = regexec(&pkg_regex.regex,pkg_name, pkg_regex.nmatch,pkg_regex.pmatch,0);
+	execute_regex(&pkg_regex,pkg_name);
 
 	/* If so, parse it out and try to get that version only */
 	if( pkg_regex.reg_return == 0 ){
 
-		pkg_info_t *tmp_pkg;
-		tmp_pkg = malloc( sizeof *tmp_pkg );
-		if( tmp_pkg == NULL ){
-			fprintf(stderr,_("Failed to malloc %s\n"),"tmp_pkg");
-			exit(1);
-		}
+		pkg_info_t *tmp_pkg = init_pkg();
 
 		strncpy(tmp_pkg->name,
 			pkg_name + pkg_regex.pmatch[1].rm_so,
@@ -388,6 +352,7 @@ void pkg_action_show(const char *pkg_name){
 
 	free_pkg_list(avail_pkgs);
 	free_pkg_list(installed_pkgs);
+	free_regex(&pkg_regex);
 }
 
 /* upgrade all installed pkgs with available updates */
@@ -433,7 +398,7 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 							add_exclude_to_transaction(&tran,update_pkg);
 						}else{
 
-							if ( is_conflicted(global_config,&tran,avail_pkgs,installed_pkgs,update_pkg) == 0 )
+							if ( is_conflicted(&tran,avail_pkgs,installed_pkgs,update_pkg) == 0 )
 								add_upgrade_to_transaction(&tran,installed_pkgs->pkgs[i],update_pkg);
 
 						}
@@ -448,11 +413,7 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 
 	if( global_config->dist_upgrade == 1 ){
 
-		matches = malloc( sizeof *matches );
-		matches->pkgs = malloc( sizeof *matches->pkgs * avail_pkgs->pkg_count );
-		matches->pkg_count = 0;
-
-		search_pkg_list(avail_pkgs,matches,SLACK_BASE_SET_REGEX);
+		matches = search_pkg_list(avail_pkgs,SLACK_BASE_SET_REGEX);
 		for(i = 0; i < matches->pkg_count; i++){
 
 			installed_pkg = get_newest_pkg(
@@ -469,7 +430,7 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 						/* add if it is not already present in trans */
 						if( search_transaction(&tran,matches->pkgs[i]) == 0 ){
 
-							if ( is_conflicted(global_config,&tran,avail_pkgs,installed_pkgs,matches->pkgs[i]) == 0 )
+							if ( is_conflicted(&tran,avail_pkgs,installed_pkgs,matches->pkgs[i]) == 0 )
 								add_install_to_transaction(&tran,matches->pkgs[i]);
 
 						}
@@ -480,6 +441,8 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 
 		}
 
+		/* don't free, list of pointers to other packages that will be freed later */
+		/* free_pkg_list(matches); */
 		free(matches->pkgs);
 		free(matches);
 	}
@@ -532,14 +495,14 @@ int add_deps_to_trans(const rc_config *global_config, transaction *tran, struct 
 
 			if( (dep_installed = get_newest_pkg(installed_pkgs,deps->pkgs[c]->name)) == NULL ){
 
-				if ( is_conflicted(global_config,tran,avail_pkgs,installed_pkgs,deps->pkgs[c]) == 0 )
+				if ( is_conflicted(tran,avail_pkgs,installed_pkgs,deps->pkgs[c]) == 0 )
 					add_install_to_transaction(tran,deps->pkgs[c]);
 
 			}else{
 
 				/* add only if its a valid upgrade */
 				if(cmp_pkg_versions(dep_installed->version,deps->pkgs[c]->version) < 0 ){
-					if ( is_conflicted(global_config,tran,avail_pkgs,installed_pkgs,deps->pkgs[c]) == 0 )
+					if ( is_conflicted(tran,avail_pkgs,installed_pkgs,deps->pkgs[c]) == 0 )
 						add_upgrade_to_transaction(tran,dep_installed,deps->pkgs[c]);
 
 				}
@@ -557,13 +520,13 @@ int add_deps_to_trans(const rc_config *global_config, transaction *tran, struct 
 
 /* check to see if a package is conflicted */
 /* this needs to find it's final home */
-int is_conflicted(const rc_config *global_config, transaction *tran, struct pkg_list *avail_pkgs, struct pkg_list *installed_pkgs, pkg_info_t *pkg){
+int is_conflicted(transaction *tran, struct pkg_list *avail_pkgs, struct pkg_list *installed_pkgs, pkg_info_t *pkg){
 	int i;
 	int conflicted = 0;
 	struct pkg_list *conflicts;
 
 	/* if conflicts exist, check to see if they are installed or in the current transaction */
-	conflicts = lookup_pkg_conflicts(global_config,avail_pkgs,installed_pkgs,pkg);
+	conflicts = lookup_pkg_conflicts(avail_pkgs,installed_pkgs,pkg);
 	for(i = 0; i < conflicts->pkg_count; i++){
 		if(search_transaction(tran,conflicts->pkgs[i]) == 1){
 			printf(_("%s, which is to be installed, conflicts with %s\n"),

@@ -35,20 +35,13 @@
 #include <libintl.h>
 #include <locale.h>
 
+#include "common.h"
 #include "configuration.h"
 #include "package.h"
 #include "curl.h"
 #include "transaction.h"
 #include "action.h"
 
-#define MAX_REGEX_PARTS 10
-struct _sg_regex {
-	regex_t regex;
-	size_t nmatch;
-	regmatch_t pmatch[MAX_REGEX_PARTS];
-	int reg_return;
-};
-typedef struct _sg_regex sg_regex;
 enum action {
 	UPDATE = 1, INSTALL, REMOVE, SHOW, SEARCH, UPGRADE,
 	LIST, INSTALLED, CLEAN, SHOWVERSION
@@ -64,12 +57,12 @@ enum action {
 #define INSTALL_CMD "/sbin/installpkg "
 #define UPGRADE_CMD "/sbin/upgradepkg --reinstall "
 #define CHECKSUM_FILE "CHECKSUMS.md5"
-#define SLACK_BASE_SET_REGEX "^./slackware/a$"
 
 #define _(text) gettext(text)
 
 void usage(void);
 void version_info(void);
+char spinner(void);
 /* callback for curl progress */
 int progress_callback(void *clientp, double dltotal, double dlnow, double ultotal, double ulnow);
 /* callback for head request */

@@ -320,3 +320,15 @@ size_t head_request_data_callback(void *ptr, size_t size, size_t nmemb, void *da
 	return total;
 }
 
+char spinner(void){
+	static int spinner_index = 0;
+	static const char spinner_parts[] = "\\|/-";
+
+	if( spinner_index > 3 ){
+		spinner_index = 0;
+		return spinner_parts[spinner_index];
+	}else{
+		return spinner_parts[spinner_index++];
+	}
+}
+

@@ -1,9 +1,13 @@
 
-0.9.8e May 17, 2004
- * updated man page
- * code updates
+0.9.8e May 18, 2004
+ * moved pkg_info_t creation into init_pkg() function
+ * compartmentalized package list creation and modification into init_pkg_list()
+   and add_pkg_to_pkg_list() functions
+ * added src/common.c and include/common.h for file and regex operations
  * don't exclude package for upgrade when one of it's dependencies is present
    in the exclude list, but is already installed
+ * code updates
+ * updated man page
 
 0.9.8d May 02, 2004
  * makefile updates

@@ -165,30 +165,6 @@ void working_dir_init(const rc_config *global_config){
 	}
 }
 
-FILE *open_file(const char *file_name,const char *mode){
-	FILE *fh = NULL;
-	if( (fh = fopen(file_name,mode)) == NULL ){
-		fprintf(stderr,_("Failed to open %s\n"),file_name);
-		if( errno ){
-			perror(file_name);
-		}
-		return NULL;
-	}
-	return fh;
-}
-
-char spinner(void){
-	static int spinner_index = 0;
-	static const char spinner_parts[] = "\\|/-";
-
-	if( spinner_index > 3 ){
-		spinner_index = 0;
-		return spinner_parts[spinner_index];
-	}else{
-		return spinner_parts[spinner_index++];
-	}
-}
-
 void clean_pkg_dir(const char *dir_name){
 	DIR *tmp;
 	struct dirent *file;
