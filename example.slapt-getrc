@@ -60,9 +60,10 @@ SOURCE=http://software.jaos.org/slackpacks/10.0/
 #SOURCE=http://www.audioslack.com/packages/9.1
 #SOURCE=http://www.audioslack.com/packages/10.0
 
-# slackware testing and extra 
+# slackware testing, extra, and pasture
 #SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-10.0/extra/
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-10.0/testing
+#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-10.0/testing/
+#SOURCE=http://www.slackware.com/pub/slackware/slackware-10.0/pasture/
 
 # other unofficial sources
 #SOURCE=http://www.tenboard.com/slackware/slackware-9.0/
