@@ -8,9 +8,13 @@ SOURCE=ftp://ftp.slackware.at/slackware-9.1/
 # (not recommended on production servers, see README)
 #SOURCE=ftp://ftp.linuxpackages.net/pub/Slackware-9.1/
 
+# pull from your cdrom
+#SOURCE=file:///mnt/cdrom/
+
 WORKINGDIR=/var/slapt-get
 EXCLUDE=kernel-ide,kernel-source,kernel-headers,kernel-modules,lilo,devs
 
+# Other slackware mirrors to choose from
 # SOURCE=ftp://ftp.slackware.no/pub/linux/slackware/slackware-9.1/
 # SOURCE=ftp://ftp.slackware.at/slackware-9.1/
 # SOURCE=http://www.slackware.at/data/slackware-9.1/
