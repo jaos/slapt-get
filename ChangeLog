@@ -1,5 +1,7 @@
 
-0.9.9e Nov 24, 2004
+0.9.9e Nov 26, 2004
+ * updated typedefs
+ * renamed transaction to transaction_t for clarity
  * fixed bug in add_deps_to_trans() where check for exclude was catching
    on installed packages.  installed always satisfies dependency, even if
    excluded (which should only mean excluded from upgrading).
