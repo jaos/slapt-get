@@ -15,6 +15,9 @@
  * multiple source support complete.  Linuxpackage integration should be
    working.  slapt-getrc syntax has changed.  Updated documentation
    appropriately.
+ * trimmed out download_pkg_list, download_file_list, download_patches_list,
+   and download_checksum_list.  Replaced those functions with single
+   get_mirror_data_from_source.
 
 0.9.5e Oct 10, 2003
  * added a doinst.sh script (generated from the Makefile) to help 
