@@ -1,5 +1,5 @@
 PROGNAME=slapt-get
-VERSION=0.8
+VERSION=0.9
 CC=gcc
 CURLFLAGS=`curl-config --libs`
 CFLAGS=-W -Werror -Wall -O2 -ansi -pedantic -Iinclude -g
