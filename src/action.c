@@ -257,7 +257,7 @@ void pkg_action_remove(const rc_config *global_config,const pkg_action_args_t *a
 				pkg_regex.pmatch[2].rm_eo - pkg_regex.pmatch[2].rm_so
 			);
 
-			pkg = get_exact_pkg(avail_pkgs, pkg_name, pkg_version);
+			pkg = get_exact_pkg(installed_pkgs, pkg_name, pkg_version);
 			free(pkg_name);
 			free(pkg_version);
 
@@ -266,7 +266,7 @@ void pkg_action_remove(const rc_config *global_config,const pkg_action_args_t *a
 		/* If regex doesnt match */
 		if( pkg_regex.reg_return != 0 || pkg == NULL ){
 			/* make sure there is a package called action_args->pkgs[i] */
-			pkg = get_newest_pkg(avail_pkgs,action_args->pkgs[i]);
+			pkg = get_newest_pkg(installed_pkgs,action_args->pkgs[i]);
 
 			if( pkg == NULL ){
 				printf(_("%s is not installed.\n"),action_args->pkgs[i]);

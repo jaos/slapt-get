@@ -1,5 +1,6 @@
 
 0.9.9i Feb 28, 2005
+ * fixed --remove bug
  * --list now properly shows installed packages
  * installed packages now parse out package location from /var/log/packages entry
  * added add_source() (libslapt)
