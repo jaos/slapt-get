@@ -1,5 +1,5 @@
 
-0.9.9c Sep 30, 2004
+0.9.9c Oct 02, 2004
  * removed unneeded checks for WORKINGDIR_TOKEN_LEN and EXCLUDE_TOKEN_LEN in configuration parsing (thanks Peter Santoro)
  * added Greek translation by Savvas Eftratiadis
  * updated doinst.sh so that it doesn't try to do an in place file edit
