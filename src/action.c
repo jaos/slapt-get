@@ -74,15 +74,10 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 
 			pkg = get_exact_pkg(avail_pkgs, pkg_name, pkg_version);
 
-			if( pkg == NULL ){
-				fprintf(stderr,_("No such package: %s\n"),pkg_name);
-				continue;
-			}
+		}
 
-			installed_pkg = get_newest_pkg(installed_pkgs,pkg_name);
-
-		/* If regex doesnt match, find latest version of request */
-		}else{
+		/* If regex doesnt match */
+		if( pkg_regex.reg_return != 0 || pkg == NULL ){
 			/* make sure there is a package called action_args->pkgs[i] */
 			pkg = get_newest_pkg(avail_pkgs,action_args->pkgs[i]);
 
@@ -91,8 +86,9 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 				continue;
 			}
 
-			installed_pkg = get_newest_pkg(installed_pkgs,action_args->pkgs[i]);
 		}
+
+		installed_pkg = get_newest_pkg(installed_pkgs,pkg->name);
 
 		/* if it is not already installed, install it */
 		if( installed_pkg == NULL ){

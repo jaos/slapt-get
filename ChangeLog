@@ -1,5 +1,6 @@
 
-0.9.8k Aug 08, 2004
+0.9.8k Aug 13, 2004
+ * fix for long package names that cause the regex to think it is a name and a version in one
  * added new linuxpackages.net mirror to example.slapt-getrc
 
 0.9.8j Aug 08, 2004
