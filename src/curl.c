@@ -31,6 +31,7 @@ int download_data(FILE *fh,const char *url){
 	curl_easy_setopt(ch, CURLOPT_URL, url);
 	curl_easy_setopt(ch, CURLOPT_WRITEDATA, fh);
 	curl_easy_setopt(ch, CURLOPT_NOPROGRESS, 0);
+	curl_easy_setopt(ch, CURLOPT_USERAGENT, PROGRAM_NAME );
 #if USE_CURL_PROGRESS == 0
 	curl_easy_setopt(ch, CURLOPT_PROGRESSFUNCTION, progress_callback);
 #endif
