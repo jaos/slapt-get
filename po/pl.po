@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.8g\n"
+"Project-Id-Version: 0.9.8h\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2004-07-15 10:00+0500\n"
+"PO-Revision-Date: 2004-07-25 11:36+0500\n"
 "Last-Translators: Paul Blazejowski <paulb@blazebox.homeip.net>, nixon <nixon@klub.chip.pl> and simon <ssiimm@poczta.onet.pl>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -101,10 +101,6 @@ msgstr "Pobieram listę patchy [%s]...\n"
 #, c-format
 msgid "Retrieving checksum list [%s]..."
 msgstr "Pobieram listę sum kontrolnych [%s]..."
-
-#, c-format
-msgid "Retrieving checksum list [%s]...\n"
-msgstr "Pobieram listę sum kontrolnych [%s]...\n"
 
 #, c-format
 msgid "Failed to malloc %s\n"

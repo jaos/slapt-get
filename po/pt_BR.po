@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.8g\n"
+"Project-Id-Version: 0.9.8h\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2004-07-15 10:00+0500\n"
+"PO-Revision-Date: 2004-07-25 11:36+0500\n"
 "Last-Translator: Henrique Pinto <henrique.pinto@kdemail.net>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -100,10 +100,6 @@ msgstr "Fazendo o download da lista de patches [%s]...\n"
 #, c-format
 msgid "Retrieving checksum list [%s]..."
 msgstr "Fazendo o download da lista de checksum [%s]..."
-
-#, c-format
-msgid "Retrieving checksum list [%s]...\n"
-msgstr "Fazendo o download da lista de checksum [%s]...\n"
 
 #, c-format
 msgid "Failed to malloc %s\n"
