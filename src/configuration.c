@@ -159,11 +159,11 @@ void working_dir_init(const rc_config *global_config){
 }
 
 void clean_pkg_dir(const char *dir_name){
-	DIR *tmp;
+	DIR *dir;
 	struct dirent *file;
 	struct stat file_stat;
 
-	if( (tmp = opendir(dir_name)) == NULL ){
+	if( (dir = opendir(dir_name)) == NULL ){
 		fprintf(stderr,_("Failed to opendir %s\n"),dir_name);
 		return;
 	}
@@ -173,7 +173,7 @@ void clean_pkg_dir(const char *dir_name){
 		return;
 	}
 
-	while( (file = readdir(tmp)) ){
+	while( (file = readdir(dir)) ){
 
 		/* make sure we don't have . or .. */
 		if( (strcmp(file->d_name,"..")) == 0 || (strcmp(file->d_name,".") == 0) )
@@ -199,7 +199,7 @@ void clean_pkg_dir(const char *dir_name){
 			unlink(file->d_name);
 		}
 	}
-	closedir(tmp);
+	closedir(dir);
 
 }
 
