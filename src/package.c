@@ -28,9 +28,9 @@ static void break_down_pkg_version(struct pkg_version_parts *pvp,const char *ver
 /* parse the meta lines */
 static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,char *dep_entry);
 /* called by is_required_by */
-struct pkg_list *required_by(const rc_config *global_config,struct pkg_list *avail, pkg_info_t *pkg,struct pkg_list *parent_required_by);
+static struct pkg_list *required_by(const rc_config *global_config,struct pkg_list *avail, pkg_info_t *pkg,struct pkg_list *parent_required_by);
 /* called by get_pkg_dependencies */
-struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,pkg_info_t *pkg,struct pkg_list *parent_deps);
+static struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,pkg_info_t *pkg,struct pkg_list *parent_deps);
 
 /* parse the PACKAGES.TXT file */
 struct pkg_list *get_available_pkgs(void){
@@ -1007,7 +1007,7 @@ struct pkg_list *get_pkg_dependencies(const rc_config *global_config,struct pkg_
 	return deps;
 }
 
-struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,pkg_info_t *pkg,struct pkg_list *parent_deps){
+static struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,pkg_info_t *pkg,struct pkg_list *parent_deps){
 	int i;
 	struct pkg_list *deps;
 	int position = 0;
@@ -1367,7 +1367,7 @@ struct pkg_list *is_required_by(const rc_config *global_config,struct pkg_list *
 	return required_by_list;
 }
 
-struct pkg_list *required_by(const rc_config *global_config,struct pkg_list *avail, pkg_info_t *pkg,struct pkg_list *parent_required_by){
+static struct pkg_list *required_by(const rc_config *global_config,struct pkg_list *avail, pkg_info_t *pkg,struct pkg_list *parent_required_by){
 	int i;
 	sg_regex required_by_reg;
 	struct pkg_list *required_by_list;
