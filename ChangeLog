@@ -1,5 +1,8 @@
 
-0.9.9j Mar 10, 2005
+0.9.9j Mar 13, 2005
+ * added CURLOPT_FILETIME to libcurl calls so that ftp transfers have the
+   modification date for checking whether the source is new or not (as 
+   opposed to the file size).
  * added Slovenian translation by Emil Novak (emilnovak at gmail dot com)
  * added --available option to only show packages available from the current
    sources.  --list shows available and installed. --installed shows only

@@ -43,6 +43,7 @@ int download_data(FILE *fh,const char *url,size_t bytes,const rc_config *global_
 #ifdef CURLOPT_HTTPAUTH
 	curl_easy_setopt(ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY );
 #endif
+	curl_easy_setopt(ch, CURLOPT_FILETIME, 1 );
 
 	headers = curl_slist_append(headers, "Pragma: "); /* override no-cache */
 
@@ -135,6 +136,7 @@ char *head_request(const char *url){
 #ifdef CURLOPT_HTTPAUTH
 	curl_easy_setopt(ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY );
 #endif
+	curl_easy_setopt(ch, CURLOPT_FILETIME, 1 );
 
 	headers = curl_slist_append(headers, "Pragma: "); /* override no-cache */
 
