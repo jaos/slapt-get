@@ -287,7 +287,7 @@ void pkg_action_show(const char *pkg_name){
 		printf(_("Package Required: %s\n"),pkg->required);
 		printf(_("Package Description:\n"));
 		printf("%s",pkg->description);
-		printf(_("Installed: %s\n"),
+		printf(_("Package Installed: %s\n"),
 			bool_installed == 1 
 				? _("yes")
 				: _("no")

@@ -71,7 +71,7 @@ msgid "Package Description:\n"
 msgstr ""
 
 #, c-format
-msgid "Installed: %s\n"
+msgid "Package Installed: %s\n"
 msgstr ""
 
 #, c-format
