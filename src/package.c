@@ -169,9 +169,11 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 					location_regex.pmatch[1].rm_eo - location_regex.pmatch[1].rm_so
 				] = '\0';
 
-				/* testing and extra support */
-				/* they both add in extraneous /extra/ or /testing/ in the PACKAGES.TXT location */
-				/* this fixes the downloads and md5 checksum matching */
+				/*
+					extra, testing, and pasture support
+					they add in extraneous /extra/, /testing/, or /pasture/ in the
+					PACKAGES.TXT location. this fixes the downloads and md5 checksum matching
+				*/
 				if( strstr(tmp_pkg->location,"./testing/") != NULL ){
 					char tmp_location[LOCATION_LEN] = {'.','\0'};
 					strncat(tmp_location,&tmp_pkg->location[0] + strlen("./testing"), strlen(tmp_pkg->location) - strlen("./testing"));
@@ -180,6 +182,11 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 				}else if( strstr(tmp_pkg->location,"./extra/") != NULL ){
 					char tmp_location[LOCATION_LEN] = {'.','\0'};
 					strncat(tmp_location,&tmp_pkg->location[0] + strlen("./extra"), strlen(tmp_pkg->location) - strlen("./extra"));
+					strncpy(tmp_pkg->location,tmp_location,strlen(tmp_location));
+					tmp_pkg->location[ strlen(tmp_location) ] = '\0';
+				}else if( strstr(tmp_pkg->location,"./pasture") != NULL ){
+					char tmp_location[LOCATION_LEN] = {'.','\0'};
+					strncat(tmp_location,&tmp_pkg->location[0] + strlen("./pasture"), strlen(tmp_pkg->location) - strlen("./pasture"));
 					strncpy(tmp_pkg->location,tmp_location,strlen(tmp_location));
 					tmp_pkg->location[ strlen(tmp_location) ] = '\0';
 				}
