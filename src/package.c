@@ -906,7 +906,10 @@ int cmp_pkg_versions(char *a, char *b){
 	 * If both have the same # of version parts, non-standard version convention,
 	 * then we fall back on strcmp.
 	*/
-	return strcmp(a,b);
+	if( strchr(a,'-') == NULL && strchr(b,'-') == NULL )
+		return strcmp(a,b);
+
+	return equal;
 }
 
 static struct pkg_version_parts *break_down_pkg_version(const char *version){
@@ -920,7 +923,10 @@ static struct pkg_version_parts *break_down_pkg_version(const char *version){
 
 	/* generate a short version, leave out arch and release */
 	if( (pointer = strchr(version,'-')) == NULL ){
-		return pvp;
+		sv_size = strlen(version) + 1;
+		short_version = slapt_malloc( sizeof *short_version * sv_size );
+		memcpy(short_version,version,sv_size);
+		short_version[sv_size - 1] = '\0';
 	}else{
 		sv_size = ( strlen(version) - strlen(pointer) + 1);
 		short_version = slapt_malloc( sizeof *short_version * sv_size );
@@ -1313,16 +1319,16 @@ static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list 
 	*/
 	if( newest_installed_pkg != NULL ){
 		/* if condition is "=",">=", or "=<" and versions are the same */
-		if( (strstr(tmp_pkg_cond,"=") != NULL) &&
-		(strcmp(tmp_pkg_ver,newest_installed_pkg->version) == 0) )
+		if( (strchr(tmp_pkg_cond,'=') != NULL) &&
+		(cmp_pkg_versions(tmp_pkg_ver,newest_installed_pkg->version) == 0) )
 			return newest_installed_pkg;
 		/* if "<" */
-		if( strstr(tmp_pkg_cond,"<") != NULL )
-			if( cmp_pkg_versions(tmp_pkg_ver,newest_installed_pkg->version) < 0 )
+		if( strchr(tmp_pkg_cond,'<') != NULL )
+			if( cmp_pkg_versions(newest_installed_pkg->version,tmp_pkg_ver) < 0 )
 				return newest_installed_pkg;
 		/* if ">" */
-		if( strstr(tmp_pkg_cond,">") != NULL )
-			if( cmp_pkg_versions(tmp_pkg_ver,newest_installed_pkg->version) > 0 )
+		if( strchr(tmp_pkg_cond,'>') != NULL )
+			if( cmp_pkg_versions(newest_installed_pkg->version,tmp_pkg_ver) > 0 )
 				return newest_installed_pkg;
 	}
 	for(i = 0; i < installed_pkgs->pkg_count; i++){
@@ -1330,16 +1336,16 @@ static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list 
 			continue;
 
 		/* if condition is "=",">=", or "=<" and versions are the same */
-		if( (strstr(tmp_pkg_cond,"=") != NULL) &&
-		(strcmp(tmp_pkg_ver,installed_pkgs->pkgs[i]->version) == 0) )
+		if( (strchr(tmp_pkg_cond,'=') != NULL) &&
+		(cmp_pkg_versions(tmp_pkg_ver,installed_pkgs->pkgs[i]->version) == 0) )
 			return installed_pkgs->pkgs[i];
 		/* if "<" */
-		if( strstr(tmp_pkg_cond,"<") != NULL )
-			if( cmp_pkg_versions(tmp_pkg_ver,installed_pkgs->pkgs[i]->version) < 0 )
+		if( strchr(tmp_pkg_cond,'<') != NULL )
+			if( cmp_pkg_versions(installed_pkgs->pkgs[i]->version,tmp_pkg_ver) < 0 )
 				return installed_pkgs->pkgs[i];
 		/* if ">" */
-		if( strstr(tmp_pkg_cond,">") != NULL )
-			if( cmp_pkg_versions(tmp_pkg_ver,installed_pkgs->pkgs[i]->version) > 0 )
+		if( strchr(tmp_pkg_cond,'>') != NULL )
+			if( cmp_pkg_versions(installed_pkgs->pkgs[i]->version,tmp_pkg_ver) > 0 )
 				return installed_pkgs->pkgs[i];
 	}
 
@@ -1349,16 +1355,16 @@ static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list 
 	*/
 	if( newest_avail_pkg != NULL ){
 		/* if condition is "=",">=", or "=<" and versions are the same */
-		if( (strstr(tmp_pkg_cond,"=") != NULL) &&
-		(strcmp(tmp_pkg_ver,newest_avail_pkg->version) == 0) )
+		if( (strchr(tmp_pkg_cond,'=') != NULL) &&
+		(cmp_pkg_versions(tmp_pkg_ver,newest_avail_pkg->version) == 0) )
 			return newest_avail_pkg;
 		/* if "<" */
-		if( strstr(tmp_pkg_cond,"<") != NULL )
-			if( cmp_pkg_versions(tmp_pkg_ver,newest_avail_pkg->version) < 0 )
+		if( strchr(tmp_pkg_cond,'<') != NULL )
+			if( cmp_pkg_versions(newest_avail_pkg->version,tmp_pkg_ver) < 0 )
 				return newest_avail_pkg;
 		/* if ">" */
-		if( strstr(tmp_pkg_cond,">") != NULL )
-			if( cmp_pkg_versions(tmp_pkg_ver,newest_avail_pkg->version) > 0 )
+		if( strchr(tmp_pkg_cond,'>') != NULL )
+			if( cmp_pkg_versions(newest_avail_pkg->version,tmp_pkg_ver) > 0 )
 				return newest_avail_pkg;
 	}
 
@@ -1368,16 +1374,16 @@ static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list 
 			continue;
 
 		/* if condition is "=",">=", or "=<" and versions are the same */
-		if( (strstr(tmp_pkg_cond,"=") != NULL) &&
-		(strcmp(tmp_pkg_ver,avail_pkgs->pkgs[i]->version) == 0) )
+		if( (strchr(tmp_pkg_cond,'=') != NULL) &&
+		(cmp_pkg_versions(tmp_pkg_ver,avail_pkgs->pkgs[i]->version) == 0) )
 			return avail_pkgs->pkgs[i];
 		/* if "<" */
-		if( strstr(tmp_pkg_cond,"<") != NULL )
-			if( cmp_pkg_versions(tmp_pkg_ver,avail_pkgs->pkgs[i]->version) < 0 )
+		if( strchr(tmp_pkg_cond,'<') != NULL )
+			if( cmp_pkg_versions(avail_pkgs->pkgs[i]->version,tmp_pkg_ver) < 0 )
 				return avail_pkgs->pkgs[i];
 		/* if ">" */
-		if( strstr(tmp_pkg_cond,">") != NULL )
-			if( cmp_pkg_versions(tmp_pkg_ver,avail_pkgs->pkgs[i]->version) > 0 )
+		if( strchr(tmp_pkg_cond,'>') != NULL )
+			if( cmp_pkg_versions(avail_pkgs->pkgs[i]->version,tmp_pkg_ver) > 0 )
 				return avail_pkgs->pkgs[i];
 	}
 

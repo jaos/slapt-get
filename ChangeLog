@@ -1,5 +1,6 @@
 
 0.9.9h Feb 06, 2005
+ * improved version comparing
  * fixed bug when specifying specific versions of dependencies, thanks NIkkou (nibbana80 at wp dot pl)
  * simplified add_deps_to_trans()
  * updated sources in example.slapt-getrc (thanks Piotr Simon)
