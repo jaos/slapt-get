@@ -167,7 +167,8 @@ Frequenty Asked Questions:
  missing libraries before consulting the dependency file).  This is not a
  reliable/fool proof method.  It is also extremeley slow.  Dependencies can not
  always be defined strictly by library dependencies.  Applications, rather than
- libraries may be required, such as the case with man and groff.
+ libraries may be required, such as the case with man and groff.  Also, there is 
+ no ability to specify specific versions of a dependency.
 
  I believe that package dependency support can be implemented in a Slackware 
  compatible way.  If we look to the existing infrastructure Pat has created
