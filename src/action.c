@@ -34,7 +34,8 @@ void jaospkg_install(rc_config *global_config,char *pkg_name){
 		return;
 	}
 
-	if( ((installed_pkg = get_newest_installed_pkg(pkg_name)) != NULL) && (global_config->re_install != 1 ) ){
+	if( ((installed_pkg = get_newest_installed_pkg(pkg_name)) != NULL)
+		&& (global_config->re_install != 1 ) ){
 
 		/* it's already installed, attempt an upgrade */
 		jaospkg_upgrade(global_config,installed_pkg);
@@ -87,7 +88,10 @@ void jaospkg_list_installed(void){
 	installed_pkgs = get_installed_pkgs();
 
 	for(iterator = 0; iterator < installed_pkgs->pkg_count; iterator++ ){
-		printf("%s - %s\n",installed_pkgs->pkgs[iterator]->name,installed_pkgs->pkgs[iterator]->version);
+		printf("%s - %s\n",
+			installed_pkgs->pkgs[iterator]->name,
+			installed_pkgs->pkgs[iterator]->version
+		);
 	}
 
 	free_pkg_list(installed_pkgs);
@@ -232,7 +236,12 @@ void jaospkg_upgrade_all(rc_config *global_config){
 			continue;
 
 		/* see if we have an available update for the pkg */
-		if( (update_pkg = get_newest_pkg(update_pkgs->pkgs,installed_pkgs->pkgs[iterator]->name,update_pkgs->pkg_count)) != NULL ){
+		update_pkg = get_newest_pkg(
+			update_pkgs->pkgs,
+			installed_pkgs->pkgs[iterator]->name,
+			update_pkgs->pkg_count
+		);
+		if( update_pkg != NULL ){
 
 			/* if the update has a newer version */
 			if( (strcmp(installed_pkgs->pkgs[iterator]->version,update_pkg->version)) < 0 ){
@@ -246,7 +255,12 @@ void jaospkg_upgrade_all(rc_config *global_config){
 			}else{
 				/* if --dist-upgrade is set */
 				if( global_config->dist_upgrade == 1 ){
-					if( (current_pkg = get_newest_pkg(current_pkgs->pkgs,installed_pkgs->pkgs[iterator]->name,current_pkgs->pkg_count)) != NULL ){
+					current_pkg = get_newest_pkg(
+						current_pkgs->pkgs,
+						installed_pkgs->pkgs[iterator]->name,
+						current_pkgs->pkg_count
+					);
+					if( current_pkg != NULL ){
 						/* the current version of the pkg is greater than the installed version */
 						if( (strcmp(installed_pkgs->pkgs[iterator]->version,current_pkg->version)) < 0 ){
 							/* attempt to upgrade */
