@@ -1,5 +1,6 @@
 
 0.9.9 Aug 23, 2004
+ * set CURLOPT_FTP_USE_EPRT to off
  * updated makefile, moved /etc/slapt-getrc to /etc/slapt-get/slapt-getrc
  * documentation updates
  * use libcurls CURLOPT_FAILONERROR to fail on http codes > 300
