@@ -88,6 +88,7 @@ dopkg:
 	@mkdir -p pkg/usr/man/man8
 	@for i in `ls po/ --ignore=slapt-get.pot --ignore=CVS |sed 's/.po//'` ;do mkdir -p pkg$(LOCALESDIR)/$$i/LC_MESSAGES; msgfmt -o pkg$(LOCALESDIR)/$$i/LC_MESSAGES/slapt-get.mo po/$$i.po; done
 	@cp $(PROGRAM_NAME) ./pkg/sbin/
+	@chown root:bin ./pkg/sbin
 	@chown root:bin ./pkg/sbin/$(PROGRAM_NAME)
 	@strip ./pkg/sbin/$(PROGRAM_NAME)
 	@echo "# See /usr/doc/$(PROGRAM_NAME)-$(VERSION)/example.slapt-getrc " > ./pkg/etc/slapt-get/slapt-getrc.new
@@ -106,7 +107,7 @@ dopkg:
 	@cp src/libslapt-$(VERSION).a src/libslapt-$(VERSION).so pkg/usr/lib/
 	@strip pkg/usr/lib/libslapt-$(VERSION).so
 	@cd pkg/usr/lib; ln -s libslapt-$(VERSION).so libslapt.so; cd ../../..
-	@( cd pkg; /sbin/makepkg -l y -c y $(PROGRAM_NAME)-$(VERSION)-$(ARCH)-$(RELEASE).tgz )
+	@( cd pkg; /sbin/makepkg -l y -c n $(PROGRAM_NAME)-$(VERSION)-$(ARCH)-$(RELEASE).tgz )
 
 po_file:
 	-grep '_(' src/*.c |cut -f2-255 -d':'|sed -re "s/.*(_\(\".*\"\)).*/\1/" > po/gettext_strings

@@ -1,5 +1,6 @@
 
 0.9.9a Sep 06, 2004
+ * updated makefile so that pkg permissions on /sbin are root:bin (thanks Jim Simmons)
  * fixed configuration overriding and parsing borkage (thanks to Sean Donner)
 
 0.9.9 Sep 06, 2004
