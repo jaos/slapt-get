@@ -295,7 +295,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 					continue;
 				}
 				getline_buffer[bytes_read - 1] = '\0';
-				strncpy(tmp_pkg->conflicts,conflicts,strlen(conflicts));
+				strncat(tmp_pkg->conflicts,conflicts,strlen(conflicts));
 		}else{
 			/* conflicts isn't provided... rewind one line */
 			fseek(pkg_list_fh, (ftell(pkg_list_fh) - f_pos) * -1, SEEK_CUR);
@@ -318,7 +318,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 					continue;
 				}
 				getline_buffer[bytes_read - 1] = '\0';
-				strncpy(tmp_pkg->suggests,suggests,strlen(suggests));
+				strncat(tmp_pkg->suggests,suggests,strlen(suggests));
 		}else{
 			/* suggests isn't provided... rewind one line */
 			fseek(pkg_list_fh, (ftell(pkg_list_fh) - f_pos) * -1, SEEK_CUR);
