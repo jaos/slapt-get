@@ -1,5 +1,7 @@
 
-0.9.9j Mar 20, 2005
+0.9.9j Mar 22, 2005
+ * fixed precision error in curl progress callback, d/l stats now report
+   correct percentage
  * added queue_t struct to transaction_t so that installs/upgrades happen in
    the proper order, as discovered.
  * FAQ updates, also added "50. What about mirror fall back / fail-over ?"

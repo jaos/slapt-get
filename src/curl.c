@@ -280,16 +280,15 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 }
 
 int progress_callback(void *clientp, double dltotal, double dlnow, double ultotal, double ulnow){
-	int percent = 0;
-	int *bytes = (int *)clientp;
-	/* supress unused parameter warning */
+	size_t percent = 0;
+	size_t *bytes = (size_t *)clientp;
 	(void) ultotal;
 	(void) ulnow;
-	/* */
-	if( ((int)dltotal + *bytes) == 0 ){
+
+	if( (dltotal + *bytes) == 0 ){
 		percent = 0;
 	}else{
-		percent = ((*bytes + (int)dlnow)*100)/((int)dltotal + *bytes);
+		percent = ((*bytes + dlnow)*100)/(dltotal + *bytes);
 	}
 	printf("%3d%%\b\b\b\b",percent);
 	return 0;
