@@ -14,6 +14,6 @@ slapt-get: compare them with installed packages, install new packages or
 slapt-get: upgrade installed packages all with a few simple commands.
 slapt-get:
 slapt-get: See /usr/doc/slapt-get* for complete documentation.  The syntax for
-slapt-get: /etc/slapt-getrc has been updated for 0.9.5f. See 
-slapt-get: /etc/slapt-getrc.new for example.
+slapt-get: /etc/slapt-getrc has been updated for 0.9.6.  For an example, see 
+slapt-get: /etc/slapt-getrc.new.
 slapt-get:
