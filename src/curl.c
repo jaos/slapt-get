@@ -357,3 +357,98 @@ void gen_md5_sum_of_file(FILE *f,char *result_sum){
 
 }
 
+/* recursively create dirs */
+void create_dir_structure(const char *dir_name){
+	char *pointer = NULL;
+	char *cwd = NULL;
+	int position = 0;
+	char *dir_name_buffer = NULL;
+
+	cwd = getcwd(NULL,0);
+	if( cwd == NULL ){
+		fprintf(stderr,_("Failed to get cwd\n"));
+		return;
+	}else{
+#if DEBUG == 1
+		fprintf(stderr,_("\tCurrent working directory: %s\n"),cwd);
+#endif
+	}
+
+	while( position < (int) strlen(dir_name) ){
+		/* if no more directory delim, then this must be last dir */
+		if( strstr(dir_name + position,"/" ) == NULL ){
+
+			dir_name_buffer = calloc( strlen(dir_name + position) + 1 , sizeof *dir_name_buffer );
+			strncpy(dir_name_buffer,dir_name + position,strlen(dir_name + position));
+			dir_name_buffer[ strlen(dir_name + position) ] = '\0';
+
+			if( strcmp(dir_name_buffer,".") != 0 ){
+				if( (mkdir(dir_name_buffer,0755)) == -1){
+					#if DEBUG == 1
+					fprintf(stderr,_("Failed to mkdir: %s\n"),dir_name_buffer);
+					#endif
+				}else{
+					#if DEBUG == 1
+					fprintf(stderr,_("\tCreated directory: %s\n"),dir_name_buffer);
+					#endif
+				}
+				if( (chdir(dir_name_buffer)) == -1 ){
+					fprintf(stderr,_("Failed to chdir to %s\n"),dir_name_buffer);
+					return;
+				}else{
+					#if DEBUG == 1
+					fprintf(stderr,_("\tchdir into %s\n"),dir_name_buffer);
+					#endif
+				}
+			}/* don't create . */
+
+			free(dir_name_buffer);
+			break;
+		}else{
+			if( dir_name[position] == '/' ){
+				/* move on ahead */
+				++position;
+			}else{
+
+				/* figure our dir name and mk it */
+				pointer = strchr(dir_name + position,'/');
+				dir_name_buffer = calloc(
+					strlen(dir_name + position) - strlen(pointer) + 1 , sizeof *dir_name_buffer
+				);
+				strncpy(dir_name_buffer,dir_name + position, strlen(dir_name + position) - strlen(pointer));
+				dir_name_buffer[ (strlen(dir_name + position) - strlen(pointer)) ] = '\0';
+
+				if( strcmp(dir_name_buffer,".") != 0 ){
+					if( (mkdir(dir_name_buffer,0755)) == -1 ){
+						#if DEBUG == 1
+						fprintf(stderr,_("Failed to mkdir: %s\n"),dir_name_buffer);
+						#endif
+					}else{
+						#if DEBUG == 1
+						fprintf(stderr,_("\tCreated directory: %s\n"),dir_name_buffer);
+						#endif
+					}
+					if( (chdir(dir_name_buffer)) == -1 ){
+						fprintf(stderr,_("Failed to chdir to %s\n"),dir_name_buffer);
+						return;
+					}else{
+						#if DEBUG == 1
+						fprintf(stderr,_("\tchdir into %s\n"),dir_name_buffer);
+						#endif
+					}
+				} /* don't create . */
+
+				free(dir_name_buffer);
+				position += (strlen(dir_name + position) - strlen(pointer));
+			}
+		}
+	}/* end while */
+
+	if( (chdir(cwd)) == -1 ){
+		fprintf(stderr,_("Failed to chdir to %s\n"),cwd);
+		return;
+	}
+
+	free(cwd);
+}
+

@@ -54,5 +54,4 @@ rc_config *read_rc_config(const char *file_name);
 void working_dir_init(const rc_config *global_config);
 void clean_pkg_dir(const char *dir_name);
 struct exclude_list *parse_exclude(char *line);
-void create_dir_structure(const char *dir_name);
 void free_rc_config(rc_config *global_config);

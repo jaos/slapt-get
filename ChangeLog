@@ -1,5 +1,6 @@
 
-0.9.8e May 20, 2004
+0.9.8e May 21, 2004
+ * moved create_dir_structure from configuration.[ch] to curl.[ch]
  * get compressed and uncompressed information from package log in
    get_installed_pkgs(), and updated transaction handler.
    Transaction report now shows correct sizes for removing packages as well as
