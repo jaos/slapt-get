@@ -217,8 +217,8 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 
 	fh = open_file(file_name,"a+b");
 	if( fh == NULL ){
-		fprintf(stderr,"Failed to open %s\n",file_name);
-		if( errno ) perror(file_name);
+		chdir(global_config->working_dir);
+		free(file_name);
 		return -1;
 	}
 
@@ -246,13 +246,12 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 
 	fh = open_file(file_name,"r");
 	if( fh == NULL ){
-		fprintf(stderr,"Failed to open %s\n",file_name);
-		if( errno ) perror(file_name);
+		chdir(global_config->working_dir);
+		free(file_name);
 		return -1;
 	}
 
 	if( stat(file_name,&file_stat) == -1 ){
-		if ( errno ) perror("stat");
 		chdir(global_config->working_dir);
 		free(file_name);
 		return -1;
@@ -350,7 +349,7 @@ void gen_md5_sum_of_file(FILE *f,char *result_sum){
 			if( (result_sum_tmp = strncat(result_sum,p,3)) != NULL )
 				result_sum = result_sum_tmp;
 
-}
+		}
 
 		free(p);
 	}
@@ -359,22 +358,24 @@ void gen_md5_sum_of_file(FILE *f,char *result_sum){
 
 /* recursively create dirs */
 void create_dir_structure(const char *dir_name){
-	char *pointer = NULL;
 	char *cwd = NULL;
 	int position = 0;
-	char *dir_name_buffer = NULL;
 
 	cwd = getcwd(NULL,0);
 	if( cwd == NULL ){
 		fprintf(stderr,_("Failed to get cwd\n"));
 		return;
 	}else{
-#if DEBUG == 1
+		#if DEBUG == 1
 		fprintf(stderr,_("\tCurrent working directory: %s\n"),cwd);
-#endif
+		#endif
 	}
 
 	while( position < (int) strlen(dir_name) ){
+
+		char *pointer = NULL;
+		char *dir_name_buffer = NULL;
+
 		/* if no more directory delim, then this must be last dir */
 		if( strstr(dir_name + position,"/" ) == NULL ){
 
