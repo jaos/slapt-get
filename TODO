@@ -9,6 +9,7 @@ Future enhancements, fixes, or features:
  * add more error checking/handling, remove some exit() calls
  * find memory leaks
 
+ * mirror fall back in case pkg is not available on current mirror
  * dependancy tracking (ideally that will happen in PACKAGES.TXT)
  * source pkg handling (maybe)
 

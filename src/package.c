@@ -20,9 +20,20 @@
 
 /* parse the PACKAGES.TXT file */
 struct pkg_list *get_available_pkgs(void){
-	sg_regex name_regex, location_regex, size_c_regex, size_u_regex;
-	ssize_t bytes_read;
 	FILE *pkg_list_fh;
+	struct pkg_list *list;
+
+	/* open pkg list */
+	pkg_list_fh = open_file(PKG_LIST_L,"r");
+	list = parse_packages_txt(pkg_list_fh);
+	fclose(pkg_list_fh);
+
+	return list;
+}
+
+struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
+	sg_regex name_regex, mirror_regex,location_regex, size_c_regex, size_u_regex;
+	ssize_t bytes_read;
 	pkg_info_t **realloc_tmp;
 	struct pkg_list *list;
 	long f_pos = 0;
@@ -34,16 +45,15 @@ struct pkg_list *get_available_pkgs(void){
 	list = malloc( sizeof *list );
 
 	name_regex.nmatch = MAX_REGEX_PARTS;
+	mirror_regex.nmatch = MAX_REGEX_PARTS;
 	location_regex.nmatch = MAX_REGEX_PARTS;
 	size_c_regex.nmatch = MAX_REGEX_PARTS;
 	size_u_regex.nmatch = MAX_REGEX_PARTS;
 
 
-	/* open pkg list */
-	pkg_list_fh = open_file(PKG_LIST_L,"r");
-
 	/* compile our regexen */
 	regcomp(&name_regex.regex,PKG_NAME_PATTERN, REG_EXTENDED|REG_NEWLINE);
+	regcomp(&mirror_regex.regex,PKG_MIRROR_PATTERN,REG_EXTENDED|REG_NEWLINE);
 	regcomp(&location_regex.regex,PKG_LOCATION_PATTERN, REG_EXTENDED|REG_NEWLINE);
 	regcomp(&size_c_regex.regex,PKG_SIZEC_PATTERN, REG_EXTENDED|REG_NEWLINE);
 	regcomp(&size_u_regex.regex,PKG_SIZEU_PATTERN, REG_EXTENDED|REG_NEWLINE);
@@ -99,6 +109,33 @@ struct pkg_list *get_available_pkgs(void){
 		}else{
 			fprintf(stderr,"regex failed on [%s]\n",getline_buffer);
 			continue;
+		}
+
+		/* mirror */
+		f_pos = ftell(pkg_list_fh);
+		if(getline(&getline_buffer,&getline_len,pkg_list_fh) != EOF){
+				/* add in support for the mirror url */
+			mirror_regex.reg_return = regexec(
+				&mirror_regex.regex,
+				getline_buffer,
+				mirror_regex.nmatch,
+				mirror_regex.pmatch,
+				0
+			);
+			if( mirror_regex.reg_return == 0 ){
+
+				strncpy( list->pkgs[list->pkg_count]->mirror,
+					getline_buffer + mirror_regex.pmatch[1].rm_so,
+					mirror_regex.pmatch[1].rm_eo - mirror_regex.pmatch[1].rm_so
+				);
+				list->pkgs[list->pkg_count]->mirror[
+					mirror_regex.pmatch[1].rm_eo - mirror_regex.pmatch[1].rm_so
+				] = '\0';
+
+			}else{
+				/* mirror isn't provided... rewind one line */
+				fseek(pkg_list_fh, (ftell(pkg_list_fh) - f_pos) * -1, SEEK_CUR);
+			}
 		}
 
 		/* location */
@@ -246,8 +283,8 @@ struct pkg_list *get_available_pkgs(void){
 		continue;
 	}
 	if( getline_buffer) free(getline_buffer);
-	fclose(pkg_list_fh);
 	regfree(&name_regex.regex);
+	regfree(&mirror_regex.regex);
 	regfree(&location_regex.regex);
 	regfree(&size_c_regex.regex);
 	regfree(&size_u_regex.regex);
@@ -835,5 +872,21 @@ struct pkg_list *get_available_and_update_pkgs(void){
 	}
 
 	return all;
+}
+
+void write_pkg_data(const char *source_url,FILE *d_file,struct pkg_list *pkgs){
+	int i;
+
+	for(i=0;i < pkgs->pkg_count;i++){
+
+		fprintf(d_file,"PACKAGE NAME:  %s-%s.tgz\n",pkgs->pkgs[i]->name,pkgs->pkgs[i]->version);
+		fprintf(d_file,"PACKAGE MIRROR:  %s\n",source_url);
+		fprintf(d_file,"PACKAGE LOCATION:  %s\n",pkgs->pkgs[i]->location);
+		fprintf(d_file,"PACKAGE SIZE (compressed):  %d K\n",pkgs->pkgs[i]->size_c);
+		fprintf(d_file,"PACKAGE SIZE (uncompressed):  %d K\n",pkgs->pkgs[i]->size_u);
+		fprintf(d_file,"PACKAGE DESCRIPTION:\n");
+		fprintf(d_file,"%s\n",pkgs->pkgs[i]->description);
+
+	}
 }
 

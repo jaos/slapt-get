@@ -20,9 +20,6 @@
 
 /* FUNCTION DEFINITIONS */
 int download_data(FILE *,const char *);
-FILE *download_pkg_list(const rc_config *);
-FILE *download_file_list(const rc_config *);
-FILE *download_patches_list(const rc_config *);
-FILE *download_checksum_list(const rc_config *global_config);
+int get_mirror_data_from_source(FILE *,const char *,const char *);
 char *download_pkg(const rc_config *,pkg_info_t *);
 int progress_callback(void *,double,double,double,double);

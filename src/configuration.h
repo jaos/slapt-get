@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#define MIRROR_TOKEN "MIRROR="
+#define SOURCE_TOKEN "SOURCE="
 #define WORKINGDIR_TOKEN "WORKINGDIR="
 #define EXCLUDE_TOKEN "EXCLUDE="
 
@@ -25,8 +25,14 @@ struct exclude_list {
 	int count;
 };
 
+struct source_list {
+	char url[10][200];
+	int count;
+};
+
 struct _configuration {
 	char mirror_url[256];
+	struct source_list sources;
 	char working_dir[256];
 	int download_only;
 	int dist_upgrade;

@@ -19,6 +19,7 @@
 #define MAX_PKG_ENTRIES 1300
 #define PKG_PARSE_REGEX "([a-zA-Z0-9._\\-\\/]+/)([a-zA-Z0-9\\+_\\-]+)-([a-zA-Z0-9._\\-]+).tgz$"
 #define PKG_NAME_PATTERN "^PACKAGE NAME:[ ]+([a-zA-Z0-9\\+_\\-]+)-([a-zA-Z0-9._\\-]+).tgz$"
+#define PKG_MIRROR_PATTERN "^PACKAGE MIRROR:[ ]+(.*)$"
 #define PKG_LOCATION_PATTERN "^PACKAGE LOCATION:[ ]+(.*)$"
 #define PKG_SIZEC_PATTERN "^PACKAGE SIZE [(]+compressed[)]+:[ ]+([0-9]+) K$"
 #define PKG_SIZEU_PATTERN "^PACKAGE SIZE [(]+uncompressed[)]+:[ ]+([0-9]+) K$"
@@ -32,6 +33,7 @@
 struct _pkg_info {
 	char name[50];
 	char version[50];
+	char mirror[200];
 	char location[50];
 	int size_c;
 	int size_u;
@@ -56,6 +58,7 @@ struct pkg_upgrade_list {
  * FUNCTION DEFINITIONS
  */
 /* parse the PACKAGES.TXT file */
+struct pkg_list *parse_packages_txt(FILE *);
 struct pkg_list *get_available_pkgs(void);
 /* retrieve list of installed pkgs */
 struct pkg_list *get_installed_pkgs(void);
@@ -83,4 +86,6 @@ int cmp_pkg_versions(char *, char *);
 int break_down_pkg_version(int *,char *);
 /* get available, installed, and update pkgs all in one */
 struct pkg_list *get_available_and_update_pkgs(void);
+/* write pkg data to disk */
+void write_pkg_data(const char *,FILE *,struct pkg_list *);
 

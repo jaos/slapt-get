@@ -34,6 +34,8 @@ rc_config *read_rc_config(const char *file_name){
 		}
 	}
 
+	global_config->sources.count = 0;
+
 	rc = open_file(file_name,"r");
 
 	while( (g_size = getline(&getline_buffer,&gb_length,rc) ) != EOF ){
@@ -46,19 +48,27 @@ rc_config *read_rc_config(const char *file_name){
 			continue;
 		}
 
-		if( strstr(getline_buffer,MIRROR_TOKEN) != NULL ){ /* MIRROR URL */
+		if( strstr(getline_buffer,SOURCE_TOKEN) != NULL ){ /* SOURCE URL */
 
-			if( strlen(getline_buffer) > strlen(MIRROR_TOKEN) ){
+			if( strlen(getline_buffer) > strlen(SOURCE_TOKEN) ){
 				strncpy(
-					global_config->mirror_url,
-					getline_buffer + strlen(MIRROR_TOKEN),
-					(strlen(getline_buffer) - strlen(MIRROR_TOKEN))
+					global_config->sources.url[global_config->sources.count],
+					getline_buffer + strlen(SOURCE_TOKEN),
+					(strlen(getline_buffer) - strlen(SOURCE_TOKEN))
 				);
+				global_config->sources.url[global_config->sources.count][
+					(strlen(getline_buffer) - strlen(SOURCE_TOKEN))
+				] = '\0';
 
 				/* make sure our url has a trailing '/' */
-				if( global_config->mirror_url[strlen(global_config->mirror_url) - 1] != '/' ){
-					strcat(global_config->mirror_url,"/");
+				if( global_config->sources.url[global_config->sources.count]
+					[
+						strlen(global_config->sources.url[global_config->sources.count]) - 1
+					] != '/'
+				){
+					strcat(global_config->sources.url[global_config->sources.count],"/");
 				}
+				++global_config->sources.count;
 
 			}
 
@@ -83,8 +93,8 @@ rc_config *read_rc_config(const char *file_name){
 		fprintf(stderr,"WORKINGDIR directive not set within %s.\n",file_name);
 		exit(1);
 	}
-	if( strcmp(global_config->mirror_url,"") == 0 ){
-		fprintf(stderr,"MIRROR directive not set within %s.\n",file_name);
+	if( global_config->sources.count == 0 ){
+		fprintf(stderr,"SOURCE directive not set within %s.\n",file_name);
 		exit(1);
 	}
 

@@ -192,8 +192,9 @@ void pkg_action_show(const char *pkg_name){
 
 	if( pkg != NULL ){
 		printf("Package Name: %s\n",pkg->name);
+		printf("Package Mirror: %s\n",pkg->mirror);
 		printf("Package Location: %s\n",pkg->location);
-		printf("Package version: %s\n",pkg->version);
+		printf("Package Version: %s\n",pkg->version);
 		printf("Package Description:\n");
 		printf("%s",pkg->description);
 	}else{
@@ -205,20 +206,63 @@ void pkg_action_show(const char *pkg_name){
 
 /* update package data from mirror url */
 void pkg_action_update(const rc_config *global_config){
+	int i;
 	FILE *pkg_list_fh;
 	FILE *patches_list_fh;
 	FILE *checksum_list_fh;
+	FILE *tmp_file;
+	struct pkg_list *available_pkgs = NULL;
 
 	/* download our PKG_LIST */
-	pkg_list_fh = download_pkg_list(global_config);
+	#if USE_CURL_PROGRESS == 0
+	printf("Retrieving package data...");
+	#else
+	printf("Retrieving package data...\n");
+	#endif
+	pkg_list_fh = open_file(PKG_LIST_L,"w+");
+	for(i = 0; i < global_config->sources.count; i++){
+		tmp_file = tmpfile();
+		if( get_mirror_data_from_source(tmp_file,global_config->sources.url[i],PKG_LIST) == 0 ){
+			rewind(tmp_file); /* make sure we are back at the front of the file */
+			available_pkgs = parse_packages_txt(tmp_file);
+			write_pkg_data(global_config->sources.url[i],pkg_list_fh,available_pkgs);
+			free_pkg_list(available_pkgs);
+		}
+		fclose(tmp_file);
+	}
+	#if USE_CURL_PROGRESS == 0
+	printf("Done\n");
+	#endif
 	fclose(pkg_list_fh);
 
 	/* download PATCHES_LIST */
-	patches_list_fh = download_patches_list(global_config);
+	#if USE_CURL_PROGRESS == 0
+	printf("Retrieving patch list...");
+	#else
+	printf("Retrieving patch list...\n");
+	#endif
+	patches_list_fh = open_file(PATCHES_LIST_L,"w+");
+	for(i = 0; i < global_config->sources.count; i++){
+		get_mirror_data_from_source(patches_list_fh,global_config->sources.url[i],PATCHES_LIST);
+	}
+	#if USE_CURL_PROGRESS == 0
+	printf("Done\n");
+	#endif
 	fclose(patches_list_fh);
 
-	/* download */
-	checksum_list_fh = download_checksum_list(global_config);
+	/* download checksum file */
+	#if USE_CURL_PROGRESS == 0
+	printf("Retrieving checksum list...");
+	#else
+	printf("Retrieving checksum list...\n");
+	#endif
+	checksum_list_fh = open_file(CHECKSUM_FILE,"w+");
+	for(i = 0; i < global_config->sources.count; i++){
+		get_mirror_data_from_source(checksum_list_fh,global_config->sources.url[i],CHECKSUM_FILE);
+	}
+	#if USE_CURL_PROGRESS == 0
+	printf("Done\n");
+	#endif
 	fclose(checksum_list_fh);
 
 	/* source listing to go here */

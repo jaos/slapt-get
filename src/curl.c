@@ -22,7 +22,7 @@ int download_data(FILE *fh,const char *url){
 	CURL *ch = NULL;
 	CURLcode response;
 	char curl_err_buff[1024];
-	int return_code = 1;
+	int return_code = 0;
 
 #if DEBUG == 1
 	printf("Fetching url:[%s]\n",url);
@@ -52,104 +52,27 @@ int download_data(FILE *fh,const char *url){
 	return return_code;
 }
 
-FILE *download_pkg_list(const rc_config *global_config){
-	FILE *fh = NULL;
+int get_mirror_data_from_source(FILE *fh,const char *base_url,const char *filename){
+	int return_code;
 	char *url = NULL;
 
-	fh = open_file(PKG_LIST_L,"w+");
-
-#if USE_CURL_PROGRESS == 0
-	printf("Retrieving package data...");
-#else
-	printf("Retrieving package data...\n");
-#endif
-
 	url = calloc(
-		strlen(global_config->mirror_url) + strlen(PKG_LIST) + 1, sizeof *url
+		strlen(base_url) + strlen(filename) + 1, sizeof *url
 	);
 	if( url == NULL ){
 		fprintf(stderr,"Failed to calloc url\n");
 		exit(1);
 	}
 
-	strncpy(url,global_config->mirror_url,strlen(global_config->mirror_url) );
-	strncat(url,PKG_LIST,strlen(PKG_LIST) );
-	if( download_data(fh,url) == 1 ){
-#if USE_CURL_PROGRESS == 0
-		printf("Done\n");
-#endif
-	}
+	strncpy(url,base_url,strlen(base_url) );
+	strncat(url,filename,strlen(filename) );
+	return_code = download_data(fh,url);
 
 	free(url);
-	rewind(fh); /* make sure we are back at the front of the file */
-	return fh;
-}
-
-FILE *download_patches_list(const rc_config *global_config){
-	FILE *fh = NULL;
-	char *url = NULL;
-
-	fh = open_file(PATCHES_LIST_L,"w+");
-
-#if USE_CURL_PROGRESS == 0
-	printf("Retrieving patch list...");
-#else
-	printf("Retrieving patch list...\n");
-#endif
-
-	url = calloc(
-		strlen(global_config->mirror_url) + strlen(PATCHDIR) + strlen(PATCHES_LIST) + 1 , sizeof *url
-	);
-	if( url == NULL ){
-		fprintf(stderr,"Failed to calloc url\n");
-		exit(1);
-	}
-
-	strncpy(url,global_config->mirror_url,strlen(global_config->mirror_url) );
-	strncat(url,PATCHDIR,strlen(PATCHDIR) );
-	strncat(url,PATCHES_LIST,strlen(PATCHES_LIST) );
-	if( download_data(fh,url) == 1 ){
-#if USE_CURL_PROGRESS == 0
-		printf("Done\n");
-#endif
-	}
-
-	free(url);
-	rewind(fh); /* make sure we are back at the front of the file */
-	return fh;
-}
-
-FILE *download_checksum_list(const rc_config *global_config){
-	FILE *fh = NULL;
-	char *url = NULL;
-
-	fh = open_file(CHECKSUM_FILE,"w+");
-
-#if USE_CURL_PROGRESS == 0
-	printf("Retrieving checksum list...");
-#else
-	printf("Retrieving checksum list...\n");
-#endif
-
-	url = calloc(
-		strlen(global_config->mirror_url) + strlen(CHECKSUM_FILE) + 1 , sizeof *url
-	);
-	if( url == NULL ){
-		fprintf(stderr,"Failed to calloc url\n");
-		exit(1);
-	}
-
-	strncpy(url,global_config->mirror_url,strlen(global_config->mirror_url) );
-	strncat(url,CHECKSUM_FILE,strlen(CHECKSUM_FILE) );
-	if( download_data(fh,url) == 1 ){
-#if USE_CURL_PROGRESS == 0
-		printf("Done\n");
-#endif
-	}
-
-	free(url);
-	rewind(fh); /* make sure we are back at the front of the file */
-	return fh;
+	/* make sure we are back at the front of the file */
+	/* DISABLED */
+	/* rewind(fh); */
+	return return_code;
 }
 
 char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
@@ -199,7 +122,7 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 
 	/* build the url */
 	url = calloc(
-		strlen(global_config->mirror_url) + strlen(pkg->location)
+		strlen(pkg->mirror) + strlen(pkg->location)
 			+ strlen(file_name) + strlen("/") + 1,
 		sizeof *url
 	);
@@ -207,7 +130,7 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 		fprintf(stderr,"Failed to calloc url\n");
 		exit(1);
 	}
-	url = strncpy(url,global_config->mirror_url,strlen(global_config->mirror_url));
+	url = strncpy(url,pkg->mirror,strlen(pkg->mirror));
 	url = strncat(url,pkg->location,strlen(pkg->location));
 	url = strncat(url,"/",strlen("/"));
 	url = strncat(url,file_name,strlen(file_name));
@@ -220,7 +143,7 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 #endif
 
 	fh = open_file(file_name,"wb");
-	if( download_data(fh,url) == 1 ){
+	if( download_data(fh,url) == 0 ){
 #if USE_CURL_PROGRESS == 0
 		printf("Done\n");
 #endif

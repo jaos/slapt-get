@@ -61,7 +61,7 @@ Table of Contents:
  4. slapt-getrc
 
     The slapt-getrc file consists currently of the following keys:
-     MIRROR
+     SOURCE
      WORKINGDIR
      EXCLUDE
 
@@ -69,7 +69,11 @@ Table of Contents:
     lynx -source http://www.slackware.com/getslack/|grep -i href \
      |awk -F "HREF=" '{print $2}'|cut -f2 -d'"'
 
-    The MIRROR must be a path to a valid slackware release directory.
+    The SOURCE must be a path to a valid slackware release directory,
+    or a source such as linuxpackages.net (see example within rc).
+    Multiple sources can be defined.  Please do not add redundant
+    mirror locations to the same release.  Mirror fallback is not
+    yet implemented.
 
     WORKINGDIR will hold the package data and downloaded packages.
 
