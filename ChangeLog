@@ -1,4 +1,7 @@
 
+0.9.9g Jan 12, 2005
+ * removed bad use of strcspn() breaking using ROOT env var with slapt-get
+
 0.9.9f Jan 12, 2005
  * all malloc and calloc calls are now wrapped in slapt_malloc and slapt_calloc
  * added a few missing free() calls, and a missing closedir() call in
