@@ -288,7 +288,7 @@ msgstr ""
 
 #, c-format
 msgid "%s version %s\n"
-msgstr "version %s de %s"
+msgstr "version %s de %s\n"
 
 #, c-format
 msgid "regex failed on [%s]\n"
@@ -473,7 +473,7 @@ msgid "specify alternate slapt-getrc location"
 msgstr ""
 
 msgid "Suggested packages:\n"
-msgstr "Packages: suggéré"
+msgstr "Packages: suggéré\n"
 
 #, c-format
 msgid "Maximum length of working directory (%d) exceeded.\n"
