@@ -275,6 +275,7 @@ void pkg_action_update(const rc_config *global_config){
 	}
 
 	/* download EXTRAS_LIST */
+#if GRAB_EXTRAS == 1
 	for(i = 0; i < global_config->sources.count; i++){
 		tmp_file = tmpfile();
 		#if USE_CURL_PROGRESS == 0
@@ -293,6 +294,7 @@ void pkg_action_update(const rc_config *global_config){
 		}
 		fclose(tmp_file);
 	}
+#endif
 
 	/* download PATCHES_LIST */
 	for(i = 0; i < global_config->sources.count; i++){
