@@ -49,6 +49,7 @@ Table of Contents:
     * transaction engine for install, remove, and upgrades
     * "compare package version" algorithm to prevent downgrades
     * recursive dependency resolution using slack-required metadata (see FAQ)
+    * package conflict resolution using slack-conflicts metadata (see FAQ)
     * extremely fast and easy to script with
 
 

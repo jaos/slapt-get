@@ -1,5 +1,6 @@
 
 0.9.8e May 20, 2004
+ * documentation updates
  * added check in lookup_pkg_dependencies() to see if ignore failed dependencies
    (--no-dep) was set, if so, actually ignore.
  * moved add_deps_to_trans() to transaction.c from action.c

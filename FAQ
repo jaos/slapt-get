@@ -239,9 +239,9 @@ Frequenty Asked Questions:
 
 12. I don't like the download spinner, how can I get more statistics?
 
- If you would like more notification on downloading pkgs/files, change the 
- USE_CURL_PROGRESS macro to 1 in include/curl.h.  This turns on curl's
- internal progress meter.  This requires a recompile.
+ If you would like more notification on downloading pkgs/files, use the 
+ command line option --show-stats (or -S).  This will show curl style
+ download information.
 
 
 13. How can I install every available package?
@@ -251,6 +251,7 @@ Frequenty Asked Questions:
  but not currently installed:
 
    slapt-get --list|grep inst=no|awk '{print $1}'|sort|uniq|xargs -r slapt-get --install
+
 
 14. What if I only want to upgrade one package?
 
@@ -461,10 +462,6 @@ Frequenty Asked Questions:
  Edit that file.  For every msgid, translate that into the msgstr "".  Leave the
  formatting the same.
 
- So if your language is German, 
-
- $ cp slapt-get.pot de.po
-
  Email in your translation to the slapt-get-devel mailing list.  Your contributions
  are greatly appreciated.
 
@@ -672,6 +669,10 @@ Frequenty Asked Questions:
  No, EXCLUDE is only consulted for upgrading and dist-upgrading.  If you
  specify the package name as an argument to --install, slapt-get will 
  ignore the EXCLUDE list.
+
+ This does not apply to dependencies.  If a dependency of a specified package
+ is detected, it is checked against the EXCLUDE list.  If excluded, the 
+ dependency check for the specified package fails.  Override this with --no-dep.
 
 
 33. What about package conflicts?  How can I specify a conflict for my package?
