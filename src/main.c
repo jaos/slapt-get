@@ -54,6 +54,7 @@ int main( int argc, char *argv[] ){
 		{"print-uris",0, 0, 'P'},
 		{"show-stats",0, 0, 'S'},
 		{"S",0, 0, 'S'},
+		{"config",1, 0, 'C'},
 	};
 	int option_index = 0;
 	/* */
@@ -143,6 +144,13 @@ int main( int argc, char *argv[] ){
 				break;
 			case 'S': /* download-stats */
 				global_config->dl_stats = 1;
+				break;
+			case 'C': /* override rc location */
+				free_rc_config(global_config);
+				global_config = read_rc_config(optarg);
+				if( global_config == NULL ){
+					exit(1);
+				}
 				break;
 			default:
 				usage();
@@ -276,6 +284,7 @@ void usage(void){
 	printf("  --disable-dep-check - %s\n",_("skip dependency check"));
 	printf("  --print-uris        - %s\n",_("print URIs only, do not download"));
 	printf("  --show-stats|-S     - %s\n",_("show download statistics"));
+	printf("  --config []         - %s\n",_("specify alternate slapt-getrc location"));
 }
 
 void version_info(void){
