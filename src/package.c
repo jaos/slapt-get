@@ -115,7 +115,6 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 		] = '\0';
 
 		/* mirror */
-		tmp_pkg->mirror[0] = '\0';
 		f_pos = ftell(pkg_list_fh);
 		if(getline(&getline_buffer,&getline_len,pkg_list_fh) != EOF){
 
@@ -145,7 +144,6 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 		}
 
 		/* location */
-		tmp_pkg->location[0] = '\0';
 		if( (getline(&getline_buffer,&getline_len,pkg_list_fh) != EOF) ){
 
 			execute_regex(&location_regex,getline_buffer);
@@ -251,7 +249,6 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 		}
 
 		/* required, if provided */
-		tmp_pkg->required[0] = '\0';
 		f_pos = ftell(pkg_list_fh);
 		if(
 			((bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh)) != EOF) &&
@@ -284,7 +281,6 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 
 		/* conflicts, if provided */
 		f_pos = ftell(pkg_list_fh);
-		tmp_pkg->conflicts[0] = '\0';
 		if(
 			((bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh)) != EOF) &&
 			((char_pointer = strstr(getline_buffer,"PACKAGE CONFLICTS")) != NULL)
@@ -310,7 +306,6 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 
 		/* suggests, if provided */
 		f_pos = ftell(pkg_list_fh);
-		tmp_pkg->suggests[0] = '\0';
 		if(
 			((bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh)) != EOF) &&
 			((char_pointer = strstr(getline_buffer,"PACKAGE SUGGESTS")) != NULL)
@@ -326,7 +321,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 				tmp_realloc = realloc(tmp_pkg->suggests, sizeof *tmp_pkg->suggests * (strlen(suggests) + 1));
 				if( tmp_realloc != NULL ){
 					tmp_pkg->suggests = tmp_realloc;
-				strncat(tmp_pkg->suggests,suggests,strlen(suggests));
+					strncat(tmp_pkg->suggests,suggests,strlen(suggests));
 					tmp_pkg->suggests[ strlen(suggests) ] = '\0';
 				}
 		}else{
@@ -335,7 +330,6 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 		}
 	
 		/* md5 checksum */
-		tmp_pkg->md5[0] = '\0'; /* just in case the md5sum is empty */
 		f_pos = ftell(pkg_list_fh);
 		if(
 			((bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh)) != EOF) &&
@@ -359,7 +353,6 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 		}
 
 		/* description */
-		tmp_pkg->description[0] = '\0';
 		if(
 			(getline(&getline_buffer,&getline_len,pkg_list_fh) != EOF) &&
 			(strstr(getline_buffer,"PACKAGE DESCRIPTION") != NULL)
@@ -521,7 +514,6 @@ struct pkg_list *get_installed_pkgs(void){
 				free(size_u);
 			}else{
 				if(strstr(getline_buffer,"PACKAGE DESCRIPTION") != NULL){
-					tmp_pkg->description[0] = '\0';
 					while(1){
 						if((bytes_read = getline(&getline_buffer,&getline_len,pkg_f)) == EOF ) break;
 						if( strstr(getline_buffer,"FILE LIST:") != NULL ) break;
