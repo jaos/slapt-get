@@ -290,7 +290,7 @@ void usage(void){
 	printf("  --list         - %s\n",_("list available pkgs"));
 	printf("  --installed    - %s\n",_("list installed pkgs"));
 	printf("  --clean        - %s\n",_("purge cached pkgs"));
-	printf("  --autoclean    - %s\n",_("purge older versions of cached pkgs"));
+	printf("  --autoclean    - %s\n",_("only purge cache of older, unreacheable pkgs"));
 	printf("  --version      - %s\n",_("print version and license info"));
 	printf("\n");
 	printf(_("Options:\n"));

@@ -165,10 +165,10 @@ List available packages.
 List installed packages.
 .TP
 .B --clean
-Purge cached/downloaded packages from /var/slapt-get/.
+Purge cached/downloaded packages from WORKINGDIR (/var/slapt-get/ by default).
 .TP
 .B --autoclean
-Purge duplicate older versions of cached/downloaded packages from WORKINGDIR (/var/slapt-get/ by default).
+Like  clean, autoclean clears out the local repository of retrieved package files. The difference is that it only removes package files that can no longer be downloaded, and are largely useless. This allows a cache to be maintained over  a  long  period without  it  growing  out  of control.
 .TP
 .B --version
 Print version and license info.
