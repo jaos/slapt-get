@@ -68,6 +68,7 @@ clean:
 	-rm src/*.so
 	-rm include/slapt.h
 	-if [ -d pkg ]; then rm -rf pkg ;fi
+	-if [ -f libs ]; then rm -rf libs ;fi
 
 
 pkg: $(PROGRAM_NAME) dopkg
@@ -110,6 +111,7 @@ po_file:
 	-rm po/gettext_strings
 
 libs: $(OBJS)
+	touch libs
 	$(CC) -shared -o src/libslapt-$(VERSION).so $(LIBOBJS)
 	ar -r src/libslapt-$(VERSION).a src/configuration.o src/package.o src/curl.o src/transaction.o
 	cat include/main.h include/configuration.h include/package.h include/curl.h include/transaction.h |grep -v '#include \"' > include/slapt.h
