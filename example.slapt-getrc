@@ -16,15 +16,15 @@ EXCLUDE=kernel-.*,alsa-.*,lilo,.*-[0-9]dl$,devs
 #SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-8.1/
 #SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-9.0/
 #SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-9.1/
-SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-10.0/
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-current/
+#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-10.0/
+SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-current/
 
 # slapt source
 #SOURCE=http://software.jaos.org/slackpacks/8.1/
 #SOURCE=http://software.jaos.org/slackpacks/9.0/
 #SOURCE=http://software.jaos.org/slackpacks/9.1/
-SOURCE=http://software.jaos.org/slackpacks/10.0/
-#SOURCE=http://software.jaos.org/slackpacks/current/
+#SOURCE=http://software.jaos.org/slackpacks/10.0/
+SOURCE=http://software.jaos.org/slackpacks/current/
 
 # you can use multiple sources, such as linuxpackages.net
 # (not recommended on production servers, see README)

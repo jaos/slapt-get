@@ -184,7 +184,9 @@ slapt-get uses pkgtools for installing, upgrading, and removing.
 .TP
 slapt-get will not make assumptions or do things without you telling it to.
 .TP
-untested updates are risky, whether using official packages or third party packages.
+slapt-get can only attempt to resolve dependencies and conflicts for those packages that where built with this information.  Vanilla Slackware packages do not contain this data, thus slapt-get performs with --disable-dep-check on by default.
+.TP
+Untested updates are risky, whether using official packages or third party packages.
 .TP
 slapt-get will not change your system such that you can only use slapt-get or are somehow locked into using slapt-get.  The only additions to your system are /etc/slapt-get and /var/slapt-get.  You are free to try another solution or go back to manual upgradepkg.
 .TP
