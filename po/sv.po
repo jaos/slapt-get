@@ -1,0 +1,469 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2004
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <ypolt@lediga.st>, 2004.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.9.8g\n"
+"POT-Creation-Date: 2003-11-03 14:28+0000\n"
+"PO-Revision-Date: 2004-07-08 19:29+0500\n"
+"Last-Translator: Joel Bjurman <ypolt@lediga.st>\n"
+"Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Reading Package Lists... "
+msgstr "Läser paketlista... "
+
+msgid "Done\n"
+msgstr "Klart\n"
+
+#, c-format
+msgid "%s is up to date.\n"
+msgstr "%s är uppdaterad.\n"
+
+msgid "yes"
+msgstr "ja"
+
+msgid "no"
+msgstr "nej"
+
+#, c-format
+msgid "%s is not installed.\n"
+msgstr "%s är inte installerat.\n"
+
+#, c-format
+msgid "Package Name: %s\n"
+msgstr "Paketnamn: %s\n"
+
+#, c-format
+msgid "Package Mirror: %s\n"
+msgstr "Packetets spegel: %s\n"
+
+#, c-format
+msgid "Package Location: %s\n"
+msgstr "Paketets sökväg: %s\n"
+
+#, c-format
+msgid "Package Version: %s\n"
+msgstr "Paketversion: %s\n"
+
+#, c-format
+msgid "Package Size: %d K\n"
+msgstr "Paketets storlek: %d K\n"
+
+#, c-format
+msgid "Package Installed Size: %d K\n"
+msgstr "Paketets storlek efter installation: %d K\n"
+
+#, c-format
+msgid "Package Required: %s\n"
+msgstr "Paket som krävs: %s\n"
+
+msgid "Package Description:\n"
+msgstr "Paketets beskrivning:\n"
+
+#, c-format
+msgid "Package Installed: %s\n"
+msgstr "Paket installerat: %s\n"
+
+#, c-format
+msgid "No such package: %s\n"
+msgstr "Paketet finns inte: %s\n"
+
+#, c-format
+msgid "Retrieving package data [%s]..."
+msgstr "Tar emot paketinformation [%s]..."
+
+#, c-format
+msgid "Retrieving package data [%s]...\n"
+msgstr "Tar emot paketinformation [%s]...\n"
+
+#, c-format
+msgid "Retrieving extras list [%s]..."
+msgstr "Tar emot övrigt-lista [%s]..."
+
+#, c-format
+msgid "Retrieving extras list [%s]...\n"
+msgstr "Tar emot övrigt-lista [%s]...\n"
+
+#, c-format
+msgid "Retrieving patch list [%s]..."
+msgstr "Tar emot patch-lista [%s]..."
+
+#, c-format
+msgid "Retrieving patch list [%s]...\n"
+msgstr "Tar emot patch-lista [%s]...\n"
+
+#, c-format
+msgid "Retrieving checksum list [%s]..."
+msgstr "Tar emot lista för checksums [%s]..."
+
+#, c-format
+msgid "Retrieving checksum list [%s]...\n"
+msgstr "Tar emot lista för checksums [%s]...\n"
+
+#, c-format
+msgid "Failed to malloc %s\n"
+msgstr "Misslyckades med minnesallokering malloc %s\n"
+
+#, c-format
+msgid "Maximum number of sources (%d) exceeded.\n"
+msgstr "Maximalt antal källor (%d) överskridet.\n"
+
+#, c-format
+msgid "Maximum length of source (%d) exceeded.\n"
+msgstr "Maximal längd på källan (%d) överskridet.\n"
+
+#, c-format
+msgid "WORKINGDIR directive not set within %s.\n"
+msgstr "WORKINGDIR direktivet ej satt inom %s.\n"
+
+#, c-format
+msgid "SOURCE directive not set within %s.\n"
+msgstr "SOURCE direktivet ej satt inom %s.\n"
+
+#, c-format
+msgid "Failed to build working directory [%s]\n"
+msgstr "Misslyckades att skapa katalog [%s]\n"
+
+#, c-format
+msgid "Please update permissions on %s or run with appropriate privileges\n"
+msgstr "Var god ändra rättigheterna på %s eller byt till en användare som har rättigheter\n"
+
+#, c-format
+msgid "Failed to open %s\n"
+msgstr "Misslyckades att öppna %s\n"
+
+msgid "Perhaps you want to run --update?\n"
+msgstr "Du kanske vill köra --update?\n"
+
+#, c-format
+msgid "Failed to opendir %s\n"
+msgstr "Misslyckades att öppna katalog %s\n"
+
+#, c-format
+msgid "Failed to chdir: %s\n"
+msgstr "Misslyckades att byta till katalog: %s\n"
+
+#, c-format
+msgid "unlinking %s\n"
+msgstr "Bryter länk %s\n"
+
+msgid "Failed to get cwd\n"
+msgstr "Misslyckades att hämta nuvarande katalogsnamn\n"
+
+#, c-format
+msgid "\tCurrent working directory: %s\n"
+msgstr "\tNuvarande katalog är: %s\n"
+
+#, c-format
+msgid "Failed to mkdir: %s\n"
+msgstr "Misslyckades att skapa katalog: %s\n"
+
+#, c-format
+msgid "\tCreated directory: %s\n"
+msgstr "\tSkapade katalog: %s\n"
+
+#, c-format
+msgid "Failed to chdir to %s\n"
+msgstr "Misslyckades att byta katalog till %s\n"
+
+#, c-format
+msgid "\tchdir into %s\n"
+msgstr "\tbyter katalog till %s\n"
+
+#, c-format
+msgid "\tchdir back into %s\n"
+msgstr "\tbyter katalog tillbaka till %s\n"
+
+#, c-format
+msgid "Fetching url:[%s]\n"
+msgstr "Hämtar url:[%s]\n"
+
+#, c-format
+msgid "Failed to download: %s\n"
+msgstr "Misslyckades att ladda hem: %s\n"
+
+#, c-format
+msgid "Failed to calloc %s\n"
+msgstr "Misslyckades med minnesallokering calloc %s\n"
+
+#, c-format
+msgid "Downloading %s %s %s [%dK]..."
+msgstr "Laddar hem %s %s %s [%dK]..."
+
+#, c-format
+msgid "Downloading %s %s %s [%dK]...\n"
+msgstr "Laddar hem %s %s %s [%dK]...\n"
+
+#, c-format
+msgid "Failed to unlink %s\n"
+msgstr "Misslyckades att bryta länk %s\n"
+
+#, c-format
+msgid "md5 sum for %s is not correct, override with --no-md5!\n"
+msgstr "md5 summa för %s är felaktigt, överskrid med --no-md5!\n"
+
+#, c-format
+msgid "MD5 found:    [%s]\n"
+msgstr "MD5 funnen:    [%s]\n"
+
+#, c-format
+msgid "MD5 expected: [%s]\n"
+msgstr "MD5 förväntad: [%s]\n"
+
+#, c-format
+msgid "File: %s/%s\n"
+msgstr "Fil: %s/%s\n"
+
+msgid "An implementation of the Debian APT system to Slackware\n"
+msgstr "En implementation av Debian APT till Slackware\n"
+
+msgid "Usage:\n"
+msgstr "Tillvägagångssätt:\n"
+
+#, c-format
+msgid "%s [option(s)] [target]\n"
+msgstr "%s [alternativ] [mål]\n"
+
+msgid "Targets:\n"
+msgstr "Mål:\n"
+
+msgid "retrieves pkg data from MIRROR"
+msgstr "tar emot pkg data från spegel"
+
+msgid "upgrade installed pkgs"
+msgstr "uppgradera installerade paket"
+
+msgid "upgrade to newer release"
+msgstr "uppgradera till nyare version"
+
+msgid "[pkg name(s)] - install specified pkg(s)"
+msgstr "[paketnamn] - installera specificerade paket"
+
+msgid "[pkg name(s)] - remove specified pkg(s)"
+msgstr "[paketnamn] - ta bort specificerade paket"
+
+msgid "[pkg name] - show pkg description"
+msgstr "[paketnamn] - visa paketbeskrivning"
+
+msgid "[expression] - search available pkgs"
+msgstr "[sökord] - sök tillgängliga paket"
+
+msgid "list available pkgs"
+msgstr "lista tillgängliga paket"
+
+msgid "list installed pkgs"
+msgstr "lista installerade paket"
+
+msgid "purge cached pkgs"
+msgstr "ta bort cachade paket"
+
+msgid "print version and license info"
+msgstr "skriv versions och license information"
+
+msgid "Options:\n"
+msgstr "Alternativ:\n"
+
+msgid "only download pkg on install/upgrade"
+msgstr "ladda hem paket vid installation/uppgradering"
+
+msgid "show pkgs to be installed/upgraded"
+msgstr "visa paket att installera/uppgradera"
+
+msgid "do not prompt during install/upgrade"
+msgstr "fråga inget under installation/uppgradering"
+
+msgid "re-install the pkg"
+msgstr "installera om paketet"
+
+msgid "install/upgrade excludes"
+msgstr "installera/uppgradera exkluderingar"
+
+msgid "do not perform md5 check sum"
+msgstr "utför inte md5 check sum"
+
+msgid "ignore dependency failures"
+msgstr "ignorera beroendefel"
+
+#, c-format
+msgid "%s version %s\n"
+msgstr "%s version %s\n"
+
+#, c-format
+msgid "regex failed on [%s]\n"
+msgstr "regex misslyckades på [%s]\n"
+
+#, c-format
+msgid "pkg name too long [%s:%d]\n"
+msgstr "paketnamn för långt [%s:%d]\n"
+
+#, c-format
+msgid "pkg version too long [%s:%d]\n"
+msgstr "paketversion för långt [%s:%d]\n"
+
+#, c-format
+msgid "pkg mirror too long [%s:%d]\n"
+msgstr "paketspegel för långt [%s:%d]\n"
+
+#, c-format
+msgid "pkg location too long [%s:%d]\n"
+msgstr "sökväg till paket för långt [%s:%d]\n"
+
+msgid "regexec failed to parse location\n"
+msgstr "regexec misslyckade att tolka sökväg\n"
+
+msgid "getline reached EOF attempting to read location\n"
+msgstr "getline nådde EOF vid försök att läsa sökväg\n"
+
+msgid "regexec failed to parse size_c\n"
+msgstr "regexec misslyckade att tolka size_c\n"
+
+msgid "getline reached EOF attempting to read size_c\n"
+msgstr "getline nådde EOF vid försök att läsa size_c\n"
+
+msgid "regexec failed to parse size_u\n"
+msgstr "regexec misslyckades att tolka size_u\n"
+
+msgid "getline reached EOF attempting to read size_u\n"
+msgstr "getline nådde EOF vid försök att läsa size_u\n"
+
+msgid "error attempting to read pkg description\n"
+msgstr "Fel vid försök att läsa paketbeskrivning\n"
+
+#, c-format
+msgid "Failed to realloc %s\n"
+msgstr "Misslyckades att återallokera minne %s\n"
+
+msgid "Failed to compile regex\n"
+msgstr "Misslyckades att kompilera regex\n"
+
+#, c-format
+msgid "Regex Error: %s\n"
+msgstr "Regex Fel: %s\n"
+
+#, c-format
+msgid "%s-%s is to be installed\n"
+msgstr "%s-%s ska till att installeras\n"
+
+#, c-format
+msgid "Preparing to install %s-%s\n"
+msgstr "Förbereder installation av %s-%s\n"
+
+#, c-format
+msgid "Failed to execute command: [%s]\n"
+msgstr "Misslyckades av exekvera kommando: [%s]\n"
+
+#, c-format
+msgid "%s-%s is to be upgraded to version %s\n"
+msgstr "%s-%s ska till att uppgraderas till version %s\n"
+
+#, c-format
+msgid "Preparing to replace %s-%s with %s-%s\n"
+msgstr "Förbereder att ersätta %s-%s with %s-%s\n"
+
+#, c-format
+msgid "%s-%s is to be removed\n"
+msgstr "%s-%s ska tas bort\n"
+
+#, c-format
+msgid "Failed to compile regex [%s]\n"
+msgstr "Misslyckades att kompilera regex [%s]\n"
+
+#, c-format
+msgid "pkg conditional too long [%s:%d]\n"
+msgstr "paketvilkor för långt [%s:%d]\n"
+
+msgid "The following packages have unmet dependencies:\n"
+msgstr "Följande paket har icke bemötta krav på beroenden:\n"
+
+#, c-format
+msgid "  %s: Depends: %s\n"
+msgstr "  %s: Beroende: %s\n"
+
+msgid "The following packages have been EXCLUDED:\n"
+msgstr "Följande paket har blivit EXKLUDERADE:\n"
+
+msgid "The following NEW packages will be installed:\n"
+msgstr "Följande NYA paket kommer att bli installerade:\n"
+
+msgid "The following packages will be REMOVED:\n"
+msgstr "Följande paket kommer att tas BORT:\n"
+
+msgid "The following packages will be upgraded:\n"
+msgstr "Följande paket kommer att uppgraderas:\n"
+
+#, c-format
+msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
+msgstr "%d uppgraderade, %d nyinstallerade, %d att ta bort och %d icke uppgraderade.\n"
+
+#, c-format
+msgid "Need to get %dK of archives.\n"
+msgstr "Behöver få %dK av arkiven.\n"
+
+#, c-format
+msgid "Need to get %dK/%dK of archives.\n"
+msgstr "Behöver få %dK/%dK av arkiven.\n"
+
+#, c-format
+msgid "After unpacking %dK disk space will be freed.\n"
+msgstr "Efter uppackning kommer %dK diskutrymme att bli fritt.\n"
+
+#, c-format
+msgid "After unpacking %dK of additional disk space will be used.\n"
+msgstr "Efter uppackning kommer %dK ytterligare diskutrymme att användas.\n"
+
+msgid "Do you want to continue? [y/N] "
+msgstr "Vill du fortsätta? [j/N] "
+
+msgid "Abort.\n"
+msgstr "Avbryt.\n"
+
+#, c-format
+msgid "%s, which is to be installed, conflicts with %s\n"
+msgstr "%s, som skall till att installeras, krockar med %s\n"
+
+#, c-format
+msgid "Installed %s conflicts with %s\n"
+msgstr "Installerade %s krockar med %s\n"
+
+msgid "print URIs only, do not download"
+msgstr "skriv enbart URIs, ladda ej hem"
+
+#, c-format
+msgid "Package MD5 Sum:  %s\n"
+msgstr "Paketets MD5 Sum:  %s\n"
+
+#, c-format
+msgid "md5 sum too long [%s %s:%d]\n"
+msgstr "md5 sum för långt [%s %s:%d]\n"
+
+#, c-format
+msgid "conflict too long [%s:%d]\n"
+msgstr "Konflikt för lång [%s:%d]\n"
+
+msgid "Reading Package Lists..."
+msgstr "Läser paketlista..."
+
+#, c-format
+msgid "Download of %s incomplete\n"
+msgstr "Nedladdningen av %s är ej komplett\n"
+
+#, c-format
+msgid "Could not find MD5 checksum for %s, override with --no-md5\n"
+msgstr "Kunde inte hitta MD5 checksum för %s, överskrid med --no-md5\n"
+
+#, c-format
+msgid "%s, which is required by %s, is excluded\n"
+msgstr "%s, som krävs av %s, är exkluderat\n"
+
+msgid "skip dependency check"
+msgstr "skippa beroendekoll"
+
+msgid "show download statistics"
+msgstr "visa nedladdningsstatistik"
+
