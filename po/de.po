@@ -150,7 +150,7 @@ msgid "unlinking %s\n"
 msgstr "löse Verknüpfung %s\n"
 
 msgid "Failed to get cwd\n"
-msgstr "Konnte aktuelles Arbeitsverzeichnis nicht bestimmen."
+msgstr "Konnte aktuelles Arbeitsverzeichnis nicht bestimmen.\n"
 
 #, c-format
 msgid "\tCurrent working directory: %s\n"
@@ -162,7 +162,7 @@ msgstr "Konnte Verzeichnis nicht erstellen: %s\n"
 
 #, c-format
 msgid "\tCreated directory: %s\n"
-msgstr "\Verzeichnis erstellt: %s\n"
+msgstr "\tVerzeichnis erstellt: %s\n"
 
 #, c-format
 msgid "Failed to chdir to %s\n"
@@ -360,7 +360,7 @@ msgstr "%s-%s soll aktualisiert werden auf Version %s\n"
 
 #, c-format
 msgid "Preparing to replace %s-%s with %s-%s\n"
-msgstr "Bereite das Ersetzen von %s-%s mit %s-%s vor."
+msgstr "Bereite das Ersetzen von %s-%s mit %s-%s vor.\n"
 
 #, c-format
 msgid "%s-%s is to be removed\n"
@@ -399,7 +399,7 @@ msgstr "%d aktualisiert, %d neu installiert, %d zu entfernen und %d nicht aktual
 
 #, c-format
 msgid "Need to get %dK of archives.\n"
-msgstr "Es müssen noch %dK aus den Archiven geholt werden."
+msgstr "Es müssen noch %dK aus den Archiven geholt werden.\n"
 
 #, c-format
 msgid "Need to get %dK/%dK of archives.\n"
