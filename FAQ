@@ -505,7 +505,7 @@ Frequenty Asked Questions:
 
  Translations are needed.  GNU gettext is used to extract all translatable strings
  from the source.  Please look in the po/ directory of the slapt-get source, or in
- /usr/share/slapt-get/locales.  Copy the slapt-get.pot file to a new files named
+ /usr/share/slapt-get/locales.  Copy the slapt-get.pot file to a new file named
  with your native language abbreviation, ending in .po.  For example, to 
  translate to German,
 
