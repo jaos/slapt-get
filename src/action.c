@@ -270,9 +270,9 @@ void pkg_action_update(const rc_config *global_config){
 	checksum_list_fh = open_file(CHECKSUM_FILE,"w+");
 	for(i = 0; i < global_config->sources.count; i++){
 		#if USE_CURL_PROGRESS == 0
-		printf("Retrieving patch list [%s]...",global_config->sources.url[i]);
+		printf("Retrieving checksum list [%s]...",global_config->sources.url[i]);
 		#else
-		printf("Retrieving patch list [%s]...\n",global_config->sources.url[i]);
+		printf("Retrieving checksum list [%s]...\n",global_config->sources.url[i]);
 		#endif
 		if( get_mirror_data_from_source(checksum_list_fh,global_config->sources.url[i],CHECKSUM_FILE) == 0 ){
 			#if USE_CURL_PROGRESS == 0
