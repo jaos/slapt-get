@@ -1,5 +1,6 @@
 
 0.9.8g Jul 15, 2004
+ * updated documentation
  * added support for ftp source caching
  * translation updates
  * support for only downloading package data if newer than cached during --update
