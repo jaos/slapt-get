@@ -246,8 +246,9 @@ int main( int argc, char *argv[] ){
 		chdir(global_config->working_dir);
 	}else if( do_action == SHOWVERSION ){
 		version_info();
-	}else if( do_action == 0 ){
-		/* default initialized value */
+	}else if( do_action == 0 ){ /* default initialized value */
+		usage();
+		exit(1);
 	}else{
 		usage();
 		exit(1);
