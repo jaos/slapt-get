@@ -1,0 +1,481 @@
+﻿# Αρχείο Ελληνικών για το Slapt-Get.
+# Copyright (C) 2004
+# This file is distributed under the same license as the PACKAGE package.
+# Savvas Efstratiadis, 2004.
+
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.9.9a\n"
+"POT-Creation-Date: 2003-11-03 14:28+0000\n"
+"PO-Revision-Date: 2004-09-11 13:58+0200\n"
+"Last-Translator: Savvas Eftratiadis <pigouinos@mailworks.org.\n"
+"Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-7\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Reading Package Lists... "
+msgstr "Ανάγνωση Λίστας Πακέτων... "
+
+msgid "Done\n"
+msgstr "Ολοκληρώθηκε\n"
+
+#, c-format
+msgid "%s is up to date.\n"
+msgstr "Η τελευταία έκδοση του πακέτου %s είναι ήδη εγκατεστημένη.\n"
+
+msgid "yes"
+msgstr "ναί"
+
+msgid "no"
+msgstr "όχι"
+
+#, c-format
+msgid "%s is not installed.\n"
+msgstr "Το πακέτο %s δέν έχει εγκατασταθεί.\n"
+
+#, c-format
+msgid "Package Name: %s\n"
+msgstr "Όνομα Πακέτου: %s\n"
+
+#, c-format
+msgid "Package Mirror: %s\n"
+msgstr "Mirror Πακέτου: %s\n"
+
+#, c-format
+msgid "Package Location: %s\n"
+msgstr "Τοποθεσία Πακέτου: %s\n"
+
+#, c-format
+msgid "Package Version: %s\n"
+msgstr "Έκδοση Πακέτου: %s\n"
+
+#, c-format
+msgid "Package Size: %d K\n"
+msgstr "Μέγεθος Πακέτου: %d K\n"
+
+#, c-format
+msgid "Package Installed Size: %d K\n"
+msgstr "Εκγατεστημένο Μέγεθος Πακέτου: %d K\n"
+
+#, c-format
+msgid "Package Required: %s\n"
+msgstr "Απαιτούμενο Πακέτο: %s\n"
+
+msgid "Package Description:\n"
+msgstr "Περιγραφή Πακέτου:\n"
+
+#, c-format
+msgid "Package Installed: %s\n"
+msgstr "Εγκατεστημένο Πακέτο: %s\n"
+
+#, c-format
+msgid "No such package: %s\n"
+msgstr "Το πακέτο δέν βρέθηκε: %s\n"
+
+#, c-format
+msgid "Retrieving package data [%s]..."
+msgstr "Ανάκτηση δεδομένων πακέτου [%s]..."
+
+#, c-format
+msgid "Retrieving package data [%s]...\n"
+msgstr "Ανάκτηση δεδομένων πακέτου [%s]...\n"
+
+#, c-format
+msgid "Retrieving extras list [%s]..."
+msgstr "Ανάκτηση λίστας extras[%s]..."
+
+#, c-format
+msgid "Retrieving extras list [%s]...\n"
+msgstr "Ανάκτηση λίστας extras [%s]...\n"
+
+#, c-format
+msgid "Retrieving patch list [%s]..."
+msgstr "Ανάκτηση λίστας patch[%s]..."
+
+#, c-format
+msgid "Retrieving patch list [%s]...\n"
+msgstr "Ανάκτηση λίστας patch [%s]...\n"
+
+#, c-format
+msgid "Retrieving checksum list [%s]..."
+msgstr "Ανάκτηση λίστας checksum [%s]..."
+
+#, c-format
+msgid "Failed to malloc %s\n"
+msgstr "Αποτυχία malloc %s\n"
+
+#, c-format
+msgid "Maximum number of sources (%d) exceeded.\n"
+msgstr "Ο μέγιστος αριθμός πηγών (%d) ξεπεράστηκε.\n"
+
+#, c-format
+msgid "Maximum length of source (%d) exceeded.\n"
+msgstr "Το μέγιστο μήκος πηγής (%d) ξεπεράστηκε.\n"
+
+#, c-format
+msgid "WORKINGDIR directive not set within %s.\n"
+msgstr "Το WORKINGDIR δέν έχει οριστεί στο %s.\n"
+
+#, c-format
+msgid "SOURCE directive not set within %s.\n"
+msgstr "Το SOURCE δέν έχει οριστεί στο %s.\n"
+
+#, c-format
+msgid "Failed to build working directory [%s]\n"
+msgstr "Αποτυχία δημιουργίας φακέλου εργασίας [%s]\n"
+
+#, c-format
+msgid "Please update permissions on %s or run with appropriate privileges\n"
+msgstr "Παρακαλώ αναβαθμίστε τα δικαιώματα στο %s ή εκτελέστε με τα απαραίτητα δικαιώματα\n"
+
+#, c-format
+msgid "Failed to open %s\n"
+msgstr "Αποτυχία open %s\n"
+
+msgid "Perhaps you want to run --update?\n"
+msgstr "Πιθανών να θέλετε να εκτελεσετε --update?\n"
+
+#, c-format
+msgid "Failed to opendir %s\n"
+msgstr "Αποτυχία opendir %s\n"
+
+#, c-format
+msgid "Failed to chdir: %s\n"
+msgstr "Αποτυχία chdir: %s\n"
+
+#, c-format
+msgid "unlinking %s\n"
+msgstr "unlinking %s\n"
+
+msgid "Failed to get cwd\n"
+msgstr "Αποτυχία λήψης cwd\n"
+
+#, c-format
+msgid "\tCurrent working directory: %s\n"
+msgstr "\tΤρέχων φάκελος εργασίας: %s\n"
+
+#, c-format
+msgid "Failed to mkdir: %s\n"
+msgstr "Αποτυχία mkdir: %s\n"
+
+#, c-format
+msgid "\tCreated directory: %s\n"
+msgstr "\tΔημιουργήθηκε ο φάκελος: %s\n"
+
+#, c-format
+msgid "Failed to chdir to %s\n"
+msgstr "Αποτυχία chdir στο %s\n"
+
+#, c-format
+msgid "\tchdir into %s\n"
+msgstr "\tchdir sto %s\n"
+
+#, c-format
+msgid "\tchdir back into %s\n"
+msgstr "\tchdir πίσω στο %s\n"
+
+#, c-format
+msgid "Fetching url:[%s]\n"
+msgstr "Λήψη url:[%s]\n"
+
+#, c-format
+msgid "Failed to download: %s\n"
+msgstr "Αποτυχία download: %s\n"
+
+#, c-format
+msgid "Failed to calloc %s\n"
+msgstr "Αποτυχία calloc %s\n"
+
+#, c-format
+msgid "Downloading %s %s %s [%dK]..."
+msgstr "Downloading %s %s %s [%dK]..."
+
+#, c-format
+msgid "Downloading %s %s %s [%dK]...\n"
+msgstr "Downloading %s %s %s [%dK]...\n"
+
+#, c-format
+msgid "Failed to unlink %s\n"
+msgstr "Αποτυχία unlink %s\n"
+
+#, c-format
+msgid "md5 sum for %s is not correct, override with --no-md5!\n"
+msgstr "Το άθροισμα md5 για το %s δέν είναι σωστό, παρακάμψτε με --no-md5!\n"
+
+#, c-format
+msgid "MD5 found:    [%s]\n"
+msgstr "Βρέθηκε MD5:    [%s]\n"
+
+#, c-format
+msgid "MD5 expected: [%s]\n"
+msgstr "Αναμενόμενο MD5: [%s]\n"
+
+#, c-format
+msgid "File: %s/%s\n"
+msgstr "Αρχείο: %s/%s\n"
+
+msgid "An implementation of the Debian APT system to Slackware\n"
+msgstr "Μία υλοποίηση του συστήματος Debian APT στο Slackware\n"
+
+msgid "Usage:\n"
+msgstr "Χρήση:\n"
+
+#, c-format
+msgid "%s [option(s)] [target]\n"
+msgstr "%s [επιλογή(ές)] [προορισμός]\n"
+
+msgid "Targets:\n"
+msgstr "Προορισμοί:\n"
+
+msgid "retrieves pkg data from MIRROR"
+msgstr "ανάκτηση δεδομένων πακέτου απο το MIRROR"
+
+msgid "upgrade installed pkgs"
+msgstr "αναβάθμιση εγκατεστημένων πακέτων"
+
+msgid "upgrade to newer release"
+msgstr "αναβάθμιση σε νεότερη έκδοση"
+
+msgid "[pkg name(s)] - install specified pkg(s)"
+msgstr "[pkg όνομα(τα)] - εκγατάσταση επιλεγμένου(νων) πακέτου(ων)"
+
+msgid "[pkg name(s)] - remove specified pkg(s)"
+msgstr "[pkg  όνομα(τα)] - απεκγατάσταση επιλεγμένου(νων) πακέτου(ων)"
+
+msgid "[pkg name] - show pkg description"
+msgstr "[pkg όνομα] - προβολή περιγραφής πακέτου"
+
+msgid "[expression] - search available pkgs"
+msgstr "[expression] - αναζήτηση διαθέσιμων πακέτων"
+
+msgid "list available pkgs"
+msgstr "λίστα διαθέσιμων πακέτων"
+
+msgid "list installed pkgs"
+msgstr "λίστα εγκατεστημένων πακέτων"
+
+msgid "purge cached pkgs"
+msgstr "καθαρισμός προσωρινώς αποθηκευμένων πακέτων"
+
+msgid "print version and license info"
+msgstr "εκτύπωση έκδοσης και πληροφοριών άδειας χρήσης"
+
+msgid "Options:\n"
+msgstr "Επιλογές:\n"
+
+msgid "only download pkg on install/upgrade"
+msgstr "download πακέτου μόνο για εγκατάσταση/αναβάθμιση"
+
+msgid "show pkgs to be installed/upgraded"
+msgstr "προβολή πακέτων που πρόκειται να εγκατασταθούν"
+
+msgid "do not prompt during install/upgrade"
+msgstr "χωρίς prompt κατα την εγκατάσταση/αναβάθμιση"
+
+msgid "re-install the pkg"
+msgstr "επανεγκατάσταση πακέτου"
+
+msgid "install/upgrade excludes"
+msgstr "εξαιρέσεις εγκατάστασης/αναβάθμισης"
+
+msgid "do not perform md5 check sum"
+msgstr "να μήν γίνει έλεγχος md5"
+
+msgid "ignore dependency failures"
+msgstr "παράβλεψη αποτυχιών απαιτούμενων πακέτων"
+
+#, c-format
+msgid "%s version %s\n"
+msgstr "%s έκδοση %s\n"
+
+#, c-format
+msgid "regex failed on [%s]\n"
+msgstr "Αποτυχία regex στο [%s]\n"
+
+#, c-format
+msgid "pkg name too long [%s:%d]\n"
+msgstr "μεγάλο μήκος ονόματος πακέτου [%s:%d]\n"
+
+#, c-format
+msgid "pkg version too long [%s:%d]\n"
+msgstr "μεγάλο μήκος έκδοσης πακέτου [%s:%d]\n"
+
+#, c-format
+msgid "pkg mirror too long [%s:%d]\n"
+msgstr "μεγάλο μήκος mirror πακέτου [%s:%d]\n"
+
+#, c-format
+msgid "pkg location too long [%s:%d]\n"
+msgstr "μεγάλο μήκος τοποθεσίας πακέτου [%s:%d]\n"
+
+msgid "regexec failed to parse location\n"
+msgstr "αποτυχία regexec ανάλυσης τοποθεσίας"
+
+msgid "getline reached EOF attempting to read location\n"
+msgstr "το getline συνάντησε EOF κατα την ανάγνωση της τοποθεσίας"
+
+msgid "regexec failed to parse size_c\n"
+msgstr "αποτυχία regexec ανάλυσης size_c\n"
+
+msgid "getline reached EOF attempting to read size_c\n"
+msgstr "το getline συνάντησε EOF κατα την ανάγνωση του size_c\n"
+
+msgid "regexec failed to parse size_u\n"
+msgstr "αποτυχία regexec ανάλυσης size_u\n"
+
+msgid "getline reached EOF attempting to read size_u\n"
+msgstr "το getline συνάντησε EOF κατα την ανάγνωση του size_u\n"
+
+msgid "error attempting to read pkg description\n"
+msgstr "σφάλμα κατα την ανάγνωση της περιγραφής του πακέτου\n"
+
+#, c-format
+msgid "Failed to realloc %s\n"
+msgstr "Αποτυχία realloc %s\n"
+
+msgid "Failed to compile regex\n"
+msgstr "Αποτυχία κατα το compile του regex\n"
+
+#, c-format
+msgid "Regex Error: %s\n"
+msgstr "Σφάλμα Regex: %s\n"
+
+#, c-format
+msgid "%s-%s is to be installed\n"
+msgstr "Το %s-%s πρόκειται να εγκατασταθεί\n"
+
+#, c-format
+msgid "Preparing to install %s-%s\n"
+msgstr "Προετοιμασία εγκατάστασης του %s-%s\n"
+
+#, c-format
+msgid "Failed to execute command: [%s]\n"
+msgstr "Αποτυχία εκτέλεσης εντολής: [%s]\n"
+
+#, c-format
+msgid "%s-%s is to be upgraded to version %s\n"
+msgstr "Το %s-%s πρόκειται να αναβαθμιστεί στην έκδοση %s\n"
+
+#, c-format
+msgid "Preparing to replace %s-%s with %s-%s\n"
+msgstr "Προετοιμασία αντικατάστασης του %s-%s με το %s-%s\n"
+
+#, c-format
+msgid "%s-%s is to be removed\n"
+msgstr "Το %s-%s πρόκειται να απεγκατασταθεί\n"
+
+#, c-format
+msgid "Failed to compile regex [%s]\n"
+msgstr "Αποτυχία κατα το compile του regex [%s]\n"
+
+#, c-format
+msgid "pkg conditional too long [%s:%d]\n"
+msgstr "μεγάλο μήκος στοιχείων πακέτου [%s:%d]\n"
+
+msgid "The following packages have unmet dependencies:\n"
+msgstr "Τα παρακάτω πακέτα έχουν ελλείψεις σε απαιτούμενα πακέτα:\n"
+
+#, c-format
+msgid "  %s: Depends: %s\n"
+msgstr "  Το %s: απαιτεί το: %s\n"
+
+msgid "The following packages have been EXCLUDED:\n"
+msgstr "Τα παρακάτω πακέτα έχουν ΕΞΕΡΑΙΘΕΙ:\n"
+
+msgid "The following NEW packages will be installed:\n"
+msgstr "Τα παρακάτω ΝΕΑ πακέτα πρόκειται να εγκατασταθούν:\n"
+
+msgid "The following packages will be REMOVED:\n"
+msgstr "Τα παρακάτω πακέτα πρόκειται να ΑΠΕΓΚΑΤΑΣΤΑΘΟΥΝ:\n"
+
+msgid "The following packages will be upgraded:\n"
+msgstr "Τα παρακάτω πακέτα πρόκειται να αναβαθμιστούν:\n"
+
+#, c-format
+msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
+msgstr "%d αναβαθμισμένα, %d νεοεγκαταστημένα, %d προς απεγκατάσταση και %d δέν αναβαθμίστηκαν.\n"
+
+#, c-format
+msgid "Need to get %dK of archives.\n"
+msgstr "Χρειάζεται να ανακτηθούν %dK αρχείων.\n"
+
+#, c-format
+msgid "Need to get %dK/%dK of archives.\n"
+msgstr "Χρειάζεται να ανακτηθούν %dK/%dK αρχείων.\n"
+
+#, c-format
+msgid "After unpacking %dK disk space will be freed.\n"
+msgstr "Μετά το άνοιγμα του πακέτου θα ελευθερωθούν %dK στο δίσκο.\n"
+
+#, c-format
+msgid "After unpacking %dK of additional disk space will be used.\n"
+msgstr "Μετά το άνοιγμα του πακέτου θα χρησιμοποιηθούν %dK στο δίσκο.\n"
+
+msgid "Do you want to continue? [y/N] "
+msgstr "Θέλεις να συνεχίσεις? [y/N] "
+
+msgid "Abort.\n"
+msgstr "Διακοπή.\n"
+
+#, c-format
+msgid "%s, which is to be installed, conflicts with %s\n"
+msgstr "To %s, το οποίο πρόκειται να εγκατασταθεί συγκρούεται με το %s\n"
+
+#, c-format
+msgid "Installed %s conflicts with %s\n"
+msgstr "Το εγκατεστημένο %s συγκρούεται με το %s\n"
+
+msgid "print URIs only, do not download"
+msgstr "Εκτύπωση μόνο των URIs, χωρίς download"
+
+#, c-format
+msgid "Package MD5 Sum:  %s\n"
+msgstr "Άθροισμα MD5 του πακέτου:  %s\n"
+
+#, c-format
+msgid "md5 sum too long [%s %s:%d]\n"
+msgstr "Μεγάλο μήκος αθροίσματος md5 [%s %s:%d]\n"
+
+#, c-format
+msgid "conflict too long [%s:%d]\n"
+msgstr "Μεγάλου μήκους συγκρουση  [%s:%d]\n"
+
+msgid "Reading Package Lists..."
+msgstr "Ανάγνωση Λίστας Πακέτων..."
+
+#, c-format
+msgid "Download of %s incomplete\n"
+msgstr "Το download του %s είναι ημιτελές\n"
+
+#, c-format
+msgid "Could not find MD5 checksum for %s, override with --no-md5\n"
+msgstr "Το άθροισμα md5 για το %s δέν βρέθηκε, παρακάμψτε με --no-md5\n"
+
+#, c-format
+msgid "%s, which is required by %s, is excluded\n"
+msgstr "το %s, που απαιτείται απο το %s, έχει εξαιρεθεί\n"
+
+msgid "skip dependency check"
+msgstr "παράλειψη ελέγχου απαιτούμενων πακέτων"
+
+msgid "show download statistics"
+msgstr "προβολή στατιστικών download"
+
+msgid "Cached\n"
+msgstr "Προσωρινά αποθηκευμένα"
+
+msgid "Sources failed to download, correct sources and rerun --update\n"
+msgstr "Αποτυχία πηγών για download, διορθώστε τις πηγές και επανεκτελέστε --update\n"
+
+msgid "specify alternate slapt-getrc location"
+msgstr "προσδιορίστε εναλλακτική τοποθεσία slapt-getrc"
+
+msgid "Suggested packages:\n"
+msgstr "Προτεινόμενα πακέτα:\n"
+
+msgid "Maximum length of working directory (%d) exceeded.\n"
+msgstr "Το μέγιστο μήκος του φακέλου εργασίας (%d) ξεπεράστηκε.\n"
+
+msgid "Maximum length of excludes (%d) exceeded.\n"
+msgstr "Το μέγιστο μήκος των εξαιρέσεων (%d) ξεπεράστηκε.\n"
