@@ -48,10 +48,6 @@ FILE *download_pkg_list(const rc_config *global_config){
 	char *url = NULL;
 
 	fh = open_file(PKG_LIST_L,"w+");
-	if( fh == NULL ){
-		fprintf(stderr,"Failed to open package list target\n");
-		exit(1);
-	}
 
 #if USE_CURL_PROGRESS == 0
 	printf("Retrieving package data...");
@@ -84,10 +80,6 @@ FILE *download_patches_list(const rc_config *global_config){
 	char *url = NULL;
 
 	fh = open_file(PATCHES_LIST_L,"w+");
-	if( fh == NULL ){
-		fprintf(stderr,"Failed to open patch list target\n");
-		exit(1);
-	}
 
 #if USE_CURL_PROGRESS == 0
 	printf("Retrieving patch list...");
