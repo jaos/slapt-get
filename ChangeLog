@@ -1,5 +1,5 @@
 
-0.9.7d Nov 17, 2003
+0.9.7d Nov 18, 2003
  * documentation updates
  * added Brazilian Portuguese translation by Arnaldo de Moraes Pereira <arnaldo at sp-dhn dot com dot br>
  * fixed bug when installing package, comparing wrong package structure for version check (thanks Jim)
@@ -7,6 +7,7 @@
  * Makefile updates (libslapt fix)
  * initialized list->excludes in parse_excludes (libslapt fix)
  * added get_pkg_by_details function
+ * added remove_from_transaction function
 
 0.9.7c Nov 13, 2003
  * updated Polish translation
