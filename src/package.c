@@ -290,7 +290,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 				size_t req_len = strlen("PACKAGE REQUIRED") + 2;
 				getline_buffer[bytes_read - 1] = '\0';
 				strncpy(tmp_pkg->required,char_pointer + req_len, strlen(char_pointer + req_len));
-				tmp_pkg->required[ strlen(tmp_pkg->required) ] = '\0';
+				tmp_pkg->required[ strlen(char_pointer + req_len) ] = '\0';
 		}else{
 			/* required isn't provided... rewind one line */
 			fseek(pkg_list_fh, (ftell(pkg_list_fh) - f_pos) * -1, SEEK_CUR);
