@@ -53,6 +53,9 @@ slapt-get \- frontend to pkgtools
 [
 .B --config []
 ]
+[
+.B --remove-obsolete
+]
 .LP
 .B targets:
 [
@@ -134,6 +137,9 @@ Show the download statistics
 .TP
 .B --config []
 Specify file location of slapt-get configuration.  This overrides the default location, /etc/slapt-get/slapt-getrc.
+.TP
+.B --remove-obsolete
+Remove installed packages that are no longer available.  This works for dist-upgrade only.  This removes packages that are no longer available from any current package sources, but are currently installed.  Be careful as this will also remove custom built packages.  
 .SH TARGETS
 .TP
 .B --update

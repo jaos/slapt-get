@@ -488,3 +488,6 @@ msgstr "only purge cache of older, unreacheable pkgs"
 msgid "required too long [%s:%d]\n"
 msgstr "required too long [%s:%d]\n"
 
+msgid "remove obsolete packages (dist-upgrade only)"
+msgstr "remove obsolete packages (dist-upgrade only)"
+

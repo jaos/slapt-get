@@ -50,6 +50,7 @@ rc_config *read_rc_config(const char *file_name){
 	global_config->re_install = 0;
 	global_config->exclude_list = NULL;
 	global_config->working_dir[0] = '\0';
+	global_config->remove_obsolete = 0;
 
 	rc = open_file(file_name,"r");
 	if( rc == NULL ) exit(1);

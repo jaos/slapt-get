@@ -48,6 +48,7 @@ typedef struct {
 	int disable_dep_check;
 	int print_uris;
 	int dl_stats;
+	int remove_obsolete;
 } rc_config;
 
 rc_config *read_rc_config(const char *file_name);

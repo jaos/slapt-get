@@ -490,3 +490,6 @@ msgstr "vyèisti pouze cache starých, nedostupnách balíkù"
 msgid "required too long [%s:%d]\n"
 msgstr "required pøíli¹ dlouhá [%s:%d]\n"
 
+msgid "remove obsolete packages (dist-upgrade only)"
+msgstr ""
+

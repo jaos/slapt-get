@@ -473,6 +473,35 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 		/* free_pkg_list(matches); */
 		free(matches->pkgs);
 		free(matches);
+
+		/* remove obsolete packages if prompted to */
+		if( global_config->remove_obsolete == 1 ){
+			int r;
+
+			for(r = 0; r < installed_pkgs->pkg_count; r++){
+
+				/* if we can't find the installed package in our available pkg list, it must be obsolete */
+				if( get_newest_pkg(avail_pkgs,installed_pkgs->pkgs[r]->name) == NULL ){
+						struct	pkg_list *deps;
+						int 		c;
+						/*
+							any packages that require this package we are about to remove should be
+							scheduled to remove as well
+						*/
+						deps = is_required_by(global_config,avail_pkgs,installed_pkgs->pkgs[r]);
+						for(c = 0; c < deps->pkg_count; c++ ){
+							if( get_newest_pkg(installed_pkgs,deps->pkgs[c]->name) != NULL )
+								add_remove_to_transaction(&tran,deps->pkgs[c]);
+						}
+						free(deps->pkgs);
+						free(deps);
+						add_remove_to_transaction(&tran,installed_pkgs->pkgs[r]);
+				}
+
+			}
+
+		}/* end if remove_obsolete */
+
 	}
 
 	for(i = 0; i < installed_pkgs->pkg_count;i++){

@@ -58,6 +58,7 @@ int main( int argc, char *argv[] ){
 		{"S",0, 0, SHOW_STATS_OPT},
 		{"config",1, 0, CONFIG_OPT},
 		{"autoclean", 0, 0, AUTOCLEAN_OPT},
+		{"remove-obsolete", 0, 0, OBSOLETE_OPT},
 		{0, 0, 0, 0},
 	};
 
@@ -171,6 +172,9 @@ int main( int argc, char *argv[] ){
 				break;
 			case AUTOCLEAN_OPT: /* clean old old package versions */
 				do_action = AUTOCLEAN;
+				break;
+			case OBSOLETE_OPT: /* remove obsolete packages */
+				global_config->remove_obsolete = 1;
 				break;
 			default:
 				usage();
@@ -305,6 +309,7 @@ void usage(void){
 	printf("  --print-uris        - %s\n",_("print URIs only, do not download"));
 	printf("  --show-stats|-S     - %s\n",_("show download statistics"));
 	printf("  --config []         - %s\n",_("specify alternate slapt-getrc location"));
+	printf("  --remove-obsolete   - %s\n",_("remove obsolete packages (dist-upgrade only)"));
 }
 
 void version_info(void){

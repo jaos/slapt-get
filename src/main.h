@@ -71,6 +71,7 @@ enum action {
 #define SHOW_STATS_OPT 'S'
 #define CONFIG_OPT 'C'
 #define AUTOCLEAN_OPT 'a'
+#define OBSOLETE_OPT 'O'
 
 #define DEBUG 0
 #define DO_NOT_UNLINK_BAD_FILES 1

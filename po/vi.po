@@ -491,3 +491,6 @@ msgstr "chỉ xoá những gói phần mềm cũ, không đọc được"
 msgid "required too long [%s:%d]\n"
 msgstr "yêu cầu quá dài [%s:%d]\n"
 
+msgid "remove obsolete packages (dist-upgrade only)"
+msgstr ""
+

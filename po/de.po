@@ -490,3 +490,6 @@ msgstr "nur alte, nicht mehr verfügbare Pakete aus Zwischenspeicher entfernen"
 msgid "required too long [%s:%d]\n"
 msgstr "required zu lang [ %s:%d]\n"
 
+msgid "remove obsolete packages (dist-upgrade only)"
+msgstr ""
+
