@@ -1,5 +1,7 @@
 
 0.9.8e May 28, 2004
+ * only show download statistics if we are going to download something, not for
+   removes only
  * updated handle_transaction so that the size reported for existing
    downloaded data is never below zero
  * fixed translation msgid for checksum mismatch

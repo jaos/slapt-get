@@ -103,10 +103,8 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 		tran->exclude_pkgs->pkg_count
 	);
 
-	/* only show this if we are going to do something */
-	if( tran->upgrade_pkgs->pkg_count > 0 || tran->remove_pkgs->pkg_count > 0
-	|| tran->install_pkgs->pkg_count > 0 ){
-
+	/* only show this if we are going to do download something */
+	if( tran->upgrade_pkgs->pkg_count > 0 || tran->install_pkgs->pkg_count > 0 ){
 		/* how much we need to download */
 		int need_to_download_size = download_size - already_download_size;
 		/* make sure it's not negative due to changing pkg sizes on upgrades */
@@ -119,6 +117,10 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 		}else{
 			printf(_("Need to get %dK of archives.\n"), download_size );
 		}
+	}
+
+	if( tran->upgrade_pkgs->pkg_count > 0 || tran->remove_pkgs->pkg_count > 0
+	|| tran->install_pkgs->pkg_count > 0 ){
 
 		if( global_config->download_only == 0 ){
 			if( (int)uncompressed_size < 0 ){
