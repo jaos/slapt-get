@@ -12,7 +12,7 @@ Frequenty Asked Questions:
 9.  Can I "dist-upgrade" to a newer Slackware release?
 10. What about package dependencies?
 11. What about multiple package sources, ala linuxpackages.net?
-12. I don't like the download spinner, how can I get more statistics?
+12. How can I get more detailed statistics for downloads?
 13. How can I install every available package?
 14. What if I only want to upgrade one package?
 15. What about Dropline support?
@@ -241,7 +241,7 @@ Frequenty Asked Questions:
  /etc/slapt-getrc.new if you installed via slackpack. See also README.
 
 
-12. I don't like the download spinner, how can I get more statistics?
+12. How can I get more detailed statistics for downloads?
 
  If you would like more notification on downloading pkgs/files, use the 
  command line option --show-stats (or -S).  This will show curl style
