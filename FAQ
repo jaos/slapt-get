@@ -301,6 +301,9 @@ Frequenty Asked Questions:
 		    echo "File not found: $1"
 		    exit 1;
 	    fi
+			if [ "`echo $pkg|grep -E '([a-zA-Z0-9\\+_\\-]+)-([a-zA-Z0-9._\\-]+).tgz$'`" == "" ]; then
+				return;
+			fi
 	    NAME=$(echo $1|sed -re "s/([a-zA-Z0-9\/\.\-\+]+\/)(.*.tgz)$/\2/")
 	    LOCATION=$(echo $1|sed -re "s/([a-zA-Z0-9\/\.\-\+]+\/)(.*.tgz)$/\1/")
 	    SIZE=$( expr `gunzip -l $1 |tail -1|awk '{print $1}'` / 1024 )
