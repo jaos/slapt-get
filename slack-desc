@@ -12,7 +12,7 @@ slapt-get: It allows one to search slackware mirrors and third party sources
 slapt-get: for packages, compare them with installed packages, install new
 slapt-get: packages, or upgrade all installed packages.
 slapt-get:
-slapt-get: See /usr/doc/slapt-get-0.9.8/ for complete documentation. 
+slapt-get: See /usr/doc/slapt-get-0.9.8a/ for complete documentation. 
 slapt-get:
 slapt-get: Please translate
 slapt-get: http://software.jaos.org/BUILD/slapt-get/po/slapt-get.pot
