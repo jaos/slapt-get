@@ -119,6 +119,7 @@ po_file:
 	-xgettext -d slapt-get -o po/slapt-get.pot -a -C --no-location po/gettext_strings
 	-rm po/gettext_strings
 
+libs: CFLAGS += -fpic #change to -fPIC for amd64
 libs: $(OBJS)
 	touch libs
 	$(CC) -shared -o src/libslapt-$(VERSION).so $(LIBOBJS)

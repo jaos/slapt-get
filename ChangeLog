@@ -1,5 +1,6 @@
 
 0.9.9j Apr 01, 2005
+ * use -fpic for library creation
  * updated withlibslapt make target 
  * added generate_suggestions() so that suggestions are properly detected
    after transaction has been created instead of checking multiple times
