@@ -75,7 +75,7 @@ int main( int argc, char *argv[] ){
 				if( optarg != NULL ){
 					jaospkg_remove( optarg );
 					for(;optind < argc;optind++){
-						jaospkg_install( global_config, argv[optind] );
+						jaospkg_remove( argv[optind] );
 					}
 				}else{
 					usage();
