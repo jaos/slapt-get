@@ -18,7 +18,7 @@
 
 #include <main.h>
 
-int download_data(FILE *fh,const char *url){
+int download_data(FILE *fh,const char *url,size_t bytes){
 	CURL *ch = NULL;
 	CURLcode response;
 	char curl_err_buff[1024];
@@ -37,6 +37,12 @@ int download_data(FILE *fh,const char *url){
 	curl_easy_setopt(ch, CURLOPT_PROGRESSFUNCTION, progress_callback );
 #endif
 	curl_easy_setopt(ch, CURLOPT_ERRORBUFFER, curl_err_buff );
+
+	/* resume */
+	if( bytes > 0 ){
+		fseek(fh,0,SEEK_END);
+		curl_easy_setopt(ch, CURLOPT_RESUME_FROM, bytes);
+	}
 
 	if( (response = curl_easy_perform(ch)) != 0 ){
 		fprintf(stderr,_("Failed to download: %s\n"),curl_err_buff);
@@ -118,7 +124,7 @@ int get_mirror_data_from_source(FILE *fh,const char *base_url,const char *filena
 	strncpy(url,base_url,strlen(base_url) );
 	url[ strlen(base_url) ] = '\0';
 	strncat(url,filename,strlen(filename) );
-	return_code = download_data(fh,url);
+	return_code = download_data(fh,url,0);
 
 	free(url);
 	/* make sure we are back at the front of the file */
@@ -132,11 +138,11 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	FILE *fh_test = NULL;
 	char *file_name = NULL;
 	char *url = NULL;
-	char *md5_sum = NULL;
-	char *md5_sum_of_file = NULL;
+	char md5_sum_of_file[34];
+	char md5_sum[34];
+	struct stat file_stat;
+	size_t f_size = 0;
 
-	md5_sum = malloc(34);
-	md5_sum_of_file = malloc(34);
 	get_md5sum(global_config,pkg,md5_sum);
 
 	create_dir_structure(pkg->location);
@@ -158,24 +164,36 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	file_name = strncat(file_name,pkg->version,strlen(pkg->version));
 	file_name = strncat(file_name,".tgz",strlen(".tgz"));
 
+	/* if we can open the file, gen the md5sum and stat for the file size */
+	if( ( fh_test = fopen(file_name,"r") ) != NULL){
+		/* check to see if the md5sum is correct */
+		gen_md5_sum_of_file(fh_test,md5_sum_of_file);
+		if( stat(file_name,&file_stat) == -1 ){
+			if ( errno ) perror("stat");
+		}else{
+			f_size = file_stat.st_size;
+		}
+		fclose(fh_test);
+	}
+
 	if( global_config->no_md5_check == 0 ){
 		/*
 	 	* here we will use the md5sum to see if the file is already present and valid
 	 	*/
-		if( ( fh_test = fopen(file_name,"r") ) != NULL){
-			/* check to see if the md5sum is correct */
-			gen_md5_sum_of_file(fh_test,md5_sum_of_file);
-			fclose(fh_test);
-			if( strcmp(md5_sum_of_file,md5_sum) == 0 ){
-				printf(_("Using cached copy of %s\n"),pkg->name);
-				free(md5_sum);
-				free(md5_sum_of_file);
-				chdir(global_config->working_dir);
-				free(file_name);
-				return 0;
-			}
+		if( strcmp(md5_sum_of_file,md5_sum) == 0 ){
+			printf(_("Using cached copy of %s\n"),pkg->name);
+			chdir(global_config->working_dir);
+			free(file_name);
+			return 0;
 		}
-		/* */
+	}else{
+		/* if no md5 check is performed, and the sizes match, assume its good */
+		if( (int)(f_size/1024) == pkg->size_c){
+			printf(_("Using cached copy of %s\n"),pkg->name);
+			chdir(global_config->working_dir);
+			free(file_name);
+			return 0;
+		}
 	}
 
 	/* build the url */
@@ -195,19 +213,19 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	url = strncat(url,file_name,strlen(file_name));
 
 	#if USE_CURL_PROGRESS == 0
-	printf(_("Downloading %s %s %s [%dK]..."),pkg->mirror,pkg->name,pkg->version,pkg->size_c);
+	printf(_("Downloading %s %s %s [%dK]..."),pkg->mirror,pkg->name,pkg->version,pkg->size_c - (f_size/1024));
 	#else
-	printf(_("Downloading %s %s %s [%dK]...\n"),pkg->mirror,pkg->name,pkg->version,pkg->size_c);
+	printf(_("Downloading %s %s %s [%dK]...\n"),pkg->mirror,pkg->name,pkg->version,pkg->size_c - (f_size/1024));
 	#endif
 
-	fh = open_file(file_name,"wb");
+	fh = open_file(file_name,"a+b");
 	if( fh == NULL ){
 		fprintf(stderr,"Failed to open %s\n",file_name);
 		if( errno ) perror(file_name);
 		return -1;
 	}
 
-	if( download_data(fh,url) == 0 ){
+	if( download_data(fh,url,f_size) == 0 ){
 		#if USE_CURL_PROGRESS == 0
 		printf(_("Done\n"));
 		#endif
@@ -269,9 +287,6 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 		}
 		/* end md5 */
 	}
-
-	free(md5_sum);
-	free(md5_sum_of_file);
 
 	if( url != NULL ){
 		free(url);

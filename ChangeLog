@@ -1,4 +1,7 @@
 
+0.9.8a Jan 05, 2004
+ * initial transfer resume support
+
 0.9.8 Dec 18, 2003
  * added slapt-get source to example slapt-getrc
  * updated source creation script, runs PACKAGESTXT and MD5 on all now
