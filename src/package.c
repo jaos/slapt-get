@@ -675,7 +675,7 @@ void free_pkg_list(struct pkg_list *list){
 
 int is_excluded(const rc_config *global_config,pkg_info_t *pkg){
 	unsigned int i,pkg_not_excluded = 0, pkg_is_excluded = 1;
-	int name_reg_ret = -1,version_reg_ret = -1;
+	int name_reg_ret = -1,version_reg_ret = -1,location_reg_ret = -1;
 	sg_regex exclude_reg;
 
 	if( global_config->ignore_excludes == 1 )
@@ -701,8 +701,10 @@ int is_excluded(const rc_config *global_config,pkg_info_t *pkg){
 		name_reg_ret = exclude_reg.reg_return;
 		execute_regex(&exclude_reg,pkg->version);
 		version_reg_ret = exclude_reg.reg_return;
+		execute_regex(&exclude_reg,pkg->location);
+		location_reg_ret = exclude_reg.reg_return;
 
-		if( name_reg_ret == 0 || version_reg_ret == 0 ){
+		if( name_reg_ret == 0 || version_reg_ret == 0 || location_reg_ret == 0 ){
 			free_regex(&exclude_reg);
 			return pkg_is_excluded;
 		}

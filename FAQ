@@ -291,14 +291,12 @@ Frequently Asked Questions:
 
 16. How can I generate an exclude list for an entire disk set?
 
- You can use this script to generate a listing of packages to add to your
- exclude list:
+ You can exclude an entire disk set by placing the disk set as an exclude.  Be
+ sure to use the beginning-of-line (^) and end-of-line ($) operators for
+ specific matching.  For example:
 
-   #!/bin/sh
-   # this should gen an exclude list for a particular dir set (first arg to script)
-   DIR=$1
-   slapt-get --search "^\.\/slackware\/${DIR}$"|awk '{print $1}'|\
-    xargs -iZ echo -n "Z,"|sed -e 's/,$//'
+  To exclude all of ./slackware/x and ./slackware/xap
+  EXCLUDE=^./slackware/x$,^./slackware/xap$
 
 
 17. How do I use a local file source?
