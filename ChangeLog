@@ -12,6 +12,7 @@
  * updated regex, yet again, for pkg names, versions, md5, etc
  * updated makefile to gen library files
  * added Polish translation by nixon & s1m0n
+ * moved gettext mo files into standard slackware locale directory (/usr/share/locale)
 
 0.9.7a Nov 05, 2003
  * added check for presence of pkg in trans before adding upgrade (during --install)

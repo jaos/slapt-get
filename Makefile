@@ -7,8 +7,7 @@ CURLFLAGS=`curl-config --libs`
 OBJS=src/configuration.o src/package.o src/curl.o src/transaction.o src/action.o src/main.o
 RCDEST=/etc/slapt-getrc
 RCSOURCE=example.slapt-getrc
-PROGRAMDIR=/usr/share/$(PROGRAM_NAME)
-LOCALESDIR=$(PROGRAMDIR)/locales
+LOCALESDIR=/usr/share/locale
 SBINDIR=/sbin/
 DEFINES=-DPROGRAM_NAME="\"$(PROGRAM_NAME)\"" -DVERSION="\"$(VERSION)\"" -DRC_LOCATION="\"$(RCDEST)\"" -DENABLE_NLS -DLOCALESDIR="\"$(LOCALESDIR)\""
 CFLAGS=-W -Werror -Wall -O2 -ansi -pedantic -Iinclude $(DEFINES)
@@ -33,7 +32,6 @@ install: $(PROGRAM_NAME)
 	install -d /var/$(PROGRAM_NAME)
 	if [ ! -d $(LOCALESDIR)/en ]; then mkdir -p $(LOCALESDIR)/en/LC_MESSAGES; fi; msgfmt -o $(LOCALESDIR)/en/LC_MESSAGES/slapt-get.mo po/en.po;
 	if [ ! -d $(LOCALESDIR)/pl ]; then mkdir -p $(LOCALESDIR)/pl/LC_MESSAGES; fi; msgfmt -o $(LOCALESDIR)/pl/LC_MESSAGES/slapt-get.mo po/pl.po;
-	cp po/slapt-get.pot $(LOCALESDIR)/
 	if [ ! -d /usr/doc/$(PROGRAM_NAME)-$(VERSION) ]; then mkdir /usr/doc/$(PROGRAM_NAME)-$(VERSION); fi
 	cp example.slapt-getrc COPYING Changelog INSTALL README FAQ TODO /usr/doc/$(PROGRAM_NAME)-$(VERSION)/
 
@@ -43,7 +41,6 @@ uninstall:
 	-rm /usr/man/man8/$(PROGRAM_NAME).8.gz
 	-@echo leaving /var/$(PROGRAM_NAME)
 	-rm -r /usr/doc/$(PROGRAM_NAME)-$(VERSION)
-	-rm -r $(PROGRAMDIR)
 
 clean:
 	-if [ -f $(PROGRAM_NAME) ]; then rm $(PROGRAM_NAME);fi
@@ -69,7 +66,6 @@ pkg: $(PROGRAM_NAME) libs
 	-@mkdir -p pkg$(LOCALESDIR)/en/LC_MESSAGES; msgfmt -o pkg$(LOCALESDIR)/en/LC_MESSAGES/slapt-get.mo po/en.po
 	-@mkdir -p pkg$(LOCALESDIR)/pl/LC_MESSAGES; msgfmt -o pkg$(LOCALESDIR)/pl/LC_MESSAGES/slapt-get.mo po/pl.po
 	-@cp $(PROGRAM_NAME) ./pkg/sbin/
-	-@cp po/slapt-get.pot pkg$(LOCALESDIR)/
 	-@strip ./pkg/sbin/$(PROGRAM_NAME)
 	-@cp example.slapt-getrc ./pkg/etc/slapt-getrc.new
 	-@mkdir -p ./pkg/usr/doc/$(PROGRAM_NAME)-$(VERSION)/
