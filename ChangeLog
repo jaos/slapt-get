@@ -1,7 +1,10 @@
 
 0.9.7e Nov 19, 2003
  * added debugging in transaction functions
- * updated cmp_pkg_versions
+ * updated cmp_pkg_versions, changed integer cmp to str cmp for version parts,
+   fixing bug with versions containing letters in version parts, such as 0.9.7c.
+ * fixed another occurrance of URL malformed, cmp_pkg_versions called with wrong
+   pkg struct for dep in --upgrade
 
 0.9.7d Nov 18, 2003
  * documentation updates
