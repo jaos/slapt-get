@@ -1,5 +1,6 @@
 
-0.9.9f Jan 09, 2005
+0.9.9f Jan 10, 2005
+ * misc code updates
  * if resume of pkg download is not supported by remote server or proxy,
    remove partial file and try again
  * ensured --remove-obsolute ignores excluded packages

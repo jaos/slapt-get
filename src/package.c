@@ -441,7 +441,9 @@ struct pkg_list *get_installed_pkgs(void){
 	init_regex(&uncompressed_size_reg,PKG_LOG_SIZEU_PATTERN);
 
 	/* Generate package log directory using ROOT env variable if set */
-	root_env_entry = getenv(ROOT_ENV_NAME);
+	if( getenv(ROOT_ENV_NAME) && strlen(getenv(ROOT_ENV_NAME)) < ROOT_ENV_LEN ){
+		root_env_entry = getenv(ROOT_ENV_NAME);
+	}
 	pkg_log_dirname = calloc(
 		strlen(PKG_LOG_DIR)+
 		(root_env_entry ? strlen(root_env_entry) : 0) + 1 ,
