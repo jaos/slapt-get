@@ -1,5 +1,5 @@
 
-0.9.5f Oct 11, 2003
+0.9.5f Oct 12, 2003
  * removed needless check in get_md5sum looking for common slack mirror
    directories.
  * Prompt to upgrade before downloading (thanks kyotou)
