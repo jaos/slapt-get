@@ -349,7 +349,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 					continue;
 				}
 
-				strncpy( tmp_pkg->md5,md5sum,strlen(md5sum));
+				strncpy( tmp_pkg->md5,md5sum,MD5_STR_LEN);
 				tmp_pkg->md5[MD5_STR_LEN] = '\0';
 		}else{
 			/* md5 sum isn't provided... rewind one line */
@@ -844,6 +844,7 @@ void get_md5sum(pkg_info_t *pkg,FILE *checksum_file){
 		if( strstr(getline_buffer,pkg->name) == NULL) continue;
 		if( strstr(getline_buffer,pkg->version) == NULL) continue;
 		if( strstr(getline_buffer,".tgz") == NULL) continue;
+		if( strstr(getline_buffer,".asc") != NULL) continue;
 
 		md5sum_regex.reg_return = regexec( &md5sum_regex.regex, getline_buffer, md5sum_regex.nmatch, md5sum_regex.pmatch, 0);
 		if( md5sum_regex.reg_return == 0 ){

@@ -1,5 +1,6 @@
 
 0.9.8b Jan 13, 2004
+ * fixed strncpy() call, length now uses MD5_STR_LEN macro
  * added Norwegian translation by Joran Kvalvaag (jk at nerdworks dot org)
  * added notice when dependency is present in excludes
  * don't consult re_install on dependency check (so when reinstalling pacakge a,
