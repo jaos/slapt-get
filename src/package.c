@@ -1209,9 +1209,7 @@ struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,struct p
 
 			/* if this pkg is excluded */
 			if( is_excluded(global_config,tmp_pkg) == 1 ){
-				#if DEBUG == 1
-				fprintf(stderr,"Dep %s is excluded, for %s\n",tmp_pkg->name,pkg->name);
-				#endif
+				printf(_("%s, which is required by %s, is excluded\n"),tmp_pkg->name,pkg->name);
 				deps->pkg_count = -1;
 				return deps;
 			}
@@ -1219,10 +1217,6 @@ struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,struct p
 			/* if tmp_pkg is not already in the deps pkg_list */
 			if( get_newest_pkg(deps,tmp_pkg->name) == NULL ){
 				struct pkg_list *tmp_pkgs_deps = NULL;
-
-				#if DEBUG == 1
-				printf("found dep: %s-%s\n",tmp_pkg->name,tmp_pkg->version);
-				#endif
 
 				/* add tmp_pkg to deps */
 				deps->pkgs[deps->pkg_count] = tmp_pkg;
@@ -1270,9 +1264,6 @@ struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,struct p
 				and return... the caller should check to see if its -1, and 
 				act accordingly
 			*/
-			#if DEBUG == 1
-			printf("couldn't find required dep\n");
-			#endif
 			deps->pkg_count = -1;
 			return deps;
 		}/* end tmp_pkg != NULL */

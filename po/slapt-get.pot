@@ -461,3 +461,7 @@ msgstr "Download of %s incomplete\n"
 msgid "Could not find MD5 checksum for %s, override with --no-md5\n"
 msgstr "Could not find MD5 checksum for %s, override with --no-md5\n"
 
+#, c-format
+msgid "%s, which is required by %s, is excluded\n"
+msgstr "%s, which is required by %s, is excluded\n"
+

@@ -529,7 +529,7 @@ int add_deps_to_trans(const rc_config *global_config, transaction *tran, struct 
 			}else{
 
 				/* add only if its a valid upgrade */
-				if(cmp_pkg_versions(dep_installed->version,deps->pkgs[c]->version) < 0 || (global_config->re_install == 1) ){
+				if(cmp_pkg_versions(dep_installed->version,deps->pkgs[c]->version) < 0 ){
 					if ( is_conflicted(global_config,tran,avail_pkgs,installed_pkgs,deps->pkgs[c]) == 0 )
 						add_upgrade_to_transaction(tran,dep_installed,deps->pkgs[c]);
 

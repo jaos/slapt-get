@@ -1,5 +1,8 @@
 
 0.9.8b Jan 12, 2004
+ * added notice when dependency is present in excludes
+ * don't consult re_install on dependency check (so when reinstalling pacakge a,
+   dependencies b,c, and d aren't reinstalled as well)
  * translation updates
 
 0.9.8a Jan 11, 2004
