@@ -1,4 +1,8 @@
 
+0.9.6g Oct 20, 2003
+ * updated --help output
+ * --interactive now applies to --install as well
+
 0.9.6f Oct 20, 2003
  * download notification now prints out the version and pkg size
  * removed debugging print for dist-upgrade

@@ -232,12 +232,12 @@ void usage(){
 	printf("\n");
 	printf("Options:\n");
 	printf("  --download-only   - only download pkg on install/upgrade\n");
-	printf("  --simulate        - show pkgs to be upgraded\n");
-	printf("  --no-prompt       - do not prompt during upgrade\n");
-	printf("  --reinstall       - re-install the pkg even if installed\n");
-	printf("  --ignore-excludes - install excludes anyway\n");
+	printf("  --simulate        - show pkgs to be installed/upgraded\n");
+	printf("  --no-prompt       - do not prompt during install/upgrade\n");
+	printf("  --reinstall       - re-install the pkg\n");
+	printf("  --ignore-excludes - install/upgrade excludes\n");
 	printf("  --no-md5          - do not perform md5 check sum\n");
-	printf("  --interactive     - prompt before each pkg upgrade\n");
+	printf("  --interactive     - prompt before each install/upgrade\n");
 }
 
 void version_info(void){

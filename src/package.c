@@ -598,10 +598,20 @@ int install_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	char *pkg_file_name = NULL;
 	char *command = NULL;
 	int cmd_return = 0;
+	char prompt_answer[10];
 
 	if( global_config->simulate == 1 ){
 		printf("%s-%s is to be installed\n",pkg->name,pkg->version);
 		return 0;
+	}
+
+	if( global_config->interactive == 1 ){
+		printf("Install %s-%s [Y|n] ",pkg->name,pkg->version);
+		fgets(prompt_answer,10,stdin);
+		if( tolower(prompt_answer[0]) == 'n' ){
+			chdir(global_config->working_dir);
+			return cmd_return;
+		}
 	}
 
 	create_dir_structure(pkg->location);
@@ -655,7 +665,7 @@ int upgrade_pkg(const rc_config *global_config,pkg_info_t *installed_pkg,pkg_inf
 		w/o no_prompt and download_only
 	*/
 	if( global_config->no_prompt == 0 && global_config->download_only == 0 && global_config->interactive == 1 ){
-		printf("Replace %s-%s with %s-%s? [y|n] ",pkg->name,installed_pkg->version,pkg->name,pkg->version);
+		printf("Replace %s-%s with %s-%s? [y|N] ",pkg->name,installed_pkg->version,pkg->name,pkg->version);
 		fgets(prompt_answer,10,stdin);
 		if( tolower(prompt_answer[0]) != 'y' ){
 			chdir(global_config->working_dir);
