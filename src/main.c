@@ -55,6 +55,7 @@ int main( int argc, char *argv[] ){
 		{"show-stats",0, 0, 'S'},
 		{"S",0, 0, 'S'},
 		{"config",1, 0, 'C'},
+		{"autoclean", 0, 0, 'a'},
 	};
 	int option_index = 0;
 	/* */
@@ -167,6 +168,9 @@ int main( int argc, char *argv[] ){
 					free_rc_config(tmp_gc);
 				}
 				break;
+			case 'a': /* clean old old package versions */
+				do_action = AUTOCLEAN;
+				break;
 			default:
 				usage();
 				exit(1);
@@ -261,6 +265,8 @@ int main( int argc, char *argv[] ){
 		chdir(global_config->working_dir);
 	}else if( do_action == SHOWVERSION ){
 		version_info();
+	}else if( do_action == AUTOCLEAN ){
+		purge_old_cached_pkgs(global_config->working_dir);
 	}else if( do_action == 0 ){ /* default initialized value */
 		usage();
 		exit(1);
@@ -291,6 +297,7 @@ void usage(void){
 	printf("  --list         - %s\n",_("list available pkgs"));
 	printf("  --installed    - %s\n",_("list installed pkgs"));
 	printf("  --clean        - %s\n",_("purge cached pkgs"));
+	printf("  --autoclean    - %s\n",_("purge older versions of cached pkgs"));
 	printf("  --version      - %s\n",_("print version and license info"));
 	printf("\n");
 	printf(_("Options:\n"));

@@ -224,8 +224,6 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 		if( remove_pkg(global_config,tran->remove_pkgs->pkgs[i]) == -1 ) exit(1);
 	}
 
-	purge_old_cached_pkgs(global_config->working_dir);
-
 	printf(_("Done\n"));
 
 	return 0;

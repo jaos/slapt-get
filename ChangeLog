@@ -1,7 +1,12 @@
 
 0.9.9c Oct 02, 2004
- * added purge_old_cached_pkgs() to be run at the end of each transaction (thanks Michel Hermier)
- * removed unneeded checks for WORKINGDIR_TOKEN_LEN and EXCLUDE_TOKEN_LEN in configuration parsing (thanks Peter Santoro)
+ * translation updates
+ * added --autoclean option to run purge_old_cached_pkgs() instead of automatically
+   at the end of each transation (thanks Michel Hermier)
+ * added purge_old_cached_pkgs() to be run at the end of each transaction
+   (thanks Michel Hermier)
+ * removed unneeded checks for WORKINGDIR_TOKEN_LEN and EXCLUDE_TOKEN_LEN in
+   configuration parsing (thanks Peter Santoro)
  * added Greek translation by Savvas Eftratiadis
  * updated doinst.sh so that it doesn't try to do an in place file edit
    with sed as Slackware 8.1 and 9.1's sed doesn't support -i.
