@@ -65,6 +65,9 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran){
 		printf(_("Suggested packages:\n"));
 		printf("  ");
 		for(i = 0; i < tran->suggests->count; ++i){
+			/* don't show suggestion for something we already have in the transaction */
+			if( search_transaction(tran,tran->suggests->pkgs[i]) == 1 ) continue;
+
 			if( len + strlen(tran->suggests->pkgs[i]) + 1 < MAX_LINE_LEN ){
 				printf("%s ",tran->suggests->pkgs[i]);
 				len += strlen(tran->suggests->pkgs[i]) + 1;
@@ -265,7 +268,7 @@ void add_install_to_transaction(transaction_t *tran,pkg_info_t *pkg){
 	pkg_info_t **tmp_list;
 
 	/* don't add if already present in the transaction */
-	if( search_transaction(tran,pkg) == 1 ) return;
+	if( search_transaction(tran,pkg->name) == 1 ) return;
 
 	#if DEBUG == 1
 	printf("adding install of %s-%s@%s to transaction\n",
@@ -298,7 +301,7 @@ void add_remove_to_transaction(transaction_t *tran,pkg_info_t *pkg){
 	pkg_info_t **tmp_list;
 
 	/* don't add if already present in the transaction */
-	if( search_transaction(tran,pkg) == 1 ) return;
+	if( search_transaction(tran,pkg->name) == 1 ) return;
 
 	#if DEBUG == 1
 	printf("adding remove of %s-%s@%s to transaction\n",
@@ -329,7 +332,7 @@ void add_exclude_to_transaction(transaction_t *tran,pkg_info_t *pkg){
 	pkg_info_t **tmp_list;
 
 	/* don't add if already present in the transaction */
-	if( search_transaction(tran,pkg) == 1 ) return;
+	if( search_transaction(tran,pkg->name) == 1 ) return;
 
 	#if DEBUG == 1
 	printf("adding exclude of %s-%s@%s to transaction\n",
@@ -362,7 +365,7 @@ void add_upgrade_to_transaction(
 	pkg_upgrade_t **tmp_list;
 
 	/* don't add if already present in the transaction */
-	if( search_transaction(tran,upgrade_pkg) == 1 ) return;
+	if( search_transaction(tran,upgrade_pkg->name) == 1 ) return;
 
 	#if DEBUG == 1
 	printf("adding upgrade of %s-%s@%s to transaction\n",
@@ -401,23 +404,23 @@ void add_upgrade_to_transaction(
 
 }
 
-int search_transaction(transaction_t *tran,pkg_info_t *pkg){
+int search_transaction(transaction_t *tran,char *pkg_name){
 	unsigned int i,found = 1, not_found = 0;
 
 	for(i = 0; i < tran->install_pkgs->pkg_count;i++){
-		if( strcmp(pkg->name,tran->install_pkgs->pkgs[i]->name)==0 )
+		if( strcmp(pkg_name,tran->install_pkgs->pkgs[i]->name)==0 )
 			return found;
 	}
 	for(i = 0; i < tran->upgrade_pkgs->pkg_count;i++){
-		if( strcmp(pkg->name,tran->upgrade_pkgs->pkgs[i]->upgrade->name)==0 )
+		if( strcmp(pkg_name,tran->upgrade_pkgs->pkgs[i]->upgrade->name)==0 )
 			return found;
 	}
 	for(i = 0; i < tran->remove_pkgs->pkg_count;i++){
-		if( strcmp(pkg->name,tran->remove_pkgs->pkgs[i]->name)==0 )
+		if( strcmp(pkg_name,tran->remove_pkgs->pkgs[i]->name)==0 )
 			return found;
 	}
 	for(i = 0; i < tran->exclude_pkgs->pkg_count;i++){
-		if( strcmp(pkg->name,tran->exclude_pkgs->pkgs[i]->name)==0 )
+		if( strcmp(pkg_name,tran->exclude_pkgs->pkgs[i]->name)==0 )
 			return found;
 	}
 	return not_found;
@@ -476,7 +479,7 @@ transaction_t *remove_from_transaction(transaction_t *tran,pkg_info_t *pkg){
 	unsigned int i;
 	transaction_t *new_tran = NULL;
 
-	if( search_transaction(tran,pkg) == 0 )
+	if( search_transaction(tran,pkg->name) == 0 )
 		return tran;
 
 	/* since this is a pointer, slapt_malloc before calling init */
@@ -549,7 +552,7 @@ int add_deps_to_trans(const rc_config *global_config, transaction_t *tran, struc
 	for(c = 0; c < deps->pkg_count;c++){
 
 		/* only check if it is not already present in trans */
-		if( search_transaction(tran,deps->pkgs[c]) == 0 ){
+		if( search_transaction(tran,deps->pkgs[c]->name) == 0 ){
 
 			pkg_info_t *dep_installed;
 
@@ -648,6 +651,13 @@ static void add_suggestion(transaction_t *tran, pkg_info_t *pkg){
 		tmp_suggests = slapt_malloc(sizeof *tmp_suggests * (total_len - rest_len) );
 		tmp_suggests = strncpy(tmp_suggests,p,(total_len - rest_len));
 		tmp_suggests[total_len - rest_len - 1] = '\0';
+
+		/* no need to add it if we already have it */
+		if( search_transaction(tran,tmp_suggests) == 1 ){
+			free(tmp_suggests);
+			position += (total_len - rest_len);
+			continue;
+		}
 
 		tmp_realloc = realloc(tran->suggests->pkgs,sizeof *tran->suggests->pkgs * (tran->suggests->count + 1));
 		if( tmp_realloc != NULL ){

@@ -37,7 +37,7 @@ void add_install_to_transaction(transaction_t *,pkg_info_t *pkg);
 void add_remove_to_transaction(transaction_t *,pkg_info_t *pkg);
 void add_upgrade_to_transaction(transaction_t *,pkg_info_t *installed_pkg,pkg_info_t *upgrade_pkg);
 void add_exclude_to_transaction(transaction_t *,pkg_info_t *pkg);
-int search_transaction(transaction_t *,pkg_info_t *pkg);
+int search_transaction(transaction_t *,char *pkg_name);
 void free_transaction(transaction_t *);
 transaction_t *remove_from_transaction(transaction_t *tran,pkg_info_t *pkg);
 int add_deps_to_trans(const rc_config *global_config, transaction_t *tran, struct pkg_list *avail_pkgs, struct pkg_list *installed_pkgs, pkg_info_t *pkg);
