@@ -61,11 +61,6 @@ int main( int argc, char *argv[] ){
 		{0, 0, 0, 0},
 	};
 
-	/*
-		this causes problems with slackware-current...
-		segfaults in getopt_long_only() when invalid
-		option is used
-	*/
 	setbuf(stdout,NULL);
 
 	#ifdef ENABLE_NLS
@@ -83,7 +78,7 @@ int main( int argc, char *argv[] ){
 	}
 	curl_global_init(CURL_GLOBAL_ALL);
 
-	while( ( c = getopt_long_only(argc,argv,"",long_options,&option_index ) ) != EOF ){
+	while( ( c = getopt_long_only(argc,argv,"",long_options,&option_index ) ) != -1 ){
 		switch(c){
 			case UPDATE_OPT: /* update */
 				do_action = UPDATE;
