@@ -438,6 +438,8 @@ Frequenty Asked Questions:
 
  <= and =< should both work, just in case of editing errors.
 
+ An example slack-required file is present within the slapt-get slack package.
+
  This data will then need to be extracted when the mirror's PACKAGES.TXT file
  is generated.  See FAQ #17 for a user contributed example of how to generate
  the PACKAGES.TXT file.  The following is an example entry

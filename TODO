@@ -2,6 +2,7 @@ slapt-get is pretty feature complete.  At the moment, bug fixes are the most imp
 
 Future enhancements, fixes, or features:
 
+ * test dependency tracking (get the word out about adding ./install/slack-required)
  * i8ln'ize
  * curses/gtk frontend
 
@@ -10,7 +11,5 @@ Future enhancements, fixes, or features:
  * find any remaining memory leaks
 
  * mirror fall back in case pkg is not available on current mirror
- * dependancy tracking (ideally that will happen in PACKAGES.TXT)
-   via slack-required file in ./install/
  * source pkg handling (maybe)
 
