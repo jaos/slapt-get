@@ -248,14 +248,14 @@ struct exclude_list *parse_exclude(char *line){
 				list->excludes[ list->count ] = calloc( strlen(pointer) + 1, sizeof *list->excludes[list->count] );
 				strncpy(list->excludes[ list->count ], pointer, strlen(pointer) );
 				list->excludes[ list->count ][strlen(pointer)] =  '\0';
-				list->count++;
+				++list->count;
 			}
 
 			break;
 		}else{
 
 			if( line[position] == ',' ){
-				position++;
+				++position;
 				continue;
 			}else{
 
@@ -271,7 +271,7 @@ struct exclude_list *parse_exclude(char *line){
 					list->excludes[ list->count ][strlen(buffer)] =  '\0';
 				}
 
-				list->count++;
+				++list->count;
 				position += (strlen(line + position) - strlen(pointer) );
 			}
 			continue;
@@ -331,7 +331,7 @@ void create_dir_structure(const char *dir_name){
 		}else{
 			if( dir_name[position] == '/' ){
 				/* move on ahead */
-				position++;
+				++position;
 			}else{
 
 				/* figure our dir name and mk it */
