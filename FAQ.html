@@ -11,12 +11,12 @@
  </STYLE>
 </head>
 <body font="Verdana">
-<B><h1>Frequenty Asked Questions:</h1></B>
+<B><h1>Frequently Asked Questions:</h1></B>
 
 <PRE>
 *Contents
 <A href="FAQ.html#slgFAQ1">1.  What is slapt-get ?</A>
-<A href="#slgFAQ2">2.  Why yet another package management tool for slackware?</A>
+<A href="#slgFAQ2">2.  Why yet another package management tool for Slackware?</A>
 <A href="#slgFAQ3">3.  How do I build/install slapt-get?  How do I remove slapt-get?</A>
 <A href="#slgFAQ4">4.  How do I find a package I want to install?</A>
 <A href="#slgFAQ5">5.  Can I upgrade all my installed packages?</A>
@@ -76,7 +76,7 @@
  slapt-get is not affiliated or endorsed by Patrick Volkerding / slackware.com.
 
 
-<A NAME="slgFAQ2"><B>2.  Why yet another package management tool for slackware?</B></A>
+<A NAME="slgFAQ2"><B>2.  Why yet another package management tool for Slackware?</B></A>
 
  Various reasons came together which inspired me to create slapt-get.  I was
  trying to explain to a good friend of mine the functionality provided by
@@ -287,7 +287,7 @@
 
 <A NAME="slgFAQ14"><B>14. What if I only want to upgrade one package?</B></A>
 
- Then you follow the debian apt-get method of using --install.
+ Then you follow the Debian apt-get method of using --install.
  If the package is already installed, it will check and install any newer
  versions:
 
@@ -307,7 +307,7 @@
 <A NAME="slgFAQ16"><B>16. How can I generate an exclude list for an entire disk set?</B></A>
 
  You can use this script to generate a listing of packages to add to your
- exlude list:
+ exclude list:
 
    #!/bin/sh
    # this should gen an exclude list for a particular dir set (first arg to script)
@@ -447,10 +447,10 @@
  <= and =< should both work, just in case of editing errors.
 
  Version should include the arch and build if using '='.  That is the full
- slackware package version designation.  1.1.0-386-1 is valid.  1.1.0 is not.
+ Slackware package version designation.  1.1.0-386-1 is valid.  1.1.0 is not.
 
  You can specify multiple packages to satisfy a dependency.  The alternate
- packages are seperated by a pipe, |.
+ packages are separated by a pipe, |.
 
     jre = 1.4.1-i586-1 | j2sdk >= 1.4.2-i386-1 | jdk > 1.5.0-i386-1
 
@@ -530,7 +530,7 @@
 
  An exclude regex like .*pre.* , .*beta.*, or .*686.* may net you the results
  of excluding all packages with those characters in the name or version.  But
- they may also catch packages that have those characters normally occuring in
+ they may also catch packages that have those characters normally occurring in
  the package name.
 
  This regex seems to work much better:
@@ -557,11 +557,11 @@
  transaction status will be reported to the user to be confirmed (unless the
  user passes in --no-prompt on the command line).  After this confirmation, all
  packages will be downloaded before anything else happens.  If anything fails
- to download, the transaction is immediately aborted.	If all pacakges download
+ to download, the transaction is immediately aborted.	If all packages download
  successfully, all packages to be installed (new installs) are installed first.
  This should satisfy dependencies of the packages to be upgraded, which follow
  after the new installs.  Finally, and removals in the transaction are
- completed.  This helps keep your system in a consistant state, and should give
+ completed.  This helps keep your system in a consistent state, and should give
  you full control.
 
 
@@ -579,7 +579,7 @@
  this point, we know if one only has 2 parts, and the other has 3, then the
  first two parts of both version strings have to be equal.
 
- Then the package versions are checked to see if they follow the slackware
+ Then the package versions are checked to see if they follow the Slackware
  convention.  This is determined by checking the first instance of '-' against
  the last instance.  If the pointer returned from index and rindex are
  different, then we assume we have at least two package version separators
@@ -821,7 +821,7 @@
   slapt-get --list|awk '{print $1}'|xargs -r slapt-get --download-only \
 		--reinstall --install
 
- The packages whill then be mirrored under ${ROOT}/var/slapt-get in the
+ The packages will then be mirrored under ${ROOT}/var/slapt-get in the
  directory structure they where found in.  You can then generate the 
  PACKAGES.TXT and CHECKSUMS.md5 files using the script in <A href="#slgFAQ17">FAQ #17</A> which would
  allow you to use this mirror as a slapt-get source.
@@ -849,7 +849,7 @@
 
  If you are tracking current or are dist-upgrading to a new release, you will
  encounter packages that you have installed that are no longer required or
- part of the basic slackware install.  If you only have the official slackware
+ part of the basic Slackware install.  If you only have the official Slackware
  package sources in your slapt-getrc file, then you can do the following:
 
   # slapt-get --dist-upgrade --remove-obsolete
@@ -962,7 +962,7 @@
 
 <A NAME="slgFAQ48"><B>48. How can I search the contents of a package for a file or library?</B></A>
 
- Slapt-get does not pay attention to the contents of packages.  Slackware
+ slapt-get does not pay attention to the contents of packages.  Slackware
  provides the MANIFEST.bz2 and the contents of /var/log/packages for such
  functionality.  Searching for which installed package owns a file is
  accomplished the easiest by using grep with the contents of
