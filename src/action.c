@@ -227,9 +227,9 @@ void pkg_action_remove(const rc_config *global_config,const pkg_action_args_t *a
 	init_regex(&pkg_regex,PKG_LOG_PATTERN);
 
 	for(i = 0; i < action_args->count; i++){
-		pkg_info_t *pkg;
 		unsigned int c;
 		struct pkg_list *deps;
+		pkg_info_t *pkg = NULL;
 
 		/* Use regex to see if they specified a particular version */
 		execute_regex(&pkg_regex,action_args->pkgs[i]);
