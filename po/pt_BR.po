@@ -459,5 +459,5 @@ msgid "skip dependency check"
 msgstr "skip dependency check"
 
 msgid "show download statistics"
-msgstr "show download statistics"
+msgstr "mostra estatísticas de download"
 
