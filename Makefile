@@ -28,9 +28,12 @@ install: $(PROGRAM_NAME)
 	install $(PROGRAM_NAME) $(SBINDIR)
 	if [ ! -f $(RCDEST) ]; then install --mode=0644 -b $(RCSOURCE) $(RCDEST); else install --mode=0644 -b $(RCSOURCE) $(RCDEST).new;fi
 	install $(PROGRAM_NAME).8 /usr/man/man8/
+	gzip -f /usr/man/man8/$(PROGRAM_NAME).8
 	install -d /var/$(PROGRAM_NAME)
 	if [ ! -d $(LOCALESDIR)/en ]; then mkdir -p $(LOCALESDIR)/en/LC_MESSAGES; fi; msgfmt -o $(LOCALESDIR)/en/LC_MESSAGES/slapt-get.mo po/en.po;
 	cp po/slapt-get.pot $(LOCALESDIR)/
+	if [ ! -d /usr/doc/$(PROGRAM_NAME)-$(VERSION) ]; then mkdir /usr/doc/$(PROGRAM_NAME)-$(VERSION); fi
+	cp COPYING Changelog INSTALL README FAQ TODO /usr/doc/$(PROGRAM_NAME)-$(VERSION)/
 
 uninstall:
 	-rm /sbin/$(PROGRAM_NAME)
