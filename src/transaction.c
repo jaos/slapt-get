@@ -287,7 +287,9 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran){
 
 	}
 	for(i = 0; i < tran->remove_pkgs->pkg_count;i++){
-		if( remove_pkg(global_config,tran->remove_pkgs->pkgs[i]) == -1 ) exit(1);
+		if( global_config->download_only == FALSE ){
+			if( remove_pkg(global_config,tran->remove_pkgs->pkgs[i]) == -1 ) exit(1);
+		}
 	}
 
 	printf(_("Done\n"));
