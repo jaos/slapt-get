@@ -357,9 +357,7 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 	int i;
 	struct pkg_list *installed_pkgs;
 	struct pkg_list *avail_pkgs;
-	struct pkg_list *matches;
 	pkg_info_t *update_pkg;
-	pkg_info_t *installed_pkg;
 	transaction tran;
 
 	printf(_("Reading Package Lists... "));
@@ -414,23 +412,38 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 	}/* end for */
 
 	if( global_config->dist_upgrade == 1 ){
+		struct pkg_list *matches;
 
 		matches = search_pkg_list(avail_pkgs,SLACK_BASE_SET_REGEX);
 		for(i = 0; i < matches->pkg_count; i++){
+			pkg_info_t *installed_pkg;
+			pkg_info_t *newer_avail_pkg;
+			pkg_info_t *upgrade_pkg;
 
 			installed_pkg = get_newest_pkg(
 				installed_pkgs,
 				matches->pkgs[i]->name
 			);
+			newer_avail_pkg = get_newest_pkg(
+				avail_pkgs,
+				matches->pkgs[i]->name
+			);
+			/* if there is a newer available version (such as from patches/) use it instead */
+			if( cmp_pkg_versions(matches->pkgs[i]->version,newer_avail_pkg->version) < 0 ){
+				upgrade_pkg = newer_avail_pkg;
+			}else{
+				upgrade_pkg = matches->pkgs[i];
+			}
+
 			/* add to install list if not already installed */
 			if( installed_pkg == NULL ){
-				if( is_excluded(global_config,matches->pkgs[i]) == 1 ){
-					add_exclude_to_transaction(&tran,matches->pkgs[i]);
+				if( is_excluded(global_config,upgrade_pkg) == 1 ){
+					add_exclude_to_transaction(&tran,upgrade_pkg);
 				}else{
 
-					if( add_deps_to_trans(global_config,&tran,avail_pkgs,installed_pkgs,matches->pkgs[i]) == 0 ){
-						if ( is_conflicted(&tran,avail_pkgs,installed_pkgs,matches->pkgs[i]) == 0 )
-							add_install_to_transaction(&tran,matches->pkgs[i]);
+					if( add_deps_to_trans(global_config,&tran,avail_pkgs,installed_pkgs,upgrade_pkg) == 0 ){
+						if ( is_conflicted(&tran,avail_pkgs,installed_pkgs,upgrade_pkg) == 0 )
+							add_install_to_transaction(&tran,upgrade_pkg);
 					}
 
 				}
@@ -438,16 +451,16 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 			/* simply running a version comparison won't do it since sometimes the */
 			/* arch is the only thing that changes */
 			}else if(
-				(cmp_pkg_versions(installed_pkg->version,matches->pkgs[i]->version) <= 0) &&
-				strcmp(installed_pkg->version,matches->pkgs[i]->version) != 0
+				(cmp_pkg_versions(installed_pkg->version,upgrade_pkg->version) <= 0) &&
+				strcmp(installed_pkg->version,upgrade_pkg->version) != 0
 			){
 
-				if( is_excluded(global_config,matches->pkgs[i]) == 1 ){
-					add_exclude_to_transaction(&tran,matches->pkgs[i]);
+				if( is_excluded(global_config,upgrade_pkg) == 1 ){
+					add_exclude_to_transaction(&tran,upgrade_pkg);
 				}else{
-					if( add_deps_to_trans(global_config,&tran,avail_pkgs,installed_pkgs,matches->pkgs[i]) == 0 ){
-						if ( is_conflicted(&tran,avail_pkgs,installed_pkgs,matches->pkgs[i]) == 0 )
-							add_upgrade_to_transaction(&tran,installed_pkg,matches->pkgs[i]);
+					if( add_deps_to_trans(global_config,&tran,avail_pkgs,installed_pkgs,upgrade_pkg) == 0 ){
+						if ( is_conflicted(&tran,avail_pkgs,installed_pkgs,upgrade_pkg) == 0 )
+							add_upgrade_to_transaction(&tran,installed_pkg,upgrade_pkg);
 					}
 				}
 
