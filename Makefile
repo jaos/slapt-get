@@ -7,7 +7,8 @@ CURLFLAGS=`curl-config --libs`
 OBJS=src/configuration.o src/package.o src/curl.o src/transaction.o src/action.o src/main.o
 RCDEST=/etc/slapt-getrc
 RCSOURCE=example.slapt-getrc
-LOCALESDIR=/usr/share/$(PROGRAM_NAME)/locales
+PROGRAMDIR=/usr/share/$(PROGRAM_NAME)
+LOCALESDIR=$(PROGRAMDIR)/locales
 SBINDIR=/sbin/
 DEFINES=-DPROGRAM_NAME="\"$(PROGRAM_NAME)\"" -DVERSION="\"$(VERSION)\"" -DRC_LOCATION="\"$(RCDEST)\"" -DENABLE_NLS -DLOCALESDIR="\"$(LOCALESDIR)\""
 CFLAGS=-W -Werror -Wall -O2 -ansi -pedantic -Iinclude $(DEFINES)
@@ -38,6 +39,10 @@ install: $(PROGRAM_NAME)
 uninstall:
 	-rm /sbin/$(PROGRAM_NAME)
 	-@echo leaving $(RCDEST)
+	-rm /usr/man/man8/$(PROGRAM_NAME).8.gz
+	-@echo leaving /var/$(PROGRAM_NAME)
+	-rm -r /usr/doc/$(PROGRAM_NAME)-$(VERSION)
+	-rm -r $(PROGRAMDIR)
 
 clean:
 	-if [ -f $(PROGRAM_NAME) ]; then rm $(PROGRAM_NAME);fi
