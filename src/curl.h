@@ -23,20 +23,22 @@ struct head_request_t {
 };
                                                                                                                              
 /* this is the main download routine */
-int download_data(FILE *,const char *);
+int download_data(FILE *fh,const char *url);
 
 /* this performs a head request */
-int head_request(const char *,const char *);
+int head_request(const char *filename,const char *url);
+
 /*
 	this fills FILE with data from url, used for PACKAGES.TXT and CHECKSUMS
 */
-int get_mirror_data_from_source(FILE *,const char *,const char *);
+int get_mirror_data_from_source(FILE *fh,const char *base_url,const char *filename);
 
 /* download pkg, cals download_data */
-int download_pkg(const rc_config *,pkg_info_t *);
+int download_pkg(const rc_config *global_config,pkg_info_t *pkg);
 
 /* callback for curl progress */
-int progress_callback(void *,double,double,double,double);
+int progress_callback(void *clientp, double dltotal, double dlnow, double ultotal, double ulnow);
+
 /* callback for head request */
-size_t head_request_data_callback(void *,size_t,size_t,void *);
+size_t head_request_data_callback(void *ptr, size_t size, size_t nmemb, void *data);
 

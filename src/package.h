@@ -88,15 +88,18 @@ char *gen_short_pkg_description(pkg_info_t *);
 
 /* retrieve the newest pkg from pkg_info_t list */
 pkg_info_t *get_newest_pkg(struct pkg_list *,const char *);
-pkg_info_t *get_exact_pkg(struct pkg_list *,const char *,const char *);
+
+/* get the exact package */
+pkg_info_t *get_exact_pkg(struct pkg_list *list,const char *name,const char *version);
+
 /* lookup package by details */
-pkg_info_t *get_pkg_by_details(struct pkg_list *,char *,char *,char *);
+pkg_info_t *get_pkg_by_details(struct pkg_list *list,char *name,char *version,char *location);
 
 /* install pkg */
 int install_pkg(const rc_config *,pkg_info_t *);
 
 /* upgrade pkg */
-int upgrade_pkg(const rc_config *,pkg_info_t *,pkg_info_t *);
+int upgrade_pkg(const rc_config *global_config,pkg_info_t *installed_pkg,pkg_info_t *pkg);
 
 /* remove pkg */
 int remove_pkg(const rc_config *,pkg_info_t *);
@@ -108,26 +111,33 @@ void free_pkg_list(struct pkg_list *);
 int is_excluded(const rc_config *,pkg_info_t *);
 
 /* lookup md5sum of file */
-void get_md5sum(const rc_config *,pkg_info_t *,char *);
+void get_md5sum(const rc_config *global_config,pkg_info_t *pkg,char *md5_sum);
 
 /* compare package versions (returns just like strcmp) */
-int cmp_pkg_versions(char *, char *);
+int cmp_pkg_versions(char *a, char *b);
 
 /* analyze the pkg version hunk by hunk */
-void break_down_pkg_version(struct pkg_version_parts *,const char *);
+void break_down_pkg_version(struct pkg_version_parts *pvp,const char *version);
 
 /* write pkg data to disk */
-void write_pkg_data(const char *,FILE *,struct pkg_list *);
+void write_pkg_data(const char *source_url,FILE *d_file,struct pkg_list *pkgs);
 
 /* search package list with pattern */
-void search_pkg_list(struct pkg_list *,struct pkg_list *,const char *);
+void search_pkg_list(struct pkg_list *available,struct pkg_list *matches,const char *pattern);
 
 /* resolve dependencies */
-struct pkg_list *lookup_pkg_dependencies(const rc_config *,struct pkg_list *,struct pkg_list *,pkg_info_t *);
-struct pkg_list *lookup_pkg_conflicts(const rc_config *,struct pkg_list *,struct pkg_list *,pkg_info_t *);
-pkg_info_t *parse_meta_entry(struct pkg_list *,struct pkg_list *,pkg_info_t *,char *);
+struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,pkg_info_t *pkg);
+
+/* lookup package conflicts */
+struct pkg_list *lookup_pkg_conflicts(const rc_config *global_config,struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,pkg_info_t *pkg);
+
+/* parse the meta lines */
+pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,pkg_info_t *pkg,char *dep_entry);
+
+/* return list of packages required by */
 struct pkg_list *is_required_by(struct pkg_list *, pkg_info_t *);
+struct pkg_list *is_required_by(struct pkg_list *avail, pkg_info_t *pkg);
 
 /* update the local package cache */
-void update_pkg_cache(const rc_config *);
+void update_pkg_cache(const rc_config *global_config);
 
