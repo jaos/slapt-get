@@ -463,5 +463,5 @@ msgid "Installed %s conflicts with %s\n"
 msgstr "Zainstalowany %s konfliktuje z %s\n"
 
 msgid "print URIs only, do not download"
-msgstr "print URIs only, do not download"
+msgstr "Drukuj tylko URIs, nie pobieraj"
 
