@@ -90,6 +90,9 @@ rc_config *read_rc_config(const char *file_name){
 					getline_buffer + strlen(WORKINGDIR_TOKEN),
 					(strlen(getline_buffer) - strlen(WORKINGDIR_TOKEN))
 				);
+				global_config->working_dir[
+					(strlen(getline_buffer) - strlen(WORKINGDIR_TOKEN))
+				] = '\0';
 			}
 
 		}else if( strstr(getline_buffer,EXCLUDE_TOKEN) != NULL ){ /* exclude list */

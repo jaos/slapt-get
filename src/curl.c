@@ -66,6 +66,7 @@ int get_mirror_data_from_source(FILE *fh,const char *base_url,const char *filena
 	}
 
 	strncpy(url,base_url,strlen(base_url) );
+	url[ strlen(base_url) ] = '\0';
 	strncat(url,filename,strlen(filename) );
 	return_code = download_data(fh,url);
 
@@ -132,10 +133,10 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 		exit(1);
 	}
 	url = strncpy(url,pkg->mirror,strlen(pkg->mirror));
+	url[ strlen(pkg->mirror) ] = '\0';
 	url = strncat(url,pkg->location,strlen(pkg->location));
 	url = strncat(url,"/",strlen("/"));
 	url = strncat(url,file_name,strlen(file_name));
-	url[ strlen(url) ] = '\0';
 
 	#if USE_CURL_PROGRESS == 0
 	printf("Downloading %s %s %s [%dK]...",pkg->mirror,pkg->name,pkg->version,pkg->size_c);

@@ -231,6 +231,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 					getline_buffer + size_c_regex.pmatch[1].rm_so,
 					(size_c_regex.pmatch[1].rm_eo - size_c_regex.pmatch[1].rm_so)
 				);
+				size_c[ (size_c_regex.pmatch[1].rm_eo - size_c_regex.pmatch[1].rm_so) ] = '\0';
 				tmp_pkg->size_c = strtol(size_c, (char **)NULL, 10);
 				free(size_c);
 			}else{
@@ -266,6 +267,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 					size_u,getline_buffer + size_u_regex.pmatch[1].rm_so,
 					(size_u_regex.pmatch[1].rm_eo - size_u_regex.pmatch[1].rm_so)
 				);
+				size_u[ (size_u_regex.pmatch[1].rm_eo - size_u_regex.pmatch[1].rm_so) ] = '\0';
 				tmp_pkg->size_u = strtol(size_u, (char **)NULL, 10);
 				free(size_u);
 			}else{
@@ -312,9 +314,6 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 						&& (strlen(tmp_pkg->description) + bytes_read) < DESCRIPTION_LEN
 					){
 						strncat(tmp_pkg->description,getline_buffer,bytes_read);
-						tmp_pkg->description[
-							strlen(tmp_pkg->description)
-						] = '\0';
 					}else{
 						break;
 					}
@@ -369,7 +368,7 @@ char *gen_short_pkg_description(pkg_info_t *pkg){
 		exit(1);
 	}
 
-	short_description = strncpy(
+	strncpy(
 		short_description,
 		pkg->description + (strlen(pkg->name) + 2),
 		string_size
