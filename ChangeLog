@@ -1,4 +1,8 @@
 
+0.9.6h Oct 24, 2003
+ * parse package require/dep from PACKAGES.TXT
+ * show parsed require/dep data with --show
+
 0.9.6g Oct 22, 2003
  * updated --help output
  * --interactive now applies to --install as well

@@ -41,6 +41,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 	char *getline_buffer = NULL;
 	char *size_c = NULL;
 	char *size_u = NULL;
+	char *char_pointer = NULL;
 	pkg_info_t *tmp_pkg;
 
 	list = malloc( sizeof *list );
@@ -281,10 +282,15 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 		/* required, if provided */
 		f_pos = ftell(pkg_list_fh);
 		if(
-			(getline(&getline_buffer,&getline_len,pkg_list_fh) != EOF)
-			&& (strstr(getline_buffer,"PACKAGE DESCRIPTION") != NULL)
-				/* add in support for the required data */
+			((bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh)) != EOF)
+			&& ((char_pointer = strstr(getline_buffer,"PACKAGE REQUIRED")) != NULL)
 		){
+				/* add in support for the required data */
+				size_t req_len = strlen("PACKAGE REQUIRED") + 2;
+				getline_buffer[bytes_read - 1] = '\0';
+				strncpy(tmp_pkg->required,char_pointer + req_len, strlen(char_pointer + req_len));
+				tmp_pkg->required[ strlen(tmp_pkg->required) ] = '\0';
+		}else{
 			/* required isn't provided... rewind one line */
 			fseek(pkg_list_fh, (ftell(pkg_list_fh) - f_pos) * -1, SEEK_CUR);
 		}
@@ -441,13 +447,9 @@ struct pkg_list *get_installed_pkgs(void){
 			if( ((existing_pkg = get_newest_pkg(list->pkgs,tmp_pkg->name,list->pkg_count)) == NULL)
 				|| (cmp_pkg_versions(existing_pkg->version,tmp_pkg->version) < 0 )){
 
-				list->pkgs[list->pkg_count] = malloc( sizeof *list->pkgs[list->pkg_count] );
-				if( list->pkgs[list->pkg_count] == NULL ){
-					fprintf(stderr,"Failed to malloc list->pkgs[list->pkg_count]\n");
-					exit(1);
-				}
-				memcpy(list->pkgs[list->pkg_count],tmp_pkg,sizeof *tmp_pkg);
+				list->pkgs[list->pkg_count] = tmp_pkg;
 				list->pkg_count++;
+				tmp_pkg = NULL;
 
 				/* grow our pkgs array */
 				realloc_tmp = realloc(list->pkgs , sizeof *list->pkgs * (list->pkg_count + 1 ) );
@@ -462,8 +464,6 @@ struct pkg_list *get_installed_pkgs(void){
 				}
 
 			}
-
-			free(tmp_pkg);
 
 		}/* end while */
 	}
@@ -997,3 +997,4 @@ void search_pkg_list(struct pkg_list *available,struct pkg_list *matches,const c
 	regfree(&search_regex.regex);
 
 }
+
