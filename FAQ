@@ -1008,7 +1008,7 @@ Frequenty Asked Questions:
   Then you'd just call from your shell search_manifest /usr/lib/libpci.a:
   pciutils-2.1.11-i486-5.tgz /usr/lib/libpci.a
 
- Or you can use this solution provided by Nathan Morell <frizop at eatel.net>
+ Or you can use this solution provided by Nathan Morell <frizop at eatel.net>:
 
   #!/usr/bin/perl
   use strict;
