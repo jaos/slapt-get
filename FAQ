@@ -138,7 +138,8 @@ Frequenty Asked Questions:
 
  Then follow the rest of the directions in UPGRADE.TXT.
 
-   * Note: you might be able to get away with just doing a dist-upgrade,
+   * Note: you might be able to get away with just doing a dist-upgrade, as
+     opposed to installing the most important and then using dist-upgrade.
 
 
 10.  What about package dependencies?
