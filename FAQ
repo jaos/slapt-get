@@ -93,46 +93,47 @@ Frequenty Asked Questions:
 
  For instance, you have the following uncommented line as your source:
 
-  SOURCE=ftp://distro.ibiblio.org/pub/Linux/distributions/slackware/slackware-9.0/
+   SOURCE=ftp://distro.ibiblio.org/pub/Linux/distributions/slackware/slackware-9.0/
 
  Simply change the url to point to current, like so:
 
-  SOURCE=ftp://distro.ibiblio.org/pub/Linux/distributions/slackware/slackware-current/
-
- Now you simply --update to retrieve the package data for that release.
+   SOURCE=ftp://distro.ibiblio.org/pub/Linux/distributions/slackware/slackware-current/
 
  CAVEAT: The simplicity of slapt-get means a lot of assurances are not in
          place.  You can break a working system if you do not follow the
-         suggestions in UPGRADE.TXT.  This means doing the following:
+         suggestions in UPGRADE.TXT.
 
-           ### make sure you have all the packages for the upgrade locally
-           $ slapt-get --download-only --upgrade
+ Now you simply --update to retrieve the package data for that release.  This means
+ doing the following:
 
-           ### switch to single user mode
-           $ telinit 1
+   ### make sure you have all the packages for the upgrade locally
+   $ slapt-get --download-only --upgrade
 
-           ### first, upgrade the most important
-           #(this installs any newer versions)
-           $ slapt-get --install glibc-solibs
-           $ slapt-get --install pkgtools
-           $ slapt-get --install sed
+   ### switch to single user mode
+   $ telinit 1
 
-           ### then, let slapt-get upgrade the rest
-           $ slapt-get --upgrade
+   ### first, upgrade the most important
+   #(this installs any newer versions)
+   $ slapt-get --install glibc-solibs
+   $ slapt-get --install pkgtools
+   $ slapt-get --install sed
 
-           ### to make sure you install every package in the base
-           ### system, (see FAQ #18) use this:
-           ./slapt-get --search '^\.\/slackware\/a$'|awk '{print $1}'| \
-             xargs -r ./slapt-get --install
+   ### then, let slapt-get upgrade the rest
+   $ slapt-get --upgrade
 
-         Then follow the rest of the directions in UPGRADE.TXT.
+   ### to make sure you install every package in the base
+   ### system, (see FAQ #18) use this:
+   slapt-get --search '^\.\/slackware\/a$'|awk '{print $1}'| \
+    xargs -r slapt-get --install
 
-         If you have a broken system, make sure aaa_base is at least installed.
-         Make sure it's downloaded: slapt-get --download-only --install aaa_base
-         Then untar it from /.
+ Then follow the rest of the directions in UPGRADE.TXT.
 
-         Sometimes upgrades fail, make sure /bin/sh is either a binary or 
-         symlink to `which bash`.
+ If you have a broken system, make sure aaa_base is at least installed.  Make
+ sure it's downloaded: slapt-get --download-only --install aaa_base Then
+ untar it from /.
+
+ Sometimes upgrades fail, make sure /bin/sh is either a binary or symlink to
+ `which bash`.
 
 10.  What about package dependancies?
 
@@ -413,5 +414,5 @@ Frequenty Asked Questions:
      xargs -r ./slapt-get --install
 
  You can do the same thing to install a whole disk set... just change the 
- expression.
+ expression to point to whichever disk set you want.
 
