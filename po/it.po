@@ -6,9 +6,9 @@
 #,fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.9g\n"
+"Project-Id-Version: 0.9.9i\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2005-01-28 09:55+0500\n"
+"PO-Revision-Date: 2005-02-20 19:06+0500\n"
 "Last-Translator: Francesco Gigli <jaramir@slack.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -104,14 +104,6 @@ msgstr "Recupero la lista dei checksum [%s]..."
 
 msgid "Failed to malloc\n"
 msgstr "Errore in malloc\n"
-
-#, c-format
-msgid "Maximum number of sources (%d) exceeded.\n"
-msgstr "Massimale di sorgenti (%d) oltrepassato.\n"
-
-#, c-format
-msgid "Maximum length of source (%d) exceeded.\n"
-msgstr "Massimale di lunghezza della sorgente (%d) oltrepassato.\n"
 
 #, c-format
 msgid "WORKINGDIR directive not set within %s.\n"

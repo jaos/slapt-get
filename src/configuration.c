@@ -30,7 +30,6 @@ rc_config *read_rc_config(const char *file_name){
 
 	global_config = slapt_malloc( sizeof *global_config );
 	/* initialize */
-	global_config->sources.count = FALSE;
 	global_config->download_only = FALSE;
 	global_config->simulate = FALSE;
 	global_config->ignore_excludes = FALSE;
@@ -46,6 +45,9 @@ rc_config *read_rc_config(const char *file_name){
 	global_config->working_dir[0] = '\0';
 	global_config->remove_obsolete = FALSE;
 	global_config->progress_cb = NULL;
+	global_config->sources = slapt_malloc(sizeof *global_config->sources );
+	global_config->sources->url = slapt_malloc(sizeof *global_config->sources->url );
+	global_config->sources->count = 0;
 
 	rc = open_file(file_name,"r");
 	if( rc == NULL ) exit(1);
@@ -62,37 +64,8 @@ rc_config *read_rc_config(const char *file_name){
 
 		if( strstr(getline_buffer,SOURCE_TOKEN) != NULL ){ /* SOURCE URL */
 
-			/* make sure we stay within the limits of MAX_SOURCES */
-			if( global_config->sources.count == MAX_SOURCES ){
-				fprintf(stderr,_("Maximum number of sources (%d) exceeded.\n"),MAX_SOURCES);
-				continue;
-			}
-
-			if( strlen(getline_buffer) > strlen(SOURCE_TOKEN) ){
-				if( (strlen(getline_buffer) - strlen(SOURCE_TOKEN)) >= MAX_SOURCE_URL_LEN ){
-					fprintf(stderr,_("Maximum length of source (%d) exceeded.\n"),MAX_SOURCE_URL_LEN);
-					continue;
-				}
-				strncpy(
-					global_config->sources.url[global_config->sources.count],
-					getline_buffer + strlen(SOURCE_TOKEN),
-					(strlen(getline_buffer) - strlen(SOURCE_TOKEN))
-				);
-				global_config->sources.url[global_config->sources.count][
-					(strlen(getline_buffer) - strlen(SOURCE_TOKEN))
-				] = '\0';
-
-				/* make sure our url has a trailing '/' */
-				if( global_config->sources.url[global_config->sources.count]
-					[
-						strlen(global_config->sources.url[global_config->sources.count]) - 1
-					] != '/'
-				){
-					strcat(global_config->sources.url[global_config->sources.count],"/");
-				}
-				++global_config->sources.count;
-
-			}
+			if( strlen(getline_buffer) > strlen(SOURCE_TOKEN) )
+				add_source(global_config->sources,getline_buffer + strlen(SOURCE_TOKEN));
 
 		} else if( strstr(getline_buffer,WORKINGDIR_TOKEN) != NULL ){ /* WORKING DIR */
 
@@ -125,7 +98,7 @@ rc_config *read_rc_config(const char *file_name){
 		global_config->exclude_list->excludes = slapt_malloc( sizeof *global_config->exclude_list->excludes );
 		global_config->exclude_list->count = 0;
 	}
-	if( global_config->sources.count == 0 ){
+	if( global_config->sources->count == 0 ){
 		fprintf(stderr,_("SOURCE directive not set within %s.\n"),file_name);
 		return NULL;
 	}
@@ -160,12 +133,18 @@ void working_dir_init(const rc_config *global_config){
 void free_rc_config(rc_config *global_config){
 	unsigned int i;
 	
-	for(i = 0; i < global_config->exclude_list->count; i++){
+	for(i = 0; i < global_config->exclude_list->count; ++i){
 		free(global_config->exclude_list->excludes[i]);
 	}
-
 	free(global_config->exclude_list->excludes);
 	free(global_config->exclude_list);
+
+	for(i = 0; i < global_config->sources->count; ++i){
+		free(global_config->sources->url[i]);
+	}
+	free(global_config->sources->url);
+	free(global_config->sources);
+
 	free(global_config);
 
 }
@@ -217,7 +196,7 @@ static struct exclude_list *parse_exclude(char *line){
 	return list;
 }
 
-void add_exclude(struct exclude_list *list, char *e){
+void add_exclude(struct exclude_list *list,const char *e){
 	char **realloc_tmp;
 
 	realloc_tmp = realloc( list->excludes, sizeof *list->excludes * (list->count + 1) );
@@ -227,6 +206,39 @@ void add_exclude(struct exclude_list *list, char *e){
 	list->excludes = realloc_tmp;
 	list->excludes[ list->count ] = strndup(e, strlen(e));
 	list->excludes[ list->count ][strlen(e)] = '\0';
+	++list->count;
+
+}
+
+void add_source(struct source_list *list,const char *s){
+	char **realloc_tmp;
+
+	realloc_tmp = realloc(list->url,sizeof *list->url * (list->count + 1) );
+
+	if( realloc_tmp == NULL ) return;
+
+	list->url = realloc_tmp;
+
+	if( s[strlen(s) - 1] != '/' ){
+		list->url[ list->count ] = slapt_malloc(
+			sizeof *list->url[list->count] * (strlen(s) + 2)
+		);
+		list->url[list->count] = strncat(
+			list->url[list->count],
+			s,
+			strlen(s) - 1
+		);
+		list->url[list->count] = strncat(
+			list->url[list->count],
+			"/",
+			strlen("/")
+		);
+		list->url[list->count][strlen(s) + 1] = '\0';
+	}else{
+		list->url[ list->count ] = strndup(s,strlen(s));
+		list->url[ list->count ][strlen(s)] = '\0';
+	}
+
 	++list->count;
 
 }

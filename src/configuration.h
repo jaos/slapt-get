@@ -20,8 +20,6 @@
 #define WORKINGDIR_TOKEN "WORKINGDIR="
 #define WORKINGDIR_TOKEN_LEN 256
 #define EXCLUDE_TOKEN "EXCLUDE="
-#define MAX_SOURCES 20
-#define MAX_SOURCE_URL_LEN 400
 
 struct exclude_list {
 	char **excludes;
@@ -29,12 +27,12 @@ struct exclude_list {
 };
 
 struct source_list {
-	char url[MAX_SOURCES][MAX_SOURCE_URL_LEN];
+	char **url;
 	unsigned int count;
 };
 
 typedef struct {
-	struct source_list sources;
+	struct source_list *sources;
 	char working_dir[WORKINGDIR_TOKEN_LEN];
 	BOOL_T download_only;
 	BOOL_T dist_upgrade;
@@ -56,4 +54,5 @@ typedef struct {
 rc_config *read_rc_config(const char *file_name);
 void working_dir_init(const rc_config *global_config);
 void free_rc_config(rc_config *global_config);
-void add_exclude(struct exclude_list *list, char *e);
+void add_exclude(struct exclude_list *list,const char *e);
+void add_source(struct source_list *list,const char *s);

@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.9g\n"
+"Project-Id-Version: 0.9.9i\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2005-01-28 09:55+0500\n"
+"PO-Revision-Date: 2005-02-20 19:06+0500\n"
 "Last-Translator: Nguyễn Văn Vũ <vncasper@yahoo.com>\n"
 "Language-Team: gnome-vi <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -103,14 +103,6 @@ msgstr "Đang lấy danh sách checksum [%s]..."
 
 msgid "Failed to malloc\n"
 msgstr "Bị lỗi khi cấp phát\n"
-
-#, c-format
-msgid "Maximum number of sources (%d) exceeded.\n"
-msgstr "Số lượng nguồn tối đa (%d) được phép vượt trội.\n"
-
-#, c-format
-msgid "Maximum length of source (%d) exceeded.\n"
-msgstr "Chiều dài nguồn tối đa (%d) được phép vượt trội.\n"
 
 #, c-format
 msgid "WORKINGDIR directive not set within %s.\n"

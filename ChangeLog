@@ -1,5 +1,6 @@
 
 0.9.9i Feb 20, 2005
+ * configuration sources now dynamically created instead of static arrays
  * --search return installed packages as well
  * progress_cb for the progress callback is now part of rc_config structure (libslapt)
  * added public add_exclude() to configuration.c (libslapt)

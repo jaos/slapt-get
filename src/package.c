@@ -1564,7 +1564,7 @@ int update_pkg_cache(const rc_config *global_config){
 	}
 
 	/* go through each package source and download the meta data */
-	for(i = 0; i < global_config->sources.count; i++){
+	for(i = 0; i < global_config->sources->count; i++){
 		FILE *tmp_pkg_f,*tmp_patch_f,*tmp_checksum_f;
 		struct pkg_list *available_pkgs = NULL;
 		struct pkg_list *patch_pkgs = NULL;
@@ -1575,9 +1575,9 @@ int update_pkg_cache(const rc_config *global_config){
 
 
 		/* download our PKG_LIST */
-		printf(_("Retrieving package data [%s]..."),global_config->sources.url[i]);
-		pkg_filename = gen_filename_from_url(global_config->sources.url[i],PKG_LIST);
-		pkg_head = head_mirror_data(global_config->sources.url[i],PKG_LIST);
+		printf(_("Retrieving package data [%s]..."),global_config->sources->url[i]);
+		pkg_filename = gen_filename_from_url(global_config->sources->url[i],PKG_LIST);
+		pkg_head = head_mirror_data(global_config->sources->url[i],PKG_LIST);
 		pkg_local_head = read_head_cache(pkg_filename);
 
 		/* open for reading if cached, otherwise write it from the downloaded data */
@@ -1588,7 +1588,7 @@ int update_pkg_cache(const rc_config *global_config){
 		}else{
 			if( global_config->dl_stats == TRUE ) printf("\n");
 			if( (tmp_pkg_f = open_file(pkg_filename,"w+b")) == NULL ) exit(1);
-			if( get_mirror_data_from_source(tmp_pkg_f,global_config,global_config->sources.url[i],PKG_LIST) == 0 ){
+			if( get_mirror_data_from_source(tmp_pkg_f,global_config,global_config->sources->url[i],PKG_LIST) == 0 ){
 				rewind(tmp_pkg_f); /* make sure we are back at the front of the file */
 				available_pkgs = parse_packages_txt(tmp_pkg_f);
 				if( global_config->dl_stats == FALSE ) printf(_("Done\n"));
@@ -1610,9 +1610,9 @@ int update_pkg_cache(const rc_config *global_config){
 
 
 		/* download PATCHES_LIST */
-		printf(_("Retrieving patch list [%s]..."),global_config->sources.url[i]);
-		patch_filename = gen_filename_from_url(global_config->sources.url[i],PATCHES_LIST);
-		patch_head = head_mirror_data(global_config->sources.url[i],PATCHES_LIST);
+		printf(_("Retrieving patch list [%s]..."),global_config->sources->url[i]);
+		patch_filename = gen_filename_from_url(global_config->sources->url[i],PATCHES_LIST);
+		patch_head = head_mirror_data(global_config->sources->url[i],PATCHES_LIST);
 		patch_local_head = read_head_cache(patch_filename);
 
 		/* open for reading if cached, otherwise write it from the downloaded data */
@@ -1623,7 +1623,7 @@ int update_pkg_cache(const rc_config *global_config){
 		}else{
 			if( global_config->dl_stats == TRUE ) printf("\n");
 			if( (tmp_patch_f = open_file(patch_filename,"w+b")) == NULL ) exit (1);
-			if( get_mirror_data_from_source(tmp_patch_f,global_config,global_config->sources.url[i],PATCHES_LIST) == 0 ){
+			if( get_mirror_data_from_source(tmp_patch_f,global_config,global_config->sources->url[i],PATCHES_LIST) == 0 ){
 				rewind(tmp_patch_f); /* make sure we are back at the front of the file */
 				patch_pkgs = parse_packages_txt(tmp_patch_f);
 				if( global_config->dl_stats == FALSE ) printf(_("Done\n"));
@@ -1642,9 +1642,9 @@ int update_pkg_cache(const rc_config *global_config){
 
 
 		/* download checksum file */
-		printf(_("Retrieving checksum list [%s]..."),		global_config->sources.url[i]);
-		checksum_filename = gen_filename_from_url(global_config->sources.url[i],CHECKSUM_FILE);
-		checksum_head = head_mirror_data(global_config->sources.url[i],CHECKSUM_FILE);
+		printf(_("Retrieving checksum list [%s]..."),		global_config->sources->url[i]);
+		checksum_filename = gen_filename_from_url(global_config->sources->url[i],CHECKSUM_FILE);
+		checksum_head = head_mirror_data(global_config->sources->url[i],CHECKSUM_FILE);
 		checksum_local_head = read_head_cache(checksum_filename);
 
 		/* open for reading if cached, otherwise write it from the downloaded data */
@@ -1655,7 +1655,7 @@ int update_pkg_cache(const rc_config *global_config){
 			if( global_config->dl_stats == TRUE ) printf("\n");
 			if( (tmp_checksum_f = open_file(checksum_filename,"w+b")) == NULL ) exit(1);
 			if( get_mirror_data_from_source(
-						tmp_checksum_f,global_config,global_config->sources.url[i],CHECKSUM_FILE
+						tmp_checksum_f,global_config,global_config->sources->url[i],CHECKSUM_FILE
 					) != 0
 			){
 				source_dl_failed = 1;
@@ -1694,8 +1694,8 @@ int update_pkg_cache(const rc_config *global_config){
 			printf(_("Done\n"));
 
 			/* write package listings to disk */
-			write_pkg_data(global_config->sources.url[i],pkg_list_fh_tmp,available_pkgs);
-			write_pkg_data(global_config->sources.url[i],pkg_list_fh_tmp,patch_pkgs);
+			write_pkg_data(global_config->sources->url[i],pkg_list_fh_tmp,available_pkgs);
+			write_pkg_data(global_config->sources->url[i],pkg_list_fh_tmp,patch_pkgs);
 
 		}
 		if ( available_pkgs ) free_pkg_list(available_pkgs);
