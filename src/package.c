@@ -1367,37 +1367,37 @@ void update_pkg_cache(const rc_config *global_config){
 	pkg_list_fh = open_file(PKG_LIST_L,"w+");
 
 	for(i = 0; i < global_config->sources.count; i++){
-		FILE *tmp_pkg,*tmp_patch,*tmp_checksum_f;
+		FILE *tmp_pkg_f,*tmp_patch_f,*tmp_checksum_f;
 		struct pkg_list *available_pkgs = NULL;
 		struct pkg_list *patch_pkgs = NULL;
 
 		/* download our PKG_LIST */
-		tmp_pkg = tmpfile();
+		tmp_pkg_f = tmpfile();
 		if( global_config->dl_stats == 1 ){
 			printf(_("Retrieving package data [%s]...\n"),global_config->sources.url[i]);
 		}else{
 			printf(_("Retrieving package data [%s]..."),global_config->sources.url[i]);
 		}
-		if( get_mirror_data_from_source(tmp_pkg,global_config->dl_stats,global_config->sources.url[i],PKG_LIST) == 0 ){
-			rewind(tmp_pkg); /* make sure we are back at the front of the file */
-			available_pkgs = parse_packages_txt(tmp_pkg);
+		if( get_mirror_data_from_source(tmp_pkg_f,global_config->dl_stats,global_config->sources.url[i],PKG_LIST) == 0 ){
+			rewind(tmp_pkg_f); /* make sure we are back at the front of the file */
+			available_pkgs = parse_packages_txt(tmp_pkg_f);
 			if( global_config->dl_stats != 1 ) printf(_("Done\n"));
 		}
-		fclose(tmp_pkg);
+		fclose(tmp_pkg_f);
 
 		/* download PATCHES_LIST */
-		tmp_patch = tmpfile();
+		tmp_patch_f = tmpfile();
 		if( global_config->dl_stats == 1 ){
 			printf(_("Retrieving patch list [%s]...\n"),global_config->sources.url[i]);
 		}else{
 			printf(_("Retrieving patch list [%s]..."),global_config->sources.url[i]);
 		}
-		if( get_mirror_data_from_source(tmp_patch,global_config->dl_stats,global_config->sources.url[i],PATCHES_LIST) == 0 ){
-			rewind(tmp_patch); /* make sure we are back at the front of the file */
-			patch_pkgs = parse_packages_txt(tmp_patch);
+		if( get_mirror_data_from_source(tmp_patch_f,global_config->dl_stats,global_config->sources.url[i],PATCHES_LIST) == 0 ){
+			rewind(tmp_patch_f); /* make sure we are back at the front of the file */
+			patch_pkgs = parse_packages_txt(tmp_patch_f);
 			if( global_config->dl_stats != 1 ) printf(_("Done\n"));
 		}
-		fclose(tmp_patch);
+		fclose(tmp_patch_f);
 
 		/* download checksum file */
 		tmp_checksum_f = tmpfile();

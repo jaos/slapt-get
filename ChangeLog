@@ -1,5 +1,6 @@
 
-0.9.8e May 25, 2004
+0.9.8e May 26, 2004
+ * renamed variables in update_pkg_cache() to designate files (_f)
  * removed legacy parse_file_list()
  * initialized global_config->no_prompt and global_config->re_install
  * moved create_dir_structure() and gen_md5_sum_of_file() and to common.[ch]
