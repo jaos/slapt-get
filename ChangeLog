@@ -1,6 +1,7 @@
 
 0.9.7i Dec 10, 2003
  * added slapt-get source to example slapt-getrc
+ * updated source creation script, runs PACKAGESTXT and MD5 on all now
 
 0.9.7h Dec 08, 2003
  * updated FAQ

@@ -361,6 +361,8 @@ Frequenty Asked Questions:
 		    do
 			    gen_meta $pkg
 		    done
+		    $0 PACKAGESTXT
+		    $0 MD5
 	    ;;
 	    new)
 		    for pkg in `find . -type f -name '*.tgz' -print`
