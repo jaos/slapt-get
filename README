@@ -43,16 +43,19 @@ Table of Contents:
     * retrieve and apply updates
     * upgrade from one slackware release to another in a few simple steps
     * show description of packages, including mirror location, version, size,
-      dependencies (where available), conflicts (where available), description,
-      and installation status
+      dependencies (where available), conflicts (where available), suggestions
+      (where available), description, and installation status
     * exclude (hold) packages from upgrades, by name or by regular expression
     * transaction engine for install, remove, and upgrades
     * "compare package version" algorithm to prevent downgrades
     * recursive dependency resolution using slack-required metadata (see FAQ)
+      supporting hard, soft, and conditional dependencies
     * package conflict resolution using slack-conflicts metadata (see FAQ)
+    * package sugggestion support for complimentary packages (see FAQ)
     * Package data download robustness, only writing changes if all sources
       download successfully as well as only downloading those sources that
       have changed since the last download
+    * i18n support via GNU gettext
     * extremely fast and easy to script with
 
 
@@ -157,4 +160,6 @@ Table of Contents:
    Francesco Gigli <jaramir at slack dot it> authored the Italian translation.
 
    Joel Bjurman <ypolt at lediga dot st> authored the Swedish translation.
+
+   Savvas Efstratiadis <pigouinos at mailworks dot org> authored the Greek translation.
 
