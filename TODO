@@ -2,6 +2,7 @@ slapt-get is pretty feature complete.  At the moment, bug fixes are the most imp
 
 Future enhancements, fixes, or features:
 
+ * support debian style "or" conditional in slack-required
  * test slack-suggests support
  * test dependency tracking (get the word out about adding ./install/slack-required)
  * test slack-conflicts support (./install/slack-conflicts)
