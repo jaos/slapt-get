@@ -16,8 +16,14 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+struct head_data_t {
+	char *data;
+	size_t size;
+};
+
 /* this is the main download routine */
 int download_data(FILE *fh,const char *url,size_t bytes,int use_curl_dl_stats);
+char *head_request(const char *url);
 
 /*
 	this fills FILE with data from url, used for PACKAGES.TXT and CHECKSUMS

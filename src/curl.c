@@ -17,6 +17,7 @@
  */
 
 #include <main.h>
+static size_t write_header_callback(void *buffer, size_t size, size_t nmemb, void *userp);
 
 int download_data(FILE *fh,const char *url,size_t bytes,int use_curl_dl_stats){
 	CURL *ch = NULL;
@@ -58,6 +59,47 @@ int download_data(FILE *fh,const char *url,size_t bytes,int use_curl_dl_stats){
 	/* curl_free(ch); */
 
 	return return_code;
+}
+
+static size_t write_header_callback(void *buffer, size_t size, size_t nmemb, void *userp){
+	char *tmp;
+	register int a_size = size * nmemb;
+	struct head_data_t *head_t = (struct head_data_t *)userp;
+	
+	tmp = (char *)realloc( head_t->data, head_t->size + a_size + 1);
+	if( tmp != NULL ){
+		head_t->data = tmp;
+		/* strncat(head_t->data,buffer,a_size); */
+		memcpy(&(head_t->data[head_t->size]),buffer,a_size);
+		head_t->size += a_size;
+	}
+
+	return nmemb;
+}
+
+char *head_request(const char *url){
+	CURL *ch = NULL;
+	CURLcode response;
+	struct head_data_t head_t;
+
+	head_t.data = NULL;
+	head_t.size = 0;
+
+	ch = curl_easy_init();
+	curl_easy_setopt(ch, CURLOPT_URL, url);
+	curl_easy_setopt(ch, CURLOPT_WRITEFUNCTION, write_header_callback);
+	curl_easy_setopt(ch, CURLOPT_FILE, &head_t);
+	curl_easy_setopt(ch, CURLOPT_HEADER, 1);
+	curl_easy_setopt(ch, CURLOPT_NOBODY, 1);
+
+	if( (response = curl_easy_perform(ch)) != 0 ){
+		free(head_t.data);
+		curl_easy_cleanup(ch);
+		return NULL;
+	}
+
+	return head_t.data;
+
 }
 
 int get_mirror_data_from_source(FILE *fh,int use_curl_dl_stats,const char *base_url,const char *filename){

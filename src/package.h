@@ -49,6 +49,7 @@
 #define INSTALL_CMD "/sbin/installpkg "
 #define UPGRADE_CMD "/sbin/upgradepkg --reinstall "
 #define CHECKSUM_FILE "CHECKSUMS.md5"
+#define HEAD_FILE_EXT ".head"
 
 struct _pkg_info {
 	char name[NAME_LEN];
@@ -90,6 +91,8 @@ void add_pkg_to_pkg_list(struct pkg_list *list,pkg_info_t *pkg);
 /* free memory allocated for pkg_list struct */
 void free_pkg_list(struct pkg_list *);
 
+/* do a head request on the mirror data to find out if it's new */
+int head_mirror_data(const char *wurl,const char *file);
 /* update the local package cache */
 void update_pkg_cache(const rc_config *global_config);
 /* parse the PACKAGES.TXT file */

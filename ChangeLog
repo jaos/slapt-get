@@ -1,6 +1,7 @@
 
 0.9.8g Jul 15, 2004
- * initial support for only downloading package data if newer than cached
+ * support for only downloading package data if newer than cached during --update
+ * now caches package data for each individual package sourch per --update run
  * moved spinner and progress_callback from main.[ch] to curl.[ch]
  * moved is_conflicted from action.[ch] to transaction.[ch]
  * added swedish translation by Joel Bjurman (ypolt@lediga.st)
