@@ -1120,10 +1120,6 @@ struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,struct p
 
 				}/* end for loop */
 
-				/* don't call free_pkg_list as this list is made up of pointers */
-				/* free_pkg_list(tmp_pkgs_deps); */
-				free(tmp_pkgs_deps->pkgs);
-				free(tmp_pkgs_deps);
 			}else if( tmp_pkgs_deps->pkg_count == -1 && global_config->no_dep == 0 ){
 				/* don't call free_pkg_list as this list is made up of pointers */
 				/* free_pkg_list(tmp_pkgs_deps); */
@@ -1132,6 +1128,11 @@ struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,struct p
 				deps->pkg_count = -1;
 				return deps;
 			}
+
+			/* don't call free_pkg_list as this list is made up of pointers */
+			/* free_pkg_list(tmp_pkgs_deps); */
+			free(tmp_pkgs_deps->pkgs);
+			free(tmp_pkgs_deps);
 
 		}else{
 			#if DEBUG == 1
