@@ -53,7 +53,7 @@ msgstr "Versione del pacchetto: %s\n"
 
 #, c-format
 msgid "Package Size: %d K\n"
-msgstr "Dimensione del pacchetto: %s K\n"
+msgstr "Dimensione del pacchetto: %d K\n"
 
 #, c-format
 msgid "Package Installed Size: %d K\n"
