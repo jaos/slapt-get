@@ -17,7 +17,7 @@ Frequently Asked Questions:
 14. What if I only want to upgrade one package?
 15. What about Dropline support?
 16. How can I generate an exclude list for an entire disk set?
-17. How do I use a local file source?
+17. How do I create my own package source?
 18. How can I download every package in a disk set?
 19. How can I add dependency information to my packages?
 20. How do I get the newest development version of slapt-get?
@@ -175,12 +175,8 @@ Frequently Asked Questions:
 
  Then follow the rest of the directions in UPGRADE.TXT.
 
-   * Note: you might be able to get away with just doing a --dist-upgrade after
-     the --update.  The second step above is made as a suggestion to follow
-     the suggestions and conventions in UPGRADE.TXT.
-
  You should make sure any new packages within the disk sets you are using are
- also installed, as they will not be detected during --dist-upgrade.  Only 
+ also installed, as they will not be detected during --dist-upgrade, as only 
  packages already installed will be upgraded.  To accomplish this, you can
  specify slapt-get to install a disk set like so:
 
@@ -195,16 +191,18 @@ Frequently Asked Questions:
 10.  What about package dependencies?
 
  First of all, slapt-get does not provide dependency resolution for vanilla
- Slackware packages.
+ Slackware packages (ie, official Slackware packages that come with the
+ distribution).
 
  However, slapt-get does provide a framework for dependency resolution for
  packages that follow the Slackware package format, while still being backwards
  compatible.  This information is stored in so called meta files within the
- package.  slapt-get does not parse packages themselves.  It uses the 
+ package.  slapt-get does not parse the packages themselves.  It uses the 
  PACKAGES.TXT package database that Patrick Volkerding provides along with his
  packages.  slapt-get uses this file by extending it with optional extra fields.
  This information is stored within the package simply as a means of easy
- transport.  For example, the entry for man within PACKAGES.TXT looks like:
+ transport, to later be parsed into a PACKAGES.TXT.  For example, the entry
+ for man within PACKAGES.TXT looks like:
 
    PACKAGE NAME:  man-1.5l-i386-1.tgz
    PACKAGE LOCATION:  ./slackware/ap
@@ -255,9 +253,9 @@ Frequently Asked Questions:
 11. What about multiple package sources, ala linuxpackages.net?
 
  You can use multiple sources with slapt-get (including linuxpackages.net).
- See the example slapt-getrc in the source tarball, or look in
- /etc/slapt-get/slapt-getrc.new if you installed a binary package. See the
- README.
+ See the example slapt-getrc in the source tarball or look in the
+ slapt-get directory within /usr/share/doc/ if you installed a binary package.
+ See the README for further details.
 
 
 12. How can I get more detailed statistics for downloads?
@@ -278,8 +276,8 @@ Frequently Asked Questions:
 
 14. What if I only want to upgrade one package?
 
- Then you follow the Debian apt-get method of using --install.  If the package
- is already installed, it will check and install any newer versions:
+ The --install option works for this as well.  If the package is already
+ installed, it will check and install any newer versions:
 
  slapt-get --install {pkg_name}
 
@@ -287,7 +285,7 @@ Frequently Asked Questions:
 15. What about Dropline support?
 
  There is no direct support for Dropline packages.  If you do not want them
- upgraded, either put the package names or regex into the exception list.
+ upgraded, either put the package names or a regex into the exception list.
 
  Use the following to exclude Dropline (from the example slapt-getrc):
  
@@ -304,9 +302,11 @@ Frequently Asked Questions:
   EXCLUDE=^./slackware/x$,^./slackware/xap$
 
 
-17. How do I use a local file source?
+17. How do I create my own package source?
 
- Within slapt-getrc, change your SOURCE= lines to point to file:// url's.
+ Within slapt-getrc, change your SOURCE= lines to point to your package
+ source.  This might be a local source using file:// url's, or a publicly
+ available source.
 
  For example, you could have an official and a local source like:
  SOURCE=ftp://ftp.slackware.no/pub/linux/slackware/slackware-9.1/
@@ -484,15 +484,17 @@ Frequently Asked Questions:
  Please look in the po/ directory of the slapt-get source, or in
  /usr/share/slapt-get/locales.  Copy the slapt-get.pot file to a new file named
  with your native language abbreviation, ending in .po.  For example, to
- translate to German:
+ translate to German, download the current translation file available here:
+ http://software.jaos.org/BUILD/slapt-get/po/slapt-get.pot
 
- $ cp /usr/share/slapt-get/locales/slapt-get.pot /tmp/de.po
+ $ cp slapt-get.pot de.po
 
  Edit that file.  For every msgid, translate that into the msgstr "".  Leave the
  formatting the same.
 
  More translations are needed. Email in your translation to the slapt-get-devel
- mailing list.  Your contributions are greatly appreciated.
+ mailing list (slapt-get-devel at software dot jaos dot org).  Your
+ contributions are greatly appreciated.
 
 
 23. How do I set the output language?
@@ -716,7 +718,7 @@ Frequently Asked Questions:
  This does not apply to dependencies.  If a dependency of a specified package
  is detected, it is checked against the EXCLUDE list.  If excluded, the 
  dependency check for the specified package fails.  Override this with
- --ignore-dep.
+ --ignore-dep (to ignore dependency failures).
 
 
 31. What about package conflicts?  How can I specify a conflict for my package?
@@ -754,6 +756,9 @@ Frequently Asked Questions:
  For example export ROOT=/home/keary/newroot would make slapt-get look in
  /home/keary/newroot/var/log/packages for installed package information and
  install all upgraded/new packages in /home/keary/newroot instead of /
+
+ All calls to installpkg, removepkg, and upgradepkg will be passed along this
+ environment variable.  See the installpkg(8) manpage.
 
 
 33. How do I specify the exact version of a package to install?
