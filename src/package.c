@@ -573,7 +573,7 @@ pkg_info_t *get_exact_pkg(struct pkg_list *list,const char *name,const char *ver
 /*
  * this function is here for historic reasons
  * and in case it may ever need to be revived
- * from it's cold sleep of death.
+ * from its cold sleep of death.
 */
 struct pkg_list *parse_file_list(FILE *fh){
 	size_t getline_len;
@@ -840,7 +840,7 @@ void get_md5sum(pkg_info_t *pkg,FILE *checksum_file){
 
 	while( (getline_read = getline(&getline_buffer,&getline_len,checksum_file) ) != EOF ){
 
-		/* ignore if it's not our package */
+		/* ignore if it is not our package */
 		if( strstr(getline_buffer,pkg->name) == NULL) continue;
 		if( strstr(getline_buffer,pkg->version) == NULL) continue;
 		if( strstr(getline_buffer,".tgz") == NULL) continue;

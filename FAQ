@@ -51,9 +51,9 @@ Frequenty Asked Questions:
  To scratch and itch of mine, which also scratched an itch of a friend.  I
  created it originally without looking for an existing solution.  I now
  understand Slackware already has existing utilities that provide similar
- functionality.  I believe slapt-get to be superior because of it's speed and
+ functionality.  I believe slapt-get to be superior because of its speed and
  simplicity.  I do not believe slapt-get takes away anything from these
- existing tools, slapt-get can stand on it's own merits.  In the end, choice
+ existing tools, slapt-get can stand on its own merits.  In the end, choice
  is great for the end users (just as in the desktop enviroment category).  
  Regardless, I do not aim for inclusion within Slackware.  I only want to make
  this availabe in hopes that others will find it useful.
@@ -243,7 +243,7 @@ Frequenty Asked Questions:
 
 13. How can I install every available package?
 
- Even though it's not built in, it's simple since slapt-get is easy to script
+ Even though it is not built in, it is simple since slapt-get is easy to script
  with.  Here is a shell command to install every package that is available
  but not currently installed:
 
@@ -651,7 +651,7 @@ Frequenty Asked Questions:
  
  # give usage if no arguments
  if [ -z "$1" ]; then echo "Usage: $0 [--update|packages]"; exit; fi
- # get package cache data if it's not already there, or we want it
+ # get package cache data if it is not already there, or we want it
  cd ${WORKINGDIR}
  if [ "$1" == "--update" ]; then shift; get_pkg_cache_data; fi
  if [ ! -f ${PKGLINES} ]; then get_pkg_cache_data; fi

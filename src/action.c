@@ -110,12 +110,12 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 			installed_pkg = get_newest_pkg(installed_pkgs,action_args->pkgs[i]);
 		}
 
-		/* if it's not already installed, install it */
+		/* if it is not already installed, install it */
 		if( installed_pkg == NULL ){
 
 				if( add_deps_to_trans(global_config,&tran,avail_pkgs,installed_pkgs,pkg) == 0 ){
 					/* this way we install the most up to date pkg */
-					/* make sure it's not already present from a dep check */
+					/* make sure it is not already present from a dep check */
 					if( search_transaction(&tran,pkg) == 0 ){
 
 						if ( is_conflicted(global_config,&tran,avail_pkgs,installed_pkgs,pkg) == 0 )
@@ -126,14 +126,14 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 
 		}else{ /* else we upgrade or reinstall */
 
-			/* it's already installed, attempt an upgrade */
+			/* it is already installed, attempt an upgrade */
 			if(
 				((cmp_pkg_versions(installed_pkg->version,pkg->version)) < 0)
 				|| (global_config->re_install == 1)
 			){
 
 				if( add_deps_to_trans(global_config,&tran,avail_pkgs,installed_pkgs,pkg) == 0 ){
-					/* make sure it's not already present from a dep check */
+					/* make sure it is not already present from a dep check */
 					if( search_transaction(&tran,pkg) == 0 ){
 
 						if ( is_conflicted(global_config,&tran,avail_pkgs,installed_pkgs,pkg) == 0 )
@@ -433,7 +433,7 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 			){
 
 				if( add_deps_to_trans(global_config,&tran,avail_pkgs,installed_pkgs,update_pkg) == 0 ){
-					/* add if it's not already present in trans */
+					/* add if it is not already present in trans */
 					if( search_transaction(&tran,update_pkg) == 0 ){
 						if( is_excluded(global_config,update_pkg) == 1 ){
 							add_exclude_to_transaction(&tran,update_pkg);
@@ -472,7 +472,7 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 				}else{
 
 					if( add_deps_to_trans(global_config,&tran,avail_pkgs,installed_pkgs,matches->pkgs[i]) == 0 ){
-						/* add if it's not already present in trans */
+						/* add if it is not already present in trans */
 						if( search_transaction(&tran,matches->pkgs[i]) == 0 ){
 
 							if ( is_conflicted(global_config,&tran,avail_pkgs,installed_pkgs,matches->pkgs[i]) == 0 )
@@ -516,7 +516,7 @@ int add_deps_to_trans(const rc_config *global_config, transaction *tran, struct 
 	/* loop through the deps */
 	for(c = 0; c < deps->pkg_count;c++){
 
-		/* only check if it's not already present in trans */
+		/* only check if it is not already present in trans */
 		if( search_transaction(tran,deps->pkgs[c]) == 0 ){
 
 			pkg_info_t *dep_installed;

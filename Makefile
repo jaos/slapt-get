@@ -88,6 +88,7 @@ dopkg:
 	-@mkdir -p pkg$(LOCALESDIR)/pl/LC_MESSAGES; msgfmt -o pkg$(LOCALESDIR)/pl/LC_MESSAGES/slapt-get.mo po/pl.po
 	-@mkdir -p pkg$(LOCALESDIR)/pt_BR/LC_MESSAGES; msgfmt -o pkg$(LOCALESDIR)/pt_BR/LC_MESSAGES/slapt-get.mo po/pt_BR.po
 	-@cp $(PROGRAM_NAME) ./pkg/sbin/
+	-@chown root:bin ./pkg/sbin/$(PROGRAM_NAME)
 	-@strip ./pkg/sbin/$(PROGRAM_NAME)
 	-@cp example.slapt-getrc ./pkg/etc/slapt-getrc.new
 	-@mkdir -p ./pkg/usr/doc/$(PROGRAM_NAME)-$(VERSION)/
