@@ -104,6 +104,10 @@ Table of Contents:
    Probably lots of bugs.  email bug reports to me:
     Jason Woodward <woodwardj at jaos dot org>
 
+   or directly to the mailing lists:
+    slapt-get-user at software dot jaos dot org
+    slapt-get-devel at software dot jaos dot org
+
    Make sure --update is ran once initially and the downloaded files 
    (CHECKSUMS.md5, package_data) are good.
 

@@ -21,6 +21,7 @@ Frequenty Asked Questions:
 18. How can I download every package in a disk set?
 19. How can I add dependency information to my packages?
 22. How do I get the newest development version of slapt-get?
+23. How can I contribute my ideas or code?
 
 
 
@@ -453,4 +454,14 @@ Frequenty Asked Questions:
 20. How do I get the newest development version of slapt-get?
 
  See the 'Using cvs' section of the INSTALL document.
+
+23. How can I contribute my ideas or code?
+
+ Send in ideas or patches to the development list:
+
+   slapt-get-devel at software dot jaos dot org
+
+ The user list can be used for questions on usages, etc:
+
+   slapt-get-user at software dot jaos dot org
 
