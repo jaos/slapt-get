@@ -1,5 +1,5 @@
 
-0.9.9g Jan 28, 2005
+0.9.9g Jan 29, 2005
  * updated documentation
  * transaction report now reports sizes in kB or in MB
  * added check before downloading any packages that there is enough disk 

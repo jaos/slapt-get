@@ -136,6 +136,7 @@ int main( int argc, char *argv[] ){
 			case HELP_OPT: /* help */
 				usage();
 				free_rc_config(global_config);
+				curl_global_cleanup();
 				exit(1);
 			case IGNORE_DEP_OPT: /* ignore-dep */
 				global_config->ignore_dep = TRUE;
@@ -155,6 +156,7 @@ int main( int argc, char *argv[] ){
 					global_config = read_rc_config(optarg);
 					if( global_config == NULL ){
 						free_rc_config(tmp_gc);
+						curl_global_cleanup();
 						exit(1);
 					}
 					/* preserve existing command line options */
@@ -181,6 +183,7 @@ int main( int argc, char *argv[] ){
 			default:
 				usage();
 				free_rc_config(global_config);
+				curl_global_cleanup();
 				exit(1);
 		}
 	}
@@ -203,6 +206,7 @@ int main( int argc, char *argv[] ){
 	if( do_action == USAGE ){
 		usage();
 		free_rc_config(global_config);
+		curl_global_cleanup();
 		exit(1);
 	}
 
@@ -214,6 +218,7 @@ int main( int argc, char *argv[] ){
 		case UPDATE:
 			if( update_pkg_cache(global_config) == 1 ){
 				free_rc_config(global_config);
+				curl_global_cleanup();
 				exit(1);
 			}
 			break;
