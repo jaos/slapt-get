@@ -205,7 +205,6 @@ int ask_yes_no(const char *format, ...)
 	vprintf(format, arg_list);
 	va_end(arg_list);
 
-	/* FIXME: Use rpmatch instead ? */
 	fgets(prompt_answer,10,stdin);
 	if( tolower(prompt_answer[0]) == 'y' )
 		return 1;
