@@ -129,12 +129,6 @@ Frequenty Asked Questions:
    ### upgrade your local package cache
    $ slapt-get --update
 
-   ### make sure you have all the packages for the upgrade locally
-   $ slapt-get --download-only --dist-upgrade
-
-   ### switch to single user mode (not necessary, just a suggestion)
-   $ telinit 1
-
    ### first, upgrade the most important
    #(this installs any newer versions)
    $ slapt-get --install glibc-solibs pkgtools sed
@@ -145,8 +139,6 @@ Frequenty Asked Questions:
  Then follow the rest of the directions in UPGRADE.TXT.
 
    * Note: you might be able to get away with just doing a dist-upgrade,
-     without going through all those steps.  Downloading the updates 
-     prior to upgrading may still be a good idea.
 
 
 10.  What about package dependencies?
@@ -355,7 +347,7 @@ Frequenty Asked Questions:
 		    if [ -n "$2" ]; then
 			    gen_meta $2
 		    else
-			    echo "$0 [pkg [file]|all|PACKAGESTXT|MD5]"
+			    echo "$0 [pkg [file]|all|new|PACKAGESTXT|MD5]"
 		    fi
 	    ;;
 	    all)
