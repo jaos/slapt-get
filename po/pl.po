@@ -483,5 +483,5 @@ msgid "Maximum length of excludes (%d) exceeded.\n"
 msgstr "Maksymalna d³ugo¶æ wyj±tków (%d) przekroczona.\n"
 
 msgid "only purge cache of older, unreacheable pkgs"
-msgstr ""
+msgstr "usuñ tylko stare, niedostêpne pkgs z cache"
 

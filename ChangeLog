@@ -1,5 +1,6 @@
 
 0.9.9d Oct 21, 2004
+ * polish translation update by Piotr Simon
  * proper German translation contributed by Niklas Volbers
  * tightened the scope of some variables
  * --dist-upgrade now grabs the most up to date version of the
