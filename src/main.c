@@ -59,6 +59,7 @@ int main( int argc, char *argv[] ){
 	};
 	int option_index = 0;
 	/* */
+	pkg_action_args_t *paa;
 
 	setvbuf(stdout, (char *)NULL, _IONBF, 0); /* unbuffer stdout */
 
@@ -177,102 +178,94 @@ int main( int argc, char *argv[] ){
 		}
 	}
 
+	/* Check optionnal arguments presence */
+	switch(do_action){
+		case INSTALL:
+		case REMOVE:
+		case SHOW:
+		case SEARCH:
+			if( optind >= argc )
+				do_action = 0;
+			break;
+		default:
+			if (optind < argc)
+				do_action = USAGE;
+			break;
+	}
+
+	if( do_action == USAGE ){
+		usage();
+		exit(1);
+	}
+
 	/* create the working directory if needed */
 	working_dir_init(global_config);
 	chdir(global_config->working_dir);
 
-	if( do_action == UPDATE ){
-		if( update_pkg_cache(global_config) == 1 ) exit(1);
-	}else if( do_action == INSTALL ){
-		if (optind < argc) {
-			int i;
-			pkg_action_args_t *paa;
-
-			paa = malloc( sizeof *paa );
-			paa->pkgs = malloc( sizeof *paa->pkgs * (argc - optind) );
-			paa->count = 0;
+	switch(do_action){
+		case UPDATE:
+			if( update_pkg_cache(global_config) == 1 ) exit(1);
+			break;
+		case INSTALL:
+			paa = init_pkg_action_args((argc - optind));
 			while (optind < argc){
 				paa->pkgs[paa->count] = malloc(
-					( strlen(argv[optind]) + 1 ) * sizeof *paa->pkgs[paa->count] 
+					( strlen(argv[optind]) + 1 ) * sizeof *paa->pkgs[paa->count]
 				);
 				memcpy(paa->pkgs[paa->count],argv[optind],strlen(argv[optind]) + 1);
 				++optind;
 				++paa->count;
 			}
 			pkg_action_install( global_config, paa );
-			for(i = 0; i < paa->count; i++){
-				free(paa->pkgs[i]);
-			}
-			free(paa->pkgs);
-			free(paa);
-		}else{
-			usage();
-			exit(1);
-		}
-	}else if( do_action == REMOVE ){
-		if (optind < argc) {
-			int i;
-			pkg_action_args_t *paa;
-
-			paa = malloc( sizeof *paa );
-			paa->pkgs = malloc( sizeof *paa->pkgs * (argc - optind) );
-			paa->count = 0;
+			free_pkg_action_args(paa);
+			break;
+		case REMOVE:
+			paa = init_pkg_action_args((argc - optind));
 			while (optind < argc){
 				paa->pkgs[paa->count] = malloc(
-					( strlen(argv[optind]) + 1 ) * sizeof *paa->pkgs[paa->count] 
+					( strlen(argv[optind]) + 1 ) * sizeof *paa->pkgs[paa->count]
 				);
 				memcpy(paa->pkgs[paa->count],argv[optind],strlen(argv[optind]) + 1);
 				++optind;
 				++paa->count;
 			}
 			pkg_action_remove( global_config, paa );
-			for(i = 0; i < paa->count; i++){
-				free(paa->pkgs[i]);
-			}
-			free(paa->pkgs);
-			free(paa);
-		}else{
-			usage();
-			exit(1);
-		}
-	}else if( do_action == SHOW ){
-		if (optind < argc) {
+			free_pkg_action_args(paa);
+			break;
+		case SHOW:
 			while (optind < argc){
 				pkg_action_show( argv[optind++] );
 			}
-		}else{
-			usage();
-			exit(1);
-		}
-	}else if( do_action == SEARCH ){
-		if (optind < argc) {
+			break;
+		case SEARCH:
 			while (optind < argc){
 				pkg_action_search( argv[optind++] );
 			}
-		}else{
-			usage();
-			exit(1);
-		}
-	}else if( do_action == UPGRADE ){
-		pkg_action_upgrade_all(global_config);
-	}else if( do_action == LIST ){
-		pkg_action_list();
-	}else if( do_action == INSTALLED ){
-		pkg_action_list_installed();
-	}else if( do_action == CLEAN ){
-		/* clean out local cache */
-		clean_pkg_dir(global_config->working_dir);
-		chdir(global_config->working_dir);
-	}else if( do_action == SHOWVERSION ){
-		version_info();
-	}else if( do_action == AUTOCLEAN ){
-		purge_old_cached_pkgs(global_config->working_dir);
-	}else if( do_action == 0 ){ /* default initialized value */
-		usage();
-		exit(1);
-	}else{
-		usage();
-		exit(1);
+			break;
+		case UPGRADE:
+			pkg_action_upgrade_all(global_config);
+			break;
+		case LIST:
+			pkg_action_list();
+			break;
+		case INSTALLED:
+			pkg_action_list_installed();
+			break;
+		case CLEAN:
+			/* clean out local cache */
+			clean_pkg_dir(global_config->working_dir);
+			chdir(global_config->working_dir);
+			break;
+		case SHOWVERSION:
+			version_info();
+			break;
+		case AUTOCLEAN:
+			purge_old_cached_pkgs(global_config->working_dir, NULL);
+			break;
+		case USAGE:
+		default:
+			printf("main.c(l.%d): This should never be reached\n", __LINE__);
+			exit(255);
 	}
 
 	free_rc_config(global_config);

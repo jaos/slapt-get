@@ -1,5 +1,7 @@
 
 0.9.9c Oct 03, 2004
+ * added init_pkg_action_args() and free_pkg_action_args()
+ * merged Michel Hermier's main.c patch cleaning up main
  * added support for debian style "or" conditional in slack-required
  * moved clean_pkg_dir() from configuration.[ch] to package.[ch]
  * fixed null short description from printing "null", prints "" instead

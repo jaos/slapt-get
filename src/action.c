@@ -115,7 +115,7 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 			}else{
 				printf(_("%s is up to date.\n"),installed_pkg->name);
 			}
-	
+
 		}
 
 	}
@@ -150,9 +150,9 @@ void pkg_action_list(void){
 			if( get_exact_pkg(installed_pkgs,pkgs->pkgs[i]->name,pkgs->pkgs[i]->version) != NULL )
 				bool_installed = 1;
 
-			printf("%s %s [inst=%s]: %s\n",	
-				pkgs->pkgs[i]->name,	
-				pkgs->pkgs[i]->version,	
+			printf("%s %s [inst=%s]: %s\n",
+				pkgs->pkgs[i]->name,
+				pkgs->pkgs[i]->version,
 				bool_installed == 1
 					? _("yes")
 					: _("no"),
@@ -254,9 +254,9 @@ void pkg_action_search(const char *pattern){
 		if( get_exact_pkg(installed_pkgs,matches->pkgs[i]->name,matches->pkgs[i]->version) != NULL )
 			bool_installed = 1;
 
-		printf("%s %s [inst=%s]: %s\n",	
-			matches->pkgs[i]->name,	
-			matches->pkgs[i]->version,	
+		printf("%s %s [inst=%s]: %s\n",
+			matches->pkgs[i]->name,
+			matches->pkgs[i]->version,
 			bool_installed == 1
 				? _("yes")
 				: _("no"),
@@ -326,9 +326,8 @@ void pkg_action_show(const char *pkg_name){
 		pkg = get_newest_pkg(avail_pkgs,pkg_name);
 	}
 
-
 	if( pkg != NULL ){
-	
+
 		if( get_exact_pkg(installed_pkgs,pkg->name,pkg->version) != NULL)
 			bool_installed = 1;
 
@@ -345,11 +344,11 @@ void pkg_action_show(const char *pkg_name){
 		printf(_("Package Description:\n"));
 		printf("%s",pkg->description);
 		printf(_("Package Installed: %s\n"),
-			bool_installed == 1 
+			bool_installed == 1
 				? _("yes")
 				: _("no")
 		);
-	
+
 	}else{
 		printf(_("No such package: %s\n"),pkg_name);
 	}
@@ -474,5 +473,26 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 	handle_transaction(global_config,&tran);
 
 	free_transaction(&tran);
+}
+
+pkg_action_args_t *init_pkg_action_args(int arg_count){
+	pkg_action_args_t *paa;
+
+	paa = malloc( sizeof *paa );
+	paa->pkgs = malloc( sizeof *paa->pkgs * arg_count );
+	paa->count = 0;
+
+	return paa;
+}
+
+void free_pkg_action_args(pkg_action_args_t *paa){
+	int i;
+
+	for(i = 0; i < paa->count; i++){
+		free(paa->pkgs[i]);
+	}
+
+	free(paa->pkgs);
+	free(paa);
 }
 
