@@ -1,5 +1,6 @@
 
 0.9.8h Jul 26, 2004
+ * updated documentation
  * added cached notification when using -S switch
  * updated example.slapt-getrc
  * removed needless "Retrieving checksum list [%s]...\n" string from translations
