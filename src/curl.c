@@ -37,7 +37,7 @@ int download_data(FILE *fh,const char *url){
 	curl_easy_setopt(ch, CURLOPT_ERRORBUFFER, curl_err_buff );
 
 	if( (response = curl_easy_perform(ch)) != 0 ){
-		fprintf(stderr,"failed to download: %s\n",curl_err_buff);
+		fprintf(stderr,"Failed to download: %s",curl_err_buff);
 		return_code = -1;
 	}
 	/*
@@ -53,7 +53,7 @@ int download_data(FILE *fh,const char *url){
 }
 
 int get_mirror_data_from_source(FILE *fh,const char *base_url,const char *filename){
-	int return_code;
+	int return_code = 0;
 	char *url = NULL;
 
 	url = calloc(
