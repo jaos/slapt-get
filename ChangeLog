@@ -1,5 +1,6 @@
 
 0.9.9c Oct 02, 2004
+ * updated man page
  * translation updates
  * added --autoclean option to run purge_old_cached_pkgs() instead of automatically
    at the end of each transation (thanks Michel Hermier)

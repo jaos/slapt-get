@@ -146,13 +146,13 @@ Upgrade installed packages if newer versions are available.
 Upgrade to newer Slackware release.  This is the same as --upgrade, with the addition of checking to make sure that all the base packages, from the base disk set, are also installed.  Prior to running dist-upgrade, make sure that the package cache is updated and the crucial packages (glibc-solibs, sed, and pkgtools) are upgraded.  See UPGRADE.TXT on your local Slackware mirror.
 .TP
 .B --install [package(s)]
-Install specified package(s).
+Install specified package(s).  Packages can be package names or package names with version (example: pkg-1.0-i386-1).
 .TP
 .B --remove [package(s)]
-Remove specified package(s).
+Remove specified package(s).  Packages can be package names or package names with version (example: pkg-1.0-i386-1).
 .TP
 .B --show [package]
-Show package description.
+Show package description.  Package can be a package name or package name with version (example: pkg-1.0-i386-1).
 .TP
 .B --search [expression]
 Search available packages. Applies POSIX and extended regular expression
@@ -168,10 +168,25 @@ List installed packages.
 Purge cached/downloaded packages from /var/slapt-get/.
 .TP
 .B --autoclean
-Purge duplicate older versions of cached/downloaded packages from /var/slapt-get/.
+Purge duplicate older versions of cached/downloaded packages from WORKINGDIR (/var/slapt-get/ by default).
 .TP
 .B --version
 Print version and license info.
+.SH NOTES
+.TP
+slapt-get uses pkgtools for installing, upgrading, and removing.
+.TP
+slapt-get will not make assumptions or do things without you telling it to.
+.TP
+untested updates are risky, whether using official packages or third party packages.
+.TP
+slapt-get will not change your system such that you can only use slapt-get or are somehow locked into using slapt-get.  The only additions to your system are /etc/slapt-get and /var/slapt-get.  You are free to try another solution or go back to manual upgradepkg.
+.TP
+UPGRADE.TXT and ChangeLog.txt is still required reading, the latter is especially true when running -current.
+
+.SH FILES
+/etc/slapt-get/slapt-getrc
+
 .SH AUTHOR
 Jason Woodward <woodwardj@jaos.org>
 .SH "SEE ALSO"
@@ -180,4 +195,5 @@ Jason Woodward <woodwardj@jaos.org>
 .BR removepkg(8),
 .BR explodepkg(8),
 .BR pkgtool(8), 
-.BR upgradepkg(8)
+.BR upgradepkg(8),
+.BR netrc(5)
