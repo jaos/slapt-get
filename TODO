@@ -5,5 +5,5 @@ Future enhancements, fixes, or features:
  * test dependency tracking (get the word out about adding ./install/slack-required)
  * test slack-conflicts support (./install/slack-conflicts)
  * Translate gettext po files (volunteers needed)
- * curses/gtk frontend
+ * curses and/or gtk frontend
 
