@@ -1,5 +1,8 @@
 
 0.9.8e May 28, 2004
+ * updated handle_transaction so that the size reported for existing
+   downloaded data is never below zero
+ * fixed translation msgid for checksum mismatch
  * updated translations (added entry for existing download and
    removed "cached copy")
  * transaction report now shows total download size with the amount of already
