@@ -19,6 +19,7 @@ Frequenty Asked Questions:
 16. How can I generate an exclude list for an entire disk set?
 17. How do I use a local file source?
 18. How can I download every package in a disk set?
+19. How can I add dependency information to my packages?
 
 
 
@@ -38,7 +39,7 @@ Frequenty Asked Questions:
  simplicity.  I do not believe slapt-get takes away anything from these
  existing tools.  slapt-get can stand on it's own merits.  I think choice is
  great for the end user (see Gnome vs KDE).  I do not aim for inclusion
- within Slackware.  I simply make this available in hopes others will find
+ within Slackware.  I am making this available in hopes others will find
  it useful.
  
 3.  How do I build/install slapt-get?  How do I remove slapt-get?
@@ -63,7 +64,7 @@ Frequenty Asked Questions:
 
 5.  Can I upgrade all my installed packages?
 
- Yes, simply use the --upgrade option.  slapt-get will check for 
+ Yes, use the --upgrade option.  slapt-get will check for 
  newer versions of all packages already installed.
 
 6.  How can I see what will be upgraded without upgrading?
@@ -103,7 +104,7 @@ Frequenty Asked Questions:
          place.  You can break a working system if you do not follow the
          suggestions in UPGRADE.TXT.
 
- Now you simply --dist-update to retrieve the package data for that release.
+ Now you --dist-update to retrieve the package data for that release.
  This means doing the following:
 
    ### upgrade your local package cache
@@ -182,13 +183,13 @@ Frequenty Asked Questions:
 
  He has declined the request at this time, citing a "niche" for a
  distribution without "dependancy hell".  I believe leaving out the requirement
- field does not prevent dependancy hell, it simply hides it, passing the burden
+ field does not prevent dependancy hell, it hides it, passing the burden
  on to the users and system administrators who simply want to be able to
  quickly install and deploy servers and services.  Yes it is good for new users
  to become familiar with the process of locating and resolving library
  dependancies.  But I think this becomes tedious after the initial lesson has
  been learned.  However, I am thankful for Pat's dedication to his goals and
- ideals.  So I have simply dropped the issue.
+ ideals.  So I have dropped the issue.
 
  I hope if the community as a whole agrees that this is an added benefit 
  (without becoming overly complex or kludgey) they can convince Pat there is
@@ -413,4 +414,35 @@ Frequenty Asked Questions:
 
    ./slapt-get --search '^\.\/slackware\/xap$'|awk '{print $1}'| \
      xargs -r ./slapt-get --install
+
+19. How can I add dependency information to my packages?
+
+ This is for package developers.  If you are not a package developer, please
+ request your packager include this information.
+
+ To export the dependency data for a package, include within your package the
+ following file:
+
+   ./install/slack-required
+
+ The structure of this file is one entry per line in the following format:
+
+    package_name
+
+ or
+    [package_name] [condition] [version][newline]
+
+ where [condition] is
+
+    =, >=, =<, <, or >
+
+ <= and =< should both work, just in case of editing errors.
+
+ This data will then need to be extracted when the mirror's PACKAGES.TXT file
+ is generated.  See FAQ #17 for a user contributed example of how to generate
+ the PACKAGES.TXT file.  The following is an example entry
+
+    PACKAGE NAME:  man-pages-1.56-noarch-1.tgz
+    ...(snip)
+    PACKAGE REQUIRED:  man >= 1.5l-i386-1
 
