@@ -37,6 +37,7 @@ staticinstall: static doinstall
 withlibslaptinstall: withlibslapt doinstall
 
 doinstall:
+	strip --strip-unneeded $(PROGRAM_NAME)
 	install $(PROGRAM_NAME) $(SBINDIR)
 	chown root:bin $(SBINDIR)$(PROGRAM_NAME)
 	if [ ! -d /etc/slapt-get ]; then mkdir -p /etc/slapt-get;fi

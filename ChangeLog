@@ -1,5 +1,6 @@
 
-0.9.9e Nov 22, 2004
+0.9.9e Nov 24, 2004
+ * install make target now strips binary
  * added pt_PT translation by Miguel Santinho
  * updated documentation
 
