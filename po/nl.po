@@ -187,12 +187,12 @@ msgid "Failed to calloc\n"
 msgstr "Kon niet calloc\n"
 
 #, c-format
-msgid "Downloading %s %s %s [%0.1d%c]..."
-msgstr "Downloaden %s %s %s [%0.1d%c]..."
+msgid "Downloading %s %s %s [%0.1d%s]..."
+msgstr "Downloaden %s %s %s [%0.1d%s]..."
 
 #, c-format
-msgid "Downloading %s %s %s [%0.1d%c]...\n"
-msgstr "Downloaden %s %s %s [%0.1d%c]...\n"
+msgid "Downloading %s %s %s [%0.1d%s]...\n"
+msgstr "Downloaden %s %s %s [%0.1d%s]...\n"
 
 #, c-format
 msgid "Failed to unlink %s\n"
@@ -379,20 +379,20 @@ msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
 msgstr "%d upgraded, %d nieuw geïnstalleerd, %d te verwijderen en %d niet geupgrade.\n"
 
 #, c-format
-msgid "Need to get %0.1d%c of archives.\n"
-msgstr "Moet %0.1d%c aan archieven ophalen.\n"
+msgid "Need to get %0.1d%s of archives.\n"
+msgstr "Moet %0.1d%s aan archieven ophalen.\n"
 
 #, c-format
-msgid "Need to get %0.1d%c/%0.1d%c of archives.\n"
-msgstr "Moet %0.1d%c/%0.1d%c aan archieven ophalen.\n"
+msgid "Need to get %0.1d%s/%0.1d%s of archives.\n"
+msgstr "Moet %0.1d%s/%0.1d%s aan archieven ophalen.\n"
 
 #, c-format
-msgid "After unpacking %0.1d%c disk space will be freed.\n"
-msgstr "Na uitpakken %0.1d%c ruimte vrijgemaakt.\n"
+msgid "After unpacking %0.1d%s disk space will be freed.\n"
+msgstr "Na uitpakken %0.1d%s ruimte vrijgemaakt.\n"
 
 #, c-format
-msgid "After unpacking %0.1d%c of additional disk space will be used.\n"
-msgstr "Na uitpakken zal %0.1d%c aan extra ruimte gebruikt worden.\n"
+msgid "After unpacking %0.1d%s of additional disk space will be used.\n"
+msgstr "Na uitpakken zal %0.1d%s aan extra ruimte gebruikt worden.\n"
 
 msgid "Do you want to continue? [y/N] "
 msgstr "Wilt u doorgaan? [y/N]"

@@ -186,12 +186,12 @@ msgid "Failed to calloc\n"
 msgstr "Falha ao alocar memória para\n"
 
 #, c-format
-msgid "Downloading %s %s %s [%0.1d%c]..."
-msgstr "A transferir %s %s %s [%0.1d%c]..."
+msgid "Downloading %s %s %s [%0.1d%s]..."
+msgstr "A transferir %s %s %s [%0.1d%s]..."
 
 #, c-format
-msgid "Downloading %s %s %s [%0.1d%c]...\n"
-msgstr "A transferir %s %s %s [%0.1d%c]...\n"
+msgid "Downloading %s %s %s [%0.1d%s]...\n"
+msgstr "A transferir %s %s %s [%0.1d%s]...\n"
 
 #, c-format
 msgid "Failed to unlink %s\n"
@@ -390,20 +390,20 @@ msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
 msgstr "%d actualizados, %d para instalar, %d para remover e %d não actualizados.\n"
 
 #, c-format
-msgid "Need to get %0.1d%c of archives.\n"
-msgstr "É necessário fazer o download de %0.1d%c.\n"
+msgid "Need to get %0.1d%s of archives.\n"
+msgstr "É necessário fazer o download de %0.1d%s.\n"
 
 #, c-format
-msgid "Need to get %0.1d%c/%0.1d%c of archives.\n"
-msgstr "É necessário fazer o download de %0.1d%c/%0.1d%c.\n"
+msgid "Need to get %0.1d%s/%0.1d%s of archives.\n"
+msgstr "É necessário fazer o download de %0.1d%s/%0.1d%s.\n"
 
 #, c-format
-msgid "After unpacking %0.1d%c disk space will be freed.\n"
-msgstr "Depois de desempacotar serão libertados %0.1d%c de espaço em disco.\n"
+msgid "After unpacking %0.1d%s disk space will be freed.\n"
+msgstr "Depois de desempacotar serão libertados %0.1d%s de espaço em disco.\n"
 
 #, c-format
-msgid "After unpacking %0.1d%c of additional disk space will be used.\n"
-msgstr "Depois de desempacotar serão utilizados %0.1d%c de espaço adicional em disco.\n"
+msgid "After unpacking %0.1d%s of additional disk space will be used.\n"
+msgstr "Depois de desempacotar serão utilizados %0.1d%s de espaço adicional em disco.\n"
 
 msgid "Do you want to continue? [y/N] "
 msgstr "Continuar? [y/N] "
