@@ -476,18 +476,29 @@ struct pkg_list *get_installed_pkgs(void){
 
 /* lookup newest package from pkg_list */
 pkg_info_t *get_newest_pkg(struct pkg_list *pkg_list,const char *pkg_name){
-	int iterator;
+	int i;
 	pkg_info_t *pkg = NULL;
-	for(iterator = 0; iterator < pkg_list->pkg_count; iterator++ ){
+	for(i = 0; i < pkg_list->pkg_count; i++ ){
 
 		/* if pkg has same name as our requested pkg */
-		if( (strcmp(pkg_list->pkgs[iterator]->name,pkg_name)) == 0 ){
+		if( (strcmp(pkg_list->pkgs[i]->name,pkg_name)) == 0 ){
 
-			if( (pkg == NULL) || cmp_pkg_versions(pkg->version,pkg_list->pkgs[iterator]->version) < 0 ){
-				pkg = pkg_list->pkgs[iterator];
+			if( (pkg == NULL) || cmp_pkg_versions(pkg->version,pkg_list->pkgs[i]->version) < 0 ){
+				pkg = pkg_list->pkgs[i];
 			}
 		}
 
+	}
+	return pkg;
+}
+
+pkg_info_t *get_exact_pkg(struct pkg_list *list,const char *name,const char *version){
+	int i;
+	pkg_info_t *pkg = NULL;
+
+	for(i = 0; i < list->pkg_count;i++){
+		if( (strcmp(name,list->pkgs[i]->name)==0) && (strcmp(version,list->pkgs[i]->version)==0) )
+			return list->pkgs[i];
 	}
 	return pkg;
 }
@@ -733,9 +744,9 @@ int remove_pkg(const rc_config *global_config,pkg_info_t *pkg){
 }
 
 void free_pkg_list(struct pkg_list *list){
-	int iterator;
-	for(iterator=0;iterator < list->pkg_count;iterator++){
-		free(list->pkgs[iterator]);
+	int i;
+	for(i=0;i < list->pkg_count;i++){
+		free(list->pkgs[i]);
 	}
 	free(list->pkgs);
 	free(list);
