@@ -29,8 +29,13 @@ static int disk_space(const rc_config *global_config,int space_needed );
 void init_transaction(transaction_t *tran){
 
 	tran->install_pkgs = init_pkg_list();
+	tran->install_pkgs->free_pkgs = TRUE;
+
 	tran->remove_pkgs = init_pkg_list();
+	tran->remove_pkgs->free_pkgs = TRUE;
+
 	tran->exclude_pkgs = init_pkg_list();
+	tran->exclude_pkgs->free_pkgs = TRUE;
 
 	tran->upgrade_pkgs = slapt_malloc( sizeof *tran->upgrade_pkgs );
 	tran->upgrade_pkgs->pkgs = slapt_malloc( sizeof *tran->upgrade_pkgs->pkgs );
@@ -473,28 +478,34 @@ static int search_upgrade_transaction(transaction_t *tran,pkg_info_t *pkg){
 void free_transaction(transaction_t *tran){
 	unsigned int i;
 
-	for(i = 0;i < tran->install_pkgs->pkg_count; i++){
-		free_pkg(tran->install_pkgs->pkgs[i]);
+	if( tran->install_pkgs->free_pkgs == TRUE ){
+		for(i = 0;i < tran->install_pkgs->pkg_count; i++){
+			free_pkg(tran->install_pkgs->pkgs[i]);
+		}
 	}
 	free(tran->install_pkgs->pkgs);
 	free(tran->install_pkgs);
 
-	for(i = 0;i < tran->remove_pkgs->pkg_count; i++){
-		free_pkg(tran->remove_pkgs->pkgs[i]);
+	if( tran->remove_pkgs->free_pkgs == TRUE ){
+		for(i = 0;i < tran->remove_pkgs->pkg_count; i++){
+			free_pkg(tran->remove_pkgs->pkgs[i]);
+		}
 	}
 	free(tran->remove_pkgs->pkgs);
 	free(tran->remove_pkgs);
 
 	for(i = 0;i < tran->upgrade_pkgs->pkg_count; i++){
-		free(tran->upgrade_pkgs->pkgs[i]->upgrade);
-		free(tran->upgrade_pkgs->pkgs[i]->installed);
+		free_pkg(tran->upgrade_pkgs->pkgs[i]->upgrade);
+		free_pkg(tran->upgrade_pkgs->pkgs[i]->installed);
 		free(tran->upgrade_pkgs->pkgs[i]);
 	}
 	free(tran->upgrade_pkgs->pkgs);
 	free(tran->upgrade_pkgs);
 
-	for(i = 0; i < tran->exclude_pkgs->pkg_count;i++){
-		free_pkg(tran->exclude_pkgs->pkgs[i]);
+	if( tran->exclude_pkgs->free_pkgs == TRUE ){
+		for(i = 0; i < tran->exclude_pkgs->pkg_count;i++){
+			free_pkg(tran->exclude_pkgs->pkgs[i]);
+		}
 	}
 	free(tran->exclude_pkgs->pkgs);
 	free(tran->exclude_pkgs);
