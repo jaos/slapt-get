@@ -1,5 +1,5 @@
 PROGRAM_NAME=slapt-get
-VERSION=0.9.2
+VERSION=0.9.3
 CC=gcc
 CURLFLAGS=`curl-config --libs`
 OBJS=src/configuration.o src/package.o src/curl.o src/action.o src/main.o
