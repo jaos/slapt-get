@@ -489,5 +489,5 @@ msgid "required too long [%s:%d]\n"
 msgstr "kreves for lang [%s:%d]\n"
 
 msgid "remove obsolete packages (dist-upgrade only)"
-msgstr ""
+msgstr "fjern gamle pakker (kun dist-oppgradering)"
 
