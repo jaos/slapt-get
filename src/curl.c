@@ -90,6 +90,8 @@ char *head_request(const char *url){
 	ch = curl_easy_init();
 	curl_easy_setopt(ch, CURLOPT_URL, url);
 	curl_easy_setopt(ch, CURLOPT_WRITEFUNCTION, write_header_callback);
+	curl_easy_setopt(ch, CURLOPT_NOPROGRESS, 1);
+	curl_easy_setopt(ch, CURLOPT_USERAGENT, PROGRAM_NAME );
 	curl_easy_setopt(ch, CURLOPT_FILE, &head_t);
 	curl_easy_setopt(ch, CURLOPT_HEADER, 1);
 	curl_easy_setopt(ch, CURLOPT_NOBODY, 1);
