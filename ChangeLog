@@ -1,7 +1,7 @@
 
 0.9.9e Nov 27, 2004
  * rewrote pkg_action_search()
- * --show now shows installed pkgs, and their file list
+ * --show now shows installed pkgs
  * get_installed_pkgs() now parses out the packages description as well
  * make --search show installed packages that aren't present in available
    package list from current sources

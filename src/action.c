@@ -349,10 +349,10 @@ void pkg_action_show(const char *pkg_name){
 		free(p_name);
 		free(p_version);
 
-	}
-
-	if( pkg_regex.reg_return != 0 || pkg == NULL )
+	}else{
 		pkg = get_newest_pkg(avail_pkgs,pkg_name);
+		if( pkg == NULL ) pkg = get_newest_pkg(installed_pkgs,pkg_name);
+	}
 
 	if( pkg != NULL ){
 
