@@ -16,35 +16,20 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#define MIRROR_TOKEN "MIRROR="
-#define WORKINGDIR_TOKEN "WORKINGDIR="
-#define EXCLUDE_TOKEN "EXCLUDE="
-
-struct exclude_list {
-	char excludes[100][50];
-	int count;
+/* variable defs */
+struct _transaction {
+	struct pkg_list *install_pkgs;
+	struct pkg_upgrade_list *upgrade_pkgs;
+	struct pkg_list *remove_pkgs;
 };
+typedef struct _transaction transaction;
+/* */
 
-struct _configuration {
-	char mirror_url[256];
-	char working_dir[256];
-	int download_only;
-	int dist_upgrade;
-	int simulate;
-	int no_prompt;
-	int re_install;
-	struct exclude_list *exclude_list;
-	int ignore_excludes;
-	int no_md5_check;
-	int interactive;
-};
-typedef struct _configuration rc_config;
+/* FUNCTION DEFINITIONS */
+void init_transaction(transaction *);
+int handle_transaction(const rc_config *,transaction *);
+void add_install_to_transaction(transaction *,pkg_info_t *);
+void add_remove_to_transaction(transaction *,pkg_info_t *);
+void add_upgrade_to_transaction(transaction *,pkg_info_t *,pkg_info_t *);
+void free_transaction(transaction *);
 
-rc_config *read_rc_config(const char *);
-void working_dir_init(const rc_config *);
-FILE *open_file(const char *,const char *);
-char spinner(void);
-void clean_pkg_dir(const char *);
-struct exclude_list *parse_exclude(char *);
-void create_dir_structure(const char *);
-void gen_md5_sum_of_file(FILE *,char *);

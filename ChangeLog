@@ -8,6 +8,9 @@
  * created struct pkg_list *get_available_and_update_pkgs(void) to search for
    updates and newer available at once, simplified --install and --upgrade
    part of roadmap to package action transactions.
+ * implemented transaction engine
+ * --interactive option to emulate old upgrade procedure, prompting for each
+   upgrade.
 
 0.9.5e Oct 10, 2003
  * added a doinst.sh script (generated from the Makefile) to help 

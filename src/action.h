@@ -17,12 +17,6 @@
  */
 
 /* variable defs */
-struct _transaction {
-	pkg_info_t **install; int install_count;
-	pkg_info_t **upgrade; int upgrade_count;
-	pkg_info_t **remove; int remove_count;
-};
-typedef struct _transaction transaction;
 /* */
 
 /* FUNCTION DEFINITIONS */
@@ -30,7 +24,7 @@ void pkg_action_clean(const rc_config *);
 void pkg_action_install(const rc_config *,const char *);
 void pkg_action_list(void);
 void pkg_action_list_installed(void);
-void pkg_action_remove(const char *);
+void pkg_action_remove(const rc_config *,const char *);
 void pkg_action_search(const char *);
 void pkg_action_show(const char *);
 void pkg_action_upgrade_all(const rc_config *);

@@ -42,6 +42,15 @@ struct pkg_list {
 	pkg_info_t **pkgs;
 	int pkg_count;
 };
+struct _pkg_upgrade {
+	pkg_info_t *installed;
+	pkg_info_t *upgrade;
+};
+typedef struct _pkg_upgrade pkg_upgrade_t;
+struct pkg_upgrade_list {
+	pkg_upgrade_t **pkgs;
+	int pkg_count;
+};
 
 /*
  * FUNCTION DEFINITIONS
@@ -61,7 +70,7 @@ int install_pkg(const rc_config *,pkg_info_t *);
 /* upgrade pkg */
 int upgrade_pkg(const rc_config *,pkg_info_t *,pkg_info_t *);
 /* remove pkg */
-int remove_pkg(pkg_info_t *);
+int remove_pkg(const rc_config *,pkg_info_t *);
 /* free memory allocated for pkg_list struct */
 void free_pkg_list(struct pkg_list *);
 /* exclude pkg based on pkg name */

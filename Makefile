@@ -4,12 +4,12 @@ ARCH=i386
 RELEASE=1
 CC=gcc
 CURLFLAGS=`curl-config --libs`
-OBJS=src/configuration.o src/package.o src/curl.o src/action.o src/main.o
+OBJS=src/configuration.o src/package.o src/curl.o src/transaction.o src/action.o src/main.o
 RCDEST=/etc/slapt-getrc
 RCSOURCE=example.slapt-getrc
 SBINDIR=/sbin/
 DEFINES=-DPROGRAM_NAME="\"$(PROGRAM_NAME)\"" -DVERSION="\"$(VERSION)\"" -DRC_LOCATION="\"$(RCDEST)\""
-CFLAGS=-W -Werror -Wall -O2 -ansi -pedantic -Iinclude $(DEFINES)
+CFLAGS=-W -Werror -Wall -g -ansi -pedantic -Iinclude $(DEFINES)
 
 default: $(PROGRAM_NAME)
 

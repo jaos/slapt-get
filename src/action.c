@@ -27,12 +27,17 @@ void pkg_action_clean(const rc_config *global_config){
 void pkg_action_install(const rc_config *global_config,const char *pkg_name){
 	pkg_info_t *installed_pkg;
 	pkg_info_t *pkg;
+	transaction tran;
 
 	struct pkg_list *installed;
 	struct pkg_list *all;
 
+	printf("Reading Package Lists... ");
 	installed = get_installed_pkgs();
 	all = get_available_and_update_pkgs();
+	printf("Done\n");
+
+	init_transaction(&tran);
 
 	/* make sure there is a package called pkg_name */
 	if( (pkg = get_newest_pkg(all->pkgs,pkg_name,all->pkg_count)) == NULL ){
@@ -44,7 +49,7 @@ void pkg_action_install(const rc_config *global_config,const char *pkg_name){
 	if((installed_pkg = get_newest_pkg(installed->pkgs,pkg_name,installed->pkg_count)) == NULL){
 
 		/* this way we install the most up to date pkg */
-		install_pkg(global_config,pkg);
+		add_install_to_transaction(&tran,pkg);
 
 	}else{ /* else we upgrade or reinstall */
 
@@ -53,15 +58,18 @@ void pkg_action_install(const rc_config *global_config,const char *pkg_name){
 			((cmp_pkg_versions(installed_pkg->version,pkg->version)) < 0)
 			|| (global_config->re_install == 1)
 		){
-			upgrade_pkg(global_config,installed_pkg,pkg);
+			add_upgrade_to_transaction(&tran,installed_pkg,pkg);
 		}else{
 			printf("%s is up to date.\n",installed_pkg->name);
 		}
 
 	}
 
+	handle_transaction(global_config,&tran);
+
 	free_pkg_list(installed);
 	free_pkg_list(all);
+	free_transaction(&tran);
 	return;
 }
 
@@ -100,19 +108,24 @@ void pkg_action_list_installed(void){
 }
 
 /* remove/uninstall pkg */
-void pkg_action_remove(const char *pkg_name){
+void pkg_action_remove(const rc_config *global_config,const char *pkg_name){
 	pkg_info_t *pkg;
 	struct pkg_list *installed;
+	transaction tran;
 
 	installed = get_installed_pkgs();
+	init_transaction(&tran);
 
 	if( (pkg = get_newest_pkg(installed->pkgs,pkg_name,installed->pkg_count)) != NULL ){
-		remove_pkg(pkg);
+		add_remove_to_transaction(&tran,pkg);
 	}else{
 		printf("%s is not installed.\n",pkg_name);
 	}
 
+	handle_transaction(global_config,&tran);
+
 	free_pkg_list(installed);
+	free_transaction(&tran);
 }
 
 /* search for a pkg (support extended POSIX regex) */
@@ -214,19 +227,18 @@ void pkg_action_update(const rc_config *global_config){
 }
 
 /* upgrade all installed pkgs with available updates */
-/* use pkg_action_upgrade() soon, pass in pkg_list(s) */
 void pkg_action_upgrade_all(const rc_config *global_config){
 	int iterator;
 	struct pkg_list *installed_pkgs;
 	struct pkg_list *all_pkgs;
 	pkg_info_t *update_pkg;
+	transaction tran;
 
-	/* faster here to retrieve the listings once */
-	/* then use get_newest_pkg() to pull newest from each list */
 	printf("Reading Package Lists... ");
 	installed_pkgs = get_installed_pkgs();
 	all_pkgs = get_available_and_update_pkgs();
 	printf("Done\n");
+	init_transaction(&tran);
 
 	for(iterator = 0; iterator < installed_pkgs->pkg_count;iterator++){
 
@@ -242,7 +254,7 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 			if( (cmp_pkg_versions(installed_pkgs->pkgs[iterator]->version,update_pkg->version)) < 0 ){
 
 				/* attempt to upgrade */
-				upgrade_pkg(global_config,installed_pkgs->pkgs[iterator],update_pkg);
+				add_upgrade_to_transaction(&tran,installed_pkgs->pkgs[iterator],update_pkg);
 
 			} /* end version check */
 
@@ -250,10 +262,10 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 
 	}/* end for */
 
-
-	printf("Done.\n");
+	handle_transaction(global_config,&tran);
 
 	free_pkg_list(installed_pkgs);
 	free_pkg_list(all_pkgs);
+	free_transaction(&tran);
 }
 

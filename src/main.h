@@ -39,6 +39,7 @@
 #include "configuration.h"
 #include "package.h"
 #include "curl.h"
+#include "transaction.h"
 #include "action.h"
 /* */
 

@@ -557,7 +557,11 @@ int upgrade_pkg(const rc_config *global_config,pkg_info_t *installed_pkg,pkg_inf
 		return 0;
 	}
 
-	if( global_config->no_prompt == 0 && global_config->download_only == 0 ){
+	/*
+		only give double check notice if in interactive,
+		w/o no_prompt and download_only
+	*/
+	if( global_config->no_prompt == 0 && global_config->download_only == 0 && global_config->interactive == 1 ){
 		printf("Replace %s-%s with %s-%s? [y|n] ",pkg->name,installed_pkg->version,pkg->name,pkg->version);
 		fgets(prompt_answer,10,stdin);
 		if( tolower(prompt_answer[0]) != 'y' ){
@@ -596,9 +600,14 @@ int upgrade_pkg(const rc_config *global_config,pkg_info_t *installed_pkg,pkg_inf
 	return cmd_return;
 }
 
-int remove_pkg(pkg_info_t *pkg){
+int remove_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	char *command = NULL;
 	int cmd_return;
+
+	if( global_config->simulate == 1 ){
+		printf("%s-%s is to be removed\n",pkg->name,pkg->version);
+		return 0;
+	}
 
 	/* build and execute our command */
 	command = calloc( strlen(REMOVE_CMD) + strlen(pkg->name) + 1 , sizeof *command );
@@ -749,7 +758,7 @@ int cmp_pkg_versions(char *a, char *b){
 }
 
 int break_down_pkg_version(int *v,char *version){
-	int pos = 0,count = 0,sv_size;
+	int pos = 0,count = 0,sv_size = 0;
 	char *pointer,*tmp,*short_version;
 
 

@@ -42,6 +42,7 @@ int main( int argc, char *argv[] ){
 		{"reinstall", 0, 0, 'n'},
 		{"ignore-excludes", 0, 0, 'x'},
 		{"no-md5", 0, 0, '5'},
+		{"interactive", 0, 0, 'f'},
 	};
 	int option_index = 0;
 	/* */
@@ -106,6 +107,9 @@ int main( int argc, char *argv[] ){
 			case '5': /* no-md5 */
 				global_config->no_md5_check = 1;
 				break;
+			case 'f': /* interactive */
+				global_config->interactive = 1;
+				break;
 			default:
 				usage();
 				break;
@@ -125,7 +129,7 @@ int main( int argc, char *argv[] ){
 	}else if( do_action == REMOVE ){
 		if (optind < argc) {
 			while (optind < argc){
-				pkg_action_remove( argv[optind++] );
+				pkg_action_remove( global_config, argv[optind++] );
 			}
 		}else{
 			usage();
@@ -193,6 +197,7 @@ void usage(){
 	printf("  --reinstall       - re-install the pkg even if installed\n");
 	printf("  --ignore-excludes - install excludes anyway\n");
 	printf("  --no-md5          - do not perform md5 check sum\n");
+	printf("  --interactive     - prompt before each pkg upgrade\n");
 }
 
 void version_info(void){
