@@ -1,5 +1,6 @@
 
-0.9.9 Aug 26, 2004
+0.9.9 Aug 28, 2004
+ * added REG_ICASE to init_regex for case insensitive matching
  * print usage when given argument not caught by getop
  * set CURLOPT_FTP_USE_EPRT to off
  * updated makefile, moved /etc/slapt-getrc to /etc/slapt-get/slapt-getrc

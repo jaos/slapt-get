@@ -37,7 +37,7 @@ void init_regex(sg_regex *regex_t, const char *regex_string){
 	regex_t->nmatch = MAX_REGEX_PARTS;
 
 	/* compile our regex */
-	regex_t->reg_return = regcomp(&regex_t->regex, regex_string, REG_EXTENDED|REG_NEWLINE);
+	regex_t->reg_return = regcomp(&regex_t->regex, regex_string, REG_EXTENDED|REG_NEWLINE|REG_ICASE);
 	if( regex_t->reg_return != 0 ){
 		size_t regerror_size;
 		char errbuf[1024];
