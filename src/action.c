@@ -484,6 +484,12 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 
 		}/* end if remove_obsolete */
 
+		/* insurance so that all of slapt-get's requirements are also installed */
+		add_deps_to_trans(
+			global_config,&tran,avail_pkgs,installed_pkgs,
+			get_newest_pkg(avail_pkgs,"slapt-get")
+		);
+		
 	}
 
 	for(i = 0; i < installed_pkgs->pkg_count;i++){

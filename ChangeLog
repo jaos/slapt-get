@@ -1,5 +1,6 @@
 
-0.9.9h Feb 07, 2005
+0.9.9h Feb 09, 2005
+ * make sure all dependencies for slapt-get are satisfied during dist-upgrade
  * ensure when removing a package and the packages it requires, the packages
    that are required are installed. thanks NIkkou (nibbana80 at wp dot pl)
  * improved version comparing
