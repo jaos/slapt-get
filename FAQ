@@ -28,6 +28,7 @@ Frequenty Asked Questions:
 27. How can I exclude all *pre* and *beta* packages safely?
 28. How does the transaction engine work?
 29. How does the package version comparison algorithm work?
+30. I am tracking current, how do I keep the base disk set up to date?
 
 
 
@@ -559,4 +560,12 @@ Frequenty Asked Questions:
  If two separators are not found, then the entire version string from both pkgs
  are compared via strcmp.  This is a fallback mechanism.
 
+
+30. I am tracking current, how do I keep the base disk set up to date?
+
+ If you are tracking current, --dist-upgrade may be more useful than --upgrade.
+
+ Even if you aren't intentionally switching to a newer distribution,
+ --dist-upgrade will ensure that the base set is always present while at the
+ same time keeping your installed packages up to date.
 
