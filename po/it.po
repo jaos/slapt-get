@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.8d\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2004-04-26 11:52+0001\n"
+"PO-Revision-Date: 2004-04-27 15:00+0500\n"
 "Last-Translator: Francesco Gigli <jaramir@slack.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -20,10 +20,6 @@ msgstr "Lettura della lista dei pacchetti... "
 
 msgid "Done\n"
 msgstr "Fatto\n"
-
-#, c-format
-msgid "No Such package: %s\n"
-msgstr "Non esiste il pacchetto: %s\n"
 
 #, c-format
 msgid "%s is up to date.\n"

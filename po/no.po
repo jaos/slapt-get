@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.8b\n"
+"Project-Id-Version: 0.9.8d\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2004-01-12 10:24+0000\n"
+"PO-Revision-Date: 2004-04-27 15:00+0500\n"
 "Last-Translator: Joran Kvalvaag <jk@nerdworks.org>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -20,10 +20,6 @@ msgstr "Leser pakkelister..."
 
 msgid "Done\n"
 msgstr "Ferdig\n"
-
-#, c-format
-msgid "No Such package: %s\n"
-msgstr "Pakken finnes ikke: %s\n"
 
 #, c-format
 msgid "%s is up to date.\n"

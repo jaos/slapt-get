@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.8d\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2004-04-18 09:36-0300\n"
+"PO-Revision-Date: 2004-04-27 15:00+0500\n"
 "Last-Translator: Henrique Pinto <henrique.pinto@kdemail.net>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,10 +19,6 @@ msgstr "Lendo Listas de Pacotes... "
 
 msgid "Done\n"
 msgstr "Pronto\n"
-
-#, c-format
-msgid "No Such package: %s\n"
-msgstr "Pacote não existente: %s\n"
 
 #, c-format
 msgid "%s is up to date.\n"
