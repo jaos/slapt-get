@@ -874,12 +874,40 @@ int cmp_pkg_versions(char *a, char *b){
 	/*
  	 * if we got this far, we know that some or all of the version
 	 * parts are equal in both packages.  If pkg-a has 3 version parts
-	 * and pkg-b has 2, then we assume pkg-a to be greater.  If both
-	 * have the same # of version parts, then we fall back on strcmp.
+	 * and pkg-b has 2, then we assume pkg-a to be greater.
 	*/
-	return (version_part_count1 != version_part_count2)
-		? ( (version_part_count1 > version_part_count2) ? greater : lesser )
-		: strcmp(a,b);
+	if(version_part_count1 != version_part_count2){
+		return ( (version_part_count1 > version_part_count2) ? greater : lesser );
+	}
+
+	/*
+	 * Now we check to see that the version follows the standard slackware
+	 * convention.  If it does, we will compare the build portions.
+	 */
+	/* make sure the packages have at least two separators */
+	if( (index(a,'-') != rindex(a,'-')) && (index(b,'-') != rindex(b,'-')) ){
+		char *a_build,*b_build;
+
+		/* pointer to build portions */
+		a_build = rindex(a,'-');
+		b_build = rindex(b,'-');
+
+		if( a_build != NULL && b_build != NULL ){
+			/* they are equal if the integer values are equal */
+			/* for instance, "1rob" and "1" will be equal */
+			if( atoi(a_build) == atoi(b_build) ) return 0;
+
+			/* fall back to strcmp */
+			return strcmp(a_build,b_build);
+		}
+
+	}
+
+	/*
+	 * If both have the same # of version parts, non-standard version convention,
+	 * then we fall back on strcmp.
+	*/
+	return strcmp(a,b);
 }
 
 int break_down_pkg_version(int *v,char *version){
