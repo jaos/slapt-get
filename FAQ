@@ -30,6 +30,7 @@ Frequenty Asked Questions:
 29. How does the package version comparison algorithm work?
 30. I am tracking current, how do I keep the base disk set up to date?
 31. How would I script an ldd dependency hack with slapt-get?
+32. Does EXCLUDE work for install as well as upgrade and dist-upgrade?
 
 
 
@@ -664,5 +665,12 @@ Frequenty Asked Questions:
  slapt-get $SLAPT_OPTS --install "$@" || exit
  resolve_dependencies $@
  ### end script
+
+
+32. Does EXCLUDE work for install as well as upgrade and dist-upgrade?
+
+ No, EXCLUDE is only consulted for upgrading and dist-upgrading.  If you
+ specify the package name as an argument to --install, slapt-get will 
+ ignore the EXCLUDE list.
 
 
