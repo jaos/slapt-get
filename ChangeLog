@@ -1,5 +1,5 @@
 
-0.9.7h Dec 02, 2003
+0.9.7h Dec 05, 2003
  * updated FAQ
  * updated example dropline exclude regex (Francesco Gigli <jaramir@aruba.it>)
  * initialize global_config->exclude_list if EXCLUDE commented out (Francesco Gigli <jaramir@aruba.it>)

@@ -25,7 +25,7 @@ Frequenty Asked Questions:
 24. How can I get slapt-get to speak in my native tongue?
 25. How do I set the output language?
 26. How do I specify proxy settings?
-27. How can I exclude all *pre* and *beta* packages safely?
+27. How can I exclude all *pre*, *beta*, and *686* packages safely?
 28. How does the transaction engine work?
 29. How does the package version comparison algorithm work?
 30. I am tracking current, how do I keep the base disk set up to date?
@@ -495,19 +495,24 @@ Frequenty Asked Questions:
   $ http_proxy=http://host:port slapt-get --update
 
 
-27. How can I exclude all *pre* and *beta* packages safely?
+27. How can I exclude all *pre*, *beta*, and *686* packages safely?
 
- An exclude regex like .*pre.* or .*beta.* may net you the results of excluding
- all packages with those characters in the name or version.  But they may also 
- catch packages that have those characters normally occuring in the package name.
+ An exclude regex like .*pre.* , .*beta.*, or .*686.* may net you the results
+ of excluding all packages with those characters in the name or version.  But
+ they may also catch packages that have those characters normally occuring in
+ the package name.
 
  This regex seems to work much better:
 
    [0-9\_\.\-]{1}pre[0-9\-\.\-]{1}
 
- or for beta packages,
+ for beta packages:
 
    [0-9\_\.\-]{1}beta[0-9\-\.\-]{1}
+
+ or for i686 packages (or for i585 or i486):
+
+   [0-9\_\.\-]{1}i686[0-9\-\.\-]{1}
 
  Anything matching these regex will be added to the exclude list for the
  transaction.
