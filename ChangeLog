@@ -1,5 +1,7 @@
 
 0.9.9e Nov 27, 2004
+ * --upgrade now checks to see if there is multiple installed packages and
+   uses the newest one
  * rewrote pkg_action_search()
  * --show now shows installed pkgs
  * get_installed_pkgs() now parses out the packages description as well

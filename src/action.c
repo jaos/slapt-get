@@ -477,6 +477,15 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 
 	for(i = 0; i < installed_pkgs->pkg_count;i++){
 		pkg_info_t *update_pkg = NULL;
+		pkg_info_t *newer_installed_pkg = NULL;
+
+		/*
+			we need to see if there is another installed
+			package that is newer than this one
+		*/
+		if( (newer_installed_pkg = get_newest_pkg(installed_pkgs,installed_pkgs->pkgs[i]->name)) != NULL ){
+			if( cmp_pkg_versions(installed_pkgs->pkgs[i]->version,newer_installed_pkg->version) < 0 ) continue;
+		}
 
 		/* see if we have an available update for the pkg */
 		update_pkg = get_newest_pkg(
