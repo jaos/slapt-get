@@ -1,0 +1,488 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2004
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.9.9d\n"
+"POT-Creation-Date: 2003-11-03 14:28+0000\n"
+"PO-Revision-Date: 2004-09-06 21:17+0500\n"
+"Last-Translator: Oto Petrik <oto.petrik@centrum.cz>\n"
+"Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Reading Package Lists... "
+msgstr "Naèítám seznam balíkù... "
+
+msgid "Done\n"
+msgstr "Hotovo\n"
+
+#, c-format
+msgid "%s is up to date.\n"
+msgstr "%s je aktuální.\n"
+
+msgid "yes"
+msgstr "ano"
+
+msgid "no"
+msgstr "ne"
+
+#, c-format
+msgid "%s is not installed.\n"
+msgstr "%s není nainstalován.\n"
+
+#, c-format
+msgid "Package Name: %s\n"
+msgstr "Jméno balíku: %s\n"
+
+#, c-format
+msgid "Package Mirror: %s\n"
+msgstr "Zrcadlo balíku: %s\n"
+
+#, c-format
+msgid "Package Location: %s\n"
+msgstr "Umístìní balíku: %s\n"
+
+#, c-format
+msgid "Package Version: %s\n"
+msgstr "Verze balíku: %s\n"
+
+#, c-format
+msgid "Package Size: %d K\n"
+msgstr "Velikost balíku: %d K\n"
+
+#, c-format
+msgid "Package Installed Size: %d K\n"
+msgstr "Velikost instalovaného balíku: %d K\n"
+
+#, c-format
+msgid "Package Required: %s\n"
+msgstr "Potøebné balíky: %s\n"
+
+msgid "Package Description:\n"
+msgstr "Popis balíku:\n"
+
+#, c-format
+msgid "Package Installed: %s\n"
+msgstr "Nainstalované balíky: %s\n"
+
+#, c-format
+msgid "No such package: %s\n"
+msgstr "Neznám takový balík: %s\n"
+
+#, c-format
+msgid "Retrieving package data [%s]..."
+msgstr "Stahuji popisy balíkù [%s]..."
+
+#, c-format
+msgid "Retrieving package data [%s]...\n"
+msgstr "Stahuji popisy balíkù [%s]...\n"
+
+#, c-format
+msgid "Retrieving extras list [%s]..."
+msgstr "Stahuji seznam extras [%s]..."
+
+#, c-format
+msgid "Retrieving extras list [%s]...\n"
+msgstr "Stahuji seznam extras [%s]...\n"
+
+#, c-format
+msgid "Retrieving patch list [%s]..."
+msgstr "Stahuji seznam oprav [%s]..."
+
+#, c-format
+msgid "Retrieving patch list [%s]...\n"
+msgstr "Stahuji seznam oprav [%s]...\n"
+
+#, c-format
+msgid "Retrieving checksum list [%s]..."
+msgstr "Stahuji seznam kontrolních souètù [%s]..,"
+
+#, c-format
+msgid "Failed to malloc %s\n"
+msgstr "Nepodaøilo se alokovat(malloc) %s\n"
+
+#, c-format
+msgid "Maximum number of sources (%d) exceeded.\n"
+msgstr "Maximální poèet zdrojù (%d) pøekroèen.\n"
+
+#, c-format
+msgid "Maximum length of source (%d) exceeded.\n"
+msgstr "Maximální délka zdroje (%d) pøekroèena.\n"
+
+#, c-format
+msgid "WORKINGDIR directive not set within %s.\n"
+msgstr "WORKINGDIR není nastaven uvnitø %s.\n"
+
+#, c-format
+msgid "SOURCE directive not set within %s.\n"
+msgstr "SOURCE není nastaven uvnitø %s.\n"
+
+#, c-format
+msgid "Failed to build working directory [%s]\n"
+msgstr "Nepodaøilo se vytvoøit pracovní adresáø [%s]\n"
+
+#, c-format
+msgid "Please update permissions on %s or run with appropriate privileges\n"
+msgstr "Prosím upravte práva k %s nebo spus»te s pøíslu¹nými právy.\n"
+
+#, c-format
+msgid "Failed to open %s\n"
+msgstr "Nepodaøilo se otevøít %s\n"
+
+msgid "Perhaps you want to run --update?\n"
+msgstr "Mo¾ná chcete spustit s --update?\n"
+
+#, c-format
+msgid "Failed to opendir %s\n"
+msgstr "Nepodaøilo se otevøít adresáø %s\n"
+
+#, c-format
+msgid "Failed to chdir: %s\n"
+msgstr "Nepodaøilo se zmìnit adresáø: %s\n"
+
+#, c-format
+msgid "unlinking %s\n"
+msgstr "ma¾u %s\n"
+
+msgid "Failed to get cwd\n"
+msgstr "Nepodaøilo se získat cwd\n"
+
+#, c-format
+msgid "\tCurrent working directory: %s\n"
+msgstr "\tSouèasný pracovní adresáø: %s\n"
+
+#, c-format
+msgid "Failed to mkdir: %s\n"
+msgstr "Nepodaøilo se vyrobit adresáø: %s\n"
+
+#, c-format
+msgid "\tCreated directory: %s\n"
+msgstr "\tVyroben adresáø: %s\n"
+
+#, c-format
+msgid "Failed to chdir to %s\n"
+msgstr "Nepodaøilo se zmìnit adresáø na: %s\n"
+
+#, c-format
+msgid "\tchdir into %s\n"
+msgstr "\tzmìnìn adresáø na %s\n"
+
+#, c-format
+msgid "\tchdir back into %s\n"
+msgstr "\tzmìnìn adresáø zpìt na %s\n"
+
+#, c-format
+msgid "Fetching url:[%s]\n"
+msgstr "Stahuji url:[%s]\n"
+
+#, c-format
+msgid "Failed to download: %s\n"
+msgstr "Nepodaøilo se stáhnout: %s\n"
+
+#, c-format
+msgid "Failed to calloc %s\n"
+msgstr "Nepodaøilo se alokovat(calloc) %s\n"
+
+#, c-format
+msgid "Downloading %s %s %s [%dK]..."
+msgstr "Stahuji %s %s %s [%dK]..."
+
+#, c-format
+msgid "Downloading %s %s %s [%dK]...\n"
+msgstr "Stahuji %s %s %s [%dK]...\n"
+
+#, c-format
+msgid "Failed to unlink %s\n"
+msgstr "Nepodaøilo se smazat %s\n"
+
+#, c-format
+msgid "md5 sum for %s is not correct, override with --no-md5!\n"
+msgstr "md5 souèet pro %s je nesprávný, ignoruj pomocí --no-md5!\n"
+
+#, c-format
+msgid "MD5 found:    [%s]\n"
+msgstr "MD5 nalezen:    [%s]"
+
+#, c-format
+msgid "MD5 expected: [%s]\n"
+msgstr "MD5 oèekávaný: [%s]\n"
+
+#, c-format
+msgid "File: %s/%s\n"
+msgstr "Soubor: %s/%s\n"
+
+msgid "An implementation of the Debian APT system to Slackware\n"
+msgstr "Implementace Debian APT systému pro Slackware\n"
+
+msgid "Usage:\n"
+msgstr "Pou¾ití:\n"
+
+#, c-format
+msgid "%s [option(s)] [target]\n"
+msgstr "%s [pøepínaè(e)] [cíl]\n"
+
+msgid "Targets:\n"
+msgstr "Cíle:\n"
+
+msgid "retrieves pkg data from MIRROR"
+msgstr "získá data balíkù ze ZRCADLA"
+
+msgid "upgrade installed pkgs"
+msgstr "pový¹í nainstalované balíky"
+
+msgid "upgrade to newer release"
+msgstr "pový¹í na novìj¹í vydání"
+
+msgid "[pkg name(s)] - install specified pkg(s)"
+msgstr "[jméno balíku(ù)] - instaluj zadaný balík(y)"
+
+msgid "[pkg name(s)] - remove specified pkg(s)"
+msgstr "[jméno balíku(ù)] - odstraò zadaný balík(y)"
+
+msgid "[pkg name] - show pkg description"
+msgstr "[jméno balíku] - uka¾ popis balíku"
+
+msgid "[expression] - search available pkgs"
+msgstr "[výraz] - hledej dostupné balíky"
+
+msgid "list available pkgs"
+msgstr "vypi¹ dostupné balíky"
+
+msgid "list installed pkgs"
+msgstr "vypi¹ nainstalované balíky"
+
+msgid "purge cached pkgs"
+msgstr "vyèisti balíkovou cache"
+
+msgid "print version and license info"
+msgstr "zobraz informace o verzi a licenci"
+
+msgid "Options:\n"
+msgstr "Pøepínaèe:\n"
+
+msgid "only download pkg on install/upgrade"
+msgstr "pouze stáhni balíky pro instalaci/pový¹ení"
+
+msgid "show pkgs to be installed/upgraded"
+msgstr "uka¾ balíky k instalaci/pový¹ení"
+
+msgid "do not prompt during install/upgrade"
+msgstr "nedotazuj se v prùbìhu instalace/pový¹ení"
+
+msgid "re-install the pkg"
+msgstr "pøeinstaluj balík"
+
+msgid "install/upgrade excludes"
+msgstr "instalace/pový¹ení vynechá"
+
+msgid "do not perform md5 check sum"
+msgstr "neprovádìj md5 kontrolní souèet"
+
+msgid "ignore dependency failures"
+msgstr "ignoruj chyby závislostí"
+
+#, c-format
+msgid "%s version %s\n"
+msgstr "%s verze %s\n"
+
+#, c-format
+msgid "regex failed on [%s]\n"
+msgstr "regex neuspìl na [%s]\n""
+
+#, c-format
+msgid "pkg name too long [%s:%d]\n"
+msgstr "jméno balíku pøíli¹ dlouhé [%s:%d]\n"
+
+#, c-format
+msgid "pkg version too long [%s:%d]\n"
+msgstr "verze balíku pøíli¹ dlouhá [%s:%d]\n"
+
+#, c-format
+msgid "pkg mirror too long [%s:%d]\n"
+msgstr "zrcadlo balíku pøíli¹ dlouhé [%s:%d]\n"
+
+#, c-format
+msgid "pkg location too long [%s:%d]\n"
+msgstr "umístìní balíku pøíli¹ dlouhé [%s:%d]\n"
+
+msgid "regexec failed to parse location\n"
+msgstr "regexec neuspìl s analyzováním umístìní\n"
+
+msgid "getline reached EOF attempting to read location\n"
+msgstr "getline dosáhl konce souboru pri pokusu naèíst umístìní\n"
+
+msgid "regexec failed to parse size_c\n"
+msgstr "regexec neuspìl s analyzováním size_c\n"
+
+msgid "getline reached EOF attempting to read size_c\n"
+msgstr "getline dosáhl konce souboru pri pokusu naèíst size_c\n"
+
+msgid "regexec failed to parse size_u\n"
+msgstr "regexec neuspìl s analyzováním size_u\n"
+
+msgid "getline reached EOF attempting to read size_u\n"
+msgstr "getline dosáhl konce souboru pri pokusu naèíst size_u\n"
+
+msgid "error attempting to read pkg description\n"
+msgstr "chyba pøi pokusu pøeèíst popis balíku\n"
+
+#, c-format
+msgid "Failed to realloc %s\n"
+msgstr "Nepodaøilo se realokovat %s\n"
+
+msgid "Failed to compile regex\n"
+msgstr "Nepodaøilo se zkompilovat regex\n"
+
+#, c-format
+msgid "Regex Error: %s\n"
+msgstr "Chyba Regexu: %s\n"
+
+#, c-format
+msgid "%s-%s is to be installed\n"
+msgstr "%s-%s bude nainstalován\n"
+
+#, c-format
+msgid "Preparing to install %s-%s\n"
+msgstr "Pøipravuji k instalaci %s-%s\n"
+
+#, c-format
+msgid "Failed to execute command: [%s]\n"
+msgstr "Nepodaøilo se spustit pøíkaz: [%s]\n"
+
+#, c-format
+msgid "%s-%s is to be upgraded to version %s\n"
+msgstr "%s-%s bude upgradován na verzi %s\n"
+
+#, c-format
+msgid "Preparing to replace %s-%s with %s-%s\n"
+msgstr "Pøipravuji k nahrazení %s-%s pomocí %s-%s\n"
+
+#, c-format
+msgid "%s-%s is to be removed\n"
+msgstr "%s-%s bude odstranìn\n"
+
+#, c-format
+msgid "Failed to compile regex [%s]\n"
+msgstr "Nepodaøilo se zkompilovat regex [%s]\n""
+
+#, c-format
+msgid "pkg conditional too long [%s:%d]\n"
+msgstr "podmínka balíku pøíli¹ dlouhá [%s:%s]\n"
+
+msgid "The following packages have unmet dependencies:\n"
+msgstr "Následující balíky mají nesplnìné závislosti:\n"
+
+#, c-format
+msgid "  %s: Depends: %s\n"
+msgstr "  %s: Závisí: %s\n"
+
+msgid "The following packages have been EXCLUDED:\n"
+msgstr "Následující balíky byly VYLOUÈENY:\n"
+
+msgid "The following NEW packages will be installed:\n"
+msgstr "Následující NOVÉ balíky budou nainstalovány:\n"
+
+msgid "The following packages will be REMOVED:\n"
+msgstr "Následující balíky budou ODSTRAÒENY:\n"
+
+msgid "The following packages will be upgraded:\n"
+msgstr "Následující balíky budou POVÝ©ENY:\n"
+
+#, c-format
+msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
+msgstr "%d pový¹eno, %d novì nainstalováno, %d odstranìno a %d nepový¹eno.\n"
+
+#, c-format
+msgid "Need to get %dK of archives.\n"
+msgstr "Je tøeba získat %dK of archivù.\n"
+
+#, c-format
+msgid "Need to get %dK/%dK of archives.\n"
+msgstr "Je tøeba získat %dK/%dK of archivù.\n"
+
+#, c-format
+msgid "After unpacking %dK disk space will be freed.\n"
+msgstr "Po rozbalení bude uvolnìno %dK diskového prostoru.\n"
+
+#, c-format
+msgid "After unpacking %dK of additional disk space will be used.\n"
+msgstr "Po rozbalení bude pou¾ito dal¹ích %dK diskového prostoru.\n"
+
+msgid "Do you want to continue? [y/N] "
+msgstr "Chcete pokraèovat? [y/N] "
+
+msgid "Abort.\n"
+msgstr "Zru¹it.\n"
+
+#, c-format
+msgid "%s, which is to be installed, conflicts with %s\n"
+msgstr "%s, který má být nainstalován, koliduje s %s\n"
+
+#, c-format
+msgid "Installed %s conflicts with %s\n"
+msgstr "Nainstalovaný %s koliduje s %s\n"
+
+msgid "print URIs only, do not download"
+msgstr "pouze vypi¹ URI, nestahuj"
+
+#, c-format
+msgid "Package MD5 Sum:  %s\n"
+msgstr "MD5 souèet balíku:  %s\n"
+
+#, c-format
+msgid "md5 sum too long [%s %s:%d]\n"
+msgstr "md5 souèet pøíli¹ dlouhý [%s %s:%d]\n"
+
+#, c-format
+msgid "conflict too long [%s:%d]\n"
+msgstr "kolize pøíli¹ dlouhá [%s:%d]\n"
+
+msgid "Reading Package Lists..."
+msgstr "Naèítám seznam balíkù..."
+
+#, c-format
+msgid "Download of %s incomplete\n"
+msgstr "Sta¾ení %s je nekompletní\n"
+
+#, c-format
+msgid "Could not find MD5 checksum for %s, override with --no-md5\n"
+msgstr "Nemohu najít MD5 souèet pro %s, ignoruj pomocí --no-md5\n""
+
+#, c-format
+msgid "%s, which is required by %s, is excluded\n"
+msgstr "%s, který je potøebný pro %s, je vylouèen\n"
+
+msgid "skip dependency check"
+msgstr "pøeskoè kontrolu závislostí"
+
+msgid "show download statistics"
+msgstr "uka¾ statistiku stahování"
+
+msgid "Cached\n"
+msgstr "Cacheovaný"
+
+msgid "Sources failed to download, correct sources and rerun --update\n"
+msgstr "Zdroje se nepodaøilo stáhnout, opravte zdroje a spus»te s --update\n"
+
+msgid "specify alternate slapt-getrc location"
+msgstr "specifikujte náhradní umístìní slapt-getrc"
+
+msgid "Suggested packages:\n"
+msgstr "Navrhované balíky:\n"
+
+#, c-format
+msgid "Maximum length of working directory (%d) exceeded.\n"
+msgstr "Maximální délka pracovního adresáøe (%d) pøekroèena.\n"
+
+#, c-format
+msgid "Maximum length of excludes (%d) exceeded.\n"
+msgstr "Maximální délka vylouèených (%d) pøekroèena.\n"
+
+msgid "only purge cache of older, unreacheable pkgs"
+msgstr "vyèisti pouze cache starých, nedostupnách balíkù"
+
