@@ -463,5 +463,5 @@ msgstr "Nie znaleziono sum MD5 do %s, uniewaøniaj z --no-md5\n"
 
 #, c-format
 msgid "%s, which is required by %s, is excluded\n"
-msgstr "%s, kot√≥ry jest wymagany przez %s, zosta≈Ç wykluczony\n"
+msgstr "%s, ktÛry jest wymagany przez %s, zosta≥ wykluczony\n"
 
