@@ -1,5 +1,5 @@
 
-0.9.7a Nov 03, 2003
+0.9.7a Nov 05, 2003
  * added check for presence of pkg in trans before adding upgrade (during --install)
  * added check for presence of pkg in trans before adding remove (during --remove)
  * added example linuxpackages.net source lines for each slack version
