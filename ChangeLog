@@ -1,5 +1,6 @@
 
 0.9.8g Jul 15, 2004
+ * finally made a few private functions static
  * moved parse_excludes from package.[ch] to configuration.[ch]
  * updated documentation
  * added support for ftp source caching

@@ -19,6 +19,14 @@
 #include <main.h>
 static char *gen_filename_from_url(const char *url,const char *file);
 static char *str_replace_chr(const char *string,const char find, const char replace);
+/* do a head request on the mirror data to find out if it's new */
+static int head_mirror_data(const char *wurl,const char *file);
+/* lookup md5sum of file */
+static void get_md5sum(pkg_info_t *pkg,FILE *checksum_file);
+/* analyze the pkg version hunk by hunk */
+static void break_down_pkg_version(struct pkg_version_parts *pvp,const char *version);
+/* parse the meta lines */
+static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,char *dep_entry);
 
 /* parse the PACKAGES.TXT file */
 struct pkg_list *get_available_pkgs(void){
@@ -699,7 +707,7 @@ int is_excluded(const rc_config *global_config,pkg_info_t *pkg){
 	return pkg_not_excluded;
 }
 
-void get_md5sum(pkg_info_t *pkg,FILE *checksum_file){
+static void get_md5sum(pkg_info_t *pkg,FILE *checksum_file){
 	sg_regex md5sum_regex;
 	ssize_t getline_read;
 	size_t getline_len = 0;
@@ -859,7 +867,7 @@ int cmp_pkg_versions(char *a, char *b){
 	return strcmp(a,b);
 }
 
-void break_down_pkg_version(struct pkg_version_parts *pvp,const char *version){
+static void break_down_pkg_version(struct pkg_version_parts *pvp,const char *version){
 	int pos = 0,sv_size = 0;
 	char *pointer,*tmp,*short_version;
 
@@ -1178,7 +1186,7 @@ struct pkg_list *lookup_pkg_conflicts(struct pkg_list *avail_pkgs,struct pkg_lis
 	return conflicts;
 }
 
-pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,char *dep_entry){
+static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,char *dep_entry){
 	int i;
 	sg_regex parse_dep_regex;
 	char tmp_pkg_name[NAME_LEN],tmp_pkg_cond[3],tmp_pkg_ver[VERSION_LEN];
@@ -1394,7 +1402,7 @@ pkg_info_t *get_pkg_by_details(struct pkg_list *list,char *name,char *version,ch
 }
 
 /* do a head request on the mirror data to find out if it's new */
-int head_mirror_data(const char *wurl,const char *file){
+static int head_mirror_data(const char *wurl,const char *file){
 	int return_code = -1;
 	char *request_header,*request_header_ptr,*delim_ptr,*head_data;
 	int request_header_len;
