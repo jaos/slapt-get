@@ -2180,7 +2180,7 @@ void clean_pkg_dir(const char *dir_name){
 }
 
 /* find dependency from "or" requirement */
-pkg_info_t *find_or_requirement(struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,char *required_str){
+static pkg_info_t *find_or_requirement(struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,char *required_str){
 	pkg_info_t *pkg = NULL;
 	int position = 0;
 
