@@ -1,5 +1,5 @@
 
-0.9.8a Jan 09, 2004
+0.9.8a Jan 10, 2004
  * translation updates
  * merged --print-uris patch (cynepnynep@chat.ru)
  * initial transfer resume support
@@ -19,6 +19,8 @@
  * added check for correct size of package after download, return incomplete
    download instead of continuing and returning a failed md5 checksum
  * added check for empty md5 checksum with notification if so
+ * added stat call at appropriate place in download_pkg() so that the file size
+   was actually known when needed
 
 0.9.8 Dec 18, 2003
  * added slapt-get source to example slapt-getrc

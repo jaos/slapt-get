@@ -253,8 +253,15 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 		return -1;
 	}
 
+	if( stat(file_name,&file_stat) == -1 ){
+		if ( errno ) perror("stat");
+		chdir(global_config->working_dir);
+		free(file_name);
+		return -1;
+	}
 
 	/* do an initial check... so we don't run md5 checksum on an imcomplete file */
+	f_size = file_stat.st_size;
 	if( (int)(f_size/1024) != pkg->size_c){
 		printf(_("Download of %s incomplete\n"),pkg->name);
 		chdir(global_config->working_dir);
