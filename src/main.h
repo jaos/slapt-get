@@ -59,7 +59,7 @@ typedef struct _sg_regex sg_regex;
 /* */
 
 #define DEBUG 0
-#define DO_NOT_UNLINK_BAD_FILES 1
+#define DO_NOT_UNLINK_BAD_FILES 0
 #define PKG_LIST "PACKAGES.TXT"
 #define PKG_LIST_L "package_data_list"
 #define PATCHES_LIST "FILE_LIST"
