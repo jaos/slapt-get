@@ -44,7 +44,7 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 	if(
 		(tran->upgrade_pkgs->pkg_count > 0 || tran->remove_pkgs->pkg_count > 0)
 		&& (global_config->download_only == 0 && global_config->simulate == 0
-				&& global_config->no_prompt == 0 )
+				&& global_config->no_prompt == 0 && global_config->interactive == 0 )
 	){
 
 		/* show pkgs to install */

@@ -243,11 +243,12 @@ void pkg_action_update(const rc_config *global_config){
 	#endif
 	patches_list_fh = open_file(PATCHES_LIST_L,"w+");
 	for(i = 0; i < global_config->sources.count; i++){
-		get_mirror_data_from_source(patches_list_fh,global_config->sources.url[i],PATCHES_LIST);
+		if( get_mirror_data_from_source(patches_list_fh,global_config->sources.url[i],PATCHES_LIST) == 0 ){
+			#if USE_CURL_PROGRESS == 0
+			printf("Done\n");
+			#endif
+		}
 	}
-	#if USE_CURL_PROGRESS == 0
-	printf("Done\n");
-	#endif
 	fclose(patches_list_fh);
 
 	/* download checksum file */
@@ -258,11 +259,12 @@ void pkg_action_update(const rc_config *global_config){
 	#endif
 	checksum_list_fh = open_file(CHECKSUM_FILE,"w+");
 	for(i = 0; i < global_config->sources.count; i++){
-		get_mirror_data_from_source(checksum_list_fh,global_config->sources.url[i],CHECKSUM_FILE);
+		if( get_mirror_data_from_source(checksum_list_fh,global_config->sources.url[i],CHECKSUM_FILE) == 0 ){
+			#if USE_CURL_PROGRESS == 0
+			printf("Done\n");
+			#endif
+		}
 	}
-	#if USE_CURL_PROGRESS == 0
-	printf("Done\n");
-	#endif
 	fclose(checksum_list_fh);
 
 	/* source listing to go here */
