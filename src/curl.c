@@ -223,6 +223,7 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 #endif
 	}else{
 		fclose(fh);
+#if DO_NOT_UNLINK_BAD_FILES == 0
 		/* if the d/l fails, unlink the empty file */
 		if( unlink(file_name) == -1 ){
 			fprintf(stderr,"Failed to unlink %s\n",file_name);
@@ -230,6 +231,7 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 				perror("unlink");
 			}
 		}
+#endif
 		return NULL;
 	}
 
@@ -247,6 +249,7 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 		fprintf(stderr,"MD5 expected: [%s]\n",md5_sum);
 		fprintf(stderr,"File: %s/%s\n",global_config->working_dir,file_name);
 #endif
+#if DO_NOT_UNLINK_BAD_FILES == 0
 		/* if the checksum fails, unlink the bogus file */
 		if( unlink(file_name) == -1 ){
 			fprintf(stderr,"Failed to unlink %s\n",file_name);
@@ -254,6 +257,7 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 				perror("unlink");
 			}
 		}
+#endif
 		return NULL;
 	}else{
 		printf("Done\n");

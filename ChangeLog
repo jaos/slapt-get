@@ -8,6 +8,7 @@
  * added extra error checking
  * formatting updates
  * actually call regfree() for all regex_t
+ * introduced a DO_NOT_UNLINK_BAD_FILES macro within include/main.h
 
 0.9.5c Oct 04, 2003
  * removed bad free() in get_installed_pkgs()
