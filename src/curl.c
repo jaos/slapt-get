@@ -32,7 +32,6 @@ int download_data(FILE *fh,const char *url,size_t bytes){
 	curl_easy_setopt(ch, CURLOPT_WRITEDATA, fh);
 	curl_easy_setopt(ch, CURLOPT_NOPROGRESS, 0);
 	curl_easy_setopt(ch, CURLOPT_USERAGENT, PROGRAM_NAME );
-	curl_easy_setopt(ch, CURLOPT_USERPWD, "anonymous:slapt-get-user@software.jaos.org");
 #if USE_CURL_PROGRESS == 0
 	curl_easy_setopt(ch, CURLOPT_PROGRESSFUNCTION, progress_callback );
 #endif

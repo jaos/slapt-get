@@ -35,6 +35,7 @@ Frequenty Asked Questions:
 34. Is the ROOT environment variable honored for install and upgrading?
 35. How do I specify the exact version of a package to install?
 36. Why is upgradepkg complaining it cannot find installpkg or removepkg, with sudo?
+37. How can I specify a username/password for the connection to the package source?
 
 
 
@@ -719,5 +720,18 @@ Frequenty Asked Questions:
 
  Make sure you include /sbin in your shell's PATH environment variable before using
  slapt-get via sudo.  Or use su - -c 'slapt-get [options] [arg]s'.
+
+
+37. How can I specify a username/password for the connection to the package source?
+
+ This can be specified right in the package source url within the /etc/slapt-getrc.
+ You will want to make sure that sensitive passwords are protected, and possibly 
+ harden the permissions on /etc/slapt-getrc so that only the root user can read
+ the file.
+
+ Examples:
+
+  SOURCE=http://user:pass@host.org/path/to/packages/
+  SOURCE=ftp://user:pass@host.org/pub/packages/
 
 

@@ -1,5 +1,8 @@
 
 0.9.8b Jan 13, 2004
+ * documentation updates (FAQ)
+ * remove default user/pass combo so that it can be overriden within the
+   slapt-getrc in the source url
  * fixed strncpy() call, length now uses MD5_STR_LEN macro
  * added Norwegian translation by Joran Kvalvaag (jk at nerdworks dot org)
  * added notice when dependency is present in excludes
