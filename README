@@ -21,8 +21,9 @@ Table of Contents:
  2. Requirements
  3. Installation
  4. slapt-getrc
- 5. Troubleshooting
- 6. Thanks and contributions
+ 5. Getting started
+ 6. Troubleshooting
+ 7. Thanks and contributions
 
 
 
@@ -87,7 +88,7 @@ Table of Contents:
      WORKINGDIR
      EXCLUDE
 
-    Choose mirror from slackware.com mirror list:
+    Choose a mirror from the slackware.com mirror list:
     lynx -source http://www.slackware.com/getslack/|grep -i href \
      |awk -F "HREF=" '{print $2}'|cut -f2 -d'"'
 
@@ -110,7 +111,35 @@ Table of Contents:
     For example, to exclude dropline, use .*-[0-9]dl$
 
 
- 5. Troubleshooting
+
+ 5. Getting started
+
+    After installing and customizing the slapt-getrc configuration file,
+    you need to run slapt-get with the --update option to download the
+    package data available from all the package sources you specified within
+    the slapt-getrc file.
+
+    Once this is done, you can use the following options:
+
+    * --upgrade to upgrade your installed packages.
+    * --dist-upgrade to upgrade to a newer release (Please refer to the FAQ
+      concerning dist-upgrade prior to running the command).
+    * --search to locate packages of interest by the package name, disk set,
+      or version.  This supports POSIX and extended regular expressions.
+    * --install to install a package.  If the package is installed it will
+      be upgraded
+    * --list to see all the packages available from the package sources you
+      specified within the slapt-getrc configuration file.
+    * --installed to list all the packages you already have installed.
+    * --remove to remove packages.
+    * --show to show information about packages
+    * --clean to remove all downloaded packages from the local cache
+    * --autoclean to remove packages from local cache that are no longer
+      available on the package sources specified in the slapt-getrc file.
+
+
+
+ 6. Troubleshooting
 
    Probably lots of bugs.  email bug reports to me:
     Jason Woodward <woodwardj at jaos dot org>
@@ -136,7 +165,7 @@ Table of Contents:
 
    See the FAQ for more info.
 
- 6. Thanks and contributions
+ 7. Thanks and contributions
 
    Big thanks to Dan Barber <danb at mojolin dot com> for his insight and help
    with documentation suggestions and feature requests.
