@@ -439,6 +439,15 @@ pkg_info_t *get_newest_pkg(pkg_info_t **pkgs,const char *pkg_name,int pkg_count)
 /* parse the update list */
 struct pkg_list *get_update_pkgs(void){
 	FILE *fh;
+	struct pkg_list *list;
+                                                                                                                                                                
+	fh = open_file(PATCHES_LIST_L,"r");
+	list = parse_file_list(fh);
+	fclose(fh);
+	return list;
+}
+                                                                                                                                                                
+struct pkg_list *parse_file_list(FILE *fh){
 	size_t getline_len;
 	ssize_t bytes_read;
 	sg_regex up_regex;
@@ -449,8 +458,6 @@ struct pkg_list *get_update_pkgs(void){
 	list = malloc( sizeof *list );
 	list->pkg_count = 0;
 	up_regex.nmatch = MAX_REGEX_PARTS;
-
-	fh = open_file(PATCHES_LIST_L,"r");
 
 	up_regex.reg_return = regcomp(&up_regex.regex,PKG_PARSE_REGEX, REG_EXTENDED|REG_NEWLINE);
 
@@ -533,7 +540,6 @@ struct pkg_list *get_update_pkgs(void){
 
 	if( getline_buffer ) free(getline_buffer);
 	regfree(&up_regex.regex);
-	fclose(fh);
 	return list;
 }
 

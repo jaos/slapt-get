@@ -233,7 +233,6 @@ void pkg_action_update(const rc_config *global_config){
 	#if USE_CURL_PROGRESS == 0
 	printf("Done\n");
 	#endif
-	fclose(pkg_list_fh);
 
 	/* download PATCHES_LIST */
 	#if USE_CURL_PROGRESS == 0
@@ -241,14 +240,20 @@ void pkg_action_update(const rc_config *global_config){
 	#else
 	printf("Retrieving patch list...\n");
 	#endif
-	patches_list_fh = open_file(PATCHES_LIST_L,"w+");
 	for(i = 0; i < global_config->sources.count; i++){
-		get_mirror_data_from_source(patches_list_fh,global_config->sources.url[i],PATCHES_LIST);
+		patches_list_fh = tmpfile();
+		if( get_mirror_data_from_source(patches_list_fh,global_config->sources.url[i],PATCHES_LIST) == 0 ){
+			rewind(patches_list_fh); /* make sure we are back at the front of the file */
+			available_pkgs = parse_file_list(patches_list_fh);
+			write_pkg_data(global_config->sources.url[i],pkg_list_fh,available_pkgs);
+			free_pkg_list(available_pkgs);
+		}
+		fclose(patches_list_fh);
 	}
 	#if USE_CURL_PROGRESS == 0
 	printf("Done\n");
 	#endif
-	fclose(patches_list_fh);
+	fclose(pkg_list_fh);
 
 	/* download checksum file */
 	#if USE_CURL_PROGRESS == 0

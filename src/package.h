@@ -63,6 +63,7 @@ struct pkg_list *get_available_pkgs(void);
 /* retrieve list of installed pkgs */
 struct pkg_list *get_installed_pkgs(void);
 /* return list of update pkgs */
+struct pkg_list *parse_file_list(FILE *);
 struct pkg_list *get_update_pkgs(void);
 /* generate a short description */
 char *gen_short_pkg_description(pkg_info_t *);
