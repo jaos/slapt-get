@@ -1,5 +1,5 @@
 
-0.9.8e Jun 01, 2004
+0.9.8e Jun 05, 2004
  * makefile updates... thanks to Piotr Simon (sajmon@tenboard.com)
  * updated slapt-getrc to reflect new linuxpackages.net URLs
  * added check for package name and version lengths in
