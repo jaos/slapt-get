@@ -92,7 +92,7 @@ po_file:
 	-rm po/gettext_strings
 
 libs: $(PROGRAM_NAME)
-	$(CC) -shared -o src/libslapt-$(VERSION).so $(OBJS)
-	ar -r src/libslapt-$(VERSION).a $(OBJS)
+	$(CC) -shared -o src/libslapt-$(VERSION).so src/configuration.o src/package.o src/curl.o src/transaction.o src/action.o
+	ar -r src/libslapt-$(VERSION).a src/configuration.o src/package.o src/curl.o src/transaction.o src/action.o
 	cat include/main.h include/configuration.h include/package.h include/curl.h include/transaction.h include/action.h |grep -v '#include \"' > include/slapt.h
 
