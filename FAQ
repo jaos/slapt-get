@@ -21,6 +21,7 @@ Frequenty Asked Questions:
 18. How can I download every package in a disk set?
 19. How can I add dependency information to my packages?
 20. I see duplicate packages in --list listing, how can I specify?
+21. How do I get the newest development version of slapt-get?
 
 
 
@@ -463,4 +464,8 @@ Frequenty Asked Questions:
  You can specify the version, like so:
 
    $ slapt-get --install arts-1.1-i386-2
+
+21. How do I get the newest development version of slapt-get?
+
+ See the 'Using cvs' section of the INSTALL document.
 
