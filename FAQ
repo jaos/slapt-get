@@ -244,27 +244,10 @@ Frequenty Asked Questions:
 13. How can I install every available package?
 
  Even though it's not built in, it's simple since slapt-get is easy to script
- with.  Here is a simple shell script to install every package that is
- available but not currently installed:
+ with.  Here is a shell command to install every package that is available
+ but not currently installed:
 
-   #!/bin/sh
-   # Dan Barber <danb at mojolin dot com>
-   slapt-get --update
-   slapt-get --installed > /tmp/slapt_get_installed
-   for file in `slapt-get --list | cut -f1 -d" " | sort`
-     do
-     echo -n "$file "
-     if [ -z "`grep "\W+$file\W+" /tmp/slapt_get_installed`" ]; then
-       if [ -z "`grep '\W+$file\W?' /etc/slapt-getrc`" ]; then
-         echo "excluded"
-       else
-         echo "not installed"
-         slapt-get --install $file
-       fi
-     fi
-   done
-
-
+   slapt-get --list|grep inst=no|awk '{print $1}'|sort|uniq|xargs -r slapt-get --install
 
 14. What if I only want to upgrade one package?
 
