@@ -5,6 +5,7 @@
    fixing bug with versions containing letters in version parts, such as 0.9.7c.
  * fixed another occurrance of URL malformed, cmp_pkg_versions called with wrong
    pkg struct for dep in --upgrade
+ * moved src/action.c:pkg_action_update to src/package.c:update_pkg_cache (libslapt)
 
 0.9.7d Nov 18, 2003
  * documentation updates

@@ -30,5 +30,4 @@ void pkg_action_remove(const rc_config *,const pkg_action_args_t *);
 void pkg_action_search(const char *);
 void pkg_action_show(const char *);
 void pkg_action_upgrade_all(const rc_config *);
-void pkg_action_update(const rc_config *);
 

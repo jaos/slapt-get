@@ -124,3 +124,6 @@ struct pkg_list *lookup_pkg_dependencies(const rc_config *,struct pkg_list *,str
 pkg_info_t *parse_dep_entry(struct pkg_list *,struct pkg_list *,pkg_info_t *,char *);
 struct pkg_list *is_required_by(struct pkg_list *, pkg_info_t *);
 
+/* update the local package cache */
+void update_pkg_cache(const rc_config *);
+
