@@ -1,5 +1,6 @@
 
 0.9.9j Mar 09, 2005
+ * added Slovenian translation by Emil Novak (emilnovak at gmail dot com)
  * added --available option to only show packages available from the current
    sources.  --list shows available and installed. --installed shows only
    the installed with a new output format.

@@ -1,0 +1,482 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2004
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.9.9j\n"
+"POT-Creation-Date: 2005-03-09\n"
+"PO-Revision-Date: 2005-03-09\n"
+"Last-Translator: Uros Trsavec <utrsav@walla.com>\n"
+"Language-Team: SloNiX <slonix.rn@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-2\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Reading Package Lists... "
+msgstr "Berem seznam paketov... "
+
+msgid "Done\n"
+msgstr "Narejeno\n"
+
+#, c-format
+msgid "%s is up to date.\n"
+msgstr "%s ni potreben nadgradnje.\n"
+
+msgid "yes"
+msgstr "da"
+
+msgid "no"
+msgstr "ne"
+
+#, c-format
+msgid "%s is not installed.\n"
+msgstr "%s ni namešèen.\n"
+
+#, c-format
+msgid "Package Name: %s\n"
+msgstr "Ime paketa: %s\n"
+
+#, c-format
+msgid "Package Mirror: %s\n"
+msgstr "Nadomestek paketa: %s\n"
+
+#, c-format
+msgid "Package Location: %s\n"
+msgstr "Lokacija paketa: %s\n"
+
+#, c-format
+msgid "Package Version: %s\n"
+msgstr "Razlièica paketa: %s\n"
+
+#, c-format
+msgid "Package Size: %d K\n"
+msgstr "Velikost paketa: %d K\n"
+
+#, c-format
+msgid "Package Installed Size: %d K\n"
+msgstr "Velikost namešèenega paketa: %d K\n"
+
+#, c-format
+msgid "Package Required: %s\n"
+msgstr "Zahtevan paket: %s\n"
+
+msgid "Package Description:\n"
+msgstr "Opis paketa:\n"
+
+#, c-format
+msgid "Package Installed: %s\n"
+msgstr "Namešèen paket: %s\n"
+
+#, c-format
+msgid "No such package: %s\n"
+msgstr "Paket ne obstaja: %s\n"
+
+#, c-format
+msgid "Retrieving package data [%s]..."
+msgstr "Pridobivam podatke o paketih [%s]..."
+
+#, c-format
+msgid "Retrieving package data [%s]...\n"
+msgstr "Pridobivam podatke o paketih [%s]...\n"
+
+#, c-format
+msgid "Retrieving extras list [%s]..."
+msgstr "Pridobivam seznam dodatkov [%s]..."
+
+#, c-format
+msgid "Retrieving extras list [%s]...\n"
+msgstr "Pridobivam seznam dodatkov [%s]...\n"
+
+#, c-format
+msgid "Retrieving patch list [%s]..."
+msgstr "Pridobivam seznam popravkov [%s]..."
+
+#, c-format
+msgid "Retrieving patch list [%s]...\n"
+msgstr "Pridobivam seznam popravkov [%s]...\n"
+
+#, c-format
+msgid "Retrieving checksum list [%s]..."
+msgstr "Pridobivam seznam kontrolnih vsot [%s]..."
+
+msgid "Failed to malloc\n"
+msgstr "Napaka v malloc\n"
+
+#, c-format
+msgid "WORKINGDIR directive not set within %s.\n"
+msgstr "WORKINGDIR mapa ni nastavljena v %s.\n"
+
+#, c-format
+msgid "SOURCE directive not set within %s.\n"
+msgstr "SOURCE ukaz ni nastavljen v %s.\n"
+
+#, c-format
+msgid "Failed to build working directory [%s]\n"
+msgstr "Neuspel poskus gradnje delovne mape [%s]\n"
+
+#, c-format
+msgid "Please update permissions on %s or run with appropriate privileges\n"
+msgstr "Prosim, nadgradite dovoljenja na %s oz poženite s primernimi pravicami\n"
+
+#, c-format
+msgid "Failed to open %s\n"
+msgstr "Ni uspelo odpreti %s\n"
+
+msgid "Perhaps you want to run --update?\n"
+msgstr "Mogoèe želite zagnati --update?\n"
+
+#, c-format
+msgid "Failed to opendir %s\n"
+msgstr "Ni uspelo odpreti mape %s\n"
+
+#, c-format
+msgid "Failed to chdir: %s\n"
+msgstr "Napaka pri chdir: %s\n"
+
+#, c-format
+msgid "unlinking %s\n"
+msgstr "prekinjam povezavo %s\n"
+
+msgid "Failed to get cwd\n"
+msgstr "Napaka pri pridobitvi cwd\n"
+
+#, c-format
+msgid "\tCurrent working directory: %s\n"
+msgstr "\tTrenutna delovna mapa: %s\n"
+
+#, c-format
+msgid "Failed to mkdir: %s\n"
+msgstr "Napaka pri mkdir: %s\n"
+
+#, c-format
+msgid "\tCreated directory: %s\n"
+msgstr "\tNarejena mapa: %s\n"
+
+#, c-format
+msgid "Failed to chdir to %s\n"
+msgstr "Napak pri chdir na %s\n"
+
+#, c-format
+msgid "\tchdir into %s\n"
+msgstr "\tchdir v %s\n"
+
+#, c-format
+msgid "\tchdir back into %s\n"
+msgstr "\tchdir nazaj v %s\n"
+
+#, c-format
+msgid "Fetching url:[%s]\n"
+msgstr "Išèem url:[%s]\n"
+
+#, c-format
+msgid "Failed to download: %s\n"
+msgstr "Napaka pri nalaganju: %s\n"
+
+msgid "Failed to calloc\n"
+msgstr "Napaka pri calloc\n"
+
+#, c-format
+msgid "Downloading %s %s %s [%0.1d%s]..."
+msgstr "Nalagam %s %s %s [%0.1d%s]..."
+
+#, c-format
+msgid "Downloading %s %s %s [%0.1d%s]...\n"
+msgstr "Nalagam %s %s %s [%0.1d%s]...\n"
+
+#, c-format
+msgid "Failed to unlink %s\n"
+msgstr "Napaka pri prekinjanju povezave%s\n"
+
+#, c-format
+msgid "md5 sum for %s is not correct, override with --no-md5!\n"
+msgstr "md5 sum za %s ni pravilen, prepiši z --no-md5!\n"
+
+#, c-format
+msgid "MD5 found:    [%s]\n"
+msgstr "MD5 najden:    [%s]\n"
+
+#, c-format
+msgid "MD5 expected: [%s]\n"
+msgstr "MD5 prièakovan: [%s]\n"
+
+#, c-format
+msgid "File: %s/%s\n"
+msgstr "Datoteka: %s/%s\n"
+
+msgid "An implementation of the Debian APT system to Slackware\n"
+msgstr "Prilagoditev Debian APT sistema za Slackware\n"
+
+msgid "Usage:\n"
+msgstr "Uporaba:\n"
+
+#, c-format
+msgid "%s [option(s)] [target]\n"
+msgstr "%s [Nastavitve] [Cilj]\n"
+
+msgid "Targets:\n"
+msgstr "Cilji:\n"
+
+msgid "retrieves pkg data from MIRROR"
+msgstr "pridobil podatke o paketkih od MIRROR"
+
+msgid "upgrade installed pkgs"
+msgstr "nadgradnja namešèenih paketkov"
+
+msgid "upgrade to newer release"
+msgstr "nadgradnja na novejšo razlièico"
+
+msgid "[pkg name(s)] - install specified pkg(s)"
+msgstr "[pkg ime(na)] - namesti doloèen(e) paketek(e)"
+
+msgid "[pkg name(s)] - remove specified pkg(s)"
+msgstr "[pkg ime(na)] - odstrani doloèen(e) paketek(e)"
+
+msgid "[pkg name] - show pkg description"
+msgstr "[pkg ime] - prikaži opis paketka"
+
+msgid "[expression] - search available pkgs"
+msgstr "[izrazi] - poišèi dosegljive paketke"
+
+msgid "list pkgs"
+msgstr "seznam paketkov"
+
+msgid "list available pkgs"
+msgstr "seznam dosegljivih paketkov"
+
+msgid "list installed pkgs"
+msgstr "seznam namešèenih paketkov"
+
+msgid "purge cached pkgs"
+msgstr "poèisti predpomnilnik paketkov"
+
+msgid "print version and license info"
+msgstr "verzija za natis in informacije o licenci"
+
+msgid "Options:\n"
+msgstr "Nastavitve:\n"
+
+msgid "only download pkg on install/upgrade"
+msgstr "paketke samo naloži ob namestitvi/nadgradnji"
+
+msgid "show pkgs to be installed/upgraded"
+msgstr "prikaži paketke, ki naj bi se namestili/nadgradili"
+
+msgid "do not prompt during install/upgrade"
+msgstr "ne opozarjaj med namestitvijo/nadgradnjo"
+
+msgid "re-install the pkg"
+msgstr "ponovno namesti paketek"
+
+msgid "install/upgrade excludes"
+msgstr "namesti/nadgradi dodatke"
+
+msgid "do not perform md5 check sum"
+msgstr "ne izvedi md5 sum pregled"
+
+msgid "ignore dependency failures"
+msgstr "ignoriraj napake odvisnosti"
+
+#, c-format
+msgid "%s version %s\n"
+msgstr "%s razlièica %s\n"
+
+#, c-format
+msgid "regex failed on [%s]\n"
+msgstr "napaka regularnih izrazov pri [%s]\n"
+
+msgid "pkg name too long\n"
+msgstr "ime paketka je predolgo\n"
+
+msgid "pkg version too long\n"
+msgstr "razlièica paketka je predolga\n"
+
+msgid "pkg mirror too long\n"
+msgstr "altnernativa paketka je predolga\n"
+
+msgid "pkg location too long\n"
+msgstr "lokacija paketka je predolga\n"
+
+msgid "regexec failed to parse location\n"
+msgstr "regexec napaka pri razèlenitvi lokacije\n"
+
+msgid "getline reached EOF attempting to read location\n"
+msgstr "getline je dosegel konec datoteke pri poskusu branja lokacije\n"
+
+msgid "regexec failed to parse size_c\n"
+msgstr "regexec napaka pri razèlenitvi size_c\n"
+
+msgid "getline reached EOF attempting to read size_c\n"
+msgstr "getline je dosegel konec datoteke pri poskusu read size_c\n"
+
+msgid "regexec failed to parse size_u\n"
+msgstr "regexec napaka pri razèlenitvi size_u\n"
+
+msgid "getline reached EOF attempting to read size_u\n"
+msgstr "getline je dosegel konec datoteke med poskusom read size_u\n"
+
+msgid "error attempting to read pkg description\n"
+msgstr "napaka pri branju opisa paketka\n"
+
+#, c-format
+msgid "Failed to realloc %s\n"
+msgstr "Napaka pri realloc %s\n"
+
+msgid "Failed to compile regex\n"
+msgstr "Napak pri prevajanju regularnih izrazor\n"
+
+#, c-format
+msgid "Regex Error: %s\n"
+msgstr "Napaka regularnih izrazov: %s\n"
+
+#, c-format
+msgid "%s-%s is to be installed\n"
+msgstr "%s-%s bo namešèen\n"
+
+#, c-format
+msgid "Preparing to install %s-%s\n"
+msgstr "Priprava na namestitev %s-%s\n"
+
+#, c-format
+msgid "Failed to execute command: [%s]\n"
+msgstr "Napaka pri izvedbi ukaza: [%s]\n"
+
+#, c-format
+msgid "%s-%s is to be upgraded to version %s\n"
+msgstr "%s-%s bo nadgrajen na razlièico %s\n"
+
+#, c-format
+msgid "Preparing to replace %s-%s with %s-%s\n"
+msgstr "Pripravljam na zamenjavo %s-%s z %s-%s\n"
+
+#, c-format
+msgid "%s-%s is to be removed\n"
+msgstr "%s-%s še bo odstranjen\n"
+
+#, c-format
+msgid "Failed to compile regex [%s]\n"
+msgstr "Napaka pri prevajanju regularnih izrazov [%s]\n"
+
+msgid "pkg conditional too long\n"
+msgstr "pogoj paketka je predolg\n"
+
+msgid "The following packages have unmet dependencies:\n"
+msgstr "Naslednji paketi imajo neizpolnjene odvisnosti:\n"
+
+#, c-format
+msgid "  %s: Depends: %s\n"
+msgstr "  %s: Odvisen: %s\n"
+
+msgid "The following packages have been EXCLUDED:\n"
+msgstr "Naslednji paketi so bili IZLOÈENI:\n"
+
+msgid "The following NEW packages will be installed:\n"
+msgstr "Naslednji NOVI paketi bodo namešèeni\n"
+
+msgid "The following packages will be REMOVED:\n"
+msgstr "Naslednji paketi bodo ODSTRANJENI:\n"
+
+msgid "The following packages will be upgraded:\n"
+msgstr "Naslednji paketi bodo nadgrajeni:\n"
+
+#, c-format
+msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
+msgstr "%d nadgrajeni, %d novo namešèeni, %d za odstranitev in %d ne nadgrajenih.\n"
+
+#, c-format
+msgid "Need to get %0.1d%s of archives.\n"
+msgstr "Dobiti moram %0.1d%s arhivov.\n"
+
+#, c-format
+msgid "Need to get %0.1d%s/%0.1d%s of archives.\n"
+msgstr "Dobiti moram %0.1d%s/%0.1d%s arhivov.\n"
+
+#, c-format
+msgid "After unpacking %0.1d%s disk space will be freed.\n"
+msgstr "Po odpakiranju bo sprošèeno %0.1d%s prostora.\n"
+
+#, c-format
+msgid "After unpacking %0.1d%s of additional disk space will be used.\n"
+msgstr "Po odpakiranju bo potrebno %0.1d%s dodatnega prostora.\n"
+
+msgid "Do you want to continue? [y/N] "
+msgstr "Želiš nadaljevati? [y/N] "
+
+msgid "Abort.\n"
+msgstr "Prekini.\n"
+
+#, c-format
+msgid "%s, which is to be installed, conflicts with %s\n"
+msgstr "%s, ki naj bi bil namešèen, je v sporu z/s %s\n"
+
+#, c-format
+msgid "Installed %s conflicts with %s\n"
+msgstr "Namešèen %s je v sporu z/s %s\n"
+
+msgid "print URIs only, do not download"
+msgstr "natisni samo URIs, jih ne naloži"
+
+#, c-format
+msgid "Package MD5 Sum:  %s\n"
+msgstr "Paketov MD5 Sum:  %s\n"
+
+msgid "md5 sum too long\n"
+msgstr "md5 sum predolg\n"
+
+msgid "conflict too long\n"
+msgstr "spor predolg\n"
+
+msgid "Reading Package Lists..."
+msgstr "Berem seznam paketov..."
+
+#, c-format
+msgid "Download of %s incomplete\n"
+msgstr "%s nedokonèanih prenosov\n"
+
+#, c-format
+msgid "Could not find MD5 checksum for %s, override with --no-md5\n"
+msgstr "MD5 kontrolna vsota za %s ni bila najdena, prepiši z --no-md5\n"
+
+#, c-format
+msgid "%s, which is required by %s, is excluded\n"
+msgstr "%s, ki je potreben s strani %s, je bil izloèen\n"
+
+msgid "skip dependency check"
+msgstr "preskoèi test odvisnosti"
+
+msgid "show download statistics"
+msgstr "prikaži statistiko prenosov"
+
+msgid "Cached\n"
+msgstr "V predpomnilniku\n"
+
+msgid "Sources failed to download, correct sources and rerun --update\n"
+msgstr "Izvor se ni mogel naložiti, popravite izvor in ponovno zaženite --update\n"
+
+msgid "specify alternate slapt-getrc location"
+msgstr "doloèi alternativno slapt-getrc lokacijo"
+
+msgid "Suggested packages:\n"
+msgstr "Predlagani paketi:\n"
+
+msgid "Maximum length of working directory (%d) exceeded.\n"
+msgstr "Maksimalna dolžina delovne mape (%d) je prekoraèena.\n"
+
+msgid "Maximum length of excludes (%d) exceeded.\n"
+msgstr "Maksimalna dolžina razširitev (%d) je prekoraèena.\n"
+
+msgid "only purge cache of older, unreacheable pkgs"
+msgstr "poèisti samo predpomnilnik starejši, nedosgljivih paketkov"
+
+msgid "required too long\n"
+msgstr "zahtevan predolg\n"
+
+msgid "remove obsolete packages (dist-upgrade only)"
+msgstr "odtrani zastarele paketke (dist-upgrade samo)"
+
+#, c-format
+msgid "You don't have enough free space in %s\n"
+msgstr "V %s ni na voljo dovolj praznega prostora.\n"
+
