@@ -18,7 +18,10 @@ all: pkg
 $(OBJS): 
 
 $(PROGRAM_NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(CURLFLAGS) -o $(PROGRAM_NAME) $(OBJS)
+	$(CC) -o $(PROGRAM_NAME) $(OBJS) $(CFLAGS) $(CURLFLAGS)
+
+static: $(OBJS)
+	$(CC) -o $(PROGRAM_NAME) $(OBJS) $(CFLAGS) $(CURLFLAGS) -static
 
 install: $(PROGRAM_NAME)
 	install $(PROGRAM_NAME) $(SBINDIR)
