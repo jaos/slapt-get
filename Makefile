@@ -45,6 +45,9 @@ uninstall:
 clean:
 	-if [ -f $(PROGRAM_NAME) ]; then rm $(PROGRAM_NAME);fi
 	-rm src/*.o
+	-rm src/*.a
+	-rm src/*.so
+	-rm include/slapt.h
 	-if [ -d pkg ]; then rm -rf pkg ;fi
 
 
