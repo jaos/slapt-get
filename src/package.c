@@ -22,7 +22,7 @@ static struct pkg_version_parts *break_down_pkg_version(const char *version);
 /* parse the meta lines */
 static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,char *dep_entry);
 /* called by is_required_by */
-static struct pkg_list *required_by(const rc_config *global_config,struct pkg_list *avail, pkg_info_t *pkg,struct pkg_list *parent_required_by);
+static void required_by(const rc_config *global_config,struct pkg_list *avail, pkg_info_t *pkg,struct pkg_list *required_by_list);
 /* free pkg_version_parts struct */
 static void free_pkg_version_parts(struct pkg_version_parts *parts);
 /* find dependency from "or" requirement */
@@ -1397,30 +1397,23 @@ static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list 
 
 struct pkg_list *is_required_by(const rc_config *global_config,struct pkg_list *avail, pkg_info_t *pkg){
 	struct pkg_list *required_by_list;
-	struct pkg_list *parent_required_by;
 
-	parent_required_by = init_pkg_list();
+	required_by_list = init_pkg_list();
 
-	required_by_list = required_by(global_config,avail,pkg,parent_required_by);
-
-	free_pkg_list(parent_required_by);
+	required_by(global_config,avail,pkg,required_by_list);
 
 	return required_by_list;
 }
 
-static struct pkg_list *required_by(const rc_config *global_config,struct pkg_list *avail, pkg_info_t *pkg,struct pkg_list *parent_required_by){
+static void required_by(const rc_config *global_config,struct pkg_list *avail, pkg_info_t *pkg,struct pkg_list *required_by_list){
 	unsigned int i;
 	sg_regex required_by_reg;
-	struct pkg_list *required_by_list;
 	char escapedName[NAME_LEN], *escaped_ptr;
-
-	required_by_list = init_pkg_list();
 
 	/*
 	 * don't go any further if disable_dep_check is set
 	*/
-	if( global_config->disable_dep_check == TRUE)
-		return required_by_list;
+	if( global_config->disable_dep_check == TRUE) return;
 
 	for(i = 0, escaped_ptr = escapedName; i < NAME_LEN && pkg->name[i]; i++){
 		if( pkg->name[i] == '+' ){
@@ -1441,29 +1434,11 @@ static struct pkg_list *required_by(const rc_config *global_config,struct pkg_li
 		if( required_by_reg.reg_return != 0 ) continue;
 
 		/* only proceed if we don't have the previous required by */
-		if( (get_newest_pkg(required_by_list,avail->pkgs[i]->name) == NULL) &&
-		 (get_newest_pkg(parent_required_by,avail->pkgs[i]->name) == NULL) ){
-			unsigned int c;
-			struct pkg_list *required_of_required_by;
-
+		if( (get_newest_pkg(required_by_list,avail->pkgs[i]->name) == NULL) )
 			add_pkg_to_pkg_list(required_by_list,avail->pkgs[i]);
-
-			required_of_required_by = required_by(
-				global_config,avail,avail->pkgs[i],required_by_list
-			);
-			for(c = 0; c < required_of_required_by->pkg_count;c++){
-				if( get_newest_pkg(required_by_list,required_of_required_by->pkgs[c]->name) == NULL ){
-					add_pkg_to_pkg_list(required_by_list,required_of_required_by->pkgs[c]);
-				}
-			}
-
-			free_pkg_list(required_of_required_by);
-		}
-
 	}
 
 	free_regex(&required_by_reg);
-	return required_by_list;
 }
 
 pkg_info_t *get_pkg_by_details(struct pkg_list *list,char *name,char *version,char *location){
