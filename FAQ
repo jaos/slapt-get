@@ -117,9 +117,7 @@ Frequenty Asked Questions:
 
    ### first, upgrade the most important
    #(this installs any newer versions)
-   $ slapt-get --install glibc-solibs
-   $ slapt-get --install pkgtools
-   $ slapt-get --install sed
+   $ slapt-get --install glibc-solibs pkgtools sed
 
    ### then, let slapt-get upgrade the rest
    $ slapt-get --dist-upgrade
