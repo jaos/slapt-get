@@ -127,8 +127,8 @@ int main( int argc, char *argv[] ){
 			paa->pkgs = malloc( sizeof *paa->pkgs * (argc - optind) );
 			paa->count = 0;
 			while (optind < argc){
-				paa->pkgs[paa->count] = malloc(
-					sizeof *paa->pkgs[paa->count] * ( strlen(argv[optind]) + 1 )
+				paa->pkgs[paa->count] = calloc(
+					sizeof *paa->pkgs[paa->count] , ( strlen(argv[optind]) + 1 )
 				);
 				memcpy(paa->pkgs[paa->count],argv[optind],strlen(argv[optind]));
 				++optind;
@@ -152,8 +152,8 @@ int main( int argc, char *argv[] ){
 			paa->pkgs = malloc( sizeof *paa->pkgs * (argc - optind) );
 			paa->count = 0;
 			while (optind < argc){
-				paa->pkgs[paa->count] = malloc(
-					sizeof *paa->pkgs[paa->count] * ( strlen(argv[optind]) + 1 )
+				paa->pkgs[paa->count] = calloc(
+					sizeof *paa->pkgs[paa->count] , ( strlen(argv[optind]) + 1 )
 				);
 				memcpy(paa->pkgs[paa->count],argv[optind],strlen(argv[optind]));
 				++optind;
