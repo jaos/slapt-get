@@ -46,6 +46,8 @@ Table of Contents:
     The following packages are required: make, gcc, curl, glibc,
     kernel-headers, binutils, zlib, and openssl
 
+
+
  3. Installation
 
     See INSTALL.
@@ -81,5 +83,7 @@ Table of Contents:
    Some mirrors are incomplete and the downloaded file is actually html specifying
     the webservers error message.  Run --clean to purge tgz files within WORKINGDIR.
 
-
+   If you would like more notification on downloading pkgs/files, change the 
+   USE_CURL_PROGRESS macro to 1 in include/curl.h.  This turns on curl's
+   internal progress meter.
 
