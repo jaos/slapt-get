@@ -118,8 +118,8 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 	/* prompt */
 	if(
 			(tran->upgrade_pkgs->pkg_count > 0 || tran->remove_pkgs->pkg_count > 0)
-			&& (global_config->no_prompt == 0 && global_config->interactive == 0
-			&& global_config->download_only == 0 && global_config->simulate == 0)
+			&& (global_config->no_prompt == 0 && global_config->download_only == 0
+			&& global_config->simulate == 0)
 		) {
 		printf(_("Do you want to continue? [y/N] "));
 		fgets(prompt_answer,10,stdin);
@@ -129,18 +129,50 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 		}
 	}
 
+	/* if simulate is requested, just show what could happen and return */
+	if( global_config->simulate == 1 ){
+		for(i = 0; i < tran->install_pkgs->pkg_count;i++){
+			printf(_("%s-%s is to be installed\n"),tran->install_pkgs->pkgs[i]->name,tran->install_pkgs->pkgs[i]->version);
+		}
+		for(i = 0; i < tran->upgrade_pkgs->pkg_count;i++){
+			printf(_("%s-%s is to be upgraded to version %s\n"),
+				tran->upgrade_pkgs->pkgs[i]->upgrade->name,
+				tran->upgrade_pkgs->pkgs[i]->installed->version,
+				tran->upgrade_pkgs->pkgs[i]->upgrade->version
+				);
+		}
+		for(i = 0; i < tran->remove_pkgs->pkg_count;i++){
+			printf(_("%s-%s is to be removed\n"),tran->remove_pkgs->pkgs[i]->name,tran->remove_pkgs->pkgs[i]->version);
+		}
+		printf(_("Done\n"));
+		return 0;
+	}
+
+	/* download pkgs */
+	for(i = 0; i < tran->install_pkgs->pkg_count;i++)
+		if( download_pkg(global_config,tran->install_pkgs->pkgs[i]) != 0 ) exit(1);
+	for(i = 0; i < tran->upgrade_pkgs->pkg_count;i++)
+		if( download_pkg(global_config,tran->upgrade_pkgs->pkgs[i]->upgrade) != 0 ) exit(1);
+
+	/* run transaction, install, upgrade, and remove */
 	for(i = 0; i < tran->install_pkgs->pkg_count;i++){
-		install_pkg(global_config,tran->install_pkgs->pkgs[i]);
+
+		if( global_config->download_only == 0 )
+			install_pkg(global_config,tran->install_pkgs->pkgs[i]);
+	}
+	for(i = 0; i < tran->upgrade_pkgs->pkg_count;i++){
+		if( download_pkg(global_config,tran->upgrade_pkgs->pkgs[i]->upgrade) != 0 ) exit(1);
+
+		if( global_config->download_only == 0 ){
+			upgrade_pkg( global_config,
+				tran->upgrade_pkgs->pkgs[i]->installed,
+				tran->upgrade_pkgs->pkgs[i]->upgrade
+			);
+		}
+
 	}
 	for(i = 0; i < tran->remove_pkgs->pkg_count;i++){
 		remove_pkg(global_config,tran->remove_pkgs->pkgs[i]);
-	}
-	for(i = 0; i < tran->upgrade_pkgs->pkg_count;i++){
-		upgrade_pkg(
-			global_config,
-			tran->upgrade_pkgs->pkgs[i]->installed,
-			tran->upgrade_pkgs->pkgs[i]->upgrade
-		);
 	}
 
 	printf(_("Done\n"));
