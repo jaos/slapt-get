@@ -1670,9 +1670,7 @@ int verify_downloaded_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	}
 	free(file_name);
 
-	/*
-		generate the md5 checksum, and cleanup the filehandle and malloc'd file name
-	*/
+	/* generate the md5 checksum */
 	gen_md5_sum_of_file(fh_test,md5sum_f);
 	fclose(fh_test);
 
