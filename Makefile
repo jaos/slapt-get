@@ -11,7 +11,7 @@ CFLAGS=-W -Werror -Wall -O2 -ansi -pedantic -Iinclude $(DEFINES)
 
 default: all
 
-all: slackpkg
+all: pkg
 
 $(OBJS): 
 
@@ -30,19 +30,19 @@ uninstall:
 clean:
 	-if [ -f $(PROGRAM_NAME) ]; then rm $(PROGRAM_NAME);fi
 	-rm src/*.o
-	-if [ -d slackpkg ]; then rm -rf slackpkg ;fi
+	-if [ -d pkg ]; then rm -rf pkg ;fi
 
-slackpkg: $(PROGRAM_NAME)
-	-@mkdir slackpkg
-	-@mkdir -p slackpkg/sbin
-	-@mkdir -p slackpkg/etc
-	-@mkdir -p slackpkg/install
-	-@mkdir -p slackpkg/usr/man/man8
-	-@cp $(PROGRAM_NAME) ./slackpkg/sbin/
-	-@cp example.slapt-getrc ./slackpkg/etc/slapt-getrc
-	-@mkdir -p ./slackpkg/usr/doc/$(PROGRAM_NAME)-$(VERSION)/
-	-@cp COPYING Changelog INSTALL README TODO ./slackpkg/usr/doc/$(PROGRAM_NAME)-$(VERSION)/
-	-@cp slack-desc slackpkg/install/
-	-@cp $(PROGRAM_NAME).8 slackpkg/usr/man/man8/
-	@( cd slackpkg; makepkg -c y $(PROGRAM_NAME)-$(VERSION).tgz )
+pkg: $(PROGRAM_NAME)
+	-@mkdir pkg
+	-@mkdir -p pkg/sbin
+	-@mkdir -p pkg/etc
+	-@mkdir -p pkg/install
+	-@mkdir -p pkg/usr/man/man8
+	-@cp $(PROGRAM_NAME) ./pkg/sbin/
+	-@cp example.slapt-getrc ./pkg/etc/slapt-getrc
+	-@mkdir -p ./pkg/usr/doc/$(PROGRAM_NAME)-$(VERSION)/
+	-@cp COPYING Changelog INSTALL README TODO ./pkg/usr/doc/$(PROGRAM_NAME)-$(VERSION)/
+	-@cp slack-desc pkg/install/
+	-@cp $(PROGRAM_NAME).8 pkg/usr/man/man8/
+	@( cd pkg; makepkg -c y $(PROGRAM_NAME)-$(VERSION).tgz )
 
