@@ -1,4 +1,8 @@
 
+0.9.6d Oct 18, 2003
+ * updated docs
+ * reworked parse_packages_txt function
+
 0.9.6c Oct 15, 2003
  * patch data is now fetched from patches/PACKAGES.TXT instead of
    parsing patches/FILE_LIST

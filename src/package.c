@@ -41,6 +41,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 	char *getline_buffer = NULL;
 	char *size_c = NULL;
 	char *size_u = NULL;
+	pkg_info_t *tmp_pkg = NULL;
 
 	list = malloc( sizeof *list );
 
@@ -81,40 +82,42 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 			0
 		);
 
-		if( name_regex.reg_return == 0 ){
-			list->pkgs[list->pkg_count] = malloc( sizeof *list->pkgs[list->pkg_count] );
-
-			if( list->pkgs[list->pkg_count] == NULL ){
-				fprintf(stderr,"Failed to malloc list->pkgs[list->pkg_count]\n");
-				exit(1);
-			}
-
-			/* pkg name base */
-			strncpy(list->pkgs[list->pkg_count]->name,
-				getline_buffer + name_regex.pmatch[1].rm_so,
-				name_regex.pmatch[1].rm_eo - name_regex.pmatch[1].rm_so
-			);
-			list->pkgs[list->pkg_count]->name[
-				name_regex.pmatch[1].rm_eo - name_regex.pmatch[1].rm_so
-			] = '\0';
-			/* pkg version */
-			strncpy(list->pkgs[list->pkg_count]->version,
-				getline_buffer + name_regex.pmatch[2].rm_so,
-				name_regex.pmatch[2].rm_eo - name_regex.pmatch[2].rm_so
-			);
-			list->pkgs[list->pkg_count]->version[
-				name_regex.pmatch[2].rm_eo - name_regex.pmatch[2].rm_so
-			] = '\0';
-
-		}else{
+		/* skip this line if we didn't find a package name */
+		if( name_regex.reg_return != 0 ){
 			fprintf(stderr,"regex failed on [%s]\n",getline_buffer);
+			free(tmp_pkg);
 			continue;
 		}
+		/* otherwise keep going and parse out the rest of the pkg data */
+
+		tmp_pkg = malloc( sizeof *tmp_pkg );
+		if( tmp_pkg == NULL ){
+			fprintf(stderr,"Failed to malloc tmp_pkg\n");
+			exit(1);
+		}
+
+		/* pkg name base */
+		strncpy(tmp_pkg->name,
+			getline_buffer + name_regex.pmatch[1].rm_so,
+			name_regex.pmatch[1].rm_eo - name_regex.pmatch[1].rm_so
+		);
+		tmp_pkg->name[
+			name_regex.pmatch[1].rm_eo - name_regex.pmatch[1].rm_so
+		] = '\0';
+
+		/* pkg version */
+		strncpy(tmp_pkg->version,
+			getline_buffer + name_regex.pmatch[2].rm_so,
+			name_regex.pmatch[2].rm_eo - name_regex.pmatch[2].rm_so
+		);
+		tmp_pkg->version[
+			name_regex.pmatch[2].rm_eo - name_regex.pmatch[2].rm_so
+		] = '\0';
 
 		/* mirror */
 		f_pos = ftell(pkg_list_fh);
 		if(getline(&getline_buffer,&getline_len,pkg_list_fh) != EOF){
-				/* add in support for the mirror url */
+			/* add in support for the mirror url */
 			mirror_regex.reg_return = regexec(
 				&mirror_regex.regex,
 				getline_buffer,
@@ -124,11 +127,11 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 			);
 			if( mirror_regex.reg_return == 0 ){
 
-				strncpy( list->pkgs[list->pkg_count]->mirror,
+				strncpy( tmp_pkg->mirror,
 					getline_buffer + mirror_regex.pmatch[1].rm_so,
 					mirror_regex.pmatch[1].rm_eo - mirror_regex.pmatch[1].rm_so
 				);
-				list->pkgs[list->pkg_count]->mirror[
+				tmp_pkg->mirror[
 					mirror_regex.pmatch[1].rm_eo - mirror_regex.pmatch[1].rm_so
 				] = '\0';
 
@@ -149,19 +152,21 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 				0
 			);
 			if( location_regex.reg_return == 0){
-				strncpy(list->pkgs[list->pkg_count]->location,
+				strncpy(tmp_pkg->location,
 					getline_buffer + location_regex.pmatch[1].rm_so,
 					location_regex.pmatch[1].rm_eo - location_regex.pmatch[1].rm_so
 				);
-				list->pkgs[list->pkg_count]->location[
+				tmp_pkg->location[
 					location_regex.pmatch[1].rm_eo - location_regex.pmatch[1].rm_so
 				] = '\0';
 			}else{
 				fprintf(stderr,"regexec failed to parse location\n");
+				free(tmp_pkg);
 				continue;
 			}
 		}else{
 			fprintf(stderr,"getline reached EOF attempting to read location\n");
+			free(tmp_pkg);
 			continue;
 		}
 
@@ -187,14 +192,16 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 					getline_buffer + size_c_regex.pmatch[1].rm_so,
 					(size_c_regex.pmatch[1].rm_eo - size_c_regex.pmatch[1].rm_so)
 				);
-				list->pkgs[list->pkg_count]->size_c = strtol(size_c, (char **)NULL, 10);
+				tmp_pkg->size_c = strtol(size_c, (char **)NULL, 10);
 				free(size_c);
 			}else{
 				fprintf(stderr,"regexec failed to parse size_c\n");
+				free(tmp_pkg);
 				continue;
 			}
 		}else{
 			fprintf(stderr,"getline reached EOF attempting to read size_c\n");
+			free(tmp_pkg);
 			continue;
 		}
 
@@ -220,14 +227,16 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 					size_u,getline_buffer + size_u_regex.pmatch[1].rm_so,
 					(size_u_regex.pmatch[1].rm_eo - size_u_regex.pmatch[1].rm_so)
 				);
-				list->pkgs[list->pkg_count]->size_u = strtol(size_u, (char **)NULL, 10);
+				tmp_pkg->size_u = strtol(size_u, (char **)NULL, 10);
 				free(size_u);
 			}else{
 				fprintf(stderr,"regexec failed to parse size_u\n");
+				free(tmp_pkg);
 				continue;
 			}
 		}else{
 			fprintf(stderr,"getline reached EOF attempting to read size_u\n");
+			free(tmp_pkg);
 			continue;
 		}
 
@@ -248,14 +257,14 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 			&& (strstr(getline_buffer,"PACKAGE DESCRIPTION") != NULL)
 		){
 
-			list->pkgs[list->pkg_count]->description[0] = '\0';
+			tmp_pkg->description[0] = '\0';
 
 			while( 1 ){
 				if( (bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh)) != EOF ){
 					if( strcmp(getline_buffer,"\n") != 0 ){
-						strncat(list->pkgs[list->pkg_count]->description,getline_buffer,bytes_read);
-						list->pkgs[list->pkg_count]->description[
-							strlen(list->pkgs[list->pkg_count]->description)
+						strncat(tmp_pkg->description,getline_buffer,bytes_read);
+						tmp_pkg->description[
+							strlen(tmp_pkg->description)
 						] = '\0';
 					}else{
 						break;
@@ -266,9 +275,12 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 			}
 		}else{
 			fprintf(stderr,"error attempting to read pkg description\n");
+			free(tmp_pkg);
 			continue;
 		}
 
+		list->pkgs[list->pkg_count] = tmp_pkg;
+		tmp_pkg = NULL;
 		list->pkg_count += 1;
 		/* grow our struct array */
 		realloc_tmp = realloc(list->pkgs , sizeof *list->pkgs * (list->pkg_count + 1) );

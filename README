@@ -34,14 +34,18 @@ Table of Contents:
     * multiple sources (linuxpackage.net support)
     * show packages that are available (from cached data)
     * allow packages to be retrieved and installed by name
-    * allow updates to be retrieved and applied (frontent to updatepkg)
+    * remove packages
+    * allow updates to be retrieved and applied
+    * install and remove multiple packages at once
+    * uses native Slackware tools (installpkg, upgradepkg, and removepkg)
     * show description of packages
     * list installed packages
-    * remove packages (frontent to removepkg)
-    * dist-upgrade from one slackware release to another
+    * upgrade from one slackware release to another
     * exclude (hold) packages from upgrades
     * easy to script with
     * extremely fast
+    * transaction engine
+    * compare package version algorithm to prevent downgrades
 
 
 

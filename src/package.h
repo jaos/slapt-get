@@ -34,7 +34,7 @@ struct _pkg_info {
 	char name[50];
 	char version[50];
 	char mirror[200];
-	char location[50];
+	char location[60];
 	int size_c;
 	int size_u;
 	char description[1024];
@@ -87,6 +87,10 @@ int upgrade_pkg(const rc_config *,pkg_info_t *,pkg_info_t *);
 /* remove pkg */
 int remove_pkg(const rc_config *,pkg_info_t *);
 
+/* initialize pkg_list structure */
+void init_pkg_list(struct pkg_list *);
+/* add pkg to pkg_list structure */
+void add_pkg_to_list(struct pkg_list *, pkg_info_t *);
 /* free memory allocated for pkg_list struct */
 void free_pkg_list(struct pkg_list *);
 
