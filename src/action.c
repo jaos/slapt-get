@@ -473,32 +473,3 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 	free_transaction(&tran);
 }
 
-/* parse the dependencies for a package, and add them to the transaction as needed */
-/* check to see if a package is conflicted */
-/* this needs to find it's final home */
-int is_conflicted(transaction *tran, struct pkg_list *avail_pkgs, struct pkg_list *installed_pkgs, pkg_info_t *pkg){
-	int i;
-	int conflicted = 0;
-	struct pkg_list *conflicts;
-
-	/* if conflicts exist, check to see if they are installed or in the current transaction */
-	conflicts = lookup_pkg_conflicts(avail_pkgs,installed_pkgs,pkg);
-	for(i = 0; i < conflicts->pkg_count; i++){
-		if(search_transaction(tran,conflicts->pkgs[i]) == 1){
-			printf(_("%s, which is to be installed, conflicts with %s\n"),
-				conflicts->pkgs[i]->name,conflicts->pkgs[i]->version, pkg->name,pkg->version
-			);
-			conflicted = 1;
-		}
-		if(get_newest_pkg(installed_pkgs,conflicts->pkgs[i]->name) != NULL) {
-			printf(_("Installed %s conflicts with %s\n"),conflicts->pkgs[i]->name,pkg->name);
-			conflicted = 1;
-		}
-	}
-
-	free(conflicts->pkgs);
-	free(conflicts);
-
-	return conflicted;
-}
-

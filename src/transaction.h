@@ -34,4 +34,6 @@ int search_transaction(transaction *,pkg_info_t *pkg);
 void free_transaction(transaction *);
 transaction *remove_from_transaction(transaction *tran,pkg_info_t *pkg);
 int add_deps_to_trans(const rc_config *global_config, transaction *tran, struct pkg_list *avail_pkgs, struct pkg_list *installed_pkgs, pkg_info_t *pkg);
+/* check to see if a package is conflicted */
+int is_conflicted(transaction *tran, struct pkg_list *avail_pkgs, struct pkg_list *installed_pkgs, pkg_info_t *pkg);
 
