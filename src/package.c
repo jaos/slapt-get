@@ -647,6 +647,10 @@ void get_md5sum(const rc_config *global_config,pkg_info_t *pkg,char *md5_sum){
 	checksum_file = open_file(CHECKSUM_FILE,"r");
 
 	md5sum_regex.reg_return = regcomp(&md5sum_regex.regex,MD5SUM_REGEX, REG_EXTENDED|REG_NEWLINE);
+	if( md5sum_regex.reg_return != 0 ){
+		fprintf(stderr,"Failed to compile regex [%s]\n",MD5SUM_REGEX);
+		exit(1);
+	}
 
 	while( (getline_read = getline(&getline_buffer,&getline_len,checksum_file) ) != EOF ){
 
