@@ -1,8 +1,19 @@
 
-0.9.8a Jan 05, 2004
+0.9.8a Jan 09, 2004
  * translation updates
  * merged --print-uris patch (cynepnynep@chat.ru)
  * initial transfer resume support
+ * added md5 sum to pkg_info_t struct
+ * added check for conflict string size, preventing overflow
+ * updated update_pkg_cache to merge md5sum into package data
+   this will speed up md5 lookups since they are now done during --update
+ * rewrote get_md5sum()
+ * /var/slapt-get/CHECKSUMS.md5 no longer present.
+   MD5 sums integrated into /var/slapt-get/package_data
+ * update_pkg_cache now queries everything on a server before moving on
+   to the next package source.  This helps ensure that duplicate
+   packages from multiple sources will be associated with the correct
+   md5 checksums, etc.
 
 0.9.8 Dec 18, 2003
  * added slapt-get source to example slapt-getrc
