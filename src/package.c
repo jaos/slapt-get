@@ -460,16 +460,6 @@ pkg_info_t *get_newest_pkg_with_description(pkg_info_t **pkgs,const char *pkg_na
 }
 
 /* parse the update list */
-struct pkg_list *get_update_pkgs(void){
-	FILE *fh;
-	struct pkg_list *list;
-                                                                                                                                                                
-	fh = open_file(PATCHES_LIST_L,"r");
-	list = parse_file_list(fh);
-	fclose(fh);
-	return list;
-}
-                                                                                                                                                                
 struct pkg_list *parse_file_list(FILE *fh){
 	size_t getline_len;
 	ssize_t bytes_read;
@@ -864,43 +854,6 @@ int break_down_pkg_version(int *v,char *version){
 
 	free(short_version);
 	return count;
-}
-
-struct pkg_list *get_available_and_update_pkgs(void){
-	struct pkg_list *updates;
-	struct pkg_list *available;
-	struct pkg_list *all = NULL;
-	pkg_info_t **realloc_tmp;
-	int i;
-
-	updates = get_update_pkgs();
-	available = get_available_pkgs();
-
-	all = malloc( sizeof *all );
-	all->pkgs = malloc( sizeof *all->pkgs );
-	all->pkg_count = 0;
-
-	realloc_tmp = realloc(	
-		all->pkgs,
-		sizeof *all->pkgs * ( updates->pkg_count + available->pkg_count + 1 )
-	);
-	if( realloc_tmp != NULL ){
-		all->pkgs = realloc_tmp;
-	}else{
-		fprintf(stderr,"Failed to resize size all package listing\n");
-		exit(1);	
-	}
-	
-	for(i = 0; i < updates->pkg_count;i++){
-		all->pkgs[all->pkg_count] = updates->pkgs[i];
-		++all->pkg_count;
-	}
-	for(i = 0; i < available->pkg_count;i++){
-		all->pkgs[all->pkg_count] = available->pkgs[i];
-		++all->pkg_count;
-	}
-
-	return all;
 }
 
 void write_pkg_data(const char *source_url,FILE *d_file,struct pkg_list *pkgs){

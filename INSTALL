@@ -20,3 +20,7 @@
 
  To uninstall:
   $ removepkg slapt-get-${VERSION}-${ARCH}-${RELEASE}
+
+
+You will want to customize the values within /etc/slapt-getrc.
+See README for more details.

@@ -1,46 +1,48 @@
 # base mirror url to directory with a PACKAGES.TXT
 # mirror can point to any release, ie: 9.0, 9.1, current, etc
 #SOURCE=ftp://distro.ibiblio.org/pub/Linux/distributions/slackware/slackware-9.0/
+#SOURCE=ftp://distro.ibiblio.org/pub/Linux/distributions/slackware/slackware-current/
 SOURCE=ftp://distro.ibiblio.org/pub/Linux/distributions/slackware/slackware-9.1/
 
 # you can use multiple sources, such as linuxpackages.net
-#SOURCE=http://www3.linuxpackages.net/packages/Slackware-9.1/
+# (not recommended on production servers, see README)
+#SOURCE=ftp://ftp.linuxpackages.net/pub/Slackware-9.1/
 
 WORKINGDIR=/var/slapt-get
 EXCLUDE=kernel-ide,kernel-source,kernel-headers,kernel-modules,lilo
 
-# SOURCE=ftp://mirror.aarnet.edu.au/pub/slackware/slackware-9.0/
-# SOURCE=http://mirror.aarnet.edu.au/pub/slackware/slackware-9.0/
-# SOURCE=ftp://ftp.planetmirror.com/pub/slackware/slackware-9.0/
-# SOURCE=http://ftp.planetmirror.com/pub/slackware/slackware-9.0/
-# SOURCE=ftp://gd.tuwien.ac.at/opsys/linux/slackware/slackware-9.0/
-# SOURCE=http://gd.tuwien.ac.at/opsys/linux/slackware/slackware-9.0/
-# SOURCE=ftp://ftp.slackwarebrasil.org/pub/linux/slackware/slackware-9.0/
-# SOURCE=ftp://ftp.linux.tucows.com/pub/distributions/Slackware/slackware-9.0/
-# SOURCE=ftp://sunsite.ualberta.ca/pub/Mirror/Linux/slackware/slackware-9.0/
-# SOURCE=http://sunsite.ualberta.ca/pub/Mirror/Linux/slackware-9.0/
-# SOURCE=ftp://ncart.scs.ryerson.ca/pub/slackware/slackware-9.0/
-# SOURCE=http://ncart.scs.ryerson.ca/pub/slackware/slackware-9.0/
-# SOURCE=ftp://sunsite.informatik.rwth-aachen.de/pub/Linux/slackware/slackware-9.0/
-# SOURCE=ftp://ftp.heanet.ie/mirrors/ftp.slackware.com/pub/slackware/slackware-9.0/
-# SOURCE=ftp://sunsite.sut.ac.jp/pub/archives/linux/slackware/slackware-9.0/
-# SOURCE=http://sunsite.sut.ac.jp/pub/archives/linux/slackware/slackware-9.0/
-# SOURCE=http://www.rarf.riken.go.jp/archives/Linux/slackware/slackware-9.0/
-# SOURCE=ftp://linux.sarang.net/mirror/os/linux/distribution/slackware/slackware-9.0/
-# SOURCE=ftp://ftp.man.olsztyn.pl/pub/linux/distributions/slackware/slackware-9.0/
-# SOURCE=http://ftp.man.olsztyn.pl/pub/linux/distributions/slackware/slackware-9.0/
-# SOURCE=ftp://sunsite.pub.ro/pub/Linux/distributions/slackware/slackware-9.0/
-# SOURCE=ftp://ftp.rediris.es/mirror/linux/distributions/slackware/slackware-9.0/
-# SOURCE=ftp://luna.gui.uva.es/pub/linux.new/slackware/slackware-9.0/
-# SOURCE=ftp://ftp.uniovi.es/pub/slackware/slackware-9.0/
-# SOURCE=ftp://ftp.etse.urv.es/pub/linux/slackware/slackware-9.0/
-# SOURCE=ftp://ftp.sunet.se/pub/Linux/distributions/slackware/slackware-9.0/
-# SOURCE=http://sunsite.cnlab-switch.ch/ftp/mirror/slackware/slackware/slackware-9.0/
-# SOURCE=ftp://sunsite.cnlab-switch.ch/mirror/slackware/slackware-9.0/
-# SOURCE=ftp://sunsite.cnlab-switch.ch/mirror/slackware/slackware-9.0/
-# SOURCE=ftp://ftp.loxinfo.co.th/linux/slackware/slackware-9.0/
-# SOURCE=ftp://ftp.mirror.ac.uk/sites/ftp.slackware.com/pub/slackware/slackware-9.0/
-# SOURCE=ftp://carroll.cac.psu.edu/pub/linux/distributions/slackware/slackware-9.0/
-# SOURCE=http://carroll.cac.psu.edu/pub/linux/distributions/slackware/slackware-9.0/
-# SOURCE=ftp://distro.ibiblio.org/pub/Linux/distributions/slackware/slackware-9.0/
-# SOURCE=ftp://ftp-linux.cc.gatech.edu/pub/Linux/distributions/slackware/slackware-9.0/
+# SOURCE=ftp://mirror.aarnet.edu.au/pub/slackware/slackware-9.1/
+# SOURCE=http://mirror.aarnet.edu.au/pub/slackware/slackware-9.1/
+# SOURCE=ftp://ftp.planetmirror.com/pub/slackware/slackware-9.1/
+# SOURCE=http://ftp.planetmirror.com/pub/slackware/slackware-9.1/
+# SOURCE=ftp://gd.tuwien.ac.at/opsys/linux/slackware/slackware-9.1/
+# SOURCE=http://gd.tuwien.ac.at/opsys/linux/slackware/slackware-9.1/
+# SOURCE=ftp://ftp.slackwarebrasil.org/pub/linux/slackware/slackware-9.1/
+# SOURCE=ftp://ftp.linux.tucows.com/pub/distributions/Slackware/slackware-9.1/
+# SOURCE=ftp://sunsite.ualberta.ca/pub/Mirror/Linux/slackware/slackware-9.1/
+# SOURCE=http://sunsite.ualberta.ca/pub/Mirror/Linux/slackware-9.1/
+# SOURCE=ftp://ncart.scs.ryerson.ca/pub/slackware/slackware-9.1/
+# SOURCE=http://ncart.scs.ryerson.ca/pub/slackware/slackware-9.1/
+# SOURCE=ftp://sunsite.informatik.rwth-aachen.de/pub/Linux/slackware/slackware-9.1/
+# SOURCE=ftp://ftp.heanet.ie/mirrors/ftp.slackware.com/pub/slackware/slackware-9.1/
+# SOURCE=ftp://sunsite.sut.ac.jp/pub/archives/linux/slackware/slackware-9.1/
+# SOURCE=http://sunsite.sut.ac.jp/pub/archives/linux/slackware/slackware-9.1/
+# SOURCE=http://www.rarf.riken.go.jp/archives/Linux/slackware/slackware-9.1/
+# SOURCE=ftp://linux.sarang.net/mirror/os/linux/distribution/slackware/slackware-9.1/
+# SOURCE=ftp://ftp.man.olsztyn.pl/pub/linux/distributions/slackware/slackware-9.1/
+# SOURCE=http://ftp.man.olsztyn.pl/pub/linux/distributions/slackware/slackware-9.1/
+# SOURCE=ftp://sunsite.pub.ro/pub/Linux/distributions/slackware/slackware-9.1/
+# SOURCE=ftp://ftp.rediris.es/mirror/linux/distributions/slackware/slackware-9.1/
+# SOURCE=ftp://luna.gui.uva.es/pub/linux.new/slackware/slackware-9.1/
+# SOURCE=ftp://ftp.uniovi.es/pub/slackware/slackware-9.1/
+# SOURCE=ftp://ftp.etse.urv.es/pub/linux/slackware/slackware-9.1/
+# SOURCE=ftp://ftp.sunet.se/pub/Linux/distributions/slackware/slackware-9.1/
+# SOURCE=http://sunsite.cnlab-switch.ch/ftp/mirror/slackware/slackware/slackware-9.1/
+# SOURCE=ftp://sunsite.cnlab-switch.ch/mirror/slackware/slackware-9.1/
+# SOURCE=ftp://sunsite.cnlab-switch.ch/mirror/slackware/slackware-9.1/
+# SOURCE=ftp://ftp.loxinfo.co.th/linux/slackware/slackware-9.1/
+# SOURCE=ftp://ftp.mirror.ac.uk/sites/ftp.slackware.com/pub/slackware/slackware-9.1/
+# SOURCE=ftp://carroll.cac.psu.edu/pub/linux/distributions/slackware/slackware-9.1/
+# SOURCE=http://carroll.cac.psu.edu/pub/linux/distributions/slackware/slackware-9.1/
+# SOURCE=ftp://distro.ibiblio.org/pub/Linux/distributions/slackware/slackware-9.1/
+# SOURCE=ftp://ftp-linux.cc.gatech.edu/pub/Linux/distributions/slackware/slackware-9.1/
