@@ -480,3 +480,7 @@ msgstr "conflict too long [%s:%d]\n"
 msgid "Reading Package Lists..."
 msgstr "Reading Package Lists..."
 
+#, c-format
+msgid "Download of %s incomplete\n"
+msgstr "Download of %s incomplete\n"
+
