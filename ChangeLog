@@ -1,5 +1,5 @@
 
-0.8 Sep 07, 2003
+0.8 Sep 03, 2003
  * --remove target now accepts multiple arguments
   ( --remove pkg1 pkg2 pkg3 pkg4 )
  * --upgrade speed improvement (optimizations)
@@ -12,7 +12,6 @@
  * added EXCLUDE option in jaospkgrc (to exclude pkgs)
  * --ignore-excludes for --upgrade
  * is_excluded() returns false if EXCLUDE= not defined
- * fixed bug in multi arg --remove
  * added slackpkg make target
 
 0.7: Aug 28, 2003 

@@ -25,7 +25,7 @@ rc_config *read_rc_config(const char *file_name){
 	char *getline_buffer = NULL;
 	size_t gb_length = 0;
 	ssize_t g_size;
-	global_config = (rc_config *) malloc( 1 * sizeof(rc_config) );
+	global_config = malloc( 1 * sizeof(rc_config) );
 	if( global_config == NULL ){
 		fprintf(stderr,"Failed to malloc global_config\n");
 		if( errno ){
@@ -205,7 +205,7 @@ struct exclude_list *parse_exclude(char *line){
 	char *pointer = NULL;
 	char *buffer = NULL;
 	int position = 0;
-	struct exclude_list *list = (struct exclude_list *) malloc( 1 * sizeof(struct exclude_list) );
+	struct exclude_list *list = malloc( 1 * sizeof(struct exclude_list) );
 	if( list == NULL ){
 		fprintf(stderr,"Failed to malloc list\n");
 		if( errno ){
@@ -235,7 +235,7 @@ struct exclude_list *parse_exclude(char *line){
 			}else{
 
 				pointer = index(line + position,',');
-				buffer = (char *)calloc( strlen(line + position) - strlen(pointer) + 1, sizeof(char) );
+				buffer = calloc( strlen(line + position) - strlen(pointer) + 1, sizeof(char) );
 				memcpy(buffer,line + position,strlen(line + position) - strlen(pointer) );
 				buffer[ strlen(line + position) - strlen(pointer) ] = '\0';
 				memcpy(list->excludes[ list->count ], buffer, strlen(buffer) );

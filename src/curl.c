@@ -54,7 +54,7 @@ FILE *download_pkg_list(const rc_config *global_config){
 #else
 	printf("Retrieving package data...\n");
 #endif
-	url = (char *) calloc(
+	url = calloc(
 		strlen(global_config->mirror_url) + strlen(PKG_LIST) + 1, sizeof(char)
 	);
 	url = memcpy(url,global_config->mirror_url,strlen(global_config->mirror_url) + 1);
@@ -80,7 +80,7 @@ FILE *download_patches_list(const rc_config *global_config){
 #else
 	printf("Retrieving patch list...\n");
 #endif
-	url = (char *) calloc(
+	url = calloc(
 		strlen(global_config->mirror_url) + strlen(PATCHDIR) + strlen(PATCHES_LIST) + 1 , sizeof(char)
 	);
 	url = memcpy(url,global_config->mirror_url,strlen(global_config->mirror_url) + 1);
@@ -102,7 +102,7 @@ char *download_pkg(const rc_config *global_config,pkg_info *pkg){
 	char *url = NULL;
 
 	/* build the file name */
-	file_name = (char *) calloc(
+	file_name = calloc(
 		strlen(pkg->name)+strlen("-")+strlen(pkg->version)+strlen(".tgz") + 1 , sizeof(char)
 	);
 	if( file_name == NULL ){
@@ -124,7 +124,7 @@ char *download_pkg(const rc_config *global_config,pkg_info *pkg){
 
 
 	/* build the url */
-	url = (char *) calloc(
+	url = calloc(
 		strlen(global_config->mirror_url) + strlen(pkg->location) + strlen(file_name) + strlen("/") + 1 , sizeof(char)
 	);
 	if( url == NULL ){

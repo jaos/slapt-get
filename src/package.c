@@ -35,7 +35,7 @@ void create_dir_structure(char *dir_name){
 		if( strstr(dir_name + position,"/" ) == NULL ){
 
 			pointer = dir_name + position;
-			dir_name_buffer = (char *) calloc( strlen(pointer) + 1 , sizeof(char) );
+			dir_name_buffer = calloc( strlen(pointer) + 1 , sizeof(char) );
 			memcpy(dir_name_buffer,pointer,strlen(pointer));
 			dir_name_buffer[ strlen(pointer) ] = '\0';
 
@@ -62,7 +62,7 @@ void create_dir_structure(char *dir_name){
 
 				/* figure our dir name and mk it */
 				pointer = index(dir_name + position,'/');
-				dir_name_buffer = (char *) calloc(
+				dir_name_buffer = calloc(
 					strlen(dir_name + position) - strlen(pointer) + 1 , sizeof(char)
 				);
 				memcpy(dir_name_buffer,dir_name + position, strlen(dir_name + position) - strlen(pointer));
@@ -105,7 +105,7 @@ struct pkg_list *parse_pkg_list(void){
 	char *getline_buffer = NULL;
 	char *size_c = NULL;
 	char *size_u = NULL;
-	struct pkg_list *list = (struct pkg_list *) calloc( 1 , sizeof(struct pkg_list) );
+	struct pkg_list *list = calloc( 1 , sizeof(struct pkg_list) );
 
 
 	/* open pkg list */
@@ -117,7 +117,7 @@ struct pkg_list *parse_pkg_list(void){
 	regcomp(&size_c_regex,PKG_SIZEC_PATTERN, REG_EXTENDED|REG_NEWLINE);
 	regcomp(&size_u_regex,PKG_SIZEU_PATTERN, REG_EXTENDED|REG_NEWLINE);
 
-	list->pkgs = (pkg_info **) calloc(1 , sizeof(pkg_info *) );
+	list->pkgs = calloc(1 , sizeof(pkg_info *) );
 	if( list->pkgs == NULL ){
 		fprintf(stderr,"Failed to calloc pkgs\n");
 		exit(1);
@@ -132,7 +132,7 @@ struct pkg_list *parse_pkg_list(void){
 
 		regexec_return = regexec( &name_regex, getline_buffer, nmatch, pmatch, 0);
 		if( regexec_return == 0 ){
-			list->pkgs[list->pkg_count] = (pkg_info *) calloc( 1 , sizeof(pkg_info) );
+			list->pkgs[list->pkg_count] = calloc( 1 , sizeof(pkg_info) );
 			if( list->pkgs[list->pkg_count] == NULL ){
 				fprintf(stderr,"Failed to calloc list->pkgs[list->pkg_count]\n");
 				exit(1);
@@ -176,7 +176,7 @@ struct pkg_list *parse_pkg_list(void){
 		/* size_c */
 		if( (getline(&getline_buffer,&getline_len,pkg_list_fh) != EOF)){
 			if( (regexec_return = regexec( &size_c_regex, getline_buffer, nmatch, pmatch, 0)) == 0 ){
-				size_c = (char *) calloc( (pmatch[1].rm_eo - pmatch[1].rm_so) + 1 , sizeof(char) );
+				size_c = calloc( (pmatch[1].rm_eo - pmatch[1].rm_so) + 1 , sizeof(char) );
 				if( size_c == NULL ){
 					fprintf(stderr,"Failed to calloc size_c\n");
 					exit(1);
@@ -196,7 +196,7 @@ struct pkg_list *parse_pkg_list(void){
 		/* size_u */
 		if( (getline(&getline_buffer,&getline_len,pkg_list_fh) != EOF)){
 			if( regexec( &size_u_regex, getline_buffer, nmatch, pmatch, 0) == 0 ){
-				size_u = (char *) calloc( (pmatch[1].rm_eo - pmatch[1].rm_so) + 1 , sizeof(char) );
+				size_u = calloc( (pmatch[1].rm_eo - pmatch[1].rm_so) + 1 , sizeof(char) );
 				if( size_u == NULL ){
 					fprintf(stderr,"Failed to calloc size_u\n");
 					exit(1);
@@ -256,7 +256,7 @@ struct pkg_list *parse_pkg_list(void){
 
 char *gen_short_pkg_description(pkg_info *pkg){
 	char *short_description = NULL;
-	short_description = (char *) calloc(
+	short_description = calloc(
 		strlen(pkg->description) - strlen(pkg->name) + 2
 			- strlen( index(pkg->description,'\n') ) + 1,
 		sizeof(char)
@@ -284,7 +284,7 @@ struct pkg_list *get_installed_pkgs(void){
 	size_t nmatch = MAX_NMATCH;
 	regmatch_t pmatch[MAX_PMATCH];
 	int regexec_return;
-	struct pkg_list *list = (struct pkg_list *) calloc( 1 , sizeof(struct pkg_list) );
+	struct pkg_list *list = calloc( 1 , sizeof(struct pkg_list) );
 	list->pkg_count = 0;
 
 	/* open our pkg_log_dir */
@@ -308,7 +308,7 @@ struct pkg_list *get_installed_pkgs(void){
 		exit(1);
 	}
 
-	list->pkgs = (pkg_info **) calloc( 1 , sizeof(pkg_info *) );
+	list->pkgs = calloc( 1 , sizeof(pkg_info *) );
 	if( list->pkgs == NULL ){
 		fprintf(stderr,"Failed to calloc pkgs\n");
 		exit(1);
@@ -317,7 +317,7 @@ struct pkg_list *get_installed_pkgs(void){
 	while( (file = readdir(pkg_log_dir)) != NULL ){
 		if( ( regexec(&regex,file->d_name,nmatch,pmatch,0) ) == 0 ){
 			pkg_info *existing_pkg = NULL;
-			pkg_info *tmp_pkg = (pkg_info *) calloc( 1 , sizeof(pkg_info) );
+			pkg_info *tmp_pkg = calloc( 1 , sizeof(pkg_info) );
 
 
 			memcpy(
@@ -337,7 +337,7 @@ struct pkg_list *get_installed_pkgs(void){
 			if( ((existing_pkg = get_newest_pkg(list->pkgs,tmp_pkg->name,list->pkg_count)) == NULL)
 				|| (strcmp(existing_pkg->version,tmp_pkg->version) < 0 )){
 
-				list->pkgs[list->pkg_count] = (pkg_info *) calloc(1 , sizeof(pkg_info));
+				list->pkgs[list->pkg_count] = calloc(1 , sizeof(pkg_info));
 				if( list->pkgs[list->pkg_count] == NULL ){
 					fprintf(stderr,"Failed to calloc list->pkgs[list->pkg_count]\n");
 					exit(1);
@@ -376,7 +376,7 @@ pkg_info *get_newest_pkg(pkg_info **pkgs,const char *pkg_name,int pkg_count){
 		if( (strcmp(pkgs[iterator]->name,pkg_name)) == 0 ){
 
 			if( pkg == NULL ){
-				if( (pkg = (pkg_info *) calloc(1 , sizeof(pkg_info))) == NULL ){
+				if( (pkg = calloc(1 , sizeof(pkg_info))) == NULL ){
 					fprintf(stderr,"Failed to calloc pkg\n");
 					exit(0);
 				}
@@ -424,14 +424,14 @@ struct pkg_list *parse_update_pkg_list(void){
 	size_t nmatch = MAX_NMATCH;
 	regmatch_t pmatch[MAX_PMATCH];
 	char *getline_buffer = NULL;
-	struct pkg_list *list = (struct pkg_list *) malloc( 1 * sizeof(struct pkg_list) );
+	struct pkg_list *list = malloc( 1 * sizeof(struct pkg_list) );
 	list->pkg_count = 0;
 
 	fh = open_file(PATCHES_LIST_L,"r");
 
 	regcomp(&regex,PKG_PARSE_REGEX, REG_EXTENDED|REG_NEWLINE);
 
-	if( (list->pkgs = (pkg_info **) calloc(1 , sizeof(pkg_info *))) == NULL ){
+	if( (list->pkgs = calloc(1 , sizeof(pkg_info *))) == NULL ){
 		fprintf(stderr,"Failed to calloc pkgs\n");
 		exit(1);
 	}
@@ -442,7 +442,7 @@ struct pkg_list *parse_update_pkg_list(void){
 
 			if( (regexec( &regex, getline_buffer, nmatch, pmatch, 0)) == 0 ){
 
-				if( (list->pkgs[list->pkg_count] = (pkg_info *) malloc(1 * sizeof(pkg_info))) == NULL ){
+				if( (list->pkgs[list->pkg_count] = malloc(1 * sizeof(pkg_info))) == NULL ){
 					fprintf(stderr,"Failed to malloc list->pkgs[list->pkg_count]\n");
 					exit(1);
 				}
@@ -511,7 +511,7 @@ pkg_info *lookup_pkg(const char *pkg_name){
 	for(iterator = 0; iterator < pkgs->pkg_count; iterator++ ){
 		if( strcmp(pkgs->pkgs[iterator]->name,pkg_name) == 0 ){
 			if( pkg == NULL ){
-				if( (pkg = (pkg_info *) calloc(1 , sizeof(pkg_info))) == NULL ){
+				if( (pkg = calloc(1 , sizeof(pkg_info))) == NULL ){
 					fprintf(stderr,"Failed to callod pkg\n");
 					exit(0);
 				}
@@ -542,7 +542,7 @@ int install_pkg(const rc_config *global_config,pkg_info *pkg){
 	pkg_file_name = download_pkg(global_config,pkg);
 
 	/* build and execute our command */
-	command = (char *) calloc( strlen(INSTALL_CMD) + strlen(pkg_file_name) + 1 , sizeof(char) );
+	command = calloc( strlen(INSTALL_CMD) + strlen(pkg_file_name) + 1 , sizeof(char) );
 	command = strcat(command,INSTALL_CMD);
 	command = strcat(command,pkg_file_name);
 
@@ -584,7 +584,7 @@ int upgrade_pkg(const rc_config *global_config,pkg_info *pkg){
 	pkg_file_name = download_pkg(global_config,pkg);
 
 	/* build and execute our command */
-	command = (char *) calloc( strlen(UPGRADE_CMD) + strlen(pkg_file_name) + 1 , sizeof(char) );
+	command = calloc( strlen(UPGRADE_CMD) + strlen(pkg_file_name) + 1 , sizeof(char) );
 	command = strcat(command,UPGRADE_CMD);
 	command = strcat(command,pkg_file_name);
 
@@ -612,7 +612,7 @@ int remove_pkg(pkg_info *pkg){
 	int cmd_return;
 
 	/* build and execute our command */
-	command = (char *) calloc( strlen(REMOVE_CMD) + strlen(pkg->name) + 1 , sizeof(char) );
+	command = calloc( strlen(REMOVE_CMD) + strlen(pkg->name) + 1 , sizeof(char) );
 	command = strcat(command,REMOVE_CMD);
 	command = strcat(command,pkg->name);
 	cmd_return = system(command);
