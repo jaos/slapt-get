@@ -792,6 +792,7 @@ void get_md5sum(pkg_info_t *pkg,FILE *checksum_file){
 
 		}
 	}
+	if( getline_buffer ) free(getline_buffer);
 	#if DEBUG == 1
 	printf("%s-%s@%s = %s\n",pkg->name,pkg->version,pkg->location,md5_sum);
 	#endif
@@ -1762,6 +1763,7 @@ int update_pkg_cache(const rc_config *global_config){
 		while( (bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh_tmp) ) != EOF ){
 			fprintf(pkg_list_fh,"%s",getline_buffer);
 		}
+		if( getline_buffer ) free(getline_buffer);
 		fclose(pkg_list_fh);
 
 	}else{
