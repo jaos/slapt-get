@@ -467,5 +467,5 @@ msgid "show download statistics"
 msgstr "mostra estatísticas de download"
 
 msgid "Cached\n"
-msgstr "Cached\n"
+msgstr "Em Cache\n"
 
