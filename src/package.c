@@ -25,6 +25,10 @@ struct pkg_list *get_available_pkgs(void){
 
 	/* open pkg list */
 	pkg_list_fh = open_file(PKG_LIST_L,"r");
+	if( pkg_list_fh == NULL ){
+		fprintf(stderr,_("Perhaps you want to run --update?\n"));
+		return NULL;
+	}
 	list = parse_packages_txt(pkg_list_fh);
 	fclose(pkg_list_fh);
 
@@ -395,7 +399,7 @@ struct pkg_list *get_installed_pkgs(void){
 		if( errno ){
 			perror(PKG_LOG_DIR);
 		}
-		exit(1);
+		return NULL;
 	}
 
 	/* compile our regex */
@@ -636,7 +640,7 @@ int install_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	printf(_("Preparing to install %s-%s\n"),pkg->name,pkg->version);
 	if( (cmd_return = system(command)) == -1 ){
 		printf(_("Failed to execute command: [%s]\n"),command);
-		exit(1);
+		return -1;
 	}
 
 	chdir(global_config->working_dir);
@@ -676,7 +680,7 @@ int upgrade_pkg(const rc_config *global_config,pkg_info_t *installed_pkg,pkg_inf
 	printf(_("Preparing to replace %s-%s with %s-%s\n"),pkg->name,installed_pkg->version,pkg->name,pkg->version);
 	if( (cmd_return = system(command)) == -1 ){
 		printf(_("Failed to execute command: [%s]\n"),command);
-		exit(1);
+		return -1;
 	}
 
 	chdir(global_config->working_dir);
@@ -703,7 +707,7 @@ int remove_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	command = strcat(command,pkg->version);
 	if( (cmd_return = system(command)) == -1 ){
 		printf(_("Failed to execute command: [%s]\n"),command);
-		exit(1);
+		return -1;
 	}
 
 	free(command);
@@ -772,6 +776,10 @@ void get_md5sum(const rc_config *global_config,pkg_info_t *pkg,char *md5_sum){
 	chdir(global_config->working_dir);
 
 	checksum_file = open_file(CHECKSUM_FILE,"r");
+	if( checksum_file == NULL ){
+		fprintf(stderr,_("Perhaps you want to run --update?\n"));
+		return;
+	}
 
 	md5sum_regex.reg_return = regcomp(&md5sum_regex.regex,MD5SUM_REGEX, REG_EXTENDED|REG_NEWLINE);
 	if( md5sum_regex.reg_return != 0 ){
@@ -898,8 +906,8 @@ int cmp_pkg_versions(char *a, char *b){
 			/* they are equal if the integer values are equal */
 			/* for instance, "1rob" and "1" will be equal */
 			if( atoi(a_build) == atoi(b_build) ) return 0;
-			if( atoi(a_build) > atoi(b_build) ) return 1;
-			if( atoi(a_build) < atoi(b_build) ) return -1;
+			if( atoi(a_build) < atoi(b_build) ) return 1;
+			if( atoi(a_build) > atoi(b_build) ) return -1;
 
 			/* fall back to strcmp */
 			return strcmp(a_build,b_build);
@@ -1347,7 +1355,6 @@ pkg_info_t *parse_dep_entry(struct pkg_list *avail_pkgs,struct pkg_list *install
 
 	fprintf(stderr,_("The following packages have unmet dependencies:\n"));
 	fprintf(stderr,_("  %s: Depends: %s\n"),pkg->name,dep_entry);
-	/* exit(1); */
 	return NULL;
 }
 
@@ -1444,6 +1451,7 @@ void update_pkg_cache(const rc_config *global_config, int (*callback)(void *,dou
 
 	/* download our PKG_LIST */
 	pkg_list_fh = open_file(PKG_LIST_L,"w+");
+
 	for(i = 0; i < global_config->sources.count; i++){
 		tmp_file = tmpfile();
 		#if USE_CURL_PROGRESS == 0
@@ -1508,6 +1516,7 @@ void update_pkg_cache(const rc_config *global_config, int (*callback)(void *,dou
 
 	/* download checksum file */
 	checksum_list_fh = open_file(CHECKSUM_FILE,"w+");
+
 	for(i = 0; i < global_config->sources.count; i++){
 		#if USE_CURL_PROGRESS == 0
 		printf(_("Retrieving checksum list [%s]..."),global_config->sources.url[i]);
