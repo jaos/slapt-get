@@ -37,7 +37,7 @@ Frequenty Asked Questions:
 36. Why is upgradepkg complaining it cannot find installpkg or removepkg, with sudo?
 37. How can I specify a username/password for the connection to the package source?
 38. /var/slapt-get is growing large, how can I safely free up space?
-39. What about extra or testing packages?
+39. What about extra, testing, or pasture packages?
 40. Can I use slapt-get to mirror packages?
 41. Is there a way to use tab completion for the package names in Bash?
 42. How do I remove obsoleted packages?
