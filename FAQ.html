@@ -64,6 +64,7 @@
 <a href="#slgFAQ47">47. How can I downgrade a package?</a>
 <a href="#slgFAQ48">48. How can I search the contents of a package for a file or library?</a>
 <a href="#slgFAQ49">49. Will slapt-get support a --compile like option for slackbuilds?</a>
+<a href="#slgFAQ50">50. What about mirror fall back / failover ?</a>
 
 
 
@@ -1087,6 +1088,22 @@
 
  For a more advanced version of this, check out Piotr's site:
  <a href="http://www.tenboard.com/slackware/index.php?path=SlackBuilds/">http://www.tenboard.com/slackware/index.php?path=SlackBuilds/</a>
+
+
+<a name="slgFAQ50"><b>50. What about mirror fall back / failover ?</b></a>
+
+ This functionality is not build into slapt-get.  Adding multiple sources to
+ the same package source at different mirror locations doesn't buy you auto-
+ matic failover.  It will provide you with duplicate package listings.
+
+ Instead, you can specify an alternate config file and fall back on it in the
+ event your default or original configuration contains sources that are not
+ available.  For example:
+
+   slapt-get --update || slapt-get --config /etc/slapt-get/alternaterc --update
+
+ This will allow you to check backup package sources in the event your primary
+ are not available.
 
 
 </pre>

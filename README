@@ -156,8 +156,8 @@ Table of Contents:
    incorporated in order to alleviate this problem.
 
    Please do not add redundant mirror locations to the same release.  Mirror
-   fall back is not implemented.  Also, any time the source url(s) are
-   changed, slapt-get --update must be run to update local cache.
+   fall back is not implemented (see FAQ #50).  Also, any time the source url(s)
+   are changed, slapt-get --update must be run to update local cache.
 
    If you are getting segfaults, add -g to CFLAGS in the Makefile, change the
    DEBUG define in src/main.h to 1, and rebuild ( make clean && make ).  Run

@@ -1,5 +1,5 @@
 
-0.9.9j Mar 13, 2005
+0.9.9j Mar 14, 2005
  * added CURLOPT_FILETIME to libcurl calls so that ftp transfers have the
    modification date for checking whether the source is new or not (as 
    opposed to the file size).
