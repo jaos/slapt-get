@@ -81,7 +81,7 @@
  Various reasons came together which inspired me to create slapt-get.  I was
  trying to explain to a good friend of mine the functionality provided by
  apt-get on Debian GNU/Linux.  And I needed a uniform and easily scripted 
- method of installing software on on various User-Mode Linux instances I was
+ method of installing software on various User-Mode Linux instances I was
  using for development.  Thus slapt-get was born.
 
 
@@ -99,18 +99,20 @@
 
  If you installed the slack package, then use removepkg.
 
+ See the INSTALL file included with slapt-get.
+
 
 <A NAME="slgFAQ4"><B>4.  How do I find a package I want to install?</B></A>
 
  You can use the --search feature, supplying an expression.  POSIX 
  and extended regular expressions are supported.  This searches the name,
- location, or descriptions of packages.
+ location, or description of packages.
 
 
 <A NAME="slgFAQ5"><B>5.  Can I upgrade all my installed packages?</B></A>
 
- Yes, use the --upgrade option.  slapt-get will check for 
- newer versions of all packages already installed.
+ Yes, use the --upgrade option.  slapt-get will check for newer versions of all
+ packages already installed.
 
  Please review the Slackware ChangeLog.txt for the Slackware release you are
  running.  This is especially important for -current.
@@ -124,7 +126,7 @@
 
 <A NAME="slgFAQ7"><B>7.  What if I only want to download the updates?</B></A>
 
- Use the --download-only option before --upgrade.
+ Use the --download-only option with --upgrade.
  See slapt-get --help
 
 
@@ -141,7 +143,7 @@
  Change your source location within /etc/slapt-get/slapt-getrc to point to
  the newer release directory.  --update your local package cache, then
  --dist-upgrade to the newer release.  You will also want to disable any
- third party package sources while upgrading to a newer release do to the fact
+ third party package sources while upgrading to a newer release due to the fact
  that third party packages might not be as rigorously tested as official
  packages, or may cause conflicts with files provided by official packages.
 
@@ -153,9 +155,7 @@
 
    SOURCE=ftp://distro.ibiblio.org/pub/Linux/distributions/slackware/slackware-current/
 
- CAVEAT: The simplicity of slapt-get means a lot of assurances are not in
-         place.  You can break a working system if you do not follow the
-         suggestions in UPGRADE.TXT.
+ CAVEAT: Follow the instructions in UPGRADE.TXT.
 
  Now you --dist-upgrade to retrieve the package data for that release.
  What dist-upgrade does is basically make sure that any missing packages
@@ -175,7 +175,7 @@
    ### then, let slapt-get upgrade the rest
    $ slapt-get --dist-upgrade
 
-  Or you can specify --remove-obsolete to remove all depreciated packages.
+  You can specify --remove-obsolete to remove all depreciated packages.
   CAUTION: this can only take into consideration packages that are available
   from your current sources.  Thus self made packages will be considered
   obsolete as well (they can be excluded within slapt-getrc, however).  Only
@@ -265,7 +265,7 @@
 
  You can use multiple sources with slapt-get (including linuxpackages.net).
  See the example slapt-getrc in the source tarball, or look in
- /etc/slapt-get/slapt-getrc.new if you installed via slackpack. See also
+ /etc/slapt-get/slapt-getrc.new if you installed a binary package. See the
  README.
 
 
@@ -279,27 +279,26 @@
 <A NAME="slgFAQ13"><B>13. How can I install every available package?</B></A>
 
  Even though it is not built in, it is simple since slapt-get is easy to script
- with.  Here is a shell command to install every package that is available
- but not currently installed:
+ with.  Here is how to install every package that is available but not
+ currently installed:
 
    slapt-get --list|grep inst=no|awk '{print $1}'|sort|uniq|xargs -r slapt-get --install
 
 
 <A NAME="slgFAQ14"><B>14. What if I only want to upgrade one package?</B></A>
 
- Then you follow the Debian apt-get method of using --install.
- If the package is already installed, it will check and install any newer
- versions:
+ Then you follow the Debian apt-get method of using --install.  If the package
+ is already installed, it will check and install any newer versions:
 
  slapt-get --install {pkg_name}
 
 
 <A NAME="slgFAQ15"><B>15. What about Dropline support?</B></A>
 
- There is no direct support for dropline packages.  If you do not want them
+ There is no direct support for Dropline packages.  If you do not want them
  upgraded, either put the package names or regex into the exception list.
 
- You can use the following for a dropline exclude (from example slapt-getrc):
+ Use the following to exclude Dropline (from the example slapt-getrc):
  
   EXCLUDE=kernel-ide,kernel-source,kernel-headers,kernel-modules,lilo,.*-[0-9]dl$,devs
 
@@ -416,8 +415,7 @@
  You can search the package location field, which specifies which directory
  the package resides in, on the mirror.
 
- Most mirrors use ./slackware/{disk set} as the directory for the set.  Thus
- to install every package from xap:
+ To install every package from xap, search for the ./slackware/xap disk set:
 
    slapt-get --search '^\.\/slackware\/xap$'|awk '{print $1}'| \
      xargs -r slapt-get --install
@@ -489,19 +487,19 @@
 
 <A NAME="slgFAQ22"><B>22. How can I get slapt-get to speak in my native tongue?</B></A>
 
- Translations are needed.  GNU gettext is used to extract all translatable strings
- from the source.  Please look in the po/ directory of the slapt-get source, or in
+ GNU gettext is used to extract all translatable strings from the source.
+ Please look in the po/ directory of the slapt-get source, or in
  /usr/share/slapt-get/locales.  Copy the slapt-get.pot file to a new file named
- with your native language abbreviation, ending in .po.  For example, to 
- translate to German,
+ with your native language abbreviation, ending in .po.  For example, to
+ translate to German:
 
  $ cp /usr/share/slapt-get/locales/slapt-get.pot /tmp/de.po
 
  Edit that file.  For every msgid, translate that into the msgstr "".  Leave the
  formatting the same.
 
- Email in your translation to the slapt-get-devel mailing list.  Your contributions
- are greatly appreciated.
+ More translations are needed. Email in your translation to the slapt-get-devel
+ mailing list.  Your contributions are greatly appreciated.
 
 
 <A NAME="slgFAQ23"><B>23. How do I set the output language?</B></A>
@@ -524,6 +522,7 @@
   $ http_proxy=http://host:port slapt-get --update
 
  If you are using ~/.netrc, libcurl automatically picks up your preferences.
+ See the netrc(5) manpage for more information.
 
 
 <A NAME="slgFAQ25"><B>25. How can I exclude all *pre*, *beta*, and *686* packages safely?</B></A>
@@ -561,8 +560,7 @@
  successfully, all packages to be installed (new installs) are installed first.
  This should satisfy dependencies of the packages to be upgraded, which follow
  after the new installs.  Finally, and removals in the transaction are
- completed.  This helps keep your system in a consistent state, and should give
- you full control.
+ completed.  This helps keep your system in a consistent state.
 
 
 <A NAME="slgFAQ27"><B>27. How does the package version comparison algorithm work?</B></A>
@@ -860,7 +858,7 @@
 
 <A NAME="slgFAQ41"><B>41. What provisions have you made for dialup users?</B></A>
 
- Measurements to save bandwidth have been taken.
+ The following measurements to save bandwidth have been taken:
 
   * Incomplete package downloads will resume from where they left off.
   * The package data download (via --update) will only download those sources
