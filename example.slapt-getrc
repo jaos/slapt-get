@@ -27,6 +27,7 @@ SOURCE=ftp://sunsite.cnlab-switch.ch/mirror/slackware/slackware-9.1/
 #SOURCE=http://www.tenboard.com/slackware/slackware-9.1/
 #SOURCE=http://www.slack.it/slackpack/
 #SOURCE=http://slackpacks.tchelinux.com.br/
+#SOURCE=http://users.lichtsnel.nl/pub/slackware/
 
 # pull from your cdrom
 #SOURCE=file:///mnt/cdrom/
