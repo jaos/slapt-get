@@ -274,6 +274,9 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran){
 
 	/* run transaction, remove, install, and upgrade */
 	if( global_config->download_only == FALSE ){
+		for(i = 0; i < tran->remove_pkgs->pkg_count;i++){
+			if( remove_pkg(global_config,tran->remove_pkgs->pkgs[i]) == -1 ) exit(1);
+		}
 		for(i = 0; i < tran->install_pkgs->pkg_count;i++){
 			if( install_pkg(global_config,tran->install_pkgs->pkgs[i]) == -1 ) exit(1);
 		}
@@ -282,9 +285,6 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran){
 				tran->upgrade_pkgs->pkgs[i]->installed,
 				tran->upgrade_pkgs->pkgs[i]->upgrade
 			) == -1 ) exit(1);
-		}
-		for(i = 0; i < tran->remove_pkgs->pkg_count;i++){
-			if( remove_pkg(global_config,tran->remove_pkgs->pkgs[i]) == -1 ) exit(1);
 		}
 	}
 
