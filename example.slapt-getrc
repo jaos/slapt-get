@@ -1,5 +1,6 @@
 # base mirror url to directory with a PACKAGES.TXT
 # mirror can point to any release, ie: 9.0, 9.1, current, etc
+# SOURCE=ftp://ftp.slackware.at/slackware-8.1/
 # SOURCE=ftp://ftp.slackware.at/slackware-9.0/
 SOURCE=ftp://ftp.slackware.at/slackware-9.1/
 # SOURCE=ftp://ftp.slackware.at/slackware-current/
