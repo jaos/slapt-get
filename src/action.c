@@ -53,7 +53,6 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 			int c;
 			struct pkg_list *deps;
 
-			printf("not installed\n");
 			deps = lookup_pkg_dependencies(all,installed,pkg);
 
 			/* check to see if there where issues with dep checking */
