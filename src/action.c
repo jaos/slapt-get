@@ -396,6 +396,7 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 			installed_pkgs->pkgs[i]->name
 		);
 		if( update_pkg != NULL ){
+			int cmp_r;
 
 			if( is_excluded(global_config,installed_pkgs->pkgs[i]) == 1 ){
 				add_exclude_to_transaction(&tran,update_pkg);
@@ -403,8 +404,16 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 			}
 
 			/* if the update has a newer version, attempt to upgrade */
-			if( (cmp_pkg_versions(installed_pkgs->pkgs[i]->version,update_pkg->version)) < 0 ||
-				(global_config->re_install == 1)
+			cmp_r = cmp_pkg_versions(installed_pkgs->pkgs[i]->version,update_pkg->version);
+			if(
+				/* either it's greater, or we want to reinstall */
+				cmp_r < 0 || (global_config->re_install == 1) ||
+				/* or this is a dist upgrade and the versions are the save except for the arch */
+				(
+					global_config->dist_upgrade == 1 &&
+					cmp_r == 0 &&
+					strcmp(installed_pkgs->pkgs[i]->version,update_pkg->version) != 0
+				)
 			){
 
 				if( add_deps_to_trans(global_config,&tran,avail_pkgs,installed_pkgs,update_pkg) == 0 ){
