@@ -82,13 +82,8 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 		for(i = 0; i < tran->upgrade_pkgs->pkg_count;i++){
 			printf("%s ",tran->upgrade_pkgs->pkgs[i]->upgrade->name);
 			download_size += tran->upgrade_pkgs->pkgs[i]->upgrade->size_c;
-			/*
-				* since the installed member of the struct has no size,
-				* we leave this out and assume the new package is close to
-				* being the same size 
 			uncompressed_size += tran->upgrade_pkgs->pkgs[i]->upgrade->size_u;
 			uncompressed_size -= tran->upgrade_pkgs->pkgs[i]->installed->size_u;
-			*/
 		}
 		printf("\n");
 	}

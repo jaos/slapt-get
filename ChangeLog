@@ -1,9 +1,9 @@
 
 0.9.8e May 20, 2004
  * get compressed and uncompressed information from package log in
-   get_installed_pkgs(), transaction report now shows correct sizes for
-   removing packages as well as upgrading when package uncompressed sizes
-   differ.
+   get_installed_pkgs(), and updated transaction handler.
+   Transaction report now shows correct sizes for removing packages as well as
+   upgrading when package uncompressed sizes differ.
  * documentation updates
  * added check in lookup_pkg_dependencies() to see if ignore failed dependencies
    (--no-dep) was set, if so, actually ignore.
