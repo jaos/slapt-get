@@ -20,11 +20,13 @@
 #define MAX_REGEX_PARTS 10
 #define SLACK_BASE_SET_REGEX "^./slackware/a$"
 
-#ifndef TRUE
-typedef enum { FALSE = 0, TRUE } BOOL_T;
+typedef enum {
+#if !defined(FALSE) && !defined(TRUE)
+FALSE = 0, TRUE
 #else
-typedef enum { JFALSE = FALSE, JTRUE = TRUE } BOOL_T;
+JFALSE = FALSE, JTRUE = TRUE
 #endif
+} BOOL_T;
 
 typedef struct {
 	regex_t regex;
