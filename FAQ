@@ -191,7 +191,7 @@ Frequenty Asked Questions:
      do
      echo -n "$file "
      if [ -z "`grep "\W+$file\W+" /tmp/slapt_get_installed`" ]; then
-       if [ -z "`grep '\W+apache\W?' /etc/slapt-getrc`" ]; then
+       if [ -z "`grep '\W+$file\W?' /etc/slapt-getrc`" ]; then
          echo "excluded"
        else
          echo "not installed"
