@@ -1,5 +1,5 @@
 
-0.9.6h Oct 27, 2003
+0.9.6h Oct 31, 2003
  * parse package require/dep from PACKAGES.TXT
  * show parsed require/dep data with --show
  * --list now shows pkg_name - pkg_vesion : pkg_description
@@ -17,6 +17,10 @@
    (see example.slapt-getrc or README/FAQ)
  * is_excluded() now takes a pkg_info_t type instead of char pkg name
  * updated documentation
+ * added gettext support for easy translation/i18n support
+ * --list, --show, and --search output now reports on installed status of pkg
+ * dep failure causes package to go into exclude for current transaction
+ * added faq concerning proxies
 
 0.9.6g Oct 22, 2003
  * updated --help output
