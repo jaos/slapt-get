@@ -253,6 +253,15 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 		return -1;
 	}
 
+
+	/* do an initial check... so we don't run md5 checksum on an imcomplete file */
+	if( (int)(f_size/1024) != pkg->size_c){
+		printf(_("Download of %s incomplete\n"),pkg->name);
+		chdir(global_config->working_dir);
+		free(file_name);
+		return -1;
+	}
+
 	gen_md5_sum_of_file(fh,md5_sum_of_file);
 	fclose(fh);
 
