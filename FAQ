@@ -415,8 +415,8 @@ Frequenty Asked Questions:
 
  <= and =< should both work, just in case of editing errors.
 
- Version should include the arch and build.  That is the full slackware
- package version designation.  1.1.0-386-1 is valid.  1.1.0 is not.
+ Version should include the arch and build if using '='.  That is the full
+ slackware package version designation.  1.1.0-386-1 is valid.  1.1.0 is not.
 
  The package names are case sensitive.  So make sure you keep the case of the
  package name as it appears in the package filename.
