@@ -1,5 +1,6 @@
 
-0.9.8e May 26, 2004
+0.9.8e May 27, 2004
+ * updated INSTALL guide with more explicit cvs directions
  * write package data to temp file during --update, merge into final package_data
    file upon successful download of all package data sources. Thanks go to
    Matthew Robinson (moo@ooo.com) for the idea.
