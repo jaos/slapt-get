@@ -46,8 +46,7 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 	*/
 	if(
 		(tran->upgrade_pkgs->pkg_count > 0 || tran->remove_pkgs->pkg_count > 0)
-		&& (global_config->download_only == 0 && global_config->simulate == 0
-				&& global_config->no_prompt == 0 && global_config->interactive == 0 )
+		&& (global_config->download_only == 0 && global_config->simulate == 0)
 	){
 
 		/* show pkgs to exclude */
@@ -100,11 +99,13 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 		);
 
 		/* prompt */
-		printf("Do you want to continue? [y/N] ");
-		fgets(prompt_answer,10,stdin);
-		if( tolower(prompt_answer[0]) != 'y' ){
-			printf("Abort.\n");
-			return 1;
+		if( global_config->no_prompt == 0 && global_config->interactive == 0 ) {
+			printf("Do you want to continue? [y/N] ");
+			fgets(prompt_answer,10,stdin);
+			if( tolower(prompt_answer[0]) != 'y' ){
+				printf("Abort.\n");
+				return 1;
+			}
 		}
 	}
 
