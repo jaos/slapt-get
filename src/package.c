@@ -671,9 +671,6 @@ void get_md5sum(const rc_config *global_config,pkg_info_t *pkg,char *md5_sum){
 	while( (getline_read = getline(&getline_buffer,&getline_len,checksum_file) ) != EOF ){
 
 		if( strstr(getline_buffer,".tgz") == NULL) continue;
-		if((strstr(getline_buffer,"slackware")==NULL) && (strstr(getline_buffer,"patch")==NULL)){
-			continue;
-		}
 
 		md5sum_regex.reg_return = regexec( &md5sum_regex.regex, getline_buffer, md5sum_regex.nmatch, md5sum_regex.pmatch, 0);
 		if( md5sum_regex.reg_return == 0 ){

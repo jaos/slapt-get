@@ -1,4 +1,8 @@
 
+0.9.5f Oct 10, 2003
+ * removed needless check in get_md5sum looking for common slack mirror
+   directories.
+
 0.9.5e Oct 10, 2003
  * added a doinst.sh script (generated from the Makefile) to help 
    manage the slapt-getrc.
