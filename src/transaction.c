@@ -467,7 +467,7 @@ int add_deps_to_trans(const rc_config *global_config, transaction *tran, struct 
 	int c;
 	struct pkg_list *deps;
 
-	deps = lookup_pkg_dependencies(global_config,avail_pkgs,installed_pkgs,pkg);
+	deps = get_pkg_dependencies(global_config,avail_pkgs,installed_pkgs,pkg);
 
 	/* check to see if there where issues with dep checking */
 	/* exclude the package if dep check barfed */
@@ -519,7 +519,7 @@ int is_conflicted(transaction *tran, struct pkg_list *avail_pkgs, struct pkg_lis
 	struct pkg_list *conflicts;
 
 	/* if conflicts exist, check to see if they are installed or in the current transaction */
-	conflicts = lookup_pkg_conflicts(avail_pkgs,installed_pkgs,pkg);
+	conflicts = get_pkg_conflicts(avail_pkgs,installed_pkgs,pkg);
 	for(i = 0; i < conflicts->pkg_count; i++){
 		if(search_transaction(tran,conflicts->pkgs[i]) == 1){
 			printf(_("%s, which is to be installed, conflicts with %s\n"),

@@ -137,9 +137,9 @@ size_t get_pkg_file_size(const rc_config *global_config,pkg_info_t *pkg);
 int cmp_pkg_versions(char *a, char *b);
 
 /* resolve dependencies */
-struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,pkg_info_t *pkg);
+struct pkg_list *get_pkg_dependencies(const rc_config *global_config,struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,pkg_info_t *pkg);
 /* lookup package conflicts */
-struct pkg_list *lookup_pkg_conflicts(struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,pkg_info_t *pkg);
+struct pkg_list *get_pkg_conflicts(struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,pkg_info_t *pkg);
 /* return list of packages required by */
 struct pkg_list *is_required_by(const rc_config *global_config,struct pkg_list *avail, pkg_info_t *pkg);
 
