@@ -105,8 +105,13 @@ Frequenty Asked Questions:
          place.  You can break a working system if you do not follow the
          suggestions in UPGRADE.TXT.
 
- Now you --dist-update to retrieve the package data for that release.
- This means doing the following:
+ Now you --dist-upgrade to retrieve the package data for that release.
+ What dist-upgrade does is basically make sure that any missing packages
+ from the base disk set are installed, as well as upgrade to any newer
+ versions of the currently installed packages.  All of this happens in
+ one transaction.
+
+ dist-upgrade'ing involves doing the following:
 
    ### upgrade your local package cache
    $ slapt-get --update
@@ -125,13 +130,6 @@ Frequenty Asked Questions:
    $ slapt-get --dist-upgrade
 
  Then follow the rest of the directions in UPGRADE.TXT.
-
- If you have a broken system, make sure aaa_base is at least installed.  Make
- sure it's downloaded: slapt-get --download-only --install aaa_base Then
- untar it from /.
-
- Sometimes upgrades fail, make sure /bin/sh is either a binary or symlink to
- `which bash`.
 
 10.  What about package dependancies?
 
