@@ -285,7 +285,6 @@ struct pkg_list *get_installed_pkgs(void){
 					exit(1);
 				}
 				memcpy(list->pkgs[list->pkg_count],tmp_pkg,sizeof *tmp_pkg);
-				if( existing_pkg ) free(existing_pkg);
 				list->pkg_count++;
 
 				/* grow our pkgs array */
