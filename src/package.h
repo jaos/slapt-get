@@ -26,7 +26,7 @@
 #define PKG_LOG_DIR "/var/log/packages"
 #define PKG_LOG_PATTERN "^([a-zA-Z0-9\\+_\\-]+)-([a-zA-Z0-9._\\-]+)$"
 #define MD5SUM_REGEX "([a-zA-Z0-9]+)[ ]+([a-zA-Z0-9._\\-\\/]+/)([a-zA-Z0-9\\+_\\-]+)-([a-zA-Z0-9._\\-]+).tgz$"
-#define REQUIRED_REGEX "s/^[ ]?([a-zA-Z0-9\\+_\\-]+)[ ]?([<=>]+)?[ ]?([a-zA-Z0-9._\\-]+)?[ ]?$"
+#define REQUIRED_REGEX "^[ ]?([a-zA-Z0-9\\+_\\-]+)[ ]?([\\<\\=\\>]+)?[ ]?([a-zA-Z0-9\\.\\_\\-]+)?[ ]?$"
 #define NAME_LEN 50
 #define VERSION_LEN 50
 #define MIRROR_LEN 200
@@ -84,7 +84,7 @@ struct pkg_list *parse_file_list(FILE *);
 char *gen_short_pkg_description(pkg_info_t *);
 
 /* retrieve the newest pkg from pkg_info_t list */
-pkg_info_t *get_newest_pkg(pkg_info_t **,const char *,int);
+pkg_info_t *get_newest_pkg(struct pkg_list *,const char *);
 
 /* install pkg */
 int install_pkg(const rc_config *,pkg_info_t *);
@@ -104,16 +104,19 @@ int is_excluded(const rc_config *,const char *);
 /* lookup md5sum of file */
 void get_md5sum(const rc_config *,pkg_info_t *,char *);
 
-/* compare package versions */
+/* compare package versions (returns just like strcmp) */
 int cmp_pkg_versions(char *, char *);
 
 /* analyze the pkg version hunk by hunk */
 int break_down_pkg_version(int *,char *);
 
-/* get available, installed, and update pkgs all in one */
 /* write pkg data to disk */
 void write_pkg_data(const char *,FILE *,struct pkg_list *);
 
 /* search package list with pattern */
 void search_pkg_list(struct pkg_list *,struct pkg_list *,const char *);
+
+/* resolve dependencies */
+struct pkg_list *lookup_pkg_dependencies(struct pkg_list *,struct pkg_list *,pkg_info_t *);
+pkg_info_t *parse_dep_entry(struct pkg_list *,struct pkg_list *,pkg_info_t *,char *);
 
