@@ -100,7 +100,7 @@ tries to emulate Debian's apt-get as closely as possible.
 .SH OPTIONS
 .TP
 .B --download-only
-Download the package only.  Do not install/upgrade.
+Download the package only.  Do not install/upgrade.  Packages are downloaded to /var/slapt-get/.
 .TP
 .B --simulate|-s
 Will not install or download packages.
@@ -121,7 +121,7 @@ Do not perform MD5 check sum on package.  This is dangerous!
 Ignore dependency failures on --install, --upgrade, or --dist-upgrade
 .TP
 .B --disable-dep-check
-Skip the dependency check
+Skip the dependency check (where available)
 .TP
 .B --print-uris
 Print URIs of packages to be downloaded to stdout, but do not download.
@@ -130,7 +130,7 @@ Print URIs of packages to be downloaded to stdout, but do not download.
 Show the download statistics
 .TP
 .B --config []
-Specify file location of slapt-get configuration
+Specify file location of slapt-get configuration.  This overrides the default location, /etc/slapt-get/slapt-getrc.
 .SH TARGETS
 .TP
 .B --update
@@ -162,7 +162,7 @@ List available packages.
 List installed packages.
 .TP
 .B --clean
-Purge cached/downloaded packages from local storage.
+Purge cached/downloaded packages from /var/slapt-get/.
 .TP
 .B --version
 Print version and license info.
