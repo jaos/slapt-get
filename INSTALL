@@ -1,11 +1,23 @@
-To install:
+- Using Make: ---------------------------------------------------
 
- $ make
- $ make install
+ To install:
 
- Edit /etc/slapt-getrc (see README for details)
+  $ make
+  $ make install
 
-To uninstall:
+  Edit /etc/slapt-getrc (see README for details)
 
- $ make uninstall
+ To uninstall:
 
+  $ make uninstall
+
+- Using pkgtools: -----------------------------------------------
+
+ To install:
+
+  $ make slackpkg
+  $ installpkg ./slackpkg/slapt-get-0.9.tgz
+
+ To uninstall:
+
+  $ removepkg slapt-get-0.9

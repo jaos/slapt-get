@@ -37,14 +37,14 @@ Table of Contents:
     * list installed packages
     * remove packages (frontent to removepkg)
     * --dist-upgrade from one slackware release to another
-    * exclude packages from upgrades
+    * exclude (hold) packages from upgrades
 
 
 
  2. Requirements
 
-    The following packages are required: make, gcc, curl, glibc,
-    kernel-headers, binutils, zlib, and openssl
+    The following packages are required to build slapt-get:
+    make, gcc, curl, glibc, kernel-headers, binutils, zlib, and openssl
 
 
 
@@ -59,6 +59,7 @@ Table of Contents:
     The slapt-getrc file consists currently of the following keys:
      MIRROR
      WORKINGDIR
+     EXCLUDE
 
     Choose mirror from slackware.com mirror list:
     lynx -source http://www.slackware.com/getslack/|grep -i href \
