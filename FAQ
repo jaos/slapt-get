@@ -26,6 +26,8 @@ Frequenty Asked Questions:
 25. How do I set the output language?
 26. How do I specify proxy settings?
 27. How can I exclude all *pre* and *beta* packages safely?
+28. How does the transaction engine work?
+29. How does the package version comparison algorithm work?
 
 
 
@@ -504,6 +506,55 @@ Frequenty Asked Questions:
 
    [0-9\_\.\-]{1}beta[0-9\-\.\-]{1}
 
- Anything matching these regex will be added to the exclude list for the transaction.
+ Anything matching these regex will be added to the exclude list for the
+ transaction.
+
+
+28. How does the transaction engine work?
+
+ The last few series of releases (0.9.6x and 0.9.7x) have supported
+ transactions so that nothing happens unless everything checks out properly.
+ The transaction is built up of packages to install, upgrade and remove.	The
+ transaction status will be reported to the user to be confirmed (unless the
+ user passes in --no-prompt on the command line).  After this confirmation, all
+ packages will be downloaded before anything else happens.  If anything fails
+ to download, the transaction is immediately aborted.	If all pacakges download
+ successfully, all packages to be installed (new installs) are installed first.
+ This should satisfy dependencies of the packages to be upgraded, which follow
+ after the new installs.  Finally, and removals in the transaction are
+ completed.  This helps keep your system in a consistant state, and should give
+ you full control.
+
+
+29. How does the package version comparison algorithm work?
+
+ Say we have foo-1.1.3-i386-1rob and foo-1.1.3-i686-1.
+
+ The version parts will be compared, first 1, then 1, then 3.  At this point,
+ both packages are equal, since 1.1.3 == 1.1.3. If one is greater at this
+ point, the version check returns.
+
+ Then it checks to make sure that both pkgs have the same number of "version
+ parts".  This is the case in this example, both have 3 (1,1,3).	This is useful
+ when you see packages like 1.2 and 1.2.1. Whichever has more parts wins.  At
+ this point, we know if one only has 2 parts, and the other has 3, then the
+ first two parts of both version strings have to be equal.
+
+ Then the package versions are checked to see if they follow the slackware
+ convention.  This is determined by checking the first instance of '-' against
+ the last instance.  If the pointer returned from index and rindex are
+ different, then we assume we have at least two package version separators
+ (meaning we should have an upstream version, arch, and build at least).
+
+ If two separators are found, the build portion of the string is located.  The
+ integer value of the build strings are compared.  So "1rob" has an integer
+ value of 1, and "1" has an integer value of 1.  So in our example, both package
+ versions are the same.
+
+ If the only difference is the arch and the packages follow the conventions,
+ then they should always be equal.
+
+ If two separators are not found, then the entire version string from both pkgs
+ are compared via strcmp.  This is a fallback mechanism.
 
 
