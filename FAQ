@@ -12,6 +12,7 @@ Frequenty Asked Questions:
 9.  Can I "dist-upgrade" to a newer Slackware release?
 10. What about package dependencies?
 11. What about multiple package sources, ala linuxpackages.net?
+12. I don't like the download spinner, how can I get more statistics?
 
 
 
@@ -158,4 +159,10 @@ Frequenty Asked Questions:
  listed.  This would make integrating their package listing trivial.
 
  I am awaiting a response.
+
+12. I don't like the download spinner, how can I get more statistics?
+
+ If you would like more notification on downloading pkgs/files, change the 
+ USE_CURL_PROGRESS macro to 1 in include/curl.h.  This turns on curl's
+ internal progress meter.  This requires a recompile.
 

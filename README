@@ -90,10 +90,6 @@ Table of Contents:
    specifying the webservers error message.  MD5 checking has been 
    incorporated in order to alleviate this problem.
 
-   If you would like more notification on downloading pkgs/files, change the 
-   USE_CURL_PROGRESS macro to 1 in include/curl.h.  This turns on curl's
-   internal progress meter.
-
    If you are getting segfaults, add -g to CFLAGS in the Makefile, change the
    DEBUG define in src/main.h to 1, and rebuild ( make clean && make ).  Run
    in gdb and let me know via email where the fault happens.

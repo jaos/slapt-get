@@ -5,6 +5,8 @@
    utilizing openssl/evp.h
  * pre-download check... won't download twice if md5sum is good
  * error checking updates
+ * more verbose messages during operation
+ * fixed chdir/mkdir bug in working_dir
 
 0.9.3 Sep 24, 2003
  * default make target doesn't build slack pkg

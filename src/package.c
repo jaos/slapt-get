@@ -427,7 +427,6 @@ struct pkg_list *get_update_pkgs(void){
 int install_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	char *pkg_file_name = NULL;
 	char *command = NULL;
-	char *cwd = NULL;
 	int cmd_return = 0;
 
 	if( global_config->simulate == 1 ){
@@ -435,12 +434,12 @@ int install_pkg(const rc_config *global_config,pkg_info_t *pkg){
 		return 0;
 	}
 
-	cwd = getcwd(NULL,0);
 	create_dir_structure(pkg->location);
 	chdir(pkg->location);
 
 	pkg_file_name = download_pkg(global_config,pkg);
 	if( pkg_file_name == NULL ){
+		chdir(global_config->working_dir);
 		return -1;
 	}
 
@@ -458,17 +457,15 @@ int install_pkg(const rc_config *global_config,pkg_info_t *pkg){
 		}
 	}
 
-	chdir(cwd);
-	free(cwd);
+	chdir(global_config->working_dir);
 	free(pkg_file_name);
 	free(command);
 	return cmd_return;
 }
 
-int upgrade_pkg(const rc_config *global_config,pkg_info_t *pkg){
+int upgrade_pkg(const rc_config *global_config,pkg_info_t *installed_pkg,pkg_info_t *pkg){
 	char *pkg_file_name = NULL;
 	char *command = NULL;
-	char *cwd = NULL;
 	char prompt_answer[10];
 	int cmd_return = 0;
 
@@ -479,17 +476,17 @@ int upgrade_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	}
 
 	if( global_config->simulate == 1 ){
-		printf("%s is to be upgraded to version %s\n",pkg->name,pkg->version);
+		printf("%s-%s is to be upgraded to version %s\n",pkg->name,installed_pkg->version,pkg->version);
 		return 0;
 	}
 
-	cwd = getcwd(NULL,0);
 	create_dir_structure(pkg->location);
 	chdir(pkg->location);
 
 	/* download it */
 	pkg_file_name = download_pkg(global_config,pkg);
 	if( pkg_file_name == NULL ){
+		chdir(global_config->working_dir);
 		return -1;
 	}
 
@@ -501,21 +498,21 @@ int upgrade_pkg(const rc_config *global_config,pkg_info_t *pkg){
 
 	if( global_config->download_only == 0 ){
 		if( global_config->no_prompt == 0 ){
-			printf("Replace %s with %s-%s? [y|n] ",pkg->name,pkg->name,pkg->version);
+			printf("Replace %s-%s with %s-%s? [y|n] ",pkg->name,installed_pkg->version,pkg->name,pkg->version);
 			fgets(prompt_answer,10,stdin);
 			if( tolower(prompt_answer[0]) != 'y' ){
+				chdir(global_config->working_dir);
 				return cmd_return;
 			}
 		}
-		printf("Preparing to replace %s with %s-%s\n",pkg->name,pkg->name,pkg->version);
+		printf("Preparing to replace %s-%s with %s-%s\n",pkg->name,installed_pkg->version,pkg->name,pkg->version);
 		if( (cmd_return = system(command)) == -1 ){
 			printf("Failed to execute command: [%s]\n",command);
 			exit(1);
 		}
 	}
 
-	chdir(cwd);
-	free(cwd);
+	chdir(global_config->working_dir);
 	free(pkg_file_name);
 	free(command);
 	return cmd_return;

@@ -61,7 +61,7 @@ pkg_info_t *get_newest_pkg(pkg_info_t **,const char *,int);
 /* install pkg */
 int install_pkg(const rc_config *,pkg_info_t *);
 /* upgrade pkg */
-int upgrade_pkg(const rc_config *,pkg_info_t *);
+int upgrade_pkg(const rc_config *,pkg_info_t *,pkg_info_t *);
 /* remove pkg */
 int remove_pkg(pkg_info_t *);
 /* free memory allocated for pkg_list struct */

@@ -257,6 +257,10 @@ void create_dir_structure(const char *dir_name){
 	if( cwd == NULL ){
 		fprintf(stderr,"Failed to get cwd\n");
 		exit(1);
+	}else{
+#if DEBUG == 1
+		fprintf(stderr,"\tCurrent working directory: %s\n",cwd);
+#endif
 	}
 
 	while( position < (int) strlen(dir_name) ){
@@ -274,10 +278,18 @@ void create_dir_structure(const char *dir_name){
 					fprintf(stderr,"Failed to mkdir: %s\n",dir_name_buffer);
 #endif
 					/* exit(1); */
+				}else{
+#if DEBUG == 1
+					fprintf(stderr,"\tCreated directory: %s\n",dir_name_buffer);
+#endif
 				}
 				if( (chdir(dir_name_buffer)) == -1 ){
 					fprintf(stderr,"Failed to chdir to %s\n",dir_name_buffer);
 					exit(1);
+				}else{
+#if DEBUG == 1
+					fprintf(stderr,"\tchdir into %s\n",dir_name_buffer);
+#endif
 				}
 			}/* don't create . */
 
@@ -303,10 +315,18 @@ void create_dir_structure(const char *dir_name){
 						fprintf(stderr,"Failed to mkdir: %s\n",dir_name_buffer);
 #endif
 						/* exit(1); */
+					}else{
+#if DEBUG == 1
+						fprintf(stderr,"\tCreated directory: %s\n",dir_name_buffer);
+#endif
 					}
 					if( (chdir(dir_name_buffer)) == -1 ){
 						fprintf(stderr,"Failed to chdir to %s\n",dir_name_buffer);
 						exit(1);
+					}else{
+#if DEBUG == 1
+						fprintf(stderr,"\tchdir into %s\n",dir_name_buffer);
+#endif
 					}
 				} /* don't create . */
 
@@ -319,6 +339,10 @@ void create_dir_structure(const char *dir_name){
 	if( (chdir(cwd)) == -1 ){
 		fprintf(stderr,"Failed to chdir to %s\n",cwd);
 		exit(1);
+	}else{
+#if DEBUG == 1
+		fprintf(stderr,"\tchdir back into %s\n",cwd);
+#endif
 	}
 
 	free(cwd);
