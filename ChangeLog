@@ -1,5 +1,6 @@
 
-0.9.8g Jul 15, 2004
+0.9.8g Jul 19, 2004
+ * added new linuxpackages.net mirror to example.slapt-getrc
  * finally made a few private functions static
  * moved parse_excludes from package.[ch] to configuration.[ch]
  * updated documentation

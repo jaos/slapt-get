@@ -37,6 +37,9 @@ SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-10.0/
 #SOURCE=ftp://ftp4.linuxpackages.net/pub/Slackware-10.0/
 ### Americas Internet Direct San Antonio TX
 #SOURCE=http://www1.linuxpackages.net/packages/Slackware-10.0/
+### Scarlet.be / Belgium
+#SOURCE=http://ftp.scarlet.be/pub/linuxpackages/Slackware-10.0/
+#SOURCE=ftp://ftp.scarlet.be/pub/linuxpackages/Slackware-10.0/
 # * no current with linuxpackages.net
 
 # slackware testing and extra 
