@@ -114,7 +114,7 @@ Frequenty Asked Questions:
    man:
 
  to providing that data in a way that can be scripted for those who have
- the advanced knowledge or what to provide higher level tools for Slackware.
+ the advanced knowledge or want to provide higher level tools for Slackware.
 
  So Pat's generated PACKAGES.TXT file would need an addition to a packages
  entry within, going from:
