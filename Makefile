@@ -50,6 +50,7 @@ doinstall:
 	if [ ! -d $(LOCALESDIR)/nl/LC_MESSAGES ]; then mkdir -p $(LOCALESDIR)/nl/LC_MESSAGES; fi; msgfmt -o $(LOCALESDIR)/nl/LC_MESSAGES/slapt-get.mo po/nl.po;
 	if [ ! -d $(LOCALESDIR)/es/LC_MESSAGES ]; then mkdir -p $(LOCALESDIR)/es/LC_MESSAGES; fi; msgfmt -o $(LOCALESDIR)/es/LC_MESSAGES/slapt-get.mo po/es.po;
 	if [ ! -d $(LOCALESDIR)/es_ES/LC_MESSAGES ]; then mkdir -p $(LOCALESDIR)/es_ES/LC_MESSAGES; fi; msgfmt -o $(LOCALESDIR)/es_ES/LC_MESSAGES/slapt-get.mo po/es_ES.po;
+	if [ ! -d $(LOCALESDIR)/it/LC_MESSAGES ]; then mkdir -p $(LOCALESDIR)/it/LC_MESSAGES; fi; msgfmt -o $(LOCALESDIR)/it/LC_MESSAGES/slapt-get.mo po/it.po;
 	if [ ! -d /usr/doc/$(PROGRAM_NAME)-$(VERSION) ]; then mkdir /usr/doc/$(PROGRAM_NAME)-$(VERSION); fi
 	if [ -L /usr/lib/libslapt.so ]; then rm /usr/lib/libslapt.so ;fi
 	ln -s /usr/lib/libslapt-$(VERSION).so /usr/lib/libslapt.so
@@ -63,7 +64,7 @@ uninstall:
 	-rm /usr/man/man8/$(PROGRAM_NAME).8.gz
 	-@echo leaving /var/$(PROGRAM_NAME)
 	-rm -r /usr/doc/$(PROGRAM_NAME)-$(VERSION)
-	-rm $(LOCALESDIR)/pl/LC_MESSAGES/slapt-get.mo $(LOCALESDIR)/en/LC_MESSAGES/slapt-get.mo $(LOCALESDIR)/pt_BR/LC_MESSAGES/slapt-get.mo $(LOCALESDIR)/no/LC_MESSAGES/slapt-get.mo $(LOCALESDIR)/nl/LC_MESSAGES/slapt-get.mo
+	-rm $(LOCALESDIR)/pl/LC_MESSAGES/slapt-get.mo $(LOCALESDIR)/en/LC_MESSAGES/slapt-get.mo $(LOCALESDIR)/pt_BR/LC_MESSAGES/slapt-get.mo $(LOCALESDIR)/no/LC_MESSAGES/slapt-get.mo $(LOCALESDIR)/nl/LC_MESSAGES/slapt-get.mo $(LOCALESDIR)/es/LC_MESSAGES/slapt-get.mo $(LOCALESDIR)/es_ES/LC_MESSAGES/slapt-get.mo $(LOCALESDIR)/it/LC_MESSAGES/slapt-get.mo
 	-rm /usr/include/slapt.h
 
 clean:
@@ -94,8 +95,9 @@ dopkg:
 	-@mkdir -p pkg$(LOCALESDIR)/pt_BR/LC_MESSAGES; msgfmt -o pkg$(LOCALESDIR)/pt_BR/LC_MESSAGES/slapt-get.mo po/pt_BR.po
 	-@mkdir -p pkg$(LOCALESDIR)/no/LC_MESSAGES; msgfmt -o pkg$(LOCALESDIR)/no/LC_MESSAGES/slapt-get.mo po/no.po
 	-@mkdir -p pkg$(LOCALESDIR)/nl/LC_MESSAGES; msgfmt -o pkg$(LOCALESDIR)/nl/LC_MESSAGES/slapt-get.mo po/nl.po
-	-@mkdir -p pkg$(LOCALESDIR)/es_ES/LC_MESSAGES; msgfmt -o pkg$(LOCALESDIR)/es_ES/LC_MESSAGES/slapt-get.mo po/es_ES.po
 	-@mkdir -p pkg$(LOCALESDIR)/es/LC_MESSAGES; msgfmt -o pkg$(LOCALESDIR)/es/LC_MESSAGES/slapt-get.mo po/es.po
+	-@mkdir -p pkg$(LOCALESDIR)/es_ES/LC_MESSAGES; msgfmt -o pkg$(LOCALESDIR)/es_ES/LC_MESSAGES/slapt-get.mo po/es_ES.po
+	-@mkdir -p pkg$(LOCALESDIR)/it/LC_MESSAGES; msgfmt -o pkg$(LOCALESDIR)/it/LC_MESSAGES/slapt-get.mo po/it.po
 	-@cp $(PROGRAM_NAME) ./pkg/sbin/
 	-@chown root:bin ./pkg/sbin/$(PROGRAM_NAME)
 	-@strip ./pkg/sbin/$(PROGRAM_NAME)
