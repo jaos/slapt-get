@@ -34,6 +34,7 @@ install: $(PROGRAM_NAME) libs
 	if [ ! -d $(LOCALESDIR)/pl ]; then mkdir -p $(LOCALESDIR)/pl/LC_MESSAGES; fi; msgfmt -o $(LOCALESDIR)/pl/LC_MESSAGES/slapt-get.mo po/pl.po;
 	if [ ! -d /usr/doc/$(PROGRAM_NAME)-$(VERSION) ]; then mkdir /usr/doc/$(PROGRAM_NAME)-$(VERSION); fi
 	cp example.slapt-getrc COPYING Changelog INSTALL README FAQ TODO /usr/doc/$(PROGRAM_NAME)-$(VERSION)/
+	cp include/slapt.h /usr/include/
 
 uninstall:
 	-rm /sbin/$(PROGRAM_NAME)
@@ -41,6 +42,8 @@ uninstall:
 	-rm /usr/man/man8/$(PROGRAM_NAME).8.gz
 	-@echo leaving /var/$(PROGRAM_NAME)
 	-rm -r /usr/doc/$(PROGRAM_NAME)-$(VERSION)
+	-rm $(LOCALESDIR)/pl/LC_MESSAGES/slapt-get.mo $(LOCALESDIR)/en/LC_MESSAGES/slapt-get.mo
+	-rm /usr/include/slapt.h
 
 clean:
 	-if [ -f $(PROGRAM_NAME) ]; then rm $(PROGRAM_NAME);fi
