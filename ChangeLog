@@ -1,5 +1,6 @@
 
-0.9.8f Jun 15, 2004
+0.9.8f Jun 25, 2004
+ * updated example.slapt-getrc setting slackware-10.0 as default release source
  * initialized various integer values that needed it
  * /pasture support
  * makefile updates
