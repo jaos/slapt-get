@@ -117,9 +117,10 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 
 	/* prompt */
 	if(
-			(tran->upgrade_pkgs->pkg_count > 0 || tran->remove_pkgs->pkg_count > 0)
+			(tran->upgrade_pkgs->pkg_count > 0 || tran->remove_pkgs->pkg_count > 0
+			|| global_config->dist_upgrade != 0 )
 			&& (global_config->no_prompt == 0 && global_config->download_only == 0
-			&& global_config->simulate == 0)
+			&& global_config->simulate == 0 )
 		) {
 		printf(_("Do you want to continue? [y/N] "));
 		fgets(prompt_answer,10,stdin);
