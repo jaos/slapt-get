@@ -29,6 +29,7 @@ Frequenty Asked Questions:
 28. How does the transaction engine work?
 29. How does the package version comparison algorithm work?
 30. I am tracking current, how do I keep the base disk set up to date?
+31. How would I script an ldd dependency hack with slapt-get?
 
 
 
@@ -566,4 +567,102 @@ Frequenty Asked Questions:
  Even if you aren't intentionally switching to a newer distribution,
  --dist-upgrade will ensure that the base set is always present while at the
  same time keeping your installed packages up to date.
+
+
+31. How would I script an ldd dependency hack with slapt-get?
+
+ Do something like the following:
+
+ ### begin script
+ #!/bin/sh
+ # slapt-get wrapper to hack dependencies via ldd where slack-required isn't available
+ # Copyright (C) 11-30-2003 Jason Woodward <woodwardj at jaos dot org>
+ WORKINGDIR=`grep WORKINGDIR /etc/slapt-getrc|cut -f2 -d'='`
+ MF=MANIFEST
+ PKGLINES=${WORKINGDIR}/depslapt_pkgs
+ DEPDATA=()
+ DEPDATACOUNT=0
+ 
+ function get_pkg_cache_data {
+ 	if [ -f ${MF} ]; then rm ${MF};fi
+ 	for url in `grep '^SOURCE' /etc/slapt-getrc|cut -f2 -d'='`
+ 	do
+ 		echo "retrieving data from $url"
+ 		if [ -f ${MF}.bz2 ]; then rm ${MF}.bz2;fi
+ 		wget -q ${url}/${MF}.bz2
+ 		if [ -f ${MF}.bz2 ]; then
+ 			bunzip2 -c ${MF}.bz2 >> ${MF}; rm ${MF}.bz2
+ 		else
+ 			wget -q ${url}/slackware/${MF}.bz2
+ 			if [ -f ${MF}.bz3 ]; then bunzip2 -c ${MF}.bz2 >> ${MF}; rm ${MF}.bz2; fi
+ 		fi
+ 	done
+ 	echo "extracting package data"
+ 	grep -n ' Package\: ' ${MF}|awk '{print $1 $3}'|sed -re "s/\|//g" > ${PKGLINES}
+ }
+ 
+ function map_to_pkg {
+ 	LOOKUP=$1
+ 	LASTPKG=
+ 	for pkgline in `cat ${PKGLINES}|cut -f1 -d':'`
+ 	do
+ 		if [ $LOOKUP -gt $pkgline ]; then
+ 			false
+ 		else
+ 			LASTPKG=`grep -B 1 $pkgline ${PKGLINES} |head -1|cut -f2 -d':'`
+ 			return
+ 		fi
+ 	done
+ 	### clear it in case we get here
+ 	LASTPKG=
+ }
+ 
+ function lookup_lib {
+ 	for linenumber in `grep -n $1 /var/slapt-get/${MF}|cut -f1 -d':'`
+ 	do
+ 		map_to_pkg $linenumber
+ 		if [ -n "$LASTPKG" ]; then
+ 			DEPS[$DEPCOUNT]=`basename $LASTPKG|sed -re "s/(.*{1,})\\-(.*[\\.\\-].*[\\.\\-].*).tgz[ ]{0,}$/\1/"`
+ 			DEPCOUNT=$((DEPCOUNT + 1))
+ 		fi
+ 	done
+ }
+ 
+ function resolve_dependencies {
+ 	DEPS=()
+ 	DEPCOUNT=0
+ 	for pkg in "$@"
+ 	do
+ 		INST=`ls /var/log/packages/|grep ${pkg}|sort -rn|head -1`
+ 		FILES="`cat /var/log/packages/$INST|grep 'bin\/'|grep -v '\/$'`"
+ 		for file in $FILES
+ 		do
+ 			MISSINGLIBS=`ldd /${file}|grep -i 'not found'|awk '{print $1}'|sort|uniq`
+ 			for lib in $MISSINGLIBS
+ 			do
+ 				echo "Missing lib: $lib"
+ 				lookup_lib $lib
+ 			done
+ 		done
+ 	done
+ 	### recurse
+ 	if [ $DEPCOUNT -gt 0 ]; then
+ 		slapt-get --install ${DEPS[*]} || exit
+ 		resolve_dependencies ${DEPS[*]}
+ 	fi
+ }
+ 
+ # give usage if no arguments
+ if [ -z "$1" ]; then echo "Usage: $0 [--update|packages]"; exit; fi
+ # get package cache data if it's not already there, or we want it
+ cd ${WORKINGDIR}
+ if [ "$1" == "--update" ]; then shift; get_pkg_cache_data; fi
+ if [ ! -f ${PKGLINES} ]; then get_pkg_cache_data; fi
+ # read pkg data into memory 
+ while read line;do DEPDATA[${DEPDATACOUNT}]=$line; DEPDATACOUNT=$((DEPDATACOUNT + 1)); done < ${PKGLINES}
+ # install with slapt-get, then call the resolve_dependencies
+ slapt-get $SLAPT_OPTS --install "$@" || exit
+ resolve_dependencies $@
+ ### end script
+
 
