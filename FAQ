@@ -611,6 +611,10 @@ Frequently Asked Questions:
  Only use this if you have been using Slackware packages exclusively.  You can
  also use this option for information purposes.
 
+ --dist-upgrade --remove-obsolete --reinstall will do all of the above in one
+ action.  It will ensure every package from /a/ is reinstalled, and remove
+ obsolete packages.
+
 
 29. How would I script an ldd dependency hack with slapt-get?
 
