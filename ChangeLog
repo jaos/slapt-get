@@ -7,6 +7,7 @@
  * moved regex_t stuff into sg_regex typedef
  * added extra error checking
  * formatting updates
+ * actually call regfree() for all regex_t
 
 0.9.5c Oct 04, 2003
  * removed bad free() in get_installed_pkgs()
