@@ -1,6 +1,8 @@
 
 0.9.7f Nov 21, 2003
  * update_pkg_cache now request callback argument to pass to get_mirror_data_from_source
+ * moved usage and version to configuration.c
+ * moved head_request_data_callback and progress_callback to action.c
 
 0.9.7e Nov 21, 2003
  * added debugging in transaction functions

@@ -492,50 +492,32 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 	free_transaction(&tran);
 }
 
-void usage(){
-	printf("%s - Jason Woodward <woodwardj at jaos dot org>\n",PROGRAM_NAME);
-	printf(_("An implementation of the Debian APT system to Slackware\n"));
-	printf(_("Usage:\n"));
-	printf(_("%s [option(s)] [target]\n"),PROGRAM_NAME);
-	printf("\n");
-	printf(_("Targets:\n"));
-	printf("  --update       - %s\n",_("retrieves pkg data from MIRROR"));
-	printf("  --upgrade      - %s\n",_("upgrade installed pkgs"));
-	printf("  --dist-upgrade - %s\n",_("upgrade to newer release"));
-	printf("  --install      %s\n",_("[pkg name(s)] - install specified pkg(s)"));
-	printf("  --remove       %s\n",_("[pkg name(s)] - remove specified pkg(s)"));
-	printf("  --show         %s\n",_("[pkg name] - show pkg description"));
-	printf("  --search       %s\n",_("[expression] - search available pkgs"));
-	printf("  --list         - %s\n",_("list available pkgs"));
-	printf("  --installed    - %s\n",_("list installed pkgs"));
-	printf("  --clean        - %s\n",_("purge cached pkgs"));
-	printf("  --version      - %s\n",_("print version and license info"));
-	printf("\n");
-	printf(_("Options:\n"));
-	printf("  --download-only   - %s\n",_("only download pkg on install/upgrade"));
-	printf("  --simulate        - %s\n",_("show pkgs to be installed/upgraded"));
-	printf("  --no-prompt       - %s\n",_("do not prompt during install/upgrade"));
-	printf("  --reinstall       - %s\n",_("re-install the pkg"));
-	printf("  --ignore-excludes - %s\n",_("install/upgrade excludes"));
-	printf("  --no-md5          - %s\n",_("do not perform md5 check sum"));
-	printf("  --no-dep          - %s\n",_("ignore dependency failures"));
+int progress_callback(void *clientp, double dltotal, double dlnow, double ultotal, double ulnow){
+	/* supress unused parameter warning */
+	(void) clientp;
+	(void) dltotal;
+	(void) dlnow;
+	(void) ultotal;
+	(void) ulnow;
+	/* */
+	printf("%c\b",spinner());
+	return 0;
 }
 
-void version_info(void){
-	printf(_("%s version %s\n"),PROGRAM_NAME,VERSION);
-	printf("\n");
-	printf("This program is free software; you can redistribute it and/or modify\n");
-	printf("it under the terms of the GNU General Public License as published by\n");
-	printf("the Free Software Foundation; either version 2 of the License, or\n");
-	printf("any later version.\n");
-	printf("This program is distributed in the hope that it will be useful,\n");
-	printf("\n");
-	printf("but WITHOUT ANY WARRANTY; without even the implied warranty of\n");
-	printf("MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n");
-	printf("GNU Library General Public License for more details.\n");
-	printf("\n");
-	printf("You should have received a copy of the GNU General Public License\n");
-	printf("along with this program; if not, write to the Free Software\n");
-	printf("Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n");
+/* head request callback */
+size_t head_request_data_callback(void *ptr, size_t size, size_t nmemb, void *data){
+	struct head_request_t *head_d;
+	int total;
 
+	total = size * nmemb;
+	head_d = (struct head_request_t *)data;
+
+	head_d->data = realloc(head_d->data, sizeof *head_d->data * head_d->size + total + 1);
+	if (head_d->data) {
+		memcpy(&(head_d->data[head_d->size]), ptr, total);
+		head_d->size += total;
+		head_d->data[head_d->size] = 0;
+	}
+	return total;
 }
+

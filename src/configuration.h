@@ -56,3 +56,6 @@ void clean_pkg_dir(const char *);
 struct exclude_list *parse_exclude(char *);
 void create_dir_structure(const char *);
 void gen_md5_sum_of_file(FILE *,char *);
+void usage(void);
+void version_info(void);
+

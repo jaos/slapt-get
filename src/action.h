@@ -31,6 +31,8 @@ void pkg_action_search(const char *);
 void pkg_action_show(const char *);
 void pkg_action_upgrade_all(const rc_config *);
 
-void usage(void);
-void version_info(void);
+/* callback for curl progress */
+int progress_callback(void *,double,double,double,double);
+/* callback for head request */
+size_t head_request_data_callback(void *,size_t,size_t,void *);
 

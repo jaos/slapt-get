@@ -35,8 +35,3 @@ int get_mirror_data_from_source(FILE *,const char *,const char *, int (*)(void *
 /* download pkg, cals download_data */
 int download_pkg(const rc_config *,pkg_info_t *,int (*)(void *,double,double,double,double));
 
-/* callback for curl progress */
-int progress_callback(void *,double,double,double,double);
-/* callback for head request */
-size_t head_request_data_callback(void *,size_t,size_t,void *);
-
