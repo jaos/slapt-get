@@ -4,8 +4,8 @@ Future enhancements, fixes, or features:
 
  * fix broken pkg description (someone who knows what they are doing help)
  * find memory leaks
- * file check before downloading pkg (don't download twice, incorp md5sum checking maybe)
  * source pkg handling (maybe)
  * dependancy tracking (ideally that will happen in PACKAGES.TXT)
  * multiple sources/mirrors (merge package data into one local PACKAGES.TXT)
+ * optimize
 

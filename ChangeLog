@@ -1,4 +1,10 @@
 
+0.9.4 Sep 29, 2003
+ * downloads CHECKSUMS.md5 from mirror
+ * md5 sum's each package after downloading (from CHECKSUMS.md5 data)
+   utilizing openssl/evp.h
+ * pre-download check... won't download twice if md5sum is good
+
 0.9.3 Sep 24, 2003
  * default make target doesn't build slack pkg
  * --dist-upgrade becomes target instead of option

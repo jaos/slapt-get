@@ -108,10 +108,49 @@ FILE *download_patches_list(const rc_config *global_config){
 	return fh;
 }
 
+FILE *download_checksum_list(const rc_config *global_config){
+	FILE *fh = NULL;
+	char *url = NULL;
+
+	fh = open_file(CHECKSUM_FILE,"w+");
+
+#if USE_CURL_PROGRESS == 0
+	printf("Retrieving checksum list...");
+#else
+	printf("Retrieving checksum list...\n");
+#endif
+
+	url = calloc(
+		strlen(global_config->mirror_url) + strlen(CHECKSUM_FILE) + 1 , sizeof *url
+	);
+	if( url == NULL ){
+		fprintf(stderr,"Failed to calloc url\n");
+		exit(1);
+	}
+
+	strncpy(url,global_config->mirror_url,strlen(global_config->mirror_url) );
+	strncat(url,CHECKSUM_FILE,strlen(CHECKSUM_FILE) );
+	download_data(fh,url);
+#if USE_CURL_PROGRESS == 0
+	printf("Done\n");
+#endif
+
+	free(url);
+	rewind(fh); /* make sure we are back at the front of the file */
+	return fh;
+}
+
 char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	FILE *fh = NULL;
+	FILE *fh_test = NULL;
 	char *file_name = NULL;
 	char *url = NULL;
+	char *md5_sum = NULL;
+	char *md5_sum_of_file = NULL;
+
+	md5_sum = malloc(34);
+	md5_sum_of_file = malloc(34);
+	get_md5sum(global_config,pkg,md5_sum);
 
 	/* build the file name */
 	file_name = calloc(
@@ -127,13 +166,21 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	file_name = strncat(file_name,pkg->version,strlen(pkg->version));
 	file_name = strncat(file_name,".tgz",strlen(".tgz"));
 
-	fh = open_file(file_name,"wb");
-
 	/*
 	 * TODO: here we will use the md5sum (or some other means)
 	 *	to see if the file is already present and valid
 	 */
-
+	if( ( fh_test = fopen(file_name,"r") ) != NULL){
+		/* check to see if the md5sum is correct */
+		gen_md5_sum_of_file(fh_test,md5_sum_of_file);
+		fclose(fh_test);
+		if( strcmp(md5_sum_of_file,md5_sum) == 0 ){
+			printf("Using cached copy of %s\n",pkg->name);
+			free(md5_sum);
+			free(md5_sum_of_file);
+			return file_name;
+		}
+	}
 
 	/* build the url */
 	url = calloc(
@@ -154,15 +201,38 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 #else
 	printf("Downloading %s...\n",pkg->name);
 #endif
+
+	fh = open_file(file_name,"wb");
 	download_data(fh,url);
+
 #if USE_CURL_PROGRESS == 0
 	printf("Done\n");
 #endif
 
+	fclose(fh);
+
+	/* check to see if the md5sum is correct */
+	fh = open_file(file_name,"r");
+	gen_md5_sum_of_file(fh,md5_sum_of_file);
+	fclose(fh);
+	printf("verifying %s md5 sum...",pkg->name);
+	if( strcmp(md5_sum_of_file,md5_sum) != 0 ){
+		fprintf(stderr,"md5 sum for %s is not correct!\n",pkg->name);
+#if DEBUG == 1
+		fprintf(stderr,"MD5 found:    [%s]\n",md5_sum_of_file);
+		fprintf(stderr,"MD5 expected: [%s]\n",md5_sum);
+		fprintf(stderr,"File: %s/%s\n",global_config->working_dir,file_name);
+#endif
+		return NULL;
+	}else{
+		printf("Done\n");
+	}
+	free(md5_sum);
+	free(md5_sum_of_file);
+
 	if( url != NULL ){
 		free(url);
 	}
-	fclose(fh);
 	return file_name;
 }
 

@@ -32,6 +32,7 @@
 #include <sys/types.h>
 #include <dirent.h>
 #include <ctype.h>
+#include <openssl/evp.h>
 /* */
 
 /* local includes */
@@ -58,4 +59,5 @@ void version_info(void);
 #define REMOVE_CMD "/sbin/removepkg "
 #define INSTALL_CMD "/sbin/installpkg "
 #define UPGRADE_CMD "/sbin/upgradepkg "
+#define CHECKSUM_FILE "CHECKSUMS.md5"
 

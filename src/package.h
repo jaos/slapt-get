@@ -26,6 +26,7 @@
 #define PKG_SIZEU_PATTERN "^PACKAGE SIZE [(]+uncompressed[)]+:  ([0-9]+) K$"
 #define PKG_LOG_DIR "/var/log/packages"
 #define PKG_LOG_PATTERN "^([a-zA-Z0-9-+_]+)-([a-zA-Z0-9-._]+)$"
+#define MD5SUM_REGEX "([a-zA-Z0-9]+)[ ]+([a-zA-Z0-9-._/]+/)([a-zA-Z0-9-+_]+)-([a-zA-Z0-9-._]+).tgz$"
 
 /*
  * VARIABLE DEFINITIONS
@@ -67,4 +68,5 @@ int remove_pkg(pkg_info_t *);
 void free_pkg_list(struct pkg_list *);
 /* exclude pkg based on pkg name */
 int is_excluded(const rc_config *,const char *);
-
+/* lookup md5sum of file */
+void get_md5sum(const rc_config *,pkg_info_t *,char *);

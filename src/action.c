@@ -186,6 +186,7 @@ void pkg_action_show(const char *pkg_name){
 void pkg_action_update(const rc_config *global_config){
 	FILE *pkg_list_fh;
 	FILE *patches_list_fh;
+	FILE *checksum_list_fh;
 
 	/* download our PKG_LIST */
 	pkg_list_fh = download_pkg_list(global_config);
@@ -194,6 +195,10 @@ void pkg_action_update(const rc_config *global_config){
 	/* download PATCHES_LIST */
 	patches_list_fh = download_patches_list(global_config);
 	fclose(patches_list_fh);
+
+	/* download */
+	checksum_list_fh = download_checksum_list(global_config);
+	fclose(checksum_list_fh);
 
 	/* source listing to go here */
 
@@ -217,7 +222,6 @@ void pkg_action_upgrade(const rc_config *global_config,pkg_info_t *installed_pkg
 		if( cmp_result < 0 ){ /* update_pkg is newer than installed_pkg */
 			if( (upgrade_pkg(global_config,update_pkg)) == -1 ){
 				fprintf(stderr,"Failed to update %s.\n",installed_pkg->name);
-				exit(1);
 			}
 		}else{ 
 			if( cmp_result > 0 ){
@@ -230,7 +234,6 @@ void pkg_action_upgrade(const rc_config *global_config,pkg_info_t *installed_pkg
 		if( strcmp(installed_pkg->version,available_pkg->version) < 0 ){
 			if( (upgrade_pkg(global_config,available_pkg)) == -1 ){
 				fprintf(stderr,"Failed to update %s.\n",installed_pkg->name);
-				exit(1);
 			}
 		}else{
 			printf("%s is already the newest version.\n",installed_pkg->name);
@@ -274,7 +277,6 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 				/* attempt to upgrade */
 				if( (upgrade_pkg(global_config,update_pkg)) == -1 ){
 					fprintf(stderr,"Failed to update %s.\n",installed_pkgs->pkgs[iterator]->name);
-					exit(1);
 				}/* end upgrade attempt */
 
 			}else{
@@ -301,7 +303,6 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 							"Failed to update %s.\n",
 							installed_pkgs->pkgs[iterator]->name
 						);
-						exit(1);
 					}/* end upgrade attempt */
 				}/* end if strcmp */
 			}/* end if current_pkg */

@@ -440,6 +440,10 @@ int install_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	chdir(pkg->location);
 
 	pkg_file_name = download_pkg(global_config,pkg);
+	if( pkg_file_name == NULL ){
+		fprintf(stderr,"Skipping %s\n",pkg->name);
+		return -1;
+	}
 
 	/* build and execute our command */
 	command = calloc( strlen(INSTALL_CMD) + strlen(pkg_file_name) + 1 , sizeof *command );
@@ -486,6 +490,10 @@ int upgrade_pkg(const rc_config *global_config,pkg_info_t *pkg){
 
 	/* download it */
 	pkg_file_name = download_pkg(global_config,pkg);
+	if( pkg_file_name == NULL ){
+		fprintf(stderr,"Skipping %s\n",pkg->name);
+		return -1;
+	}
 
 	/* build and execute our command */
 	command = calloc( strlen(UPGRADE_CMD) + strlen(pkg_file_name) + 1 , sizeof *command );
@@ -564,5 +572,72 @@ int is_excluded(const rc_config *global_config,const char *pkg_name){
 	}
 
 	return 0;
+}
+
+void get_md5sum(const rc_config *global_config,pkg_info_t *pkg,char *md5_sum){
+	FILE *checksum_file;
+	regex_t md5sum_regex;
+	size_t nmatch = 10;
+	regmatch_t pmatch[10];
+	int regexec_return;
+	ssize_t getline_read;
+	size_t getline_len = 0;
+	char *getline_buffer = NULL;
+	char *cwd = NULL;
+
+	cwd = getcwd(NULL,0);
+
+	chdir(global_config->working_dir);
+
+	checksum_file = open_file(CHECKSUM_FILE,"r");
+
+	regcomp(&md5sum_regex,MD5SUM_REGEX, REG_EXTENDED|REG_NEWLINE);
+
+	while( (getline_read = getline(&getline_buffer,&getline_len,checksum_file) ) != EOF ){
+
+		if( strstr(getline_buffer,".tgz") == NULL) continue;
+		if((strstr(getline_buffer,"slackware")==NULL) && (strstr(getline_buffer,"patch")==NULL)){
+			continue;
+		}
+
+		regexec_return = regexec( &md5sum_regex, getline_buffer, nmatch, pmatch, 0);
+		if( regexec_return == 0 ){
+			char name[50];
+			char version[50];
+			char sum[34];
+
+			strncpy(
+				name,
+				getline_buffer + pmatch[3].rm_so,
+				pmatch[3].rm_eo - pmatch[3].rm_so
+			);
+			name[pmatch[3].rm_eo - pmatch[3].rm_so] = '\0';
+
+			strncpy(
+				version,
+				getline_buffer + pmatch[4].rm_so,
+				pmatch[4].rm_eo - pmatch[4].rm_so
+			);
+			version[pmatch[4].rm_eo - pmatch[4].rm_so] = '\0';
+
+			strncpy(
+				sum,
+				getline_buffer + pmatch[1].rm_so,
+				pmatch[1].rm_eo - pmatch[1].rm_so
+			);
+			sum[pmatch[1].rm_eo - pmatch[1].rm_so] = '\0';
+
+			if( (strcmp(pkg->name,name) == 0) && (strcmp(pkg->version,version) == 0) ){
+				memcpy(md5_sum,sum,pmatch[1].rm_eo - pmatch[1].rm_so + 1);
+				break;
+			}
+
+		}
+	}
+	fclose(checksum_file);
+	chdir(cwd);
+	free(cwd);
+
+	return;
 }
 
