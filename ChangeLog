@@ -1,4 +1,8 @@
 
+0.9.5e Oct 10, 2003
+ * added a doinst.sh script (generated from the Makefile) to help 
+   manage the slapt-getrc.
+
 0.9.5d Oct 09, 2003
  * added initial slack-required for future dependancy support
  * added lilo to example slapt-getrc exclude list

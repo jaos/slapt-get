@@ -1,5 +1,5 @@
 PROGRAM_NAME=slapt-get
-VERSION=0.9.5d
+VERSION=0.9.5e
 ARCH=i386
 RELEASE=1
 CC=gcc
@@ -45,6 +45,7 @@ pkg: $(PROGRAM_NAME)
 	-@cp example.slapt-getrc ./pkg/etc/slapt-getrc.new
 	-@mkdir -p ./pkg/usr/doc/$(PROGRAM_NAME)-$(VERSION)/
 	-@cp COPYING Changelog INSTALL README FAQ TODO ./pkg/usr/doc/$(PROGRAM_NAME)-$(VERSION)/
+	-@echo "if [ ! -f etc/slapt-getrc ]; then mv etc/slapt-getrc.new etc/slapt-getrc; else diff -q etc/slapt-getrc etc/slapt-getrc.new >/dev/null 2>&1 && rm etc/slapt-getrc.new; fi" > pkg/install/doinst.sh
 	-@cp slack-desc pkg/install/
 	-@cp slack-required pkg/install/
 	-@cp $(PROGRAM_NAME).8 pkg/usr/man/man8/
