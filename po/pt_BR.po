@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.8b\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2004-01-12 10:25+0000\n"
-"Last-Translator: Arnaldo Pereira <arnaldo@sp-dhn.com.br>\n"
+"PO-Revision-Date: 2004-01-15 16:34+0000\n"
+"Last-Translator: Arnaldo de Moraes Pereira <arnaldo@sp-dhn.com.br>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -112,7 +112,7 @@ msgstr "Fazendo o download da lista de checksum [%s]...\n"
 
 #, c-format
 msgid "Failed to malloc %s\n"
-msgstr "Não foi possivel alocar memória para %s\n"
+msgstr "malloc falhou %s\n"
 
 #, c-format
 msgid "Maximum number of sources (%d) exceeded.\n"
@@ -136,7 +136,7 @@ msgstr "Falha ao criar diretório de trabalho [%s]\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr "Por favor atualize as permissões em %s ou rode com os privilégios apropriados\n"
+msgstr "Por favor atualize as permissões em %s ou rode com privilégio apropriado\n"
 
 #, c-format
 msgid "Failed to open %s\n"
@@ -147,11 +147,11 @@ msgstr "Talvez você queira rodar --update?\n"
 
 #, c-format
 msgid "Failed to opendir %s\n"
-msgstr "Falhou ao abrir o diretório %s\n"
+msgstr "opendir falhou %s\n"
 
 #, c-format
 msgid "Failed to chdir: %s\n"
-msgstr "Falha ao mudar para o diretório: %s\n"
+msgstr "chdir falhou: %s\n"
 
 #, c-format
 msgid "unlinking %s\n"
@@ -166,7 +166,7 @@ msgstr "\tDiretório de trabalho atual: %s\n"
 
 #, c-format
 msgid "Failed to mkdir: %s\n"
-msgstr "Falhou para criar o diretório: %s\n"
+msgstr "mkdir falhou: %s\n"
 
 #, c-format
 msgid "\tCreated directory: %s\n"
@@ -202,11 +202,11 @@ msgstr "Usando cópia em cache de %s\n"
 
 #, c-format
 msgid "Downloading %s %s %s [%dK]..."
-msgstr "Puxando %s %s %s [%dK]..."
+msgstr "Fazendo o download %s %s %s [%dK]..."
 
 #, c-format
 msgid "Downloading %s %s %s [%dK]...\n"
-msgstr "Puxando %s %s %s [%dK]...\n"
+msgstr "Fazendo o download %s %s %s [%dK]...\n"
 
 #, c-format
 msgid "Failed to unlink %s\n"
@@ -229,7 +229,7 @@ msgid "File: %s/%s\n"
 msgstr "Arquivo: %s/%s\n"
 
 msgid "An implementation of the Debian APT system to Slackware\n"
-msgstr "Uma implementação do APT do Debian para Slackware\n"
+msgstr "Uma implementação do sistema APT do Debian para Slackware\n"
 
 msgid "Usage:\n"
 msgstr "Uso:\n"
@@ -242,7 +242,7 @@ msgid "Targets:\n"
 msgstr "Alvos:\n"
 
 msgid "retrieves pkg data from MIRROR"
-msgstr "puxa dados do pacote a partir de MIRROR"
+msgstr "faz download dos dados do pacote a partir de MIRROR"
 
 msgid "upgrade installed pkgs"
 msgstr "atualiza pacotes instalados"
@@ -278,7 +278,7 @@ msgid "Options:\n"
 msgstr "Opções:\n"
 
 msgid "only download pkg on install/upgrade"
-msgstr "somente puxa pacote em install/upgrade"
+msgstr "somente faz download do pacote em install/upgrade"
 
 msgid "show pkgs to be installed/upgraded"
 msgstr "mostra pacotes a serem instalados/atualizados"
@@ -293,7 +293,7 @@ msgid "install/upgrade excludes"
 msgstr "instalar/atualizar exclui"
 
 msgid "do not perform md5 check sum"
-msgstr "não checa md5 check sum"
+msgstr "não checa md5 sum"
 
 msgid "ignore dependency failures"
 msgstr "ignora falhas de dependencia"
@@ -304,7 +304,7 @@ msgstr "%s versão %s\n"
 
 #, c-format
 msgid "regex failed on [%s]\n"
-msgstr "falha de expressão regular em [%s]\n"
+msgstr "regex falhou em [%s]\n"
 
 #, c-format
 msgid "pkg name too long [%s:%d]\n"
@@ -326,19 +326,19 @@ msgid "regexec failed to parse location\n"
 msgstr "regexec falhou ao parsear localização\n"
 
 msgid "getline reached EOF attempting to read location\n"
-msgstr "getline chegou ao final do arquivo lendo localização\n"
+msgstr "getline chegou a EOF lendo localização\n"
 
 msgid "regexec failed to parse size_c\n"
 msgstr "regexec falhou ao parsear size_c\n"
 
 msgid "getline reached EOF attempting to read size_c\n"
-msgstr "getline chegou ao final do arquivo lendo size_c\n"
+msgstr "getline chegou a EOF lendo size_c\n"
 
 msgid "regexec failed to parse size_u\n"
 msgstr "regexec falhou ao parsear size_u\n"
 
 msgid "getline reached EOF attempting to read size_u\n"
-msgstr "getline chegou ao final do arquivo lendo size_u\n"
+msgstr "getline chegou a EOF lendo size_u\n"
 
 msgid "error attempting to read pkg description\n"
 msgstr "erro lendo descrição do pacote\n"
@@ -347,11 +347,11 @@ msgid "Failed to realloc pkgs\n"
 msgstr "Falha ao realocar memória para os pacotes\n"
 
 msgid "Failed to compile regex\n"
-msgstr "Falha ao compilar expressão regular\n"
+msgstr "Falha ao compilar regex\n"
 
 #, c-format
 msgid "Regex Error: %s\n"
-msgstr "Erro de expressão regular: %s\n"
+msgstr "Erro de regex: %s\n"
 
 #, c-format
 msgid "Preparing to install %s-%s\n"
@@ -367,7 +367,7 @@ msgstr "Preparando para substituir %s-%s por %s-%s\n"
 
 #, c-format
 msgid "Failed to compile regex [%s]\n"
-msgstr "Falha ao compilar expressão regular [%s]\n"
+msgstr "Falha ao compilar regex [%s]\n"
 
 #, c-format
 msgid "pkg conditional too long [%s:%d]\n"
@@ -381,7 +381,7 @@ msgid "  %s: Depends: %s\n"
 msgstr "  %s: Depende: %s\n"
 
 msgid "The following packages have been EXCLUDED:\n"
-msgstr "O seguinte pacote foi EXCLUÍDO:\n"
+msgstr "Os seguintes pacotes foram EXCLUÍDOS:\n"
 
 msgid "The following NEW packages will be installed:\n"
 msgstr "Os seguintes pacotes NOVOS serão instalados:\n"
@@ -398,15 +398,15 @@ msgstr "%d autalizados, %d recentemente instalados, %d para remover e %d não atu
 
 #, c-format
 msgid "Need to get %dK of archives.\n"
-msgstr "É necessário puxar %dK de arquivos comprimidos.\n"
+msgstr "É necessário fazer o download de %dK de arquivos comprimidos.\n"
 
 #, c-format
 msgid "After unpacking %dK disk space will be freed.\n"
-msgstr "Depois de descompactar %dK espaço em disco estará livre.\n"
+msgstr "Depois de desempacotar será liberado %dK de espaço em disco.\n"
 
 #, c-format
 msgid "After unpacking %dK of additional disk space will be used.\n"
-msgstr "Depois de descompactar %dK de espaço adicional em disco será utilizado.\n"
+msgstr "Depois de desempacotar será utilizado %dK de espaço em disco.\n"
 
 msgid "Do you want to continue? [y/N] "
 msgstr "Você deseja continuar? [y/N] "
@@ -416,15 +416,15 @@ msgstr "Abortar.\n"
 
 #, c-format
 msgid "%s-%s is to be installed\n"
-msgstr "%s-%s será instalado\n"
+msgstr "%s-%s está para ser instalado\n"
 
 #, c-format
 msgid "%s-%s is to be upgraded to version %s\n"
-msgstr "%s-%s será atualizado para a versão %s\n"
+msgstr "%s-%s está para ser atualizado para a versão %s\n"
 
 #, c-format
 msgid "%s-%s is to be removed\n"
-msgstr "%s-%s será removido\n"
+msgstr "%s-%s está para ser removido\n"
 
 #, c-format
 msgid "%s, which is to be installed, conflicts with %s\n"
@@ -435,11 +435,11 @@ msgid "Installed %s conflicts with %s\n"
 msgstr "Instalado %s entra em conflito com %s\n"
 
 msgid "print URIs only, do not download"
-msgstr "imprimir apenas URIs, não fazer o download"
+msgstr "apenas imprimir URIs, não fazer download"
 
 #, c-format
 msgid "Package MD5 Sum:  %s\n"
-msgstr "MD5 Sum do Pacote:  %s\n"
+msgstr "MD5 Sum do pacote:  %s\n"
 
 #, c-format
 msgid "md5 sum too long [%s %s:%d]\n"
@@ -458,12 +458,5 @@ msgstr "Download de %s incompleto\n"
 
 #, c-format
 msgid "Could not find MD5 checksum for %s, override with --no-md5\n"
-msgstr "Não foi possível encontrar o checksum MD5 para %s, ignorar com --no-md5\n"
-
-#, c-format
-msgid "%s, which is required by %s, is excluded\n"
-msgstr "%s, que é requerido por %s, está excluido\n"
-
-msgid "skip dependency check"
-msgstr "ignorar checagem de dependência"
+msgstr "Não foi possível encontrar o MD5 checksum para %s, ignore com --no-md5\n"
 
