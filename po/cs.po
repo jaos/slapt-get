@@ -206,7 +206,7 @@ msgstr "md5 souèet pro %s je nesprávný, ignoruj pomocí --no-md5!\n"
 
 #, c-format
 msgid "MD5 found:    [%s]\n"
-msgstr "MD5 nalezen:    [%s]"
+msgstr "MD5 nalezen:    [%s]\n"
 
 #, c-format
 msgid "MD5 expected: [%s]\n"
@@ -292,7 +292,7 @@ msgstr "%s verze %s\n"
 
 #, c-format
 msgid "regex failed on [%s]\n"
-msgstr "regex neuspìl na [%s]\n""
+msgstr "regex neuspìl na [%s]\n"
 
 #, c-format
 msgid "pkg name too long [%s:%d]\n"
@@ -368,7 +368,7 @@ msgstr "%s-%s bude odstranìn\n"
 
 #, c-format
 msgid "Failed to compile regex [%s]\n"
-msgstr "Nepodaøilo se zkompilovat regex [%s]\n""
+msgstr "Nepodaøilo se zkompilovat regex [%s]\n"
 
 #, c-format
 msgid "pkg conditional too long [%s:%d]\n"
@@ -451,7 +451,7 @@ msgstr "Sta¾ení %s je nekompletní\n"
 
 #, c-format
 msgid "Could not find MD5 checksum for %s, override with --no-md5\n"
-msgstr "Nemohu najít MD5 souèet pro %s, ignoruj pomocí --no-md5\n""
+msgstr "Nemohu najít MD5 souèet pro %s, ignoruj pomocí --no-md5\n"
 
 #, c-format
 msgid "%s, which is required by %s, is excluded\n"
