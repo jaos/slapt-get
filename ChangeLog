@@ -1,5 +1,6 @@
 
-0.9.8j Aug 05, 2004
+0.9.8j Aug 08, 2004
+ * updated get_installed_pkgs() to correctly work when ROOT environment variable is set
  * updated man page
  * added option to override slapt-getrc location via --config switch
  * makefile update, fixing libslapt symlink

@@ -453,10 +453,11 @@ struct pkg_list *get_installed_pkgs(void){
 		(root_env_entry ? strlen(root_env_entry) : 0) + 1 ,
 		sizeof *pkg_log_dirname
 	);
+	*pkg_log_dirname = '\0';
 	if(root_env_entry){
 		strncpy(pkg_log_dirname, root_env_entry,strlen(root_env_entry));
+		strncat(pkg_log_dirname, PKG_LOG_DIR,strlen(PKG_LOG_DIR));
 	}else{
-		*pkg_log_dirname = '\0';
 		strncat(pkg_log_dirname, PKG_LOG_DIR,strlen(PKG_LOG_DIR));
 	}
 
