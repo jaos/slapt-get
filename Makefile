@@ -7,7 +7,7 @@ RCDEST=/etc/slapt-getrc
 RCSOURCE=example.slapt-getrc
 SBINDIR=/sbin/
 DEFINES=-DPROGRAM_NAME="\"$(PROGRAM_NAME)\"" -DVERSION="\"$(VERSION)\"" -DRC_LOCATION="\"$(RCDEST)\""
-CFLAGS=-W -Werror -Wall -g -ansi -pedantic -Iinclude $(DEFINES)
+CFLAGS=-W -Werror -Wall -O2 -ansi -pedantic -Iinclude $(DEFINES)
 
 default: $(PROGRAM_NAME)
 
