@@ -47,6 +47,7 @@ Frequenty Asked Questions:
 46. How do I specify an addon thats not a dependency of my package?
 47. Will slapt-get break my system?
 48. What is a meta package and how can I take advantage of it?
+49. How can I downgrade a package?
 
 
 
@@ -99,6 +100,9 @@ Frequenty Asked Questions:
 
  Yes, use the --upgrade option.  slapt-get will check for 
  newer versions of all packages already installed.
+
+ Please review the Slackware ChangeLog.txt for the Slackware release you are
+ running.  This is especially important for -current.
 
 
 6.  How can I see what will be upgraded without upgrading?
@@ -883,7 +887,7 @@ Frequenty Asked Questions:
    or are somehow locked into using slapt-get.  The only additions to your
    system are /etc/slapt-get and /var/slapt-get.  You are free to try another
    solution or go back to manual upgradepkg.
- * UPGRADE.TXT is still required reading
+ * UPGRADE.TXT and ChangeLog.txt is still required reading
 
 
 48. What is a meta package and how can I take advantage of it?
@@ -900,6 +904,25 @@ Frequenty Asked Questions:
  and their required versions.  That way you can roll out a 2.x release update, but
  provide an easy way to roll back to a previous 1.x release of the entire application
  suite.
+
+
+49. How can I downgrade a package?
+
+ You can downgrade a package by specifying the version of the package when using
+ --install.  You will also need to provide --reinstall.  For example:
+
+  # slapt-get --search rsync
+  rsync 2.5.6-i386-1 [inst=no]: rsync
+  rsync 2.6.2-i386-1 [inst=yes]: rsync
+
+  # slapt-get --install rsync-2.5.6-i386-1 --reinstall
+  Reading Package Lists... Done
+  The following packages will be upgraded:
+    rsync
+  1 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+  Need to get 121K of archives.
+  After unpacking 30K disk space will be freed.
+  Do you want to continue? [y/N]
 
 
 
