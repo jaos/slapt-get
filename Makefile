@@ -88,13 +88,12 @@ dopkg:
 	@cp $(PROGRAM_NAME) ./pkg/sbin/
 	@chown root:bin ./pkg/sbin/$(PROGRAM_NAME)
 	@strip ./pkg/sbin/$(PROGRAM_NAME)
-	@cp example.slapt-getrc ./pkg/etc/slapt-getrc.new
 	@echo "# See /usr/doc/$(PROGRAM_NAME)-$(VERSION)/example.slapt-getrc " > ./pkg/etc/slapt-getrc.new
 	@echo "# for example source entries and configuration hints." >> ./pkg/etc/slapt-getrc.new
 	@cat example.slapt-getrc |grep -v '^#'|grep -v '^$$' >> ./pkg/etc/slapt-getrc.new
 	@mkdir -p ./pkg/usr/doc/$(PROGRAM_NAME)-$(VERSION)/
 	@cp example.slapt-getrc COPYING Changelog INSTALL README FAQ TODO ./pkg/usr/doc/$(PROGRAM_NAME)-$(VERSION)/
-	@echo "if [ ! -f etc/slapt-getrc ]; then mv etc/slapt-getrc.new etc/slapt-getrc; else diff -q etc/slapt-getrc etc/slapt-getrc.new >/dev/null 2>&1 && rm etc/slapt-getrc.new; fi; if [ -L /usr/lib/libslapt.so ]; then rm /usr/lib/libslapt.so;fi; ln -s /usr/lib/libslapt-$(VERSION).so /usr/lib/libslapt.so" > pkg/install/doinst.sh
+	@echo "if [ ! -f etc/slapt-getrc ]; then mv etc/slapt-getrc.new etc/slapt-getrc; else diff -q etc/slapt-getrc etc/slapt-getrc.new >/dev/null 2>&1 && rm etc/slapt-getrc.new; fi; if [ -L usr/lib/libslapt.so ]; then rm usr/lib/libslapt.so;fi; ln -s usr/lib/libslapt-$(VERSION).so usr/lib/libslapt.so" > pkg/install/doinst.sh
 	@cp slack-desc pkg/install/
 	@cp slack-required pkg/install/
 	@cp $(PROGRAM_NAME).8 pkg/usr/man/man8/
