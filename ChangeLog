@@ -5,6 +5,7 @@
  * added --disable-dep-check to skip the dependency checking
  * added support for ROOT enviroment variable for location of packages logs 
    overriding /var/log/packages ("Keary Griffin" <keary.griffin@unwiredappeal.com>)
+ * removed check for package existance in the installed pkg list (will now show duplicates)
 
 0.9.7h Dec 08, 2003
  * updated FAQ

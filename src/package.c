@@ -467,26 +467,20 @@ struct pkg_list *get_installed_pkgs(void){
 			);
 			tmp_pkg->version[ ip_regex.pmatch[2].rm_eo - ip_regex.pmatch[2].rm_so ] = '\0';
 
-			/* add if no existing_pkg or tmp_pkg has greater version */
-			if( ((existing_pkg = get_newest_pkg(list,tmp_pkg->name)) == NULL)
-				|| (cmp_pkg_versions(existing_pkg->version,tmp_pkg->version) < 0 )){
+			list->pkgs[list->pkg_count] = tmp_pkg;
+			++list->pkg_count;
+			tmp_pkg = NULL;
 
-				list->pkgs[list->pkg_count] = tmp_pkg;
-				++list->pkg_count;
-				tmp_pkg = NULL;
-
-				/* grow our pkgs array */
-				realloc_tmp = realloc(list->pkgs , sizeof *list->pkgs * (list->pkg_count + 1 ) );
-				if( realloc_tmp == NULL ){
-					fprintf(stderr,_("Failed to realloc pkgs\n"));
-					if( errno ){
-						perror("realloc");
-					}
-					exit(1);
-				}else{
-					list->pkgs = realloc_tmp;
+			/* grow our pkgs array */
+			realloc_tmp = realloc(list->pkgs , sizeof *list->pkgs * (list->pkg_count + 1 ) );
+			if( realloc_tmp == NULL ){
+				fprintf(stderr,_("Failed to realloc pkgs\n"));
+				if( errno ){
+					perror("realloc");
 				}
-
+				exit(1);
+			}else{
+				list->pkgs = realloc_tmp;
 			}
 
 		}/* end while */
