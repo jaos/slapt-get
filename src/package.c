@@ -69,7 +69,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 
 	list->pkgs = malloc( sizeof *list->pkgs );
 	if( list->pkgs == NULL ){
-		fprintf(stderr,_("Failed to malloc pkgs\n"));
+		fprintf(stderr,_("Failed to malloc %s\n"),"pkgs");
 		exit(1);
 	}
 	list->pkg_count = 0;
@@ -99,7 +99,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 
 		tmp_pkg = malloc( sizeof *tmp_pkg );
 		if( tmp_pkg == NULL ){
-			fprintf(stderr,_("Failed to malloc tmp_pkg\n"));
+			fprintf(stderr,_("Failed to malloc %s\n"),"tmp_pkg");
 			exit(1);
 		}
 
@@ -231,7 +231,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 					(size_c_regex.pmatch[1].rm_eo - size_c_regex.pmatch[1].rm_so) + 1 , sizeof *size_c 
 				);
 				if( size_c == NULL ){
-					fprintf(stderr,_("Failed to calloc size_c\n"));
+					fprintf(stderr,_("Failed to calloc %s\n"),"size_c");
 					exit(1);
 				}
 				strncpy(
@@ -268,7 +268,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 				);
 
 				if( size_u == NULL ){
-					fprintf(stderr,_("Failed to calloc size_u\n"));
+					fprintf(stderr,_("Failed to calloc %s\n"),"size_u");
 					exit(1);
 				}
 				strncpy(
@@ -388,7 +388,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 		/* grow our struct array */
 		realloc_tmp = realloc(list->pkgs , sizeof *list->pkgs * (list->pkg_count + 1) );
 		if( realloc_tmp == NULL ){
-			fprintf(stderr,_("Failed to realloc pkgs\n"));
+			fprintf(stderr,_("Failed to realloc %s\n"),"pkgs");
 			exit(1);
 		}
 
@@ -421,7 +421,7 @@ char *gen_short_pkg_description(pkg_info_t *pkg){
 
 	short_description = calloc( string_size + 1 , sizeof *short_description );
 	if( short_description == NULL ){
-		fprintf(stderr,_("Failed to calloc short_description\n"));
+		fprintf(stderr,_("Failed to calloc %s\n"),"short_description");
 		exit(1);
 	}
 
@@ -488,7 +488,7 @@ struct pkg_list *get_installed_pkgs(void){
 
 	list->pkgs = malloc( sizeof *list->pkgs );
 	if( list->pkgs == NULL ){
-		fprintf(stderr,_("Failed to malloc pkgs\n"));
+		fprintf(stderr,_("Failed to malloc %s\n"),"pkgs");
 		exit(1);
 	}
 
@@ -498,7 +498,7 @@ struct pkg_list *get_installed_pkgs(void){
 			pkg_info_t *tmp_pkg;
 			tmp_pkg = malloc( sizeof *tmp_pkg );
 			if( tmp_pkg == NULL ){
-				fprintf(stderr,_("Failed to malloc tmp_pkg\n"));
+				fprintf(stderr,_("Failed to malloc %s\n"),"tmp_pkg");
 				exit(1);
 			}
 
@@ -523,7 +523,7 @@ struct pkg_list *get_installed_pkgs(void){
 			/* grow our pkgs array */
 			realloc_tmp = realloc(list->pkgs , sizeof *list->pkgs * (list->pkg_count + 1 ) );
 			if( realloc_tmp == NULL ){
-				fprintf(stderr,_("Failed to realloc pkgs\n"));
+				fprintf(stderr,_("Failed to realloc %s\n"),"pkgs");
 				if( errno ){
 					perror("realloc");
 				}
@@ -591,7 +591,7 @@ struct pkg_list *parse_file_list(FILE *fh){
 
 	list->pkgs = malloc( sizeof *list->pkgs );
 	if( list->pkgs == NULL ){
-		fprintf(stderr,_("Failed to malloc pkgs\n"));
+		fprintf(stderr,_("Failed to malloc %s\n"),"pkgs");
 		exit(1);
 	}
 
@@ -610,7 +610,7 @@ struct pkg_list *parse_file_list(FILE *fh){
 				/* find out why malloc isn't working here... mem leak somewhere */
 				list->pkgs[list->pkg_count] = calloc( 1, sizeof *list->pkgs[list->pkg_count] );
 				if( list->pkgs[list->pkg_count] == NULL ){
-					fprintf(stderr,_("Failed to calloc list->pkgs[list->pkg_count]\n"));
+					fprintf(stderr,_("Failed to calloc %s\n"),"list->pkgs");
 					exit(1);
 				}
 
@@ -653,7 +653,7 @@ struct pkg_list *parse_file_list(FILE *fh){
 
 				realloc_tmp = realloc(list->pkgs , sizeof *list->pkgs * (list->pkg_count + 1));
 				if( realloc_tmp == NULL ){
-					fprintf(stderr,_("Failed to realloc pkgs\n"));
+					fprintf(stderr,_("Failed to realloc %s\n"),"pkgs");
 					exit(1);
 				}else{
 					list->pkgs = realloc_tmp;
@@ -683,7 +683,7 @@ int install_pkg(const rc_config *global_config,pkg_info_t *pkg){
 		sizeof *pkg_file_name
 	);
 	if( pkg_file_name == NULL ){
-		fprintf(stderr,_("Failed to calloc file_name\n"));
+		fprintf(stderr,_("Failed to calloc %s\n"),"file_name");
 		exit(1);
 	}
 	pkg_file_name = strncpy(pkg_file_name,pkg->name,strlen(pkg->name));
@@ -723,7 +723,7 @@ int upgrade_pkg(const rc_config *global_config,pkg_info_t *installed_pkg,pkg_inf
 		sizeof *pkg_file_name
 	);
 	if( pkg_file_name == NULL ){
-		fprintf(stderr,_("Failed to calloc file_name\n"));
+		fprintf(stderr,_("Failed to calloc %s\n"),"file_name");
 		exit(1);
 	}
 	pkg_file_name = strncpy(pkg_file_name,pkg->name,strlen(pkg->name));
@@ -1146,12 +1146,12 @@ struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,struct p
 
 	deps = malloc( sizeof *deps);
 	if( deps == NULL ){
-		fprintf(stderr,_("Failed to malloc deps\n"));
+		fprintf(stderr,_("Failed to malloc %s\n"),"deps");
 		exit(1);
 	}
 	deps->pkgs = malloc( sizeof *deps->pkgs);
 	if( deps->pkgs == NULL ){
-		fprintf(stderr,_("Failed to malloc deps->pkgs\n"));
+		fprintf(stderr,_("Failed to malloc %s\n"),"deps->pkgs");
 		exit(1);
 	}
 	deps->pkg_count = 0;
@@ -1524,12 +1524,12 @@ struct pkg_list *is_required_by(const rc_config *global_config,struct pkg_list *
 	#endif
 	deps = malloc( sizeof *deps );
 	if( deps == NULL ){
-		fprintf(stderr,_("Failed to malloc deps\n"));
+		fprintf(stderr,_("Failed to malloc %s\n"),"deps");
 		exit(1);
 	}
 	deps->pkgs = malloc( sizeof *deps->pkgs );
 	if( deps->pkgs == NULL ){
-		fprintf(stderr,_("Failed to malloc deps->pkgs\n"));
+		fprintf(stderr,_("Failed to malloc %s\n"),"deps->pkgs");
 		exit(1);
 	}
 	deps->pkg_count = 0;

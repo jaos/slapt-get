@@ -117,7 +117,7 @@ int get_mirror_data_from_source(FILE *fh,const char *base_url,const char *filena
 		strlen(base_url) + strlen(filename) + 1, sizeof *url
 	);
 	if( url == NULL ){
-		fprintf(stderr,_("Failed to calloc url\n"));
+		fprintf(stderr,_("Failed to calloc %s\n"),"url");
 		exit(1);
 	}
 
@@ -152,7 +152,7 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 		sizeof *file_name
 	);
 	if( file_name == NULL ){
-		fprintf(stderr,_("Failed to calloc file_name\n"));
+		fprintf(stderr,_("Failed to calloc %s\n"),"file_name");
 		exit(1);
 	}
 	file_name = strncpy(file_name,pkg->name,strlen(pkg->name));
@@ -200,7 +200,7 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 		sizeof *url
 	);
 	if( url == NULL ){
-		fprintf(stderr,_("Failed to calloc url\n"));
+		fprintf(stderr,_("Failed to calloc %s\n"),"url");
 		exit(1);
 	}
 	url = strncpy(url,pkg->mirror,strlen(pkg->mirror));

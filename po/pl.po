@@ -110,8 +110,9 @@ msgstr "Pobieram listę sum kontrolnych [%s]..."
 msgid "Retrieving checksum list [%s]...\n"
 msgstr "Pobieram listę sum kontrolnych [%s]...\n"
 
-msgid "Failed to malloc global_config\n"
-msgstr "Nie powiodło się malloc global_config\n"
+#, c-format
+msgid "Failed to malloc %s\n"
+msgstr "Nie powiodło się malloc %s\n"
 
 #, c-format
 msgid "Maximum number of sources (%d) exceeded.\n"
@@ -156,9 +157,6 @@ msgstr "Zmiana katalogu na %s niepowiodła się.\n"
 msgid "unlinking %s\n"
 msgstr "odlinkowanie %s\n"
 
-msgid "Failed to malloc list\n"
-msgstr "Nie powiodło się calloc list\n"
-
 msgid "Failed to get cwd\n"
 msgstr "Nie powiodło się pobranie cwd\n"
 
@@ -194,11 +192,9 @@ msgstr "Pobieram url:[%s]\n"
 msgid "Failed to download: %s\n"
 msgstr "Pobranie niepowiodło się: %s\n"
 
-msgid "Failed to calloc url\n"
-msgstr "Nie powiodło się calloc url\n"
-
-msgid "Failed to calloc file_name\n"
-msgstr "Nie powiodło się calloc file_name\n"
+#, c-format
+msgid "Failed to calloc %s\n"
+msgstr "Nie powiodło się calloc %s\n"
 
 #, c-format
 msgid "Using cached copy of %s\n"
@@ -306,15 +302,9 @@ msgstr "ignoruj niepowodzenia zależności"
 msgid "%s version %s\n"
 msgstr "%s wersja %s\n"
 
-msgid "Failed to malloc pkgs\n"
-msgstr "Nie powiodło się malloc pkgs\n"
-
 #, c-format
 msgid "regex failed on [%s]\n"
 msgstr "regex przerwał działanie na [%s]\n"
-
-msgid "Failed to malloc tmp_pkg\n"
-msgstr "Nie powiodło się malloc tmp_pkg\n"
 
 #, c-format
 msgid "pkg name too long [%s:%d]\n"
@@ -338,17 +328,11 @@ msgstr "regexec nie zdołał przeanalizować lokacji\n"
 msgid "getline reached EOF attempting to read location\n"
 msgstr "getline osiagnął EOF probując odczytać lokację\n"
 
-msgid "Failed to calloc size_c\n"
-msgstr "Nie powiodło się calloc size_c\n"
-
 msgid "regexec failed to parse size_c\n"
 msgstr "regexec nie zdołał przeanalizować size_c\n"
 
 msgid "getline reached EOF attempting to read size_c\n"
 msgstr "getline osiagnął EOF probując odczytać size_c\n"
-
-msgid "Failed to calloc size_u\n"
-msgstr "Nie powiodło się calloc size_u\n"
 
 msgid "regexec failed to parse size_u\n"
 msgstr "regexec nie zdołał przeanalizować size_u\n"
@@ -359,11 +343,9 @@ msgstr "getline osiagnął EOF probując odczytać size_u\n"
 msgid "error attempting to read pkg description\n"
 msgstr "błąd przy próbie odczytu opisu pkg\n"
 
-msgid "Failed to realloc pkgs\n"
-msgstr "Nie powiodło się realloc pkgs\n"
-
-msgid "Failed to calloc short_description\n"
-msgstr "Nie powiodło się calloc short_description\n"
+#, c-format
+msgid "Failed to realloc %s\n"
+msgstr "Nie powiodło się realloc %s\n"
 
 msgid "Failed to compile regex\n"
 msgstr "Niepowiodła się kompilacja regex\n"
@@ -371,9 +353,6 @@ msgstr "Niepowiodła się kompilacja regex\n"
 #, c-format
 msgid "Regex Error: %s\n"
 msgstr "Błąd regex: %s\n"
-
-msgid "Failed to calloc list->pkgs[list->pkg_count]\n"
-msgstr "Nie powiodło się calloc list->pkgs[list->pkg_count]\n"
 
 #, c-format
 msgid "%s-%s is to be installed\n"
@@ -402,12 +381,6 @@ msgstr "%s-%s trzeba usunąć.\n"
 #, c-format
 msgid "Failed to compile regex [%s]\n"
 msgstr "Nie powiodła się kompilacja regex [%s]\n"
-
-msgid "Failed to malloc deps\n"
-msgstr "Nie powiodło się alokowanie deps\n"
-
-msgid "Failed to malloc deps->pkgs\n"
-msgstr "Nie powiodło się malloc deps->pkgs\n"
 
 #, c-format
 msgid "pkg conditional too long [%s:%d]\n"

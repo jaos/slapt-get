@@ -28,7 +28,7 @@ rc_config *read_rc_config(const char *file_name){
 
 	global_config = malloc( sizeof *global_config );
 	if( global_config == NULL ){
-		fprintf(stderr,_("Failed to malloc global_config\n"));
+		fprintf(stderr,_("Failed to malloc %s\n"),"global_config");
 		if( errno ){
 			perror("global_config malloc");
 		}
@@ -236,7 +236,7 @@ struct exclude_list *parse_exclude(char *line){
 	struct exclude_list *list;
 	list = malloc( sizeof *list );
 	if( list == NULL ){
-		fprintf(stderr,_("Failed to malloc list\n"));
+		fprintf(stderr,_("Failed to malloc %s\n"),"list");
 		if( errno ){
 			perror("malloc");
 		}

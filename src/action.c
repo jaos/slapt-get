@@ -67,7 +67,7 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 			pkg_info_t *tmp_pkg;
 			tmp_pkg = malloc( sizeof *tmp_pkg );
 			if( tmp_pkg == NULL ){
-				fprintf(stderr,_("Failed to malloc tmp_pkg\n"));
+				fprintf(stderr,_("Failed to malloc %s\n"),"tmp_pkg");
 				exit(1);
 			}
 
@@ -340,7 +340,7 @@ void pkg_action_show(const char *pkg_name){
 		pkg_info_t *tmp_pkg;
 		tmp_pkg = malloc( sizeof *tmp_pkg );
 		if( tmp_pkg == NULL ){
-			fprintf(stderr,_("Failed to malloc tmp_pkg\n"));
+			fprintf(stderr,_("Failed to malloc %s\n"),"tmp_pkg");
 			exit(1);
 		}
 
