@@ -1457,7 +1457,6 @@ static int head_mirror_data(const char *wurl,const char *file){
 	/* retrieve the header info */
 	head_data = head_request(url);
 	if( head_data == NULL ){
-		free(head_data);
 		free(url);
 		return -1;
 	}

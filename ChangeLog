@@ -1,4 +1,7 @@
 
+0.9.8i Jul 30, 2004
+ * removed unnecessary free in head_mirror_data
+
 0.9.8h Jul 29, 2004
  * fixed endless recursion in is_required_by() when packages declare circular dependencies
  * fixed endless recursion in lookup_pkg_dependencies when --no-dep used to ignore dep errors
