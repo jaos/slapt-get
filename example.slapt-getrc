@@ -19,6 +19,13 @@ EXCLUDE=kernel-ide,kernel-source,kernel-headers,kernel-modules,lilo,.*-[0-9]dl$,
 SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-10.0/
 #SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-current/
 
+# slapt source
+#SOURCE=http://software.jaos.org/slackpacks/8.1/
+#SOURCE=http://software.jaos.org/slackpacks/9.0/
+#SOURCE=http://software.jaos.org/slackpacks/9.1/
+SOURCE=http://software.jaos.org/slackpacks/10.0/
+#SOURCE=http://software.jaos.org/slackpacks/current/
+
 # you can use multiple sources, such as linuxpackages.net
 # (not recommended on production servers, see README)
 # Supported version are 8.1 9.0 9.1 10.0
@@ -44,6 +51,9 @@ SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-10.0/
 #SOURCE=http://linuxpackages.cgucccc.org/Slackware-10.0/
 ### Szombathely Linux Association / Hungary
 #SOURCE=ftp://ftp.slackware.hu/linuxpackages/Slackware-10.0/
+### IEEE Student Brach / Croatia
+#SOURCE=http://www.nymphomatic.org/mirror/linuxpackages/Slackware-10.0/
+#SOURCE=ftp://ftp.nymphomatic.org/linuxpackages/Slackware-10.0/
 # * no current with linuxpackages.net
 
 # audioslack sources
@@ -61,13 +71,6 @@ SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-10.0/
 #SOURCE=http://packs.slack.it/
 #SOURCE=http://slackpacks.tchelinux.com.br/
 #SOURCE=http://users.lichtsnel.nl/pub/slackware/
-
-# slapt source
-#SOURCE=http://software.jaos.org/slackpacks/8.1/
-#SOURCE=http://software.jaos.org/slackpacks/9.0/
-#SOURCE=http://software.jaos.org/slackpacks/9.1/
-SOURCE=http://software.jaos.org/slackpacks/10.0/
-#SOURCE=http://software.jaos.org/slackpacks/current/
 
 # pull from your cdrom
 #SOURCE=file:///mnt/cdrom/

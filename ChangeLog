@@ -1,5 +1,5 @@
 
-0.9.9 Aug 24, 2004
+0.9.9 Aug 26, 2004
  * print usage when given argument not caught by getop
  * set CURLOPT_FTP_USE_EPRT to off
  * updated makefile, moved /etc/slapt-getrc to /etc/slapt-get/slapt-getrc
