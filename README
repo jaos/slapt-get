@@ -54,7 +54,8 @@ Table of Contents:
 
     slapt-get requires Slackware-9.0 or better, due to glibc and openssl
     updates.  You can also use slapt-get under Slackware 8.1 if you
-    upgrade glibc-solibs and openssl from Slackware 9.0.
+    upgrade glibc-solibs and openssl from Slackware 9.0, or if the binary
+    is statically linked.
 
     The following packages are required to build slapt-get from source:
     make, gcc, curl, glibc, kernel-headers, binutils, zlib, and openssl
