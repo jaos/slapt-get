@@ -86,6 +86,9 @@ slapt-get \- frontend to pkgtools
 .B --clean
 ]
 [
+.B --autoclean
+]
+[
 .B --version
 ]
 .SH DESCRIPTION
@@ -163,6 +166,9 @@ List installed packages.
 .TP
 .B --clean
 Purge cached/downloaded packages from /var/slapt-get/.
+.TP
+.B --autoclean
+Purge duplicate older versions of cached/downloaded packages from /var/slapt-get/.
 .TP
 .B --version
 Print version and license info.
