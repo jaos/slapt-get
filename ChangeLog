@@ -1,5 +1,9 @@
 
 0.9.9g Jan 18, 2005
+ * removed redundant NULL check for available_pkgs and patch_pkgs, added
+   free_pkg_list() calls for them in cases where it might not get freed
+ * wrapped some open_file() calls in NULL check
+ * changed leftover fopen() calls to open_file() wrapper
  * updated format for exclude and suggestions during transaction report
  * rewrote add_suggestion() to use a struct instead of long string
  * formatted transaction report so that package names wrap at 80 chars

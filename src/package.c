@@ -1560,8 +1560,7 @@ void write_head_cache(const char *cache, const char *cache_filename){
 	head_filename = gen_head_cache_filename(cache_filename);
 
 	/* store the last modified date */
-	tmp = open_file(head_filename,"w");
-	if( tmp == NULL ) exit(1);
+	if( (tmp = open_file(head_filename,"w")) == NULL ) exit(1);
 	fprintf(tmp,"%s",cache);
 	fclose(tmp);
 
@@ -1649,11 +1648,11 @@ int update_pkg_cache(const rc_config *global_config){
 		/* open for reading if cached, otherwise write it from the downloaded data */
 		if( pkg_head != NULL && pkg_local_head != NULL && strcmp(pkg_head,pkg_local_head) == 0){
 			printf(_("Cached\n"));
-			tmp_pkg_f = fopen(pkg_filename,"r");
+			if( (tmp_pkg_f = open_file(pkg_filename,"r")) == NULL ) exit(1);
 			available_pkgs = parse_packages_txt(tmp_pkg_f);
 		}else{
 			if( global_config->dl_stats == TRUE ) printf("\n");
-			tmp_pkg_f = fopen(pkg_filename,"w+b");
+			if( (tmp_pkg_f = open_file(pkg_filename,"w+b")) == NULL ) exit(1);
 			if( get_mirror_data_from_source(tmp_pkg_f,global_config->dl_stats,global_config->sources.url[i],PKG_LIST) == 0 ){
 				rewind(tmp_pkg_f); /* make sure we are back at the front of the file */
 				available_pkgs = parse_packages_txt(tmp_pkg_f);
@@ -1663,9 +1662,7 @@ int update_pkg_cache(const rc_config *global_config){
 				clear_head_cache(pkg_filename);
 			}
 		}
-		if( available_pkgs == NULL ) source_dl_failed = 1;
-		/* extra double check... invalidate the cached package source if no packages where parsed */
-		if( available_pkgs != NULL && available_pkgs->pkg_count < 1 ){
+		if( available_pkgs == NULL || available_pkgs->pkg_count < 1 ){
 			source_dl_failed = 1;
 			clear_head_cache(pkg_filename);
 		}
@@ -1686,11 +1683,11 @@ int update_pkg_cache(const rc_config *global_config){
 		/* open for reading if cached, otherwise write it from the downloaded data */
 		if( patch_head != NULL && patch_local_head != NULL && strcmp(patch_head,patch_local_head) == 0){
 			printf(_("Cached\n"));
-			tmp_patch_f = fopen(patch_filename,"r");
+			if( (tmp_patch_f = open_file(patch_filename,"r")) == NULL ) exit(1);
 			patch_pkgs = parse_packages_txt(tmp_patch_f);
 		}else{
 			if( global_config->dl_stats == TRUE ) printf("\n");
-			tmp_patch_f = fopen(patch_filename,"w+b");
+			if( (tmp_patch_f = open_file(patch_filename,"w+b")) == NULL ) exit (1);
 			if( get_mirror_data_from_source(tmp_patch_f,global_config->dl_stats,global_config->sources.url[i],PATCHES_LIST) == 0 ){
 				rewind(tmp_patch_f); /* make sure we are back at the front of the file */
 				patch_pkgs = parse_packages_txt(tmp_patch_f);
@@ -1718,10 +1715,10 @@ int update_pkg_cache(const rc_config *global_config){
 		/* open for reading if cached, otherwise write it from the downloaded data */
 		if( checksum_head != NULL && checksum_local_head != NULL && strcmp(checksum_head,checksum_local_head) == 0){
 			printf(_("Cached\n"));
-			tmp_checksum_f = fopen(checksum_filename,"r");
+			if( (tmp_checksum_f = open_file(checksum_filename,"r")) == NULL ) exit(1);
 		}else{
 			if( global_config->dl_stats == TRUE ) printf("\n");
-			tmp_checksum_f = fopen(checksum_filename,"w+b");
+			if( (tmp_checksum_f = open_file(checksum_filename,"w+b")) == NULL ) exit(1);
 			if( get_mirror_data_from_source(
 						tmp_checksum_f,global_config->dl_stats,global_config->sources.url[i],CHECKSUM_FILE
 					) != 0
@@ -1751,31 +1748,23 @@ int update_pkg_cache(const rc_config *global_config){
 
 			/* now map md5 checksums to packages */
 			printf(_("Reading Package Lists..."));
-			if( available_pkgs != NULL ){
-				for(a = 0;a < available_pkgs->pkg_count;a++){
-					get_md5sum(available_pkgs->pkgs[a],tmp_checksum_f);
-					printf("%c\b",spinner());
-				}
+			for(a = 0;a < available_pkgs->pkg_count;a++){
+				get_md5sum(available_pkgs->pkgs[a],tmp_checksum_f);
+				printf("%c\b",spinner());
 			}
-			if( patch_pkgs != NULL ){
-				for(a = 0;a < patch_pkgs->pkg_count;a++){
-					get_md5sum(patch_pkgs->pkgs[a],tmp_checksum_f);
-					printf("%c\b",spinner());
-				}
+			for(a = 0;a < patch_pkgs->pkg_count;a++){
+				get_md5sum(patch_pkgs->pkgs[a],tmp_checksum_f);
+				printf("%c\b",spinner());
 			}
 			printf(_("Done\n"));
 
 			/* write package listings to disk */
-			if( available_pkgs != NULL ){
-				write_pkg_data(global_config->sources.url[i],pkg_list_fh_tmp,available_pkgs);
-				free_pkg_list(available_pkgs);
-			}
-			if( patch_pkgs != NULL ){
-				write_pkg_data(global_config->sources.url[i],pkg_list_fh_tmp,patch_pkgs);
-				free_pkg_list(patch_pkgs);
-			}
+			write_pkg_data(global_config->sources.url[i],pkg_list_fh_tmp,available_pkgs);
+			write_pkg_data(global_config->sources.url[i],pkg_list_fh_tmp,patch_pkgs);
 
 		}
+		if ( available_pkgs ) free_pkg_list(available_pkgs);
+		if ( patch_pkgs ) free_pkg_list(patch_pkgs);
 		free(checksum_filename);
 		fclose(tmp_checksum_f);
 
@@ -1788,7 +1777,7 @@ int update_pkg_cache(const rc_config *global_config){
 		char *getline_buffer = NULL;
 		FILE *pkg_list_fh;
 
-		pkg_list_fh = open_file(PKG_LIST_L,"w+");
+		if( (pkg_list_fh = open_file(PKG_LIST_L,"w+")) == NULL ) exit(1);
 		if( pkg_list_fh == NULL ) exit(1);
 		rewind(pkg_list_fh_tmp);
 		while( (bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh_tmp) ) != EOF ){
@@ -1961,7 +1950,7 @@ int verify_downloaded_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	file_name = gen_pkg_file_name(global_config,pkg);
 
 	/* return if we can't open the file */
-	if( ( fh_test = fopen(file_name,"r") ) == NULL ){
+	if( ( fh_test = open_file(file_name,"r") ) == NULL ){
 		free(file_name);
 		return not_verified;
 	}
