@@ -203,8 +203,9 @@ static struct exclude_list *parse_exclude(char *line){
 			if( realloc_tmp != NULL ){
 				list->excludes = realloc_tmp;
 				list->excludes[ list->count ] = strndup(
-					pointer, strlen(pointer)
+					pointer, strlen(pointer) + 1
 				);
+				list->excludes[ list->count ][strlen(pointer)] = '\0';
 				++list->count;
 			}
 
@@ -219,13 +220,14 @@ static struct exclude_list *parse_exclude(char *line){
 				pointer = strchr(line + position,',');
 				buffer = strndup(
 					line + position,
-					strlen(line + position) - strlen(pointer)
+					strlen(line + position) - strlen(pointer) + 1
 				);
 
 				realloc_tmp = realloc( list->excludes, sizeof *list->excludes * (list->count + 1) );
 				if( realloc_tmp != NULL ){
 					list->excludes = realloc_tmp;
 					list->excludes[ list->count ] = buffer;
+					list->excludes[ list->count ][strlen(buffer)] = '\0';
 				}
 
 				++list->count;
