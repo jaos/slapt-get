@@ -50,8 +50,6 @@ void version_info(void);
 /* */
 
 #define DEBUG 0
-#define PROGRAM_NAME "slapt-get"
-#define VERSION "0.9"
 #define PKG_LIST "PACKAGES.TXT"
 #define PKG_LIST_L "package_data_list"
 #define PATCHES_LIST "FILE_LIST"

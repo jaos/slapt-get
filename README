@@ -82,12 +82,18 @@ Table of Contents:
    Probably lots of bugs.  email bug reports to me:
     Jason Woodward <woodwardj at jaos dot org>
 
-   Make sure --update is ran and downloaded *_list files are good.
+   Make sure --update is ran once initially and downloaded *_list files are
+   good.
 
-   Some mirrors are incomplete and the downloaded file is actually html specifying
-    the webservers error message.  Run --clean to purge tgz files within WORKINGDIR.
+   Some mirrors are incomplete and the downloaded file is actually html
+   specifying the webservers error message.  Run --clean to purge tgz files
+   within WORKINGDIR.
 
    If you would like more notification on downloading pkgs/files, change the 
    USE_CURL_PROGRESS macro to 1 in include/curl.h.  This turns on curl's
    internal progress meter.
+
+   If you are getting segfaults, add -g to CFLAGS in the Makefile and rebuild
+   ( make clean && make ).  Run in gdb and let me know via email where the
+   fault happens.
 
