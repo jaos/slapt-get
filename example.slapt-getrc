@@ -19,9 +19,9 @@ SOURCE=ftp://sunsite.cnlab-switch.ch/mirror/slackware/slackware-9.1/
 
 # you can use multiple sources, such as linuxpackages.net
 # (not recommended on production servers, see README)
-#SOURCE=ftp://ftp.linuxpackages.net/pub/Slackware-8.1/
-#SOURCE=ftp://ftp.linuxpackages.net/pub/Slackware-9.0/
-#SOURCE=ftp://ftp.linuxpackages.net/pub/Slackware-9.1/
+#SOURCE=http://www3.linuxpackages.net/packages/Slackware-8.1/
+#SOURCE=http://www3.linuxpackages.net/packages/Slackware-9.0/
+#SOURCE=http://www3.linuxpackages.net/packages/Slackware-9.1/
 # * no current with linuxpackages.net
 
 # other unofficial sources
