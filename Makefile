@@ -1,5 +1,5 @@
 PROGRAM_NAME=slapt-get
-VERSION=0.9.8c
+VERSION=0.9.8d
 ARCH=i386
 RELEASE=1
 CC=gcc
@@ -48,6 +48,8 @@ doinstall:
 	if [ ! -d $(LOCALESDIR)/pt_BR/LC_MESSAGES ]; then mkdir -p $(LOCALESDIR)/pt_BR/LC_MESSAGES; fi; msgfmt -o $(LOCALESDIR)/pt_BR/LC_MESSAGES/slapt-get.mo po/pt_BR.po;
 	if [ ! -d $(LOCALESDIR)/no/LC_MESSAGES ]; then mkdir -p $(LOCALESDIR)/no/LC_MESSAGES; fi; msgfmt -o $(LOCALESDIR)/no/LC_MESSAGES/slapt-get.mo po/no.po;
 	if [ ! -d $(LOCALESDIR)/nl/LC_MESSAGES ]; then mkdir -p $(LOCALESDIR)/nl/LC_MESSAGES; fi; msgfmt -o $(LOCALESDIR)/nl/LC_MESSAGES/slapt-get.mo po/nl.po;
+	if [ ! -d $(LOCALESDIR)/es/LC_MESSAGES ]; then mkdir -p $(LOCALESDIR)/es/LC_MESSAGES; fi; msgfmt -o $(LOCALESDIR)/es/LC_MESSAGES/slapt-get.mo po/es.po;
+	if [ ! -d $(LOCALESDIR)/es_ES/LC_MESSAGES ]; then mkdir -p $(LOCALESDIR)/es_ES/LC_MESSAGES; fi; msgfmt -o $(LOCALESDIR)/es_ES/LC_MESSAGES/slapt-get.mo po/es_ES.po;
 	if [ ! -d /usr/doc/$(PROGRAM_NAME)-$(VERSION) ]; then mkdir /usr/doc/$(PROGRAM_NAME)-$(VERSION); fi
 	if [ -L /usr/lib/libslapt.so ]; then rm /usr/lib/libslapt.so ;fi
 	ln -s /usr/lib/libslapt-$(VERSION).so /usr/lib/libslapt.so
