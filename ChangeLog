@@ -1,4 +1,8 @@
 
+0.9 Sep 08, 2003
+ * --re-install is now --reinstall
+ * code updates
+
 0.8 Sep 07, 2003
  * --remove target now accepts multiple arguments
   ( --remove pkg1 pkg2 pkg3 pkg4 )

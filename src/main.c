@@ -39,7 +39,7 @@ int main( int argc, char *argv[] ){
 		{"simulate", 0, 0, 'm'},
 		{"version", 0, 0, 'v'},
 		{"no-prompt", 0, 0, 'b'},
-		{"re-install", 0, 0, 'n'},
+		{"reinstall", 0, 0, 'n'},
 		{"ignore-excludes", 0, 0, 'x'},
 	};
 	int option_index = 0;
@@ -122,7 +122,7 @@ int main( int argc, char *argv[] ){
 			case 'b': /* auto */
 				global_config->no_prompt = 1;
 				break;
-			case 'n': /* re-install */
+			case 'n': /* reinstall */
 				global_config->re_install = 1;
 				break;
 			case 'x': /* ignore-excludes */
@@ -162,7 +162,7 @@ void usage(){
 	printf("  --dist-upgrade    - assumes MIRROR is set to newer release\n");
 	printf("  --simulate        - show pkgs to be upgraded\n");
 	printf("  --no-prompt       - do not prompt during upgrade\n");
-	printf("  --re-install      - re-install the pkg even if installed\n");
+	printf("  --reinstall      - re-install the pkg even if installed\n");
 	printf("  --ignore-excludes - install excludes anyway\n");
 }
 

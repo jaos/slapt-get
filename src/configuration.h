@@ -21,7 +21,7 @@
 #define EXCLUDE_TOKEN "EXCLUDE="
 
 struct exclude_list {
-	char excludes[500][50];
+	char excludes[100][50];
 	int count;
 };
 
@@ -44,5 +44,4 @@ FILE *open_file(const char *,const char *);
 char spinner(void);
 void clean_pkg_dir(const char *);
 struct exclude_list *parse_exclude(char *);
-int is_excluded(const rc_config *,const char *);
 void create_dir_structure(const char *);

@@ -219,7 +219,7 @@ struct exclude_list *parse_exclude(char *line){
 	list->count = 0;
 
 	/* skip ahead past the = */
-	line = index(line,'=') + 1;
+	line = strchr(line,'=') + 1;
 
 	while( position < (int) strlen(line) ){
 		if( strstr(line + position,",") == NULL ){
@@ -237,8 +237,8 @@ struct exclude_list *parse_exclude(char *line){
 				continue;
 			}else{
 
-				pointer = index(line + position,',');
-				buffer = calloc( strlen(line + position) - strlen(pointer) + 1, sizeof(char) );
+				pointer = strchr(line + position,',');
+				buffer = calloc( strlen(line + position) - strlen(pointer) + 1, sizeof *buffer );
 				memcpy(buffer,line + position,strlen(line + position) - strlen(pointer) );
 				buffer[ strlen(line + position) - strlen(pointer) ] = '\0';
 				memcpy(list->excludes[ list->count ], buffer, strlen(buffer) );
@@ -252,30 +252,6 @@ struct exclude_list *parse_exclude(char *line){
 	}
 	
 	return list;
-}
-
-int is_excluded(const rc_config *global_config,const char *pkg_name){
-	int i;
-
-	if( global_config->ignore_excludes == 1 )
-		return 0;
-
-	/* maybe EXCLUDE= isn't defined in our rc? */
-	if( global_config->exclude_list == NULL )
-		return 0;
-
-	for(i = 0; i < global_config->exclude_list->count;i++){
-		/*
-		 * this is kludgy... global_config->exclude_list->excludes[i] is 1 char longer
-		 * than pkg_name
-		*/
-		if( (strncmp(global_config->exclude_list->excludes[i],pkg_name,strlen(pkg_name)) == 0)
-			&& (strlen(global_config->exclude_list->excludes[i]) - strlen(pkg_name) < 2) ){
-			return 1;
-		}
-	}
-
-	return 0;
 }
 
 /* recursively create dirs */
@@ -296,7 +272,7 @@ void create_dir_structure(const char *dir_name){
 		if( strstr(dir_name + position,"/" ) == NULL ){
 
 			/* pointer = dir_name + position; */
-			dir_name_buffer = calloc( strlen(dir_name + position) + 1 , sizeof(char) );
+			dir_name_buffer = calloc( strlen(dir_name + position) + 1 , sizeof *dir_name_buffer );
 			memcpy(dir_name_buffer,dir_name + position,strlen(dir_name + position));
 			dir_name_buffer[ strlen(dir_name + position) ] = '\0';
 
@@ -322,9 +298,9 @@ void create_dir_structure(const char *dir_name){
 			}else{
 
 				/* figure our dir name and mk it */
-				pointer = index(dir_name + position,'/');
+				pointer = strchr(dir_name + position,'/');
 				dir_name_buffer = calloc(
-					strlen(dir_name + position) - strlen(pointer) + 1 , sizeof(char)
+					strlen(dir_name + position) - strlen(pointer) + 1 , sizeof *dir_name_buffer
 				);
 				memcpy(dir_name_buffer,dir_name + position, strlen(dir_name + position) - strlen(pointer));
 				dir_name_buffer[ (strlen(dir_name + position) - strlen(pointer)) ] = '\0';

@@ -60,7 +60,7 @@ FILE *download_pkg_list(const rc_config *global_config){
 #endif
 
 	url = calloc(
-		strlen(global_config->mirror_url) + strlen(PKG_LIST) + 1, sizeof(char)
+		strlen(global_config->mirror_url) + strlen(PKG_LIST) + 1, sizeof *url
 	);
 	if( url == NULL ){
 		fprintf(stderr,"Failed to calloc url\n");
@@ -96,7 +96,7 @@ FILE *download_patches_list(const rc_config *global_config){
 #endif
 
 	url = calloc(
-		strlen(global_config->mirror_url) + strlen(PATCHDIR) + strlen(PATCHES_LIST) + 1 , sizeof(char)
+		strlen(global_config->mirror_url) + strlen(PATCHDIR) + strlen(PATCHES_LIST) + 1 , sizeof *url
 	);
 	if( url == NULL ){
 		fprintf(stderr,"Failed to calloc url\n");
@@ -123,7 +123,7 @@ char *download_pkg(const rc_config *global_config,pkg_info *pkg){
 
 	/* build the file name */
 	file_name = calloc(
-		strlen(pkg->name)+strlen("-")+strlen(pkg->version)+strlen(".tgz") + 1 , sizeof(char)
+		strlen(pkg->name)+strlen("-")+strlen(pkg->version)+strlen(".tgz") + 1 , sizeof *file_name
 	);
 	if( file_name == NULL ){
 		fprintf(stderr,"Failed to calloc file_name\n");
@@ -145,7 +145,7 @@ char *download_pkg(const rc_config *global_config,pkg_info *pkg){
 
 	/* build the url */
 	url = calloc(
-		strlen(global_config->mirror_url) + strlen(pkg->location) + strlen(file_name) + strlen("/") + 1 , sizeof(char)
+		strlen(global_config->mirror_url) + strlen(pkg->location) + strlen(file_name) + strlen("/") + 1 , sizeof *url
 	);
 	if( url == NULL ){
 		fprintf(stderr,"Failed to calloc url\n");

@@ -71,4 +71,6 @@ int upgrade_pkg(const rc_config *,pkg_info *);
 int remove_pkg(pkg_info *);
 /* free memory allocated for pkg_list struct */
 void free_pkg_list(struct pkg_list *);
+/* exclude pkg based on pkg name */
+int is_excluded(const rc_config *,const char *);
 
