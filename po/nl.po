@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.8d\n"
+"Project-Id-Version: 0.9.8e\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2004-04-27 15:00+0500\n"
+"PO-Revision-Date: 2004-05-28 15:00+0500\n"
 "Last-Translator: Jason Woodward <woodwardj@jaos.org>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -193,10 +193,6 @@ msgid "Failed to calloc %s\n"
 msgstr "Kon niet calloc %s\n"
 
 #, c-format
-msgid "Using cached copy of %s\n"
-msgstr "Gebruikt opgeslagen kopie van %s\n"
-
-#, c-format
 msgid "Downloading %s %s %s [%dK]..."
 msgstr "Downloaden %s %s %s [%dK]..."
 
@@ -209,8 +205,8 @@ msgid "Failed to unlink %s\n"
 msgstr "Kon koppeling niet vebreken %s\n"
 
 #, c-format
-msgid "md5 sum for %s is not correct!\n"
-msgstr "md5 sum voor %s is niet correct!\n"
+msgid "md5 sum for %s is not correct, override with --no-md5!\n"
+msgstr "md5 sum voor %s is niet correct, ga tegen met --no-md5!\n"
 
 #, c-format
 msgid "MD5 found:    [%s]\n"
@@ -396,6 +392,10 @@ msgstr "%d upgraded, %d nieuw geïnstalleerd, %d te verwijderen en %d niet geupgr
 #, c-format
 msgid "Need to get %dK of archives.\n"
 msgstr "Moet %dK aan archieven ophalen.\n"
+
+#, c-format
+msgid "Need to get %dK/%dK of archives.\n"
+msgstr "Moet %dK/%dK aan archieven ophalen.\n"
 
 #, c-format
 msgid "After unpacking %dK disk space will be freed.\n"

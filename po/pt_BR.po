@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.8d\n"
+"Project-Id-Version: 0.9.8e\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2004-04-27 15:00+0500\n"
+"PO-Revision-Date: 2004-05-28 15:00+0500\n"
 "Last-Translator: Henrique Pinto <henrique.pinto@kdemail.net>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -192,10 +192,6 @@ msgid "Failed to calloc %s\n"
 msgstr "Falha no calloc para %s\n"
 
 #, c-format
-msgid "Using cached copy of %s\n"
-msgstr "Usando cópia em cache de %s\n"
-
-#, c-format
 msgid "Downloading %s %s %s [%dK]..."
 msgstr "Fazendo o download de %s %s %s [%dK]..."
 
@@ -208,8 +204,8 @@ msgid "Failed to unlink %s\n"
 msgstr "Falha ao excluir %s\n"
 
 #, c-format
-msgid "md5 sum for %s is not correct!\n"
-msgstr "md5 sum para %s está incorreto!\n"
+msgid "md5 sum for %s is not correct, override with --no-md5!\n"
+msgstr "md5 sum para %s está incorreto, ignore com --no-md5!\n"
 
 #, c-format
 msgid "MD5 found:    [%s]\n"
@@ -407,6 +403,10 @@ msgstr "%d atualizados, %d para instalar, %d para remover e %d não atualizados.\
 #, c-format
 msgid "Need to get %dK of archives.\n"
 msgstr "É necessário fazer o download de %dK de arquivos comprimidos.\n"
+
+#, c-format
+msgid "Need to get %dK/%dK of archives.\n"
+msgstr "É necessário fazer o download de %dK/%dK de arquivos comprimidos.\n"
 
 #, c-format
 msgid "After unpacking %dK disk space will be freed.\n"
