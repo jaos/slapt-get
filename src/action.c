@@ -200,42 +200,84 @@ void pkg_action_list_installed(void){
 void pkg_action_remove(const rc_config *global_config,const pkg_action_args_t *action_args){
 	unsigned int i;
 	struct pkg_list *installed_pkgs;
-	struct pkg_list *available;
+	struct pkg_list *avail_pkgs;
+	sg_regex pkg_regex;
 	transaction_t tran;
 
 	installed_pkgs = get_installed_pkgs();
-	available = get_available_pkgs();
+	avail_pkgs = get_available_pkgs();
 	init_transaction(&tran);
+	init_regex(&pkg_regex,PKG_LOG_PATTERN);
 
 	for(i = 0; i < action_args->count; i++){
 		pkg_info_t *pkg;
+		unsigned int c;
+		struct pkg_list *deps;
 
-		if( (pkg = get_newest_pkg(installed_pkgs,action_args->pkgs[i])) != NULL){
-			unsigned int c;
-			struct pkg_list *deps;
+		/* Use regex to see if they specified a particular version */
+		execute_regex(&pkg_regex,action_args->pkgs[i]);
 
-			deps = is_required_by(global_config,available,pkg);
+		/* If so, parse it out and try to get that version only */
+		if( pkg_regex.reg_return == 0 ){
+			char *pkg_name,*pkg_version;
 
-			for(c = 0; c < deps->pkg_count;c++){
-
-				if( get_exact_pkg(installed_pkgs,deps->pkgs[c]->name,
-				deps->pkgs[c]->version) != NULL ){
-					add_remove_to_transaction(&tran,deps->pkgs[c]);
-				}
-
+			if( (pkg_regex.pmatch[1].rm_eo - pkg_regex.pmatch[1].rm_so) > NAME_LEN ){
+				fprintf(stderr,"Package name exceeds NAME_LEN: %d\n",NAME_LEN);
+				exit(1);
+			}
+			if( (pkg_regex.pmatch[2].rm_eo - pkg_regex.pmatch[2].rm_so) > VERSION_LEN ){
+				fprintf(stderr,"Package version exceeds NAME_LEN: %d\n",VERSION_LEN);
+				exit(1);
 			}
 
-			free_pkg_list(deps);
+			pkg_name = strndup(
+				action_args->pkgs[i] + pkg_regex.pmatch[1].rm_so,
+				pkg_regex.pmatch[1].rm_eo - pkg_regex.pmatch[1].rm_so
+			);
 
-			add_remove_to_transaction(&tran,pkg);
+			pkg_version = strndup(
+				action_args->pkgs[i] + pkg_regex.pmatch[2].rm_so,
+				pkg_regex.pmatch[2].rm_eo - pkg_regex.pmatch[2].rm_so
+			);
 
-		}else{
-			printf(_("%s is not installed.\n"),action_args->pkgs[i]);
+			pkg = get_exact_pkg(avail_pkgs, pkg_name, pkg_version);
+			free(pkg_name);
+			free(pkg_version);
+
 		}
+
+		/* If regex doesnt match */
+		if( pkg_regex.reg_return != 0 || pkg == NULL ){
+			/* make sure there is a package called action_args->pkgs[i] */
+			pkg = get_newest_pkg(avail_pkgs,action_args->pkgs[i]);
+
+			if( pkg == NULL ){
+				printf(_("%s is not installed.\n"),action_args->pkgs[i]);
+				continue;
+			}
+
+		}
+
+		deps = is_required_by(global_config,avail_pkgs,pkg);
+
+		for(c = 0; c < deps->pkg_count;c++){
+
+			if( get_exact_pkg(installed_pkgs,deps->pkgs[c]->name,
+			deps->pkgs[c]->version) != NULL ){
+				add_remove_to_transaction(&tran,deps->pkgs[c]);
+			}
+
+		}
+
+		free_pkg_list(deps);
+
+		add_remove_to_transaction(&tran,pkg);
+
 	}
 
 	free_pkg_list(installed_pkgs);
-	free_pkg_list(available);
+	free_pkg_list(avail_pkgs);
+	free_regex(&pkg_regex);
 
 	handle_transaction(global_config,&tran);
 
