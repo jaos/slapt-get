@@ -326,7 +326,6 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 	}/* end for */
 
 	if( global_config->dist_upgrade == 1 ){
-		printf("dist upgrade code here\n");
 
 		matches = malloc( sizeof *matches );
 		matches->pkgs = malloc( sizeof *matches->pkgs * all_pkgs->pkg_count );

@@ -138,12 +138,9 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	url[ strlen(url) ] = '\0';
 
 	#if USE_CURL_PROGRESS == 0
-	/* including the mirror makes the line too long */
-	/* printf("Downloading %s %s %s [%dK]...",pkg->mirror,pkg->name,pkg->version,pkg->size_c); */
-	printf("Downloading %s %s [%dK]...",pkg->name,pkg->version,pkg->size_c);
+	printf("Downloading %s %s %s [%dK]...",pkg->mirror,pkg->name,pkg->version,pkg->size_c);
 	#else
-	/* printf("Downloading %s %s %s [%dK]...\n",pkg->mirror,pkg->name,pkg->version,pkg->size_c); */
-	printf("Downloading %s %s [%dK]...\n",pkg->name,pkg->version,pkg->size_c);
+	printf("Downloading %s %s %s [%dK]...\n",pkg->mirror,pkg->name,pkg->version,pkg->size_c);
 	#endif
 
 	fh = open_file(file_name,"wb");

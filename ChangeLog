@@ -1,6 +1,9 @@
 
 0.9.6f Oct 20, 2003
  * download notification now prints out the version and pkg size
+ * removed debugging print for dist-upgrade
+ * do no unlink bad files (files that failed md5 checksum)
+ * added source url to download notice
 
 0.9.6d Oct 20, 2003
  * updated docs

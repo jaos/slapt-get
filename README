@@ -81,10 +81,7 @@ Table of Contents:
     * SOURCE must be a path to a valid slackware release directory,
     or a source such as linuxpackages.net (see example within rc).
     All that is required is the PACKAGES.TXT (see FAQ entry #17)
-    and CHECKSUMS.md5.  Multiple sources can be defined.  Please do
-    not add redundant mirror locations to the same release.  Mirror
-    fallback is not implemented.  Also, any time the source url(s)
-    are changed, slapt-get --update must be run to update local cache.
+    and CHECKSUMS.md5.  Multiple sources can be defined.
 
       NOTE: It is not recommended to mix 3rd party package sources
             with the official on production servers.  Sometimes 
@@ -111,6 +108,10 @@ Table of Contents:
    Some mirrors are incomplete and the downloaded file is actually html
    specifying the webservers error message.  MD5 checking has been 
    incorporated in order to alleviate this problem.
+
+   Please do not add redundant mirror locations to the same release.  Mirror
+   fallback is not implemented.  Also, any time the source url(s) are
+   changed, slapt-get --update must be run to update local cache.
 
    If you are getting segfaults, add -g to CFLAGS in the Makefile, change the
    DEBUG define in src/main.h to 1, and rebuild ( make clean && make ).  Run
