@@ -281,6 +281,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 
 		/* required, if provided */
 		f_pos = ftell(pkg_list_fh);
+		tmp_pkg->required[0] = '\0';
 		if(
 			((bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh)) != EOF)
 			&& ((char_pointer = strstr(getline_buffer,"PACKAGE REQUIRED")) != NULL)
@@ -337,7 +338,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 
 		list->pkgs = realloc_tmp;
 		list->pkgs[list->pkg_count] = tmp_pkg;
-		list->pkg_count += 1;
+		++list->pkg_count;
 		tmp_pkg = NULL;
 
 		/* printf("%c\b",spinner()); this interferes with --list scripting */
@@ -444,11 +445,11 @@ struct pkg_list *get_installed_pkgs(void){
 			tmp_pkg->version[ ip_regex.pmatch[2].rm_eo - ip_regex.pmatch[2].rm_so ] = '\0';
 
 			/* add if no existing_pkg or tmp_pkg has greater version */
-			if( ((existing_pkg = get_newest_pkg(list->pkgs,tmp_pkg->name,list->pkg_count)) == NULL)
+			if( ((existing_pkg = get_newest_pkg(list,tmp_pkg->name)) == NULL)
 				|| (cmp_pkg_versions(existing_pkg->version,tmp_pkg->version) < 0 )){
 
 				list->pkgs[list->pkg_count] = tmp_pkg;
-				list->pkg_count++;
+				++list->pkg_count;
 				tmp_pkg = NULL;
 
 				/* grow our pkgs array */
@@ -474,16 +475,16 @@ struct pkg_list *get_installed_pkgs(void){
 }
 
 /* lookup newest package from pkg_list */
-pkg_info_t *get_newest_pkg(pkg_info_t **pkgs,const char *pkg_name,int pkg_count){
+pkg_info_t *get_newest_pkg(struct pkg_list *pkg_list,const char *pkg_name){
 	int iterator;
 	pkg_info_t *pkg = NULL;
-	for(iterator = 0; iterator < pkg_count; iterator++ ){
+	for(iterator = 0; iterator < pkg_list->pkg_count; iterator++ ){
 
 		/* if pkg has same name as our requested pkg */
-		if( (strcmp(pkgs[iterator]->name,pkg_name)) == 0 ){
+		if( (strcmp(pkg_list->pkgs[iterator]->name,pkg_name)) == 0 ){
 
-			if( (pkg == NULL) || cmp_pkg_versions(pkg->version,pkgs[iterator]->version) < 0 ){
-				pkg = pkgs[iterator];
+			if( (pkg == NULL) || cmp_pkg_versions(pkg->version,pkg_list->pkgs[iterator]->version) < 0 ){
+				pkg = pkg_list->pkgs[iterator];
 			}
 		}
 
@@ -571,7 +572,7 @@ struct pkg_list *parse_file_list(FILE *fh){
 				list->pkgs[list->pkg_count]->description[0] = '\0';
 				list->pkgs[list->pkg_count]->size_c = 0;
 				list->pkgs[list->pkg_count]->size_u = 0;
-				list->pkg_count++;
+				++list->pkg_count;
 
 				realloc_tmp = realloc(list->pkgs , sizeof *list->pkgs * (list->pkg_count + 1));
 				if( realloc_tmp == NULL ){
@@ -888,7 +889,7 @@ int break_down_pkg_version(int *v,char *version){
 			memcpy(tmp,short_version + pos,b_count);
 			tmp[b_count - 1] = '\0';
 			v[count] = atoi(tmp);
-			count++;
+			++count;
 			free(tmp);
 			pointer = NULL;
 			pos += b_count;
@@ -898,7 +899,7 @@ int break_down_pkg_version(int *v,char *version){
 			memcpy(tmp,short_version + pos,b_count);
 			tmp[b_count - 1] = '\0';
 			v[count] = atoi(tmp);
-			count++;
+			++count;
 			free(tmp);
 			pos += b_count;
 		}
@@ -996,5 +997,259 @@ void search_pkg_list(struct pkg_list *available,struct pkg_list *matches,const c
 	}
 	regfree(&search_regex.regex);
 
+}
+
+/* resolve dependencies for packages already in the current transaction */
+struct pkg_list *lookup_pkg_dependencies(struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,pkg_info_t *pkg){
+	int i;
+	struct pkg_list *deps;
+	int position = 0;
+	char *pointer = NULL;
+	char *buffer = NULL;
+	pkg_info_t **realloc_tmp = NULL;
+
+	deps = malloc( sizeof *deps);
+	if( deps == NULL ){
+		fprintf(stderr,"Failed to malloc deps\n");
+		exit(1);
+	}
+	deps->pkgs = malloc( sizeof *deps->pkgs);
+	if( deps->pkgs == NULL ){
+		fprintf(stderr,"Failed to malloc deps->pkgs\n");
+		exit(1);
+	}
+	deps->pkg_count = 0;
+
+	/* don't go any further if the required member is empty */
+	if( strcmp(pkg->required,"") == 0 ) return deps;
+
+	/* parse dep line */
+	while( position < (int) strlen(pkg->required) ){
+		pkg_info_t *tmp_pkg = NULL;
+
+		/* either the last or there was only one to begin with */
+		if( strstr(pkg->required + position,",") == NULL ){
+			pointer = pkg->required + position;
+
+			/* parse the dep entry and try to lookup a package */
+			tmp_pkg = parse_dep_entry(avail_pkgs,installed_pkgs,pkg,pointer);
+
+			position += strlen(pointer);
+		}else{
+
+			/* if we have a comma, skip it */
+			if( pkg->required[position] == ',' ){
+				++position;
+				continue;
+			}
+
+			/* build the buffer to contain the dep entry */
+			pointer = strchr(pkg->required + position,',');
+			buffer = calloc(strlen(pkg->required + position) - strlen(pointer) +1, sizeof *buffer);
+			strncpy(buffer,pkg->required + position, strlen(pkg->required + position) - strlen(pointer));
+			buffer[ strlen(pkg->required + position) - strlen(pointer) ] = '\0';
+
+			/* parse the dep entry and try to lookup a package */
+			tmp_pkg = parse_dep_entry(avail_pkgs,installed_pkgs,pkg,buffer);
+
+			position += strlen(pkg->required + position) - strlen(pointer);
+			free(buffer);
+		}
+
+		/* recurse for each dep found */
+		if( tmp_pkg != NULL ){
+			/* if tmp_pkg is not already in the deps pkg_list */
+			if( get_newest_pkg(deps,tmp_pkg->name) == NULL ){
+				struct pkg_list *tmp_pkgs_deps = NULL;
+
+				/* add tmp_pkg to deps */
+				deps->pkgs[deps->pkg_count] = tmp_pkg;
+				++deps->pkg_count;
+				realloc_tmp = realloc(
+					deps->pkgs,
+					sizeof *deps->pkgs * (deps->pkg_count + 1)
+				);
+				if( realloc_tmp != NULL ){
+					realloc_tmp = NULL;
+				}/* end realloc check */
+
+				/* now check to see if tmp_pkg has dependencies */
+				tmp_pkgs_deps = lookup_pkg_dependencies(avail_pkgs,installed_pkgs,tmp_pkg);
+				if( tmp_pkgs_deps->pkg_count > 0 ){
+
+					for(i = 0; i < tmp_pkgs_deps->pkg_count; i++ ){
+
+						/* lookup package to see if it exists in dep list */
+						if( get_newest_pkg(deps,tmp_pkgs_deps->pkgs[i]->name) == NULL ){
+							deps->pkgs[deps->pkg_count] = tmp_pkgs_deps->pkgs[i];
+							++deps->pkg_count;
+							realloc_tmp = realloc( deps->pkgs, sizeof *deps->pkgs * (deps->pkg_count + 1) );
+							if( realloc_tmp != NULL ){
+								deps->pkgs = realloc_tmp;
+								realloc_tmp = NULL;
+							}/* end realloc check */
+						}/* end get_newest_pkg */
+
+					}/* end for loop */
+
+				}/* end tmp_pkgs_deps->pkg_count > 0 */
+				free(tmp_pkgs_deps->pkgs);
+				free(tmp_pkgs_deps);
+			} /* end already exists in dep check */
+
+		}/* end tmp_pkg != NULL */
+
+	}/* end while */
+	return deps;
+}
+
+pkg_info_t *parse_dep_entry(struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,pkg_info_t *pkg,char *dep_entry){
+	int i;
+	sg_regex parse_dep_regex;
+	char tmp_pkg_name[NAME_LEN],tmp_pkg_cond[3],tmp_pkg_ver[VERSION_LEN];
+	pkg_info_t *newest_avail_pkg;
+	pkg_info_t *newest_installed_pkg;
+
+	parse_dep_regex.nmatch = MAX_REGEX_PARTS;
+	regcomp(&parse_dep_regex.regex,REQUIRED_REGEX,REG_EXTENDED|REG_NEWLINE);
+
+	/* regex to pull out pieces */
+	parse_dep_regex.reg_return = regexec(
+		&parse_dep_regex.regex,
+		dep_entry,
+		parse_dep_regex.nmatch,
+		parse_dep_regex.pmatch,
+		0
+	);
+	/* skip this line if we didn't find a package name */
+	if( parse_dep_regex.reg_return != 0 ) return NULL;
+
+	if( (parse_dep_regex.pmatch[1].rm_eo - parse_dep_regex.pmatch[1].rm_so) > NAME_LEN ){
+		fprintf( stderr, "pkg name too long [%s:%d]\n",
+			dep_entry + parse_dep_regex.pmatch[1].rm_so,
+			parse_dep_regex.pmatch[1].rm_eo - parse_dep_regex.pmatch[1].rm_so
+		);
+		exit(1);
+	}
+	strncpy( tmp_pkg_name,
+		dep_entry + parse_dep_regex.pmatch[1].rm_so,
+		parse_dep_regex.pmatch[1].rm_eo - parse_dep_regex.pmatch[1].rm_so
+	);
+	tmp_pkg_name[ parse_dep_regex.pmatch[1].rm_eo - parse_dep_regex.pmatch[1].rm_so ] = '\0';
+
+	/* lookup newest in case there is no conditional */
+	newest_avail_pkg = get_newest_pkg(avail_pkgs,tmp_pkg_name);
+
+	/* if there is no conditional and version, return newest */
+	if( (parse_dep_regex.pmatch[2].rm_eo - parse_dep_regex.pmatch[2].rm_so) == 0 )
+		if( newest_avail_pkg != NULL ) return newest_avail_pkg;
+
+	if( (parse_dep_regex.pmatch[2].rm_eo - parse_dep_regex.pmatch[2].rm_so) > 3 ){
+		fprintf( stderr, "pkg conditional too long [%s:%d]\n",
+			dep_entry + parse_dep_regex.pmatch[2].rm_so,
+			parse_dep_regex.pmatch[2].rm_eo - parse_dep_regex.pmatch[2].rm_so
+		);
+		exit(1);
+	}
+	if( (parse_dep_regex.pmatch[3].rm_eo - parse_dep_regex.pmatch[3].rm_so) > VERSION_LEN ){
+		fprintf( stderr, "pkg version too long [%s:%d]\n",
+			dep_entry + parse_dep_regex.pmatch[3].rm_so,
+			parse_dep_regex.pmatch[3].rm_eo - parse_dep_regex.pmatch[3].rm_so
+		);
+		exit(1);
+	}
+	strncpy( tmp_pkg_cond,
+		dep_entry + parse_dep_regex.pmatch[2].rm_so,
+		parse_dep_regex.pmatch[2].rm_eo - parse_dep_regex.pmatch[2].rm_so
+	);
+	tmp_pkg_cond[ parse_dep_regex.pmatch[2].rm_eo - parse_dep_regex.pmatch[2].rm_so ] = '\0';
+	strncpy( tmp_pkg_ver,
+		dep_entry + parse_dep_regex.pmatch[3].rm_so,
+		parse_dep_regex.pmatch[3].rm_eo - parse_dep_regex.pmatch[3].rm_so
+	);
+	tmp_pkg_ver[ parse_dep_regex.pmatch[3].rm_eo - parse_dep_regex.pmatch[3].rm_so ] = '\0';
+	regfree(&parse_dep_regex.regex);
+
+	/*
+		* check the newest version of tmp_pkg_name (in newest_installed_pkg)
+		* before we try looping through installed_pkgs
+	*/
+	/* pkg_info_t *newest_installed_pkg; */
+	printf("going to compare against installed pkgs\n");
+	newest_installed_pkg = get_newest_pkg(installed_pkgs,tmp_pkg_name);
+	if( newest_installed_pkg != NULL ){
+		/* if condition is "=",">=", or "=<" and versions are the same */
+		if( (strstr(tmp_pkg_cond,"=") != NULL)
+		&& (strcmp(tmp_pkg_ver,newest_installed_pkg->version) == 0) )
+			return newest_installed_pkg;
+		/* if "<" */
+		if( strstr(tmp_pkg_cond,"<") != NULL )
+			if( cmp_pkg_versions(tmp_pkg_ver,newest_installed_pkg->version) > 0 )
+				return newest_installed_pkg;
+		/* if ">" */
+		if( strstr(tmp_pkg_cond,">") != NULL )
+			if( cmp_pkg_versions(tmp_pkg_ver,newest_installed_pkg->version) < 0 )
+				return newest_installed_pkg;
+	}
+	for(i = 0; i < installed_pkgs->pkg_count; i++){
+		if( strcmp(tmp_pkg_name,installed_pkgs->pkgs[i]->name) != 0 )
+			continue;
+
+		/* if condition is "=",">=", or "=<" and versions are the same */
+		if( (strstr(tmp_pkg_cond,"=") != NULL)
+		&& (strcmp(tmp_pkg_ver,installed_pkgs->pkgs[i]->version) == 0) )
+			return installed_pkgs->pkgs[i];
+		/* if "<" */
+		if( strstr(tmp_pkg_cond,"<") != NULL )
+			if( cmp_pkg_versions(tmp_pkg_ver,installed_pkgs->pkgs[i]->version) > 0 )
+				return installed_pkgs->pkgs[i];
+		/* if ">" */
+		if( strstr(tmp_pkg_cond,">") != NULL )
+			if( cmp_pkg_versions(tmp_pkg_ver,installed_pkgs->pkgs[i]->version) < 0 )
+				return installed_pkgs->pkgs[i];
+	}
+
+	/*
+		* check the newest version of tmp_pkg_name (in newest_avail_pkg)
+		* before we try looping through avail_pkgs
+	*/
+	printf("going to compare against available pkgs\n");
+	if( newest_avail_pkg != NULL ){
+		/* if condition is "=",">=", or "=<" and versions are the same */
+		if( (strstr(tmp_pkg_cond,"=") != NULL)
+		&& (strcmp(tmp_pkg_ver,newest_avail_pkg->version) == 0) )
+			return newest_avail_pkg;
+		/* if "<" */
+		if( strstr(tmp_pkg_cond,"<") != NULL )
+			if( cmp_pkg_versions(tmp_pkg_ver,newest_avail_pkg->version) > 0 )
+				return newest_avail_pkg;
+		/* if ">" */
+		if( strstr(tmp_pkg_cond,">") != NULL )
+			if( cmp_pkg_versions(tmp_pkg_ver,newest_avail_pkg->version) < 0 )
+				return newest_avail_pkg;
+	}
+
+	/* loop through avail_pkgs */
+	for(i = 0; i < avail_pkgs->pkg_count; i++){
+		if( strcmp(tmp_pkg_name,avail_pkgs->pkgs[i]->name) != 0 )
+			continue;
+
+		/* if condition is "=",">=", or "=<" and versions are the same */
+		if( (strstr(tmp_pkg_cond,"=") != NULL)
+		&& (strcmp(tmp_pkg_ver,avail_pkgs->pkgs[i]->version) == 0) )
+			return avail_pkgs->pkgs[i];
+		/* if "<" */
+		if( strstr(tmp_pkg_cond,"<") != NULL )
+			if( cmp_pkg_versions(tmp_pkg_ver,avail_pkgs->pkgs[i]->version) > 0 )
+				return avail_pkgs->pkgs[i];
+		/* if ">" */
+		if( strstr(tmp_pkg_cond,">") != NULL )
+			if( cmp_pkg_versions(tmp_pkg_ver,avail_pkgs->pkgs[i]->version) < 0 )
+				return avail_pkgs->pkgs[i];
+	}
+
+	fprintf(stderr,"The following packages have unmet dependencies:\n");
+	fprintf(stderr,"  %s: Depends: %s\n",pkg->name,dep_entry);
+	exit(1);
 }
 
