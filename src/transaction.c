@@ -42,94 +42,88 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 	size_t download_size = 0;
 	size_t uncompressed_size = 0;
 
-	/*
-		 if we have an update, or a removal...
-		and download_only, simulate, and no_prompt are not set
-	*/
-	if( global_config->download_only == 0 && global_config->simulate == 0 ){
-
-		/* show pkgs to exclude */
-		if( tran->exclude_pkgs->pkg_count > 0 ){
-			printf("The following packages have been EXCLUDED:\n");
-			printf("  ");
-			for(i = 0; i < tran->exclude_pkgs->pkg_count;i++){
-				printf("%s ",tran->exclude_pkgs->pkgs[i]->name);
-			}
-			printf("\n");
+	/* show pkgs to exclude */
+	if( tran->exclude_pkgs->pkg_count > 0 ){
+		printf("The following packages have been EXCLUDED:\n");
+		printf("  ");
+		for(i = 0; i < tran->exclude_pkgs->pkg_count;i++){
+			printf("%s ",tran->exclude_pkgs->pkgs[i]->name);
 		}
+		printf("\n");
+	}
 
-		/* show pkgs to install */
-		if( tran->install_pkgs->pkg_count > 0 ){
-			printf("The following NEW packages will be installed:\n");
-			printf("  ");
-			for(i = 0; i < tran->install_pkgs->pkg_count;i++){
-				printf("%s ",tran->install_pkgs->pkgs[i]->name);
-				download_size += tran->install_pkgs->pkgs[i]->size_c;
-				uncompressed_size += tran->install_pkgs->pkgs[i]->size_u;
-			}
-			printf("\n");
+	/* show pkgs to install */
+	if( tran->install_pkgs->pkg_count > 0 ){
+		printf("The following NEW packages will be installed:\n");
+		printf("  ");
+		for(i = 0; i < tran->install_pkgs->pkg_count;i++){
+			printf("%s ",tran->install_pkgs->pkgs[i]->name);
+			download_size += tran->install_pkgs->pkgs[i]->size_c;
+			uncompressed_size += tran->install_pkgs->pkgs[i]->size_u;
 		}
+		printf("\n");
+	}
 
-		/* show pkgs to remove */
-		if( tran->remove_pkgs->pkg_count > 0 ){
-			printf("The following packages will be REMOVED:\n");
-			printf("  ");
-			for(i = 0; i < tran->remove_pkgs->pkg_count;i++){
-				printf("%s ",tran->remove_pkgs->pkgs[i]->name);
-				uncompressed_size -= tran->remove_pkgs->pkgs[i]->size_u;
-			}
-			printf("\n");
+	/* show pkgs to remove */
+	if( tran->remove_pkgs->pkg_count > 0 ){
+		printf("The following packages will be REMOVED:\n");
+		printf("  ");
+		for(i = 0; i < tran->remove_pkgs->pkg_count;i++){
+			printf("%s ",tran->remove_pkgs->pkgs[i]->name);
+			uncompressed_size -= tran->remove_pkgs->pkgs[i]->size_u;
 		}
+		printf("\n");
+	}
 
-		/* show pkgs to upgrade */
-		if( tran->upgrade_pkgs->pkg_count > 0 ){
-			printf("The following packages will be upgraded:\n");
-			printf("  ");
-			for(i = 0; i < tran->upgrade_pkgs->pkg_count;i++){
-				printf("%s ",tran->upgrade_pkgs->pkgs[i]->installed->name);
-				download_size += tran->upgrade_pkgs->pkgs[i]->upgrade->size_c;
-				/*
-					* since the installed member of the struct has no size,
-					* we leave this out and assume the new package is close to
-					* being the same size 
-				uncompressed_size += tran->upgrade_pkgs->pkgs[i]->upgrade->size_u;
-				uncompressed_size -= tran->upgrade_pkgs->pkgs[i]->installed->size_u;
-				*/
-			}
-			printf("\n");
+	/* show pkgs to upgrade */
+	if( tran->upgrade_pkgs->pkg_count > 0 ){
+		printf("The following packages will be upgraded:\n");
+		printf("  ");
+		for(i = 0; i < tran->upgrade_pkgs->pkg_count;i++){
+			printf("%s ",tran->upgrade_pkgs->pkgs[i]->installed->name);
+			download_size += tran->upgrade_pkgs->pkgs[i]->upgrade->size_c;
+			/*
+				* since the installed member of the struct has no size,
+				* we leave this out and assume the new package is close to
+				* being the same size 
+			uncompressed_size += tran->upgrade_pkgs->pkgs[i]->upgrade->size_u;
+			uncompressed_size -= tran->upgrade_pkgs->pkgs[i]->installed->size_u;
+			*/
 		}
+		printf("\n");
+	}
 
-		/* print the summary */
-		printf(
-			"%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n",
-			tran->upgrade_pkgs->pkg_count,
-			tran->install_pkgs->pkg_count,
-			tran->remove_pkgs->pkg_count,
-			tran->exclude_pkgs->pkg_count
-		);
+	/* print the summary */
+	printf(
+		"%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n",
+		tran->upgrade_pkgs->pkg_count,
+		tran->install_pkgs->pkg_count,
+		tran->remove_pkgs->pkg_count,
+		tran->exclude_pkgs->pkg_count
+	);
 
-		/* only show this if we are going to do something */
-		if( tran->upgrade_pkgs->pkg_count > 0 || tran->remove_pkgs->pkg_count > 0
-		|| tran->install_pkgs->pkg_count > 0 ){
-			printf("Need to get %dK of archives.\n", download_size );
-			if( (int)uncompressed_size < 0 ){
-				printf("After unpacking %dK disk space will be freed.\n", uncompressed_size * -1 );
-			}else{
-				printf("After unpacking %dK of additional disk space will be used.\n", uncompressed_size );
-			}
+	/* only show this if we are going to do something */
+	if( tran->upgrade_pkgs->pkg_count > 0 || tran->remove_pkgs->pkg_count > 0
+	|| tran->install_pkgs->pkg_count > 0 ){
+		printf("Need to get %dK of archives.\n", download_size );
+		if( (int)uncompressed_size < 0 ){
+			printf("After unpacking %dK disk space will be freed.\n", uncompressed_size * -1 );
+		}else{
+			printf("After unpacking %dK of additional disk space will be used.\n", uncompressed_size );
 		}
+	}
 
-		/* prompt */
-		if(
-				(tran->upgrade_pkgs->pkg_count > 0 || tran->remove_pkgs->pkg_count > 0)
-				&& (global_config->no_prompt == 0 && global_config->interactive == 0)
-			) {
-			printf("Do you want to continue? [y/N] ");
-			fgets(prompt_answer,10,stdin);
-			if( tolower(prompt_answer[0]) != 'y' ){
-				printf("Abort.\n");
-				return 1;
-			}
+	/* prompt */
+	if(
+			(tran->upgrade_pkgs->pkg_count > 0 || tran->remove_pkgs->pkg_count > 0)
+			&& (global_config->no_prompt == 0 && global_config->interactive == 0
+			&& global_config->download_only == 0 && global_config->simulate == 0)
+		) {
+		printf("Do you want to continue? [y/N] ");
+		fgets(prompt_answer,10,stdin);
+		if( tolower(prompt_answer[0]) != 'y' ){
+			printf("Abort.\n");
+			return 1;
 		}
 	}
 
@@ -162,7 +156,14 @@ void add_install_to_transaction(transaction *tran,pkg_info_t *pkg){
 	if( tmp_list != NULL ){
 		tran->install_pkgs->pkgs = tmp_list;
 
-		tran->install_pkgs->pkgs[tran->install_pkgs->pkg_count] = pkg;
+		tran->install_pkgs->pkgs[tran->install_pkgs->pkg_count] = malloc(
+			sizeof *tran->install_pkgs->pkgs[tran->install_pkgs->pkg_count]
+		);
+		memcpy(
+			tran->install_pkgs->pkgs[tran->install_pkgs->pkg_count],
+			pkg,
+			sizeof *pkg
+		);
 		++tran->install_pkgs->pkg_count;
 	}
 
@@ -178,7 +179,14 @@ void add_remove_to_transaction(transaction *tran,pkg_info_t *pkg){
 	if( tmp_list != NULL ){
 		tran->remove_pkgs->pkgs = tmp_list;
 
-		tran->remove_pkgs->pkgs[tran->remove_pkgs->pkg_count] = pkg;
+		tran->remove_pkgs->pkgs[tran->remove_pkgs->pkg_count] = malloc(
+			sizeof *tran->remove_pkgs->pkgs[tran->remove_pkgs->pkg_count]
+		);
+		memcpy(
+			tran->remove_pkgs->pkgs[tran->remove_pkgs->pkg_count],
+			pkg,
+			sizeof *pkg
+		);
 		++tran->remove_pkgs->pkg_count;
 	}
 
@@ -194,7 +202,14 @@ void add_exclude_to_transaction(transaction *tran,pkg_info_t *pkg){
 	if( tmp_list != NULL ){
 		tran->exclude_pkgs->pkgs = tmp_list;
 
-		tran->exclude_pkgs->pkgs[tran->exclude_pkgs->pkg_count] = pkg;
+		tran->exclude_pkgs->pkgs[tran->exclude_pkgs->pkg_count] = malloc(
+			sizeof *tran->exclude_pkgs->pkgs[tran->exclude_pkgs->pkg_count]
+		);
+		memcpy(
+			tran->exclude_pkgs->pkgs[tran->exclude_pkgs->pkg_count],
+			pkg,
+			sizeof *pkg
+		);
 		++tran->exclude_pkgs->pkg_count;
 	}
 
@@ -222,18 +237,72 @@ void add_upgrade_to_transaction(
 			sizeof *tran->upgrade_pkgs->pkgs[tran->upgrade_pkgs->pkg_count]->upgrade
 		);
 
+		/*
 		tran->upgrade_pkgs->pkgs[tran->upgrade_pkgs->pkg_count]->installed = installed_pkg;
 		tran->upgrade_pkgs->pkgs[tran->upgrade_pkgs->pkg_count]->upgrade = upgrade_pkg;
+		*/
+		memcpy(
+			tran->upgrade_pkgs->pkgs[tran->upgrade_pkgs->pkg_count]->installed,
+			installed_pkg,
+			sizeof *installed_pkg
+		);
+		memcpy(
+			tran->upgrade_pkgs->pkgs[tran->upgrade_pkgs->pkg_count]->upgrade,
+			upgrade_pkg,
+			sizeof *upgrade_pkg
+		);
 		++tran->upgrade_pkgs->pkg_count;
 	}
 
 }
 
-void free_transaction(transaction *tran){
+int search_transaction(transaction *tran,pkg_info_t *pkg){
+	int i;
+	for(i = 0; i < tran->install_pkgs->pkg_count;i++){
+		if( (strcmp(pkg->name,tran->install_pkgs->pkgs[i]->name)==0)
+		&& (strcmp(pkg->version,tran->install_pkgs->pkgs[i]->version)==0) )
+			return 1;
+	}
+	for(i = 0; i < tran->upgrade_pkgs->pkg_count;i++){
+		if( (strcmp(pkg->name,tran->upgrade_pkgs->pkgs[i]->upgrade->name)==0)
+		&& (strcmp(pkg->version,tran->upgrade_pkgs->pkgs[i]->upgrade->version)==0) )
+			return 1;
+	}
+	for(i = 0; i < tran->remove_pkgs->pkg_count;i++){
+		if( (strcmp(pkg->name,tran->remove_pkgs->pkgs[i]->name)==0)
+		&& (strcmp(pkg->version,tran->remove_pkgs->pkgs[i]->version)==0) )
+			return 1;
+	}
+	for(i = 0; i < tran->exclude_pkgs->pkg_count;i++){
+		if( (strcmp(pkg->name,tran->exclude_pkgs->pkgs[i]->name)==0)
+		&& (strcmp(pkg->version,tran->exclude_pkgs->pkgs[i]->version)==0) )
+			return 1;
+	}
+	return 0;
+}
 
+void free_transaction(transaction *tran){
+	int i;
+
+	for(i = 0;i < tran->install_pkgs->pkg_count; i++){
+		free(tran->install_pkgs->pkgs[i]);
+	}
 	free(tran->install_pkgs->pkgs);
+
+	for(i = 0;i < tran->remove_pkgs->pkg_count; i++){
+		free(tran->remove_pkgs->pkgs[i]);
+	}
 	free(tran->remove_pkgs->pkgs);
+
+	for(i = 0;i < tran->upgrade_pkgs->pkg_count; i++){
+		free(tran->upgrade_pkgs->pkgs[i]->upgrade);
+		free(tran->upgrade_pkgs->pkgs[i]->installed);
+	}
 	free(tran->upgrade_pkgs->pkgs);
+
+	for(i = 0; i < tran->exclude_pkgs->pkg_count;i++){
+		free(tran->exclude_pkgs->pkgs[i]);
+	}
 	free(tran->exclude_pkgs->pkgs);
 
 	free(tran->install_pkgs);
