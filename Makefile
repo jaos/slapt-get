@@ -1,5 +1,5 @@
 PROGRAM_NAME=slapt-get
-VERSION=0.9.7a
+VERSION=0.9.7b
 ARCH=i386
 RELEASE=1
 CC=gcc
@@ -70,7 +70,7 @@ pkg: $(PROGRAM_NAME)
 	-@gzip pkg/usr/man/man8/$(PROGRAM_NAME).8
 	@( cd pkg; makepkg -c y $(PROGRAM_NAME)-$(VERSION)-$(ARCH)-$(RELEASE).tgz )
 
-po_files:
+po_file:
 	-grep '_(' src/*.c |cut -f2-255 -d':'|sed -re "s/.*(_\(\".*\"\)).*/\1/" > po/gettext_strings
 	-mv po/slapt-get.pot po/slapt-get.pot~
 	-xgettext -d slapt-get -o po/slapt-get.pot -a -C --no-location po/gettext_strings
