@@ -25,6 +25,12 @@ SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-9.1/
 #SOURCE=http://www3.linuxpackages.net/packages/Slackware-9.1/
 # * no current with linuxpackages.net
 
+# slackware testing and extra 
+#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-9.1/extra/
+#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-9.1/testing
+#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-current/extra/
+#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-current/testing
+
 # other unofficial sources
 #SOURCE=http://www.tenboard.com/slackware/slackware-9.0/
 #SOURCE=http://www.tenboard.com/slackware/slackware-9.1/

@@ -37,6 +37,7 @@ Frequenty Asked Questions:
 36. Why is upgradepkg complaining it cannot find installpkg or removepkg, with sudo?
 37. How can I specify a username/password for the connection to the package source?
 38. /var/slapt-get is growing large, how can I safely free up space?
+39. What about extra or testing packages?
 
 
 
@@ -741,5 +742,11 @@ Frequenty Asked Questions:
 
  Use the --clean option to remove all the cached packages from the tree within
  /var/slapt-get.
+
+
+39. What about extra or testing packages?
+
+ Example source entries for the extra and testing packages sets can be found
+ within the example.slapt-getrc file.
 
 
