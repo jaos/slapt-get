@@ -142,7 +142,6 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 		/* mirror */
 		f_pos = ftell(pkg_list_fh);
 		if(getline(&getline_buffer,&getline_len,pkg_list_fh) != EOF){
-			/* add in support for the mirror url */
 			mirror_regex.reg_return = regexec(
 				&mirror_regex.regex,
 				getline_buffer,
@@ -295,7 +294,6 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 			((bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh)) != EOF)
 			&& ((char_pointer = strstr(getline_buffer,"PACKAGE REQUIRED")) != NULL)
 		){
-				/* add in support for the required data */
 				size_t req_len = strlen("PACKAGE REQUIRED") + 2;
 				getline_buffer[bytes_read - 1] = '\0';
 				strncpy(tmp_pkg->required,char_pointer + req_len, strlen(char_pointer + req_len));
@@ -312,13 +310,45 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 			((bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh)) != EOF)
 			&& ((char_pointer = strstr(getline_buffer,"PACKAGE CONFLICTS")) != NULL)
 		){
-				/* add in support for the required data */
-				size_t conflicts_len = strlen("PACKAGE CONFLICTS") + 2;
+				char *conflicts = strpbrk(char_pointer,":") + 3;
+				if( strlen(conflicts) > CONFLICTS_LEN ){
+					fprintf( stderr, _("conflict too long [%s:%d]\n"),
+						conflicts,
+						strlen(conflicts)
+					);
+					free(tmp_pkg);
+					continue;
+				}
 				getline_buffer[bytes_read - 1] = '\0';
-				strncpy(tmp_pkg->conflicts,char_pointer + conflicts_len, strlen(char_pointer + conflicts_len));
-				tmp_pkg->conflicts[ strlen(char_pointer + conflicts_len) ] = '\0';
+				strncpy(tmp_pkg->conflicts,conflicts,strlen(conflicts));
 		}else{
-			/* required isn't provided... rewind one line */
+			/* conflicts isn't provided... rewind one line */
+			fseek(pkg_list_fh, (ftell(pkg_list_fh) - f_pos) * -1, SEEK_CUR);
+		}
+
+		/* md5 checksum */
+		f_pos = ftell(pkg_list_fh);
+		if(
+			((bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh)) != EOF)
+			&& (strstr(getline_buffer,"PACKAGE MD5 SUM") != NULL)
+		){
+				char *md5sum;
+				getline_buffer[bytes_read - 1] = '\0';
+				md5sum = strpbrk(getline_buffer,":") + 3;
+				/* don't overflow the buffer */
+				if( strlen(md5sum) > MD5_STR_LEN ){
+					fprintf( stderr, _("md5 sum too long [%s:%d]\n"),
+						md5sum,
+						strlen(md5sum)
+					);
+					free(tmp_pkg);
+					continue;
+				}
+
+				strncpy( tmp_pkg->md5,md5sum,strlen(md5sum));
+				tmp_pkg->md5[MD5_STR_LEN] = '\0';
+		}else{
+			/* md5 sum isn't provided... rewind one line */
 			fseek(pkg_list_fh, (ftell(pkg_list_fh) - f_pos) * -1, SEEK_CUR);
 		}
 
@@ -791,25 +821,13 @@ int is_excluded(const rc_config *global_config,pkg_info_t *pkg){
 	return 0;
 }
 
-void get_md5sum(const rc_config *global_config,pkg_info_t *pkg,char *md5_sum){
-	FILE *checksum_file;
+void get_md5sum(pkg_info_t *pkg,FILE *checksum_file){
 	sg_regex md5sum_regex;
 	ssize_t getline_read;
 	size_t getline_len = 0;
 	char *getline_buffer = NULL;
-	char *cwd = NULL;
 
 	md5sum_regex.nmatch = MAX_REGEX_PARTS;
-
-	cwd = getcwd(NULL,0);
-
-	chdir(global_config->working_dir);
-
-	checksum_file = open_file(CHECKSUM_FILE,"r");
-	if( checksum_file == NULL ){
-		fprintf(stderr,_("Perhaps you want to run --update?\n"));
-		return;
-	}
 
 	md5sum_regex.reg_return = regcomp(&md5sum_regex.regex,MD5SUM_REGEX, REG_EXTENDED|REG_NEWLINE);
 	if( md5sum_regex.reg_return != 0 ){
@@ -819,12 +837,14 @@ void get_md5sum(const rc_config *global_config,pkg_info_t *pkg,char *md5_sum){
 
 	while( (getline_read = getline(&getline_buffer,&getline_len,checksum_file) ) != EOF ){
 
+		/* ignore if it's not our package */
+		if( strstr(getline_buffer,pkg->name) == NULL) continue;
+		if( strstr(getline_buffer,pkg->version) == NULL) continue;
 		if( strstr(getline_buffer,".tgz") == NULL) continue;
-		if( strstr(getline_buffer,"/source/") != NULL) continue;
 
 		md5sum_regex.reg_return = regexec( &md5sum_regex.regex, getline_buffer, md5sum_regex.nmatch, md5sum_regex.pmatch, 0);
 		if( md5sum_regex.reg_return == 0 ){
-			char sum[34];
+			char sum[MD5_STR_LEN];
 			char location[50];
 			char name[50];
 			char version[50];
@@ -870,7 +890,7 @@ void get_md5sum(const rc_config *global_config,pkg_info_t *pkg,char *md5_sum){
 				#if DEBUG == 1
 				printf("%s-%s@%s, %s-%s@%s: %s\n",pkg->name,pkg->version,pkg->location,name,version,location,sum);
 				#endif
-				memcpy(md5_sum,sum,md5sum_regex.pmatch[1].rm_eo - md5sum_regex.pmatch[1].rm_so + 1);
+				memcpy(pkg->md5,sum,md5sum_regex.pmatch[1].rm_eo - md5sum_regex.pmatch[1].rm_so + 1);
 				break;
 			}
 
@@ -879,13 +899,12 @@ void get_md5sum(const rc_config *global_config,pkg_info_t *pkg,char *md5_sum){
 	#if DEBUG == 1
 	printf("%s-%s@%s = %s\n",pkg->name,pkg->version,pkg->location,md5_sum);
 	#endif
-	fclose(checksum_file);
-	chdir(cwd);
-	free(cwd);
 	regfree(&md5sum_regex.regex);
+	rewind(checksum_file);
 
 	return;
 }
+
 
 int cmp_pkg_versions(char *a, char *b){
 	struct pkg_version_parts a_parts;
@@ -1032,6 +1051,7 @@ void write_pkg_data(const char *source_url,FILE *d_file,struct pkg_list *pkgs){
 		fprintf(d_file,"PACKAGE SIZE (uncompressed):  %d K\n",pkgs->pkgs[i]->size_u);
 		fprintf(d_file,"PACKAGE REQUIRED:  %s\n",pkgs->pkgs[i]->required);
 		fprintf(d_file,"PACKAGE CONFLICTS:  %s\n",pkgs->pkgs[i]->conflicts);
+		fprintf(d_file,"PACKAGE MD5 SUM:  %s\n",pkgs->pkgs[i]->md5);
 		fprintf(d_file,"PACKAGE DESCRIPTION:\n");
 		/* do we have to make up an empty description? */
 		if( strlen(pkgs->pkgs[i]->description) < strlen(pkgs->pkgs[i]->name) ){
@@ -1583,94 +1603,88 @@ pkg_info_t *get_pkg_by_details(struct pkg_list *list,char *name,char *version,ch
 void update_pkg_cache(const rc_config *global_config){
 	int i;
 	FILE *pkg_list_fh;
-	FILE *patches_list_fh;
-	FILE *checksum_list_fh;
-	FILE *tmp_file;
-	struct pkg_list *available_pkgs = NULL;
 
-	/* download our PKG_LIST */
 	pkg_list_fh = open_file(PKG_LIST_L,"w+");
 
 	for(i = 0; i < global_config->sources.count; i++){
-		tmp_file = tmpfile();
+		FILE *tmp_pkg,*tmp_patch,*tmp_checksum;
+		struct pkg_list *available_pkgs = NULL;
+		struct pkg_list *patch_pkgs = NULL;
+
+		/* download our PKG_LIST */
+		tmp_pkg = tmpfile();
 		#if USE_CURL_PROGRESS == 0
 		printf(_("Retrieving package data [%s]..."),global_config->sources.url[i]);
 		#else
 		printf(_("Retrieving package data [%s]...\n"),global_config->sources.url[i]);
 		#endif
-		if( get_mirror_data_from_source(tmp_file,global_config->sources.url[i],PKG_LIST) == 0 ){
-			rewind(tmp_file); /* make sure we are back at the front of the file */
-			available_pkgs = parse_packages_txt(tmp_file);
-			write_pkg_data(global_config->sources.url[i],pkg_list_fh,available_pkgs);
-			free_pkg_list(available_pkgs);
+		if( get_mirror_data_from_source(tmp_pkg,global_config->sources.url[i],PKG_LIST) == 0 ){
+			rewind(tmp_pkg); /* make sure we are back at the front of the file */
+			available_pkgs = parse_packages_txt(tmp_pkg);
 			#if USE_CURL_PROGRESS == 0
 			printf(_("Done\n"));
 			#endif
 		}
-		fclose(tmp_file);
-	}
+		fclose(tmp_pkg);
 
-	/* download EXTRAS_LIST */
-#if GRAB_EXTRAS == 1
-	for(i = 0; i < global_config->sources.count; i++){
-		tmp_file = tmpfile();
-		#if USE_CURL_PROGRESS == 0
-		printf(_("Retrieving extras list [%s]..."),global_config->sources.url[i]);
-		#else
-		printf(_("Retrieving extras list [%s]...\n"),global_config->sources.url[i]);
-		#endif
-		if( get_mirror_data_from_source(tmp_file,global_config->sources.url[i],EXTRAS_LIST) == 0 ){
-			rewind(tmp_file); /* make sure we are back at the front of the file */
-			available_pkgs = parse_packages_txt(tmp_file);
-			write_pkg_data(global_config->sources.url[i],pkg_list_fh,available_pkgs);
-			free_pkg_list(available_pkgs);
-			#if USE_CURL_PROGRESS == 0
-			printf(_("Done\n"));
-			#endif
-		}
-		fclose(tmp_file);
-	}
-#endif
-
-	/* download PATCHES_LIST */
-	for(i = 0; i < global_config->sources.count; i++){
-		patches_list_fh = tmpfile();
+		/* download PATCHES_LIST */
+		tmp_patch = tmpfile();
 		#if USE_CURL_PROGRESS == 0
 		printf(_("Retrieving patch list [%s]..."),global_config->sources.url[i]);
 		#else
 		printf(_("Retrieving patch list [%s]...\n"),global_config->sources.url[i]);
 		#endif
-		if( get_mirror_data_from_source(patches_list_fh,global_config->sources.url[i],PATCHES_LIST) == 0 ){
-			rewind(patches_list_fh); /* make sure we are back at the front of the file */
-			available_pkgs = parse_packages_txt(patches_list_fh);
-			write_pkg_data(global_config->sources.url[i],pkg_list_fh,available_pkgs);
-			free_pkg_list(available_pkgs);
+		if( get_mirror_data_from_source(tmp_patch,global_config->sources.url[i],PATCHES_LIST) == 0 ){
+			rewind(tmp_patch); /* make sure we are back at the front of the file */
+			patch_pkgs = parse_packages_txt(tmp_patch);
 			#if USE_CURL_PROGRESS == 0
 			printf(_("Done\n"));
 			#endif
 		}
-		fclose(patches_list_fh);
-	}
-	fclose(pkg_list_fh);
+		fclose(tmp_patch);
 
-	/* download checksum file */
-	checksum_list_fh = open_file(CHECKSUM_FILE,"w+");
-
-	for(i = 0; i < global_config->sources.count; i++){
+		/* download checksum file */
+		tmp_checksum = tmpfile();
 		#if USE_CURL_PROGRESS == 0
 		printf(_("Retrieving checksum list [%s]..."),global_config->sources.url[i]);
 		#else
 		printf(_("Retrieving checksum list [%s]...\n"),global_config->sources.url[i]);
 		#endif
-		if( get_mirror_data_from_source(checksum_list_fh,global_config->sources.url[i],CHECKSUM_FILE) == 0 ){
+		if( get_mirror_data_from_source(tmp_checksum,global_config->sources.url[i],CHECKSUM_FILE) == 0 ){
+			int a;
 			#if USE_CURL_PROGRESS == 0
 			printf(_("Done\n"));
 			#endif
-		}
-	}
-	fclose(checksum_list_fh);
 
-	/* source listing to go here */
+			/* now map md5 sum to packages */
+			printf(_("Reading Package Lists..."));
+			rewind(tmp_checksum); /* make sure we are back at the front of the file */
+			if( available_pkgs != NULL ){
+				for(a = 0;a < available_pkgs->pkg_count;a++){
+					get_md5sum(available_pkgs->pkgs[a],tmp_checksum);
+					printf("%c\b",spinner());
+				}
+			}
+			if( patch_pkgs != NULL ){
+				for(a = 0;a < patch_pkgs->pkg_count;a++){
+					get_md5sum(patch_pkgs->pkgs[a],tmp_checksum);
+					printf("%c\b",spinner());
+				}
+			}
+			printf(_("Done\n"));
+		}
+		fclose(tmp_checksum);
+
+		/* write package listings to disk */
+		if( available_pkgs != NULL )
+			write_pkg_data(global_config->sources.url[i],pkg_list_fh,available_pkgs);
+		free_pkg_list(available_pkgs);
+		if( patch_pkgs != NULL )
+			write_pkg_data(global_config->sources.url[i],pkg_list_fh,patch_pkgs);
+		free_pkg_list(patch_pkgs);
+
+	}
+	fclose(pkg_list_fh);
 
 	return;
 }

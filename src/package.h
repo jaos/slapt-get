@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#define MAX_PKG_ENTRIES 2000
+#define MAX_PKG_ENTRIES 3000
 #define PKG_PARSE_REGEX "(.*{1,})\\-(.*[\\.\\-].*[\\.\\-].*).tgz[ ]{0,}$"
 #define PKG_NAMEVER "(.*{1,})\\-(.*[\\.\\-].*[\\.\\-].*)"
 #define PKG_VER "(.*)[\\.\\-](.*)[\\.\\-](.*)"
@@ -37,6 +37,7 @@
 #define DESCRIPTION_LEN 1024
 #define REQUIRED_LEN 1024
 #define CONFLICTS_LEN 1024
+#define MD5_STR_LEN 34
 
 struct _pkg_info {
 	char name[NAME_LEN];
@@ -48,6 +49,7 @@ struct _pkg_info {
 	char description[DESCRIPTION_LEN];
 	char required[REQUIRED_LEN];
 	char conflicts[CONFLICTS_LEN];
+	char md5[MD5_STR_LEN];
 };
 typedef struct _pkg_info pkg_info_t;
 struct pkg_list {
@@ -111,7 +113,7 @@ void free_pkg_list(struct pkg_list *);
 int is_excluded(const rc_config *,pkg_info_t *);
 
 /* lookup md5sum of file */
-void get_md5sum(const rc_config *global_config,pkg_info_t *pkg,char *md5_sum);
+void get_md5sum(pkg_info_t *pkg,FILE *checksum_file);
 
 /* compare package versions (returns just like strcmp) */
 int cmp_pkg_versions(char *a, char *b);
