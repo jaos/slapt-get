@@ -215,6 +215,7 @@ struct exclude_list *parse_exclude(char *line){
 	int position = 0;
 	char **realloc_tmp;
 	struct exclude_list *list;
+
 	list = malloc( sizeof *list );
 	if( list == NULL ){
 		fprintf(stderr,_("Failed to malloc %s\n"),"list");
@@ -223,12 +224,12 @@ struct exclude_list *parse_exclude(char *line){
 		}
 		exit(1);
 	}
+	list->excludes = malloc( sizeof *list->excludes );
 	list->count = 0;
 
 	/* skip ahead past the = */
 	line = strchr(line,'=') + 1;
 
-	list->excludes = malloc( sizeof *list->excludes );
 
 	while( position < (int) strlen(line) ){
 		if( strstr(line + position,",") == NULL ){
