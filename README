@@ -50,6 +50,9 @@ Table of Contents:
     * "compare package version" algorithm to prevent downgrades
     * recursive dependency resolution using slack-required metadata (see FAQ)
     * package conflict resolution using slack-conflicts metadata (see FAQ)
+    * Package data download robustness, only writing changes if all sources
+      download successfully as well as only downloading those sources that
+      have changed since the last download
     * extremely fast and easy to script with
 
 
