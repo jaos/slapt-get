@@ -1038,7 +1038,11 @@ struct pkg_list *lookup_pkg_dependencies(struct pkg_list *avail_pkgs,struct pkg_
 	deps->pkg_count = 0;
 
 	/* don't go any further if the required member is empty */
-	if( strcmp(pkg->required,"") == 0 || strcmp(pkg->required," ") == 0 )
+	if(
+		strcmp(pkg->required,"") == 0
+		|| strcmp(pkg->required," ") == 0
+		|| strcmp(pkg->required,"  ") == 0
+	)
 		return deps;
 
 	/* parse dep line */
