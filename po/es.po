@@ -187,12 +187,12 @@ msgid "Failed to calloc\n"
 msgstr "Falló el calloc\n"
 
 #, c-format
-msgid "Downloading %s %s %s [%dK]..."
-msgstr "Descargando %s %s %s [%dK]..."
+msgid "Downloading %s %s %s [%0.1d%c]..."
+msgstr "Descargando %s %s %s [%0.1d%c]..."
 
 #, c-format
-msgid "Downloading %s %s %s [%dK]...\n"
-msgstr "Descargando %s %s %s [%dK]...\n"
+msgid "Downloading %s %s %s [%0.1d%c]...\n"
+msgstr "Descargando %s %s %s [%0.1d%c]...\n"
 
 #, c-format
 msgid "Failed to unlink %s\n"
@@ -379,20 +379,20 @@ msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
 msgstr "%d actualizado(s), %d recién instalado(s), %d para eliminar y %d no actualizado(s).\n"
 
 #, c-format
-msgid "Need to get %dK of archives.\n"
-msgstr "Se necesita obtener %dK de archivos.\n"
+msgid "Need to get %0.1d%c of archives.\n"
+msgstr "Se necesita obtener %0.1d%c de archivos.\n"
 
 #, c-format
-msgid "Need to get %dK/%dK of archives.\n"
-msgstr "Se necesita obtener %dK/%dK de archivos.\n"
+msgid "Need to get %0.1d%c/%0.1d%c of archives.\n"
+msgstr "Se necesita obtener %0.1d%c/%0.1d%c de archivos.\n"
 
 #, c-format
-msgid "After unpacking %dK disk space will be freed.\n"
-msgstr "Luego de 'desempacar', %dK de espacio en disco serán liberados.\n"
+msgid "After unpacking %0.1d%c disk space will be freed.\n"
+msgstr "Luego de 'desempacar', %0.1d%c de espacio en disco serán liberados.\n"
 
 #, c-format
-msgid "After unpacking %dK of additional disk space will be used.\n"
-msgstr "Luego de 'desempacar', %dK de disco adicionales serán utilizados.\n"
+msgid "After unpacking %0.1d%c of additional disk space will be used.\n"
+msgstr "Luego de 'desempacar', %0.1d%c de disco adicionales serán utilizados.\n"
 
 msgid "Do you want to continue? [y/N] "
 msgstr "¿Desea continuar? [y/N] "

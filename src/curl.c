@@ -181,9 +181,19 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	f_size = get_pkg_file_size(global_config,pkg);
 
 	if( global_config->dl_stats == TRUE ){
-		printf(_("Downloading %s %s %s [%dK]...\n"),pkg->mirror,pkg->name,pkg->version,pkg->size_c - (f_size/1024));
+		int dl_total_size = pkg->size_c - (f_size/1024);
+		printf(_("Downloading %s %s %s [%0.1d%c]...\n"),
+			pkg->mirror,pkg->name,pkg->version,
+			( dl_total_size > 1024 ) ? dl_total_size / 1024 : dl_total_size,
+			( dl_total_size > 1024 ) ? 'M' : 'K'
+		);
 	}else{
-		printf(_("Downloading %s %s %s [%dK]..."),pkg->mirror,pkg->name,pkg->version,pkg->size_c - (f_size/1024));
+		int dl_total_size = pkg->size_c - (f_size/1024);
+		printf(_("Downloading %s %s %s [%0.1d%c]..."),
+			pkg->mirror,pkg->name,pkg->version,
+			( dl_total_size > 1024 ) ? dl_total_size / 1024 : dl_total_size,
+			( dl_total_size > 1024 ) ? 'M' : 'K'
+		);
 	}
 
 	/* open the file to write, append if already present */

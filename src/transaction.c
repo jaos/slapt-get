@@ -178,11 +178,18 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran){
 		}
 
 		if( already_download_size > 0 ){
-			printf(_("Need to get %dK/%dK of archives.\n"),
-				need_to_download_size, download_size
+			printf(_("Need to get %0.1d%c/%0.1d%c of archives.\n"),
+				(need_to_download_size > 1024 ) ? need_to_download_size / 1024
+					: need_to_download_size,
+				(need_to_download_size > 1024 ) ? 'M' : 'K',
+				(download_size > 1024 ) ? download_size / 1024 : download_size,
+				(download_size > 1024 ) ? 'M' : 'K'
 			);
 		}else{
-			printf(_("Need to get %dK of archives.\n"), download_size );
+			printf(_("Need to get %0.1d%c of archives.\n"),
+				(download_size > 1024 ) ? download_size / 1024 : download_size,
+				(download_size > 1024 ) ? 'M' : 'K'
+			);
 		}
 	}
 
@@ -191,12 +198,17 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran){
 
 		if( global_config->download_only == FALSE ){
 			if( (int)uncompressed_size < 0 ){
-				printf(_("After unpacking %dK disk space will be freed.\n"),
-					uncompressed_size * -1
+				uncompressed_size *= -1;
+				printf(_("After unpacking %0.1d%c disk space will be freed.\n"),
+					(uncompressed_size > 1024 ) ? uncompressed_size / 1024
+						: uncompressed_size,
+					(uncompressed_size > 1024 ) ? 'M' : 'K'
 				);
 			}else{
-				printf(_("After unpacking %dK of additional disk space will be used.\n"),
-					uncompressed_size
+				printf(_("After unpacking %0.1d%c of additional disk space will be used.\n"),
+					(uncompressed_size > 1024 ) ? uncompressed_size / 1024
+						: uncompressed_size,
+					(uncompressed_size > 1024 ) ? 'M' : 'K'
 				);
 			}
 		}

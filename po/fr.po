@@ -187,11 +187,11 @@ msgid "Failed to calloc\n"
 msgstr "Échoué au calloc\n"
 
 #, c-format
-msgid "Downloading %s %s %s [%dK]..."
+msgid "Downloading %s %s %s [%0.1d%c]..."
 msgstr ""
 
 #, c-format
-msgid "Downloading %s %s %s [%dK]...\n"
+msgid "Downloading %s %s %s [%0.1d%c]...\n"
 msgstr ""
 
 #, c-format
@@ -391,19 +391,19 @@ msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
 msgstr ""
 
 #, c-format
-msgid "Need to get %dK of archives.\n"
+msgid "Need to get %0.1d%c of archives.\n"
 msgstr ""
 
 #, c-format
-msgid "Need to get %dK/%dK of archives.\n"
+msgid "Need to get %0.1d%c/%0.1d%c of archives.\n"
 msgstr ""
 
 #, c-format
-msgid "After unpacking %dK disk space will be freed.\n"
+msgid "After unpacking %0.1d%c disk space will be freed.\n"
 msgstr ""
 
 #, c-format
-msgid "After unpacking %dK of additional disk space will be used.\n"
+msgid "After unpacking %0.1d%c of additional disk space will be used.\n"
 msgstr ""
 
 msgid "Do you want to continue? [y/N] "

@@ -188,12 +188,12 @@ msgid "Failed to calloc\n"
 msgstr "Nie powiod³o siê calloc\n"
 
 #, c-format
-msgid "Downloading %s %s %s [%dK]..."
-msgstr "Pobieram %s %s %s [%dK]..."
+msgid "Downloading %s %s %s [%0.1d%c]..."
+msgstr "Pobieram %s %s %s [%0.1d%c]..."
 
 #, c-format
-msgid "Downloading %s %s %s [%dK]...\n"
-msgstr "Pobieram %s %s %s [%dK]...\n"
+msgid "Downloading %s %s %s [%0.1d%c]...\n"
+msgstr "Pobieram %s %s %s [%0.1d%c]...\n"
 
 #, c-format
 msgid "Failed to unlink %s\n"
@@ -392,20 +392,20 @@ msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
 msgstr "%d uaktualnione(ych), %d nowe zainstalowane, %d do usuniêcia i %d nieuaktualnione.\n"
 
 #, c-format
-msgid "Need to get %dK of archives.\n"
-msgstr "Potrzeba ¶ci±gn±æ %dK danych.\n"
+msgid "Need to get %0.1d%c of archives.\n"
+msgstr "Potrzeba ¶ci±gn±æ %0.1d%c danych.\n"
 
 #, c-format
-msgid "Need to get %dK/%dK of archives.\n"
-msgstr "Potrzeba ¶ci±gn±æ %dK/%dK danych.\n"
+msgid "Need to get %0.1d%c/%0.1d%c of archives.\n"
+msgstr "Potrzeba ¶ci±gn±æ %0.1d%c/%0.1d%c danych.\n"
 
 #, c-format
-msgid "After unpacking %dK disk space will be freed.\n"
-msgstr "Po rozpakowaniu, %dK miejsca na dysku zostanie zwolnione.\n"
+msgid "After unpacking %0.1d%c disk space will be freed.\n"
+msgstr "Po rozpakowaniu, %0.1d%c miejsca na dysku zostanie zwolnione.\n"
 
 #, c-format
-msgid "After unpacking %dK of additional disk space will be used.\n"
-msgstr "Po rozpakowaniu, %dK miejsca na dysku zostanie u¿yte.\n"
+msgid "After unpacking %0.1d%c of additional disk space will be used.\n"
+msgstr "Po rozpakowaniu, %0.1d%c miejsca na dysku zostanie u¿yte.\n"
 
 msgid "Do you want to continue? [y/N] "
 msgstr "Czy chcesz kontynuowaæ? [y/N] "
