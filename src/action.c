@@ -90,9 +90,14 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 		if( installed_pkg == NULL ){
 
 			if( add_deps_to_trans(global_config,&tran,avail_pkgs,installed_pkgs,pkg) == 0 ){
-				/* this way we install the most up to date pkg */
-				if ( is_conflicted(&tran,avail_pkgs,installed_pkgs,pkg) == 0 )
-					add_install_to_transaction(&tran,pkg);
+				pkg_info_t *conflicted_pkg = NULL;
+
+				/* if there is a conflict, we schedule the conflict for removal */
+				if ( (conflicted_pkg = is_conflicted(&tran,avail_pkgs,installed_pkgs,pkg)) != NULL ){
+					add_remove_to_transaction(&tran,conflicted_pkg);
+				}
+				add_install_to_transaction(&tran,pkg);
+
 			}else{
 				add_exclude_to_transaction(&tran,pkg);
 			}
@@ -106,8 +111,13 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 			){
 
 				if( add_deps_to_trans(global_config,&tran,avail_pkgs,installed_pkgs,pkg) == 0 ){
-					if ( is_conflicted(&tran,avail_pkgs,installed_pkgs,pkg) == 0 )
-						add_upgrade_to_transaction(&tran,installed_pkg,pkg);
+					pkg_info_t *conflicted_pkg = NULL;
+
+					if ( (conflicted_pkg = is_conflicted(&tran,avail_pkgs,installed_pkgs,pkg)) != NULL ){
+						add_remove_to_transaction(&tran,conflicted_pkg);
+					}
+					add_upgrade_to_transaction(&tran,installed_pkg,pkg);
+
 				}else{
 					add_exclude_to_transaction(&tran,pkg);
 				}
@@ -401,15 +411,19 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 				)
 			){
 
-				if( add_deps_to_trans(global_config,&tran,avail_pkgs,installed_pkgs,update_pkg) == 0 ){
-					if( is_excluded(global_config,update_pkg) == 1 ){
-						add_exclude_to_transaction(&tran,update_pkg);
-					}else{
-						if ( is_conflicted(&tran,avail_pkgs,installed_pkgs,update_pkg) == 0 )
-							add_upgrade_to_transaction(&tran,installed_pkgs->pkgs[i],update_pkg);
-					}
-				}else{
+				if( is_excluded(global_config,update_pkg) == 1 ){
 					add_exclude_to_transaction(&tran,update_pkg);
+				}else{
+					/* if all deps are added and there is no conflicts, add on */
+					if(
+						(add_deps_to_trans(global_config,&tran,avail_pkgs,installed_pkgs,update_pkg) == 0)
+						&& ( is_conflicted(&tran,avail_pkgs,installed_pkgs,update_pkg) == NULL )
+					){
+						add_upgrade_to_transaction(&tran,installed_pkgs->pkgs[i],update_pkg);
+					}else{
+						/* otherwise exclude */
+						add_exclude_to_transaction(&tran,update_pkg);
+					}
 				}
 
 			}
@@ -419,13 +433,12 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 	}/* end for */
 
 	if( global_config->dist_upgrade == 1 ){
-		struct pkg_list *matches;
+		struct pkg_list *matches = search_pkg_list(avail_pkgs,SLACK_BASE_SET_REGEX);
 
-		matches = search_pkg_list(avail_pkgs,SLACK_BASE_SET_REGEX);
 		for(i = 0; i < matches->pkg_count; i++){
-			pkg_info_t *installed_pkg;
-			pkg_info_t *newer_avail_pkg;
-			pkg_info_t *upgrade_pkg;
+			pkg_info_t *installed_pkg = NULL;
+			pkg_info_t *newer_avail_pkg = NULL;
+			pkg_info_t *upgrade_pkg = NULL;
 
 			installed_pkg = get_newest_pkg(
 				installed_pkgs,
@@ -448,10 +461,14 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 					add_exclude_to_transaction(&tran,upgrade_pkg);
 				}else{
 
-					if( add_deps_to_trans(global_config,&tran,avail_pkgs,installed_pkgs,upgrade_pkg) == 0 ){
-						if ( is_conflicted(&tran,avail_pkgs,installed_pkgs,upgrade_pkg) == 0 )
-							add_install_to_transaction(&tran,upgrade_pkg);
+					/* add install if all deps are good and it doesn't have conflicts */
+					if(
+						(add_deps_to_trans(global_config,&tran,avail_pkgs,installed_pkgs,upgrade_pkg) == 0)
+						&& ( is_conflicted(&tran,avail_pkgs,installed_pkgs,upgrade_pkg) == NULL )
+					){
+						add_install_to_transaction(&tran,upgrade_pkg);
 					}else{
+						/* otherwise exclude */
 						add_exclude_to_transaction(&tran,upgrade_pkg);
 					}
 
@@ -467,10 +484,14 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 				if( is_excluded(global_config,upgrade_pkg) == 1 ){
 					add_exclude_to_transaction(&tran,upgrade_pkg);
 				}else{
-					if( add_deps_to_trans(global_config,&tran,avail_pkgs,installed_pkgs,upgrade_pkg) == 0 ){
-						if ( is_conflicted(&tran,avail_pkgs,installed_pkgs,upgrade_pkg) == 0 )
-							add_upgrade_to_transaction(&tran,installed_pkg,upgrade_pkg);
+					/* if all deps are added and there is no conflicts, add on */
+					if(
+						(add_deps_to_trans(global_config,&tran,avail_pkgs,installed_pkgs,upgrade_pkg) == 0)
+						&& ( is_conflicted(&tran,avail_pkgs,installed_pkgs,upgrade_pkg) == NULL )
+					){
+						add_upgrade_to_transaction(&tran,installed_pkg,upgrade_pkg);
 					}else{
+						/* otherwise exclude */
 						add_exclude_to_transaction(&tran,upgrade_pkg);
 					}
 				}
