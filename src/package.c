@@ -41,6 +41,8 @@ static void write_head_cache(const char *cache, const char *cache_filename);
 static char *read_head_cache(const char *cache_filename);
 /* free pkg_version_parts struct */
 static void free_pkg_version_parts(struct pkg_version_parts *parts);
+/* find dependency from "or" requirement */
+static pkg_info_t *find_or_requirement(struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,char *required_str);
 
 /* parse the PACKAGES.TXT file */
 struct pkg_list *get_available_pkgs(void){
@@ -1115,7 +1117,11 @@ static struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,s
 			pointer = pkg->required + position;
 
 			/* parse the dep entry and try to lookup a package */
-			tmp_pkg = parse_meta_entry(avail_pkgs,installed_pkgs,pointer);
+			if( strchr(pointer,'|') != NULL ){
+				tmp_pkg = find_or_requirement(avail_pkgs,installed_pkgs,pointer);
+			}else{
+				tmp_pkg = parse_meta_entry(avail_pkgs,installed_pkgs,pointer);
+			}
 
 			if( tmp_pkg == NULL ){
 				/*
@@ -1145,7 +1151,11 @@ static struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,s
 			buffer[ strlen(pkg->required + position) - strlen(pointer) ] = '\0';
 
 			/* parse the dep entry and try to lookup a package */
-			tmp_pkg = parse_meta_entry(avail_pkgs,installed_pkgs,buffer);
+			if( strchr(buffer,'|') != NULL ){
+				tmp_pkg = find_or_requirement(avail_pkgs,installed_pkgs,buffer);
+			}else{
+				tmp_pkg = parse_meta_entry(avail_pkgs,installed_pkgs,buffer);
+			}
 
 			if( tmp_pkg == NULL ){
 				/*
@@ -2171,3 +2181,45 @@ void clean_pkg_dir(const char *dir_name){
 
 }
 
+/* find dependency from "or" requirement */
+pkg_info_t *find_or_requirement(struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,char *required_str){
+	pkg_info_t *pkg = NULL;
+	int position = 0;
+
+	while( position < (int)strlen(required_str) ){
+
+		if( strchr(required_str + position,'|') == NULL ){
+			char *string = required_str + position;
+
+			pkg = parse_meta_entry(avail_pkgs,installed_pkgs,string);
+
+			if( pkg != NULL ) break;
+
+			position += strlen(string);
+		}else{
+			char *string = NULL;
+			int str_len = 0;
+			char *next_token = NULL;
+
+			if( required_str[position] == '|' ){ ++position; continue; }
+
+			next_token = index(required_str + position,'|');
+			str_len = strlen(required_str + position) - strlen(next_token);
+
+			string = malloc( sizeof *string * str_len + 1 );
+			strncpy(string,required_str + position, str_len);
+			string[str_len] = '\0';
+
+			pkg = parse_meta_entry(avail_pkgs,installed_pkgs,string);
+			free(string);
+
+			if( pkg != NULL ) break;
+
+			position += str_len;
+		}
+
+		++position;
+	}
+
+	return pkg;
+}

@@ -434,6 +434,11 @@ Frequenty Asked Questions:
  Version should include the arch and build if using '='.  That is the full
  slackware package version designation.  1.1.0-386-1 is valid.  1.1.0 is not.
 
+ You can specify multiple packages to satisfy a dependency.  The alternate
+ packages are seperated by a pipe, |.
+
+    jre = 1.4.1-i586-1 | j2sdk >= 1.4.2-i386-1 | jdk > 1.5.0-i386-1
+
  The package names are case sensitive.  So make sure you keep the case of the
  package name as it appears in the package filename.
 
