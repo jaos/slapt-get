@@ -26,11 +26,11 @@ typedef struct _transaction transaction;
 
 void init_transaction(transaction *);
 int handle_transaction(const rc_config *,transaction *);
-void add_install_to_transaction(transaction *,pkg_info_t *);
-void add_remove_to_transaction(transaction *,pkg_info_t *);
-void add_upgrade_to_transaction(transaction *,pkg_info_t *,pkg_info_t *);
-void add_exclude_to_transaction(transaction *,pkg_info_t *);
-int search_transaction(transaction *,pkg_info_t *);
+void add_install_to_transaction(transaction *,pkg_info_t *pkg);
+void add_remove_to_transaction(transaction *,pkg_info_t *pkg);
+void add_upgrade_to_transaction(transaction *,pkg_info_t *installed_pkg,pkg_info_t *upgrade_pkg);
+void add_exclude_to_transaction(transaction *,pkg_info_t *pkg);
+int search_transaction(transaction *,pkg_info_t *pkg);
 void free_transaction(transaction *);
 transaction *remove_from_transaction(transaction *tran,pkg_info_t *pkg);
 int add_deps_to_trans(const rc_config *global_config, transaction *tran, struct pkg_list *avail_pkgs, struct pkg_list *installed_pkgs, pkg_info_t *pkg);
