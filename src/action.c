@@ -496,8 +496,13 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 					}/* end for loop */
 
 					/* add if it's not already present in trans */
-					if( search_transaction(&tran,update_pkg) == 0 )
-						add_upgrade_to_transaction(&tran,installed_pkgs->pkgs[i],update_pkg);
+					if( search_transaction(&tran,update_pkg) == 0 ){
+						if( is_excluded(global_config,update_pkg) == 1 ){
+							add_exclude_to_transaction(&tran,update_pkg);
+						}else{
+							add_upgrade_to_transaction(&tran,installed_pkgs->pkgs[i],update_pkg);
+						}
+					}
 
 				}
 				free(deps->pkgs);

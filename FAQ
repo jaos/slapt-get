@@ -25,6 +25,7 @@ Frequenty Asked Questions:
 24. How can I get slapt-get to speak in my native tongue?
 25. How do I set the output language?
 26. How do I specify proxy settings?
+27. How can I exclude all *pre* and *beta* packages safely?
 
 
 
@@ -494,4 +495,22 @@ Frequenty Asked Questions:
   $ export ftp_proxy=ftp://host:port
   # just setting them for the current command invocation
   $ http_proxy=http://host:port slapt-get --update
+
+
+27. How can I exclude all *pre* and *beta* packages safely?
+
+ An exclude regex like .*pre.* or .*beta.* may net you the results of excluding
+ all packages with those characters in the name or version.  But they may also 
+ catch packages that have those characters normally occuring in the package name.
+
+ This regex seems to work much better:
+
+   [0-9\_\.\-]{1}pre[0-9\-\.\-]{1}
+
+ or for beta packages,
+
+   [0-9\_\.\-]{1}beta[0-9\-\.\-]{1}
+
+ Anything matching these regex will be added to the exclude list for the transaction.
+
 
