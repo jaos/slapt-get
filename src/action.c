@@ -43,7 +43,7 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 	for(i = 0; i < action_args->count; i++){
 
 		/* make sure there is a package called action_args->pkgs[i] */
-		if( (pkg = get_newest_pkg(all->pkgs,action_args->pkgs[i],all->pkg_count)) == NULL ){
+		if( (pkg = get_newest_pkg(all,action_args->pkgs[i])) == NULL ){
 			fprintf(stderr,"No Such package: %s\n",action_args->pkgs[i]);
 			continue;
 		}
@@ -51,10 +51,24 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 		/* if it's not already installed, install it */
 		if(
 			(installed_pkg
-				= get_newest_pkg(installed->pkgs,action_args->pkgs[i],installed->pkg_count)
+				= get_newest_pkg(installed,action_args->pkgs[i])
 			) == NULL
 		){
-
+			int c;
+			struct pkg_list *deps;
+			deps = lookup_pkg_dependencies(all,installed,pkg);
+			for(c = 0; c < deps->pkg_count;c++){
+				if( search_transaction(&tran,deps->pkgs[c]) == 0 ){
+					pkg_info_t *dep_installed;
+					if( (dep_installed = get_newest_pkg(installed,deps->pkgs[c]->name)) == NULL ){
+						add_install_to_transaction(&tran,deps->pkgs[c]);
+					}else{
+						add_upgrade_to_transaction(&tran,dep_installed,deps->pkgs[c]);
+					}
+				}
+			}
+			free(deps->pkgs);
+			free(deps);
 			/* this way we install the most up to date pkg */
 			add_install_to_transaction(&tran,pkg);
 
@@ -65,6 +79,20 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 				((cmp_pkg_versions(installed_pkg->version,pkg->version)) < 0)
 				|| (global_config->re_install == 1)
 			){
+				int c;
+				struct pkg_list *deps;
+				deps = lookup_pkg_dependencies(all,installed,pkg);
+				for(c = 0; c < deps->pkg_count;c++){
+					if( search_transaction(&tran,deps->pkgs[c]) == 0 ){
+						if( get_newest_pkg(installed,deps->pkgs[c]->name) == NULL ){
+							add_install_to_transaction(&tran,deps->pkgs[c]);
+						}else{
+							add_upgrade_to_transaction(&tran,installed_pkg,deps->pkgs[c]);
+						}
+					}
+				}
+				free(deps->pkgs);
+				free(deps);
 				add_upgrade_to_transaction(&tran,installed_pkg,pkg);
 			}else{
 				printf("%s is up to date.\n",installed_pkg->name);
@@ -74,10 +102,11 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 
 	}
 
-	handle_transaction(global_config,&tran);
-
 	free_pkg_list(installed);
 	free_pkg_list(all);
+
+	handle_transaction(global_config,&tran);
+
 	free_transaction(&tran);
 	return;
 }
@@ -93,7 +122,11 @@ void pkg_action_list(void){
 		/* this should eliminate the printing of updates */
 		if( strstr(pkgs->pkgs[iterator]->description,"no description") == NULL ){
 			char *short_description = gen_short_pkg_description(pkgs->pkgs[iterator]);
-			printf("%s - %s\n",pkgs->pkgs[iterator]->name,short_description);
+			printf("%s - %s : %s\n",	
+				pkgs->pkgs[iterator]->name,	
+				pkgs->pkgs[iterator]->version,	
+				short_description
+			);
 			free(short_description);
 		}
 	}
@@ -131,7 +164,7 @@ void pkg_action_remove(const rc_config *global_config,const pkg_action_args_t *a
 
 	for(i = 0; i < action_args->count; i++){
 		if(
-			(pkg = get_newest_pkg(installed->pkgs,action_args->pkgs[i],installed->pkg_count)) != NULL
+			(pkg = get_newest_pkg(installed,action_args->pkgs[i])) != NULL
 		){
 			add_remove_to_transaction(&tran,pkg);
 		}else{
@@ -139,10 +172,11 @@ void pkg_action_remove(const rc_config *global_config,const pkg_action_args_t *a
 		}
 	}
 
-	handle_transaction(global_config,&tran);
-
 	free_pkg_list(installed);
 	free_transaction(&tran);
+
+	handle_transaction(global_config,&tran);
+
 }
 
 /* search for a pkg (support extended POSIX regex) */
@@ -177,7 +211,7 @@ void pkg_action_show(const char *pkg_name){
 
 	available_pkgs = get_available_pkgs();
 
-	pkg = get_newest_pkg(available_pkgs->pkgs,pkg_name,available_pkgs->pkg_count);
+	pkg = get_newest_pkg(available_pkgs,pkg_name);
 
 	if( pkg != NULL ){
 		printf("Package Name: %s\n",pkg->name);
@@ -308,9 +342,8 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 
 		/* see if we have an available update for the pkg */
 		update_pkg = get_newest_pkg(
-			all_pkgs->pkgs,
-			installed_pkgs->pkgs[i]->name,
-			all_pkgs->pkg_count
+			all_pkgs,
+			installed_pkgs->pkgs[i]->name
 		);
 		if( update_pkg != NULL ){
 
@@ -320,8 +353,23 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 			}
 
 			/* if the update has a newer version, attempt to upgrade */
-			if( (cmp_pkg_versions(installed_pkgs->pkgs[i]->version,update_pkg->version)) < 0 )
+			if( (cmp_pkg_versions(installed_pkgs->pkgs[i]->version,update_pkg->version)) < 0 ){
+				int c;
+				struct pkg_list *deps;
+				deps = lookup_pkg_dependencies(all_pkgs,installed_pkgs,update_pkg);
+				for(c = 0; i < deps->pkg_count;c++){
+					if( search_transaction(&tran,deps->pkgs[c]) == 0 ){
+						if( get_newest_pkg(installed_pkgs,deps->pkgs[c]->name) == NULL ){
+							add_install_to_transaction(&tran,deps->pkgs[c]);
+						}else{
+							add_upgrade_to_transaction(&tran,installed_pkgs->pkgs[i],deps->pkgs[c]);
+						}
+					}
+				}
+				free(deps->pkgs);
+				free(deps);
 				add_upgrade_to_transaction(&tran,installed_pkgs->pkgs[i],update_pkg);
+			}
 
 		}/* end upgrade pkg found */
 
@@ -337,15 +385,29 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 		for(i = 0; i < matches->pkg_count; i++){
 
 			installed_pkg = get_newest_pkg(
-				installed_pkgs->pkgs,
-				matches->pkgs[i]->name,
-				installed_pkgs->pkg_count
+				installed_pkgs,
+				matches->pkgs[i]->name
 			);
 			/* add to install list if not already installed */
 			if( installed_pkg == NULL ){
 				if( is_excluded(global_config,matches->pkgs[i]->name) == 1 ){
 					add_exclude_to_transaction(&tran,matches->pkgs[i]);
 				}else{
+					int c;
+					struct pkg_list *deps;
+					deps = lookup_pkg_dependencies(all_pkgs,installed_pkgs,matches->pkgs[i]);
+					for(c = 0; i < deps->pkg_count;c++){
+						if( search_transaction(&tran,deps->pkgs[c]) == 0 ){
+							pkg_info_t *dep_installed;
+							if( (dep_installed = get_newest_pkg(installed_pkgs,deps->pkgs[c]->name)) == NULL ){
+								add_install_to_transaction(&tran,deps->pkgs[c]);
+							}else{
+								add_upgrade_to_transaction(&tran,dep_installed,deps->pkgs[c]);
+							}
+						}
+					}
+					free(deps->pkgs);
+					free(deps);
 					add_install_to_transaction(&tran,matches->pkgs[i]);
 				}
 			}
@@ -356,10 +418,11 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 		free(matches);
 	}
 
-	handle_transaction(global_config,&tran);
-
 	free_pkg_list(installed_pkgs);
 	free_pkg_list(all_pkgs);
+
+	handle_transaction(global_config,&tran);
+
 	free_transaction(&tran);
 }
 

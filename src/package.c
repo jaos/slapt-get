@@ -919,6 +919,7 @@ void write_pkg_data(const char *source_url,FILE *d_file,struct pkg_list *pkgs){
 		fprintf(d_file,"PACKAGE LOCATION:  %s\n",pkgs->pkgs[i]->location);
 		fprintf(d_file,"PACKAGE SIZE (compressed):  %d K\n",pkgs->pkgs[i]->size_c);
 		fprintf(d_file,"PACKAGE SIZE (uncompressed):  %d K\n",pkgs->pkgs[i]->size_u);
+		fprintf(d_file,"PACKAGE REQUIRED:  %s\n",pkgs->pkgs[i]->required);
 		fprintf(d_file,"PACKAGE DESCRIPTION:\n");
 		/* do we have to make up an empty description? */
 		if( strlen(pkgs->pkgs[i]->description) < strlen(pkgs->pkgs[i]->name) ){
