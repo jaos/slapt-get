@@ -38,6 +38,7 @@ withlibslaptinstall: withlibslapt doinstall
 
 doinstall:
 	install $(PROGRAM_NAME) $(SBINDIR)
+	chown root:bin $(SBINDIR)$(PROGRAM_NAME)
 	if [ ! -f $(RCDEST) ]; then install --mode=0644 -b $(RCSOURCE) $(RCDEST); else install --mode=0644 -b $(RCSOURCE) $(RCDEST).new;fi
 	install $(PROGRAM_NAME).8 /usr/man/man8/
 	gzip -f /usr/man/man8/$(PROGRAM_NAME).8
@@ -45,6 +46,7 @@ doinstall:
 	if [ ! -d $(LOCALESDIR)/en/LC_MESSAGES ]; then mkdir -p $(LOCALESDIR)/en/LC_MESSAGES; fi; msgfmt -o $(LOCALESDIR)/en/LC_MESSAGES/slapt-get.mo po/en.po;
 	if [ ! -d $(LOCALESDIR)/pl/LC_MESSAGES ]; then mkdir -p $(LOCALESDIR)/pl/LC_MESSAGES; fi; msgfmt -o $(LOCALESDIR)/pl/LC_MESSAGES/slapt-get.mo po/pl.po;
 	if [ ! -d $(LOCALESDIR)/pt_BR/LC_MESSAGES ]; then mkdir -p $(LOCALESDIR)/pt_BR/LC_MESSAGES; fi; msgfmt -o $(LOCALESDIR)/pt_BR/LC_MESSAGES/slapt-get.mo po/pt_BR.po;
+	if [ ! -d $(LOCALESDIR)/no/LC_MESSAGES ]; then mkdir -p $(LOCALESDIR)/no/LC_MESSAGES; fi; msgfmt -o $(LOCALESDIR)/no/LC_MESSAGES/slapt-get.mo po/no.po;
 	if [ ! -d /usr/doc/$(PROGRAM_NAME)-$(VERSION) ]; then mkdir /usr/doc/$(PROGRAM_NAME)-$(VERSION); fi
 	if [ -L /usr/lib/libslapt.so ]; then rm /usr/lib/libslapt.so ;fi
 	ln -s /usr/lib/libslapt-$(VERSION).so /usr/lib/libslapt.so
@@ -87,6 +89,7 @@ dopkg:
 	-@mkdir -p pkg$(LOCALESDIR)/en/LC_MESSAGES; msgfmt -o pkg$(LOCALESDIR)/en/LC_MESSAGES/slapt-get.mo po/en.po
 	-@mkdir -p pkg$(LOCALESDIR)/pl/LC_MESSAGES; msgfmt -o pkg$(LOCALESDIR)/pl/LC_MESSAGES/slapt-get.mo po/pl.po
 	-@mkdir -p pkg$(LOCALESDIR)/pt_BR/LC_MESSAGES; msgfmt -o pkg$(LOCALESDIR)/pt_BR/LC_MESSAGES/slapt-get.mo po/pt_BR.po
+	-@mkdir -p pkg$(LOCALESDIR)/no/LC_MESSAGES; msgfmt -o pkg$(LOCALESDIR)/no/LC_MESSAGES/slapt-get.mo po/no.po
 	-@cp $(PROGRAM_NAME) ./pkg/sbin/
 	-@chown root:bin ./pkg/sbin/$(PROGRAM_NAME)
 	-@strip ./pkg/sbin/$(PROGRAM_NAME)
