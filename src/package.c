@@ -1632,6 +1632,12 @@ int update_pkg_cache(const rc_config *global_config){
 			}
 		}
 		if( available_pkgs == NULL ) source_dl_failed = 1;
+		/* extra double check... invalidate the cached package source if no packages where parsed */
+		if( available_pkgs != NULL && Available_pkgs->pkg_count < 1 ){
+			source_dl_failed = 1;
+			clear_head_cache(pkg_filename);
+		}
+		/* if all is good, write it */
 		if( source_dl_failed != 1 && pkg_head != NULL ) write_head_cache(pkg_head,pkg_filename);
 		free(pkg_head);
 		free(pkg_local_head);
@@ -1663,6 +1669,7 @@ int update_pkg_cache(const rc_config *global_config){
 				clear_head_cache(patch_filename);
 			}
 		}
+		/* if all is good, write it */
 		if( source_dl_failed != 1 && patch_head != NULL ) write_head_cache(patch_head,patch_filename);
 		free(patch_head);
 		free(patch_local_head);
@@ -1694,6 +1701,7 @@ int update_pkg_cache(const rc_config *global_config){
 			}
 			rewind(tmp_checksum_f); /* make sure we are back at the front of the file */
 		}
+		/* if all is good, write it */
 		if( source_dl_failed != 1 && checksum_head != NULL ) write_head_cache(checksum_head,checksum_filename);
 		free(checksum_head);
 		free(checksum_local_head);
