@@ -464,7 +464,7 @@ msgid "show download statistics"
 msgstr "uka¾ statistiku stahování"
 
 msgid "Cached\n"
-msgstr "Cacheovaný"
+msgstr "Cacheovaný\n"
 
 msgid "Sources failed to download, correct sources and rerun --update\n"
 msgstr "Zdroje se nepodaøilo stáhnout, opravte zdroje a spus»te s --update\n"
