@@ -194,7 +194,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 					strncat(tmp_location,&tmp_pkg->location[0] + strlen("./extra"), strlen(tmp_pkg->location) - strlen("./extra"));
 					strncpy(tmp_pkg->location,tmp_location,strlen(tmp_location));
 					tmp_pkg->location[ strlen(tmp_location) ] = '\0';
-				}else if( strstr(tmp_pkg->location,"./pasture") != NULL ){
+				}else if( strstr(tmp_pkg->location,"./pasture/") != NULL ){
 					char tmp_location[LOCATION_LEN] = {'.','\0'};
 					strncat(tmp_location,&tmp_pkg->location[0] + strlen("./pasture"), strlen(tmp_pkg->location) - strlen("./pasture"));
 					strncpy(tmp_pkg->location,tmp_location,strlen(tmp_location));
