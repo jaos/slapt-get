@@ -220,11 +220,16 @@
 
  slapt-get can resolve dependencies via the slack-required meta data.  Already
  there are packages being submitting to linuxpackages.net supporting this
- optional metadata.
+ optional metadata.  Several Slackware derived distributions are also using
+ this format: CollegeLinux (starting with 2.5) and VectorLinux (starting with
+ 5.0).
 
  I have made sure that this information does not impact the ability of packages
  to be installed by the existing Slackware package tools.  This information
  now simply becomes an additional extension, easily bypassed or simply ignored.
+ Slapt-get makes no attempt to force any dependency system on vanilla Slackware
+ installations.  Using slapt-get on vanilla Slackware is the same as using the
+ --no-dep command line option by default.
 
  The information within slack-required can be added to the PACKAGES.TXT file.
  Scripts that generate mindful PACKAGES.TXT files are available, such as the
@@ -262,15 +267,14 @@
    man: on the system work.  For example, 'man man' will display the
    man: documentation for man itself.
    man:
-   man: *-->*Man requires the groff text processing package.*<--*
+   man: *--&gt;*Man requires the groff text processing package.*&lt;--*
    man:
 
  to providing that data in a way that can be scripted for those who have
  the advanced knowledge or want to provide higher level tools for Slackware.
 
- I hope if the community as a whole agrees that this is an added benefit 
- (without becoming overly complex or kludgey) they can convince Pat there is
- a need/demand for it.
+ I hope if the community as a whole agrees that this is an added benefit they
+ can convince Pat there is a need/demand for it.
 
 
 
