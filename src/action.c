@@ -251,6 +251,26 @@ void pkg_action_update(const rc_config *global_config){
 	printf("Done\n");
 	#endif
 
+	/* download EXTRAS_LIST */
+	#if USE_CURL_PROGRESS == 0
+	printf("Retrieving extras list...");
+	#else
+	printf("Retrieving extras list...\n");
+	#endif
+	for(i = 0; i < global_config->sources.count; i++){
+		tmp_file = tmpfile();
+		if( get_mirror_data_from_source(tmp_file,global_config->sources.url[i],EXTRAS_LIST) == 0 ){
+			rewind(tmp_file); /* make sure we are back at the front of the file */
+			available_pkgs = parse_packages_txt(tmp_file);
+			write_pkg_data(global_config->sources.url[i],pkg_list_fh,available_pkgs);
+			free_pkg_list(available_pkgs);
+		}
+		fclose(tmp_file);
+	}
+	#if USE_CURL_PROGRESS == 0
+	printf("Done\n");
+	#endif
+
 	/* download PATCHES_LIST */
 	#if USE_CURL_PROGRESS == 0
 	printf("Retrieving patch list...");

@@ -68,6 +68,7 @@ enum action {
 #define PKG_LIST "PACKAGES.TXT"
 #define PKG_LIST_L "package_data"
 #define PATCHES_LIST "patches/PACKAGES.TXT"
+#define EXTRAS_LIST "extra/PACKAGES.TXT"
 #define PATCHDIR "patches/"
 #define REMOVE_CMD "/sbin/removepkg "
 #define INSTALL_CMD "/sbin/installpkg "
