@@ -651,19 +651,7 @@ int install_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	int cmd_return = 0;
 
 	/* build the file name */
-	pkg_file_name = calloc(
-		strlen(pkg->name)+strlen("-")+strlen(pkg->version)+strlen(".tgz") + 1 ,
-		sizeof *pkg_file_name
-	);
-	if( pkg_file_name == NULL ){
-		fprintf(stderr,_("Failed to calloc %s\n"),"file_name");
-		exit(1);
-	}
-	pkg_file_name = strncpy(pkg_file_name,pkg->name,strlen(pkg->name));
-	pkg_file_name[ strlen(pkg->name) ] = '\0';
-	pkg_file_name = strncat(pkg_file_name,"-",strlen("-"));
-	pkg_file_name = strncat(pkg_file_name,pkg->version,strlen(pkg->version));
-	pkg_file_name = strncat(pkg_file_name,".tgz",strlen(".tgz"));
+	pkg_file_name = gen_pkg_file_name(pkg);
 
 	chdir(pkg->location);
 
@@ -691,19 +679,7 @@ int upgrade_pkg(const rc_config *global_config,pkg_info_t *installed_pkg,pkg_inf
 	int cmd_return = 0;
 
 	/* build the file name */
-	pkg_file_name = calloc(
-		strlen(pkg->name)+strlen("-")+strlen(pkg->version)+strlen(".tgz") + 1 ,
-		sizeof *pkg_file_name
-	);
-	if( pkg_file_name == NULL ){
-		fprintf(stderr,_("Failed to calloc %s\n"),"file_name");
-		exit(1);
-	}
-	pkg_file_name = strncpy(pkg_file_name,pkg->name,strlen(pkg->name));
-	pkg_file_name[ strlen(pkg->name) ] = '\0';
-	pkg_file_name = strncat(pkg_file_name,"-",strlen("-"));
-	pkg_file_name = strncat(pkg_file_name,pkg->version,strlen(pkg->version));
-	pkg_file_name = strncat(pkg_file_name,".tgz",strlen(".tgz"));
+	pkg_file_name = gen_pkg_file_name(pkg);
 
 	chdir(pkg->location);
 
@@ -1605,5 +1581,54 @@ pkg_info_t *init_pkg(void){
 	}
 
 	return pkg;
+}
+
+/* generate the package file name */
+char *gen_pkg_file_name(pkg_info_t *pkg){
+	char *file_name = NULL;
+
+	/* build the file name */
+	file_name = calloc(
+		strlen(pkg->name)+strlen("-")+strlen(pkg->version)+strlen(".tgz") + 1 ,
+		sizeof *file_name
+	);
+	if( file_name == NULL ){
+		fprintf(stderr,_("Failed to calloc %s\n"),"file_name");
+		exit(1);
+	}
+	file_name = strncpy(file_name,pkg->name,strlen(pkg->name));
+	file_name[ strlen(pkg->name) ] = '\0';
+	file_name = strncat(file_name,"-",strlen("-"));
+	file_name = strncat(file_name,pkg->version,strlen(pkg->version));
+	file_name = strncat(file_name,".tgz",strlen(".tgz"));
+
+	return file_name;
+}
+
+/* generate the download url for a package */
+char *gen_pkg_url(pkg_info_t *pkg){
+	char *url = NULL;
+	char *file_name = NULL;
+
+	file_name = gen_pkg_file_name(pkg);
+
+	url = calloc(
+		strlen(pkg->mirror) + strlen(pkg->location)
+			+ strlen(file_name) + strlen("/") + 1,
+		sizeof *url
+	);
+	if( url == NULL ){
+		fprintf(stderr,_("Failed to calloc %s\n"),"url");
+		exit(1);
+	}
+
+	url = strncpy(url,pkg->mirror,strlen(pkg->mirror));
+	url[ strlen(pkg->mirror) ] = '\0';
+	url = strncat(url,pkg->location,strlen(pkg->location));
+	url = strncat(url,"/",strlen("/"));
+	url = strncat(url,file_name,strlen(file_name));
+
+	free(file_name);
+	return url;
 }
 

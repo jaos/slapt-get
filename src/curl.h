@@ -34,7 +34,4 @@ int get_mirror_data_from_source(FILE *fh,int use_curl_dl_stats,const char *base_
 
 /* download pkg, cals download_data */
 int download_pkg(const rc_config *global_config,pkg_info_t *pkg);
-void create_dir_structure(const char *dir_name);
 
-/* generate an md5sum of filehandle */
-void gen_md5_sum_of_file(FILE *f,char *result_sum);

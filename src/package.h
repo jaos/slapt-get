@@ -112,6 +112,10 @@ int remove_pkg(const rc_config *,pkg_info_t *);
 
 /* generate a short description */
 char *gen_short_pkg_description(pkg_info_t *);
+/* generate the package file name */
+char *gen_pkg_file_name(pkg_info_t *pkg);
+/* generate the download url for a package */
+char *gen_pkg_url(pkg_info_t *pkg);
 /* exclude pkg based on pkg name */
 int is_excluded(const rc_config *,pkg_info_t *);
 /* lookup md5sum of file */
