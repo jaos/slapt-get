@@ -7,7 +7,3 @@ Future enhancements, fixes, or features:
  * Translate gettext po files (volunteers needed)
  * curses and/or gtk frontend
 
- * create access routines for pkg types and structures, following conventions of trans [go further]
- * stop passing available and installed package lists to functions, do local lookups
-   within the functions... benchmark to see what kind of performance cost this will
-   incurr.
