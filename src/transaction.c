@@ -181,18 +181,6 @@ void add_upgrade_to_transaction(
 ){
 	pkg_upgrade_t **tmp_list;
 
-	/*
-	struct _pkg_upgrade {
-		pkg_info_t *installed;
-		pkg_info_t *upgrade;
-	};
-	typedef struct _pkg_upgrade pkg_upgrade_t;
-	struct pkg_upgrade_list {
-		pkg_upgrade_t **pkgs;
-		int pkg_count;
-	};
-	*/
-
 	tmp_list = realloc(
 		tran->upgrade_pkgs->pkgs,
 		sizeof *tran->upgrade_pkgs->pkgs * ( tran->upgrade_pkgs->pkg_count + 1 ) 

@@ -1,4 +1,6 @@
 
+0.9.6a Oct 14, 2003
+
 0.9.6 Oct 13, 2003
  * removed needless check in get_md5sum looking for common slack mirror
    directories.
