@@ -1,4 +1,8 @@
 
+0.9.9c Sep 23, 2004
+ * updated doinst.sh so that it doesn't try to do an in place file edit
+   with sed as Slackware 8.1's sed doesn't support -i. Thanks to Peter Santoro.
+
 0.9.9b Sep 22, 2004
  * searching packages now searches version string along with name,
    location, and description
