@@ -1164,10 +1164,15 @@ int get_pkg_dependencies(const rc_config *global_config,struct pkg_list *avail_p
 				while(i < deps->pkg_count){
 					if( strcmp(deps->pkgs[i]->name,tmp_pkg->name) == 0 && tmp == NULL )
 						tmp = deps->pkgs[i];
+					/* move all subsequent packages up */
 					if( tmp != NULL && (i+1 < deps->pkg_count) )
 						deps->pkgs[i] = deps->pkgs[i + 1];
 					++i;
 				}
+				/*
+					* now put the pkg we found at the end...
+					* note no resizing is necessary, we just moved the location
+				*/
 				if( tmp != NULL ) deps->pkgs[deps->pkg_count - 1] = tmp;
 			}
 
@@ -1429,7 +1434,7 @@ static void required_by(const rc_config *global_config,struct pkg_list *avail, p
 		execute_regex(&required_by_reg,avail->pkgs[i]->required);
 		if( required_by_reg.reg_return != 0 ) continue;
 
-		/* only proceed if we don't have the previous required by */
+		/* only proceed if we don't have the required already */
 		if( (get_newest_pkg(required_by_list,avail->pkgs[i]->name) == NULL) )
 			add_pkg_to_pkg_list(required_by_list,avail->pkgs[i]);
 	}
