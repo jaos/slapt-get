@@ -49,6 +49,7 @@ Frequently Asked Questions:
 46. What is a meta package and how can I take advantage of it?
 47. How can I downgrade a package?
 48. How can I search the contents of a package for a file or library?
+49. Will slapt-get support a --compile like option for slackbuilds?
 
 
 
@@ -1026,5 +1027,33 @@ Frequently Asked Questions:
           print $temp . $_;
       }
   }
+
+
+49. Will slapt-get support a --compile like option for slackbuilds?
+
+ Not directly.  Piotr Simon, however, has contributed a script along the same
+ lines:
+
+   # added to .bashrc)
+   alias slapt-get-compile="compile_slaptget"
+
+   compile_slaptget() {
+   grep "^WORKINGDIR" /etc/slapt-get/slapt-getrc > /tmp/slapt-get.compile || exit
+   echo "SOURCE=http://www1.linuxpackages.net/packages/SlackBuilds/" >> /tmp/slapt-get.compile
+   slapt-get --config /tmp/slapt-get.compile --update 
+   if [ "$1" = "" ];then
+   slapt-get --list
+   echo ""
+   echo "#################################################################################"
+   echo "slapt-get-compile: install/upgrade/compile src-pkgs from Build Script Archive on linuxpackages.net"
+   echo "Use: slapt-get-compile <string>"
+   echo "#################################################################################"
+   echo ""
+   else
+   PROG=`echo $1 | sed 's/-src//'`
+   slapt-get --install $1
+   ( cd /usr/src/slackbuilds/$PROG
+   ./$PROG.[sS]lack[bB]uild )
+   fi
 
 
