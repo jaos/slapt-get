@@ -1,5 +1,6 @@
 
-0.9.9h Feb 04, 2005
+0.9.9h Feb 06, 2005
+ * updated sources in example.slapt-getrc (thanks Piotr Simon)
  * Makefile updates to symlink libslapt-$(VERSION).a to libslapt.a
  * documentation updates
 
