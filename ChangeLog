@@ -1,5 +1,5 @@
 
-0.9.6h Nov 02, 2003
+0.9.7 Nov 02, 2003
  * parse package require/dep from PACKAGES.TXT
  * show parsed require/dep data with --show
  * --list now shows pkg_name - pkg_vesion : pkg_description

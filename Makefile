@@ -1,5 +1,5 @@
 PROGRAM_NAME=slapt-get
-VERSION=0.9.6h
+VERSION=0.9.7
 ARCH=i386
 RELEASE=1
 CC=gcc
@@ -30,6 +30,7 @@ install: $(PROGRAM_NAME)
 	install $(PROGRAM_NAME).8 /usr/man/man8/
 	install -d /var/$(PROGRAM_NAME)
 	if [ ! -d $(LOCALESDIR)/en ]; then mkdir -p $(LOCALESDIR)/en/LC_MESSAGES; fi; msgfmt -o $(LOCALESDIR)/en/LC_MESSAGES/slapt-get.mo po/en.po;
+	cp po/slapt-get.pot $(LOCALESDIR)/
 
 uninstall:
 	-rm /sbin/$(PROGRAM_NAME)
@@ -49,6 +50,7 @@ pkg: $(PROGRAM_NAME)
 	-@mkdir -p pkg$(LOCALESDIR)
 	-@mkdir -p pkg$(LOCALESDIR)/en/LC_MESSAGES; msgfmt -o pkg$(LOCALESDIR)/en/LC_MESSAGES/slapt-get.mo po/en.po
 	-@cp $(PROGRAM_NAME) ./pkg/sbin/
+	-@cp po/slapt-get.pot pkg$(LOCALESDIR)/
 	-@strip ./pkg/sbin/$(PROGRAM_NAME)
 	-@cp example.slapt-getrc ./pkg/etc/slapt-getrc.new
 	-@mkdir -p ./pkg/usr/doc/$(PROGRAM_NAME)-$(VERSION)/
