@@ -31,23 +31,23 @@ Table of Contents:
     slapt-get tries to emulate Debian's apt-get as closely as possible.
 
     * uses native Slackware tools (installpkg, upgradepkg, and removepkg)
-    * cache package data and update data from mirror site
     * supports multiple package sources (including linuxpackage.net)
+    * cache package, update, and extra data from package sources
     * supports sources from ftp, ftps, http, https, file:/// and more (libcurl)
     * verify package integrity with MD5 checksum
-    * show packages that are available (from cached data)
+    * show packages that are available (from cached data) and installed
     * search package listing using POSIX and extended regular expressions
       by package name, location, and description
-    * allow packages to be retrieved, installed, and removed by name
-    * allow updates to be retrieved and applied
-    * upgrade from one slackware release to another
-    * show description of packages
-    * list installed packages
-    * exclude (hold) packages from upgrades
-    * transaction engine
+    * retrieve, install, and remove packages by name
+    * retrieve and apply updates
+    * upgrade from one slackware release to another in a few simple steps
+    * show description of packages, including mirror location, version, size,
+      dependencies (where available), and description
+    * exclude (hold) packages from upgrades, by name or by regular expression
+    * transaction engine for install, remove, and upgrades
     * "compare package version" algorithm to prevent downgrades
+    * recursive dependency resolution where available (see FAQ)
     * extremely fast and easy to script with
-    * dependency support if pkg includes ./install/slack-required (see FAQ)
 
 
 
