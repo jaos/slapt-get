@@ -19,7 +19,7 @@ $(PROGNAME):
 $(PROGNAME)-debug:
 	$(CC) $(CFLAGS) $(CURLFLAGS) $(DEBUGFLAGS) -o $(PROGNAME) $(SOURCEFILES) 
 
-install:
+install: jaospkg
 	install $(PROGNAME) $(SBINDIR)
 	install --mode=0644 -b $(RCSOURCE) $(RCDEST)
 

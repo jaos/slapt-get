@@ -127,8 +127,15 @@ char *download_pkg(rc_config *global_config,pkg_info *pkg){
 	url = strncat(url,file_name,strlen(file_name));
 	url[ strlen(url) ] = '\0';
 
+#if USE_CURL_PROGRESS == 0
+	printf("Downloading %s...",pkg->name);
+#else
 	printf("Downloading %s...\n",pkg->name);
+#endif
 	download_data(fh,url);
+#if USE_CURL_PROGRESS == 0
+	printf("Done\n");
+#endif
 
 	if( url != NULL ){
 		free(url);
