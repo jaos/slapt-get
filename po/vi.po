@@ -490,5 +490,4 @@ msgstr "gỡ bỏ những gói phần mềm cũ (chỉ có hiệu lực với --
 
 #, c-format
 msgid "You don't have enough free space in %s\n"
-msgstr ""
-
+msgstr "Dung lượng đĩa còn lại không đủ cho %s\n"
