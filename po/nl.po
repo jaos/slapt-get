@@ -1,0 +1,470 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2004
+# This file is distributed under the same license as the slapt-get package.
+# Michiel H., <myself@mhil.net>, 2004.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.9.8c\n"
+"POT-Creation-Date: 2003-11-03 14:28+0000\n"
+"PO-Revision-Date: 2004-01-12 10:24+0000\n"
+"Last-Translator: Jason Woodward <woodwardj@jaos.org>\n"
+"Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Reading Package Lists... "
+msgstr "Ophalen lijst packages"
+
+msgid "Done\n"
+msgstr "Klaar\n"
+
+#, c-format
+msgid "No Such package: %s\n"
+msgstr "Package niet gevonden: %s\n"
+
+#, c-format
+msgid "%s is up to date.\n"
+msgstr "%s is up to date.\n"
+
+msgid "yes"
+msgstr "ja"
+
+msgid "no"
+msgstr "nee"
+
+#, c-format
+msgid "%s is not installed.\n"
+msgstr "%s is niet geïnstalleerd.\n"
+
+#, c-format
+msgid "Package Name: %s\n"
+msgstr "Naam package: %s\n"
+
+#, c-format
+msgid "Package Mirror: %s\n"
+msgstr "Alternative bron: %s\n"
+
+#,c-format
+msgid "Package Location: %s\n"
+msgstr "Bron: %s\n"
+
+#, c-format
+msgid "Package Version: %s\n"
+msgstr "Versie: %s\n"
+
+#, c-format
+msgid "Package Size: %d K\n"
+msgstr "Grootte: %d K\n"
+
+#, c-format
+msgid "Package Installed Size: %d K\n"
+msgstr "Grootte na installatie: %d K\n"
+
+#, c-format
+msgid "Package Required: %s\n"
+msgstr "Benodigd package: %s\n"
+
+msgid "Package Description:\n"
+msgstr "Beschrijving:\n"
+
+#, c-format
+msgid "Package Installed: %s\n"
+msgstr "Package geïnstalleerd: %s\n"
+
+#, c-format
+msgid "No such package: %s\n"
+msgstr "Package niet gevonden: %s\n"
+
+#, c-format
+msgid "Retrieving package data [%s]..."
+msgstr "Ophalen package data [%s]..."
+
+#, c-format
+msgid "Retrieving package data [%s]...\n"
+msgstr "Ophalen package data [%s]...\n"
+
+#, c-format
+msgid "Retrieving extras list [%s]..."
+msgstr "Ophalen lijst extras [%s]..."
+
+#, c-format
+msgid "Retrieving extras list [%s]...\n"
+msgstr "Ophalen lijst extras [%s]...\n"
+
+#, c-format
+msgid "Retrieving patch list [%s]..."
+msgstr "Ophalen lijst patches [%s]..."
+
+#, c-format
+msgid "Retrieving patch list [%s]...\n"
+msgstr "Ophalen lijst patches [%s]...\n"
+
+#, c-format
+msgid "Retrieving checksum list [%s]..."
+msgstr "Ophalen lijst checksums [%s]..."
+
+#, c-format
+msgid "Retrieving checksum list [%s]...\n"
+msgstr "Ophalen lijst checksums [%s]...\n"
+
+#, c-format
+msgid "Failed to malloc %s\n"
+msgstr "Kon niet malloc %s\n"
+
+#, c-format
+msgid "Maximum number of sources (%d) exceeded.\n"
+msgstr "Maximaal aantal bronnen (%d) overschreven.\n"
+
+#, c-format
+msgid "Maximum length of source (%d) exceeded.\n"
+msgstr "Maximale lengte van bron (%d) overschreden."
+
+#, c-format
+msgid "WORKINGDIR directive not set within %s.\n"
+msgstr "WORKINGDIR directive niet gezet binnen %s.\n"
+
+#, c-format
+msgid "SOURCE directive not set within %s.\n"
+msgstr "SOURCE directive niet gezet binnen %s.\n"
+
+#, c-format
+msgid "Failed to build working directory [%s]\n"
+msgstr "Kon niet werkdirectory aanmaken [%s]\n"
+
+#, c-format
+msgid "Please update permissions on %s or run with appropriate privileges\n"
+msgstr "Verander rechten op %s of start met voldoende rechten\n"
+
+#, c-format
+msgid "Failed to open %s\n"
+msgstr "Kon %s niet openen\n"
+
+msgid "Perhaps you want to run --update?\n"
+msgstr "Probeer --update anders eens?"
+
+#, c-format
+msgid "Failed to opendir %s\n"
+msgstr "Kon niet opendir %s\n"
+
+#, c-format
+msgid "Failed to chdir: %s\n"
+msgstr "Kon niet chdir: %s\n"
+
+#, c-format
+msgid "unlinking %s\n"
+msgstr "koppeling verbreken %s\n"
+
+msgid "Failed to get cwd\n"
+msgstr "Kon niet cwd\n"
+
+#, c-format
+msgid "\tCurrent working directory: %s\n"
+msgstr "\tMomentele werkdirectory: %s\n"
+
+#, c-format
+msgid "Failed to mkdir: %s\n"
+msgstr "Kon niet mkdir: %s\n"
+
+#, c-format
+msgid "\tCreated directory: %s\n"
+msgstr "\tDirectory gemaakt: %s\n"
+
+#, c-format
+msgid "Failed to chdir to %s\n"
+msgstr "Kon niet chdir naar %s\n"
+
+#, c-format
+msgid "\tchdir into %s\n"
+msgstr "\tchdir naar %s\n"
+
+#, c-format
+msgid "\tchdir back into %s\n"
+msgstr "\tchdir terug naar %s\n"
+
+#, c-format
+msgid "Fetching url:[%s]\n"
+msgstr "Ophalen url:[%s]\n"
+
+#, c-format
+msgid "Failed to download: %s\n"
+msgstr "Kon niet downloaden: %s\n"
+
+#, c-format
+msgid "Failed to calloc %s\n"
+msgstr "Kon niet calloc %s\n"
+
+#, c-format
+msgid "Using cached copy of %s\n"
+msgstr "Gebruikt opgeslagen kopie van %s\n"
+
+#, c-format
+msgid "Downloading %s %s %s [%dK]..."
+msgstr "Downloaden %s %s %s [%dK]..."
+
+#, c-format
+msgid "Downloading %s %s %s [%dK]...\n"
+msgstr "Downloaden %s %s %s [%dK]...\n"
+
+#, c-format
+msgid "Failed to unlink %s\n"
+msgstr "Kon koppeling niet vebreken %s\n"
+
+#, c-format
+msgid "md5 sum for %s is not correct!\n"
+msgstr "md5 sum voor %s is niet correct!\n"
+
+#, c-format
+msgid "MD5 found:    [%s]\n"
+msgstr "MD5 gevonden:	[%s]\n"
+
+#, c-format
+msgid "MD5 expected: [%s]\n"
+msgstr "MD5 verwacht: [%s]\n"
+
+#, c-format
+msgid "File: %s/%s\n"
+msgstr "Bestand: %s/%s\n"
+
+msgid "An implementation of the Debian APT system to Slackware\n"
+msgstr "Een implentatie van het Debian APT systeem op Slackware\n"
+
+msgid "Usage:\n"
+msgstr "Syntax:\n"
+
+#, c-format
+msgid "%s [option(s)] [target]\n"
+msgstr "%s [optie(s)] [doel]\n"
+
+msgid "Targets:\n"
+msgstr "Doelen:\n"
+
+msgid "retrieves pkg data from MIRROR"
+msgstr "haalt pkg data op van MIRROR"
+
+msgid "upgrade installed pkgs"
+msgstr "vernieuwt geïnstalleerde pkgs"
+
+msgid "upgrade to newer release"
+msgstr "vernieuwt naar nieuwere versie"
+
+msgid "[pkg name(s)] - install specified pkg(s)"
+msgstr "[pkg naam/namen] - installeer gegeven pkg(s)"
+
+msgid "[pkg name(s)] - remove specified pkg(s)"
+msgstr "[pkg naam/namen] - verwijder gegeven pkg(s)"
+
+msgid "[pkg name] - show pkg description"
+msgstr "[pkg naam] - toon beschrijving"
+
+msgid "[expression] - search available pkgs"
+msgstr "[term] - zoek beschikbare pkgs"
+
+msgid "list available pkgs"
+msgstr "Toon beschikbare pkgs"
+
+msgid "list installed pkgs"
+msgstr "Toon geïnstalleerde pkgs"
+
+msgid "purge cached pkgs"
+msgstr "laat opgeslagen pkgs verlopen"
+
+msgid "print version and license info"
+msgstr "toon versie en licentieinformatie"
+
+msgid "Options:\n"
+msgstr "Opties:\n"
+
+msgid "only download pkg on install/upgrade"
+msgstr "Download alleen bij installatie of upgrade"
+
+msgid "show pkgs to be installed/upgraded"
+msgstr "Toon alleen pkgs voor installatie/upgrade"
+
+msgid "do not prompt during install/upgrade"
+msgstr "stel geen vragen tijdens installatie/upgrade"
+
+msgid "re-install the pkg"
+msgstr "installeer pkg opnieuw"
+
+msgid "install/upgrade excludes"
+msgstr "uitzonderingen installatie/upgrade"
+
+msgid "do not perform md5 check sum"
+msgstr "doe geen md5 checksum"
+
+msgid "ignore dependency failures"
+msgstr "negeer afhankelijkheidsfouten"
+
+#, c-format
+msgid "%s version %s\n"
+msgstr "%s versie %s\n"
+
+#, c-format
+msgid "regex failed on [%s]\n"
+msgstr "regex mislukt op [%s]\n"
+
+#, c-format
+msgid "pkg name too long [%s:%d]\n"
+msgstr "pkg naam te lang [%s:%d]\n"
+
+#, c-format
+msgid "pkg version too long [%s:%d]\n"
+msgstr "pkg versie te lang [%s:%d]\n"
+
+#, c-format
+msgid "pkg mirror too long [%s:%d]\n"
+msgstr "pkg alt. bron te lang [%s:%d]\n"
+
+#, c-format
+msgid "pkg location too long [%s:%d]\n"
+msgstr "pkg bron te lang [%s:%d]\n"
+
+msgid "regexec failed to parse location\n"
+msgstr "regexec kon locatie niet verwerken\n"
+
+msgid "getline reached EOF attempting to read location\n"
+msgstr "getline heeft EOF bereikt bij lezen locatie\n"
+
+msgid "regexec failed to parse size_c\n"
+msgstr "regexec kon size_c niet verwerken\n"
+
+msgid "getline reached EOF attempting to read size_c\n"
+msgstr "getline heeft EOF bereikt bij lezen size_c"
+
+msgid "regexec failed to parse size_u\n"
+msgstr "regexec kon size_u niet verwerken"
+
+msgid "getline reached EOF attempting to read size_u\n"
+msgstr "getline heeft EOF bereikt bij lezen size_u"
+
+msgid "error attempting to read pkg description\n"
+msgstr "Fout bij lezen beschrijving"
+
+#, c-format
+msgid "Failed to realloc %s\n"
+msgstr "Kon niet realloc %s\n"
+
+msgid "Failed to compile regex\n"
+msgstr "Kon regex niet compileren\n"
+
+#, c-format
+msgid "Regex Error: %s\n"
+msgstr "Regex fout: %s\n"
+
+#, c-format
+msgid "Preparing to install %s-%s\n"
+msgstr "Voorbereiden installatie %s-%s\n"
+
+#, c-format
+msgid "Failed to execute command: [%s]\n"
+msgstr "Kon commando niet uitvoeren: [%s]\n"
+
+#, c-format
+msgid "Preparing to replace %s-%s with %s-%s\n"
+msgstr "Voorbereiden vervangen van %s-%s met %s-%s\n"
+
+#, c-format
+msgid "Failed to compile regex [%s]\n"
+msgstr "Kon regex niet compileren [%s]\n"
+
+#, c-format
+msgid "pkg conditional too long [%s:%d]\n"
+msgstr "pkg voorwaarde te lang [%s:%d]\n"
+
+msgid "The following packages have unmet dependencies:\n"
+msgstr "De volgende packages hebben ontbrekende vereisten:\n"
+
+#, c-format
+msgid "  %s: Depends: %s\n"
+msgstr " %s: vereist: %s\n"
+
+msgid "The following packages have been EXCLUDED:\n"
+msgstr "De volgende packages zijn WEGGELATEN:\n"
+
+msgid "The following NEW packages will be installed:\n"
+msgstr "De volgende NIEUWE packages zullen geïnstalleerd worden:\n"
+
+msgid "The following packages will be REMOVED:\n"
+msgstr "De volgende packages zullen worden VERWIJDERD:\n"
+
+msgid "The following packages will be upgraded:\n"
+msgstr "De volgende packages zullen worden geupgrade:\n"
+
+#, c-format
+msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
+msgstr "%d upgraded, %d nieuw geïnstalleerd, %d te verwijderen en %d niet geupgrade.\n"
+
+#, c-format
+msgid "Need to get %dK of archives.\n"
+msgstr "Moet %dK aan archieven ophalen.\n"
+
+#, c-format
+msgid "After unpacking %dK disk space will be freed.\n"
+msgstr "Na uitpakken %dK ruimte vrijgemaakt.\n"
+
+#, c-format
+msgid "After unpacking %dK of additional disk space will be used.\n"
+msgstr "Na uitpakken zal %dK aan extra ruimte gebruikt worden.\n"
+
+msgid "Do you want to continue? [y/N] "
+msgstr "Wilt u doorgaan? [y/N]"
+
+msgid "Abort.\n"
+msgstr "Afbreken.\n"
+
+#, c-format
+msgid "%s-%s is to be installed\n"
+msgstr "%s-%s zal worden geïnstalleerd\n"
+
+#, c-format
+msgid "%s-%s is to be upgraded to version %s\n"
+msgstr "%s-% zal worden geupgrade naar versie %s\n"
+
+#,c-format
+msgid "%s-%s is to be removed\n"
+msgstr "%s-%s zal worden verwijderd\n"
+
+#, c-format
+msgid "%s, which is to be installed, conflicts with %s\n"
+msgstr "%s, wat zal worden geïnstalleerd heeft een conflict met %s\n"
+
+#, c-format
+msgid "Installed %s conflicts with %s\n"
+msgstr "Geïnstalleerd %s heeft een conflict met %s\n"
+
+msgid "print URIs only, do not download"
+msgstr "toon alleen URI, niet downloaden"
+
+#, c-format
+msgid "Package MD5 Sum:  %s\n"
+msgstr "Package MD5 Sum:  %s\n"
+
+#, c-format
+msgid "md5 sum too long [%s %s:%d]\n"
+msgstr "md5 te lang [%s %s:%d]\n"
+
+#, c-format
+msgid "conflict too long [%s:%d]\n"
+msgstr "conflict te lang [%s:%d]\n"
+
+msgid "Reading Package Lists..."
+msgstr "Lezen package lijst..."
+
+#, c-format
+msgid "Download of %s incomplete\n"
+msgstr "Download van %s incompleet\n"
+
+#, c-format
+msgid "Could not find MD5 checksum for %s, override with --no-md5\n"
+msgstr "Kon MD5 checksum niet vinden voor %s, ga tegen met --no-md5\n"
+
+#, c-format
+msgid "%s, which is required by %s, is excluded\n"
+msgstr "%s, benodigd door %s, is niet opgenomen\n"
+
+msgid "skip dependency check"
+msgstr "sla controle vereisten over"
+

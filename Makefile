@@ -47,6 +47,7 @@ doinstall:
 	if [ ! -d $(LOCALESDIR)/pl/LC_MESSAGES ]; then mkdir -p $(LOCALESDIR)/pl/LC_MESSAGES; fi; msgfmt -o $(LOCALESDIR)/pl/LC_MESSAGES/slapt-get.mo po/pl.po;
 	if [ ! -d $(LOCALESDIR)/pt_BR/LC_MESSAGES ]; then mkdir -p $(LOCALESDIR)/pt_BR/LC_MESSAGES; fi; msgfmt -o $(LOCALESDIR)/pt_BR/LC_MESSAGES/slapt-get.mo po/pt_BR.po;
 	if [ ! -d $(LOCALESDIR)/no/LC_MESSAGES ]; then mkdir -p $(LOCALESDIR)/no/LC_MESSAGES; fi; msgfmt -o $(LOCALESDIR)/no/LC_MESSAGES/slapt-get.mo po/no.po;
+	if [ ! -d $(LOCALESDIR)/nl/LC_MESSAGES ]; then mkdir -p $(LOCALESDIR)/nl/LC_MESSAGES; fi; msgfmt -o $(LOCALESDIR)/nl/LC_MESSAGES/slapt-get.mo po/nl.po;
 	if [ ! -d /usr/doc/$(PROGRAM_NAME)-$(VERSION) ]; then mkdir /usr/doc/$(PROGRAM_NAME)-$(VERSION); fi
 	if [ -L /usr/lib/libslapt.so ]; then rm /usr/lib/libslapt.so ;fi
 	ln -s /usr/lib/libslapt-$(VERSION).so /usr/lib/libslapt.so
@@ -60,7 +61,7 @@ uninstall:
 	-rm /usr/man/man8/$(PROGRAM_NAME).8.gz
 	-@echo leaving /var/$(PROGRAM_NAME)
 	-rm -r /usr/doc/$(PROGRAM_NAME)-$(VERSION)
-	-rm $(LOCALESDIR)/pl/LC_MESSAGES/slapt-get.mo $(LOCALESDIR)/en/LC_MESSAGES/slapt-get.mo $(LOCALESDIR)/pt_BR/LC_MESSAGES/slapt-get.mo
+	-rm $(LOCALESDIR)/pl/LC_MESSAGES/slapt-get.mo $(LOCALESDIR)/en/LC_MESSAGES/slapt-get.mo $(LOCALESDIR)/pt_BR/LC_MESSAGES/slapt-get.mo $(LOCALESDIR)/no/LC_MESSAGES/slapt-get.mo $(LOCALESDIR)/nl/LC_MESSAGES/slapt-get.mo
 	-rm /usr/include/slapt.h
 
 clean:
