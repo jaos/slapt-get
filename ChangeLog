@@ -1,5 +1,7 @@
 
 0.9.9f Jan 10, 2005
+ * rewrote "Why yet another package management tool for slackware?" and
+   "What about package dependencies?" in FAQ
  * added a 'Getting started' section to the README
  * misc code updates
  * if resume of pkg download is not supported by remote server or proxy,
