@@ -461,12 +461,6 @@ struct pkg_list *get_installed_pkgs(void){
 		return list;
 	}
 
-	list->pkgs = malloc( sizeof *list->pkgs );
-	if( list->pkgs == NULL ){
-		fprintf(stderr,_("Failed to malloc %s\n"),"pkgs");
-		exit(1);
-	}
-
 	while( (file = readdir(pkg_log_dir)) != NULL ){
 		pkg_info_t *tmp_pkg;
 		FILE *pkg_f;
