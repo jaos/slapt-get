@@ -5,13 +5,13 @@
    working_dir_init()
  * exclude now searches on package location, so you can exclude disk
    sets as well
- * rewrote "Why yet another package management tool for slackware?" and
+ * rewrote "Why yet another package management tool for Slackware?" and
    "What about package dependencies?" in FAQ
  * added a 'Getting started' section to the README
  * misc code updates
  * if resume of pkg download is not supported by remote server or proxy,
    remove partial file and try again
- * ensured --remove-obsolute ignores excluded packages
+ * ensured --remove-obsolete ignores excluded packages
  * updated translations
  * added --remove-obsolete option for dist-upgrade (see FAQ #9 and #28)
  * fixed bug in gen_short_pkg_description with installed packages that are
@@ -126,11 +126,11 @@
  * wrapped CURLOPT_FTP_USE_EPRT in ifdef for slack 9.0's curl libs
  * slack-suggests support (see FAQ)
  * added REG_ICASE to init_regex for case insensitive matching
- * print usage when given argument not caught by getop
+ * print usage when given argument not caught by getopt
  * set CURLOPT_FTP_USE_EPRT to off
  * updated makefile, moved /etc/slapt-getrc to /etc/slapt-get/slapt-getrc
  * documentation updates
- * use libcurls CURLOPT_FAILONERROR to fail on http codes > 300
+ * use libcurl's CURLOPT_FAILONERROR to fail on http codes > 300
  * now will not cache package source if no packages were parsed from the source
  * turned off EPSV for all libcurl operations... ftp.slackware.com doesn't support the EPSV command
  * moved working_dir_init out of read_rc_config() into main(), so that if the config
