@@ -37,7 +37,6 @@ void download_data(FILE *fh,const char *url){
 
 	if( (response = curl_easy_perform(ch)) != 0 ){
 		fprintf(stderr,"failed to download: %s\n",curl_err_buff);
-		exit(1);
 	}
 	/* curl_easy_cleanup(ch); */
 	curl_free(ch);

@@ -441,7 +441,6 @@ int install_pkg(const rc_config *global_config,pkg_info_t *pkg){
 
 	pkg_file_name = download_pkg(global_config,pkg);
 	if( pkg_file_name == NULL ){
-		fprintf(stderr,"Skipping %s\n",pkg->name);
 		return -1;
 	}
 
@@ -491,7 +490,6 @@ int upgrade_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	/* download it */
 	pkg_file_name = download_pkg(global_config,pkg);
 	if( pkg_file_name == NULL ){
-		fprintf(stderr,"Skipping %s\n",pkg->name);
 		return -1;
 	}
 
