@@ -38,3 +38,7 @@ void create_dir_structure(const char *dir_name);
 /* generate an md5sum of filehandle */
 void gen_md5_sum_of_file(FILE *f,char *result_sum);
 
+/* Ask the user to answer yes or no.
+ * return 1 on yes, 0 on no, else -1.
+ */
+int ask_yes_no(const char *format, ...);

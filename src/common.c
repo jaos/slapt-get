@@ -75,7 +75,7 @@ void gen_md5_sum_of_file(FILE *f,char *result_sum){
 	char *getline_buffer = NULL;
 
 	md = EVP_md5();
- 
+
 	EVP_MD_CTX_init(&mdctx);
 	EVP_DigestInit_ex(&mdctx, md, NULL);
 
@@ -90,7 +90,7 @@ void gen_md5_sum_of_file(FILE *f,char *result_sum){
 	EVP_MD_CTX_cleanup(&mdctx);
 
 	result_sum[0] = '\0';
-	
+
 	for(i = 0; i < md_len; i++){
 		char *p = malloc( sizeof *p * 3 );
 
@@ -196,3 +196,20 @@ void create_dir_structure(const char *dir_name){
 	free(cwd);
 }
 
+int ask_yes_no(const char *format, ...)
+{
+	char prompt_answer[10];
+	va_list arg_list;
+
+	va_start(arg_list, format);
+	vprintf(format, arg_list);
+	va_end(arg_list);
+
+	/* FIXME: Use rpmatch instead ? */
+	fgets(prompt_answer,10,stdin);
+	if( tolower(prompt_answer[0]) == 'y' )
+		return 1;
+	if( tolower(prompt_answer[0]) == 'n' )
+		return 0;
+	return -1;
+}

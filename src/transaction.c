@@ -152,10 +152,7 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 			(global_config->no_prompt == 0 && global_config->download_only == 0 &&
 			global_config->simulate == 0 && global_config->print_uris == 0 )
 	) {
-		char prompt_answer[10];
-		printf(_("Do you want to continue? [y/N] "));
-		fgets(prompt_answer,10,stdin);
-		if( tolower(prompt_answer[0]) != 'y' ){
+		if( ask_yes_no(_("Do you want to continue? [y/N] ")) != 1 ){
 			printf(_("Abort.\n"));
 			return 0;
 		}
@@ -339,7 +336,7 @@ void add_upgrade_to_transaction(
 
 	tmp_list = realloc(
 		tran->upgrade_pkgs->pkgs,
-		sizeof *tran->upgrade_pkgs->pkgs * ( tran->upgrade_pkgs->pkg_count + 1 ) 
+		sizeof *tran->upgrade_pkgs->pkgs * ( tran->upgrade_pkgs->pkg_count + 1 )
 	);
 	if( tmp_list != NULL ){
 		tran->upgrade_pkgs->pkgs = tmp_list;
