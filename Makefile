@@ -47,15 +47,6 @@ clean:
 	-rm src/*.o
 	-if [ -d pkg ]; then rm -rf pkg ;fi
 
-# add this back in later
-#-@mkdir -p pkg/usr/lib
-#-@mkdir -p pkg/usr/include/slapt
-#-@cp include/*.h pkg/usr/include/slapt/
-#-@mv pkg/usr/include/slapt/main.h pkg/usr/include/slapt/slapt.h
-#-@cp src/libslapt-$(VERSION).a src/libslapt-$(VERSION).so pkg/usr/lib/
-#-@strip pkg/usr/lib/libslapt-$(VERSION).so
-#-@ln -s pkg/usr/lib/libslapt-$(VERSION).so pkg/usr/lib/libslapt.so
-#cat main.h configuration.h package.h curl.h transaction.h action.h |grep -v '#include \"' > slapt.h
 
 pkg: $(PROGRAM_NAME) libs
 	-@mkdir pkg
@@ -76,6 +67,13 @@ pkg: $(PROGRAM_NAME) libs
 	-@cp slack-required pkg/install/
 	-@cp $(PROGRAM_NAME).8 pkg/usr/man/man8/
 	-@gzip pkg/usr/man/man8/$(PROGRAM_NAME).8
+	#-@mkdir -p pkg/usr/lib
+	#-@mkdir -p pkg/usr/include/slapt
+	#-@cp include/*.h pkg/usr/include/slapt/
+	#-@mv pkg/usr/include/slapt/main.h pkg/usr/include/slapt/slapt.h
+	#-@cp src/libslapt-$(VERSION).a src/libslapt-$(VERSION).so pkg/usr/lib/
+	#-@strip pkg/usr/lib/libslapt-$(VERSION).so
+	#-@ln -s pkg/usr/lib/libslapt-$(VERSION).so pkg/usr/lib/libslapt.so
 	@( cd pkg; makepkg -l y -c y $(PROGRAM_NAME)-$(VERSION)-$(ARCH)-$(RELEASE).tgz )
 
 po_file:
@@ -84,7 +82,8 @@ po_file:
 	-xgettext -d slapt-get -o po/slapt-get.pot -a -C --no-location po/gettext_strings
 	-rm po/gettext_strings
 
-libs:
+libs: $(PROGRAM_NAME)
 	$(CC) -shared -o src/libslapt-$(VERSION).so $(OBJS)
 	ar -r src/libslapt-$(VERSION).a $(OBJS)
+	cat include/main.h include/configuration.h include/package.h include/curl.h include/transaction.h include/action.h |grep -v '#include \"' > include/slapt.h
 
