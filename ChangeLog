@@ -18,6 +18,8 @@
  * trimmed out download_pkg_list, download_file_list, download_patches_list,
    and download_checksum_list.  Replaced those functions with single
    get_mirror_data_from_source.
+ * merged in package update data from filelist into PACKAGES.TXT format,
+   so single lookup returns all packages.
 
 0.9.5e Oct 10, 2003
  * added a doinst.sh script (generated from the Makefile) to help 

@@ -64,11 +64,12 @@ struct pkg_list *get_available_pkgs(void);
 struct pkg_list *get_installed_pkgs(void);
 /* return list of update pkgs */
 struct pkg_list *parse_file_list(FILE *);
-struct pkg_list *get_update_pkgs(void);
+struct pkg_list *get_update_pkgs(void); /* scheduled for removal */
 /* generate a short description */
 char *gen_short_pkg_description(pkg_info_t *);
 /* retrieve the newest pkg from pkg_info_t list */
 pkg_info_t *get_newest_pkg(pkg_info_t **,const char *,int);
+pkg_info_t *get_newest_pkg_with_description(pkg_info_t **,const char *,int);
 /* install pkg */
 int install_pkg(const rc_config *,pkg_info_t *);
 /* upgrade pkg */
@@ -86,7 +87,7 @@ int cmp_pkg_versions(char *, char *);
 /* analyze the pkg version hunk by hunk */
 int break_down_pkg_version(int *,char *);
 /* get available, installed, and update pkgs all in one */
-struct pkg_list *get_available_and_update_pkgs(void);
+struct pkg_list *get_available_and_update_pkgs(void);  /* scheduled for removal */
 /* write pkg data to disk */
 void write_pkg_data(const char *,FILE *,struct pkg_list *);
 

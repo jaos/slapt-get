@@ -34,7 +34,7 @@ void pkg_action_install(const rc_config *global_config,const char *pkg_name){
 
 	printf("Reading Package Lists... ");
 	installed = get_installed_pkgs();
-	all = get_available_and_update_pkgs();
+	all = get_available_pkgs();
 	printf("Done\n");
 
 	init_transaction(&tran);
@@ -81,9 +81,12 @@ void pkg_action_list(void){
 	pkgs = get_available_pkgs();
 
 	for(iterator = 0; iterator < pkgs->pkg_count; iterator++ ){
-		char *short_description = gen_short_pkg_description(pkgs->pkgs[iterator]);
-		printf("%s - %s\n",pkgs->pkgs[iterator]->name,short_description);
-		free(short_description);
+		/* this should eliminate the printing of updates */
+		if( strstr(pkgs->pkgs[iterator]->description,"no description") == NULL ){
+			char *short_description = gen_short_pkg_description(pkgs->pkgs[iterator]);
+			printf("%s - %s\n",pkgs->pkgs[iterator]->name,short_description);
+			free(short_description);
+		}
 	}
 
 	free_pkg_list(pkgs);
@@ -188,7 +191,7 @@ void pkg_action_show(const char *pkg_name){
 
 	available_pkgs = get_available_pkgs();
 
-	pkg = get_newest_pkg(available_pkgs->pkgs,pkg_name,available_pkgs->pkg_count);
+	pkg = get_newest_pkg_with_description(available_pkgs->pkgs,pkg_name,available_pkgs->pkg_count);
 
 	if( pkg != NULL ){
 		printf("Package Name: %s\n",pkg->name);
@@ -285,7 +288,7 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 
 	printf("Reading Package Lists... ");
 	installed_pkgs = get_installed_pkgs();
-	all_pkgs = get_available_and_update_pkgs();
+	all_pkgs = get_available_pkgs();
 	printf("Done\n");
 	init_transaction(&tran);
 
