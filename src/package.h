@@ -17,21 +17,16 @@
  */
 
 #define MAX_PKG_ENTRIES 2000
-/* #define PKG_PARSE_REGEX "([a-zA-Z0-9._\\-\\/]+/)([a-zA-Z0-9\\+_\\-]+)-([a-zA-Z0-9._\\-]+).tgz$" */
-#define PKG_PARSE_REGEX "([a-zA-Z0-9\\+_\\-]{1,})\\-([a-zA-Z0-9._\\-]{1,}[\\.\\-]{0,}[a-zA-Z0-9]{0,}[\\.\\-]{0,}[0-9a-zA-Z\\+_\\-]{0,}).tgz$"
-/* #define PKG_NAMEVER "([a-zA-Z0-9\\+_\\-]+)-([a-zA-Z0-9._\\-]+)" */
-#define PKG_NAMEVER "([a-zA-Z0-9\\+_\\-]{1,})\\-([a-zA-Z0-9._\\-]{1,}[\\.\\-]{0,}[a-zA-Z0-9]{0,}[\\.\\-]{0,}[0-9a-zA-Z\\+_\\-]{0,})"
-/* #define PKG_NAME_PATTERN "^PACKAGE NAME:[ ]+([a-zA-Z0-9\\+_\\-]+)-([a-zA-Z0-9._\\-]+).tgz$" */
-#define PKG_NAME_PATTERN "^PACKAGE NAME:[ ]{1,}([a-zA-Z0-9\\+_\\-]{1,})\\-([a-zA-Z0-9._\\-]{1,}[\\.\\-]{0,}[a-zA-Z0-9]{0,}[\\.\\-]{0,}[0-9a-zA-Z\\+_\\-]{0,}).tgz$"
+#define PKG_PARSE_REGEX "(.*{1,})\\-(.*[\\.\\-].*[\\.\\-].*).tgz[ ]{0,}$"
+#define PKG_NAMEVER "(.*{1,})\\-(.*[\\.\\-].*[\\.\\-].*)"
+#define PKG_NAME_PATTERN "^PACKAGE NAME:[ ]{1,}(.*{1,})\\-(.*[\\.\\-].*[\\.\\-].*).tgz[ ]{0,}$"
 #define PKG_MIRROR_PATTERN "^PACKAGE MIRROR:[ ]+(.*)$"
 #define PKG_LOCATION_PATTERN "^PACKAGE LOCATION:[ ]+(.*)$"
 #define PKG_SIZEC_PATTERN "^PACKAGE SIZE [(]+compressed[)]{1,}:[ ]{1,}([0-9]{1,}) K$"
 #define PKG_SIZEU_PATTERN "^PACKAGE SIZE [(]+uncompressed[)]{1,}:[ ]{1,}([0-9]{1,}) K$"
 #define PKG_LOG_DIR "/var/log/packages"
-/* #define PKG_LOG_PATTERN "^([a-zA-Z0-9\\+_\\-]+)-([a-zA-Z0-9._\\-]+)$" */
-#define PKG_LOG_PATTERN "^([a-zA-Z0-9\\+_\\-]{1,})\\-([a-zA-Z0-9._\\-]{1,}[\\.\\-]{0,}[a-zA-Z0-9]{0,}[\\.\\-]{0,}[0-9a-zA-Z\\+_\\-]{0,})$"
-/* #define MD5SUM_REGEX "([a-zA-Z0-9]+)[ ]+([a-zA-Z0-9\\/._\\-]+\\/)([a-zA-Z0-9\\+_\\-]+)-([a-zA-Z0-9._\\-]+).tgz$" */
-#define MD5SUM_REGEX "([a-zA-Z0-9]{1,})[ ]{1,}([a-zA-Z0-9\\/._\\-]{1,})\\/([a-zA-Z0-9\\+_\\-]{1,})\\-([a-zA-Z0-9._\\-]{1,}[\\.\\-]{0,}[a-zA-Z0-9]{0,}[\\.\\-]{0,}[0-9a-zA-Z\\+_\\-]{0,}).tgz$"
+#define PKG_LOG_PATTERN "^(.*{1,})\\-(.*[\\.\\-].*[\\.\\-].*)"
+#define MD5SUM_REGEX "([a-zA-Z0-9]{1,})[ ]{1,}([a-zA-Z0-9\\/._\\-]{1,})\\/(.*{1,})\\-(.*[\\.\\-].*[\\.\\-].*).tgz$"
 #define REQUIRED_REGEX "^[ ]{0,}([a-zA-Z0-9\\+_\\-]+)[ ]{0,}([\\<\\=\\>]+){0,}[ ]{0,}([a-zA-Z0-9\\.\\_\\-]+){0,}[ ]{0,}$"
 #define NAME_LEN 50
 #define VERSION_LEN 50

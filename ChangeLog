@@ -1,5 +1,5 @@
 
-0.9.7b Nov 07, 2003
+0.9.7b Nov 09, 2003
  * removed --interactive option
  * download all pkgs before processing installs,upgrades, and removals in transaction
  * updated NLS template and en.po
@@ -9,6 +9,7 @@
  * updated regex for pkg names, versions, md5, etc
  * when looking up md5 checksum, use the pkg location as well as name and version 
    (in case of duplicate versions)
+ * updated regex, yet again, for pkg names, versions, md5, etc
 
 0.9.7a Nov 05, 2003
  * added check for presence of pkg in trans before adding upgrade (during --install)
