@@ -23,7 +23,7 @@ struct head_request_t {
 };
                                                                                                                              
 /* this is the main download routine */
-int download_data(FILE *fh,const char *url);
+int download_data(FILE *fh,const char *url,size_t bytes);
 
 /* this performs a head request */
 int head_request(const char *filename,const char *url);
