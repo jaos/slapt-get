@@ -197,8 +197,7 @@ void create_dir_structure(const char *dir_name){
 	free(cwd);
 }
 
-int ask_yes_no(const char *format, ...)
-{
+int ask_yes_no(const char *format, ...){
 	char prompt_answer[10];
 	va_list arg_list;
 
