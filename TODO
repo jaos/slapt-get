@@ -8,4 +8,5 @@ Future enhancements, fixes, or features:
  * dependancy tracking (ideally that will happen in PACKAGES.TXT)
  * multiple sources/mirrors (merge package data into one local PACKAGES.TXT)
  * optimize
+ * curses/gtk frontend
 
