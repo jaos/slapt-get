@@ -156,7 +156,7 @@ Frequenty Asked Questions:
  missing libraries before consulting the dependency file).  This is not a
  reliable/fool proof method.  It is also extremeley slow.  Dependencies can not
  always be defined strictly by library dependencies.  Applications, rather than
- libraries may be required, such as groff with man.
+ libraries may be required, such as the case with man and groff.
 
  I have sent Pat a request to include a requires field in the PACKAGES.TXT
  file that is shared with all the mirrors.  Since this information is known
@@ -219,8 +219,8 @@ Frequenty Asked Questions:
  a need/demand for it.
 
  slapt-get can resolve dependencies via the slack-required meta data.  Already
- there are packages being submitting packages to linuxpackages.net supporting
- this additional file within the slackware package.  Scripts that generate
+ there are packages being submitting to linuxpackages.net supporting this
+ additional file within the slackware package.  Scripts that generate
  mindful PACKAGES.TXT files are available (such as the one in this FAQ,
  see #17).
 
