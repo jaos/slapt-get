@@ -171,7 +171,7 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran){
 
 		if(disk_space(global_config,need_to_download_size+uncompressed_size) != 0){
 			printf(
-				_("You don't have enough free space in %s"),
+				_("You don't have enough free space in %s\n"),
 				global_config->working_dir
 			);
 			return 1;
