@@ -1434,7 +1434,7 @@ pkg_info_t *get_pkg_by_details(struct pkg_list *list,char *name,char *version,ch
 }
 
 /* update package data from mirror url */
-void update_pkg_cache(const rc_config *global_config){
+void update_pkg_cache(const rc_config *global_config, int (*callback)(void *,double,double,double,double)){
 	int i;
 	FILE *pkg_list_fh;
 	FILE *patches_list_fh;
@@ -1451,7 +1451,7 @@ void update_pkg_cache(const rc_config *global_config){
 		#else
 		printf(_("Retrieving package data [%s]...\n"),global_config->sources.url[i]);
 		#endif
-		if( get_mirror_data_from_source(tmp_file,global_config->sources.url[i],PKG_LIST,progress_callback) == 0 ){
+		if( get_mirror_data_from_source(tmp_file,global_config->sources.url[i],PKG_LIST,callback) == 0 ){
 			rewind(tmp_file); /* make sure we are back at the front of the file */
 			available_pkgs = parse_packages_txt(tmp_file);
 			write_pkg_data(global_config->sources.url[i],pkg_list_fh,available_pkgs);

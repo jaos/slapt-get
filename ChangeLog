@@ -1,4 +1,7 @@
 
+0.9.7f Nov 21, 2003
+ * update_pkg_cache now request callback argument to pass to get_mirror_data_from_source
+
 0.9.7e Nov 21, 2003
  * added debugging in transaction functions
  * updated cmp_pkg_versions, changed integer cmp to str cmp for version parts,
