@@ -90,7 +90,6 @@ rc_config *read_rc_config(const char *file_name){
 
 	/* initialize */
 	global_config->download_only = 0;
-	global_config->dist_upgrade = 0;
 	global_config->simulate = 0;
 	global_config->ignore_excludes = 0;
 

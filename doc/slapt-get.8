@@ -24,9 +24,6 @@ slapt-get \- frontend to pkgtools
 .B --download-only
 ]
 [
-.B --dist-upgrade
-]
-[
 .B --simulate
 ]
 [
@@ -83,12 +80,6 @@ tries to emulate Debian's apt-get as closely as possible.
 .TP
 .B --download-only
 Download the package only.  Do not install/upgrade.
-.TP
-.B --dist-upgrade
-assumes MIRROR is set to newer release
-Assume the MIRROR location is set to a newer release, and
-check the package listing for newer version, instead of 
-only checking the update list for updates.
 .TP
 .B --simulate
 Will not install or download packages.

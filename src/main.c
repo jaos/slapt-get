@@ -35,7 +35,6 @@ int main( int argc, char *argv[] ){
 		{"installed", 0, 0, 'd'},
 		{"clean", 0, 0, 'c'},
 		{"download-only", 0, 0, 'o'},
-		{"dist-upgrade", 0, 0, 'a'},
 		{"simulate", 0, 0, 'm'},
 		{"version", 0, 0, 'v'},
 		{"no-prompt", 0, 0, 'b'},
@@ -110,10 +109,6 @@ int main( int argc, char *argv[] ){
 			case 'o': /* download only flag */
 				global_config->download_only = 1;
 				break;
-			case 'a': /* dist-upgrade */
-				global_config->dist_upgrade = 1;
-				pkg_action_upgrade_all(global_config);
-				break;
 			case 'm': /* simulate */
 				global_config->simulate = 1;
 				break;
@@ -149,7 +144,6 @@ void usage(){
 	printf("Targets:\n");
 	printf("  --update       - retrieves pkg data from MIRROR\n");
 	printf("  --upgrade      - upgrade installed pkgs\n");
-	printf("  --dist-upgrade - assumes MIRROR is set to newer release\n");
 	printf("  --install   [pkg name(s)] - install specified pkg(s)\n");
 	printf("  --remove    [pkg name(s)] - remove specified pkg(s)\n");
 	printf("  --show      [pkg name] - show pkg description\n");

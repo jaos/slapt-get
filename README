@@ -37,7 +37,7 @@ Table of Contents:
     * show description of packages
     * list installed packages
     * remove packages (frontent to removepkg)
-    * --dist-upgrade from one slackware release to another
+    * dist-upgrade from one slackware release to another
     * exclude (hold) packages from upgrades
 
 
