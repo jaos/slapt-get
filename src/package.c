@@ -289,7 +289,7 @@ struct pkg_list *get_installed_pkgs(void){
 
 	/* open our pkg_log_dir */
 	if( (pkg_log_dir = opendir(PKG_LOG_DIR)) == NULL ){
-		if( errno > 1 ){
+		if( errno ){
 			perror(PKG_LOG_DIR);
 		}
 		exit(1);
@@ -350,7 +350,7 @@ struct pkg_list *get_installed_pkgs(void){
 				list->pkgs = realloc(list->pkgs , sizeof(pkg_info *) * (list->pkg_count + 1 ) );
 				if( list->pkgs == NULL ){
 					fprintf(stderr,"Failed to realloc pkgs\n");
-					if( errno > 1 ){
+					if( errno ){
 						perror("realloc");
 					}
 					exit(1);
@@ -367,7 +367,7 @@ struct pkg_list *get_installed_pkgs(void){
 }
 
 /* the foundation function... used directly or via lazy functions */
-pkg_info *get_newest_pkg(pkg_info **pkgs,char *pkg_name,int pkg_count){
+pkg_info *get_newest_pkg(pkg_info **pkgs,const char *pkg_name,int pkg_count){
 	int iterator;
 	pkg_info *pkg = NULL;
 	for(iterator = 0; iterator < pkg_count; iterator++ ){
@@ -392,7 +392,7 @@ pkg_info *get_newest_pkg(pkg_info **pkgs,char *pkg_name,int pkg_count){
 }
 
 /* lazy func to get newest version of installed by name */
-pkg_info *get_newest_installed_pkg(char *pkg_name){
+pkg_info *get_newest_installed_pkg(const char *pkg_name){
 	pkg_info *pkg = NULL;
 	struct pkg_list *installed_pkgs = NULL;
 
@@ -404,7 +404,7 @@ pkg_info *get_newest_installed_pkg(char *pkg_name){
 }
 
 /* lazy func to get newest version of update by name */
-pkg_info *get_newest_update_pkg(char *pkg_name){
+pkg_info *get_newest_update_pkg(const char *pkg_name){
 	pkg_info *pkg = NULL;
 	struct pkg_list *update_pkgs = NULL;
 
@@ -524,7 +524,7 @@ pkg_info *lookup_pkg(const char *pkg_name){
 	return pkg;
 }
 
-int install_pkg(rc_config *global_config,pkg_info *pkg){
+int install_pkg(const rc_config *global_config,pkg_info *pkg){
 	char *pkg_file_name = NULL;
 	char *command = NULL;
 	char *cwd = NULL;
@@ -558,7 +558,7 @@ int install_pkg(rc_config *global_config,pkg_info *pkg){
 	return cmd_return;
 }
 
-int upgrade_pkg(rc_config *global_config,pkg_info *pkg){
+int upgrade_pkg(const rc_config *global_config,pkg_info *pkg){
 	char *pkg_file_name = NULL;
 	char *command = NULL;
 	char *cwd = NULL;

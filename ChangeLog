@@ -1,5 +1,5 @@
 
-0.8 Sep 06, 2003
+0.8 Sep 07, 2003
  * --remove target now accepts multiple arguments
   ( --remove pkg1 pkg2 pkg3 pkg4 )
  * --upgrade speed improvement (optimizations)

@@ -19,12 +19,12 @@
 #include <main.h>
 
 /* clean out local cache */
-void jaospkg_clean(rc_config *global_config){
+void jaospkg_clean(const rc_config *global_config){
 	clean_pkg_dir(global_config->working_dir);
 }
 
 /* install pkg */
-void jaospkg_install(rc_config *global_config,char *pkg_name){
+void jaospkg_install(const rc_config *global_config,const char *pkg_name){
 	pkg_info *installed_pkg;
 	pkg_info *update_pkg;
 	pkg_info *pkg;
@@ -98,7 +98,7 @@ void jaospkg_list_installed(void){
 }
 
 /* remove/uninstall pkg */
-void jaospkg_remove(char *pkg_name){
+void jaospkg_remove(const char *pkg_name){
 	pkg_info *pkg;
 
 	if( (pkg = get_newest_installed_pkg(pkg_name)) != NULL ){
@@ -112,7 +112,7 @@ void jaospkg_remove(char *pkg_name){
 }
 
 /* search for a pkg (support extended POSIX regex) */
-void jaospkg_search(char *pattern){
+void jaospkg_search(const char *pattern){
 	struct pkg_list *pkgs = NULL;
 	int iterator,regexec_return;
 	regex_t regex;
@@ -149,7 +149,7 @@ void jaospkg_search(char *pattern){
 }/* end search */
 
 /* show the details for a specific package */
-void jaospkg_show(char *pkg_name){
+void jaospkg_show(const char *pkg_name){
 	pkg_info *pkg;
 	if( (pkg = lookup_pkg(pkg_name)) != NULL ){
 		printf("Package Name: %s\n",pkg->name);
@@ -164,7 +164,7 @@ void jaospkg_show(char *pkg_name){
 }
 
 /* update package data from mirror url */
-void jaospkg_update(rc_config *global_config){
+void jaospkg_update(const rc_config *global_config){
 	FILE *pkg_list_fh;
 	FILE *patches_list_fh;
 
@@ -183,7 +183,7 @@ void jaospkg_update(rc_config *global_config){
 
 /* upgrade pkg */
 /* flesh me out so that jaospkg_upgrade_all() calls me */
-void jaospkg_upgrade(rc_config *global_config,pkg_info *installed_pkg){
+void jaospkg_upgrade(const rc_config *global_config,pkg_info *installed_pkg){
 	pkg_info *update_pkg;
 	int cmp_result;
 
@@ -213,7 +213,7 @@ void jaospkg_upgrade(rc_config *global_config,pkg_info *installed_pkg){
 
 /* upgrade all installed pkgs with available updates */
 /* use jaospkg_upgrade() soon, pass in pkg_list(s) */
-void jaospkg_upgrade_all(rc_config *global_config){
+void jaospkg_upgrade_all(const rc_config *global_config){
 	int iterator;
 	struct pkg_list *installed_pkgs = NULL;
 	struct pkg_list *update_pkgs = NULL;

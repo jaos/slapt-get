@@ -49,40 +49,28 @@ struct pkg_list {
  */
 /* parse the PACKAGES.TXT file */
 struct pkg_list *parse_pkg_list(void);
-
 /* retrieve list of installed pkgs */
 struct pkg_list *get_installed_pkgs(void);
-
 /* return list of update pkgs */
 struct pkg_list *parse_update_pkg_list(void);
-
 /* generate a short description */
 char *gen_short_pkg_description(pkg_info *);
-
 /* retrieve the newest pkg from pkg_info list */
-pkg_info *get_newest_pkg(pkg_info **,char *,int);
-
+pkg_info *get_newest_pkg(pkg_info **,const char *,int);
 /* retrieve newest installed pkg */
-pkg_info *get_newest_installed_pkg(char *);
-
+pkg_info *get_newest_installed_pkg(const char *);
 /* retrieve newest update pkg */
-pkg_info *get_newest_update_pkg(char *);
-
+pkg_info *get_newest_update_pkg(const char *);
 /* pull pkg from pkg data */
 pkg_info *lookup_pkg(const char *);
-
 /* install pkg */
-int install_pkg(rc_config *,pkg_info *);
-
+int install_pkg(const rc_config *,pkg_info *);
 /* upgrade pkg */
-int upgrade_pkg(rc_config *,pkg_info *);
-
+int upgrade_pkg(const rc_config *,pkg_info *);
 /* remove pkg */
 int remove_pkg(pkg_info *);
-
 /* free memory allocated for pkg_list struct */
 void free_pkg_list(struct pkg_list *);
-
 /* recursively create dirs */
 void create_dir_structure(char *);
 

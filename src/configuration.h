@@ -39,10 +39,10 @@ struct _configuration {
 typedef struct _configuration rc_config;
 
 rc_config *read_rc_config(const char *);
-void working_dir_init(rc_config *);
+void working_dir_init(const rc_config *);
 FILE *open_file(const char *,const char *);
 char spinner(void);
-void clean_pkg_dir(char *);
+void clean_pkg_dir(const char *);
 struct exclude_list *parse_exclude(char *);
 void free_excludes(struct exclude_list *);
-int is_excluded(rc_config *,char *);
+int is_excluded(const rc_config *,const char *);

@@ -102,7 +102,7 @@ rc_config *read_rc_config(const char *file_name){
 	return global_config;
 }
 
-void working_dir_init(rc_config *global_config){
+void working_dir_init(const rc_config *global_config){
 	if( access(global_config->working_dir,W_OK) == -1 ){
 		if(errno && errno == 2 ){
 			if( mkdir(global_config->working_dir,
@@ -156,7 +156,7 @@ char spinner(void){
 	}
 }
 
-void clean_pkg_dir(char *dir_name){
+void clean_pkg_dir(const char *dir_name){
 	DIR *tmp;
 	struct dirent *file;
 	struct stat file_stat;
@@ -260,7 +260,7 @@ void free_excludes(struct exclude_list *list){
 	free(list);
 }
 
-int is_excluded(rc_config *global_config,char *pkg_name){
+int is_excluded(const rc_config *global_config,const char *pkg_name){
 	int i;
 
 	if( global_config->ignore_excludes == 1 )

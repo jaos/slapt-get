@@ -18,7 +18,7 @@
 
 #include <main.h>
 
-void download_data(FILE *fh,char *url){
+void download_data(FILE *fh,const char *url){
 	CURL *ch = NULL;
 	CURLcode response;
 	char curl_err_buff[1024];
@@ -43,7 +43,7 @@ void download_data(FILE *fh,char *url){
 	curl_free(ch);
 }
 
-FILE *download_pkg_list(rc_config *global_config){
+FILE *download_pkg_list(const rc_config *global_config){
 	FILE *fh = NULL;
 	char *url = NULL;
 
@@ -69,7 +69,7 @@ FILE *download_pkg_list(rc_config *global_config){
 	return fh;
 }
 
-FILE *download_patches_list(rc_config *global_config){
+FILE *download_patches_list(const rc_config *global_config){
 	FILE *fh = NULL;
 	char *url = NULL;
 
@@ -96,7 +96,7 @@ FILE *download_patches_list(rc_config *global_config){
 	return fh;
 }
 
-char *download_pkg(rc_config *global_config,pkg_info *pkg){
+char *download_pkg(const rc_config *global_config,pkg_info *pkg){
 	FILE *fh = NULL;
 	char *file_name = NULL;
 	char *url = NULL;
