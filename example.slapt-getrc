@@ -45,12 +45,11 @@ SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-10.0/
 # slackware testing and extra 
 #SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-10.0/extra/
 #SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-10.0/testing
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-current/extra/
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-current/testing
 
 # other unofficial sources
 #SOURCE=http://www.tenboard.com/slackware/slackware-9.0/
 #SOURCE=http://www.tenboard.com/slackware/slackware-9.1/
+#SOURCE=http://www.tenboard.com/slackware/slackware-10.0/
 #SOURCE=http://packs.slack.it/
 #SOURCE=http://slackpacks.tchelinux.com.br/
 #SOURCE=http://users.lichtsnel.nl/pub/slackware/
