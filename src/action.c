@@ -520,7 +520,7 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 					}else{
 
 						/* loop through deps */
-						for(c = 0; i < deps->pkg_count;c++){
+						for(c = 0; c < deps->pkg_count;c++){
 
 							/* only check deps that aren't already present */
 							if( search_transaction(&tran,deps->pkgs[c]) == 0 ){

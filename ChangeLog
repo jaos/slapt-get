@@ -12,6 +12,7 @@
  * fixed bug with --install {pkg}-{version}, now correctly maps to installed package,
    won't reinstall without --reinstall.
  * updated FAQ with ENV PATH sudo question
+ * fixed bug in dist-upgrade dep check loop exiting early
 
 0.9.7h Dec 08, 2003
  * updated FAQ
