@@ -42,11 +42,11 @@ Table of Contents:
     * retrieve and apply updates
     * upgrade from one slackware release to another in a few simple steps
     * show description of packages, including mirror location, version, size,
-      dependencies (where available), and description
+      dependencies (where available), description, and installation status
     * exclude (hold) packages from upgrades, by name or by regular expression
     * transaction engine for install, remove, and upgrades
     * "compare package version" algorithm to prevent downgrades
-    * recursive dependency resolution where available (see FAQ)
+    * recursive dependency resolution using slack-required metadata (see FAQ)
     * extremely fast and easy to script with
 
 
@@ -55,8 +55,8 @@ Table of Contents:
 
     slapt-get requires Slackware-9.0 or better, due to glibc and openssl
     updates.  You can also use slapt-get under Slackware 8.1 if you
-    upgrade glibc-solibs and openssl from Slackware 9.0, or if the binary
-    is statically linked.
+    upgrade glibc-solibs and openssl from Slackware 9.0, or if slapt-get
+    is built statically linked.
 
     The following packages are required to build slapt-get from source:
     make, gcc, curl, glibc, kernel-headers, binutils, zlib, gettext-tools,

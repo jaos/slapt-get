@@ -222,9 +222,9 @@ Frequenty Asked Questions:
 
 11. What about multiple package sources, ala linuxpackages.net?
 
- You can now use multiple sources with slapt-get (including linuxpackages.net).
+ You can use multiple sources with slapt-get (including linuxpackages.net).
  See the example slapt-getrc in the source tarball, or look in
- /etc/slapt-getrc.new if you installed via slackpack. See README.
+ /etc/slapt-getrc.new if you installed via slackpack. See also README.
 
 
 12. I don't like the download spinner, how can I get more statistics?
