@@ -30,28 +30,29 @@ Table of Contents:
 
     slapt-get tries to emulate Debian's apt-get as closely as possible.
 
-    * cache package data and update data from mirror site
-    * multiple sources (including linuxpackage.net support)
-    * show packages that are available (from cached data)
-    * allow packages to be retrieved and installed by name
-    * remove packages
-    * allow updates to be retrieved and applied
     * uses native Slackware tools (installpkg, upgradepkg, and removepkg)
+    * cache package data and update data from mirror site
+    * supports multiple package sources (including linuxpackage.net)
+    * supports sources from ftp, ftps, http, https, file:/// and more (libcurl)
+    * verify package integrity with MD5 checksum
+    * show packages that are available (from cached data)
+    * allow packages to be retrieved, installed, and removed by name
+    * allow updates to be retrieved and applied
+    * upgrade from one slackware release to another
     * show description of packages
     * list installed packages
-    * upgrade from one slackware release to another
     * exclude (hold) packages from upgrades
-    * easy to script with
-    * extremely fast
     * transaction engine
     * "compare package version" algorithm to prevent downgrades
+    * extremely fast and easy to script with
 
 
 
  2. Requirements
 
     slapt-get requires Slackware-9.0 or better, due to glibc and openssl
-    updates.
+    updates.  You can also use slapt-get under Slackware 8.1 if you
+    upgrade glibc-solibs and openssl from Slackware 9.0.
 
     The following packages are required to build slapt-get from source:
     make, gcc, curl, glibc, kernel-headers, binutils, zlib, and openssl
@@ -77,9 +78,10 @@ Table of Contents:
 
     * SOURCE must be a path to a valid slackware release directory,
     or a source such as linuxpackages.net (see example within rc).
-    Multiple sources can be defined.  Please do not add redundant
-    mirror locations to the same release.  Mirror fallback is not
-    yet implemented.
+    All that is required is the PACKAGES.TXT (see FAQ entry #17)
+    and CHECKSUMS.md5.  Multiple sources can be defined.  Please do
+    not add redundant mirror locations to the same release.  Mirror
+    fallback is not yet implemented.
 
       NOTE: It is not recommended to mix 3rd party package sources
             with the official on production servers.  Sometimes 

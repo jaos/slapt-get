@@ -7,9 +7,10 @@ Future enhancements, fixes, or features:
 
  * optimize
  * add more error checking/handling, remove some exit() calls
- * find memory leaks
+ * find any remaining memory leaks
 
  * mirror fall back in case pkg is not available on current mirror
  * dependancy tracking (ideally that will happen in PACKAGES.TXT)
+   via slack-required file in ./install/
  * source pkg handling (maybe)
 
