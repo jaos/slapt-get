@@ -192,7 +192,7 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 		/* if the d/l fails, unlink the empty file */
 		if( unlink(file_name) == -1 ){
 			fprintf(stderr,_("Failed to unlink %s\n"),file_name);
-			if( errno ) perror("unlink");
+			if( errno ) perror(file_name);
 		}
 		#endif
 		free(url);
