@@ -590,6 +590,10 @@ Frequenty Asked Questions:
  --dist-upgrade will ensure that the base set is always present while at the
  same time keeping your installed packages up to date.
 
+ --dist-upgrade --reinstall can also be useful when some packages in the base
+ disk set change versions (cxxlibs and sed come to mind).  This will reinstall
+ those base packages that may have lesser version numbers.
+
 
 29. How would I script an ldd dependency hack with slapt-get?
 
