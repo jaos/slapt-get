@@ -1,4 +1,8 @@
 
+0.9.5d Oct 06, 2003
+ * added initial slack-required for future dependancy support
+ * added lilo to example slapt-getrc exclude list
+
 0.9.5c Oct 04, 2003
  * removed bad free() in get_installed_pkgs()
 
