@@ -146,10 +146,25 @@ int main( int argc, char *argv[] ){
 				global_config->dl_stats = 1;
 				break;
 			case 'C': /* override rc location */
-				free_rc_config(global_config);
-				global_config = read_rc_config(optarg);
-				if( global_config == NULL ){
-					exit(1);
+				{
+					rc_config *tmp_gc = global_config;
+					global_config = read_rc_config(optarg);
+					if( global_config == NULL ){
+						exit(1);
+					}
+					/* preserve existing command line options */
+					global_config->download_only = tmp_gc->download_only;
+					global_config->dist_upgrade = tmp_gc->dist_upgrade;
+					global_config->simulate = tmp_gc->simulate;
+					global_config->no_prompt = tmp_gc->no_prompt;
+					global_config->re_install = tmp_gc->re_install;
+					global_config->ignore_excludes = tmp_gc->ignore_excludes;
+					global_config->no_md5_check = tmp_gc->no_md5_check;
+					global_config->no_dep = tmp_gc->no_dep;
+					global_config->disable_dep_check = tmp_gc->disable_dep_check;
+					global_config->print_uris = tmp_gc->print_uris;
+					global_config->dl_stats = tmp_gc->dl_stats;
+					free_rc_config(tmp_gc);
 				}
 				break;
 			default:

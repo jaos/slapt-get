@@ -1,5 +1,6 @@
 
 0.9.9a Sep 06, 2004
+ * preserve existing command line options when overriding configuration file
  * null terminated new working_dir string in configuration parsing (thanks Sean Donner)
  * updated makefile so that pkg permissions on /sbin are root:bin (thanks Jim Simmons)
  * fixed configuration overriding and parsing borkage (thanks to Sean Donner)
