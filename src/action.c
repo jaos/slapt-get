@@ -172,6 +172,7 @@ void pkg_action_search(const char *pattern){
 
 	for(iterator = 0; iterator < pkgs->pkg_count; iterator++ ){
 		if(
+			/* search pkg name */
 			( regexec(
 				&search_regex.regex,
 				pkgs->pkgs[iterator]->name,
@@ -180,9 +181,19 @@ void pkg_action_search(const char *pattern){
 				0
 			) == 0)
 			||
+			/* search pkg description */
 			( regexec(
 				&search_regex.regex,
 				pkgs->pkgs[iterator]->description,
+				search_regex.nmatch,
+				search_regex.pmatch,
+				0
+			) == 0)
+			||
+			/* search pkg location */
+			( regexec(
+				&search_regex.regex,
+				pkgs->pkgs[iterator]->location,
 				search_regex.nmatch,
 				search_regex.pmatch,
 				0

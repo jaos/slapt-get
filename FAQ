@@ -18,6 +18,7 @@ Frequenty Asked Questions:
 15. What about Dropline support?
 16. How can I generate an exclude list for an entire disk set?
 17. How do I use a local file source?
+18. How can I make sure I have every package from the base installed?
 
 
 
@@ -57,7 +58,8 @@ Frequenty Asked Questions:
 4.  How do I find a package I want to install?
 
  You can use the --search feature, supplying an expression.  POSIX 
- regular expressions are supported.
+ regular expressions are supported.  This searches the name, location,
+ or descriptions of packages.
 
 5.  Can I upgrade all my installed packages?
 
@@ -115,6 +117,11 @@ Frequenty Asked Questions:
 
            ### then, let slapt-get upgrade the rest
            $ slapt-get --upgrade
+
+           ### to make sure you install every package in the base
+           ### system, (see FAQ #18) use this:
+           ./slapt-get --search '^\.\/slackware\/a$'|awk '{print $1}'| \
+             xargs -r ./slapt-get --install
 
          Then follow the rest of the directions in UPGRADE.TXT.
 
@@ -252,16 +259,14 @@ Frequenty Asked Questions:
    # this should gen an exclude list for a particular dir set (first arg to script)
    DIR=$1
    F=0
-   for pkg in `./slapt-get --list|awk '{print $1}'`
+   for pkg in `./slapt-get --search "^\.\/slackware\/${DIR}$"|awk '{print $1}'`
    do
-     if [ -n "`./slapt-get --show ${pkg}|grep 'Package Location'|awk '{print $3}'|egrep "\W+${DIR}"`" ]; then
-       if [ $F == 1 ]; then
-   echo -n ,$pkg
-       else
-   echo -n $pkg
-       fi
-       F=1
+     if [ $F == 1 ]; then
+       echo -n ,$pkg
+     else
+       echo -n $pkg
      fi
+     F=1
    done
    echo
 
@@ -392,4 +397,19 @@ Frequenty Asked Questions:
         sed -e "s/ZXaXZ/$totalcomp_m/g" \
         -e "s/ZXbXZ/$totaluncomp_m/g" > $final_target && rm $target
  ### END SCRIPT
+
+18. How can I make sure I have every package from the base installed?
+
+ If you just upgraded your Slackware install to a newer version, you may want
+ to make sure that you have all the required base packages installed.  You can
+ use the --search option and supply a directory (as shown from --show pkg_name).
+
+ Most mirrors use ./slackware/a as the directory for the base.  Thus to 
+ upgrade:
+
+   ./slapt-get --search '^\.\/slackware\/a$'|awk '{print $1}'| \
+     xargs -r ./slapt-get --install
+
+ You can do the same thing to install a whole disk set... just change the 
+ expression.
 
