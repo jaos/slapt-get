@@ -251,6 +251,12 @@ Frequenty Asked Questions:
  upgraded, either put the package names into the exception list or use 
  interactive mode (do not use --no-prompt, use --interactive).
 
+ You can also create an exlude list for the dropline pacakges like so:
+
+  slapt-get --installed|awk '{print $1}'|grep 'dl$'| \
+		xargs -r echo|sed -e 's/ /,/'
+
+
 16. How can I generate an exclude list for an entire disk set?
 
  You can use this script to generate a listing of packages to add to your
