@@ -40,8 +40,14 @@ int download_data(FILE *fh,const char *url){
 		fprintf(stderr,"failed to download: %s\n",curl_err_buff);
 		return_code = -1;
 	}
-	/* curl_easy_cleanup(ch); */
-	curl_free(ch);
+	/*
+   * need to use curl_easy_cleanup() so that we don't 
+ 	 * have tons of open connections, getting rejected
+	 * by ftp servers for being naughty.
+	*/
+	curl_easy_cleanup(ch);
+	/* can't do a curl_free() after curl_easy_cleanup() */
+	/* curl_free(ch); */
 
 	return return_code;
 }

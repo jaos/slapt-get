@@ -132,6 +132,7 @@ int main( int argc, char *argv[] ){
 
 	free(global_config->exclude_list);
 	free(global_config);
+	curl_global_cleanup();
 	return 0;
 }
 

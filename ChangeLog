@@ -8,6 +8,8 @@
  * more verbose messages during operation
  * fixed chdir/mkdir bug in working_dir
  * unlink faulty d/l files/pkgs (failed to d/l or checksum is bad)
+ * fixed bug with ftp transfers... connections left open
+   some ftp servers complain and deny access after so many connections
 
 0.9.3 Sep 24, 2003
  * default make target doesn't build slack pkg
