@@ -488,7 +488,7 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 								add_install_to_transaction(&tran,deps->pkgs[c]);
 							}else{
 								/* add upgrade if newer */
-								if(cmp_pkg_versions(installed_pkgs->pkgs[i]->version,deps->pkgs[c]->version) < 0 )
+								if(cmp_pkg_versions(dep_installed->version,deps->pkgs[c]->version) < 0 )
 									add_upgrade_to_transaction(&tran,dep_installed,deps->pkgs[c]);
 							}
 
