@@ -60,7 +60,7 @@ pkg: $(PROGRAM_NAME)
 	-@gzip pkg/usr/man/man8/$(PROGRAM_NAME).8
 	@( cd pkg; makepkg -c y $(PROGRAM_NAME)-$(VERSION)-$(ARCH)-$(RELEASE).tgz )
 
-po: $(PROGRAM_NAME)
+po_files:
 	-grep '_(' src/*.c |cut -f2-255 -d':'|sed -re "s/.*(_\(\".*\"\)).*/\1/" > po/gettext_strings
 	-mv po/slapt-get.pot po/slapt-get.pot~
 	-xgettext -d slapt-get -o po/slapt-get.pot -a -C --no-location po/gettext_strings
