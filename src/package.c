@@ -410,7 +410,9 @@ char *gen_short_pkg_description(pkg_info_t *pkg){
 	char *short_description = NULL;
 	size_t string_size = 0;
 
-	string_size = strlen(pkg->description) - (strlen(pkg->name) + 2) - strlen( strchr(pkg->description,'\n') );
+	if( strchr(pkg->description,'\n') != NULL ){
+		string_size = strlen(pkg->description) - (strlen(pkg->name) + 2) - strlen( strchr(pkg->description,'\n') );
+	}
 
 	/* quit now if the description is going to be empty */
 	if( (int)string_size < 0 ) return NULL;
