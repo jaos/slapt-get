@@ -118,11 +118,12 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 
 						/* only check if it's not already present in trans */
 						if( search_transaction(&tran,deps->pkgs[c]) == 0 ){
-							if( get_newest_pkg(installed,deps->pkgs[c]->name) == NULL ){
+							pkg_info_t *dep_installed;
+							if( (dep_installed = get_newest_pkg(installed,deps->pkgs[c]->name)) == NULL ){
 								add_install_to_transaction(&tran,deps->pkgs[c]);
 							}else{
 								/* add only if its a valid upgrade */
-								if(cmp_pkg_versions(installed_pkg->version,deps->pkgs[c]->version) < 0 )
+								if(cmp_pkg_versions(dep_installed->version,deps->pkgs[c]->version) < 0 )
 									add_upgrade_to_transaction(&tran,installed_pkg,deps->pkgs[c]);
 							}
 						}
