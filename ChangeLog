@@ -1,5 +1,5 @@
 
-0.9.6d Oct 19, 2003
+0.9.6d Oct 20, 2003
  * updated docs
  * reworked parse_packages_txt function
  * fixed possible buffer overflows in parse_packages_txt
