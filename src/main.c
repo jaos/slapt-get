@@ -112,6 +112,7 @@ int main( int argc, char *argv[] ){
 				break;
 			case 'a': /* dist-upgrade */
 				global_config->dist_upgrade = 1;
+				pkg_action_upgrade_all(global_config);
 				break;
 			case 'm': /* simulate */
 				global_config->simulate = 1;
@@ -146,8 +147,9 @@ void usage(){
 	printf("%s [option(s)] [target]\n",PROGRAM_NAME);
 	printf("\n");
 	printf("Targets:\n");
-	printf("  --update    - retrieves pkg data from MIRROR\n");
-	printf("  --upgrade   - upgrade installed pkgs\n");
+	printf("  --update       - retrieves pkg data from MIRROR\n");
+	printf("  --upgrade      - upgrade installed pkgs\n");
+	printf("  --dist-upgrade - assumes MIRROR is set to newer release\n");
 	printf("  --install   [pkg name(s)] - install specified pkg(s)\n");
 	printf("  --remove    [pkg name(s)] - remove specified pkg(s)\n");
 	printf("  --show      [pkg name] - show pkg description\n");
@@ -159,10 +161,9 @@ void usage(){
 	printf("\n");
 	printf("Options:\n");
 	printf("  --download-only   - only download pkg on install/upgrade\n");
-	printf("  --dist-upgrade    - assumes MIRROR is set to newer release\n");
 	printf("  --simulate        - show pkgs to be upgraded\n");
 	printf("  --no-prompt       - do not prompt during upgrade\n");
-	printf("  --reinstall      - re-install the pkg even if installed\n");
+	printf("  --reinstall       - re-install the pkg even if installed\n");
 	printf("  --ignore-excludes - install excludes anyway\n");
 }
 

@@ -1,4 +1,8 @@
 
+0.9.3 Sep 23, 2003
+ * default make target doesn't build slack pkg
+ * --dist-upgrade becomes target instead of option
+
 0.9.2 Sep 22, 2003
  * renamed to slapt-get
  * documentation updates

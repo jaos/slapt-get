@@ -9,7 +9,7 @@ SBINDIR=/sbin/
 DEFINES=-DPROGRAM_NAME="\"$(PROGRAM_NAME)\"" -DVERSION="\"$(VERSION)\"" -DRC_LOCATION="\"$(RCDEST)\""
 CFLAGS=-W -Werror -Wall -O2 -ansi -pedantic -Iinclude $(DEFINES)
 
-default: all
+default: $(PROGRAM_NAME)
 
 all: pkg
 
