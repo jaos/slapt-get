@@ -62,7 +62,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 
 	list->pkgs = malloc( sizeof *list->pkgs );
 	if( list->pkgs == NULL ){
-		fprintf(stderr,"Failed to malloc pkgs\n");
+		fprintf(stderr,_("Failed to malloc pkgs\n"));
 		exit(1);
 	}
 	list->pkg_count = 0;
@@ -85,21 +85,21 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 
 		/* skip this line if we didn't find a package name */
 		if( name_regex.reg_return != 0 ){
-			fprintf(stderr,"regex failed on [%s]\n",getline_buffer);
+			fprintf(stderr,_("regex failed on [%s]\n"),getline_buffer);
 			continue;
 		}
 		/* otherwise keep going and parse out the rest of the pkg data */
 
 		tmp_pkg = malloc( sizeof *tmp_pkg );
 		if( tmp_pkg == NULL ){
-			fprintf(stderr,"Failed to malloc tmp_pkg\n");
+			fprintf(stderr,_("Failed to malloc tmp_pkg\n"));
 			exit(1);
 		}
 
 		/* pkg name base */
 		/* don't overflow the buffer */
 		if( (name_regex.pmatch[1].rm_eo - name_regex.pmatch[1].rm_so) > NAME_LEN ){
-			fprintf( stderr, "pkg name too long [%s:%d]\n",
+			fprintf( stderr, _("pkg name too long [%s:%d]\n"),
 				getline_buffer + name_regex.pmatch[1].rm_so,
 				name_regex.pmatch[1].rm_eo - name_regex.pmatch[1].rm_so
 			);
@@ -117,7 +117,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 		/* pkg version */
 		/* don't overflow the buffer */
 		if( (name_regex.pmatch[2].rm_eo - name_regex.pmatch[2].rm_so) > VERSION_LEN ){
-			fprintf( stderr, "pkg version too long [%s:%d]\n",
+			fprintf( stderr, _("pkg version too long [%s:%d]\n"),
 				getline_buffer + name_regex.pmatch[2].rm_so,
 				name_regex.pmatch[2].rm_eo - name_regex.pmatch[2].rm_so
 			);
@@ -147,7 +147,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 
 				/* don't overflow the buffer */
 				if( (mirror_regex.pmatch[1].rm_eo - mirror_regex.pmatch[1].rm_so) > MIRROR_LEN ){
-					fprintf( stderr, "pkg mirror too long [%s:%d]\n",
+					fprintf( stderr, _("pkg mirror too long [%s:%d]\n"),
 						getline_buffer + mirror_regex.pmatch[1].rm_so,
 						mirror_regex.pmatch[1].rm_eo - mirror_regex.pmatch[1].rm_so
 					);
@@ -183,7 +183,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 
 				/* don't overflow the buffer */
 				if( (location_regex.pmatch[1].rm_eo - location_regex.pmatch[1].rm_so) > LOCATION_LEN ){
-					fprintf( stderr, "pkg location too long [%s:%d]\n",
+					fprintf( stderr, _("pkg location too long [%s:%d]\n"),
 						getline_buffer + location_regex.pmatch[1].rm_so,
 						location_regex.pmatch[1].rm_eo - location_regex.pmatch[1].rm_so
 					);
@@ -199,12 +199,12 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 					location_regex.pmatch[1].rm_eo - location_regex.pmatch[1].rm_so
 				] = '\0';
 			}else{
-				fprintf(stderr,"regexec failed to parse location\n");
+				fprintf(stderr,_("regexec failed to parse location\n"));
 				free(tmp_pkg);
 				continue;
 			}
 		}else{
-			fprintf(stderr,"getline reached EOF attempting to read location\n");
+			fprintf(stderr,_("getline reached EOF attempting to read location\n"));
 			free(tmp_pkg);
 			continue;
 		}
@@ -223,7 +223,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 					(size_c_regex.pmatch[1].rm_eo - size_c_regex.pmatch[1].rm_so) + 1 , sizeof *size_c 
 				);
 				if( size_c == NULL ){
-					fprintf(stderr,"Failed to calloc size_c\n");
+					fprintf(stderr,_("Failed to calloc size_c\n"));
 					exit(1);
 				}
 				strncpy(
@@ -235,12 +235,12 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 				tmp_pkg->size_c = strtol(size_c, (char **)NULL, 10);
 				free(size_c);
 			}else{
-				fprintf(stderr,"regexec failed to parse size_c\n");
+				fprintf(stderr,_("regexec failed to parse size_c\n"));
 				free(tmp_pkg);
 				continue;
 			}
 		}else{
-			fprintf(stderr,"getline reached EOF attempting to read size_c\n");
+			fprintf(stderr,_("getline reached EOF attempting to read size_c\n"));
 			free(tmp_pkg);
 			continue;
 		}
@@ -260,7 +260,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 				);
 
 				if( size_u == NULL ){
-					fprintf(stderr,"Failed to calloc size_u\n");
+					fprintf(stderr,_("Failed to calloc size_u\n"));
 					exit(1);
 				}
 				strncpy(
@@ -271,12 +271,12 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 				tmp_pkg->size_u = strtol(size_u, (char **)NULL, 10);
 				free(size_u);
 			}else{
-				fprintf(stderr,"regexec failed to parse size_u\n");
+				fprintf(stderr,_("regexec failed to parse size_u\n"));
 				free(tmp_pkg);
 				continue;
 			}
 		}else{
-			fprintf(stderr,"getline reached EOF attempting to read size_u\n");
+			fprintf(stderr,_("getline reached EOF attempting to read size_u\n"));
 			free(tmp_pkg);
 			continue;
 		}
@@ -323,7 +323,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 				}
 			}
 		}else{
-			fprintf(stderr,"error attempting to read pkg description\n");
+			fprintf(stderr,_("error attempting to read pkg description\n"));
 			free(tmp_pkg);
 			continue;
 		}
@@ -331,7 +331,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 		/* grow our struct array */
 		realloc_tmp = realloc(list->pkgs , sizeof *list->pkgs * (list->pkg_count + 1) );
 		if( realloc_tmp == NULL ){
-			fprintf(stderr,"Failed to realloc pkgs\n");
+			fprintf(stderr,_("Failed to realloc pkgs\n"));
 			exit(1);
 		}
 
@@ -364,7 +364,7 @@ char *gen_short_pkg_description(pkg_info_t *pkg){
 
 	short_description = calloc( string_size + 1 , sizeof *short_description );
 	if( short_description == NULL ){
-		fprintf(stderr,"Failed to calloc short_description\n");
+		fprintf(stderr,_("Failed to calloc short_description\n"));
 		exit(1);
 	}
 
@@ -404,17 +404,17 @@ struct pkg_list *get_installed_pkgs(void){
 		size_t regerror_size;
 		char errbuf[1024];
 		size_t errbuf_size = 1024;
-		fprintf(stderr, "Failed to compile regex\n");
+		fprintf(stderr, _("Failed to compile regex\n"));
 
 		if( (regerror_size = regerror(ip_regex.reg_return, &ip_regex.regex,errbuf,errbuf_size)) ){
-			printf("Regex Error: %s\n",errbuf);
+			printf(_("Regex Error: %s\n"),errbuf);
 		}
 		exit(1);
 	}
 
 	list->pkgs = malloc( sizeof *list->pkgs );
 	if( list->pkgs == NULL ){
-		fprintf(stderr,"Failed to malloc pkgs\n");
+		fprintf(stderr,_("Failed to malloc pkgs\n"));
 		exit(1);
 	}
 
@@ -425,7 +425,7 @@ struct pkg_list *get_installed_pkgs(void){
 			pkg_info_t *tmp_pkg;
 			tmp_pkg = malloc( sizeof *tmp_pkg );
 			if( tmp_pkg == NULL ){
-				fprintf(stderr,"Failed to malloc tmp_pkg\n");
+				fprintf(stderr,_("Failed to malloc tmp_pkg\n"));
 				exit(1);
 			}
 
@@ -454,7 +454,7 @@ struct pkg_list *get_installed_pkgs(void){
 				/* grow our pkgs array */
 				realloc_tmp = realloc(list->pkgs , sizeof *list->pkgs * (list->pkg_count + 1 ) );
 				if( realloc_tmp == NULL ){
-					fprintf(stderr,"Failed to realloc pkgs\n");
+					fprintf(stderr,_("Failed to realloc pkgs\n"));
 					if( errno ){
 						perror("realloc");
 					}
@@ -524,7 +524,7 @@ struct pkg_list *parse_file_list(FILE *fh){
 
 	list->pkgs = malloc( sizeof *list->pkgs );
 	if( list->pkgs == NULL ){
-		fprintf(stderr,"Failed to malloc pkgs\n");
+		fprintf(stderr,_("Failed to malloc pkgs\n"));
 		exit(1);
 	}
 
@@ -543,7 +543,7 @@ struct pkg_list *parse_file_list(FILE *fh){
 				/* find out why malloc isn't working here... mem leak somewhere */
 				list->pkgs[list->pkg_count] = calloc( 1, sizeof *list->pkgs[list->pkg_count] );
 				if( list->pkgs[list->pkg_count] == NULL ){
-					fprintf(stderr,"Failed to calloc list->pkgs[list->pkg_count]\n");
+					fprintf(stderr,_("Failed to calloc list->pkgs[list->pkg_count]\n"));
 					exit(1);
 				}
 
@@ -586,7 +586,7 @@ struct pkg_list *parse_file_list(FILE *fh){
 
 				realloc_tmp = realloc(list->pkgs , sizeof *list->pkgs * (list->pkg_count + 1));
 				if( realloc_tmp == NULL ){
-					fprintf(stderr,"Failed to realloc pkgs\n");
+					fprintf(stderr,_("Failed to realloc pkgs\n"));
 					exit(1);
 				}else{
 					list->pkgs = realloc_tmp;
@@ -612,12 +612,12 @@ int install_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	char prompt_answer[10];
 
 	if( global_config->simulate == 1 ){
-		printf("%s-%s is to be installed\n",pkg->name,pkg->version);
+		printf(_("%s-%s is to be installed\n"),pkg->name,pkg->version);
 		return 0;
 	}
 
 	if( global_config->interactive == 1 ){
-		printf("Install %s-%s [Y|n] ",pkg->name,pkg->version);
+		printf(_("Install %s-%s [Y|n] "),pkg->name,pkg->version);
 		fgets(prompt_answer,10,stdin);
 		if( tolower(prompt_answer[0]) == 'n' ){
 			chdir(global_config->working_dir);
@@ -641,9 +641,9 @@ int install_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	command = strcat(command,pkg_file_name);
 
 	if( global_config->download_only == 0 ){
-		printf("Preparing to install %s-%s\n",pkg->name,pkg->version);
+		printf(_("Preparing to install %s-%s\n"),pkg->name,pkg->version);
 		if( (cmd_return = system(command)) == -1 ){
-			printf("Failed to execute command: [%s]\n",command);
+			printf(_("Failed to execute command: [%s]\n"),command);
 			exit(1);
 		}
 	}
@@ -662,12 +662,12 @@ int upgrade_pkg(const rc_config *global_config,pkg_info_t *installed_pkg,pkg_inf
 
 	/* skip if excluded */
 	if( is_excluded(global_config,pkg) == 1 ){
-		printf("excluding %s\n",pkg->name);
+		printf(_("excluding %s\n"),pkg->name);
 		return 0;
 	}
 
 	if( global_config->simulate == 1 ){
-		printf("%s-%s is to be upgraded to version %s\n",pkg->name,installed_pkg->version,pkg->version);
+		printf(_("%s-%s is to be upgraded to version %s\n"),pkg->name,installed_pkg->version,pkg->version);
 		return 0;
 	}
 
@@ -676,7 +676,7 @@ int upgrade_pkg(const rc_config *global_config,pkg_info_t *installed_pkg,pkg_inf
 		w/o no_prompt and download_only
 	*/
 	if( global_config->no_prompt == 0 && global_config->download_only == 0 && global_config->interactive == 1 ){
-		printf("Replace %s-%s with %s-%s? [y|N] ",pkg->name,installed_pkg->version,pkg->name,pkg->version);
+		printf(_("Replace %s-%s with %s-%s? [y|N] "),pkg->name,installed_pkg->version,pkg->name,pkg->version);
 		fgets(prompt_answer,10,stdin);
 		if( tolower(prompt_answer[0]) != 'y' ){
 			chdir(global_config->working_dir);
@@ -701,9 +701,9 @@ int upgrade_pkg(const rc_config *global_config,pkg_info_t *installed_pkg,pkg_inf
 	command = strcat(command,pkg_file_name);
 
 	if( global_config->download_only == 0 ){
-		printf("Preparing to replace %s-%s with %s-%s\n",pkg->name,installed_pkg->version,pkg->name,pkg->version);
+		printf(_("Preparing to replace %s-%s with %s-%s\n"),pkg->name,installed_pkg->version,pkg->name,pkg->version);
 		if( (cmd_return = system(command)) == -1 ){
-			printf("Failed to execute command: [%s]\n",command);
+			printf(_("Failed to execute command: [%s]\n"),command);
 			exit(1);
 		}
 	}
@@ -719,7 +719,7 @@ int remove_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	int cmd_return;
 
 	if( global_config->simulate == 1 ){
-		printf("%s-%s is to be removed\n",pkg->name,pkg->version);
+		printf(_("%s-%s is to be removed\n"),pkg->name,pkg->version);
 		return 0;
 	}
 
@@ -734,7 +734,7 @@ int remove_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	command = strcat(command,"-");
 	command = strcat(command,pkg->version);
 	if( (cmd_return = system(command)) == -1 ){
-		printf("Failed to execute command: [%s]\n",command);
+		printf(_("Failed to execute command: [%s]\n"),command);
 		exit(1);
 	}
 
@@ -799,7 +799,7 @@ void get_md5sum(const rc_config *global_config,pkg_info_t *pkg,char *md5_sum){
 
 	md5sum_regex.reg_return = regcomp(&md5sum_regex.regex,MD5SUM_REGEX, REG_EXTENDED|REG_NEWLINE);
 	if( md5sum_regex.reg_return != 0 ){
-		fprintf(stderr,"Failed to compile regex [%s]\n",MD5SUM_REGEX);
+		fprintf(stderr,_("Failed to compile regex [%s]\n"),MD5SUM_REGEX);
 		exit(1);
 	}
 
@@ -969,11 +969,11 @@ void search_pkg_list(struct pkg_list *available,struct pkg_list *matches,const c
 		size_t regerror_size;
 		char errbuf[1024];
 		size_t errbuf_size = 1024;
-		fprintf(stderr, "Failed to compile regex\n");
+		fprintf(stderr, _("Failed to compile regex\n"));
 
 		regerror_size = regerror(search_regex.reg_return, &search_regex.regex,errbuf,errbuf_size);
 		if( regerror_size != 0 ){
-			printf("Regex Error: %s\n",errbuf);
+			printf(_("Regex Error: %s\n"),errbuf);
 		}
 		exit(1);
 	}
@@ -1027,18 +1027,21 @@ struct pkg_list *lookup_pkg_dependencies(struct pkg_list *avail_pkgs,struct pkg_
 
 	deps = malloc( sizeof *deps);
 	if( deps == NULL ){
-		fprintf(stderr,"Failed to malloc deps\n");
+		fprintf(stderr,_("Failed to malloc deps\n"));
 		exit(1);
 	}
 	deps->pkgs = malloc( sizeof *deps->pkgs);
 	if( deps->pkgs == NULL ){
-		fprintf(stderr,"Failed to malloc deps->pkgs\n");
+		fprintf(stderr,_("Failed to malloc deps->pkgs\n"));
 		exit(1);
 	}
 	deps->pkg_count = 0;
 
 	/* don't go any further if the required member is empty */
-	if( strcmp(pkg->required,"") == 0 ) return deps;
+	if( strcmp(pkg->required,"") == 0 || strcmp(pkg->required," ") == 0 )
+		return deps;
+
+	printf("\trequired: [%s]\n",pkg->required);
 
 	/* parse dep line */
 	while( position < (int) strlen(pkg->required) ){
@@ -1114,6 +1117,14 @@ struct pkg_list *lookup_pkg_dependencies(struct pkg_list *avail_pkgs,struct pkg_
 				free(tmp_pkgs_deps);
 			} /* end already exists in dep check */
 
+		}else{
+			/*
+				if we can't find a required dep, set the dep pkg_count to -1 
+				and return... the caller should check to see if its -1, and 
+				act accordingly
+			*/
+			deps->pkg_count = -1;
+			return deps;
 		}/* end tmp_pkg != NULL */
 
 	}/* end while */
@@ -1142,7 +1153,7 @@ pkg_info_t *parse_dep_entry(struct pkg_list *avail_pkgs,struct pkg_list *install
 	if( parse_dep_regex.reg_return != 0 ) return NULL;
 
 	if( (parse_dep_regex.pmatch[1].rm_eo - parse_dep_regex.pmatch[1].rm_so) > NAME_LEN ){
-		fprintf( stderr, "pkg name too long [%s:%d]\n",
+		fprintf( stderr, _("pkg name too long [%s:%d]\n"),
 			dep_entry + parse_dep_regex.pmatch[1].rm_so,
 			parse_dep_regex.pmatch[1].rm_eo - parse_dep_regex.pmatch[1].rm_so
 		);
@@ -1162,14 +1173,14 @@ pkg_info_t *parse_dep_entry(struct pkg_list *avail_pkgs,struct pkg_list *install
 		if( newest_avail_pkg != NULL ) return newest_avail_pkg;
 
 	if( (parse_dep_regex.pmatch[2].rm_eo - parse_dep_regex.pmatch[2].rm_so) > 3 ){
-		fprintf( stderr, "pkg conditional too long [%s:%d]\n",
+		fprintf( stderr, _("pkg conditional too long [%s:%d]\n"),
 			dep_entry + parse_dep_regex.pmatch[2].rm_so,
 			parse_dep_regex.pmatch[2].rm_eo - parse_dep_regex.pmatch[2].rm_so
 		);
 		exit(1);
 	}
 	if( (parse_dep_regex.pmatch[3].rm_eo - parse_dep_regex.pmatch[3].rm_so) > VERSION_LEN ){
-		fprintf( stderr, "pkg version too long [%s:%d]\n",
+		fprintf( stderr, _("pkg version too long [%s:%d]\n"),
 			dep_entry + parse_dep_regex.pmatch[3].rm_so,
 			parse_dep_regex.pmatch[3].rm_eo - parse_dep_regex.pmatch[3].rm_so
 		);
@@ -1263,9 +1274,10 @@ pkg_info_t *parse_dep_entry(struct pkg_list *avail_pkgs,struct pkg_list *install
 				return avail_pkgs->pkgs[i];
 	}
 
-	fprintf(stderr,"The following packages have unmet dependencies:\n");
-	fprintf(stderr,"  %s: Depends: %s\n",pkg->name,dep_entry);
-	exit(1);
+	fprintf(stderr,_("The following packages have unmet dependencies:\n"));
+	fprintf(stderr,_("  %s: Depends: %s\n"),pkg->name,dep_entry);
+	/* exit(1); */
+	return NULL;
 }
 
 struct pkg_list *is_required_by(struct pkg_list *avail, pkg_info_t *pkg){
@@ -1276,12 +1288,12 @@ struct pkg_list *is_required_by(struct pkg_list *avail, pkg_info_t *pkg){
 
 	deps = malloc( sizeof *deps );
 	if( deps == NULL ){
-		fprintf(stderr,"Failed to malloc deps\n");
+		fprintf(stderr,_("Failed to malloc deps\n"));
 		exit(1);
 	}
 	deps->pkgs = malloc( sizeof *deps->pkgs );
 	if( deps->pkgs == NULL ){
-		fprintf(stderr,"Failed to malloc deps->pkgs\n");
+		fprintf(stderr,_("Failed to malloc deps->pkgs\n"));
 		exit(1);
 	}
 	deps->pkg_count = 0;

@@ -218,35 +218,35 @@ int main( int argc, char *argv[] ){
 
 void usage(){
 	printf("%s - Jason Woodward <woodwardj at jaos dot org>\n",PROGRAM_NAME);
-	printf("A implementation of the Debian APT system to Slackware\n");
-	printf("Usage:\n");
-	printf("%s [option(s)] [target]\n",PROGRAM_NAME);
+	printf(_("A implementation of the Debian APT system to Slackware\n"));
+	printf(_("Usage:\n"));
+	printf(_("%s [option(s)] [target]\n"),PROGRAM_NAME);
 	printf("\n");
-	printf("Targets:\n");
-	printf("  --update       - retrieves pkg data from MIRROR\n");
-	printf("  --upgrade      - upgrade installed pkgs\n");
-	printf("  --dist-upgrade - upgrade to newer release (DANGEROUS)\n");
-	printf("  --install      [pkg name(s)] - install specified pkg(s)\n");
-	printf("  --remove       [pkg name(s)] - remove specified pkg(s)\n");
-	printf("  --show         [pkg name] - show pkg description\n");
-	printf("  --search       [expression] - search available pkgs\n");
-	printf("  --list         - list available pkgs\n");
-	printf("  --installed    - list installed pkgs\n");
-	printf("  --clean        - purge cached pkgs\n");
-	printf("  --version      - print version and license info\n");
+	printf(_("Targets:\n"));
+	printf("  --update       - %s\n",_("retrieves pkg data from MIRROR"));
+	printf("  --upgrade      - %s\n",_("upgrade installed pkgs"));
+	printf("  --dist-upgrade - %s\n",_("upgrade to newer release"));
+	printf("  --install      %s\n",_("[pkg name(s)] - install specified pkg(s)"));
+	printf("  --remove       %s\n",_("[pkg name(s)] - remove specified pkg(s)"));
+	printf("  --show         %s\n",_("[pkg name] - show pkg description"));
+	printf("  --search       %s\n",_("[expression] - search available pkgs"));
+	printf("  --list         - %s\n",_("list available pkgs"));
+	printf("  --installed    - %s\n",_("list installed pkgs"));
+	printf("  --clean        - %s\n",_("purge cached pkgs"));
+	printf("  --version      - %s\n",_("print version and license info"));
 	printf("\n");
-	printf("Options:\n");
-	printf("  --download-only   - only download pkg on install/upgrade\n");
-	printf("  --simulate        - show pkgs to be installed/upgraded\n");
-	printf("  --no-prompt       - do not prompt during install/upgrade\n");
-	printf("  --reinstall       - re-install the pkg\n");
-	printf("  --ignore-excludes - install/upgrade excludes\n");
-	printf("  --no-md5          - do not perform md5 check sum\n");
-	printf("  --interactive     - prompt before each install/upgrade\n");
+	printf(_("Options:\n"));
+	printf("  --download-only   - %s\n",_("only download pkg on install/upgrade"));
+	printf("  --simulate        - %s\n",_("show pkgs to be installed/upgraded"));
+	printf("  --no-prompt       - %s\n",_("do not prompt during install/upgrade"));
+	printf("  --reinstall       - %s\n",_("re-install the pkg"));
+	printf("  --ignore-excludes - %s\n",_("install/upgrade excludes"));
+	printf("  --no-md5          - %s\n",_("do not perform md5 check sum"));
+	printf("  --interactive     - %s\n",_("prompt before each install/upgrade"));
 }
 
 void version_info(void){
-	printf("%s version %s\n",PROGRAM_NAME,VERSION);
+	printf(_("%s version %s\n"),PROGRAM_NAME,VERSION);
 	printf("\n");
 	printf("This program is free software; you can redistribute it and/or modify\n");
 	printf("it under the terms of the GNU General Public License as published by\n");

@@ -25,7 +25,7 @@ int download_data(FILE *fh,const char *url){
 	int return_code = 0;
 
 #if DEBUG == 1
-	printf("Fetching url:[%s]\n",url);
+	printf(_("Fetching url:[%s]\n"),url);
 #endif
 	ch = curl_easy_init();
 	curl_easy_setopt(ch, CURLOPT_URL, url);
@@ -38,7 +38,7 @@ int download_data(FILE *fh,const char *url){
 	curl_easy_setopt(ch, CURLOPT_ERRORBUFFER, curl_err_buff );
 
 	if( (response = curl_easy_perform(ch)) != 0 ){
-		fprintf(stderr,"Failed to download: %s\n",curl_err_buff);
+		fprintf(stderr,_("Failed to download: %s\n"),curl_err_buff);
 		return_code = -1;
 	}
 	/*
@@ -61,7 +61,7 @@ int get_mirror_data_from_source(FILE *fh,const char *base_url,const char *filena
 		strlen(base_url) + strlen(filename) + 1, sizeof *url
 	);
 	if( url == NULL ){
-		fprintf(stderr,"Failed to calloc url\n");
+		fprintf(stderr,_("Failed to calloc url\n"));
 		exit(1);
 	}
 
@@ -95,7 +95,7 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 		sizeof *file_name
 	);
 	if( file_name == NULL ){
-		fprintf(stderr,"Failed to calloc file_name\n");
+		fprintf(stderr,_("Failed to calloc file_name\n"));
 		exit(1);
 	}
 	file_name = strncpy(file_name,pkg->name,strlen(pkg->name));
@@ -113,7 +113,7 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 			gen_md5_sum_of_file(fh_test,md5_sum_of_file);
 			fclose(fh_test);
 			if( strcmp(md5_sum_of_file,md5_sum) == 0 ){
-				printf("Using cached copy of %s\n",pkg->name);
+				printf(_("Using cached copy of %s\n"),pkg->name);
 				free(md5_sum);
 				free(md5_sum_of_file);
 				return file_name;
@@ -129,7 +129,7 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 		sizeof *url
 	);
 	if( url == NULL ){
-		fprintf(stderr,"Failed to calloc url\n");
+		fprintf(stderr,_("Failed to calloc url\n"));
 		exit(1);
 	}
 	url = strncpy(url,pkg->mirror,strlen(pkg->mirror));
@@ -139,22 +139,22 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	url = strncat(url,file_name,strlen(file_name));
 
 	#if USE_CURL_PROGRESS == 0
-	printf("Downloading %s %s %s [%dK]...",pkg->mirror,pkg->name,pkg->version,pkg->size_c);
+	printf(_("Downloading %s %s %s [%dK]..."),pkg->mirror,pkg->name,pkg->version,pkg->size_c);
 	#else
-	printf("Downloading %s %s %s [%dK]...\n",pkg->mirror,pkg->name,pkg->version,pkg->size_c);
+	printf(_("Downloading %s %s %s [%dK]...\n"),pkg->mirror,pkg->name,pkg->version,pkg->size_c);
 	#endif
 
 	fh = open_file(file_name,"wb");
 	if( download_data(fh,url) == 0 ){
 		#if USE_CURL_PROGRESS == 0
-		printf("Done\n");
+		printf(_("Done\n"));
 		#endif
 	}else{
 		fclose(fh);
 		#if DO_NOT_UNLINK_BAD_FILES == 0
 		/* if the d/l fails, unlink the empty file */
 		if( unlink(file_name) == -1 ){
-			fprintf(stderr,"Failed to unlink %s\n",file_name);
+			fprintf(stderr,_("Failed to unlink %s\n"),file_name);
 			if( errno ){
 				perror("unlink");
 			}
@@ -172,19 +172,19 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	if( global_config->no_md5_check == 0 ){
 
 		/* check to see if the md5sum is correct */
-		printf("verifying %s md5 checksum...",pkg->name);
+		printf(_("verifying %s md5 checksum..."),pkg->name);
 		if( strcmp(md5_sum_of_file,md5_sum) != 0 ){
-			fprintf(stderr,"md5 sum for %s is not correct!\n",pkg->name);
+			fprintf(stderr,_("md5 sum for %s is not correct!\n"),pkg->name);
 			#if DEBUG == 1
-			fprintf(stderr,"MD5 found:    [%s]\n",md5_sum_of_file);
-			fprintf(stderr,"MD5 expected: [%s]\n",md5_sum);
-			fprintf(stderr,"File: %s/%s\n",global_config->working_dir,file_name);
+			fprintf(stderr,_("MD5 found:    [%s]\n"),md5_sum_of_file);
+			fprintf(stderr,_("MD5 expected: [%s]\n"),md5_sum);
+			fprintf(stderr,_("File: %s/%s\n"),global_config->working_dir,file_name);
 			#endif
 
 			#if DO_NOT_UNLINK_BAD_FILES == 0
 			/* if the checksum fails, unlink the bogus file */
 			if( unlink(file_name) == -1 ){
-				fprintf(stderr,"Failed to unlink %s\n",file_name);
+				fprintf(stderr,_("Failed to unlink %s\n"),file_name);
 				if( errno ){
 					perror("unlink");
 				}
@@ -194,7 +194,7 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 			return NULL;
 
 		}else{
-			printf("Done\n");
+			printf(_("Done\n"));
 		}
 		/* end md5 */
 	}

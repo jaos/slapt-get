@@ -28,7 +28,7 @@ rc_config *read_rc_config(const char *file_name){
 
 	global_config = malloc( sizeof *global_config );
 	if( global_config == NULL ){
-		fprintf(stderr,"Failed to malloc global_config\n");
+		fprintf(stderr,_("Failed to malloc global_config\n"));
 		if( errno ){
 			perror("global_config malloc");
 		}
@@ -52,13 +52,13 @@ rc_config *read_rc_config(const char *file_name){
 
 			/* make sure we stay within the limits of MAX_SOURCES */
 			if( global_config->sources.count == MAX_SOURCES ){
-				fprintf(stderr,"Maximum number of sources (%d) exceeded.\n",MAX_SOURCES);
+				fprintf(stderr,_("Maximum number of sources (%d) exceeded.\n"),MAX_SOURCES);
 				continue;
 			}
 
 			if( strlen(getline_buffer) > strlen(SOURCE_TOKEN) ){
 				if( (strlen(getline_buffer) - strlen(SOURCE_TOKEN)) >= MAX_SOURCE_URL_LEN ){
-					fprintf(stderr,"Maximum length of source (%d) exceeded.\n",MAX_SOURCE_URL_LEN);
+					fprintf(stderr,_("Maximum length of source (%d) exceeded.\n"),MAX_SOURCE_URL_LEN);
 					continue;
 				}
 				strncpy(
@@ -103,11 +103,11 @@ rc_config *read_rc_config(const char *file_name){
 	if( getline_buffer ) free(getline_buffer);
 
 	if( strcmp(global_config->working_dir,"") == 0 ){
-		fprintf(stderr,"WORKINGDIR directive not set within %s.\n",file_name);
+		fprintf(stderr,_("WORKINGDIR directive not set within %s.\n"),file_name);
 		exit(1);
 	}
 	if( global_config->sources.count == 0 ){
-		fprintf(stderr,"SOURCE directive not set within %s.\n",file_name);
+		fprintf(stderr,_("SOURCE directive not set within %s.\n"),file_name);
 		exit(1);
 	}
 
@@ -127,7 +127,7 @@ void working_dir_init(const rc_config *global_config){
 		if(errno && errno == 2 ){
 			if( mkdir(global_config->working_dir,
 			S_IRUSR|S_IWUSR|S_IXUSR|S_IRGRP|S_IXGRP|S_IROTH|S_IXOTH) == -1 ){
-				printf("Failed to build working directory [%s]\n",global_config->working_dir);
+				printf(_("Failed to build working directory [%s]\n"),global_config->working_dir);
 				if( errno ){
 					perror(global_config->working_dir);
 					exit(1);
@@ -138,11 +138,11 @@ void working_dir_init(const rc_config *global_config){
 			}
 		}else if( errno && errno == 13 ){
 			perror(global_config->working_dir);
-			fprintf(stderr,"Please update permissions on %s or run with appropriate privileges\n",
+			fprintf(stderr,_("Please update permissions on %s or run with appropriate privileges\n"),
 				global_config->working_dir);
 			exit(1);
 		}else{
-			fprintf(stderr,"Please update permissions on %s or run with appropriate privileges\n",
+			fprintf(stderr,_("Please update permissions on %s or run with appropriate privileges\n"),
 				global_config->working_dir);
 			exit(1);
 		}
@@ -154,11 +154,11 @@ void working_dir_init(const rc_config *global_config){
 FILE *open_file(const char *file_name,const char *mode){
 	FILE *fh = NULL;
 	if( (fh = fopen(file_name,mode)) == NULL ){
-		fprintf(stderr,"Failed to open %s\n",file_name);
+		fprintf(stderr,_("Failed to open %s\n"),file_name);
 		if( errno ){
 			perror(file_name);
 		}
-		fprintf(stderr,"Perhaps you want to run --update?\n");
+		fprintf(stderr,_("Perhaps you want to run --update?\n"));
 		exit(1);
 	}
 	return fh;
@@ -182,12 +182,12 @@ void clean_pkg_dir(const char *dir_name){
 	struct stat file_stat;
 
 	if( (tmp = opendir(dir_name)) == NULL ){
-		fprintf(stderr,"Failed to opendir %s\n",dir_name);
+		fprintf(stderr,_("Failed to opendir %s\n"),dir_name);
 		return;
 	}
 
 	if( chdir(dir_name) == -1 ){
-		fprintf(stderr,"Failed to chdir: %s\n",dir_name);
+		fprintf(stderr,_("Failed to chdir: %s\n"),dir_name);
 		exit(1);
 	}
 
@@ -205,14 +205,14 @@ void clean_pkg_dir(const char *dir_name){
 		if( S_ISDIR(file_stat.st_mode) ){
 			clean_pkg_dir(file->d_name);
 			if( (chdir("..")) == -1 ){
-				fprintf(stderr,"Failed to chdir: %s\n",dir_name);
+				fprintf(stderr,_("Failed to chdir: %s\n"),dir_name);
 				exit(1);
 			}
 			continue;
 		}
 		if( strstr(file->d_name,".tgz") !=NULL ){
 			#if DEBUG == 1
-			printf("unlinking %s\n",file->d_name);
+			printf(_("unlinking %s\n"),file->d_name);
 			#endif
 			unlink(file->d_name);
 		}
@@ -229,7 +229,7 @@ struct exclude_list *parse_exclude(char *line){
 	struct exclude_list *list;
 	list = malloc( sizeof *list );
 	if( list == NULL ){
-		fprintf(stderr,"Failed to malloc list\n");
+		fprintf(stderr,_("Failed to malloc list\n"));
 		if( errno ){
 			perror("malloc");
 		}
@@ -293,11 +293,11 @@ void create_dir_structure(const char *dir_name){
 
 	cwd = getcwd(NULL,0);
 	if( cwd == NULL ){
-		fprintf(stderr,"Failed to get cwd\n");
+		fprintf(stderr,_("Failed to get cwd\n"));
 		exit(1);
 	}else{
 #if DEBUG == 1
-		fprintf(stderr,"\tCurrent working directory: %s\n",cwd);
+		fprintf(stderr,_("\tCurrent working directory: %s\n"),cwd);
 #endif
 	}
 
@@ -312,19 +312,19 @@ void create_dir_structure(const char *dir_name){
 			if( strcmp(dir_name_buffer,".") != 0 ){
 				if( (mkdir(dir_name_buffer,0755)) == -1){
 					#if DEBUG == 1
-					fprintf(stderr,"Failed to mkdir: %s\n",dir_name_buffer);
+					fprintf(stderr,_("Failed to mkdir: %s\n"),dir_name_buffer);
 					#endif
 				}else{
 					#if DEBUG == 1
-					fprintf(stderr,"\tCreated directory: %s\n",dir_name_buffer);
+					fprintf(stderr,_("\tCreated directory: %s\n"),dir_name_buffer);
 					#endif
 				}
 				if( (chdir(dir_name_buffer)) == -1 ){
-					fprintf(stderr,"Failed to chdir to %s\n",dir_name_buffer);
+					fprintf(stderr,_("Failed to chdir to %s\n"),dir_name_buffer);
 					exit(1);
 				}else{
 					#if DEBUG == 1
-					fprintf(stderr,"\tchdir into %s\n",dir_name_buffer);
+					fprintf(stderr,_("\tchdir into %s\n"),dir_name_buffer);
 					#endif
 				}
 			}/* don't create . */
@@ -348,19 +348,19 @@ void create_dir_structure(const char *dir_name){
 				if( strcmp(dir_name_buffer,".") != 0 ){
 					if( (mkdir(dir_name_buffer,0755)) == -1 ){
 						#if DEBUG == 1
-						fprintf(stderr,"Failed to mkdir: %s\n",dir_name_buffer);
+						fprintf(stderr,_("Failed to mkdir: %s\n"),dir_name_buffer);
 						#endif
 					}else{
 						#if DEBUG == 1
-						fprintf(stderr,"\tCreated directory: %s\n",dir_name_buffer);
+						fprintf(stderr,_("\tCreated directory: %s\n"),dir_name_buffer);
 						#endif
 					}
 					if( (chdir(dir_name_buffer)) == -1 ){
-						fprintf(stderr,"Failed to chdir to %s\n",dir_name_buffer);
+						fprintf(stderr,_("Failed to chdir to %s\n"),dir_name_buffer);
 						exit(1);
 					}else{
 						#if DEBUG == 1
-						fprintf(stderr,"\tchdir into %s\n",dir_name_buffer);
+						fprintf(stderr,_("\tchdir into %s\n"),dir_name_buffer);
 						#endif
 					}
 				} /* don't create . */
@@ -372,11 +372,11 @@ void create_dir_structure(const char *dir_name){
 	}/* end while */
 
 	if( (chdir(cwd)) == -1 ){
-		fprintf(stderr,"Failed to chdir to %s\n",cwd);
+		fprintf(stderr,_("Failed to chdir to %s\n"),cwd);
 		exit(1);
 	}else{
 		#if DEBUG == 1
-		fprintf(stderr,"\tchdir back into %s\n",cwd);
+		fprintf(stderr,_("\tchdir back into %s\n"),cwd);
 		#endif
 	}
 

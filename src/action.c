@@ -32,10 +32,10 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 	pkg_info_t *pkg = NULL;
 	pkg_info_t *installed_pkg = NULL;
 
-	printf("Reading Package Lists... ");
+	printf( _("Reading Package Lists... ") );
 	installed = get_installed_pkgs();
 	all = get_available_pkgs();
-	printf("Done\n");
+	printf( _("Done\n") );
 
 	init_transaction(&tran);
 
@@ -43,7 +43,7 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 
 		/* make sure there is a package called action_args->pkgs[i] */
 		if( (pkg = get_newest_pkg(all,action_args->pkgs[i])) == NULL ){
-			fprintf(stderr,"No Such package: %s\n",action_args->pkgs[i]);
+			fprintf(stderr,_("No Such package: %s\n"),action_args->pkgs[i]);
 			continue;
 		}
 		installed_pkg = get_newest_pkg(installed,action_args->pkgs[i]);
@@ -52,21 +52,29 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 		if( installed_pkg == NULL ){
 			int c;
 			struct pkg_list *deps;
+
 			deps = lookup_pkg_dependencies(all,installed,pkg);
-			for(c = 0; c < deps->pkg_count;c++){
-				if( search_transaction(&tran,deps->pkgs[c]) == 0 ){
-					pkg_info_t *dep_installed;
-					if( (dep_installed = get_newest_pkg(installed,deps->pkgs[c]->name)) == NULL ){
-						add_install_to_transaction(&tran,deps->pkgs[c]);
-					}else{
-						add_upgrade_to_transaction(&tran,dep_installed,deps->pkgs[c]);
+
+			/* check to see if there where issues with dep checking */
+			if( deps->pkg_count == -1 ){
+				/* exclude the package if dep check barfed */
+				add_exclude_to_transaction(&tran,pkg);
+			}else{
+				for(c = 0; c < deps->pkg_count;c++){
+					if( search_transaction(&tran,deps->pkgs[c]) == 0 ){
+						pkg_info_t *dep_installed;
+						if( (dep_installed = get_newest_pkg(installed,deps->pkgs[c]->name)) == NULL ){
+							add_install_to_transaction(&tran,deps->pkgs[c]);
+						}else{
+							add_upgrade_to_transaction(&tran,dep_installed,deps->pkgs[c]);
+						}
 					}
 				}
+				/* this way we install the most up to date pkg */
+				add_install_to_transaction(&tran,pkg);
 			}
 			free(deps->pkgs);
 			free(deps);
-			/* this way we install the most up to date pkg */
-			add_install_to_transaction(&tran,pkg);
 
 		}else{ /* else we upgrade or reinstall */
 
@@ -77,21 +85,30 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 			){
 				int c;
 				struct pkg_list *deps;
+
 				deps = lookup_pkg_dependencies(all,installed,pkg);
-				for(c = 0; c < deps->pkg_count;c++){
-					if( search_transaction(&tran,deps->pkgs[c]) == 0 ){
-						if( get_newest_pkg(installed,deps->pkgs[c]->name) == NULL ){
-							add_install_to_transaction(&tran,deps->pkgs[c]);
-						}else{
-							add_upgrade_to_transaction(&tran,installed_pkg,deps->pkgs[c]);
+
+				/* check to see if there where issues with dep checking */
+				if( deps->pkg_count == -1 ){
+					/* exclude the package if dep check barfed */
+					add_exclude_to_transaction(&tran,pkg);
+				}else{
+					for(c = 0; c < deps->pkg_count;c++){
+						if( search_transaction(&tran,deps->pkgs[c]) == 0 ){
+							if( get_newest_pkg(installed,deps->pkgs[c]->name) == NULL ){
+								add_install_to_transaction(&tran,deps->pkgs[c]);
+							}else{
+								add_upgrade_to_transaction(&tran,installed_pkg,deps->pkgs[c]);
+							}
 						}
 					}
+					add_upgrade_to_transaction(&tran,installed_pkg,pkg);
 				}
 				free(deps->pkgs);
 				free(deps);
-				add_upgrade_to_transaction(&tran,installed_pkg,pkg);
+
 			}else{
-				printf("%s is up to date.\n",installed_pkg->name);
+				printf(_("%s is up to date.\n"),installed_pkg->name);
 			}
 	
 		}
@@ -110,17 +127,28 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 /* list pkgs */
 void pkg_action_list(void){
 	struct pkg_list *pkgs = NULL;
+	struct pkg_list *installed = NULL;
 	int i;
 
 	pkgs = get_available_pkgs();
+	installed = get_installed_pkgs();
 
 	for(i = 0; i < pkgs->pkg_count; i++ ){
 		/* this should eliminate the printing of updates */
 		if( strstr(pkgs->pkgs[i]->description,"no description") == NULL ){
+			int bool_installed = 0;
 			char *short_description = gen_short_pkg_description(pkgs->pkgs[i]);
-			printf("%s - %s : %s\n",	
+
+			/* is it installed? */
+			if( get_exact_pkg(installed,pkgs->pkgs[i]->name,pkgs->pkgs[i]->version) != NULL )
+				bool_installed = 1;
+
+			printf("%s %s [inst=%s]: %s\n",	
 				pkgs->pkgs[i]->name,	
 				pkgs->pkgs[i]->version,	
+				bool_installed == 1
+					? _("yes")
+					: _("no"),
 				short_description
 			);
 			free(short_description);
@@ -128,6 +156,7 @@ void pkg_action_list(void){
 	}
 
 	free_pkg_list(pkgs);
+	free_pkg_list(installed);
 
 }
 
@@ -177,7 +206,7 @@ void pkg_action_remove(const rc_config *global_config,const pkg_action_args_t *a
 			free(deps);
 			add_remove_to_transaction(&tran,pkg);
 		}else{
-			printf("%s is not installed.\n",action_args->pkgs[i]);
+			printf(_("%s is not installed.\n"),action_args->pkgs[i]);
 		}
 	}
 
@@ -193,20 +222,31 @@ void pkg_action_remove(const rc_config *global_config,const pkg_action_args_t *a
 void pkg_action_search(const char *pattern){
 	int i;
 	struct pkg_list *pkgs = NULL;
+	struct pkg_list *installed = NULL;
 	struct pkg_list *matches = NULL;
 
 	/* read in pkg data */
 	pkgs = get_available_pkgs();
+	installed = get_installed_pkgs();
 	matches = malloc( sizeof *matches );
 	matches->pkgs = malloc( sizeof *matches->pkgs * pkgs->pkg_count );
 	matches->pkg_count = 0;
 
 	search_pkg_list(pkgs,matches,pattern);
 	for(i = 0; i < matches->pkg_count; i++){
+		int bool_installed = 0;
 		char *short_description = gen_short_pkg_description(matches->pkgs[i]);
-		printf("%s - %s : %s\n",	
+
+		/* is it installed? */
+		if( get_exact_pkg(installed,matches->pkgs[i]->name,matches->pkgs[i]->version) != NULL )
+			bool_installed = 1;
+
+		printf("%s %s [inst=%s]: %s\n",	
 			matches->pkgs[i]->name,	
 			matches->pkgs[i]->version,	
+			bool_installed == 1
+				? _("yes")
+				: _("no"),
 			short_description
 		);
 		free(short_description);
@@ -215,6 +255,7 @@ void pkg_action_search(const char *pattern){
 	free(matches->pkgs);
 	free(matches);
 	free_pkg_list(pkgs);
+	free_pkg_list(installed);
 
 }/* end search */
 
@@ -222,26 +263,40 @@ void pkg_action_search(const char *pattern){
 void pkg_action_show(const char *pkg_name){
 	pkg_info_t *pkg;
 	struct pkg_list *available_pkgs;
+	struct pkg_list *installed_pkgs;
+	int bool_installed = 0;
 
 	available_pkgs = get_available_pkgs();
+	installed_pkgs = get_installed_pkgs();
 
 	pkg = get_newest_pkg(available_pkgs,pkg_name);
 
 	if( pkg != NULL ){
-		printf("Package Name: %s\n",pkg->name);
-		printf("Package Mirror: %s\n",pkg->mirror);
-		printf("Package Location: %s\n",pkg->location);
-		printf("Package Version: %s\n",pkg->version);
-		printf("Package Size: %d K\n",pkg->size_c);
-		printf("Package Installed Size: %d K\n",pkg->size_u);
-		printf("Package Required: %s\n",pkg->required);
-		printf("Package Description:\n");
+	
+		if( get_exact_pkg(installed_pkgs,pkg->name,pkg->version) != NULL)
+			bool_installed = 1;
+
+		printf(_("Package Name: %s\n"),pkg->name);
+		printf(_("Package Mirror: %s\n"),pkg->mirror);
+		printf(_("Package Location: %s\n"),pkg->location);
+		printf(_("Package Version: %s\n"),pkg->version);
+		printf(_("Package Size: %d K\n"),pkg->size_c);
+		printf(_("Package Installed Size: %d K\n"),pkg->size_u);
+		printf(_("Package Required: %s\n"),pkg->required);
+		printf(_("Package Description:\n"));
 		printf("%s",pkg->description);
+		printf(_("Installed: %s\n"),
+			bool_installed == 1 
+				? _("yes")
+				: _("no")
+		);
+	
 	}else{
-		printf("No such package: %s\n",pkg_name);
+		printf(_("No such package: %s\n"),pkg_name);
 	}
 
 	free_pkg_list(available_pkgs);
+	free_pkg_list(installed_pkgs);
 }
 
 /* update package data from mirror url */
@@ -258,9 +313,9 @@ void pkg_action_update(const rc_config *global_config){
 	for(i = 0; i < global_config->sources.count; i++){
 		tmp_file = tmpfile();
 		#if USE_CURL_PROGRESS == 0
-		printf("Retrieving package data [%s]...",global_config->sources.url[i]);
+		printf(_("Retrieving package data [%s]..."),global_config->sources.url[i]);
 		#else
-		printf("Retrieving package data [%s]...\n",global_config->sources.url[i]);
+		printf(_("Retrieving package data [%s]...\n"),global_config->sources.url[i]);
 		#endif
 		if( get_mirror_data_from_source(tmp_file,global_config->sources.url[i],PKG_LIST) == 0 ){
 			rewind(tmp_file); /* make sure we are back at the front of the file */
@@ -268,7 +323,7 @@ void pkg_action_update(const rc_config *global_config){
 			write_pkg_data(global_config->sources.url[i],pkg_list_fh,available_pkgs);
 			free_pkg_list(available_pkgs);
 			#if USE_CURL_PROGRESS == 0
-			printf("Done\n");
+			printf(_("Done\n"));
 			#endif
 		}
 		fclose(tmp_file);
@@ -279,9 +334,9 @@ void pkg_action_update(const rc_config *global_config){
 	for(i = 0; i < global_config->sources.count; i++){
 		tmp_file = tmpfile();
 		#if USE_CURL_PROGRESS == 0
-		printf("Retrieving extras list [%s]...",global_config->sources.url[i]);
+		printf(_("Retrieving extras list [%s]..."),global_config->sources.url[i]);
 		#else
-		printf("Retrieving extras list [%s]...\n",global_config->sources.url[i]);
+		printf(_("Retrieving extras list [%s]...\n"),global_config->sources.url[i]);
 		#endif
 		if( get_mirror_data_from_source(tmp_file,global_config->sources.url[i],EXTRAS_LIST) == 0 ){
 			rewind(tmp_file); /* make sure we are back at the front of the file */
@@ -289,7 +344,7 @@ void pkg_action_update(const rc_config *global_config){
 			write_pkg_data(global_config->sources.url[i],pkg_list_fh,available_pkgs);
 			free_pkg_list(available_pkgs);
 			#if USE_CURL_PROGRESS == 0
-			printf("Done\n");
+			printf(_("Done\n"));
 			#endif
 		}
 		fclose(tmp_file);
@@ -300,9 +355,9 @@ void pkg_action_update(const rc_config *global_config){
 	for(i = 0; i < global_config->sources.count; i++){
 		patches_list_fh = tmpfile();
 		#if USE_CURL_PROGRESS == 0
-		printf("Retrieving patch list [%s]...",global_config->sources.url[i]);
+		printf(_("Retrieving patch list [%s]..."),global_config->sources.url[i]);
 		#else
-		printf("Retrieving patch list [%s]...\n",global_config->sources.url[i]);
+		printf(_("Retrieving patch list [%s]...\n"),global_config->sources.url[i]);
 		#endif
 		if( get_mirror_data_from_source(patches_list_fh,global_config->sources.url[i],PATCHES_LIST) == 0 ){
 			rewind(patches_list_fh); /* make sure we are back at the front of the file */
@@ -310,7 +365,7 @@ void pkg_action_update(const rc_config *global_config){
 			write_pkg_data(global_config->sources.url[i],pkg_list_fh,available_pkgs);
 			free_pkg_list(available_pkgs);
 			#if USE_CURL_PROGRESS == 0
-			printf("Done\n");
+			printf(_("Done\n"));
 			#endif
 		}
 		fclose(patches_list_fh);
@@ -321,13 +376,13 @@ void pkg_action_update(const rc_config *global_config){
 	checksum_list_fh = open_file(CHECKSUM_FILE,"w+");
 	for(i = 0; i < global_config->sources.count; i++){
 		#if USE_CURL_PROGRESS == 0
-		printf("Retrieving checksum list [%s]...",global_config->sources.url[i]);
+		printf(_("Retrieving checksum list [%s]..."),global_config->sources.url[i]);
 		#else
-		printf("Retrieving checksum list [%s]...\n",global_config->sources.url[i]);
+		printf(_("Retrieving checksum list [%s]...\n"),global_config->sources.url[i]);
 		#endif
 		if( get_mirror_data_from_source(checksum_list_fh,global_config->sources.url[i],CHECKSUM_FILE) == 0 ){
 			#if USE_CURL_PROGRESS == 0
-			printf("Done\n");
+			printf(_("Done\n"));
 			#endif
 		}
 	}
@@ -348,10 +403,10 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 	pkg_info_t *installed_pkg;
 	transaction tran;
 
-	printf("Reading Package Lists... ");
+	printf(_("Reading Package Lists... "));
 	installed_pkgs = get_installed_pkgs();
 	all_pkgs = get_available_pkgs();
-	printf("Done\n");
+	printf(_("Done\n"));
 	init_transaction(&tran);
 
 	for(i = 0; i < installed_pkgs->pkg_count;i++){
@@ -372,19 +427,27 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 			if( (cmp_pkg_versions(installed_pkgs->pkgs[i]->version,update_pkg->version)) < 0 ){
 				int c;
 				struct pkg_list *deps;
+
 				deps = lookup_pkg_dependencies(all_pkgs,installed_pkgs,update_pkg);
-				for(c = 0; c < deps->pkg_count;c++){
-					if( search_transaction(&tran,deps->pkgs[c]) == 0 ){
-						if( get_newest_pkg(installed_pkgs,deps->pkgs[c]->name) == NULL ){
-							add_install_to_transaction(&tran,deps->pkgs[c]);
-						}else{
-							add_upgrade_to_transaction(&tran,installed_pkgs->pkgs[i],deps->pkgs[c]);
+
+				/* check to see if there where issues with dep checking */
+				if( deps->pkg_count == -1 ){
+					/* exclude the package if dep check barfed */
+					add_exclude_to_transaction(&tran,update_pkg);
+				}else{
+					for(c = 0; c < deps->pkg_count;c++){
+						if( search_transaction(&tran,deps->pkgs[c]) == 0 ){
+							if( get_newest_pkg(installed_pkgs,deps->pkgs[c]->name) == NULL ){
+								add_install_to_transaction(&tran,deps->pkgs[c]);
+							}else{
+								add_upgrade_to_transaction(&tran,installed_pkgs->pkgs[i],deps->pkgs[c]);
+							}
 						}
 					}
+					add_upgrade_to_transaction(&tran,installed_pkgs->pkgs[i],update_pkg);
 				}
 				free(deps->pkgs);
 				free(deps);
-				add_upgrade_to_transaction(&tran,installed_pkgs->pkgs[i],update_pkg);
 			}
 
 		}/* end upgrade pkg found */
@@ -411,20 +474,28 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 				}else{
 					int c;
 					struct pkg_list *deps;
+
 					deps = lookup_pkg_dependencies(all_pkgs,installed_pkgs,matches->pkgs[i]);
-					for(c = 0; i < deps->pkg_count;c++){
-						if( search_transaction(&tran,deps->pkgs[c]) == 0 ){
-							pkg_info_t *dep_installed;
-							if( (dep_installed = get_newest_pkg(installed_pkgs,deps->pkgs[c]->name)) == NULL ){
-								add_install_to_transaction(&tran,deps->pkgs[c]);
-							}else{
-								add_upgrade_to_transaction(&tran,dep_installed,deps->pkgs[c]);
+
+					/* check to see if there where issues with dep checking */
+					if( deps->pkg_count == -1 ){
+						/* exclude the package if dep check barfed */
+						add_exclude_to_transaction(&tran,matches->pkgs[i]);
+					}else{
+						for(c = 0; i < deps->pkg_count;c++){
+							if( search_transaction(&tran,deps->pkgs[c]) == 0 ){
+								pkg_info_t *dep_installed;
+								if( (dep_installed = get_newest_pkg(installed_pkgs,deps->pkgs[c]->name)) == NULL ){
+									add_install_to_transaction(&tran,deps->pkgs[c]);
+								}else{
+									add_upgrade_to_transaction(&tran,dep_installed,deps->pkgs[c]);
+								}
 							}
 						}
+						add_install_to_transaction(&tran,matches->pkgs[i]);
 					}
 					free(deps->pkgs);
 					free(deps);
-					add_install_to_transaction(&tran,matches->pkgs[i]);
 				}
 			}
 

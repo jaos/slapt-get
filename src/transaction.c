@@ -44,7 +44,7 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 
 	/* show pkgs to exclude */
 	if( tran->exclude_pkgs->pkg_count > 0 ){
-		printf("The following packages have been EXCLUDED:\n");
+		printf(_("The following packages have been EXCLUDED:\n"));
 		printf("  ");
 		for(i = 0; i < tran->exclude_pkgs->pkg_count;i++){
 			printf("%s ",tran->exclude_pkgs->pkgs[i]->name);
@@ -54,7 +54,7 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 
 	/* show pkgs to install */
 	if( tran->install_pkgs->pkg_count > 0 ){
-		printf("The following NEW packages will be installed:\n");
+		printf(_("The following NEW packages will be installed:\n"));
 		printf("  ");
 		for(i = 0; i < tran->install_pkgs->pkg_count;i++){
 			printf("%s ",tran->install_pkgs->pkgs[i]->name);
@@ -66,7 +66,7 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 
 	/* show pkgs to remove */
 	if( tran->remove_pkgs->pkg_count > 0 ){
-		printf("The following packages will be REMOVED:\n");
+		printf(_("The following packages will be REMOVED:\n"));
 		printf("  ");
 		for(i = 0; i < tran->remove_pkgs->pkg_count;i++){
 			printf("%s ",tran->remove_pkgs->pkgs[i]->name);
@@ -77,7 +77,7 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 
 	/* show pkgs to upgrade */
 	if( tran->upgrade_pkgs->pkg_count > 0 ){
-		printf("The following packages will be upgraded:\n");
+		printf(_("The following packages will be upgraded:\n"));
 		printf("  ");
 		for(i = 0; i < tran->upgrade_pkgs->pkg_count;i++){
 			printf("%s ",tran->upgrade_pkgs->pkgs[i]->installed->name);
@@ -95,7 +95,7 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 
 	/* print the summary */
 	printf(
-		"%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n",
+		_("%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"),
 		tran->upgrade_pkgs->pkg_count,
 		tran->install_pkgs->pkg_count,
 		tran->remove_pkgs->pkg_count,
@@ -105,11 +105,11 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 	/* only show this if we are going to do something */
 	if( tran->upgrade_pkgs->pkg_count > 0 || tran->remove_pkgs->pkg_count > 0
 	|| tran->install_pkgs->pkg_count > 0 ){
-		printf("Need to get %dK of archives.\n", download_size );
+		printf(_("Need to get %dK of archives.\n"), download_size );
 		if( (int)uncompressed_size < 0 ){
-			printf("After unpacking %dK disk space will be freed.\n", uncompressed_size * -1 );
+			printf(_("After unpacking %dK disk space will be freed.\n"), uncompressed_size * -1 );
 		}else{
-			printf("After unpacking %dK of additional disk space will be used.\n", uncompressed_size );
+			printf(_("After unpacking %dK of additional disk space will be used.\n"), uncompressed_size );
 		}
 	}
 
@@ -119,10 +119,10 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 			&& (global_config->no_prompt == 0 && global_config->interactive == 0
 			&& global_config->download_only == 0 && global_config->simulate == 0)
 		) {
-		printf("Do you want to continue? [y/N] ");
+		printf(_("Do you want to continue? [y/N] "));
 		fgets(prompt_answer,10,stdin);
 		if( tolower(prompt_answer[0]) != 'y' ){
-			printf("Abort.\n");
+			printf(_("Abort.\n"));
 			return 1;
 		}
 	}
@@ -141,7 +141,7 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 		);
 	}
 
-	printf("Done.\n");
+	printf(_("Done\n"));
 
 	return 0;
 }
