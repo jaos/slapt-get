@@ -117,7 +117,7 @@ int main( int argc, char *argv[] ){
 				break;
 			default:
 				usage();
-				break;
+				exit(1);
 		}
 	}
 
@@ -203,6 +203,7 @@ int main( int argc, char *argv[] ){
 		/* default initialized value */
 	}else{
 		usage();
+		exit(1);
 	}
 
 	free_rc_config(global_config);
