@@ -153,11 +153,12 @@ Frequenty Asked Questions:
  always be defined strictly by library dependencies.  Applications, rather than
  libraries may be required, such as the case with man and groff.
 
- I have sent Pat a request to include a requires field in the PACKAGES.TXT
- file that is shared with all the mirrors.  Since this information is known
- when the package is created, this is the best time/place to make that data
- available.  It is a simple progression from making a note within the package
- description such as the one already within the man package:
+ I have sent Pat a request to include a slack-required file in the pacakge.
+ Then the data from that file could be used to generate a field in the
+ PACKAGES.TXT file that is shared with all the mirrors.  Since this information
+ is known when the package is created, this is the best time/place to make that
+ data available.  It is a simple progression from making a note within the
+ package description such as the one already within the man package:
 
    man: man (format and display the on-line manual pages)
    man:
@@ -197,7 +198,8 @@ Frequenty Asked Questions:
 
   ./install/slack-required
 
- This follows the existing convention pioneered by the slack-desc file.
+ See FAQ # 19 for an example on how to generate a slack-required file.  This
+ file follows the existing convention pioneered by slack-desc.
 
  He has declined the request at this time, citing a "niche" for a
  distribution without "dependency hell".  I believe leaving out the requirement
@@ -216,8 +218,8 @@ Frequenty Asked Questions:
  slapt-get can resolve dependencies via the slack-required meta data.  Already
  there are packages being submitting to linuxpackages.net supporting this
  additional file within the slackware package.  Scripts that generate
- mindful PACKAGES.TXT files are available (such as the one in this FAQ,
- see #17).
+ mindful PACKAGES.TXT files are available, such as the one in this FAQ,
+ see #17.
 
 
 11. What about multiple package sources, ala linuxpackages.net?
@@ -388,8 +390,8 @@ Frequenty Asked Questions:
  Most mirrors use ./slackware/{disk set} as the directory for the set.  Thus
  to install every package from xap:
 
-   ./slapt-get --search '^\.\/slackware\/xap$'|awk '{print $1}'| \
-     xargs -r ./slapt-get --install
+   slapt-get --search '^\.\/slackware\/xap$'|awk '{print $1}'| \
+     xargs -r slapt-get --install
 
 
 19. How can I add dependency information to my packages?
