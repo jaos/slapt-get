@@ -1,4 +1,7 @@
 
+0.9.9b Sep 07, 2004
+ * polish language update
+
 0.9.9a Sep 06, 2004
  * preserve existing command line options when overriding configuration file
  * null terminated new working_dir string in configuration parsing (thanks Sean Donner)
