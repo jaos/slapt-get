@@ -1,5 +1,5 @@
 
-0.9.9i Feb 20, 2005
+0.9.9i Feb 22, 2005
  * added add_source() (libslapt)
  * add_deps_to_trans() returns early if passed pkg_info_t is NULL
  * configuration sources now dynamically created instead of static arrays
