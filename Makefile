@@ -53,6 +53,8 @@ doinstall:
 	cp src/libslapt-$(VERSION).a src/libslapt-$(VERSION).so /usr/lib/
 	if [ -L /usr/lib/libslapt.so ]; then rm /usr/lib/libslapt.so;fi
 	ln -s /usr/lib/libslapt-$(VERSION).so /usr/lib/libslapt.so
+	if [ -L /usr/lib/libslapt.a ]; then rm /usr/lib/libslapt.a;fi
+	ln -s /usr/lib/libslapt-$(VERSION).a /usr/lib/libslapt.a
 
 uninstall:
 	-rm /$(SBINDIR)/$(PROGRAM_NAME)
@@ -107,7 +109,7 @@ dopkg:
 	@cp include/slapt.h pkg/usr/include/
 	@cp src/libslapt-$(VERSION).a src/libslapt-$(VERSION).so pkg/usr/lib/
 	@strip pkg/usr/lib/libslapt-$(VERSION).so
-	@cd pkg/usr/lib; ln -s libslapt-$(VERSION).so libslapt.so; cd ../../..
+	@( cd pkg/usr/lib; ln -s libslapt-$(VERSION).so libslapt.so; ln -s libslapt-$(VERSION).a libslapt.a )
 	@( cd pkg; /sbin/makepkg -l y -c n $(PROGRAM_NAME)-$(VERSION)-$(ARCH)-$(RELEASE).tgz )
 
 po_file:

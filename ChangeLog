@@ -1,5 +1,6 @@
 
 0.9.9h Feb 04, 2005
+ * Makefile updates to symlink libslapt-$(VERSION).a to libslapt.a
  * documentation updates
 
 0.9.9g Jan 30, 2005
