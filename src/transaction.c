@@ -61,22 +61,32 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran){
 
 	/* show suggested pkgs */
 	if( tran->suggests->count > 0 ){
-		unsigned int len = 0;
-		printf(_("Suggested packages:\n"));
-		printf("  ");
+		unsigned int len = 0,real_count = 0;
+
 		for(i = 0; i < tran->suggests->count; ++i){
 			/* don't show suggestion for something we already have in the transaction */
 			if( search_transaction(tran,tran->suggests->pkgs[i]) == 1 ) continue;
-
-			if( len + strlen(tran->suggests->pkgs[i]) + 1 < MAX_LINE_LEN ){
-				printf("%s ",tran->suggests->pkgs[i]);
-				len += strlen(tran->suggests->pkgs[i]) + 1;
-			}else{
-				printf("\n  %s ",tran->suggests->pkgs[i]);
-				len = strlen(tran->suggests->pkgs[i]) + 3;
-			}
+			++real_count;
 		}
-		printf("\n");
+		if( real_count > 0 ){
+			printf(_("Suggested packages:\n"));
+			printf("  ");
+
+			for(i = 0; i < tran->suggests->count; ++i){
+				/* don't show suggestion for something we already have in the transaction */
+				if( search_transaction(tran,tran->suggests->pkgs[i]) == 1 ) continue;
+	
+				if( len + strlen(tran->suggests->pkgs[i]) + 1 < MAX_LINE_LEN ){
+					printf("%s ",tran->suggests->pkgs[i]);
+					len += strlen(tran->suggests->pkgs[i]) + 1;
+				}else{
+					printf("\n  %s ",tran->suggests->pkgs[i]);
+					len = strlen(tran->suggests->pkgs[i]) + 3;
+				}
+			}
+			printf("\n");
+		}
+
 	}
 
 	/* show pkgs to install */
