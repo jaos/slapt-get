@@ -81,6 +81,8 @@ Frequenty Asked Questions:
 
 9.  Can I "dist-upgrade" to a newer Slackware release?
 
+ Yes.
+
  Change your source location within /etc/slapt-getrc to point to the newer
  release directory.  --update your local package data cache, then --upgrade
  to the newer release.
@@ -97,7 +99,24 @@ Frequenty Asked Questions:
 
  CAVEAT: The simplicity of slapt-get means a lot of assurances are not in
          place.  You can break a working system if you do not follow the
-         suggestions in UPGRADE.TXT.
+         suggestions in UPGRADE.TXT.  This means doing the following:
+
+           ### make sure you have all the packages for the upgrade locally
+           $ slapt-get --download-only --upgrade
+
+           ### switch to single user mode
+           $ telinit 1
+
+           ### first, upgrade the most important
+           #(this installs any newer versions)
+           $ slapt-get --install glibc-solibs
+           $ slapt-get --install pkgtools
+           $ slapt-get --install sed
+
+           ### then, let slapt-get upgrade the rest
+           $ slapt-get --upgrade
+
+         Then follow the rest of the directions in UPGRADE.TXT.
 
          If you have a broken system, make sure aaa_base is at least installed.
          Make sure it's downloaded: slapt-get --download-only --install aaa_base
