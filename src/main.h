@@ -67,7 +67,7 @@ enum action {
 #define DO_NOT_UNLINK_BAD_FILES 0
 #define PKG_LIST "PACKAGES.TXT"
 #define PKG_LIST_L "package_data_list"
-#define PATCHES_LIST "FILE_LIST"
+#define PATCHES_LIST "patches/FILE_LIST"
 #define PATCHES_LIST_L "patches_list"
 #define PATCHDIR "patches/"
 #define REMOVE_CMD "/sbin/removepkg "
