@@ -1,5 +1,7 @@
 
 0.9.9b Sep 22, 2004
+ * searching packages now searches version string along with name,
+   location, and description
  * updated makefile, doinst.sh generated script sed's slapt-getrc updating
    comment on /usr/doc/slapt-get*/ directory
  * added FAQ: 49. How can I downgrade a package?

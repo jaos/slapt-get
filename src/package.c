@@ -1035,7 +1035,7 @@ void write_pkg_data(const char *source_url,FILE *d_file,struct pkg_list *pkgs){
 
 struct pkg_list *search_pkg_list(struct pkg_list *available,const char *pattern){
 	int i;
-	int name_r,desc_r,loc_r;
+	int name_r,desc_r,loc_r,version_r;
 	sg_regex search_regex;
 	struct pkg_list *matches;
 
@@ -1047,13 +1047,15 @@ struct pkg_list *search_pkg_list(struct pkg_list *available,const char *pattern)
 
 		execute_regex(&search_regex,available->pkgs[i]->name);
 		name_r = search_regex.reg_return;
+		execute_regex(&search_regex,available->pkgs[i]->version);
+		version_r = search_regex.reg_return;
 		execute_regex(&search_regex,available->pkgs[i]->description);
 		desc_r = search_regex.reg_return;
 		execute_regex(&search_regex,available->pkgs[i]->location);
 		loc_r = search_regex.reg_return;
 
 		/* search pkg name, pkg description, pkg location */
-		if( name_r == 0 || desc_r == 0 || loc_r == 0 ){
+		if( name_r == 0 || version_r == 0 || desc_r == 0 || loc_r == 0 ){
 			add_pkg_to_pkg_list(matches,available->pkgs[i]);
 		}
 	}
