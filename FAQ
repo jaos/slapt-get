@@ -437,7 +437,7 @@ Frequenty Asked Questions:
     ...(snip)
     PACKAGE REQUIRED:  man >= 1.5l-i386-1
 
- An example for pulling that data:
+ An example command to pull that data:
    tar xzf pkg-name-version-arch-rel.tgz install/slack-required -O|xargs -iZ echo -n "Z,"|sed -e "s/,$//"
 
 20. How do I get the newest development version of slapt-get?
