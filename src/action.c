@@ -53,14 +53,10 @@ void pkg_action_install(const rc_config *global_config,const char *pkg_name){
 		/* check to see if the package exists in the update list */
 		/* this way we install the most up to date pkg */
 		if( (update_pkg = get_newest_pkg(updates->pkgs,pkg_name,updates->pkg_count)) != NULL ){
-			if( (install_pkg(global_config,update_pkg)) == -1 ){
-				fprintf(stderr,"Installation of %s failed.\n",update_pkg->name);
-			}
+			install_pkg(global_config,update_pkg);
 		}else{
 			/* install from list */
-			if( (install_pkg(global_config,pkg)) == -1 ){
-				fprintf(stderr,"Installation of %s failed.\n",pkg->name);
-			}
+			install_pkg(global_config,pkg);
 		}
 
 	}
@@ -113,9 +109,7 @@ void pkg_action_remove(const char *pkg_name){
 	installed = get_installed_pkgs();
 
 	if( (pkg = get_newest_pkg(installed->pkgs,pkg_name,installed->pkg_count)) != NULL ){
-		if( (remove_pkg(pkg)) == -1 ){
-			fprintf(stderr,"Failed to remove %s.\n",pkg_name);
-		}
+		remove_pkg(pkg);
 	}else{
 		printf("%s is not installed.\n",pkg_name);
 	}
@@ -236,9 +230,7 @@ void pkg_action_upgrade(const rc_config *global_config,pkg_info_t *installed_pkg
 		cmp_result = cmp_pkg_versions(installed_pkg->version,update_pkg->version);
 
 		if( cmp_result < 0 ){ /* update_pkg is newer than installed_pkg */
-			if( (upgrade_pkg(global_config,installed_pkg,update_pkg)) == -1 ){
-				fprintf(stderr,"Failed to update %s.\n",installed_pkg->name);
-			}
+			upgrade_pkg(global_config,installed_pkg,update_pkg);
 		}else{ 
 			if( cmp_result > 0 ){
 				printf("Newer version of %s already installed.\n",installed_pkg->name);
@@ -248,9 +240,7 @@ void pkg_action_upgrade(const rc_config *global_config,pkg_info_t *installed_pkg
 		}
 	}else{
 		if( cmp_pkg_versions(installed_pkg->version,available_pkg->version) < 0 ){
-			if( (upgrade_pkg(global_config,installed_pkg,available_pkg)) == -1 ){
-				fprintf(stderr,"Failed to update %s.\n",installed_pkg->name);
-			}
+			upgrade_pkg(global_config,installed_pkg,available_pkg);
 		}else{
 			printf("%s is already the newest version.\n",installed_pkg->name);
 		}
@@ -291,9 +281,7 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 			if( (cmp_pkg_versions(installed_pkgs->pkgs[iterator]->version,update_pkg->version)) < 0 ){
 
 				/* attempt to upgrade */
-				if( (upgrade_pkg(global_config,installed_pkgs->pkgs[iterator],update_pkg)) == -1 ){
-					fprintf(stderr,"Failed to update %s.\n",installed_pkgs->pkgs[iterator]->name);
-				}/* end upgrade attempt */
+				upgrade_pkg(global_config,installed_pkgs->pkgs[iterator],update_pkg);
 
 			}else{
 				try_dist_upgrade = 1;
@@ -313,13 +301,7 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 				/* the current version of the pkg is greater than the installed version */
 				if( (cmp_pkg_versions(installed_pkgs->pkgs[iterator]->version,current_pkg->version)) < 0 ){
 					/* attempt to upgrade */
-					if( (upgrade_pkg(global_config,installed_pkgs->pkgs[iterator],current_pkg)) == -1 ){
-						fprintf(
-							stderr,
-							"Failed to update %s.\n",
-							installed_pkgs->pkgs[iterator]->name
-						);
-					}/* end upgrade attempt */
+					upgrade_pkg(global_config,installed_pkgs->pkgs[iterator],current_pkg);
 				}/* end if cmp_pkg_versions */
 			}/* end if current_pkg */
 		}

@@ -56,6 +56,10 @@ struct _sg_regex {
 	int reg_return;
 };
 typedef struct _sg_regex sg_regex;
+enum action {
+	UPDATE = 1, INSTALL, REMOVE, SHOW, SEARCH, UPGRADE,
+	LIST, INSTALLED, CLEAN, SHOWVERSION
+};
 /* */
 
 #define DEBUG 0

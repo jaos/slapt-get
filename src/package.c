@@ -557,7 +557,7 @@ int upgrade_pkg(const rc_config *global_config,pkg_info_t *installed_pkg,pkg_inf
 		return 0;
 	}
 
-	if( global_config->no_prompt == 0 ){
+	if( global_config->no_prompt == 0 && global_config->download_only == 0 ){
 		printf("Replace %s-%s with %s-%s? [y|n] ",pkg->name,installed_pkg->version,pkg->name,pkg->version);
 		fgets(prompt_answer,10,stdin);
 		if( tolower(prompt_answer[0]) != 'y' ){

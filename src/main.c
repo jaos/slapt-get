@@ -24,13 +24,14 @@ int main( int argc, char *argv[] ){
 	int c = 0;
 	extern char *optarg;
 	extern int optind, opterr, optopt;
+	enum action do_action = 0;
 	static struct option long_options[] = {
 		{"update", 0, 0, 'u'},
 		{"upgrade", 0, 0, 'g'},
-		{"install", 1, 0, 'i'},
-		{"remove", 1, 0, 'r'},
-		{"show", 1, 0, 's'},
-		{"search", 1, 0, 'e'},
+		{"install", 0, 0, 'i'},
+		{"remove", 0, 0, 'r'},
+		{"show", 0, 0, 's'},
+		{"search", 0, 0, 'e'},
 		{"list", 0, 0, 't'},
 		{"installed", 0, 0, 'd'},
 		{"clean", 0, 0, 'c'},
@@ -47,8 +48,7 @@ int main( int argc, char *argv[] ){
 
 	setvbuf(stdout, (char *)NULL, _IONBF, 0); /* unbuffer stdout */
 
-	if( argc < 2 )
-		usage();
+	if( argc < 2 ) usage(), exit(1);
 
 	/* load up the configuration file */
 	global_config = read_rc_config(RC_LOCATION);
@@ -59,53 +59,31 @@ int main( int argc, char *argv[] ){
 	while( ( c = getopt_long_only(argc,argv,"",long_options,&option_index ) ) != EOF ){
 		switch(c){
 			case 'u': /* update */
-				pkg_action_update(global_config);
+				do_action = UPDATE;
 				break;
 			case 'i': /* install */
-				if( optarg != NULL ){
-					pkg_action_install( global_config, optarg );
-					for(;optind < argc;optind++){
-						pkg_action_install( global_config, argv[optind] );
-					}
-				}else{
-					usage();
-				}
+				do_action = INSTALL;
 				break;
 			case 'r': /* remove */
-				if( optarg != NULL ){
-					pkg_action_remove( optarg );
-					for(;optind < argc;optind++){
-						pkg_action_remove( argv[optind] );
-					}
-				}else{
-					usage();
-				}
+				do_action = REMOVE;
 				break;
 			case 's': /* show */
-				if( optarg != NULL ){
-					pkg_action_show( optarg );
-				}else{
-					usage();
-				}
+				do_action = SHOW;
 				break;
 			case 'e': /* search */
-				if( optarg != NULL ){
-					pkg_action_search( optarg );
-				}else{
-					usage();
-				}
+				do_action = SEARCH;
 				break;
 			case 't': /* list */
-				pkg_action_list();
+				do_action = LIST;
 				break;
 			case 'd': /* installed */
-				pkg_action_list_installed();
+				do_action = INSTALLED;
 				break;
 			case 'c': /* clean */
-				pkg_action_clean(global_config);
+				do_action = CLEAN;
 				break;
 			case 'g': /* upgrade */
-				pkg_action_upgrade_all(global_config);
+				do_action = UPGRADE;
 				break;
 			case 'o': /* download only flag */
 				global_config->download_only = 1;
@@ -114,7 +92,7 @@ int main( int argc, char *argv[] ){
 				global_config->simulate = 1;
 				break;
 			case 'v': /* version */
-				version_info();
+				do_action = SHOWVERSION;
 				break;
 			case 'b': /* auto */
 				global_config->no_prompt = 1;
@@ -132,6 +110,56 @@ int main( int argc, char *argv[] ){
 				usage();
 				break;
 		}
+	}
+
+	if( do_action == UPDATE ){
+		pkg_action_update(global_config);
+	}else if( do_action == INSTALL ){
+		if (optind < argc) {
+			while (optind < argc){
+				pkg_action_install( global_config, argv[optind++] );
+			}
+		}else{
+			usage();
+		}
+	}else if( do_action == REMOVE ){
+		if (optind < argc) {
+			while (optind < argc){
+				pkg_action_remove( argv[optind++] );
+			}
+		}else{
+			usage();
+		}
+	}else if( do_action == SHOW ){
+		if (optind < argc) {
+			while (optind < argc){
+				pkg_action_show( argv[optind++] );
+			}
+		}else{
+			usage();
+		}
+	}else if( do_action == SEARCH ){
+		if (optind < argc) {
+			while (optind < argc){
+				pkg_action_search( argv[optind++] );
+			}
+		}else{
+			usage();
+		}
+	}else if( do_action == UPGRADE ){
+		pkg_action_upgrade_all(global_config);
+	}else if( do_action == LIST ){
+		pkg_action_list();
+	}else if( do_action == INSTALLED ){
+		pkg_action_list_installed();
+	}else if( do_action == CLEAN ){
+		pkg_action_clean(global_config);
+	}else if( do_action == SHOWVERSION ){
+		version_info();
+	}else if( do_action == 0 ){
+		/* default initialized value */
+	}else{
+		usage();
 	}
 
 	free(global_config->exclude_list);
