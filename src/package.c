@@ -1167,10 +1167,14 @@ pkg_info_t *parse_dep_entry(struct pkg_list *avail_pkgs,struct pkg_list *install
 
 	/* lookup newest in case there is no conditional */
 	newest_avail_pkg = get_newest_pkg(avail_pkgs,tmp_pkg_name);
+	/* pkg_info_t *newest_installed_pkg; */
+	newest_installed_pkg = get_newest_pkg(installed_pkgs,tmp_pkg_name);
 
 	/* if there is no conditional and version, return newest */
-	if( (parse_dep_regex.pmatch[2].rm_eo - parse_dep_regex.pmatch[2].rm_so) == 0 )
+	if( (parse_dep_regex.pmatch[2].rm_eo - parse_dep_regex.pmatch[2].rm_so) == 0 ){
 		if( newest_avail_pkg != NULL ) return newest_avail_pkg;
+		if( newest_installed_pkg != NULL ) return newest_installed_pkg;
+	}
 
 	if( (parse_dep_regex.pmatch[2].rm_eo - parse_dep_regex.pmatch[2].rm_so) > 3 ){
 		fprintf( stderr, _("pkg conditional too long [%s:%d]\n"),
@@ -1202,8 +1206,6 @@ pkg_info_t *parse_dep_entry(struct pkg_list *avail_pkgs,struct pkg_list *install
 		* check the newest version of tmp_pkg_name (in newest_installed_pkg)
 		* before we try looping through installed_pkgs
 	*/
-	/* pkg_info_t *newest_installed_pkg; */
-	newest_installed_pkg = get_newest_pkg(installed_pkgs,tmp_pkg_name);
 	if( newest_installed_pkg != NULL ){
 		/* if condition is "=",">=", or "=<" and versions are the same */
 		if( (strstr(tmp_pkg_cond,"=") != NULL)

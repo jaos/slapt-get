@@ -1,5 +1,5 @@
 
-0.9.6h Oct 31, 2003
+0.9.6h Nov 01, 2003
  * parse package require/dep from PACKAGES.TXT
  * show parsed require/dep data with --show
  * --list now shows pkg_name - pkg_vesion : pkg_description
@@ -21,6 +21,7 @@
  * --list, --show, and --search output now reports on installed status of pkg
  * dep failure causes package to go into exclude for current transaction
  * added faq concerning proxies
+ * added check for installed pkgs when there is no dep conditional
 
 0.9.6g Oct 22, 2003
  * updated --help output
