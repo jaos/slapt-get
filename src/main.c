@@ -213,7 +213,7 @@ int main( int argc, char *argv[] ){
 
 void usage(){
 	printf("%s - Jason Woodward <woodwardj at jaos dot org>\n",PROGRAM_NAME);
-	printf("A crude port of the Debian APT system to Slackware\n");
+	printf("A implementation of the Debian APT system to Slackware\n");
 	printf("Usage:\n");
 	printf("%s [option(s)] [target]\n",PROGRAM_NAME);
 	printf("\n");
