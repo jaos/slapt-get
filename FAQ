@@ -190,8 +190,8 @@ Frequenty Asked Questions:
    for file in `slapt-get --list | cut -f1 -d" " | sort`
      do
      echo -n "$file "
-     if [ -z `grep "\W+$file\W+" /tmp/slapt_get_installed` ]; then
-       if [ -z "`grep -E '\W+apache\W?' /etc/slapt-getrc`" ]; then
+     if [ -z "`grep "\W+$file\W+" /tmp/slapt_get_installed`" ]; then
+       if [ -z "`grep '\W+apache\W?' /etc/slapt-getrc`" ]; then
          echo "excluded"
        else
          echo "not installed"
