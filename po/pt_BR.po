@@ -459,3 +459,9 @@ msgstr "Download de %s incompleto\n"
 msgid "Could not find MD5 checksum for %s, override with --no-md5\n"
 msgstr "Não foi possível encontrar o MD5 checksum para %s, ignore com --no-md5\n"
 
+msgid "skip dependency check"
+msgstr "skip dependency check"
+
+msgid "show download statistics"
+msgstr "show download statistics"
+

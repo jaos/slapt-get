@@ -468,3 +468,6 @@ msgstr "%s, który jest wymagany przez %s, zosta³ wykluczony\n"
 msgid "skip dependency check"
 msgstr "nie wykonuj sprawdzania zale¿no¶ci"
 
+msgid "show download statistics"
+msgstr "show download statistics"
+

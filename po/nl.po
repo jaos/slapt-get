@@ -468,3 +468,6 @@ msgstr "%s, benodigd door %s, is niet opgenomen\n"
 msgid "skip dependency check"
 msgstr "sla controle vereisten over"
 
+msgid "show download statistics"
+msgstr "show download statistics"
+

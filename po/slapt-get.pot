@@ -355,6 +355,10 @@ msgid "Regex Error: %s\n"
 msgstr ""
 
 #, c-format
+msgid "%s-%s is to be installed\n"
+msgstr ""
+
+#, c-format
 msgid "Preparing to install %s-%s\n"
 msgstr ""
 
@@ -363,7 +367,15 @@ msgid "Failed to execute command: [%s]\n"
 msgstr ""
 
 #, c-format
+msgid "%s-%s is to be upgraded to version %s\n"
+msgstr ""
+
+#, c-format
 msgid "Preparing to replace %s-%s with %s-%s\n"
+msgstr ""
+
+#, c-format
+msgid "%s-%s is to be removed\n"
 msgstr ""
 
 #, c-format
@@ -416,55 +428,46 @@ msgid "Abort.\n"
 msgstr ""
 
 #, c-format
-msgid "%s-%s is to be installed\n"
-msgstr ""
-
-#, c-format
-msgid "%s-%s is to be upgraded to version %s\n"
-msgstr ""
-
-#, c-format
-msgid "%s-%s is to be removed\n"
-msgstr ""
-
-#, c-format
 msgid "%s, which is to be installed, conflicts with %s\n"
-msgstr "%s, which is to be installed, conflicts with %s\n"
+msgstr ""
 
 #, c-format
 msgid "Installed %s conflicts with %s\n"
-msgstr "Installed %s conflicts with %s\n"
+msgstr ""
 
 msgid "print URIs only, do not download"
-msgstr "print URIs only, do not download"
+msgstr ""
 
 #, c-format
 msgid "Package MD5 Sum:  %s\n"
-msgstr "Package MD5 Sum:  %s\n"
+msgstr ""
 
 #, c-format
 msgid "md5 sum too long [%s %s:%d]\n"
-msgstr "md5 sum too long [%s %s:%d]\n"
+msgstr ""
 
 #, c-format
 msgid "conflict too long [%s:%d]\n"
-msgstr "conflict too long [%s:%d]\n"
+msgstr ""
 
 msgid "Reading Package Lists..."
-msgstr "Reading Package Lists..."
+msgstr ""
 
 #, c-format
 msgid "Download of %s incomplete\n"
-msgstr "Download of %s incomplete\n"
+msgstr ""
 
 #, c-format
 msgid "Could not find MD5 checksum for %s, override with --no-md5\n"
-msgstr "Could not find MD5 checksum for %s, override with --no-md5\n"
+msgstr ""
 
 #, c-format
 msgid "%s, which is required by %s, is excluded\n"
-msgstr "%s, which is required by %s, is excluded\n"
+msgstr ""
 
 msgid "skip dependency check"
-msgstr "skip dependency check"
+msgstr ""
+
+msgid "show download statistics"
+msgstr ""
 

@@ -468,3 +468,6 @@ msgstr "%s, som kreves av %s er ekskludert\n"
 msgid "skip dependency check"
 msgstr "ikke utfør avhengighetssjekk"
 
+msgid "show download statistics"
+msgstr "show download statistics"
+
