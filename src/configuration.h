@@ -21,7 +21,7 @@
 #define EXCLUDE_TOKEN "EXCLUDE="
 
 struct exclude_list {
-	char **excludes;
+	char excludes[500][50];
 	int count;
 };
 

@@ -19,7 +19,7 @@
 #include <main.h>
 
 void download_data(FILE *fh,char *url){
-	CURL *ch;
+	CURL *ch = NULL;
 	CURLcode response;
 	char curl_err_buff[1024];
 
@@ -44,7 +44,7 @@ void download_data(FILE *fh,char *url){
 }
 
 FILE *download_pkg_list(rc_config *global_config){
-	FILE *fh;
+	FILE *fh = NULL;
 	char *url = NULL;
 
 	fh = open_file(PKG_LIST_L,"w+");
@@ -54,8 +54,10 @@ FILE *download_pkg_list(rc_config *global_config){
 #else
 	printf("Retrieving package data...\n");
 #endif
-	url = calloc( ( strlen(global_config->mirror_url) + strlen(PKG_LIST) ) + 1, sizeof(char) );
-	url = strncpy(url,global_config->mirror_url,strlen(global_config->mirror_url) + 1);
+	url = (char *) calloc(
+		strlen(global_config->mirror_url) + strlen(PKG_LIST) + 1, sizeof(char)
+	);
+	url = memcpy(url,global_config->mirror_url,strlen(global_config->mirror_url) + 1);
 	url = strncat(url,PKG_LIST,strlen(PKG_LIST) + 1);
 	download_data(fh,url);
 #if USE_CURL_PROGRESS == 0
@@ -68,7 +70,7 @@ FILE *download_pkg_list(rc_config *global_config){
 }
 
 FILE *download_patches_list(rc_config *global_config){
-	FILE *fh;
+	FILE *fh = NULL;
 	char *url = NULL;
 
 	fh = open_file(PATCHES_LIST_L,"w+");
@@ -78,8 +80,10 @@ FILE *download_patches_list(rc_config *global_config){
 #else
 	printf("Retrieving patch list...\n");
 #endif
-	url = calloc( ( strlen(global_config->mirror_url) + strlen(PATCHDIR) + strlen(PATCHES_LIST) ) + 1, sizeof(char) );
-	url = strncpy(url,global_config->mirror_url,strlen(global_config->mirror_url) + 1);
+	url = (char *) calloc(
+		strlen(global_config->mirror_url) + strlen(PATCHDIR) + strlen(PATCHES_LIST) + 1 , sizeof(char)
+	);
+	url = memcpy(url,global_config->mirror_url,strlen(global_config->mirror_url) + 1);
 	url = strncat(url,PATCHDIR,strlen(PATCHDIR) + 1);
 	url = strncat(url,PATCHES_LIST,strlen(PATCHES_LIST) + 1);
 	download_data(fh,url);
@@ -93,16 +97,19 @@ FILE *download_patches_list(rc_config *global_config){
 }
 
 char *download_pkg(rc_config *global_config,pkg_info *pkg){
-	FILE *fh;
+	FILE *fh = NULL;
 	char *file_name = NULL;
 	char *url = NULL;
 
 	/* build the file name */
-	if((file_name = calloc((strlen(pkg->name)+strlen("-")+strlen(pkg->version)+strlen(".tgz")) + 1,sizeof(char))) == NULL){
+	file_name = (char *) calloc(
+		strlen(pkg->name)+strlen("-")+strlen(pkg->version)+strlen(".tgz") + 1 , sizeof(char)
+	);
+	if( file_name == NULL ){
 		fprintf(stderr,"Failed to calloc file_name\n");
 		exit(1);
 	}
-	file_name = strncpy(file_name,pkg->name,strlen(pkg->name));
+	file_name = memcpy(file_name,pkg->name,strlen(pkg->name));
 	file_name = strncat(file_name,"-",strlen("-"));
 	file_name = strncat(file_name,pkg->version,strlen(pkg->version));
 	file_name = strncat(file_name,".tgz",strlen(".tgz"));
@@ -117,11 +124,14 @@ char *download_pkg(rc_config *global_config,pkg_info *pkg){
 
 
 	/* build the url */
-	if((url = calloc((strlen(global_config->mirror_url) + strlen(pkg->location) + strlen(file_name) + strlen("/")) + 1,sizeof(char))) == NULL){
+	url = (char *) calloc(
+		strlen(global_config->mirror_url) + strlen(pkg->location) + strlen(file_name) + strlen("/") + 1 , sizeof(char)
+	);
+	if( url == NULL ){
 		fprintf(stderr,"Failed to calloc url\n");
 		exit(1);
 	}
-	url = strncpy(url,global_config->mirror_url,strlen(global_config->mirror_url));
+	url = memcpy(url,global_config->mirror_url,strlen(global_config->mirror_url));
 	url = strncat(url,pkg->location,strlen(pkg->location));
 	url = strncat(url,"/",strlen("/"));
 	url = strncat(url,file_name,strlen(file_name));

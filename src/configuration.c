@@ -20,17 +20,25 @@
 
 
 rc_config *read_rc_config(const char *file_name){
-	FILE *rc;
+	FILE *rc = NULL;
 	rc_config *global_config;
 	char *getline_buffer = NULL;
 	size_t gb_length = 0;
 	ssize_t g_size;
-	global_config = calloc( 1,sizeof(rc_config) );
+	global_config = (rc_config *) malloc( 1 * sizeof(rc_config) );
+	if( global_config == NULL ){
+		fprintf(stderr,"Failed to malloc global_config\n");
+		if( errno ){
+			perror("global_config malloc");
+		}
+	}
 
 	rc = fopen(file_name,"r");
-	if( errno > 1 ){
+	if( rc == NULL ){
 		fprintf(stderr,"Please create: %s.\n",file_name);
-		perror(file_name);
+		if( errno ){
+			perror(file_name);
+		}
 		exit(1);
 	}
 
@@ -47,7 +55,11 @@ rc_config *read_rc_config(const char *file_name){
 		if( strstr(getline_buffer,MIRROR_TOKEN) != NULL ){ /* MIRROR URL */
 
 			if( strlen(getline_buffer) > strlen(MIRROR_TOKEN) ){
-				strncpy(global_config->mirror_url,getline_buffer + strlen(MIRROR_TOKEN),(strlen(getline_buffer) - strlen(MIRROR_TOKEN)) );
+				memcpy(
+					global_config->mirror_url,
+					getline_buffer + strlen(MIRROR_TOKEN),
+					(strlen(getline_buffer) - strlen(MIRROR_TOKEN))
+				);
 
 				/* make sure our url has a trailing '/' */
 				if( global_config->mirror_url[strlen(global_config->mirror_url) - 1] != '/' ){
@@ -59,7 +71,11 @@ rc_config *read_rc_config(const char *file_name){
 		} else if( strstr(getline_buffer,WORKINGDIR_TOKEN) != NULL ){ /* WORKING DIR */
 
 			if( strlen(getline_buffer) > strlen(WORKINGDIR_TOKEN) ){
-				strncpy(global_config->working_dir,getline_buffer + strlen(WORKINGDIR_TOKEN),(strlen(getline_buffer) - strlen(WORKINGDIR_TOKEN)) );
+				memcpy(
+					global_config->working_dir,
+					getline_buffer + strlen(WORKINGDIR_TOKEN),
+					(strlen(getline_buffer) - strlen(WORKINGDIR_TOKEN))
+				);
 			}
 
 		}else if( strstr(getline_buffer,EXCLUDE_TOKEN) != NULL ){ /* exclude list */
@@ -89,7 +105,8 @@ rc_config *read_rc_config(const char *file_name){
 void working_dir_init(rc_config *global_config){
 	if( access(global_config->working_dir,W_OK) == -1 ){
 		if(errno && errno == 2 ){
-			if( mkdir(global_config->working_dir,S_IRUSR|S_IWUSR|S_IXUSR|S_IRGRP|S_IXGRP|S_IROTH|S_IXOTH) == -1 ){
+			if( mkdir(global_config->working_dir,
+			S_IRUSR|S_IWUSR|S_IXUSR|S_IRGRP|S_IXGRP|S_IROTH|S_IXOTH) == -1 ){
 				printf("Failed to build working directory [%s]\n",global_config->working_dir);
 				if( errno ){
 					perror(global_config->working_dir);
@@ -101,10 +118,12 @@ void working_dir_init(rc_config *global_config){
 			}
 		}else if( errno && errno == 13 ){
 			perror(global_config->working_dir);
-			fprintf(stderr,"Please update permissions on %s or run with appropriate privileges\n",global_config->working_dir);
+			fprintf(stderr,"Please update permissions on %s or run with appropriate privileges\n",
+				global_config->working_dir);
 			exit(1);
 		}else{
-			fprintf(stderr,"Please update permissions on %s or run with appropriate privileges\n",global_config->working_dir);
+			fprintf(stderr,"Please update permissions on %s or run with appropriate privileges\n",
+				global_config->working_dir);
 			exit(1);
 		}
 	}else{
@@ -113,10 +132,10 @@ void working_dir_init(rc_config *global_config){
 }
 
 FILE *open_file(const char *file_name,const char *mode){
-	FILE *fh;
+	FILE *fh = NULL;
 	if( (fh = fopen(file_name,mode)) == NULL ){
 		fprintf(stderr,"Failed to open %s\n",file_name);
-		if( errno > 1 ){
+		if( errno ){
 			perror(file_name);
 		}
 		fprintf(stderr,"Perhaps you want to run --update?\n");
@@ -183,11 +202,17 @@ void clean_pkg_dir(char *dir_name){
 }
 
 struct exclude_list *parse_exclude(char *line){
-	char *pointer;
-	char *buffer;
+	char *pointer = NULL;
+	char *buffer = NULL;
 	int position = 0;
-	struct exclude_list *list = calloc( 1, sizeof(struct exclude_list) );
-	list->excludes = calloc( 1, sizeof( char **) );
+	struct exclude_list *list = (struct exclude_list *) malloc( 1 * sizeof(struct exclude_list) );
+	if( list == NULL ){
+		fprintf(stderr,"Failed to malloc list\n");
+		if( errno ){
+			perror("malloc");
+		}
+		exit(1);
+	}
 	list->count = 0;
 
 	/* skip ahead past the = */
@@ -195,28 +220,27 @@ struct exclude_list *parse_exclude(char *line){
 
 	while( position < (int) strlen(line) ){
 		if( strstr(line + position,",") == NULL ){
+
 			pointer = line + position;
-			buffer = calloc( strlen(pointer) + 1, sizeof(char) );
-			strncpy(buffer,pointer,strlen(pointer));
-			buffer[ strlen(pointer) ] = '\0';
-			list->excludes[ list->count ] = calloc( strlen(buffer) , sizeof(char) );
-			strncpy(list->excludes[ list->count ], buffer, strlen(buffer) );
-			free(buffer);
+			memcpy(list->excludes[ list->count ], pointer, strlen(pointer) );
+			list->excludes[ list->count ][strlen(pointer)] =  '\0';
+
 			list->count++;
 			break;
 		}else{
+
 			if( line[position] == ',' ){
 				position++;
 				continue;
 			}else{
+
 				pointer = index(line + position,',');
-				buffer = calloc( strlen(line + position) - strlen(pointer) + 1, sizeof(char) );
-				strncpy(buffer,line + position,strlen(line + position) - strlen(pointer) );
+				buffer = (char *)calloc( strlen(line + position) - strlen(pointer) + 1, sizeof(char) );
+				memcpy(buffer,line + position,strlen(line + position) - strlen(pointer) );
 				buffer[ strlen(line + position) - strlen(pointer) ] = '\0';
-				list->excludes[ list->count ] = calloc( strlen(buffer) , sizeof(char) );
-				strncpy(list->excludes[ list->count ], buffer, strlen(buffer) );
+				memcpy(list->excludes[ list->count ], buffer, strlen(buffer) );
+
 				list->count++;
-				list->excludes = realloc(list->excludes, list->count + 1 * sizeof(char **) );
 				position += (strlen(line + position) - strlen(pointer) );
 				free(buffer);
 			}
@@ -243,7 +267,7 @@ int is_excluded(rc_config *global_config,char *pkg_name){
 		return 0;
 
 	/* maybe EXCLUDE= isn't defined in our rc? */
-	if( global_config->exclude_lsit == NULL )
+	if( global_config->exclude_list == NULL )
 		return 0;
 
 	for(i = 0; i < global_config->exclude_list->count;i++){

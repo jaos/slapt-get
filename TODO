@@ -2,6 +2,7 @@ JaosPKG is pretty feature complete.  At the moment, bug fixes are the most impor
 
 Future enhancements, fixes, or features:
 
+ * find cause of segfault in packages.c (when calloc's turned to malloc)
  * file check before downloading pkg (don't download twice, incorp md5sum checking)
  * source pkg handling
  * jaospkg_upgrade_all() calls jaospkg_upgrade() just like jaospkg_install() does

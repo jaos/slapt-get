@@ -47,9 +47,8 @@ int main( int argc, char *argv[] ){
 
 	setvbuf(stdout, (char *)NULL, _IONBF, 0); /* unbuffer stdout */
 
-	if( argc < 2 ){
+	if( argc < 2 )
 		usage();
-	}
 
 	/* load up the configuration file */
 	global_config = read_rc_config(RC_LOCATION);
@@ -135,7 +134,6 @@ int main( int argc, char *argv[] ){
 		}
 	}
 
-	/* leave this out... */
 	/* free_excludes(global_config->exclude_list); */
 	free(global_config);
 	return 0;

@@ -3,7 +3,7 @@ CC=gcc
 CURLFLAGS=`curl-config --libs`
 CFLAGS=-W -Werror -Wall -O2 -ansi -pedantic -Iinclude
 DEBUGFLAGS=-g
-OBJS=src/configuration.o src/package.o src/curl.o src/action.o
+OBJS=src/configuration.o src/package.o src/curl.o src/action.o src/main.o
 RCDEST=/etc/jaospkgrc
 RCSOURCE=example.jaospkgrc
 SBINDIR=/sbin/
@@ -15,10 +15,10 @@ all: $(PROGNAME)
 $(OBJS): 
 
 $(PROGNAME): $(OBJS)
-	$(CC) $(CFLAGS) $(CURLFLAGS) -o $(PROGNAME) $(OBJS) src/main.c
+	$(CC) $(CFLAGS) $(CURLFLAGS) -o $(PROGNAME) $(OBJS)
 
 $(PROGNAME)-debug: $(OBJS)
-	$(CC) $(CFLAGS) $(CURLFLAGS) $(DEBUGFLAGS) -o $(PROGNAME) $(OBJS) src/main.c
+	$(CC) $(CFLAGS) $(CURLFLAGS) $(DEBUGFLAGS) -o $(PROGNAME) $(OBJS)
 
 install: jaospkg
 	install $(PROGNAME) $(SBINDIR)
