@@ -825,7 +825,7 @@ void get_md5sum(pkg_info_t *pkg,FILE *checksum_file){
 	}
 	if( getline_buffer ) free(getline_buffer);
 	#if DEBUG == 1
-	printf("%s-%s@%s = %s\n",pkg->name,pkg->version,pkg->location,md5_sum);
+	printf("%s-%s@%s = %s\n",pkg->name,pkg->version,pkg->location,pkg->md5);
 	#endif
 	free_regex(&md5sum_regex);
 	rewind(checksum_file);
