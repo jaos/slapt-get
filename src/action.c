@@ -522,11 +522,6 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 		if( update_pkg != NULL ){
 			int cmp_r = 0;
 
-			if( is_excluded(global_config,installed_pkgs->pkgs[i]) == 1 ){
-				add_exclude_to_transaction(&tran,update_pkg);
-				continue;
-			}
-
 			/* if the update has a newer version, attempt to upgrade */
 			cmp_r = cmp_pkg_versions(installed_pkgs->pkgs[i]->version,update_pkg->version);
 			if(

@@ -1,5 +1,7 @@
 
 0.9.9g Jan 17, 2005
+ * removed duplicate exclude check in upgrade before we check if the package
+   needs to be updated
  * moved slapt-get from /sbin to /usr/sbin
  * show packages excluded in transaction report when --remove-obsolete hits
    excluded packages
