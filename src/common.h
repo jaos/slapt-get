@@ -20,6 +20,7 @@
 #define MAX_REGEX_PARTS 10
 #define SLACK_BASE_SET_REGEX "^./slackware/a$"
 
+typedef enum { FALSE = 0, TRUE } bool;
 
 typedef struct {
 	regex_t regex;

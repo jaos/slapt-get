@@ -423,6 +423,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 	free_regex(&size_c_regex);
 	free_regex(&size_u_regex);
 
+	list->free_pkgs = TRUE;
 	return list;
 }
 
@@ -576,6 +577,7 @@ struct pkg_list *get_installed_pkgs(void){
 	free_regex(&compressed_size_reg);
 	free_regex(&uncompressed_size_reg);
 
+	list->free_pkgs = TRUE;
 	return list;
 }
 
@@ -699,8 +701,10 @@ void free_pkg(pkg_info_t *pkg){
 
 void free_pkg_list(struct pkg_list *list){
 	unsigned int i;
-	for(i = 0;i < list->pkg_count;i++){
-		free_pkg(list->pkgs[i]);
+	if( list->free_pkgs == TRUE ){
+		for(i = 0;i < list->pkg_count;i++){
+			free_pkg(list->pkgs[i]);
+		}
 	}
 	free(list->pkgs);
 	free(list);
@@ -1471,8 +1475,7 @@ static struct pkg_list *required_by(const rc_config *global_config,struct pkg_li
 				}
 			}
 
-			free(required_of_required_by->pkgs);
-			free(required_of_required_by);
+			free_pkg_list(required_of_required_by);
 		}
 
 	}
@@ -1810,6 +1813,7 @@ struct pkg_list *init_pkg_list(void){
 	list = slapt_malloc( sizeof *list );
 	list->pkgs = slapt_malloc( sizeof *list->pkgs );
 	list->pkg_count = 0;
+	list->free_pkgs = FALSE;
 
 	return list;
 }

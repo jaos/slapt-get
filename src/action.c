@@ -224,10 +224,7 @@ void pkg_action_remove(const rc_config *global_config,const pkg_action_args_t *a
 
 			}
 
-			/* don't free, list of pointers to other packages that will be freed later */
-			/* free_pkg_list(deps); */
-			free(deps->pkgs);
-			free(deps);
+			free_pkg_list(deps);
 
 			add_remove_to_transaction(&tran,pkg);
 
@@ -290,12 +287,8 @@ void pkg_action_search(const char *pattern){
 		free(short_description);
 	}
 
-	/* don't free, list of pointers to other packages that will be freed later */
-	/* free_pkg_list(matches) */
-	free(matches->pkgs);
-	free(matches);
-	free(imatches->pkgs);
-	free(imatches);
+	free_pkg_list(matches);
+	free_pkg_list(imatches);
 	free_pkg_list(pkgs);
 	free_pkg_list(installed_pkgs);
 
@@ -469,10 +462,7 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 
 		}
 
-		/* don't free, list of pointers to other packages that will be freed later */
-		/* free_pkg_list(matches); */
-		free(matches->pkgs);
-		free(matches);
+		free_pkg_list(matches);
 
 		/* remove obsolete packages if prompted to */
 		if( global_config->remove_obsolete == 1 ){
@@ -495,8 +485,7 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 									add_remove_to_transaction(&tran,deps->pkgs[c]);
 							}
 						}
-						free(deps->pkgs);
-						free(deps);
+						free_pkg_list(deps);
 						if( is_excluded(global_config,installed_pkgs->pkgs[r]) != 1 )
 							add_remove_to_transaction(&tran,installed_pkgs->pkgs[r]);
 				}

@@ -1,5 +1,8 @@
 
 0.9.9g Jan 16, 2005
+ * added bool free_pkgs member to pkg_list struct so all pkg_lists are free'd
+   uniformly using free_pkg_list, even if their pkg list is pointers to pkg
+   objects in other lists
  * made required, conflicts, and suggests into dynamically allocated strings
    for package objects, and upped their max size to 2048
  * inlined init_pkg()

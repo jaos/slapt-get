@@ -21,23 +21,18 @@ static void add_suggestion(transaction_t *tran, pkg_info_t *pkg);
 
 void init_transaction(transaction_t *tran){
 
-	tran->install_pkgs = slapt_malloc( sizeof *tran->install_pkgs );
-	tran->remove_pkgs = slapt_malloc( sizeof *tran->remove_pkgs );
-	tran->upgrade_pkgs = slapt_malloc( sizeof *tran->upgrade_pkgs );
-	tran->exclude_pkgs = slapt_malloc( sizeof *tran->exclude_pkgs );
+	tran->install_pkgs = init_pkg_list();
+	tran->remove_pkgs = init_pkg_list();
+	tran->exclude_pkgs = init_pkg_list();
 
-	tran->install_pkgs->pkgs = slapt_malloc( sizeof *tran->install_pkgs->pkgs );
-	tran->remove_pkgs->pkgs = slapt_malloc( sizeof *tran->remove_pkgs->pkgs );
+	tran->upgrade_pkgs = slapt_malloc( sizeof *tran->upgrade_pkgs );
 	tran->upgrade_pkgs->pkgs = slapt_malloc( sizeof *tran->upgrade_pkgs->pkgs );
-	tran->exclude_pkgs->pkgs = slapt_malloc( sizeof *tran->exclude_pkgs->pkgs );
+	tran->upgrade_pkgs->pkg_count = 0;
+
 
 	tran->suggests = slapt_malloc(sizeof *tran->suggests );
 	tran->suggests[0] = '\0';
 
-	tran->install_pkgs->pkg_count = 0;
-	tran->remove_pkgs->pkg_count = 0;
-	tran->upgrade_pkgs->pkg_count = 0;
-	tran->exclude_pkgs->pkg_count = 0;
 }
 
 int handle_transaction(const rc_config *global_config, transaction_t *tran){
@@ -247,15 +242,15 @@ void add_install_to_transaction(transaction_t *tran,pkg_info_t *pkg){
 		tran->install_pkgs->pkgs[tran->install_pkgs->pkg_count] = slapt_malloc(
 			sizeof *tran->install_pkgs->pkgs[tran->install_pkgs->pkg_count]
 		);
-		memcpy(
+		tran->install_pkgs->pkgs[tran->install_pkgs->pkg_count] = memcpy(
 			tran->install_pkgs->pkgs[tran->install_pkgs->pkg_count],
 			pkg,
 			sizeof *pkg
 		);
 		++tran->install_pkgs->pkg_count;
-	}
 
-	add_suggestion(tran,pkg);
+		add_suggestion(tran,pkg);
+	}
 
 }
 
@@ -280,7 +275,7 @@ void add_remove_to_transaction(transaction_t *tran,pkg_info_t *pkg){
 		tran->remove_pkgs->pkgs[tran->remove_pkgs->pkg_count] = slapt_malloc(
 			sizeof *tran->remove_pkgs->pkgs[tran->remove_pkgs->pkg_count]
 		);
-		memcpy(
+		tran->remove_pkgs->pkgs[tran->remove_pkgs->pkg_count] = memcpy(
 			tran->remove_pkgs->pkgs[tran->remove_pkgs->pkg_count],
 			pkg,
 			sizeof *pkg
@@ -311,7 +306,7 @@ void add_exclude_to_transaction(transaction_t *tran,pkg_info_t *pkg){
 		tran->exclude_pkgs->pkgs[tran->exclude_pkgs->pkg_count] = slapt_malloc(
 			sizeof *tran->exclude_pkgs->pkgs[tran->exclude_pkgs->pkg_count]
 		);
-		memcpy(
+		tran->exclude_pkgs->pkgs[tran->exclude_pkgs->pkg_count] = memcpy(
 			tran->exclude_pkgs->pkgs[tran->exclude_pkgs->pkg_count],
 			pkg,
 			sizeof *pkg
@@ -351,12 +346,12 @@ void add_upgrade_to_transaction(
 			sizeof *tran->upgrade_pkgs->pkgs[tran->upgrade_pkgs->pkg_count]->upgrade
 		);
 
-		memcpy(
+		tran->upgrade_pkgs->pkgs[tran->upgrade_pkgs->pkg_count]->installed = memcpy(
 			tran->upgrade_pkgs->pkgs[tran->upgrade_pkgs->pkg_count]->installed,
 			installed_pkg,
 			sizeof *installed_pkg
 		);
-		memcpy(
+		tran->upgrade_pkgs->pkgs[tran->upgrade_pkgs->pkg_count]->upgrade = memcpy(
 			tran->upgrade_pkgs->pkgs[tran->upgrade_pkgs->pkg_count]->upgrade,
 			upgrade_pkg,
 			sizeof *upgrade_pkg
@@ -401,14 +396,18 @@ void free_transaction(transaction_t *tran){
 	unsigned int i;
 
 	for(i = 0;i < tran->install_pkgs->pkg_count; i++){
+		/* no free_pkg() b/c the *pkg is all memcpy'd */
 		free(tran->install_pkgs->pkgs[i]);
 	}
 	free(tran->install_pkgs->pkgs);
+	free(tran->install_pkgs);
 
 	for(i = 0;i < tran->remove_pkgs->pkg_count; i++){
+		/* no free_pkg() b/c the *pkg is all memcpy'd */
 		free(tran->remove_pkgs->pkgs[i]);
 	}
 	free(tran->remove_pkgs->pkgs);
+	free(tran->remove_pkgs);
 
 	for(i = 0;i < tran->upgrade_pkgs->pkg_count; i++){
 		free(tran->upgrade_pkgs->pkgs[i]->upgrade);
@@ -416,15 +415,13 @@ void free_transaction(transaction_t *tran){
 		free(tran->upgrade_pkgs->pkgs[i]);
 	}
 	free(tran->upgrade_pkgs->pkgs);
+	free(tran->upgrade_pkgs);
 
 	for(i = 0; i < tran->exclude_pkgs->pkg_count;i++){
+		/* no free_pkg() b/c the *pkg is all memcpy'd */
 		free(tran->exclude_pkgs->pkgs[i]);
 	}
 	free(tran->exclude_pkgs->pkgs);
-
-	free(tran->install_pkgs);
-	free(tran->remove_pkgs);
-	free(tran->upgrade_pkgs);
 	free(tran->exclude_pkgs);
 
 	free(tran->suggests);
@@ -500,9 +497,7 @@ int add_deps_to_trans(const rc_config *global_config, transaction_t *tran, struc
 	if( (dep_return == -1) && (global_config->ignore_dep == 0) ){
 		printf("Excluding %s, use --ignore-dep to override\n",pkg->name);
 		add_exclude_to_transaction(tran,pkg);
-		/* free_pkg_list(deps); */
-		free(deps->pkgs);
-		free(deps);
+		free_pkg_list(deps);
 		return -1;
 	}
 
@@ -546,9 +541,7 @@ int add_deps_to_trans(const rc_config *global_config, transaction_t *tran, struc
 
 	}
 
-	/* free_pkg_list(deps); */
-	free(deps->pkgs);
-	free(deps);
+	free_pkg_list(deps);
 
 	return 0;
 }
@@ -569,21 +562,18 @@ pkg_info_t *is_conflicted(transaction_t *tran, struct pkg_list *avail_pkgs, stru
 			printf(_("%s, which is to be installed, conflicts with %s\n"),
 				conflicts->pkgs[i]->name,conflicts->pkgs[i]->version, pkg->name,pkg->version
 			);
-			free(conflicts->pkgs);
-			free(conflicts);
+			free_pkg_list(conflicts);
 			return c;
 		}
 		if(get_newest_pkg(installed_pkgs,conflicts->pkgs[i]->name) != NULL) {
 			pkg_info_t *c = conflicts->pkgs[i];
 			printf(_("Installed %s conflicts with %s\n"),conflicts->pkgs[i]->name,pkg->name);
-			free(conflicts->pkgs);
-			free(conflicts);
+			free_pkg_list(conflicts);
 			return c;
 		}
 	}
 
-	free(conflicts->pkgs);
-	free(conflicts);
+	free_pkg_list(conflicts);
 
 	return NULL;
 }
