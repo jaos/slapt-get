@@ -1497,19 +1497,16 @@ void update_pkg_cache(const rc_config *global_config){
 
 
 		/* download our PKG_LIST */
-		if( global_config->dl_stats == 1 ){
-			printf(_("Retrieving package data [%s]...\n"),global_config->sources.url[i]);
-		}else{
-			printf(_("Retrieving package data [%s]..."),global_config->sources.url[i]);
-		}
+		printf(_("Retrieving package data [%s]..."),global_config->sources.url[i]);
 		pkg_filename = gen_filename_from_url(global_config->sources.url[i],PKG_LIST);
 
 		/* open for reading if cached, otherwise write it from the downloaded data */
 		if( head_mirror_data(global_config->sources.url[i],PKG_LIST) == 0 ){
-			if( global_config->dl_stats != 1 ) printf(_("Cached\n"));
+			printf(_("Cached\n"));
 			tmp_pkg_f = fopen(pkg_filename,"r");
 			available_pkgs = parse_packages_txt(tmp_pkg_f);
 		}else{
+			if( global_config->dl_stats == 1 ) printf("\n");
 			tmp_pkg_f = fopen(pkg_filename,"w+b");
 			if( get_mirror_data_from_source(tmp_pkg_f,global_config->dl_stats,global_config->sources.url[i],PKG_LIST) == 0 ){
 				rewind(tmp_pkg_f); /* make sure we are back at the front of the file */
@@ -1524,19 +1521,16 @@ void update_pkg_cache(const rc_config *global_config){
 
 
 		/* download PATCHES_LIST */
-		if( global_config->dl_stats == 1 ){
-			printf(_("Retrieving patch list [%s]...\n"),global_config->sources.url[i]);
-		}else{
-			printf(_("Retrieving patch list [%s]..."),global_config->sources.url[i]);
-		}
+		printf(_("Retrieving patch list [%s]..."),global_config->sources.url[i]);
 		patch_filename = gen_filename_from_url(global_config->sources.url[i],PATCHES_LIST);
 
 		/* open for reading if cached, otherwise write it from the downloaded data */
 		if( head_mirror_data(global_config->sources.url[i],PATCHES_LIST) == 0 ){
-			if( global_config->dl_stats != 1 ) printf(_("Cached\n"));
+			printf(_("Cached\n"));
 			tmp_patch_f = fopen(patch_filename,"r");
 			patch_pkgs = parse_packages_txt(tmp_patch_f);
 		}else{
+			if( global_config->dl_stats == 1 ) printf("\n");
 			tmp_patch_f = fopen(patch_filename,"w+b");
 			if( get_mirror_data_from_source(tmp_patch_f,global_config->dl_stats,global_config->sources.url[i],PATCHES_LIST) == 0 ){
 				rewind(tmp_patch_f); /* make sure we are back at the front of the file */
@@ -1552,18 +1546,15 @@ void update_pkg_cache(const rc_config *global_config){
 
 
 		/* download checksum file */
-		if( global_config->dl_stats == 1 ){
-			printf(_("Retrieving checksum list [%s]...\n"),	global_config->sources.url[i]);
-		}else{
-			printf(_("Retrieving checksum list [%s]..."),		global_config->sources.url[i]);
-		}
+		printf(_("Retrieving checksum list [%s]..."),		global_config->sources.url[i]);
 		checksum_filename = gen_filename_from_url(global_config->sources.url[i],CHECKSUM_FILE);
 
 		/* open for reading if cached, otherwise write it from the downloaded data */
 		if( head_mirror_data(global_config->sources.url[i],CHECKSUM_FILE) == 0 ){
-			if( global_config->dl_stats != 1 ) printf(_("Cached\n"));
+			printf(_("Cached\n"));
 			tmp_checksum_f = fopen(checksum_filename,"r");
 		}else{
+			if( global_config->dl_stats == 1 ) printf("\n");
 			tmp_checksum_f = fopen(checksum_filename,"w+b");
 			if( get_mirror_data_from_source(
 						tmp_checksum_f,global_config->dl_stats,global_config->sources.url[i],CHECKSUM_FILE

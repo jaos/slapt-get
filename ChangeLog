@@ -1,4 +1,9 @@
 
+0.9.8h Jul 25, 2004
+ * now ftp package sources print "Cached" if cached
+ * added check in download_data, silence error if url contains "/patches/PACKAGES.TXT"
+   for failed download
+
 0.9.8g Jul 21, 2004
  * updated slack-desc
  * default download progress now shows percentage instead of spinner
