@@ -259,12 +259,6 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 				char *req_str = char_pointer + req_len;
 				getline_buffer[bytes_read - 1] = '\0';
 
-				if( strlen(req_str) > REQUIRED_LEN ){
-					fprintf( stderr, _("required too long\n"));
-					free_pkg(tmp_pkg);
-					continue;
-				}
-
 				tmp_realloc = realloc(
 					tmp_pkg->required,
 					sizeof *tmp_pkg->required * (strlen(char_pointer + req_len) + 1)
@@ -287,11 +281,6 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 		){
 				char *tmp_realloc = NULL;
 				char *conflicts = (char *)strpbrk(char_pointer,":") + 3;
-				if( strlen(conflicts) > CONFLICTS_LEN ){
-					fprintf( stderr, _("conflict too long\n"));
-					free_pkg(tmp_pkg);
-					continue;
-				}
 				getline_buffer[bytes_read - 1] = '\0';
 				tmp_realloc = realloc(tmp_pkg->conflicts, sizeof *tmp_pkg->conflicts * (strlen(conflicts) + 1));
 				if( tmp_realloc != NULL ){
@@ -312,11 +301,6 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 		){
 				char *tmp_realloc = NULL;
 				char *suggests = (char *)strpbrk(char_pointer,":") + 3;
-				if( strlen(suggests) > SUGGESTS_LEN ){
-					fprintf( stderr, _("suggests too long\n"));
-					free_pkg(tmp_pkg);
-					continue;
-				}
 				getline_buffer[bytes_read - 1] = '\0';
 				tmp_realloc = realloc(tmp_pkg->suggests, sizeof *tmp_pkg->suggests * (strlen(suggests) + 1));
 				if( tmp_realloc != NULL ){
