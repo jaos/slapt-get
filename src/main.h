@@ -68,3 +68,6 @@ enum action {
 
 #define _(text) gettext(text)
 
+void usage(void);
+void version_info(void);
+

@@ -18,9 +18,6 @@
 
 #include "main.h"
 
-void usage(void);
-void version_info(void);
-
 int main( int argc, char *argv[] ){
 	rc_config *global_config; /* our config struct */
 	/* getopt needs these */

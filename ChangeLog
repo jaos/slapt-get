@@ -1,6 +1,7 @@
 
-0.9.8b Feb 02, 2004
+0.9.8c Feb 02, 2004
  * doc updates
+ * fixed segfault when slapt-getrc isn't present (return value from open() not checked)
 
 0.9.8b Jan 20, 2004
  * documentation updates (FAQ)
