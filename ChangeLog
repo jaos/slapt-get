@@ -20,6 +20,7 @@
    get_mirror_data_from_source.
  * merged in package update data from filelist into PACKAGES.TXT format,
    so single lookup returns all packages.
+ * added excludes to transaction, now shows packages excluded/held back
 
 0.9.5e Oct 10, 2003
  * added a doinst.sh script (generated from the Makefile) to help 

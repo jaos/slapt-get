@@ -21,6 +21,7 @@ struct _transaction {
 	struct pkg_list *install_pkgs;
 	struct pkg_upgrade_list *upgrade_pkgs;
 	struct pkg_list *remove_pkgs;
+	struct pkg_list *exclude_pkgs;
 };
 typedef struct _transaction transaction;
 /* */
@@ -31,5 +32,6 @@ int handle_transaction(const rc_config *,transaction *);
 void add_install_to_transaction(transaction *,pkg_info_t *);
 void add_remove_to_transaction(transaction *,pkg_info_t *);
 void add_upgrade_to_transaction(transaction *,pkg_info_t *,pkg_info_t *);
+void add_exclude_to_transaction(transaction *,pkg_info_t *);
 void free_transaction(transaction *);
 

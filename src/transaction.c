@@ -23,14 +23,17 @@ void init_transaction(transaction *tran){
 	tran->install_pkgs = malloc( sizeof *tran->install_pkgs );
 	tran->remove_pkgs = malloc( sizeof *tran->remove_pkgs );
 	tran->upgrade_pkgs = malloc( sizeof *tran->upgrade_pkgs );
+	tran->exclude_pkgs = malloc( sizeof *tran->exclude_pkgs );
 
 	tran->install_pkgs->pkgs = malloc( sizeof *tran->install_pkgs->pkgs );
 	tran->remove_pkgs->pkgs = malloc( sizeof *tran->remove_pkgs->pkgs );
 	tran->upgrade_pkgs->pkgs = malloc( sizeof *tran->upgrade_pkgs->pkgs );
+	tran->exclude_pkgs->pkgs = malloc( sizeof *tran->exclude_pkgs->pkgs );
 
 	tran->install_pkgs->pkg_count = 0;
 	tran->remove_pkgs->pkg_count = 0;
 	tran->upgrade_pkgs->pkg_count = 0;
+	tran->exclude_pkgs->pkg_count = 0;
 }
 
 int handle_transaction(const rc_config *global_config, transaction *tran){
@@ -46,6 +49,16 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 		&& (global_config->download_only == 0 && global_config->simulate == 0
 				&& global_config->no_prompt == 0 && global_config->interactive == 0 )
 	){
+
+		/* show pkgs to exclude */
+		if( tran->exclude_pkgs->pkg_count > 0 ){
+			printf("The following packages have been EXCLUDED:\n");
+			printf("  ");
+			for(i = 0; i < tran->exclude_pkgs->pkg_count;i++){
+				printf("%s ",tran->exclude_pkgs->pkgs[i]->name);
+			}
+			printf("\n");
+		}
 
 		/* show pkgs to install */
 		if( tran->install_pkgs->pkg_count > 0 ){
@@ -79,16 +92,17 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 
 		/* print the summary */
 		printf(
-			"%d upgraded, %d newly installed, and %d to remove.\n",
+			"%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n",
 			tran->upgrade_pkgs->pkg_count,
 			tran->install_pkgs->pkg_count,
-			tran->remove_pkgs->pkg_count
+			tran->remove_pkgs->pkg_count,
+			tran->exclude_pkgs->pkg_count
 		);
 
 		/* prompt */
-		printf("Do you want to continue? [Y/n] ");
+		printf("Do you want to continue? [y/N] ");
 		fgets(prompt_answer,10,stdin);
-		if( tolower(prompt_answer[0]) == 'n' ){
+		if( tolower(prompt_answer[0]) != 'y' ){
 			printf("Abort.\n");
 			return 1;
 		}
@@ -145,6 +159,22 @@ void add_remove_to_transaction(transaction *tran,pkg_info_t *pkg){
 
 }
 
+void add_exclude_to_transaction(transaction *tran,pkg_info_t *pkg){
+	pkg_info_t **tmp_list;
+
+	tmp_list = realloc(
+		tran->exclude_pkgs->pkgs,
+		sizeof *tran->exclude_pkgs->pkgs * ( tran->exclude_pkgs->pkg_count + 1 )
+	);
+	if( tmp_list != NULL ){
+		tran->exclude_pkgs->pkgs = tmp_list;
+
+		tran->exclude_pkgs->pkgs[tran->exclude_pkgs->pkg_count] = pkg;
+		++tran->exclude_pkgs->pkg_count;
+	}
+
+}
+
 void add_upgrade_to_transaction(
 	transaction *tran, pkg_info_t *installed_pkg, pkg_info_t *upgrade_pkg
 ){
@@ -191,10 +221,12 @@ void free_transaction(transaction *tran){
 	free(tran->install_pkgs->pkgs);
 	free(tran->remove_pkgs->pkgs);
 	free(tran->upgrade_pkgs->pkgs);
+	free(tran->exclude_pkgs->pkgs);
 
 	free(tran->install_pkgs);
 	free(tran->remove_pkgs);
 	free(tran->upgrade_pkgs);
+	free(tran->exclude_pkgs);
 
 }
 
