@@ -267,18 +267,19 @@ void pkg_action_update(const rc_config *global_config){
 	fclose(pkg_list_fh);
 
 	/* download checksum file */
-	#if USE_CURL_PROGRESS == 0
-	printf("Retrieving checksum list...");
-	#else
-	printf("Retrieving checksum list...\n");
-	#endif
 	checksum_list_fh = open_file(CHECKSUM_FILE,"w+");
 	for(i = 0; i < global_config->sources.count; i++){
-		get_mirror_data_from_source(checksum_list_fh,global_config->sources.url[i],CHECKSUM_FILE);
+		#if USE_CURL_PROGRESS == 0
+		printf("Retrieving patch list [%s]...",global_config->sources.url[i]);
+		#else
+		printf("Retrieving patch list [%s]...\n",global_config->sources.url[i]);
+		#endif
+		if( get_mirror_data_from_source(checksum_list_fh,global_config->sources.url[i],CHECKSUM_FILE) == 0 ){
+			#if USE_CURL_PROGRESS == 0
+			printf("Done\n");
+			#endif
+		}
 	}
-	#if USE_CURL_PROGRESS == 0
-	printf("Done\n");
-	#endif
 	fclose(checksum_list_fh);
 
 	/* source listing to go here */
