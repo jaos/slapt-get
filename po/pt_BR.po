@@ -456,9 +456,9 @@ msgstr "%s-%s será removido\n"
 
 #, c-format
 msgid "%s, which is to be installed, conflicts with %s\n"
-msgstr "%s, which is to be installed, conflicts with %s\n"
+msgstr "%s, que está para ser instalado, entra em conflito com %s\n"
 
 #, c-format
 msgid "Installed %s conflicts with %s\n"
-msgstr "Installed %s conflicts with %s\n"
+msgstr "Instalado %s entra em conflito com %s\n"
 
