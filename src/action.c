@@ -111,8 +111,8 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 
 			/* it is already installed, attempt an upgrade */
 			if(
-				((cmp_pkg_versions(installed_pkg->version,pkg->version)) < 0)
-				|| (global_config->re_install == 1)
+				((cmp_pkg_versions(installed_pkg->version,pkg->version)) < 0) ||
+				(global_config->re_install == 1)
 			){
 
 				if( add_deps_to_trans(global_config,&tran,avail_pkgs,installed_pkgs,pkg) == 0 ){
@@ -403,8 +403,8 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 			}
 
 			/* if the update has a newer version, attempt to upgrade */
-			if( (cmp_pkg_versions(installed_pkgs->pkgs[i]->version,update_pkg->version)) < 0
-				|| (global_config->re_install == 1)
+			if( (cmp_pkg_versions(installed_pkgs->pkgs[i]->version,update_pkg->version)) < 0 ||
+				(global_config->re_install == 1)
 			){
 
 				if( add_deps_to_trans(global_config,&tran,avail_pkgs,installed_pkgs,update_pkg) == 0 ){

@@ -119,8 +119,8 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 		}
 	}
 
-	if( tran->upgrade_pkgs->pkg_count > 0 || tran->remove_pkgs->pkg_count > 0
-	|| tran->install_pkgs->pkg_count > 0 ){
+	if( tran->upgrade_pkgs->pkg_count > 0 || tran->remove_pkgs->pkg_count > 0 ||
+	tran->install_pkgs->pkg_count > 0 ){
 
 		if( global_config->download_only == 0 ){
 			if( (int)uncompressed_size < 0 ){
@@ -137,10 +137,10 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 
 	/* prompt */
 	if(
-			(tran->upgrade_pkgs->pkg_count > 0 || tran->remove_pkgs->pkg_count > 0
-			|| ( tran->install_pkgs->pkg_count > 0 && global_config->dist_upgrade != 0 ) )
-			&& (global_config->no_prompt == 0 && global_config->download_only == 0
-			&& global_config->simulate == 0 && global_config->print_uris == 0 )
+			(tran->upgrade_pkgs->pkg_count > 0 || tran->remove_pkgs->pkg_count > 0 ||
+			( tran->install_pkgs->pkg_count > 0 && global_config->dist_upgrade != 0 ) ) &&
+			(global_config->no_prompt == 0 && global_config->download_only == 0 &&
+			global_config->simulate == 0 && global_config->print_uris == 0 )
 	) {
 		char prompt_answer[10];
 		printf(_("Do you want to continue? [y/N] "));
@@ -415,23 +415,23 @@ transaction *remove_from_transaction(transaction *tran,pkg_info_t *pkg){
 
 	for(i = 0;i < tran->install_pkgs->pkg_count; i++){
 		if(
-			strcmp(pkg->name,tran->install_pkgs->pkgs[i]->name) != 0
-			&& strcmp(pkg->version,tran->install_pkgs->pkgs[i]->version) != 0
-			&& strcmp(pkg->location,tran->install_pkgs->pkgs[i]->location) != 0
+			strcmp(pkg->name,tran->install_pkgs->pkgs[i]->name) != 0 &&
+			strcmp(pkg->version,tran->install_pkgs->pkgs[i]->version) != 0 &&
+			strcmp(pkg->location,tran->install_pkgs->pkgs[i]->location) != 0
 		) add_install_to_transaction(new_tran,tran->install_pkgs->pkgs[i]);
 	}
 	for(i = 0;i < tran->remove_pkgs->pkg_count; i++){
 		if(
-			strcmp(pkg->name,tran->remove_pkgs->pkgs[i]->name) != 0
-			&& strcmp(pkg->version,tran->remove_pkgs->pkgs[i]->version) != 0
-			&& strcmp(pkg->location,tran->remove_pkgs->pkgs[i]->location) != 0
+			strcmp(pkg->name,tran->remove_pkgs->pkgs[i]->name) != 0 &&
+			strcmp(pkg->version,tran->remove_pkgs->pkgs[i]->version) != 0 &&
+			strcmp(pkg->location,tran->remove_pkgs->pkgs[i]->location) != 0
 		) add_remove_to_transaction(new_tran,tran->remove_pkgs->pkgs[i]);
 	}
 	for(i = 0;i < tran->upgrade_pkgs->pkg_count; i++){
 		if(
-			strcmp(pkg->name,tran->upgrade_pkgs->pkgs[i]->upgrade->name) != 0
-			&& strcmp(pkg->version,tran->upgrade_pkgs->pkgs[i]->upgrade->version) != 0
-			&& strcmp(pkg->location,tran->upgrade_pkgs->pkgs[i]->upgrade->location) != 0
+			strcmp(pkg->name,tran->upgrade_pkgs->pkgs[i]->upgrade->name) != 0 &&
+			strcmp(pkg->version,tran->upgrade_pkgs->pkgs[i]->upgrade->version) != 0 &&
+			strcmp(pkg->location,tran->upgrade_pkgs->pkgs[i]->upgrade->location) != 0
 		) add_upgrade_to_transaction(
 			new_tran,
 			tran->upgrade_pkgs->pkgs[i]->installed,
@@ -440,9 +440,9 @@ transaction *remove_from_transaction(transaction *tran,pkg_info_t *pkg){
 	}
 	for(i = 0; i < tran->exclude_pkgs->pkg_count;i++){
 		if(
-			strcmp(pkg->name,tran->exclude_pkgs->pkgs[i]->name) != 0
-			&& strcmp(pkg->version,tran->exclude_pkgs->pkgs[i]->version) != 0
-			&& strcmp(pkg->location,tran->exclude_pkgs->pkgs[i]->location) != 0
+			strcmp(pkg->name,tran->exclude_pkgs->pkgs[i]->name) != 0 &&
+			strcmp(pkg->version,tran->exclude_pkgs->pkgs[i]->version) != 0 &&
+			strcmp(pkg->location,tran->exclude_pkgs->pkgs[i]->location) != 0
 		) add_exclude_to_transaction(new_tran,tran->exclude_pkgs->pkgs[i]);
 	}
 

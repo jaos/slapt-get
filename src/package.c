@@ -253,8 +253,8 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 		tmp_pkg->required[0] = '\0';
 		f_pos = ftell(pkg_list_fh);
 		if(
-			((bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh)) != EOF)
-			&& ((char_pointer = strstr(getline_buffer,"PACKAGE REQUIRED")) != NULL)
+			((bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh)) != EOF) &&
+			((char_pointer = strstr(getline_buffer,"PACKAGE REQUIRED")) != NULL)
 		){
 				size_t req_len = strlen("PACKAGE REQUIRED") + 2;
 				getline_buffer[bytes_read - 1] = '\0';
@@ -269,8 +269,8 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 		f_pos = ftell(pkg_list_fh);
 		tmp_pkg->conflicts[0] = '\0';
 		if(
-			((bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh)) != EOF)
-			&& ((char_pointer = strstr(getline_buffer,"PACKAGE CONFLICTS")) != NULL)
+			((bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh)) != EOF) &&
+			((char_pointer = strstr(getline_buffer,"PACKAGE CONFLICTS")) != NULL)
 		){
 				char *conflicts = strpbrk(char_pointer,":") + 3;
 				if( strlen(conflicts) > CONFLICTS_LEN ){
@@ -292,8 +292,8 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 		tmp_pkg->md5[0] = '\0'; /* just in case the md5sum is empty */
 		f_pos = ftell(pkg_list_fh);
 		if(
-			((bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh)) != EOF)
-			&& (strstr(getline_buffer,"PACKAGE MD5 SUM") != NULL)
+			((bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh)) != EOF) &&
+			(strstr(getline_buffer,"PACKAGE MD5 SUM") != NULL)
 		){
 				char *md5sum;
 				getline_buffer[bytes_read - 1] = '\0';
@@ -319,16 +319,16 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 		/* description */
 		tmp_pkg->description[0] = '\0';
 		if(
-			(getline(&getline_buffer,&getline_len,pkg_list_fh) != EOF)
-			&& (strstr(getline_buffer,"PACKAGE DESCRIPTION") != NULL)
+			(getline(&getline_buffer,&getline_len,pkg_list_fh) != EOF) &&
+			(strstr(getline_buffer,"PACKAGE DESCRIPTION") != NULL)
 		){
 
 			while( 1 ){
 				if( (bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh)) != EOF ){
 
-					if( strcmp(getline_buffer,"\n") != 0
+					if( strcmp(getline_buffer,"\n") != 0 &&
 						/* don't overflow the buffer */
-						&& (strlen(tmp_pkg->description) + bytes_read) < DESCRIPTION_LEN
+						(strlen(tmp_pkg->description) + bytes_read) < DESCRIPTION_LEN
 					){
 						strncat(tmp_pkg->description,getline_buffer,bytes_read);
 					}else{
@@ -732,9 +732,9 @@ void get_md5sum(pkg_info_t *pkg,FILE *checksum_file){
 
 			/* see if we can match up name, version, and location */
 			if( 
-				(strcmp(pkg->name,name) == 0)
-				&& (cmp_pkg_versions(pkg->version,version) == 0)
-				&& (strcmp(pkg->location,location) == 0)
+				(strcmp(pkg->name,name) == 0) &&
+				(cmp_pkg_versions(pkg->version,version) == 0) &&
+				(strcmp(pkg->location,location) == 0)
 			){
 				#if DEBUG == 1
 				printf("%s-%s@%s, %s-%s@%s: %s\n",pkg->name,pkg->version,pkg->location,name,version,location,sum);
@@ -777,8 +777,8 @@ int cmp_pkg_versions(char *a, char *b){
 			 * if the integer value of the version part is the same
 			 * and the # of version parts is the same (fixes 3.8.1p1-i486-1 to 3.8p1-i486-1)
 			*/ 
-			if( (atoi(a_parts.parts[position]) == atoi(b_parts.parts[position]))
-				&& (a_parts.count == b_parts.count) ){
+			if( (atoi(a_parts.parts[position]) == atoi(b_parts.parts[position])) &&
+				(a_parts.count == b_parts.count) ){
 
 				if( strcmp(a_parts.parts[position],b_parts.parts[position]) < 0 )
 					return lesser;
@@ -970,10 +970,10 @@ struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,struct p
 	 * don't go any further if the required member is empty
 	 * or disable_dep_check is set
 	*/
-	if( global_config->disable_dep_check == 1
-  	|| strcmp(pkg->required,"") == 0
-		|| strcmp(pkg->required," ") == 0
-		|| strcmp(pkg->required,"  ") == 0
+	if( global_config->disable_dep_check == 1 ||
+  	strcmp(pkg->required,"") == 0 ||
+		strcmp(pkg->required," ") == 0 ||
+		strcmp(pkg->required,"  ") == 0
 	)
 		return deps;
 
@@ -1105,9 +1105,9 @@ struct pkg_list *lookup_pkg_conflicts(struct pkg_list *avail_pkgs,struct pkg_lis
 	/*
 	 * don't go any further if the required member is empty
 	*/
-	if( strcmp(pkg->conflicts,"") == 0
-		|| strcmp(pkg->conflicts," ") == 0
-		|| strcmp(pkg->conflicts,"  ") == 0
+	if( strcmp(pkg->conflicts,"") == 0 ||
+		strcmp(pkg->conflicts," ") == 0 ||
+		strcmp(pkg->conflicts,"  ") == 0
 	)
 		return conflicts;
 
@@ -1231,8 +1231,8 @@ pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list *instal
 	*/
 	if( newest_installed_pkg != NULL ){
 		/* if condition is "=",">=", or "=<" and versions are the same */
-		if( (strstr(tmp_pkg_cond,"=") != NULL)
-		&& (strcmp(tmp_pkg_ver,newest_installed_pkg->version) == 0) )
+		if( (strstr(tmp_pkg_cond,"=") != NULL) &&
+		(strcmp(tmp_pkg_ver,newest_installed_pkg->version) == 0) )
 			return newest_installed_pkg;
 		/* if "<" */
 		if( strstr(tmp_pkg_cond,"<") != NULL )
@@ -1248,8 +1248,8 @@ pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list *instal
 			continue;
 
 		/* if condition is "=",">=", or "=<" and versions are the same */
-		if( (strstr(tmp_pkg_cond,"=") != NULL)
-		&& (strcmp(tmp_pkg_ver,installed_pkgs->pkgs[i]->version) == 0) )
+		if( (strstr(tmp_pkg_cond,"=") != NULL) &&
+		(strcmp(tmp_pkg_ver,installed_pkgs->pkgs[i]->version) == 0) )
 			return installed_pkgs->pkgs[i];
 		/* if "<" */
 		if( strstr(tmp_pkg_cond,"<") != NULL )
@@ -1267,8 +1267,8 @@ pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list *instal
 	*/
 	if( newest_avail_pkg != NULL ){
 		/* if condition is "=",">=", or "=<" and versions are the same */
-		if( (strstr(tmp_pkg_cond,"=") != NULL)
-		&& (strcmp(tmp_pkg_ver,newest_avail_pkg->version) == 0) )
+		if( (strstr(tmp_pkg_cond,"=") != NULL) &&
+		(strcmp(tmp_pkg_ver,newest_avail_pkg->version) == 0) )
 			return newest_avail_pkg;
 		/* if "<" */
 		if( strstr(tmp_pkg_cond,"<") != NULL )
@@ -1286,8 +1286,8 @@ pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list *instal
 			continue;
 
 		/* if condition is "=",">=", or "=<" and versions are the same */
-		if( (strstr(tmp_pkg_cond,"=") != NULL)
-		&& (strcmp(tmp_pkg_ver,avail_pkgs->pkgs[i]->version) == 0) )
+		if( (strstr(tmp_pkg_cond,"=") != NULL) &&
+		(strcmp(tmp_pkg_ver,avail_pkgs->pkgs[i]->version) == 0) )
 			return avail_pkgs->pkgs[i];
 		/* if "<" */
 		if( strstr(tmp_pkg_cond,"<") != NULL )
