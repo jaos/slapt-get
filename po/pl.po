@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "Reading Package Lists... "
-msgstr "Wczytuje Liste Pakietow..."
+msgstr "Wczytuję Listę Pakietów..."
 
 msgid "Done\n"
 msgstr "Gotowe\n"
@@ -88,79 +88,79 @@ msgstr "Pobieram dane pakietu [%s]...\n"
 
 #, c-format
 msgid "Retrieving extras list [%s]..."
-msgstr "Pobieram liste dodatkow [%s]..."
+msgstr "Pobieram listę dodatków [%s]..."
 
 #, c-format
 msgid "Retrieving extras list [%s]...\n"
-msgstr "Pobieram liste dodatkow [%s]...\n"
+msgstr "Pobieram listę dodatków [%s]...\n"
 
 #, c-format
 msgid "Retrieving patch list [%s]..."
-msgstr "Pobieram liste patchy [%s]..."
+msgstr "Pobieram listę patchy [%s]..."
 
 #, c-format
 msgid "Retrieving patch list [%s]...\n"
-msgstr "Pobieram liste patchy [%s]...\n"
+msgstr "Pobieram listę patchy [%s]...\n"
 
 #, c-format
 msgid "Retrieving checksum list [%s]..."
-msgstr "Pobieram liste sum kontrolnych [%s]..."
+msgstr "Pobieram listę sum kontrolnych [%s]..."
 
 #, c-format
 msgid "Retrieving checksum list [%s]...\n"
-msgstr "Pobieram liste sum kontrolnych [%s]...\n"
+msgstr "Pobieram listę sum kontrolnych [%s]...\n"
 
 msgid "Failed to malloc global_config\n"
-msgstr "Nie powiodlo sie malloc global_config\n"
+msgstr "Nie powiodło się malloc global_config\n"
 
 #, c-format
 msgid "Maximum number of sources (%d) exceeded.\n"
-msgstr "Przekroczono limit (%d) zrodel.\n"
+msgstr "Przekroczono limit (%d) zródeł.\n"
 
 #, c-format
 msgid "Maximum length of source (%d) exceeded.\n"
-msgstr "Przekroczono maksymalna dlugosc zrodla (%d)\n"
+msgstr "Przekroczono maksymalną dlugość zródła (%d)\n"
 
 #, c-format
 msgid "WORKINGDIR directive not set within %s.\n"
-msgstr "dyrektywa WORKINGDIR nie jest ustawiona wewnatrz %s.\n"
+msgstr "dyrektywa WORKINGDIR nie jest ustawiona wewnątrz %s.\n"
 
 #, c-format
 msgid "SOURCE directive not set within %s.\n"
-msgstr "dyrektywa SOURCE nie jest ustawiona wewnatrz %s.\n"
+msgstr "dyrektywa SOURCE nie jest ustawiona wewnątrz %s.\n"
 
 #, c-format
 msgid "Failed to build working directory [%s]\n"
-msgstr "Stworzenie katalogu niepowiodlo sie [%s]\n"
+msgstr "Stworzenie katalogu niepowiodło się [%s]\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr "Prosze uaktualnic prawa dostepu do %s lub uruchomic z odpowiednimi przywilejami\n"
+msgstr "Prosze uaktualnic prawa dostępu do %s lub uruchomić z odpowiednimi przywilejami\n"
 
 #, c-format
 msgid "Failed to open %s\n"
-msgstr "Otwarcie %s niepowiodlo sie.\n"
+msgstr "Otwarcie %s niepowiodlo się.\n"
 
 msgid "Perhaps you want to run --update?\n"
-msgstr "Prawdopodobie chcesz uzyc --update?\n"
+msgstr "Prawdopodobie chcesz użyć --update?\n"
 
 #, c-format
 msgid "Failed to opendir %s\n"
-msgstr "Otworzenie katalogu %s niepowiodlo sie.\n"
+msgstr "Otworzenie katalogu %s niepowiodło się.\n"
 
 #, c-format
 msgid "Failed to chdir: %s\n"
-msgstr "Zmiana katalogu na %s niepowiodla sie.\n"
+msgstr "Zmiana katalogu na %s niepowiodła się.\n"
 
 #, c-format
 msgid "unlinking %s\n"
 msgstr "odlinkowanie %s\n"
 
 msgid "Failed to malloc list\n"
-msgstr "Nie powiodlo sie calloc list\n"
+msgstr "Nie powiodło się calloc list\n"
 
 msgid "Failed to get cwd\n"
-msgstr "Nie powiodlo sie pobranie cwd\n"
+msgstr "Nie powiodło się pobranie cwd\n"
 
 #, c-format
 msgid "\tCurrent working directory: %s\n"
@@ -168,7 +168,7 @@ msgstr "\tAktualny katalog: %s\n"
 
 #, c-format
 msgid "Failed to mkdir: %s\n"
-msgstr "mkdir niepowiodlo sie : %s\n"
+msgstr "mkdir niepowiodło się : %s\n"
 
 #, c-format
 msgid "\tCreated directory: %s\n"
@@ -176,7 +176,7 @@ msgstr "Stworzono katalog: %s\n"
 
 #, c-format
 msgid "Failed to chdir to %s\n"
-msgstr "Zmiana katalogu na %s niepowiodla sie.\n"
+msgstr "Zmiana katalogu na %s niepowiodła się.\n"
 
 #, c-format
 msgid "\tchdir into %s\n"
@@ -192,17 +192,17 @@ msgstr "Pobieram url:[%s]\n"
 
 #, c-format
 msgid "Failed to download: %s\n"
-msgstr "Pobranie niepowiodlo sie: %s\n"
+msgstr "Pobranie niepowiodło się: %s\n"
 
 msgid "Failed to calloc url\n"
-msgstr "Nie powiodlo sie calloc url\n"
+msgstr "Nie powiodło się calloc url\n"
 
 msgid "Failed to calloc file_name\n"
-msgstr "Nie powiodlo sie calloc file_name\n"
+msgstr "Nie powiodło się calloc file_name\n"
 
 #, c-format
 msgid "Using cached copy of %s\n"
-msgstr "Wykorzystuje zbuforowana kopie %s\n"
+msgstr "Wykorzystuje zbuforowaną kopię %s\n"
 
 #, c-format
 msgid "Downloading %s %s %s [%dK]..."
@@ -214,7 +214,7 @@ msgstr "Pobieram %s %s %s [%dK]...\n"
 
 #, c-format
 msgid "Failed to unlink %s\n"
-msgstr "Nie powiodlo sie odlinkowanie %s\n"
+msgstr "Nie powiodło się odlinkowanie %s\n"
 
 #, c-format
 msgid "verifying %s md5 checksum..."
@@ -240,7 +240,7 @@ msgid "An implementation of the Debian APT system to Slackware\n"
 msgstr "Implementacja systemu APT z Debiana do Slackwarea\n"
 
 msgid "Usage:\n"
-msgstr "Uzycie:\n"
+msgstr "Użycie:\n"
 
 #, c-format
 msgid "%s [option(s)] [target]\n"
@@ -262,25 +262,25 @@ msgid "[pkg name(s)] - install specified pkg(s)"
 msgstr "[nazwa(y) pkg] - instaluj wybrany pkg(s)"
 
 msgid "[pkg name(s)] - remove specified pkg(s)"
-msgstr "[nazwa(y) pkg] - usun wybrany pkg(s)"
+msgstr "[nazwa(y) pkg] - usuń wybrany pkg(s)"
 
 msgid "[pkg name] - show pkg description"
-msgstr "[nazwa pkg] - pokaz opis pkg"
+msgstr "[nazwa pkg] - pokaż opis pkg"
 
 msgid "[expression] - search available pkgs"
-msgstr "[wyrazenie] - szukaj dostepnych pkgs"
+msgstr "[wyrażenie] - szukaj dostępnych pkgs"
 
 msgid "list available pkgs"
-msgstr "wyswietl dostepne pkgs"
+msgstr "wyświetl dostepne pkgs"
 
 msgid "list installed pkgs"
-msgstr "wyswietl zainstalowane pkgs"
+msgstr "wyświetl zainstalowane pkgs"
 
 msgid "purge cached pkgs"
-msgstr "wyczysc pkgs w cache"
+msgstr "wyczyść pkgs w cache"
 
 msgid "print version and license info"
-msgstr "wyswietl informacje o wersji i licencji"
+msgstr "wyświetl informacje o wersji i licencji"
 
 msgid "Options:\n"
 msgstr "Opcje:\n"
@@ -289,7 +289,7 @@ msgid "only download pkg on install/upgrade"
 msgstr "tylko pobierz pkg do instalacji/aktualizacji"
 
 msgid "show pkgs to be installed/upgraded"
-msgstr "pokaz pkgs do instalacji/aktualizacji"
+msgstr "pokaż pkgs do instalacji/aktualizacji"
 
 msgid "do not prompt during install/upgrade"
 msgstr "nie pytaj podczas instalacji/aktualizacji"
@@ -298,90 +298,90 @@ msgid "re-install the pkg"
 msgstr "re-instaluj pkg"
 
 msgid "install/upgrade excludes"
-msgstr "instaluj/uaktualniaj wylaczaj"
+msgstr "instaluj/uaktualniaj wyłaczaj"
 
 msgid "do not perform md5 check sum"
 msgstr "nie dokonuj sprawdzania sum kontrolnych md5"
 
 msgid "ignore dependency failures"
-msgstr "ignoruj niepowodzenia zaleznosci"
+msgstr "ignoruj niepowodzenia zależności"
 
 #, c-format
 msgid "%s version %s\n"
 msgstr "%s wersja %s\n"
 
 msgid "Failed to malloc pkgs\n"
-msgstr "Nie powiodlo sie malloc pkgs\n"
+msgstr "Nie powiodło się malloc pkgs\n"
 
 #, c-format
 msgid "regex failed on [%s]\n"
-msgstr "regex przerwal dzialanie na [%s]\n"
+msgstr "regex przerwał działanie na [%s]\n"
 
 msgid "Failed to malloc tmp_pkg\n"
-msgstr "Nie powiodlo sie malloc tmp_pkg\n"
+msgstr "Nie powiodło się malloc tmp_pkg\n"
 
 #, c-format
 msgid "pkg name too long [%s:%d]\n"
-msgstr "nazwa pkg za dluga [%s:%d]\n"
+msgstr "nazwa pkg za długa [%s:%d]\n"
 
 #, c-format
 msgid "pkg version too long [%s:%d]\n"
-msgstr "wersja pkg za dluga [%s:%d]\n"
+msgstr "wersja pkg za długa [%s:%d]\n"
 
 #, c-format
 msgid "pkg mirror too long [%s:%d]\n"
-msgstr "mirror pkg za dlugi [%s:%d]\n"
+msgstr "mirror pkg za długi [%s:%d]\n"
 
 #, c-format
 msgid "pkg location too long [%s:%d]\n"
-msgstr "lokacja pkg za dluga [%s:%d]\n"
+msgstr "lokacja pkg za długa [%s:%d]\n"
 
 msgid "regexec failed to parse location\n"
-msgstr "regexec nie zdolal przeanalizowac lokacji\n"
+msgstr "regexec nie zdołał przeanalizować lokacji\n"
 
 msgid "getline reached EOF attempting to read location\n"
-msgstr "getline osiagnal EOF probujac odczytac lokacje\n"
+msgstr "getline osiagnął EOF probując odczytać lokację\n"
 
 msgid "Failed to calloc size_c\n"
-msgstr "Nie powiodlo sie calloc size_c\n"
+msgstr "Nie powiodło się calloc size_c\n"
 
 msgid "regexec failed to parse size_c\n"
-msgstr "regexec nie zdolal przeanalizowac size_c\n"
+msgstr "regexec nie zdołał przeanalizować size_c\n"
 
 msgid "getline reached EOF attempting to read size_c\n"
-msgstr "getline osiagnal EOF probujac odczytac size_c\n"
+msgstr "getline osiagnął EOF probując odczytać size_c\n"
 
 msgid "Failed to calloc size_u\n"
-msgstr "Nie powiodlo sie calloc size_u\n"
+msgstr "Nie powiodło się calloc size_u\n"
 
 msgid "regexec failed to parse size_u\n"
-msgstr "regexec nie zdolal przeanalizowac size_u\n"
+msgstr "regexec nie zdołał przeanalizować size_u\n"
 
 msgid "getline reached EOF attempting to read size_u\n"
-msgstr "getline osiagnal EOF probujac odczytac size_u\n"
+msgstr "getline osiagnął EOF probując odczytać size_u\n"
 
 msgid "error attempting to read pkg description\n"
-msgstr "blad przy probie odczytu opisu pkg\n"
+msgstr "błąd przy próbie odczytu opisu pkg\n"
 
 msgid "Failed to realloc pkgs\n"
-msgstr "Nie powiodlo sie realloc pkgs\n"
+msgstr "Nie powiodło się realloc pkgs\n"
 
 msgid "Failed to calloc short_description\n"
-msgstr "Nie powiodlo sie calloc short_description\n"
+msgstr "Nie powiodło się calloc short_description\n"
 
 msgid "Failed to compile regex\n"
-msgstr "Niepowiodla sie kompilacja regex\n"
+msgstr "Niepowiodła się kompilacja regex\n"
 
 #, c-format
 msgid "Regex Error: %s\n"
-msgstr "Blad regex: %s\n"
+msgstr "Błąd regex: %s\n"
 
 msgid "Failed to calloc list->pkgs[list->pkg_count]\n"
-msgstr "Nie powiodlo sie calloc list->pkgs[list->pkg_count]\n"
+msgstr "Nie powiodło się calloc list->pkgs[list->pkg_count]\n"
 
 #, c-format
 msgid "%s-%s is to be installed\n"
-msgstr "%s-%s trzeba zainstalowac\n"
+msgstr "%s-%s trzeba zainstalować\n"
 
 #, c-format
 msgid "Preparing to install %s-%s\n"
@@ -389,7 +389,7 @@ msgstr "Przygotowanie do instalacji %s-%s\n"
 
 #, c-format
 msgid "Failed to execute command: [%s]\n"
-msgstr "Nie powiodlo sie wykonanie polecenia: [%s]\n"
+msgstr "Nie powiodło się wykonanie polecenia: [%s]\n"
 
 #, c-format
 msgid "%s-%s is to be upgraded to version %s\n"
@@ -397,52 +397,52 @@ msgstr "%s-%s trzeba aktualizowac do wersji %s\n"
 
 #, c-format
 msgid "Preparing to replace %s-%s with %s-%s\n"
-msgstr "Przygotowanie do zastapienia %s-%s przez %s-%s\n"
+msgstr "Przygotowanie do zastąpienia %s-%s przez %s-%s\n"
 
 #, c-format
 msgid "%s-%s is to be removed\n"
-msgstr "%s-%s trzeba usunac.\n"
+msgstr "%s-%s trzeba usunąć.\n"
 
 #, c-format
 msgid "Failed to compile regex [%s]\n"
-msgstr "Nie powiodla sie kompilacja regex [%s]\n"
+msgstr "Nie powiodła się kompilacja regex [%s]\n"
 
 msgid "Failed to malloc deps\n"
-msgstr "Nie powiodlo sie alokowanie deps\n"
+msgstr "Nie powiodło się alokowanie deps\n"
 
 msgid "Failed to malloc deps->pkgs\n"
-msgstr "Nie powiodlo sie malloc deps->pkgs\n"
+msgstr "Nie powiodło się malloc deps->pkgs\n"
 
 #, c-format
 msgid "pkg conditional too long [%s:%d]\n"
-msgstr "pkg warunkowy za dlugi [%s:%d]\n"
+msgstr "pkg warunkowy za długi [%s:%d]\n"
 
 msgid "The following packages have unmet dependencies:\n"
-msgstr "Nastepujace pakiety posiadaja nieznane zaleznosci:\n"
+msgstr "Nastepujące pakiety posiadają nieznane zalezności:\n"
 
 #, c-format
 msgid "  %s: Depends: %s\n"
-msgstr " %s: Zalezy: %s\n"
+msgstr " %s: Zależy: %s\n"
 
 msgid "The following packages have been EXCLUDED:\n"
-msgstr "Nastepujace pakiety zostaly POMINIETE:\n"
+msgstr "Następujace pakiety zostały POMINIETE:\n"
 
 msgid "The following NEW packages will be installed:\n"
-msgstr "Nastepujace NEW pakiety zostana zainstalowane:\n"
+msgstr "Następujące NEW pakiety zostaną zainstalowane:\n"
 
 msgid "The following packages will be REMOVED:\n"
-msgstr "Nastepujace pakiety zostana USUNIETE:\n"
+msgstr "Następujące pakiety zostaną USUNIETE:\n"
 
 msgid "The following packages will be upgraded:\n"
-msgstr "Nastepujace pakiety zostana uaktualnione:\n"
+msgstr "Następujące pakiety zostaną uaktualnione:\n"
 
 #, c-format
 msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
-msgstr "%d uaktualnione(ych), %d nowe zainstalowane, %d do usuniecia i %d nieuaktualnione.\n"
+msgstr "%d uaktualnione(ych), %d nowe zainstalowane, %d do usunięcia i %d nieuaktualnione.\n"
 
 #, c-format
 msgid "Need to get %dK of archives.\n"
-msgstr "Potrzeba sciagnac %dK danych.\n"
+msgstr "Potrzeba ściagnąć %dK danych.\n"
 
 #, c-format
 msgid "After unpacking %dK disk space will be freed.\n"
@@ -453,7 +453,7 @@ msgid "After unpacking %dK of additional disk space will be used.\n"
 msgstr "Po rozpakowaniu, %dK miejsca na dysku zostanie uzyte.\n"
 
 msgid "Do you want to continue? [y/N] "
-msgstr "Czy chcesz kontynuowac? [y/N] "
+msgstr "Czy chcesz kontynuować? [y/N] "
 
 msgid "Abort.\n"
 msgstr "Abort.\n"
