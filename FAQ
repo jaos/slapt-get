@@ -17,7 +17,7 @@ Frequenty Asked Questions:
 1.  What is slapt-get ?
 
  slapt-get is an APT like system for Slackware package management. It allows
- one to search slackware,com and mirrors for packages, compare them with
+ one to search slackware.com and mirrors for packages, compare them with
  installed packages, install new packages or upgrade installed packages all
  with a few simple commands. Great for scripting as well.
 
