@@ -1782,6 +1782,16 @@ pkg_info_t *init_pkg(void){
 	pkg->size_c = 0;
 	pkg->size_u = 0;
 
+	pkg->name[0] = '\0';
+	pkg->version[0] = '\0';
+	pkg->mirror[0] = '\0';
+	pkg->location[0] = '\0';
+	pkg->description[0] = '\0';
+	pkg->required[0] = '\0';
+	pkg->conflicts[0] = '\0';
+	pkg->suggests[0] = '\0';
+	pkg->md5[0] = '\0';
+
 	return pkg;
 }
 
