@@ -78,6 +78,17 @@ Frequenty Asked Questions:
  release directory.  --update your local package data cache, then --upgrade
  to the newer release.
 
+ CAVEAT: The simplicity of slapt-get means a lot of assurances are not in
+         place.  You can break a working system if you do not follow the
+         suggestions in UPGRADE.TXT.
+
+         If you have a broken system, make sure aaa_base is at least installed.
+         Make sure it's downloaded: slapt-get --download-only --install aaa_base
+         Then untar it from /.
+
+         Sometimes upgrades fail, make sure /bin/sh is either a binary or 
+         symlink to `which bash`.
+
 10.  What about package dependencies?
 
  Other tools try to provide dependency checking via various hacks (generating
@@ -104,6 +115,26 @@ Frequenty Asked Questions:
 
  to providing that data in a way that can be scripted for those who have
  the advanced knowledge or what to provide higher level tools for Slackware.
+
+ So Pat's generated PACKAGES.TXT file would need an addition to a packages
+ entry within, going from:
+
+   PACKAGE NAME:  man-1.5l-i386-1.tgz
+   PACKAGE LOCATION:  ./slackware/ap
+   PACKAGE SIZE (compressed):  166 K
+   PACKAGE SIZE (uncompressed):  390 K
+   PACKAGE DESCRIPTION:
+   man: man (format and display the on-line manual pages)
+
+ to this (note only an additional line per package entry):
+
+   PACKAGE NAME:  man-1.5l-i386-1.tgz
+   PACKAGE LOCATION:  ./slackware/ap
+   PACKAGE SIZE (compressed):  166 K
+   PACKAGE SIZE (uncompressed):  390 K
+   PACKAGE REQUIRES: groff,man-pages
+   PACKAGE DESCRIPTION:
+   man: man (format and display the on-line manual pages)
 
  He has declined the request at this time, citing a "niche" for a
  distribution without "dependency hell".  I believe leaving out the requirement
