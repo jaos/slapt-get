@@ -11,6 +11,7 @@ Frequenty Asked Questions:
 8.  How can I re-install an existing package?
 9.  Can I "dist-upgrade" to a newer Slackware release?
 10. What about package dependencies?
+11. What about multiple package sources, ala linuxpackages.net?
 
 
 
@@ -149,4 +150,12 @@ Frequenty Asked Questions:
  I hope if the community as a whole agrees that this is an added benefit 
  (without becoming overly complex or kludgey) they can convince Pat there is
  a need/demand for it.
+
+11. What about multiple package sources, ala linuxpackages.net?
+
+ I have sent a request to LinuxPackages asking them to include a file list or
+ a PACKAGES.TXT in the same manner as the slackware official packages are 
+ listed.  This would make integrating their package listing trivial.
+
+ I am awaiting a response.
 
