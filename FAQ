@@ -109,7 +109,7 @@ Frequenty Asked Questions:
  missing libraries before consulting the dependency file).  This is not a
  reliable/fool proof method.  It is also extremely slow.
 
- I have sent Pat a request to include a requires field to the PACKAGES.TXT
+ I have sent Pat a request to include a requires field in the PACKAGES.TXT
  file that is shared with all the mirrors.  Since this information is known
  when the package is created, this is the best time/place to make that data
  available.  It is a simple progression from making a note within the package
@@ -179,7 +179,7 @@ Frequenty Asked Questions:
 
 13. How can I install every available package?
 
- Even though it's not build in, it's simple since  slapt-get is easy to script
+ Even though it's not built in, it's simple since slapt-get is easy to script
  with.  Here is a simple shell script to install every package that is
  available but not currently installed:
 
