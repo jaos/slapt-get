@@ -213,8 +213,8 @@ void usage(){
 	printf("%s [option(s)] [target]\n",PROGRAM_NAME);
 	printf("\n");
 	printf("Targets:\n");
-	printf("  --update       - retrieves pkg data from MIRROR\n");
-	printf("  --upgrade      - upgrade installed pkgs\n");
+	printf("  --update    - retrieves pkg data from MIRROR\n");
+	printf("  --upgrade   - upgrade installed pkgs\n");
 	printf("  --install   [pkg name(s)] - install specified pkg(s)\n");
 	printf("  --remove    [pkg name(s)] - remove specified pkg(s)\n");
 	printf("  --show      [pkg name] - show pkg description\n");
