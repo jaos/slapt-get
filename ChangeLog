@@ -8,7 +8,7 @@
  * refactored download_pkg, created verify_downloaded_pkg() and get_pkg_file_size()
  * removed unused head_request code
  * initialized size_u and size_c to 0 for pkg in init_pkg()
- * added FAQ concerning removing depreciated packages
+ * added FAQ concerning removing obsoleted packages
  * updated INSTALL guide with more explicit cvs directions
  * write package data to temp file during --update, merge into final package_data
    file upon successful download of all package data sources. Thanks go to

@@ -40,7 +40,7 @@ Frequenty Asked Questions:
 39. What about extra or testing packages?
 40. Can I use slapt-get to mirror packages?
 41. Is there a way to use tab completion for the package names in Bash?
-42. How do I remove depreciated packages?
+42. How do I remove obsoleted packages?
 
 
 
@@ -785,20 +785,20 @@ Frequenty Asked Questions:
   complete -F complete_slaptget -o default slapt-get
 
 
-42. How do I remove depreciated packages?
+42. How do I remove obsoleted packages?
 
  If you are tracking current or are dist-upgrading to a new release, you will
  encounter packages that you have installed that are no longer required or
  part of the basic slackware install.  If you only have the official slackware
  package sources in your slapt-getrc file, then you can use the following
- as either a command or a script to remove those depreciated packages:
+ as either a command or a script to remove those obsoleted packages:
 
   for pkg in `slapt-get --installed|awk '{print $1}'`;do if [ -z "`slapt-get --search ${pkg}`" ]; then slapt-get --remove ${pkg};fi;done
 
  or as a script:
 
   #!/bin/sh
-  # this script uses slapt-get to remove depreciated packages
+  # this script uses slapt-get to remove obsoleted packages
   # slapt-getrc must only have official package sources for the
   # current release you are tracking
   for pkg in `./slapt-get --installed|awk '{print $1}'`
