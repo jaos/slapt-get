@@ -18,6 +18,7 @@
 
 #define SOURCE_TOKEN "SOURCE="
 #define WORKINGDIR_TOKEN "WORKINGDIR="
+#define WORKINGDIR_TOKEN_LEN 256
 #define EXCLUDE_TOKEN "EXCLUDE="
 #define MAX_SOURCES 20
 #define MAX_SOURCE_URL_LEN 400
@@ -34,7 +35,7 @@ struct source_list {
 
 struct _configuration {
 	struct source_list sources;
-	char working_dir[256];
+	char working_dir[WORKINGDIR_TOKEN_LEN];
 	int download_only;
 	int dist_upgrade;
 	int simulate;
