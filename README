@@ -36,6 +36,8 @@ Table of Contents:
     * supports sources from ftp, ftps, http, https, file:/// and more (libcurl)
     * verify package integrity with MD5 checksum
     * show packages that are available (from cached data)
+    * search package listing using POSIX and extended regular expressions
+      by package name, location, and description
     * allow packages to be retrieved, installed, and removed by name
     * allow updates to be retrieved and applied
     * upgrade from one slackware release to another
