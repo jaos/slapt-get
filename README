@@ -94,8 +94,8 @@ Table of Contents:
    USE_CURL_PROGRESS macro to 1 in include/curl.h.  This turns on curl's
    internal progress meter.
 
-   If you are getting segfaults, add -g to CFLAGS in the Makefile and rebuild
-   ( make clean && make ).  Change the DEBUG define in src/main.h to 1.  Run
+   If you are getting segfaults, add -g to CFLAGS in the Makefile, change the
+   DEBUG define in src/main.h to 1, and rebuild ( make clean && make ).  Run
    in gdb and let me know via email where the fault happens.
 
    See the FAQ for more info.

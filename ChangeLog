@@ -1,5 +1,5 @@
 
-0.9.4 Sep 29, 2003
+0.9.4 Sep 28, 2003
  * downloads CHECKSUMS.md5 from mirror
  * md5 sum's each package after downloading (from CHECKSUMS.md5 data)
    utilizing openssl/evp.h
