@@ -34,7 +34,9 @@ int download_data(FILE *fh,const char *url,size_t bytes,int use_curl_dl_stats){
 	curl_easy_setopt(ch, CURLOPT_NOPROGRESS, 0);
 	curl_easy_setopt(ch, CURLOPT_USERAGENT, PROGRAM_NAME );
 	curl_easy_setopt(ch, CURLOPT_FTP_USE_EPSV, 0);
+#ifdef CURLOPT_FTP_USE_EPRT
 	curl_easy_setopt(ch, CURLOPT_FTP_USE_EPRT, 0);
+#endif
 	curl_easy_setopt(ch, CURLOPT_FAILONERROR, 1);
 
 	if( use_curl_dl_stats != 1 ){
@@ -106,7 +108,9 @@ char *head_request(const char *url){
 	curl_easy_setopt(ch, CURLOPT_HEADER, 1);
 	curl_easy_setopt(ch, CURLOPT_NOBODY, 1);
 	curl_easy_setopt(ch, CURLOPT_FTP_USE_EPSV , 0);
+#ifdef CURLOPT_FTP_USE_EPRT
 	curl_easy_setopt(ch, CURLOPT_FTP_USE_EPRT, 0);
+#endif
 	curl_easy_setopt(ch, CURLOPT_FAILONERROR, 1);
 
 	if( (response = curl_easy_perform(ch)) != 0 ){

@@ -1,5 +1,6 @@
 
-0.9.9 Aug 30, 2004
+0.9.9 Sep 06, 2004
+ * wrapped CURLOPT_FTP_USE_EPRT in ifdef for slack 9.0's curl libs
  * slack-suggests support (see FAQ)
  * added REG_ICASE to init_regex for case insensitive matching
  * print usage when given argument not caught by getop
