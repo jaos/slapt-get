@@ -33,6 +33,8 @@
 #include <dirent.h>
 #include <ctype.h>
 #include <openssl/evp.h>
+#include <libintl.h>
+#include <locale.h>
 /* */
 
 /* local includes */
@@ -76,4 +78,6 @@ enum action {
 #define UPGRADE_CMD "/sbin/upgradepkg --reinstall "
 #define CHECKSUM_FILE "CHECKSUMS.md5"
 #define SLACK_BASE_SET_REGEX "^./slackware/a$"
+
+#define _(text) gettext(text)
 
