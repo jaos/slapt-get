@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.9b\n"
+"Project-Id-Version: 0.9.9c\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2004-09-07 18:21+0500\n"
+"PO-Revision-Date: 2004-10-02 16:29+0400\n"
 "Last-Translator: Henrique Pinto <henrique.pinto@kdemail.net>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -479,4 +479,7 @@ msgstr "Tamanho máximo do diretório de trabalho (%d) excedido.\n"
 
 msgid "Maximum length of excludes (%d) exceeded.\n"
 msgstr "Tamanho máximo dos excluídos (%d) excedido.\n"
+
+msgid "purge older versions of cached pkgs"
+msgstr ""
 

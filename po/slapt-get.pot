@@ -483,3 +483,6 @@ msgstr ""
 msgid "Maximum length of excludes (%d) exceeded.\n"
 msgstr ""
 
+msgid "purge older versions of cached pkgs"
+msgstr ""
+
