@@ -1,4 +1,9 @@
 
+0.9.7c Nov 11, 2003
+ * updated Polish translation
+ * added PKG_VER regex definition
+ * updated cmp_pkg_versions to ignore arch and compare build if version parts are equal
+
 0.9.7b Nov 10, 2003
  * removed --interactive option
  * download all pkgs before processing installs,upgrades, and removals in transaction
