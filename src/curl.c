@@ -214,7 +214,7 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 		printf("Done\n");
 #endif
 	}else{
-		return file_name;
+		return NULL;
 	}
 
 	fclose(fh);
