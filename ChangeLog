@@ -2,6 +2,7 @@
 0.9.8d Apr 25, 2004
  * updated cmp_pkg_versions() for special case where # of version parts !=
    (fixes 3.8.1p1-i486-1 to 3.8p1-i486-1)
+   thanks to Francesco Gigli (jaramir@slack.it)
  * added alias for --simulate [-s], and --no-prompt [-y]
  * updated pt_BR translation
  * es and es_ES translations
