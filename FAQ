@@ -305,7 +305,7 @@ Frequenty Asked Questions:
 	    LOCATION=$(echo $1|sed -re "s/([a-zA-Z0-9\/\.\-\+]+\/)(.*.tgz)$/\1/")
 	    SIZE=$( expr `gunzip -l $1 |tail -1|awk '{print $1}'` / 1024 )
 	    USIZE=$( expr `gunzip -l $1 |tail -1|awk '{print $2}'` / 1024 )
-	    REQUIRED=$(tar xzf $1 install/slack-required -O|xargs -iZ echo -n "Z,"|sed -e "s/,$//")
+	    REQUIRED=$(tar xzf $1 install/slack-required -O 2>/dev/null|xargs -r -iZ echo -n "Z,"|sed -e "s/,$//")
 	    METAFILE=$(echo $NAME|sed -re "s/\.tgz$/\.meta/")
 	    echo "PACKAGE NAME:  $1" > $LOCATION/$METAFILE
 	    echo "PACKAGE LOCATION:  $NAME" >> $LOCATION/$METAFILE
