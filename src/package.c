@@ -560,7 +560,7 @@ struct pkg_list *get_installed_pkgs(void){
 
 /* lookup newest package from pkg_list */
 pkg_info_t *get_newest_pkg(struct pkg_list *pkg_list,const char *pkg_name){
-	int i;
+	unsigned int i;
 	pkg_info_t *pkg = NULL;
 
 	for(i = 0; i < pkg_list->pkg_count; i++ ){
@@ -579,7 +579,7 @@ pkg_info_t *get_newest_pkg(struct pkg_list *pkg_list,const char *pkg_name){
 }
 
 pkg_info_t *get_exact_pkg(struct pkg_list *list,const char *name,const char *version){
-	int i;
+	unsigned int i;
 	pkg_info_t *pkg = NULL;
 
 	for(i = 0; i < list->pkg_count;i++){
@@ -665,7 +665,7 @@ int remove_pkg(const rc_config *global_config,pkg_info_t *pkg){
 }
 
 void free_pkg_list(struct pkg_list *list){
-	int i;
+	unsigned int i;
 	for(i = 0;i < list->pkg_count;i++){
 		free(list->pkgs[i]);
 	}
@@ -674,7 +674,7 @@ void free_pkg_list(struct pkg_list *list){
 }
 
 int is_excluded(const rc_config *global_config,pkg_info_t *pkg){
-	int i,pkg_not_excluded = 0, pkg_is_excluded = 1;
+	unsigned int i,pkg_not_excluded = 0, pkg_is_excluded = 1;
 	int name_reg_ret = -1,version_reg_ret = -1;
 	sg_regex exclude_reg;
 
@@ -794,7 +794,7 @@ void get_md5sum(pkg_info_t *pkg,FILE *checksum_file){
 }
 
 static void free_pkg_version_parts(struct pkg_version_parts *parts){
-	int i;
+	unsigned int i;
 	for(i = 0;i < parts->count;i++){
 		free(parts->parts[i]);
 	}
@@ -803,7 +803,7 @@ static void free_pkg_version_parts(struct pkg_version_parts *parts){
 }
 
 int cmp_pkg_versions(char *a, char *b){
-	int position = 0;
+	unsigned int position = 0;
 	int greater = 1,lesser = -1,equal = 0;
 	struct pkg_version_parts *a_parts;
 	struct pkg_version_parts *b_parts;
@@ -966,7 +966,7 @@ static struct pkg_version_parts *break_down_pkg_version(const char *version){
 }
 
 void write_pkg_data(const char *source_url,FILE *d_file,struct pkg_list *pkgs){
-	int i;
+	unsigned int i;
 
 	for(i=0;i < pkgs->pkg_count;i++){
 
@@ -1006,7 +1006,7 @@ void write_pkg_data(const char *source_url,FILE *d_file,struct pkg_list *pkgs){
 }
 
 struct pkg_list *search_pkg_list(struct pkg_list *available,const char *pattern){
-	int i;
+	unsigned int i;
 	int name_r = -1,desc_r = -1,loc_r = -1,version_r = -1;
 	sg_regex search_regex;
 	struct pkg_list *matches;
@@ -1218,7 +1218,7 @@ struct pkg_list *get_pkg_conflicts(struct pkg_list *avail_pkgs,struct pkg_list *
 }
 
 static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,char *dep_entry){
-	int i;
+	unsigned int i;
 	sg_regex parse_dep_regex;
 	char tmp_pkg_name[NAME_LEN],tmp_pkg_cond[3],tmp_pkg_ver[VERSION_LEN];
 	pkg_info_t *newest_avail_pkg;
@@ -1380,7 +1380,7 @@ struct pkg_list *is_required_by(const rc_config *global_config,struct pkg_list *
 }
 
 static struct pkg_list *required_by(const rc_config *global_config,struct pkg_list *avail, pkg_info_t *pkg,struct pkg_list *parent_required_by){
-	int i;
+	unsigned int i;
 	sg_regex required_by_reg;
 	struct pkg_list *required_by_list;
 	char escapedName[NAME_LEN], *escaped_ptr;
@@ -1414,7 +1414,7 @@ static struct pkg_list *required_by(const rc_config *global_config,struct pkg_li
 		/* only proceed if we don't have the previous required by */
 		if( (get_newest_pkg(required_by_list,avail->pkgs[i]->name) == NULL) &&
 		 (get_newest_pkg(parent_required_by,avail->pkgs[i]->name) == NULL) ){
-			int c;
+			unsigned int c;
 			struct pkg_list *required_of_required_by;
 
 			add_pkg_to_pkg_list(required_by_list,avail->pkgs[i]);
@@ -1437,7 +1437,7 @@ static struct pkg_list *required_by(const rc_config *global_config,struct pkg_li
 }
 
 pkg_info_t *get_pkg_by_details(struct pkg_list *list,char *name,char *version,char *location){
-	int i;
+	unsigned int i;
 	for(i = 0; i < list->pkg_count; i++){
 
 		if( strcmp(list->pkgs[i]->name,name) == 0 ){
@@ -1570,7 +1570,7 @@ void clear_head_cache(const char *cache_filename){
 
 /* update package data from mirror url */
 int update_pkg_cache(const rc_config *global_config){
-	int i,source_dl_failed = 0;
+	unsigned int i,source_dl_failed = 0;
 	FILE *pkg_list_fh_tmp = NULL;
 
 	/* open tmp pkg list file */
@@ -1698,7 +1698,7 @@ int update_pkg_cache(const rc_config *global_config){
 
 		/* if the download failed don't do this, do it if cached or d/l was good */
 		if( source_dl_failed != 1 ){
-			int a;
+			unsigned int a;
 
 			/* now map md5 checksums to packages */
 			printf(_("Reading Package Lists..."));
@@ -1910,7 +1910,7 @@ int verify_downloaded_pkg(const rc_config *global_config,pkg_info_t *pkg){
 		on an incomplete file
 	*/
 	file_size = get_pkg_file_size(global_config,pkg);
-	if( (int)(file_size/1024) != pkg->size_c){
+	if( (unsigned int)(file_size/1024) != pkg->size_c){
 		return not_verified;
 	}
 	/* if not checking the md5 checksum and the sizes match, assume its good */

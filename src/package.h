@@ -57,8 +57,8 @@ typedef struct {
 	char version[VERSION_LEN];
 	char mirror[MIRROR_LEN];
 	char location[LOCATION_LEN];
-	int size_c;
-	int size_u;
+	unsigned int size_c;
+	unsigned int size_u;
 	char description[DESCRIPTION_LEN];
 	char required[REQUIRED_LEN];
 	char conflicts[CONFLICTS_LEN];
@@ -68,7 +68,7 @@ typedef struct {
 
 struct pkg_list {
 	pkg_info_t **pkgs;
-	int pkg_count;
+	unsigned int pkg_count;
 };
 
 typedef struct {
@@ -78,12 +78,12 @@ typedef struct {
 
 struct pkg_upgrade_list {
 	pkg_upgrade_t **pkgs;
-	int pkg_count;
+	unsigned int pkg_count;
 };
 
 struct pkg_version_parts {
 	char **parts;
-	int count;
+	unsigned int count;
 };
 
 

@@ -41,7 +41,7 @@ void init_transaction(transaction_t *tran){
 }
 
 int handle_transaction(const rc_config *global_config, transaction_t *tran){
-	int i;
+	unsigned int i;
 	size_t download_size = 0;
 	size_t already_download_size = 0;
 	size_t uncompressed_size = 0;
@@ -367,7 +367,7 @@ void add_upgrade_to_transaction(
 }
 
 int search_transaction(transaction_t *tran,pkg_info_t *pkg){
-	int i,found = 1, not_found = 0;
+	unsigned int i,found = 1, not_found = 0;
 
 	for(i = 0; i < tran->install_pkgs->pkg_count;i++){
 		if( strcmp(pkg->name,tran->install_pkgs->pkgs[i]->name)==0 )
@@ -389,7 +389,7 @@ int search_transaction(transaction_t *tran,pkg_info_t *pkg){
 }
 
 static int search_upgrade_transaction(transaction_t *tran,pkg_info_t *pkg){
-	int i,found = 1, not_found = 0;
+	unsigned int i,found = 1, not_found = 0;
 	for(i = 0; i < tran->upgrade_pkgs->pkg_count;i++){
 		if( strcmp(pkg->name,tran->upgrade_pkgs->pkgs[i]->upgrade->name)==0 )
 			return found;
@@ -398,7 +398,7 @@ static int search_upgrade_transaction(transaction_t *tran,pkg_info_t *pkg){
 }
 
 void free_transaction(transaction_t *tran){
-	int i;
+	unsigned int i;
 
 	for(i = 0;i < tran->install_pkgs->pkg_count; i++){
 		free(tran->install_pkgs->pkgs[i]);
@@ -431,7 +431,7 @@ void free_transaction(transaction_t *tran){
 }
 
 transaction_t *remove_from_transaction(transaction_t *tran,pkg_info_t *pkg){
-	int i;
+	unsigned int i;
 	transaction_t *new_tran = NULL;
 
 	if( search_transaction(tran,pkg) == 0 )
@@ -484,7 +484,8 @@ transaction_t *remove_from_transaction(transaction_t *tran,pkg_info_t *pkg){
 /* parse the dependencies for a package, and add them to the transaction as needed */
 /* check to see if a package is conflicted */
 int add_deps_to_trans(const rc_config *global_config, transaction_t *tran, struct pkg_list *avail_pkgs, struct pkg_list *installed_pkgs, pkg_info_t *pkg){
-	int c,dep_return = -1;
+	unsigned int c;
+	int dep_return = -1;
 	struct pkg_list *deps;
 
 	if( global_config->disable_dep_check == 1) return -1;
@@ -545,7 +546,7 @@ int add_deps_to_trans(const rc_config *global_config, transaction_t *tran, struc
 
 /* make sure pkg isn't conflicted with what's already in the transaction */
 pkg_info_t *is_conflicted(transaction_t *tran, struct pkg_list *avail_pkgs, struct pkg_list *installed_pkgs, pkg_info_t *pkg){
-	int i;
+	unsigned int i;
 	struct pkg_list *conflicts;
 
 	/* if conflicts exist, check to see if they are installed or in the current transaction */

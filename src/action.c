@@ -20,7 +20,7 @@
 
 /* install pkg */
 void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *action_args){
-	int i;
+	unsigned int i;
 	transaction_t tran;
 	struct pkg_list *installed_pkgs;
 	struct pkg_list *avail_pkgs;
@@ -145,7 +145,7 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 void pkg_action_list(void){
 	struct pkg_list *pkgs = NULL;
 	struct pkg_list *installed_pkgs = NULL;
-	int i;
+	unsigned int i;
 
 	pkgs = get_available_pkgs();
 	installed_pkgs = get_installed_pkgs();
@@ -153,7 +153,7 @@ void pkg_action_list(void){
 	for(i = 0; i < pkgs->pkg_count; i++ ){
 		/* this should eliminate the printing of updates */
 		if( strstr(pkgs->pkgs[i]->description,"no description") == NULL ){
-			int bool_installed = 0;
+			unsigned int bool_installed = 0;
 			char *short_description = gen_short_pkg_description(pkgs->pkgs[i]);
 
 			/* is it installed? */
@@ -181,7 +181,7 @@ void pkg_action_list(void){
 
 /* list installed pkgs */
 void pkg_action_list_installed(void){
-	int i;
+	unsigned int i;
 	struct pkg_list *installed_pkgs = NULL;
 
 	installed_pkgs = get_installed_pkgs();
@@ -198,7 +198,7 @@ void pkg_action_list_installed(void){
 
 /* remove/uninstall pkg */
 void pkg_action_remove(const rc_config *global_config,const pkg_action_args_t *action_args){
-	int i;
+	unsigned int i;
 	struct pkg_list *installed_pkgs;
 	struct pkg_list *available;
 	transaction_t tran;
@@ -211,7 +211,7 @@ void pkg_action_remove(const rc_config *global_config,const pkg_action_args_t *a
 		pkg_info_t *pkg;
 
 		if( (pkg = get_newest_pkg(installed_pkgs,action_args->pkgs[i])) != NULL){
-			int c;
+			unsigned int c;
 			struct pkg_list *deps;
 
 			deps = is_required_by(global_config,available,pkg);
@@ -246,7 +246,7 @@ void pkg_action_remove(const rc_config *global_config,const pkg_action_args_t *a
 
 /* search for a pkg (support extended POSIX regex) */
 void pkg_action_search(const char *pattern){
-	int i;
+	unsigned int i;
 	struct pkg_list *pkgs = NULL;
 	struct pkg_list *installed_pkgs = NULL;
 	struct pkg_list *matches = NULL;
@@ -306,7 +306,7 @@ void pkg_action_show(const char *pkg_name){
 	struct pkg_list *avail_pkgs;
 	struct pkg_list *installed_pkgs;
 	sg_regex pkg_regex;
-	int bool_installed = 0;
+	unsigned int bool_installed = 0;
 	pkg_info_t *pkg = NULL;
 
 	avail_pkgs = get_available_pkgs();
@@ -388,7 +388,7 @@ void pkg_action_show(const char *pkg_name){
 
 /* upgrade all installed pkgs with available updates */
 void pkg_action_upgrade_all(const rc_config *global_config){
-	int i;
+	unsigned int i;
 	struct pkg_list *installed_pkgs;
 	struct pkg_list *avail_pkgs;
 	transaction_t tran;
@@ -476,14 +476,14 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 
 		/* remove obsolete packages if prompted to */
 		if( global_config->remove_obsolete == 1 ){
-			int r;
+			unsigned int r;
 
 			for(r = 0; r < installed_pkgs->pkg_count; r++){
 
 				/* if we can't find the installed package in our available pkg list, it must be obsolete */
 				if( get_newest_pkg(avail_pkgs,installed_pkgs->pkgs[r]->name) == NULL ){
-						struct	pkg_list *deps;
-						int 		c;
+						struct		pkg_list	*deps;
+						unsigned	int 			c;
 						/*
 							any packages that require this package we are about to remove should be
 							scheduled to remove as well
@@ -585,7 +585,7 @@ pkg_action_args_t *init_pkg_action_args(int arg_count){
 }
 
 void free_pkg_action_args(pkg_action_args_t *paa){
-	int i;
+	unsigned int i;
 
 	for(i = 0; i < paa->count; i++){
 		free(paa->pkgs[i]);

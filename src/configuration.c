@@ -160,7 +160,7 @@ void working_dir_init(const rc_config *global_config){
 }
 
 void free_rc_config(rc_config *global_config){
-	int i;
+	unsigned int i;
 	
 	for(i = 0; i < global_config->exclude_list->count; i++){
 		free(global_config->exclude_list->excludes[i]);
@@ -173,7 +173,7 @@ void free_rc_config(rc_config *global_config){
 
 static struct exclude_list *parse_exclude(char *line){
 	struct exclude_list *list;
-	int position = 0, len = 0;
+	unsigned int position = 0, len = 0;
 
 	list = malloc( sizeof *list );
 	if( list == NULL ){

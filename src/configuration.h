@@ -25,30 +25,30 @@
 
 struct exclude_list {
 	char **excludes;
-	int count;
+	unsigned int count;
 };
 
 struct source_list {
 	char url[MAX_SOURCES][MAX_SOURCE_URL_LEN];
-	int count;
+	unsigned int count;
 };
 
 typedef struct {
 	struct source_list sources;
 	char working_dir[WORKINGDIR_TOKEN_LEN];
-	int download_only;
-	int dist_upgrade;
-	int simulate;
-	int no_prompt;
-	int re_install;
+	unsigned int download_only;
+	unsigned int dist_upgrade;
+	unsigned int simulate;
+	unsigned int no_prompt;
+	unsigned int re_install;
 	struct exclude_list *exclude_list;
-	int ignore_excludes;
-	int no_md5_check;
-	int ignore_dep;
-	int disable_dep_check;
-	int print_uris;
-	int dl_stats;
-	int remove_obsolete;
+	unsigned int ignore_excludes;
+	unsigned int no_md5_check;
+	unsigned int ignore_dep;
+	unsigned int disable_dep_check;
+	unsigned int print_uris;
+	unsigned int dl_stats;
+	unsigned int remove_obsolete;
 } rc_config;
 
 rc_config *read_rc_config(const char *file_name);
