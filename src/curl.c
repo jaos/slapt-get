@@ -138,12 +138,9 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	FILE *fh_test = NULL;
 	char *file_name = NULL;
 	char *url = NULL;
-	char md5_sum_of_file[34];
-	char md5_sum[34];
+	char md5_sum_of_file[MD5_STR_LEN];
 	struct stat file_stat;
 	size_t f_size = 0;
-
-	get_md5sum(global_config,pkg,md5_sum);
 
 	create_dir_structure(pkg->location);
 	chdir(global_config->working_dir); /* just in case */
@@ -180,7 +177,7 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 		/*
 	 	* here we will use the md5sum to see if the file is already present and valid
 	 	*/
-		if( strcmp(md5_sum_of_file,md5_sum) == 0 ){
+		if( strcmp(md5_sum_of_file,pkg->md5) == 0 ){
 			printf(_("Using cached copy of %s\n"),pkg->name);
 			chdir(global_config->working_dir);
 			free(file_name);
@@ -262,11 +259,11 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	if( global_config->no_md5_check == 0 ){
 
 		/* check to see if the md5sum is correct */
-		if( strcmp(md5_sum_of_file,md5_sum) != 0 ){
+		if( strcmp(md5_sum_of_file,pkg->md5) != 0 ){
 			fprintf(stderr,_("md5 checksum for %s is not correct!\n"),pkg->name);
 			#if DEBUG == 1
 			fprintf(stderr,_("MD5 found:    [%s]\n"),md5_sum_of_file);
-			fprintf(stderr,_("MD5 expected: [%s]\n"),md5_sum);
+			fprintf(stderr,_("MD5 expected: [%s]\n"),pkg->md5);
 			fprintf(stderr,_("File: %s/%s\n"),global_config->working_dir,file_name);
 			#endif
 
