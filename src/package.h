@@ -26,18 +26,23 @@
 #define PKG_LOG_DIR "/var/log/packages"
 #define PKG_LOG_PATTERN "^([a-zA-Z0-9\\+_\\-]+)-([a-zA-Z0-9._\\-]+)$"
 #define MD5SUM_REGEX "([a-zA-Z0-9]+)[ ]+([a-zA-Z0-9._\\-\\/]+/)([a-zA-Z0-9\\+_\\-]+)-([a-zA-Z0-9._\\-]+).tgz$"
+#define NAME_LEN 50
+#define VERSION_LEN 50
+#define MIRROR_LEN 200
+#define LOCATION_LEN 50
+#define DESCRIPTION_LEN 1024
 
 /*
  * VARIABLE DEFINITIONS
  */
 struct _pkg_info {
-	char name[50];
-	char version[50];
-	char mirror[200];
-	char location[60];
+	char name[NAME_LEN];
+	char version[VERSION_LEN];
+	char mirror[MIRROR_LEN];
+	char location[LOCATION_LEN];
 	int size_c;
 	int size_u;
-	char description[1024];
+	char description[DESCRIPTION_LEN];
 };
 typedef struct _pkg_info pkg_info_t;
 struct pkg_list {

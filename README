@@ -31,12 +31,11 @@ Table of Contents:
     slapt-get tries to emulate Debian's apt-get as closely as possible.
 
     * cache package data and update data from mirror site
-    * multiple sources (linuxpackage.net support)
+    * multiple sources (including linuxpackage.net support)
     * show packages that are available (from cached data)
     * allow packages to be retrieved and installed by name
     * remove packages
     * allow updates to be retrieved and applied
-    * install and remove multiple packages at once
     * uses native Slackware tools (installpkg, upgradepkg, and removepkg)
     * show description of packages
     * list installed packages
@@ -45,7 +44,7 @@ Table of Contents:
     * easy to script with
     * extremely fast
     * transaction engine
-    * compare package version algorithm to prevent downgrades
+    * "compare package version" algorithm to prevent downgrades
 
 
 

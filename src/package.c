@@ -41,7 +41,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 	char *getline_buffer = NULL;
 	char *size_c = NULL;
 	char *size_u = NULL;
-	pkg_info_t *tmp_pkg = NULL;
+	pkg_info_t *tmp_pkg;
 
 	list = malloc( sizeof *list );
 
@@ -85,7 +85,6 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 		/* skip this line if we didn't find a package name */
 		if( name_regex.reg_return != 0 ){
 			fprintf(stderr,"regex failed on [%s]\n",getline_buffer);
-			free(tmp_pkg);
 			continue;
 		}
 		/* otherwise keep going and parse out the rest of the pkg data */
@@ -97,6 +96,15 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 		}
 
 		/* pkg name base */
+		/* don't overflow the buffer */
+		if( (name_regex.pmatch[1].rm_eo - name_regex.pmatch[1].rm_so) > NAME_LEN ){
+			fprintf( stderr, "pkg name too long [%s:%d]\n",
+				getline_buffer + name_regex.pmatch[1].rm_so,
+				name_regex.pmatch[1].rm_eo - name_regex.pmatch[1].rm_so
+			);
+			free(tmp_pkg);
+			continue;
+		}
 		strncpy(tmp_pkg->name,
 			getline_buffer + name_regex.pmatch[1].rm_so,
 			name_regex.pmatch[1].rm_eo - name_regex.pmatch[1].rm_so
@@ -106,6 +114,15 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 		] = '\0';
 
 		/* pkg version */
+		/* don't overflow the buffer */
+		if( (name_regex.pmatch[2].rm_eo - name_regex.pmatch[2].rm_so) > VERSION_LEN ){
+			fprintf( stderr, "pkg version too long [%s:%d]\n",
+				getline_buffer + name_regex.pmatch[2].rm_so,
+				name_regex.pmatch[2].rm_eo - name_regex.pmatch[2].rm_so
+			);
+			free(tmp_pkg);
+			continue;
+		}
 		strncpy(tmp_pkg->version,
 			getline_buffer + name_regex.pmatch[2].rm_so,
 			name_regex.pmatch[2].rm_eo - name_regex.pmatch[2].rm_so
@@ -126,6 +143,16 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 				0
 			);
 			if( mirror_regex.reg_return == 0 ){
+
+				/* don't overflow the buffer */
+				if( (mirror_regex.pmatch[1].rm_eo - mirror_regex.pmatch[1].rm_so) > MIRROR_LEN ){
+					fprintf( stderr, "pkg mirror too long [%s:%d]\n",
+						getline_buffer + mirror_regex.pmatch[1].rm_so,
+						mirror_regex.pmatch[1].rm_eo - mirror_regex.pmatch[1].rm_so
+					);
+					free(tmp_pkg);
+					continue;
+				}
 
 				strncpy( tmp_pkg->mirror,
 					getline_buffer + mirror_regex.pmatch[1].rm_so,
@@ -152,6 +179,17 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 				0
 			);
 			if( location_regex.reg_return == 0){
+
+				/* don't overflow the buffer */
+				if( (location_regex.pmatch[1].rm_eo - location_regex.pmatch[1].rm_so) > LOCATION_LEN ){
+					fprintf( stderr, "pkg location too long [%s:%d]\n",
+						getline_buffer + location_regex.pmatch[1].rm_so,
+						location_regex.pmatch[1].rm_eo - location_regex.pmatch[1].rm_so
+					);
+					free(tmp_pkg);
+					continue;
+				}
+
 				strncpy(tmp_pkg->location,
 					getline_buffer + location_regex.pmatch[1].rm_so,
 					location_regex.pmatch[1].rm_eo - location_regex.pmatch[1].rm_so
@@ -261,7 +299,11 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 
 			while( 1 ){
 				if( (bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh)) != EOF ){
-					if( strcmp(getline_buffer,"\n") != 0 ){
+
+					if( strcmp(getline_buffer,"\n") != 0
+						/* don't overflow the buffer */
+						&& (strlen(tmp_pkg->description) + bytes_read) < DESCRIPTION_LEN
+					){
 						strncat(tmp_pkg->description,getline_buffer,bytes_read);
 						tmp_pkg->description[
 							strlen(tmp_pkg->description)
@@ -269,6 +311,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 					}else{
 						break;
 					}
+
 				}else{
 					break;
 				}
@@ -279,17 +322,17 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 			continue;
 		}
 
-		list->pkgs[list->pkg_count] = tmp_pkg;
-		tmp_pkg = NULL;
-		list->pkg_count += 1;
 		/* grow our struct array */
 		realloc_tmp = realloc(list->pkgs , sizeof *list->pkgs * (list->pkg_count + 1) );
 		if( realloc_tmp == NULL ){
 			fprintf(stderr,"Failed to realloc pkgs\n");
 			exit(1);
-		}else{
-			list->pkgs = realloc_tmp;
 		}
+
+		list->pkgs = realloc_tmp;
+		list->pkgs[list->pkg_count] = tmp_pkg;
+		list->pkg_count += 1;
+		tmp_pkg = NULL;
 
 		/* printf("%c\b",spinner()); this interferes with --list scripting */
 		continue;
