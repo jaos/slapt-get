@@ -109,7 +109,7 @@ void gen_md5_sum_of_file(FILE *f,char *result_sum){
 /* recursively create dirs */
 void create_dir_structure(const char *dir_name){
 	char *cwd = NULL;
-	int position = 0;
+	int position = 0,len = 0;
 
 	cwd = getcwd(NULL,0);
 	if( cwd == NULL ){
@@ -121,7 +121,8 @@ void create_dir_structure(const char *dir_name){
 		#endif
 	}
 
-	while( position < (int) strlen(dir_name) ){
+	len = strlen(dir_name);
+	while( position < len ){
 
 		char *pointer = NULL;
 		char *dir_name_buffer = NULL;

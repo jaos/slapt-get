@@ -173,7 +173,7 @@ void free_rc_config(rc_config *global_config){
 
 static struct exclude_list *parse_exclude(char *line){
 	struct exclude_list *list;
-	int position = 0;
+	int position = 0, len = 0;
 
 	list = malloc( sizeof *list );
 	if( list == NULL ){
@@ -189,8 +189,8 @@ static struct exclude_list *parse_exclude(char *line){
 	/* skip ahead past the = */
 	line = strchr(line,'=') + 1;
 
-
-	while( position < (int) strlen(line) ){
+	len = strlen(line);
+	while( position < len ){
 		char **realloc_tmp;
 		char *buffer = NULL;
 		char *pointer = NULL;

@@ -1038,7 +1038,7 @@ struct pkg_list *search_pkg_list(struct pkg_list *available,const char *pattern)
 
 /* lookup dependencies for pkg */
 int get_pkg_dependencies(const rc_config *global_config,struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,pkg_info_t *pkg,struct pkg_list *deps){
-	int position = 0;
+	int position = 0, len = 0;
 	char *pointer = NULL;
 	char *buffer = NULL;
 
@@ -1058,7 +1058,8 @@ int get_pkg_dependencies(const rc_config *global_config,struct pkg_list *avail_p
 	#endif
 
 	/* parse dep line */
-	while( position < (int) strlen(pkg->required) ){
+	len = strlen(pkg->required);
+	while( position < len ){
 		pkg_info_t *tmp_pkg = NULL;
 
 		/* either the last or there was only one to begin with */
@@ -1157,7 +1158,7 @@ int get_pkg_dependencies(const rc_config *global_config,struct pkg_list *avail_p
 /* lookup conflicts for package */
 struct pkg_list *get_pkg_conflicts(struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,pkg_info_t *pkg){
 	struct pkg_list *conflicts;
-	int position = 0;
+	int position = 0,len = 0;
 	char *pointer = NULL;
 	char *buffer = NULL;
 
@@ -1173,7 +1174,8 @@ struct pkg_list *get_pkg_conflicts(struct pkg_list *avail_pkgs,struct pkg_list *
 		return conflicts;
 
 	/* parse conflict line */
-	while( position < (int) strlen(pkg->conflicts) ){
+	len = strlen(pkg->conflicts);
+	while( position < len ){
 		pkg_info_t *tmp_pkg = NULL;
 
 		/* either the last or there was only one to begin with */
@@ -2100,9 +2102,10 @@ void clean_pkg_dir(const char *dir_name){
 /* find dependency from "or" requirement */
 static pkg_info_t *find_or_requirement(struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,char *required_str){
 	pkg_info_t *pkg = NULL;
-	int position = 0;
+	int position = 0, len = 0;
 
-	while( position < (int)strlen(required_str) ){
+	len = strlen(required_str);
+	while( position < len ){
 
 		if( strchr(required_str + position,'|') == NULL ){
 			char *string = required_str + position;
