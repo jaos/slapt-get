@@ -37,8 +37,10 @@ int main( int argc, char *argv[] ){
 		{"clean", 0, 0, 'c'},
 		{"download-only", 0, 0, 'o'},
 		{"simulate", 0, 0, 'm'},
+		{"s", 0, 0, 'm'},
 		{"version", 0, 0, 'v'},
 		{"no-prompt", 0, 0, 'b'},
+		{"y", 0, 0, 'b'},
 		{"reinstall", 0, 0, 'n'},
 		{"ignore-excludes", 0, 0, 'x'},
 		{"no-md5", 0, 0, '5'},
@@ -254,8 +256,8 @@ void usage(void){
 	printf("\n");
 	printf(_("Options:\n"));
 	printf("  --download-only     - %s\n",_("only download pkg on install/upgrade"));
-	printf("  --simulate          - %s\n",_("show pkgs to be installed/upgraded"));
-	printf("  --no-prompt         - %s\n",_("do not prompt during install/upgrade"));
+	printf("  --simulate|-s       - %s\n",_("show pkgs to be installed/upgraded"));
+	printf("  --no-prompt|-y      - %s\n",_("do not prompt during install/upgrade"));
 	printf("  --reinstall         - %s\n",_("re-install the pkg"));
 	printf("  --ignore-excludes   - %s\n",_("install/upgrade excludes"));
 	printf("  --no-md5            - %s\n",_("do not perform md5 check sum"));
