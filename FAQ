@@ -119,11 +119,11 @@ Frequenty Asked Questions:
 
  Yes.
 
- Change your source location within /etc/slapt-getrc to point to the newer
- release directory.  --update your local package cache, then --dist-upgrade
- to the newer release.  You will also want to disable any third party package
- sources while upgrading to a newer release so you do not mix and match
- packages.
+ Change your source location within /etc/slapt-get/slapt-getrc to point to
+ the newer release directory.  --update your local package cache, then
+ --dist-upgrade to the newer release.  You will also want to disable any
+ third party package sources while upgrading to a newer release so you do
+ not mix and match packages.
 
  For instance, you have the following uncommented line as your source:
 
@@ -242,7 +242,8 @@ Frequenty Asked Questions:
 
  You can use multiple sources with slapt-get (including linuxpackages.net).
  See the example slapt-getrc in the source tarball, or look in
- /etc/slapt-getrc.new if you installed via slackpack. See also README.
+ /etc/slapt-get/slapt-getrc.new if you installed via slackpack. See also
+ README.
 
 
 12. How can I get more detailed statistics for downloads?
@@ -583,7 +584,7 @@ Frequenty Asked Questions:
  #!/bin/sh
  # slapt-get wrapper to hack dependencies via ldd where slack-required isn't available
  # Copyright (C) 11-30-2003 Jason Woodward <woodwardj at jaos dot org>
- WORKINGDIR=`grep WORKINGDIR /etc/slapt-getrc|cut -f2 -d'='`
+ WORKINGDIR=`grep WORKINGDIR /etc/slapt-get/slapt-getrc|cut -f2 -d'='`
  MF=MANIFEST
  PKGLINES=${WORKINGDIR}/depslapt_pkgs
  DEPDATA=()
@@ -591,7 +592,7 @@ Frequenty Asked Questions:
  
  function get_pkg_cache_data {
  	if [ -f ${MF} ]; then rm ${MF};fi
- 	for url in `grep '^SOURCE' /etc/slapt-getrc|cut -f2 -d'='`
+ 	for url in `grep '^SOURCE' /etc/slapt-get/slapt-getrc|cut -f2 -d'='`
  	do
  		echo "retrieving data from $url"
  		if [ -f ${MF}.bz2 ]; then rm ${MF}.bz2;fi
@@ -737,10 +738,10 @@ Frequenty Asked Questions:
 
 37. How can I specify a username/password for the connection to the package source?
 
- This can be specified right in the package source url within the /etc/slapt-getrc.
- You will want to make sure that sensitive passwords are protected, and possibly 
- harden the permissions on /etc/slapt-getrc so that only the root user can read
- the file.
+ This can be specified right in the package source url within the
+ /etc/slapt-get/slapt-getrc.  You will want to make sure that sensitive
+ passwords are protected, and possibly harden the permissions on
+ /etc/slapt-get/slapt-getrc so that only the root user can read the file.
 
  Examples:
 

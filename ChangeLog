@@ -1,5 +1,6 @@
 
-0.9.9b Sep 14, 2004
+0.9.9b Sep 15, 2004
+ * updated documentation reflecting new location of the slapt-getrc file (thanks to Chris @ virtig01.net)
  * escaped + in package name within required_by(), fixing gtk+2 etc (thanks to Sergey Sukiyazov)
  * only add dependency if all it's dependencies where added (thanks to Sergey Sukiyazov)
  * updated encoding and translation of polish translation

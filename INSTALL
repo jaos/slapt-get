@@ -5,7 +5,7 @@
   $ make
   $ make install
 
-  Edit /etc/slapt-getrc (see README for details)
+  Edit /etc/slapt-get/slapt-getrc (see README for details)
 
  To uninstall:
 
@@ -22,7 +22,7 @@
   $ removepkg slapt-get-${VERSION}-${ARCH}-${RELEASE}
 
 
-You will want to customize the values within /etc/slapt-getrc.
+You will want to customize the values within /etc/slapt-get/slapt-getrc.
 See README for more details.
 
 
