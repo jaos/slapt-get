@@ -19,19 +19,20 @@
 #define SOURCE_TOKEN "SOURCE="
 #define WORKINGDIR_TOKEN "WORKINGDIR="
 #define EXCLUDE_TOKEN "EXCLUDE="
+#define MAX_SOURCES 20
+#define MAX_SOURCE_URL_LEN 400
 
 struct exclude_list {
-	char excludes[100][50];
+	char **excludes;
 	int count;
 };
 
 struct source_list {
-	char url[10][200];
+	char url[MAX_SOURCES][MAX_SOURCE_URL_LEN];
 	int count;
 };
 
 struct _configuration {
-	char mirror_url[256];
 	struct source_list sources;
 	char working_dir[256];
 	int download_only;
@@ -47,6 +48,7 @@ struct _configuration {
 typedef struct _configuration rc_config;
 
 rc_config *read_rc_config(const char *);
+void free_rc_config(rc_config *);
 void working_dir_init(const rc_config *);
 FILE *open_file(const char *,const char *);
 char spinner(void);

@@ -50,7 +50,17 @@ rc_config *read_rc_config(const char *file_name){
 
 		if( strstr(getline_buffer,SOURCE_TOKEN) != NULL ){ /* SOURCE URL */
 
+			/* make sure we stay within the limits of MAX_SOURCES */
+			if( global_config->sources.count == MAX_SOURCES ){
+				fprintf(stderr,"Maximum number of sources (%d) exceeded.\n",MAX_SOURCES);
+				continue;
+			}
+
 			if( strlen(getline_buffer) > strlen(SOURCE_TOKEN) ){
+				if( (strlen(getline_buffer) - strlen(SOURCE_TOKEN)) >= MAX_SOURCE_URL_LEN ){
+					fprintf(stderr,"Maximum length of source (%d) exceeded.\n",MAX_SOURCE_URL_LEN);
+					continue;
+				}
 				strncpy(
 					global_config->sources.url[global_config->sources.count],
 					getline_buffer + strlen(SOURCE_TOKEN),
@@ -197,9 +207,9 @@ void clean_pkg_dir(const char *dir_name){
 			continue;
 		}
 		if( strstr(file->d_name,".tgz") !=NULL ){
-#if DEBUG == 1
+			#if DEBUG == 1
 			printf("unlinking %s\n",file->d_name);
-#endif
+			#endif
 			unlink(file->d_name);
 		}
 	}
@@ -211,6 +221,7 @@ struct exclude_list *parse_exclude(char *line){
 	char *pointer = NULL;
 	char *buffer = NULL;
 	int position = 0;
+	char **realloc_tmp;
 	struct exclude_list *list;
 	list = malloc( sizeof *list );
 	if( list == NULL ){
@@ -229,10 +240,16 @@ struct exclude_list *parse_exclude(char *line){
 		if( strstr(line + position,",") == NULL ){
 
 			pointer = line + position;
-			strncpy(list->excludes[ list->count ], pointer, strlen(pointer) );
-			list->excludes[ list->count ][strlen(pointer)] =  '\0';
 
-			list->count++;
+			realloc_tmp = realloc( list->excludes, sizeof *list->excludes * (list->count + 1) );
+			if( realloc_tmp != NULL ){
+				list->excludes = realloc_tmp;
+				list->excludes[ list->count ] = calloc( strlen(pointer) + 1, sizeof *list->excludes[list->count] );
+				strncpy(list->excludes[ list->count ], pointer, strlen(pointer) );
+				list->excludes[ list->count ][strlen(pointer)] =  '\0';
+				list->count++;
+			}
+
 			break;
 		}else{
 
@@ -245,11 +262,16 @@ struct exclude_list *parse_exclude(char *line){
 				buffer = calloc( strlen(line + position) - strlen(pointer) + 1, sizeof *buffer );
 				strncpy(buffer,line + position,strlen(line + position) - strlen(pointer) );
 				buffer[ strlen(line + position) - strlen(pointer) ] = '\0';
-				strncpy(list->excludes[ list->count ], buffer, strlen(buffer) );
+
+				realloc_tmp = realloc( list->excludes, sizeof *list->excludes * (list->count + 1) );
+				if( realloc_tmp != NULL ){
+					list->excludes = realloc_tmp;
+					list->excludes[ list->count ] = buffer;
+					list->excludes[ list->count ][strlen(buffer)] =  '\0';
+				}
 
 				list->count++;
 				position += (strlen(line + position) - strlen(pointer) );
-				free(buffer);
 			}
 			continue;
 		}
@@ -279,29 +301,27 @@ void create_dir_structure(const char *dir_name){
 		/* if no more directory delim, then this must be last dir */
 		if( strstr(dir_name + position,"/" ) == NULL ){
 
-			/* pointer = dir_name + position; */
 			dir_name_buffer = calloc( strlen(dir_name + position) + 1 , sizeof *dir_name_buffer );
 			strncpy(dir_name_buffer,dir_name + position,strlen(dir_name + position));
 			dir_name_buffer[ strlen(dir_name + position) ] = '\0';
 
 			if( strcmp(dir_name_buffer,".") != 0 ){
 				if( (mkdir(dir_name_buffer,0755)) == -1){
-#if DEBUG == 1
+					#if DEBUG == 1
 					fprintf(stderr,"Failed to mkdir: %s\n",dir_name_buffer);
-#endif
-					/* exit(1); */
+					#endif
 				}else{
-#if DEBUG == 1
+					#if DEBUG == 1
 					fprintf(stderr,"\tCreated directory: %s\n",dir_name_buffer);
-#endif
+					#endif
 				}
 				if( (chdir(dir_name_buffer)) == -1 ){
 					fprintf(stderr,"Failed to chdir to %s\n",dir_name_buffer);
 					exit(1);
 				}else{
-#if DEBUG == 1
+					#if DEBUG == 1
 					fprintf(stderr,"\tchdir into %s\n",dir_name_buffer);
-#endif
+					#endif
 				}
 			}/* don't create . */
 
@@ -323,22 +343,21 @@ void create_dir_structure(const char *dir_name){
 
 				if( strcmp(dir_name_buffer,".") != 0 ){
 					if( (mkdir(dir_name_buffer,0755)) == -1 ){
-#if DEBUG == 1
+						#if DEBUG == 1
 						fprintf(stderr,"Failed to mkdir: %s\n",dir_name_buffer);
-#endif
-						/* exit(1); */
+						#endif
 					}else{
-#if DEBUG == 1
+						#if DEBUG == 1
 						fprintf(stderr,"\tCreated directory: %s\n",dir_name_buffer);
-#endif
+						#endif
 					}
 					if( (chdir(dir_name_buffer)) == -1 ){
 						fprintf(stderr,"Failed to chdir to %s\n",dir_name_buffer);
 						exit(1);
 					}else{
-#if DEBUG == 1
+						#if DEBUG == 1
 						fprintf(stderr,"\tchdir into %s\n",dir_name_buffer);
-#endif
+						#endif
 					}
 				} /* don't create . */
 
@@ -352,9 +371,9 @@ void create_dir_structure(const char *dir_name){
 		fprintf(stderr,"Failed to chdir to %s\n",cwd);
 		exit(1);
 	}else{
-#if DEBUG == 1
+		#if DEBUG == 1
 		fprintf(stderr,"\tchdir back into %s\n",cwd);
-#endif
+		#endif
 	}
 
 	free(cwd);
@@ -399,5 +418,17 @@ void gen_md5_sum_of_file(FILE *f,char *result_sum){
 
 		free(p);
 	}
+
+}
+
+void free_rc_config(rc_config *global_config){
+	int i;
+	
+	for(i = 0; i < global_config->exclude_list->count; i++){
+		free(global_config->exclude_list->excludes[i]);
+	}
+
+	free(global_config->exclude_list);
+	free(global_config);
 
 }

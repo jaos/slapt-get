@@ -3,6 +3,7 @@
  * updated docs
  * reworked parse_packages_txt function
  * fixed possible buffer overflows in parse_packages_txt
+ * added more buffer checks in config parser
 
 0.9.6c Oct 15, 2003
  * patch data is now fetched from patches/PACKAGES.TXT instead of

@@ -201,8 +201,7 @@ int main( int argc, char *argv[] ){
 		usage();
 	}
 
-	free(global_config->exclude_list);
-	free(global_config);
+	free_rc_config(global_config);
 	curl_global_cleanup();
 	return 0;
 }
