@@ -21,6 +21,7 @@
  * added check for empty md5 checksum with notification if so
  * added stat call at appropriate place in download_pkg() so that the file size
    was actually known when needed
+ * documentation updates
 
 0.9.8 Dec 18, 2003
  * added slapt-get source to example slapt-getrc
