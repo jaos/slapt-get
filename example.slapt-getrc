@@ -33,9 +33,9 @@ SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-9.1/
 #SOURCE=http://mirror.etf.bg.ac.yu/linuxpackages/Slackware-9.1/
 #SOURCE=ftp://mirror.etf.bg.ac.yu/linuxpackages/Slackware-9.1/
 ### Evolution Dallas TX
-SOURCE=ftp://ftp4.linuxpackages.net/pub/Slackware-9.1/
+#SOURCE=ftp://ftp4.linuxpackages.net/pub/Slackware-9.1/
 ### Americas Internet Direct San Antonio TX
-SOURCE=http://www1.linuxpackages.net/packages/Slackware-9.1/
+#SOURCE=http://www1.linuxpackages.net/packages/Slackware-9.1/
 # * no current with linuxpackages.net
 
 # slackware testing and extra 
@@ -54,7 +54,7 @@ SOURCE=http://www1.linuxpackages.net/packages/Slackware-9.1/
 # slapt source
 #SOURCE=http://software.jaos.org/slackpacks/8.1/
 #SOURCE=http://software.jaos.org/slackpacks/9.0/
-#SOURCE=http://software.jaos.org/slackpacks/9.1/
+SOURCE=http://software.jaos.org/slackpacks/9.1/
 #SOURCE=http://software.jaos.org/slackpacks/current/
 
 # pull from your cdrom
