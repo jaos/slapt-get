@@ -1,5 +1,9 @@
 
-0.9.8e Jun 05, 2004
+0.9.8e Jun 07, 2004
+ * dist-upgrade will now reinstall if the package versions differ (vanilla
+   version cmp not good enough since it ignores arch)... this fixes packages
+   with same version as previous save for the arch not being upgraded (such
+   as cxxlibs)
  * makefile updates... thanks to Piotr Simon (sajmon@tenboard.com)
  * updated slapt-getrc to reflect new linuxpackages.net URLs
  * added check for package name and version lengths in

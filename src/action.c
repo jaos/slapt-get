@@ -437,7 +437,10 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 				matches->pkgs[i]->name
 			);
 			/* add to install list if not already installed */
-			if( installed_pkg == NULL ){
+			/* even if it's installed, check to see that the packages are different */
+			/* simply running a version comparison won't do it since sometimes the */
+			/* arch is the only thing that changes */
+			if( installed_pkg == NULL || ( strcmp(installed_pkg->version,matches->pkgs[i]->version) != 0 ) ){
 				if( is_excluded(global_config,matches->pkgs[i]) == 1 ){
 					add_exclude_to_transaction(&tran,matches->pkgs[i]);
 				}else{
