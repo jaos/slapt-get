@@ -1,5 +1,6 @@
 
-0.9.9c Oct 02, 2004
+0.9.9c Oct 03, 2004
+ * moved clean_pkg_dir() from configuration.[ch] to package.[ch]
  * fixed null short description from printing "null", prints "" instead
  * updated man page
  * translation updates

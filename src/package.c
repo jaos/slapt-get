@@ -2126,3 +2126,48 @@ void purge_old_cached_pkgs(const char *dir_name){
 
 }
 
+void clean_pkg_dir(const char *dir_name){
+	DIR *dir;
+	struct dirent *file;
+	struct stat file_stat;
+
+	if( (dir = opendir(dir_name)) == NULL ){
+		fprintf(stderr,_("Failed to opendir %s\n"),dir_name);
+		return;
+	}
+
+	if( chdir(dir_name) == -1 ){
+		fprintf(stderr,_("Failed to chdir: %s\n"),dir_name);
+		return;
+	}
+
+	while( (file = readdir(dir)) ){
+
+		/* make sure we don't have . or .. */
+		if( (strcmp(file->d_name,"..")) == 0 || (strcmp(file->d_name,".") == 0) )
+			continue;
+
+		/* setup file_stat struct */
+		if( (stat(file->d_name,&file_stat)) == -1)
+			continue;
+
+		/* if its a directory, recurse */
+		if( S_ISDIR(file_stat.st_mode) ){
+			clean_pkg_dir(file->d_name);
+			if( (chdir("..")) == -1 ){
+				fprintf(stderr,_("Failed to chdir: %s\n"),dir_name);
+				return;
+			}
+			continue;
+		}
+		if( strstr(file->d_name,".tgz") !=NULL ){
+			#if DEBUG == 1
+			printf(_("unlinking %s\n"),file->d_name);
+			#endif
+			unlink(file->d_name);
+		}
+	}
+	closedir(dir);
+
+}
+
