@@ -33,6 +33,7 @@ Frequenty Asked Questions:
 32. Does EXCLUDE work for install as well as upgrade and dist-upgrade?
 33. What about package conflicts?  How can I specify a conflict for my package?
 34. Is the ROOT environment variable honored for install and upgrading?
+35. How do I specify the exact version of a package to install?
 
 
 
@@ -713,5 +714,16 @@ Frequenty Asked Questions:
  will modify where it looks for the package logs based on this environment
  variable.
 
+ For example export ROOT=/home/keary/newroot would make slapt-get look in
+ /home/keary/newroot/var/log/packages for installed package information and
+ install all upgraded/new packages in /home/keary/newroot instead of /
+
+
+35. How do I specify the exact version of a package to install?
+
+ Specify the version along with the package name with the --install argument.
+
+ For example, to install pkgtools version 9.0.0-i386-1, use 'pkgtools-9.0.0-i386-1'
+ as the --install argument.
 
 
