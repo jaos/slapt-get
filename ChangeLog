@@ -21,6 +21,8 @@
  * merged in package update data from filelist into PACKAGES.TXT format,
    so single lookup returns all packages.
  * added excludes to transaction, now shows packages excluded/held back
+ * removed more legacy functions since merging package data and updates...
+   the new get_available_and_update_pkgs is now gone.
 
 0.9.5e Oct 10, 2003
  * added a doinst.sh script (generated from the Makefile) to help 
