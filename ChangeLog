@@ -1,5 +1,6 @@
 
 0.9.8e Jun 01, 2004
+ * updated slapt-getrc to reflect new linuxpackages.net URLs
  * added check for package name and version lengths in
    pkg_action_install() and pkg_action_show()
  * refactored working_dir_init()

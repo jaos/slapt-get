@@ -20,9 +20,22 @@ SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-9.1/
 
 # you can use multiple sources, such as linuxpackages.net
 # (not recommended on production servers, see README)
-#SOURCE=http://www3.linuxpackages.net/packages/Slackware-8.1/
-#SOURCE=http://www3.linuxpackages.net/packages/Slackware-9.0/
-#SOURCE=http://www3.linuxpackages.net/packages/Slackware-9.1/
+# Supported version are 8.1 9.0 9.1
+# For the latest mirrors list please visit 
+# http://www.linuxpackages.net/mirrors.php
+### NYI NewY ork
+#SOURCE=http://www2.linuxpackages.net/packages/Slackware-9.1/
+#SOURCE=ftp://ftp3.linuxpackages.net/pub/Slackware-9.1/
+### Opensys Romania
+#SOURCE=http://opensys.linuxpackages.net/Slackware-9.1/
+#SOURCE=ftp://opensys.linuxpackages.net/pub/Slackware-9.1/
+### University of Belgrade
+#SOURCE=http://mirror.etf.bg.ac.yu/linuxpackages/Slackware-9.1/
+#SOURCE=ftp://mirror.etf.bg.ac.yu/linuxpackages/Slackware-9.1/
+### Evolution Dallas TX
+SOURCE=ftp://ftp4.linuxpackages.net/pub/Slackware-9.1/
+### Americas Internet Direct San Antonio TX
+SOURCE=http://www1.linuxpackages.net/packages/Slackware-9.1/
 # * no current with linuxpackages.net
 
 # slackware testing and extra 
