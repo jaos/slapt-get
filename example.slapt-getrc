@@ -7,7 +7,10 @@ SOURCE=ftp://ftp.slackware.at/slackware-9.1/
 
 # you can use multiple sources, such as linuxpackages.net
 # (not recommended on production servers, see README)
-#SOURCE=ftp://ftp.linuxpackages.net/pub/Slackware-9.1/
+# SOURCE=ftp://ftp.linuxpackages.net/pub/Slackware-8.1/
+# SOURCE=ftp://ftp.linuxpackages.net/pub/Slackware-9.0/
+# SOURCE=ftp://ftp.linuxpackages.net/pub/Slackware-9.1/
+# no current with linuxpackages.net
 
 # pull from your cdrom
 #SOURCE=file:///mnt/cdrom/
