@@ -327,7 +327,7 @@ Frequenty Asked Questions:
 	    USIZE=$( expr `gunzip -l $1 |tail -1|awk '{print $2}'` / 1024 )
 	    REQUIRED=$(tar xzf $1 install/slack-required -O 2>/dev/null|xargs -r -iZ echo -n "Z,"|sed -e "s/,$//")
 	    CONFLICTS=$(tar xzf $1 install/slack-conflicts -O 2>/dev/null|xargs -r -iZ echo -n "Z,"|sed -e "s/,$//")
-	    METAFILE=$(echo $NAME|sed -re "s/\.tgz$/\.meta/")
+	    METAFILE=${NAME%tgz}meta
 	    echo "PACKAGE NAME:  $NAME" > $LOCATION/$METAFILE
 	    echo "PACKAGE LOCATION:  $LOCATION" >> $LOCATION/$METAFILE
 	    echo "PACKAGE SIZE (compressed):  $SIZE K" >> $LOCATION/$METAFILE
@@ -358,7 +358,7 @@ Frequenty Asked Questions:
 	    new)
 		    for pkg in `find . -type f -name '*.tgz' -print`
 		    do
-			    if [ ! -f "`echo $pkg|sed -re 's/\.tgz$/\.meta/'`" ]; then
+			    if [ ! -f ${pkg%tgz}meta ]; then
 				    gen_meta $pkg
 			    fi
 		    done

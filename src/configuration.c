@@ -174,7 +174,7 @@ FILE *open_file(const char *file_name,const char *mode){
 
 char spinner(void){
 	static int spinner_index = 0;
-	static char *spinner_parts = "\\|/-";
+	static const char spinner_parts[] = "\\|/-";
 
 	if( spinner_index > 3 ){
 		spinner_index = 0;
