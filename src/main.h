@@ -41,9 +41,6 @@
 #include "transaction.h"
 #include "action.h"
 
-void usage(void);
-void version_info(void);
-
 #define MAX_REGEX_PARTS 10
 struct _sg_regex {
 	regex_t regex;

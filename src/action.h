@@ -31,3 +31,6 @@ void pkg_action_search(const char *);
 void pkg_action_show(const char *);
 void pkg_action_upgrade_all(const rc_config *);
 
+void usage(void);
+void version_info(void);
+
