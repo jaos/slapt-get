@@ -72,58 +72,67 @@ jaospkg \- frontend to pkgtools
 ]
 .SH DESCRIPTION
 .B jaospkg
-installs single or multiple *.tgz binary packages designed
-for use with the Slackware Linux distribution onto your system.
+is an APT like system for Slackware package management.  It
+allows one to search for packages, install them, and upgrade the
+installed packages all with a few simple commands.  Additional
+features include listing all available packages, listing all
+installed packages, and removing installed packages.
+.B jaospkg
+tries to emulate Debian's apt-get as closely as possible.
 .SH OPTIONS
 .TP
 .B --download-only
-Only download package on install/upgrade
+Download the package only.  Do not install/upgrade.
 .TP
 .B --dist-upgrade
 assumes MIRROR is set to newer release
+Assume the MIRROR location is set to a newer release, and
+check the package listing for newer version, instead of 
+only checking the update list for updates.
 .TP
 .B --simulate
-show packages to be upgraded
+Will not install or download packages.
 .TP
 .B --no-prompt
-do not prompt during upgrade
+Do not prompt for package upgrade confirmation.
 .TP
 .B --re-install
-re-install the package even if installed
+Install the package even if it is already installed.
 .TP
 .B --ignore-excludes
-install excludes anyway
+Ignore exclude list and install excluded packages anyway.
 .SH TARGETS
 .TP
 .B --update
-retrieves package data from MIRROR
+Retrieves package data from MIRROR location.
 .TP
 .B --upgrade
-upgrade installed packages
+Upgrade installed packages if newer versions are available.
 .TP
 .B --install [package(s)]
-install specified pkg(s)
+Install specified package(s).
 .TP
 .B --remove [package(s)]
-remove specified pkg(s)
+Remove specified package(s).
 .TP
 .B --show [package]
-show package description
+Show package description.
 .TP
 .B --search [expression]
-search available packages
+Search available packages. Applies POSIX regular expression
+to the names and descriptions of packages.
 .TP
 .B --list
-list available packages
+List available packages.
 .TP
 .B --installed
-list installed packages
+List installed packages.
 .TP
 .B --clean
-purge cached packages
+Purge cached/downloaded packages from local storage.
 .TP
 .B --version
-print version and license info
+Print version and license info.
 .SH AUTHOR
 Jason Woodward <woodwardj@jaos.org>
 .SH "SEE ALSO"
