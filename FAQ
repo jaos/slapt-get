@@ -268,8 +268,7 @@ Frequenty Asked Questions:
 15. What about Dropline support?
 
  There is no direct support for dropline packages.  If you do not want them
- upgraded, either put the package names or regex into the exception list or
- use interactive mode (do not use --no-prompt, use --interactive).
+ upgraded, either put the package names or regex into the exception list.
 
  You can use the following for a dropline exclude (from example slapt-getrc):
  
