@@ -462,3 +462,6 @@ msgstr "%s, which is to be installed, conflicts with %s\n"
 msgid "Installed %s conflicts with %s\n"
 msgstr "Installed %s conflicts with %s\n"
 
+msgid "print URIs only, do not download"
+msgstr "print URIs only, do not download"
+

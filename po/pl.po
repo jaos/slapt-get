@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.7i\n"
+"Project-Id-Version: 0.9.8a\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2003-12-18 12:23+0000\n"
+"PO-Revision-Date: 2003-01-05 11:43+0000\n"
 "Last-Translators: nixon <nixon@klub.chip.pl> and simon <ssiimm@poczta.onet.pl>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -461,4 +461,7 @@ msgstr "%s, który musi byæ zainstalowany, konfliktuje z %s\n"
 #, c-format
 msgid "Installed %s conflicts with %s\n"
 msgstr "Zainstalowany %s konfliktuje z %s\n"
+
+msgid "print URIs only, do not download"
+msgstr "print URIs only, do not download"
 

@@ -130,6 +130,20 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 		}
 	}
 
+	if ( global_config->print_uris == 1 ){
+		for(i = 0; i < tran->install_pkgs->pkg_count;i++) {
+			const pkg_info_t *info = tran->install_pkgs->pkgs[i];
+			const char *location = info->location + strspn(info->location, "./");
+			printf("%s%s/%s-%s.tgz\n", info->mirror, location, info->name, info->version);
+		}
+		for(i = 0; i < tran->upgrade_pkgs->pkg_count;i++) {
+			const pkg_info_t *info = tran->upgrade_pkgs->pkgs[i]->upgrade;
+			const char *location = info->location + strspn(info->location, "./");
+			printf("%s%s/%s-%s.tgz\n", info->mirror, location, info->name, info->version);
+		}
+		return 0;
+	}
+
 	/* if simulate is requested, just show what could happen and return */
 	if( global_config->simulate == 1 ){
 		for(i = 0; i < tran->install_pkgs->pkg_count;i++){

@@ -44,6 +44,9 @@ slapt-get \- frontend to pkgtools
 [
 .B --disable-dep-check
 ]
+[
+.B --print-uris
+]
 .LP
 .B targets:
 [
@@ -113,6 +116,9 @@ Ignore dependency failures on --install, --upgrade, or --dist-upgrade
 .TP
 .B --disable-dep-check
 Skip the dependency check
+.TP
+.B --print-uris
+Print URIs of packages to be downloaded to stdout, but do not download.
 .SH TARGETS
 .TP
 .B --update
