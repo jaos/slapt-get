@@ -35,6 +35,7 @@ install: $(PROGRAM_NAME) libs
 	if [ ! -d /usr/doc/$(PROGRAM_NAME)-$(VERSION) ]; then mkdir /usr/doc/$(PROGRAM_NAME)-$(VERSION); fi
 	cp example.slapt-getrc COPYING Changelog INSTALL README FAQ TODO /usr/doc/$(PROGRAM_NAME)-$(VERSION)/
 	cp include/slapt.h /usr/include/
+	cp src/libslapt-$(VERSION).a src/libslapt-$(VERSION).so /usr/lib/
 
 uninstall:
 	-rm /sbin/$(PROGRAM_NAME)
