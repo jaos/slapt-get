@@ -1,5 +1,6 @@
 
 0.9.9g Jan 21, 2005
+ * fixed recursive dependency bug
  * upped the max size of package requires, suggests token can be ' ' or ',' now
  * moved exclude check for installed version of package about to be updated
    so that packages that where not being upgraded wouldn't show up excluded
@@ -552,7 +553,7 @@
    manage the slapt-getrc.
 
 0.9.5d Oct 09, 2003
- * added initial slack-required for future dependancy support
+ * added initial slack-required for future dependency support
  * added lilo to example slapt-getrc exclude list
  * improved regex within package.h
  * fixed bug with packages containing more than 4 version parts (dvd+rw-tools)

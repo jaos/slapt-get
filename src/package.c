@@ -1175,14 +1175,14 @@ int get_pkg_dependencies(const rc_config *global_config,struct pkg_list *avail_p
 		if( (get_newest_pkg(deps,tmp_pkg->name) == NULL) ){
 			int dep_check_return;
 
+			/* add tmp_pkg to deps */
+			add_pkg_to_pkg_list(deps,tmp_pkg);
+
 			/* now check to see if tmp_pkg has dependencies */
 			dep_check_return = get_pkg_dependencies(global_config,avail_pkgs,installed_pkgs,tmp_pkg,deps);
 			if( dep_check_return == -1 && global_config->ignore_dep == FALSE ){
 				return -1;
 			}
-
-			/* add tmp_pkg to deps */
-			add_pkg_to_pkg_list(deps,tmp_pkg);
 
 		}else{
 			#if DEBUG == 1
