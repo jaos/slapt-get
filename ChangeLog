@@ -1,5 +1,6 @@
 
-0.9.8c Feb 02, 2004
+0.9.8c Feb 06, 2004
+ * updated dep script in FAQ
  * misc code updates
  * doc updates
  * fixed segfault when slapt-getrc isn't present (return value from open() not checked)
