@@ -2,11 +2,13 @@ slapt-get is pretty feature complete.  At the moment, bug fixes are the most imp
 
 Future enhancements, fixes, or features:
 
+ * multiple sources/mirrors (merge package data into one local PACKAGES.TXT)
+ * curses/gtk frontend
+
+ * optimize
  * add more error checking/handling, remove some exit() calls
  * find memory leaks
- * source pkg handling (maybe)
+
  * dependancy tracking (ideally that will happen in PACKAGES.TXT)
- * multiple sources/mirrors (merge package data into one local PACKAGES.TXT)
- * optimize
- * curses/gtk frontend
+ * source pkg handling (maybe)
 
