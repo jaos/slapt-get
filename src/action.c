@@ -93,11 +93,11 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 		/* if it is not already installed, install it */
 		if( installed_pkg == NULL ){
 
-				if( add_deps_to_trans(global_config,&tran,avail_pkgs,installed_pkgs,pkg) == 0 ){
-					/* this way we install the most up to date pkg */
-					if ( is_conflicted(&tran,avail_pkgs,installed_pkgs,pkg) == 0 )
-						add_install_to_transaction(&tran,pkg);
-				}
+			if( add_deps_to_trans(global_config,&tran,avail_pkgs,installed_pkgs,pkg) == 0 ){
+				/* this way we install the most up to date pkg */
+				if ( is_conflicted(&tran,avail_pkgs,installed_pkgs,pkg) == 0 )
+					add_install_to_transaction(&tran,pkg);
+			}
 
 		}else{ /* else we upgrade or reinstall */
 
