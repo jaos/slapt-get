@@ -27,7 +27,7 @@
 #define PKG_LOG_DIR "/var/log/packages"
 #define PKG_LOG_PATTERN "^([a-zA-Z0-9\\+_\\-]+)-([a-zA-Z0-9._\\-]+)$"
 #define MD5SUM_REGEX "([a-zA-Z0-9]+)[ ]+([a-zA-Z0-9._\\-\\/]+/)([a-zA-Z0-9\\+_\\-]+)-([a-zA-Z0-9._\\-]+).tgz$"
-#define REQUIRED_REGEX "^[ ]?([a-zA-Z0-9\\+_\\-]+)[ ]?([\\<\\=\\>]+)?[ ]?([a-zA-Z0-9\\.\\_\\-]+)?[ ]?$"
+#define REQUIRED_REGEX "^[ ]{0,}([a-zA-Z0-9\\+_\\-]+)[ ]{0,}([\\<\\=\\>]+)?[ ]{0,}([a-zA-Z0-9\\.\\_\\-]+)?[ ]{0,}$"
 #define NAME_LEN 50
 #define VERSION_LEN 50
 #define MIRROR_LEN 200

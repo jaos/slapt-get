@@ -1088,6 +1088,7 @@ struct pkg_list *lookup_pkg_dependencies(struct pkg_list *avail_pkgs,struct pkg_
 					sizeof *deps->pkgs * (deps->pkg_count + 1)
 				);
 				if( realloc_tmp != NULL ){
+					deps->pkgs = realloc_tmp;
 					realloc_tmp = NULL;
 				}/* end realloc check */
 
@@ -1147,7 +1148,8 @@ pkg_info_t *parse_dep_entry(struct pkg_list *avail_pkgs,struct pkg_list *install
 		parse_dep_regex.pmatch,
 		0
 	);
-	/* skip this line if we didn't find a package name */
+
+	/* if the regex failed, just skip out */
 	if( parse_dep_regex.reg_return != 0 ) return NULL;
 
 	if( (parse_dep_regex.pmatch[1].rm_eo - parse_dep_regex.pmatch[1].rm_so) > NAME_LEN ){
