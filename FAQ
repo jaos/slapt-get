@@ -43,9 +43,8 @@ Frequenty Asked Questions:
 42. How do I remove obsoleted packages?
 43. What provisions have you made for dialup users?
 44. Is there a way to get a report with the pending updates emailed to me?
-45. How do I specify authentication information in my package SOURCE entry?
-46. What if I don't trust third party sources for upgrades?
-47. How do I specify an addon thats not a dependency of my package?
+45. What if I don't trust third party sources for upgrades?
+46. How do I specify an addon thats not a dependency of my package?
 
 
 
@@ -755,10 +754,10 @@ Frequenty Asked Questions:
  /var/slapt-get.
 
 
-39. What about extra or testing packages?
+39. What about extra, testing, or pasture packages?
 
- Example source entries for the extra and testing packages sets can be found
- within the example.slapt-getrc file.
+ Example source entries for the extra, testing, and pasture packages sets can be
+ found within the example.slapt-getrc file under /usr/doc/slapt-get*/.
 
 
 40. Can I use slapt-get to mirror packages?
@@ -836,18 +835,7 @@ Frequenty Asked Questions:
  you may use to send notification via email any time updates are available.
 
 
-45. How do I specify authentication information in my package SOURCE entry?
-
- Here is an example of an ftp account that is specified in the SOURCE definition:
-
-  SOURCE=ftp://anonymous:pass@ftp.domain.com/packages/10.0/
-
- or if you need to use a full email address, you can use HTTP escape codes:
-
-  SOURCE=ftp://anonymous%40audioslack%2Ecom:pass@ftp.audioslack.com/packages/10.0/
-
-
-46. What if I don't trust third party sources for upgrades?
+45. What if I don't trust third party sources for upgrades?
 
  You can use different slapt-getrc files.  For example:
 
@@ -860,7 +848,7 @@ Frequenty Asked Questions:
  is parsed.
 
 
-47. How do I specify an addon thats not a dependency of my package?
+46. How do I specify an addon thats not a dependency of my package?
 
  You can include a slack-suggests file within your package's ./install/ directory.
  The format of this file follows the slack-required, except version information
