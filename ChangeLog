@@ -1,11 +1,13 @@
 
-0.9.7f Nov 22, 2003
+0.9.7f Nov 23, 2003
  * update_pkg_cache now request callback argument to pass to get_mirror_data_from_source
  * moved usage and version to configuration.c
  * moved head_request_data_callback and progress_callback to action.c
  * added staticinstall, withlibslaptinstall, staticpkg, and withlibslaptpkg make targets
  * updated error handling, cleaned up exits
  * fixed bug in cmp_pkg_versions when checking build versions, returning opposite than expected
+ * moved usage() and version_info() into src/main.c
+ * updated Makefile
 
 0.9.7e Nov 21, 2003
  * added debugging in transaction functions
