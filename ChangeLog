@@ -2,7 +2,7 @@
 0.9.9j Mar 16, 2005
  * added queue_t struct to transaction_t so that installs/upgrades happen in
    the proper order, as discovered.
- * FAQ updates, aslo added "50. What about mirror fall back / fail-over ?"
+ * FAQ updates, also added "50. What about mirror fall back / fail-over ?"
  * added CURLOPT_FILETIME to libcurl calls so that ftp transfers have the
    modification date for checking whether the source is new or not (as 
    opposed to the file size).
