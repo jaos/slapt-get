@@ -54,3 +54,4 @@ typedef struct {
 rc_config *read_rc_config(const char *file_name);
 void working_dir_init(const rc_config *global_config);
 void free_rc_config(rc_config *global_config);
+void add_exclude(struct exclude_list *list, char *e);

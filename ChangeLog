@@ -1,5 +1,6 @@
 
 0.9.9i Feb 16, 2005
+ * added public add_exclude() to configuration.c (libslapt)
  * init_regex now returns on failure
  * updated translations
 
