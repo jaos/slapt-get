@@ -223,6 +223,8 @@ void pkg_action_show(const char *pkg_name){
 		printf("Package Mirror: %s\n",pkg->mirror);
 		printf("Package Location: %s\n",pkg->location);
 		printf("Package Version: %s\n",pkg->version);
+		printf("Package Size: %d K\n",pkg->size_c);
+		printf("Package Installed Size: %d K\n",pkg->size_u);
 		printf("Package Description:\n");
 		printf("%s",pkg->description);
 	}else{

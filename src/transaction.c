@@ -39,6 +39,8 @@ void init_transaction(transaction *tran){
 int handle_transaction(const rc_config *global_config, transaction *tran){
 	int i;
 	char prompt_answer[10];
+	size_t download_size = 0;
+	size_t uncompressed_size = 0;
 
 	/*
 		 if we have an update, or a removal...
@@ -62,6 +64,8 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 			printf("  ");
 			for(i = 0; i < tran->install_pkgs->pkg_count;i++){
 				printf("%s ",tran->install_pkgs->pkgs[i]->name);
+				download_size += tran->install_pkgs->pkgs[i]->size_c;
+				uncompressed_size += tran->install_pkgs->pkgs[i]->size_u;
 			}
 			printf("\n");
 		}
@@ -72,6 +76,7 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 			printf("  ");
 			for(i = 0; i < tran->remove_pkgs->pkg_count;i++){
 				printf("%s ",tran->remove_pkgs->pkgs[i]->name);
+				uncompressed_size -= tran->remove_pkgs->pkgs[i]->size_u;
 			}
 			printf("\n");
 		}
@@ -82,6 +87,14 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 			printf("  ");
 			for(i = 0; i < tran->upgrade_pkgs->pkg_count;i++){
 				printf("%s ",tran->upgrade_pkgs->pkgs[i]->installed->name);
+				download_size += tran->upgrade_pkgs->pkgs[i]->upgrade->size_c;
+				/*
+					* since the installed member of the struct has no size,
+					* we leave this out and assume the new package is close to
+					* being the same size 
+				uncompressed_size += tran->upgrade_pkgs->pkgs[i]->upgrade->size_u;
+				uncompressed_size -= tran->upgrade_pkgs->pkgs[i]->installed->size_u;
+				*/
 			}
 			printf("\n");
 		}
@@ -94,6 +107,13 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 			tran->remove_pkgs->pkg_count,
 			tran->exclude_pkgs->pkg_count
 		);
+
+		printf("Need to get %dK of archives.\n", download_size );
+		if( (int)uncompressed_size < 0 ){
+			printf("After unpacking %dK disk space will be freed.\n", uncompressed_size * -1 );
+		}else{
+			printf("After unpacking %dK of additional disk space will be used.\n", uncompressed_size );
+		}
 
 		/* prompt */
 		if(
