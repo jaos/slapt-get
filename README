@@ -46,7 +46,8 @@ Table of Contents:
       dependencies (where available), conflicts (where available), suggestions
       (where available), description, and installation status
     * exclude (hold) packages from upgrades, by name or by regular expression
-    * transaction engine for install, remove, and upgrades
+    * transaction engine for install, remove, and upgrades, reporting concise
+      information on what is to be done, ensuring each step happens correctly
     * "compare package version" algorithm to prevent downgrades
     * recursive dependency resolution using slack-required metadata (see FAQ)
       supporting hard, soft, and conditional dependencies
@@ -55,7 +56,7 @@ Table of Contents:
     * Package data download robustness, only writing changes if all sources
       download successfully as well as only downloading those sources that
       have changed since the last download
-    * i18n support via GNU gettext
+    * i18n support via GNU gettext with over 13 language translations
     * extremely fast and easy to script with
 
 
