@@ -191,8 +191,12 @@ Frequenty Asked Questions:
      do
      echo -n "$file "
      if [ -z `grep "\W+$file\W+" /tmp/slapt_get_installed` ]; then
-       echo "not installed"
-       slapt-get --install $file
+       if [ -z "`grep -E '\W+apache\W?' /etc/slapt-getrc`" ]; then
+         echo "excluded"
+       else
+         echo "not installed"
+         slapt-get --install $file
+       fi
      fi
    done
 
