@@ -155,6 +155,8 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 	for(i = 0; i < tran->upgrade_pkgs->pkg_count;i++)
 		if( download_pkg(global_config,tran->upgrade_pkgs->pkgs[i]->upgrade) != 0 ) exit(1);
 
+	printf("\n");
+
 	/* run transaction, install, upgrade, and remove */
 	for(i = 0; i < tran->install_pkgs->pkg_count;i++){
 		if( global_config->download_only == 0 )
