@@ -18,13 +18,13 @@ all: pkg
 
 $(OBJS): 
 
-$(PROGRAM_NAME): $(OBJS)
+$(PROGRAM_NAME): $(OBJS) libs
 	$(CC) -o $(PROGRAM_NAME) $(OBJS) $(CFLAGS) $(CURLFLAGS)
 
-static: $(OBJS)
+static: $(OBJS) libs
 	$(CC) -o $(PROGRAM_NAME) $(OBJS) $(CFLAGS) $(CURLFLAGS) -static
 
-install: $(PROGRAM_NAME) libs
+install: $(PROGRAM_NAME)
 	install $(PROGRAM_NAME) $(SBINDIR)
 	if [ ! -f $(RCDEST) ]; then install --mode=0644 -b $(RCSOURCE) $(RCDEST); else install --mode=0644 -b $(RCSOURCE) $(RCDEST).new;fi
 	install $(PROGRAM_NAME).8 /usr/man/man8/
@@ -58,7 +58,7 @@ clean:
 	-if [ -d pkg ]; then rm -rf pkg ;fi
 
 
-pkg: $(PROGRAM_NAME) libs
+pkg: $(PROGRAM_NAME)
 	-@mkdir pkg
 	-@mkdir -p pkg/sbin
 	-@mkdir -p pkg/etc
@@ -91,8 +91,8 @@ po_file:
 	-xgettext -d slapt-get -o po/slapt-get.pot -a -C --no-location po/gettext_strings
 	-rm po/gettext_strings
 
-libs: $(PROGRAM_NAME)
-	$(CC) -shared -o src/libslapt-$(VERSION).so src/configuration.o src/package.o src/curl.o src/transaction.o src/action.o
-	ar -r src/libslapt-$(VERSION).a src/configuration.o src/package.o src/curl.o src/transaction.o src/action.o
-	cat include/main.h include/configuration.h include/package.h include/curl.h include/transaction.h include/action.h |grep -v '#include \"' > include/slapt.h
+libs: $(OBJS)
+	$(CC) -shared -o src/libslapt-$(VERSION).so src/configuration.o src/package.o src/curl.o src/transaction.o
+	ar -r src/libslapt-$(VERSION).a src/configuration.o src/package.o src/curl.o src/transaction.o
+	cat include/main.h include/configuration.h include/package.h include/curl.h include/transaction.h |grep -v '#include \"' > include/slapt.h
 
