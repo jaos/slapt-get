@@ -151,7 +151,8 @@ void jaospkg_search(const char *pattern){
 /* show the details for a specific package */
 void jaospkg_show(const char *pkg_name){
 	pkg_info *pkg;
-	if( (pkg = lookup_pkg(pkg_name)) != NULL ){
+	pkg = lookup_pkg(pkg_name);
+	if( pkg != NULL ){
 		printf("Package Name: %s\n",pkg->name);
 		printf("Package Location: %s\n",pkg->location);
 		printf("Package version: %s\n",pkg->version);
@@ -215,11 +216,11 @@ void jaospkg_upgrade(const rc_config *global_config,pkg_info *installed_pkg){
 /* use jaospkg_upgrade() soon, pass in pkg_list(s) */
 void jaospkg_upgrade_all(const rc_config *global_config){
 	int iterator;
-	struct pkg_list *installed_pkgs = NULL;
-	struct pkg_list *update_pkgs = NULL;
-	struct pkg_list *current_pkgs = NULL;
-	pkg_info *update_pkg = NULL;
-	pkg_info *current_pkg = NULL;
+	struct pkg_list *installed_pkgs;
+	struct pkg_list *update_pkgs;
+	struct pkg_list *current_pkgs;
+	pkg_info *update_pkg;
+	pkg_info *current_pkg;
 
 	/* faster here to retrieve the listings once */
 	/* then use get_newest_pkg() to pull newest from each list */

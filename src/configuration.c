@@ -25,7 +25,8 @@ rc_config *read_rc_config(const char *file_name){
 	char *getline_buffer = NULL;
 	size_t gb_length = 0;
 	ssize_t g_size;
-	global_config = malloc( 1 * sizeof(rc_config) );
+
+	global_config = malloc( sizeof *global_config );
 	if( global_config == NULL ){
 		fprintf(stderr,"Failed to malloc global_config\n");
 		if( errno ){
@@ -83,6 +84,7 @@ rc_config *read_rc_config(const char *file_name){
 		}/* end if/else if */
 
 	}/* end while */
+	if( getline_buffer ) free(getline_buffer);
 
 	if( strcmp(global_config->working_dir,"") == 0 ){
 		fprintf(stderr,"WORKINGDIR directive not set within %s.\n",file_name);
@@ -205,7 +207,8 @@ struct exclude_list *parse_exclude(char *line){
 	char *pointer = NULL;
 	char *buffer = NULL;
 	int position = 0;
-	struct exclude_list *list = malloc( 1 * sizeof(struct exclude_list) );
+	struct exclude_list *list;
+	list = malloc( sizeof *list );
 	if( list == NULL ){
 		fprintf(stderr,"Failed to malloc list\n");
 		if( errno ){
@@ -251,15 +254,6 @@ struct exclude_list *parse_exclude(char *line){
 	return list;
 }
 
-void free_excludes(struct exclude_list *list){
-	int i;
-	for(i=0;i < list->count;i++){
-		free(list->excludes[i]);
-	}
-	free(list->excludes);
-	free(list);
-}
-
 int is_excluded(const rc_config *global_config,const char *pkg_name){
 	int i;
 
@@ -283,3 +277,82 @@ int is_excluded(const rc_config *global_config,const char *pkg_name){
 
 	return 0;
 }
+
+/* recursively create dirs */
+void create_dir_structure(const char *dir_name){
+	char *pointer = NULL;
+	char *cwd = NULL;
+	int position = 0;
+	char *dir_name_buffer = NULL;
+
+	cwd = getcwd(NULL,0);
+	if( cwd == NULL ){
+		fprintf(stderr,"Failed to get cwd\n");
+		exit(1);
+	}
+
+	while( position < (int) strlen(dir_name) ){
+		/* if no more directory delim, then this must be last dir */
+		if( strstr(dir_name + position,"/" ) == NULL ){
+
+			/* pointer = dir_name + position; */
+			dir_name_buffer = calloc( strlen(dir_name + position) + 1 , sizeof(char) );
+			memcpy(dir_name_buffer,dir_name + position,strlen(dir_name + position));
+			dir_name_buffer[ strlen(dir_name + position) ] = '\0';
+
+			if( strcmp(dir_name_buffer,".") != 0 ){
+				if( (mkdir(dir_name_buffer,0755)) == -1){
+#if DEBUG == 1
+					fprintf(stderr,"Failed to mkdir: %s\n",dir_name_buffer);
+#endif
+					/* exit(1); */
+				}
+				if( (chdir(dir_name_buffer)) == -1 ){
+					fprintf(stderr,"Failed to chdir to %s\n",dir_name_buffer);
+					exit(1);
+				}
+			}/* don't create . */
+
+			free(dir_name_buffer);
+			break;
+		}else{
+			if( dir_name[position] == '/' ){
+				/* move on ahead */
+				position++;
+			}else{
+
+				/* figure our dir name and mk it */
+				pointer = index(dir_name + position,'/');
+				dir_name_buffer = calloc(
+					strlen(dir_name + position) - strlen(pointer) + 1 , sizeof(char)
+				);
+				memcpy(dir_name_buffer,dir_name + position, strlen(dir_name + position) - strlen(pointer));
+				dir_name_buffer[ (strlen(dir_name + position) - strlen(pointer)) ] = '\0';
+
+				if( strcmp(dir_name_buffer,".") != 0 ){
+					if( (mkdir(dir_name_buffer,0755)) == -1 ){
+#if DEBUG == 1
+						fprintf(stderr,"Failed to mkdir: %s\n",dir_name_buffer);
+#endif
+						/* exit(1); */
+					}
+					if( (chdir(dir_name_buffer)) == -1 ){
+						fprintf(stderr,"Failed to chdir to %s\n",dir_name_buffer);
+						exit(1);
+					}
+				} /* don't create . */
+
+				free(dir_name_buffer);
+				position += (strlen(dir_name + position) - strlen(pointer));
+			}
+		}
+	}/* end while */
+
+	if( (chdir(cwd)) == -1 ){
+		fprintf(stderr,"Failed to chdir to %s\n",cwd);
+		exit(1);
+	}
+
+	free(cwd);
+}
+

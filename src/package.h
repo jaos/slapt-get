@@ -71,6 +71,4 @@ int upgrade_pkg(const rc_config *,pkg_info *);
 int remove_pkg(pkg_info *);
 /* free memory allocated for pkg_list struct */
 void free_pkg_list(struct pkg_list *);
-/* recursively create dirs */
-void create_dir_structure(char *);
 

@@ -48,17 +48,27 @@ FILE *download_pkg_list(const rc_config *global_config){
 	char *url = NULL;
 
 	fh = open_file(PKG_LIST_L,"w+");
+	if( fh == NULL ){
+		fprintf(stderr,"Failed to open package list target\n");
+		exit(1);
+	}
 
 #if USE_CURL_PROGRESS == 0
 	printf("Retrieving package data...");
 #else
 	printf("Retrieving package data...\n");
 #endif
+
 	url = calloc(
 		strlen(global_config->mirror_url) + strlen(PKG_LIST) + 1, sizeof(char)
 	);
-	url = memcpy(url,global_config->mirror_url,strlen(global_config->mirror_url) + 1);
-	url = strncat(url,PKG_LIST,strlen(PKG_LIST) + 1);
+	if( url == NULL ){
+		fprintf(stderr,"Failed to calloc url\n");
+		exit(1);
+	}
+
+	memcpy(url,global_config->mirror_url,strlen(global_config->mirror_url) );
+	strncat(url,PKG_LIST,strlen(PKG_LIST) );
 	download_data(fh,url);
 #if USE_CURL_PROGRESS == 0
 	printf("Done\n");
@@ -74,18 +84,28 @@ FILE *download_patches_list(const rc_config *global_config){
 	char *url = NULL;
 
 	fh = open_file(PATCHES_LIST_L,"w+");
+	if( fh == NULL ){
+		fprintf(stderr,"Failed to open patch list target\n");
+		exit(1);
+	}
 
 #if USE_CURL_PROGRESS == 0
 	printf("Retrieving patch list...");
 #else
 	printf("Retrieving patch list...\n");
 #endif
+
 	url = calloc(
 		strlen(global_config->mirror_url) + strlen(PATCHDIR) + strlen(PATCHES_LIST) + 1 , sizeof(char)
 	);
-	url = memcpy(url,global_config->mirror_url,strlen(global_config->mirror_url) + 1);
-	url = strncat(url,PATCHDIR,strlen(PATCHDIR) + 1);
-	url = strncat(url,PATCHES_LIST,strlen(PATCHES_LIST) + 1);
+	if( url == NULL ){
+		fprintf(stderr,"Failed to calloc url\n");
+		exit(1);
+	}
+
+	memcpy(url,global_config->mirror_url,strlen(global_config->mirror_url) );
+	strncat(url,PATCHDIR,strlen(PATCHDIR) );
+	strncat(url,PATCHES_LIST,strlen(PATCHES_LIST) );
 	download_data(fh,url);
 #if USE_CURL_PROGRESS == 0
 	printf("Done\n");

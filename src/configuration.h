@@ -44,5 +44,5 @@ FILE *open_file(const char *,const char *);
 char spinner(void);
 void clean_pkg_dir(const char *);
 struct exclude_list *parse_exclude(char *);
-void free_excludes(struct exclude_list *);
 int is_excluded(const rc_config *,const char *);
+void create_dir_structure(const char *);

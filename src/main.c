@@ -134,7 +134,7 @@ int main( int argc, char *argv[] ){
 		}
 	}
 
-	/* free_excludes(global_config->exclude_list); */
+	free(global_config->exclude_list);
 	free(global_config);
 	return 0;
 }
