@@ -20,34 +20,34 @@ Frequenty Asked Questions:
 17. How do I use a local file source?
 18. How can I download every package in a disk set?
 19. How can I add dependency information to my packages?
-22. How do I get the newest development version of slapt-get?
-23. How can I contribute my ideas or code?
-24. How can I get slapt-get to speak in my native tongue?
-25. How do I set the output language?
-26. How do I specify proxy settings?
-27. How can I exclude all *pre*, *beta*, and *686* packages safely?
-28. How does the transaction engine work?
-29. How does the package version comparison algorithm work?
-30. I am tracking current, how do I keep the base disk set up to date?
-31. How would I script an ldd dependency hack with slapt-get?
-32. Does EXCLUDE work for install as well as upgrade and dist-upgrade?
-33. What about package conflicts?  How can I specify a conflict for my package?
-34. Is the ROOT environment variable honored for install and upgrading?
-35. How do I specify the exact version of a package to install?
-36. Why is upgradepkg complaining it cannot find installpkg or removepkg, with sudo?
-37. How can I specify a username/password for the connection to the package source?
-38. /var/slapt-get is growing large, how can I safely free up space?
-39. What about extra, testing, or pasture packages?
-40. Can I use slapt-get to mirror packages?
-41. Is there a way to use tab completion for the package names in Bash?
-42. How do I remove obsoleted packages?
-43. What provisions have you made for dialup users?
-44. Is there a way to get a report with the pending updates emailed to me?
-45. What if I don't trust third party sources for upgrades?
-46. How do I specify an addon thats not a dependency of my package?
-47. Will slapt-get break my system?
-48. What is a meta package and how can I take advantage of it?
-49. How can I downgrade a package?
+20. How do I get the newest development version of slapt-get?
+21. How can I contribute my ideas or code?
+22. How can I get slapt-get to speak in my native tongue?
+23. How do I set the output language?
+24. How do I specify proxy settings?
+25. How can I exclude all *pre*, *beta*, and *686* packages safely?
+26. How does the transaction engine work?
+27. How does the package version comparison algorithm work?
+28. I am tracking current, how do I keep the base disk set up to date?
+29. How would I script an ldd dependency hack with slapt-get?
+30. Does EXCLUDE work for install as well as upgrade and dist-upgrade?
+31. What about package conflicts?  How can I specify a conflict for my package?
+32. Is the ROOT environment variable honored for install and upgrading?
+33. How do I specify the exact version of a package to install?
+34. Why is upgradepkg complaining it cannot find installpkg or removepkg, with sudo?
+35. How can I specify a username/password for the connection to the package source?
+36. /var/slapt-get is growing large, how can I safely free up space?
+37. What about extra, testing, or pasture packages?
+38. Can I use slapt-get to mirror packages?
+39. Is there a way to use tab completion for the package names in Bash?
+40. How do I remove obsoleted packages?
+41. What provisions have you made for dialup users?
+42. Is there a way to get a report with the pending updates emailed to me?
+43. What if I don't trust third party sources for upgrades?
+44. How do I specify an addon thats not a dependency of my package?
+45. Will slapt-get break my system?
+46. What is a meta package and how can I take advantage of it?
+47. How can I downgrade a package?
 
 
 
@@ -461,7 +461,7 @@ Frequenty Asked Questions:
  See the 'Using cvs' section of the INSTALL document.
 
 
-23. How can I contribute my ideas or code?
+21. How can I contribute my ideas or code?
 
  Send in ideas or patches to the development list:
 
@@ -472,7 +472,7 @@ Frequenty Asked Questions:
    slapt-get-user at software dot jaos dot org
 
 
-24. How can I get slapt-get to speak in my native tongue?
+22. How can I get slapt-get to speak in my native tongue?
 
  Translations are needed.  GNU gettext is used to extract all translatable strings
  from the source.  Please look in the po/ directory of the slapt-get source, or in
@@ -489,7 +489,7 @@ Frequenty Asked Questions:
  are greatly appreciated.
 
 
-25. How do I set the output language?
+23. How do I set the output language?
 
  You can change the locale at runtime by setting the LANG environment
  variable.
@@ -497,7 +497,7 @@ Frequenty Asked Questions:
  $ LANG=fr slapt-get
 
 
-26. How do I specify proxy settings?
+24. How do I specify proxy settings?
 
  slapt-get takes advantage of the normal http_proxy and ftp_proxy shell
  variables. Here are some examples:
@@ -511,7 +511,7 @@ Frequenty Asked Questions:
  If you are using ~/.netrc, libcurl automatically picks up your preferences.
 
 
-27. How can I exclude all *pre*, *beta*, and *686* packages safely?
+25. How can I exclude all *pre*, *beta*, and *686* packages safely?
 
  An exclude regex like .*pre.* , .*beta.*, or .*686.* may net you the results
  of excluding all packages with those characters in the name or version.  But
@@ -534,7 +534,7 @@ Frequenty Asked Questions:
  transaction.
 
 
-28. How does the transaction engine work?
+26. How does the transaction engine work?
 
  The last few series of releases (0.9.6x and 0.9.7x) have supported
  transactions so that nothing happens unless everything checks out properly.
@@ -550,7 +550,7 @@ Frequenty Asked Questions:
  you full control.
 
 
-29. How does the package version comparison algorithm work?
+27. How does the package version comparison algorithm work?
 
  Say we have foo-1.1.3-i386-1rob and foo-1.1.3-i686-1.
 
@@ -582,7 +582,7 @@ Frequenty Asked Questions:
  are compared via strcmp.  This is a fallback mechanism.
 
 
-30. I am tracking current, how do I keep the base disk set up to date?
+28. I am tracking current, how do I keep the base disk set up to date?
 
  If you are tracking current, --dist-upgrade may be more useful than --upgrade.
 
@@ -591,7 +591,7 @@ Frequenty Asked Questions:
  same time keeping your installed packages up to date.
 
 
-31. How would I script an ldd dependency hack with slapt-get?
+29. How would I script an ldd dependency hack with slapt-get?
 
  Do something like the following:
 
@@ -689,7 +689,7 @@ Frequenty Asked Questions:
  ### end script
 
 
-32. Does EXCLUDE work for install as well as upgrade and dist-upgrade?
+30. Does EXCLUDE work for install as well as upgrade and dist-upgrade?
 
  No, EXCLUDE is only consulted for upgrading and dist-upgrading.  If you
  specify the package name as an argument to --install, slapt-get will 
@@ -700,7 +700,7 @@ Frequenty Asked Questions:
  dependency check for the specified package fails.  Override this with --no-dep.
 
 
-33. What about package conflicts?  How can I specify a conflict for my package?
+31. What about package conflicts?  How can I specify a conflict for my package?
 
  Package conflicts are not as common as dependencies, but just as crucial.
  Packages such as lprng and cups sometimes duplicate the same functionality and 
@@ -722,7 +722,7 @@ Frequenty Asked Questions:
  libgnomecups packages are in direct conflict with lprng.
 
 
-34. Is the ROOT environment variable honored for install and upgrading?
+32. Is the ROOT environment variable honored for install and upgrading?
 
  Yes, if you have been using ROOT with installpkg and upgradepkg, slapt-get
  will modify where it looks for the package logs based on this environment
@@ -733,7 +733,7 @@ Frequenty Asked Questions:
  install all upgraded/new packages in /home/keary/newroot instead of /
 
 
-35. How do I specify the exact version of a package to install?
+33. How do I specify the exact version of a package to install?
 
  Specify the version along with the package name with the --install argument.
 
@@ -741,7 +741,7 @@ Frequenty Asked Questions:
  as the --install argument.
 
 
-36. Why is upgradepkg complaining it cannot find installpkg or removepkg, with sudo?
+34. Why is upgradepkg complaining it cannot find installpkg or removepkg, with sudo?
 
  Right from the sudo man page's Security Notes section:
 
@@ -752,7 +752,7 @@ Frequenty Asked Questions:
  slapt-get via sudo.  Or use su - -c 'slapt-get [options] [arg]s'.
 
 
-37. How can I specify a username/password for the connection to the package source?
+35. How can I specify a username/password for the connection to the package source?
 
  This can be specified right in the package source url within the
  /etc/slapt-get/slapt-getrc.  You will want to make sure that sensitive
@@ -765,19 +765,19 @@ Frequenty Asked Questions:
   SOURCE=ftp://user:pass@host.org/pub/packages/
 
 
-38. /var/slapt-get is growing large, how can I safely free up space?
+36. /var/slapt-get is growing large, how can I safely free up space?
 
  Use the --clean option to remove all the cached packages from the tree within
  /var/slapt-get.
 
 
-39. What about extra, testing, or pasture packages?
+37. What about extra, testing, or pasture packages?
 
  Example source entries for the extra, testing, and pasture packages sets can be
  found within the example.slapt-getrc file under /usr/doc/slapt-get*/.
 
 
-40. Can I use slapt-get to mirror packages?
+38. Can I use slapt-get to mirror packages?
 
  Yes, you can use it to mirror packages by using the following:
 
@@ -790,7 +790,7 @@ Frequenty Asked Questions:
  would allow you to use this mirror as a slapt-get source.
 
 
-41. Is there a way to use tab completion for the package names in Bash?
+39. Is there a way to use tab completion for the package names in Bash?
 
  Yes, this completion was contributed by Alec Thomas on the slapt-get-devel
  mailing list.  This goes in your ~/.bashrc file (or in /etc/bash_completion,
@@ -808,7 +808,7 @@ Frequenty Asked Questions:
   complete -F complete_slaptget -o default slapt-get
 
 
-42. How do I remove obsoleted packages?
+40. How do I remove obsoleted packages?
 
  If you are tracking current or are dist-upgrading to a new release, you will
  encounter packages that you have installed that are no longer required or
@@ -834,7 +834,7 @@ Frequenty Asked Questions:
 
 
 
-43. What provisions have you made for dialup users?
+41. What provisions have you made for dialup users?
 
  Measurements to save bandwidth have been taken.
 
@@ -847,13 +847,13 @@ Frequenty Asked Questions:
     much is left to resume if the download was previously interrupted.
 
 
-44. Is there a way to get a report with the pending updates emailed to me?
+42. Is there a way to get a report with the pending updates emailed to me?
 
  Yes, see http://www.nerdworks.org/download/scripts/update-notifier/ for a script that
  you may use to send notification via email any time updates are available.
 
 
-45. What if I don't trust third party sources for upgrades?
+43. What if I don't trust third party sources for upgrades?
 
  You can use different slapt-getrc files.  For example:
 
@@ -866,7 +866,7 @@ Frequenty Asked Questions:
  is parsed.
 
 
-46. How do I specify an addon thats not a dependency of my package?
+44. How do I specify an addon thats not a dependency of my package?
 
  You can include a slack-suggests file within your package's ./install/ directory.
  The format of this file follows the slack-required, except version information
@@ -879,7 +879,7 @@ Frequenty Asked Questions:
  --show pkg-name query.
 
 
-47. Will slapt-get break my system?
+45. Will slapt-get break my system?
 
  slapt-get is a frontend to pkgtools.  As such you have the same ability to
  break a working system using slapt-get as you do using upgradepkg without
@@ -895,7 +895,7 @@ Frequenty Asked Questions:
  * UPGRADE.TXT and ChangeLog.txt is still required reading
 
 
-48. What is a meta package and how can I take advantage of it?
+46. What is a meta package and how can I take advantage of it?
 
  A meta package is a package that only contains it's dependencies.  There is
  nothing in the package to install, it just provides a name and a dependency list.
@@ -911,7 +911,7 @@ Frequenty Asked Questions:
  suite.
 
 
-49. How can I downgrade a package?
+47. How can I downgrade a package?
 
  You can downgrade a package by specifying the version of the package when using
  --install.  You will also need to provide --reinstall.  For example:
