@@ -530,7 +530,7 @@ int add_deps_to_trans(const rc_config *global_config, transaction_t *tran, struc
 	int dep_return = -1;
 	struct pkg_list *deps;
 
-	if( global_config->disable_dep_check == TRUE ) return -1;
+	if( global_config->disable_dep_check == TRUE ) return 0;
 
 	deps = init_pkg_list();
 
