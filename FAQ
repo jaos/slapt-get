@@ -734,6 +734,10 @@ Frequenty Asked Questions:
  In this example, we want to specify that the gnome-cups-manager, cups, and
  libgnomecups packages are in direct conflict with lprng.
 
+ Conflicts will exclude a package during --upgrade or --dist-upgrade.  If the
+ package specified to install is conflicted, the user is prompted to remove
+ the conflict and install the requested package.
+
 
 32. Is the ROOT environment variable honored for install and upgrading?
 
