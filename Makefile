@@ -119,6 +119,6 @@ po_file:
 libs: $(OBJS)
 	touch libs
 	$(CC) -shared -o src/libslapt-$(VERSION).so $(LIBOBJS)
-	ar -r src/libslapt-$(VERSION).a src/configuration.o src/package.o src/curl.o src/transaction.o
-	cat include/main.h include/configuration.h include/package.h include/curl.h include/transaction.h |grep -v '#include \"' > include/slapt.h
+	ar -r src/libslapt-$(VERSION).a src/common.o src/configuration.o src/package.o src/curl.o src/transaction.o
+	cat include/main.h include/common.h include/configuration.h include/package.h include/curl.h include/transaction.h |grep -v '#include \"' > include/slapt.h
 
