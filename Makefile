@@ -1,5 +1,5 @@
 PROGRAM_NAME=slapt-get
-VERSION=0.9.8e
+VERSION=0.9.8epre
 ARCH=i386
 RELEASE=1
 CC=gcc
@@ -114,7 +114,7 @@ dopkg:
 	-@cp include/slapt.h pkg/usr/include/
 	-@cp src/libslapt-$(VERSION).a src/libslapt-$(VERSION).so pkg/usr/lib/
 	-@strip pkg/usr/lib/libslapt-$(VERSION).so
-	@( cd pkg; makepkg -l y -c y $(PROGRAM_NAME)-$(VERSION)-$(ARCH)-$(RELEASE).tgz )
+	@( cd pkg; /sbin/makepkg -l y -c y $(PROGRAM_NAME)-$(VERSION)-$(ARCH)-$(RELEASE).tgz )
 
 po_file:
 	-grep '_(' src/*.c |cut -f2-255 -d':'|sed -re "s/.*(_\(\".*\"\)).*/\1/" > po/gettext_strings
