@@ -1,5 +1,6 @@
 
 0.9.9d Oct 20, 2004
+ * tightened the scope of some variables
  * --dist-upgrade now grabs the most up to date version of the
    required base package
  * changed requirement for glibc to glibc-solibs

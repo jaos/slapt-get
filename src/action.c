@@ -24,8 +24,6 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 	transaction tran;
 	struct pkg_list *installed_pkgs;
 	struct pkg_list *avail_pkgs;
-	pkg_info_t *pkg = NULL;
-	pkg_info_t *installed_pkg = NULL;
 	sg_regex pkg_regex;
 
 	printf( _("Reading Package Lists... ") );
@@ -39,6 +37,8 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 	init_regex(&pkg_regex,PKG_LOG_PATTERN);
 
 	for(i = 0; i < action_args->count; i++){
+		pkg_info_t *pkg = NULL;
+		pkg_info_t *installed_pkg = NULL;
 
 		/* Use regex to see if they specified a particular version */
 		execute_regex(&pkg_regex,action_args->pkgs[i]);
@@ -185,7 +185,6 @@ void pkg_action_list_installed(void){
 /* remove/uninstall pkg */
 void pkg_action_remove(const rc_config *global_config,const pkg_action_args_t *action_args){
 	int i;
-	pkg_info_t *pkg;
 	struct pkg_list *installed_pkgs;
 	struct pkg_list *available;
 	transaction tran;
@@ -195,6 +194,8 @@ void pkg_action_remove(const rc_config *global_config,const pkg_action_args_t *a
 	init_transaction(&tran);
 
 	for(i = 0; i < action_args->count; i++){
+		pkg_info_t *pkg;
+
 		if( (pkg = get_newest_pkg(installed_pkgs,action_args->pkgs[i])) != NULL){
 			int c;
 			struct pkg_list *deps;
@@ -357,7 +358,6 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 	int i;
 	struct pkg_list *installed_pkgs;
 	struct pkg_list *avail_pkgs;
-	pkg_info_t *update_pkg;
 	transaction tran;
 
 	printf(_("Reading Package Lists... "));
@@ -369,6 +369,7 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 	init_transaction(&tran);
 
 	for(i = 0; i < installed_pkgs->pkg_count;i++){
+		pkg_info_t *update_pkg;
 
 		/* see if we have an available update for the pkg */
 		update_pkg = get_newest_pkg(
