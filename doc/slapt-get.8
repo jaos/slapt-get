@@ -41,6 +41,9 @@ slapt-get \- frontend to pkgtools
 [
 .B --no-dep
 ]
+[
+.B --disable-dep-check
+]
 .LP
 .B targets:
 [
@@ -107,6 +110,9 @@ Do not perform MD5 check sum on package.  This is dangerous!
 .TP
 .B --no-dep
 Ignore dependency failures on --install, --upgrade, or --dist-upgrade
+.TP
+.B --disable-dep-check
+Skip the dependency check
 .SH TARGETS
 .TP
 .B --update

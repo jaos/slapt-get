@@ -44,6 +44,7 @@ struct _configuration {
 	int ignore_excludes;
 	int no_md5_check;
 	int no_dep;
+	int disable_dep_check;
 };
 typedef struct _configuration rc_config;
 

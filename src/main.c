@@ -49,6 +49,7 @@ int main( int argc, char *argv[] ){
 		{"help",0, 0, 'l'},
 		{"h",0, 0, 'l'},
 		{"no-dep",0, 0, 'p'},
+		{"disable-dep-check",0, 0, 'q'},
 	};
 	int option_index = 0;
 	/* */
@@ -131,6 +132,9 @@ int main( int argc, char *argv[] ){
 				exit(1);
 			case 'p': /* no-dep */
 				global_config->no_dep = 1;
+				break;
+			case 'q': /* disable-dep-check */
+				global_config->disable_dep_check = 1;
 				break;
 			default:
 				usage();
@@ -248,13 +252,14 @@ void usage(void){
 	printf("  --version      - %s\n",_("print version and license info"));
 	printf("\n");
 	printf(_("Options:\n"));
-	printf("  --download-only   - %s\n",_("only download pkg on install/upgrade"));
-	printf("  --simulate        - %s\n",_("show pkgs to be installed/upgraded"));
-	printf("  --no-prompt       - %s\n",_("do not prompt during install/upgrade"));
-	printf("  --reinstall       - %s\n",_("re-install the pkg"));
-	printf("  --ignore-excludes - %s\n",_("install/upgrade excludes"));
-	printf("  --no-md5          - %s\n",_("do not perform md5 check sum"));
-	printf("  --no-dep          - %s\n",_("ignore dependency failures"));
+	printf("  --download-only     - %s\n",_("only download pkg on install/upgrade"));
+	printf("  --simulate          - %s\n",_("show pkgs to be installed/upgraded"));
+	printf("  --no-prompt         - %s\n",_("do not prompt during install/upgrade"));
+	printf("  --reinstall         - %s\n",_("re-install the pkg"));
+	printf("  --ignore-excludes   - %s\n",_("install/upgrade excludes"));
+	printf("  --no-md5            - %s\n",_("do not perform md5 check sum"));
+	printf("  --no-dep            - %s\n",_("ignore dependency failures"));
+	printf("  --disable-dep-check - %s\n",_("skip dependency check"));
 }
 
 void version_info(void){
