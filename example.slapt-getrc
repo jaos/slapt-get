@@ -1,7 +1,7 @@
 # base mirror url to directory with PACKAGES.TXT
 MIRROR=http://sunsite.cnlab-switch.ch/ftp/mirror/slackware/slackware-9.0/
 WORKINGDIR=/var/jaospkg
-EXCLUDE=kernel,glibc-solibs
+EXCLUDE=kernel-headers,kernel-ide,kernel-modules,kernel-source
 
 # MIRROR=ftp://mirror.aarnet.edu.au/pub/slackware/slackware-9.0
 # MIRROR=http://mirror.aarnet.edu.au/pub/slackware/slackware-9.0
