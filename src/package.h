@@ -144,3 +144,6 @@ struct pkg_list *get_pkg_conflicts(struct pkg_list *avail_pkgs,struct pkg_list *
 /* return list of packages required by */
 struct pkg_list *is_required_by(const rc_config *global_config,struct pkg_list *avail, pkg_info_t *pkg);
 
+/* clean out old outdated packages in the cache */
+void purge_old_cached_pkgs(const char *dir_name);
+

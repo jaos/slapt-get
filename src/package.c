@@ -2016,3 +2016,113 @@ static char *gen_filename_from_url(const char *url,const char *file){
 
 	return cleaned;
 }
+
+void purge_old_cached_pkgs(const char *dir_name){
+	DIR *dir;
+	struct dirent *file;
+	struct stat file_stat;
+	struct pkg_list *list;
+	sg_regex cached_pkgs_regex;
+
+	list = init_pkg_list();
+	init_regex(&cached_pkgs_regex,PKG_PARSE_REGEX);
+
+	if( (dir = opendir(dir_name)) == NULL ){
+		fprintf(stderr,_("Failed to opendir %s\n"),dir_name);
+		return;
+	}
+
+	if( chdir(dir_name) == -1 ){
+		fprintf(stderr,_("Failed to chdir: %s\n"),dir_name);
+		return;
+	}
+
+	while( (file = readdir(dir)) ){
+
+		/* make sure we don't have . or .. */
+		if( (strcmp(file->d_name,"..")) == 0 || (strcmp(file->d_name,".") == 0) )
+			continue;
+
+		/* setup file_stat struct */
+		if( (stat(file->d_name,&file_stat)) == -1)
+			continue;
+
+		/* if its a directory, recurse */
+		if( S_ISDIR(file_stat.st_mode) ){
+			purge_old_cached_pkgs(file->d_name);
+			if( (chdir("..")) == -1 ){
+				fprintf(stderr,_("Failed to chdir: %s\n"),dir_name);
+				return;
+			}
+			continue;
+		}
+
+		/* if its a package */
+		if( strstr(file->d_name,".tgz") !=NULL ){
+
+			execute_regex(&cached_pkgs_regex,file->d_name);
+
+			/* if our regex matches */
+			if( cached_pkgs_regex.reg_return == 0 ){
+				char *tmp_pkg_name,*tmp_pkg_version;
+				pkg_info_t *tmp_pkg;
+
+				tmp_pkg = init_pkg();
+				tmp_pkg_name = malloc( sizeof *tmp_pkg_name * NAME_LEN + 1);
+				tmp_pkg_version = malloc( sizeof *tmp_pkg_version * VERSION_LEN + 1);
+
+				if((cached_pkgs_regex.pmatch[1].rm_eo - cached_pkgs_regex.pmatch[1].rm_so) >
+					NAME_LEN ){
+					fprintf(stderr,"cached package name too long\n");
+					exit(1);
+				}
+				if((cached_pkgs_regex.pmatch[2].rm_eo - cached_pkgs_regex.pmatch[2].rm_so) >
+					VERSION_LEN ){
+					fprintf(stderr,"cached package version too long\n");
+					exit(1);
+				}
+
+				strncpy(
+					tmp_pkg_name,
+					file->d_name + cached_pkgs_regex.pmatch[1].rm_so,
+					cached_pkgs_regex.pmatch[1].rm_eo - cached_pkgs_regex.pmatch[1].rm_so
+				);
+				tmp_pkg_name[
+					cached_pkgs_regex.pmatch[1].rm_eo - cached_pkgs_regex.pmatch[1].rm_so
+				] = '\0';
+				strncpy(
+					tmp_pkg_version,
+					file->d_name + cached_pkgs_regex.pmatch[2].rm_so,
+					cached_pkgs_regex.pmatch[2].rm_eo - cached_pkgs_regex.pmatch[2].rm_so
+				);
+				tmp_pkg_version[
+					cached_pkgs_regex.pmatch[2].rm_eo - cached_pkgs_regex.pmatch[2].rm_so
+				] = '\0';
+
+				tmp_pkg = get_newest_pkg(list,tmp_pkg_name);
+				if( tmp_pkg == NULL ){
+					tmp_pkg = init_pkg();
+					strcpy(tmp_pkg->name,tmp_pkg_name);
+					strcpy(tmp_pkg->version,tmp_pkg_version);
+					add_pkg_to_pkg_list(list,tmp_pkg);
+					tmp_pkg = NULL;
+					continue;
+				}
+				
+				if( cmp_pkg_versions(tmp_pkg_version,tmp_pkg->version) < 0 ){
+					unlink(file->d_name);
+				}
+				tmp_pkg = NULL;
+
+			}
+
+		}
+
+	}
+	closedir(dir);
+
+	free_regex(&cached_pkgs_regex);
+	free_pkg_list(list);
+
+}
+
