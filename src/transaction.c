@@ -31,7 +31,8 @@ void init_transaction(transaction_t *tran){
 
 
 	tran->suggests = slapt_malloc(sizeof *tran->suggests );
-	tran->suggests[0] = '\0';
+	tran->suggests->pkgs = slapt_malloc(sizeof *tran->suggests->pkgs);
+	tran->suggests->count = 0;
 
 }
 
@@ -43,27 +44,45 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran){
 
 	/* show pkgs to exclude */
 	if( tran->exclude_pkgs->pkg_count > 0 ){
+		unsigned int len = 0;
 		printf(_("The following packages have been EXCLUDED:\n"));
 		printf("  ");
 		for(i = 0; i < tran->exclude_pkgs->pkg_count;i++){
-			printf("%s ",tran->exclude_pkgs->pkgs[i]->name);
+			if( len + strlen(tran->exclude_pkgs->pkgs[i]->name) + 1 < MAX_LINE_LEN ){
+				printf("%s ",tran->exclude_pkgs->pkgs[i]->name);
+				len += strlen(tran->exclude_pkgs->pkgs[i]->name) + 1;
+			}else{
+				printf("\n  %s ",tran->exclude_pkgs->pkgs[i]->name);
+				len = strlen(tran->exclude_pkgs->pkgs[i]->name) + 3;
+			}
 		}
 		printf("\n");
 	}
 
 	/* show suggested pkgs */
-	if( strlen(tran->suggests) > 0 ){
+	if( tran->suggests->count > 0 ){
+		unsigned int len = 0;
 		printf(_("Suggested packages:\n"));
-		printf("  %s\n",tran->suggests);
+		printf("  ");
+		for(i = 0; i < tran->suggests->count; ++i){
+			if( len + strlen(tran->suggests->pkgs[i]) + 1 < MAX_LINE_LEN ){
+				printf("%s ",tran->suggests->pkgs[i]);
+				len += strlen(tran->suggests->pkgs[i]) + 1;
+			}else{
+				printf("\n  %s ",tran->suggests->pkgs[i]);
+				len = strlen(tran->suggests->pkgs[i]) + 3;
+			}
+		}
+		printf("\n");
 	}
 
 	/* show pkgs to install */
 	if( tran->install_pkgs->pkg_count > 0 ){
-		int len = 0;
+		unsigned int len = 0;
 		printf(_("The following NEW packages will be installed:\n"));
 		printf("  ");
 		for(i = 0; i < tran->install_pkgs->pkg_count;i++){
-			if( len + strlen(tran->install_pkgs->pkgs[i]->name) + 1 < 80 ){
+			if( len + strlen(tran->install_pkgs->pkgs[i]->name) + 1 < MAX_LINE_LEN ){
 				printf("%s ",tran->install_pkgs->pkgs[i]->name);
 				len += strlen(tran->install_pkgs->pkgs[i]->name) + 1;
 			}else{
@@ -81,11 +100,11 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran){
 
 	/* show pkgs to remove */
 	if( tran->remove_pkgs->pkg_count > 0 ){
-		int len = 0;
+		unsigned int len = 0;
 		printf(_("The following packages will be REMOVED:\n"));
 		printf("  ");
 		for(i = 0; i < tran->remove_pkgs->pkg_count;i++){
-			if( len + strlen(tran->remove_pkgs->pkgs[i]->name) + 1 < 80 ){
+			if( len + strlen(tran->remove_pkgs->pkgs[i]->name) + 1 < MAX_LINE_LEN ){
 				printf("%s ",tran->remove_pkgs->pkgs[i]->name);
 				len += strlen(tran->remove_pkgs->pkgs[i]->name) + 1;
 			}else{
@@ -99,11 +118,11 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran){
 
 	/* show pkgs to upgrade */
 	if( tran->upgrade_pkgs->pkg_count > 0 ){
-		int len = 0;
+		unsigned int len = 0;
 		printf(_("The following packages will be upgraded:\n"));
 		printf("  ");
 		for(i = 0; i < tran->upgrade_pkgs->pkg_count;i++){
-			if( len + strlen(tran->upgrade_pkgs->pkgs[i]->upgrade->name) + 1 < 80 ){
+			if(len+strlen(tran->upgrade_pkgs->pkgs[i]->upgrade->name)+1<MAX_LINE_LEN){
 				printf("%s ",tran->upgrade_pkgs->pkgs[i]->upgrade->name);
 				len += strlen(tran->upgrade_pkgs->pkgs[i]->upgrade->name) + 1;
 			}else{
@@ -445,6 +464,10 @@ void free_transaction(transaction_t *tran){
 	free(tran->exclude_pkgs->pkgs);
 	free(tran->exclude_pkgs);
 
+	for(i = 0; i < tran->suggests->count; ++i){
+		free(tran->suggests->pkgs[i]);
+	}
+	free(tran->suggests->pkgs);
 	free(tran->suggests);
 
 }
@@ -600,15 +623,49 @@ pkg_info_t *is_conflicted(transaction_t *tran, struct pkg_list *avail_pkgs, stru
 }
 
 static void add_suggestion(transaction_t *tran, pkg_info_t *pkg){
-	char *tmp_buffer;
+	unsigned int position = 0,len = 0;
 
-	if( pkg->suggests == NULL || strlen(pkg->suggests) == 0 ){
+	if( pkg->suggests == NULL || (len = strlen(pkg->suggests)) == 0 ){
 		return;
 	}
 
-	tmp_buffer = realloc(tran->suggests, strlen(tran->suggests) + strlen(pkg->suggests) + 1);
-	if( tmp_buffer != NULL ){
-		tran->suggests = tmp_buffer;
-		strncat(tran->suggests,pkg->suggests,strlen(pkg->suggests));
+	while( position < len ){
+		int total_len = 0,rest_len = 0;
+		char *p = NULL,*si = NULL,*tmp_suggests = NULL;
+		char **tmp_realloc;
+
+		p = pkg->suggests + position;
+		if( p == NULL ) break;
+
+		si = index(p,' ');
+		if( si == NULL || strlen(si) <= 2 ) break;
+		si = si + 1;
+
+		total_len = strlen(p);
+		rest_len = strlen(si);
+
+		/* this will always encompass ending space, so we dont + 1 */
+		tmp_suggests = slapt_malloc(sizeof *tmp_suggests * (total_len - rest_len) );
+		tmp_suggests = strncpy(tmp_suggests,p,(total_len - rest_len));
+		tmp_suggests[total_len - rest_len - 1] = '\0';
+
+		tmp_realloc = realloc(tran->suggests->pkgs,sizeof *tran->suggests->pkgs * (tran->suggests->count + 1));
+		if( tmp_realloc != NULL ){
+			tran->suggests->pkgs = tmp_realloc;
+			tran->suggests->pkgs[tran->suggests->count] = slapt_malloc(
+				sizeof *tran->suggests->pkgs[tran->suggests->count]
+				* (strlen(tmp_suggests) + 1)
+			);
+			tran->suggests->pkgs[tran->suggests->count] = strncpy(
+				tran->suggests->pkgs[tran->suggests->count],
+				tmp_suggests,strlen(tmp_suggests)
+			);
+			tran->suggests->pkgs[tran->suggests->count][strlen(tmp_suggests)] = '\0';
+			++tran->suggests->count;
+		}
+		free(tmp_suggests);
+
+		position += (total_len - rest_len);
 	}
+
 }

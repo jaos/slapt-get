@@ -16,12 +16,19 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#define MAX_LINE_LEN 80
+
+struct suggests {
+	char **pkgs;
+	unsigned int count;
+};
+
 typedef struct {
 	struct pkg_list *install_pkgs;
 	struct pkg_upgrade_list *upgrade_pkgs;
 	struct pkg_list *remove_pkgs;
 	struct pkg_list *exclude_pkgs;
-	char *suggests;
+	struct suggests *suggests;
 } transaction_t;
 
 void init_transaction(transaction_t *);
