@@ -102,8 +102,7 @@ msgstr ""
 msgid "Retrieving checksum list [%s]..."
 msgstr ""
 
-#, c-format
-msgid "Failed to malloc %s\n"
+msgid "Failed to malloc\n"
 msgstr ""
 
 #, c-format
@@ -184,8 +183,7 @@ msgstr ""
 msgid "Failed to download: %s\n"
 msgstr ""
 
-#, c-format
-msgid "Failed to calloc %s\n"
+msgid "Failed to calloc\n"
 msgstr ""
 
 #, c-format

@@ -102,9 +102,8 @@ msgstr "Ophalen lijst patches [%s]...\n"
 msgid "Retrieving checksum list [%s]..."
 msgstr "Ophalen lijst checksums [%s]..."
 
-#, c-format
-msgid "Failed to malloc %s\n"
-msgstr "Kon niet malloc %s\n"
+msgid "Failed to malloc\n"
+msgstr "Kon niet malloc\n"
 
 #, c-format
 msgid "Maximum number of sources (%d) exceeded.\n"
@@ -184,9 +183,8 @@ msgstr "Ophalen url:[%s]\n"
 msgid "Failed to download: %s\n"
 msgstr "Kon niet downloaden: %s\n"
 
-#, c-format
-msgid "Failed to calloc %s\n"
-msgstr "Kon niet calloc %s\n"
+msgid "Failed to calloc\n"
+msgstr "Kon niet calloc\n"
 
 #, c-format
 msgid "Downloading %s %s %s [%dK]..."

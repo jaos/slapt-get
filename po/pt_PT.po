@@ -101,9 +101,8 @@ msgstr "A recuperar lista de patches [%s]...\n"
 msgid "Retrieving checksum list [%s]..."
 msgstr "A recuperar lista de checksum [%s]..."
 
-#, c-format
-msgid "Failed to malloc %s\n"
-msgstr "malloc falhou %s\n"
+msgid "Failed to malloc\n"
+msgstr "malloc falhou\n"
 
 #, c-format
 msgid "Maximum number of sources (%d) exceeded.\n"
@@ -183,9 +182,8 @@ msgstr "A ler o url:[%s]\n"
 msgid "Failed to download: %s\n"
 msgstr "Falha na transferência de: %s\n"
 
-#, c-format
-msgid "Failed to calloc %s\n"
-msgstr "Falha ao alocar memória para %s\n"
+msgid "Failed to calloc\n"
+msgstr "Falha ao alocar memória para\n"
 
 #, c-format
 msgid "Downloading %s %s %s [%dK]..."

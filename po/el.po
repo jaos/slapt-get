@@ -101,9 +101,8 @@ msgstr "Ανάκτηση λίστας patch [%s]...\n"
 msgid "Retrieving checksum list [%s]..."
 msgstr "Ανάκτηση λίστας checksum [%s]..."
 
-#, c-format
-msgid "Failed to malloc %s\n"
-msgstr "Αποτυχία malloc %s\n"
+msgid "Failed to malloc\n"
+msgstr "Αποτυχία malloc\n"
 
 #, c-format
 msgid "Maximum number of sources (%d) exceeded.\n"
@@ -183,9 +182,8 @@ msgstr "Λήψη url:[%s]\n"
 msgid "Failed to download: %s\n"
 msgstr "Αποτυχία download: %s\n"
 
-#, c-format
-msgid "Failed to calloc %s\n"
-msgstr "Αποτυχία calloc %s\n"
+msgid "Failed to calloc\n"
+msgstr "Αποτυχία calloc\n"
 
 #, c-format
 msgid "Downloading %s %s %s [%dK]..."

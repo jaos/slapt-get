@@ -101,9 +101,8 @@ msgstr "Đang lấy danh sách bản sửa lỗi [%s]...\n"
 msgid "Retrieving checksum list [%s]..."
 msgstr "Đang lấy danh sách checksum [%s]..."
 
-#, c-format
-msgid "Failed to malloc %s\n"
-msgstr "Bị lỗi khi cấp phát %s\n"
+msgid "Failed to malloc\n"
+msgstr "Bị lỗi khi cấp phát\n"
 
 #, c-format
 msgid "Maximum number of sources (%d) exceeded.\n"
@@ -184,9 +183,8 @@ msgstr "Xác định URL:[%s]\n"
 msgid "Failed to download: %s\n"
 msgstr "Bị lỗi khi đọc: %s\n"
 
-#, c-format
-msgid "Failed to calloc %s\n"
-msgstr "Bị lỗi khi cấp phát %s\n"
+msgid "Failed to calloc\n"
+msgstr "Bị lỗi khi cấp phát\n"
 
 #, c-format
 msgid "Downloading %s %s %s [%dK]..."

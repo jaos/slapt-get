@@ -102,9 +102,8 @@ msgstr "Recupero la lista delle patch [%s]...\n"
 msgid "Retrieving checksum list [%s]..."
 msgstr "Recupero la lista dei checksum [%s]..."
 
-#, c-format
-msgid "Failed to malloc %s\n"
-msgstr "Errore in malloc %s\n"
+msgid "Failed to malloc\n"
+msgstr "Errore in malloc\n"
 
 #, c-format
 msgid "Maximum number of sources (%d) exceeded.\n"
@@ -184,9 +183,8 @@ msgstr "Recupero url: [%s]\n"
 msgid "Failed to download: %s\n"
 msgstr "Errore nel download: %s\n"
 
-#, c-format
-msgid "Failed to calloc %s\n"
-msgstr "Errore in calloc %s\n"
+msgid "Failed to calloc\n"
+msgstr "Errore in calloc\n"
 
 #, c-format
 msgid "Downloading %s %s %s [%dK]..."

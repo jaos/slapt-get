@@ -103,9 +103,8 @@ msgstr "Pobieram listê patchy [%s]...\n"
 msgid "Retrieving checksum list [%s]..."
 msgstr "Pobieram listê sum kontrolnych [%s]..."
 
-#, c-format
-msgid "Failed to malloc %s\n"
-msgstr "Nie powiod³o siê malloc %s\n"
+msgid "Failed to malloc\n"
+msgstr "Nie powiod³o siê malloc\n"
 
 #, c-format
 msgid "Maximum number of sources (%d) exceeded.\n"
@@ -185,9 +184,8 @@ msgstr "Pobieram url:[%s]\n"
 msgid "Failed to download: %s\n"
 msgstr "Pobranie nie powiod³o siê: %s\n"
 
-#, c-format
-msgid "Failed to calloc %s\n"
-msgstr "Nie powiod³o siê calloc %s\n"
+msgid "Failed to calloc\n"
+msgstr "Nie powiod³o siê calloc\n"
 
 #, c-format
 msgid "Downloading %s %s %s [%dK]..."

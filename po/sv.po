@@ -102,9 +102,8 @@ msgstr "Tar emot patch-lista [%s]...\n"
 msgid "Retrieving checksum list [%s]..."
 msgstr "Tar emot lista för checksums [%s]..."
 
-#, c-format
-msgid "Failed to malloc %s\n"
-msgstr "Misslyckades med minnesallokering malloc %s\n"
+msgid "Failed to malloc\n"
+msgstr "Misslyckades med minnesallokering malloc\n"
 
 #, c-format
 msgid "Maximum number of sources (%d) exceeded.\n"
@@ -184,9 +183,8 @@ msgstr "Hämtar url:[%s]\n"
 msgid "Failed to download: %s\n"
 msgstr "Misslyckades att ladda hem: %s\n"
 
-#, c-format
-msgid "Failed to calloc %s\n"
-msgstr "Misslyckades med minnesallokering calloc %s\n"
+msgid "Failed to calloc\n"
+msgstr "Misslyckades med minnesallokering calloc\n"
 
 #, c-format
 msgid "Downloading %s %s %s [%dK]..."
