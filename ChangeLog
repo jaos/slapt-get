@@ -1,4 +1,7 @@
 
+0.9.6f Oct 20, 2003
+ * download notification now prints out the version and pkg size
+
 0.9.6d Oct 20, 2003
  * updated docs
  * reworked parse_packages_txt function

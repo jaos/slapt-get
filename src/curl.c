@@ -137,20 +137,23 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	url = strncat(url,file_name,strlen(file_name));
 	url[ strlen(url) ] = '\0';
 
-#if USE_CURL_PROGRESS == 0
-	printf("Downloading %s...",pkg->name);
-#else
-	printf("Downloading %s...\n",pkg->name);
-#endif
+	#if USE_CURL_PROGRESS == 0
+	/* including the mirror makes the line too long */
+	/* printf("Downloading %s %s %s [%dK]...",pkg->mirror,pkg->name,pkg->version,pkg->size_c); */
+	printf("Downloading %s %s [%dK]...",pkg->name,pkg->version,pkg->size_c);
+	#else
+	/* printf("Downloading %s %s %s [%dK]...\n",pkg->mirror,pkg->name,pkg->version,pkg->size_c); */
+	printf("Downloading %s %s [%dK]...\n",pkg->name,pkg->version,pkg->size_c);
+	#endif
 
 	fh = open_file(file_name,"wb");
 	if( download_data(fh,url) == 0 ){
-#if USE_CURL_PROGRESS == 0
+		#if USE_CURL_PROGRESS == 0
 		printf("Done\n");
-#endif
+		#endif
 	}else{
 		fclose(fh);
-#if DO_NOT_UNLINK_BAD_FILES == 0
+		#if DO_NOT_UNLINK_BAD_FILES == 0
 		/* if the d/l fails, unlink the empty file */
 		if( unlink(file_name) == -1 ){
 			fprintf(stderr,"Failed to unlink %s\n",file_name);
@@ -158,7 +161,7 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 				perror("unlink");
 			}
 		}
-#endif
+		#endif
 		return NULL;
 	}
 
@@ -174,12 +177,13 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 		printf("verifying %s md5 sum...",pkg->name);
 		if( strcmp(md5_sum_of_file,md5_sum) != 0 ){
 			fprintf(stderr,"md5 sum for %s is not correct!\n",pkg->name);
-#if DEBUG == 1
+			#if DEBUG == 1
 			fprintf(stderr,"MD5 found:    [%s]\n",md5_sum_of_file);
 			fprintf(stderr,"MD5 expected: [%s]\n",md5_sum);
 			fprintf(stderr,"File: %s/%s\n",global_config->working_dir,file_name);
-#endif
-#if DO_NOT_UNLINK_BAD_FILES == 0
+			#endif
+
+			#if DO_NOT_UNLINK_BAD_FILES == 0
 			/* if the checksum fails, unlink the bogus file */
 			if( unlink(file_name) == -1 ){
 				fprintf(stderr,"Failed to unlink %s\n",file_name);
@@ -187,8 +191,10 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 					perror("unlink");
 				}
 			}
-#endif
+			#endif
+
 			return NULL;
+
 		}else{
 			printf("Done\n");
 		}
