@@ -25,6 +25,8 @@
 #define PKG_LOCATION_PATTERN "^PACKAGE LOCATION:[ ]+(.*)$"
 #define PKG_SIZEC_PATTERN "^PACKAGE SIZE [(]+compressed[)]{1,}:[ ]{1,}([0-9]{1,}) K$"
 #define PKG_SIZEU_PATTERN "^PACKAGE SIZE [(]+uncompressed[)]{1,}:[ ]{1,}([0-9]{1,}) K$"
+#define PKG_LOG_SIZEC_PATTERN "^COMPRESSED PACKAGE SIZE:[ ]{1,}([0-9]{1,}) K$"
+#define PKG_LOG_SIZEU_PATTERN "^UNCOMPRESSED PACKAGE SIZE:[ ]{1,}([0-9]{1,}) K$"
 #define PKG_LOG_DIR "/var/log/packages"
 #define ROOT_ENV_NAME "ROOT"
 #define PKG_LOG_PATTERN "^(.*{1,})\\-(.*[\\.\\-].*[\\.\\-].*)"

@@ -386,12 +386,14 @@ struct pkg_list *get_installed_pkgs(void){
 	char *root_env_entry = NULL;
 	char *pkg_log_dirname = NULL;
 	struct dirent *file;
-	sg_regex ip_regex;
+	sg_regex ip_regex, compressed_size_reg, uncompressed_size_reg;
 	struct pkg_list *list;
 
 	list = init_pkg_list();
 
 	init_regex(&ip_regex,PKG_LOG_PATTERN);
+	init_regex(&compressed_size_reg,PKG_LOG_SIZEC_PATTERN);
+	init_regex(&uncompressed_size_reg,PKG_LOG_SIZEU_PATTERN);
 
 	/* Generate package log directory using ROOT env variable if set */
 	root_env_entry = getenv(ROOT_ENV_NAME);
@@ -414,7 +416,6 @@ struct pkg_list *get_installed_pkgs(void){
 		free(pkg_log_dirname);
 		return list;
 	}
-	free(pkg_log_dirname);
 
 	list->pkgs = malloc( sizeof *list->pkgs );
 	if( list->pkgs == NULL ){
@@ -424,6 +425,11 @@ struct pkg_list *get_installed_pkgs(void){
 
 	while( (file = readdir(pkg_log_dir)) != NULL ){
 		pkg_info_t *tmp_pkg;
+		FILE *pkg_f;
+		char *pkg_f_name;
+		size_t getline_len;
+		ssize_t bytes_read;
+		char *getline_buffer = NULL;
 
 		execute_regex(&ip_regex,file->d_name);
 
@@ -445,12 +451,65 @@ struct pkg_list *get_installed_pkgs(void){
 		);
 		tmp_pkg->version[ ip_regex.pmatch[2].rm_eo - ip_regex.pmatch[2].rm_so ] = '\0';
 
+		/* build the package filename including the package directory */
+		pkg_f_name = malloc( sizeof *pkg_f_name * (strlen(pkg_log_dirname) + strlen(file->d_name) + 2) );
+		pkg_f_name[0] = '\0';
+		strcat(pkg_f_name,pkg_log_dirname);
+		strcat(pkg_f_name,"/");
+		strcat(pkg_f_name,file->d_name);
+
+		/* open the package log file to grok data about the package from it */
+		pkg_f = open_file(pkg_f_name,"r");
+		while( (bytes_read = getline(&getline_buffer,&getline_len,pkg_f)) != EOF ){
+			execute_regex(&compressed_size_reg,getline_buffer);
+			execute_regex(&uncompressed_size_reg,getline_buffer);
+
+			/* ignore unless we matched */
+			if( compressed_size_reg.reg_return == 0 ){
+				char *size_c;
+				size_c = calloc( compressed_size_reg.pmatch[1].rm_eo - compressed_size_reg.pmatch[1].rm_so + 1, sizeof *size_c);
+				if( size_c == NULL ){
+					fprintf(stderr,_("Failed to calloc %s\n"),"size_c");
+					exit(1);
+				}
+
+				strncpy(size_c,
+					getline_buffer + compressed_size_reg.pmatch[1].rm_so,
+					(compressed_size_reg.pmatch[1].rm_eo - compressed_size_reg.pmatch[1].rm_so)
+				);
+
+				tmp_pkg->size_c = strtol(size_c,(char **)NULL,10);
+				free(size_c);
+			}else if(uncompressed_size_reg.reg_return == 0 ){
+				char *size_u;
+				size_u = calloc( uncompressed_size_reg.pmatch[1].rm_eo - uncompressed_size_reg.pmatch[1].rm_so + 1, sizeof *size_u);
+				if( size_u == NULL ){
+					fprintf(stderr,_("Failed to calloc %s\n"),"size_u");
+					exit(1);
+				}
+
+				strncpy(size_u,
+					getline_buffer + uncompressed_size_reg.pmatch[1].rm_so,
+					(uncompressed_size_reg.pmatch[1].rm_eo - uncompressed_size_reg.pmatch[1].rm_so)
+				);
+
+				tmp_pkg->size_u = strtol(size_u,(char **)NULL,10);
+				free(size_u);
+			}else{
+				continue;
+			}
+		}
+		fclose(pkg_f);
+
 		add_pkg_to_pkg_list(list,tmp_pkg);
 		tmp_pkg = NULL;
 
 	}/* end while */
 	closedir(pkg_log_dir);
 	free_regex(&ip_regex);
+	free(pkg_log_dirname);
+	free_regex(&compressed_size_reg);
+	free_regex(&uncompressed_size_reg);
 
 	return list;
 }
