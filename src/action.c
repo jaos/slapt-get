@@ -263,12 +263,14 @@ void pkg_action_search(const char *pattern){
 	for(i=0;i<imatches->pkg_count;i++){
 		/* only if they didn't already show up from the available packages */
 		if( get_exact_pkg(matches,imatches->pkgs[i]->name,imatches->pkgs[i]->version) == NULL ){
-			/* no package description parsed from installed pkg at the moment */
-			printf("%s %s [inst=%s]\n",
+			char *short_description = gen_short_pkg_description(matches->pkgs[i]);
+			printf("%s %s [inst=%s]: %s\n",
 				imatches->pkgs[i]->name,
 				imatches->pkgs[i]->version,
-				_("yes")
+				_("yes"),
+				short_description
 			);
+			free(short_description);
 		}
 	}
 

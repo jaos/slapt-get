@@ -514,7 +514,22 @@ struct pkg_list *get_installed_pkgs(void){
 				tmp_pkg->size_u = strtol(size_u,(char **)NULL,10);
 				free(size_u);
 			}else{
-				continue;
+				if(strstr(getline_buffer,"PACKAGE DESCRIPTION") != NULL){
+					tmp_pkg->description[0] = '\0';
+					while(1){
+						if((bytes_read = getline(&getline_buffer,&getline_len,pkg_f)) == EOF ) break;
+						if( strcmp(getline_buffer,"\n") != 0 &&
+							/* don't overflow the buffer */
+							(strlen(tmp_pkg->description) + bytes_read) < DESCRIPTION_LEN
+						){
+							strncat(tmp_pkg->description,getline_buffer,bytes_read);
+						}else{
+							break;
+						}
+					}
+				}else{
+					continue;
+				}
 			}
 		}
 		fclose(pkg_f);
