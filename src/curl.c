@@ -151,6 +151,9 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 		#endif
 	}else{
 		fclose(fh);
+		#if DEBUG == 1
+		printf("FAilure: %s-%s from %s %s\n",pkg->name,pkg->version,pkg->mirror,pkg->location);
+		#endif
 		#if DO_NOT_UNLINK_BAD_FILES == 0
 		/* if the d/l fails, unlink the empty file */
 		if( unlink(file_name) == -1 ){

@@ -1045,6 +1045,10 @@ struct pkg_list *lookup_pkg_dependencies(struct pkg_list *avail_pkgs,struct pkg_
 	)
 		return deps;
 
+	#if DEBUG == 1
+	printf("Resolving deps for %s, with dep data: %s\n",pkg->name,pkg->required);
+	#endif
+
 	/* parse dep line */
 	while( position < (int) strlen(pkg->required) ){
 		pkg_info_t *tmp_pkg = NULL;
@@ -1084,6 +1088,10 @@ struct pkg_list *lookup_pkg_dependencies(struct pkg_list *avail_pkgs,struct pkg_
 			if( get_newest_pkg(deps,tmp_pkg->name) == NULL ){
 				struct pkg_list *tmp_pkgs_deps = NULL;
 
+				#if DEBUG == 1
+				printf("found dep: %s-%s\n",tmp_pkg->name,tmp_pkg->version);
+				#endif
+
 				/* add tmp_pkg to deps */
 				deps->pkgs[deps->pkg_count] = tmp_pkg;
 				++deps->pkg_count;
@@ -1118,6 +1126,10 @@ struct pkg_list *lookup_pkg_dependencies(struct pkg_list *avail_pkgs,struct pkg_
 				}/* end tmp_pkgs_deps->pkg_count > 0 */
 				free(tmp_pkgs_deps->pkgs);
 				free(tmp_pkgs_deps);
+			}else{
+				#if DEBUG == 1
+				printf("%s already exists in dep list\n",tmp_pkg->name);
+				#endif
 			} /* end already exists in dep check */
 
 		}else{
@@ -1126,6 +1138,9 @@ struct pkg_list *lookup_pkg_dependencies(struct pkg_list *avail_pkgs,struct pkg_
 				and return... the caller should check to see if its -1, and 
 				act accordingly
 			*/
+			#if DEBUG == 1
+			printf("couldn't find required dep\n");
+			#endif
 			deps->pkg_count = -1;
 			return deps;
 		}/* end tmp_pkg != NULL */
@@ -1141,6 +1156,9 @@ pkg_info_t *parse_dep_entry(struct pkg_list *avail_pkgs,struct pkg_list *install
 	pkg_info_t *newest_avail_pkg;
 	pkg_info_t *newest_installed_pkg;
 
+	#if DEBUG == 1
+	printf("parse_dep_entry called, %s-%s with %s\n",pkg->name,pkg->version,dep_entry);
+	#endif
 	parse_dep_regex.nmatch = MAX_REGEX_PARTS;
 	regcomp(&parse_dep_regex.regex,REQUIRED_REGEX,REG_EXTENDED|REG_NEWLINE);
 
@@ -1154,6 +1172,9 @@ pkg_info_t *parse_dep_entry(struct pkg_list *avail_pkgs,struct pkg_list *install
 	);
 
 	/* if the regex failed, just skip out */
+	#if DEBUG == 1
+	if( parse_dep_regex.reg_return != 0) printf("regex %s failed on %s\n",REQUIRED_REGEX,dep_entry);
+	#endif
 	if( parse_dep_regex.reg_return != 0 ) return NULL;
 
 	if( (parse_dep_regex.pmatch[1].rm_eo - parse_dep_regex.pmatch[1].rm_so) > NAME_LEN ){
@@ -1174,6 +1195,9 @@ pkg_info_t *parse_dep_entry(struct pkg_list *avail_pkgs,struct pkg_list *install
 
 	/* if there is no conditional and version, return newest */
 	if( (parse_dep_regex.pmatch[2].rm_eo - parse_dep_regex.pmatch[2].rm_so) == 0 ){
+		#if DEBUG == 1
+		printf("no conditional\n");
+		#endif
 		if( newest_avail_pkg != NULL ) return newest_avail_pkg;
 		if( newest_installed_pkg != NULL ) return newest_installed_pkg;
 	}
@@ -1290,6 +1314,9 @@ struct pkg_list *is_required_by(struct pkg_list *avail, pkg_info_t *pkg){
 	struct pkg_list *deps;
 	pkg_info_t **realloc_tmp;
 
+	#if DEBUG == 1
+	printf("is_required_by called, %s-%s\n",pkg->name,pkg->version);
+	#endif
 	deps = malloc( sizeof *deps );
 	if( deps == NULL ){
 		fprintf(stderr,_("Failed to malloc deps\n"));

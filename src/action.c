@@ -67,12 +67,15 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 						if( (dep_installed = get_newest_pkg(installed,deps->pkgs[c]->name)) == NULL ){
 							add_install_to_transaction(&tran,deps->pkgs[c]);
 						}else{
-							add_upgrade_to_transaction(&tran,dep_installed,deps->pkgs[c]);
+							if(cmp_pkg_versions(dep_installed->version,deps->pkgs[c]->version) < 0 )
+								add_upgrade_to_transaction(&tran,dep_installed,deps->pkgs[c]);
 						}
 					}
 				}
 				/* this way we install the most up to date pkg */
-				add_install_to_transaction(&tran,pkg);
+				/* make sure it's not already present from a dep check */
+				if( search_transaction(&tran,pkg) == 0 )
+					add_install_to_transaction(&tran,pkg);
 			}
 			free(deps->pkgs);
 			free(deps);
@@ -100,7 +103,8 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 							if( get_newest_pkg(installed,deps->pkgs[c]->name) == NULL ){
 								add_install_to_transaction(&tran,deps->pkgs[c]);
 							}else{
-								add_upgrade_to_transaction(&tran,installed_pkg,deps->pkgs[c]);
+								if(cmp_pkg_versions(installed_pkg->version,deps->pkgs[c]->version) < 0 )
+									add_upgrade_to_transaction(&tran,installed_pkg,deps->pkgs[c]);
 							}
 						}
 					}
@@ -443,7 +447,8 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 							if( get_newest_pkg(installed_pkgs,deps->pkgs[c]->name) == NULL ){
 								add_install_to_transaction(&tran,deps->pkgs[c]);
 							}else{
-								add_upgrade_to_transaction(&tran,installed_pkgs->pkgs[i],deps->pkgs[c]);
+								if(cmp_pkg_versions(installed_pkgs->pkgs[i]->version,deps->pkgs[c]->version) < 0 )
+									add_upgrade_to_transaction(&tran,installed_pkgs->pkgs[i],deps->pkgs[c]);
 							}
 						}
 					}
@@ -492,7 +497,8 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 								if( (dep_installed = get_newest_pkg(installed_pkgs,deps->pkgs[c]->name)) == NULL ){
 									add_install_to_transaction(&tran,deps->pkgs[c]);
 								}else{
-									add_upgrade_to_transaction(&tran,dep_installed,deps->pkgs[c]);
+									if(cmp_pkg_versions(dep_installed->version,deps->pkgs[c]->version) < 0 )
+										add_upgrade_to_transaction(&tran,dep_installed,deps->pkgs[c]);
 								}
 							}
 						}
