@@ -1,0 +1,950 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" -->
+<html>
+<head>
+  <title>FAQ</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <STYLE type="text/css">
+ a{
+ text-decoration:none;
+ }
+ </STYLE>
+</head>
+<body font="Verdana">
+<B><h1>Frequenty Asked Questions:</h1></B>
+
+<PRE>
+*Contents
+<A href="FAQ.html#slgFAQ1">1.  What is slapt-get ?</A>
+<A href="#slgFAQ2">2.  Why yet another package management tool for slackware?</A>
+<A href="#slgFAQ3">3.  How do I build/install slapt-get?  How do I remove slapt-get?</A>
+<A href="#slgFAQ4">4.  How do I find a package I want to install</A>?
+<A href="#slgFAQ5">5.  Can I upgrade all my installed packages</A>?
+<A href="#slgFAQ6">6.  How can I see what will be upgraded without upgrading?</A>
+<A href="#slgFAQ7">7.  What if I only want to download the updates?</A>
+<A href="#slgFAQ8">8.  How can I re-install an existing package?</A>
+<A href="#slgFAQ9">9.  Can I "dist-upgrade" to a newer Slackware release?</A>
+<A href="#slgFAQ10">10. What about package dependencies?</A>
+<A href="#slgFAQ11">11. What about multiple package sources, ala linuxpackages.net?</A>
+<A href="#slgFAQ12">12. How can I get more detailed statistics for downloads?</A>
+<A href="#slgFAQ13">13. How can I install every available package?</A>
+<A href="#slgFAQ14">14. What if I only want to upgrade one package?</A>
+<A href="#slgFAQ15">15. What about Dropline support?</A>
+<A href="#slgFAQ16">16. How can I generate an exclude list for an entire disk set?</A>
+<A href="#slgFAQ17">17. How do I use a local file source?</A>
+<A href="#slgFAQ18">18. How can I download every package in a disk set?</A>
+<A href="#slgFAQ19">19. How can I add dependency information to my packages?</A>
+<A href="#slgFAQ20">20. How do I get the newest development version of slapt-get?</A>
+<A href="#slgFAQ21">21. How can I contribute my ideas or code?</A>
+<A href="#slgFAQ22">22. How can I get slapt-get to speak in my native tong</A>ue?
+<A href="#slgFAQ23">23. How do I set the output language?</A>
+<A href="#slgFAQ24">24. How do I specify proxy settings?</A>
+<A href="#slgFAQ25">25. How can I exclude all *pre*, *beta*, and *686* packages safely?</A>
+<A href="#slgFAQ26">26. How does the transaction engine work?</A>
+<A href="#slgFAQ27">27. How does the package version comparison algorithm work?</A>
+<A href="#slgFAQ28">28. I am tracking current, how do I keep the base disk set up to date?</A>
+<A href="#slgFAQ29">29. How would I script an ldd dependency hack with slapt-get?</A>
+<A href="#slgFAQ30">30. Does EXCLUDE work for install as well as upgrade and dist-upgrade?</A>
+<A href="#slgFAQ31">31. What about package conflicts?  How can I specify a conflict for my package?</A>
+<A href="#slgFAQ32">32. Is the ROOT environment variable honored for install and upgrading?</A>
+<A href="#slgFAQ33">33. How do I specify the exact version of a package to install?</A>
+<A href="#slgFAQ34">34. Why is upgradepkg complaining it cannot find installpkg or removepkg, with sudo?</A>
+<A href="#slgFAQ35">35. How can I specify a username/password for the connection to the package source?</A>
+<A href="#slgFAQ36">36. /var/slapt-get is growing large, how can I safely free up space?</A>
+<A href="#slgFAQ37">37. What about extra, testing, or pasture packages?</A>
+<A href="#slgFAQ38">38. Can I use slapt-get to mirror packages?</A>
+<A href="#slgFAQ39">39. Is there a way to use tab completion for the package names in Bash?</A>
+<A href="#slgFAQ40">40. How do I remove obsoleted packages?</A>
+<A href="#slgFAQ41">41. What provisions have you made for dialup users?</A>
+<A href="#slgFAQ42">42. Is there a way to get a report with the pending updates emailed to me?</A>
+<A href="#slgFAQ43">43. What if I don't trust third party sources for upgrades?</A>
+<A href="#slgFAQ44">44. How do I specify an addon thats not a dependency of my package?</A>
+<A href="#slgFAQ45">45. Will slapt-get break my system?</A>
+<A href="#slgFAQ46">46. What is a meta package and how can I take advantage of it?</A>
+<A href="#slgFAQ47">47. How can I downgrade a package?</A>
+
+
+
+<A NAME="slgFAQ1"><B>1.  What is slapt-get ?</B></A>
+
+ slapt-get is an APT like system for Slackware package management. It allows
+ one to search slackware.com and mirrors for packages, compare them with
+ installed packages, install new packages or upgrade installed packages all
+ with a few simple commands. Great for scripting as well.
+
+ slapt-get is not affiliated or endorsed by Patrick Volkerding / slackware.com.
+
+
+<A NAME="slgFAQ2"><B>2.  Why yet another package management tool for slackware?</B></A>
+
+ To scratch and itch of mine, which also scratched an itch of a friend.  I
+ created it originally without looking for an existing solution.  I now
+ understand Slackware already has existing utilities that provide similar
+ functionality.  I believe slapt-get to be superior because of its speed and
+ simplicity.  I do not believe slapt-get takes away anything from these
+ existing tools, slapt-get can stand on its own merits.  In the end, choice
+ is great for the end users (just as in the desktop enviroment category).  
+ Regardless, I do not aim for inclusion within Slackware.  I only want to make
+ this availabe in hopes that others will find it useful.
+ 
+
+<A NAME="slgFAQ3"><B>3.  How do I build/install slapt-get?  How do I remove slapt-get?</B></A>
+
+ Two ways to install:
+
+  A: You can build slapt-get from source and use the 'install' make target,
+ 
+  B: You can build from source and make a Slackware package with the 'pkg'
+     make target.  Then install the generated package within the newly created
+     'pkg' directory.
+
+ If you installed via `make install`, there is an 'uninstall' make target.
+
+ If you installed the slack package, then use removepkg.
+
+
+<A NAME="slgFAQ4"><B>4.  How do I find a package I want to install?</B></A>
+
+ You can use the --search feature, supplying an expression.  POSIX 
+ and extended regular expressions are supported.  This searches the name,
+ location, or descriptions of packages.
+
+
+<A NAME="slgFAQ5"><B>5.  Can I upgrade all my installed packages?</B></A>
+
+ Yes, use the --upgrade option.  slapt-get will check for 
+ newer versions of all packages already installed.
+
+ Please review the Slackware ChangeLog.txt for the Slackware release you are
+ running.  This is especially important for -current.
+
+
+<A NAME="slgFAQ6"><B>6.  How can I see what will be upgraded without upgrading?</B></A>
+
+ If the transaction report is not enough, use the --simulate option before
+ --upgrade.  See slapt-get --help
+
+
+<A NAME="slgFAQ7"><B>7.  What if I only want to download the updates?</B></A>
+
+ Use the --download-only option before --upgrade.
+ See slapt-get --help
+
+
+<A NAME="slgFAQ8"><B>8.  How can I re-install an existing package?</B></A>
+
+ Use the --reinstall option with --install pkg_name.
+ See slapt-get --help
+
+
+<A NAME="slgFAQ9"><B>9.  Can I "dist-upgrade" to a newer Slackware release?</B></A>
+
+ Yes.
+
+ Change your source location within /etc/slapt-get/slapt-getrc to point to
+ the newer release directory.  --update your local package cache, then
+ --dist-upgrade to the newer release.  You will also want to disable any
+ third party package sources while upgrading to a newer release so you do
+ not mix and match packages.
+
+ For instance, you have the following uncommented line as your source:
+
+   SOURCE=ftp://distro.ibiblio.org/pub/Linux/distributions/slackware/slackware-9.0/
+
+ Simply change the url to point to current, like so:
+
+   SOURCE=ftp://distro.ibiblio.org/pub/Linux/distributions/slackware/slackware-current/
+
+ CAVEAT: The simplicity of slapt-get means a lot of assurances are not in
+         place.  You can break a working system if you do not follow the
+         suggestions in UPGRADE.TXT.
+
+ Now you --dist-upgrade to retrieve the package data for that release.
+ What dist-upgrade does is basically make sure that any missing packages
+ from the base disk set are installed, as well as upgrade to any newer
+ versions of the currently installed packages.  All of this happens in
+ one transaction.
+
+ dist-upgrade'ing involves doing the following:
+
+   ### upgrade your local package cache
+   $ slapt-get --update
+
+   ### first, upgrade the most important
+   #(this installs any newer versions)
+   $ slapt-get --install glibc-solibs pkgtools sed
+
+   ### then, let slapt-get upgrade the rest
+   $ slapt-get --dist-upgrade
+
+ Then follow the rest of the directions in UPGRADE.TXT.
+
+   * Note: you might be able to get away with just doing a --dist-upgrade after
+     the --update.  The second step above is made as a suggestion to follow
+     the suggestions and conventions in UPGRADE.TXT.
+
+
+<A NAME="slgFAQ10"><B>10.  What about package dependencies?</B></A>
+
+ Other tools try to provide dependency checking via various hacks (generating
+ the dependency file, exploding the package, then ldd'ing binary files to find
+ missing libraries before consulting the dependency file).  This is not a
+ reliable/fool proof method.  It is also extremeley slow.  Dependencies can not
+ always be defined strictly by library dependencies.  Applications, rather than
+ libraries may be required, such as the case with man and groff.  Also, there is 
+ no ability to specify specific versions of a dependency.
+
+ I believe that package dependency support can be implemented in a Slackware 
+ compatible way.  If we look to the existing infrastructure Pat has created
+ for inspiration, we come to the simple addition of another file within the
+ packages ./install directory.  Let's call it slack-required.  This information
+ could be as simple as what rules existed in the autoconf scripts of the 
+ upstream source.
+
+ This file has a simple structure.  See FAQ # 19 for an example on the
+ structure of an example slack-required file.
+
+ slapt-get can resolve dependencies via the slack-required meta data.  Already
+ there are packages being submitting to linuxpackages.net supporting this
+ optional metadata.
+
+ I have made sure that this information does not impact the ability of packages
+ to be installed by the existing Slackware package tools.  This information
+ now simply becomes an additional extension, easily bypassed or simply ignored.
+
+ The information within slack-required can be added to the PACKAGES.TXT file.
+ Scripts that generate mindful PACKAGES.TXT files are available, such as the
+ one in this FAQ, see #17.
+
+ So the package's entry within PACKAGES.TXT would go from:
+
+   PACKAGE NAME:  man-1.5l-i386-1.tgz
+   PACKAGE LOCATION:  ./slackware/ap
+   PACKAGE SIZE (compressed):  166 K
+   PACKAGE SIZE (uncompressed):  390 K
+   PACKAGE DESCRIPTION:
+   man: man (format and display the on-line manual pages)
+
+ to this (note only an additional line per package entry):
+
+   PACKAGE NAME:  man-1.5l-i386-1.tgz
+   PACKAGE LOCATION:  ./slackware/ap
+   PACKAGE SIZE (compressed):  166 K
+   PACKAGE SIZE (uncompressed):  390 K
+   PACKAGE REQUIRES: groff,man-pages
+   PACKAGE DESCRIPTION:
+   man: man (format and display the on-line manual pages)
+
+ Since dependency information is known when the package is created, that is
+ the best time/place to make that data available.  It is a simple progression
+ from making a note within the package description such as the one already
+ within the man package:
+
+   man: man (format and display the on-line manual pages)
+   man:
+   man: The man package is a collection of tools used for searching and
+   man: reading the online system documentation.  In fact, on most UNIX-like
+   man: operating systems it is the primary means of finding out how programs
+   man: on the system work.  For example, 'man man' will display the
+   man: documentation for man itself.
+   man:
+   man: *-->*Man requires the groff text processing package.*<--*
+   man:
+
+ to providing that data in a way that can be scripted for those who have
+ the advanced knowledge or want to provide higher level tools for Slackware.
+
+ I hope if the community as a whole agrees that this is an added benefit 
+ (without becoming overly complex or kludgey) they can convince Pat there is
+ a need/demand for it.
+
+
+
+<A NAME="slgFAQ11"><B>11. What about multiple package sources, ala linuxpackages.net?</B></A>
+
+ You can use multiple sources with slapt-get (including linuxpackages.net).
+ See the example slapt-getrc in the source tarball, or look in
+ /etc/slapt-get/slapt-getrc.new if you installed via slackpack. See also
+ README.
+
+
+<A NAME="slgFAQ12"><B>12. How can I get more detailed statistics for downloads?</B></A>
+
+ If you would like more notification on downloading pkgs/files, use the 
+ command line option --show-stats (or -S).  This will show curl style
+ download information.
+
+
+<A NAME="slgFAQ13"><B>13. How can I install every available package?</B></A>
+
+ Even though it is not built in, it is simple since slapt-get is easy to script
+ with.  Here is a shell command to install every package that is available
+ but not currently installed:
+
+   slapt-get --list|grep inst=no|awk '{print $1}'|sort|uniq|xargs -r slapt-get --install
+
+
+<A NAME="slgFAQ14"><B>14. What if I only want to upgrade one package?</B></A>
+
+ Then you follow the debian apt-get method of using --install.
+ If the package is already installed, it will check and install any newer
+ versions:
+
+ slapt-get --install {pkg_name}
+
+
+<A NAME="slgFAQ15"><B>15. What about Dropline support?</B></A>
+
+ There is no direct support for dropline packages.  If you do not want them
+ upgraded, either put the package names or regex into the exception list.
+
+ You can use the following for a dropline exclude (from example slapt-getrc):
+ 
+  EXCLUDE=kernel-ide,kernel-source,kernel-headers,kernel-modules,lilo,.*-[0-9]dl$,devs
+
+
+<A NAME="slgFAQ16"><B>16. How can I generate an exclude list for an entire disk set?</B></A>
+
+ You can use this script to generate a listing of packages to add to your
+ exlude list:
+
+   #!/bin/sh
+   # this should gen an exclude list for a particular dir set (first arg to script)
+   DIR=$1
+   slapt-get --search "^\.\/slackware\/${DIR}$"|awk '{print $1}'|\
+    xargs -iZ echo -n "Z,"|sed -e 's/,$//'
+
+
+<A NAME="slgFAQ17"><B>17. How do I use a local file source?</B></A>
+
+ Within slapt-getrc, change your SOURCE= lines to point to file:// url's.
+
+ For example, you could have an official and a local source like:
+ SOURCE=ftp://ftp.slackware.no/pub/linux/slackware/slackware-9.1/
+ SOURCE=file:///usr/src/local_pkg_repository/
+
+ This local directory must have the PACKAGES.TXT and CHECKSUMS.md5 files
+ present.  This could be a mounted Slackware release CDROM, or a custom
+ repository.
+
+ The CHECKSUMS.md5 file can be generated with find:
+  rm CHECKSUMS.md5; find . -name '*.tgz' -exec md5sum {} >> CHECKSUMS.MD5 \;
+
+ The PACKAGES.TXT can be generated by the following script:
+
+ ### BEGIN SCRIPT
+    #!/bin/sh
+
+    function gen_packages_txt {
+	    echo '' > PACKAGES.TXT
+	    find . -type f -name '*.meta' -exec cat {} \; >> PACKAGES.TXT
+    }
+
+    function gen_md5_checksums {
+	    echo '' > CHECKSUMS.md5
+	    find . -type f -name '*.tgz' -exec md5sum {} \; >> CHECKSUMS.md5
+    }
+
+    function gen_meta {
+	    if [ ! -f $1 ]; then
+		    echo "File not found: $1"
+		    exit 1;
+	    fi
+			if [ "`echo $1|grep -E '(.*{1,})\-(.*[\.\-].*[\.\-].*).tgz[ ]{0,}$'`" == "" ]; then
+				return;
+			fi
+	    NAME=$(echo $1|sed -re "s/(.*\/)(.*.tgz)$/\2/")
+	    LOCATION=$(echo $1|sed -re "s/(.*)\/(.*.tgz)$/\1/")
+	    SIZE=$( expr `gunzip -l $1 |tail -1|awk '{print $1}'` / 1024 )
+	    USIZE=$( expr `gunzip -l $1 |tail -1|awk '{print $2}'` / 1024 )
+	    REQUIRED=$(tar xzf $1 install/slack-required -O 2>/dev/null|xargs -r -iZ echo -n "Z,"|sed -e "s/,$//")
+	    CONFLICTS=$(tar xzf $1 install/slack-conflicts -O 2>/dev/null|xargs -r -iZ echo -n "Z,"|sed -e "s/,$//")
+	    SUGGESTS=$(tar xzf $1 install/slack-suggests -O 2>/dev/null|xargs -r )
+	    METAFILE=${NAME%tgz}meta
+	    echo "PACKAGE NAME:  $NAME" > $LOCATION/$METAFILE
+	    echo "PACKAGE LOCATION:  $LOCATION" >> $LOCATION/$METAFILE
+	    echo "PACKAGE SIZE (compressed):  $SIZE K" >> $LOCATION/$METAFILE
+	    echo "PACKAGE SIZE (uncompressed):  $USIZE K" >> $LOCATION/$METAFILE
+	    echo "PACKAGE REQUIRED:  $REQUIRED" >> $LOCATION/$METAFILE
+	    echo "PACKAGE CONFLICTS:  $CONFLICTS" >> $LOCATION/$METAFILE
+	    echo "PACKAGE SUGGESTS:  $SUGGESTS" >> $LOCATION/$METAFILE
+	    echo "PACKAGE DESCRIPTION:" >> $LOCATION/$METAFILE
+	    tar xzf $1 install/slack-desc -O|grep -E '\w+\:'|grep -v '^#' >> $LOCATION/$METAFILE
+	    echo "" >> $LOCATION/$METAFILE
+    }
+
+    case "$1" in
+	    pkg)
+		    if [ -n "$2" ]; then
+			    gen_meta $2
+		    else
+			    echo "$0 [pkg [file]|all|new|PACKAGESTXT|MD5]"
+		    fi
+	    ;;
+	    all)
+		    for pkg in `find . -type f -name '*.tgz' -print`
+		    do
+			    gen_meta $pkg
+		    done
+		    $0 PACKAGESTXT
+		    $0 MD5
+	    ;;
+	    new)
+		    for pkg in `find . -type f -name '*.tgz' -print`
+		    do
+			    if [ ! -f ${pkg%tgz}meta ]; then
+				    gen_meta $pkg
+			    fi
+		    done
+	    ;;
+	    PACKAGESTXT)
+		    gen_packages_txt
+	    ;;
+	    MD5)
+		    gen_md5_checksums
+	    ;;
+	    *)
+		    echo "$0 [pkg [file]|all|PACKAGESTXT|MD5]"
+	    ;;
+    esac
+ ### END SCRIPT
+
+
+<A NAME="slgFAQ18"><B>18. How can I download every package in a disk set?</B></A>
+
+ You can search the package location field, which specifies which directory
+ the package resides in, on the mirror.
+
+ Most mirrors use ./slackware/{disk set} as the directory for the set.  Thus
+ to install every package from xap:
+
+   slapt-get --search '^\.\/slackware\/xap$'|awk '{print $1}'| \
+     xargs -r slapt-get --install
+
+
+<A NAME="slgFAQ19"><B>19. How can I add dependency information to my packages?</B></A>
+
+ This is for package developers.  If you are not a package developer, please
+ request your packager include this information.
+
+ To export the dependency data for a package, include within your package the
+ following file:
+
+   ./install/slack-required
+
+ The structure of this file is one entry per line in the following format:
+
+    package_name
+
+ or
+    [package_name] [condition] [version]
+
+ where [condition] is
+
+    =, >=, =<, <, or >
+
+ <= and =< should both work, just in case of editing errors.
+
+ Version should include the arch and build if using '='.  That is the full
+ slackware package version designation.  1.1.0-386-1 is valid.  1.1.0 is not.
+
+ You can specify multiple packages to satisfy a dependency.  The alternate
+ packages are seperated by a pipe, |.
+
+    jre = 1.4.1-i586-1 | j2sdk >= 1.4.2-i386-1 | jdk > 1.5.0-i386-1
+
+ The package names are case sensitive.  So make sure you keep the case of the
+ package name as it appears in the package filename.
+
+ An example slack-required file is present within the slapt-get slack package.
+
+ This data will then need to be extracted when the mirror's PACKAGES.TXT file
+ is generated.  See FAQ #17 for an example of how to generate the
+ PACKAGES.TXT file.  The following is an example entry:
+
+    PACKAGE NAME:  man-pages-1.56-noarch-1.tgz
+    ...(snip)
+    PACKAGE REQUIRED:  man >= 1.5l-i386-1
+
+ An example command to pull that data:
+   tar xzf pkg-name-version-arch-rel.tgz install/slack-required -O|xargs -iZ echo -n "Z,"|sed -e "s/,$//"
+
+
+<A NAME="slgFAQ20"><B>20. How do I get the newest development version of slapt-get?</B></A>
+
+ See the 'Using cvs' section of the INSTALL document.
+
+
+<A NAME="slgFAQ21"><B>21. How can I contribute my ideas or code?</B></A>
+
+ Send in ideas or patches to the development list:
+
+   slapt-get-devel at software dot jaos dot org
+
+ The user list can be used for questions on slapt-get usage, etc:
+
+   slapt-get-user at software dot jaos dot org
+
+
+<A NAME="slgFAQ22"><B>22. How can I get slapt-get to speak in my native tongue?</B></A>
+
+ Translations are needed.  GNU gettext is used to extract all translatable strings
+ from the source.  Please look in the po/ directory of the slapt-get source, or in
+ /usr/share/slapt-get/locales.  Copy the slapt-get.pot file to a new files named
+ with your native language abbreviation, ending in .po.  For example, to 
+ translate to German,
+
+ $ cp /usr/share/slapt-get/locales/slapt-get.pot /tmp/de.po
+
+ Edit that file.  For every msgid, translate that into the msgstr "".  Leave the
+ formatting the same.
+
+ Email in your translation to the slapt-get-devel mailing list.  Your contributions
+ are greatly appreciated.
+
+
+<A NAME="slgFAQ23"><B>23. How do I set the output language?</B></A>
+
+ You can change the locale at runtime by setting the LANG environment
+ variable.
+
+ $ LANG=fr slapt-get
+
+
+<A NAME="slgFAQ24"><B>24. How do I specify proxy settings?</B></A>
+
+ slapt-get takes advantage of the normal http_proxy and ftp_proxy shell
+ variables. Here are some examples:
+
+  # setting the env variables for the entire session
+  $ export http_proxy=http://host:port
+  $ export ftp_proxy=ftp://host:port
+  # just setting them for the current command invocation
+  $ http_proxy=http://host:port slapt-get --update
+
+ If you are using ~/.netrc, libcurl automatically picks up your preferences.
+
+
+<A NAME="slgFAQ25"><B>25. How can I exclude all *pre*, *beta*, and *686* packages safely?</B></A>
+
+ An exclude regex like .*pre.* , .*beta.*, or .*686.* may net you the results
+ of excluding all packages with those characters in the name or version.  But
+ they may also catch packages that have those characters normally occuring in
+ the package name.
+
+ This regex seems to work much better:
+
+   [0-9\_\.\-]{1}pre[0-9\-\.\-]{1}
+
+ for beta packages:
+
+   [0-9\_\.\-]{1}beta[0-9\-\.\-]{1}
+
+ or for i686 packages (or for i585 or i486):
+
+   [0-9\_\.\-]+i686
+
+ Anything matching these regex will be added to the exclude list for the
+ transaction.
+
+
+<A NAME="slgFAQ26"><B>26. How does the transaction engine work?</B></A>
+
+ The last few series of releases (0.9.6x and 0.9.7x) have supported
+ transactions so that nothing happens unless everything checks out properly.
+ The transaction is built up of packages to install, upgrade and remove.	The
+ transaction status will be reported to the user to be confirmed (unless the
+ user passes in --no-prompt on the command line).  After this confirmation, all
+ packages will be downloaded before anything else happens.  If anything fails
+ to download, the transaction is immediately aborted.	If all pacakges download
+ successfully, all packages to be installed (new installs) are installed first.
+ This should satisfy dependencies of the packages to be upgraded, which follow
+ after the new installs.  Finally, and removals in the transaction are
+ completed.  This helps keep your system in a consistant state, and should give
+ you full control.
+
+
+<A NAME="slgFAQ27"><B>27. How does the package version comparison algorithm work?</B></A>
+
+ Say we have foo-1.1.3-i386-1rob and foo-1.1.3-i686-1.
+
+ The version parts will be compared, first 1, then 1, then 3.  At this point,
+ both packages are equal, since 1.1.3 == 1.1.3. If one is greater at this
+ point, the version check returns.
+
+ Then it checks to make sure that both pkgs have the same number of "version
+ parts".  This is the case in this example, both have 3 (1,1,3).	This is useful
+ when you see packages like 1.2 and 1.2.1. Whichever has more parts wins.  At
+ this point, we know if one only has 2 parts, and the other has 3, then the
+ first two parts of both version strings have to be equal.
+
+ Then the package versions are checked to see if they follow the slackware
+ convention.  This is determined by checking the first instance of '-' against
+ the last instance.  If the pointer returned from index and rindex are
+ different, then we assume we have at least two package version separators
+ (meaning we should have an upstream version, arch, and build at least).
+
+ If two separators are found, the build portion of the string is located.  The
+ integer value of the build strings are compared.  So "1rob" has an integer
+ value of 1, and "1" has an integer value of 1.  So in our example, both package
+ versions are the same.
+
+ If the only difference is the arch and the packages follow the conventions,
+ then they should always be equal.
+
+ If two separators are not found, then the entire version string from both pkgs
+ are compared via strcmp.  This is a fallback mechanism.
+
+
+<A NAME="slgFAQ28"><B>28. I am tracking current, how do I keep the base disk set up to date?</B></A>
+
+ If you are tracking current, --dist-upgrade may be more useful than --upgrade.
+
+ Even if you aren't intentionally switching to a newer distribution,
+ --dist-upgrade will ensure that the base set is always present while at the
+ same time keeping your installed packages up to date.
+
+
+<A NAME="slgFAQ29"><B>29. How would I script an ldd dependency hack with slapt-get?</B></A>
+
+ Do something like the following:
+
+ ### begin script
+ #!/bin/sh
+ # slapt-get wrapper to hack dependencies via ldd where slack-required isn't available
+ # Copyright (C) 11-30-2003 Jason Woodward <woodwardj at jaos dot org>
+ WORKINGDIR=`grep WORKINGDIR /etc/slapt-get/slapt-getrc|cut -f2 -d'='`
+ MF=MANIFEST
+ PKGLINES=${WORKINGDIR}/depslapt_pkgs
+ DEPDATA=()
+ DEPDATACOUNT=0
+ 
+ function get_pkg_cache_data {
+ 	if [ -f ${MF} ]; then rm ${MF};fi
+ 	for url in `grep '^SOURCE' /etc/slapt-get/slapt-getrc|cut -f2 -d'='`
+ 	do
+ 		echo "retrieving data from $url"
+ 		if [ -f ${MF}.bz2 ]; then rm ${MF}.bz2;fi
+ 		wget -q ${url}/${MF}.bz2
+ 		if [ -f ${MF}.bz2 ]; then
+ 			bunzip2 -c ${MF}.bz2 >> ${MF}; rm ${MF}.bz2
+ 		else
+ 			wget -q ${url}/slackware/${MF}.bz2
+ 			if [ -f ${MF}.bz2 ]; then bunzip2 -c ${MF}.bz2 >> ${MF}; rm ${MF}.bz2; fi
+ 		fi
+ 	done
+	if [ ! -f ${MF} ]; then echo "Failed to download MANIFEST"; exit 1; fi
+ 	echo "extracting package data"
+ 	grep -n ' Package\: ' ${MF}|awk '{print $1 $3}'|sed -re "s/\|//g" > ${PKGLINES}
+ }
+ 
+ function map_to_pkg {
+ 	LOOKUP=$1
+ 	LASTPKG=
+ 	for pkgline in `cat ${PKGLINES}|cut -f1 -d':'`
+ 	do
+ 		if [ $LOOKUP -gt $pkgline ]; then
+ 			false
+ 		else
+ 			LASTPKG=`grep -B 1 $pkgline ${PKGLINES} |head -1|cut -f2 -d':'`
+ 			return
+ 		fi
+ 	done
+ 	### clear it in case we get here
+ 	LASTPKG=
+ }
+ 
+ function lookup_lib {
+ 	for linenumber in `grep -n $1 /var/slapt-get/${MF}|cut -f1 -d':'`
+ 	do
+ 		map_to_pkg $linenumber
+ 		if [ -n "$LASTPKG" ]; then
+ 			DEPS[$DEPCOUNT]=`basename $LASTPKG|sed -re "s/(.*{1,})\\-(.*[\\.\\-].*[\\.\\-].*).tgz[ ]{0,}$/\1/"`
+ 			DEPCOUNT=$((DEPCOUNT + 1))
+ 		fi
+ 	done
+ }
+ 
+ function resolve_dependencies {
+ 	DEPS=()
+ 	DEPCOUNT=0
+ 	for pkg in "$@"
+ 	do
+ 		INST=`ls /var/log/packages/|grep ${pkg}|sort -rn|head -1`
+ 		FILES="`cat /var/log/packages/$INST|grep 'bin\/'|grep -v '\/$'`"
+ 		for file in $FILES
+ 		do
+ 			MISSINGLIBS=`ldd /${file}|grep -i 'not found'|awk '{print $1}'|sort|uniq`
+ 			for lib in $MISSINGLIBS
+ 			do
+ 				echo "Missing lib: $lib"
+ 				lookup_lib $lib
+ 			done
+ 		done
+ 	done
+ 	### recurse
+ 	if [ $DEPCOUNT -gt 0 ]; then
+ 		slapt-get --install ${DEPS[*]} || exit
+ 		resolve_dependencies ${DEPS[*]}
+ 	fi
+ }
+ 
+ # give usage if no arguments
+ if [ -z "$1" ]; then echo "Usage: $0 [--update|packages]"; exit; fi
+ # get package cache data if it is not already there, or we want it
+ cd ${WORKINGDIR}
+ if [ "$1" == "--update" ]; then get_pkg_cache_data; exit; fi
+ if [ ! -f ${PKGLINES} ]; then get_pkg_cache_data; fi
+ # read pkg data into memory 
+ while read line;do DEPDATA[${DEPDATACOUNT}]=$line; DEPDATACOUNT=$((DEPDATACOUNT + 1)); done < ${PKGLINES}
+ # install with slapt-get, then call the resolve_dependencies
+ slapt-get $SLAPT_OPTS --install "$@" || exit
+ resolve_dependencies $@
+ ### end script
+
+
+<A NAME="slgFAQ30"><B>30. Does EXCLUDE work for install as well as upgrade and dist-upgrade?</B></A>
+
+ No, EXCLUDE is only consulted for upgrading and dist-upgrading.  If you
+ specify the package name as an argument to --install, slapt-get will 
+ ignore the EXCLUDE list.
+
+ This does not apply to dependencies.  If a dependency of a specified package
+ is detected, it is checked against the EXCLUDE list.  If excluded, the 
+ dependency check for the specified package fails.  Override this with --no-dep.
+
+
+<A NAME="slgFAQ31"><B>31. What about package conflicts?  How can I specify a conflict for my package?</B></A>
+
+ Package conflicts are not as common as dependencies, but just as crucial.
+ Packages such as lprng and cups sometimes duplicate the same functionality and 
+ must not be installed side by side.
+
+ To address this, include within your package ./install/slack-conflicts.  This
+ file has the same syntax as the slack-required file, just without the version
+ information.
+
+ The following is a fictitious example of a lprng slack-conflicts file:
+
+ # cat ./install/slack-conflicts
+   gnome-cups-manager
+   libgnomecups
+   cups
+ #
+
+ In this example, we want to specify that the gnome-cups-manager, cups, and
+ libgnomecups packages are in direct conflict with lprng.
+
+
+<A NAME="slgFAQ32"><B>32. Is the ROOT environment variable honored for install and upgrading?</B></A>
+
+ Yes, if you have been using ROOT with installpkg and upgradepkg, slapt-get
+ will modify where it looks for the package logs based on this environment
+ variable.
+
+ For example export ROOT=/home/keary/newroot would make slapt-get look in
+ /home/keary/newroot/var/log/packages for installed package information and
+ install all upgraded/new packages in /home/keary/newroot instead of /
+
+
+<A NAME="slgFAQ33"><B>33. How do I specify the exact version of a package to install?</B></A>
+
+ Specify the version along with the package name with the --install argument.
+
+ For example, to install pkgtools version 9.0.0-i386-1, use 'pkgtools-9.0.0-i386-1'
+ as the --install argument.
+
+
+<A NAME="slgFAQ34"><B>34. Why is upgradepkg complaining it cannot find installpkg or removepkg, with sudo?</B></A>
+
+ Right from the sudo man page's Security Notes section:
+
+  "Note, however, that the actual PATH environment variable is not modified and
+   is passed unchanged to the program that sudo executes."
+
+ Make sure you include /sbin in your shell's PATH environment variable before using
+ slapt-get via sudo.  Or use su - -c 'slapt-get [options] [arg]s'.
+
+
+<A NAME="slgFAQ35"><B>35. How can I specify a username/password for the connection to the package source?</B></A>
+
+ This can be specified right in the package source url within the
+ /etc/slapt-get/slapt-getrc.  You will want to make sure that sensitive
+ passwords are protected, and possibly harden the permissions on
+ /etc/slapt-get/slapt-getrc so that only the root user can read the file.
+
+ Examples:
+
+  SOURCE=http://user:pass@host.org/path/to/packages/
+  SOURCE=ftp://user:pass@host.org/pub/packages/
+
+
+<A NAME="slgFAQ36"><B>36. /var/slapt-get is growing large, how can I safely free up space?</B></A>
+
+ Use the --clean option to remove all the cached packages from the tree within
+ /var/slapt-get.
+
+
+<A NAME="slgFAQ37"><B>37. What about extra, testing, or pasture packages?</B></A>
+
+ Example source entries for the extra, testing, and pasture packages sets can be
+ found within the example.slapt-getrc file under /usr/doc/slapt-get*/.
+
+
+<A NAME="slgFAQ38"><B>38. Can I use slapt-get to mirror packages?</B></A>
+
+ Yes, you can use it to mirror packages by using the following:
+
+  slapt-get --list|awk '{print $1}'|xargs -r slapt-get --download-only \
+		--reinstall --install
+
+ The packages whill then be mirrored under ${ROOT}/var/slapt-get in the
+ directory structure they where found in.  You can then generate the 
+ PACKAGES.TXT and CHECKSUMS.md5 files using the script in question #17 which
+ would allow you to use this mirror as a slapt-get source.
+
+
+<A NAME="slgFAQ39"><B>39. Is there a way to use tab completion for the package names in Bash?</B></A>
+
+ Yes, this completion was contributed by Alec Thomas on the slapt-get-devel
+ mailing list.  This goes in your ~/.bashrc file (or in /etc/bash_completion,
+ /etc/bash_completion.d/, /etc/profile, or /etc/profile.d/):
+
+  complete_slaptget()
+  {
+	  cur=${COMP_WORDS[COMP_CWORD]}
+	  if [ "${COMP_WORDS[$[$COMP_CWORD-1]]}" = "--remove" ]; then
+		  COMPREPLY=( $( cd /var/log/packages; ls "$cur"* 2> /dev/null | sed -e 's/-[^-]*-[^-]*-[^-]*$//') )
+	  else
+		  COMPREPLY=( $( slapt-get --search "^$cur" 2> /dev/null | awk '{print $1}' ) )
+	  fi
+  }
+  complete -F complete_slaptget -o default slapt-get
+
+
+<A NAME="slgFAQ40"><B>40. How do I remove obsoleted packages?</B></A>
+
+ If you are tracking current or are dist-upgrading to a new release, you will
+ encounter packages that you have installed that are no longer required or
+ part of the basic slackware install.  If you only have the official slackware
+ package sources in your slapt-getrc file, then you can use the following
+ as either a command or a script to remove those obsoleted packages:
+
+  for pkg in `slapt-get --installed|awk '{print $1}'`;do if [ -z "`slapt-get --search ${pkg}`" ]; then slapt-get --remove ${pkg};fi;done
+
+ or as a script:
+
+  #!/bin/sh
+  # this script uses slapt-get to remove obsoleted packages
+  # slapt-getrc must only have official package sources for the
+  # current release you are tracking
+  for pkg in `./slapt-get --installed|awk '{print $1}'`
+  do
+	  if [ -z "`./slapt-get --search ${pkg}`" ]
+	  then
+		  echo ./slapt-get --remove ${pkg}
+	  fi
+  done
+
+
+
+<A NAME="slgFAQ41"><B>41. What provisions have you made for dialup users?</B></A>
+
+ Measurements to save bandwidth have been taken.
+
+  * Incomplete package downloads will resume from where they left off.
+  * The package data download (via --update) will only download those sources
+    that have changed since the last download.
+  * The transaction report gives accurate statistics about sizes required to
+    download, as well as how much additional space will be required after
+    unpacking the package archives.  This report will also indicate how
+    much is left to resume if the download was previously interrupted.
+
+
+<A NAME="slgFAQ42"><B>42. Is there a way to get a report with the pending updates emailed to me?</B></A>
+
+ Yes, see http://www.nerdworks.org/download/scripts/update-notifier/ for a script that
+ you may use to send notification via email any time updates are available.
+
+
+<A NAME="slgFAQ43"><B>43. What if I don't trust third party sources for upgrades?</B></A>
+
+ You can use different slapt-getrc files.  For example:
+
+  slapt-get --config /etc/slapt-get/slapt-getrc.official --update && \
+  slapt-get --dist-upgrade
+
+ You will have to run --update every time you change your config file.  Also,
+ if your excludes and working directory are different in each file, you will
+ want to specify --config with each invocation of slapt-get to ensure that file
+ is parsed.
+
+
+<A NAME="slgFAQ44"><B>44. How do I specify an addon thats not a dependency of my package?</B></A>
+
+ You can include a slack-suggests file within your package's ./install/ directory.
+ The format of this file follows the slack-required, except version information
+ is to be left out.  This version information is useless as you are just making
+ a suggestion, not a requirement.  If there is a required version of a package
+ you can either specify it within ./install/slack-required or include it within
+ the documentation inside of your package.
+
+ The suggestion information is presented during the transaction report or via the
+ --show pkg-name query.
+
+
+<A NAME="slgFAQ45"><B>45. Will slapt-get break my system?</B></A>
+
+ slapt-get is a frontend to pkgtools.  As such you have the same ability to
+ break a working system using slapt-get as you do using upgradepkg without
+ caution.  A few points are in order:
+
+ * slapt-get will not make assumptions or do things without you telling it to.
+ * untested updates are risky, whether using official packages or third party
+   packages.
+ * slapt-get will not change your system such that you can only use slapt-get
+   or are somehow locked into using slapt-get.  The only additions to your
+   system are /etc/slapt-get and /var/slapt-get.  You are free to try another
+   solution or go back to manual upgradepkg.
+ * UPGRADE.TXT and ChangeLog.txt is still required reading
+
+
+<A NAME="slgFAQ46"><B>46. What is a meta package and how can I take advantage of it?</B></A>
+
+ A meta package is a package that only contains it's dependencies.  There is
+ nothing in the package to install, it just provides a name and a dependency list.
+ A good example would be GNOME.  If a "gnome" meta package existed that required
+ the gtk libraries and gnome applications, your user could install the gnome meta
+ package without having to know all of the packages that go along with it.  This 
+ is a good application of dependencies and suggestions.
+
+ When rolling out a new version of your application suite (gnome in our example),
+ you can increment the version of the meta package and change the included packages
+ and their required versions.  That way you can roll out a 2.x release update, but
+ provide an easy way to roll back to a previous 1.x release of the entire application
+ suite.
+
+
+<A NAME="slgFAQ47"><B>47. How can I downgrade a package?</B></A>
+
+ You can downgrade a package by specifying the version of the package when using
+ --install.  You will also need to provide --reinstall.  For example:
+
+  # slapt-get --search rsync
+  rsync 2.5.6-i386-1 [inst=no]: rsync
+  rsync 2.6.2-i386-1 [inst=yes]: rsync
+
+  # slapt-get --install rsync-2.5.6-i386-1 --reinstall
+  Reading Package Lists... Done
+  The following packages will be upgraded:
+    rsync
+  1 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+  Need to get 121K of archives.
+  After unpacking 30K disk space will be freed.
+  Do you want to continue? [y/N]
+
+</PRE>
+
+
+</font></body>
+</html>
