@@ -32,6 +32,7 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 	struct pkg_list *all;
 	pkg_info_t *pkg = NULL;
 	pkg_info_t *installed_pkg = NULL;
+	sg_regex pkg_regex;
 
 	printf( _("Reading Package Lists... ") );
 	installed = get_installed_pkgs();
@@ -40,13 +41,66 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 
 	init_transaction(&tran);
 
+	/* compile our regex */
+	pkg_regex.nmatch = MAX_REGEX_PARTS;
+	pkg_regex.reg_return = regcomp(&pkg_regex.regex, PKG_LOG_PATTERN, REG_EXTENDED|REG_NEWLINE);
+	if( pkg_regex.reg_return != 0 ){
+		size_t regerror_size;
+		char errbuf[1024];
+		size_t errbuf_size = 1024;
+		fprintf(stderr, _("Failed to compile regex\n"));
+
+		if( (regerror_size = regerror(pkg_regex.reg_return, &pkg_regex.regex,errbuf,errbuf_size)) ){
+			printf(_("Regex Error: %s\n"),errbuf);
+		}
+		exit(1);
+	}
+
 	for(i = 0; i < action_args->count; i++){
 
-		/* make sure there is a package called action_args->pkgs[i] */
-		if( (pkg = get_newest_pkg(all,action_args->pkgs[i])) == NULL ){
+		/* Use regex to see if they specified a particular version */
+		pkg_regex.reg_return = regexec(&pkg_regex.regex,action_args->pkgs[i], pkg_regex.nmatch,pkg_regex.pmatch,0);
+
+		/* If so, parse it out and try to get that version only */
+		if( pkg_regex.reg_return == 0 ){
+
+			pkg_info_t *tmp_pkg;
+			tmp_pkg = malloc( sizeof *tmp_pkg );
+			if( tmp_pkg == NULL ){
+				fprintf(stderr,_("Failed to malloc tmp_pkg\n"));
+				exit(1);
+			}
+
+			strncpy(
+				tmp_pkg->name,
+				action_args->pkgs[i] + pkg_regex.pmatch[1].rm_so,
+				pkg_regex.pmatch[1].rm_eo - pkg_regex.pmatch[1].rm_so
+			);
+
+			tmp_pkg->name[ pkg_regex.pmatch[1].rm_eo - pkg_regex.pmatch[1].rm_so ] = '\0';
+
+			strncpy(
+				tmp_pkg->version,
+				action_args->pkgs[i] + pkg_regex.pmatch[2].rm_so,
+				pkg_regex.pmatch[2].rm_eo - pkg_regex.pmatch[2].rm_so
+			);
+
+			tmp_pkg->version[ pkg_regex.pmatch[2].rm_eo - pkg_regex.pmatch[2].rm_so ] = '\0';
+			pkg = get_exact_pkg(all, tmp_pkg->name, tmp_pkg->version);
+			free(tmp_pkg);
+
+		/* If regex doesnt match, find latest version of request */
+		}else{
+			/* make sure there is a package called action_args->pkgs[i] */
+			pkg = get_newest_pkg(all,action_args->pkgs[i]);
+		}
+
+		/* In either case see if we found one */
+		if( pkg == NULL ){
 			fprintf(stderr,_("No Such package: %s\n"),action_args->pkgs[i]);
 			continue;
 		}
+
 		installed_pkg = get_newest_pkg(installed,action_args->pkgs[i]);
 
 		/* if it's not already installed, install it */
@@ -148,6 +202,8 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 
 	free_pkg_list(installed);
 	free_pkg_list(all);
+
+	regfree(&pkg_regex.regex);
 
 	handle_transaction(global_config,&tran);
 
