@@ -44,6 +44,8 @@ int main( int argc, char *argv[] ){
 		{"no-md5", 0, 0, '5'},
 		{"interactive", 0, 0, 'f'},
 		{"dist-upgrade",0, 0, 'h'},
+		{"help",0, 0, 'l'},
+		{"h",0, 0, 'l'},
 	};
 	int option_index = 0;
 	/* */
@@ -115,6 +117,9 @@ int main( int argc, char *argv[] ){
 				global_config->dist_upgrade = 1;
 				do_action = UPGRADE;
 				break;
+			case 'l': /* help */
+				usage();
+				exit(1);
 			default:
 				usage();
 				exit(1);
