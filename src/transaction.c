@@ -18,6 +18,7 @@
 
 #include <main.h>
 static void add_suggestion(transaction_t *tran, pkg_info_t *pkg);
+static int disk_space(const rc_config *global_config,int space_needed );
 
 void init_transaction(transaction_t *tran){
 
@@ -698,7 +699,7 @@ static void add_suggestion(transaction_t *tran, pkg_info_t *pkg){
 
 }
 
-int disk_space(const rc_config *global_config,int space_needed ){
+static int disk_space(const rc_config *global_config,int space_needed ){
 	struct statvfs statvfs_buf;
 
 	space_needed *= 1024;
@@ -713,3 +714,4 @@ int disk_space(const rc_config *global_config,int space_needed ){
 
 	return 0;
 }
+
