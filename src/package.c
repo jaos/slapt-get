@@ -1175,9 +1175,6 @@ static struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,s
 		if( (get_newest_pkg(deps,tmp_pkg->name) == NULL) ){
 			struct pkg_list *tmp_pkgs_deps = NULL;
 
-			/* add tmp_pkg to deps */
-			add_pkg_to_pkg_list(deps,tmp_pkg);
-
 			/* now check to see if tmp_pkg has dependencies */
 			tmp_pkgs_deps = lookup_pkg_dependencies(global_config,avail_pkgs,installed_pkgs,tmp_pkg,deps);
 			if( tmp_pkgs_deps->pkg_count > 0 ){
@@ -1200,6 +1197,9 @@ static struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,s
 				deps->pkg_count = -1;
 				return deps;
 			}
+
+			/* add tmp_pkg to deps */
+			add_pkg_to_pkg_list(deps,tmp_pkg);
 
 			/* don't call free_pkg_list as this list is made up of pointers */
 			/* free_pkg_list(tmp_pkgs_deps); */
