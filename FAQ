@@ -36,6 +36,7 @@ Frequenty Asked Questions:
 35. How do I specify the exact version of a package to install?
 36. Why is upgradepkg complaining it cannot find installpkg or removepkg, with sudo?
 37. How can I specify a username/password for the connection to the package source?
+38. /var/slapt-get is growing large, how can I safely free up space?
 
 
 
@@ -733,5 +734,11 @@ Frequenty Asked Questions:
 
   SOURCE=http://user:pass@host.org/path/to/packages/
   SOURCE=ftp://user:pass@host.org/pub/packages/
+
+
+38. /var/slapt-get is growing large, how can I safely free up space?
+
+ Use the --clean option to remove all the cached packages from the tree within
+ /var/slapt-get.
 
 

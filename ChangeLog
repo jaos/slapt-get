@@ -1,7 +1,7 @@
 
-0.9.8b Jan 15, 2004
- * makefile updates (permissions etc)
+0.9.8b Jan 20, 2004
  * documentation updates (FAQ)
+ * makefile updates (permissions etc)
  * remove default user/pass combo so that it can be overriden within the
    slapt-getrc in the source url
  * fixed strncpy() call, length now uses MD5_STR_LEN macro
