@@ -1,5 +1,7 @@
 
 0.9.7e Nov 19, 2003
+ * added debugging in transaction functions
+ * updated cmp_pkg_versions
 
 0.9.7d Nov 18, 2003
  * documentation updates
