@@ -58,13 +58,13 @@
 <a href="#slgFAQ41">41. What provisions have you made for dialup users?</a>
 <a href="#slgFAQ42">42. Is there a way to get a report with the pending updates emailed to me?</a>
 <a href="#slgFAQ43">43. What if I don't trust third party sources for upgrades?</a>
-<a href="#slgFAQ44">44. How do I specify an addon thats not a dependency of my package?</a>
+<a href="#slgFAQ44">44. How do I specify an addon that is not a dependency of my package?</a>
 <a href="#slgFAQ45">45. Will slapt-get break my system?</a>
 <a href="#slgFAQ46">46. What is a meta package and how can I take advantage of it?</a>
 <a href="#slgFAQ47">47. How can I downgrade a package?</a>
 <a href="#slgFAQ48">48. How can I search the contents of a package for a file or library?</a>
 <a href="#slgFAQ49">49. Will slapt-get support a --compile like option for slackbuilds?</a>
-<a href="#slgFAQ50">50. What about mirror fall back / failover ?</a>
+<a href="#slgFAQ50">50. What about mirror fall back / fail-over ?</a>
 
 
 
@@ -149,11 +149,11 @@
  that third party packages might not be as rigorously tested as official
  packages, or may cause conflicts with files provided by official packages.
 
- For instance, you have the following uncommented line as your source:
+ For instance, you have the following line as your source:
 
    SOURCE=ftp://distro.ibiblio.org/pub/Linux/distributions/slackware/slackware-9.0/
 
- Simply change the url to point to current, like so:
+ Simply change the URL to point to current, like so:
 
    SOURCE=ftp://distro.ibiblio.org/pub/Linux/distributions/slackware/slackware-current/
 
@@ -320,7 +320,7 @@
 <a name="slgFAQ17"><b>17. How do I create my own package source?</b></a>
 
  Within slapt-getrc, change your SOURCE= lines to point to your package
- source.  This might be a local source using file:// url's, or a publicly
+ source.  This might be a local source using file:// URLs, or a publicly
  available source.
 
  For example, you could have an official and a local source like:
@@ -807,7 +807,7 @@
 
 <a name="slgFAQ35"><b>35. How can I specify a username/password for the connection to the package source?</b></a>
 
- This can be specified right in the package source url within the
+ This can be specified right in the package source URL within the
  /etc/slapt-get/slapt-getrc.  You will want to make sure that sensitive
  passwords are protected, and possibly harden the permissions on
  /etc/slapt-get/slapt-getrc so that only the root user can read the file.
@@ -914,7 +914,7 @@
  is parsed.
 
 
-<a name="slgFAQ44"><b>44. How do I specify an addon thats not a dependency of my package?</b></a>
+<a name="slgFAQ44"><b>44. How do I specify an addon that is not a dependency of my package?</b></a>
 
  You can include a slack-suggests file within your package's ./install/ directory.
  The format of this file follows the slack-required, except version information
@@ -1090,11 +1090,11 @@
  <a href="http://www.tenboard.com/slackware/index.php?path=SlackBuilds/">http://www.tenboard.com/slackware/index.php?path=SlackBuilds/</a>
 
 
-<a name="slgFAQ50"><b>50. What about mirror fall back / failover ?</b></a>
+<a name="slgFAQ50"><b>50. What about mirror fall back / fail-over ?</b></a>
 
  This functionality is not build into slapt-get.  Adding multiple sources to
  the same package source at different mirror locations doesn't buy you auto-
- matic failover.  It will provide you with duplicate package listings.
+ matic fail-over.  It will provide you with duplicate package listings.
 
  Instead, you can specify an alternate config file and fall back on it in the
  event your default or original configuration contains sources that are not

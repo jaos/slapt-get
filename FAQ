@@ -44,13 +44,13 @@ Frequently Asked Questions:
 41. What provisions have you made for dialup users?
 42. Is there a way to get a report with the pending updates emailed to me?
 43. What if I don't trust third party sources for upgrades?
-44. How do I specify an addon thats not a dependency of my package?
+44. How do I specify an addon that is not a dependency of my package?
 45. Will slapt-get break my system?
 46. What is a meta package and how can I take advantage of it?
 47. How can I downgrade a package?
 48. How can I search the contents of a package for a file or library?
 49. Will slapt-get support a --compile like option for slackbuilds?
-50. What about mirror fall back / failover ?
+50. What about mirror fall back / fail-over ?
 
 
 
@@ -135,11 +135,11 @@ Frequently Asked Questions:
  that third party packages might not be as rigorously tested as official
  packages, or may cause conflicts with files provided by official packages.
 
- For instance, you have the following uncommented line as your source:
+ For instance, you have the following line as your source:
 
    SOURCE=ftp://distro.ibiblio.org/pub/Linux/distributions/slackware/slackware-9.0/
 
- Simply change the url to point to current, like so:
+ Simply change the URL to point to current, like so:
 
    SOURCE=ftp://distro.ibiblio.org/pub/Linux/distributions/slackware/slackware-current/
 
@@ -306,7 +306,7 @@ Frequently Asked Questions:
 17. How do I create my own package source?
 
  Within slapt-getrc, change your SOURCE= lines to point to your package
- source.  This might be a local source using file:// url's, or a publicly
+ source.  This might be a local source using file:// URLs, or a publicly
  available source.
 
  For example, you could have an official and a local source like:
@@ -793,7 +793,7 @@ Frequently Asked Questions:
 
 35. How can I specify a username/password for the connection to the package source?
 
- This can be specified right in the package source url within the
+ This can be specified right in the package source URL within the
  /etc/slapt-get/slapt-getrc.  You will want to make sure that sensitive
  passwords are protected, and possibly harden the permissions on
  /etc/slapt-get/slapt-getrc so that only the root user can read the file.
@@ -900,7 +900,7 @@ Frequently Asked Questions:
  is parsed.
 
 
-44. How do I specify an addon thats not a dependency of my package?
+44. How do I specify an addon that is not a dependency of my package?
 
  You can include a slack-suggests file within your package's ./install/ directory.
  The format of this file follows the slack-required, except version information
@@ -1076,11 +1076,11 @@ Frequently Asked Questions:
  http://www.tenboard.com/slackware/index.php?path=SlackBuilds/
 
 
-50. What about mirror fall back / failover ?
+50. What about mirror fall back / fail-over ?
 
  This functionality is not build into slapt-get.  Adding multiple sources to
  the same package source at different mirror locations doesn't buy you auto-
- matic failover.  It will provide you with duplicate package listings.
+ matic fail-over.  It will provide you with duplicate package listings.
 
  Instead, you can specify an alternate config file and fall back on it in the
  event your default or original configuration contains sources that are not
