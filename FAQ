@@ -10,7 +10,7 @@ Frequenty Asked Questions:
 7.  What if I only want to download the updates?
 8.  How can I re-install an existing package?
 9.  Can I "dist-upgrade" to a newer Slackware release?
-10. What about package dependancies?
+10. What about package dependencies?
 11. What about multiple package sources, ala linuxpackages.net?
 12. I don't like the download spinner, how can I get more statistics?
 13. How can I install every available package?
@@ -35,6 +35,7 @@ Frequenty Asked Questions:
  installed packages, install new packages or upgrade installed packages all
  with a few simple commands. Great for scripting as well.
 
+
 2.  Why yet another package management tool for slackware?
 
  To scratch and itch of mine, which also scratched an itch of a friend.  I
@@ -47,6 +48,7 @@ Frequenty Asked Questions:
  within Slackware.  I am making this available in hopes others will find
  it useful.
  
+
 3.  How do I build/install slapt-get?  How do I remove slapt-get?
 
  Two ways to install:
@@ -61,31 +63,37 @@ Frequenty Asked Questions:
 
  If you installed the slack package, then use removepkg.
 
+
 4.  How do I find a package I want to install?
 
  You can use the --search feature, supplying an expression.  POSIX 
  and extended regular expressions are supported.  This searches the name,
  location, or descriptions of packages.
 
+
 5.  Can I upgrade all my installed packages?
 
  Yes, use the --upgrade option.  slapt-get will check for 
  newer versions of all packages already installed.
+
 
 6.  How can I see what will be upgraded without upgrading?
 
  If the transaction report is not enough, use the --simulate option before
  --upgrade.  See slapt-get --help
 
+
 7.  What if I only want to download the updates?
 
  Use the --download-only option before --upgrade.
  See slapt-get --help
 
+
 8.  How can I re-install an existing package?
 
  Use the --reinstall option with --install pkg_name.
  See slapt-get --help
+
 
 9.  Can I "dist-upgrade" to a newer Slackware release?
 
@@ -135,12 +143,15 @@ Frequenty Asked Questions:
 
  Then follow the rest of the directions in UPGRADE.TXT.
 
-10.  What about package dependancies?
+
+10.  What about package dependencies?
 
  Other tools try to provide dependency checking via various hacks (generating
  the dependency file, exploding the package, then ldd'ing binary files to find
  missing libraries before consulting the dependency file).  This is not a
- reliable/fool proof method.  It is also extremely slow.
+ reliable/fool proof method.  It is also extremeley slow.  Dependencies can not
+ always be defined strictly by library dependencies.  Applications, rather than
+ libraries may be required, such as groff with man.
 
  I have sent Pat a request to include a requires field in the PACKAGES.TXT
  file that is shared with all the mirrors.  Since this information is known
@@ -182,7 +193,11 @@ Frequenty Asked Questions:
    PACKAGE DESCRIPTION:
    man: man (format and display the on-line manual pages)
 
- which could be generated from a file such as: ./install/slack-required .
+ which would be generated from a file within the package:
+
+  ./install/slack-required
+
+ This follows the existing convention pioneered by the slack-desc file.
 
  He has declined the request at this time, citing a "niche" for a
  distribution without "dependency hell".  I believe leaving out the requirement
@@ -190,7 +205,7 @@ Frequenty Asked Questions:
  on to the users and system administrators who simply want to be able to
  quickly install and deploy servers and services.  Yes it is good for new users
  to become familiar with the process of locating and resolving library
- dependancies.  But I think this becomes tedious after the initial lesson has
+ dependencies.  But I think this becomes tedious after the initial lesson has
  been learned.  However, I am thankful for Pat's dedication to his goals and
  ideals.  So I have dropped the issue.
 
@@ -198,8 +213,12 @@ Frequenty Asked Questions:
  (without becoming overly complex or kludgey) they can convince Pat there is
  a need/demand for it.
 
- We are working with the linuxpackages.net crew to integrate dependency data
- with their package listing.
+ slapt-get can resolve dependencies via the slack-required meta data.  Already
+ there are packages being submitting packages to linuxpackages.net supporting
+ this additional file within the slackware package.  Scripts that generate
+ mindful PACKAGES.TXT files are available (such as the one in this FAQ,
+ see #17).
+
 
 11. What about multiple package sources, ala linuxpackages.net?
 
@@ -207,11 +226,13 @@ Frequenty Asked Questions:
  See the example slapt-getrc in the source tarball, or look in
  /etc/slapt-getrc.new if you installed via slackpack. See README.
 
+
 12. I don't like the download spinner, how can I get more statistics?
 
  If you would like more notification on downloading pkgs/files, change the 
  USE_CURL_PROGRESS macro to 1 in include/curl.h.  This turns on curl's
  internal progress meter.  This requires a recompile.
+
 
 13. How can I install every available package?
 
@@ -268,6 +289,7 @@ Frequenty Asked Questions:
    DIR=$1
    slapt-get --search "^\.\/slackware\/${DIR}$"|awk '{print $1}'|\
     xargs -iZ echo -n "Z,"|sed -e 's/,$//'
+
 
 17. How do I use a local file source?
 
@@ -357,6 +379,7 @@ Frequenty Asked Questions:
     esac
  ### END SCRIPT
 
+
 18. How can I download every package in a disk set?
 
  You can search the package location field, which specifies which directory
@@ -367,6 +390,7 @@ Frequenty Asked Questions:
 
    ./slapt-get --search '^\.\/slackware\/xap$'|awk '{print $1}'| \
      xargs -r ./slapt-get --install
+
 
 19. How can I add dependency information to my packages?
 
@@ -410,9 +434,11 @@ Frequenty Asked Questions:
  An example command to pull that data:
    tar xzf pkg-name-version-arch-rel.tgz install/slack-required -O|xargs -iZ echo -n "Z,"|sed -e "s/,$//"
 
+
 20. How do I get the newest development version of slapt-get?
 
  See the 'Using cvs' section of the INSTALL document.
+
 
 23. How can I contribute my ideas or code?
 
@@ -424,17 +450,27 @@ Frequenty Asked Questions:
 
    slapt-get-user at software dot jaos dot org
 
+
 24. How can I get slapt-get to speak in my native tongue?
 
  Translations are needed.  GNU gettext is used to extract all translatable strings
- from the source.  Please look in the po/ directory of the slapt-get source.  Copy
- the slapt-get.pot file to your native language abbreviation, ending in .po.
+ from the source.  Please look in the po/ directory of the slapt-get source, or in
+ /usr/share/slapt-get/locales.  Copy the slapt-get.pot file to a new files named
+ with your native language abbreviation, ending in .po.  For example, to 
+ translate to German,
+
+ $ cp /usr/share/slapt-get/locales/slapt-get.pot /tmp/de.po
+
+ Edit that file.  For every msgid, translate that into the msgstr "".  Leave the
+ formatting the same.
 
  So if your language is German, 
 
  $ cp slapt-get.pot de.po
 
- Email in your translation to the slapt-get-devel mailing list.
+ Email in your translation to the slapt-get-devel mailing list.  Your contributions
+ are greatly appreciated.
+
 
 25. How do I set the output language?
 
@@ -442,6 +478,7 @@ Frequenty Asked Questions:
  variable.
 
  $ LANG=fr slapt-get
+
 
 26. How do I specify proxy settings?
 
