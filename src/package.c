@@ -449,7 +449,10 @@ int install_pkg(const rc_config *global_config,pkg_info_t *pkg){
 
 	if( global_config->download_only == 0 ){
 		printf("Preparing to install %s - %s\n",pkg->name,pkg->version);
-		cmd_return = system(command);
+		if( (cmd_return = system(command)) == -1 ){
+			printf("Failed to execute command: [%s]\n",command);
+			exit(1);
+		}
 	}
 
 	chdir(cwd);
@@ -499,7 +502,10 @@ int upgrade_pkg(const rc_config *global_config,pkg_info_t *pkg){
 			}
 		}
 		printf("Preparing to replace %s with %s-%s\n",pkg->name,pkg->name,pkg->version);
-		cmd_return = system(command);
+		if( (cmd_return = system(command)) == -1 ){
+			printf("Failed to execute command: [%s]\n",command);
+			exit(1);
+		}
 	}
 
 	chdir(cwd);
@@ -518,7 +524,10 @@ int remove_pkg(pkg_info_t *pkg){
 	command[0] = '\0';
 	command = strcat(command,REMOVE_CMD);
 	command = strcat(command,pkg->name);
-	cmd_return = system(command);
+	if( (cmd_return = system(command)) == -1 ){
+		printf("Failed to execute command: [%s]\n",command);
+		exit(1);
+	}
 
 	free(command);
 	return cmd_return;
