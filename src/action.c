@@ -87,21 +87,28 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 
 			tmp_pkg->version[ pkg_regex.pmatch[2].rm_eo - pkg_regex.pmatch[2].rm_so ] = '\0';
 			pkg = get_exact_pkg(all, tmp_pkg->name, tmp_pkg->version);
+
+			if( pkg == NULL ){
+				fprintf(stderr,_("No Such package: %s\n"),tmp_pkg->name);
+				continue;
+			}
+
+			installed_pkg = get_newest_pkg(installed,tmp_pkg->name);
+
 			free(tmp_pkg);
 
 		/* If regex doesnt match, find latest version of request */
 		}else{
 			/* make sure there is a package called action_args->pkgs[i] */
 			pkg = get_newest_pkg(all,action_args->pkgs[i]);
-		}
 
-		/* In either case see if we found one */
-		if( pkg == NULL ){
-			fprintf(stderr,_("No Such package: %s\n"),action_args->pkgs[i]);
-			continue;
-		}
+			if( pkg == NULL ){
+				fprintf(stderr,_("No Such package: %s\n"),action_args->pkgs[i]);
+				continue;
+			}
 
-		installed_pkg = get_newest_pkg(installed,action_args->pkgs[i]);
+			installed_pkg = get_newest_pkg(installed,action_args->pkgs[i]);
+		}
 
 		/* if it's not already installed, install it */
 		if( installed_pkg == NULL ){
