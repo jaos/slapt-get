@@ -254,7 +254,7 @@ Frequently Asked Questions:
 
  You can use multiple sources with slapt-get (including linuxpackages.net).
  See the example slapt-getrc in the source tarball or look in the
- slapt-get directory within /usr/share/doc/ if you installed a binary package.
+ slapt-get directory within /usr/doc/ if you installed a binary package.
  See the README for further details.
 
 
