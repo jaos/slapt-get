@@ -219,9 +219,9 @@ static struct exclude_list *parse_exclude(char *line){
 					list->excludes = realloc_tmp;
 					list->excludes[ list->count ] = buffer;
 					list->excludes[ list->count ][strlen(buffer)] = '\0';
+					++list->count;
 				}
 
-				++list->count;
 				position += (strlen(line + position) - strlen(pointer) );
 			}
 			continue;

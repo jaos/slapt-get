@@ -1,5 +1,5 @@
 
-0.9.9h Feb 10, 2005
+0.9.9h Feb 12, 2005
  * removed hardcoded limits REQUIRED_LEN CONFLICTS_LEN SUGGESTS_LEN
  * added search_transaction_by_pkg() to make checks more specific
  * remove package by name-version now possible
