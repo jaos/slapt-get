@@ -1,5 +1,7 @@
 
 0.9.9b Sep 22, 2004
+ * updated makefile, doinst.sh generated script sed's slapt-getrc updating
+   comment on /usr/doc/slapt-get*/ directory
  * added FAQ: 49. How can I downgrade a package?
  * added FAQ: 48. What is a meta package and how can I take advantage of it?
  * updated FAQ, added new Q: Will slapt-get break my system?
