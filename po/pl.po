@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.9d\n"
+"Project-Id-Version: 0.9.9f\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2004-11-08 18:30+0400\n"
+"PO-Revision-Date: 2004-12-17 10:56+0500\n"
 "Last-Translators: Sajmon <sajmon@tenboard.com>, Paul Blazejowski <paulb@blazebox.homeip.net>, nixon <nixon@klub.chip.pl> and simon <ssiimm@poczta.onet.pl>\n"
 "Language-Team: polish <slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -484,4 +484,8 @@ msgstr "Maksymalna d³ugo¶æ wyj±tków (%d) przekroczona.\n"
 
 msgid "only purge cache of older, unreacheable pkgs"
 msgstr "usuñ tylko stare, niedostêpne pkgs z cache"
+
+#, c-format
+msgid "required too long [%s:%d]\n"
+msgstr "required za du¿y [%s:%d]\n"
 

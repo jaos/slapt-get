@@ -1,5 +1,6 @@
 
-0.9.9f Dec 10, 2004
+0.9.9f Dec 17, 2004
+ * produce warning is slack-require information is too long
  * updated setlocale() call to set category to LC_ALL, thanks Piotr Simon
  * updated documentation
 

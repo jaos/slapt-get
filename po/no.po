@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.9c\n"
+"Project-Id-Version: 0.9.9f\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2004-10-03 18:07+0400\n"
+"PO-Revision-Date: 2004-12-17 10:56+0500\n"
 "Last-Translator: Joran Kvalvaag <jk@nerdworks.org>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -483,4 +483,8 @@ msgstr "Maksimal lengde på eksklusjoner (%d) er overskredet.\n"
 
 msgid "only purge cache of older, unreacheable pkgs"
 msgstr ""
+
+#, c-format
+msgid "required too long [%s:%d]\n"
+msgstr "kreves for lang [%s:%d]\n"
 

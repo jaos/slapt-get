@@ -270,7 +270,18 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 			((char_pointer = strstr(getline_buffer,"PACKAGE REQUIRED")) != NULL)
 		){
 				size_t req_len = strlen("PACKAGE REQUIRED") + 2;
+				char *req_str = char_pointer + req_len;
 				getline_buffer[bytes_read - 1] = '\0';
+
+				if( strlen(req_str) > REQUIRED_LEN ){
+					fprintf( stderr, _("required too long [%s:%d]\n"),
+						req_str,
+						strlen(req_str)
+					);
+					free(tmp_pkg);
+					continue;
+				}
+
 				strncpy(tmp_pkg->required,char_pointer + req_len, strlen(char_pointer + req_len));
 				tmp_pkg->required[ strlen(char_pointer + req_len) ] = '\0';
 		}else{

@@ -5,9 +5,9 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.9c\n"
+"Project-Id-Version: 0.9.9f\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2004-10-05 17:42+0400\n"
+"PO-Revision-Date: 2004-12-17 10:56+0500\n"
 "Last-Translator: Savvas Eftratiadis <pigouinos@mailworks.org.\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -479,3 +479,8 @@ msgstr "Το μέγιστο μήκος του φακέλου εργασίας (%d) ξεπεράστηκε.\n"
 
 msgid "Maximum length of excludes (%d) exceeded.\n"
 msgstr "Το μέγιστο μήκος των εξαιρέσεων (%d) ξεπεράστηκε.\n"
+
+#, c-format
+msgid "required too long [%s:%d]\n"
+msgstr ""
+
