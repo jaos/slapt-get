@@ -111,8 +111,8 @@ Table of Contents:
     slapt-get-user at software dot jaos dot org
     slapt-get-devel at software dot jaos dot org
 
-   Make sure --update is ran once initially and the downloaded files 
-   (CHECKSUMS.md5, package_data) are good.
+   Make sure --update is ran once initially and the data file (package_data)
+   is good.
 
    Some mirrors are incomplete and the downloaded file is actually html
    specifying the webservers error message.  MD5 checking has been 
