@@ -13,7 +13,7 @@ slapt-get: It allows one to search slackware.com and mirrors for packages,
 slapt-get: compare them with installed packages, install new packages or
 slapt-get: upgrade installed packages all with a few simple commands.
 slapt-get:
-slapt-get: See /usr/doc/slapt-get* for complete documentation.  The syntax for
-slapt-get: /etc/slapt-getrc has been updated for 0.9.6.  For an example, see 
-slapt-get: /etc/slapt-getrc.new.
+slapt-get: See /usr/doc/slapt-get-0.9.7 for complete documentation. 
+slapt-get: 
+slapt-get: 
 slapt-get:
