@@ -108,11 +108,15 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 			tran->exclude_pkgs->pkg_count
 		);
 
-		printf("Need to get %dK of archives.\n", download_size );
-		if( (int)uncompressed_size < 0 ){
-			printf("After unpacking %dK disk space will be freed.\n", uncompressed_size * -1 );
-		}else{
-			printf("After unpacking %dK of additional disk space will be used.\n", uncompressed_size );
+		/* only show this if we are going to do something */
+		if( tran->upgrade_pkgs->pkg_count > 0 || tran->remove_pkgs->pkg_count > 0
+		|| tran->install_pkgs->pkg_count > 0 ){
+			printf("Need to get %dK of archives.\n", download_size );
+			if( (int)uncompressed_size < 0 ){
+				printf("After unpacking %dK disk space will be freed.\n", uncompressed_size * -1 );
+			}else{
+				printf("After unpacking %dK of additional disk space will be used.\n", uncompressed_size );
+			}
 		}
 
 		/* prompt */
