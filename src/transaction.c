@@ -388,6 +388,15 @@ int search_transaction(transaction *tran,pkg_info_t *pkg){
 	return not_found;
 }
 
+static int search_upgrade_transaction(transaction *tran,pkg_info_t *pkg){
+	int i,found = 1, not_found = 0;
+	for(i = 0; i < tran->upgrade_pkgs->pkg_count;i++){
+		if( strcmp(pkg->name,tran->upgrade_pkgs->pkgs[i]->upgrade->name)==0 )
+			return found;
+	}
+	return not_found;
+}
+
 void free_transaction(transaction *tran){
 	int i;
 
@@ -510,7 +519,7 @@ int add_deps_to_trans(const rc_config *global_config, transaction *tran, struct 
 
 			if( (dep_installed = get_newest_pkg(installed_pkgs,deps->pkgs[c]->name)) == NULL ){
 
-				if ( is_conflicted(tran,avail_pkgs,installed_pkgs,deps->pkgs[c]) == 0 )
+				if ( is_conflicted(tran,avail_pkgs,installed_pkgs,deps->pkgs[c]) == NULL )
 					add_install_to_transaction(tran,deps->pkgs[c]);
 
 			}else{
@@ -529,7 +538,7 @@ int add_deps_to_trans(const rc_config *global_config, transaction *tran, struct 
 
 				/* add only if its a valid upgrade */
 				if(cmp_pkg_versions(dep_installed->version,deps->pkgs[c]->version) < 0 ){
-					if ( is_conflicted(tran,avail_pkgs,installed_pkgs,deps->pkgs[c]) == 0 )
+					if ( is_conflicted(tran,avail_pkgs,installed_pkgs,deps->pkgs[c]) == NULL )
 						add_upgrade_to_transaction(tran,dep_installed,deps->pkgs[c]);
 
 				}
@@ -547,30 +556,38 @@ int add_deps_to_trans(const rc_config *global_config, transaction *tran, struct 
 }
 
 /* make sure pkg isn't conflicted with what's already in the transaction */
-int is_conflicted(transaction *tran, struct pkg_list *avail_pkgs, struct pkg_list *installed_pkgs, pkg_info_t *pkg){
+pkg_info_t *is_conflicted(transaction *tran, struct pkg_list *avail_pkgs, struct pkg_list *installed_pkgs, pkg_info_t *pkg){
 	int i;
-	int conflicted = 0;
 	struct pkg_list *conflicts;
 
 	/* if conflicts exist, check to see if they are installed or in the current transaction */
 	conflicts = get_pkg_conflicts(avail_pkgs,installed_pkgs,pkg);
 	for(i = 0; i < conflicts->pkg_count; i++){
-		if(search_transaction(tran,conflicts->pkgs[i]) == 1){
+		if(
+			search_upgrade_transaction(tran,conflicts->pkgs[i]) == 1
+			|| get_newest_pkg(tran->install_pkgs,conflicts->pkgs[i]->name) != NULL
+		){
+			pkg_info_t *c = conflicts->pkgs[i];
 			printf(_("%s, which is to be installed, conflicts with %s\n"),
 				conflicts->pkgs[i]->name,conflicts->pkgs[i]->version, pkg->name,pkg->version
 			);
-			conflicted = 1;
+			free(conflicts->pkgs);
+			free(conflicts);
+			return c;
 		}
 		if(get_newest_pkg(installed_pkgs,conflicts->pkgs[i]->name) != NULL) {
+			pkg_info_t *c = conflicts->pkgs[i];
 			printf(_("Installed %s conflicts with %s\n"),conflicts->pkgs[i]->name,pkg->name);
-			conflicted = 1;
+			free(conflicts->pkgs);
+			free(conflicts);
+			return c;
 		}
 	}
 
 	free(conflicts->pkgs);
 	free(conflicts);
 
-	return conflicted;
+	return NULL;
 }
 
 static void add_suggestion(transaction *tran, pkg_info_t *pkg){
