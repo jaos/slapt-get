@@ -1644,3 +1644,69 @@ int verify_downloaded_pkg(const rc_config *global_config,pkg_info_t *pkg){
 
 }
 
+struct exclude_list *parse_exclude(char *line){
+	char *pointer = NULL;
+	char *buffer = NULL;
+	int position = 0;
+	char **realloc_tmp;
+	struct exclude_list *list;
+
+	list = malloc( sizeof *list );
+	if( list == NULL ){
+		fprintf(stderr,_("Failed to malloc %s\n"),"list");
+		if( errno ){
+			perror("malloc");
+		}
+		exit(1);
+	}
+	list->excludes = malloc( sizeof *list->excludes );
+	list->count = 0;
+
+	/* skip ahead past the = */
+	line = strchr(line,'=') + 1;
+
+
+	while( position < (int) strlen(line) ){
+		if( strstr(line + position,",") == NULL ){
+
+			pointer = line + position;
+
+			realloc_tmp = realloc( list->excludes, sizeof *list->excludes * (list->count + 1) );
+			if( realloc_tmp != NULL ){
+				list->excludes = realloc_tmp;
+				list->excludes[ list->count ] = calloc( strlen(pointer) + 1, sizeof *list->excludes[list->count] );
+				strncpy(list->excludes[ list->count ], pointer, strlen(pointer) );
+				list->excludes[ list->count ][strlen(pointer)] =  '\0';
+				++list->count;
+			}
+
+			break;
+		}else{
+
+			if( line[position] == ',' ){
+				++position;
+				continue;
+			}else{
+
+				pointer = strchr(line + position,',');
+				buffer = calloc( strlen(line + position) - strlen(pointer) + 1, sizeof *buffer );
+				strncpy(buffer,line + position,strlen(line + position) - strlen(pointer) );
+				buffer[ strlen(line + position) - strlen(pointer) ] = '\0';
+
+				realloc_tmp = realloc( list->excludes, sizeof *list->excludes * (list->count + 1) );
+				if( realloc_tmp != NULL ){
+					list->excludes = realloc_tmp;
+					list->excludes[ list->count ] = buffer;
+					list->excludes[ list->count ][strlen(buffer)] =  '\0';
+				}
+
+				++list->count;
+				position += (strlen(line + position) - strlen(pointer) );
+			}
+			continue;
+		}
+	}
+	
+	return list;
+}
+

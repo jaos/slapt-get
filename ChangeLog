@@ -1,5 +1,6 @@
 
 0.9.8e May 28, 2004
+ * moved parse_exclude() from configuration.c to package.c
  * only show download statistics if we are going to download something, not for
    removes only
  * updated handle_transaction so that the size reported for existing
