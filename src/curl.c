@@ -40,7 +40,9 @@ int download_data(FILE *fh,const char *url,size_t bytes,const rc_config *global_
 	curl_easy_setopt(ch, CURLOPT_FTP_USE_EPRT, 0);
 #endif
 	curl_easy_setopt(ch, CURLOPT_FAILONERROR, 1);
+#ifdef CURLOPT_HTTPAUTH
 	curl_easy_setopt(ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY );
+#endif
 
 	headers = curl_slist_append(headers, "Pragma: "); /* override no-cache */
 
@@ -130,7 +132,9 @@ char *head_request(const char *url){
 	curl_easy_setopt(ch, CURLOPT_FTP_USE_EPRT, 0);
 #endif
 	curl_easy_setopt(ch, CURLOPT_FAILONERROR, 1);
+#ifdef CURLOPT_HTTPAUTH
 	curl_easy_setopt(ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY );
+#endif
 
 	headers = curl_slist_append(headers, "Pragma: "); /* override no-cache */
 
