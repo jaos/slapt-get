@@ -116,8 +116,8 @@ Frequenty Asked Questions:
  to providing that data in a way that can be scripted for those who have
  the advanced knowledge or want to provide higher level tools for Slackware.
 
- So Pat's generated PACKAGES.TXT file would need an addition to a packages
- entry within, going from:
+ So Pat's generated PACKAGES.TXT file would need an addition to the
+ package's entry, going from:
 
    PACKAGE NAME:  man-1.5l-i386-1.tgz
    PACKAGE LOCATION:  ./slackware/ap
