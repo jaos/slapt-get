@@ -32,7 +32,7 @@ Table of Contents:
 
     * uses native Slackware tools (installpkg, upgradepkg, and removepkg)
     * supports multiple package sources (including linuxpackage.net)
-    * cache package, update, and extra data from package sources
+    * cache data concerning packages and updates from package sources
     * supports sources from ftp, ftps, http, https, file:/// and more (libcurl)
     * resumes broken downloads and will verify package integrity with MD5
       checksum
