@@ -120,6 +120,7 @@ rc_config *read_rc_config(const char *file_name){
 	if( global_config->exclude_list == NULL ){
 		/* at least initialize */
 		global_config->exclude_list = slapt_malloc( sizeof *global_config->exclude_list );
+		global_config->exclude_list->excludes = slapt_malloc( sizeof *global_config->exclude_list->excludes );
 		global_config->exclude_list->count = 0;
 	}
 	if( global_config->sources.count == 0 ){

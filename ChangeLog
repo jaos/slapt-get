@@ -1,5 +1,6 @@
 
 0.9.9g Jan 12, 2005
+ * fixed segfault when cleaning up if EXCLUDE is not defined within slapt-getrc
  * removed bad use of strcspn() breaking using ROOT env var with slapt-get
 
 0.9.9f Jan 12, 2005
