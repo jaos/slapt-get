@@ -1,5 +1,6 @@
 
-0.9.9d Oct 16, 2004
+0.9.9d Oct 17, 2004
+ * updated package.h regex, fixing breakage with squid & ftp inserting ^M EOL
  * misc code cleanups
 
 0.9.9c Oct 13, 2004
