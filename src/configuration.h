@@ -40,7 +40,7 @@ typedef struct {
 	bool dist_upgrade;
 	bool simulate;
 	bool no_prompt;
-	unsigned int re_install;
+	bool re_install;
 	struct exclude_list *exclude_list;
 	bool ignore_excludes;
 	bool no_md5_check;
