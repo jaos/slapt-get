@@ -1,15 +1,14 @@
-# SOME DESCRIPTIVE TITLE.
+# translation of pt_BR.po to 
 # Copyright (C) 2004
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# , 2004.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.8b\n"
+"Project-Id-Version: 0.9.8d\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2004-01-15 16:34+0000\n"
-"Last-Translator: Arnaldo de Moraes Pereira <arnaldo@sp-dhn.com.br>\n"
+"PO-Revision-Date: 2004-04-18 09:36-0300\n"
+"Last-Translator: Henrique Pinto <henrique.pinto@kdemail.net>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -80,11 +79,11 @@ msgstr "Pacote não existente: %s\n"
 
 #, c-format
 msgid "Retrieving package data [%s]..."
-msgstr "Fazendo o download dos dados do pacote [%s]..."
+msgstr "Fazendo o download dos dados de pacotes [%s]..."
 
 #, c-format
 msgid "Retrieving package data [%s]...\n"
-msgstr "Fazendo o download dos dados do pacote [%s]...\n"
+msgstr "Fazendo o download dos dados de pacotes [%s]...\n"
 
 #, c-format
 msgid "Retrieving extras list [%s]..."
@@ -202,11 +201,11 @@ msgstr "Usando cópia em cache de %s\n"
 
 #, c-format
 msgid "Downloading %s %s %s [%dK]..."
-msgstr "Fazendo o download %s %s %s [%dK]..."
+msgstr "Fazendo o download de %s %s %s [%dK]..."
 
 #, c-format
 msgid "Downloading %s %s %s [%dK]...\n"
-msgstr "Fazendo o download %s %s %s [%dK]...\n"
+msgstr "Fazendo o download de %s %s %s [%dK]...\n"
 
 #, c-format
 msgid "Failed to unlink %s\n"
@@ -394,7 +393,7 @@ msgstr "Os seguintes pacotes serão atualizados:\n"
 
 #, c-format
 msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
-msgstr "%d autalizados, %d recentemente instalados, %d para remover e %d não atualizados.\n"
+msgstr "%d atualizados, %d para instalar, %d para remover e %d não atualizados.\n"
 
 #, c-format
 msgid "Need to get %dK of archives.\n"
