@@ -68,7 +68,7 @@ void gen_md5_sum_of_file(FILE *f,char *result_sum){
 	EVP_MD_CTX mdctx;
 	const EVP_MD *md;
 	unsigned char md_value[EVP_MAX_MD_SIZE];
-	int md_len = 0, i;
+	unsigned int md_len = 0, i;
 	ssize_t getline_read;
 	size_t getline_size;
 	char *result_sum_tmp = NULL;
@@ -86,7 +86,7 @@ void gen_md5_sum_of_file(FILE *f,char *result_sum){
 
 	free(getline_buffer);
 
-	EVP_DigestFinal_ex(&mdctx, md_value, (unsigned int*)&md_len);
+	EVP_DigestFinal_ex(&mdctx, md_value, &md_len);
 	EVP_MD_CTX_cleanup(&mdctx);
 
 	result_sum[0] = '\0';
