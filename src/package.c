@@ -765,9 +765,16 @@ int is_excluded(const rc_config *global_config,pkg_info_t *pkg){
 	exclude_reg.nmatch = MAX_REGEX_PARTS;
 
 	for(i = 0; i < global_config->exclude_list->count;i++){
+
+		/* return if its an exact match */
 		if( (strncmp(global_config->exclude_list->excludes[i],pkg->name,strlen(pkg->name)) == 0))
 			return 1;
-		regcomp(&exclude_reg.regex,global_config->exclude_list->excludes[i],REG_EXTENDED|REG_NEWLINE);
+
+		exclude_reg.reg_return = regcomp(&exclude_reg.regex,global_config->exclude_list->excludes[i],REG_EXTENDED|REG_NEWLINE);
+		/* continue if the regex fails to compile */
+		if( exclude_reg.reg_return != 0 )
+			continue;
+
 		if(
 			(regexec( &exclude_reg.regex, pkg->name, exclude_reg.nmatch, exclude_reg.pmatch, 0) == 0)
 			|| (regexec( &exclude_reg.regex, pkg->version, exclude_reg.nmatch, exclude_reg.pmatch, 0) == 0)
@@ -776,6 +783,7 @@ int is_excluded(const rc_config *global_config,pkg_info_t *pkg){
 			return 1;
 		}
 		regfree(&exclude_reg.regex);
+
 	}
 
 	return 0;

@@ -4,6 +4,7 @@
  * added check for presence of pkg in trans before adding remove (during --remove)
  * added example linuxpackages.net source lines for each slack version
  * added head_request function to return if the named file is the same as the remote file
+ * updated is_excluded, to continue loop if regex compile fails
 
 0.9.7 Nov 03, 2003
  * parse package require/dep from PACKAGES.TXT
