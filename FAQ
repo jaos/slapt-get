@@ -217,6 +217,6 @@ Frequenty Asked Questions:
 15. What about Dropline support?
 
  There is no exception for dropline packages.  If you do not want them
- upgraded, either put the package names into the exception list or answer
- "NO" in interactive mode (do not use --no-prompt).
+ upgraded, either put the package names into the exception list or use 
+ interactive mode (do not use --no-prompt, use --interactive).
 
