@@ -1,4 +1,7 @@
 
+0.9.9f Dec 07, 2004
+ * updated documentation
+
 0.9.9e Dec 07, 2004
  * disabled default header of "Pragma: no-cache" for users behind web proxy
  * fixed pt_PT translation, missing \n

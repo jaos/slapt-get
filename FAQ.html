@@ -797,6 +797,11 @@
  Use the --clean option to remove all the cached packages from the tree within
  /var/slapt-get.
 
+ Or use --autoclean, which is like clean but clears out the local repository of
+ retrieved package files that can no longer be downloaded, and are largely
+ useless. This allows a cache to be maintained over a long period without 
+ it growing out of control.
+
 
 <A NAME="slgFAQ37"><B>37. What about extra, testing, or pasture packages?</B></A>
 
