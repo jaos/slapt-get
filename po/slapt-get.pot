@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.9g\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2005-01-21 17:36+0500\n"
+"PO-Revision-Date: 2005-01-27 12:31+0500\n"
 "Last-Translator: Jason Woodward <woodwardj@jaos.org>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -481,5 +481,9 @@ msgid "required too long\n"
 msgstr ""
 
 msgid "remove obsolete packages (dist-upgrade only)"
+msgstr ""
+
+#, c-format
+msgid "You don't have enough free space in %s"
 msgstr ""
 

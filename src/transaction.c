@@ -168,6 +168,14 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran){
 		/* make sure it's not negative due to changing pkg sizes on upgrades */
 		if( need_to_download_size < 0 ) need_to_download_size = 0;
 
+		if(disk_space(global_config,need_to_download_size+uncompressed_size) != 0){
+			printf(
+				_("You don't have enough free space in %s"),
+				global_config->working_dir
+			);
+			return 1;
+		}
+
 		if( already_download_size > 0 ){
 			printf(_("Need to get %dK/%dK of archives.\n"),
 				need_to_download_size, download_size
@@ -202,7 +210,7 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran){
 	) {
 		if( ask_yes_no(_("Do you want to continue? [y/N] ")) != 1 ){
 			printf(_("Abort.\n"));
-			return 0;
+			return 1;
 		}
 	}
 
@@ -688,4 +696,20 @@ static void add_suggestion(transaction_t *tran, pkg_info_t *pkg){
 		position += (total_len - rest_len);
 	}
 
+}
+
+int disk_space(const rc_config *global_config,int space_needed ){
+	struct statvfs statvfs_buf;
+
+	space_needed *= 1024;
+
+	if( statvfs(global_config->working_dir,&statvfs_buf) != 0 ){
+		if( errno ) perror("statvfs");
+    return 1;
+	}else{
+		if( statvfs_buf.f_bfree < ( space_needed / statvfs_buf.f_bsize) )
+			return 1;
+	}
+
+	return 0;
 }

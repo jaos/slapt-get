@@ -34,6 +34,7 @@
 #include <openssl/evp.h>
 #include <libintl.h>
 #include <locale.h>
+#include <sys/statvfs.h>
 
 #include "common.h"
 #include "configuration.h"
