@@ -1,5 +1,6 @@
 
 0.9.8j Aug 05, 2004
+ * updated man page
  * added option to override slapt-getrc location via --config switch
  * makefile update, fixing libslapt symlink
  * translation updates
