@@ -465,3 +465,18 @@ msgstr "Installed %s conflicts with %s\n"
 msgid "print URIs only, do not download"
 msgstr "print URIs only, do not download"
 
+#, c-format
+msgid "Package MD5 Sum:  %s\n"
+msgstr "Package MD5 Sum:  %s\n"
+
+#, c-format
+msgid "md5 sum too long [%s:%d]\n"
+msgstr "md5 sum too long [%s:%d]\n"
+
+#, c-format
+msgid "conflict too long [%s:%d]\n"
+msgstr "conflict too long [%s:%d]\n"
+
+msgid "Reading Package Lists..."
+msgstr "Reading Package Lists..."
+
