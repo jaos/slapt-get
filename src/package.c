@@ -68,13 +68,13 @@ struct pkg_list *parse_pkg_list(void){
 			}
 
 			/* pkg name base */
-			memcpy(list->pkgs[list->pkg_count]->name,
+			strncpy(list->pkgs[list->pkg_count]->name,
 				getline_buffer + pmatch[1].rm_so,
 				pmatch[1].rm_eo - pmatch[1].rm_so
 			);
 			list->pkgs[list->pkg_count]->name[pmatch[1].rm_eo - pmatch[1].rm_so] = '\0';
 			/* pkg version */
-			memcpy(list->pkgs[list->pkg_count]->version,
+			strncpy(list->pkgs[list->pkg_count]->version,
 				getline_buffer + pmatch[2].rm_so,
 				pmatch[2].rm_eo - pmatch[2].rm_so
 			);
@@ -88,7 +88,7 @@ struct pkg_list *parse_pkg_list(void){
 		/* location */
 		if( (getline(&getline_buffer,&getline_len,pkg_list_fh) != EOF) ){
 			if( regexec( &location_regex, getline_buffer, nmatch, pmatch, 0) == 0 ){
-				memcpy(list->pkgs[list->pkg_count]->location,
+				strncpy(list->pkgs[list->pkg_count]->location,
 					getline_buffer + pmatch[1].rm_so,
 					pmatch[1].rm_eo - pmatch[1].rm_so
 				);
@@ -110,7 +110,7 @@ struct pkg_list *parse_pkg_list(void){
 					fprintf(stderr,"Failed to calloc size_c\n");
 					exit(1);
 				}
-				memcpy(size_c,getline_buffer + pmatch[1].rm_so,(pmatch[1].rm_eo - pmatch[1].rm_so));
+				strncpy(size_c,getline_buffer + pmatch[1].rm_so,(pmatch[1].rm_eo - pmatch[1].rm_so));
 				list->pkgs[list->pkg_count]->size_c = strtol(size_c, (char **)NULL, 10);
 				free(size_c);
 			}else{
@@ -130,7 +130,7 @@ struct pkg_list *parse_pkg_list(void){
 					fprintf(stderr,"Failed to calloc size_u\n");
 					exit(1);
 				}
-				memcpy(size_u,getline_buffer + pmatch[1].rm_so,(pmatch[1].rm_eo - pmatch[1].rm_so));
+				strncpy(size_u,getline_buffer + pmatch[1].rm_so,(pmatch[1].rm_eo - pmatch[1].rm_so));
 				list->pkgs[list->pkg_count]->size_u = strtol(size_u, (char **)NULL, 10);
 				free(size_u);
 			}else{
@@ -200,7 +200,7 @@ char *gen_short_pkg_description(pkg_info_t *pkg){
 		exit(1);
 	}
 
-	short_description = memcpy(
+	short_description = strncpy(
 		short_description,
 		pkg->description + (strlen(pkg->name) + 2),
 		string_size
@@ -262,13 +262,13 @@ struct pkg_list *get_installed_pkgs(void){
 			}
 
 
-			memcpy(
+			strncpy(
 				tmp_pkg->name,
 				file->d_name + pmatch[1].rm_so,
 				pmatch[1].rm_eo - pmatch[1].rm_so
 			);
 			tmp_pkg->name[ pmatch[1].rm_eo - pmatch[1].rm_so ] = '\0';
-			memcpy(
+			strncpy(
 				tmp_pkg->version,
 				file->d_name + pmatch[2].rm_so,
 				pmatch[2].rm_eo - pmatch[2].rm_so
@@ -366,7 +366,7 @@ struct pkg_list *parse_update_pkg_list(void){
 				}
 
 				/* pkg location/dir */
-				memcpy( list->pkgs[list->pkg_count]->location, PATCHDIR, strlen(PATCHDIR));
+				strncpy( list->pkgs[list->pkg_count]->location, PATCHDIR, strlen(PATCHDIR));
 				strncat(
 					list->pkgs[list->pkg_count]->location,
 					getline_buffer + pmatch[1].rm_so,
@@ -377,7 +377,7 @@ struct pkg_list *parse_update_pkg_list(void){
 				] = '\0';
 
 				/* pkg base name */
-				memcpy(
+				strncpy(
 					list->pkgs[list->pkg_count]->name,
 					getline_buffer + pmatch[2].rm_so,
 					pmatch[2].rm_eo - pmatch[2].rm_so
@@ -387,7 +387,7 @@ struct pkg_list *parse_update_pkg_list(void){
 				] = '\0';
 
 				/* pkg version */
-				memcpy(
+				strncpy(
 					list->pkgs[list->pkg_count]->version,
 					getline_buffer + pmatch[3].rm_so,
 					pmatch[3].rm_eo - pmatch[3].rm_so

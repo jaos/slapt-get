@@ -67,7 +67,7 @@ FILE *download_pkg_list(const rc_config *global_config){
 		exit(1);
 	}
 
-	memcpy(url,global_config->mirror_url,strlen(global_config->mirror_url) );
+	strncpy(url,global_config->mirror_url,strlen(global_config->mirror_url) );
 	strncat(url,PKG_LIST,strlen(PKG_LIST) );
 	download_data(fh,url);
 #if USE_CURL_PROGRESS == 0
@@ -103,7 +103,7 @@ FILE *download_patches_list(const rc_config *global_config){
 		exit(1);
 	}
 
-	memcpy(url,global_config->mirror_url,strlen(global_config->mirror_url) );
+	strncpy(url,global_config->mirror_url,strlen(global_config->mirror_url) );
 	strncat(url,PATCHDIR,strlen(PATCHDIR) );
 	strncat(url,PATCHES_LIST,strlen(PATCHES_LIST) );
 	download_data(fh,url);
@@ -129,7 +129,7 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 		fprintf(stderr,"Failed to calloc file_name\n");
 		exit(1);
 	}
-	file_name = memcpy(file_name,pkg->name,strlen(pkg->name));
+	file_name = strncpy(file_name,pkg->name,strlen(pkg->name));
 	file_name[ strlen(pkg->name) ] = '\0';
 	file_name = strncat(file_name,"-",strlen("-"));
 	file_name = strncat(file_name,pkg->version,strlen(pkg->version));
@@ -151,7 +151,7 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 		fprintf(stderr,"Failed to calloc url\n");
 		exit(1);
 	}
-	url = memcpy(url,global_config->mirror_url,strlen(global_config->mirror_url));
+	url = strncpy(url,global_config->mirror_url,strlen(global_config->mirror_url));
 	url = strncat(url,pkg->location,strlen(pkg->location));
 	url = strncat(url,"/",strlen("/"));
 	url = strncat(url,file_name,strlen(file_name));

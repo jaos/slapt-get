@@ -56,7 +56,7 @@ rc_config *read_rc_config(const char *file_name){
 		if( strstr(getline_buffer,MIRROR_TOKEN) != NULL ){ /* MIRROR URL */
 
 			if( strlen(getline_buffer) > strlen(MIRROR_TOKEN) ){
-				memcpy(
+				strncpy(
 					global_config->mirror_url,
 					getline_buffer + strlen(MIRROR_TOKEN),
 					(strlen(getline_buffer) - strlen(MIRROR_TOKEN))
@@ -72,7 +72,7 @@ rc_config *read_rc_config(const char *file_name){
 		} else if( strstr(getline_buffer,WORKINGDIR_TOKEN) != NULL ){ /* WORKING DIR */
 
 			if( strlen(getline_buffer) > strlen(WORKINGDIR_TOKEN) ){
-				memcpy(
+				strncpy(
 					global_config->working_dir,
 					getline_buffer + strlen(WORKINGDIR_TOKEN),
 					(strlen(getline_buffer) - strlen(WORKINGDIR_TOKEN))
@@ -225,7 +225,7 @@ struct exclude_list *parse_exclude(char *line){
 		if( strstr(line + position,",") == NULL ){
 
 			pointer = line + position;
-			memcpy(list->excludes[ list->count ], pointer, strlen(pointer) );
+			strncpy(list->excludes[ list->count ], pointer, strlen(pointer) );
 			list->excludes[ list->count ][strlen(pointer)] =  '\0';
 
 			list->count++;
@@ -239,9 +239,9 @@ struct exclude_list *parse_exclude(char *line){
 
 				pointer = strchr(line + position,',');
 				buffer = calloc( strlen(line + position) - strlen(pointer) + 1, sizeof *buffer );
-				memcpy(buffer,line + position,strlen(line + position) - strlen(pointer) );
+				strncpy(buffer,line + position,strlen(line + position) - strlen(pointer) );
 				buffer[ strlen(line + position) - strlen(pointer) ] = '\0';
-				memcpy(list->excludes[ list->count ], buffer, strlen(buffer) );
+				strncpy(list->excludes[ list->count ], buffer, strlen(buffer) );
 
 				list->count++;
 				position += (strlen(line + position) - strlen(pointer) );
@@ -273,7 +273,7 @@ void create_dir_structure(const char *dir_name){
 
 			/* pointer = dir_name + position; */
 			dir_name_buffer = calloc( strlen(dir_name + position) + 1 , sizeof *dir_name_buffer );
-			memcpy(dir_name_buffer,dir_name + position,strlen(dir_name + position));
+			strncpy(dir_name_buffer,dir_name + position,strlen(dir_name + position));
 			dir_name_buffer[ strlen(dir_name + position) ] = '\0';
 
 			if( strcmp(dir_name_buffer,".") != 0 ){
@@ -302,7 +302,7 @@ void create_dir_structure(const char *dir_name){
 				dir_name_buffer = calloc(
 					strlen(dir_name + position) - strlen(pointer) + 1 , sizeof *dir_name_buffer
 				);
-				memcpy(dir_name_buffer,dir_name + position, strlen(dir_name + position) - strlen(pointer));
+				strncpy(dir_name_buffer,dir_name + position, strlen(dir_name + position) - strlen(pointer));
 				dir_name_buffer[ (strlen(dir_name + position) - strlen(pointer)) ] = '\0';
 
 				if( strcmp(dir_name_buffer,".") != 0 ){
