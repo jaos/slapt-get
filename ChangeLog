@@ -1,5 +1,7 @@
 
 0.9.9g Jan 16, 2005
+ * show packages excluded in transaction report when --remove-obsolete hits
+   excluded packages
  * changed global_config unsigned integers to bool typedef
  * added bool free_pkgs member to pkg_list struct so all pkg_lists are free'd
    uniformly using free_pkg_list, even if their pkg list is pointers to pkg
