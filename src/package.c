@@ -403,7 +403,7 @@ struct pkg_list *get_installed_pkgs(void){
 	char *root_env_entry = NULL;
 	char *pkg_log_dirname = NULL;
 	struct dirent *file;
-	sg_regex ip_regex, compressed_size_reg, uncompressed_size_reg;
+	sg_regex ip_regex, compressed_size_reg, uncompressed_size_reg,location_regex;
 	struct pkg_list *list;
 
 	list = init_pkg_list();
@@ -411,6 +411,7 @@ struct pkg_list *get_installed_pkgs(void){
 	init_regex(&ip_regex,PKG_LOG_PATTERN);
 	init_regex(&compressed_size_reg,PKG_LOG_SIZEC_PATTERN);
 	init_regex(&uncompressed_size_reg,PKG_LOG_SIZEU_PATTERN);
+	init_regex(&location_regex,PKG_LOCATION_PATTERN);
 
 	/* Generate package log directory using ROOT env variable if set */
 	if( getenv(ROOT_ENV_NAME) && strlen(getenv(ROOT_ENV_NAME)) < ROOT_ENV_LEN ){
@@ -479,6 +480,7 @@ struct pkg_list *get_installed_pkgs(void){
 		while( (bytes_read = getline(&getline_buffer,&getline_len,pkg_f)) != EOF ){
 			execute_regex(&compressed_size_reg,getline_buffer);
 			execute_regex(&uncompressed_size_reg,getline_buffer);
+			execute_regex(&location_regex,getline_buffer);
 
 			/* ignore unless we matched */
 			if( compressed_size_reg.reg_return == 0 ){
@@ -495,6 +497,20 @@ struct pkg_list *get_installed_pkgs(void){
 				);
 				tmp_pkg->size_u = strtol(size_u,(char **)NULL,10);
 				free(size_u);
+			}else if( location_regex.reg_return == 0 ){
+				if( (location_regex.pmatch[1].rm_eo - location_regex.pmatch[1].rm_so) > LOCATION_LEN ){
+					fprintf( stderr, _("pkg location too long\n"));
+					free_pkg(tmp_pkg);
+					continue;
+				}
+				strncpy(tmp_pkg->location,
+					getline_buffer + location_regex.pmatch[1].rm_so,
+					location_regex.pmatch[1].rm_eo - location_regex.pmatch[1].rm_so
+				);
+				tmp_pkg->location[
+					location_regex.pmatch[1].rm_eo - location_regex.pmatch[1].rm_so
+				] = '\0';
+
 			}else{
 				if(strstr(getline_buffer,"PACKAGE DESCRIPTION") != NULL){
 					while(1){
@@ -526,6 +542,7 @@ struct pkg_list *get_installed_pkgs(void){
 	free(pkg_log_dirname);
 	free_regex(&compressed_size_reg);
 	free_regex(&uncompressed_size_reg);
+	free_regex(&location_regex);
 
 	list->free_pkgs = TRUE;
 	return list;

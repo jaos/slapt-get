@@ -1,5 +1,6 @@
 
-0.9.9i Feb 23, 2005
+0.9.9i Feb 28, 2005
+ * installed packages now parse out package location from /var/log/packages entry
  * added add_source() (libslapt)
  * add_deps_to_trans() returns early if passed pkg_info_t is NULL
  * configuration sources now dynamically created instead of static arrays
