@@ -765,7 +765,7 @@ Frequently Asked Questions:
  All calls to installpkg, removepkg, and upgradepkg will be passed along this
  environment variable.  See the installpkg(8) manpage.
 
- NOTE: Be sure to run ldconfig -f $ROOT to ensure appropriate library links are
+ NOTE: Be sure to run ldconfig -r $ROOT to ensure appropriate library links are
  built.
 
 
