@@ -272,7 +272,7 @@ Frequently Asked Questions:
  with.  Here is how to install every package that is available but not
  currently installed:
 
-   slapt-get --list|grep inst=no|awk '{print $1}'|sort|uniq|xargs -r slapt-get --install
+   slapt-get --available|grep inst=no|awk '{print $1}'|sort|uniq|xargs -r slapt-get --install
 
 
 14. What if I only want to upgrade one package?
@@ -286,7 +286,7 @@ Frequently Asked Questions:
 15. What about Dropline support?
 
  There is no direct support for Dropline packages.  If you do not want them
- upgraded, either put the package names or a regex into the exception list.
+ upgraded, put either the package names or a regex into the exception list.
 
  Use the following to exclude Dropline (from the example slapt-getrc):
  
@@ -825,7 +825,7 @@ Frequently Asked Questions:
 
  Yes, you can use it to mirror packages by using the following:
 
-  slapt-get --list|awk '{print $1}'|xargs -r slapt-get --download-only \
+  slapt-get --available|awk '{print $1}'|xargs -r slapt-get --download-only \
 		--reinstall --install
 
  The packages will then be mirrored under ${ROOT}/var/slapt-get in the
@@ -1058,7 +1058,7 @@ Frequently Asked Questions:
    echo "SOURCE=http://www1.linuxpackages.net/packages/SlackBuilds/" >> /tmp/slapt-get.compile
    slapt-get --config /tmp/slapt-get.compile --update 
    if [ "$1" = "" ];then
-   slapt-get --list
+   slapt-get --available
    echo ""
    echo "#################################################################################"
    echo "slapt-get-compile: install/upgrade/compile src-pkgs from Build Script Archive on linuxpackages.net"
