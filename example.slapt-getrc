@@ -42,6 +42,8 @@ SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-10.0/
 #SOURCE=ftp://ftp.scarlet.be/pub/linuxpackages/Slackware-10.0/
 ### Chang-Gung Univeristy / Taiwan
 #SOURCE=http://linuxpackages.cgucccc.org/Slackware-10.0/
+### Szombathely Linux Association / Hungary
+#SOURCE=ftp://ftp.slackware.hu/linuxpackages/Slackware-10.0/
 # * no current with linuxpackages.net
 
 # audioslack sources

@@ -1,4 +1,7 @@
 
+0.9.8k Aug 08, 2004
+ * added new linuxpackages.net mirror to example.slapt-getrc
+
 0.9.8j Aug 08, 2004
  * updated get_installed_pkgs() to correctly work when ROOT environment variable is set
  * updated man page
