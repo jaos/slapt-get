@@ -137,33 +137,26 @@ rc_config *read_rc_config(const char *file_name){
 }
 
 void working_dir_init(const rc_config *global_config){
-	if( access(global_config->working_dir,W_OK) == -1 ){
-		if(errno && errno == 2 ){
-			if( mkdir(global_config->working_dir,
-					S_IRUSR|S_IWUSR|S_IXUSR|S_IRGRP|S_IXGRP|S_IROTH|S_IXOTH) == -1
-			){
-				printf(_("Failed to build working directory [%s]\n"),global_config->working_dir);
-				if( errno ){
-					perror(global_config->working_dir);
-					exit(1);
-				}
-			}else{
-				/* we should now have a global_config->working_dir */
-				return;
-			}
-		}else if( errno && errno == 13 ){
-			perror(global_config->working_dir);
-			fprintf(stderr,_("Please update permissions on %s or run with appropriate privileges\n"),
-				global_config->working_dir);
-			exit(1);
-		}else{
-			fprintf(stderr,_("Please update permissions on %s or run with appropriate privileges\n"),
-				global_config->working_dir);
+	DIR *working_dir;
+
+	if( (working_dir = opendir(global_config->working_dir)) == NULL ){
+		if( mkdir(global_config->working_dir,
+				S_IRUSR|S_IWUSR|S_IXUSR|S_IRGRP|S_IXGRP|S_IROTH|S_IXOTH) == -1
+		){
+			printf(_("Failed to build working directory [%s]\n"),global_config->working_dir);
+			if( errno ) perror(global_config->working_dir);
 			exit(1);
 		}
-	}else{
-		return;
 	}
+
+	if( access(global_config->working_dir,W_OK) == -1 ){
+		if( errno ) perror(global_config->working_dir);
+		fprintf(stderr,_("Please update permissions on %s or run with appropriate privileges\n"),
+			global_config->working_dir);
+		exit(1);
+	}
+
+	return;
 }
 
 void clean_pkg_dir(const char *dir_name){

@@ -1,5 +1,6 @@
 
-0.9.8e May 31, 2004
+0.9.8e Jun 01, 2004
+ * refactored working_dir_init()
  * cleaned up parse_meta_entry() and lookup_pkg_dependencies()
  * moved parse_exclude() from configuration.c to package.c
  * only show download statistics if we are going to download something, not for
