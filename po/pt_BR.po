@@ -462,5 +462,5 @@ msgstr "Não foi possível encontrar o checksum MD5 para %s, ignorar com --no-md5\
 
 #, c-format
 msgid "%s, which is required by %s, is excluded\n"
-msgstr "%s, which is required by %s, is excluded\n"
+msgstr "%s, que é requerido por %s, está excluido\n"
 
