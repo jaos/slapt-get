@@ -1209,13 +1209,6 @@ struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,struct p
 		/* recurse for each dep found */
 		if( tmp_pkg != NULL ){
 
-			/* if this pkg is excluded */
-			if( is_excluded(global_config,tmp_pkg) == 1 ){
-				printf(_("%s, which is required by %s, is excluded\n"),tmp_pkg->name,pkg->name);
-				deps->pkg_count = -1;
-				return deps;
-			}
-
 			/* if tmp_pkg is not already in the deps pkg_list */
 			if( get_newest_pkg(deps,tmp_pkg->name) == NULL ){
 				struct pkg_list *tmp_pkgs_deps = NULL;
@@ -1603,7 +1596,7 @@ void update_pkg_cache(const rc_config *global_config){
 	pkg_list_fh = open_file(PKG_LIST_L,"w+");
 
 	for(i = 0; i < global_config->sources.count; i++){
-		FILE *tmp_pkg,*tmp_patch,*tmp_checksum;
+		FILE *tmp_pkg,*tmp_patch,*tmp_checksum_f;
 		struct pkg_list *available_pkgs = NULL;
 		struct pkg_list *patch_pkgs = NULL;
 
@@ -1636,34 +1629,34 @@ void update_pkg_cache(const rc_config *global_config){
 		fclose(tmp_patch);
 
 		/* download checksum file */
-		tmp_checksum = tmpfile();
+		tmp_checksum_f = tmpfile();
 		if( global_config->dl_stats == 1 ){
 			printf(_("Retrieving checksum list [%s]...\n"),global_config->sources.url[i]);
 		}else{
 			printf(_("Retrieving checksum list [%s]..."),global_config->sources.url[i]);
 		}
-		if( get_mirror_data_from_source(tmp_checksum,global_config->dl_stats,global_config->sources.url[i],CHECKSUM_FILE) == 0 ){
+		if( get_mirror_data_from_source(tmp_checksum_f,global_config->dl_stats,global_config->sources.url[i],CHECKSUM_FILE) == 0 ){
 			int a;
 			if( global_config->dl_stats != 1 ) printf(_("Done\n"));
 
 			/* now map md5 sum to packages */
 			printf(_("Reading Package Lists..."));
-			rewind(tmp_checksum); /* make sure we are back at the front of the file */
+			rewind(tmp_checksum_f); /* make sure we are back at the front of the file */
 			if( available_pkgs != NULL ){
 				for(a = 0;a < available_pkgs->pkg_count;a++){
-					get_md5sum(available_pkgs->pkgs[a],tmp_checksum);
+					get_md5sum(available_pkgs->pkgs[a],tmp_checksum_f);
 					printf("%c\b",spinner());
 				}
 			}
 			if( patch_pkgs != NULL ){
 				for(a = 0;a < patch_pkgs->pkg_count;a++){
-					get_md5sum(patch_pkgs->pkgs[a],tmp_checksum);
+					get_md5sum(patch_pkgs->pkgs[a],tmp_checksum_f);
 					printf("%c\b",spinner());
 				}
 			}
 			printf(_("Done\n"));
 		}
-		fclose(tmp_checksum);
+		fclose(tmp_checksum_f);
 
 		/* write package listings to disk */
 		if( available_pkgs != NULL ){

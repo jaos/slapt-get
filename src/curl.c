@@ -315,32 +315,45 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	return 0;
 }
 
-int progress_callback(void *clientp, double dltotal, double dlnow, double ultotal, double ulnow){
-	/* supress unused parameter warning */
-	(void) clientp;
-	(void) dltotal;
-	(void) dlnow;
-	(void) ultotal;
-	(void) ulnow;
-	/* */
-	printf("%c\b",spinner());
-	return 0;
+void gen_md5_sum_of_file(FILE *f,char *result_sum){
+	EVP_MD_CTX mdctx;
+	const EVP_MD *md;
+	unsigned char md_value[EVP_MAX_MD_SIZE];
+	int md_len, i;
+	ssize_t getline_read;
+	size_t getline_size;
+	char *result_sum_tmp = NULL;
+	char *getline_buffer = NULL;
+
+	md = EVP_md5();
+ 
+	EVP_MD_CTX_init(&mdctx);
+	EVP_DigestInit_ex(&mdctx, md, NULL);
+
+	rewind(f);
+
+	while( (getline_read = getline(&getline_buffer, &getline_size, f)) != EOF )
+		EVP_DigestUpdate(&mdctx, getline_buffer, getline_read);
+
+	free(getline_buffer);
+
+	EVP_DigestFinal_ex(&mdctx, md_value, (unsigned int*)&md_len);
+	EVP_MD_CTX_cleanup(&mdctx);
+
+	result_sum[0] = '\0';
+	
+	for(i = 0; i < md_len; i++){
+		char *p = malloc( sizeof *p * 3 );
+
+		if( snprintf(p,3,"%02x",md_value[i]) > 0 ){
+
+			if( (result_sum_tmp = strncat(result_sum,p,3)) != NULL )
+				result_sum = result_sum_tmp;
+
 }
 
-/* head request callback */
-size_t head_request_data_callback(void *ptr, size_t size, size_t nmemb, void *data){
-	struct head_request_t *head_d;
-	int total;
-
-	total = size * nmemb;
-	head_d = (struct head_request_t *)data;
-
-	head_d->data = realloc(head_d->data, sizeof *head_d->data * head_d->size + total + 1);
-	if (head_d->data) {
-		memcpy(&(head_d->data[head_d->size]), ptr, total);
-		head_d->size += total;
-		head_d->data[head_d->size] = 0;
+		free(p);
 	}
-	return total;
+
 }
 

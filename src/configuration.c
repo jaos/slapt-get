@@ -128,6 +128,10 @@ rc_config *read_rc_config(const char *file_name){
 	global_config->print_uris = 0;
 	global_config->dl_stats = 0;
 
+	/* create the working directory if needed */
+	working_dir_init(global_config);
+	chdir(global_config->working_dir);
+
 	return global_config;
 }
 
@@ -388,48 +392,6 @@ void create_dir_structure(const char *dir_name){
 	}
 
 	free(cwd);
-}
-
-void gen_md5_sum_of_file(FILE *f,char *result_sum){
-	EVP_MD_CTX mdctx;
-	const EVP_MD *md;
-	unsigned char md_value[EVP_MAX_MD_SIZE];
-	int md_len, i;
-	ssize_t getline_read;
-	size_t getline_size;
-	char *result_sum_tmp = NULL;
-	char *getline_buffer = NULL;
-
-	md = EVP_md5();
- 
-	EVP_MD_CTX_init(&mdctx);
-	EVP_DigestInit_ex(&mdctx, md, NULL);
-
-	rewind(f);
-
-	while( (getline_read = getline(&getline_buffer, &getline_size, f)) != EOF )
-		EVP_DigestUpdate(&mdctx, getline_buffer, getline_read);
-
-	free(getline_buffer);
-
-	EVP_DigestFinal_ex(&mdctx, md_value, (unsigned int*)&md_len);
-	EVP_MD_CTX_cleanup(&mdctx);
-
-	result_sum[0] = '\0';
-	
-	for(i = 0; i < md_len; i++){
-		char *p = malloc( 3 );
-
-		if( snprintf(p,3,"%02x",md_value[i]) > 0 ){
-
-			if( (result_sum_tmp = strncat(result_sum,p,3)) != NULL )
-				result_sum = result_sum_tmp;
-
-		}
-
-		free(p);
-	}
-
 }
 
 void free_rc_config(rc_config *global_config){

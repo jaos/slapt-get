@@ -70,4 +70,8 @@ enum action {
 
 void usage(void);
 void version_info(void);
+/* callback for curl progress */
+int progress_callback(void *clientp, double dltotal, double dlnow, double ultotal, double ulnow);
+/* callback for head request */
+size_t head_request_data_callback(void *ptr, size_t size, size_t nmemb, void *data);
 

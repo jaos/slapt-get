@@ -71,8 +71,6 @@ int main( int argc, char *argv[] ){
 	if( global_config == NULL ){
 		exit(1);
 	}
-	working_dir_init(global_config);
-	chdir(global_config->working_dir);
 	curl_global_init(CURL_GLOBAL_ALL);
 
 	while( ( c = getopt_long_only(argc,argv,"",long_options,&option_index ) ) != EOF ){
@@ -225,7 +223,9 @@ int main( int argc, char *argv[] ){
 	}else if( do_action == INSTALLED ){
 		pkg_action_list_installed();
 	}else if( do_action == CLEAN ){
-		pkg_action_clean(global_config);
+		/* clean out local cache */
+		clean_pkg_dir(global_config->working_dir);
+		chdir(global_config->working_dir);
 	}else if( do_action == SHOWVERSION ){
 		version_info();
 	}else if( do_action == 0 ){
@@ -289,5 +289,34 @@ void version_info(void){
 	printf("along with this program; if not, write to the Free Software\n");
 	printf("Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n");
 
+}
+
+int progress_callback(void *clientp, double dltotal, double dlnow, double ultotal, double ulnow){
+	/* supress unused parameter warning */
+	(void) clientp;
+	(void) dltotal;
+	(void) dlnow;
+	(void) ultotal;
+	(void) ulnow;
+	/* */
+	printf("%c\b",spinner());
+	return 0;
+}
+
+/* head request callback */
+size_t head_request_data_callback(void *ptr, size_t size, size_t nmemb, void *data){
+	struct head_request_t *head_d;
+	int total;
+
+	total = size * nmemb;
+	head_d = (struct head_request_t *)data;
+
+	head_d->data = realloc(head_d->data, sizeof *head_d->data * head_d->size + total + 1);
+	if (head_d->data) {
+		memcpy(&(head_d->data[head_d->size]), ptr, total);
+		head_d->size += total;
+		head_d->data[head_d->size] = 0;
+	}
+	return total;
 }
 

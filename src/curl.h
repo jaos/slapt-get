@@ -35,9 +35,5 @@ int get_mirror_data_from_source(FILE *fh,int use_curl_dl_stats,const char *base_
 /* download pkg, cals download_data */
 int download_pkg(const rc_config *global_config,pkg_info_t *pkg);
 
-/* callback for curl progress */
-int progress_callback(void *clientp, double dltotal, double dlnow, double ultotal, double ulnow);
-
-/* callback for head request */
-size_t head_request_data_callback(void *ptr, size_t size, size_t nmemb, void *data);
-
+/* generate an md5sum of filehandle */
+void gen_md5_sum_of_file(FILE *f,char *result_sum);

@@ -1,6 +1,9 @@
 
-0.9.8e May 03, 2004
+0.9.8e May 17, 2004
  * updated man page
+ * code updates
+ * don't exclude package for upgrade when one of it's dependencies is present
+   in the exclude list, but is already installed
 
 0.9.8d May 02, 2004
  * makefile updates

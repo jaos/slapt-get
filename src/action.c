@@ -18,12 +18,6 @@
 
 #include <main.h>
 
-/* clean out local cache */
-void pkg_action_clean(const rc_config *global_config){
-	clean_pkg_dir(global_config->working_dir);
-	chdir(global_config->working_dir);
-}
-
 /* install pkg */
 void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *action_args){
 	int i;
@@ -510,11 +504,26 @@ int add_deps_to_trans(const rc_config *global_config, transaction *tran, struct 
 	if( (deps->pkg_count == -1) && (global_config->no_dep == 0) ){
 		printf("Excluding %s, use --no-dep to override\n",pkg->name);
 		add_exclude_to_transaction(tran,pkg);
+		free(deps->pkgs);
+		free(deps);
 		return 1;
 	}
 
 	/* loop through the deps */
 	for(c = 0; c < deps->pkg_count;c++){
+
+		/* if this pkg is excluded */
+		if( is_excluded(global_config,deps->pkgs[c]) == 1 ){
+			if( get_exact_pkg(installed_pkgs,deps->pkgs[c]->name,deps->pkgs[c]->version) == NULL ){
+				printf(_("%s, which is required by %s, is excluded\n"),deps->pkgs[c]->name,pkg->name);
+				add_exclude_to_transaction(tran,pkg);
+				free(deps->pkgs);
+				free(deps);
+				return 1;
+			}else{
+				printf("excluded dependency of %s-%s is installed\n",deps->pkgs[c]->name,deps->pkgs[c]->version);
+			}
+		}
 
 		/* only check if it is not already present in trans */
 		if( search_transaction(tran,deps->pkgs[c]) == 0 ){
@@ -546,6 +555,8 @@ int add_deps_to_trans(const rc_config *global_config, transaction *tran, struct 
 	return 0;
 }
 
+/* check to see if a package is conflicted */
+/* this needs to find it's final home */
 int is_conflicted(const rc_config *global_config, transaction *tran, struct pkg_list *avail_pkgs, struct pkg_list *installed_pkgs, pkg_info_t *pkg){
 	int i;
 	int conflicted = 0;
@@ -571,3 +582,4 @@ int is_conflicted(const rc_config *global_config, transaction *tran, struct pkg_
 
 	return conflicted;
 }
+
