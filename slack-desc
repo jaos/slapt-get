@@ -5,15 +5,15 @@
 # make exactly 11 lines for the formatting to be correct.  It's also
 # customary to leave one space after the ':'.
 
-         |-handy-ruler------------------------------------------------------|
+         |-----handy-ruler------------------------------------------------------|
 slapt-get: slapt-get (APT like system for Slackware)
 slapt-get:
-slapt-get: slapt-get is an APT like system for Slackware package management. 
+slapt-get: slapt-get is an APT like system for Slackware package management.
 slapt-get: It allows one to search slackware.com and mirrors for packages,
 slapt-get: compare them with installed packages, install new packages or
 slapt-get: upgrade installed packages all with a few simple commands.
-slapt-get: 
+slapt-get:
 slapt-get: Additional features include listing all available packages,
 slapt-get: listing all installed packages, and removing installed packages.
-slapt-get: 
-slapt-get: 
+slapt-get:
+slapt-get:
