@@ -71,7 +71,6 @@ static size_t write_header_callback(void *buffer, size_t size, size_t nmemb, voi
 	tmp = (char *)realloc( head_t->data, head_t->size + a_size + 1);
 	if( tmp != NULL ){
 		head_t->data = tmp;
-		/* strncat(head_t->data,buffer,a_size); */
 		memcpy(&(head_t->data[head_t->size]),buffer,a_size);
 		head_t->size += a_size;
 	}
