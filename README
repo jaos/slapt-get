@@ -47,6 +47,7 @@ Table of Contents:
     * transaction engine
     * "compare package version" algorithm to prevent downgrades
     * extremely fast and easy to script with
+    * dependency support if pkg includes ./install/slack-required (see FAQ)
 
 
 
