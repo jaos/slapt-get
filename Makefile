@@ -24,7 +24,7 @@ $(PROGRAM_NAME): $(OBJS)
 static: $(OBJS)
 	$(CC) -o $(PROGRAM_NAME) $(OBJS) $(CFLAGS) $(CURLFLAGS) -static
 
-install: $(PROGRAM_NAME)
+install: $(PROGRAM_NAME) libs
 	install $(PROGRAM_NAME) $(SBINDIR)
 	if [ ! -f $(RCDEST) ]; then install --mode=0644 -b $(RCSOURCE) $(RCDEST); else install --mode=0644 -b $(RCSOURCE) $(RCDEST).new;fi
 	install $(PROGRAM_NAME).8 /usr/man/man8/
@@ -67,13 +67,12 @@ pkg: $(PROGRAM_NAME) libs
 	-@cp slack-required pkg/install/
 	-@cp $(PROGRAM_NAME).8 pkg/usr/man/man8/
 	-@gzip pkg/usr/man/man8/$(PROGRAM_NAME).8
-	#-@mkdir -p pkg/usr/lib
-	#-@mkdir -p pkg/usr/include/slapt
-	#-@cp include/*.h pkg/usr/include/slapt/
-	#-@mv pkg/usr/include/slapt/main.h pkg/usr/include/slapt/slapt.h
-	#-@cp src/libslapt-$(VERSION).a src/libslapt-$(VERSION).so pkg/usr/lib/
-	#-@strip pkg/usr/lib/libslapt-$(VERSION).so
-	#-@ln -s pkg/usr/lib/libslapt-$(VERSION).so pkg/usr/lib/libslapt.so
+	-@mkdir -p pkg/usr/lib
+	-@mkdir -p pkg/usr/include
+	-@cp include/slapt.h pkg/usr/include/
+	-@cp src/libslapt-$(VERSION).a src/libslapt-$(VERSION).so pkg/usr/lib/
+	-@strip pkg/usr/lib/libslapt-$(VERSION).so
+	-@ln -s pkg/usr/lib/libslapt-$(VERSION).so pkg/usr/lib/libslapt.so
 	@( cd pkg; makepkg -l y -c y $(PROGRAM_NAME)-$(VERSION)-$(ARCH)-$(RELEASE).tgz )
 
 po_file:
