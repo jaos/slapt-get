@@ -19,6 +19,7 @@
 #define MAX_PKG_ENTRIES 2000
 #define PKG_PARSE_REGEX "(.*{1,})\\-(.*[\\.\\-].*[\\.\\-].*).tgz[ ]{0,}$"
 #define PKG_NAMEVER "(.*{1,})\\-(.*[\\.\\-].*[\\.\\-].*)"
+#define PKG_VER "(.*)[\\.\\-](.*)[\\.\\-](.*)"
 #define PKG_NAME_PATTERN "^PACKAGE NAME:[ ]{1,}(.*{1,})\\-(.*[\\.\\-].*[\\.\\-].*).tgz[ ]{0,}$"
 #define PKG_MIRROR_PATTERN "^PACKAGE MIRROR:[ ]+(.*)$"
 #define PKG_LOCATION_PATTERN "^PACKAGE LOCATION:[ ]+(.*)$"
