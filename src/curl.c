@@ -18,7 +18,7 @@
 
 #include <main.h>
 
-int download_data(FILE *fh,const char *url,size_t bytes){
+int download_data(FILE *fh,const char *url,size_t bytes,int use_curl_dl_stats){
 	CURL *ch = NULL;
 	CURLcode response;
 	char curl_err_buff[1024];
@@ -32,9 +32,10 @@ int download_data(FILE *fh,const char *url,size_t bytes){
 	curl_easy_setopt(ch, CURLOPT_WRITEDATA, fh);
 	curl_easy_setopt(ch, CURLOPT_NOPROGRESS, 0);
 	curl_easy_setopt(ch, CURLOPT_USERAGENT, PROGRAM_NAME );
-#if USE_CURL_PROGRESS == 0
-	curl_easy_setopt(ch, CURLOPT_PROGRESSFUNCTION, progress_callback );
-#endif
+
+	if( use_curl_dl_stats != 1 )
+		curl_easy_setopt(ch, CURLOPT_PROGRESSFUNCTION, progress_callback );
+
 	curl_easy_setopt(ch, CURLOPT_ERRORBUFFER, curl_err_buff );
 
 	/* resume */
@@ -108,7 +109,7 @@ int head_request(const char *filename,const char *url){
 	return return_code;
 }
 
-int get_mirror_data_from_source(FILE *fh,const char *base_url,const char *filename){
+int get_mirror_data_from_source(FILE *fh,int use_curl_dl_stats,const char *base_url,const char *filename){
 	int return_code = 0;
 	char *url = NULL;
 
@@ -123,7 +124,7 @@ int get_mirror_data_from_source(FILE *fh,const char *base_url,const char *filena
 	strncpy(url,base_url,strlen(base_url) );
 	url[ strlen(base_url) ] = '\0';
 	strncat(url,filename,strlen(filename) );
-	return_code = download_data(fh,url,0);
+	return_code = download_data(fh,url,0,use_curl_dl_stats);
 
 	free(url);
 	/* make sure we are back at the front of the file */
@@ -208,11 +209,11 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	url = strncat(url,"/",strlen("/"));
 	url = strncat(url,file_name,strlen(file_name));
 
-	#if USE_CURL_PROGRESS == 0
-	printf(_("Downloading %s %s %s [%dK]..."),pkg->mirror,pkg->name,pkg->version,pkg->size_c - (f_size/1024));
-	#else
-	printf(_("Downloading %s %s %s [%dK]...\n"),pkg->mirror,pkg->name,pkg->version,pkg->size_c - (f_size/1024));
-	#endif
+	if( global_config->dl_stats == 1 ){
+		printf(_("Downloading %s %s %s [%dK]...\n"),pkg->mirror,pkg->name,pkg->version,pkg->size_c - (f_size/1024));
+	}else{
+		printf(_("Downloading %s %s %s [%dK]..."),pkg->mirror,pkg->name,pkg->version,pkg->size_c - (f_size/1024));
+	}
 
 	fh = open_file(file_name,"a+b");
 	if( fh == NULL ){
@@ -221,10 +222,8 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 		return -1;
 	}
 
-	if( download_data(fh,url,f_size) == 0 ){
-		#if USE_CURL_PROGRESS == 0
-		printf(_("Done\n"));
-		#endif
+	if( download_data(fh,url,f_size,global_config->dl_stats) == 0 ){
+		if( global_config->dl_stats != 1 ) printf(_("Done\n"));
 	}else{
 		fclose(fh);
 		#if DEBUG == 1

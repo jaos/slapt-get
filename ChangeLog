@@ -1,5 +1,7 @@
 
 0.9.8d Apr 26, 2004
+ * added Italian translation by Francesco Gigli (jaramir@slack.it)
+ * --show-stats | -S to show download stats, inspired by Alexandre Zia (alexandre@erbio.widesoft.com.br)
  * example source entries for extra and testing package sets
  * set default URL to official slackware ftp in example.slapt-getrc
  * updated cmp_pkg_versions() for special case where # of version parts !=

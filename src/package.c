@@ -1609,48 +1609,42 @@ void update_pkg_cache(const rc_config *global_config){
 
 		/* download our PKG_LIST */
 		tmp_pkg = tmpfile();
-		#if USE_CURL_PROGRESS == 0
-		printf(_("Retrieving package data [%s]..."),global_config->sources.url[i]);
-		#else
-		printf(_("Retrieving package data [%s]...\n"),global_config->sources.url[i]);
-		#endif
-		if( get_mirror_data_from_source(tmp_pkg,global_config->sources.url[i],PKG_LIST) == 0 ){
+		if( global_config->dl_stats == 1 ){
+			printf(_("Retrieving package data [%s]...\n"),global_config->sources.url[i]);
+		}else{
+			printf(_("Retrieving package data [%s]..."),global_config->sources.url[i]);
+		}
+		if( get_mirror_data_from_source(tmp_pkg,global_config->dl_stats,global_config->sources.url[i],PKG_LIST) == 0 ){
 			rewind(tmp_pkg); /* make sure we are back at the front of the file */
 			available_pkgs = parse_packages_txt(tmp_pkg);
-			#if USE_CURL_PROGRESS == 0
-			printf(_("Done\n"));
-			#endif
+			if( global_config->dl_stats != 1 ) printf(_("Done\n"));
 		}
 		fclose(tmp_pkg);
 
 		/* download PATCHES_LIST */
 		tmp_patch = tmpfile();
-		#if USE_CURL_PROGRESS == 0
-		printf(_("Retrieving patch list [%s]..."),global_config->sources.url[i]);
-		#else
-		printf(_("Retrieving patch list [%s]...\n"),global_config->sources.url[i]);
-		#endif
-		if( get_mirror_data_from_source(tmp_patch,global_config->sources.url[i],PATCHES_LIST) == 0 ){
+		if( global_config->dl_stats == 1 ){
+			printf(_("Retrieving patch list [%s]...\n"),global_config->sources.url[i]);
+		}else{
+			printf(_("Retrieving patch list [%s]..."),global_config->sources.url[i]);
+		}
+		if( get_mirror_data_from_source(tmp_patch,global_config->dl_stats,global_config->sources.url[i],PATCHES_LIST) == 0 ){
 			rewind(tmp_patch); /* make sure we are back at the front of the file */
 			patch_pkgs = parse_packages_txt(tmp_patch);
-			#if USE_CURL_PROGRESS == 0
-			printf(_("Done\n"));
-			#endif
+			if( global_config->dl_stats != 1 ) printf(_("Done\n"));
 		}
 		fclose(tmp_patch);
 
 		/* download checksum file */
 		tmp_checksum = tmpfile();
-		#if USE_CURL_PROGRESS == 0
-		printf(_("Retrieving checksum list [%s]..."),global_config->sources.url[i]);
-		#else
-		printf(_("Retrieving checksum list [%s]...\n"),global_config->sources.url[i]);
-		#endif
-		if( get_mirror_data_from_source(tmp_checksum,global_config->sources.url[i],CHECKSUM_FILE) == 0 ){
+		if( global_config->dl_stats == 1 ){
+			printf(_("Retrieving checksum list [%s]...\n"),global_config->sources.url[i]);
+		}else{
+			printf(_("Retrieving checksum list [%s]..."),global_config->sources.url[i]);
+		}
+		if( get_mirror_data_from_source(tmp_checksum,global_config->dl_stats,global_config->sources.url[i],CHECKSUM_FILE) == 0 ){
 			int a;
-			#if USE_CURL_PROGRESS == 0
-			printf(_("Done\n"));
-			#endif
+			if( global_config->dl_stats != 1 ) printf(_("Done\n"));
 
 			/* now map md5 sum to packages */
 			printf(_("Reading Package Lists..."));

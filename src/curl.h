@@ -16,14 +16,13 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#define USE_CURL_PROGRESS 0
 struct head_request_t {
 	char *data;
 	size_t size;
 };
                                                                                                                              
 /* this is the main download routine */
-int download_data(FILE *fh,const char *url,size_t bytes);
+int download_data(FILE *fh,const char *url,size_t bytes,int use_curl_dl_stats);
 
 /* this performs a head request */
 int head_request(const char *filename,const char *url);
@@ -31,7 +30,7 @@ int head_request(const char *filename,const char *url);
 /*
 	this fills FILE with data from url, used for PACKAGES.TXT and CHECKSUMS
 */
-int get_mirror_data_from_source(FILE *fh,const char *base_url,const char *filename);
+int get_mirror_data_from_source(FILE *fh,int use_curl_dl_stats,const char *base_url,const char *filename);
 
 /* download pkg, cals download_data */
 int download_pkg(const rc_config *global_config,pkg_info_t *pkg);

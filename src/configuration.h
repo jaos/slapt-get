@@ -46,6 +46,7 @@ struct _configuration {
 	int no_dep;
 	int disable_dep_check;
 	int print_uris;
+	int dl_stats;
 };
 typedef struct _configuration rc_config;
 

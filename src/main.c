@@ -50,6 +50,8 @@ int main( int argc, char *argv[] ){
 		{"no-dep",0, 0, 'p'},
 		{"disable-dep-check",0, 0, 'q'},
 		{"print-uris",0, 0, 'P'},
+		{"show-stats",0, 0, 'S'},
+		{"S",0, 0, 'S'},
 	};
 	int option_index = 0;
 	/* */
@@ -138,6 +140,9 @@ int main( int argc, char *argv[] ){
 				break;
 			case 'P': /* print-uris */
 				global_config->print_uris = 1;
+				break;
+			case 'S': /* download-stats */
+				global_config->dl_stats = 1;
 				break;
 			default:
 				usage();
@@ -264,6 +269,7 @@ void usage(void){
 	printf("  --no-dep            - %s\n",_("ignore dependency failures"));
 	printf("  --disable-dep-check - %s\n",_("skip dependency check"));
 	printf("  --print-uris        - %s\n",_("print URIs only, do not download"));
+	printf("  --show-stats|-S     - %s\n",_("show download statistics"));
 }
 
 void version_info(void){
