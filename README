@@ -22,6 +22,7 @@ Table of Contents:
  3. Installation
  4. slapt-getrc
  5. Troubleshooting
+ 6. Thanks and contributions
 
 
 
@@ -96,4 +97,9 @@ Table of Contents:
    If you are getting segfaults, add -g to CFLAGS in the Makefile and rebuild
    ( make clean && make ).  Run in gdb and let me know via email where the
    fault happens.
+
+ 6. Thanks and contributions
+
+   Big thanks to Dan Barber <danb at mojolin dot com> for his insight and help
+   with documentation suggestions and feature requests.
 
