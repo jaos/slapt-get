@@ -557,8 +557,8 @@ pkg_info_t *get_newest_pkg(struct pkg_list *pkg_list,const char *pkg_name){
 
 		/* if pkg has same name as our requested pkg */
 		if( (strcmp(pkg_list->pkgs[i]->name,pkg_name)) == 0 ){
-
-			if( (pkg == NULL) || cmp_pkg_versions(pkg->version,pkg_list->pkgs[i]->version) < 0 ){
+			if( (pkg == NULL) || (cmp_pkg_versions(pkg->version,
+			pkg_list->pkgs[i]->version) < 0) ){
 				pkg = pkg_list->pkgs[i];
 			}
 		}
@@ -1428,9 +1428,7 @@ static void required_by(const rc_config *global_config,struct pkg_list *avail, p
 		execute_regex(&required_by_reg,avail->pkgs[i]->required);
 		if( required_by_reg.reg_return != 0 ) continue;
 
-		/* only proceed if we don't have the required already */
-		if( (get_newest_pkg(required_by_list,avail->pkgs[i]->name) == NULL) )
-			add_pkg_to_pkg_list(required_by_list,avail->pkgs[i]);
+		add_pkg_to_pkg_list(required_by_list,avail->pkgs[i]);
 	}
 
 	free_regex(&required_by_reg);

@@ -1,7 +1,10 @@
 
-0.9.9h Feb 06, 2005
+0.9.9h Feb 07, 2005
+ * ensure when removing a package and the packages it requires, the packages
+   that are required are installed. thanks NIkkou (nibbana80 at wp dot pl)
  * improved version comparing
- * fixed bug when specifying specific versions of dependencies, thanks NIkkou (nibbana80 at wp dot pl)
+ * fixed bug when specifying specific versions of dependencies, thanks NIkkou
+    (nibbana80 at wp dot pl)
  * simplified add_deps_to_trans()
  * updated sources in example.slapt-getrc (thanks Piotr Simon)
  * Makefile updates to symlink libslapt-$(VERSION).a to libslapt.a

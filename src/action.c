@@ -218,7 +218,8 @@ void pkg_action_remove(const rc_config *global_config,const pkg_action_args_t *a
 
 			for(c = 0; c < deps->pkg_count;c++){
 
-				if( get_newest_pkg(installed_pkgs,deps->pkgs[c]->name) != NULL ){
+				if( get_exact_pkg(installed_pkgs,deps->pkgs[c]->name,
+				deps->pkgs[c]->version) != NULL ){
 					add_remove_to_transaction(&tran,deps->pkgs[c]);
 				}
 
@@ -462,7 +463,8 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 						*/
 						deps = is_required_by(global_config,avail_pkgs,installed_pkgs->pkgs[r]);
 						for(c = 0; c < deps->pkg_count; c++ ){
-							if( get_newest_pkg(avail_pkgs,deps->pkgs[c]->name) == NULL ){
+							if( get_exact_pkg(avail_pkgs,deps->pkgs[c]->name,
+							deps->pkgs[c]->version) == NULL ){
 								if( is_excluded(global_config,deps->pkgs[c]) != 1 ){
 									add_remove_to_transaction(&tran,deps->pkgs[c]);
 								}else{
