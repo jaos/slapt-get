@@ -18,7 +18,7 @@
 
 #include <main.h>
 
-int download_data(FILE *fh,const char *url){
+int download_data(FILE *fh,const char *url, int (*callback) (void *,double,double,double,double) ){
 	CURL *ch = NULL;
 	CURLcode response;
 	char curl_err_buff[1024];
@@ -34,7 +34,7 @@ int download_data(FILE *fh,const char *url){
 	curl_easy_setopt(ch, CURLOPT_USERAGENT, PROGRAM_NAME );
 	curl_easy_setopt(ch, CURLOPT_USERPWD, "anonymous:slapt-get-user@software.jaos.org");
 #if USE_CURL_PROGRESS == 0
-	curl_easy_setopt(ch, CURLOPT_PROGRESSFUNCTION, progress_callback);
+	curl_easy_setopt(ch, CURLOPT_PROGRESSFUNCTION, callback);
 #endif
 	curl_easy_setopt(ch, CURLOPT_ERRORBUFFER, curl_err_buff );
 
@@ -103,7 +103,7 @@ int head_request(const char *filename,const char *url){
 	return return_code;
 }
 
-int get_mirror_data_from_source(FILE *fh,const char *base_url,const char *filename){
+int get_mirror_data_from_source(FILE *fh,const char *base_url,const char *filename, int (*callback)(void *,double,double,double,double)){
 	int return_code = 0;
 	char *url = NULL;
 
@@ -118,7 +118,7 @@ int get_mirror_data_from_source(FILE *fh,const char *base_url,const char *filena
 	strncpy(url,base_url,strlen(base_url) );
 	url[ strlen(base_url) ] = '\0';
 	strncat(url,filename,strlen(filename) );
-	return_code = download_data(fh,url);
+	return_code = download_data(fh,url,callback);
 
 	free(url);
 	/* make sure we are back at the front of the file */
@@ -127,7 +127,7 @@ int get_mirror_data_from_source(FILE *fh,const char *base_url,const char *filena
 	return return_code;
 }
 
-int download_pkg(const rc_config *global_config,pkg_info_t *pkg){
+int download_pkg(const rc_config *global_config,pkg_info_t *pkg,int (*callback)(void *,double,double,double,double)){
 	FILE *fh = NULL;
 	FILE *fh_test = NULL;
 	char *file_name = NULL;
@@ -200,7 +200,7 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	#endif
 
 	fh = open_file(file_name,"wb");
-	if( download_data(fh,url) == 0 ){
+	if( download_data(fh,url,callback) == 0 ){
 		#if USE_CURL_PROGRESS == 0
 		printf(_("Done\n"));
 		#endif

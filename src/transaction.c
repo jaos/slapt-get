@@ -151,9 +151,9 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 
 	/* download pkgs */
 	for(i = 0; i < tran->install_pkgs->pkg_count;i++)
-		if( download_pkg(global_config,tran->install_pkgs->pkgs[i]) != 0 ) exit(1);
+		if( download_pkg(global_config,tran->install_pkgs->pkgs[i],progress_callback) != 0 ) exit(1);
 	for(i = 0; i < tran->upgrade_pkgs->pkg_count;i++)
-		if( download_pkg(global_config,tran->upgrade_pkgs->pkgs[i]->upgrade) != 0 ) exit(1);
+		if( download_pkg(global_config,tran->upgrade_pkgs->pkgs[i]->upgrade,progress_callback) != 0 ) exit(1);
 
 	printf("\n");
 
