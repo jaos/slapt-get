@@ -261,33 +261,29 @@ void pkg_action_search(const char *pattern){
 
 	/* show installed packages in search */
 	for(i=0;i<imatches->pkg_count;i++){
-		/* only if they didn't already show up from the available packages */
-		if( get_exact_pkg(matches,imatches->pkgs[i]->name,imatches->pkgs[i]->version) == NULL ){
-			char *short_description = gen_short_pkg_description(matches->pkgs[i]);
-			printf("%s %s [inst=%s]: %s\n",
-				imatches->pkgs[i]->name,
-				imatches->pkgs[i]->version,
-				_("yes"),
-				short_description
-			);
-			free(short_description);
-		}
+		char *short_description = gen_short_pkg_description(imatches->pkgs[i]);
+		printf("%s %s [inst=%s]: %s\n",
+			imatches->pkgs[i]->name,
+			imatches->pkgs[i]->version,
+			_("yes"),
+			short_description
+		);
+		free(short_description);
 	}
 
 	for(i = 0; i < matches->pkg_count; i++){
-		int bool_installed = 0;
-		char *short_description = gen_short_pkg_description(matches->pkgs[i]);
+		char *short_description = NULL;
 
-		/* is it installed? */
-		if( get_exact_pkg(installed_pkgs,matches->pkgs[i]->name,matches->pkgs[i]->version) != NULL )
-			bool_installed = 1;
+		/* did we already show it in the installed loop? */
+		if( get_exact_pkg(imatches,matches->pkgs[i]->name,matches->pkgs[i]->version) != NULL )
+			continue;
+
+		short_description = gen_short_pkg_description(matches->pkgs[i]);
 
 		printf("%s %s [inst=%s]: %s\n",
 			matches->pkgs[i]->name,
 			matches->pkgs[i]->version,
-			bool_installed == 1
-				? _("yes")
-				: _("no"),
+			 _("no"),
 			short_description
 		);
 		free(short_description);
