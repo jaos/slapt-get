@@ -43,6 +43,9 @@ Table of Contents:
 
  2. Requirements
 
+    slapt-get requires glibc-2.3.1 (slackware9 or better) due to 
+    the regex.h updates. 
+
     The following packages are required to build slapt-get:
     make, gcc, curl, glibc, kernel-headers, binutils, zlib, and openssl
 
