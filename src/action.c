@@ -157,15 +157,28 @@ void pkg_action_remove(const rc_config *global_config,const pkg_action_args_t *a
 	int i;
 	pkg_info_t *pkg;
 	struct pkg_list *installed;
+	struct pkg_list *available;
 	transaction tran;
 
 	installed = get_installed_pkgs();
+	available = get_available_pkgs();
 	init_transaction(&tran);
 
 	for(i = 0; i < action_args->count; i++){
-		if(
-			(pkg = get_newest_pkg(installed,action_args->pkgs[i])) != NULL
-		){
+		if( (pkg = get_newest_pkg(installed,action_args->pkgs[i])) != NULL){
+			int c;
+			struct pkg_list *deps;
+			deps = is_required_by(available,pkg);
+			for(c = 0; c < deps->pkg_count;c++){
+				printf("%s\n",deps->pkgs[c]->name);
+				if( search_transaction(&tran,deps->pkgs[c]) == 0 ){
+					if( get_newest_pkg(installed,deps->pkgs[c]->name) != NULL ){
+						add_remove_to_transaction(&tran,deps->pkgs[c]);
+					}
+				}
+			}
+			free(deps->pkgs);
+			free(deps);
 			add_remove_to_transaction(&tran,pkg);
 		}else{
 			printf("%s is not installed.\n",action_args->pkgs[i]);
@@ -173,10 +186,11 @@ void pkg_action_remove(const rc_config *global_config,const pkg_action_args_t *a
 	}
 
 	free_pkg_list(installed);
-	free_transaction(&tran);
+	free_pkg_list(available);
 
 	handle_transaction(global_config,&tran);
 
+	free_transaction(&tran);
 }
 
 /* search for a pkg (support extended POSIX regex) */
@@ -357,7 +371,7 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 				int c;
 				struct pkg_list *deps;
 				deps = lookup_pkg_dependencies(all_pkgs,installed_pkgs,update_pkg);
-				for(c = 0; i < deps->pkg_count;c++){
+				for(c = 0; c < deps->pkg_count;c++){
 					if( search_transaction(&tran,deps->pkgs[c]) == 0 ){
 						if( get_newest_pkg(installed_pkgs,deps->pkgs[c]->name) == NULL ){
 							add_install_to_transaction(&tran,deps->pkgs[c]);

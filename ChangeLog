@@ -1,5 +1,5 @@
 
-0.9.6h Oct 26, 2003
+0.9.6h Oct 27, 2003
  * parse package require/dep from PACKAGES.TXT
  * show parsed require/dep data with --show
  * --list now shows pkg_name - pkg_vesion : pkg_description
@@ -10,6 +10,8 @@
  * added search_transaction function
  * exit on unknown command line switch instead of barking usage info
    and going on
+ * added is_required_by function, so --remove pkg also prompts to remove
+   packages that require it
 
 0.9.6g Oct 22, 2003
  * updated --help output

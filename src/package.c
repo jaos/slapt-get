@@ -1252,3 +1252,59 @@ pkg_info_t *parse_dep_entry(struct pkg_list *avail_pkgs,struct pkg_list *install
 	exit(1);
 }
 
+struct pkg_list *is_required_by(struct pkg_list *avail, pkg_info_t *pkg){
+	int i;
+	sg_regex required_by_reg;
+	struct pkg_list *deps;
+	pkg_info_t **realloc_tmp;
+
+	deps = malloc( sizeof *deps );
+	if( deps == NULL ){
+		fprintf(stderr,"Failed to malloc deps\n");
+		exit(1);
+	}
+	deps->pkgs = malloc( sizeof *deps->pkgs );
+	if( deps->pkgs == NULL ){
+		fprintf(stderr,"Failed to malloc deps->pkgs\n");
+		exit(1);
+	}
+	deps->pkg_count = 0;
+	required_by_reg.nmatch = MAX_REGEX_PARTS;
+
+	regcomp(&required_by_reg.regex,pkg->name, REG_EXTENDED|REG_NEWLINE);
+
+	for(i = 0; i < avail->pkg_count;i++){
+
+		if( strcmp(avail->pkgs[i]->required,"") == 0 ) continue;
+
+		if( regexec( &required_by_reg.regex, avail->pkgs[i]->required,
+		required_by_reg.nmatch, required_by_reg.pmatch, 0) == 0){
+			int c;
+			struct pkg_list *deps_of_deps;
+
+			deps->pkgs[deps->pkg_count] = avail->pkgs[i];
+			++deps->pkg_count;
+			realloc_tmp = realloc( deps->pkgs, sizeof *deps->pkgs * (deps->pkg_count + 1) );
+			if( realloc_tmp != NULL ){
+				deps->pkgs = realloc_tmp;
+				realloc_tmp = NULL;
+			}
+
+			deps_of_deps = is_required_by(avail,avail->pkgs[i]);
+			for(c = 0; c < deps_of_deps->pkg_count;c++){
+				if( get_newest_pkg(deps,deps_of_deps->pkgs[c]->name) == NULL ){
+					deps->pkgs[deps->pkg_count] = deps_of_deps->pkgs[c];
+					++deps->pkg_count;
+					realloc_tmp = realloc( deps->pkgs, sizeof *deps->pkgs * (deps->pkg_count + 1) );
+					if( realloc_tmp != NULL ){
+						deps->pkgs = realloc_tmp;
+						realloc_tmp = NULL;
+					}
+				}
+			}
+
+		}
+	}
+
+	return deps;
+}
