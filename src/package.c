@@ -43,10 +43,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 	long f_pos = 0;
 	size_t getline_len = 0;
 	char *getline_buffer = NULL;
-	char *size_c = NULL;
-	char *size_u = NULL;
 	char *char_pointer = NULL;
-	pkg_info_t *tmp_pkg;
 
 	list = init_pkg_list();
 
@@ -58,6 +55,9 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 	init_regex(&size_u_regex,PKG_SIZEU_PATTERN);
 
 	while( (bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh) ) != EOF ){
+
+		pkg_info_t *tmp_pkg;
+
 		getline_buffer[bytes_read - 1] = '\0';
 
 		/* pull out package data */
@@ -182,6 +182,8 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 		/* size_c */
 		if( (getline(&getline_buffer,&getline_len,pkg_list_fh) != EOF)){
 
+			char *size_c = NULL;
+
 			execute_regex(&size_c_regex,getline_buffer);
 
 			if( size_c_regex.reg_return == 0 ){
@@ -213,6 +215,8 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 
 		/* size_u */
 		if( (getline(&getline_buffer,&getline_len,pkg_list_fh) != EOF)){
+
+			char *size_u = NULL;
 
 			execute_regex(&size_u_regex,getline_buffer);
 
@@ -518,6 +522,7 @@ struct pkg_list *get_installed_pkgs(void){
 pkg_info_t *get_newest_pkg(struct pkg_list *pkg_list,const char *pkg_name){
 	int i;
 	pkg_info_t *pkg = NULL;
+
 	for(i = 0; i < pkg_list->pkg_count; i++ ){
 
 		/* if pkg has same name as our requested pkg */
@@ -529,6 +534,7 @@ pkg_info_t *get_newest_pkg(struct pkg_list *pkg_list,const char *pkg_name){
 		}
 
 	}
+
 	return pkg;
 }
 
@@ -771,6 +777,10 @@ int is_excluded(const rc_config *global_config,pkg_info_t *pkg){
 		if( (strncmp(global_config->exclude_list->excludes[i],pkg->name,strlen(pkg->name)) == 0))
 			return 1;
 
+		/*
+			this regex has to be init'd and free'd within the loop b/c the regex is pulled 
+			from the exclude list
+		*/
 		init_regex(&exclude_reg,global_config->exclude_list->excludes[i]);
 
 		execute_regex(&exclude_reg,pkg->name);
