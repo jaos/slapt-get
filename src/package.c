@@ -264,8 +264,8 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 				);
 				if( tmp_realloc != NULL ){
 					tmp_pkg->required = tmp_realloc;
-				strncpy(tmp_pkg->required,char_pointer + req_len, strlen(char_pointer + req_len));
-				tmp_pkg->required[ strlen(char_pointer + req_len) ] = '\0';
+					strncpy(tmp_pkg->required,char_pointer + req_len, strlen(char_pointer + req_len));
+					tmp_pkg->required[ strlen(char_pointer + req_len) ] = '\0';
 				}
 		}else{
 			/* required isn't provided... rewind one line */
@@ -284,7 +284,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 				tmp_realloc = realloc(tmp_pkg->conflicts, sizeof *tmp_pkg->conflicts * (strlen(conflicts) + 1));
 				if( tmp_realloc != NULL ){
 					tmp_pkg->conflicts = tmp_realloc;
-				strncat(tmp_pkg->conflicts,conflicts,strlen(conflicts));
+					strncat(tmp_pkg->conflicts,conflicts,strlen(conflicts));
 					tmp_pkg->conflicts[ strlen(conflicts) ] = '\0';
 				}
 		}else{
@@ -1100,6 +1100,7 @@ int get_pkg_dependencies(const rc_config *global_config,struct pkg_list *avail_p
 			}
 
 			position += strlen(pointer);
+
 		}else{
 
 			/* if we have a comma, skip it */
