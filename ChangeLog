@@ -7,7 +7,7 @@
  * updated makefile, moved /etc/slapt-getrc to /etc/slapt-get/slapt-getrc
  * documentation updates
  * use libcurls CURLOPT_FAILONERROR to fail on http codes > 300
- * now will not cache package source if no packages where parsed from the source
+ * now will not cache package source if no packages were parsed from the source
  * turned off EPSV for all libcurl operations... ftp.slackware.com doesn't support the EPSV command
  * moved working_dir_init out of read_rc_config() into main(), so that if the config
    file location is overridden, you don't get warnings about permissions on working
