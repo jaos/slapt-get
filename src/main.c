@@ -43,6 +43,7 @@ int main( int argc, char *argv[] ){
 		{"ignore-excludes", 0, 0, 'x'},
 		{"no-md5", 0, 0, '5'},
 		{"interactive", 0, 0, 'f'},
+		{"dist-upgrade",0, 0, 'h'},
 	};
 	int option_index = 0;
 	/* */
@@ -109,6 +110,10 @@ int main( int argc, char *argv[] ){
 				break;
 			case 'f': /* interactive */
 				global_config->interactive = 1;
+				break;
+			case 'h': /* dist-upgrade */
+				global_config->dist_upgrade = 1;
+				do_action = UPGRADE;
 				break;
 			default:
 				usage();
@@ -213,16 +218,17 @@ void usage(){
 	printf("%s [option(s)] [target]\n",PROGRAM_NAME);
 	printf("\n");
 	printf("Targets:\n");
-	printf("  --update    - retrieves pkg data from MIRROR\n");
-	printf("  --upgrade   - upgrade installed pkgs\n");
-	printf("  --install   [pkg name(s)] - install specified pkg(s)\n");
-	printf("  --remove    [pkg name(s)] - remove specified pkg(s)\n");
-	printf("  --show      [pkg name] - show pkg description\n");
-	printf("  --search    [expression] - search available pkgs\n");
-	printf("  --list      - list available pkgs\n");
-	printf("  --installed - list installed pkgs\n");
-	printf("  --clean     - purge cached pkgs\n");
-	printf("  --version   - print version and license info\n");
+	printf("  --update       - retrieves pkg data from MIRROR\n");
+	printf("  --upgrade      - upgrade installed pkgs\n");
+	printf("  --dist-upgrade - upgrade to newer release (DANGEROUS)\n");
+	printf("  --install      [pkg name(s)] - install specified pkg(s)\n");
+	printf("  --remove       [pkg name(s)] - remove specified pkg(s)\n");
+	printf("  --show         [pkg name] - show pkg description\n");
+	printf("  --search       [expression] - search available pkgs\n");
+	printf("  --list         - list available pkgs\n");
+	printf("  --installed    - list installed pkgs\n");
+	printf("  --clean        - purge cached pkgs\n");
+	printf("  --version      - print version and license info\n");
 	printf("\n");
 	printf("Options:\n");
 	printf("  --download-only   - only download pkg on install/upgrade\n");
