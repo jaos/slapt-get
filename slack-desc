@@ -10,10 +10,11 @@ slapt-get: slapt-get (APT like system for Slackware)
 slapt-get: slapt-get is an APT like system for Slackware package management.
 slapt-get: 
 slapt-get:  * See /usr/doc/slapt-get-0.9.9b/ for complete documentation. 
-slapt-get: 
 slapt-get:  * You will also want to customize /etc/slapt-get/slapt-getrc,
-slapt-get:    using a local mirror.  www.slackware.com may be very busy
-slapt-get:    and seem unresponsive.
+slapt-get:    using a local mirror.  www.slackware.com may be very busy.
+slapt-get:  * Support:
+slapt-get:    http://software.jaos.org/cgi-bin/mailman/listinfo/slapt-get-user
+slapt-get:  * Please translate
+slapt-get:    http://software.jaos.org/BUILD/slapt-get/po/slapt-get.pot
+slapt-get:    then send to slapt-get-devel@software.jaos.org
 slapt-get: 
-slapt-get: Please translate
-slapt-get: http://software.jaos.org/BUILD/slapt-get/po/slapt-get.pot
