@@ -78,3 +78,5 @@ enum action {
 
 #define _(text) gettext(text)
 
+#define NAUGHTY_CHARS "$@^#!*()`"
+
