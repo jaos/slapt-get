@@ -382,56 +382,6 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 	printf(_("Done\n"));
 	init_transaction(&tran);
 
-	for(i = 0; i < installed_pkgs->pkg_count;i++){
-		pkg_info_t *update_pkg;
-
-		/* see if we have an available update for the pkg */
-		update_pkg = get_newest_pkg(
-			avail_pkgs,
-			installed_pkgs->pkgs[i]->name
-		);
-		if( update_pkg != NULL ){
-			int cmp_r = 0;
-
-			if( is_excluded(global_config,installed_pkgs->pkgs[i]) == 1 ){
-				add_exclude_to_transaction(&tran,update_pkg);
-				continue;
-			}
-
-			/* if the update has a newer version, attempt to upgrade */
-			cmp_r = cmp_pkg_versions(installed_pkgs->pkgs[i]->version,update_pkg->version);
-			if(
-				/* either it's greater, or we want to reinstall */
-				cmp_r < 0 || (global_config->re_install == 1) ||
-				/* or this is a dist upgrade and the versions are the save except for the arch */
-				(
-					global_config->dist_upgrade == 1 &&
-					cmp_r == 0 &&
-					strcmp(installed_pkgs->pkgs[i]->version,update_pkg->version) != 0
-				)
-			){
-
-				if( is_excluded(global_config,update_pkg) == 1 ){
-					add_exclude_to_transaction(&tran,update_pkg);
-				}else{
-					/* if all deps are added and there is no conflicts, add on */
-					if(
-						(add_deps_to_trans(global_config,&tran,avail_pkgs,installed_pkgs,update_pkg) == 0)
-						&& ( is_conflicted(&tran,avail_pkgs,installed_pkgs,update_pkg) == NULL )
-					){
-						add_upgrade_to_transaction(&tran,installed_pkgs->pkgs[i],update_pkg);
-					}else{
-						/* otherwise exclude */
-						add_exclude_to_transaction(&tran,update_pkg);
-					}
-				}
-
-			}
-
-		}/* end upgrade pkg found */
-
-	}/* end for */
-
 	if( global_config->dist_upgrade == 1 ){
 		struct pkg_list *matches = search_pkg_list(avail_pkgs,SLACK_BASE_SET_REGEX);
 
@@ -505,6 +455,56 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 		free(matches->pkgs);
 		free(matches);
 	}
+
+	for(i = 0; i < installed_pkgs->pkg_count;i++){
+		pkg_info_t *update_pkg;
+
+		/* see if we have an available update for the pkg */
+		update_pkg = get_newest_pkg(
+			avail_pkgs,
+			installed_pkgs->pkgs[i]->name
+		);
+		if( update_pkg != NULL ){
+			int cmp_r = 0;
+
+			if( is_excluded(global_config,installed_pkgs->pkgs[i]) == 1 ){
+				add_exclude_to_transaction(&tran,update_pkg);
+				continue;
+			}
+
+			/* if the update has a newer version, attempt to upgrade */
+			cmp_r = cmp_pkg_versions(installed_pkgs->pkgs[i]->version,update_pkg->version);
+			if(
+				/* either it's greater, or we want to reinstall */
+				cmp_r < 0 || (global_config->re_install == 1) ||
+				/* or this is a dist upgrade and the versions are the save except for the arch */
+				(
+					global_config->dist_upgrade == 1 &&
+					cmp_r == 0 &&
+					strcmp(installed_pkgs->pkgs[i]->version,update_pkg->version) != 0
+				)
+			){
+
+				if( is_excluded(global_config,update_pkg) == 1 ){
+					add_exclude_to_transaction(&tran,update_pkg);
+				}else{
+					/* if all deps are added and there is no conflicts, add on */
+					if(
+						(add_deps_to_trans(global_config,&tran,avail_pkgs,installed_pkgs,update_pkg) == 0)
+						&& ( is_conflicted(&tran,avail_pkgs,installed_pkgs,update_pkg) == NULL )
+					){
+						add_upgrade_to_transaction(&tran,installed_pkgs->pkgs[i],update_pkg);
+					}else{
+						/* otherwise exclude */
+						add_exclude_to_transaction(&tran,update_pkg);
+					}
+				}
+
+			}
+
+		}/* end upgrade pkg found */
+
+	}/* end for */
 
 	free_pkg_list(installed_pkgs);
 	free_pkg_list(avail_pkgs);
