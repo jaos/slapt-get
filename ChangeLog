@@ -1,4 +1,7 @@
 
+0.9.9h Feb 02, 2005
+ * documentation updates
+
 0.9.9g Jan 30, 2005
  * fixed bug in search, installed packages did not show up when searching by
    package location
