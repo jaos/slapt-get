@@ -17,6 +17,8 @@
  */
 
 #include <main.h>
+static char *gen_filename_from_url(const char *url,const char *file);
+static char *str_replace_chr(const char *string,const char find, const char replace);
 
 /* parse the PACKAGES.TXT file */
 struct pkg_list *get_available_pkgs(void){
@@ -1404,9 +1406,12 @@ void update_pkg_cache(const rc_config *global_config){
 		FILE *tmp_pkg_f,*tmp_patch_f,*tmp_checksum_f;
 		struct pkg_list *available_pkgs = NULL;
 		struct pkg_list *patch_pkgs = NULL;
+		char *pkg_filename,*patch_filename,*checksum_filename;
 
 		/* download our PKG_LIST */
-		tmp_pkg_f = tmpfile();
+		pkg_filename = gen_filename_from_url(global_config->sources.url[i],PKG_LIST);
+		tmp_pkg_f = fopen(pkg_filename,"w+b");
+		free(pkg_filename);
 		if( global_config->dl_stats == 1 ){
 			printf(_("Retrieving package data [%s]...\n"),global_config->sources.url[i]);
 		}else{
@@ -1422,7 +1427,9 @@ void update_pkg_cache(const rc_config *global_config){
 		fclose(tmp_pkg_f);
 
 		/* download PATCHES_LIST */
-		tmp_patch_f = tmpfile();
+		patch_filename = gen_filename_from_url(global_config->sources.url[i],PATCHES_LIST);
+		tmp_patch_f = fopen(patch_filename,"w+b");
+		free(patch_filename);
 		if( global_config->dl_stats == 1 ){
 			printf(_("Retrieving patch list [%s]...\n"),global_config->sources.url[i]);
 		}else{
@@ -1439,7 +1446,9 @@ void update_pkg_cache(const rc_config *global_config){
 		fclose(tmp_patch_f);
 
 		/* download checksum file */
-		tmp_checksum_f = tmpfile();
+		checksum_filename = gen_filename_from_url(global_config->sources.url[i],CHECKSUM_FILE);
+		tmp_checksum_f = fopen(checksum_filename,"w+b");
+		free(checksum_filename);
 		if( global_config->dl_stats == 1 ){
 			printf(_("Retrieving checksum list [%s]...\n"),global_config->sources.url[i]);
 		}else{
@@ -1747,3 +1756,34 @@ struct exclude_list *parse_exclude(char *line){
 	return list;
 }
 
+
+static char *str_replace_chr(const char *string,const char find, const char replace){
+	int i;
+	char *clean = calloc( strlen(string) + 1, sizeof *clean);;
+
+	for(i = 0;i < (int)strlen(string);i++){
+		if(string[i] == find ){
+			clean[i] = replace;
+		}else{
+			clean[i] = string[i];
+		}
+	}
+	clean[ strlen(string) ] = '\0';
+
+	return clean;
+}
+
+static char *gen_filename_from_url(const char *url,const char *file){
+	char *filename,*cleaned;
+
+	filename = calloc( strlen(url) + strlen(file) + 2 , sizeof *filename );
+	filename[0] = '.';
+	strncat(filename,url,strlen(url));
+	strncat(filename,file,strlen(file));
+
+	cleaned = str_replace_chr(filename,'/','#');
+
+	free(filename);
+
+	return cleaned;
+}

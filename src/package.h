@@ -41,6 +41,14 @@
 #define CONFLICTS_LEN 1024
 #define MD5_STR_LEN 34
 #define MD5_CHECKSUM_FAILED -100
+#define PKG_LIST "PACKAGES.TXT"
+#define PKG_LIST_L "package_data"
+#define PATCHES_LIST "patches/PACKAGES.TXT"
+#define PATCHDIR "patches/"
+#define REMOVE_CMD "/sbin/removepkg "
+#define INSTALL_CMD "/sbin/installpkg "
+#define UPGRADE_CMD "/sbin/upgradepkg --reinstall "
+#define CHECKSUM_FILE "CHECKSUMS.md5"
 
 struct _pkg_info {
 	char name[NAME_LEN];
@@ -141,3 +149,4 @@ pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list *instal
 struct pkg_list *is_required_by(const rc_config *global_config,struct pkg_list *avail, pkg_info_t *pkg);
 /* parse the exclude list */
 struct exclude_list *parse_exclude(char *line);
+
