@@ -92,10 +92,6 @@ int upgrade_pkg(const rc_config *,pkg_info_t *,pkg_info_t *);
 /* remove pkg */
 int remove_pkg(const rc_config *,pkg_info_t *);
 
-/* initialize pkg_list structure */
-void init_pkg_list(struct pkg_list *);
-/* add pkg to pkg_list structure */
-void add_pkg_to_list(struct pkg_list *, pkg_info_t *);
 /* free memory allocated for pkg_list struct */
 void free_pkg_list(struct pkg_list *);
 
