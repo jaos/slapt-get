@@ -465,7 +465,7 @@ msgid "skip dependency check"
 msgstr "ikke utfør avhengighetssjekk"
 
 msgid "show download statistics"
-msgstr "show download statistics"
+msgstr "vis nedlastingsstatistikk"
 
 msgid "Cached\n"
 msgstr "Cached\n"
