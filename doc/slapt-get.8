@@ -39,10 +39,10 @@ slapt-get \- frontend to pkgtools
 .B --no-md5
 ]
 [
-.B --no-dep
+.B --ignore-dep
 ]
 [
-.B --disable-dep-check
+.B --no-dep
 ]
 [
 .B --print-uris
@@ -123,11 +123,11 @@ Ignore exclude list and install excluded packages anyway.
 .B --no-md5
 Do not perform MD5 check sum on package.  This is dangerous!
 .TP
-.B --no-dep
+.B --ignore-dep
 Ignore dependency failures on --install, --upgrade, or --dist-upgrade
 .TP
-.B --disable-dep-check
-Skip the dependency check (where available)
+.B --no-dep
+Skip the dependency check
 .TP
 .B --print-uris
 Print URIs of packages to be downloaded to stdout, but do not download.
@@ -184,7 +184,7 @@ slapt-get uses pkgtools for installing, upgrading, and removing.
 .TP
 slapt-get will not make assumptions or do things without you telling it to.
 .TP
-slapt-get can only attempt to resolve dependencies and conflicts for those packages that where built with this information.  Vanilla Slackware packages do not contain this data, thus slapt-get performs with --disable-dep-check on by default.
+slapt-get can only attempt to resolve dependencies and conflicts for those packages that where built with this information.  Vanilla Slackware packages do not contain this data, thus slapt-get performs with --no-dep on by default.
 .TP
 Untested updates are risky, whether using official packages or third party packages.
 .TP
