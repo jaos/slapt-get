@@ -140,6 +140,7 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg,int (*callback)(
 	get_md5sum(global_config,pkg,md5_sum);
 
 	create_dir_structure(pkg->location);
+	chdir(global_config->working_dir); /* just in case */
 	chdir(pkg->location);
 
 	/* build the file name */
@@ -200,6 +201,12 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg,int (*callback)(
 	#endif
 
 	fh = open_file(file_name,"wb");
+	if( fh == NULL ){
+		fprintf(stderr,"Failed to open %s\n",file_name);
+		if( errno ) perror(file_name);
+		return -1;
+	}
+
 	if( download_data(fh,url,callback) == 0 ){
 		#if USE_CURL_PROGRESS == 0
 		printf(_("Done\n"));
@@ -225,6 +232,12 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg,int (*callback)(
 	fclose(fh);
 
 	fh = open_file(file_name,"r");
+	if( fh == NULL ){
+		fprintf(stderr,"Failed to open %s\n",file_name);
+		if( errno ) perror(file_name);
+		return -1;
+	}
+
 	gen_md5_sum_of_file(fh,md5_sum_of_file);
 	fclose(fh);
 

@@ -21,6 +21,7 @@
 /* clean out local cache */
 void pkg_action_clean(const rc_config *global_config){
 	clean_pkg_dir(global_config->working_dir);
+	chdir(global_config->working_dir);
 }
 
 /* install pkg */
@@ -35,6 +36,7 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 	printf( _("Reading Package Lists... ") );
 	installed = get_installed_pkgs();
 	all = get_available_pkgs();
+	if( all == NULL || installed == NULL ) exit(1);
 	printf( _("Done\n") );
 
 	init_transaction(&tran);
@@ -162,6 +164,7 @@ void pkg_action_list(void){
 
 	pkgs = get_available_pkgs();
 	installed = get_installed_pkgs();
+	if( pkgs == NULL || installed == NULL ) exit(1);
 
 	for(i = 0; i < pkgs->pkg_count; i++ ){
 		/* this should eliminate the printing of updates */
@@ -217,6 +220,7 @@ void pkg_action_remove(const rc_config *global_config,const pkg_action_args_t *a
 
 	installed = get_installed_pkgs();
 	available = get_available_pkgs();
+	if( available == NULL || installed == NULL ) exit(1);
 	init_transaction(&tran);
 
 	for(i = 0; i < action_args->count; i++){
@@ -266,6 +270,7 @@ void pkg_action_search(const char *pattern){
 	/* read in pkg data */
 	pkgs = get_available_pkgs();
 	installed = get_installed_pkgs();
+	if( pkgs == NULL || installed == NULL ) exit(1);
 	matches = malloc( sizeof *matches );
 	matches->pkgs = malloc( sizeof *matches->pkgs * pkgs->pkg_count );
 	matches->pkg_count = 0;
@@ -306,6 +311,7 @@ void pkg_action_show(const char *pkg_name){
 
 	available_pkgs = get_available_pkgs();
 	installed_pkgs = get_installed_pkgs();
+	if( available_pkgs == NULL || installed_pkgs == NULL ) exit(1);
 
 	pkg = get_newest_pkg(available_pkgs,pkg_name);
 
@@ -350,6 +356,7 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 	printf(_("Reading Package Lists... "));
 	installed_pkgs = get_installed_pkgs();
 	all_pkgs = get_available_pkgs();
+	if( all_pkgs == NULL || installed_pkgs == NULL ) exit(1);
 	printf(_("Done\n"));
 	init_transaction(&tran);
 

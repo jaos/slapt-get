@@ -62,6 +62,9 @@ int main( int argc, char *argv[] ){
 
 	/* load up the configuration file */
 	global_config = read_rc_config(RC_LOCATION);
+	if( global_config == NULL ){
+		exit(1);
+	}
 	working_dir_init(global_config);
 	chdir(global_config->working_dir);
 	curl_global_init(CURL_GLOBAL_ALL);

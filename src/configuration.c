@@ -104,11 +104,11 @@ rc_config *read_rc_config(const char *file_name){
 
 	if( strcmp(global_config->working_dir,"") == 0 ){
 		fprintf(stderr,_("WORKINGDIR directive not set within %s.\n"),file_name);
-		exit(1);
+		return NULL;
 	}
 	if( global_config->sources.count == 0 ){
 		fprintf(stderr,_("SOURCE directive not set within %s.\n"),file_name);
-		exit(1);
+		return NULL;
 	}
 
 	/* initialize */
@@ -126,7 +126,8 @@ void working_dir_init(const rc_config *global_config){
 	if( access(global_config->working_dir,W_OK) == -1 ){
 		if(errno && errno == 2 ){
 			if( mkdir(global_config->working_dir,
-			S_IRUSR|S_IWUSR|S_IXUSR|S_IRGRP|S_IXGRP|S_IROTH|S_IXOTH) == -1 ){
+					S_IRUSR|S_IWUSR|S_IXUSR|S_IRGRP|S_IXGRP|S_IROTH|S_IXOTH) == -1
+			){
 				printf(_("Failed to build working directory [%s]\n"),global_config->working_dir);
 				if( errno ){
 					perror(global_config->working_dir);
@@ -159,7 +160,7 @@ FILE *open_file(const char *file_name,const char *mode){
 			perror(file_name);
 		}
 		fprintf(stderr,_("Perhaps you want to run --update?\n"));
-		exit(1);
+		return NULL;
 	}
 	return fh;
 }
@@ -188,7 +189,7 @@ void clean_pkg_dir(const char *dir_name){
 
 	if( chdir(dir_name) == -1 ){
 		fprintf(stderr,_("Failed to chdir: %s\n"),dir_name);
-		exit(1);
+		return;
 	}
 
 	while( (file = readdir(tmp)) ){
@@ -206,7 +207,7 @@ void clean_pkg_dir(const char *dir_name){
 			clean_pkg_dir(file->d_name);
 			if( (chdir("..")) == -1 ){
 				fprintf(stderr,_("Failed to chdir: %s\n"),dir_name);
-				exit(1);
+				return;
 			}
 			continue;
 		}
@@ -296,7 +297,7 @@ void create_dir_structure(const char *dir_name){
 	cwd = getcwd(NULL,0);
 	if( cwd == NULL ){
 		fprintf(stderr,_("Failed to get cwd\n"));
-		exit(1);
+		return;
 	}else{
 #if DEBUG == 1
 		fprintf(stderr,_("\tCurrent working directory: %s\n"),cwd);
@@ -323,7 +324,7 @@ void create_dir_structure(const char *dir_name){
 				}
 				if( (chdir(dir_name_buffer)) == -1 ){
 					fprintf(stderr,_("Failed to chdir to %s\n"),dir_name_buffer);
-					exit(1);
+					return;
 				}else{
 					#if DEBUG == 1
 					fprintf(stderr,_("\tchdir into %s\n"),dir_name_buffer);
@@ -359,7 +360,7 @@ void create_dir_structure(const char *dir_name){
 					}
 					if( (chdir(dir_name_buffer)) == -1 ){
 						fprintf(stderr,_("Failed to chdir to %s\n"),dir_name_buffer);
-						exit(1);
+						return;
 					}else{
 						#if DEBUG == 1
 						fprintf(stderr,_("\tchdir into %s\n"),dir_name_buffer);
@@ -375,11 +376,7 @@ void create_dir_structure(const char *dir_name){
 
 	if( (chdir(cwd)) == -1 ){
 		fprintf(stderr,_("Failed to chdir to %s\n"),cwd);
-		exit(1);
-	}else{
-		#if DEBUG == 1
-		fprintf(stderr,_("\tchdir back into %s\n"),cwd);
-		#endif
+		return;
 	}
 
 	free(cwd);
