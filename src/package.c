@@ -407,10 +407,10 @@ struct pkg_list *get_installed_pkgs(void){
 		sizeof *pkg_log_dirname
 	);
 	if(root_env_entry){
-		strcpy(pkg_log_dirname, root_env_entry);
+		strncpy(pkg_log_dirname, root_env_entry,strlen(root_env_entry));
 	}else{
 		*pkg_log_dirname = '\0';
-		strcat(pkg_log_dirname, PKG_LOG_DIR);
+		strncat(pkg_log_dirname, PKG_LOG_DIR,strlen(PKG_LOG_DIR));
 	}
 
 	if( (pkg_log_dir = opendir(pkg_log_dirname)) == NULL ){
@@ -458,9 +458,9 @@ struct pkg_list *get_installed_pkgs(void){
 		/* build the package filename including the package directory */
 		pkg_f_name = malloc( sizeof *pkg_f_name * (strlen(pkg_log_dirname) + strlen(file->d_name) + 2) );
 		pkg_f_name[0] = '\0';
-		strcat(pkg_f_name,pkg_log_dirname);
-		strcat(pkg_f_name,"/");
-		strcat(pkg_f_name,file->d_name);
+		strncat(pkg_f_name,pkg_log_dirname,strlen(pkg_log_dirname));
+		strncat(pkg_f_name,"/",strlen("/"));
+		strncat(pkg_f_name,file->d_name,strlen(file->d_name));
 
 		/* open the package log file to grok data about the package from it */
 		pkg_f = open_file(pkg_f_name,"r");
@@ -560,8 +560,8 @@ int install_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	/* build and execute our command */
 	command = calloc( strlen(INSTALL_CMD) + strlen(pkg_file_name) + 1 , sizeof *command );
 	command[0] = '\0';
-	command = strcat(command,INSTALL_CMD);
-	command = strcat(command,pkg_file_name);
+	command = strncat(command,INSTALL_CMD,strlen(INSTALL_CMD));
+	command = strncat(command,pkg_file_name,strlen(pkg_file_name));
 
 	printf(_("Preparing to install %s-%s\n"),pkg->name,pkg->version);
 	if( (cmd_return = system(command)) != 0 ){
@@ -585,8 +585,8 @@ int upgrade_pkg(const rc_config *global_config,pkg_info_t *installed_pkg,pkg_inf
 	/* build and execute our command */
 	command = calloc( strlen(UPGRADE_CMD) + strlen(pkg_file_name) + 1 , sizeof *command );
 	command[0] = '\0';
-	command = strcat(command,UPGRADE_CMD);
-	command = strcat(command,pkg_file_name);
+	command = strncat(command,UPGRADE_CMD,strlen(UPGRADE_CMD));
+	command = strncat(command,pkg_file_name,strlen(pkg_file_name));
 
 	printf(_("Preparing to replace %s-%s with %s-%s\n"),pkg->name,installed_pkg->version,pkg->name,pkg->version);
 	if( (cmd_return = system(command)) != 0 ){
@@ -611,10 +611,10 @@ int remove_pkg(const rc_config *global_config,pkg_info_t *pkg){
 		sizeof *command
 	);
 	command[0] = '\0';
-	command = strcat(command,REMOVE_CMD);
-	command = strcat(command,pkg->name);
-	command = strcat(command,"-");
-	command = strcat(command,pkg->version);
+	command = strncat(command,REMOVE_CMD,strlen(REMOVE_CMD));
+	command = strncat(command,pkg->name,strlen(pkg->name));
+	command = strncat(command,"-",strlen("-"));
+	command = strncat(command,pkg->version,strlen(pkg->version));
 	if( (cmd_return = system(command)) != 0 ){
 		printf(_("Failed to execute command: [%s]\n"),command);
 		return -1;
@@ -1468,7 +1468,7 @@ void update_pkg_cache(const rc_config *global_config){
 		pkg_list_fh = open_file(PKG_LIST_L,"w+");
 		rewind(pkg_list_fh_tmp);
 		while( (bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh_tmp) ) != EOF ){
-			fprintf(pkg_list_fh,getline_buffer);
+			fprintf(pkg_list_fh,"%s",getline_buffer);
 		}
 		fclose(pkg_list_fh);
 
