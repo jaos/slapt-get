@@ -337,7 +337,8 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 				md5sum = strpbrk(getline_buffer,":") + 3;
 				/* don't overflow the buffer */
 				if( strlen(md5sum) > MD5_STR_LEN ){
-					fprintf( stderr, _("md5 sum too long [%s:%d]\n"),
+					fprintf( stderr, _("md5 sum too long [%s %s:%d]\n"),
+						tmp_pkg->name,
 						md5sum,
 						strlen(md5sum)
 					);
@@ -1676,12 +1677,14 @@ void update_pkg_cache(const rc_config *global_config){
 		fclose(tmp_checksum);
 
 		/* write package listings to disk */
-		if( available_pkgs != NULL )
+		if( available_pkgs != NULL ){
 			write_pkg_data(global_config->sources.url[i],pkg_list_fh,available_pkgs);
-		free_pkg_list(available_pkgs);
-		if( patch_pkgs != NULL )
+			free_pkg_list(available_pkgs);
+		}
+		if( patch_pkgs != NULL ){
 			write_pkg_data(global_config->sources.url[i],pkg_list_fh,patch_pkgs);
-		free_pkg_list(patch_pkgs);
+			free_pkg_list(patch_pkgs);
+		}
 
 	}
 	fclose(pkg_list_fh);
