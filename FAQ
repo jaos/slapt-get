@@ -39,11 +39,11 @@ Frequenty Asked Questions:
 
  Two ways to install:
 
- A: You can build slapt-get from source and use the 'install' make target,
+  A: You can build slapt-get from source and use the 'install' make target,
  
- B: You can build from source and make a Slackware package with the 'pkg'
-    make target.  Then install the generated package within the newly created
-    'pkg' directory.
+  B: You can build from source and make a Slackware package with the 'pkg'
+     make target.  Then install the generated package within the newly created
+     'pkg' directory.
 
  If you installed via `make install`, there is an 'uninstall' make target.
 
@@ -79,6 +79,16 @@ Frequenty Asked Questions:
  Change your mirror location within /etc/slapt-getrc to point to the newer
  release directory.  --update your local package data cache, then --upgrade
  to the newer release.
+
+ For instance, you have the following uncommented line as your mirror:
+
+  MIRROR=ftp://distro.ibiblio.org/pub/Linux/distributions/slackware/slackware-9.0/
+
+ Simply change the url to point to current, like so:
+
+  MIRROR=ftp://distro.ibiblio.org/pub/Linux/distributions/slackware/slackware-current/
+
+ Now you simply --update to retrieve the package data for that release.
 
  CAVEAT: The simplicity of slapt-get means a lot of assurances are not in
          place.  You can break a working system if you do not follow the

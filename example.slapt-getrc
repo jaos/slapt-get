@@ -1,4 +1,6 @@
-# base mirror url to directory with PACKAGES.TXT
+# base mirror url to directory with a PACKAGES.TXT
+# mirror can point to any release, ie: 9.0, 9.1, current, etc
+# MIRROR=ftp://distro.ibiblio.org/pub/Linux/distributions/slackware/slackware-9.1/
 MIRROR=ftp://distro.ibiblio.org/pub/Linux/distributions/slackware/slackware-9.0/
 WORKINGDIR=/var/slapt-get
 EXCLUDE=kernel-ide,kernel-source,kernel-headers,kernel-modules

@@ -22,6 +22,7 @@ install: $(PROGRAM_NAME)
 	install $(PROGRAM_NAME) $(SBINDIR)
 	install --mode=0644 -b $(RCSOURCE) $(RCDEST)
 	install $(PROGRAM_NAME).8 /usr/man/man8/
+	install -d /var/$(PROGRAM_NAME)
 
 uninstall:
 	-rm /sbin/$(PROGRAM_NAME)
