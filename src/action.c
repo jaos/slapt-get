@@ -106,21 +106,32 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 
 				/* check to see if there where issues with dep checking */
 				if( (deps->pkg_count == -1) && (global_config->no_dep == 0 ) ){
+
 					/* exclude the package if dep check barfed */
 					printf("Excluding %s, use --no-dep to override\n",pkg->name);
 					add_exclude_to_transaction(&tran,pkg);
+
 				}else{
+
+					/* loop through the deps */
 					for(c = 0; c < deps->pkg_count;c++){
+
+						/* only check if it's not already present in trans */
 						if( search_transaction(&tran,deps->pkgs[c]) == 0 ){
 							if( get_newest_pkg(installed,deps->pkgs[c]->name) == NULL ){
 								add_install_to_transaction(&tran,deps->pkgs[c]);
 							}else{
+								/* add only if its a valid upgrade */
 								if(cmp_pkg_versions(installed_pkg->version,deps->pkgs[c]->version) < 0 )
 									add_upgrade_to_transaction(&tran,installed_pkg,deps->pkgs[c]);
 							}
 						}
+
 					}
-					add_upgrade_to_transaction(&tran,installed_pkg,pkg);
+					/* make sure it's not already present from a dep check */
+					if( search_transaction(&tran,pkg) == 0 )
+						add_upgrade_to_transaction(&tran,installed_pkg,pkg);
+
 				}
 				free(deps->pkgs);
 				free(deps);
@@ -211,18 +222,26 @@ void pkg_action_remove(const rc_config *global_config,const pkg_action_args_t *a
 		if( (pkg = get_newest_pkg(installed,action_args->pkgs[i])) != NULL){
 			int c;
 			struct pkg_list *deps;
+
 			deps = is_required_by(available,pkg);
+
 			for(c = 0; c < deps->pkg_count;c++){
-				printf("%s\n",deps->pkgs[c]->name);
+
+				/* if not already in the transaction, add if installed */
 				if( search_transaction(&tran,deps->pkgs[c]) == 0 ){
 					if( get_newest_pkg(installed,deps->pkgs[c]->name) != NULL ){
 						add_remove_to_transaction(&tran,deps->pkgs[c]);
 					}
 				}
+
 			}
+
 			free(deps->pkgs);
 			free(deps);
-			add_remove_to_transaction(&tran,pkg);
+
+			if( search_transaction(&tran,pkg) == 0 )
+				add_remove_to_transaction(&tran,pkg);
+
 		}else{
 			printf(_("%s is not installed.\n"),action_args->pkgs[i]);
 		}

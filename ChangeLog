@@ -1,4 +1,8 @@
 
+0.9.7a Nov 03, 2003
+ * added check for presence of pkg in trans before adding upgrade (during --install)
+ * added check for presence of pkg in trans before adding remove (during --remove)
+
 0.9.7 Nov 03, 2003
  * parse package require/dep from PACKAGES.TXT
  * show parsed require/dep data with --show
