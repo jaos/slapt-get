@@ -16,8 +16,7 @@
  To install:
 
   $ make pkg
-  $ installpkg ./pkg/slapt-get-${VERSION}.tgz
+  $ installpkg ./pkg/slapt-get-${VERSION}-${ARCH}-${RELEASE}.tgz
 
  To uninstall:
-
-  $ removepkg slapt-get-${VERSION}
+  $ removepkg slapt-get-${VERSION}-${ARCH}-${RELEASE}
