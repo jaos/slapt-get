@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.7b\n"
-"POT-Creation-Date: 2003-11-13 18:27 BRST\n"
-"PO-Revision-Date: 2003-11-13 18:27 BRST\n"
+"Project-Id-Version: 0.9.7i\n"
+"POT-Creation-Date: 2003-11-03 14:28+0000\n"
+"PO-Revision-Date: 2003-12-18 12:23+0000\n"
 "Last-Translator: Arnaldo Pereira <arnaldo@sp-dhn.com.br>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -457,4 +457,12 @@ msgstr "%s-%s será atualizado para a versão %s\n"
 #, c-format
 msgid "%s-%s is to be removed\n"
 msgstr "%s-%s será removido\n"
+
+#, c-format
+msgid "%s, which is to be installed, conflicts with %s\n"
+msgstr "%s, which is to be installed, conflicts with %s\n"
+
+#, c-format
+msgid "Installed %s conflicts with %s\n"
+msgstr "Installed %s conflicts with %s\n"
 
