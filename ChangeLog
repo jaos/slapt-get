@@ -13,6 +13,7 @@
  * --ignore-excludes for --upgrade
  * is_excluded() returns false if EXCLUDE= not defined
  * fixed bug in multi arg --remove
+ * added slackpkg make target
 
 0.7: Aug 28, 2003 
  * now creates directories within WORKINGDIR for each packages location
