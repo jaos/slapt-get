@@ -20,7 +20,7 @@
 static char *gen_filename_from_url(const char *url,const char *file);
 static char *str_replace_chr(const char *string,const char find, const char replace);
 /* do a head request on the mirror data to find out if it's new */
-static int head_mirror_data(const char *wurl,const char *file);
+static char *head_mirror_data(const char *wurl,const char *file);
 /* lookup md5sum of file */
 static void get_md5sum(pkg_info_t *pkg,FILE *checksum_file);
 /* analyze the pkg version hunk by hunk */
@@ -31,6 +31,14 @@ static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list 
 static struct pkg_list *required_by(const rc_config *global_config,struct pkg_list *avail, pkg_info_t *pkg,struct pkg_list *parent_required_by);
 /* called by get_pkg_dependencies */
 static struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,pkg_info_t *pkg,struct pkg_list *parent_deps);
+/* generate the head cache filename */
+static char *gen_head_cache_filename(const char *filename_from_url);
+/* clear head cache storage file */
+static void clear_head_cache(const char *cache_filename);
+/* cache the head request */
+static void write_head_cache(const char *cache, const char *cache_filename);
+/* read the cached head request */
+static char *read_head_cache(const char *cache_filename);
 
 /* parse the PACKAGES.TXT file */
 struct pkg_list *get_available_pkgs(void){
@@ -1437,16 +1445,10 @@ pkg_info_t *get_pkg_by_details(struct pkg_list *list,char *name,char *version,ch
 }
 
 /* do a head request on the mirror data to find out if it's new */
-static int head_mirror_data(const char *wurl,const char *file){
-	int return_code = -1;
+static char *head_mirror_data(const char *wurl,const char *file){
 	char *request_header,*request_header_ptr,*delim_ptr,*head_data;
 	int request_header_len;
 	char *url;
-	char *head_filename,*filename;
-	FILE *tmp;
-	char *getline_buffer = NULL;
-	size_t gl_n;
-	ssize_t gl_return_size;
 
 	/* build url */
 	url = calloc( strlen(wurl) + strlen(file) + 2, sizeof *url );
@@ -1456,10 +1458,11 @@ static int head_mirror_data(const char *wurl,const char *file){
 
 	/* retrieve the header info */
 	head_data = head_request(url);
+	free(url);
 	if( head_data == NULL ){
-		free(url);
-		return -1;
+		return NULL;
 	}
+
 	/* extract the last modified date for storage and later comparison */
 	request_header_ptr = strstr(head_data,"Last-Modified");
 	if( request_header_ptr == NULL ){
@@ -1467,51 +1470,83 @@ static int head_mirror_data(const char *wurl,const char *file){
 		request_header_ptr = strstr(head_data,"Content-Length");
 		if( request_header_ptr == NULL ){
 			free(head_data);
-			free(url);
-			return -1;
+			return NULL;
 		}/* give up finally */
 	}
 	delim_ptr = strpbrk(request_header_ptr,"\r\n");
 	if( delim_ptr == NULL ){
 		free(head_data);
-		free(url);
-		return -1;
+		return NULL;
 	}
 	request_header_len = strlen(request_header_ptr) - strlen(delim_ptr);
 	request_header = calloc( request_header_len + 1, sizeof *request_header );
 	memcpy(request_header,request_header_ptr,request_header_len);
 
-	/* store the header last modified date for later use */
-	filename = gen_filename_from_url(wurl,file);
-	head_filename = calloc( strlen(filename) + strlen(HEAD_FILE_EXT) + 1, sizeof *head_filename );
-	strncat(head_filename,filename,strlen(filename));
-	strncat(head_filename,HEAD_FILE_EXT,strlen(HEAD_FILE_EXT));
+	free(head_data);
+	return request_header;
+}
 
-	tmp = open_file(head_filename,"a+");
-	if( tmp == NULL ) exit(1);
-	rewind(tmp);
-	gl_return_size = getline(&getline_buffer, &gl_n, tmp);
-	if( gl_return_size == -1 ){
-		/* we must not have had an existing last modified date */
-		return_code = -1;
-	}else{
-		/* if retrieved modified date and current are the same */
-		if( strcmp(request_header,getline_buffer) == 0 ) return_code = 0;
-	}
-	fclose(tmp);
+static void write_head_cache(const char *cache, const char *cache_filename){
+	char *head_filename;
+	FILE *tmp;
+
+	head_filename = gen_head_cache_filename(cache_filename);
 
 	/* store the last modified date */
 	tmp = open_file(head_filename,"w");
 	if( tmp == NULL ) exit(1);
-	fprintf(tmp,"%s",request_header);
+	fprintf(tmp,"%s",cache);
 	fclose(tmp);
 
-	free(filename);
 	free(head_filename);
-	free(request_header);
-	free(url);
-	free(head_data);
-	return return_code;
+
+}
+
+static char *read_head_cache(const char *cache_filename){
+	char *head_filename;
+	FILE *tmp;
+	char *getline_buffer = NULL;
+	size_t gl_n;
+	ssize_t gl_return_size;
+
+	head_filename = gen_head_cache_filename(cache_filename);
+
+	tmp = open_file(head_filename,"a+");
+	free(head_filename);
+	if( tmp == NULL ) exit(1);
+	rewind(tmp);
+	gl_return_size = getline(&getline_buffer, &gl_n, tmp);
+
+	if( gl_return_size == -1 ){
+		free(getline_buffer);
+		return NULL;
+	}
+
+	return getline_buffer;
+}
+
+static char *gen_head_cache_filename(const char *filename_from_url){
+	char *head_filename;
+
+	head_filename = calloc( strlen(filename_from_url) + strlen(HEAD_FILE_EXT) + 1, sizeof *head_filename );
+	strncat(head_filename,filename_from_url,strlen(filename_from_url));
+	strncat(head_filename,HEAD_FILE_EXT,strlen(HEAD_FILE_EXT));
+
+	return head_filename;
+}
+
+
+static void clear_head_cache(const char *cache_filename){
+	char *head_filename;
+	FILE *tmp;
+
+	head_filename = gen_head_cache_filename(cache_filename);
+
+	tmp = open_file(head_filename,"w");
+	if( tmp == NULL ) exit(1);
+	fclose(tmp);
+	free(head_filename);
+
 }
 
 /* update package data from mirror url */
@@ -1528,14 +1563,19 @@ void update_pkg_cache(const rc_config *global_config){
 		struct pkg_list *available_pkgs = NULL;
 		struct pkg_list *patch_pkgs = NULL;
 		char *pkg_filename,*patch_filename,*checksum_filename;
+		char *pkg_head,*pkg_local_head;
+		char *patch_head,*patch_local_head;
+		char *checksum_head,*checksum_local_head;
 
 
 		/* download our PKG_LIST */
 		printf(_("Retrieving package data [%s]..."),global_config->sources.url[i]);
 		pkg_filename = gen_filename_from_url(global_config->sources.url[i],PKG_LIST);
+		pkg_head = head_mirror_data(global_config->sources.url[i],PKG_LIST);
+		pkg_local_head = read_head_cache(pkg_filename);
 
 		/* open for reading if cached, otherwise write it from the downloaded data */
-		if( head_mirror_data(global_config->sources.url[i],PKG_LIST) == 0 ){
+		if( pkg_head != NULL && pkg_local_head != NULL && strcmp(pkg_head,pkg_local_head) == 0){
 			printf(_("Cached\n"));
 			tmp_pkg_f = fopen(pkg_filename,"r");
 			available_pkgs = parse_packages_txt(tmp_pkg_f);
@@ -1548,8 +1588,12 @@ void update_pkg_cache(const rc_config *global_config){
 				if( global_config->dl_stats != 1 ) printf(_("Done\n"));
 			}else{
 				source_dl_failed = 1;
+				clear_head_cache(pkg_filename);
 			}
 		}
+		if( source_dl_failed != 1 && pkg_head != NULL ) write_head_cache(pkg_head,pkg_filename);
+		free(pkg_head);
+		free(pkg_local_head);
 		free(pkg_filename);
 		fclose(tmp_pkg_f);
 
@@ -1557,9 +1601,11 @@ void update_pkg_cache(const rc_config *global_config){
 		/* download PATCHES_LIST */
 		printf(_("Retrieving patch list [%s]..."),global_config->sources.url[i]);
 		patch_filename = gen_filename_from_url(global_config->sources.url[i],PATCHES_LIST);
+		patch_head = head_mirror_data(global_config->sources.url[i],PATCHES_LIST);
+		patch_local_head = read_head_cache(patch_filename);
 
 		/* open for reading if cached, otherwise write it from the downloaded data */
-		if( head_mirror_data(global_config->sources.url[i],PATCHES_LIST) == 0 ){
+		if( patch_head != NULL && patch_local_head != NULL && strcmp(patch_head,patch_local_head) == 0){
 			printf(_("Cached\n"));
 			tmp_patch_f = fopen(patch_filename,"r");
 			patch_pkgs = parse_packages_txt(tmp_patch_f);
@@ -1573,8 +1619,12 @@ void update_pkg_cache(const rc_config *global_config){
 			}else{
 				/* we don't care if the patch fails, for example current doesn't have patches */
 				/* source_dl_failed = 1; */
+				clear_head_cache(patch_filename);
 			}
 		}
+		if( source_dl_failed != 1 && patch_head != NULL ) write_head_cache(patch_head,patch_filename);
+		free(patch_head);
+		free(patch_local_head);
 		free(patch_filename);
 		fclose(tmp_patch_f);
 
@@ -1582,9 +1632,11 @@ void update_pkg_cache(const rc_config *global_config){
 		/* download checksum file */
 		printf(_("Retrieving checksum list [%s]..."),		global_config->sources.url[i]);
 		checksum_filename = gen_filename_from_url(global_config->sources.url[i],CHECKSUM_FILE);
+		checksum_head = head_mirror_data(global_config->sources.url[i],CHECKSUM_FILE);
+		checksum_local_head = read_head_cache(checksum_filename);
 
 		/* open for reading if cached, otherwise write it from the downloaded data */
-		if( head_mirror_data(global_config->sources.url[i],CHECKSUM_FILE) == 0 ){
+		if( checksum_head != NULL && checksum_local_head != NULL && strcmp(checksum_head,checksum_local_head) == 0){
 			printf(_("Cached\n"));
 			tmp_checksum_f = fopen(checksum_filename,"r");
 		}else{
@@ -1593,10 +1645,16 @@ void update_pkg_cache(const rc_config *global_config){
 			if( get_mirror_data_from_source(
 						tmp_checksum_f,global_config->dl_stats,global_config->sources.url[i],CHECKSUM_FILE
 					) != 0
-			) source_dl_failed = 1;
+			){
+				source_dl_failed = 1;
+				clear_head_cache(checksum_filename);
+			}
 			if( global_config->dl_stats != 1 ) printf(_("Done\n"));
 			rewind(tmp_checksum_f); /* make sure we are back at the front of the file */
 		}
+		if( source_dl_failed != 1 && checksum_head != NULL ) write_head_cache(checksum_head,checksum_filename);
+		free(checksum_head);
+		free(checksum_local_head);
 
 		/* if the download failed don't do this, do it if cached or d/l was good */
 		if( source_dl_failed != 1 ){

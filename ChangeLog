@@ -1,5 +1,6 @@
 
 0.9.8i Jul 30, 2004
+ * fixed package source caching so that if a download did not finish the cache is invalidated
  * updated create_dir_structure() in common.c
  * made required_by() and lookup_pkg_dependencies() static in packages.c
  * removed unnecessary free in head_mirror_data
