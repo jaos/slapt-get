@@ -49,12 +49,14 @@ clean:
 	-rm src/*.o
 	-if [ -d pkg ]; then rm -rf pkg ;fi
 
-pkg: $(PROGRAM_NAME)
+pkg: $(PROGRAM_NAME) libs
 	-@mkdir pkg
 	-@mkdir -p pkg/sbin
 	-@mkdir -p pkg/etc
 	-@mkdir -p pkg/install
 	-@mkdir -p pkg/usr/man/man8
+	-@mkdir -p pkg/usr/lib
+	-@mkdir -p pkg/usr/include/slapt
 	-@mkdir -p pkg$(LOCALESDIR)
 	-@mkdir -p pkg$(LOCALESDIR)/en/LC_MESSAGES; msgfmt -o pkg$(LOCALESDIR)/en/LC_MESSAGES/slapt-get.mo po/en.po
 	-@cp $(PROGRAM_NAME) ./pkg/sbin/
@@ -67,12 +69,20 @@ pkg: $(PROGRAM_NAME)
 	-@cp slack-desc pkg/install/
 	-@cp slack-required pkg/install/
 	-@cp $(PROGRAM_NAME).8 pkg/usr/man/man8/
+	-@cp include/*.h pkg/usr/include/slapt/
+	-@mv pkg/usr/include/slapt/main.h pkg/usr/include/slapt/slapt.h
+	-@cp src/libslapt-$(VERSION).a src/libslapt-$(VERSION).so pkg/usr/lib/
+	-@ln -s pkg/usr/lib/libslapt-$(VERSION).so pkg/usr/lib/libslapt.so
 	-@gzip pkg/usr/man/man8/$(PROGRAM_NAME).8
-	@( cd pkg; makepkg -c y $(PROGRAM_NAME)-$(VERSION)-$(ARCH)-$(RELEASE).tgz )
+	@( cd pkg; makepkg -l y -c y $(PROGRAM_NAME)-$(VERSION)-$(ARCH)-$(RELEASE).tgz )
 
 po_file:
 	-grep '_(' src/*.c |cut -f2-255 -d':'|sed -re "s/.*(_\(\".*\"\)).*/\1/" > po/gettext_strings
 	-mv po/slapt-get.pot po/slapt-get.pot~
 	-xgettext -d slapt-get -o po/slapt-get.pot -a -C --no-location po/gettext_strings
 	-rm po/gettext_strings
+
+libs:
+	$(CC) -shared -o src/libslapt-$(VERSION).so $(OBJS)
+	ar -r src/libslapt-$(VERSION).a $(OBJS)
 

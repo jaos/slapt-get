@@ -10,6 +10,7 @@
  * when looking up md5 checksum, use the pkg location as well as name and version 
    (in case of duplicate versions)
  * updated regex, yet again, for pkg names, versions, md5, etc
+ * updated makefile to gen library files
 
 0.9.7a Nov 05, 2003
  * added check for presence of pkg in trans before adding upgrade (during --install)
