@@ -53,6 +53,12 @@ int main( int argc, char *argv[] ){
 
 	setvbuf(stdout, (char *)NULL, _IONBF, 0); /* unbuffer stdout */
 
+	#ifdef ENABLE_NLS
+	setlocale(LC_MESSAGES,getenv("LANG"));
+	bindtextdomain(PROGRAM_NAME,LOCALESDIR);
+	textdomain(PROGRAM_NAME);
+	#endif
+
 	if( argc < 2 ) usage(), exit(1);
 
 	/* load up the configuration file */
@@ -222,7 +228,7 @@ int main( int argc, char *argv[] ){
 
 void usage(){
 	printf("%s - Jason Woodward <woodwardj at jaos dot org>\n",PROGRAM_NAME);
-	printf(_("A implementation of the Debian APT system to Slackware\n"));
+	printf(_("An implementation of the Debian APT system to Slackware\n"));
 	printf(_("Usage:\n"));
 	printf(_("%s [option(s)] [target]\n"),PROGRAM_NAME);
 	printf("\n");

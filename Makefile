@@ -7,8 +7,9 @@ CURLFLAGS=`curl-config --libs`
 OBJS=src/configuration.o src/package.o src/curl.o src/transaction.o src/action.o src/main.o
 RCDEST=/etc/slapt-getrc
 RCSOURCE=example.slapt-getrc
+LOCALESDIR=/usr/share/$(PROGRAM_NAME)/locales
 SBINDIR=/sbin/
-DEFINES=-DPROGRAM_NAME="\"$(PROGRAM_NAME)\"" -DVERSION="\"$(VERSION)\"" -DRC_LOCATION="\"$(RCDEST)\"" -DENABLE_NLS
+DEFINES=-DPROGRAM_NAME="\"$(PROGRAM_NAME)\"" -DVERSION="\"$(VERSION)\"" -DRC_LOCATION="\"$(RCDEST)\"" -DENABLE_NLS -DLOCALESDIR="\"$(LOCALESDIR)\""
 CFLAGS=-W -Werror -Wall -O2 -ansi -pedantic -Iinclude $(DEFINES)
 
 default: $(PROGRAM_NAME)
@@ -28,6 +29,7 @@ install: $(PROGRAM_NAME)
 	install --mode=0644 -b $(RCSOURCE) $(RCDEST)
 	install $(PROGRAM_NAME).8 /usr/man/man8/
 	install -d /var/$(PROGRAM_NAME)
+	if [ ! -d $(LOCALESDIR)/en ]; then mkdir -p $(LOCALESDIR)/en/LC_MESSAGES; fi; msgfmt -o $(LOCALESDIR)/en/LC_MESSAGES/slapt-get.mo po/en.po;
 
 uninstall:
 	-rm /sbin/$(PROGRAM_NAME)
@@ -44,6 +46,8 @@ pkg: $(PROGRAM_NAME)
 	-@mkdir -p pkg/etc
 	-@mkdir -p pkg/install
 	-@mkdir -p pkg/usr/man/man8
+	-@mkdir -p pkg$(LOCALESDIR)
+	-@mkdir -p pkg$(LOCALESDIR)/en/LC_MESSAGES; msgfmt -o pkg$(LOCALESDIR)/en/LC_MESSAGES/slapt-get.mo po/en.po
 	-@cp $(PROGRAM_NAME) ./pkg/sbin/
 	-@strip ./pkg/sbin/$(PROGRAM_NAME)
 	-@cp example.slapt-getrc ./pkg/etc/slapt-getrc.new
@@ -57,11 +61,8 @@ pkg: $(PROGRAM_NAME)
 	@( cd pkg; makepkg -c y $(PROGRAM_NAME)-$(VERSION)-$(ARCH)-$(RELEASE).tgz )
 
 po: $(PROGRAM_NAME)
-	-rm po/*
 	-grep '_(' src/*.c |cut -f2-255 -d':'|sed -re "s/.*(_\(\".*\"\)).*/\1/" > po/gettext_strings
+	-mv po/slapt-get.pot po/slapt-get.pot~
 	-xgettext -d slapt-get -o po/slapt-get.pot -a -C --no-location po/gettext_strings
-	-cp po/slapt-get.pot po/en.po
-	-sed -i -re "s/CHARSET/ISO-8859-1/" po/en.po
-	-msgfmt -o po/slapt-get.mo po/en.po
 	-rm po/gettext_strings
 

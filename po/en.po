@@ -1,0 +1,474 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.9.6h\n"
+"POT-Creation-Date: 2003-10-31 21:17+0000\n"
+"PO-Revision-Date: 2003-11-02 01:49+500\n"
+"Last-Translator: Jason Woodward <woodwardj@jaos.org>\n"
+"Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Reading Package Lists... "
+msgstr "Reading Package Lists... "
+
+msgid "Done\n"
+msgstr "Done\n"
+
+#, c-format
+msgid "No Such package: %s\n"
+msgstr "No Such package: %s\n"
+
+#, c-format
+msgid "%s is up to date.\n"
+msgstr "%s is up to date.\n"
+
+msgid "yes"
+msgstr "yes"
+
+msgid "no"
+msgstr "no"
+
+#, c-format
+msgid "%s is not installed.\n"
+msgstr "%s is not installed.\n"
+
+#, c-format
+msgid "Package Name: %s\n"
+msgstr "Package Name: %s\n"
+
+#, c-format
+msgid "Package Mirror: %s\n"
+msgstr "Package Mirror: %s\n"
+
+#, c-format
+msgid "Package Location: %s\n"
+msgstr "Package Location: %s\n"
+
+#, c-format
+msgid "Package Version: %s\n"
+msgstr "Package Version: %s\n"
+
+#, c-format
+msgid "Package Size: %d K\n"
+msgstr "Package Size: %d K\n"
+
+#, c-format
+msgid "Package Installed Size: %d K\n"
+msgstr "Package Installed Size: %d K\n"
+
+#, c-format
+msgid "Package Required: %s\n"
+msgstr "Package Required: %s\n"
+
+msgid "Package Description:\n"
+msgstr "Package Description:\n"
+
+#, c-format
+msgid "Installed: %s\n"
+msgstr "Installed: %s\n"
+
+#, c-format
+msgid "No such package: %s\n"
+msgstr "No such package: %s\n"
+
+#, c-format
+msgid "Retrieving package data [%s]..."
+msgstr "Retrieving package data [%s]..."
+
+#, c-format
+msgid "Retrieving package data [%s]...\n"
+msgstr "Retrieving package data [%s]...\n"
+
+#, c-format
+msgid "Retrieving extras list [%s]..."
+msgstr "Retrieving extras list [%s]..."
+
+#, c-format
+msgid "Retrieving extras list [%s]...\n"
+msgstr "Retrieving extras list [%s]...\n"
+
+#, c-format
+msgid "Retrieving patch list [%s]..."
+msgstr "Retrieving patch list [%s]..."
+
+#, c-format
+msgid "Retrieving patch list [%s]...\n"
+msgstr "Retrieving patch list [%s]...\n"
+
+#, c-format
+msgid "Retrieving checksum list [%s]..."
+msgstr "Retrieving checksum list [%s]..."
+
+#, c-format
+msgid "Retrieving checksum list [%s]...\n"
+msgstr "Retrieving checksum list [%s]...\n"
+
+msgid "Failed to malloc global_config\n"
+msgstr "Failed to malloc global_config\n"
+
+#, c-format
+msgid "Maximum number of sources (%d) exceeded.\n"
+msgstr "Maximum number of sources (%d) exceeded.\n"
+
+#, c-format
+msgid "Maximum length of source (%d) exceeded.\n"
+msgstr "Maximum length of source (%d) exceeded.\n"
+
+#, c-format
+msgid "WORKINGDIR directive not set within %s.\n"
+msgstr "WORKINGDIR directive not set within %s.\n"
+
+#, c-format
+msgid "SOURCE directive not set within %s.\n"
+msgstr "SOURCE directive not set within %s.\n"
+
+#, c-format
+msgid "Failed to build working directory [%s]\n"
+msgstr "Failed to build working directory [%s]\n"
+
+#, c-format
+msgid "Please update permissions on %s or run with appropriate privileges\n"
+msgstr "Please update permissions on %s or run with appropriate privileges\n"
+
+#, c-format
+msgid "Failed to open %s\n"
+msgstr "Failed to open %s\n"
+
+msgid "Perhaps you want to run --update?\n"
+msgstr "Perhaps you want to run --update?\n"
+
+#, c-format
+msgid "Failed to opendir %s\n"
+msgstr "Failed to opendir %s\n"
+
+#, c-format
+msgid "Failed to chdir: %s\n"
+msgstr "Failed to chdir: %s\n"
+
+#, c-format
+msgid "unlinking %s\n"
+msgstr "unlinking %s\n"
+
+msgid "Failed to malloc list\n"
+msgstr "Failed to malloc list\n"
+
+msgid "Failed to get cwd\n"
+msgstr "Failed to get cwd\n"
+
+#, c-format
+msgid "\tCurrent working directory: %s\n"
+msgstr "\tCurrent working directory: %s\n"
+
+#, c-format
+msgid "Failed to mkdir: %s\n"
+msgstr "Failed to mkdir: %s\n"
+
+#, c-format
+msgid "\tCreated directory: %s\n"
+msgstr "\tCreated directory: %s\n"
+
+#, c-format
+msgid "Failed to chdir to %s\n"
+msgstr "Failed to chdir to %s\n"
+
+#, c-format
+msgid "\tchdir into %s\n"
+msgstr "\tchdir into %s\n"
+
+#, c-format
+msgid "\tchdir back into %s\n"
+msgstr "\tchdir back into %s\n"
+
+#, c-format
+msgid "Fetching url:[%s]\n"
+msgstr "Fetching url:[%s]\n"
+
+#, c-format
+msgid "Failed to download: %s\n"
+msgstr "Failed to download: %s\n"
+
+msgid "Failed to calloc url\n"
+msgstr "Failed to calloc url\n"
+
+msgid "Failed to calloc file_name\n"
+msgstr "Failed to calloc file_name\n"
+
+#, c-format
+msgid "Using cached copy of %s\n"
+msgstr "Using cached copy of %s\n"
+
+#, c-format
+msgid "Downloading %s %s %s [%dK]..."
+msgstr "Downloading %s %s %s [%dK]..."
+
+#, c-format
+msgid "Downloading %s %s %s [%dK]...\n"
+msgstr "Downloading %s %s %s [%dK]...\n"
+
+#, c-format
+msgid "Failed to unlink %s\n"
+msgstr "Failed to unlink %s\n"
+
+#, c-format
+msgid "verifying %s md5 checksum..."
+msgstr "verifying %s md5 checksum..."
+
+#, c-format
+msgid "md5 sum for %s is not correct!\n"
+msgstr "md5 sum for %s is not correct!\n"
+
+#, c-format
+msgid "MD5 found:    [%s]\n"
+msgstr "MD5 found:    [%s]\n"
+
+#, c-format
+msgid "MD5 expected: [%s]\n"
+msgstr "MD5 expected: [%s]\n"
+
+#, c-format
+msgid "File: %s/%s\n"
+msgstr "File: %s/%s\n"
+
+msgid "An implementation of the Debian APT system to Slackware\n"
+msgstr "An implementation of the Debian APT system to Slackware\n"
+
+msgid "Usage:\n"
+msgstr "Usage:\n"
+
+#, c-format
+msgid "%s [option(s)] [target]\n"
+msgstr "%s [option(s)] [target]\n"
+
+msgid "Targets:\n"
+msgstr "Targets:\n"
+
+msgid "retrieves pkg data from MIRROR"
+msgstr "retrieves pkg data from MIRROR"
+
+msgid "upgrade installed pkgs"
+msgstr "upgrade installed pkgs"
+
+msgid "upgrade to newer release"
+msgstr "upgrade to newer release"
+
+msgid "[pkg name(s)] - install specified pkg(s)"
+msgstr "[pkg name(s)] - install specified pkg(s)"
+
+msgid "[pkg name(s)] - remove specified pkg(s)"
+msgstr "[pkg name(s)] - remove specified pkg(s)"
+
+msgid "[pkg name] - show pkg description"
+msgstr "[pkg name] - show pkg description"
+
+msgid "[expression] - search available pkgs"
+msgstr "[expression] - search available pkgs"
+
+msgid "list available pkgs"
+msgstr "list available pkgs"
+
+msgid "list installed pkgs"
+msgstr "list installed pkgs"
+
+msgid "purge cached pkgs"
+msgstr "purge cached pkgs"
+
+msgid "print version and license info"
+msgstr "print version and license info"
+
+msgid "Options:\n"
+msgstr "Options:\n"
+
+msgid "only download pkg on install/upgrade"
+msgstr "only download pkg on install/upgrade"
+
+msgid "show pkgs to be installed/upgraded"
+msgstr "show pkgs to be installed/upgraded"
+
+msgid "do not prompt during install/upgrade"
+msgstr "do not prompt during install/upgrade"
+
+msgid "re-install the pkg"
+msgstr "re-install the pkg"
+
+msgid "install/upgrade excludes"
+msgstr "install/upgrade excludes"
+
+msgid "do not perform md5 check sum"
+msgstr "do not perform md5 check sum"
+
+msgid "ignore dependency failures"
+msgstr "ignore dependency failures"
+
+msgid "prompt before each install/upgrade"
+msgstr "prompt before each install/upgrade"
+
+#, c-format
+msgid "%s version %s\n"
+msgstr "%s version %s\n"
+
+msgid "Failed to malloc pkgs\n"
+msgstr "Failed to malloc pkgs\n"
+
+#, c-format
+msgid "regex failed on [%s]\n"
+msgstr "regex failed on [%s]\n"
+
+msgid "Failed to malloc tmp_pkg\n"
+msgstr "Failed to malloc tmp_pkg\n"
+
+#, c-format
+msgid "pkg name too long [%s:%d]\n"
+msgstr "pkg name too long [%s:%d]\n"
+
+#, c-format
+msgid "pkg version too long [%s:%d]\n"
+msgstr "pkg version too long [%s:%d]\n"
+
+#, c-format
+msgid "pkg mirror too long [%s:%d]\n"
+msgstr "pkg mirror too long [%s:%d]\n"
+
+#, c-format
+msgid "pkg location too long [%s:%d]\n"
+msgstr "pkg location too long [%s:%d]\n"
+
+msgid "regexec failed to parse location\n"
+msgstr "regexec failed to parse location\n"
+
+msgid "getline reached EOF attempting to read location\n"
+msgstr "getline reached EOF attempting to read location\n"
+
+msgid "Failed to calloc size_c\n"
+msgstr "Failed to calloc size_c\n"
+
+msgid "regexec failed to parse size_c\n"
+msgstr "regexec failed to parse size_c\n"
+
+msgid "getline reached EOF attempting to read size_c\n"
+msgstr "getline reached EOF attempting to read size_c\n"
+
+msgid "Failed to calloc size_u\n"
+msgstr "Failed to calloc size_u\n"
+
+msgid "regexec failed to parse size_u\n"
+msgstr "regexec failed to parse size_u\n"
+
+msgid "getline reached EOF attempting to read size_u\n"
+msgstr "getline reached EOF attempting to read size_u\n"
+
+msgid "error attempting to read pkg description\n"
+msgstr "error attempting to read pkg description\n"
+
+msgid "Failed to realloc pkgs\n"
+msgstr "Failed to realloc pkgs\n"
+
+msgid "Failed to calloc short_description\n"
+msgstr "Failed to calloc short_description\n"
+
+msgid "Failed to compile regex\n"
+msgstr "Failed to compile regex\n"
+
+#, c-format
+msgid "Regex Error: %s\n"
+msgstr "Regex Error: %s\n"
+
+msgid "Failed to calloc list->pkgs[list->pkg_count]\n"
+msgstr "Failed to calloc list->pkgs[list->pkg_count]\n"
+
+#, c-format
+msgid "%s-%s is to be installed\n"
+msgstr "%s-%s is to be installed\n"
+
+#, c-format
+msgid "Install %s-%s [Y|n] "
+msgstr "Install %s-%s [Y|n] "
+
+#, c-format
+msgid "Preparing to install %s-%s\n"
+msgstr "Preparing to install %s-%s\n"
+
+#, c-format
+msgid "Failed to execute command: [%s]\n"
+msgstr "Failed to execute command: [%s]\n"
+
+#, c-format
+msgid "excluding %s\n"
+msgstr "excluding %s\n"
+
+#, c-format
+msgid "%s-%s is to be upgraded to version %s\n"
+msgstr "%s-%s is to be upgraded to version %s\n"
+
+#, c-format
+msgid "Replace %s-%s with %s-%s? [y|N] "
+msgstr "Replace %s-%s with %s-%s? [y|N] "
+
+#, c-format
+msgid "Preparing to replace %s-%s with %s-%s\n"
+msgstr "Preparing to replace %s-%s with %s-%s\n"
+
+#, c-format
+msgid "%s-%s is to be removed\n"
+msgstr "%s-%s is to be removed\n"
+
+#, c-format
+msgid "Failed to compile regex [%s]\n"
+msgstr "Failed to compile regex [%s]\n"
+
+msgid "Failed to malloc deps\n"
+msgstr "Failed to malloc deps\n"
+
+msgid "Failed to malloc deps->pkgs\n"
+msgstr "Failed to malloc deps->pkgs\n"
+
+#, c-format
+msgid "pkg conditional too long [%s:%d]\n"
+msgstr "pkg conditional too long [%s:%d]\n"
+
+msgid "The following packages have unmet dependencies:\n"
+msgstr "The following packages have unmet dependencies:\n"
+
+#, c-format
+msgid "  %s: Depends: %s\n"
+msgstr "  %s: Depends: %s\n"
+
+msgid "The following packages have been EXCLUDED:\n"
+msgstr "The following packages have been EXCLUDED:\n"
+
+msgid "The following NEW packages will be installed:\n"
+msgstr "The following NEW packages will be installed:\n"
+
+msgid "The following packages will be REMOVED:\n"
+msgstr "The following packages will be REMOVED:\n"
+
+msgid "The following packages will be upgraded:\n"
+msgstr "The following packages will be upgraded:\n"
+
+#, c-format
+msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
+msgstr "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
+
+#, c-format
+msgid "Need to get %dK of archives.\n"
+msgstr "Need to get %dK of archives.\n"
+
+#, c-format
+msgid "After unpacking %dK disk space will be freed.\n"
+msgstr "After unpacking %dK disk space will be freed.\n"
+
+#, c-format
+msgid "After unpacking %dK of additional disk space will be used.\n"
+msgstr "After unpacking %dK of additional disk space will be used.\n"
+
+msgid "Do you want to continue? [y/N] "
+msgstr "Do you want to continue? [y/N] "
+
+msgid "Abort.\n"
+msgstr "Abort.\n"
