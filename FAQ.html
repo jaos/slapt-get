@@ -178,13 +178,15 @@
    ### then, let slapt-get upgrade the rest
    $ slapt-get --dist-upgrade
 
-   ### or you can specify --remove-obsolete to remove
-   ### all depreciated packages.  CAUTION: this can only
-   ### take into consideration packages that are available
-   ### from your current sources.  Thus self made packages
-   ### will be considered obsolete as well.  Only use this
-   ### if you have been using Slackware packages exclusively.
-   ### You can also use this option for information purposes.
+  Or you can specify --remove-obsolete to remove all depreciated packages.
+  CAUTION: this can only take into consideration packages that are available
+  from your current sources.  Thus self made packages will be considered
+  obsolete as well (they can be excluded within slapt-getrc, however).  Only
+  use this if you have been using Slackware packages exclusively.  You can
+  also use this option for information purposes, observing the obsolete
+  packages, then passing all the ones you are sure of to --remove (which can
+  accept multiple packages at once).
+   ### dist upgrade and remove all depreciated/obsolete packages
    $ slapt-get --dist-upgrade --remove-obsolete
 
  Then follow the rest of the directions in UPGRADE.TXT.
@@ -639,8 +641,9 @@
  --dist-upgrade --remove-obsolete will remove any packages that Pat has removed
  from current.  CAUTION: this can only take into consideration packages that
  are available from your current sources.  Thus self made packages will be
- considered obsolete as well.  Only use this if you have been using Slackware
- packages exclusively.  You can also use this option for information purposes.
+ considered obsolete as well (they can be excluded within slapt-getrc, however).
+ Only use this if you have been using Slackware packages exclusively.  You can
+ also use this option for information purposes.
 
 
 <A NAME="slgFAQ29"><B>29. How would I script an ldd dependency hack with slapt-get?</B></A>
@@ -878,6 +881,9 @@
  package sources in your slapt-getrc file, then you can do the following:
 
   # slapt-get --dist-upgrade --remove-obsolete
+
+ NOTE: You will want to exclude any packages that are self made so they are
+       not removed.
 
 
 <A NAME="slgFAQ41"><B>41. What provisions have you made for dialup users?</B></A>
