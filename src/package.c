@@ -29,8 +29,6 @@ static struct pkg_version_parts *break_down_pkg_version(const char *version);
 static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,char *dep_entry);
 /* called by is_required_by */
 static struct pkg_list *required_by(const rc_config *global_config,struct pkg_list *avail, pkg_info_t *pkg,struct pkg_list *parent_required_by);
-/* called by get_pkg_dependencies */
-static struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,pkg_info_t *pkg,struct pkg_list *parent_deps);
 /* generate the head cache filename */
 static char *gen_head_cache_filename(const char *filename_from_url);
 /* clear head cache storage file */
@@ -1067,31 +1065,10 @@ struct pkg_list *search_pkg_list(struct pkg_list *available,const char *pattern)
 }
 
 /* lookup dependencies for pkg */
-struct pkg_list *get_pkg_dependencies(const rc_config *global_config,struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,pkg_info_t *pkg){
-	struct pkg_list *p_deps;
-	struct pkg_list *deps;
-
-	p_deps = init_pkg_list();
-
-	deps = lookup_pkg_dependencies(global_config,avail_pkgs,installed_pkgs,pkg,p_deps);
-
-	free_pkg_list(p_deps);
-
-	return deps;
-}
-
-static struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,pkg_info_t *pkg,struct pkg_list *parent_deps){
-	int i;
-	struct pkg_list *deps;
+int get_pkg_dependencies(const rc_config *global_config,struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,pkg_info_t *pkg,struct pkg_list *deps){
 	int position = 0;
 	char *pointer = NULL;
 	char *buffer = NULL;
-
-	deps = init_pkg_list();
-	/* merge parent_deps into deps for simplification */
-	for(i = 0;i < parent_deps->pkg_count;i++){
-		add_pkg_to_pkg_list(deps,parent_deps->pkgs[i]);
-	}
 
 	/*
 	 * don't go any further if the required member is empty
@@ -1102,7 +1079,7 @@ static struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,s
 		strcmp(pkg->required," ") == 0 ||
 		strcmp(pkg->required,"  ") == 0
 	)
-		return deps;
+		return 1;
 
 	#if DEBUG == 1
 	printf("Resolving deps for %s, with dep data: %s\n",pkg->name,pkg->required);
@@ -1131,8 +1108,7 @@ static struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,s
 				*/
 				fprintf(stderr,_("The following packages have unmet dependencies:\n"));
 				fprintf(stderr,_("  %s: Depends: %s\n"),pkg->name,pointer);
-				deps->pkg_count = -1;
-				return deps;
+				return -1;
 			}
 
 			position += strlen(pointer);
@@ -1166,8 +1142,7 @@ static struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,s
 				fprintf(stderr,_("The following packages have unmet dependencies:\n"));
 				fprintf(stderr,_("  %s: Depends: %s\n"),pkg->name,buffer);
 				free(buffer);
-				deps->pkg_count = -1;
-				return deps;
+				return -1;
 			}
 
 			position += strlen(pkg->required + position) - strlen(pointer);
@@ -1178,45 +1153,22 @@ static struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,s
 		if( is_excluded(global_config,tmp_pkg) == 1){
 			if( get_exact_pkg(installed_pkgs,tmp_pkg->name,tmp_pkg->version) == NULL ){
 				printf(_("%s, which is required by %s, is excluded\n"),tmp_pkg->name,pkg->name);
-				deps->pkg_count = -1;
-				return deps;
+				return -1;
 			}
 		}
 
 		/* if tmp_pkg is not already in the deps pkg_list */
 		if( (get_newest_pkg(deps,tmp_pkg->name) == NULL) ){
-			struct pkg_list *tmp_pkgs_deps = NULL;
+			int dep_check_return;
 
 			/* now check to see if tmp_pkg has dependencies */
-			tmp_pkgs_deps = lookup_pkg_dependencies(global_config,avail_pkgs,installed_pkgs,tmp_pkg,deps);
-			if( tmp_pkgs_deps->pkg_count > 0 ){
-
-				/* recurse for each dep found */
-				for(i = 0; i < tmp_pkgs_deps->pkg_count; i++ ){
-
-					/* lookup package to see if it exists in dep list */
-					if( get_newest_pkg(deps,tmp_pkgs_deps->pkgs[i]->name) == NULL ){
-						add_pkg_to_pkg_list(deps,tmp_pkgs_deps->pkgs[i]);
-					}/* end get_newest_pkg */
-
-				}/* end for loop */
-
-			}else if( tmp_pkgs_deps->pkg_count == -1 && global_config->ignore_dep == 0 ){
-				/* don't call free_pkg_list as this list is made up of pointers */
-				/* free_pkg_list(tmp_pkgs_deps); */
-				free(tmp_pkgs_deps->pkgs);
-				free(tmp_pkgs_deps);
-				deps->pkg_count = -1;
-				return deps;
+			dep_check_return = get_pkg_dependencies(global_config,avail_pkgs,installed_pkgs,tmp_pkg,deps);
+			if( dep_check_return == -1 && global_config->ignore_dep == 0 ){
+				return -1;
 			}
 
 			/* add tmp_pkg to deps */
 			add_pkg_to_pkg_list(deps,tmp_pkg);
-
-			/* don't call free_pkg_list as this list is made up of pointers */
-			/* free_pkg_list(tmp_pkgs_deps); */
-			free(tmp_pkgs_deps->pkgs);
-			free(tmp_pkgs_deps);
 
 		}else{
 			#if DEBUG == 1
@@ -1226,7 +1178,7 @@ static struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,s
 
 
 	}/* end while */
-	return deps;
+	return 0;
 }
 
 /* lookup conflicts for package */

@@ -1,5 +1,8 @@
 
 0.9.9c Oct 13, 2004
+ * updated src/transaction.c:add_deps_to_trans() for new get_pkg_dependencies
+ * finally cleaned up get_pkg_dependencies, now --ignore-dep only ignores the
+   broken dep, not all deps if one is broken
  * changed --disable-dep-check to --no-dep
  * changed --no-dep to --ignore-dep
  * merged Michel Hermier's purge_old_cached_pkgs() patch with some modifications

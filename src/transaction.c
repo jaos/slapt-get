@@ -475,19 +475,24 @@ transaction *remove_from_transaction(transaction *tran,pkg_info_t *pkg){
 /* parse the dependencies for a package, and add them to the transaction as needed */
 /* check to see if a package is conflicted */
 int add_deps_to_trans(const rc_config *global_config, transaction *tran, struct pkg_list *avail_pkgs, struct pkg_list *installed_pkgs, pkg_info_t *pkg){
-	int c;
+	int c,dep_return;
 	struct pkg_list *deps;
 
-	deps = get_pkg_dependencies(global_config,avail_pkgs,installed_pkgs,pkg);
+	if( global_config->disable_dep_check == 1) return -1;
+
+	deps = init_pkg_list();
+
+	dep_return = get_pkg_dependencies(global_config,avail_pkgs,installed_pkgs,pkg,deps);
 
 	/* check to see if there where issues with dep checking */
 	/* exclude the package if dep check barfed */
-	if( (deps->pkg_count == -1) && (global_config->ignore_dep == 0) ){
+	if( (dep_return == -1) && (global_config->ignore_dep == 0) ){
 		printf("Excluding %s, use --ignore-dep to override\n",pkg->name);
 		add_exclude_to_transaction(tran,pkg);
+		/* free_pkg_list(deps); */
 		free(deps->pkgs);
 		free(deps);
-		return 1;
+		return -1;
 	}
 
 	/* loop through the deps */
@@ -517,6 +522,7 @@ int add_deps_to_trans(const rc_config *global_config, transaction *tran, struct 
 
 	}
 
+	/* free_pkg_list(deps); */
 	free(deps->pkgs);
 	free(deps);
 
