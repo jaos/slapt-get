@@ -1123,11 +1123,7 @@ int get_pkg_dependencies(const rc_config *global_config,struct pkg_list *avail_p
 			}
 
 			if( tmp_pkg == NULL ){
-				/*
-					if we can't find a required dep, set the dep pkg_count to -1 
-					and return... the caller should check to see if its -1, and 
-					act accordingly
-				*/
+				/* if we can't find a required dep, stop */
 				fprintf(stderr,_("The following packages have unmet dependencies:\n"));
 				fprintf(stderr,_("  %s: Depends: %s\n"),pkg->name,buffer);
 				free(buffer);
