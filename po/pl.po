@@ -19,7 +19,7 @@ msgid "Reading Package Lists... "
 msgstr "Wczytuje Liste Pakietow..."
 
 msgid "Done\n"
-msgstr "Gotowe"
+msgstr "Gotowe\n"
 
 #, c-format
 msgid "No Such package: %s\n"
@@ -115,7 +115,7 @@ msgstr "Nie powiodlo sie malloc global_config\n"
 
 #, c-format
 msgid "Maximum number of sources (%d) exceeded.\n"
-msgstr "Przekroczono limit (%d) zrodel."
+msgstr "Przekroczono limit (%d) zrodel.\n"
 
 #, c-format
 msgid "Maximum length of source (%d) exceeded.\n"
@@ -218,7 +218,7 @@ msgstr "Nie powiodlo sie odlinkowanie %s\n"
 
 #, c-format
 msgid "verifying %s md5 checksum..."
-msgstr "Weryfikacja sumy kontrolnej dla %s...\n"
+msgstr "Weryfikacja sumy kontrolnej dla %s..."
 
 #, c-format
 msgid "md5 sum for %s is not correct!\n"
@@ -237,7 +237,7 @@ msgid "File: %s/%s\n"
 msgstr "Plik: %s/%s\n"
 
 msgid "An implementation of the Debian APT system to Slackware\n"
-msgstr "Implementacja systemu APT z Debiana do Slackwarea\n "
+msgstr "Implementacja systemu APT z Debiana do Slackwarea\n"
 
 msgid "Usage:\n"
 msgstr "Uzycie:\n"
@@ -250,7 +250,7 @@ msgid "Targets:\n"
 msgstr "Cele:\n"
 
 msgid "retrieves pkg data from MIRROR"
-msgstr "pobierz pkg z MIRRORa""
+msgstr "pobierz pkg z MIRRORa"
 
 msgid "upgrade installed pkgs"
 msgstr "aktualizuj zainstalowane pkgs"
@@ -438,4 +438,4 @@ msgstr "Po rozpakowaniu %dK miejsce na dysku bedzie zwolnione.\n"
 
 #, c-format
 msgid "After unpacking %dK of additional disk space will be used.\n"
-msgstr "Po rozpakowaniu %dK dodatkowe miejsce na dysku zostanie uzyte.\
+msgstr "Po rozpakowaniu %dK dodatkowe miejsce na dysku zostanie uzyte.\n"
