@@ -5,8 +5,10 @@
  * fixed possible buffer overflows in parse_packages_txt
  * added more buffer checks in config parser
  * search now searches a packages location field as well
+ * --show pkg_name now shows pkg size and uncompressed size
  * transaction report now shows how much will be downloaded
    and how much disk space will be used.
+ * --update now shows url for each source download
 
 0.9.6c Oct 15, 2003
  * patch data is now fetched from patches/PACKAGES.TXT instead of

@@ -244,65 +244,65 @@ void pkg_action_update(const rc_config *global_config){
 	struct pkg_list *available_pkgs = NULL;
 
 	/* download our PKG_LIST */
-	#if USE_CURL_PROGRESS == 0
-	printf("Retrieving package data...");
-	#else
-	printf("Retrieving package data...\n");
-	#endif
 	pkg_list_fh = open_file(PKG_LIST_L,"w+");
 	for(i = 0; i < global_config->sources.count; i++){
 		tmp_file = tmpfile();
+		#if USE_CURL_PROGRESS == 0
+		printf("Retrieving package data [%s]...",global_config->sources.url[i]);
+		#else
+		printf("Retrieving package data [%s]...\n",global_config->sources.url[i]);
+		#endif
 		if( get_mirror_data_from_source(tmp_file,global_config->sources.url[i],PKG_LIST) == 0 ){
 			rewind(tmp_file); /* make sure we are back at the front of the file */
 			available_pkgs = parse_packages_txt(tmp_file);
 			write_pkg_data(global_config->sources.url[i],pkg_list_fh,available_pkgs);
 			free_pkg_list(available_pkgs);
+			#if USE_CURL_PROGRESS == 0
+			printf("Done\n");
+			#endif
 		}
 		fclose(tmp_file);
 	}
-	#if USE_CURL_PROGRESS == 0
-	printf("Done\n");
-	#endif
 
 	/* download EXTRAS_LIST */
-	#if USE_CURL_PROGRESS == 0
-	printf("Retrieving extras list...");
-	#else
-	printf("Retrieving extras list...\n");
-	#endif
 	for(i = 0; i < global_config->sources.count; i++){
 		tmp_file = tmpfile();
+		#if USE_CURL_PROGRESS == 0
+		printf("Retrieving extras list [%s]...",global_config->sources.url[i]);
+		#else
+		printf("Retrieving extras list [%s]...\n",global_config->sources.url[i]);
+		#endif
 		if( get_mirror_data_from_source(tmp_file,global_config->sources.url[i],EXTRAS_LIST) == 0 ){
 			rewind(tmp_file); /* make sure we are back at the front of the file */
 			available_pkgs = parse_packages_txt(tmp_file);
 			write_pkg_data(global_config->sources.url[i],pkg_list_fh,available_pkgs);
 			free_pkg_list(available_pkgs);
+			#if USE_CURL_PROGRESS == 0
+			printf("Done\n");
+			#endif
 		}
 		fclose(tmp_file);
 	}
-	#if USE_CURL_PROGRESS == 0
-	printf("Done\n");
-	#endif
 
 	/* download PATCHES_LIST */
-	#if USE_CURL_PROGRESS == 0
-	printf("Retrieving patch list...");
-	#else
-	printf("Retrieving patch list...\n");
-	#endif
 	for(i = 0; i < global_config->sources.count; i++){
 		patches_list_fh = tmpfile();
+		#if USE_CURL_PROGRESS == 0
+		printf("Retrieving patch list [%s]...",global_config->sources.url[i]);
+		#else
+		printf("Retrieving patch list [%s]...\n",global_config->sources.url[i]);
+		#endif
 		if( get_mirror_data_from_source(patches_list_fh,global_config->sources.url[i],PATCHES_LIST) == 0 ){
 			rewind(patches_list_fh); /* make sure we are back at the front of the file */
 			available_pkgs = parse_packages_txt(patches_list_fh);
 			write_pkg_data(global_config->sources.url[i],pkg_list_fh,available_pkgs);
 			free_pkg_list(available_pkgs);
+			#if USE_CURL_PROGRESS == 0
+			printf("Done\n");
+			#endif
 		}
 		fclose(patches_list_fh);
 	}
-	#if USE_CURL_PROGRESS == 0
-	printf("Done\n");
-	#endif
 	fclose(pkg_list_fh);
 
 	/* download checksum file */
