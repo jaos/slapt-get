@@ -1,5 +1,7 @@
 
-0.9.8g Jul 19, 2004
+0.9.8g Jul 21, 2004
+ * updated slack-desc
+ * default download progress now shows percentage instead of spinner
  * added new linuxpackages.net mirror to example.slapt-getrc
  * finally made a few private functions static
  * moved parse_excludes from package.[ch] to configuration.[ch]

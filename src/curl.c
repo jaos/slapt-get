@@ -34,8 +34,10 @@ int download_data(FILE *fh,const char *url,size_t bytes,int use_curl_dl_stats){
 	curl_easy_setopt(ch, CURLOPT_NOPROGRESS, 0);
 	curl_easy_setopt(ch, CURLOPT_USERAGENT, PROGRAM_NAME );
 
-	if( use_curl_dl_stats != 1 )
+	if( use_curl_dl_stats != 1 ){
 		curl_easy_setopt(ch, CURLOPT_PROGRESSFUNCTION, progress_callback );
+		curl_easy_setopt(ch, CURLOPT_PROGRESSDATA, &bytes);
+	}
 
 	curl_easy_setopt(ch, CURLOPT_ERRORBUFFER, curl_err_buff );
 
@@ -207,14 +209,18 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 }
 
 int progress_callback(void *clientp, double dltotal, double dlnow, double ultotal, double ulnow){
+	int percent = 0;
+	int *bytes = (int *)clientp;
 	/* supress unused parameter warning */
-	(void) clientp;
-	(void) dltotal;
-	(void) dlnow;
 	(void) ultotal;
 	(void) ulnow;
 	/* */
-	printf("%c\b",spinner());
+	if( ((int)dltotal + *bytes) == 0 ){
+		percent = 0;
+	}else{
+		percent = ((*bytes + (int)dlnow)*100)/((int)dltotal + *bytes);
+	}
+	printf("%3d%%\b\b\b\b",percent);
 	return 0;
 }
 
