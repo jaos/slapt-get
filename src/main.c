@@ -49,8 +49,8 @@ int main( int argc, char *argv[] ){
 		{"dist-upgrade",0, 0, 'h'},
 		{"help",0, 0, 'l'},
 		{"h",0, 0, 'l'},
-		{"no-dep",0, 0, 'p'},
-		{"disable-dep-check",0, 0, 'q'},
+		{"ignore-dep",0, 0, 'p'},
+		{"no-dep",0, 0, 'q'},
 		{"print-uris",0, 0, 'P'},
 		{"show-stats",0, 0, 'S'},
 		{"S",0, 0, 'S'},
@@ -135,10 +135,10 @@ int main( int argc, char *argv[] ){
 			case 'l': /* help */
 				usage();
 				exit(1);
-			case 'p': /* no-dep */
-				global_config->no_dep = 1;
+			case 'p': /* ignore-dep */
+				global_config->ignore_dep = 1;
 				break;
-			case 'q': /* disable-dep-check */
+			case 'q': /* no-dep */
 				global_config->disable_dep_check = 1;
 				break;
 			case 'P': /* print-uris */
@@ -162,7 +162,7 @@ int main( int argc, char *argv[] ){
 					global_config->re_install = tmp_gc->re_install;
 					global_config->ignore_excludes = tmp_gc->ignore_excludes;
 					global_config->no_md5_check = tmp_gc->no_md5_check;
-					global_config->no_dep = tmp_gc->no_dep;
+					global_config->ignore_dep = tmp_gc->ignore_dep;
 					global_config->disable_dep_check = tmp_gc->disable_dep_check;
 					global_config->print_uris = tmp_gc->print_uris;
 					global_config->dl_stats = tmp_gc->dl_stats;
@@ -300,8 +300,8 @@ void usage(void){
 	printf("  --reinstall         - %s\n",_("re-install the pkg"));
 	printf("  --ignore-excludes   - %s\n",_("install/upgrade excludes"));
 	printf("  --no-md5            - %s\n",_("do not perform md5 check sum"));
-	printf("  --no-dep            - %s\n",_("ignore dependency failures"));
-	printf("  --disable-dep-check - %s\n",_("skip dependency check"));
+	printf("  --no-dep            - %s\n",_("skip dependency check"));
+	printf("  --ignore-dep        - %s\n",_("ignore dependency failures"));
 	printf("  --print-uris        - %s\n",_("print URIs only, do not download"));
 	printf("  --show-stats|-S     - %s\n",_("show download statistics"));
 	printf("  --config []         - %s\n",_("specify alternate slapt-getrc location"));

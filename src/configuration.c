@@ -42,7 +42,7 @@ rc_config *read_rc_config(const char *file_name){
 	global_config->ignore_excludes = 0;
 	global_config->no_md5_check = 0;
 	global_config->dist_upgrade = 0;
-	global_config->no_dep = 0;
+	global_config->ignore_dep = 0;
 	global_config->disable_dep_check = 0;
 	global_config->print_uris = 0;
 	global_config->dl_stats = 0;

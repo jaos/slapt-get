@@ -1,5 +1,7 @@
 
-0.9.9c Oct 03, 2004
+0.9.9c Oct 13, 2004
+ * changed --disable-dep-check to --no-dep
+ * changed --no-dep to --ignore-dep
  * merged Michel Hermier's purge_old_cached_pkgs() patch with some modifications
  * merged Michel Hermier's ask_yes_no() patch to common.[ch] and transation.c
  * added init_pkg_action_args() and free_pkg_action_args()

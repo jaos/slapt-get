@@ -701,7 +701,8 @@ Frequenty Asked Questions:
 
  This does not apply to dependencies.  If a dependency of a specified package
  is detected, it is checked against the EXCLUDE list.  If excluded, the 
- dependency check for the specified package fails.  Override this with --no-dep.
+ dependency check for the specified package fails.  Override this with
+ --ignore-dep.
 
 
 31. What about package conflicts?  How can I specify a conflict for my package?

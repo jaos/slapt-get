@@ -44,7 +44,7 @@ struct _configuration {
 	struct exclude_list *exclude_list;
 	int ignore_excludes;
 	int no_md5_check;
-	int no_dep;
+	int ignore_dep;
 	int disable_dep_check;
 	int print_uris;
 	int dl_stats;

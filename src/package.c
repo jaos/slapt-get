@@ -1201,7 +1201,7 @@ static struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,s
 
 				}/* end for loop */
 
-			}else if( tmp_pkgs_deps->pkg_count == -1 && global_config->no_dep == 0 ){
+			}else if( tmp_pkgs_deps->pkg_count == -1 && global_config->ignore_dep == 0 ){
 				/* don't call free_pkg_list as this list is made up of pointers */
 				/* free_pkg_list(tmp_pkgs_deps); */
 				free(tmp_pkgs_deps->pkgs);
