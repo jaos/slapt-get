@@ -108,7 +108,7 @@ char *head_request(const char *url){
 	struct head_data_t head_t;
 	struct curl_slist *headers = NULL;
 
-	head_t.data = malloc( sizeof *head_t.data );
+	head_t.data = slapt_malloc( sizeof *head_t.data );
 	head_t.size = 0;
 
 	ch = curl_easy_init();
@@ -145,13 +145,9 @@ int get_mirror_data_from_source(FILE *fh,int use_curl_dl_stats,const char *base_
 	int return_code = 0;
 	char *url = NULL;
 
-	url = calloc(
+	url = slapt_calloc(
 		strlen(base_url) + strlen(filename) + 1, sizeof *url
 	);
-	if( url == NULL ){
-		fprintf(stderr,_("Failed to calloc %s\n"),"url");
-		exit(1);
-	}
 
 	strncpy(url,base_url,strlen(base_url) );
 	url[ strlen(base_url) ] = '\0';

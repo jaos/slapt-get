@@ -21,17 +21,17 @@ static void add_suggestion(transaction_t *tran, pkg_info_t *pkg);
 
 void init_transaction(transaction_t *tran){
 
-	tran->install_pkgs = malloc( sizeof *tran->install_pkgs );
-	tran->remove_pkgs = malloc( sizeof *tran->remove_pkgs );
-	tran->upgrade_pkgs = malloc( sizeof *tran->upgrade_pkgs );
-	tran->exclude_pkgs = malloc( sizeof *tran->exclude_pkgs );
+	tran->install_pkgs = slapt_malloc( sizeof *tran->install_pkgs );
+	tran->remove_pkgs = slapt_malloc( sizeof *tran->remove_pkgs );
+	tran->upgrade_pkgs = slapt_malloc( sizeof *tran->upgrade_pkgs );
+	tran->exclude_pkgs = slapt_malloc( sizeof *tran->exclude_pkgs );
 
-	tran->install_pkgs->pkgs = malloc( sizeof *tran->install_pkgs->pkgs );
-	tran->remove_pkgs->pkgs = malloc( sizeof *tran->remove_pkgs->pkgs );
-	tran->upgrade_pkgs->pkgs = malloc( sizeof *tran->upgrade_pkgs->pkgs );
-	tran->exclude_pkgs->pkgs = malloc( sizeof *tran->exclude_pkgs->pkgs );
+	tran->install_pkgs->pkgs = slapt_malloc( sizeof *tran->install_pkgs->pkgs );
+	tran->remove_pkgs->pkgs = slapt_malloc( sizeof *tran->remove_pkgs->pkgs );
+	tran->upgrade_pkgs->pkgs = slapt_malloc( sizeof *tran->upgrade_pkgs->pkgs );
+	tran->exclude_pkgs->pkgs = slapt_malloc( sizeof *tran->exclude_pkgs->pkgs );
 
-	tran->suggests = malloc(sizeof *tran->suggests );
+	tran->suggests = slapt_malloc(sizeof *tran->suggests );
 	tran->suggests[0] = '\0';
 
 	tran->install_pkgs->pkg_count = 0;
@@ -244,7 +244,7 @@ void add_install_to_transaction(transaction_t *tran,pkg_info_t *pkg){
 	if( tmp_list != NULL ){
 		tran->install_pkgs->pkgs = tmp_list;
 
-		tran->install_pkgs->pkgs[tran->install_pkgs->pkg_count] = malloc(
+		tran->install_pkgs->pkgs[tran->install_pkgs->pkg_count] = slapt_malloc(
 			sizeof *tran->install_pkgs->pkgs[tran->install_pkgs->pkg_count]
 		);
 		memcpy(
@@ -277,7 +277,7 @@ void add_remove_to_transaction(transaction_t *tran,pkg_info_t *pkg){
 	if( tmp_list != NULL ){
 		tran->remove_pkgs->pkgs = tmp_list;
 
-		tran->remove_pkgs->pkgs[tran->remove_pkgs->pkg_count] = malloc(
+		tran->remove_pkgs->pkgs[tran->remove_pkgs->pkg_count] = slapt_malloc(
 			sizeof *tran->remove_pkgs->pkgs[tran->remove_pkgs->pkg_count]
 		);
 		memcpy(
@@ -308,7 +308,7 @@ void add_exclude_to_transaction(transaction_t *tran,pkg_info_t *pkg){
 	if( tmp_list != NULL ){
 		tran->exclude_pkgs->pkgs = tmp_list;
 
-		tran->exclude_pkgs->pkgs[tran->exclude_pkgs->pkg_count] = malloc(
+		tran->exclude_pkgs->pkgs[tran->exclude_pkgs->pkg_count] = slapt_malloc(
 			sizeof *tran->exclude_pkgs->pkgs[tran->exclude_pkgs->pkg_count]
 		);
 		memcpy(
@@ -341,13 +341,13 @@ void add_upgrade_to_transaction(
 	if( tmp_list != NULL ){
 		tran->upgrade_pkgs->pkgs = tmp_list;
 
-		tran->upgrade_pkgs->pkgs[tran->upgrade_pkgs->pkg_count] = malloc(
+		tran->upgrade_pkgs->pkgs[tran->upgrade_pkgs->pkg_count] = slapt_malloc(
 			sizeof *tran->upgrade_pkgs->pkgs[tran->upgrade_pkgs->pkg_count]
 		);
-		tran->upgrade_pkgs->pkgs[tran->upgrade_pkgs->pkg_count]->installed = malloc(
+		tran->upgrade_pkgs->pkgs[tran->upgrade_pkgs->pkg_count]->installed = slapt_malloc(
 			sizeof *tran->upgrade_pkgs->pkgs[tran->upgrade_pkgs->pkg_count]->installed
 		);
-		tran->upgrade_pkgs->pkgs[tran->upgrade_pkgs->pkg_count]->upgrade = malloc(
+		tran->upgrade_pkgs->pkgs[tran->upgrade_pkgs->pkg_count]->upgrade = slapt_malloc(
 			sizeof *tran->upgrade_pkgs->pkgs[tran->upgrade_pkgs->pkg_count]->upgrade
 		);
 
@@ -438,12 +438,12 @@ transaction_t *remove_from_transaction(transaction_t *tran,pkg_info_t *pkg){
 	if( search_transaction(tran,pkg) == 0 )
 		return tran;
 
-	/* since this is a pointer, malloc before calling init */
-	new_tran = malloc(sizeof *new_tran);
-	new_tran->install_pkgs = malloc( sizeof *new_tran->install_pkgs );
-	new_tran->remove_pkgs = malloc( sizeof *new_tran->remove_pkgs );
-	new_tran->upgrade_pkgs = malloc( sizeof *new_tran->upgrade_pkgs );
-	new_tran->exclude_pkgs = malloc( sizeof *new_tran->exclude_pkgs );
+	/* since this is a pointer, slapt_malloc before calling init */
+	new_tran = slapt_malloc(sizeof *new_tran);
+	new_tran->install_pkgs = slapt_malloc( sizeof *new_tran->install_pkgs );
+	new_tran->remove_pkgs = slapt_malloc( sizeof *new_tran->remove_pkgs );
+	new_tran->upgrade_pkgs = slapt_malloc( sizeof *new_tran->upgrade_pkgs );
+	new_tran->exclude_pkgs = slapt_malloc( sizeof *new_tran->exclude_pkgs );
 	init_transaction(new_tran);
 
 	for(i = 0;i < tran->install_pkgs->pkg_count; i++){

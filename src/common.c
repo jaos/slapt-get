@@ -92,7 +92,7 @@ void gen_md5_sum_of_file(FILE *f,char *result_sum){
 	result_sum[0] = '\0';
 
 	for(i = 0; i < md_len; i++){
-		char *p = malloc( sizeof *p * 3 );
+		char *p = slapt_malloc( sizeof *p * 3 );
 
 		if( snprintf(p,3,"%02x",md_value[i]) > 0 ){
 
@@ -216,7 +216,7 @@ int ask_yes_no(const char *format, ...)
 
 char *str_replace_chr(const char *string,const char find, const char replace){
 	unsigned int i,len = 0;
-	char *clean = calloc( strlen(string) + 1, sizeof *clean);;
+	char *clean = slapt_calloc( strlen(string) + 1, sizeof *clean);;
 
 	len = strlen(string);
 	for(i = 0;i < len; ++i){
@@ -229,5 +229,25 @@ char *str_replace_chr(const char *string,const char find, const char replace){
 	clean[ strlen(string) ] = '\0';
 
 	return clean;
+}
+
+__inline void *slapt_malloc(size_t s){
+	void *p;
+	if( ! (p = malloc(s)) ){
+		fprintf(stderr,_("Failed to malloc\n"));
+		if( errno ) perror("malloc");
+		exit(1);
+	}
+	return p;
+}
+
+__inline void *slapt_calloc(size_t n,size_t s){
+	void *p;
+	if( ! (p = calloc(n,s)) ){
+		fprintf(stderr,_("Failed to calloc\n"));
+		if( errno ) perror("calloc");
+		exit(1);
+	}
+	return p;
 }
 

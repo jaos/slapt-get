@@ -577,8 +577,8 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 pkg_action_args_t *init_pkg_action_args(int arg_count){
 	pkg_action_args_t *paa;
 
-	paa = malloc( sizeof *paa );
-	paa->pkgs = malloc( sizeof *paa->pkgs * arg_count );
+	paa = slapt_malloc( sizeof *paa );
+	paa->pkgs = slapt_malloc( sizeof *paa->pkgs * arg_count );
 	paa->count = 0;
 
 	return paa;

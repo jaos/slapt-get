@@ -28,13 +28,7 @@ rc_config *read_rc_config(const char *file_name){
 	size_t gb_length = 0;
 	ssize_t g_size;
 
-	global_config = malloc( sizeof *global_config );
-	if( global_config == NULL ){
-		fprintf(stderr,_("Failed to malloc %s\n"),"global_config");
-		if( errno ){
-			perror("global_config malloc");
-		}
-	}
+	global_config = slapt_malloc( sizeof *global_config );
 	/* initialize */
 	global_config->sources.count = 0;
 	global_config->download_only = 0;
@@ -125,7 +119,7 @@ rc_config *read_rc_config(const char *file_name){
 	}
 	if( global_config->exclude_list == NULL ){
 		/* at least initialize */
-		global_config->exclude_list = malloc( sizeof *global_config->exclude_list );
+		global_config->exclude_list = slapt_malloc( sizeof *global_config->exclude_list );
 		global_config->exclude_list->count = 0;
 	}
 	if( global_config->sources.count == 0 ){
@@ -177,15 +171,8 @@ static struct exclude_list *parse_exclude(char *line){
 	struct exclude_list *list;
 	unsigned int position = 0, len = 0;
 
-	list = malloc( sizeof *list );
-	if( list == NULL ){
-		fprintf(stderr,_("Failed to malloc %s\n"),"list");
-		if( errno ){
-			perror("malloc");
-		}
-		exit(1);
-	}
-	list->excludes = malloc( sizeof *list->excludes );
+	list = slapt_malloc( sizeof *list );
+	list->excludes = slapt_malloc( sizeof *list->excludes );
 	list->count = 0;
 
 	/* skip ahead past the = */

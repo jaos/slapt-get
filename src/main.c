@@ -213,7 +213,7 @@ int main( int argc, char *argv[] ){
 		case INSTALL:
 			paa = init_pkg_action_args((argc - optind));
 			while (optind < argc){
-				paa->pkgs[paa->count] = malloc(
+				paa->pkgs[paa->count] = slapt_malloc(
 					( strlen(argv[optind]) + 1 ) * sizeof *paa->pkgs[paa->count]
 				);
 				memcpy(paa->pkgs[paa->count],argv[optind],strlen(argv[optind]) + 1);
@@ -226,7 +226,7 @@ int main( int argc, char *argv[] ){
 		case REMOVE:
 			paa = init_pkg_action_args((argc - optind));
 			while (optind < argc){
-				paa->pkgs[paa->count] = malloc(
+				paa->pkgs[paa->count] = slapt_malloc(
 					( strlen(argv[optind]) + 1 ) * sizeof *paa->pkgs[paa->count]
 				);
 				memcpy(paa->pkgs[paa->count],argv[optind],strlen(argv[optind]) + 1);

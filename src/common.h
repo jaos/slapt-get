@@ -42,3 +42,6 @@ void gen_md5_sum_of_file(FILE *f,char *result_sum);
  */
 int ask_yes_no(const char *format, ...);
 char *str_replace_chr(const char *string,const char find, const char replace);
+__inline void *slapt_malloc(size_t s);
+__inline void *slapt_calloc(size_t n,size_t s);
+

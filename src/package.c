@@ -445,7 +445,7 @@ struct pkg_list *get_installed_pkgs(void){
 		if( strcspn(getenv(ROOT_ENV_NAME),NAUGHTY_CHARS) == 0 )
 			root_env_entry = getenv(ROOT_ENV_NAME);
 	}
-	pkg_log_dirname = calloc(
+	pkg_log_dirname = slapt_calloc(
 		strlen(PKG_LOG_DIR)+
 		(root_env_entry ? strlen(root_env_entry) : 0) + 1 ,
 		sizeof *pkg_log_dirname
@@ -495,7 +495,7 @@ struct pkg_list *get_installed_pkgs(void){
 		tmp_pkg->version[ ip_regex.pmatch[2].rm_eo - ip_regex.pmatch[2].rm_so ] = '\0';
 
 		/* build the package filename including the package directory */
-		pkg_f_name = malloc( sizeof *pkg_f_name * (strlen(pkg_log_dirname) + strlen(file->d_name) + 2) );
+		pkg_f_name = slapt_malloc( sizeof *pkg_f_name * (strlen(pkg_log_dirname) + strlen(file->d_name) + 2) );
 		pkg_f_name[0] = '\0';
 		strncat(pkg_f_name,pkg_log_dirname,strlen(pkg_log_dirname));
 		strncat(pkg_f_name,"/",strlen("/"));
@@ -600,7 +600,7 @@ int install_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	pkg_file_name = gen_pkg_file_name(global_config,pkg);
 
 	/* build and execute our command */
-	command = calloc( strlen(INSTALL_CMD) + strlen(pkg_file_name) + 1 , sizeof *command );
+	command = slapt_calloc( strlen(INSTALL_CMD) + strlen(pkg_file_name) + 1 , sizeof *command );
 	command[0] = '\0';
 	command = strncat(command,INSTALL_CMD,strlen(INSTALL_CMD));
 	command = strncat(command,pkg_file_name,strlen(pkg_file_name));
@@ -627,7 +627,7 @@ int upgrade_pkg(const rc_config *global_config,pkg_info_t *installed_pkg,pkg_inf
 	pkg_file_name = gen_pkg_file_name(global_config,pkg);
 
 	/* build and execute our command */
-	command = calloc( strlen(UPGRADE_CMD) + strlen(pkg_file_name) + 1 , sizeof *command );
+	command = slapt_calloc( strlen(UPGRADE_CMD) + strlen(pkg_file_name) + 1 , sizeof *command );
 	command[0] = '\0';
 	command = strncat(command,UPGRADE_CMD,strlen(UPGRADE_CMD));
 	command = strncat(command,pkg_file_name,strlen(pkg_file_name));
@@ -652,7 +652,7 @@ int remove_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	(void)global_config;
 
 	/* build and execute our command */
-	command = calloc(
+	command = slapt_calloc(
 		strlen(REMOVE_CMD) + strlen(pkg->name) + strlen("-") + strlen(pkg->version) + 1,
 		sizeof *command
 	);
@@ -916,8 +916,8 @@ static struct pkg_version_parts *break_down_pkg_version(const char *version){
 	char *pointer,*short_version;
 	struct pkg_version_parts *pvp;
 
-	pvp = malloc( sizeof *pvp );
-	pvp->parts = malloc( sizeof *pvp->parts );
+	pvp = slapt_malloc( sizeof *pvp );
+	pvp->parts = slapt_malloc( sizeof *pvp->parts );
 	pvp->count = 0;
 
 	/* generate a short version, leave out arch and release */
@@ -925,7 +925,7 @@ static struct pkg_version_parts *break_down_pkg_version(const char *version){
 		return pvp;
 	}else{
 		sv_size = ( strlen(version) - strlen(pointer) + 1);
-		short_version = malloc( sizeof *short_version * sv_size );
+		short_version = slapt_malloc( sizeof *short_version * sv_size );
 		memcpy(short_version,version,sv_size);
 		short_version[sv_size - 1] = '\0';
 		pointer = NULL;
@@ -944,7 +944,7 @@ static struct pkg_version_parts *break_down_pkg_version(const char *version){
 		/* check for . as a seperator */
 		if( (pointer = strchr(short_version + pos,'.')) != NULL ){
 			int b_count = ( strlen(short_version + pos) - strlen(pointer) + 1 );
-			pvp->parts[pvp->count] = malloc( sizeof *pvp->parts[pvp->count] * b_count );
+			pvp->parts[pvp->count] = slapt_malloc( sizeof *pvp->parts[pvp->count] * b_count );
 			memcpy(pvp->parts[pvp->count],short_version + pos,b_count - 1);
 			pvp->parts[pvp->count][b_count - 1] = '\0';
 			++pvp->count;
@@ -953,7 +953,7 @@ static struct pkg_version_parts *break_down_pkg_version(const char *version){
 		/* check for _ as a seperator */
 		}else if( (pointer = strchr(short_version + pos,'_')) != NULL ){
 			int b_count = ( strlen(short_version + pos) - strlen(pointer) + 1 );
-			pvp->parts[pvp->count] = malloc( sizeof *pvp->parts[pvp->count] * b_count );
+			pvp->parts[pvp->count] = slapt_malloc( sizeof *pvp->parts[pvp->count] * b_count );
 			memcpy(pvp->parts[pvp->count],short_version + pos,b_count - 1);
 			pvp->parts[pvp->count][b_count - 1] = '\0';
 			++pvp->count;
@@ -962,7 +962,7 @@ static struct pkg_version_parts *break_down_pkg_version(const char *version){
 		/* must be the end of the string */
 		}else{
 			int b_count = ( strlen(short_version + pos) + 1 );
-			pvp->parts[pvp->count] = malloc( sizeof *pvp->parts[pvp->count] * b_count );
+			pvp->parts[pvp->count] = slapt_malloc( sizeof *pvp->parts[pvp->count] * b_count );
 			memcpy(pvp->parts[pvp->count],short_version + pos,b_count - 1);
 			pvp->parts[pvp->count][b_count - 1] = '\0';
 			++pvp->count;
@@ -1477,7 +1477,7 @@ char *head_mirror_data(const char *wurl,const char *file){
 	char *url;
 
 	/* build url */
-	url = calloc( strlen(wurl) + strlen(file) + 2, sizeof *url );
+	url = slapt_calloc( strlen(wurl) + strlen(file) + 2, sizeof *url );
 	url[0] = '\0';
 	strncat(url,wurl,strlen(wurl));
 	strncat(url,"/",1);
@@ -1507,7 +1507,7 @@ char *head_mirror_data(const char *wurl,const char *file){
 	}
 	
 	request_header_len = strlen(request_header_ptr) - strlen(delim_ptr);
-	request_header = calloc( request_header_len + 1, sizeof *request_header );
+	request_header = slapt_calloc( request_header_len + 1, sizeof *request_header );
 	memcpy(request_header,request_header_ptr,request_header_len);
 
 	free(head_data);
@@ -1556,7 +1556,7 @@ char *read_head_cache(const char *cache_filename){
 char *gen_head_cache_filename(const char *filename_from_url){
 	char *head_filename;
 
-	head_filename = calloc( strlen(filename_from_url) + strlen(HEAD_FILE_EXT) + 1, sizeof *head_filename );
+	head_filename = slapt_calloc( strlen(filename_from_url) + strlen(HEAD_FILE_EXT) + 1, sizeof *head_filename );
 	strncat(head_filename,filename_from_url,strlen(filename_from_url));
 	strncat(head_filename,HEAD_FILE_EXT,strlen(HEAD_FILE_EXT));
 
@@ -1769,12 +1769,8 @@ int update_pkg_cache(const rc_config *global_config){
 struct pkg_list *init_pkg_list(void){
 	struct pkg_list *list;
 
-	list = malloc( sizeof *list );
-	list->pkgs = malloc( sizeof *list->pkgs );
-	if( list->pkgs == NULL ){
-		fprintf(stderr,_("Failed to malloc %s\n"),"list");
-		exit(1);
-	}
+	list = slapt_malloc( sizeof *list );
+	list->pkgs = slapt_malloc( sizeof *list->pkgs );
 	list->pkg_count = 0;
 
 	return list;
@@ -1799,11 +1795,7 @@ void add_pkg_to_pkg_list(struct pkg_list *list,pkg_info_t *pkg){
 pkg_info_t *init_pkg(void){
 	pkg_info_t *pkg;
 
-	pkg = malloc( sizeof *pkg );
-	if( pkg == NULL ){
-		fprintf(stderr,_("Failed to malloc %s\n"),"pkg");
-		exit(1);
-	}
+	pkg = slapt_malloc( sizeof *pkg );
 
 	pkg->size_c = 0;
 	pkg->size_u = 0;
@@ -1826,16 +1818,12 @@ char *gen_pkg_file_name(const rc_config *global_config,pkg_info_t *pkg){
 	char *file_name = NULL;
 
 	/* build the file name */
-	file_name = calloc(
+	file_name = slapt_calloc(
 		strlen(global_config->working_dir)+strlen("/")
 			+strlen(pkg->location)+strlen("/")
 			+strlen(pkg->name)+strlen("-")+strlen(pkg->version)+strlen(".tgz") + 1 ,
 		sizeof *file_name
 	);
-	if( file_name == NULL ){
-		fprintf(stderr,_("Failed to calloc %s\n"),"file_name");
-		exit(1);
-	}
 	file_name = strncpy(file_name,
 		global_config->working_dir,strlen(global_config->working_dir)
 	);
@@ -1857,28 +1845,20 @@ char *gen_pkg_url(pkg_info_t *pkg){
 	char *file_name = NULL;
 
 	/* build the file name */
-	file_name = calloc(
+	file_name = slapt_calloc(
 		strlen(pkg->name)+strlen("-")+strlen(pkg->version)+strlen(".tgz") + 1 ,
 		sizeof *file_name
 	);
-	if( file_name == NULL ){
-		fprintf(stderr,_("Failed to calloc %s\n"),"file_name");
-		exit(1);
-	}
 	file_name = strncpy(file_name,pkg->name,strlen(pkg->name));
 	file_name = strncat(file_name,"-",strlen("-"));
 	file_name = strncat(file_name,pkg->version,strlen(pkg->version));
 	file_name = strncat(file_name,".tgz",strlen(".tgz"));
 
-	url = calloc(
+	url = slapt_calloc(
 		strlen(pkg->mirror) + strlen(pkg->location)
 			+ strlen(file_name) + strlen("/") + 1,
 		sizeof *url
 	);
-	if( url == NULL ){
-		fprintf(stderr,_("Failed to calloc %s\n"),"url");
-		exit(1);
-	}
 
 	url = strncpy(url,pkg->mirror,strlen(pkg->mirror));
 	url[ strlen(pkg->mirror) ] = '\0';
@@ -1956,7 +1936,7 @@ int verify_downloaded_pkg(const rc_config *global_config,pkg_info_t *pkg){
 char *gen_filename_from_url(const char *url,const char *file){
 	char *filename,*cleaned;
 
-	filename = calloc( strlen(url) + strlen(file) + 2 , sizeof *filename );
+	filename = slapt_calloc( strlen(url) + strlen(file) + 2 , sizeof *filename );
 	filename[0] = '.';
 	strncat(filename,url,strlen(url));
 	strncat(filename,file,strlen(file));
