@@ -620,7 +620,11 @@
 
  Even if you aren't intentionally switching to a newer distribution,
  --dist-upgrade will ensure that the base set is always present while at the
- same time keeping your installed packages up to date.
+ same time keeping your installed packages up to date.  See also <a href="#slgFAQ9">FAQ #9</a>.
+
+ --dist-upgrade --reinstall can also be useful when some packages in the base
+ disk set change versions (cxxlibs and sed come to mind).  This will reinstall
+ those base packages that may have lesser version numbers.
 
 
 <A NAME="slgFAQ29"><B>29. How would I script an ldd dependency hack with slapt-get?</B></A>
@@ -729,7 +733,8 @@
 
  This does not apply to dependencies.  If a dependency of a specified package
  is detected, it is checked against the EXCLUDE list.  If excluded, the 
- dependency check for the specified package fails.  Override this with --no-dep.
+ dependency check for the specified package fails.  Override this with
+ --ignore-dep.
 
 
 <A NAME="slgFAQ31"><B>31. What about package conflicts?  How can I specify a conflict for my package?</B></A>
