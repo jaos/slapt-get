@@ -1,5 +1,6 @@
 
 0.9.8d Apr 27, 2004
+ * misc code updates
  * updated translations
  * added Italian translation by Francesco Gigli (jaramir@slack.it)
  * --show-stats | -S to show download stats, inspired by Alexandre Zia (alexandre@erbio.widesoft.com.br)
