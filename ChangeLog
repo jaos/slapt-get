@@ -1,5 +1,7 @@
 
-0.9.9e Nov 26, 2004
+0.9.9e Nov 27, 2004
+ * make --search show installed packages that aren't present in available
+   package list from current sources
  * updated typedefs
  * renamed transaction to transaction_t for clarity
  * fixed bug in add_deps_to_trans() where check for exclude was catching

@@ -250,12 +250,27 @@ void pkg_action_search(const char *pattern){
 	struct pkg_list *pkgs = NULL;
 	struct pkg_list *installed_pkgs = NULL;
 	struct pkg_list *matches = NULL;
+	struct pkg_list *imatches = NULL;
 
 	/* read in pkg data */
 	pkgs = get_available_pkgs();
 	installed_pkgs = get_installed_pkgs();
 
 	matches = search_pkg_list(pkgs,pattern);
+	imatches = search_pkg_list(installed_pkgs,pattern);
+
+	/* show installed packages in search */
+	for(i=0;i<imatches->pkg_count;i++){
+		/* only if they didn't already show up from the available packages */
+		if( get_exact_pkg(matches,imatches->pkgs[i]->name,imatches->pkgs[i]->version) == NULL ){
+			/* no package description parsed from installed pkg at the moment */
+			printf("%s %s [inst=%s]\n",
+				imatches->pkgs[i]->name,
+				imatches->pkgs[i]->version,
+				_("yes")
+			);
+		}
+	}
 
 	for(i = 0; i < matches->pkg_count; i++){
 		int bool_installed = 0;
@@ -280,6 +295,8 @@ void pkg_action_search(const char *pattern){
 	/* free_pkg_list(matches) */
 	free(matches->pkgs);
 	free(matches);
+	free(imatches->pkgs);
+	free(imatches);
 	free_pkg_list(pkgs);
 	free_pkg_list(installed_pkgs);
 
