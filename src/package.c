@@ -639,12 +639,13 @@ void get_md5sum(const rc_config *global_config,pkg_info_t *pkg,char *md5_sum){
 int cmp_pkg_versions(char *a, char *b){
 	int ver_breakdown_1[] = { 0, 0, 0, 0 };
 	int ver_breakdown_2[] = { 0, 0, 0, 0 };
-	int count1,count2,position = 0,greater = 1,lesser = -1;
+	int version_part_count1,version_part_count2,position = 0;
+	int greater = 1,lesser = -1;
 
-	count1 = break_down_pkg_version(ver_breakdown_1,a);
-	count2 = break_down_pkg_version(ver_breakdown_2,b);
+	version_part_count1 = break_down_pkg_version(ver_breakdown_1,a);
+	version_part_count2 = break_down_pkg_version(ver_breakdown_2,b);
 
-	while( position < count1 && position < count2 ){
+	while( position < version_part_count1 && position < version_part_count2 ){
 		if( ver_breakdown_1[position] != ver_breakdown_2[position] ){
 
 			if( ver_breakdown_1[position] < ver_breakdown_2[position] )
@@ -657,9 +658,15 @@ int cmp_pkg_versions(char *a, char *b){
 		++position;
 	}
 
-	/* if the integer version of each package is equal, 
-		 we fall back on strcmp */
-	return strcmp(a,b);
+	/*
+ 	 * if we got this far, we know that some or all of the version
+	 * parts are equal in both packages.  If pkg-a has 3 version parts
+	 * and pkg-b has 2, then we assume pkg-a to be greater.  If both
+	 * have the same # of version parts, then we fall back on strcmp.
+	*/
+	return (version_part_count1 != version_part_count2)
+		? ( (version_part_count1 > version_part_count2) ? greater : lesser )
+		: strcmp(a,b);
 }
 
 int break_down_pkg_version(int *v,char *version){

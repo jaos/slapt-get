@@ -1,4 +1,8 @@
 
+0.9.5b Oct 02, 2003
+ * yet another improvement to pkg version checking, xspace pointed
+   out another example of how pkg versions might slip through cmp routine.
+
 0.9.5 Oct 01, 2003
  * fixed pkg name so that slack-desc shows up... wasn't following
    new package naming convention.  Thanks Luke Yelavich <luke@audioslack.com>
