@@ -48,6 +48,7 @@ doinstall:
 	cp example.slapt-getrc COPYING Changelog INSTALL README FAQ TODO /usr/doc/$(PROGRAM_NAME)-$(VERSION)/
 	cp include/slapt.h /usr/include/
 	cp src/libslapt-$(VERSION).a src/libslapt-$(VERSION).so /usr/lib/
+	if [ -L /usr/lib/libslapt.so ]; then rm /usr/lib/libslapt.so;fi
 	ln -s /usr/lib/libslapt-$(VERSION).so /usr/lib/libslapt.so
 
 uninstall:
