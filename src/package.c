@@ -1633,7 +1633,7 @@ int update_pkg_cache(const rc_config *global_config){
 		}
 		if( available_pkgs == NULL ) source_dl_failed = 1;
 		/* extra double check... invalidate the cached package source if no packages where parsed */
-		if( available_pkgs != NULL && Available_pkgs->pkg_count < 1 ){
+		if( available_pkgs != NULL && available_pkgs->pkg_count < 1 ){
 			source_dl_failed = 1;
 			clear_head_cache(pkg_filename);
 		}

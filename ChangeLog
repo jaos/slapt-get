@@ -1,5 +1,5 @@
 
-0.9.9 Aug 16, 2004
+0.9.9 Aug 17, 2004
  * now will not cache package source if no packages where parsed from the source
  * turned off EPSV for all libcurl operations... ftp.slackware.com doesn't support the EPSV command
  * moved working_dir_init out of read_rc_config() into main(), so that if the config
