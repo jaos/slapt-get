@@ -436,29 +436,6 @@ pkg_info_t *get_newest_pkg(pkg_info_t **pkgs,const char *pkg_name,int pkg_count)
 	return pkg;
 }
 
-/*
-	this one is used when we want a description... mostly trying to avoid update packages..
-	we can assume the first pkg we come across will have some sort of description.
-	subsequent listed pkgs that have the same name will more than likely be duplicate
-	or updates.
-*/
-pkg_info_t *get_newest_pkg_with_description(pkg_info_t **pkgs,const char *pkg_name,int pkg_count){
-	int iterator;
-	pkg_info_t *pkg = NULL;
-	for(iterator = 0; iterator < pkg_count; iterator++ ){
-
-		/* if pkg has same name as our requested pkg */
-		if( (strcmp(pkgs[iterator]->name,pkg_name)) == 0 ){
-
-			if( pkg == NULL ){
-				pkg = pkgs[iterator];
-			}
-		}
-
-	}
-	return pkg;
-}
-
 /* parse the update list */
 struct pkg_list *parse_file_list(FILE *fh){
 	size_t getline_len;

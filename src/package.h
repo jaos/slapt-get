@@ -57,34 +57,51 @@ struct pkg_upgrade_list {
 /*
  * FUNCTION DEFINITIONS
  */
+
 /* parse the PACKAGES.TXT file */
 struct pkg_list *parse_packages_txt(FILE *);
 struct pkg_list *get_available_pkgs(void);
+
 /* retrieve list of installed pkgs */
 struct pkg_list *get_installed_pkgs(void);
-/* return list of update pkgs */
+
+/*
+	This used to be used to parse the file list for updates,
+	until I realized patches/PACKAGES.TXT existed
+	Legacy, might be useful one day.
+*/
 struct pkg_list *parse_file_list(FILE *);
+
 /* generate a short description */
 char *gen_short_pkg_description(pkg_info_t *);
+
 /* retrieve the newest pkg from pkg_info_t list */
 pkg_info_t *get_newest_pkg(pkg_info_t **,const char *,int);
-pkg_info_t *get_newest_pkg_with_description(pkg_info_t **,const char *,int);
+
 /* install pkg */
 int install_pkg(const rc_config *,pkg_info_t *);
+
 /* upgrade pkg */
 int upgrade_pkg(const rc_config *,pkg_info_t *,pkg_info_t *);
+
 /* remove pkg */
 int remove_pkg(const rc_config *,pkg_info_t *);
+
 /* free memory allocated for pkg_list struct */
 void free_pkg_list(struct pkg_list *);
+
 /* exclude pkg based on pkg name */
 int is_excluded(const rc_config *,const char *);
+
 /* lookup md5sum of file */
 void get_md5sum(const rc_config *,pkg_info_t *,char *);
+
 /* compare package versions */
 int cmp_pkg_versions(char *, char *);
+
 /* analyze the pkg version hunk by hunk */
 int break_down_pkg_version(int *,char *);
+
 /* get available, installed, and update pkgs all in one */
 /* write pkg data to disk */
 void write_pkg_data(const char *,FILE *,struct pkg_list *);

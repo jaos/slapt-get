@@ -19,7 +19,17 @@
 #define USE_CURL_PROGRESS 0
 
 /* FUNCTION DEFINITIONS */
+
+/* this is the main download routine */
 int download_data(FILE *,const char *);
+
+/*
+	this fills FILE with data from url, used for PACKAGES.TXT and CHECKSUMS
+*/
 int get_mirror_data_from_source(FILE *,const char *,const char *);
+
+/* download pkg, cals download_data */
 char *download_pkg(const rc_config *,pkg_info_t *);
+
+/* callback for curl progress  */
 int progress_callback(void *,double,double,double,double);

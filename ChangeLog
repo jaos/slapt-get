@@ -1,4 +1,8 @@
 
+0.9.6c Oct 15, 2003
+ * patch data is now fetched from patches/PACKAGES.TXT instead of
+   parsing patches/FILE_LIST
+
 0.9.6b Oct 14, 2003
  * fixed bug when removing pkg by base pkg name and removepkg wouldn't find
    entry in /var/log/packages.  Thanks to DanB at mojolin dot com and

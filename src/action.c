@@ -205,7 +205,7 @@ void pkg_action_show(const char *pkg_name){
 
 	available_pkgs = get_available_pkgs();
 
-	pkg = get_newest_pkg_with_description(available_pkgs->pkgs,pkg_name,available_pkgs->pkg_count);
+	pkg = get_newest_pkg(available_pkgs->pkgs,pkg_name,available_pkgs->pkg_count);
 
 	if( pkg != NULL ){
 		printf("Package Name: %s\n",pkg->name);
@@ -261,7 +261,7 @@ void pkg_action_update(const rc_config *global_config){
 		patches_list_fh = tmpfile();
 		if( get_mirror_data_from_source(patches_list_fh,global_config->sources.url[i],PATCHES_LIST) == 0 ){
 			rewind(patches_list_fh); /* make sure we are back at the front of the file */
-			available_pkgs = parse_file_list(patches_list_fh);
+			available_pkgs = parse_packages_txt(patches_list_fh);
 			write_pkg_data(global_config->sources.url[i],pkg_list_fh,available_pkgs);
 			free_pkg_list(available_pkgs);
 		}

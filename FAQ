@@ -16,6 +16,7 @@ Frequenty Asked Questions:
 13. How can I install every available package?
 14. What if I only want to upgrade one package?
 15. What about Dropline support?
+16. How can I generate an exclude list for an entire disk set?
 
 
 
@@ -219,4 +220,26 @@ Frequenty Asked Questions:
  There is no exception for dropline packages.  If you do not want them
  upgraded, either put the package names into the exception list or use 
  interactive mode (do not use --no-prompt, use --interactive).
+
+16. How can I generate an exclude list for an entire disk set?
+
+ You can use this script to generate a listing of packages to add to your
+ exlude list:
+
+   #!/bin/sh
+   # this should gen an exclude list for a particular dir set (first arg to script)
+   DIR=$1
+   F=0
+   for pkg in `./slapt-get --list|awk '{print $1}'`
+   do
+     if [ -n "`./slapt-get --show ${pkg}|grep 'Package Location'|awk '{print $3}'|egrep "\W+${DIR}"`" ]; then
+       if [ $F == 1 ]; then
+   echo -n ,$pkg
+       else
+   echo -n $pkg
+       fi
+       F=1
+     fi
+   done
+   echo
 
