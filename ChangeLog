@@ -4,6 +4,8 @@
  * moved usage and version to configuration.c
  * moved head_request_data_callback and progress_callback to action.c
  * added staticinstall, withlibslaptinstall, staticpkg, and withlibslaptpkg make targets
+ * updated error handling, cleaned up exits
+ * fixed bug in cmp_pkg_versions when checking build versions, returning opposite than expected
 
 0.9.7e Nov 21, 2003
  * added debugging in transaction functions
