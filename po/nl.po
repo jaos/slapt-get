@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.9f\n"
+"Project-Id-Version: 0.9.9g\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2005-01-11 18:05+0500\n"
+"PO-Revision-Date: 2005-01-21 17:36+0500\n"
 "Last-Translator: Jason Woodward <woodwardj@jaos.org>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -292,21 +292,17 @@ msgstr "%s versie %s\n"
 msgid "regex failed on [%s]\n"
 msgstr "regex mislukt op [%s]\n"
 
-#, c-format
-msgid "pkg name too long [%s:%d]\n"
-msgstr "pkg naam te lang [%s:%d]\n"
+msgid "pkg name too long\n"
+msgstr "pkg naam te lang\n"
 
-#, c-format
-msgid "pkg version too long [%s:%d]\n"
-msgstr "pkg versie te lang [%s:%d]\n"
+msgid "pkg version too long\n"
+msgstr "pkg versie te lang\n"
 
-#, c-format
-msgid "pkg mirror too long [%s:%d]\n"
-msgstr "pkg alt. bron te lang [%s:%d]\n"
+msgid "pkg mirror too long\n"
+msgstr "pkg alt. bron te lang\n"
 
-#, c-format
-msgid "pkg location too long [%s:%d]\n"
-msgstr "pkg bron te lang [%s:%d]\n"
+msgid "pkg location too long\n"
+msgstr "pkg bron te lang\n"
 
 msgid "regexec failed to parse location\n"
 msgstr "regexec kon locatie niet verwerken\n"
@@ -356,9 +352,8 @@ msgstr "Voorbereiden vervangen van %s-%s met %s-%s\n"
 msgid "Failed to compile regex [%s]\n"
 msgstr "Kon regex niet compileren [%s]\n"
 
-#, c-format
-msgid "pkg conditional too long [%s:%d]\n"
-msgstr "pkg voorwaarde te lang [%s:%d]\n"
+msgid "pkg conditional too long\n"
+msgstr "pkg voorwaarde te lang\n"
 
 msgid "The following packages have unmet dependencies:\n"
 msgstr "De volgende packages hebben ontbrekende vereisten:\n"
@@ -432,13 +427,11 @@ msgstr "toon alleen URI, niet downloaden"
 msgid "Package MD5 Sum:  %s\n"
 msgstr "Package MD5 Sum:  %s\n"
 
-#, c-format
-msgid "md5 sum too long [%s %s:%d]\n"
-msgstr "md5 te lang [%s %s:%d]\n"
+msgid "md5 sum too long\n"
+msgstr "md5 te lang\n"
 
-#, c-format
-msgid "conflict too long [%s:%d]\n"
-msgstr "conflict te lang [%s:%d]\n"
+msgid "conflict too long\n"
+msgstr "conflict te lang\n"
 
 msgid "Reading Package Lists..."
 msgstr "Lezen package lijst..."
@@ -482,8 +475,7 @@ msgstr ""
 msgid "only purge cache of older, unreacheable pkgs"
 msgstr ""
 
-#, c-format
-msgid "required too long [%s:%d]\n"
+msgid "required too long\n"
 msgstr ""
 
 msgid "remove obsolete packages (dist-upgrade only)"

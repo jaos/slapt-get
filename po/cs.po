@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.9f\n"
+"Project-Id-Version: 0.9.9g\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2005-01-11 18:05+0500\n"
+"PO-Revision-Date: 2005-01-21 17:36+0500\n"
 "Last-Translator: Oto Petrik <oto.petrik@centrum.cz>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -292,21 +292,17 @@ msgstr "%s verze %s\n"
 msgid "regex failed on [%s]\n"
 msgstr "regex neuspìl na [%s]\n"
 
-#, c-format
-msgid "pkg name too long [%s:%d]\n"
-msgstr "jméno balíku pøíli¹ dlouhé [%s:%d]\n"
+msgid "pkg name too long\n"
+msgstr "jméno balíku pøíli¹ dlouhé\n"
 
-#, c-format
-msgid "pkg version too long [%s:%d]\n"
-msgstr "verze balíku pøíli¹ dlouhá [%s:%d]\n"
+msgid "pkg version too long\n"
+msgstr "verze balíku pøíli¹ dlouhá\n"
 
-#, c-format
-msgid "pkg mirror too long [%s:%d]\n"
-msgstr "zrcadlo balíku pøíli¹ dlouhé [%s:%d]\n"
+msgid "pkg mirror too long\n"
+msgstr "zrcadlo balíku pøíli¹ dlouhé\n"
 
-#, c-format
-msgid "pkg location too long [%s:%d]\n"
-msgstr "umístìní balíku pøíli¹ dlouhé [%s:%d]\n"
+msgid "pkg location too long\n"
+msgstr "umístìní balíku pøíli¹ dlouhé\n"
 
 msgid "regexec failed to parse location\n"
 msgstr "regexec neuspìl s analyzováním umístìní\n"
@@ -368,9 +364,8 @@ msgstr "%s-%s bude odstranìn\n"
 msgid "Failed to compile regex [%s]\n"
 msgstr "Nepodaøilo se zkompilovat regex [%s]\n"
 
-#, c-format
-msgid "pkg conditional too long [%s:%d]\n"
-msgstr "podmínka balíku pøíli¹ dlouhá [%s:%s]\n"
+msgid "pkg conditional too long\n"
+msgstr "podmínka balíku pøíli¹ dlouhá\n"
 
 msgid "The following packages have unmet dependencies:\n"
 msgstr "Následující balíky mají nesplnìné závislosti:\n"
@@ -432,13 +427,11 @@ msgstr "pouze vypi¹ URI, nestahuj"
 msgid "Package MD5 Sum:  %s\n"
 msgstr "MD5 souèet balíku:  %s\n"
 
-#, c-format
-msgid "md5 sum too long [%s %s:%d]\n"
-msgstr "md5 souèet pøíli¹ dlouhý [%s %s:%d]\n"
+msgid "md5 sum too long\n"
+msgstr "md5 souèet pøíli¹ dlouhý\n"
 
-#, c-format
-msgid "conflict too long [%s:%d]\n"
-msgstr "kolize pøíli¹ dlouhá [%s:%d]\n"
+msgid "conflict too long\n"
+msgstr "kolize pøíli¹ dlouhá\n"
 
 msgid "Reading Package Lists..."
 msgstr "Naèítám seznam balíkù..."
@@ -484,9 +477,8 @@ msgstr "Maximální délka vylouèených (%d) pøekroèena.\n"
 msgid "only purge cache of older, unreacheable pkgs"
 msgstr "vyèisti pouze cache starých, nedostupnách balíkù"
 
-#, c-format
-msgid "required too long [%s:%d]\n"
-msgstr "required pøíli¹ dlouhá [%s:%d]\n"
+msgid "required too long\n"
+msgstr "required pøíli¹ dlouhá\n"
 
 msgid "remove obsolete packages (dist-upgrade only)"
 msgstr ""

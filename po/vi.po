@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.9f\n"
+"Project-Id-Version: 0.9.9g\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2005-01-11 18:05+0500\n"
+"PO-Revision-Date: 2005-01-21 17:36+0500\n"
 "Last-Translator: Nguyễn Văn Vũ <vncasper@yahoo.com>\n"
 "Language-Team: gnome-vi <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -293,21 +293,17 @@ msgstr "%s phiên bản %s\n"
 msgid "regex failed on [%s]\n"
 msgstr "biểu thức bị lỗi [%s]\n"
 
-#, c-format
-msgid "pkg name too long [%s:%d]\n"
-msgstr "tên gói phần mềm quá dài [%s:%d]\n"
+msgid "pkg name too long\n"
+msgstr "tên gói phần mềm quá dài\n"
 
-#, c-format
-msgid "pkg version too long [%s:%d]\n"
-msgstr "phiên bản gói phần mềm quá dài [%s:%d]\n"
+msgid "pkg version too long\n"
+msgstr "phiên bản gói phần mềm quá dài\n"
 
-#, c-format
-msgid "pkg mirror too long [%s:%d]\n"
-msgstr "mirror gói phần mềm quá dài [%s:%d]\n"
+msgid "pkg mirror too long\n"
+msgstr "mirror gói phần mềm quá dài\n"
 
-#, c-format
-msgid "pkg location too long [%s:%d]\n"
-msgstr "nơi lưu giữ gói phần mềm quá dài [%s:%d]\n"
+msgid "pkg location too long\n"
+msgstr "nơi lưu giữ gói phần mềm quá dài\n"
 
 msgid "regexec failed to parse location\n"
 msgstr "lỗi khi phân tích vị trí\n"
@@ -369,9 +365,8 @@ msgstr "%s-%s đã được gỡ bỏ\n"
 msgid "Failed to compile regex [%s]\n"
 msgstr "Bị lỗi khi biên dịch biểu thức [%s]\n"
 
-#, c-format
-msgid "pkg conditional too long [%s:%d]\n"
-msgstr "điều kiện gói phần mềm quá dài [%s:%d]\n"
+msgid "pkg conditional too long\n"
+msgstr "điều kiện gói phần mềm quá dài\n"
 
 msgid "The following packages have unmet dependencies:\n"
 msgstr "Các gói phần mềm sau đây có những phụ thuộc:\n"
@@ -435,13 +430,11 @@ msgstr "chỉ hiển thị URI, không lấy dữ liệu"
 msgid "Package MD5 Sum:  %s\n"
 msgstr "Tổng MD5 của gói phần mềm: %s\n"
 
-#, c-format
-msgid "md5 sum too long [%s %s:%d]\n"
-msgstr "tổng md5 quá dài [%s %s:%d]\n"
+msgid "md5 sum too long\n"
+msgstr "tổng md5 quá dài\n"
 
-#, c-format
-msgid "conflict too long [%s:%d]\n"
-msgstr "xung đột quá dài [%s:%d]\n"
+msgid "conflict too long\n"
+msgstr "xung đột quá dài\n"
 
 msgid "Reading Package Lists..."
 msgstr "Đang lấy danh sách gói phần mềm..."
@@ -489,9 +482,8 @@ msgstr "Chiều dài phần loại trừ tối đa được phép vượt trội
 msgid "only purge cache of older, unreacheable pkgs"
 msgstr "chỉ xoá những gói phần mềm cũ, không còn sử dụng"
 
-#, c-format
-msgid "required too long [%s:%d]\n"
-msgstr "yêu cầu quá dài [%s:%d]\n"
+msgid "required too long\n"
+msgstr "yêu cầu quá dài\n"
 
 msgid "remove obsolete packages (dist-upgrade only)"
 msgstr "gỡ bỏ những gói phần mềm cũ (chỉ có hiệu lực với --dist-upgrade)"

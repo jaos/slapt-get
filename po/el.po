@@ -5,9 +5,9 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.9f\n"
+"Project-Id-Version: 0.9.9g\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2005-01-11 18:05+0500\n"
+"PO-Revision-Date: 2005-01-21 17:36+0500\n"
 "Last-Translator: Savvas Eftratiadis <pigouinos@mailworks.org.\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -291,21 +291,17 @@ msgstr "%s έκδοση %s\n"
 msgid "regex failed on [%s]\n"
 msgstr "Αποτυχία regex στο [%s]\n"
 
-#, c-format
-msgid "pkg name too long [%s:%d]\n"
-msgstr "μεγάλο μήκος ονόματος πακέτου [%s:%d]\n"
+msgid "pkg name too long\n"
+msgstr "μεγάλο μήκος ονόματος πακέτου\n"
 
-#, c-format
-msgid "pkg version too long [%s:%d]\n"
-msgstr "μεγάλο μήκος έκδοσης πακέτου [%s:%d]\n"
+msgid "pkg version too long\n"
+msgstr "μεγάλο μήκος έκδοσης πακέτου\n"
 
-#, c-format
-msgid "pkg mirror too long [%s:%d]\n"
-msgstr "μεγάλο μήκος mirror πακέτου [%s:%d]\n"
+msgid "pkg mirror too long\n"
+msgstr "μεγάλο μήκος mirror πακέτου\n"
 
-#, c-format
-msgid "pkg location too long [%s:%d]\n"
-msgstr "μεγάλο μήκος τοποθεσίας πακέτου [%s:%d]\n"
+msgid "pkg location too long\n"
+msgstr "μεγάλο μήκος τοποθεσίας πακέτου\n"
 
 msgid "regexec failed to parse location\n"
 msgstr "αποτυχία regexec ανάλυσης τοποθεσίας\n"
@@ -367,9 +363,8 @@ msgstr "Το %s-%s πρόκειται να απεγκατασταθεί\n"
 msgid "Failed to compile regex [%s]\n"
 msgstr "Αποτυχία κατα το compile του regex [%s]\n"
 
-#, c-format
-msgid "pkg conditional too long [%s:%d]\n"
-msgstr "μεγάλο μήκος στοιχείων πακέτου [%s:%d]\n"
+msgid "pkg conditional too long\n"
+msgstr "μεγάλο μήκος στοιχείων πακέτου\n"
 
 msgid "The following packages have unmet dependencies:\n"
 msgstr "Τα παρακάτω πακέτα έχουν ελλείψεις σε απαιτούμενα πακέτα:\n"
@@ -431,13 +426,11 @@ msgstr "Εκτύπωση μόνο των URIs, χωρίς download"
 msgid "Package MD5 Sum:  %s\n"
 msgstr "’θροισμα MD5 του πακέτου:  %s\n"
 
-#, c-format
-msgid "md5 sum too long [%s %s:%d]\n"
-msgstr "Μεγάλο μήκος αθροίσματος md5 [%s %s:%d]\n"
+msgid "md5 sum too long\n"
+msgstr "Μεγάλο μήκος αθροίσματος md5\n"
 
-#, c-format
-msgid "conflict too long [%s:%d]\n"
-msgstr "Μεγάλου μήκους συγκρουση  [%s:%d]\n"
+msgid "conflict too long\n"
+msgstr "Μεγάλου μήκους συγκρουση \n"
 
 msgid "Reading Package Lists..."
 msgstr "Ανάγνωση Λίστας Πακέτων..."
@@ -478,8 +471,7 @@ msgstr "Το μέγιστο μήκος του φακέλου εργασίας (%d) ξεπεράστηκε.\n"
 msgid "Maximum length of excludes (%d) exceeded.\n"
 msgstr "Το μέγιστο μήκος των εξαιρέσεων (%d) ξεπεράστηκε.\n"
 
-#, c-format
-msgid "required too long [%s:%d]\n"
+msgid "required too long\n"
 msgstr ""
 
 msgid "remove obsolete packages (dist-upgrade only)"

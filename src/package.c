@@ -87,10 +87,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 		/* pkg name base */
 		/* don't overflow the buffer */
 		if( (name_regex.pmatch[1].rm_eo - name_regex.pmatch[1].rm_so) > NAME_LEN ){
-			fprintf( stderr, _("pkg name too long [%s:%d]\n"),
-				getline_buffer + name_regex.pmatch[1].rm_so,
-				name_regex.pmatch[1].rm_eo - name_regex.pmatch[1].rm_so
-			);
+			fprintf( stderr, _("pkg name too long\n"));
 			free_pkg(tmp_pkg);
 			continue;
 		}
@@ -105,10 +102,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 		/* pkg version */
 		/* don't overflow the buffer */
 		if( (name_regex.pmatch[2].rm_eo - name_regex.pmatch[2].rm_so) > VERSION_LEN ){
-			fprintf( stderr, _("pkg version too long [%s:%d]\n"),
-				getline_buffer + name_regex.pmatch[2].rm_so,
-				name_regex.pmatch[2].rm_eo - name_regex.pmatch[2].rm_so
-			);
+			fprintf( stderr, _("pkg version too long\n"));
 			free_pkg(tmp_pkg);
 			continue;
 		}
@@ -131,10 +125,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 
 				/* don't overflow the buffer */
 				if( (mirror_regex.pmatch[1].rm_eo - mirror_regex.pmatch[1].rm_so) > MIRROR_LEN ){
-					fprintf( stderr, _("pkg mirror too long [%s:%d]\n"),
-						getline_buffer + mirror_regex.pmatch[1].rm_so,
-						mirror_regex.pmatch[1].rm_eo - mirror_regex.pmatch[1].rm_so
-					);
+					fprintf( stderr, _("pkg mirror too long\n"));
 					free_pkg(tmp_pkg);
 					continue;
 				}
@@ -163,10 +154,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 
 				/* don't overflow the buffer */
 				if( (location_regex.pmatch[1].rm_eo - location_regex.pmatch[1].rm_so) > LOCATION_LEN ){
-					fprintf( stderr, _("pkg location too long [%s:%d]\n"),
-						getline_buffer + location_regex.pmatch[1].rm_so,
-						location_regex.pmatch[1].rm_eo - location_regex.pmatch[1].rm_so
-					);
+					fprintf( stderr, _("pkg location too long\n"));
 					free_pkg(tmp_pkg);
 					continue;
 				}
@@ -275,10 +263,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 				getline_buffer[bytes_read - 1] = '\0';
 
 				if( strlen(req_str) > REQUIRED_LEN ){
-					fprintf( stderr, _("required too long [%s:%d]\n"),
-						req_str,
-						strlen(req_str)
-					);
+					fprintf( stderr, _("required too long\n"));
 					free_pkg(tmp_pkg);
 					continue;
 				}
@@ -307,10 +292,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 				char *tmp_realloc = NULL;
 				char *conflicts = (char *)strpbrk(char_pointer,":") + 3;
 				if( strlen(conflicts) > CONFLICTS_LEN ){
-					fprintf( stderr, _("conflict too long [%s:%d]\n"),
-						conflicts,
-						strlen(conflicts)
-					);
+					fprintf( stderr, _("conflict too long\n"));
 					free_pkg(tmp_pkg);
 					continue;
 				}
@@ -336,10 +318,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 				char *tmp_realloc = NULL;
 				char *suggests = (char *)strpbrk(char_pointer,":") + 3;
 				if( strlen(suggests) > SUGGESTS_LEN ){
-					fprintf( stderr, _("suggests too long [%s:%d]\n"),
-						suggests,
-						strlen(suggests)
-					);
+					fprintf( stderr, _("suggests too long\n"));
 					free_pkg(tmp_pkg);
 					continue;
 				}
@@ -367,11 +346,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 				md5sum = (char *)strpbrk(getline_buffer,":") + 3;
 				/* don't overflow the buffer */
 				if( strlen(md5sum) > MD5_STR_LEN ){
-					fprintf( stderr, _("md5 sum too long [%s %s:%d]\n"),
-						tmp_pkg->name,
-						md5sum,
-						strlen(md5sum)
-					);
+					fprintf( stderr, _("md5 sum too long\n"));
 					free_pkg(tmp_pkg);
 					continue;
 				}
@@ -1279,10 +1254,7 @@ static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list 
 	}
 
 	if( (parse_dep_regex.pmatch[1].rm_eo - parse_dep_regex.pmatch[1].rm_so) > NAME_LEN ){
-		fprintf( stderr, _("pkg name too long [%s:%d]\n"),
-			dep_entry + parse_dep_regex.pmatch[1].rm_so,
-			parse_dep_regex.pmatch[1].rm_eo - parse_dep_regex.pmatch[1].rm_so
-		);
+		fprintf( stderr, _("pkg name too long\n"));
 		exit(1);
 	}
 	strncpy( tmp_pkg_name,
@@ -1310,17 +1282,11 @@ static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list 
 	}
 
 	if( (parse_dep_regex.pmatch[2].rm_eo - parse_dep_regex.pmatch[2].rm_so) > 3 ){
-		fprintf( stderr, _("pkg conditional too long [%s:%d]\n"),
-			dep_entry + parse_dep_regex.pmatch[2].rm_so,
-			parse_dep_regex.pmatch[2].rm_eo - parse_dep_regex.pmatch[2].rm_so
-		);
+		fprintf( stderr, _("pkg conditional too long\n"));
 		exit(1);
 	}
 	if( (parse_dep_regex.pmatch[3].rm_eo - parse_dep_regex.pmatch[3].rm_so) > VERSION_LEN ){
-		fprintf( stderr, _("pkg version too long [%s:%d]\n"),
-			dep_entry + parse_dep_regex.pmatch[3].rm_so,
-			parse_dep_regex.pmatch[3].rm_eo - parse_dep_regex.pmatch[3].rm_so
-		);
+		fprintf( stderr, _("pkg version too long\n"));
 		exit(1);
 	}
 	strncpy( tmp_pkg_cond,

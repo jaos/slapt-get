@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.9f\n"
+"Project-Id-Version: 0.9.9g\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2005-01-11 18:05+0500\n"
+"PO-Revision-Date: 2005-01-21 17:36+0500\n"
 "Last-Translator: Ruben Gutierrez <ruben@snpp.com.ar>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -292,21 +292,17 @@ msgstr "%s versión %s\n"
 msgid "regex failed on [%s]\n"
 msgstr "falló la regex en [%s]\n"
 
-#, c-format
-msgid "pkg name too long [%s:%d]\n"
-msgstr "nombre de pkg demasiado largo [%s:%d]\n"
+msgid "pkg name too long\n"
+msgstr "nombre de pkg demasiado largo\n"
 
-#, c-format
-msgid "pkg version too long [%s:%d]\n"
-msgstr "versión de pkg demasiado larga [%s:%d]\n"
+msgid "pkg version too long\n"
+msgstr "versión de pkg demasiado larga\n"
 
-#, c-format
-msgid "pkg mirror too long [%s:%d]\n"
-msgstr "mirror de pkg demasiado largo [%s:%d]\n"
+msgid "pkg mirror too long\n"
+msgstr "mirror de pkg demasiado largo\n"
 
-#, c-format
-msgid "pkg location too long [%s:%d]\n"
-msgstr "ubicación de pkg demasiado larga [%s:%d]\n"
+msgid "pkg location too long\n"
+msgstr "ubicación de pkg demasiado larga\n"
 
 msgid "regexec failed to parse location\n"
 msgstr "regexec no pudo procesar la ubicación\n"
@@ -356,9 +352,8 @@ msgstr "Preparando para reemplazar %s-%s con %s-%s\n"
 msgid "Failed to compile regex [%s]\n"
 msgstr "No se pudo compilar regex [%s]\n"
 
-#, c-format
-msgid "pkg conditional too long [%s:%d]\n"
-msgstr "pkg condicional demasiado largo [%s:%d]\n"
+msgid "pkg conditional too long\n"
+msgstr "pkg condicional demasiado largo\n"
 
 msgid "The following packages have unmet dependencies:\n"
 msgstr "Los siguientes paquetes tienen dependencias sin resolver:\n"
@@ -432,13 +427,11 @@ msgstr "unicamente mostrar la URIs, no descargarlas"
 msgid "Package MD5 Sum:  %s\n"
 msgstr "Sum MD5 del Paquete:  %s\n"
 
-#, c-format
-msgid "md5 sum too long [%s %s:%d]\n"
-msgstr "sum md5 demasiado largo [%s %s:%d]\n"
+msgid "md5 sum too long\n"
+msgstr "sum md5 demasiado largo\n"
 
-#, c-format
-msgid "conflict too long [%s:%d]\n"
-msgstr "conflicto demasiado largo [%s:%d]\n"
+msgid "conflict too long\n"
+msgstr "conflicto demasiado largo\n"
 
 msgid "Reading Package Lists..."
 msgstr "Leyendo Listado de Paquetes..."
@@ -482,9 +475,8 @@ msgstr ""
 msgid "only purge cache of older, unreacheable pkgs"
 msgstr ""
 
-#, c-format
-msgid "required too long [%s:%d]\n"
-msgstr "requerido demasiado largo [%s:%d]\n"
+msgid "required too long\n"
+msgstr "requerido demasiado largo\n"
 
 msgid "remove obsolete packages (dist-upgrade only)"
 msgstr ""

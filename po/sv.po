@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.9f\n"
+"Project-Id-Version: 0.9.9g\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2005-01-11 18:05+0500\n"
+"PO-Revision-Date: 2005-01-21 17:36+0500\n"
 "Last-Translator: Joel Bjurman <ypolt@lediga.st>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -292,21 +292,17 @@ msgstr "%s version %s\n"
 msgid "regex failed on [%s]\n"
 msgstr "regex misslyckades på [%s]\n"
 
-#, c-format
-msgid "pkg name too long [%s:%d]\n"
-msgstr "paketnamn för långt [%s:%d]\n"
+msgid "pkg name too long\n"
+msgstr "paketnamn för långt\n"
 
-#, c-format
-msgid "pkg version too long [%s:%d]\n"
-msgstr "paketversion för långt [%s:%d]\n"
+msgid "pkg version too long\n"
+msgstr "paketversion för långt\n"
 
-#, c-format
-msgid "pkg mirror too long [%s:%d]\n"
-msgstr "paketspegel för långt [%s:%d]\n"
+msgid "pkg mirror too long\n"
+msgstr "paketspegel för långt\n"
 
-#, c-format
-msgid "pkg location too long [%s:%d]\n"
-msgstr "sökväg till paket för långt [%s:%d]\n"
+msgid "pkg location too long\n"
+msgstr "sökväg till paket för långt\n"
 
 msgid "regexec failed to parse location\n"
 msgstr "regexec misslyckade att tolka sökväg\n"
@@ -368,9 +364,8 @@ msgstr "%s-%s ska tas bort\n"
 msgid "Failed to compile regex [%s]\n"
 msgstr "Misslyckades att kompilera regex [%s]\n"
 
-#, c-format
-msgid "pkg conditional too long [%s:%d]\n"
-msgstr "paketvilkor för långt [%s:%d]\n"
+msgid "pkg conditional too long\n"
+msgstr "paketvilkor för långt\n"
 
 msgid "The following packages have unmet dependencies:\n"
 msgstr "Följande paket har icke bemötta krav på beroenden:\n"
@@ -432,13 +427,11 @@ msgstr "skriv enbart URIs, ladda ej hem"
 msgid "Package MD5 Sum:  %s\n"
 msgstr "Paketets MD5 Sum:  %s\n"
 
-#, c-format
-msgid "md5 sum too long [%s %s:%d]\n"
-msgstr "md5 sum för långt [%s %s:%d]\n"
+msgid "md5 sum too long\n"
+msgstr "md5 sum för långt\n"
 
-#, c-format
-msgid "conflict too long [%s:%d]\n"
-msgstr "Konflikt för lång [%s:%d]\n"
+msgid "conflict too long\n"
+msgstr "Konflikt för lång\n"
 
 msgid "Reading Package Lists..."
 msgstr "Läser paketlista..."
@@ -482,9 +475,8 @@ msgstr "Den maximala längden för exkluderingar (%d) är överskriden.\n"
 msgid "only purge cache of older, unreacheable pkgs"
 msgstr "ta bara bort de temporära filerna av äldre, onåbara paket"
 
-#, c-format
-msgid "required too long [%s:%d]\n"
-msgstr "krav för långt [%s:%d]\n"
+msgid "required too long\n"
+msgstr "krav för långt\n"
 
 msgid "remove obsolete packages (dist-upgrade only)"
 msgstr "ta bort förlegade paket (endast dist-uppgradering)"
