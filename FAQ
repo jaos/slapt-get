@@ -390,6 +390,9 @@ Frequenty Asked Questions:
 
  <= and =< should both work, just in case of editing errors.
 
+ Version should include the arch and build.  That is the full slackware
+ package version designation.  1.1.0-386-1 is valid.  1.1.0 is not.
+
  An example slack-required file is present within the slapt-get slack package.
 
  This data will then need to be extracted when the mirror's PACKAGES.TXT file

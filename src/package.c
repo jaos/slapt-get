@@ -1041,8 +1041,6 @@ struct pkg_list *lookup_pkg_dependencies(struct pkg_list *avail_pkgs,struct pkg_
 	if( strcmp(pkg->required,"") == 0 || strcmp(pkg->required," ") == 0 )
 		return deps;
 
-	printf("\trequired: [%s]\n",pkg->required);
-
 	/* parse dep line */
 	while( position < (int) strlen(pkg->required) ){
 		pkg_info_t *tmp_pkg = NULL;
@@ -1165,9 +1163,7 @@ pkg_info_t *parse_dep_entry(struct pkg_list *avail_pkgs,struct pkg_list *install
 	);
 	tmp_pkg_name[ parse_dep_regex.pmatch[1].rm_eo - parse_dep_regex.pmatch[1].rm_so ] = '\0';
 
-	/* lookup newest in case there is no conditional */
 	newest_avail_pkg = get_newest_pkg(avail_pkgs,tmp_pkg_name);
-	/* pkg_info_t *newest_installed_pkg; */
 	newest_installed_pkg = get_newest_pkg(installed_pkgs,tmp_pkg_name);
 
 	/* if there is no conditional and version, return newest */
