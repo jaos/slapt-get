@@ -305,6 +305,23 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 			fseek(pkg_list_fh, (ftell(pkg_list_fh) - f_pos) * -1, SEEK_CUR);
 		}
 
+		/* conflicts, if provided */
+		f_pos = ftell(pkg_list_fh);
+		tmp_pkg->conflicts[0] = '\0';
+		if(
+			((bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh)) != EOF)
+			&& ((char_pointer = strstr(getline_buffer,"PACKAGE CONFLICTS")) != NULL)
+		){
+				/* add in support for the required data */
+				size_t conflicts_len = strlen("PACKAGE CONFLICTS") + 2;
+				getline_buffer[bytes_read - 1] = '\0';
+				strncpy(tmp_pkg->conflicts,char_pointer + conflicts_len, strlen(char_pointer + conflicts_len));
+				tmp_pkg->conflicts[ strlen(char_pointer + conflicts_len) ] = '\0';
+		}else{
+			/* required isn't provided... rewind one line */
+			fseek(pkg_list_fh, (ftell(pkg_list_fh) - f_pos) * -1, SEEK_CUR);
+		}
+
 		/* description */
 		if(
 			(getline(&getline_buffer,&getline_len,pkg_list_fh) != EOF)
@@ -1014,6 +1031,7 @@ void write_pkg_data(const char *source_url,FILE *d_file,struct pkg_list *pkgs){
 		fprintf(d_file,"PACKAGE SIZE (compressed):  %d K\n",pkgs->pkgs[i]->size_c);
 		fprintf(d_file,"PACKAGE SIZE (uncompressed):  %d K\n",pkgs->pkgs[i]->size_u);
 		fprintf(d_file,"PACKAGE REQUIRED:  %s\n",pkgs->pkgs[i]->required);
+		fprintf(d_file,"PACKAGE CONFLICTS:  %s\n",pkgs->pkgs[i]->conflicts);
 		fprintf(d_file,"PACKAGE DESCRIPTION:\n");
 		/* do we have to make up an empty description? */
 		if( strlen(pkgs->pkgs[i]->description) < strlen(pkgs->pkgs[i]->name) ){
@@ -1094,7 +1112,7 @@ void search_pkg_list(struct pkg_list *available,struct pkg_list *matches,const c
 
 }
 
-/* resolve dependencies for packages already in the current transaction */
+/* lookup dependencies for pkg */
 struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,pkg_info_t *pkg){
 	int i;
 	struct pkg_list *deps;
@@ -1139,7 +1157,7 @@ struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,struct p
 			pointer = pkg->required + position;
 
 			/* parse the dep entry and try to lookup a package */
-			tmp_pkg = parse_dep_entry(avail_pkgs,installed_pkgs,pkg,pointer);
+			tmp_pkg = parse_meta_entry(avail_pkgs,installed_pkgs,pkg,pointer);
 
 			position += strlen(pointer);
 		}else{
@@ -1157,7 +1175,7 @@ struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,struct p
 			buffer[ strlen(pkg->required + position) - strlen(pointer) ] = '\0';
 
 			/* parse the dep entry and try to lookup a package */
-			tmp_pkg = parse_dep_entry(avail_pkgs,installed_pkgs,pkg,buffer);
+			tmp_pkg = parse_meta_entry(avail_pkgs,installed_pkgs,pkg,buffer);
 
 			position += strlen(pkg->required + position) - strlen(pointer);
 			free(buffer);
@@ -1240,7 +1258,82 @@ struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,struct p
 	return deps;
 }
 
-pkg_info_t *parse_dep_entry(struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,pkg_info_t *pkg,char *dep_entry){
+/* lookup conflicts for package */
+struct pkg_list *lookup_pkg_conflicts(const rc_config *global_config,struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,pkg_info_t *pkg){
+	struct pkg_list *conflicts;
+	int position = 0;
+	char *pointer = NULL;
+	char *buffer = NULL;
+
+	(void)global_config; /* REMOVE ME */
+
+	conflicts = malloc( sizeof *conflicts);
+	if( conflicts == NULL ){
+		fprintf(stderr,"Malloc failed");
+		exit(1);
+	}
+	conflicts->pkgs = malloc( sizeof *conflicts->pkgs);
+	if( conflicts->pkgs == NULL ){
+		fprintf(stderr,"Malloc failed\n");
+		exit(1);
+	}
+	conflicts->pkg_count = 0;
+
+	/*
+	 * don't go any further if the required member is empty
+	 * or disable_dep_check is set
+	*/
+	if( strcmp(pkg->conflicts,"") == 0
+		|| strcmp(pkg->conflicts," ") == 0
+		|| strcmp(pkg->conflicts,"  ") == 0
+	)
+		return conflicts;
+
+	/* parse dep line */
+	while( position < (int) strlen(pkg->conflicts) ){
+		pkg_info_t *tmp_pkg = NULL;
+
+		/* either the last or there was only one to begin with */
+		if( strstr(pkg->conflicts + position,",") == NULL ){
+			pointer = pkg->conflicts + position;
+
+			/* parse the dep entry and try to lookup a package */
+			tmp_pkg = parse_meta_entry(avail_pkgs,installed_pkgs,pkg,pointer);
+
+			position += strlen(pointer);
+		}else{
+
+			/* if we have a comma, skip it */
+			if( pkg->conflicts[position] == ',' ){
+				++position;
+				continue;
+			}
+
+			/* build the buffer to contain the dep entry */
+			pointer = strchr(pkg->conflicts + position,',');
+			buffer = calloc(strlen(pkg->conflicts + position) - strlen(pointer) +1, sizeof *buffer);
+			strncpy(buffer,pkg->conflicts + position, strlen(pkg->conflicts + position) - strlen(pointer));
+			buffer[ strlen(pkg->conflicts + position) - strlen(pointer) ] = '\0';
+
+			/* parse the dep entry and try to lookup a package */
+			tmp_pkg = parse_meta_entry(avail_pkgs,installed_pkgs,pkg,buffer);
+
+			position += strlen(pkg->conflicts + position) - strlen(pointer);
+			free(buffer);
+		}
+
+		/* recurse for each dep found */
+		if( tmp_pkg != NULL ){
+			conflicts->pkgs[conflicts->pkg_count] = tmp_pkg;
+			++conflicts->pkg_count;
+		}
+
+	}/* end while */
+
+	return conflicts;
+}
+
+pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,pkg_info_t *pkg,char *dep_entry){
 	int i;
 	sg_regex parse_dep_regex;
 	char tmp_pkg_name[NAME_LEN],tmp_pkg_cond[3],tmp_pkg_ver[VERSION_LEN];
@@ -1248,7 +1341,7 @@ pkg_info_t *parse_dep_entry(struct pkg_list *avail_pkgs,struct pkg_list *install
 	pkg_info_t *newest_installed_pkg;
 
 	#if DEBUG == 1
-	printf("parse_dep_entry called, %s-%s with %s\n",pkg->name,pkg->version,dep_entry);
+	printf("parse_meta_entry called, %s-%s with %s\n",pkg->name,pkg->version,dep_entry);
 	#endif
 	parse_dep_regex.nmatch = MAX_REGEX_PARTS;
 	regcomp(&parse_dep_regex.regex,REQUIRED_REGEX,REG_EXTENDED|REG_NEWLINE);

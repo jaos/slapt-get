@@ -379,6 +379,7 @@ void pkg_action_show(const char *pkg_name){
 		printf(_("Package Size: %d K\n"),pkg->size_c);
 		printf(_("Package Installed Size: %d K\n"),pkg->size_u);
 		printf(_("Package Required: %s\n"),pkg->required);
+		printf(_("Package Conflicts: %s\n"),pkg->conflicts);
 		printf(_("Package Description:\n"));
 		printf("%s",pkg->description);
 		printf(_("Package Installed: %s\n"),

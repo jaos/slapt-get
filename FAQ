@@ -31,6 +31,7 @@ Frequenty Asked Questions:
 30. I am tracking current, how do I keep the base disk set up to date?
 31. How would I script an ldd dependency hack with slapt-get?
 32. Does EXCLUDE work for install as well as upgrade and dist-upgrade?
+33. What about package conflicts?  How can I specify a conflict for my package?
 
 
 
@@ -337,12 +338,14 @@ Frequenty Asked Questions:
 	    SIZE=$( expr `gunzip -l $1 |tail -1|awk '{print $1}'` / 1024 )
 	    USIZE=$( expr `gunzip -l $1 |tail -1|awk '{print $2}'` / 1024 )
 	    REQUIRED=$(tar xzf $1 install/slack-required -O 2>/dev/null|xargs -r -iZ echo -n "Z,"|sed -e "s/,$//")
+	    CONFLICTS=$(tar xzf $1 install/slack-conflicts -O 2>/dev/null|xargs -r -iZ echo -n "Z,"|sed -e "s/,$//")
 	    METAFILE=$(echo $NAME|sed -re "s/\.tgz$/\.meta/")
 	    echo "PACKAGE NAME:  $NAME" > $LOCATION/$METAFILE
 	    echo "PACKAGE LOCATION:  $LOCATION" >> $LOCATION/$METAFILE
 	    echo "PACKAGE SIZE (compressed):  $SIZE K" >> $LOCATION/$METAFILE
 	    echo "PACKAGE SIZE (uncompressed):  $USIZE K" >> $LOCATION/$METAFILE
 	    echo "PACKAGE REQUIRED:  $REQUIRED" >> $LOCATION/$METAFILE
+	    echo "PACKAGE CONFLICTS:  $CONFLICTS" >> $LOCATION/$METAFILE
 	    echo "PACKAGE DESCRIPTION:" >> $LOCATION/$METAFILE
 	    tar xzf $1 install/slack-desc -O|grep -E '\w+\:'|grep -v '^#' >> $LOCATION/$METAFILE
 	    echo "" >> $LOCATION/$METAFILE
@@ -679,5 +682,27 @@ Frequenty Asked Questions:
  No, EXCLUDE is only consulted for upgrading and dist-upgrading.  If you
  specify the package name as an argument to --install, slapt-get will 
  ignore the EXCLUDE list.
+
+
+33. What about package conflicts?  How can I specify a conflict for my package?
+
+ Package conflicts are not as common as dependencies, but just as crucial.
+ Packages such as lprng and cups sometimes duplicate the same functionality.
+
+ To address this, include within your package ./install/slack-conflicts.  This
+ file has the same syntax as the slack-required file.  
+
+ The following is a fictitious example of a lprng slack-conflicts file:
+
+ # cat ./install/slack-conflicts
+   gnome-cups-manager <= 0.16
+   libgnomecups <= 0.1.5
+   cups
+ #
+
+ In this example, we want to specify that the gnome-cups-manager and
+ libgnomecups packages are in conflict if they are below a certain version,
+ (supposing that the older versions do not support lprng).  The third entry,
+ cups, is a direct conflict, without any compatible version.
 
 

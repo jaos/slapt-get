@@ -36,6 +36,7 @@
 #define LOCATION_LEN 50
 #define DESCRIPTION_LEN 1024
 #define REQUIRED_LEN 1024
+#define CONFLICTS_LEN 1024
 
 struct _pkg_info {
 	char name[NAME_LEN];
@@ -46,6 +47,7 @@ struct _pkg_info {
 	int size_u;
 	char description[DESCRIPTION_LEN];
 	char required[REQUIRED_LEN];
+	char conflicts[CONFLICTS_LEN];
 };
 typedef struct _pkg_info pkg_info_t;
 struct pkg_list {
@@ -122,7 +124,8 @@ void search_pkg_list(struct pkg_list *,struct pkg_list *,const char *);
 
 /* resolve dependencies */
 struct pkg_list *lookup_pkg_dependencies(const rc_config *,struct pkg_list *,struct pkg_list *,pkg_info_t *);
-pkg_info_t *parse_dep_entry(struct pkg_list *,struct pkg_list *,pkg_info_t *,char *);
+struct pkg_list *lookup_pkg_conflicts(const rc_config *,struct pkg_list *,struct pkg_list *,pkg_info_t *);
+pkg_info_t *parse_meta_entry(struct pkg_list *,struct pkg_list *,pkg_info_t *,char *);
 struct pkg_list *is_required_by(struct pkg_list *, pkg_info_t *);
 
 /* update the local package cache */
