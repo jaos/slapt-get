@@ -131,8 +131,9 @@ Frequenty Asked Questions:
  Change your source location within /etc/slapt-get/slapt-getrc to point to
  the newer release directory.  --update your local package cache, then
  --dist-upgrade to the newer release.  You will also want to disable any
- third party package sources while upgrading to a newer release so you do
- not mix and match packages.
+ third party package sources while upgrading to a newer release do to the fact
+ that third party packages might not be as rigorously tested as official
+ packages, or may cause conflicts with files provided by official packages.
 
  For instance, you have the following uncommented line as your source:
 

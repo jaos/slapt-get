@@ -126,14 +126,14 @@ Table of Contents:
       concerning dist-upgrade prior to running the command).
     * --search to locate packages of interest by the package name, disk set,
       or version.  This supports POSIX and extended regular expressions.
-    * --install to install a package.  If the package is installed it will
-      be upgraded
+    * --install to install a package.  If the package is already installed it
+      will be upgraded.
     * --list to see all the packages available from the package sources you
       specified within the slapt-getrc configuration file.
     * --installed to list all the packages you already have installed.
     * --remove to remove packages.
-    * --show to show information about packages
-    * --clean to remove all downloaded packages from the local cache
+    * --show to show information about packages.
+    * --clean to remove all downloaded packages from the local cache.
     * --autoclean to remove packages from local cache that are no longer
       available on the package sources specified in the slapt-getrc file.
 
