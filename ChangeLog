@@ -1,5 +1,6 @@
 
 0.9.9g Jan 15, 2005
+ * added missing fclose() calls in read_rc_config() and read_head_cache()
  * added missing free for getline buffer in get_md5sum() and update_pkg_cache()
  * fixed exclude parsing regression, adding any trailing commas
  * added --compile script to FAQ, contributed by Piotr Simon

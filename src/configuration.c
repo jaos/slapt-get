@@ -111,6 +111,7 @@ rc_config *read_rc_config(const char *file_name){
 		}/* end if/else if */
 
 	}/* end while */
+	fclose(rc);
 	if( getline_buffer ) free(getline_buffer);
 
 	if( strcmp(global_config->working_dir,"") == 0 ){

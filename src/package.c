@@ -1553,6 +1553,7 @@ char *read_head_cache(const char *cache_filename){
 	if( tmp == NULL ) exit(1);
 	rewind(tmp);
 	gl_return_size = getline(&getline_buffer, &gl_n, tmp);
+	fclose(tmp);
 
 	if( gl_return_size == -1 ){
 		free(getline_buffer);
