@@ -1,5 +1,6 @@
 
-0.9.9j Mar 26, 2005
+0.9.9j Mar 28, 2005
+ * translation updates
  * fixed precision error in curl progress callback, d/l stats now report
    correct percentage
  * added queue_t struct to transaction_t so that installs/upgrades happen in

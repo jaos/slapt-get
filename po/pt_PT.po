@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.9j\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2005-03-09 11:08+0500\n"
+"PO-Revision-Date: 2005-03-27 16:13+0000\n"
 "Last-Translator: Miguel Santinho <msantinho@simplicidade.com>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -60,7 +60,7 @@ msgstr "Tamanho do Pacote Instalado: %d K\n"
 
 #, c-format
 msgid "Package Required: %s\n"
-msgstr "Pacote Requerido: %s\n"
+msgstr "Pacote Necessário: %s\n"
 
 msgid "Package Description:\n"
 msgstr "Descrição do Pacote:\n"
@@ -114,7 +114,7 @@ msgstr "Directiva SOURCE não configurada em %s.\n"
 
 #, c-format
 msgid "Failed to build working directory [%s]\n"
-msgstr "Falha ao criar diretório de trabalho [%s]\n"
+msgstr "Falha ao criar pasta de trabalho [%s]\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
@@ -219,7 +219,7 @@ msgid "Targets:\n"
 msgstr "Destinos:\n"
 
 msgid "retrieves pkg data from MIRROR"
-msgstr "transfere os dados do pacote a partir de MIRROR"
+msgstr "transfere os dados do pacote a partir do MIRROR"
 
 msgid "upgrade installed pkgs"
 msgstr "actualiza os pacotes instalados"
@@ -252,7 +252,7 @@ msgid "purge cached pkgs"
 msgstr "limpa pacotes em cache"
 
 msgid "print version and license info"
-msgstr "imprime versão e informações da licensa"
+msgstr "imprime versão e informações da licença"
 
 msgid "Options:\n"
 msgstr "Opções:\n"
