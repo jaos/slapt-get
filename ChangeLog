@@ -1,5 +1,6 @@
 
-0.9.8h Jul 27, 2004
+0.9.8h Jul 29, 2004
+ * updated manpage
  * changed "/patches/PACKAGES.TXT" to macro PATCHES_LIST for quiet hack in download_data()
  * added audioslack packages sources to example.slapt-getrc
  * updated documentation
