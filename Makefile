@@ -26,7 +26,7 @@ static: $(OBJS)
 
 install: $(PROGRAM_NAME)
 	install $(PROGRAM_NAME) $(SBINDIR)
-	install --mode=0644 -b $(RCSOURCE) $(RCDEST)
+	if [ ! -f $(RCDEST) ]; then install --mode=0644 -b $(RCSOURCE) $(RCDEST); else install --mode=0644 -b $(RCSOURCE) $(RCDEST).new;fi
 	install $(PROGRAM_NAME).8 /usr/man/man8/
 	install -d /var/$(PROGRAM_NAME)
 	if [ ! -d $(LOCALESDIR)/en ]; then mkdir -p $(LOCALESDIR)/en/LC_MESSAGES; fi; msgfmt -o $(LOCALESDIR)/en/LC_MESSAGES/slapt-get.mo po/en.po;
