@@ -35,6 +35,9 @@ slapt-get \- frontend to pkgtools
 [
 .B --ignore-excludes
 ]
+[
+.B --no-md5
+]
 .LP
 .B targets:
 [
@@ -92,6 +95,9 @@ Install the package even if it is already installed.
 .TP
 .B --ignore-excludes
 Ignore exclude list and install excluded packages anyway.
+.TP
+.B --no-md5
+Do not perform MD5 check sum on package.  This is dangerous!
 .SH TARGETS
 .TP
 .B --update

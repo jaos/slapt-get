@@ -179,19 +179,22 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	file_name = strncat(file_name,pkg->version,strlen(pkg->version));
 	file_name = strncat(file_name,".tgz",strlen(".tgz"));
 
-	/*
-	 * here we will use the md5sum to see if the file is already present and valid
-	 */
-	if( ( fh_test = fopen(file_name,"r") ) != NULL){
-		/* check to see if the md5sum is correct */
-		gen_md5_sum_of_file(fh_test,md5_sum_of_file);
-		fclose(fh_test);
-		if( strcmp(md5_sum_of_file,md5_sum) == 0 ){
-			printf("Using cached copy of %s\n",pkg->name);
-			free(md5_sum);
-			free(md5_sum_of_file);
-			return file_name;
+	if( global_config->no_md5_check == 0 ){
+		/*
+	 	* here we will use the md5sum to see if the file is already present and valid
+	 	*/
+		if( ( fh_test = fopen(file_name,"r") ) != NULL){
+			/* check to see if the md5sum is correct */
+			gen_md5_sum_of_file(fh_test,md5_sum_of_file);
+			fclose(fh_test);
+			if( strcmp(md5_sum_of_file,md5_sum) == 0 ){
+				printf("Using cached copy of %s\n",pkg->name);
+				free(md5_sum);
+				free(md5_sum_of_file);
+				return file_name;
+			}
 		}
+		/* */
 	}
 
 	/* build the url */
@@ -237,31 +240,37 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 
 	fclose(fh);
 
-	/* check to see if the md5sum is correct */
 	fh = open_file(file_name,"r");
 	gen_md5_sum_of_file(fh,md5_sum_of_file);
 	fclose(fh);
-	printf("verifying %s md5 sum...",pkg->name);
-	if( strcmp(md5_sum_of_file,md5_sum) != 0 ){
-		fprintf(stderr,"md5 sum for %s is not correct!\n",pkg->name);
+
+	if( global_config->no_md5_check == 0 ){
+
+		/* check to see if the md5sum is correct */
+		printf("verifying %s md5 sum...",pkg->name);
+		if( strcmp(md5_sum_of_file,md5_sum) != 0 ){
+			fprintf(stderr,"md5 sum for %s is not correct!\n",pkg->name);
 #if DEBUG == 1
-		fprintf(stderr,"MD5 found:    [%s]\n",md5_sum_of_file);
-		fprintf(stderr,"MD5 expected: [%s]\n",md5_sum);
-		fprintf(stderr,"File: %s/%s\n",global_config->working_dir,file_name);
+			fprintf(stderr,"MD5 found:    [%s]\n",md5_sum_of_file);
+			fprintf(stderr,"MD5 expected: [%s]\n",md5_sum);
+			fprintf(stderr,"File: %s/%s\n",global_config->working_dir,file_name);
 #endif
 #if DO_NOT_UNLINK_BAD_FILES == 0
-		/* if the checksum fails, unlink the bogus file */
-		if( unlink(file_name) == -1 ){
-			fprintf(stderr,"Failed to unlink %s\n",file_name);
-			if( errno ){
-				perror("unlink");
+			/* if the checksum fails, unlink the bogus file */
+			if( unlink(file_name) == -1 ){
+				fprintf(stderr,"Failed to unlink %s\n",file_name);
+				if( errno ){
+					perror("unlink");
+				}
 			}
-		}
 #endif
-		return NULL;
-	}else{
-		printf("Done\n");
+			return NULL;
+		}else{
+			printf("Done\n");
+		}
+		/* end md5 */
 	}
+
 	free(md5_sum);
 	free(md5_sum_of_file);
 

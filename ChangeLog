@@ -12,6 +12,7 @@
  * changed malloc back to calloc (src/package.c, line 423)
  * initial support for PACKAGE REQUIRED: data in PACKAGES.TXT
    this also means we can support LINUXPACKAGES as MIRROR
+ * --no-md5 option to ignore md5 check sum of downloaded packages
 
 0.9.5c Oct 04, 2003
  * removed bad free() in get_installed_pkgs()

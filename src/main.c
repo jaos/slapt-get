@@ -40,6 +40,7 @@ int main( int argc, char *argv[] ){
 		{"no-prompt", 0, 0, 'b'},
 		{"reinstall", 0, 0, 'n'},
 		{"ignore-excludes", 0, 0, 'x'},
+		{"no-md5", 0, 0, '5'},
 	};
 	int option_index = 0;
 	/* */
@@ -124,6 +125,9 @@ int main( int argc, char *argv[] ){
 			case 'x': /* ignore-excludes */
 				global_config->ignore_excludes = 1;
 				break;
+			case '5': /* no-md5 */
+				global_config->no_md5_check = 1;
+				break;
 			default:
 				usage();
 				break;
@@ -160,6 +164,7 @@ void usage(){
 	printf("  --no-prompt       - do not prompt during upgrade\n");
 	printf("  --reinstall       - re-install the pkg even if installed\n");
 	printf("  --ignore-excludes - install excludes anyway\n");
+	printf("  --no-md5          - do not perform md5 check sum\n");
 }
 
 void version_info(void){
