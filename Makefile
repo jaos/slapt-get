@@ -8,7 +8,7 @@ OBJS=src/configuration.o src/package.o src/curl.o src/transaction.o src/action.o
 RCDEST=/etc/slapt-getrc
 RCSOURCE=example.slapt-getrc
 SBINDIR=/sbin/
-DEFINES=-DPROGRAM_NAME="\"$(PROGRAM_NAME)\"" -DVERSION="\"$(VERSION)\"" -DRC_LOCATION="\"$(RCDEST)\""
+DEFINES=-DPROGRAM_NAME="\"$(PROGRAM_NAME)\"" -DVERSION="\"$(VERSION)\"" -DRC_LOCATION="\"$(RCDEST)\"" -DENABLE_NLS
 CFLAGS=-W -Werror -Wall -O2 -ansi -pedantic -Iinclude $(DEFINES)
 
 default: $(PROGRAM_NAME)
@@ -55,4 +55,13 @@ pkg: $(PROGRAM_NAME)
 	-@cp $(PROGRAM_NAME).8 pkg/usr/man/man8/
 	-@gzip pkg/usr/man/man8/$(PROGRAM_NAME).8
 	@( cd pkg; makepkg -c y $(PROGRAM_NAME)-$(VERSION)-$(ARCH)-$(RELEASE).tgz )
+
+po: $(PROGRAM_NAME)
+	-rm po/*
+	-grep '_(' src/*.c |cut -f2-255 -d':'|sed -re "s/.*(_\(\".*\"\)).*/\1/" > po/gettext_strings
+	-xgettext -d slapt-get -o po/slapt-get.pot -a -C --no-location po/gettext_strings
+	-cp po/slapt-get.pot po/en.po
+	-sed -i -re "s/CHARSET/ISO-8859-1/" po/en.po
+	-msgfmt -o po/slapt-get.mo po/en.po
+	-rm po/gettext_strings
 
