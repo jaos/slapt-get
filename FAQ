@@ -757,8 +757,8 @@ Frequenty Asked Questions:
 
  Yes, you can use it to mirror packages by using the following:
 
-  slapt-get --list|awk '{print $1}'|xargs -r slapt-get --install {} \
-   --download-only --reinstall
+  slapt-get --list|awk '{print $1}'|xargs -r slapt-get --download-only \
+		--reinstall --install
 
  The packages whill then be mirrored under ${ROOT}/var/slapt-get in the
  directory structure they where found in.  You can then generate the 
