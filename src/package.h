@@ -86,12 +86,6 @@ struct pkg_list *parse_packages_txt(FILE *);
 struct pkg_list *get_available_pkgs(void);
 /* retrieve list of installed pkgs */
 struct pkg_list *get_installed_pkgs(void);
-/*
-	This used to be used to parse the file list for updates,
-	until I realized patches/PACKAGES.TXT existed
-	Legacy, might be useful one day.
-*/
-struct pkg_list *parse_file_list(FILE *);
 
 
 /* retrieve the newest pkg from pkg_info_t list */
