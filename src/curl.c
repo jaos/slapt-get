@@ -180,7 +180,7 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	file_name = gen_pkg_file_name(global_config,pkg);
 	f_size = get_pkg_file_size(global_config,pkg);
 
-	if( global_config->dl_stats == 1 ){
+	if( global_config->dl_stats == TRUE ){
 		printf(_("Downloading %s %s %s [%dK]...\n"),pkg->mirror,pkg->name,pkg->version,pkg->size_c - (f_size/1024));
 	}else{
 		printf(_("Downloading %s %s %s [%dK]..."),pkg->mirror,pkg->name,pkg->version,pkg->size_c - (f_size/1024));
@@ -197,7 +197,7 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	/* download the file to our file handle */
 	dl_return = download_data(fh,url,f_size,global_config->dl_stats);
 	if( dl_return == 0 ){
-		if( global_config->dl_stats != 1 ) printf(_("Done\n"));
+		if( global_config->dl_stats == FALSE ) printf(_("Done\n"));
 	}else if( dl_return == CURLE_HTTP_RANGE_ERROR ){
 		/*
 			* this is for errors trying to resume.  unlink the file and

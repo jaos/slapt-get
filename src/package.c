@@ -715,7 +715,7 @@ int is_excluded(const rc_config *global_config,pkg_info_t *pkg){
 	int name_reg_ret = -1,version_reg_ret = -1,location_reg_ret = -1;
 	sg_regex exclude_reg;
 
-	if( global_config->ignore_excludes == 1 )
+	if( global_config->ignore_excludes == TRUE )
 		return pkg_not_excluded;
 
 	/* maybe EXCLUDE= isn't defined in our rc? */
@@ -1086,7 +1086,7 @@ int get_pkg_dependencies(const rc_config *global_config,struct pkg_list *avail_p
 	 * don't go any further if the required member is empty
 	 * or disable_dep_check is set
 	*/
-	if( global_config->disable_dep_check == 1 ||
+	if( global_config->disable_dep_check == TRUE ||
   	strcmp(pkg->required,"") == 0 ||
 		strcmp(pkg->required," ") == 0 ||
 		strcmp(pkg->required,"  ") == 0
@@ -1164,7 +1164,7 @@ int get_pkg_dependencies(const rc_config *global_config,struct pkg_list *avail_p
 		}
 
 		/* if this pkg is excluded */
-		if( (is_excluded(global_config,tmp_pkg) == 1) && (global_config->ignore_dep == 0) ){
+		if( (is_excluded(global_config,tmp_pkg) == 1) && (global_config->ignore_dep == FALSE) ){
 			if( get_exact_pkg(installed_pkgs,tmp_pkg->name,tmp_pkg->version) == NULL ){
 				printf(_("%s, which is required by %s, is excluded\n"),tmp_pkg->name,pkg->name);
 				return -1;
@@ -1177,7 +1177,7 @@ int get_pkg_dependencies(const rc_config *global_config,struct pkg_list *avail_p
 
 			/* now check to see if tmp_pkg has dependencies */
 			dep_check_return = get_pkg_dependencies(global_config,avail_pkgs,installed_pkgs,tmp_pkg,deps);
-			if( dep_check_return == -1 && global_config->ignore_dep == 0 ){
+			if( dep_check_return == -1 && global_config->ignore_dep == FALSE ){
 				return -1;
 			}
 
@@ -1437,7 +1437,7 @@ static struct pkg_list *required_by(const rc_config *global_config,struct pkg_li
 	/*
 	 * don't go any further if disable_dep_check is set
 	*/
-	if( global_config->disable_dep_check == 1)
+	if( global_config->disable_dep_check == TRUE)
 		return required_by_list;
 
 	for(i = 0, escaped_ptr = escapedName; i < NAME_LEN && pkg->name[i]; i++){
@@ -1652,12 +1652,12 @@ int update_pkg_cache(const rc_config *global_config){
 			tmp_pkg_f = fopen(pkg_filename,"r");
 			available_pkgs = parse_packages_txt(tmp_pkg_f);
 		}else{
-			if( global_config->dl_stats == 1 ) printf("\n");
+			if( global_config->dl_stats == TRUE ) printf("\n");
 			tmp_pkg_f = fopen(pkg_filename,"w+b");
 			if( get_mirror_data_from_source(tmp_pkg_f,global_config->dl_stats,global_config->sources.url[i],PKG_LIST) == 0 ){
 				rewind(tmp_pkg_f); /* make sure we are back at the front of the file */
 				available_pkgs = parse_packages_txt(tmp_pkg_f);
-				if( global_config->dl_stats != 1 ) printf(_("Done\n"));
+				if( global_config->dl_stats == FALSE ) printf(_("Done\n"));
 			}else{
 				source_dl_failed = 1;
 				clear_head_cache(pkg_filename);
@@ -1689,12 +1689,12 @@ int update_pkg_cache(const rc_config *global_config){
 			tmp_patch_f = fopen(patch_filename,"r");
 			patch_pkgs = parse_packages_txt(tmp_patch_f);
 		}else{
-			if( global_config->dl_stats == 1 ) printf("\n");
+			if( global_config->dl_stats == TRUE ) printf("\n");
 			tmp_patch_f = fopen(patch_filename,"w+b");
 			if( get_mirror_data_from_source(tmp_patch_f,global_config->dl_stats,global_config->sources.url[i],PATCHES_LIST) == 0 ){
 				rewind(tmp_patch_f); /* make sure we are back at the front of the file */
 				patch_pkgs = parse_packages_txt(tmp_patch_f);
-				if( global_config->dl_stats != 1 ) printf(_("Done\n"));
+				if( global_config->dl_stats == FALSE ) printf(_("Done\n"));
 			}else{
 				/* we don't care if the patch fails, for example current doesn't have patches */
 				/* source_dl_failed = 1; */
@@ -1720,7 +1720,7 @@ int update_pkg_cache(const rc_config *global_config){
 			printf(_("Cached\n"));
 			tmp_checksum_f = fopen(checksum_filename,"r");
 		}else{
-			if( global_config->dl_stats == 1 ) printf("\n");
+			if( global_config->dl_stats == TRUE ) printf("\n");
 			tmp_checksum_f = fopen(checksum_filename,"w+b");
 			if( get_mirror_data_from_source(
 						tmp_checksum_f,global_config->dl_stats,global_config->sources.url[i],CHECKSUM_FILE
@@ -1729,7 +1729,7 @@ int update_pkg_cache(const rc_config *global_config){
 				source_dl_failed = 1;
 				clear_head_cache(checksum_filename);
 			}else{
-				if( global_config->dl_stats != 1 ) printf(_("Done\n"));
+				if( global_config->dl_stats == FALSE ) printf(_("Done\n"));
 			}
 			rewind(tmp_checksum_f); /* make sure we are back at the front of the file */
 		}
@@ -1949,7 +1949,7 @@ int verify_downloaded_pkg(const rc_config *global_config,pkg_info_t *pkg){
 		return not_verified;
 	}
 	/* if not checking the md5 checksum and the sizes match, assume its good */
-	if( global_config->no_md5_check == 1 ) return is_verified;
+	if( global_config->no_md5_check == TRUE ) return is_verified;
 
 	/* check to see that we actually have an md5 checksum */
 	if( strcmp(pkg->md5,"") == 0){
@@ -2068,7 +2068,7 @@ void purge_old_cached_pkgs(const rc_config *global_config,char *dir_name,struct 
 				tmp_pkg = get_exact_pkg(avail_pkgs,tmp_pkg_name,tmp_pkg_version);
 				if( tmp_pkg == NULL ){
 
-					if(global_config->no_prompt == 1 ){
+					if(global_config->no_prompt == TRUE ){
 							unlink(file->d_name);
 					}else{
 						if( ask_yes_no(_("Delete %s ? [y/N]"), file->d_name) == 1 )

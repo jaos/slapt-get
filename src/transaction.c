@@ -127,7 +127,7 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran){
 	if( tran->upgrade_pkgs->pkg_count > 0 || tran->remove_pkgs->pkg_count > 0 ||
 	tran->install_pkgs->pkg_count > 0 ){
 
-		if( global_config->download_only == 0 ){
+		if( global_config->download_only == FALSE ){
 			if( (int)uncompressed_size < 0 ){
 				printf(_("After unpacking %dK disk space will be freed.\n"),
 					uncompressed_size * -1
@@ -143,9 +143,9 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran){
 	/* prompt */
 	if(
 			(tran->upgrade_pkgs->pkg_count > 0 || tran->remove_pkgs->pkg_count > 0 ||
-			( tran->install_pkgs->pkg_count > 0 && global_config->dist_upgrade != 0 ) ) &&
-			(global_config->no_prompt == 0 && global_config->download_only == 0 &&
-			global_config->simulate == 0 && global_config->print_uris == 0 )
+			( tran->install_pkgs->pkg_count > 0 && global_config->dist_upgrade == TRUE ) ) &&
+			(global_config->no_prompt == FALSE && global_config->download_only == FALSE &&
+			global_config->simulate == FALSE && global_config->print_uris == FALSE )
 	) {
 		if( ask_yes_no(_("Do you want to continue? [y/N] ")) != 1 ){
 			printf(_("Abort.\n"));
@@ -153,7 +153,7 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran){
 		}
 	}
 
-	if ( global_config->print_uris == 1 ){
+	if ( global_config->print_uris == TRUE ){
 		for(i = 0; i < tran->install_pkgs->pkg_count;i++) {
 			const pkg_info_t *info = tran->install_pkgs->pkgs[i];
 			const char *location = info->location + strspn(info->location, "./");
@@ -168,7 +168,7 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran){
 	}
 
 	/* if simulate is requested, just show what could happen and return */
-	if( global_config->simulate == 1 ){
+	if( global_config->simulate == TRUE ){
 		for(i = 0; i < tran->install_pkgs->pkg_count;i++){
 			printf(_("%s-%s is to be installed\n"),
 				tran->install_pkgs->pkgs[i]->name,tran->install_pkgs->pkgs[i]->version
@@ -200,11 +200,11 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran){
 
 	/* run transaction, install, upgrade, and remove */
 	for(i = 0; i < tran->install_pkgs->pkg_count;i++){
-		if( global_config->download_only == 0 )
+		if( global_config->download_only == FALSE )
 			if( install_pkg(global_config,tran->install_pkgs->pkgs[i]) == -1 ) exit(1);
 	}
 	for(i = 0; i < tran->upgrade_pkgs->pkg_count;i++){
-		if( global_config->download_only == 0 ){
+		if( global_config->download_only == FALSE ){
 			if( upgrade_pkg( global_config,
 				tran->upgrade_pkgs->pkgs[i]->installed,
 				tran->upgrade_pkgs->pkgs[i]->upgrade
@@ -486,7 +486,7 @@ int add_deps_to_trans(const rc_config *global_config, transaction_t *tran, struc
 	int dep_return = -1;
 	struct pkg_list *deps;
 
-	if( global_config->disable_dep_check == 1) return -1;
+	if( global_config->disable_dep_check == TRUE ) return -1;
 
 	deps = init_pkg_list();
 
@@ -494,7 +494,7 @@ int add_deps_to_trans(const rc_config *global_config, transaction_t *tran, struc
 
 	/* check to see if there where issues with dep checking */
 	/* exclude the package if dep check barfed */
-	if( (dep_return == -1) && (global_config->ignore_dep == 0) ){
+	if( (dep_return == -1) && (global_config->ignore_dep == FALSE) ){
 		printf("Excluding %s, use --ignore-dep to override\n",pkg->name);
 		add_exclude_to_transaction(tran,pkg);
 		free_pkg_list(deps);

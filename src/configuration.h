@@ -36,19 +36,19 @@ struct source_list {
 typedef struct {
 	struct source_list sources;
 	char working_dir[WORKINGDIR_TOKEN_LEN];
-	unsigned int download_only;
-	unsigned int dist_upgrade;
-	unsigned int simulate;
-	unsigned int no_prompt;
+	bool download_only;
+	bool dist_upgrade;
+	bool simulate;
+	bool no_prompt;
 	unsigned int re_install;
 	struct exclude_list *exclude_list;
-	unsigned int ignore_excludes;
-	unsigned int no_md5_check;
-	unsigned int ignore_dep;
-	unsigned int disable_dep_check;
-	unsigned int print_uris;
-	unsigned int dl_stats;
-	unsigned int remove_obsolete;
+	bool ignore_excludes;
+	bool no_md5_check;
+	bool ignore_dep;
+	bool disable_dep_check;
+	bool print_uris;
+	bool dl_stats;
+	bool remove_obsolete;
 } rc_config;
 
 rc_config *read_rc_config(const char *file_name);

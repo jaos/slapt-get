@@ -30,21 +30,21 @@ rc_config *read_rc_config(const char *file_name){
 
 	global_config = slapt_malloc( sizeof *global_config );
 	/* initialize */
-	global_config->sources.count = 0;
-	global_config->download_only = 0;
-	global_config->simulate = 0;
-	global_config->ignore_excludes = 0;
-	global_config->no_md5_check = 0;
-	global_config->dist_upgrade = 0;
-	global_config->ignore_dep = 0;
-	global_config->disable_dep_check = 0;
-	global_config->print_uris = 0;
-	global_config->dl_stats = 0;
-	global_config->no_prompt = 0;
-	global_config->re_install = 0;
+	global_config->sources.count = FALSE;
+	global_config->download_only = FALSE;
+	global_config->simulate = FALSE;
+	global_config->ignore_excludes = FALSE;
+	global_config->no_md5_check = FALSE;
+	global_config->dist_upgrade = FALSE;
+	global_config->ignore_dep = FALSE;
+	global_config->disable_dep_check = FALSE;
+	global_config->print_uris = FALSE;
+	global_config->dl_stats = FALSE;
+	global_config->no_prompt = FALSE;
+	global_config->re_install = FALSE;
 	global_config->exclude_list = NULL;
 	global_config->working_dir[0] = '\0';
-	global_config->remove_obsolete = 0;
+	global_config->remove_obsolete = FALSE;
 
 	rc = open_file(file_name,"r");
 	if( rc == NULL ) exit(1);

@@ -109,44 +109,44 @@ int main( int argc, char *argv[] ){
 				do_action = UPGRADE;
 				break;
 			case DOWNLOAD_ONLY_OPT: /* download only flag */
-				global_config->download_only = 1;
+				global_config->download_only = TRUE;
 				break;
 			case SIMULATE_OPT: /* simulate */
-				global_config->simulate = 1;
+				global_config->simulate = TRUE;
 				break;
 			case VERSION_OPT: /* version */
 				do_action = SHOWVERSION;
 				break;
 			case NO_PROMPT_OPT: /* auto */
-				global_config->no_prompt = 1;
+				global_config->no_prompt = TRUE;
 				break;
 			case REINSTALL_OPT: /* reinstall */
-				global_config->re_install = 1;
+				global_config->re_install = TRUE;
 				break;
 			case IGNORE_EXCLUDES_OPT: /* ignore-excludes */
-				global_config->ignore_excludes = 1;
+				global_config->ignore_excludes = TRUE;
 				break;
 			case NO_MD5_OPT: /* no-md5 */
-				global_config->no_md5_check = 1;
+				global_config->no_md5_check = TRUE;
 				break;
 			case DIST_UPGRADE_OPT: /* dist-upgrade */
-				global_config->dist_upgrade = 1;
+				global_config->dist_upgrade = TRUE;
 				do_action = UPGRADE;
 				break;
 			case HELP_OPT: /* help */
 				usage();
 				exit(1);
 			case IGNORE_DEP_OPT: /* ignore-dep */
-				global_config->ignore_dep = 1;
+				global_config->ignore_dep = TRUE;
 				break;
 			case NO_DEP_OPT: /* no-dep */
-				global_config->disable_dep_check = 1;
+				global_config->disable_dep_check = TRUE;
 				break;
 			case PRINT_URIS_OPT: /* print-uris */
-				global_config->print_uris = 1;
+				global_config->print_uris = TRUE;
 				break;
 			case SHOW_STATS_OPT: /* download-stats */
-				global_config->dl_stats = 1;
+				global_config->dl_stats = TRUE;
 				break;
 			case CONFIG_OPT: /* override rc location */
 				{
@@ -174,7 +174,7 @@ int main( int argc, char *argv[] ){
 				do_action = AUTOCLEAN;
 				break;
 			case OBSOLETE_OPT: /* remove obsolete packages */
-				global_config->remove_obsolete = 1;
+				global_config->remove_obsolete = TRUE;
 				break;
 			default:
 				usage();

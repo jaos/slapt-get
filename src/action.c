@@ -107,7 +107,7 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 			/* it is already installed, attempt an upgrade */
 			if(
 				((cmp_pkg_versions(installed_pkg->version,pkg->version)) < 0) ||
-				(global_config->re_install == 1)
+				(global_config->re_install == TRUE)
 			){
 
 				if( add_deps_to_trans(global_config,&tran,avail_pkgs,installed_pkgs,pkg) == 0 ){
@@ -394,7 +394,7 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 	printf(_("Done\n"));
 	init_transaction(&tran);
 
-	if( global_config->dist_upgrade == 1 ){
+	if( global_config->dist_upgrade == TRUE ){
 		struct pkg_list *matches = search_pkg_list(avail_pkgs,SLACK_BASE_SET_REGEX);
 
 		for(i = 0; i < matches->pkg_count; i++){
@@ -465,7 +465,7 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 		free_pkg_list(matches);
 
 		/* remove obsolete packages if prompted to */
-		if( global_config->remove_obsolete == 1 ){
+		if( global_config->remove_obsolete == TRUE ){
 			unsigned int r;
 
 			for(r = 0; r < installed_pkgs->pkg_count; r++){
@@ -525,10 +525,10 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 			cmp_r = cmp_pkg_versions(installed_pkgs->pkgs[i]->version,update_pkg->version);
 			if(
 				/* either it's greater, or we want to reinstall */
-				cmp_r < 0 || (global_config->re_install == 1) ||
+				cmp_r < 0 || (global_config->re_install == TRUE) ||
 				/* or this is a dist upgrade and the versions are the save except for the arch */
 				(
-					global_config->dist_upgrade == 1 &&
+					global_config->dist_upgrade == TRUE &&
 					cmp_r == 0 &&
 					strcmp(installed_pkgs->pkgs[i]->version,update_pkg->version) != 0
 				)
