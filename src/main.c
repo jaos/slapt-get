@@ -303,23 +303,6 @@ int progress_callback(void *clientp, double dltotal, double dlnow, double ultota
 	return 0;
 }
 
-/* head request callback */
-size_t head_request_data_callback(void *ptr, size_t size, size_t nmemb, void *data){
-	struct head_request_t *head_d;
-	int total;
-
-	total = size * nmemb;
-	head_d = (struct head_request_t *)data;
-
-	head_d->data = realloc(head_d->data, sizeof *head_d->data * head_d->size + total + 1);
-	if (head_d->data) {
-		memcpy(&(head_d->data[head_d->size]), ptr, total);
-		head_d->size += total;
-		head_d->data[head_d->size] = 0;
-	}
-	return total;
-}
-
 char spinner(void){
 	static int spinner_index = 0;
 	static const char spinner_parts[] = "\\|/-";

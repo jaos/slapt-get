@@ -1,5 +1,6 @@
 
 0.9.8e May 27, 2004
+ * removed unused head_request code
  * initialized size_u and size_c to 0 for pkg in init_pkg()
  * added FAQ concerning removing depreciated packages
  * updated INSTALL guide with more explicit cvs directions
