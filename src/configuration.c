@@ -44,6 +44,7 @@ rc_config *read_rc_config(const char *file_name){
 	global_config->disable_dep_check = 0;
 	global_config->print_uris = 0;
 	global_config->dl_stats = 0;
+	global_config->no_prompt = 0;
 	/* global_config->exclude_list->count = 0; */ /* initialized later */
 
 	rc = open_file(file_name,"r");
