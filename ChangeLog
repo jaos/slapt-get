@@ -6,6 +6,7 @@
  * updated MD5SUM regex
  * give transaction report prompt for every dist-upgrade (even if no removes or upgrades,
    must have installs, however)
+ * updated regex for pkg names and versions
 
 0.9.7a Nov 05, 2003
  * added check for presence of pkg in trans before adding upgrade (during --install)
