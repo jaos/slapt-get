@@ -1,5 +1,5 @@
 PROGRAM_NAME=slapt-get
-VERSION=0.9.8epre
+VERSION=0.9.8e
 ARCH=i386
 RELEASE=1
 CC=gcc
