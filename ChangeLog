@@ -1,5 +1,7 @@
 
 0.9.9g Jan 29, 2005
+ * fixed bug in search, installed packages did not show up when searching by
+   package location
  * changed order of transaction, removes now happen first in case files in the
    packages to be removed are shared with those packages about to be installed
    or upgraded.
