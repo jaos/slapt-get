@@ -160,7 +160,8 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 
 	/* build the file name */
 	file_name = calloc(
-		strlen(pkg->name)+strlen("-")+strlen(pkg->version)+strlen(".tgz") + 1 , sizeof *file_name
+		strlen(pkg->name)+strlen("-")+strlen(pkg->version)+strlen(".tgz") + 1 ,
+		sizeof *file_name
 	);
 	if( file_name == NULL ){
 		fprintf(stderr,"Failed to calloc file_name\n");
@@ -173,8 +174,7 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	file_name = strncat(file_name,".tgz",strlen(".tgz"));
 
 	/*
-	 * TODO: here we will use the md5sum (or some other means)
-	 *	to see if the file is already present and valid
+	 * here we will use the md5sum to see if the file is already present and valid
 	 */
 	if( ( fh_test = fopen(file_name,"r") ) != NULL){
 		/* check to see if the md5sum is correct */
@@ -190,7 +190,9 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 
 	/* build the url */
 	url = calloc(
-		strlen(global_config->mirror_url) + strlen(pkg->location) + strlen(file_name) + strlen("/") + 1 , sizeof *url
+		strlen(global_config->mirror_url) + strlen(pkg->location)
+			+ strlen(file_name) + strlen("/") + 1,
+		sizeof *url
 	);
 	if( url == NULL ){
 		fprintf(stderr,"Failed to calloc url\n");
@@ -214,6 +216,14 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 		printf("Done\n");
 #endif
 	}else{
+		fclose(fh);
+		/* if the d/l fails, unlink the empty file */
+		if( unlink(file_name) == -1 ){
+			fprintf(stderr,"Failed to unlink %s\n",file_name);
+			if( errno ){
+				perror("unlink");
+			}
+		}
 		return NULL;
 	}
 
@@ -231,6 +241,13 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 		fprintf(stderr,"MD5 expected: [%s]\n",md5_sum);
 		fprintf(stderr,"File: %s/%s\n",global_config->working_dir,file_name);
 #endif
+		/* if the checksum fails, unlink the bogus file */
+		if( unlink(file_name) == -1 ){
+			fprintf(stderr,"Failed to unlink %s\n",file_name);
+			if( errno ){
+				perror("unlink");
+			}
+		}
 		return NULL;
 	}else{
 		printf("Done\n");

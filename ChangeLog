@@ -7,6 +7,7 @@
  * error checking updates
  * more verbose messages during operation
  * fixed chdir/mkdir bug in working_dir
+ * unlink faulty d/l files/pkgs (failed to d/l or checksum is bad)
 
 0.9.3 Sep 24, 2003
  * default make target doesn't build slack pkg
