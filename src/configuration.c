@@ -114,6 +114,7 @@ rc_config *read_rc_config(const char *file_name){
 	global_config->ignore_excludes = 0;
 	global_config->no_md5_check = 0;
 	global_config->interactive = 0;
+	global_config->dist_upgrade = 0;
 
 	return global_config;
 }
