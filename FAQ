@@ -593,7 +593,7 @@ Frequenty Asked Questions:
  			bunzip2 -c ${MF}.bz2 >> ${MF}; rm ${MF}.bz2
  		else
  			wget -q ${url}/slackware/${MF}.bz2
- 			if [ -f ${MF}.bz3 ]; then bunzip2 -c ${MF}.bz2 >> ${MF}; rm ${MF}.bz2; fi
+ 			if [ -f ${MF}.bz2 ]; then bunzip2 -c ${MF}.bz2 >> ${MF}; rm ${MF}.bz2; fi
  		fi
  	done
  	echo "extracting package data"
