@@ -1,5 +1,6 @@
 
 0.9.9 Aug 22, 2004
+ * documentation updates
  * use libcurls CURLOPT_FAILONERROR to fail on http codes > 300
  * now will not cache package source if no packages where parsed from the source
  * turned off EPSV for all libcurl operations... ftp.slackware.com doesn't support the EPSV command
