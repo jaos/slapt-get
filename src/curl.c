@@ -127,7 +127,7 @@ int get_mirror_data_from_source(FILE *fh,const char *base_url,const char *filena
 	return return_code;
 }
 
-char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
+int download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	FILE *fh = NULL;
 	FILE *fh_test = NULL;
 	char *file_name = NULL;
@@ -138,6 +138,9 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	md5_sum = malloc(34);
 	md5_sum_of_file = malloc(34);
 	get_md5sum(global_config,pkg,md5_sum);
+
+	create_dir_structure(pkg->location);
+	chdir(pkg->location);
 
 	/* build the file name */
 	file_name = calloc(
@@ -166,7 +169,9 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 				printf(_("Using cached copy of %s\n"),pkg->name);
 				free(md5_sum);
 				free(md5_sum_of_file);
-				return file_name;
+				chdir(global_config->working_dir);
+				free(file_name);
+				return 0;
 			}
 		}
 		/* */
@@ -213,7 +218,8 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 			}
 		}
 		#endif
-		return NULL;
+		free(file_name);
+		return -1;
 	}
 
 	fclose(fh);
@@ -244,7 +250,9 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 			}
 			#endif
 
-			return NULL;
+			chdir(global_config->working_dir);
+			free(file_name);
+			return -1;
 
 		}else{
 			printf(_("Done\n"));
@@ -258,7 +266,9 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	if( url != NULL ){
 		free(url);
 	}
-	return file_name;
+	chdir(global_config->working_dir);
+	free(file_name);
+	return 0;
 }
 
 int progress_callback(void *clientp, double dltotal, double dlnow, double ultotal, double ulnow){
