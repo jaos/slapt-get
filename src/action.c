@@ -361,7 +361,7 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 		);
 		if( update_pkg != NULL ){
 
-			if( is_excluded(global_config,update_pkg) == 1 ){
+			if( is_excluded(global_config,installed_pkgs->pkgs[i]) == 1 ){
 				add_exclude_to_transaction(&tran,update_pkg);
 				continue;
 			}
