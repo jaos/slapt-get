@@ -1,5 +1,5 @@
 
-0.9.8f Jun 10, 2004
+0.9.8f Jun 11, 2004
  * makefile updates
  * fixed /testing/ and /extra/ support so that the download url's and md5
    checksums are detected/generated correctly
