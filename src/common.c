@@ -32,7 +32,7 @@ FILE *open_file(const char *file_name,const char *mode){
 }
 
 /* initialize regex structure and compilie the regular expression */
-void init_regex(sg_regex *regex_t, const char *regex_string){
+int init_regex(sg_regex *regex_t, const char *regex_string){
 
 	regex_t->nmatch = MAX_REGEX_PARTS;
 
@@ -47,9 +47,10 @@ void init_regex(sg_regex *regex_t, const char *regex_string){
 		if( (regerror_size = regerror(regex_t->reg_return, &regex_t->regex,errbuf,errbuf_size)) ){
 			printf(_("Regex Error: %s\n"),errbuf);
 		}
-		exit(1);
+		return -1;
 	}
 
+	return 0;
 }
 
 /*

@@ -1,5 +1,6 @@
 
-0.9.9i Feb 13, 2005
+0.9.9i Feb 16, 2005
+ * init_regex now returns on failure
  * updated translations
 
 0.9.9h Feb 12, 2005

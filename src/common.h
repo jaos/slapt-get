@@ -37,7 +37,7 @@ typedef struct {
 
 
 FILE *open_file(const char *file_name,const char *mode);
-void init_regex(sg_regex *regex_t, const char *regex_string);
+int init_regex(sg_regex *regex_t, const char *regex_string);
 void execute_regex(sg_regex *regex_t,const char *string);
 void free_regex(sg_regex *regex_t);
 void create_dir_structure(const char *dir_name);

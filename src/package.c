@@ -682,7 +682,8 @@ int is_excluded(const rc_config *global_config,pkg_info_t *pkg){
 			this regex has to be init'd and free'd within the loop b/c the regex is pulled 
 			from the exclude list
 		*/
-		init_regex(&exclude_reg,global_config->exclude_list->excludes[i]);
+		if( init_regex(&exclude_reg,global_config->exclude_list->excludes[i]) == -1 )
+			continue;
 
 		execute_regex(&exclude_reg,pkg->name);
 		name_reg_ret = exclude_reg.reg_return;
@@ -1007,9 +1008,10 @@ struct pkg_list *search_pkg_list(struct pkg_list *available,const char *pattern)
 	sg_regex search_regex;
 	struct pkg_list *matches;
 
-	init_regex(&search_regex,pattern);
-
 	matches = init_pkg_list();
+
+	if( init_regex(&search_regex,pattern) == -1 )
+		return matches;
 
 	for(i = 0; i < available->pkg_count; i++ ){
 
