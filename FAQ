@@ -47,10 +47,10 @@ Frequenty Asked Questions:
  understand Slackware already has existing utilities that provide similar
  functionality.  I believe slapt-get to be superior because of it's speed and
  simplicity.  I do not believe slapt-get takes away anything from these
- existing tools.  slapt-get can stand on it's own merits.  I think choice is
- great for the end user (see Gnome vs KDE).  I do not aim for inclusion
- within Slackware.  I am making this available in hopes others will find
- it useful.
+ existing tools, slapt-get can stand on it's own merits.  In the end, choice
+ is great for the end users (just as in the desktop enviroment category).  
+ Regardless, I do not aim for inclusion within Slackware.  I only want to make
+ this availabe in hopes that others will find it useful.
  
 
 3.  How do I build/install slapt-get?  How do I remove slapt-get?
@@ -141,8 +141,9 @@ Frequenty Asked Questions:
 
  Then follow the rest of the directions in UPGRADE.TXT.
 
-   * Note: you might be able to get away with just doing a dist-upgrade, as
-     opposed to installing the most important and then using dist-upgrade.
+   * Note: you might be able to get away with just doing a --dist-upgrade after
+     the --update.  The second step above is made as a suggestion to follow
+     the suggestions and conventions in UPGRADE.TXT.
 
 
 10.  What about package dependencies?
@@ -154,29 +155,29 @@ Frequenty Asked Questions:
  always be defined strictly by library dependencies.  Applications, rather than
  libraries may be required, such as the case with man and groff.
 
- I have sent Pat a request to include a slack-required file in the pacakge.
- Then the data from that file could be used to generate a field in the
- PACKAGES.TXT file that is shared with all the mirrors.  Since this information
- is known when the package is created, this is the best time/place to make that
- data available.  It is a simple progression from making a note within the
- package description such as the one already within the man package:
+ I believe that package dependency support can be implemented in a Slackware 
+ compatible way.  If we look to the existing infrastructure Pat has created
+ for inspiration, we come to the simple addition of another file within the
+ packages ./install directory.  Let's call it slack-required.  This information
+ could be as simple as what rules existed in the autoconf scripts of the 
+ upstream source.
 
-   man: man (format and display the on-line manual pages)
-   man:
-   man: The man package is a collection of tools used for searching and
-   man: reading the online system documentation.  In fact, on most UNIX-like
-   man: operating systems it is the primary means of finding out how programs
-   man: on the system work.  For example, 'man man' will display the
-   man: documentation for man itself.
-   man:
-   man: *-->*Man requires the groff text processing package.*<--*
-   man:
+ This file has a simple structure.  See FAQ # 19 for an example on the
+ structure of an example slack-required file.
 
- to providing that data in a way that can be scripted for those who have
- the advanced knowledge or want to provide higher level tools for Slackware.
+ slapt-get can resolve dependencies via the slack-required meta data.  Already
+ there are packages being submitting to linuxpackages.net supporting this
+ optional metadata.
 
- So Pat's generated PACKAGES.TXT file would need an addition to the
- package's entry, going from:
+ I have made sure that this information does not impact the ability of packages
+ to be installed by the existing Slackware package tools.  This information
+ now simply becomes an additional extension, easily bypassed or simply ignored.
+
+ The information within slack-required can be added to the PACKAGES.TXT file.
+ Scripts that generate mindful PACKAGES.TXT files are available, such as the
+ one in this FAQ, see #17.
+
+ So the package's entry within PACKAGES.TXT would go from:
 
    PACKAGE NAME:  man-1.5l-i386-1.tgz
    PACKAGE LOCATION:  ./slackware/ap
@@ -195,32 +196,29 @@ Frequenty Asked Questions:
    PACKAGE DESCRIPTION:
    man: man (format and display the on-line manual pages)
 
- which would be generated from a file within the package:
+ Since dependency information is known when the package is created, that is
+ the best time/place to make that data available.  It is a simple progression
+ from making a note within the package description such as the one already
+ within the man package:
 
-  ./install/slack-required
+   man: man (format and display the on-line manual pages)
+   man:
+   man: The man package is a collection of tools used for searching and
+   man: reading the online system documentation.  In fact, on most UNIX-like
+   man: operating systems it is the primary means of finding out how programs
+   man: on the system work.  For example, 'man man' will display the
+   man: documentation for man itself.
+   man:
+   man: *-->*Man requires the groff text processing package.*<--*
+   man:
 
- See FAQ # 19 for an example on how to generate a slack-required file.  This
- file follows the existing convention pioneered by slack-desc.
-
- He has declined the request at this time, citing a "niche" for a
- distribution without "dependency hell".  I believe leaving out the requirement
- field does not prevent dependency hell, it hides it, passing the burden
- on to the users and system administrators who simply want to be able to
- quickly install and deploy servers and services.  Yes it is good for new users
- to become familiar with the process of locating and resolving library
- dependencies.  But I think this becomes tedious after the initial lesson has
- been learned.  However, I am thankful for Pat's dedication to his goals and
- ideals.  So I have dropped the issue.
+ to providing that data in a way that can be scripted for those who have
+ the advanced knowledge or want to provide higher level tools for Slackware.
 
  I hope if the community as a whole agrees that this is an added benefit 
  (without becoming overly complex or kludgey) they can convince Pat there is
  a need/demand for it.
 
- slapt-get can resolve dependencies via the slack-required meta data.  Already
- there are packages being submitting to linuxpackages.net supporting this
- additional file within the slackware package.  Scripts that generate
- mindful PACKAGES.TXT files are available, such as the one in this FAQ,
- see #17.
 
 
 11. What about multiple package sources, ala linuxpackages.net?
