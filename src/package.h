@@ -135,8 +135,7 @@ struct pkg_list *lookup_pkg_conflicts(const rc_config *global_config,struct pkg_
 pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,pkg_info_t *pkg,char *dep_entry);
 
 /* return list of packages required by */
-struct pkg_list *is_required_by(struct pkg_list *, pkg_info_t *);
-struct pkg_list *is_required_by(struct pkg_list *avail, pkg_info_t *pkg);
+struct pkg_list *is_required_by(const rc_config *global_config,struct pkg_list *avail, pkg_info_t *pkg);
 
 /* update the local package cache */
 void update_pkg_cache(const rc_config *global_config);

@@ -231,7 +231,7 @@ void pkg_action_remove(const rc_config *global_config,const pkg_action_args_t *a
 			int c;
 			struct pkg_list *deps;
 
-			deps = is_required_by(available,pkg);
+			deps = is_required_by(global_config,available,pkg);
 
 			for(c = 0; c < deps->pkg_count;c++){
 

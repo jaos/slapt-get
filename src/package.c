@@ -1281,7 +1281,6 @@ struct pkg_list *lookup_pkg_conflicts(const rc_config *global_config,struct pkg_
 
 	/*
 	 * don't go any further if the required member is empty
-	 * or disable_dep_check is set
 	*/
 	if( strcmp(pkg->conflicts,"") == 0
 		|| strcmp(pkg->conflicts," ") == 0
@@ -1491,7 +1490,7 @@ pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list *instal
 	return NULL;
 }
 
-struct pkg_list *is_required_by(struct pkg_list *avail, pkg_info_t *pkg){
+struct pkg_list *is_required_by(const rc_config *global_config,struct pkg_list *avail, pkg_info_t *pkg){
 	int i;
 	sg_regex required_by_reg;
 	struct pkg_list *deps;
@@ -1511,6 +1510,13 @@ struct pkg_list *is_required_by(struct pkg_list *avail, pkg_info_t *pkg){
 		exit(1);
 	}
 	deps->pkg_count = 0;
+
+	/*
+	 * don't go any further if disable_dep_check is set
+	*/
+	if( global_config->disable_dep_check == 1)
+		return deps;
+
 	required_by_reg.nmatch = MAX_REGEX_PARTS;
 
 	regcomp(&required_by_reg.regex,pkg->name, REG_EXTENDED|REG_NEWLINE);
@@ -1532,7 +1538,7 @@ struct pkg_list *is_required_by(struct pkg_list *avail, pkg_info_t *pkg){
 				realloc_tmp = NULL;
 			}
 
-			deps_of_deps = is_required_by(avail,avail->pkgs[i]);
+			deps_of_deps = is_required_by(global_config,avail,avail->pkgs[i]);
 			for(c = 0; c < deps_of_deps->pkg_count;c++){
 				if( get_newest_pkg(deps,deps_of_deps->pkgs[c]->name) == NULL ){
 					deps->pkgs[deps->pkg_count] = deps_of_deps->pkgs[c];

@@ -18,6 +18,7 @@
  * updated header files, including useful variable names in function definitions
  * silently perform md5 check, complain out loud only if not correct
  * updated translation template and translation files for slack-conflicts
+ * --disable-dep-check now works with --remove as well
 
 0.9.7h Dec 08, 2003
  * updated FAQ
