@@ -33,6 +33,8 @@ install: $(PROGRAM_NAME) libs
 	if [ ! -d $(LOCALESDIR)/en/LC_MESSAGES ]; then mkdir -p $(LOCALESDIR)/en/LC_MESSAGES; fi; msgfmt -o $(LOCALESDIR)/en/LC_MESSAGES/slapt-get.mo po/en.po;
 	if [ ! -d $(LOCALESDIR)/pl/LC_MESSAGES ]; then mkdir -p $(LOCALESDIR)/pl/LC_MESSAGES; fi; msgfmt -o $(LOCALESDIR)/pl/LC_MESSAGES/slapt-get.mo po/pl.po;
 	if [ ! -d /usr/doc/$(PROGRAM_NAME)-$(VERSION) ]; then mkdir /usr/doc/$(PROGRAM_NAME)-$(VERSION); fi
+	if [ -L /usr/lib/libslapt.so ]; then rm /usr/lib/libslapt.so ;fi
+	ln -s /usr/lib/libslapt-$(VERSION).so /usr/lib/libslapt.so
 	cp example.slapt-getrc COPYING Changelog INSTALL README FAQ TODO /usr/doc/$(PROGRAM_NAME)-$(VERSION)/
 	cp include/slapt.h /usr/include/
 	cp src/libslapt-$(VERSION).a src/libslapt-$(VERSION).so /usr/lib/
@@ -69,7 +71,7 @@ pkg: $(PROGRAM_NAME) libs
 	-@cp example.slapt-getrc ./pkg/etc/slapt-getrc.new
 	-@mkdir -p ./pkg/usr/doc/$(PROGRAM_NAME)-$(VERSION)/
 	-@cp example.slapt-getrc COPYING Changelog INSTALL README FAQ TODO ./pkg/usr/doc/$(PROGRAM_NAME)-$(VERSION)/
-	-@echo "if [ ! -f etc/slapt-getrc ]; then mv etc/slapt-getrc.new etc/slapt-getrc; else diff -q etc/slapt-getrc etc/slapt-getrc.new >/dev/null 2>&1 && rm etc/slapt-getrc.new; fi" > pkg/install/doinst.sh
+	-@echo "if [ ! -f etc/slapt-getrc ]; then mv etc/slapt-getrc.new etc/slapt-getrc; else diff -q etc/slapt-getrc etc/slapt-getrc.new >/dev/null 2>&1 && rm etc/slapt-getrc.new; fi; if [ -L /usr/lib/libslapt.so ]; then rm /usr/lib/libslapt.so;fi; ln -s /usr/lib/libslapt-$(VERSION).so /usr/lib/libslapt.so" > pkg/install/doinst.sh
 	-@cp slack-desc pkg/install/
 	-@cp slack-required pkg/install/
 	-@cp $(PROGRAM_NAME).8 pkg/usr/man/man8/
@@ -79,7 +81,6 @@ pkg: $(PROGRAM_NAME) libs
 	-@cp include/slapt.h pkg/usr/include/
 	-@cp src/libslapt-$(VERSION).a src/libslapt-$(VERSION).so pkg/usr/lib/
 	-@strip pkg/usr/lib/libslapt-$(VERSION).so
-	-@ln -s pkg/usr/lib/libslapt-$(VERSION).so pkg/usr/lib/libslapt.so
 	@( cd pkg; makepkg -l y -c y $(PROGRAM_NAME)-$(VERSION)-$(ARCH)-$(RELEASE).tgz )
 
 po_file:
