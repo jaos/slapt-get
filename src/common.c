@@ -174,18 +174,11 @@ void create_dir_structure(const char *dir_name){
 						#if DEBUG == 1
 						fprintf(stderr,_("Failed to mkdir: %s\n"),dir_name_buffer);
 						#endif
-					}else{
-						#if DEBUG == 1
-						fprintf(stderr,_("\tCreated directory: %s\n"),dir_name_buffer);
-						#endif
 					}
 					if( (chdir(dir_name_buffer)) == -1 ){
 						fprintf(stderr,_("Failed to chdir to %s\n"),dir_name_buffer);
+						free(dir_name_buffer);
 						return;
-					}else{
-						#if DEBUG == 1
-						fprintf(stderr,_("\tchdir into %s\n"),dir_name_buffer);
-						#endif
 					}
 				} /* don't create . */
 
