@@ -28,15 +28,15 @@ void pkg_action_clean(const rc_config *global_config){
 void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *action_args){
 	int i;
 	transaction tran;
-	struct pkg_list *installed;
-	struct pkg_list *all;
+	struct pkg_list *installed_pkgs;
+	struct pkg_list *avail_pkgs;
 	pkg_info_t *pkg = NULL;
 	pkg_info_t *installed_pkg = NULL;
 	sg_regex pkg_regex;
 
 	printf( _("Reading Package Lists... ") );
-	installed = get_installed_pkgs();
-	all = get_available_pkgs();
+	installed_pkgs = get_installed_pkgs();
+	avail_pkgs = get_available_pkgs();
 	printf( _("Done\n") );
 
 	init_transaction(&tran);
@@ -86,37 +86,42 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 			);
 
 			tmp_pkg->version[ pkg_regex.pmatch[2].rm_eo - pkg_regex.pmatch[2].rm_so ] = '\0';
-			pkg = get_exact_pkg(all, tmp_pkg->name, tmp_pkg->version);
+			pkg = get_exact_pkg(avail_pkgs, tmp_pkg->name, tmp_pkg->version);
 
 			if( pkg == NULL ){
 				fprintf(stderr,_("No Such package: %s\n"),tmp_pkg->name);
 				continue;
 			}
 
-			installed_pkg = get_newest_pkg(installed,tmp_pkg->name);
+			installed_pkg = get_newest_pkg(installed_pkgs,tmp_pkg->name);
 
 			free(tmp_pkg);
 
 		/* If regex doesnt match, find latest version of request */
 		}else{
 			/* make sure there is a package called action_args->pkgs[i] */
-			pkg = get_newest_pkg(all,action_args->pkgs[i]);
+			pkg = get_newest_pkg(avail_pkgs,action_args->pkgs[i]);
 
 			if( pkg == NULL ){
 				fprintf(stderr,_("No Such package: %s\n"),action_args->pkgs[i]);
 				continue;
 			}
 
-			installed_pkg = get_newest_pkg(installed,action_args->pkgs[i]);
+			installed_pkg = get_newest_pkg(installed_pkgs,action_args->pkgs[i]);
 		}
 
 		/* if it's not already installed, install it */
 		if( installed_pkg == NULL ){
 
-				if( add_deps_to_trans(global_config,&tran,all,installed,pkg) == 0 ){
+				if( add_deps_to_trans(global_config,&tran,avail_pkgs,installed_pkgs,pkg) == 0 ){
 					/* this way we install the most up to date pkg */
 					/* make sure it's not already present from a dep check */
-					if( search_transaction(&tran,pkg) == 0 ) add_install_to_transaction(&tran,pkg);
+					if( search_transaction(&tran,pkg) == 0 ){
+
+						if ( is_conflicted(global_config,&tran,avail_pkgs,installed_pkgs,pkg) == 0 )
+							add_install_to_transaction(&tran,pkg);
+
+					}
 				}
 
 		}else{ /* else we upgrade or reinstall */
@@ -127,9 +132,14 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 				|| (global_config->re_install == 1)
 			){
 
-				if( add_deps_to_trans(global_config,&tran,all,installed,pkg) == 0 ){
+				if( add_deps_to_trans(global_config,&tran,avail_pkgs,installed_pkgs,pkg) == 0 ){
 					/* make sure it's not already present from a dep check */
-					if( search_transaction(&tran,pkg) == 0 ) add_upgrade_to_transaction(&tran,installed_pkg,pkg);
+					if( search_transaction(&tran,pkg) == 0 ){
+
+						if ( is_conflicted(global_config,&tran,avail_pkgs,installed_pkgs,pkg) == 0 )
+							add_upgrade_to_transaction(&tran,installed_pkg,pkg);
+
+					}
 				}
 
 			}else{
@@ -140,8 +150,8 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 
 	}
 
-	free_pkg_list(installed);
-	free_pkg_list(all);
+	free_pkg_list(installed_pkgs);
+	free_pkg_list(avail_pkgs);
 
 	regfree(&pkg_regex.regex);
 
@@ -154,11 +164,11 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 /* list pkgs */
 void pkg_action_list(void){
 	struct pkg_list *pkgs = NULL;
-	struct pkg_list *installed = NULL;
+	struct pkg_list *installed_pkgs = NULL;
 	int i;
 
 	pkgs = get_available_pkgs();
-	installed = get_installed_pkgs();
+	installed_pkgs = get_installed_pkgs();
 
 	for(i = 0; i < pkgs->pkg_count; i++ ){
 		/* this should eliminate the printing of updates */
@@ -167,7 +177,7 @@ void pkg_action_list(void){
 			char *short_description = gen_short_pkg_description(pkgs->pkgs[i]);
 
 			/* is it installed? */
-			if( get_exact_pkg(installed,pkgs->pkgs[i]->name,pkgs->pkgs[i]->version) != NULL )
+			if( get_exact_pkg(installed_pkgs,pkgs->pkgs[i]->name,pkgs->pkgs[i]->version) != NULL )
 				bool_installed = 1;
 
 			printf("%s %s [inst=%s]: %s\n",	
@@ -183,7 +193,7 @@ void pkg_action_list(void){
 	}
 
 	free_pkg_list(pkgs);
-	free_pkg_list(installed);
+	free_pkg_list(installed_pkgs);
 
 }
 
@@ -208,16 +218,16 @@ void pkg_action_list_installed(void){
 void pkg_action_remove(const rc_config *global_config,const pkg_action_args_t *action_args){
 	int i;
 	pkg_info_t *pkg;
-	struct pkg_list *installed;
+	struct pkg_list *installed_pkgs;
 	struct pkg_list *available;
 	transaction tran;
 
-	installed = get_installed_pkgs();
+	installed_pkgs = get_installed_pkgs();
 	available = get_available_pkgs();
 	init_transaction(&tran);
 
 	for(i = 0; i < action_args->count; i++){
-		if( (pkg = get_newest_pkg(installed,action_args->pkgs[i])) != NULL){
+		if( (pkg = get_newest_pkg(installed_pkgs,action_args->pkgs[i])) != NULL){
 			int c;
 			struct pkg_list *deps;
 
@@ -227,7 +237,7 @@ void pkg_action_remove(const rc_config *global_config,const pkg_action_args_t *a
 
 				/* if not already in the transaction, add if installed */
 				if( search_transaction(&tran,deps->pkgs[c]) == 0 ){
-					if( get_newest_pkg(installed,deps->pkgs[c]->name) != NULL ){
+					if( get_newest_pkg(installed_pkgs,deps->pkgs[c]->name) != NULL ){
 						add_remove_to_transaction(&tran,deps->pkgs[c]);
 					}
 				}
@@ -245,7 +255,7 @@ void pkg_action_remove(const rc_config *global_config,const pkg_action_args_t *a
 		}
 	}
 
-	free_pkg_list(installed);
+	free_pkg_list(installed_pkgs);
 	free_pkg_list(available);
 
 	handle_transaction(global_config,&tran);
@@ -257,12 +267,12 @@ void pkg_action_remove(const rc_config *global_config,const pkg_action_args_t *a
 void pkg_action_search(const char *pattern){
 	int i;
 	struct pkg_list *pkgs = NULL;
-	struct pkg_list *installed = NULL;
+	struct pkg_list *installed_pkgs = NULL;
 	struct pkg_list *matches = NULL;
 
 	/* read in pkg data */
 	pkgs = get_available_pkgs();
-	installed = get_installed_pkgs();
+	installed_pkgs = get_installed_pkgs();
 	matches = malloc( sizeof *matches );
 	matches->pkgs = malloc( sizeof *matches->pkgs * pkgs->pkg_count );
 	matches->pkg_count = 0;
@@ -273,7 +283,7 @@ void pkg_action_search(const char *pattern){
 		char *short_description = gen_short_pkg_description(matches->pkgs[i]);
 
 		/* is it installed? */
-		if( get_exact_pkg(installed,matches->pkgs[i]->name,matches->pkgs[i]->version) != NULL )
+		if( get_exact_pkg(installed_pkgs,matches->pkgs[i]->name,matches->pkgs[i]->version) != NULL )
 			bool_installed = 1;
 
 		printf("%s %s [inst=%s]: %s\n",	
@@ -290,7 +300,7 @@ void pkg_action_search(const char *pattern){
 	free(matches->pkgs);
 	free(matches);
 	free_pkg_list(pkgs);
-	free_pkg_list(installed);
+	free_pkg_list(installed_pkgs);
 
 }/* end search */
 
@@ -340,7 +350,7 @@ void pkg_action_show(const char *pkg_name){
 void pkg_action_upgrade_all(const rc_config *global_config){
 	int i;
 	struct pkg_list *installed_pkgs;
-	struct pkg_list *all_pkgs;
+	struct pkg_list *avail_pkgs;
 	struct pkg_list *matches;
 	pkg_info_t *update_pkg;
 	pkg_info_t *installed_pkg;
@@ -348,8 +358,8 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 
 	printf(_("Reading Package Lists... "));
 	installed_pkgs = get_installed_pkgs();
-	all_pkgs = get_available_pkgs();
-	if( all_pkgs == NULL || installed_pkgs == NULL ) exit(1);
+	avail_pkgs = get_available_pkgs();
+	if( avail_pkgs == NULL || installed_pkgs == NULL ) exit(1);
 	printf(_("Done\n"));
 	init_transaction(&tran);
 
@@ -357,7 +367,7 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 
 		/* see if we have an available update for the pkg */
 		update_pkg = get_newest_pkg(
-			all_pkgs,
+			avail_pkgs,
 			installed_pkgs->pkgs[i]->name
 		);
 		if( update_pkg != NULL ){
@@ -372,13 +382,16 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 				|| (global_config->re_install == 1)
 			){
 
-				if( add_deps_to_trans(global_config,&tran,all_pkgs,installed_pkgs,update_pkg) == 0 ){
+				if( add_deps_to_trans(global_config,&tran,avail_pkgs,installed_pkgs,update_pkg) == 0 ){
 					/* add if it's not already present in trans */
 					if( search_transaction(&tran,update_pkg) == 0 ){
 						if( is_excluded(global_config,update_pkg) == 1 ){
 							add_exclude_to_transaction(&tran,update_pkg);
 						}else{
-							add_upgrade_to_transaction(&tran,installed_pkgs->pkgs[i],update_pkg);
+
+							if ( is_conflicted(global_config,&tran,avail_pkgs,installed_pkgs,update_pkg) == 0 )
+								add_upgrade_to_transaction(&tran,installed_pkgs->pkgs[i],update_pkg);
+
 						}
 					}
 				}
@@ -392,10 +405,10 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 	if( global_config->dist_upgrade == 1 ){
 
 		matches = malloc( sizeof *matches );
-		matches->pkgs = malloc( sizeof *matches->pkgs * all_pkgs->pkg_count );
+		matches->pkgs = malloc( sizeof *matches->pkgs * avail_pkgs->pkg_count );
 		matches->pkg_count = 0;
 
-		search_pkg_list(all_pkgs,matches,SLACK_BASE_SET_REGEX);
+		search_pkg_list(avail_pkgs,matches,SLACK_BASE_SET_REGEX);
 		for(i = 0; i < matches->pkg_count; i++){
 
 			installed_pkg = get_newest_pkg(
@@ -408,10 +421,14 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 					add_exclude_to_transaction(&tran,matches->pkgs[i]);
 				}else{
 
-					if( add_deps_to_trans(global_config,&tran,all_pkgs,installed_pkgs,matches->pkgs[i]) == 0 ){
+					if( add_deps_to_trans(global_config,&tran,avail_pkgs,installed_pkgs,matches->pkgs[i]) == 0 ){
 						/* add if it's not already present in trans */
-						if( search_transaction(&tran,matches->pkgs[i]) == 0 )
-							add_install_to_transaction(&tran,matches->pkgs[i]);
+						if( search_transaction(&tran,matches->pkgs[i]) == 0 ){
+
+							if ( is_conflicted(global_config,&tran,avail_pkgs,installed_pkgs,matches->pkgs[i]) == 0 )
+								add_install_to_transaction(&tran,matches->pkgs[i]);
+
+						}
 					}
 
 				}
@@ -424,7 +441,7 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 	}
 
 	free_pkg_list(installed_pkgs);
-	free_pkg_list(all_pkgs);
+	free_pkg_list(avail_pkgs);
 
 	handle_transaction(global_config,&tran);
 
@@ -456,15 +473,17 @@ int add_deps_to_trans(const rc_config *global_config, transaction *tran, struct 
 
 			if( (dep_installed = get_newest_pkg(installed_pkgs,deps->pkgs[c]->name)) == NULL ){
 
-				add_install_to_transaction(tran,deps->pkgs[c]);
+				if ( is_conflicted(global_config,tran,avail_pkgs,installed_pkgs,deps->pkgs[c]) == 0 )
+					add_install_to_transaction(tran,deps->pkgs[c]);
 
 			}else{
 
 				/* add only if its a valid upgrade */
-				if(cmp_pkg_versions(dep_installed->version,deps->pkgs[c]->version) < 0
-					|| (global_config->re_install == 1) )
-					add_upgrade_to_transaction(tran,dep_installed,deps->pkgs[c]);
+				if(cmp_pkg_versions(dep_installed->version,deps->pkgs[c]->version) < 0 || (global_config->re_install == 1) ){
+					if ( is_conflicted(global_config,tran,avail_pkgs,installed_pkgs,deps->pkgs[c]) == 0 )
+						add_upgrade_to_transaction(tran,dep_installed,deps->pkgs[c]);
 
+				}
 			}
 
 		}
@@ -477,3 +496,28 @@ int add_deps_to_trans(const rc_config *global_config, transaction *tran, struct 
 	return 0;
 }
 
+int is_conflicted(const rc_config *global_config, transaction *tran, struct pkg_list *avail_pkgs, struct pkg_list *installed_pkgs, pkg_info_t *pkg){
+	int i;
+	int conflicted = 0;
+	struct pkg_list *conflicts;
+
+	/* if conflicts exist, check to see if they are installed or in the current transaction */
+	conflicts = lookup_pkg_conflicts(global_config,avail_pkgs,installed_pkgs,pkg);
+	for(i = 0; i < conflicts->pkg_count; i++){
+		if(search_transaction(tran,conflicts->pkgs[i]) == 1){
+			printf(_("%s, which is to be installed, conflicts with %s\n"),
+				conflicts->pkgs[i]->name,conflicts->pkgs[i]->version, pkg->name,pkg->version
+			);
+			conflicted = 1;
+		}
+		if(get_newest_pkg(installed_pkgs,conflicts->pkgs[i]->name) != NULL) {
+			printf(_("Installed %s conflicts with %s\n"),conflicts->pkgs[i]->name,pkg->name);
+			conflicted = 1;
+		}
+	}
+
+	free(conflicts->pkgs);
+	free(conflicts);
+
+	return conflicted;
+}
