@@ -1116,9 +1116,12 @@ struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,struct p
 	}
 	deps->pkg_count = 0;
 
-	/* don't go any further if the required member is empty */
-	if(
-		strcmp(pkg->required,"") == 0
+	/*
+	 * don't go any further if the required member is empty
+	 * or disable_dep_check is set
+	*/
+	if( global_config->disable_dep_check == 1
+  	|| strcmp(pkg->required,"") == 0
 		|| strcmp(pkg->required," ") == 0
 		|| strcmp(pkg->required,"  ") == 0
 	)
