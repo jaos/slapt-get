@@ -1,5 +1,8 @@
 
 0.9.9e Nov 24, 2004
+ * fixed bug in add_deps_to_trans() where check for exclude was catching
+   on installed packages.  installed always satisfies dependency, even if
+   excluded (which should only mean excluded from upgrading).
  * install make target now strips binary
  * added pt_PT translation by Miguel Santinho
  * updated documentation

@@ -1093,7 +1093,7 @@ int get_pkg_dependencies(const rc_config *global_config,struct pkg_list *avail_p
 		}
 
 		/* if this pkg is excluded */
-		if( is_excluded(global_config,tmp_pkg) == 1){
+		if( (is_excluded(global_config,tmp_pkg) == 1) && (global_config->ignore_dep == 0) ){
 			if( get_exact_pkg(installed_pkgs,tmp_pkg->name,tmp_pkg->version) == NULL ){
 				printf(_("%s, which is required by %s, is excluded\n"),tmp_pkg->name,pkg->name);
 				return -1;

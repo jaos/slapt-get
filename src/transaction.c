@@ -524,18 +524,6 @@ int add_deps_to_trans(const rc_config *global_config, transaction *tran, struct 
 
 			}else{
 
-				/*
-				 * however the installed version could be excluded,
-				 * in which case upgrades should be
-				 */
-				if( (is_excluded(global_config,dep_installed) == 1) && (global_config->ignore_dep == 0) ){
-					printf(_("%s, which is required by %s, is excluded\n"),dep_installed->name,pkg->name);
-					add_exclude_to_transaction(tran,dep_installed);
-					free(deps->pkgs);
-					free(deps);
-					return -1;
-				}
-
 				/* add only if its a valid upgrade */
 				if(cmp_pkg_versions(dep_installed->version,deps->pkgs[c]->version) < 0 ){
 					if ( is_conflicted(tran,avail_pkgs,installed_pkgs,deps->pkgs[c]) == NULL )
