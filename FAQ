@@ -254,7 +254,7 @@ Frequenty Asked Questions:
  You can also create an exlude list for the dropline pacakges like so:
 
   slapt-get --installed|awk '{print $1}'|grep 'dl$'| \
-		xargs -r echo|sed -e 's/ /,/'
+    xargs -r echo|sed -e 's/ /,/'
 
 
 16. How can I generate an exclude list for an entire disk set?
