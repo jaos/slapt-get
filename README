@@ -99,7 +99,7 @@ Table of Contents:
 
     * EXCLUDE is a comma seperated list of pkgs you want excluded from
     updating. This can be the package name, or a extended POSIX regex.
-    For example, to exclude dropline, use .*-dl$
+    For example, to exclude dropline, use .*-[0-9]dl$
 
 
  5. Troubleshooting
@@ -143,3 +143,6 @@ Table of Contents:
   Arnaldo de Moraes Pereira <arnaldo at sp-dhn dot com dot br> authored the
   Brazilian Portuguese translation.
 
+  Michiel H. <myself at mhil dot net> authored the Dutch translation.
+
+  Joran Kvalvaag <jk at nerdworks dot org> authored the Norwegian translation.
