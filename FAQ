@@ -866,8 +866,11 @@ Frequenty Asked Questions:
 
 42. Is there a way to get a report with the pending updates emailed to me?
 
- Yes, see http://www.nerdworks.org/download/scripts/update-notifier/ for a script that
- you may use to send notification via email any time updates are available.
+ Yes, you may use these scripts to send notification via email any time updates
+ are available:
+
+ http://www.nerdworks.org/download/scripts/update-notifier/
+ http://www.atozcomp.com/slapt_update
 
 
 43. What if I don't trust third party sources for upgrades?
