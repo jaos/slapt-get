@@ -41,38 +41,38 @@ msgstr "%s niejest zainstalowane.\n"
 
 #, c-format
 msgid "Package Name: %s\n"
-msgstr "Nazwa Pakietu: %s\n"
+msgstr "NAZWA PAKIETU: %s\n"
 
 #, c-format
 msgid "Package Mirror: %s\n"
-msgstr "Mirror Pakietu: %s\n"
+msgstr "MIRROR PAKIETU: %s\n"
 
 #, c-format
 msgid "Package Location: %s\n"
-msgstr "Lokacja Pakietu: %s\n"
+msgstr "LOKACJA PAKIETU: %s\n"
 
 #, c-format
 msgid "Package Version: %s\n"
-msgstr "Wersja Pakietu: %s\n"
+msgstr "WERSJA PAKIETU: %s\n"
 
 #, c-format
 msgid "Package Size: %d K\n"
-msgstr "Rozmiar Pakietu: %d K\n"
+msgstr "ROZMIAR PAKIETU: %d K\n"
 
 #, c-format
 msgid "Package Installed Size: %d K\n"
-msgstr "Rozmiar Zainstalowanego Pakietu: %d K\n"
+msgstr "ROZMIAR ZAINSTALOWANEGO PAKIETU: %d K\n"
 
 #, c-format
 msgid "Package Required: %s\n"
-msgstr "Wymagane Pakiety: %s\n"
+msgstr "WYMAGANE PAKIETY: %s\n"
 
 msgid "Package Description:\n"
-msgstr "Opis Pakietu:\n"
+msgstr "OPIS PAKIETU:\n"
 
 #, c-format
 msgid "Package Installed: %s\n"
-msgstr "Zainstalowany Pakiet: %s\n"
+msgstr "PAKIET ZAINSTALOWANY: %s\n"
 
 #, c-format
 msgid "No such package: %s\n"
@@ -301,7 +301,7 @@ msgid "install/upgrade excludes"
 msgstr "instaluj/uaktualniaj wylaczaj"
 
 msgid "do not perform md5 check sum"
-msgstr "nie dokonuj sprawdzania sum kontrolnych md5"
+msgstr "do not perform md5 ontrolnych md5"
 
 msgid "ignore dependency failures"
 msgstr "ignoruj niepowodzenia zaleznosci"
@@ -314,146 +314,38 @@ msgid "Failed to malloc pkgs\n"
 msgstr "Nie powiodlo sie malloc pkgs\n"
 
 #, c-format
-msgid "regex failed on [%s]\n"
-msgstr "regex przerwal dzialanie na [%s]\n"
-
-msgid "Failed to malloc tmp_pkg\n"
-msgstr "Nie powiodlo sie malloc tmp_pkg\n"
-
-#, c-format
-msgid "pkg name too long [%s:%d]\n"
-msgstr "nazwa pkg za dluga [%s:%d]\n"
-
-#, c-format
-msgid "pkg version too long [%s:%d]\n"
+msgid "regen too long [%s:%d]\n"
 msgstr "wersja pkg za dluga [%s:%d]\n"
 
 #, c-format
 msgid "pkg mirror too long [%s:%d]\n"
-msgstr "mirror pkg za dlugi [%s:%d]\n"
-
-#, c-format
-msgid "pkg location too long [%s:%d]\n"
-msgstr "lokacja pkg za dluga [%s:%d]\n"
-
-msgid "regexec failed to parse location\n"
-msgstr "regexec nie zdolal przeanalizowac lokacji\n"
-
-msgid "getline reached EOF attempting to read location\n"
-msgstr "getline osiagnal EOF probujac odczytac lokacje\n"
-
-msgid "Failed to calloc size_c\n"
-msgstr "Nie powiodlo sie calloc size_c\n"
-
-msgid "regexec failed to parse size_c\n"
-msgstr "regexec nie zdolal przeanalizowac size_c\n"
-
-msgid "getline reached EOF attempting to read size_c\n"
-msgstr "getline osiagnal EOF probujac odczytac size_c\n"
-
-msgid "Failed to calloc size_u\n"
-msgstr "Nie powiodlo sie calloc size_u\n"
-
-msgid "regexec failed to parse size_u\n"
-msgstr "regexec nie zdolal przeanalizowac size_u\n"
-
-msgid "getline reached EOF attempting to read size_u\n"
-msgstr "getline osiagnal EOF probujac odczytac size_u\n"
-
-msgid "error attempting to read pkg description\n"
-msgstr "blad przy probie odczytu opisu pkg\n"
-
-msgid "Failed to realloc pkgs\n"
-msgstr "Nie powiodlo sie realloc pkgs\n"
-
-msgid "Failed to calloc short_description\n"
-msgstr "Nie powiodlo sie calloc short_description\n"
-
-msgid "Failed to compile regex\n"
-msgstr "Niepowiodla sie kompilacja regex\n"
-
-#, c-format
-msgid "Regex Error: %s\n"
-msgstr "Blad regex: %s\n"
-
-msgid "Failed to calloc list->pkgs[list->pkg_count]\n"
-msgstr "Nie powiodlo sie calloc list->pkgs[list->pkg_count]\n"
-
-#, c-format
-msgid "%s-%s is to be installed\n"
-msgstr "%s-%s is to be installed\n"
-
-#, c-format
-msgid "Preparing to install %s-%s\n"
-msgstr "Przygotowanie do instalacji %s-%s\n"
-
-#, c-format
-msgid "Failed to execute command: [%s]\n"
-msgstr "Nie powiodlo sie wykonanie polecenia: [%s]\n"
-
-#, c-format
-msgid "%s-%s is to be upgraded to version %s\n"
-msgstr "%s-%s is to be upgraded to version %s\n"
+msgstr "mirrora aktualizowac do wersji %s\n"
 
 #, c-format
 msgid "Preparing to replace %s-%s with %s-%s\n"
 msgstr "Przygotowanie do zastapienia %s-%s przez %s-%s\n"
 
 #, c-format
-msgid "%s-%s is to be removed\n"
-msgstr "%s-%s is to be removed\n"
-
-#, c-format
-msgid "Failed to compile regex [%s]\n"
-msgstr "Nie powiodla sie kompilacja regex [%s]\n"
-
-msgid "Failed to malloc deps\n"
-msgstr "Nie powiodlo sie alokowanie deps\n"
-
-msgid "Failed to malloc deps->pkgs\n"
-msgstr "Nie powiodlo sie malloc deps->pkgs\n"
-
-#, c-format
-msgid "pkg conditional too long [%s:%d]\n"
+msgid "%s-%s is to be remopkg conditional too long [%s:%d]\n"
 msgstr "pkg warunkowy za dlugi [%s:%d]\n"
 
-msgid "The following packages have unmet dependencies:\n"
-msgstr "Nastepujace pakiety posiadaja nieznane zaleznosci:\n"
-
-#, c-format
-msgid "  %s: Depends: %s\n"
-msgstr " %s: Zalezy: %s\n"
-
-msgid "The following packages have been EXCLUDED:\n"
-msgstr "Nastepujace pakiety zostaly EXCLUDED:\n"
-
-msgid "The following NEW packages will be installed:\n"
-msgstr "Nastepujace NEW pakiety zostana zainstalowane:\n"
-
-msgid "The following packages will be REMOVED:\n"
-msgstr "Nastepujace pakiety zostana REMOVED:\n"
+msgid "The following packages have unmet dependages will be REMOVED:\n"
+msgstr "Nastepujace pakiety zostana USUNIETE:\n"
 
 msgid "The following packages will be upgraded:\n"
 msgstr "Nastepujace pakiety beda uaktualnione:\n"
 
 #, c-format
-msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
-msgstr "%d uaktualnionych, %d nowe zainstalowane, %d do usuniecia i %d nieuaktualnione.\n"
-
-#, c-format
-msgid "Need to get %dK of archives.\n"
-msgstr "Potrzeba sciagnac %dK archiw.\n"
-
-#, c-format
-msgid "After unpacking %dK disk space will be freed.\n"
-msgstr "Po rozpakowaniu %dK miejsce na dysku bedzie zwolnione.\n"
+msgid "%d upgraded, %d newly installed, %d to remove and %d noted.\n"
+msgstr "Po rozpakowaniu %dK miejsca na dysku bedzie zwolnione.\n"
 
 #, c-format
 msgid "After unpacking %dK of additional disk space will be used.\n"
-msgstr "Po rozpakowaniu %dK dodatkowe miejsce na dysku zostanie uzyte.\n"
+msgstr "Po rozpakowaniu zostanie uzyte %dK dodatkowego miejsca na dysku.\n"
 
 msgid "Do you want to continue? [y/N] "
-msgstr "Do you want to continue? [y/N] "
+msgstr "Czy chcesz kontynuowac? [y/N] "
 
 msgid "Abort.\n"
 msgstr "Abort.\n"
+
