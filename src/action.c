@@ -345,14 +345,17 @@ void pkg_action_show(const char *pkg_name){
 		);
 
 		pkg = get_exact_pkg(avail_pkgs, p_name, p_version);
+
+		if( pkg == NULL )
+			pkg = get_exact_pkg(installed_pkgs,p_name,p_version);
+
 		free(p_name);
 		free(p_version);
 
 	}
 
-	if( pkg_regex.reg_return != 0 || pkg == NULL ){
+	if( pkg_regex.reg_return != 0 || pkg == NULL )
 		pkg = get_newest_pkg(avail_pkgs,pkg_name);
-	}
 
 	if( pkg != NULL ){
 
