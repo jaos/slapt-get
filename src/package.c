@@ -492,6 +492,11 @@ pkg_info_t *get_newest_pkg(pkg_info_t **pkgs,const char *pkg_name,int pkg_count)
 }
 
 /* parse the update list */
+/*
+ * this function is here for historic reasons
+ * and in case it may ever need to be revived
+ * from it's cold sleep of death.
+*/
 struct pkg_list *parse_file_list(FILE *fh){
 	size_t getline_len;
 	ssize_t bytes_read;
