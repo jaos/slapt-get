@@ -9,6 +9,7 @@
  * download_data now gets passed callback function, as arg from download_pkg
    and get_mirror_data_from_source (libslapt)
  * makefile updates for libslapt
+   added withlibslapt target to build slapt-get binary linked to libslapt
  * moved usage and version_info functions to action.c (libslapt)
 
 0.9.7d Nov 18, 2003

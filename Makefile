@@ -5,6 +5,8 @@ RELEASE=1
 CC=gcc
 CURLFLAGS=`curl-config --libs`
 OBJS=src/configuration.o src/package.o src/curl.o src/transaction.o src/action.o src/main.o
+LIBOBJS=src/configuration.o src/package.o src/curl.o src/transaction.o
+NONLIBOBJS=src/action.o src/main.o
 RCDEST=/etc/slapt-getrc
 RCSOURCE=example.slapt-getrc
 LOCALESDIR=/usr/share/locale
@@ -20,6 +22,10 @@ $(OBJS):
 
 $(PROGRAM_NAME): $(OBJS) libs
 	$(CC) -o $(PROGRAM_NAME) $(OBJS) $(CFLAGS) $(CURLFLAGS)
+
+#test with LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./src ./slapt-get
+withlibslapt: $(OBJS) libs
+	$(CC) -o $(PROGRAM_NAME) $(NONLIBOBJS) $(CFLAGS) $(CURLFLAGS) -L./src -lslapt-$(VERSION)
 
 static: $(OBJS) libs
 	$(CC) -o $(PROGRAM_NAME) $(OBJS) $(CFLAGS) $(CURLFLAGS) -static
@@ -92,7 +98,7 @@ po_file:
 	-rm po/gettext_strings
 
 libs: $(OBJS)
-	$(CC) -shared -o src/libslapt-$(VERSION).so src/configuration.o src/package.o src/curl.o src/transaction.o
+	$(CC) -shared -o src/libslapt-$(VERSION).so $(LIBOBJS)
 	ar -r src/libslapt-$(VERSION).a src/configuration.o src/package.o src/curl.o src/transaction.o
 	cat include/main.h include/configuration.h include/package.h include/curl.h include/transaction.h |grep -v '#include \"' > include/slapt.h
 
