@@ -1,5 +1,6 @@
 
 0.9.9f Jan 06, 2005
+ * updated translations
  * added --remove-obsolete option for dist-upgrade (see FAQ #9 and #28)
  * fixed bug in gen_short_pkg_description with installed packages that are
    missing a description, triggered by the new --search functionality looking

@@ -238,10 +238,10 @@ msgid "upgrade to newer release"
 msgstr "actualiza para uma nova versão"
 
 msgid "[pkg name(s)] - install specified pkg(s)"
-msgstr "[nome do(s) pacote(s)] - instala pacote(s) especificados"
+msgstr "[nome do(s) pacote(s)] - instala pacote(s) especificado(s)"
 
 msgid "[pkg name(s)] - remove specified pkg(s)"
-msgstr "[nome do(s) pacote(s)] - remove pacote(s) especificados"
+msgstr "[nome do(s) pacote(s)] - remove pacote(s) especificado(s)"
 
 msgid "[pkg name] - show pkg description"
 msgstr "[nome do pacote] - mostra descrição do pacote"
@@ -488,5 +488,5 @@ msgid "required too long [%s:%d]\n"
 msgstr "requerido muito longo [%s:%d]\n"
 
 msgid "remove obsolete packages (dist-upgrade only)"
-msgstr ""
+msgstr "remover pacotes obsoletos (apenas em dist-upgrade)"
 
