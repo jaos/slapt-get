@@ -7,6 +7,7 @@
  * resolves dependencies and adds them to the transaction
    using lookup_pkg_dependencies and parse_dep_entry functions
  * make pkg now gzip's the manpage and strips the binary (thanks Jim)
+ * added search_transaction function
 
 0.9.6g Oct 22, 2003
  * updated --help output

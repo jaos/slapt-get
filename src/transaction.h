@@ -33,5 +33,6 @@ void add_install_to_transaction(transaction *,pkg_info_t *);
 void add_remove_to_transaction(transaction *,pkg_info_t *);
 void add_upgrade_to_transaction(transaction *,pkg_info_t *,pkg_info_t *);
 void add_exclude_to_transaction(transaction *,pkg_info_t *);
+int search_transaction(transaction *,pkg_info_t *);
 void free_transaction(transaction *);
 
