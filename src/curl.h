@@ -27,3 +27,7 @@ int get_mirror_data_from_source(FILE *fh,int use_curl_dl_stats,const char *base_
 /* download pkg, cals download_data */
 int download_pkg(const rc_config *global_config,pkg_info_t *pkg);
 
+/* callback for curl progress */
+char spinner(void);
+int progress_callback(void *clientp, double dltotal, double dlnow, double ultotal, double ulnow);
+

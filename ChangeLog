@@ -1,5 +1,6 @@
 
 0.9.8g Jul 14, 2004
+ * moved spinner and progress_callback from main.[ch] to curl.[ch]
  * moved is_conflicted from action.[ch] to transaction.[ch]
  * added swedish translation by Joel Bjurman (ypolt@lediga.st)
  * documentation updates

@@ -163,3 +163,27 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 
 }
 
+int progress_callback(void *clientp, double dltotal, double dlnow, double ultotal, double ulnow){
+	/* supress unused parameter warning */
+	(void) clientp;
+	(void) dltotal;
+	(void) dlnow;
+	(void) ultotal;
+	(void) ulnow;
+	/* */
+	printf("%c\b",spinner());
+	return 0;
+}
+
+char spinner(void){
+	static int spinner_index = 0;
+	static const char spinner_parts[] = "\\|/-";
+
+	if( spinner_index > 3 ){
+		spinner_index = 0;
+		return spinner_parts[spinner_index];
+	}else{
+		return spinner_parts[spinner_index++];
+	}
+}
+
