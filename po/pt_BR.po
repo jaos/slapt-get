@@ -338,8 +338,9 @@ msgstr "getline chegou a EOF lendo size_u\n"
 msgid "error attempting to read pkg description\n"
 msgstr "erro lendo descrição do pacote\n"
 
-msgid "Failed to realloc pkgs\n"
-msgstr "Falha ao realocar memória para os pacotes\n"
+#, c-format
+msgid "Failed to realloc %s\n"
+msgstr ""
 
 msgid "Failed to compile regex\n"
 msgstr "Falha ao compilar regex\n"
@@ -347,6 +348,10 @@ msgstr "Falha ao compilar regex\n"
 #, c-format
 msgid "Regex Error: %s\n"
 msgstr "Erro de regex: %s\n"
+
+#, c-format
+msgid "%s-%s is to be installed\n"
+msgstr ""
 
 #, c-format
 msgid "Preparing to install %s-%s\n"
@@ -357,8 +362,16 @@ msgid "Failed to execute command: [%s]\n"
 msgstr "Falha para executar comando: [%s]\n"
 
 #, c-format
+msgid "%s-%s is to be upgraded to version %s\n"
+msgstr ""
+
+#, c-format
 msgid "Preparing to replace %s-%s with %s-%s\n"
 msgstr "Preparando para substituir %s-%s por %s-%s\n"
+
+#, c-format
+msgid "%s-%s is to be removed\n"
+msgstr ""
 
 #, c-format
 msgid "Failed to compile regex [%s]\n"
@@ -410,18 +423,6 @@ msgid "Abort.\n"
 msgstr "Abortar.\n"
 
 #, c-format
-msgid "%s-%s is to be installed\n"
-msgstr "%s-%s está para ser instalado\n"
-
-#, c-format
-msgid "%s-%s is to be upgraded to version %s\n"
-msgstr "%s-%s está para ser atualizado para a versão %s\n"
-
-#, c-format
-msgid "%s-%s is to be removed\n"
-msgstr "%s-%s está para ser removido\n"
-
-#, c-format
 msgid "%s, which is to be installed, conflicts with %s\n"
 msgstr "%s, que está para ser instalado, entra em conflito com %s\n"
 
@@ -454,6 +455,10 @@ msgstr "Download de %s incompleto\n"
 #, c-format
 msgid "Could not find MD5 checksum for %s, override with --no-md5\n"
 msgstr "Não foi possível encontrar o MD5 checksum para %s, ignore com --no-md5\n"
+
+#, c-format
+msgid "%s, which is required by %s, is excluded\n"
+msgstr ""
 
 msgid "skip dependency check"
 msgstr "skip dependency check"
