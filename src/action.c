@@ -456,55 +456,6 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 }
 
 /* parse the dependencies for a package, and add them to the transaction as needed */
-int add_deps_to_trans(const rc_config *global_config, transaction *tran, struct pkg_list *avail_pkgs, struct pkg_list *installed_pkgs, pkg_info_t *pkg){
-	int c;
-	struct pkg_list *deps;
-
-	deps = lookup_pkg_dependencies(global_config,avail_pkgs,installed_pkgs,pkg);
-
-	/* check to see if there where issues with dep checking */
-	/* exclude the package if dep check barfed */
-	if( (deps->pkg_count == -1) && (global_config->no_dep == 0) ){
-		printf("Excluding %s, use --no-dep to override\n",pkg->name);
-		add_exclude_to_transaction(tran,pkg);
-		free(deps->pkgs);
-		free(deps);
-		return 1;
-	}
-
-	/* loop through the deps */
-	for(c = 0; c < deps->pkg_count;c++){
-
-		/* only check if it is not already present in trans */
-		if( search_transaction(tran,deps->pkgs[c]) == 0 ){
-
-			pkg_info_t *dep_installed;
-
-			if( (dep_installed = get_newest_pkg(installed_pkgs,deps->pkgs[c]->name)) == NULL ){
-
-				if ( is_conflicted(tran,avail_pkgs,installed_pkgs,deps->pkgs[c]) == 0 )
-					add_install_to_transaction(tran,deps->pkgs[c]);
-
-			}else{
-
-				/* add only if its a valid upgrade */
-				if(cmp_pkg_versions(dep_installed->version,deps->pkgs[c]->version) < 0 ){
-					if ( is_conflicted(tran,avail_pkgs,installed_pkgs,deps->pkgs[c]) == 0 )
-						add_upgrade_to_transaction(tran,dep_installed,deps->pkgs[c]);
-
-				}
-			}
-
-		}
-
-	}
-
-	free(deps->pkgs);
-	free(deps);
-
-	return 0;
-}
-
 /* check to see if a package is conflicted */
 /* this needs to find it's final home */
 int is_conflicted(transaction *tran, struct pkg_list *avail_pkgs, struct pkg_list *installed_pkgs, pkg_info_t *pkg){

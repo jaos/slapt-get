@@ -1,5 +1,8 @@
 
-0.9.8e May 18, 2004
+0.9.8e May 20, 2004
+ * added check in lookup_pkg_dependencies() to see if ignore failed dependencies
+   (--no-dep) was set, if so, actually ignore.
+ * moved add_deps_to_trans() to transaction.c from action.c
  * moved pkg_info_t creation into init_pkg() function
  * compartmentalized package list creation and modification into init_pkg_list()
    and add_pkg_to_pkg_list() functions

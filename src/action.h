@@ -29,7 +29,6 @@ void pkg_action_remove(const rc_config *global_config,const pkg_action_args_t *a
 void pkg_action_search(const char *pattern);
 void pkg_action_show(const char *pkg_name);
 void pkg_action_upgrade_all(const rc_config *global_config);
-int add_deps_to_trans(const rc_config *global_config, transaction *tran, struct pkg_list *avail_pkgs, struct pkg_list *installed_pkgs, pkg_info_t *pkg);
 /* check to see if a package is conflicted */
 int is_conflicted(transaction *tran, struct pkg_list *avail_pkgs, struct pkg_list *installed_pkgs, pkg_info_t *pkg);
 
