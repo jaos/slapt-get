@@ -431,7 +431,7 @@ Frequenty Asked Questions:
     package_name
 
  or
-    [package_name] [condition] [version][newline]
+    [package_name] [condition] [version]
 
  where [condition] is
 
