@@ -1,5 +1,6 @@
 
-0.9.9g Jan 22, 2005
+0.9.9g Jan 25, 2005
+ * moved package order so that package always follows it's dependencies
  * exclude suggestions if they are already present in current transaction
  * fixed --no-dep bug that was excluding requesting package instead of
    installing it
