@@ -23,7 +23,7 @@ void jaospkg_list_installed(void);
 void jaospkg_remove(const char *);
 void jaospkg_search(const char *);
 void jaospkg_show(const char *);
-void jaospkg_upgrade(const rc_config *,pkg_info *);
+void jaospkg_upgrade(const rc_config *,pkg_info_t *);
 void jaospkg_upgrade_all(const rc_config *);
 void jaospkg_update(const rc_config *);
 

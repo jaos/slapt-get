@@ -23,5 +23,5 @@ void download_data(FILE *,const char *);
 FILE *download_pkg_list(const rc_config *);
 FILE *download_file_list(const rc_config *);
 FILE *download_patches_list(const rc_config *);
-char *download_pkg(const rc_config *,pkg_info *);
+char *download_pkg(const rc_config *,pkg_info_t *);
 int progress_callback(void *,double,double,double,double);

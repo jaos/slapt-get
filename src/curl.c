@@ -116,7 +116,7 @@ FILE *download_patches_list(const rc_config *global_config){
 	return fh;
 }
 
-char *download_pkg(const rc_config *global_config,pkg_info *pkg){
+char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	FILE *fh = NULL;
 	char *file_name = NULL;
 	char *url = NULL;
@@ -130,10 +130,10 @@ char *download_pkg(const rc_config *global_config,pkg_info *pkg){
 		exit(1);
 	}
 	file_name = memcpy(file_name,pkg->name,strlen(pkg->name));
+	file_name[ strlen(pkg->name) ] = '\0';
 	file_name = strncat(file_name,"-",strlen("-"));
 	file_name = strncat(file_name,pkg->version,strlen(pkg->version));
 	file_name = strncat(file_name,".tgz",strlen(".tgz"));
-	/* file_name[ strlen(file_name) ] = '\0'; */
 
 	fh = open_file(file_name,"wb");
 

@@ -2,8 +2,7 @@ PROGNAME=jaospkg
 VERSION=0.8
 CC=gcc
 CURLFLAGS=`curl-config --libs`
-CFLAGS=-W -Werror -Wall -O2 -ansi -pedantic -Iinclude
-DEBUGFLAGS=-W -Werror -Wall -ansi -pedantic -Iinclude -g
+CFLAGS=-W -Werror -Wall -O2 -ansi -pedantic -Iinclude -g
 OBJS=src/configuration.o src/package.o src/curl.o src/action.o src/main.o
 RCDEST=/etc/jaospkgrc
 RCSOURCE=example.jaospkgrc
@@ -17,9 +16,6 @@ $(OBJS):
 
 $(PROGNAME): $(OBJS)
 	$(CC) $(CFLAGS) $(CURLFLAGS) -o $(PROGNAME) $(OBJS)
-
-$(PROGNAME)-debug: $(OBJS)
-	$(CC) $(DEBUGFLAGS) $(CURLFLAGS) -o $(PROGNAME) $(OBJS)
 
 install: $(PROGNAME)
 	install $(PROGNAME) $(SBINDIR)

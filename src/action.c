@@ -25,31 +25,37 @@ void jaospkg_clean(const rc_config *global_config){
 
 /* install pkg */
 void jaospkg_install(const rc_config *global_config,const char *pkg_name){
-	pkg_info *installed_pkg;
-	pkg_info *update_pkg;
-	pkg_info *pkg;
+	pkg_info_t *installed_pkg;
+	pkg_info_t *update_pkg;
+	pkg_info_t *pkg;
 
-	if( (pkg = lookup_pkg(pkg_name)) == NULL ){
+	struct pkg_list *installed;
+	struct pkg_list *upgrades;
+	struct pkg_list *current;
+
+	upgrades = parse_update_pkg_list();
+	installed = get_installed_pkgs();
+	current = parse_pkg_list();
+
+	if( (pkg = get_newest_pkg(current->pkgs,pkg_name,current->pkg_count)) == NULL ){
 		fprintf(stderr,"No Such package: %s\n",pkg_name);
 		return;
 	}
 
-	if( ((installed_pkg = get_newest_installed_pkg(pkg_name)) != NULL)
+	if( ((installed_pkg = get_newest_pkg(installed->pkgs,pkg_name,installed->pkg_count)) != NULL)
 		&& (global_config->re_install != 1 ) ){
 
 		/* it's already installed, attempt an upgrade */
 		jaospkg_upgrade(global_config,installed_pkg);
-		free(installed_pkg);
 
 	}else{
 
 		/* check to see if the package exists in the update list */
 		/* this way we install the most up to date pkg */
-		if( (update_pkg = get_newest_update_pkg(pkg_name)) != NULL ){
+		if( (update_pkg = get_newest_pkg(upgrades->pkgs,pkg_name,upgrades->pkg_count)) != NULL ){
 			if( (install_pkg(global_config,update_pkg)) == -1 ){
 				fprintf(stderr,"Installation of %s failed.\n",update_pkg->name);
 			}
-			free(update_pkg);
 		}else{
 			/* install from list */
 			if( (install_pkg(global_config,pkg)) == -1 ){
@@ -59,7 +65,9 @@ void jaospkg_install(const rc_config *global_config,const char *pkg_name){
 
 	}
 
-	free(pkg);
+	free_pkg_list(installed);
+	free_pkg_list(upgrades);
+	free_pkg_list(current);
 	return;
 }
 
@@ -99,16 +107,20 @@ void jaospkg_list_installed(void){
 
 /* remove/uninstall pkg */
 void jaospkg_remove(const char *pkg_name){
-	pkg_info *pkg;
+	pkg_info_t *pkg;
+	struct pkg_list *installed;
 
-	if( (pkg = get_newest_installed_pkg(pkg_name)) != NULL ){
+	installed = get_installed_pkgs();
+
+	if( (pkg = get_newest_pkg(installed->pkgs,pkg_name,installed->pkg_count)) != NULL ){
 		if( (remove_pkg(pkg)) == -1 ){
 			fprintf(stderr,"Failed to remove %s.\n",pkg_name);
 		}
-		free(pkg);
 	}else{
 		printf("%s is not installed.\n",pkg_name);
 	}
+
+	free_pkg_list(installed);
 }
 
 /* search for a pkg (support extended POSIX regex) */
@@ -150,18 +162,24 @@ void jaospkg_search(const char *pattern){
 
 /* show the details for a specific package */
 void jaospkg_show(const char *pkg_name){
-	pkg_info *pkg;
-	pkg = lookup_pkg(pkg_name);
+	pkg_info_t *pkg;
+	struct pkg_list *available_pkgs;
+
+	available_pkgs = parse_pkg_list();
+
+	pkg = get_newest_pkg(available_pkgs->pkgs,pkg_name,available_pkgs->pkg_count);
+
 	if( pkg != NULL ){
 		printf("Package Name: %s\n",pkg->name);
 		printf("Package Location: %s\n",pkg->location);
 		printf("Package version: %s\n",pkg->version);
 		printf("Package Description:\n");
 		printf("%s",pkg->description);
-		free(pkg);
 	}else{
 		printf("No such package: %s\n",pkg_name);
 	}
+
+	free_pkg_list(available_pkgs);
 }
 
 /* update package data from mirror url */
@@ -184,12 +202,15 @@ void jaospkg_update(const rc_config *global_config){
 
 /* upgrade pkg */
 /* flesh me out so that jaospkg_upgrade_all() calls me */
-void jaospkg_upgrade(const rc_config *global_config,pkg_info *installed_pkg){
-	pkg_info *update_pkg;
+void jaospkg_upgrade(const rc_config *global_config,pkg_info_t *installed_pkg){
+	pkg_info_t *update_pkg;
+	struct pkg_list *update_pkgs;
 	int cmp_result;
 
+	update_pkgs = parse_update_pkg_list();
+
 	/* if we found an update, make sure it's version is greater */
-	if( (update_pkg = get_newest_update_pkg(installed_pkg->name)) != NULL ){
+	if( (update_pkg = get_newest_pkg(update_pkgs->pkgs,installed_pkg->name,update_pkgs->pkg_count)) != NULL ){
 
 		cmp_result = strcmp(installed_pkg->version,update_pkg->version);
 
@@ -205,11 +226,11 @@ void jaospkg_upgrade(const rc_config *global_config,pkg_info *installed_pkg){
 				printf("%s is up to date.\n",installed_pkg->name);
 			}
 		}
-		free(update_pkg);
 	}else{
 		printf("%s is already the newest version.\n",installed_pkg->name);
 	}
 
+	free_pkg_list(update_pkgs);
 }
 
 /* upgrade all installed pkgs with available updates */
@@ -219,8 +240,8 @@ void jaospkg_upgrade_all(const rc_config *global_config){
 	struct pkg_list *installed_pkgs;
 	struct pkg_list *update_pkgs;
 	struct pkg_list *current_pkgs;
-	pkg_info *update_pkg;
-	pkg_info *current_pkg;
+	pkg_info_t *update_pkg;
+	pkg_info_t *current_pkg;
 
 	/* faster here to retrieve the listings once */
 	/* then use get_newest_pkg() to pull newest from each list */
@@ -274,8 +295,6 @@ void jaospkg_upgrade_all(const rc_config *global_config){
 					}/* end if current_pkg */
 				}
 			} /* end version check */
-
-			free(update_pkg);
 
 		}/* end upgrade pkg found */
 

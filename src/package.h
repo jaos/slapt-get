@@ -38,9 +38,9 @@ struct _pkg_info {
 	int size_u;
 	char description[1024];
 };
-typedef struct _pkg_info pkg_info;
+typedef struct _pkg_info pkg_info_t;
 struct pkg_list {
-	pkg_info **pkgs;
+	pkg_info_t **pkgs;
 	int pkg_count;
 };
 
@@ -54,21 +54,15 @@ struct pkg_list *get_installed_pkgs(void);
 /* return list of update pkgs */
 struct pkg_list *parse_update_pkg_list(void);
 /* generate a short description */
-char *gen_short_pkg_description(pkg_info *);
-/* retrieve the newest pkg from pkg_info list */
-pkg_info *get_newest_pkg(pkg_info **,const char *,int);
-/* retrieve newest installed pkg */
-pkg_info *get_newest_installed_pkg(const char *);
-/* retrieve newest update pkg */
-pkg_info *get_newest_update_pkg(const char *);
-/* pull pkg from pkg data */
-pkg_info *lookup_pkg(const char *);
+char *gen_short_pkg_description(pkg_info_t *);
+/* retrieve the newest pkg from pkg_info_t list */
+pkg_info_t *get_newest_pkg(pkg_info_t **,const char *,int);
 /* install pkg */
-int install_pkg(const rc_config *,pkg_info *);
+int install_pkg(const rc_config *,pkg_info_t *);
 /* upgrade pkg */
-int upgrade_pkg(const rc_config *,pkg_info *);
+int upgrade_pkg(const rc_config *,pkg_info_t *);
 /* remove pkg */
-int remove_pkg(pkg_info *);
+int remove_pkg(pkg_info_t *);
 /* free memory allocated for pkg_list struct */
 void free_pkg_list(struct pkg_list *);
 /* exclude pkg based on pkg name */

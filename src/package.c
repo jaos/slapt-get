@@ -29,7 +29,7 @@ struct pkg_list *parse_pkg_list(void){
 	char *getline_buffer = NULL;
 	char *size_c = NULL;
 	char *size_u = NULL;
-	pkg_info **realloc_tmp;
+	pkg_info_t **realloc_tmp;
 	struct pkg_list *list;
 
 	list = calloc( 1 , sizeof *list );
@@ -49,6 +49,8 @@ struct pkg_list *parse_pkg_list(void){
 		fprintf(stderr,"Failed to calloc pkgs\n");
 		exit(1);
 	}
+	list->pkg_count = 0;
+
 	while( (bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh) ) != EOF ){
 		getline_buffer[bytes_read - 1] = '\0';
 
@@ -186,24 +188,24 @@ struct pkg_list *parse_pkg_list(void){
 	return list;
 }
 
-char *gen_short_pkg_description(pkg_info *pkg){
+char *gen_short_pkg_description(pkg_info_t *pkg){
 	char *short_description = NULL;
-	short_description = calloc(
-		strlen(pkg->description) - strlen(pkg->name) + 2
-			- strlen( strchr(pkg->description,'\n') ) + 1,
-		sizeof *short_description
-	);
+	size_t string_size = 0;
+
+	string_size = strlen(pkg->description) - (strlen(pkg->name) + 2) - strlen( strchr(pkg->description,'\n') );
+
+	short_description = calloc( string_size + 1 , sizeof *short_description );
 	if( short_description == NULL ){
 		fprintf(stderr,"Failed to calloc short_description\n");
 		exit(1);
 	}
+
 	short_description = memcpy(
 		short_description,
 		pkg->description + (strlen(pkg->name) + 2),
-		strlen(pkg->description) - (strlen(pkg->name) + 2)
-			- strlen( strchr(pkg->description,'\n') )
+		string_size
 	);
-	short_description[ strlen(short_description) ] = '\0';
+	short_description[ string_size ] = '\0';
 
 	return short_description;
 }
@@ -216,7 +218,7 @@ struct pkg_list *get_installed_pkgs(void){
 	size_t nmatch = MAX_NMATCH;
 	regmatch_t pmatch[MAX_PMATCH];
 	int regexec_return;
-	pkg_info **realloc_tmp;
+	pkg_info_t **realloc_tmp;
 	struct pkg_list *list;
 
 	list = calloc( 1 , sizeof *list );
@@ -251,8 +253,8 @@ struct pkg_list *get_installed_pkgs(void){
 
 	while( (file = readdir(pkg_log_dir)) != NULL ){
 		if( ( regexec(&regex,file->d_name,nmatch,pmatch,0) ) == 0 ){
-			pkg_info *existing_pkg = NULL;
-			pkg_info *tmp_pkg;
+			pkg_info_t *existing_pkg = NULL;
+			pkg_info_t *tmp_pkg;
 			tmp_pkg = calloc( 1 , sizeof *tmp_pkg );
 			if( tmp_pkg == NULL ){
 				fprintf(stderr,"Failed to calloc tmp_pkg\n");
@@ -265,13 +267,13 @@ struct pkg_list *get_installed_pkgs(void){
 				file->d_name + pmatch[1].rm_so,
 				pmatch[1].rm_eo - pmatch[1].rm_so
 			);
-			tmp_pkg->name[ pmatch[1].rm_eo - pmatch[1].rm_so + 1 ] = '\0';
+			tmp_pkg->name[ pmatch[1].rm_eo - pmatch[1].rm_so ] = '\0';
 			memcpy(
 				tmp_pkg->version,
 				file->d_name + pmatch[2].rm_so,
 				pmatch[2].rm_eo - pmatch[2].rm_so
 			);
-			tmp_pkg->version[ pmatch[2].rm_eo - pmatch[2].rm_so + 1 ] = '\0';
+			tmp_pkg->version[ pmatch[2].rm_eo - pmatch[2].rm_so ] = '\0';
 
 			/* add if no existing_pkg or tmp_pkg has greater version */
 			if( ((existing_pkg = get_newest_pkg(list->pkgs,tmp_pkg->name,list->pkg_count)) == NULL)
@@ -308,52 +310,21 @@ struct pkg_list *get_installed_pkgs(void){
 	return list;
 }
 
-/* the foundation function... used directly or via lazy functions */
-pkg_info *get_newest_pkg(pkg_info **pkgs,const char *pkg_name,int pkg_count){
+/* lookup newest package from pkg_list */
+pkg_info_t *get_newest_pkg(pkg_info_t **pkgs,const char *pkg_name,int pkg_count){
 	int iterator;
-	pkg_info *pkg = NULL;
+	pkg_info_t *pkg = NULL;
 	for(iterator = 0; iterator < pkg_count; iterator++ ){
 
 		/* if pkg has same name as our requested pkg */
 		if( (strcmp(pkgs[iterator]->name,pkg_name)) == 0 ){
 
-			if( pkg == NULL ){
-				if( (pkg = calloc(1 , sizeof *pkg)) == NULL ){
-					fprintf(stderr,"Failed to calloc pkg\n");
-					exit(0);
-				}
-			}
-
-			if( strcmp(pkg->version,pkgs[iterator]->version) < 0 ){
-				pkg = memcpy(pkg,pkgs[iterator] , sizeof *pkgs[iterator] );
+			if( (pkg == NULL) || strcmp(pkg->version,pkgs[iterator]->version) < 0 ){
+				pkg = pkgs[iterator];
 			}
 		}
 
 	}
-	return pkg;
-}
-
-/* lazy func to get newest version of installed by name */
-pkg_info *get_newest_installed_pkg(const char *pkg_name){
-	pkg_info *pkg = NULL;
-	struct pkg_list *installed_pkgs = NULL;
-
-	installed_pkgs = get_installed_pkgs();
-	pkg = get_newest_pkg(installed_pkgs->pkgs,pkg_name,installed_pkgs->pkg_count);
-
-	free_pkg_list(installed_pkgs);
-	return pkg;
-}
-
-/* lazy func to get newest version of update by name */
-pkg_info *get_newest_update_pkg(const char *pkg_name){
-	pkg_info *pkg = NULL;
-	struct pkg_list *update_pkgs = NULL;
-
-	update_pkgs = parse_update_pkg_list();
-	pkg = get_newest_pkg(update_pkgs->pkgs,pkg_name,update_pkgs->pkg_count);
-
-	free_pkg_list(update_pkgs);
 	return pkg;
 }
 
@@ -366,7 +337,7 @@ struct pkg_list *parse_update_pkg_list(void){
 	size_t nmatch = MAX_NMATCH;
 	regmatch_t pmatch[MAX_PMATCH];
 	char *getline_buffer = NULL;
-	pkg_info **realloc_tmp;
+	pkg_info_t **realloc_tmp;
 	struct pkg_list *list;
 
 	list = malloc( sizeof *list );
@@ -384,7 +355,6 @@ struct pkg_list *parse_update_pkg_list(void){
 
 	while( (bytes_read = getline(&getline_buffer,&getline_len,fh)) != EOF ){
 		if( (strstr(getline_buffer,"/packages/")) != NULL ){
-			getline_buffer[ bytes_read ] = '\0';
 
 			if( (regexec( &regex, getline_buffer, nmatch, pmatch, 0)) == 0 ){
 
@@ -454,33 +424,7 @@ struct pkg_list *parse_update_pkg_list(void){
 }
 
 
-/* lazy func to get newest version of pkg by name */
-pkg_info *lookup_pkg(const char *pkg_name){
-	pkg_info *pkg = NULL;
-	struct pkg_list *pkgs = NULL;
-	int iterator;
-
-	pkgs = parse_pkg_list();
-
-	/* printf("About to show the details for %s\n",pkg_name); */
-	for(iterator = 0; iterator < pkgs->pkg_count; iterator++ ){
-		if( strcmp(pkgs->pkgs[iterator]->name,pkg_name) == 0 ){
-			if( pkg == NULL ){
-				pkg = malloc( sizeof *pkg );
-				if( pkg == NULL ){
-					fprintf(stderr,"Failed to malloc pkg\n");
-					exit(0);
-				}
-			}
-			memcpy(pkg,pkgs->pkgs[iterator] , sizeof *pkgs->pkgs[iterator] );
-		}
-	}
-
-	free_pkg_list(pkgs);
-	return pkg;
-}
-
-int install_pkg(const rc_config *global_config,pkg_info *pkg){
+int install_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	char *pkg_file_name = NULL;
 	char *command = NULL;
 	char *cwd = NULL;
@@ -515,7 +459,7 @@ int install_pkg(const rc_config *global_config,pkg_info *pkg){
 	return cmd_return;
 }
 
-int upgrade_pkg(const rc_config *global_config,pkg_info *pkg){
+int upgrade_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	char *pkg_file_name = NULL;
 	char *command = NULL;
 	char *cwd = NULL;
@@ -565,7 +509,7 @@ int upgrade_pkg(const rc_config *global_config,pkg_info *pkg){
 	return cmd_return;
 }
 
-int remove_pkg(pkg_info *pkg){
+int remove_pkg(pkg_info_t *pkg){
 	char *command = NULL;
 	int cmd_return;
 
