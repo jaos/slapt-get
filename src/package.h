@@ -147,5 +147,5 @@ struct pkg_list *is_required_by(const rc_config *global_config,struct pkg_list *
 /* empty packages from cache dir */
 void clean_pkg_dir(const char *dir_name);
 /* clean out old outdated packages in the cache */
-void purge_old_cached_pkgs(const char *dir_name);
+void purge_old_cached_pkgs(const rc_config *global_config,char *dir_name, struct pkg_list *avail_pkgs);
 

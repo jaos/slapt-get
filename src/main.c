@@ -260,7 +260,7 @@ int main( int argc, char *argv[] ){
 			version_info();
 			break;
 		case AUTOCLEAN:
-			purge_old_cached_pkgs(global_config->working_dir, NULL);
+			purge_old_cached_pkgs(global_config, NULL, NULL);
 			break;
 		case USAGE:
 		default:

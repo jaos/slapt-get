@@ -2027,22 +2027,24 @@ static char *gen_filename_from_url(const char *url,const char *file){
 	return cleaned;
 }
 
-void purge_old_cached_pkgs(const char *dir_name){
+void purge_old_cached_pkgs(const rc_config *global_config,char *dir_name,struct pkg_list *avail_pkgs){
 	DIR *dir;
 	struct dirent *file;
 	struct stat file_stat;
-	struct pkg_list *list;
 	sg_regex cached_pkgs_regex;
 
-	list = init_pkg_list();
+	if( avail_pkgs == NULL ) avail_pkgs = get_available_pkgs();
+	if( dir_name == NULL ) dir_name = (char *)global_config->working_dir;
 	init_regex(&cached_pkgs_regex,PKG_PARSE_REGEX);
 
 	if( (dir = opendir(dir_name)) == NULL ){
+		if( errno ) perror(dir_name);
 		fprintf(stderr,_("Failed to opendir %s\n"),dir_name);
 		return;
 	}
 
 	if( chdir(dir_name) == -1 ){
+		if( errno ) perror(dir_name);
 		fprintf(stderr,_("Failed to chdir: %s\n"),dir_name);
 		return;
 	}
@@ -2059,7 +2061,7 @@ void purge_old_cached_pkgs(const char *dir_name){
 
 		/* if its a directory, recurse */
 		if( S_ISDIR(file_stat.st_mode) ){
-			purge_old_cached_pkgs(file->d_name);
+			purge_old_cached_pkgs(global_config,file->d_name,avail_pkgs);
 			if( (chdir("..")) == -1 ){
 				fprintf(stderr,_("Failed to chdir: %s\n"),dir_name);
 				return;
@@ -2077,7 +2079,6 @@ void purge_old_cached_pkgs(const char *dir_name){
 				char *tmp_pkg_name,*tmp_pkg_version;
 				pkg_info_t *tmp_pkg;
 
-				tmp_pkg = init_pkg();
 				tmp_pkg_name = malloc( sizeof *tmp_pkg_name * NAME_LEN + 1);
 				tmp_pkg_version = malloc( sizeof *tmp_pkg_version * VERSION_LEN + 1);
 
@@ -2109,18 +2110,16 @@ void purge_old_cached_pkgs(const char *dir_name){
 					cached_pkgs_regex.pmatch[2].rm_eo - cached_pkgs_regex.pmatch[2].rm_so
 				] = '\0';
 
-				tmp_pkg = get_newest_pkg(list,tmp_pkg_name);
+				tmp_pkg = get_exact_pkg(avail_pkgs,tmp_pkg_name,tmp_pkg_version);
 				if( tmp_pkg == NULL ){
-					tmp_pkg = init_pkg();
-					strcpy(tmp_pkg->name,tmp_pkg_name);
-					strcpy(tmp_pkg->version,tmp_pkg_version);
-					add_pkg_to_pkg_list(list,tmp_pkg);
-					tmp_pkg = NULL;
-					continue;
-				}
-				
-				if( cmp_pkg_versions(tmp_pkg_version,tmp_pkg->version) < 0 ){
-					unlink(file->d_name);
+
+					if(global_config->no_prompt == 1 ){
+							unlink(file->d_name);
+					}else{
+						if( ask_yes_no(_("Delete %s ? [y/N]"), file->d_name) == 1 )
+							unlink(file->d_name);
+					}
+
 				}
 				tmp_pkg = NULL;
 
@@ -2132,7 +2131,6 @@ void purge_old_cached_pkgs(const char *dir_name){
 	closedir(dir);
 
 	free_regex(&cached_pkgs_regex);
-	free_pkg_list(list);
 
 }
 
