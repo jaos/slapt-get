@@ -13,6 +13,7 @@
    won't reinstall without --reinstall.
  * updated FAQ with ENV PATH sudo question
  * fixed bug in dist-upgrade dep check loop exiting early
+ * cleaned up src/action.c, moved redundant code into add_deps_to_trans()
 
 0.9.7h Dec 08, 2003
  * updated FAQ

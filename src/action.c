@@ -112,47 +112,12 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 
 		/* if it's not already installed, install it */
 		if( installed_pkg == NULL ){
-			int c;
-			struct pkg_list *deps;
 
-			deps = lookup_pkg_dependencies(global_config,all,installed,pkg);
-
-			/* check to see if there where issues with dep checking */
-			if( (deps->pkg_count == -1) && (global_config->no_dep == 0) ){
-
-				/* exclude the package if dep check barfed */
-				printf("Excluding %s, use --no-dep to override\n",pkg->name);
-				add_exclude_to_transaction(&tran,pkg);
-
-			}else{
-
-				/* loop through the deps */
-				for(c = 0; c < deps->pkg_count;c++){
-
-					/* only check if it's not already present in trans */
-					if( search_transaction(&tran,deps->pkgs[c]) == 0 ){
-						pkg_info_t *dep_installed;
-
-						if( (dep_installed = get_newest_pkg(installed,deps->pkgs[c]->name)) == NULL ){
-							add_install_to_transaction(&tran,deps->pkgs[c]);
-						}else{
-							/* add only if its a valid upgrade */
-							if(cmp_pkg_versions(dep_installed->version,deps->pkgs[c]->version) < 0 )
-								add_upgrade_to_transaction(&tran,dep_installed,deps->pkgs[c]);
-						}
-
-					}
-
-				}/* end for loop */
-
-				/* this way we install the most up to date pkg */
-				/* make sure it's not already present from a dep check */
-				if( search_transaction(&tran,pkg) == 0 )
-					add_install_to_transaction(&tran,pkg);
-
-			}
-			free(deps->pkgs);
-			free(deps);
+				if( add_deps_to_trans(global_config,&tran,all,installed,pkg) == 0 ){
+					/* this way we install the most up to date pkg */
+					/* make sure it's not already present from a dep check */
+					if( search_transaction(&tran,pkg) == 0 ) add_install_to_transaction(&tran,pkg);
+				}
 
 		}else{ /* else we upgrade or reinstall */
 
@@ -161,43 +126,11 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 				((cmp_pkg_versions(installed_pkg->version,pkg->version)) < 0)
 				|| (global_config->re_install == 1)
 			){
-				int c;
-				struct pkg_list *deps;
 
-				deps = lookup_pkg_dependencies(global_config,all,installed,pkg);
-
-				/* check to see if there where issues with dep checking */
-				if( (deps->pkg_count == -1) && (global_config->no_dep == 0 ) ){
-
-					/* exclude the package if dep check barfed */
-					printf("Excluding %s, use --no-dep to override\n",pkg->name);
-					add_exclude_to_transaction(&tran,pkg);
-
-				}else{
-
-					/* loop through the deps */
-					for(c = 0; c < deps->pkg_count;c++){
-
-						/* only check if it's not already present in trans */
-						if( search_transaction(&tran,deps->pkgs[c]) == 0 ){
-							pkg_info_t *dep_installed;
-							if( (dep_installed = get_newest_pkg(installed,deps->pkgs[c]->name)) == NULL ){
-								add_install_to_transaction(&tran,deps->pkgs[c]);
-							}else{
-								/* add only if its a valid upgrade */
-								if(cmp_pkg_versions(dep_installed->version,deps->pkgs[c]->version) < 0 )
-									add_upgrade_to_transaction(&tran,installed_pkg,deps->pkgs[c]);
-							}
-						}
-
-					}
+				if( add_deps_to_trans(global_config,&tran,all,installed,pkg) == 0 ){
 					/* make sure it's not already present from a dep check */
-					if( search_transaction(&tran,pkg) == 0 )
-						add_upgrade_to_transaction(&tran,installed_pkg,pkg);
-
+					if( search_transaction(&tran,pkg) == 0 ) add_upgrade_to_transaction(&tran,installed_pkg,pkg);
 				}
-				free(deps->pkgs);
-				free(deps);
 
 			}else{
 				printf(_("%s is up to date.\n"),installed_pkg->name);
@@ -436,41 +369,10 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 
 			/* if the update has a newer version, attempt to upgrade */
 			if( (cmp_pkg_versions(installed_pkgs->pkgs[i]->version,update_pkg->version)) < 0
-				|| (global_config->re_install == 1) ){
-				int c;
-				struct pkg_list *deps;
+				|| (global_config->re_install == 1)
+			){
 
-				deps = lookup_pkg_dependencies(global_config,all_pkgs,installed_pkgs,update_pkg);
-
-				/* check to see if there where issues with dep checking */
-				if( (deps->pkg_count == -1) && (global_config->no_dep == 0) ){
-
-					/* exclude the package if dep check barfed */
-					printf("Excluding %s, use --no-dep to override\n",update_pkg->name);
-					add_exclude_to_transaction(&tran,update_pkg);
-
-				}else{
-
-					/* loop through deps */
-					for(c = 0; c < deps->pkg_count;c++){
-
-						/* only check deps that aren't already present */
-						if( search_transaction(&tran,deps->pkgs[c]) == 0 ){
-							pkg_info_t *dep_installed;
-
-							if( (dep_installed = get_newest_pkg(installed_pkgs,deps->pkgs[c]->name)) == NULL ){
-								add_install_to_transaction(&tran,deps->pkgs[c]);
-							}else{
-								/* add upgrade if newer */
-								if(cmp_pkg_versions(dep_installed->version,deps->pkgs[c]->version) < 0
-									|| (global_config->re_install == 1) )
-									add_upgrade_to_transaction(&tran,dep_installed,deps->pkgs[c]);
-							}
-
-						}
-
-					}/* end for loop */
-
+				if( add_deps_to_trans(global_config,&tran,all_pkgs,installed_pkgs,update_pkg) == 0 ){
 					/* add if it's not already present in trans */
 					if( search_transaction(&tran,update_pkg) == 0 ){
 						if( is_excluded(global_config,update_pkg) == 1 ){
@@ -479,10 +381,8 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 							add_upgrade_to_transaction(&tran,installed_pkgs->pkgs[i],update_pkg);
 						}
 					}
-
 				}
-				free(deps->pkgs);
-				free(deps);
+
 			}
 
 		}/* end upgrade pkg found */
@@ -507,44 +407,13 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 				if( is_excluded(global_config,matches->pkgs[i]) == 1 ){
 					add_exclude_to_transaction(&tran,matches->pkgs[i]);
 				}else{
-					int c;
-					struct pkg_list *deps;
 
-					deps = lookup_pkg_dependencies(global_config,all_pkgs,installed_pkgs,matches->pkgs[i]);
-
-					/* check to see if there where issues with dep checking */
-					if( (deps->pkg_count == -1) && (global_config->no_dep == 0) ){
-						/* exclude the package if dep check barfed */
-						printf("Excluding %s, use --no-dep to override\n",matches->pkgs[i]->name);
-						add_exclude_to_transaction(&tran,matches->pkgs[i]);
-					}else{
-
-						/* loop through deps */
-						for(c = 0; c < deps->pkg_count;c++){
-
-							/* only check deps that aren't already present */
-							if( search_transaction(&tran,deps->pkgs[c]) == 0 ){
-								pkg_info_t *dep_installed;
-
-								if( (dep_installed = get_newest_pkg(installed_pkgs,deps->pkgs[c]->name)) == NULL ){
-									add_install_to_transaction(&tran,deps->pkgs[c]);
-								}else{
-									/* add upgrade if newer */
-									if(cmp_pkg_versions(dep_installed->version,deps->pkgs[c]->version) < 0 
-										|| (global_config->re_install == 1) )
-										add_upgrade_to_transaction(&tran,dep_installed,deps->pkgs[c]);
-								}
-							}
-
-						}/* end for loop */
-
+					if( add_deps_to_trans(global_config,&tran,all_pkgs,installed_pkgs,matches->pkgs[i]) == 0 ){
 						/* add if it's not already present in trans */
 						if( search_transaction(&tran,matches->pkgs[i]) == 0 )
 							add_install_to_transaction(&tran,matches->pkgs[i]);
-
 					}
-					free(deps->pkgs);
-					free(deps);
+
 				}
 			}
 
@@ -560,5 +429,51 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 	handle_transaction(global_config,&tran);
 
 	free_transaction(&tran);
+}
+
+/* parse the dependencies for a package, and add them to the transaction as needed */
+int add_deps_to_trans(const rc_config *global_config, transaction *tran, struct pkg_list *avail_pkgs, struct pkg_list *installed_pkgs, pkg_info_t *pkg){
+	int c;
+	struct pkg_list *deps;
+
+	deps = lookup_pkg_dependencies(global_config,avail_pkgs,installed_pkgs,pkg);
+
+	/* check to see if there where issues with dep checking */
+	/* exclude the package if dep check barfed */
+	if( (deps->pkg_count == -1) && (global_config->no_dep == 0) ){
+		printf("Excluding %s, use --no-dep to override\n",pkg->name);
+		add_exclude_to_transaction(tran,pkg);
+		return 1;
+	}
+
+	/* loop through the deps */
+	for(c = 0; c < deps->pkg_count;c++){
+
+		/* only check if it's not already present in trans */
+		if( search_transaction(tran,deps->pkgs[c]) == 0 ){
+
+			pkg_info_t *dep_installed;
+
+			if( (dep_installed = get_newest_pkg(installed_pkgs,deps->pkgs[c]->name)) == NULL ){
+
+				add_install_to_transaction(tran,deps->pkgs[c]);
+
+			}else{
+
+				/* add only if its a valid upgrade */
+				if(cmp_pkg_versions(dep_installed->version,deps->pkgs[c]->version) < 0
+					|| (global_config->re_install == 1) )
+					add_upgrade_to_transaction(tran,dep_installed,deps->pkgs[c]);
+
+			}
+
+		}
+
+	}
+
+	free(deps->pkgs);
+	free(deps);
+
+	return 0;
 }
 
