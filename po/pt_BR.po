@@ -439,18 +439,18 @@ msgstr "imprimir apenas URIs, não fazer o download"
 
 #, c-format
 msgid "Package MD5 Sum:  %s\n"
-msgstr "Package MD5 Sum:  %s\n"
+msgstr "MD5 Sum do Pacote:  %s\n"
 
 #, c-format
 msgid "md5 sum too long [%s %s:%d]\n"
-msgstr "md5 sum too long [%s %s:%d]\n"
+msgstr "md5 sum muito longo [%s %s:%d]\n"
 
 #, c-format
 msgid "conflict too long [%s:%d]\n"
-msgstr "conflict too long [%s:%d]\n"
+msgstr "conflito muito longo [%s:%d]\n"
 
 msgid "Reading Package Lists..."
-msgstr "Reading Package Lists..."
+msgstr "Lendo Listas de Pacotes..."
 
 #, c-format
 msgid "Download of %s incomplete\n"
