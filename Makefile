@@ -32,6 +32,7 @@ install: $(PROGRAM_NAME)
 	gzip -f /usr/man/man8/$(PROGRAM_NAME).8
 	install -d /var/$(PROGRAM_NAME)
 	if [ ! -d $(LOCALESDIR)/en ]; then mkdir -p $(LOCALESDIR)/en/LC_MESSAGES; fi; msgfmt -o $(LOCALESDIR)/en/LC_MESSAGES/slapt-get.mo po/en.po;
+	if [ ! -d $(LOCALESDIR)/pl ]; then mkdir -p $(LOCALESDIR)/pl/LC_MESSAGES; fi; msgfmt -o $(LOCALESDIR)/pl/LC_MESSAGES/slapt-get.mo po/pl.po;
 	cp po/slapt-get.pot $(LOCALESDIR)/
 	if [ ! -d /usr/doc/$(PROGRAM_NAME)-$(VERSION) ]; then mkdir /usr/doc/$(PROGRAM_NAME)-$(VERSION); fi
 	cp example.slapt-getrc COPYING Changelog INSTALL README FAQ TODO /usr/doc/$(PROGRAM_NAME)-$(VERSION)/
@@ -66,6 +67,7 @@ pkg: $(PROGRAM_NAME) libs
 	-@mkdir -p pkg/usr/man/man8
 	-@mkdir -p pkg$(LOCALESDIR)
 	-@mkdir -p pkg$(LOCALESDIR)/en/LC_MESSAGES; msgfmt -o pkg$(LOCALESDIR)/en/LC_MESSAGES/slapt-get.mo po/en.po
+	-@mkdir -p pkg$(LOCALESDIR)/pl/LC_MESSAGES; msgfmt -o pkg$(LOCALESDIR)/pl/LC_MESSAGES/slapt-get.mo po/pl.po
 	-@cp $(PROGRAM_NAME) ./pkg/sbin/
 	-@cp po/slapt-get.pot pkg$(LOCALESDIR)/
 	-@strip ./pkg/sbin/$(PROGRAM_NAME)
