@@ -420,9 +420,10 @@ struct pkg_list *get_update_pkgs(void){
 			);
 			if( up_regex.reg_return == 0 ){
 
-				list->pkgs[list->pkg_count] = malloc( sizeof *list->pkgs[list->pkg_count] );
+				/* find out why malloc isn't working here... mem leak somewhere */
+				list->pkgs[list->pkg_count] = calloc( 1, sizeof *list->pkgs[list->pkg_count] );
 				if( list->pkgs[list->pkg_count] == NULL ){
-					fprintf(stderr,"Failed to malloc list->pkgs[list->pkg_count]\n");
+					fprintf(stderr,"Failed to calloc list->pkgs[list->pkg_count]\n");
 					exit(1);
 				}
 

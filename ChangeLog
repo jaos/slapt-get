@@ -1,5 +1,5 @@
 
-0.9.5d Oct 08, 2003
+0.9.5d Oct 09, 2003
  * added initial slack-required for future dependancy support
  * added lilo to example slapt-getrc exclude list
  * improved regex within package.h
@@ -9,6 +9,7 @@
  * formatting updates
  * actually call regfree() for all regex_t
  * introduced a DO_NOT_UNLINK_BAD_FILES macro within include/main.h
+ * changed malloc back to calloc (src/package.c, line 423)
 
 0.9.5c Oct 04, 2003
  * removed bad free() in get_installed_pkgs()
