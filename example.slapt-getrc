@@ -42,6 +42,10 @@ SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-10.0/
 #SOURCE=ftp://ftp.scarlet.be/pub/linuxpackages/Slackware-10.0/
 # * no current with linuxpackages.net
 
+# audioslack sources
+#SOURCE=http://www.audioslack.com/packages/9.1
+#SOURCE=http://www.audioslack.com/packages/10.0
+
 # slackware testing and extra 
 #SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-10.0/extra/
 #SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-10.0/testing
