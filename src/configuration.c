@@ -277,7 +277,6 @@ int is_excluded(rc_config *global_config,char *pkg_name){
 		*/
 		if( (strncmp(global_config->exclude_list->excludes[i],pkg_name,strlen(pkg_name)) == 0)
 			&& (strlen(global_config->exclude_list->excludes[i]) - strlen(pkg_name) < 2) ){
-			printf("excluding %s\n",pkg_name);
 			return 1;
 		}
 	}

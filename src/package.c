@@ -566,8 +566,10 @@ int upgrade_pkg(rc_config *global_config,pkg_info *pkg){
 	int cmd_return = 0;
 
 	/* skip if excluded */
-	if( is_excluded(global_config,pkg->name) == 1 )
+	if( is_excluded(global_config,pkg->name) == 1 ){
+		printf("excluding %s\n",pkg_name);
 		return 0;
+	}
 
 	if( global_config->simulate == 1 ){
 		printf("%s is to be upgraded to version %s\n",pkg->name,pkg->version);
