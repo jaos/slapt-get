@@ -30,8 +30,8 @@ install: $(PROGRAM_NAME) libs
 	install $(PROGRAM_NAME).8 /usr/man/man8/
 	gzip -f /usr/man/man8/$(PROGRAM_NAME).8
 	install -d /var/$(PROGRAM_NAME)
-	if [ ! -d $(LOCALESDIR)/en ]; then mkdir -p $(LOCALESDIR)/en/LC_MESSAGES; fi; msgfmt -o $(LOCALESDIR)/en/LC_MESSAGES/slapt-get.mo po/en.po;
-	if [ ! -d $(LOCALESDIR)/pl ]; then mkdir -p $(LOCALESDIR)/pl/LC_MESSAGES; fi; msgfmt -o $(LOCALESDIR)/pl/LC_MESSAGES/slapt-get.mo po/pl.po;
+	if [ ! -d $(LOCALESDIR)/en/LC_MESSAGES ]; then mkdir -p $(LOCALESDIR)/en/LC_MESSAGES; fi; msgfmt -o $(LOCALESDIR)/en/LC_MESSAGES/slapt-get.mo po/en.po;
+	if [ ! -d $(LOCALESDIR)/pl/LC_MESSAGES ]; then mkdir -p $(LOCALESDIR)/pl/LC_MESSAGES; fi; msgfmt -o $(LOCALESDIR)/pl/LC_MESSAGES/slapt-get.mo po/pl.po;
 	if [ ! -d /usr/doc/$(PROGRAM_NAME)-$(VERSION) ]; then mkdir /usr/doc/$(PROGRAM_NAME)-$(VERSION); fi
 	cp example.slapt-getrc COPYING Changelog INSTALL README FAQ TODO /usr/doc/$(PROGRAM_NAME)-$(VERSION)/
 	cp include/slapt.h /usr/include/
