@@ -10,6 +10,7 @@
    version to be checked, instead of just the name during the initial upgrade check)
    This is useful for excluding versions that contain pre or beta with a regex in the
    exclude such as: [0-9\_\.\-]{1}pre[0-9\-\.\-]{1} or [0-9\_\.\-]{1}beta[0-9\-\.\-]{1}
+ * changed default ftp user:pass to show slapt-get-user@software.jaos.org
 
 0.9.7 Nov 03, 2003
  * parse package require/dep from PACKAGES.TXT
