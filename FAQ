@@ -133,9 +133,9 @@ Frequenty Asked Questions:
 
 10.  What about package dependancies?
 
- Other tools try to provide dependancy checking via various hacks (generating
- the dependancy file, exploding the package, then ldd'ing binary files to find
- missing libraries before consulting the dependancy file).  This is not a
+ Other tools try to provide dependency checking via various hacks (generating
+ the dependency file, exploding the package, then ldd'ing binary files to find
+ missing libraries before consulting the dependency file).  This is not a
  reliable/fool proof method.  It is also extremely slow.
 
  I have sent Pat a request to include a requires field in the PACKAGES.TXT
@@ -181,8 +181,8 @@ Frequenty Asked Questions:
  which could be generated from a file such as: ./install/slack-required .
 
  He has declined the request at this time, citing a "niche" for a
- distribution without "dependancy hell".  I believe leaving out the requirement
- field does not prevent dependancy hell, it hides it, passing the burden
+ distribution without "dependency hell".  I believe leaving out the requirement
+ field does not prevent dependency hell, it hides it, passing the burden
  on to the users and system administrators who simply want to be able to
  quickly install and deploy servers and services.  Yes it is good for new users
  to become familiar with the process of locating and resolving library
@@ -194,7 +194,7 @@ Frequenty Asked Questions:
  (without becoming overly complex or kludgey) they can convince Pat there is
  a need/demand for it.
 
- We are working with the linuxpackages.net crew to integrate dependancy 
+ We are working with the linuxpackages.net crew to integrate dependency data
  with their package listing.
 
 11. What about multiple package sources, ala linuxpackages.net?
