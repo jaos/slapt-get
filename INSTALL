@@ -15,8 +15,8 @@
 
  To install:
 
-  $ make slackpkg
-  $ installpkg ./slackpkg/slapt-get-0.9.tgz
+  $ make pkg
+  $ installpkg ./pkg/slapt-get-0.9.tgz
 
  To uninstall:
 
