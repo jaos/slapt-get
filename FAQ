@@ -58,8 +58,8 @@ Frequenty Asked Questions:
 4.  How do I find a package I want to install?
 
  You can use the --search feature, supplying an expression.  POSIX 
- regular expressions are supported.  This searches the name, location,
- or descriptions of packages.
+ and extendd regular expressions are supported.  This searches the name,
+ location, or descriptions of packages.
 
 5.  Can I upgrade all my installed packages?
 
