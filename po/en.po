@@ -465,3 +465,6 @@ msgstr "Could not find MD5 checksum for %s, override with --no-md5\n"
 msgid "%s, which is required by %s, is excluded\n"
 msgstr "%s, which is required by %s, is excluded\n"
 
+msgid "skip dependency check"
+msgstr "skip dependency check"
+
