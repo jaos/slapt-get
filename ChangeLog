@@ -1,5 +1,6 @@
 
-0.9.9d Oct 28, 2004
+0.9.9d Oct 29, 2004
+ * --install no longer recursively install deps that where excluded
  * updated FAQ, updating #9 concerning dist-upgrade
  * added html version of FAQ, contributed by Piotr Simon
  * polish translation update by Piotr Simon

@@ -93,6 +93,8 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 				/* this way we install the most up to date pkg */
 				if ( is_conflicted(&tran,avail_pkgs,installed_pkgs,pkg) == 0 )
 					add_install_to_transaction(&tran,pkg);
+			}else{
+				add_exclude_to_transaction(&tran,pkg);
 			}
 
 		}else{ /* else we upgrade or reinstall */
@@ -106,6 +108,8 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 				if( add_deps_to_trans(global_config,&tran,avail_pkgs,installed_pkgs,pkg) == 0 ){
 					if ( is_conflicted(&tran,avail_pkgs,installed_pkgs,pkg) == 0 )
 						add_upgrade_to_transaction(&tran,installed_pkg,pkg);
+				}else{
+					add_exclude_to_transaction(&tran,pkg);
 				}
 
 			}else{
@@ -404,6 +408,8 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 						if ( is_conflicted(&tran,avail_pkgs,installed_pkgs,update_pkg) == 0 )
 							add_upgrade_to_transaction(&tran,installed_pkgs->pkgs[i],update_pkg);
 					}
+				}else{
+					add_exclude_to_transaction(&tran,update_pkg);
 				}
 
 			}
@@ -445,6 +451,8 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 					if( add_deps_to_trans(global_config,&tran,avail_pkgs,installed_pkgs,upgrade_pkg) == 0 ){
 						if ( is_conflicted(&tran,avail_pkgs,installed_pkgs,upgrade_pkg) == 0 )
 							add_install_to_transaction(&tran,upgrade_pkg);
+					}else{
+						add_exclude_to_transaction(&tran,upgrade_pkg);
 					}
 
 				}
@@ -462,6 +470,8 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 					if( add_deps_to_trans(global_config,&tran,avail_pkgs,installed_pkgs,upgrade_pkg) == 0 ){
 						if ( is_conflicted(&tran,avail_pkgs,installed_pkgs,upgrade_pkg) == 0 )
 							add_upgrade_to_transaction(&tran,installed_pkg,upgrade_pkg);
+					}else{
+						add_exclude_to_transaction(&tran,upgrade_pkg);
 					}
 				}
 
