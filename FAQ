@@ -454,7 +454,7 @@ Frequenty Asked Questions:
  If you have multiple package source and have multiple entries of a specific
  package, you can specify the full package name and version to --install.
 
- For example, arts is present twice:
+ For example, if arts is present twice:
 
    $ slapt-get --search arts|grep arts
     arts - 1.1-i386-2 : arts (Analog Realtime Synthesizer)
