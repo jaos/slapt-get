@@ -281,6 +281,8 @@ void jaospkg_upgrade_all(const rc_config *global_config){
 
 	}/* end for */
 
+	printf("Done.\n");
+
 	free_pkg_list(current_pkgs);
 	free_pkg_list(installed_pkgs);
 	free_pkg_list(update_pkgs);
