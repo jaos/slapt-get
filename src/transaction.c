@@ -297,7 +297,7 @@ void add_install_to_transaction(transaction_t *tran,pkg_info_t *pkg){
 	pkg_info_t **tmp_list;
 
 	/* don't add if already present in the transaction */
-	if( search_transaction(tran,pkg->name) == 1 ) return;
+	if( search_transaction_by_pkg(tran,pkg) == 1 ) return;
 
 	#if DEBUG == 1
 	printf("adding install of %s-%s@%s to transaction\n",
@@ -330,7 +330,7 @@ void add_remove_to_transaction(transaction_t *tran,pkg_info_t *pkg){
 	pkg_info_t **tmp_list;
 
 	/* don't add if already present in the transaction */
-	if( search_transaction(tran,pkg->name) == 1 ) return;
+	if( search_transaction_by_pkg(tran,pkg) == 1 ) return;
 
 	#if DEBUG == 1
 	printf("adding remove of %s-%s@%s to transaction\n",
@@ -361,7 +361,7 @@ void add_exclude_to_transaction(transaction_t *tran,pkg_info_t *pkg){
 	pkg_info_t **tmp_list;
 
 	/* don't add if already present in the transaction */
-	if( search_transaction(tran,pkg->name) == 1 ) return;
+	if( search_transaction_by_pkg(tran,pkg) == 1 ) return;
 
 	#if DEBUG == 1
 	printf("adding exclude of %s-%s@%s to transaction\n",
@@ -394,7 +394,7 @@ void add_upgrade_to_transaction(
 	pkg_upgrade_t **tmp_list;
 
 	/* don't add if already present in the transaction */
-	if( search_transaction(tran,upgrade_pkg->name) == 1 ) return;
+	if( search_transaction_by_pkg(tran,upgrade_pkg) == 1 ) return;
 
 	#if DEBUG == 1
 	printf("adding upgrade of %s-%s@%s to transaction\n",
@@ -508,7 +508,7 @@ transaction_t *remove_from_transaction(transaction_t *tran,pkg_info_t *pkg){
 	unsigned int i;
 	transaction_t *new_tran = NULL;
 
-	if( search_transaction(tran,pkg->name) == 0 )
+	if( search_transaction_by_pkg(tran,pkg) == 0 )
 		return tran;
 
 	/* since this is a pointer, slapt_malloc before calling init */
@@ -709,5 +709,31 @@ static int disk_space(const rc_config *global_config,int space_needed ){
 	}
 
 	return 0;
+}
+
+int search_transaction_by_pkg(transaction_t *tran,pkg_info_t *pkg){
+	unsigned int i,found = 1, not_found = 0;
+
+	for(i = 0; i < tran->install_pkgs->pkg_count;i++){
+		if(( strcmp(pkg->name,tran->install_pkgs->pkgs[i]->name)==0 )
+		&& (strcmp(pkg->version,tran->install_pkgs->pkgs[i]->version)==0))
+			return found;
+	}
+	for(i = 0; i < tran->upgrade_pkgs->pkg_count;i++){
+		if(( strcmp(pkg->name,tran->upgrade_pkgs->pkgs[i]->upgrade->name)==0 )
+		&& (strcmp(pkg->version,tran->upgrade_pkgs->pkgs[i]->upgrade->version)==0 ))
+			return found;
+	}
+	for(i = 0; i < tran->remove_pkgs->pkg_count;i++){
+		if(( strcmp(pkg->name,tran->remove_pkgs->pkgs[i]->name)==0 )
+		&& (strcmp(pkg->version,tran->remove_pkgs->pkgs[i]->version)==0 ))
+			return found;
+	}
+	for(i = 0; i < tran->exclude_pkgs->pkg_count;i++){
+		if(( strcmp(pkg->name,tran->exclude_pkgs->pkgs[i]->name)==0 )
+		&& (strcmp(pkg->version,tran->exclude_pkgs->pkgs[i]->version)==0 ))
+			return found;
+	}
+	return not_found;
 }
 

@@ -1,5 +1,6 @@
 
 0.9.9h Feb 09, 2005
+ * added search_transaction_by_pkg() to make checks more specific
  * remove package by name-version now possible
  * updated example.slapt-getrc to point to 10.1 sources
  * make sure all dependencies for slapt-get are satisfied during dist-upgrade
