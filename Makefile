@@ -17,7 +17,7 @@ $(OBJS):
 $(PROGNAME): $(OBJS)
 	$(CC) $(CFLAGS) $(CURLFLAGS) -o $(PROGNAME) $(OBJS) src/main.c
 
-$(PROGNAME)-debug:
+$(PROGNAME)-debug: $(OBJS)
 	$(CC) $(CFLAGS) $(CURLFLAGS) $(DEBUGFLAGS) -o $(PROGNAME) $(OBJS) src/main.c
 
 install: jaospkg
