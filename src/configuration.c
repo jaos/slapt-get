@@ -100,11 +100,6 @@ rc_config *read_rc_config(const char *file_name){
 
 		} else if( strstr(getline_buffer,WORKINGDIR_TOKEN) != NULL ){ /* WORKING DIR */
 
-			if( (strlen(getline_buffer) - strlen(WORKINGDIR_TOKEN)) >= WORKINGDIR_TOKEN_LEN ){
-				fprintf(stderr,_("Maximum length of working directory (%d) exceeded.\n"),WORKINGDIR_TOKEN_LEN);
-				return NULL;
-			}
-
 			if( strlen(getline_buffer) > strlen(WORKINGDIR_TOKEN) ){
 				strncpy(
 					global_config->working_dir,
@@ -117,10 +112,6 @@ rc_config *read_rc_config(const char *file_name){
 			}
 
 		}else if( strstr(getline_buffer,EXCLUDE_TOKEN) != NULL ){ /* exclude list */
-			if( (strlen(getline_buffer) - strlen(EXCLUDE_TOKEN)) >= EXCLUDE_TOKEN_LEN ){
-				fprintf(stderr,_("Maximum length of excludes (%d) exceeded.\n"),EXCLUDE_TOKEN_LEN);
-				continue;
-			}
 			global_config->exclude_list = parse_exclude(getline_buffer);
 		}/* end if/else if */
 

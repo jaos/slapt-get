@@ -1,5 +1,6 @@
 
-0.9.9c Sep 25, 2004
+0.9.9c Sep 30, 2004
+ * removed unneeded checks for WORKINGDIR_TOKEN_LEN and EXCLUDE_TOKEN_LEN in configuration parsing (thanks Peter Santoro)
  * added Greek translation by Savvas Eftratiadis
  * updated doinst.sh so that it doesn't try to do an in place file edit
    with sed as Slackware 8.1 and 9.1's sed doesn't support -i.
