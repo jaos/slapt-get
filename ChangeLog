@@ -1,5 +1,7 @@
 
-0.9.9g Jan 18, 2005
+0.9.9g Jan 20, 2005
+ * moved exclude check for installed version of package about to be updated
+   so that packages that where not being upgraded wouldn't show up excluded
  * removed redundant NULL check for available_pkgs and patch_pkgs, added
    free_pkg_list() calls for them in cases where it might not get freed
  * wrapped some open_file() calls in NULL check
@@ -7,8 +9,6 @@
  * updated format for exclude and suggestions during transaction report
  * rewrote add_suggestion() to use a struct instead of long string
  * formatted transaction report so that package names wrap at 80 chars
- * removed duplicate exclude check in upgrade before we check if the package
-   needs to be updated
  * moved slapt-get from /sbin to /usr/sbin
  * show packages excluded in transaction report when --remove-obsolete hits
    excluded packages
