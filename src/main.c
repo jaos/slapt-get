@@ -42,7 +42,6 @@ int main( int argc, char *argv[] ){
 		{"reinstall", 0, 0, 'n'},
 		{"ignore-excludes", 0, 0, 'x'},
 		{"no-md5", 0, 0, '5'},
-		{"interactive", 0, 0, 'f'},
 		{"dist-upgrade",0, 0, 'h'},
 		{"help",0, 0, 'l'},
 		{"h",0, 0, 'l'},
@@ -116,9 +115,6 @@ int main( int argc, char *argv[] ){
 				break;
 			case '5': /* no-md5 */
 				global_config->no_md5_check = 1;
-				break;
-			case 'f': /* interactive */
-				global_config->interactive = 1;
 				break;
 			case 'h': /* dist-upgrade */
 				global_config->dist_upgrade = 1;
@@ -253,7 +249,6 @@ void usage(){
 	printf("  --ignore-excludes - %s\n",_("install/upgrade excludes"));
 	printf("  --no-md5          - %s\n",_("do not perform md5 check sum"));
 	printf("  --no-dep          - %s\n",_("ignore dependency failures"));
-	printf("  --interactive     - %s\n",_("prompt before each install/upgrade"));
 }
 
 void version_info(void){

@@ -43,7 +43,6 @@ struct _configuration {
 	struct exclude_list *exclude_list;
 	int ignore_excludes;
 	int no_md5_check;
-	int interactive;
 	int no_dep;
 };
 typedef struct _configuration rc_config;
