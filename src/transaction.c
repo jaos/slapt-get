@@ -44,10 +44,7 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 		 if we have an update, or a removal...
 		and download_only, simulate, and no_prompt are not set
 	*/
-	if(
-		(tran->upgrade_pkgs->pkg_count > 0 || tran->remove_pkgs->pkg_count > 0)
-		&& (global_config->download_only == 0 && global_config->simulate == 0)
-	){
+	if( global_config->download_only == 0 && global_config->simulate == 0 ){
 
 		/* show pkgs to exclude */
 		if( tran->exclude_pkgs->pkg_count > 0 ){
@@ -99,7 +96,10 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 		);
 
 		/* prompt */
-		if( global_config->no_prompt == 0 && global_config->interactive == 0 ) {
+		if(
+				(tran->upgrade_pkgs->pkg_count > 0 || tran->remove_pkgs->pkg_count > 0)
+				&& (global_config->no_prompt == 0 && global_config->interactive == 0)
+			) {
 			printf("Do you want to continue? [y/N] ");
 			fgets(prompt_answer,10,stdin);
 			if( tolower(prompt_answer[0]) != 'y' ){

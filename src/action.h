@@ -17,14 +17,19 @@
  */
 
 /* variable defs */
+struct _pkg_action_args {
+	char **pkgs;
+	int count;
+};
+typedef struct _pkg_action_args pkg_action_args_t;
 /* */
 
 /* FUNCTION DEFINITIONS */
 void pkg_action_clean(const rc_config *);
-void pkg_action_install(const rc_config *,const char *);
+void pkg_action_install(const rc_config *,const pkg_action_args_t *);
 void pkg_action_list(void);
 void pkg_action_list_installed(void);
-void pkg_action_remove(const rc_config *,const char *);
+void pkg_action_remove(const rc_config *,const pkg_action_args_t *);
 void pkg_action_search(const char *);
 void pkg_action_show(const char *);
 void pkg_action_upgrade_all(const rc_config *);

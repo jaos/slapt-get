@@ -120,17 +120,52 @@ int main( int argc, char *argv[] ){
 		pkg_action_update(global_config);
 	}else if( do_action == INSTALL ){
 		if (optind < argc) {
+			int i;
+			pkg_action_args_t *paa;
+
+			paa = malloc( sizeof *paa );
+			paa->pkgs = malloc( sizeof *paa->pkgs * (argc - optind) );
+			paa->count = 0;
 			while (optind < argc){
-				pkg_action_install( global_config, argv[optind++] );
+				paa->pkgs[paa->count] = malloc(
+					sizeof *paa->pkgs[paa->count] * ( strlen(argv[optind]) + 1 )
+				);
+				memcpy(paa->pkgs[paa->count],argv[optind],strlen(argv[optind]));
+				++optind;
+				++paa->count;
 			}
+			pkg_action_install( global_config, paa );
+			for(i = 0; i < paa->count; i++){
+				free(paa->pkgs[i]);
+			}
+			free(paa->pkgs);
+			free(paa);
 		}else{
 			usage();
 		}
 	}else if( do_action == REMOVE ){
 		if (optind < argc) {
+			int i;
+			pkg_action_args_t *paa;
+
+			paa = malloc( sizeof *paa );
+			paa->pkgs = malloc( sizeof *paa->pkgs * (argc - optind) );
+			paa->count = 0;
 			while (optind < argc){
-				pkg_action_remove( global_config, argv[optind++] );
+				paa->pkgs[paa->count] = malloc(
+					sizeof *paa->pkgs[paa->count] * ( strlen(argv[optind]) + 1 )
+				);
+				memcpy(paa->pkgs[paa->count],argv[optind],strlen(argv[optind]));
+				++optind;
+				++paa->count;
 			}
+			/* pkg_action_remove( global_config, argv[optind++] ); */
+			pkg_action_remove( global_config, paa );
+			for(i = 0; i < paa->count; i++){
+				free(paa->pkgs[i]);
+			}
+			free(paa->pkgs);
+			free(paa);
 		}else{
 			usage();
 		}

@@ -24,7 +24,8 @@ void pkg_action_clean(const rc_config *global_config){
 }
 
 /* install pkg */
-void pkg_action_install(const rc_config *global_config,const char *pkg_name){
+void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *action_args){
+	int i;
 	pkg_info_t *installed_pkg;
 	pkg_info_t *pkg;
 	transaction tran;
@@ -39,28 +40,36 @@ void pkg_action_install(const rc_config *global_config,const char *pkg_name){
 
 	init_transaction(&tran);
 
-	/* make sure there is a package called pkg_name */
-	if( (pkg = get_newest_pkg(all->pkgs,pkg_name,all->pkg_count)) == NULL ){
-		fprintf(stderr,"No Such package: %s\n",pkg_name);
-		return;
-	}
+	for(i = 0; i < action_args->count; i++){
 
-	/* if it's not already installed, install it */
-	if((installed_pkg = get_newest_pkg(installed->pkgs,pkg_name,installed->pkg_count)) == NULL){
+		/* make sure there is a package called action_args->pkgs[i] */
+		if( (pkg = get_newest_pkg(all->pkgs,action_args->pkgs[i],all->pkg_count)) == NULL ){
+			fprintf(stderr,"No Such package: %s\n",action_args->pkgs[i]);
+			continue;
+		}
 
-		/* this way we install the most up to date pkg */
-		add_install_to_transaction(&tran,pkg);
-
-	}else{ /* else we upgrade or reinstall */
-
-		/* it's already installed, attempt an upgrade */
+		/* if it's not already installed, install it */
 		if(
-			((cmp_pkg_versions(installed_pkg->version,pkg->version)) < 0)
-			|| (global_config->re_install == 1)
+			(installed_pkg
+				= get_newest_pkg(installed->pkgs,action_args->pkgs[i],installed->pkg_count)
+			) == NULL
 		){
-			add_upgrade_to_transaction(&tran,installed_pkg,pkg);
-		}else{
-			printf("%s is up to date.\n",installed_pkg->name);
+
+			/* this way we install the most up to date pkg */
+			add_install_to_transaction(&tran,pkg);
+
+		}else{ /* else we upgrade or reinstall */
+
+			/* it's already installed, attempt an upgrade */
+			if(
+				((cmp_pkg_versions(installed_pkg->version,pkg->version)) < 0)
+				|| (global_config->re_install == 1)
+			){
+				add_upgrade_to_transaction(&tran,installed_pkg,pkg);
+			}else{
+				printf("%s is up to date.\n",installed_pkg->name);
+			}
+	
 		}
 
 	}
@@ -111,7 +120,8 @@ void pkg_action_list_installed(void){
 }
 
 /* remove/uninstall pkg */
-void pkg_action_remove(const rc_config *global_config,const char *pkg_name){
+void pkg_action_remove(const rc_config *global_config,const pkg_action_args_t *action_args){
+	int i;
 	pkg_info_t *pkg;
 	struct pkg_list *installed;
 	transaction tran;
@@ -119,10 +129,14 @@ void pkg_action_remove(const rc_config *global_config,const char *pkg_name){
 	installed = get_installed_pkgs();
 	init_transaction(&tran);
 
-	if( (pkg = get_newest_pkg(installed->pkgs,pkg_name,installed->pkg_count)) != NULL ){
-		add_remove_to_transaction(&tran,pkg);
-	}else{
-		printf("%s is not installed.\n",pkg_name);
+	for(i = 0; i < action_args->count; i++){
+		if(
+			(pkg = get_newest_pkg(installed->pkgs,action_args->pkgs[i],installed->pkg_count)) != NULL
+		){
+			add_remove_to_transaction(&tran,pkg);
+		}else{
+			printf("%s is not installed.\n",action_args->pkgs[i]);
+		}
 	}
 
 	handle_transaction(global_config,&tran);
