@@ -59,10 +59,17 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran){
 
 	/* show pkgs to install */
 	if( tran->install_pkgs->pkg_count > 0 ){
+		int len = 0;
 		printf(_("The following NEW packages will be installed:\n"));
 		printf("  ");
 		for(i = 0; i < tran->install_pkgs->pkg_count;i++){
-			printf("%s ",tran->install_pkgs->pkgs[i]->name);
+			if( len + strlen(tran->install_pkgs->pkgs[i]->name) + 1 < 80 ){
+				printf("%s ",tran->install_pkgs->pkgs[i]->name);
+				len += strlen(tran->install_pkgs->pkgs[i]->name) + 1;
+			}else{
+				printf("\n  %s ",tran->install_pkgs->pkgs[i]->name);
+				len = strlen(tran->install_pkgs->pkgs[i]->name) + 3;
+			}
 			already_download_size += get_pkg_file_size(
 				global_config,tran->install_pkgs->pkgs[i]
 			) / 1024;
@@ -74,10 +81,17 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran){
 
 	/* show pkgs to remove */
 	if( tran->remove_pkgs->pkg_count > 0 ){
+		int len = 0;
 		printf(_("The following packages will be REMOVED:\n"));
 		printf("  ");
 		for(i = 0; i < tran->remove_pkgs->pkg_count;i++){
-			printf("%s ",tran->remove_pkgs->pkgs[i]->name);
+			if( len + strlen(tran->remove_pkgs->pkgs[i]->name) + 1 < 80 ){
+				printf("%s ",tran->remove_pkgs->pkgs[i]->name);
+				len += strlen(tran->remove_pkgs->pkgs[i]->name) + 1;
+			}else{
+				printf("\n  %s ",tran->remove_pkgs->pkgs[i]->name);
+				len = strlen(tran->remove_pkgs->pkgs[i]->name) + 3;
+			}
 			uncompressed_size -= tran->remove_pkgs->pkgs[i]->size_u;
 		}
 		printf("\n");
@@ -85,10 +99,17 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran){
 
 	/* show pkgs to upgrade */
 	if( tran->upgrade_pkgs->pkg_count > 0 ){
+		int len = 0;
 		printf(_("The following packages will be upgraded:\n"));
 		printf("  ");
 		for(i = 0; i < tran->upgrade_pkgs->pkg_count;i++){
-			printf("%s ",tran->upgrade_pkgs->pkgs[i]->upgrade->name);
+			if( len + strlen(tran->upgrade_pkgs->pkgs[i]->upgrade->name) + 1 < 80 ){
+				printf("%s ",tran->upgrade_pkgs->pkgs[i]->upgrade->name);
+				len += strlen(tran->upgrade_pkgs->pkgs[i]->upgrade->name) + 1;
+			}else{
+				printf("\n  %s ",tran->upgrade_pkgs->pkgs[i]->upgrade->name);
+				len = strlen(tran->upgrade_pkgs->pkgs[i]->upgrade->name) + 3;
+			}
 			already_download_size += get_pkg_file_size(
 				global_config,tran->upgrade_pkgs->pkgs[i]->upgrade
 			) / 1024;
