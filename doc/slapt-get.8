@@ -24,10 +24,10 @@ slapt-get \- frontend to pkgtools
 .B --download-only
 ]
 [
-.B --simulate
+.B --simulate|-s
 ]
 [
-.B --no-prompt
+.B --no-prompt|-y
 ]
 [
 .B --reinstall
@@ -46,6 +46,9 @@ slapt-get \- frontend to pkgtools
 ]
 [
 .B --print-uris
+]
+[
+.B --show-stats|-S
 ]
 .LP
 .B targets:
@@ -96,10 +99,10 @@ tries to emulate Debian's apt-get as closely as possible.
 .B --download-only
 Download the package only.  Do not install/upgrade.
 .TP
-.B --simulate
+.B --simulate|-s
 Will not install or download packages.
 .TP
-.B --no-prompt
+.B --no-prompt|-y
 Do not prompt for package upgrade confirmation.
 .TP
 .B --reinstall
@@ -119,6 +122,9 @@ Skip the dependency check
 .TP
 .B --print-uris
 Print URIs of packages to be downloaded to stdout, but do not download.
+.TP
+.B --show-stats|-S
+Show the download statistics
 .SH TARGETS
 .TP
 .B --update
