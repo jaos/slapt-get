@@ -1,5 +1,11 @@
 
-0.9.8e May 27, 2004
+0.9.8e May 28, 2004
+ * updated translations (added entry for existing download and
+   removed "cached copy")
+ * transaction report now shows total download size with the amount of already
+   downloaded (if some packages have already been downloaded or are incomplete)
+ * changed return codes to named variables
+ * refactored download_pkg, created verify_downloaded_pkg() and get_pkg_file_size()
  * removed unused head_request code
  * initialized size_u and size_c to 0 for pkg in init_pkg()
  * added FAQ concerning removing depreciated packages

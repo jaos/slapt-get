@@ -555,9 +555,7 @@ int install_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	int cmd_return = 0;
 
 	/* build the file name */
-	pkg_file_name = gen_pkg_file_name(pkg);
-
-	chdir(pkg->location);
+	pkg_file_name = gen_pkg_file_name(global_config,pkg);
 
 	/* build and execute our command */
 	command = calloc( strlen(INSTALL_CMD) + strlen(pkg_file_name) + 1 , sizeof *command );
@@ -566,12 +564,11 @@ int install_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	command = strcat(command,pkg_file_name);
 
 	printf(_("Preparing to install %s-%s\n"),pkg->name,pkg->version);
-	if( (cmd_return = system(command)) == -1 ){
+	if( (cmd_return = system(command)) != 0 ){
 		printf(_("Failed to execute command: [%s]\n"),command);
 		return -1;
 	}
 
-	chdir(global_config->working_dir);
 	free(pkg_file_name);
 	free(command);
 	return cmd_return;
@@ -583,9 +580,7 @@ int upgrade_pkg(const rc_config *global_config,pkg_info_t *installed_pkg,pkg_inf
 	int cmd_return = 0;
 
 	/* build the file name */
-	pkg_file_name = gen_pkg_file_name(pkg);
-
-	chdir(pkg->location);
+	pkg_file_name = gen_pkg_file_name(global_config,pkg);
 
 	/* build and execute our command */
 	command = calloc( strlen(UPGRADE_CMD) + strlen(pkg_file_name) + 1 , sizeof *command );
@@ -594,12 +589,11 @@ int upgrade_pkg(const rc_config *global_config,pkg_info_t *installed_pkg,pkg_inf
 	command = strcat(command,pkg_file_name);
 
 	printf(_("Preparing to replace %s-%s with %s-%s\n"),pkg->name,installed_pkg->version,pkg->name,pkg->version);
-	if( (cmd_return = system(command)) == -1 ){
+	if( (cmd_return = system(command)) != 0 ){
 		printf(_("Failed to execute command: [%s]\n"),command);
 		return -1;
 	}
 
-	chdir(global_config->working_dir);
 	free(pkg_file_name);
 	free(command);
 	return cmd_return;
@@ -621,7 +615,7 @@ int remove_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	command = strcat(command,pkg->name);
 	command = strcat(command,"-");
 	command = strcat(command,pkg->version);
-	if( (cmd_return = system(command)) == -1 ){
+	if( (cmd_return = system(command)) != 0 ){
 		printf(_("Failed to execute command: [%s]\n"),command);
 		return -1;
 	}
@@ -640,22 +634,22 @@ void free_pkg_list(struct pkg_list *list){
 }
 
 int is_excluded(const rc_config *global_config,pkg_info_t *pkg){
-	int i;
+	int i,pkg_not_excluded = 0, pkg_is_excluded = 1;
 	int name_reg_ret,version_reg_ret;
 	sg_regex exclude_reg;
 
 	if( global_config->ignore_excludes == 1 )
-		return 0;
+		return pkg_not_excluded;
 
 	/* maybe EXCLUDE= isn't defined in our rc? */
 	if( global_config->exclude_list == NULL )
-		return 0;
+		return pkg_not_excluded;
 
 	for(i = 0; i < global_config->exclude_list->count;i++){
 
 		/* return if its an exact match */
 		if( (strncmp(global_config->exclude_list->excludes[i],pkg->name,strlen(pkg->name)) == 0))
-			return 1;
+			return pkg_is_excluded;
 
 		/*
 			this regex has to be init'd and free'd within the loop b/c the regex is pulled 
@@ -670,13 +664,13 @@ int is_excluded(const rc_config *global_config,pkg_info_t *pkg){
 
 		if( name_reg_ret == 0 || version_reg_ret == 0 ){
 			free_regex(&exclude_reg);
-			return 1;
+			return pkg_is_excluded;
 		}
 		free_regex(&exclude_reg);
 
 	}
 
-	return 0;
+	return pkg_not_excluded;
 }
 
 void get_md5sum(pkg_info_t *pkg,FILE *checksum_file){
@@ -764,10 +758,10 @@ int cmp_pkg_versions(char *a, char *b){
 	struct pkg_version_parts a_parts;
 	struct pkg_version_parts b_parts;
 	int position = 0;
-	int greater = 1,lesser = -1;
+	int greater = 1,lesser = -1,equal = 0;
 
 	/* bail out early if possible */
-	if( strcmp(a,b) == 0 ) return 0;
+	if( strcmp(a,b) == 0 ) return equal;
 
 	a_parts.count = 0;
 	b_parts.count = 0;
@@ -825,9 +819,9 @@ int cmp_pkg_versions(char *a, char *b){
 		if( a_build != NULL && b_build != NULL ){
 			/* they are equal if the integer values are equal */
 			/* for instance, "1rob" and "1" will be equal */
-			if( atoi(a_build) == atoi(b_build) ) return 0;
-			if( atoi(a_build) < atoi(b_build) ) return 1;
-			if( atoi(a_build) > atoi(b_build) ) return -1;
+			if( atoi(a_build) == atoi(b_build) ) return equal;
+			if( atoi(a_build) < atoi(b_build) ) return greater;
+			if( atoi(a_build) > atoi(b_build) ) return lesser;
 		}
 
 	}
@@ -1518,20 +1512,28 @@ pkg_info_t *init_pkg(void){
 }
 
 /* generate the package file name */
-char *gen_pkg_file_name(pkg_info_t *pkg){
+char *gen_pkg_file_name(const rc_config *global_config,pkg_info_t *pkg){
 	char *file_name = NULL;
 
 	/* build the file name */
 	file_name = calloc(
-		strlen(pkg->name)+strlen("-")+strlen(pkg->version)+strlen(".tgz") + 1 ,
+		strlen(global_config->working_dir)+strlen("/")
+			+strlen(pkg->location)+strlen("/")
+			+strlen(pkg->name)+strlen("-")+strlen(pkg->version)+strlen(".tgz") + 1 ,
 		sizeof *file_name
 	);
 	if( file_name == NULL ){
 		fprintf(stderr,_("Failed to calloc %s\n"),"file_name");
 		exit(1);
 	}
-	file_name = strncpy(file_name,pkg->name,strlen(pkg->name));
-	file_name[ strlen(pkg->name) ] = '\0';
+	file_name = strncpy(file_name,
+		global_config->working_dir,strlen(global_config->working_dir)
+	);
+	file_name[ strlen(global_config->working_dir) ] = '\0';
+	file_name = strncat(file_name,"/",strlen("/"));
+	file_name = strncat(file_name,pkg->location,strlen(pkg->location));
+	file_name = strncat(file_name,"/",strlen("/"));
+	file_name = strncat(file_name,pkg->name,strlen(pkg->name));
 	file_name = strncat(file_name,"-",strlen("-"));
 	file_name = strncat(file_name,pkg->version,strlen(pkg->version));
 	file_name = strncat(file_name,".tgz",strlen(".tgz"));
@@ -1544,7 +1546,19 @@ char *gen_pkg_url(pkg_info_t *pkg){
 	char *url = NULL;
 	char *file_name = NULL;
 
-	file_name = gen_pkg_file_name(pkg);
+	/* build the file name */
+	file_name = calloc(
+		strlen(pkg->name)+strlen("-")+strlen(pkg->version)+strlen(".tgz") + 1 ,
+		sizeof *file_name
+	);
+	if( file_name == NULL ){
+		fprintf(stderr,_("Failed to calloc %s\n"),"file_name");
+		exit(1);
+	}
+	file_name = strncpy(file_name,pkg->name,strlen(pkg->name));
+	file_name = strncat(file_name,"-",strlen("-"));
+	file_name = strncat(file_name,pkg->version,strlen(pkg->version));
+	file_name = strncat(file_name,".tgz",strlen(".tgz"));
 
 	url = calloc(
 		strlen(pkg->mirror) + strlen(pkg->location)
@@ -1564,5 +1578,69 @@ char *gen_pkg_url(pkg_info_t *pkg){
 
 	free(file_name);
 	return url;
+}
+
+/* find out the pkg file size (post download) */
+size_t get_pkg_file_size(const rc_config *global_config,pkg_info_t *pkg){
+	char *file_name = NULL;
+	struct stat file_stat;
+	size_t file_size = 0;
+
+	/* build the file name */
+	file_name = gen_pkg_file_name(global_config,pkg);
+
+	if( stat(file_name,&file_stat) == 0 ){
+		file_size = file_stat.st_size;
+	}
+
+	return file_size;
+}
+
+/* package is already downloaded and cached, md5sum if applicable is ok */
+int verify_downloaded_pkg(const rc_config *global_config,pkg_info_t *pkg){
+	char *file_name = NULL;
+	FILE *fh_test = NULL;
+	size_t file_size = 0;
+	char md5sum_f[MD5_STR_LEN];
+	int is_verified = 0,not_verified = -1;
+
+	/*
+		check the file size first so we don't run an md5 checksum
+		on an incomplete file
+	*/
+	file_size = get_pkg_file_size(global_config,pkg);
+	if( (int)(file_size/1024) != pkg->size_c){
+		return not_verified;
+	}
+	/* if not checking the md5 checksum and the sizes match, assume its good */
+	if( global_config->no_md5_check == 1 ) return is_verified;
+
+	/* check to see that we actually have an md5 checksum */
+	if( strcmp(pkg->md5,"") == 0){
+		printf(_("Could not find MD5 checksum for %s, override with --no-md5\n"),pkg->name);
+		return not_verified;
+	}
+
+	/* build the file name */
+	file_name = gen_pkg_file_name(global_config,pkg);
+
+	/* return if we can't open the file */
+	if( ( fh_test = fopen(file_name,"r") ) == NULL ){
+		free(file_name);
+		return not_verified;
+	}
+	free(file_name);
+
+	/*
+		generate the md5 checksum, and cleanup the filehandle and malloc'd file name
+	*/
+	gen_md5_sum_of_file(fh_test,md5sum_f);
+	fclose(fh_test);
+
+	/* check to see if the md5sum is correct */
+	if( strcmp(md5sum_f,pkg->md5) == 0 ) return is_verified;
+
+	return MD5_CHECKSUM_FAILED;
+
 }
 
