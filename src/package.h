@@ -61,6 +61,11 @@ struct pkg_upgrade_list {
 	int pkg_count;
 };
 
+struct pkg_version_parts {
+	char parts[10][10];
+	int count;
+};
+
 /* parse the PACKAGES.TXT file */
 struct pkg_list *parse_packages_txt(FILE *);
 struct pkg_list *get_available_pkgs(void);
@@ -106,7 +111,7 @@ void get_md5sum(const rc_config *,pkg_info_t *,char *);
 int cmp_pkg_versions(char *, char *);
 
 /* analyze the pkg version hunk by hunk */
-int break_down_pkg_version(int *,char *);
+void break_down_pkg_version(struct pkg_version_parts *,const char *);
 
 /* write pkg data to disk */
 void write_pkg_data(const char *,FILE *,struct pkg_list *);
