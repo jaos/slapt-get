@@ -1,5 +1,5 @@
 
-0.9.7 Nov 02, 2003
+0.9.7 Nov 03, 2003
  * parse package require/dep from PACKAGES.TXT
  * show parsed require/dep data with --show
  * --list now shows pkg_name - pkg_vesion : pkg_description
@@ -23,6 +23,7 @@
  * added faq concerning proxies
  * added check for installed pkgs when there is no dep conditional
  * added --no-dep to ignore dep check failures
+ * bug fixes in dep code, logic updates
 
 0.9.6g Oct 22, 2003
  * updated --help output

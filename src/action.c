@@ -57,25 +57,37 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 
 			/* check to see if there where issues with dep checking */
 			if( (deps->pkg_count == -1) && (global_config->no_dep == 0) ){
+
 				/* exclude the package if dep check barfed */
 				printf("Excluding %s, use --no-dep to override\n",pkg->name);
 				add_exclude_to_transaction(&tran,pkg);
+
 			}else{
+
+				/* loop through the deps */
 				for(c = 0; c < deps->pkg_count;c++){
+
+					/* only check if it's not already present in trans */
 					if( search_transaction(&tran,deps->pkgs[c]) == 0 ){
 						pkg_info_t *dep_installed;
+
 						if( (dep_installed = get_newest_pkg(installed,deps->pkgs[c]->name)) == NULL ){
 							add_install_to_transaction(&tran,deps->pkgs[c]);
 						}else{
+							/* add only if its a valid upgrade */
 							if(cmp_pkg_versions(dep_installed->version,deps->pkgs[c]->version) < 0 )
 								add_upgrade_to_transaction(&tran,dep_installed,deps->pkgs[c]);
 						}
+
 					}
+
+					/* this way we install the most up to date pkg */
+					/* make sure it's not already present from a dep check */
+					if( search_transaction(&tran,pkg) == 0 )
+						add_install_to_transaction(&tran,pkg);
+
 				}
-				/* this way we install the most up to date pkg */
-				/* make sure it's not already present from a dep check */
-				if( search_transaction(&tran,pkg) == 0 )
-					add_install_to_transaction(&tran,pkg);
+
 			}
 			free(deps->pkgs);
 			free(deps);
@@ -438,21 +450,36 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 
 				/* check to see if there where issues with dep checking */
 				if( (deps->pkg_count == -1) && (global_config->no_dep == 0) ){
+
 					/* exclude the package if dep check barfed */
 					printf("Excluding %s, use --no-dep to override\n",update_pkg->name);
 					add_exclude_to_transaction(&tran,update_pkg);
+
 				}else{
+
+					/* loop through deps */
 					for(c = 0; c < deps->pkg_count;c++){
+
+						/* only check deps that aren't already present */
 						if( search_transaction(&tran,deps->pkgs[c]) == 0 ){
-							if( get_newest_pkg(installed_pkgs,deps->pkgs[c]->name) == NULL ){
+							pkg_info_t *dep_installed;
+
+							if( (dep_installed = get_newest_pkg(installed_pkgs,deps->pkgs[c]->name)) == NULL ){
 								add_install_to_transaction(&tran,deps->pkgs[c]);
 							}else{
+								/* add upgrade if newer */
 								if(cmp_pkg_versions(installed_pkgs->pkgs[i]->version,deps->pkgs[c]->version) < 0 )
-									add_upgrade_to_transaction(&tran,installed_pkgs->pkgs[i],deps->pkgs[c]);
+									add_upgrade_to_transaction(&tran,dep_installed,deps->pkgs[c]);
 							}
+
 						}
-					}
-					add_upgrade_to_transaction(&tran,installed_pkgs->pkgs[i],update_pkg);
+
+					}/* end for loop */
+
+					/* add if it's not already present in trans */
+					if( search_transaction(&tran,update_pkg) == 0 )
+						add_upgrade_to_transaction(&tran,installed_pkgs->pkgs[i],update_pkg);
+
 				}
 				free(deps->pkgs);
 				free(deps);
@@ -491,18 +518,29 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 						printf("Excluding %s, use --no-dep to override\n",matches->pkgs[i]->name);
 						add_exclude_to_transaction(&tran,matches->pkgs[i]);
 					}else{
+
+						/* loop through deps */
 						for(c = 0; i < deps->pkg_count;c++){
+
+							/* only check deps that aren't already present */
 							if( search_transaction(&tran,deps->pkgs[c]) == 0 ){
 								pkg_info_t *dep_installed;
+
 								if( (dep_installed = get_newest_pkg(installed_pkgs,deps->pkgs[c]->name)) == NULL ){
 									add_install_to_transaction(&tran,deps->pkgs[c]);
 								}else{
+									/* add upgrade if newer */
 									if(cmp_pkg_versions(dep_installed->version,deps->pkgs[c]->version) < 0 )
 										add_upgrade_to_transaction(&tran,dep_installed,deps->pkgs[c]);
 								}
 							}
-						}
-						add_install_to_transaction(&tran,matches->pkgs[i]);
+
+							/* add if it's not already present in trans */
+							if( search_transaction(&tran,matches->pkgs[i]) == 0 )
+								add_install_to_transaction(&tran,matches->pkgs[i]);
+
+						}/* end for loop */
+
 					}
 					free(deps->pkgs);
 					free(deps);

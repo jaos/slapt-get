@@ -80,7 +80,7 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 		printf(_("The following packages will be upgraded:\n"));
 		printf("  ");
 		for(i = 0; i < tran->upgrade_pkgs->pkg_count;i++){
-			printf("%s ",tran->upgrade_pkgs->pkgs[i]->installed->name);
+			printf("%s ",tran->upgrade_pkgs->pkgs[i]->upgrade->name);
 			download_size += tran->upgrade_pkgs->pkgs[i]->upgrade->size_c;
 			/*
 				* since the installed member of the struct has no size,
