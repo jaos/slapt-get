@@ -399,7 +399,7 @@ Frequenty Asked Questions:
 		    gen_md5_checksums
 	    ;;
 	    *)
-		    echo "$0 [pkg [file]|all|PACKAGESTXT|MD5]"
+		    echo "$0 [pkg [file]|all|new|PACKAGESTXT|MD5]"
 	    ;;
     esac
  ### END SCRIPT
