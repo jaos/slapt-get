@@ -1511,6 +1511,9 @@ pkg_info_t *init_pkg(void){
 		exit(1);
 	}
 
+	pkg->size_c = 0;
+	pkg->size_u = 0;
+
 	return pkg;
 }
 
