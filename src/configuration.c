@@ -226,7 +226,7 @@ void add_source(struct source_list *list,const char *s){
 		list->url[list->count] = strncat(
 			list->url[list->count],
 			s,
-			strlen(s) - 1
+			strlen(s)
 		);
 		list->url[list->count] = strncat(
 			list->url[list->count],
