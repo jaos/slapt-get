@@ -183,6 +183,11 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 void add_install_to_transaction(transaction *tran,pkg_info_t *pkg){
 	pkg_info_t **tmp_list;
 
+	#if DEBUG == 1
+	printf("adding install of %s-%s@%s to transaction\n",
+		pkg->name,pkg->version,pkg->location);
+	#endif
+
 	tmp_list = realloc(
 		tran->install_pkgs->pkgs,
 		sizeof *tran->install_pkgs->pkgs * ( tran->install_pkgs->pkg_count + 1 )
@@ -206,6 +211,11 @@ void add_install_to_transaction(transaction *tran,pkg_info_t *pkg){
 void add_remove_to_transaction(transaction *tran,pkg_info_t *pkg){
 	pkg_info_t **tmp_list;
 
+	#if DEBUG == 1
+	printf("adding remove of %s-%s@%s to transaction\n",
+		pkg->name,pkg->version,pkg->location);
+	#endif
+
 	tmp_list = realloc(
 		tran->remove_pkgs->pkgs,
 		sizeof *tran->remove_pkgs->pkgs * ( tran->remove_pkgs->pkg_count + 1 )
@@ -228,6 +238,11 @@ void add_remove_to_transaction(transaction *tran,pkg_info_t *pkg){
 
 void add_exclude_to_transaction(transaction *tran,pkg_info_t *pkg){
 	pkg_info_t **tmp_list;
+
+	#if DEBUG == 1
+	printf("adding exclude of %s-%s@%s to transaction\n",
+		pkg->name,pkg->version,pkg->location);
+	#endif
 
 	tmp_list = realloc(
 		tran->exclude_pkgs->pkgs,
@@ -253,6 +268,11 @@ void add_upgrade_to_transaction(
 	transaction *tran, pkg_info_t *installed_pkg, pkg_info_t *upgrade_pkg
 ){
 	pkg_upgrade_t **tmp_list;
+
+	#if DEBUG == 1
+	printf("adding upgrade of %s-%s@%s to transaction\n",
+		upgrade_pkg->name,upgrade_pkg->version,upgrade_pkg->location);
+	#endif
 
 	tmp_list = realloc(
 		tran->upgrade_pkgs->pkgs,
