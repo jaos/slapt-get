@@ -215,6 +215,7 @@ Frequently Asked Questions:
  It is extended like so:
 
    PACKAGE NAME:  man-1.5l-i386-1.tgz
+   PACKAGE MIRROR:  http://www.slackware.at/data/slackware-9.1/
    PACKAGE LOCATION:  ./slackware/ap
    PACKAGE SIZE (compressed):  166 K
    PACKAGE SIZE (uncompressed):  390 K
@@ -231,6 +232,9 @@ Frequently Asked Questions:
  information is stored within the slack-conflicts file.  The SUGGESTS
  information is stored in the slack-suggests file.  See FAQ #19 for a breakdown
  of the structure of REQUIRES, FAQ #31 for CONFLICTS, and FAQ #44 for SUGGESTS.
+ MIRROR is an optional location so that the packages can be hosted elsewhere
+ (this is the internal representation slapt-get uses after caching the package
+ date from the remote package source).
 
  This information is added to the PACKAGES.TXT file by extracting it from the
  meta files within the package.  This is normally done by the provider of the
@@ -318,6 +322,7 @@ Frequently Asked Questions:
 
  ### BEGIN SCRIPT
     #!/bin/sh
+		#DL_URL=http://your_remove_pkg_host.tld/packages/
 
     function gen_packages_txt {
 	    echo '' > PACKAGES.TXT
@@ -346,6 +351,9 @@ Frequently Asked Questions:
 	    SUGGESTS=$(tar xzf $1 install/slack-suggests -O 2>/dev/null|xargs -r )
 	    METAFILE=${NAME%tgz}meta
 	    echo "PACKAGE NAME:  $NAME" > $LOCATION/$METAFILE
+      if [ -n "$DL_URL" ]; then
+    	  echo "PACKAGE MIRROR:  $DL_URL" >> $LOCATION/$METAFILE
+			fi
 	    echo "PACKAGE LOCATION:  $LOCATION" >> $LOCATION/$METAFILE
 	    echo "PACKAGE SIZE (compressed):  $SIZE K" >> $LOCATION/$METAFILE
 	    echo "PACKAGE SIZE (uncompressed):  $USIZE K" >> $LOCATION/$METAFILE

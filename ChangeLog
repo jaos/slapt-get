@@ -1,5 +1,5 @@
 
-0.9.9f Jan 11, 2005
+0.9.9f Jan 12, 2005
  * all malloc and calloc calls are now wrapped in slapt_malloc and slapt_calloc
  * added a few missing free() calls, and a missing closedir() call in
    working_dir_init()
