@@ -48,6 +48,15 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 			char pkg_name[NAME_LEN];
 			char pkg_version[VERSION_LEN];
 
+			if( (pkg_regex.pmatch[1].rm_eo - pkg_regex.pmatch[1].rm_so) > NAME_LEN ){
+				fprintf(stderr,"Package name exceeds NAME_LEN: %d\n",NAME_LEN);
+				exit(1);
+			}
+			if( (pkg_regex.pmatch[2].rm_eo - pkg_regex.pmatch[2].rm_so) > VERSION_LEN ){
+				fprintf(stderr,"Package version exceeds NAME_LEN: %d\n",VERSION_LEN);
+				exit(1);
+			}
+
 			strncpy(
 				pkg_name,
 				action_args->pkgs[i] + pkg_regex.pmatch[1].rm_so,
@@ -302,6 +311,15 @@ void pkg_action_show(const char *pkg_name){
 
 		char p_name[NAME_LEN];
 		char p_version[VERSION_LEN];
+
+		if( (pkg_regex.pmatch[1].rm_eo - pkg_regex.pmatch[1].rm_so) > NAME_LEN ){
+			fprintf(stderr,"Package name exceeds NAME_LEN: %d\n",NAME_LEN);
+			exit(1);
+		}
+		if( (pkg_regex.pmatch[2].rm_eo - pkg_regex.pmatch[2].rm_so) > VERSION_LEN ){
+			fprintf(stderr,"Package version exceeds NAME_LEN: %d\n",VERSION_LEN);
+			exit(1);
+		}
 
 		strncpy(p_name,
 			pkg_name + pkg_regex.pmatch[1].rm_so,
