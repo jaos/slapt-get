@@ -106,6 +106,11 @@ rc_config *read_rc_config(const char *file_name){
 		fprintf(stderr,_("WORKINGDIR directive not set within %s.\n"),file_name);
 		return NULL;
 	}
+	if( global_config->exclude_list == NULL ){
+		/* at least initialize */
+		global_config->exclude_list = malloc( sizeof *global_config->exclude_list );
+		global_config->exclude_list->count = 0;
+	}
 	if( global_config->sources.count == 0 ){
 		fprintf(stderr,_("SOURCE directive not set within %s.\n"),file_name);
 		return NULL;
