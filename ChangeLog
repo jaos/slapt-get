@@ -10,6 +10,8 @@
  * actually call regfree() for all regex_t
  * introduced a DO_NOT_UNLINK_BAD_FILES macro within include/main.h
  * changed malloc back to calloc (src/package.c, line 423)
+ * initial support for PACKAGE REQUIRED: data in PACKAGES.TXT
+   this also means we can support LINUXPACKAGES as MIRROR
 
 0.9.5c Oct 04, 2003
  * removed bad free() in get_installed_pkgs()

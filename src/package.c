@@ -25,6 +25,7 @@ struct pkg_list *get_available_pkgs(void){
 	FILE *pkg_list_fh;
 	pkg_info_t **realloc_tmp;
 	struct pkg_list *list;
+	long f_pos = 0;
 	size_t getline_len = 0;
 	char *getline_buffer = NULL;
 	char *size_c = NULL;
@@ -193,6 +194,17 @@ struct pkg_list *get_available_pkgs(void){
 			continue;
 		}
 
+		/* required, if provided */
+		f_pos = ftell(pkg_list_fh);
+		if(
+			(getline(&getline_buffer,&getline_len,pkg_list_fh) != EOF)
+			&& (strstr(getline_buffer,"PACKAGE DESCRIPTION") != NULL)
+				/* add in support for the required data */
+		){
+			/* required isn't provided... rewind one line */
+			fseek(pkg_list_fh, (ftell(pkg_list_fh) - f_pos) * -1, SEEK_CUR);
+		}
+
 		/* description */
 		if(
 			(getline(&getline_buffer,&getline_len,pkg_list_fh) != EOF)
@@ -248,6 +260,9 @@ char *gen_short_pkg_description(pkg_info_t *pkg){
 	size_t string_size = 0;
 
 	string_size = strlen(pkg->description) - (strlen(pkg->name) + 2) - strlen( strchr(pkg->description,'\n') );
+
+	/* quit now if the description is going to be empty */
+	if( (int)string_size < 0 ) return NULL;
 
 	short_description = calloc( string_size + 1 , sizeof *short_description );
 	if( short_description == NULL ){
