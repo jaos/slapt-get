@@ -464,6 +464,7 @@ struct pkg_list *get_installed_pkgs(void){
 
 		/* open the package log file to grok data about the package from it */
 		pkg_f = open_file(pkg_f_name,"r");
+		if( pkg_f == NULL ) exit(1);
 		while( (bytes_read = getline(&getline_buffer,&getline_len,pkg_f)) != EOF ){
 			execute_regex(&compressed_size_reg,getline_buffer);
 			execute_regex(&uncompressed_size_reg,getline_buffer);
@@ -1466,6 +1467,7 @@ void update_pkg_cache(const rc_config *global_config){
 		FILE *pkg_list_fh;
 
 		pkg_list_fh = open_file(PKG_LIST_L,"w+");
+		if( pkg_list_fh == NULL ) exit(1);
 		rewind(pkg_list_fh_tmp);
 		while( (bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh_tmp) ) != EOF ){
 			fprintf(pkg_list_fh,"%s",getline_buffer);
