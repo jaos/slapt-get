@@ -46,6 +46,7 @@ Frequenty Asked Questions:
 45. What if I don't trust third party sources for upgrades?
 46. How do I specify an addon thats not a dependency of my package?
 47. Will slapt-get break my system?
+48. What is a meta package and how can I take advantage of it?
 
 
 
@@ -693,7 +694,8 @@ Frequenty Asked Questions:
 33. What about package conflicts?  How can I specify a conflict for my package?
 
  Package conflicts are not as common as dependencies, but just as crucial.
- Packages such as lprng and cups sometimes duplicate the same functionality.
+ Packages such as lprng and cups sometimes duplicate the same functionality and 
+ must not be installed side by side.
 
  To address this, include within your package ./install/slack-conflicts.  This
  file has the same syntax as the slack-required file, just without the version
@@ -881,6 +883,22 @@ Frequenty Asked Questions:
    or are somehow locked into using slapt-get.  The only additions to your
    system are /etc/slapt-get and /var/slapt-get.  You are free to try another
    solution or go back to manual upgradepkg.
+
+
+48. What is a meta package and how can I take advantage of it?
+
+ A meta package is a package that only contains it's dependencies.  There is
+ nothing in the package to install, it just provides a name and a dependency list.
+ A good example would be GNOME.  If a "gnome" meta package existed that required
+ the gtk libraries and gnome applications, your user could install the gnome meta
+ package without having to know all of the packages that go along with it.  This 
+ is a good application of dependencies and suggestions.
+
+ When rolling out a new version of your application suite (gnome in our example),
+ you can increment the version of the meta package and change the included packages
+ and their required versions.  That way you can roll out a 2.x release update, but
+ provide an easy way to roll back to a previous 1.x release of the entire application
+ suite.
 
 
 

@@ -1,5 +1,6 @@
 
-0.9.9b Sep 20, 2004
+0.9.9b Sep 21, 2004
+ * added FAQ: 48. What is a meta package and how can I take advantage of it?
  * updated FAQ, added new Q: Will slapt-get break my system?
  * updated slack-desc with support entry pointing to slapt-get-user mailing list
  * updated documentation reflecting new location of the slapt-getrc file (thanks to Chris @ virtig01.net)
