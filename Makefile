@@ -20,17 +20,23 @@ all: pkg
 
 $(OBJS): 
 
-$(PROGRAM_NAME): $(OBJS) libs
+$(PROGRAM_NAME): libs
 	$(CC) -o $(PROGRAM_NAME) $(OBJS) $(CFLAGS) $(CURLFLAGS)
 
 #test with LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./src ./slapt-get
-withlibslapt: $(OBJS) libs
+withlibslapt: libs
 	$(CC) -o $(PROGRAM_NAME) $(NONLIBOBJS) $(CFLAGS) $(CURLFLAGS) -L./src -lslapt-$(VERSION)
 
-static: $(OBJS) libs
+static: libs
 	$(CC) -o $(PROGRAM_NAME) $(OBJS) $(CFLAGS) $(CURLFLAGS) -static
 
-install: $(PROGRAM_NAME)
+install: $(PROGRAM_NAME) doinstall
+
+staticinstall: static doinstall
+
+withlibslaptinstall: withlibslapt doinstall
+
+doinstall:
 	install $(PROGRAM_NAME) $(SBINDIR)
 	if [ ! -f $(RCDEST) ]; then install --mode=0644 -b $(RCSOURCE) $(RCDEST); else install --mode=0644 -b $(RCSOURCE) $(RCDEST).new;fi
 	install $(PROGRAM_NAME).8 /usr/man/man8/
@@ -64,7 +70,13 @@ clean:
 	-if [ -d pkg ]; then rm -rf pkg ;fi
 
 
-pkg: $(PROGRAM_NAME)
+pkg: $(PROGRAM_NAME) dopkg
+
+staticpkg: static dopkg
+
+withlibslaptpkg: withlibslapt dopkg
+
+dopkg:
 	-@mkdir pkg
 	-@mkdir -p pkg/sbin
 	-@mkdir -p pkg/etc
