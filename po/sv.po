@@ -464,30 +464,30 @@ msgid "show download statistics"
 msgstr "visa nedladdningsstatistik"
 
 msgid "Cached\n"
-msgstr "Cached\n"
+msgstr "Cachad\n"
 
 msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr ""
+msgstr "Nedladdningen från källorna misslyckades, rätta till källorna och kör --update igen\n"
 
 msgid "specify alternate slapt-getrc location"
-msgstr ""
+msgstr "specificera en alternativ slapt-getrc sökväg"
 
 msgid "Suggested packages:\n"
-msgstr ""
+msgstr "Föreslagna paket:\n"
 
 msgid "Maximum length of working directory (%d) exceeded.\n"
-msgstr ""
+msgstr "Den maximala gränsen för arbetskatalogen (%d) är överskriden.\n"
 
 msgid "Maximum length of excludes (%d) exceeded.\n"
-msgstr ""
+msgstr "Den maximala längden för exkluderingar (%d) är överskriden.\n"
 
 msgid "only purge cache of older, unreacheable pkgs"
-msgstr ""
+msgstr "ta bara bort de temporära filerna av äldre, onåbara paket"
 
 #, c-format
 msgid "required too long [%s:%d]\n"
-msgstr ""
+msgstr "krav för långt [%s:%d]\n"
 
 msgid "remove obsolete packages (dist-upgrade only)"
-msgstr ""
+msgstr "ta bort förlegade paket (endast dist-uppgradering)"
 
