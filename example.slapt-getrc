@@ -72,6 +72,8 @@ SOURCE=http://software.jaos.org/slackpacks/10.0/
 #SOURCE=http://packs.slack.it/
 #SOURCE=http://slackpacks.tchelinux.com.br/
 #SOURCE=http://users.lichtsnel.nl/pub/slackware/
+#SOURCE=http://slackware.rm-f.net/slackware-10.0/rkeene/
+#SOURCE=http://slackware.rm-f.net/slackware-9.1/rkeene/
 
 # pull from your cdrom
 #SOURCE=file:///mnt/cdrom/
