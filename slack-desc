@@ -9,11 +9,11 @@
 slapt-get: slapt-get (APT like system for Slackware)
 slapt-get:
 slapt-get: slapt-get is an APT like system for Slackware package management.
-slapt-get: It allows one to search slackware.com and mirrors for packages,
-slapt-get: compare them with installed packages, install new packages or
-slapt-get: upgrade installed packages all with a few simple commands.
+slapt-get: It allows one to search slackware mirrors and third party sources
+slapt-get: for packages, compare them with installed packages, install new
+slapt-get: packages, or upgrade all installed packages.
+slapt-get: 
 slapt-get:
 slapt-get: See /usr/doc/slapt-get-0.9.7 for complete documentation. 
 slapt-get: 
 slapt-get: 
-slapt-get:
