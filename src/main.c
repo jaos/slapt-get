@@ -68,7 +68,7 @@ int main( int argc, char *argv[] ){
 	setbuf(stdout,NULL);
 
 	#ifdef ENABLE_NLS
-	setlocale(LC_MESSAGES,getenv("LANG"));
+	setlocale(LC_ALL,"");
 	bindtextdomain(PROGRAM_NAME,LOCALESDIR);
 	textdomain(PROGRAM_NAME);
 	#endif

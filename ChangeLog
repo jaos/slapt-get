@@ -1,5 +1,6 @@
 
-0.9.9f Dec 07, 2004
+0.9.9f Dec 10, 2004
+ * updated setlocale() call to set category to LC_ALL, thanks Piotr Simon
  * updated documentation
 
 0.9.9e Dec 07, 2004
