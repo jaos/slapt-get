@@ -1,4 +1,5 @@
 PROGNAME=jaospkg
+VERSION=0.8
 CC=gcc
 CURLFLAGS=`curl-config --libs`
 CFLAGS=-W -Werror -Wall -O2 -ansi -pedantic -Iinclude
@@ -20,9 +21,10 @@ $(PROGNAME): $(OBJS)
 $(PROGNAME)-debug: $(OBJS)
 	$(CC) $(CFLAGS) $(CURLFLAGS) $(DEBUGFLAGS) -o $(PROGNAME) $(OBJS)
 
-install: jaospkg
+install: $(PROGNAME)
 	install $(PROGNAME) $(SBINDIR)
 	install --mode=0644 -b $(RCSOURCE) $(RCDEST)
+	install $(PROGNAME).8 /usr/man/man8/
 
 uninstall:
 	-rm /sbin/$(PROGNAME)
@@ -34,14 +36,16 @@ clean:
 	-if [ -d slackpkg ]; then rm -rf slackpkg ;fi
 
 slackpkg: $(PROGNAME)
-	@mkdir slackpkg
-	@mkdir -p slackpkg/sbin
-	@mkdir -p slackpkg/etc
-	@mkdir -p slackpkg/install
-	@cp $(PROGNAME) ./slackpkg/sbin/
-	@cp example.jaospkgrc ./slackpkg/etc/jaospkgrc
-	@mkdir -p ./slackpkg/usr/doc/$(PROGNAME)/
-	@cp COPYING Changelog INSTALL README TODO ./slackpkg/usr/doc/$(PROGNAME)/
-	@cp slack-desc slackpkg/install/
-	@( cd slackpkg; makepkg -c y $(PROGNAME)-0.8.tgz )
+	-@mkdir slackpkg
+	-@mkdir -p slackpkg/sbin
+	-@mkdir -p slackpkg/etc
+	-@mkdir -p slackpkg/install
+	-@mkdir -p slackpkg/usr/man/man8
+	-@cp $(PROGNAME) ./slackpkg/sbin/
+	-@cp example.jaospkgrc ./slackpkg/etc/jaospkgrc
+	-@mkdir -p ./slackpkg/usr/doc/$(PROGNAME)-$(VERSION)/
+	-@cp COPYING Changelog INSTALL README TODO ./slackpkg/usr/doc/$(PROGNAME)-$(VERSION)/
+	-@cp slack-desc slackpkg/install/
+	-@cp $(PROGNAME).8 slackpkg/usr/man/man8/
+	@( cd slackpkg; makepkg -c y $(PROGNAME)-$(VERSION).tgz )
 

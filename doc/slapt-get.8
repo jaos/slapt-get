@@ -1,0 +1,135 @@
+.\" -*- nroff -*-
+.ds g \" empty
+.ds G \" empty
+.\" Like TP, but if specified indent is more than half
+.\" the current line-length - indent, use the default indent.
+.de Tp
+.ie \\n(.$=0:((0\\$1)*2u>(\\n(.lu-\\n(.iu)) .TP
+.el .TP "\\$1"
+..
+.TH JAOSPKG 8 
+.SH NAME
+jaospkg \- frontend to pkgtools
+.SH SYNOPSIS
+.B jaospkg
+[
+.B option(s)
+]
+[
+.BI target
+]
+.LP
+.B options:
+[
+.B --download-only
+]
+[
+.B --dist-upgrade
+]
+[
+.B --simulate
+]
+[
+.B --no-prompt
+]
+[
+.B --re-install
+]
+[
+.B --ignore-excludes
+]
+.LP
+.B targets:
+[
+.B --update
+]
+[
+.B --upgrade
+]
+[
+.B --install
+]
+[
+.B --remove
+]
+[
+.B --show
+]
+[
+.B --search
+]
+[
+.B --list
+]
+[
+.B --installed
+]
+[
+.B --clean
+]
+[
+.B --version
+]
+.SH DESCRIPTION
+.B jaospkg
+installs single or multiple *.tgz binary packages designed
+for use with the Slackware Linux distribution onto your system.
+.SH OPTIONS
+.TP
+.B --download-only
+Only download package on install/upgrade
+.TP
+.B --dist-upgrade
+assumes MIRROR is set to newer release
+.TP
+.B --simulate
+show packages to be upgraded
+.TP
+.B --no-prompt
+do not prompt during upgrade
+.TP
+.B --re-install
+re-install the package even if installed
+.TP
+.B --ignore-excludes
+install excludes anyway
+.SH TARGETS
+.TP
+.B --update
+retrieves package data from MIRROR
+.TP
+.B --upgrade
+upgrade installed packages
+.TP
+.B --install [package(s)]
+install specified pkg(s)
+.TP
+.B --remove [package(s)]
+remove specified pkg(s)
+.TP
+.B --show [package]
+show package description
+.TP
+.B --search [expression]
+search available packages
+.TP
+.B --list
+list available packages
+.TP
+.B --installed
+list installed packages
+.TP
+.B --clean
+purge cached packages
+.TP
+.B --version
+print version and license info
+.SH AUTHOR
+Jason Woodward <woodwardj@jaos.org>
+.SH "SEE ALSO"
+.BR installpkg(8),
+.BR makepkg(8),
+.BR removepkg(8),
+.BR explodepkg(8),
+.BR pkgtool(8), 
+.BR upgradepkg(8)
