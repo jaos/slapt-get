@@ -1,8 +1,9 @@
 
-0.9.7d Nov 14, 2003
+0.9.7d Nov 15, 2003
  * documentation updates
  * added Brazilian Portuguese translation by Arnaldo de Moraes Pereira <arnaldo at sp-dhn dot com dot br>
  * fixed bug when installing package, comparing wrong package structure for version check (thanks Jim)
+ * added another unofficial package source
 
 0.9.7c Nov 13, 2003
  * updated Polish translation
