@@ -120,7 +120,7 @@ msgstr "Maximaal aantal bronnen (%d) overschreven.\n"
 
 #, c-format
 msgid "Maximum length of source (%d) exceeded.\n"
-msgstr "Maximale lengte van bron (%d) overschreden."
+msgstr "Maximale lengte van bron (%d) overschreden.\n"
 
 #, c-format
 msgid "WORKINGDIR directive not set within %s.\n"
@@ -143,7 +143,7 @@ msgid "Failed to open %s\n"
 msgstr "Kon %s niet openen\n"
 
 msgid "Perhaps you want to run --update?\n"
-msgstr "Probeer --update anders eens?"
+msgstr "Probeer --update anders eens?\n"
 
 #, c-format
 msgid "Failed to opendir %s\n"
@@ -332,16 +332,16 @@ msgid "regexec failed to parse size_c\n"
 msgstr "regexec kon size_c niet verwerken\n"
 
 msgid "getline reached EOF attempting to read size_c\n"
-msgstr "getline heeft EOF bereikt bij lezen size_c"
+msgstr "getline heeft EOF bereikt bij lezen size_c\n"
 
 msgid "regexec failed to parse size_u\n"
-msgstr "regexec kon size_u niet verwerken"
+msgstr "regexec kon size_u niet verwerken\n"
 
 msgid "getline reached EOF attempting to read size_u\n"
-msgstr "getline heeft EOF bereikt bij lezen size_u"
+msgstr "getline heeft EOF bereikt bij lezen size_u\n"
 
 msgid "error attempting to read pkg description\n"
-msgstr "Fout bij lezen beschrijving"
+msgstr "Fout bij lezen beschrijving\n"
 
 #, c-format
 msgid "Failed to realloc %s\n"
