@@ -188,7 +188,7 @@
 
    ### install all gnome and X packages
    $ slapt-get --search './slackware/gnome|./slackware/x'|awk '{print $1}'| \
-     xargs slapt-get --install
+     xargs -r slapt-get --install
 
 
 
