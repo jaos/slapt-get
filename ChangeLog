@@ -1,4 +1,7 @@
 
+0.9.9a Sep 06, 2004
+ * fixed configuration overriding and parsing borkage (thanks to Sean Donner)
+
 0.9.9 Sep 06, 2004
  * wrapped CURLOPT_FTP_USE_EPRT in ifdef for slack 9.0's curl libs
  * slack-suggests support (see FAQ)
