@@ -1,26 +1,27 @@
 Frequenty Asked Questions:
 
 *Contents
-1. What is slapt-get ?
-2. Why yet another package management tool for slackware?
-3. How do I find a package I want to install?
-4. Can I upgrade all my installed packages?
-5. How can I see what will be upgraded without upgrading?
-6. What if I only want to download the updates?
-7. How can I re-install an existing package?
-8. Can I "dist-upgrade" to a newer Slackware release?
-9. What about package dependencies?
+1.  What is slapt-get ?
+2.  Why yet another package management tool for slackware?
+3.  How do I build/install slapt-get?  How do I remove slapt-get?
+4.  How do I find a package I want to install?
+5.  Can I upgrade all my installed packages?
+6.  How can I see what will be upgraded without upgrading?
+7.  What if I only want to download the updates?
+8.  How can I re-install an existing package?
+9.  Can I "dist-upgrade" to a newer Slackware release?
+10. What about package dependencies?
 
 
 
-1. What is slapt-get ?
+1.  What is slapt-get ?
 
  slapt-get is an APT like system for Slackware package management. It allows
  one to search slackware,com and mirrors for packages, compare them with
  installed packages, install new packages or upgrade installed packages all
  with a few simple commands. Great for scripting as well.
 
-2. Why yet another package management tool for slackware?
+2.  Why yet another package management tool for slackware?
 
  To scratch and itch of mine, which also scratched an itch of a friend.  I
  created it originally without looking for an existing solution.  I now
@@ -32,38 +33,52 @@ Frequenty Asked Questions:
  within Slackware.  I simply make this available in hopes others will find
  it useful.
  
-3. How do I find a package I want to install?
+3.  How do I build/install slapt-get?  How do I remove slapt-get?
+
+ Two ways to install:
+
+ A: You can build slapt-get from source and use the 'install' make target,
+ 
+ B: You can build from source and make a Slackware package with the 'pkg'
+    make target.  Then install the generated package within the newly created
+    'pkg' directory.
+
+ If you installed via `make install`, there is an 'uninstall' make target.
+
+ If you installed the slack package, then use removepkg.
+
+4.  How do I find a package I want to install?
 
  You can use the --search feature, supplying an expression.  POSIX 
  regular expressions are supported.
 
-4. Can I upgrade all my installed packages?
+5.  Can I upgrade all my installed packages?
 
  Yes, simply use the --upgrade option.  slapt-get will check for 
  newer versions of all packages already installed.
 
-5. How can I see what will be upgraded without upgrading?
+6.  How can I see what will be upgraded without upgrading?
 
  Use the --simulate option before --upgrade.
  See slapt-get --help
 
-6. What if I only want to download the updates?
+7.  What if I only want to download the updates?
 
  Use the --download-only option before --upgrade.
  See slapt-get --help
 
-7. How can I re-install an existing package?
+8.  How can I re-install an existing package?
 
  Use the --reinstall option before --install
  See slapt-get --help
 
-8. Can I "dist-upgrade" to a newer Slackware release?
+9.  Can I "dist-upgrade" to a newer Slackware release?
 
  Change your mirror location within /etc/slapt-getrc to point to the newer
  release directory.  --update your local package data cache, then --upgrade
  to the newer release.
 
-9. What about package dependencies?
+10.  What about package dependencies?
 
  Other tools try to provide dependency checking via various hacks (generating
  the dependency file, exploding the package, then ldd'ing binary files to find
