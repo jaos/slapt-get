@@ -170,24 +170,29 @@ Frequenty Asked Questions:
      the --update.  The second step above is made as a suggestion to follow
      the suggestions and conventions in UPGRADE.TXT.
 
- For new packages that have been added to the disk sets you are using, you
- should make sure any new packages are also installed.  For example:
+ You should make sure any new packages within the disk sets you are using are
+ also installed, as they will not be detected during --dist-upgrade.  Only 
+ packages already installed will be upgraded.  To accomplish this, you can
+ specify slapt-get to install a disk set like so:
 
    ### install all gnome and X packages
    $ slapt-get --search './slackware/gnome|./slackware/x'|awk '{print $1}'| \
      xargs -r slapt-get --install
+
+ Do the same for all your installed disk sets, such as gnome, x, xap, l, n, etc.
 
 
 
 10.  What about package dependencies?
 
  Other tools try to provide dependency checking via various hacks (generating
- the dependency file, exploding the package, then ldd'ing binary files to find
- missing libraries before consulting the dependency file).  This is not a
+ the dependency file, exploding the package (or even worse, installed the
+ package first just to find a broken dependency!), then ldd'ing binary files to
+ find missing libraries before consulting the dependency file).  This is not a
  reliable/fool proof method.  It is also extremeley slow.  Dependencies can not
  always be defined strictly by library dependencies.  Applications, rather than
- libraries may be required, such as the case with man and groff.  Also, there is 
- no ability to specify specific versions of a dependency.
+ libraries may be required, such as the case with man and groff.  Also, there is
+ no ability to specify specific versions of a dependency.  
 
  I believe that package dependency support can be implemented in a Slackware 
  compatible way.  If we look to the existing infrastructure Pat has created
@@ -809,8 +814,8 @@ Frequenty Asked Questions:
 
  The packages whill then be mirrored under ${ROOT}/var/slapt-get in the
  directory structure they where found in.  You can then generate the 
- PACKAGES.TXT and CHECKSUMS.md5 files using the script in question #17 which
- would allow you to use this mirror as a slapt-get source.
+ PACKAGES.TXT and CHECKSUMS.md5 files using the script in FAQ #17 which would
+ allow you to use this mirror as a slapt-get source.
 
 
 39. Is there a way to use tab completion for the package names in Bash?
@@ -911,24 +916,27 @@ Frequenty Asked Questions:
  break a working system using slapt-get as you do using upgradepkg without
  caution.  A few points are in order:
 
- * slapt-get will not make assumptions or do things without you telling it to.
+ * slapt-get will not make assumptions or do things without you telling it to,
+   ie: installing, removing, or upgrading packages
  * untested updates are risky, whether using official packages or third party
    packages.
  * slapt-get will not change your system such that you can only use slapt-get
    or are somehow locked into using slapt-get.  The only additions to your
    system are /etc/slapt-get and /var/slapt-get.  You are free to try another
    solution or go back to manual upgradepkg.
- * UPGRADE.TXT and ChangeLog.txt is still required reading
+ * UPGRADE.TXT and ChangeLog.txt are still required reading for upgrades or
+   running -current.
 
 
 46. What is a meta package and how can I take advantage of it?
 
- A meta package is a package that only contains it's dependencies.  There is
- nothing in the package to install, it just provides a name and a dependency list.
- A good example would be GNOME.  If a "gnome" meta package existed that required
- the gtk libraries and gnome applications, your user could install the gnome meta
- package without having to know all of the packages that go along with it.  This 
- is a good application of dependencies and suggestions.
+ A meta package is a package that only contains it's dependencies in the
+ slack-required file.  There is nothing in the package to install, it just
+ provides a name and a dependency list.  A good example would be GNOME.  If a
+ "gnome" meta package existed that required the gtk libraries and gnome
+ applications, your user could install the gnome meta package without having to
+ know all of the packages that go along with it.  This is a good application of
+ dependencies and suggestions.
 
  When rolling out a new version of your application suite (gnome in our example),
  you can increment the version of the meta package and change the included packages

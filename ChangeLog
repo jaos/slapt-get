@@ -1,5 +1,6 @@
 
 0.9.9f Dec 20, 2004
+ * updated FAQ
  * added alsa.* to default exclude
  * produce warning is slack-require information is too long
  * updated setlocale() call to set category to LC_ALL, thanks Piotr Simon
