@@ -94,6 +94,14 @@ void free_pkg_list(struct pkg_list *);
 
 /* update the local package cache */
 int update_pkg_cache(const rc_config *global_config);
+/* do a head request on the mirror data to find out if it's new */
+char *head_mirror_data(const char *wurl,const char *file);
+/* clear head cache storage file */
+void clear_head_cache(const char *cache_filename);
+/* cache the head request */
+void write_head_cache(const char *cache, const char *cache_filename);
+/* read the cached head request */
+char *read_head_cache(const char *cache_filename);
 /* parse the PACKAGES.TXT file */
 struct pkg_list *parse_packages_txt(FILE *);
 struct pkg_list *get_available_pkgs(void);
@@ -123,14 +131,20 @@ int remove_pkg(const rc_config *,pkg_info_t *);
 
 /* generate a short description */
 char *gen_short_pkg_description(pkg_info_t *);
+/* generate the filename from the url */
+char *gen_filename_from_url(const char *url,const char *file);
 /* generate the package file name */
 char *gen_pkg_file_name(const rc_config *global_config,pkg_info_t *pkg);
+/* generate the head cache filename */
+char *gen_head_cache_filename(const char *filename_from_url);
 /* generate the download url for a package */
 char *gen_pkg_url(pkg_info_t *pkg);
 /* exclude pkg based on pkg name */
 int is_excluded(const rc_config *,pkg_info_t *);
 /* package is already downloaded and cached, md5sum if applicable is ok */
 int verify_downloaded_pkg(const rc_config *global_config,pkg_info_t *pkg);
+/* lookup md5sum of file */
+void get_md5sum(pkg_info_t *pkg,FILE *checksum_file);
 /* find out the pkg file size (post download) */
 size_t get_pkg_file_size(const rc_config *global_config,pkg_info_t *pkg);
 

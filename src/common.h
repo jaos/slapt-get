@@ -42,3 +42,4 @@ void gen_md5_sum_of_file(FILE *f,char *result_sum);
  * return 1 on yes, 0 on no, else -1.
  */
 int ask_yes_no(const char *format, ...);
+char *str_replace_chr(const char *string,const char find, const char replace);

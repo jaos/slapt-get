@@ -212,3 +212,20 @@ int ask_yes_no(const char *format, ...)
 		return 0;
 	return -1;
 }
+
+char *str_replace_chr(const char *string,const char find, const char replace){
+	int i;
+	char *clean = calloc( strlen(string) + 1, sizeof *clean);;
+
+	for(i = 0;i < (int)strlen(string);i++){
+		if(string[i] == find ){
+			clean[i] = replace;
+		}else{
+			clean[i] = string[i];
+		}
+	}
+	clean[ strlen(string) ] = '\0';
+
+	return clean;
+}
+

@@ -17,26 +17,12 @@
  */
 
 #include <main.h>
-static char *gen_filename_from_url(const char *url,const char *file);
-static char *str_replace_chr(const char *string,const char find, const char replace);
-/* do a head request on the mirror data to find out if it's new */
-static char *head_mirror_data(const char *wurl,const char *file);
-/* lookup md5sum of file */
-static void get_md5sum(pkg_info_t *pkg,FILE *checksum_file);
 /* analyze the pkg version hunk by hunk */
 static struct pkg_version_parts *break_down_pkg_version(const char *version);
 /* parse the meta lines */
 static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,char *dep_entry);
 /* called by is_required_by */
 static struct pkg_list *required_by(const rc_config *global_config,struct pkg_list *avail, pkg_info_t *pkg,struct pkg_list *parent_required_by);
-/* generate the head cache filename */
-static char *gen_head_cache_filename(const char *filename_from_url);
-/* clear head cache storage file */
-static void clear_head_cache(const char *cache_filename);
-/* cache the head request */
-static void write_head_cache(const char *cache, const char *cache_filename);
-/* read the cached head request */
-static char *read_head_cache(const char *cache_filename);
 /* free pkg_version_parts struct */
 static void free_pkg_version_parts(struct pkg_version_parts *parts);
 /* find dependency from "or" requirement */
@@ -701,7 +687,7 @@ int is_excluded(const rc_config *global_config,pkg_info_t *pkg){
 	return pkg_not_excluded;
 }
 
-static void get_md5sum(pkg_info_t *pkg,FILE *checksum_file){
+void get_md5sum(pkg_info_t *pkg,FILE *checksum_file){
 	sg_regex md5sum_regex;
 	ssize_t getline_read;
 	size_t getline_len = 0;
@@ -1441,7 +1427,7 @@ pkg_info_t *get_pkg_by_details(struct pkg_list *list,char *name,char *version,ch
 }
 
 /* do a head request on the mirror data to find out if it's new */
-static char *head_mirror_data(const char *wurl,const char *file){
+char *head_mirror_data(const char *wurl,const char *file){
 	char *request_header = NULL;
 	char *request_header_ptr = NULL;
 	char *delim_ptr = NULL;
@@ -1488,7 +1474,7 @@ static char *head_mirror_data(const char *wurl,const char *file){
 	return request_header;
 }
 
-static void write_head_cache(const char *cache, const char *cache_filename){
+void write_head_cache(const char *cache, const char *cache_filename){
 	char *head_filename;
 	FILE *tmp;
 
@@ -1504,7 +1490,7 @@ static void write_head_cache(const char *cache, const char *cache_filename){
 
 }
 
-static char *read_head_cache(const char *cache_filename){
+char *read_head_cache(const char *cache_filename){
 	char *head_filename;
 	FILE *tmp;
 	char *getline_buffer = NULL;
@@ -1527,7 +1513,7 @@ static char *read_head_cache(const char *cache_filename){
 	return getline_buffer;
 }
 
-static char *gen_head_cache_filename(const char *filename_from_url){
+char *gen_head_cache_filename(const char *filename_from_url){
 	char *head_filename;
 
 	head_filename = calloc( strlen(filename_from_url) + strlen(HEAD_FILE_EXT) + 1, sizeof *head_filename );
@@ -1538,7 +1524,7 @@ static char *gen_head_cache_filename(const char *filename_from_url){
 }
 
 
-static void clear_head_cache(const char *cache_filename){
+void clear_head_cache(const char *cache_filename){
 	char *head_filename;
 	FILE *tmp;
 
@@ -1916,23 +1902,7 @@ int verify_downloaded_pkg(const rc_config *global_config,pkg_info_t *pkg){
 
 }
 
-static char *str_replace_chr(const char *string,const char find, const char replace){
-	int i;
-	char *clean = calloc( strlen(string) + 1, sizeof *clean);;
-
-	for(i = 0;i < (int)strlen(string);i++){
-		if(string[i] == find ){
-			clean[i] = replace;
-		}else{
-			clean[i] = string[i];
-		}
-	}
-	clean[ strlen(string) ] = '\0';
-
-	return clean;
-}
-
-static char *gen_filename_from_url(const char *url,const char *file){
+char *gen_filename_from_url(const char *url,const char *file){
 	char *filename,*cleaned;
 
 	filename = calloc( strlen(url) + strlen(file) + 2 , sizeof *filename );
