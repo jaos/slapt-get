@@ -1443,6 +1443,7 @@ static struct pkg_list *required_by(const rc_config *global_config,struct pkg_li
 	int i;
 	sg_regex required_by_reg;
 	struct pkg_list *required_by_list;
+	char escapedName[NAME_LEN], *escaped_ptr;
 
 	required_by_list = init_pkg_list();
 
@@ -1452,7 +1453,16 @@ static struct pkg_list *required_by(const rc_config *global_config,struct pkg_li
 	if( global_config->disable_dep_check == 1)
 		return required_by_list;
 
-	init_regex(&required_by_reg,pkg->name);
+	for(i = 0, escaped_ptr = escapedName; i < NAME_LEN && pkg->name[i]; i++){
+		if( pkg->name[i] == '+' ){
+			*escaped_ptr++ = '\\';
+			*escaped_ptr++ = pkg->name[i];
+		}else{
+			*escaped_ptr++ = pkg->name[i];
+		}
+		*escaped_ptr = '\0';
+	}
+	init_regex(&required_by_reg,escapedName);
 
 	for(i = 0; i < avail->pkg_count;i++){
 
