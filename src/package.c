@@ -989,7 +989,19 @@ struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,struct p
 			pointer = pkg->required + position;
 
 			/* parse the dep entry and try to lookup a package */
-			tmp_pkg = parse_meta_entry(avail_pkgs,installed_pkgs,pkg,pointer);
+			tmp_pkg = parse_meta_entry(avail_pkgs,installed_pkgs,pointer);
+
+			if( tmp_pkg == NULL ){
+				/*
+					if we can't find a required dep, set the dep pkg_count to -1 
+					and return... the caller should check to see if its -1, and 
+					act accordingly
+				*/
+				fprintf(stderr,_("The following packages have unmet dependencies:\n"));
+				fprintf(stderr,_("  %s: Depends: %s\n"),pkg->name,pointer);
+				deps->pkg_count = -1;
+				return deps;
+			}
 
 			position += strlen(pointer);
 		}else{
@@ -1007,66 +1019,74 @@ struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,struct p
 			buffer[ strlen(pkg->required + position) - strlen(pointer) ] = '\0';
 
 			/* parse the dep entry and try to lookup a package */
-			tmp_pkg = parse_meta_entry(avail_pkgs,installed_pkgs,pkg,buffer);
+			tmp_pkg = parse_meta_entry(avail_pkgs,installed_pkgs,buffer);
+
+			if( tmp_pkg == NULL ){
+				/*
+					if we can't find a required dep, set the dep pkg_count to -1 
+					and return... the caller should check to see if its -1, and 
+					act accordingly
+				*/
+				fprintf(stderr,_("The following packages have unmet dependencies:\n"));
+				fprintf(stderr,_("  %s: Depends: %s\n"),pkg->name,buffer);
+				free(buffer);
+				deps->pkg_count = -1;
+				return deps;
+			}
 
 			position += strlen(pkg->required + position) - strlen(pointer);
 			free(buffer);
 		}
 
-		/* recurse for each dep found */
-		if( tmp_pkg != NULL ){
-
-			/* if this pkg is excluded */
-			if( is_excluded(global_config,tmp_pkg) == 1 && global_config->no_dep == 0 ){
-				if( get_exact_pkg(installed_pkgs,tmp_pkg->name,tmp_pkg->version) == NULL ){
-					printf(_("%s, which is required by %s, is excluded\n"),tmp_pkg->name,pkg->name);
-					deps->pkg_count = -1;
-					return deps;
-				}
+		/* if this pkg is excluded */
+		if( is_excluded(global_config,tmp_pkg) == 1 && global_config->no_dep == 0 ){
+			if( get_exact_pkg(installed_pkgs,tmp_pkg->name,tmp_pkg->version) == NULL ){
+				printf(_("%s, which is required by %s, is excluded\n"),tmp_pkg->name,pkg->name);
+				deps->pkg_count = -1;
+				return deps;
 			}
+		}
 
-			/* if tmp_pkg is not already in the deps pkg_list */
-			if( get_newest_pkg(deps,tmp_pkg->name) == NULL ){
-				struct pkg_list *tmp_pkgs_deps = NULL;
+		/* if tmp_pkg is not already in the deps pkg_list */
+		if( get_newest_pkg(deps,tmp_pkg->name) == NULL ){
+			struct pkg_list *tmp_pkgs_deps = NULL;
 
-				/* add tmp_pkg to deps */
-				add_pkg_to_pkg_list(deps,tmp_pkg);
+			/* add tmp_pkg to deps */
+			add_pkg_to_pkg_list(deps,tmp_pkg);
 
-				/* now check to see if tmp_pkg has dependencies */
-				tmp_pkgs_deps = lookup_pkg_dependencies(global_config,avail_pkgs,installed_pkgs,tmp_pkg);
-				if( tmp_pkgs_deps->pkg_count > 0 ){
+			/* now check to see if tmp_pkg has dependencies */
+			tmp_pkgs_deps = lookup_pkg_dependencies(global_config,avail_pkgs,installed_pkgs,tmp_pkg);
+			if( tmp_pkgs_deps->pkg_count > 0 ){
 
-					for(i = 0; i < tmp_pkgs_deps->pkg_count; i++ ){
+				/* recurse for each dep found */
+				for(i = 0; i < tmp_pkgs_deps->pkg_count; i++ ){
 
-						/* lookup package to see if it exists in dep list */
-						if( get_newest_pkg(deps,tmp_pkgs_deps->pkgs[i]->name) == NULL ){
-							add_pkg_to_pkg_list(deps,tmp_pkgs_deps->pkgs[i]);
-						}/* end get_newest_pkg */
+					/* lookup package to see if it exists in dep list */
+					if( get_newest_pkg(deps,tmp_pkgs_deps->pkgs[i]->name) == NULL ){
+						add_pkg_to_pkg_list(deps,tmp_pkgs_deps->pkgs[i]);
+					}/* end get_newest_pkg */
 
-					}/* end for loop */
-
-				}/* end tmp_pkgs_deps->pkg_count > 0 */
+				}/* end for loop */
 
 				/* don't call free_pkg_list as this list is made up of pointers */
 				/* free_pkg_list(tmp_pkgs_deps); */
 				free(tmp_pkgs_deps->pkgs);
 				free(tmp_pkgs_deps);
-
-			}else{
-				#if DEBUG == 1
-				printf("%s already exists in dep list\n",tmp_pkg->name);
-				#endif
-			} /* end already exists in dep check */
+			}else if( tmp_pkgs_deps->pkg_count == -1 && global_config->no_dep == 0 ){
+				/* don't call free_pkg_list as this list is made up of pointers */
+				/* free_pkg_list(tmp_pkgs_deps); */
+				free(tmp_pkgs_deps->pkgs);
+				free(tmp_pkgs_deps);
+				deps->pkg_count = -1;
+				return deps;
+			}
 
 		}else{
-			/*
-				if we can't find a required dep, set the dep pkg_count to -1 
-				and return... the caller should check to see if its -1, and 
-				act accordingly
-			*/
-			deps->pkg_count = -1;
-			return deps;
-		}/* end tmp_pkg != NULL */
+			#if DEBUG == 1
+			printf("%s already exists in dep list\n",tmp_pkg->name);
+			#endif
+		} /* end already exists in dep check */
+
 
 	}/* end while */
 	return deps;
@@ -1099,7 +1119,7 @@ struct pkg_list *lookup_pkg_conflicts(struct pkg_list *avail_pkgs,struct pkg_lis
 			pointer = pkg->conflicts + position;
 
 			/* parse the conflict entry and try to lookup a package */
-			tmp_pkg = parse_meta_entry(avail_pkgs,installed_pkgs,pkg,pointer);
+			tmp_pkg = parse_meta_entry(avail_pkgs,installed_pkgs,pointer);
 
 			position += strlen(pointer);
 		}else{
@@ -1117,7 +1137,7 @@ struct pkg_list *lookup_pkg_conflicts(struct pkg_list *avail_pkgs,struct pkg_lis
 			buffer[ strlen(pkg->conflicts + position) - strlen(pointer) ] = '\0';
 
 			/* parse the conflict entry and try to lookup a package */
-			tmp_pkg = parse_meta_entry(avail_pkgs,installed_pkgs,pkg,buffer);
+			tmp_pkg = parse_meta_entry(avail_pkgs,installed_pkgs,buffer);
 
 			position += strlen(pkg->conflicts + position) - strlen(pointer);
 			free(buffer);
@@ -1132,16 +1152,12 @@ struct pkg_list *lookup_pkg_conflicts(struct pkg_list *avail_pkgs,struct pkg_lis
 	return conflicts;
 }
 
-pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,pkg_info_t *pkg,char *dep_entry){
+pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,char *dep_entry){
 	int i;
 	sg_regex parse_dep_regex;
 	char tmp_pkg_name[NAME_LEN],tmp_pkg_cond[3],tmp_pkg_ver[VERSION_LEN];
 	pkg_info_t *newest_avail_pkg;
 	pkg_info_t *newest_installed_pkg;
-
-	#if DEBUG == 1
-	printf("parse_meta_entry called, %s-%s with %s\n",pkg->name,pkg->version,dep_entry);
-	#endif
 
 	init_regex(&parse_dep_regex,REQUIRED_REGEX);
 
@@ -1282,8 +1298,6 @@ pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list *instal
 				return avail_pkgs->pkgs[i];
 	}
 
-	fprintf(stderr,_("The following packages have unmet dependencies:\n"));
-	fprintf(stderr,_("  %s: Depends: %s\n"),pkg->name,dep_entry);
 	return NULL;
 }
 
