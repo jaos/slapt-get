@@ -18,6 +18,7 @@
 
 #define MAX_PKG_ENTRIES 2000
 #define PKG_PARSE_REGEX "([a-zA-Z0-9._\\-\\/]+/)([a-zA-Z0-9\\+_\\-]+)-([a-zA-Z0-9._\\-]+).tgz$"
+#define PKG_NAMEVER "([a-zA-Z0-9\\+_\\-]+)-([a-zA-Z0-9._\\-]+)"
 #define PKG_NAME_PATTERN "^PACKAGE NAME:[ ]+([a-zA-Z0-9\\+_\\-]+)-([a-zA-Z0-9._\\-]+).tgz$"
 #define PKG_MIRROR_PATTERN "^PACKAGE MIRROR:[ ]+(.*)$"
 #define PKG_LOCATION_PATTERN "^PACKAGE LOCATION:[ ]+(.*)$"
@@ -85,6 +86,7 @@ char *gen_short_pkg_description(pkg_info_t *);
 
 /* retrieve the newest pkg from pkg_info_t list */
 pkg_info_t *get_newest_pkg(struct pkg_list *,const char *);
+pkg_info_t *get_exact_pkg(struct pkg_list *,const char *,const char *);
 
 /* install pkg */
 int install_pkg(const rc_config *,pkg_info_t *);
