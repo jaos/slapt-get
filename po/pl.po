@@ -490,5 +490,5 @@ msgid "required too long [%s:%d]\n"
 msgstr "required za du¿y [%s:%d]\n"
 
 msgid "remove obsolete packages (dist-upgrade only)"
-msgstr ""
+msgstr "usuñ przestarza³e pakiety (tylko dist-upgrade)"
 
