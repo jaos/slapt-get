@@ -829,12 +829,18 @@ void get_md5sum(const rc_config *global_config,pkg_info_t *pkg,char *md5_sum){
 				&& (cmp_pkg_versions(pkg->version,version) == 0)
 				&& (strcmp(pkg->location,location) == 0)
 			){
+				#if DEBUG == 1
+				printf("%s-%s@%s, %s-%s@%s: %s\n",pkg->name,pkg->version,pkg->location,name,version,location,sum);
+				#endif
 				memcpy(md5_sum,sum,md5sum_regex.pmatch[1].rm_eo - md5sum_regex.pmatch[1].rm_so + 1);
 				break;
 			}
 
 		}
 	}
+	#if DEBUG == 1
+	printf("%s-%s@%s = %s\n",pkg->name,pkg->version,pkg->location,md5_sum);
+	#endif
 	fclose(checksum_file);
 	chdir(cwd);
 	free(cwd);

@@ -22,8 +22,14 @@ SOURCE=ftp://ftp.slackware.at/slackware-9.1/
 #SOURCE=ftp://ftp.linuxpackages.net/pub/Slackware-9.1/
 # * no current with linuxpackages.net
 
+# other unofficial sources
+#SOURCE=http://www.tenboard.com/slackware/slackware-9.0/
+#SOURCE=http://www.tenboard.com/slackware/slackware-9.1/
+#SOURCE=http://www.slack.it/slackpack/
+
 # pull from your cdrom
 #SOURCE=file:///mnt/cdrom/
+
 
 # Other slackware mirrors to choose from
 #SOURCE=ftp://ftp.slackware.no/pub/linux/slackware/slackware-9.1/
