@@ -156,7 +156,9 @@ void pkg_action_list(void){
 				bool_installed == 1
 					? _("yes")
 					: _("no"),
-				short_description
+				short_description == NULL
+					? ""
+					: short_description
 			);
 			free(short_description);
 		}

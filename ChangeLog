@@ -1,5 +1,6 @@
 
 0.9.9c Oct 02, 2004
+ * fixed null short description from printing "null", prints "" instead
  * updated man page
  * translation updates
  * added --autoclean option to run purge_old_cached_pkgs() instead of automatically
