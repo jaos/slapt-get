@@ -53,6 +53,7 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 			int c;
 			struct pkg_list *deps;
 
+			printf("not installed\n");
 			deps = lookup_pkg_dependencies(all,installed,pkg);
 
 			/* check to see if there where issues with dep checking */
@@ -81,12 +82,12 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 
 					}
 
-					/* this way we install the most up to date pkg */
-					/* make sure it's not already present from a dep check */
-					if( search_transaction(&tran,pkg) == 0 )
-						add_install_to_transaction(&tran,pkg);
+				}/* end for loop */
 
-				}
+				/* this way we install the most up to date pkg */
+				/* make sure it's not already present from a dep check */
+				if( search_transaction(&tran,pkg) == 0 )
+					add_install_to_transaction(&tran,pkg);
 
 			}
 			free(deps->pkgs);
@@ -535,11 +536,11 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 								}
 							}
 
-							/* add if it's not already present in trans */
-							if( search_transaction(&tran,matches->pkgs[i]) == 0 )
-								add_install_to_transaction(&tran,matches->pkgs[i]);
-
 						}/* end for loop */
+
+						/* add if it's not already present in trans */
+						if( search_transaction(&tran,matches->pkgs[i]) == 0 )
+							add_install_to_transaction(&tran,matches->pkgs[i]);
 
 					}
 					free(deps->pkgs);
