@@ -191,13 +191,12 @@ void clean_pkg_dir(const char *dir_name){
 				return;
 			}
 			continue;
-		}else{
-			if( strstr(file->d_name,".tgz") !=NULL ){
-				#if DEBUG == 1
-				printf(_("unlinking %s\n"),file->d_name);
-				#endif
-				unlink(file->d_name);
-			}
+		}
+		if( strstr(file->d_name,".tgz") !=NULL ){
+			#if DEBUG == 1
+			printf(_("unlinking %s\n"),file->d_name);
+			#endif
+			unlink(file->d_name);
 		}
 	}
 	closedir(tmp);
