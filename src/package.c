@@ -609,30 +609,23 @@ int install_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	char *pkg_file_name = NULL;
 	char *command = NULL;
 	int cmd_return = 0;
-	char prompt_answer[10];
 
-	if( global_config->simulate == 1 ){
-		printf(_("%s-%s is to be installed\n"),pkg->name,pkg->version);
-		return 0;
-	}
-
-	if( global_config->interactive == 1 ){
-		printf(_("Install %s-%s [Y|n] "),pkg->name,pkg->version);
-		fgets(prompt_answer,10,stdin);
-		if( tolower(prompt_answer[0]) == 'n' ){
-			chdir(global_config->working_dir);
-			return cmd_return;
-		}
-	}
-
-	create_dir_structure(pkg->location);
-	chdir(pkg->location);
-
-	pkg_file_name = download_pkg(global_config,pkg);
+	/* build the file name */
+	pkg_file_name = calloc(
+		strlen(pkg->name)+strlen("-")+strlen(pkg->version)+strlen(".tgz") + 1 ,
+		sizeof *pkg_file_name
+	);
 	if( pkg_file_name == NULL ){
-		chdir(global_config->working_dir);
-		return -1;
+		fprintf(stderr,_("Failed to calloc file_name\n"));
+		exit(1);
 	}
+	pkg_file_name = strncpy(pkg_file_name,pkg->name,strlen(pkg->name));
+	pkg_file_name[ strlen(pkg->name) ] = '\0';
+	pkg_file_name = strncat(pkg_file_name,"-",strlen("-"));
+	pkg_file_name = strncat(pkg_file_name,pkg->version,strlen(pkg->version));
+	pkg_file_name = strncat(pkg_file_name,".tgz",strlen(".tgz"));
+
+	chdir(pkg->location);
 
 	/* build and execute our command */
 	command = calloc( strlen(INSTALL_CMD) + strlen(pkg_file_name) + 1 , sizeof *command );
@@ -640,12 +633,10 @@ int install_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	command = strcat(command,INSTALL_CMD);
 	command = strcat(command,pkg_file_name);
 
-	if( global_config->download_only == 0 ){
-		printf(_("Preparing to install %s-%s\n"),pkg->name,pkg->version);
-		if( (cmd_return = system(command)) == -1 ){
-			printf(_("Failed to execute command: [%s]\n"),command);
-			exit(1);
-		}
+	printf(_("Preparing to install %s-%s\n"),pkg->name,pkg->version);
+	if( (cmd_return = system(command)) == -1 ){
+		printf(_("Failed to execute command: [%s]\n"),command);
+		exit(1);
 	}
 
 	chdir(global_config->working_dir);
@@ -657,42 +648,24 @@ int install_pkg(const rc_config *global_config,pkg_info_t *pkg){
 int upgrade_pkg(const rc_config *global_config,pkg_info_t *installed_pkg,pkg_info_t *pkg){
 	char *pkg_file_name = NULL;
 	char *command = NULL;
-	char prompt_answer[10];
 	int cmd_return = 0;
 
-	/* skip if excluded */
-	if( is_excluded(global_config,pkg) == 1 ){
-		printf(_("excluding %s\n"),pkg->name);
-		return 0;
-	}
-
-	if( global_config->simulate == 1 ){
-		printf(_("%s-%s is to be upgraded to version %s\n"),pkg->name,installed_pkg->version,pkg->version);
-		return 0;
-	}
-
-	/*
-		only give double check notice if in interactive,
-		w/o no_prompt and download_only
-	*/
-	if( global_config->no_prompt == 0 && global_config->download_only == 0 && global_config->interactive == 1 ){
-		printf(_("Replace %s-%s with %s-%s? [y|N] "),pkg->name,installed_pkg->version,pkg->name,pkg->version);
-		fgets(prompt_answer,10,stdin);
-		if( tolower(prompt_answer[0]) != 'y' ){
-			chdir(global_config->working_dir);
-			return cmd_return;
-		}
-	}
-
-	create_dir_structure(pkg->location);
-	chdir(pkg->location);
-
-	/* download it */
-	pkg_file_name = download_pkg(global_config,pkg);
+	/* build the file name */
+	pkg_file_name = calloc(
+		strlen(pkg->name)+strlen("-")+strlen(pkg->version)+strlen(".tgz") + 1 ,
+		sizeof *pkg_file_name
+	);
 	if( pkg_file_name == NULL ){
-		chdir(global_config->working_dir);
-		return -1;
+		fprintf(stderr,_("Failed to calloc file_name\n"));
+		exit(1);
 	}
+	pkg_file_name = strncpy(pkg_file_name,pkg->name,strlen(pkg->name));
+	pkg_file_name[ strlen(pkg->name) ] = '\0';
+	pkg_file_name = strncat(pkg_file_name,"-",strlen("-"));
+	pkg_file_name = strncat(pkg_file_name,pkg->version,strlen(pkg->version));
+	pkg_file_name = strncat(pkg_file_name,".tgz",strlen(".tgz"));
+
+	chdir(pkg->location);
 
 	/* build and execute our command */
 	command = calloc( strlen(UPGRADE_CMD) + strlen(pkg_file_name) + 1 , sizeof *command );
@@ -700,12 +673,10 @@ int upgrade_pkg(const rc_config *global_config,pkg_info_t *installed_pkg,pkg_inf
 	command = strcat(command,UPGRADE_CMD);
 	command = strcat(command,pkg_file_name);
 
-	if( global_config->download_only == 0 ){
-		printf(_("Preparing to replace %s-%s with %s-%s\n"),pkg->name,installed_pkg->version,pkg->name,pkg->version);
-		if( (cmd_return = system(command)) == -1 ){
-			printf(_("Failed to execute command: [%s]\n"),command);
-			exit(1);
-		}
+	printf(_("Preparing to replace %s-%s with %s-%s\n"),pkg->name,installed_pkg->version,pkg->name,pkg->version);
+	if( (cmd_return = system(command)) == -1 ){
+		printf(_("Failed to execute command: [%s]\n"),command);
+		exit(1);
 	}
 
 	chdir(global_config->working_dir);
@@ -718,10 +689,7 @@ int remove_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	char *command = NULL;
 	int cmd_return;
 
-	if( global_config->simulate == 1 ){
-		printf(_("%s-%s is to be removed\n"),pkg->name,pkg->version);
-		return 0;
-	}
+	(void)global_config;
 
 	/* build and execute our command */
 	command = calloc(
