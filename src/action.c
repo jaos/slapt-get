@@ -307,15 +307,64 @@ void pkg_action_search(const char *pattern){
 /* show the details for a specific package */
 void pkg_action_show(const char *pkg_name){
 	pkg_info_t *pkg;
-	struct pkg_list *available_pkgs;
+	struct pkg_list *avail_pkgs;
 	struct pkg_list *installed_pkgs;
+	sg_regex pkg_regex;
 	int bool_installed = 0;
 
-	available_pkgs = get_available_pkgs();
+	avail_pkgs = get_available_pkgs();
 	installed_pkgs = get_installed_pkgs();
-	if( available_pkgs == NULL || installed_pkgs == NULL ) exit(1);
+	if( avail_pkgs == NULL || installed_pkgs == NULL ) exit(1);
 
-	pkg = get_newest_pkg(available_pkgs,pkg_name);
+	/* compile our regex */
+	pkg_regex.nmatch = MAX_REGEX_PARTS;
+	pkg_regex.reg_return = regcomp(&pkg_regex.regex, PKG_LOG_PATTERN, REG_EXTENDED|REG_NEWLINE);
+	if( pkg_regex.reg_return != 0 ){
+		size_t regerror_size;
+		char errbuf[1024];
+		size_t errbuf_size = 1024;
+		fprintf(stderr, _("Failed to compile regex\n"));
+
+		if( (regerror_size = regerror(pkg_regex.reg_return, &pkg_regex.regex,errbuf,errbuf_size)) ){
+			printf(_("Regex Error: %s\n"),errbuf);
+		}
+		exit(1);
+	}
+
+	/* Use regex to see if they specified a particular version */
+	pkg_regex.reg_return = regexec(&pkg_regex.regex,pkg_name, pkg_regex.nmatch,pkg_regex.pmatch,0);
+
+	/* If so, parse it out and try to get that version only */
+	if( pkg_regex.reg_return == 0 ){
+
+		pkg_info_t *tmp_pkg;
+		tmp_pkg = malloc( sizeof *tmp_pkg );
+		if( tmp_pkg == NULL ){
+			fprintf(stderr,_("Failed to malloc tmp_pkg\n"));
+			exit(1);
+		}
+
+		strncpy(tmp_pkg->name,
+			pkg_name + pkg_regex.pmatch[1].rm_so,
+			pkg_regex.pmatch[1].rm_eo - pkg_regex.pmatch[1].rm_so
+		);
+
+		tmp_pkg->name[ pkg_regex.pmatch[1].rm_eo - pkg_regex.pmatch[1].rm_so ] = '\0';
+
+		strncpy(tmp_pkg->version,
+			pkg_name + pkg_regex.pmatch[2].rm_so,
+			pkg_regex.pmatch[2].rm_eo - pkg_regex.pmatch[2].rm_so
+		);
+
+		tmp_pkg->version[ pkg_regex.pmatch[2].rm_eo - pkg_regex.pmatch[2].rm_so ] = '\0';
+		pkg = get_exact_pkg(avail_pkgs, tmp_pkg->name, tmp_pkg->version);
+
+		free(tmp_pkg);
+
+	}else{
+		pkg = get_newest_pkg(avail_pkgs,pkg_name);
+	}
+
 
 	if( pkg != NULL ){
 	
@@ -342,7 +391,7 @@ void pkg_action_show(const char *pkg_name){
 		printf(_("No such package: %s\n"),pkg_name);
 	}
 
-	free_pkg_list(available_pkgs);
+	free_pkg_list(avail_pkgs);
 	free_pkg_list(installed_pkgs);
 }
 

@@ -19,6 +19,7 @@
  * silently perform md5 check, complain out loud only if not correct
  * updated translation template and translation files for slack-conflicts
  * --disable-dep-check now works with --remove as well
+ * --show now accepts {pkg}-{version}
 
 0.9.7h Dec 08, 2003
  * updated FAQ
