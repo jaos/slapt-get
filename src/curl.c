@@ -24,6 +24,7 @@ int download_data(FILE *fh,const char *url,size_t bytes,int use_curl_dl_stats){
 	CURLcode response;
 	char curl_err_buff[1024];
 	int return_code = 0;
+	struct curl_slist *headers = NULL;
 
 #if DEBUG == 1
 	printf(_("Fetching url:[%s]\n"),url);
@@ -38,6 +39,8 @@ int download_data(FILE *fh,const char *url,size_t bytes,int use_curl_dl_stats){
 	curl_easy_setopt(ch, CURLOPT_FTP_USE_EPRT, 0);
 #endif
 	curl_easy_setopt(ch, CURLOPT_FAILONERROR, 1);
+
+	headers = curl_slist_append(headers, "Pragma: "); /* override no-cache */
 
 	if( use_curl_dl_stats != 1 ){
 		curl_easy_setopt(ch, CURLOPT_PROGRESSFUNCTION, progress_callback );
@@ -72,6 +75,7 @@ int download_data(FILE *fh,const char *url,size_t bytes,int use_curl_dl_stats){
 	curl_easy_cleanup(ch);
 	/* can't do a curl_free() after curl_easy_cleanup() */
 	/* curl_free(ch); */
+	curl_slist_free_all(headers);
 
 	return return_code;
 }
@@ -96,6 +100,7 @@ char *head_request(const char *url){
 	CURL *ch = NULL;
 	CURLcode response;
 	struct head_data_t head_t;
+	struct curl_slist *headers = NULL;
 
 	head_t.data = malloc( sizeof *head_t.data );
 	head_t.size = 0;
@@ -114,13 +119,17 @@ char *head_request(const char *url){
 #endif
 	curl_easy_setopt(ch, CURLOPT_FAILONERROR, 1);
 
+	headers = curl_slist_append(headers, "Pragma: "); /* override no-cache */
+
 	if( (response = curl_easy_perform(ch)) != 0 ){
 		free(head_t.data);
 		curl_easy_cleanup(ch);
+		curl_slist_free_all(headers);
 		return NULL;
 	}
 
 	curl_easy_cleanup(ch);
+	curl_slist_free_all(headers);
 	return head_t.data;
 
 }
