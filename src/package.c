@@ -896,6 +896,8 @@ int cmp_pkg_versions(char *a, char *b){
 			/* they are equal if the integer values are equal */
 			/* for instance, "1rob" and "1" will be equal */
 			if( atoi(a_build) == atoi(b_build) ) return 0;
+			if( atoi(a_build) > atoi(b_build) ) return 1;
+			if( atoi(a_build) < atoi(b_build) ) return -1;
 
 			/* fall back to strcmp */
 			return strcmp(a_build,b_build);
