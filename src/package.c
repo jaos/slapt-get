@@ -256,7 +256,6 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 		){
 				char *tmp_realloc = NULL;
 				size_t req_len = strlen("PACKAGE REQUIRED") + 2;
-				char *req_str = char_pointer + req_len;
 				getline_buffer[bytes_read - 1] = '\0';
 
 				tmp_realloc = realloc(
