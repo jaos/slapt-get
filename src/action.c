@@ -126,19 +126,20 @@ void pkg_action_remove(const char *pkg_name){
 /* search for a pkg (support extended POSIX regex) */
 void pkg_action_search(const char *pattern){
 	struct pkg_list *pkgs = NULL;
-	int iterator,regexec_return;
-	regex_t regex;
-	size_t nmatch = MAX_NMATCH;
-	regmatch_t pmatch[MAX_PMATCH];
+	int iterator;
+	sg_regex search_regex;
+	search_regex.nmatch = MAX_REGEX_PARTS;
 
 	/* compile our regex */
-	if( (regexec_return = regcomp(&regex, pattern, REG_EXTENDED|REG_NEWLINE)) ){
+	search_regex.reg_return = regcomp(&search_regex.regex, pattern, REG_EXTENDED|REG_NEWLINE);
+	if( search_regex.reg_return != 0 ){
 		size_t regerror_size;
 		char errbuf[1024];
 		size_t errbuf_size = 1024;
 		fprintf(stderr, "Failed to compile regex\n");
 
-		if( (regerror_size = regerror(regexec_return, &regex,errbuf,errbuf_size)) ){
+		regerror_size = regerror(search_regex.reg_return, &search_regex.regex,errbuf,errbuf_size);
+		if( regerror_size != 0 ){
 			printf("Regex Error: %s\n",errbuf);
 		}
 		exit(1);
@@ -148,14 +149,29 @@ void pkg_action_search(const char *pattern){
 	pkgs = get_available_pkgs();
 
 	for(iterator = 0; iterator < pkgs->pkg_count; iterator++ ){
-		if( (regexec(&regex,pkgs->pkgs[iterator]->name,nmatch,pmatch,0) == 0)
-			|| (regexec(&regex,pkgs->pkgs[iterator]->description,nmatch,pmatch,0) == 0) ){
+		if(
+			( regexec(
+				&search_regex.regex,
+				pkgs->pkgs[iterator]->name,
+				search_regex.nmatch,
+				search_regex.pmatch,
+				0
+			) == 0)
+			||
+			( regexec(
+				&search_regex.regex,
+				pkgs->pkgs[iterator]->description,
+				search_regex.nmatch,
+				search_regex.pmatch,
+				0
+			) == 0)
+		){
 				char *short_description = gen_short_pkg_description(pkgs->pkgs[iterator]);
 				printf("%s - %s\n",pkgs->pkgs[iterator]->name,short_description);
 				free(short_description);
 		}
 	}
-	regfree(&regex);
+	regfree(&search_regex.regex);
 	free_pkg_list(pkgs);
 
 }/* end search */

@@ -48,6 +48,14 @@ void version_info(void);
 /* */
 
 /* variable defs */
+#define MAX_REGEX_PARTS 10
+struct _sg_regex {
+	regex_t regex;
+	size_t nmatch;
+	regmatch_t pmatch[MAX_REGEX_PARTS];
+	int reg_return;
+};
+typedef struct _sg_regex sg_regex;
 /* */
 
 #define DEBUG 0

@@ -3,6 +3,10 @@
  * added initial slack-required for future dependancy support
  * added lilo to example slapt-getrc exclude list
  * improved regex within package.h
+ * fixed bug with packages containing more than 4 version parts (dvd+rw-tools)
+ * moved regex_t stuff into sg_regex typedef
+ * added extra error checking
+ * formatting updates
 
 0.9.5c Oct 04, 2003
  * removed bad free() in get_installed_pkgs()

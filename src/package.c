@@ -20,33 +20,36 @@
 
 /* parse the PACKAGES.TXT file */
 struct pkg_list *get_available_pkgs(void){
-	regex_t name_regex, location_regex, size_c_regex, size_u_regex;
+	sg_regex name_regex, location_regex, size_c_regex, size_u_regex;
 	ssize_t bytes_read;
-	int regexec_return;
 	FILE *pkg_list_fh;
-	size_t nmatch = 10,getline_len = 0;
-	regmatch_t pmatch[10];
+	pkg_info_t **realloc_tmp;
+	struct pkg_list *list;
+	size_t getline_len = 0;
 	char *getline_buffer = NULL;
 	char *size_c = NULL;
 	char *size_u = NULL;
-	pkg_info_t **realloc_tmp;
-	struct pkg_list *list;
 
-	list = calloc( 1 , sizeof *list );
+	list = malloc( sizeof *list );
+
+	name_regex.nmatch = MAX_REGEX_PARTS;
+	location_regex.nmatch = MAX_REGEX_PARTS;
+	size_c_regex.nmatch = MAX_REGEX_PARTS;
+	size_u_regex.nmatch = MAX_REGEX_PARTS;
 
 
 	/* open pkg list */
 	pkg_list_fh = open_file(PKG_LIST_L,"r");
 
 	/* compile our regexen */
-	regcomp(&name_regex,PKG_NAME_PATTERN, REG_EXTENDED|REG_NEWLINE);
-	regcomp(&location_regex,PKG_LOCATION_PATTERN, REG_EXTENDED|REG_NEWLINE);
-	regcomp(&size_c_regex,PKG_SIZEC_PATTERN, REG_EXTENDED|REG_NEWLINE);
-	regcomp(&size_u_regex,PKG_SIZEU_PATTERN, REG_EXTENDED|REG_NEWLINE);
+	regcomp(&name_regex.regex,PKG_NAME_PATTERN, REG_EXTENDED|REG_NEWLINE);
+	regcomp(&location_regex.regex,PKG_LOCATION_PATTERN, REG_EXTENDED|REG_NEWLINE);
+	regcomp(&size_c_regex.regex,PKG_SIZEC_PATTERN, REG_EXTENDED|REG_NEWLINE);
+	regcomp(&size_u_regex.regex,PKG_SIZEU_PATTERN, REG_EXTENDED|REG_NEWLINE);
 
-	list->pkgs = calloc(1 , sizeof *list->pkgs );
+	list->pkgs = malloc( sizeof *list->pkgs );
 	if( list->pkgs == NULL ){
-		fprintf(stderr,"Failed to calloc pkgs\n");
+		fprintf(stderr,"Failed to malloc pkgs\n");
 		exit(1);
 	}
 	list->pkg_count = 0;
@@ -59,26 +62,38 @@ struct pkg_list *get_available_pkgs(void){
 			continue;
 		}
 
-		regexec_return = regexec( &name_regex, getline_buffer, nmatch, pmatch, 0);
-		if( regexec_return == 0 ){
-			list->pkgs[list->pkg_count] = calloc( 1 , sizeof *list->pkgs[list->pkg_count] );
+		name_regex.reg_return = regexec(
+			&name_regex.regex,
+			getline_buffer,
+			name_regex.nmatch,
+			name_regex.pmatch,
+			0
+		);
+
+		if( name_regex.reg_return == 0 ){
+			list->pkgs[list->pkg_count] = malloc( sizeof *list->pkgs[list->pkg_count] );
+
 			if( list->pkgs[list->pkg_count] == NULL ){
-				fprintf(stderr,"Failed to calloc list->pkgs[list->pkg_count]\n");
+				fprintf(stderr,"Failed to malloc list->pkgs[list->pkg_count]\n");
 				exit(1);
 			}
 
 			/* pkg name base */
 			strncpy(list->pkgs[list->pkg_count]->name,
-				getline_buffer + pmatch[1].rm_so,
-				pmatch[1].rm_eo - pmatch[1].rm_so
+				getline_buffer + name_regex.pmatch[1].rm_so,
+				name_regex.pmatch[1].rm_eo - name_regex.pmatch[1].rm_so
 			);
-			list->pkgs[list->pkg_count]->name[pmatch[1].rm_eo - pmatch[1].rm_so] = '\0';
+			list->pkgs[list->pkg_count]->name[
+				name_regex.pmatch[1].rm_eo - name_regex.pmatch[1].rm_so
+			] = '\0';
 			/* pkg version */
 			strncpy(list->pkgs[list->pkg_count]->version,
-				getline_buffer + pmatch[2].rm_so,
-				pmatch[2].rm_eo - pmatch[2].rm_so
+				getline_buffer + name_regex.pmatch[2].rm_so,
+				name_regex.pmatch[2].rm_eo - name_regex.pmatch[2].rm_so
 			);
-			list->pkgs[list->pkg_count]->version[pmatch[2].rm_eo - pmatch[2].rm_so] = '\0';
+			list->pkgs[list->pkg_count]->version[
+				name_regex.pmatch[2].rm_eo - name_regex.pmatch[2].rm_so
+			] = '\0';
 
 		}else{
 			fprintf(stderr,"regex failed on [%s]\n",getline_buffer);
@@ -87,12 +102,22 @@ struct pkg_list *get_available_pkgs(void){
 
 		/* location */
 		if( (getline(&getline_buffer,&getline_len,pkg_list_fh) != EOF) ){
-			if( regexec( &location_regex, getline_buffer, nmatch, pmatch, 0) == 0 ){
+
+			location_regex.reg_return = regexec(
+				&location_regex.regex,
+				getline_buffer,
+				location_regex.nmatch,
+				location_regex.pmatch,
+				0
+			);
+			if( location_regex.reg_return == 0){
 				strncpy(list->pkgs[list->pkg_count]->location,
-					getline_buffer + pmatch[1].rm_so,
-					pmatch[1].rm_eo - pmatch[1].rm_so
+					getline_buffer + location_regex.pmatch[1].rm_so,
+					location_regex.pmatch[1].rm_eo - location_regex.pmatch[1].rm_so
 				);
-				list->pkgs[list->pkg_count]->location[pmatch[1].rm_eo - pmatch[1].rm_so] = '\0';
+				list->pkgs[list->pkg_count]->location[
+					location_regex.pmatch[1].rm_eo - location_regex.pmatch[1].rm_so
+				] = '\0';
 			}else{
 				fprintf(stderr,"regexec failed to parse location\n");
 				continue;
@@ -104,13 +129,26 @@ struct pkg_list *get_available_pkgs(void){
 
 		/* size_c */
 		if( (getline(&getline_buffer,&getline_len,pkg_list_fh) != EOF)){
-			if( (regexec_return = regexec( &size_c_regex, getline_buffer, nmatch, pmatch, 0)) == 0 ){
-				size_c = calloc( (pmatch[1].rm_eo - pmatch[1].rm_so) + 1 , sizeof *size_c );
+			size_c_regex.reg_return = regexec(
+				&size_c_regex.regex,
+				getline_buffer,
+				size_c_regex.nmatch,
+				size_c_regex.pmatch,
+				0
+			);
+			if( size_c_regex.reg_return == 0 ){
+				size_c = calloc(
+					(size_c_regex.pmatch[1].rm_eo - size_c_regex.pmatch[1].rm_so) + 1 , sizeof *size_c 
+				);
 				if( size_c == NULL ){
 					fprintf(stderr,"Failed to calloc size_c\n");
 					exit(1);
 				}
-				strncpy(size_c,getline_buffer + pmatch[1].rm_so,(pmatch[1].rm_eo - pmatch[1].rm_so));
+				strncpy(
+					size_c,
+					getline_buffer + size_c_regex.pmatch[1].rm_so,
+					(size_c_regex.pmatch[1].rm_eo - size_c_regex.pmatch[1].rm_so)
+				);
 				list->pkgs[list->pkg_count]->size_c = strtol(size_c, (char **)NULL, 10);
 				free(size_c);
 			}else{
@@ -124,13 +162,26 @@ struct pkg_list *get_available_pkgs(void){
 
 		/* size_u */
 		if( (getline(&getline_buffer,&getline_len,pkg_list_fh) != EOF)){
-			if( regexec( &size_u_regex, getline_buffer, nmatch, pmatch, 0) == 0 ){
-				size_u = calloc( (pmatch[1].rm_eo - pmatch[1].rm_so) + 1 , sizeof *size_u );
+
+			size_u_regex.reg_return = regexec(
+				&size_u_regex.regex, getline_buffer, size_u_regex.nmatch, size_u_regex.pmatch, 0
+			);
+
+			if( size_u_regex.reg_return == 0 ){
+
+				size_u = calloc(
+					(size_u_regex.pmatch[1].rm_eo - size_u_regex.pmatch[1].rm_so) + 1 ,
+					sizeof *size_u
+				);
+
 				if( size_u == NULL ){
 					fprintf(stderr,"Failed to calloc size_u\n");
 					exit(1);
 				}
-				strncpy(size_u,getline_buffer + pmatch[1].rm_so,(pmatch[1].rm_eo - pmatch[1].rm_so));
+				strncpy(
+					size_u,getline_buffer + size_u_regex.pmatch[1].rm_so,
+					(size_u_regex.pmatch[1].rm_eo - size_u_regex.pmatch[1].rm_so)
+				);
 				list->pkgs[list->pkg_count]->size_u = strtol(size_u, (char **)NULL, 10);
 				free(size_u);
 			}else{
@@ -184,6 +235,10 @@ struct pkg_list *get_available_pkgs(void){
 	}
 	if( getline_buffer) free(getline_buffer);
 	fclose(pkg_list_fh);
+	regfree(&name_regex.regex);
+	regfree(&location_regex.regex);
+	regfree(&size_c_regex.regex);
+	regfree(&size_u_regex.regex);
 
 	return list;
 }
@@ -214,15 +269,13 @@ char *gen_short_pkg_description(pkg_info_t *pkg){
 struct pkg_list *get_installed_pkgs(void){
 	DIR *pkg_log_dir;
 	struct dirent *file;
-	regex_t regex;
-	size_t nmatch = MAX_NMATCH;
-	regmatch_t pmatch[MAX_PMATCH];
-	int regexec_return;
+	sg_regex ip_regex;
 	pkg_info_t **realloc_tmp;
 	struct pkg_list *list;
 
-	list = calloc( 1 , sizeof *list );
+	list = malloc( sizeof *list );
 	list->pkg_count = 0;
+	ip_regex.nmatch = MAX_REGEX_PARTS;
 
 	/* open our pkg_log_dir */
 	if( (pkg_log_dir = opendir(PKG_LOG_DIR)) == NULL ){
@@ -233,55 +286,57 @@ struct pkg_list *get_installed_pkgs(void){
 	}
 
 	/* compile our regex */
-	if( (regexec_return = regcomp(&regex, PKG_LOG_PATTERN, REG_EXTENDED|REG_NEWLINE)) ){
+	ip_regex.reg_return = regcomp(&ip_regex.regex, PKG_LOG_PATTERN, REG_EXTENDED|REG_NEWLINE);
+	if( ip_regex.reg_return != 0 ){
 		size_t regerror_size;
 		char errbuf[1024];
 		size_t errbuf_size = 1024;
 		fprintf(stderr, "Failed to compile regex\n");
 
-		if( (regerror_size = regerror(regexec_return, &regex,errbuf,errbuf_size)) ){
+		if( (regerror_size = regerror(ip_regex.reg_return, &ip_regex.regex,errbuf,errbuf_size)) ){
 			printf("Regex Error: %s\n",errbuf);
 		}
 		exit(1);
 	}
 
-	list->pkgs = calloc( 1 , sizeof *list->pkgs );
+	list->pkgs = malloc( sizeof *list->pkgs );
 	if( list->pkgs == NULL ){
-		fprintf(stderr,"Failed to calloc pkgs\n");
+		fprintf(stderr,"Failed to malloc pkgs\n");
 		exit(1);
 	}
 
 	while( (file = readdir(pkg_log_dir)) != NULL ){
-		if( ( regexec(&regex,file->d_name,nmatch,pmatch,0) ) == 0 ){
+		ip_regex.reg_return = regexec(&ip_regex.regex,file->d_name,ip_regex.nmatch,ip_regex.pmatch,0);
+		if( ip_regex.reg_return == 0 ){
 			pkg_info_t *existing_pkg = NULL;
 			pkg_info_t *tmp_pkg;
-			tmp_pkg = calloc( 1 , sizeof *tmp_pkg );
+			tmp_pkg = malloc( sizeof *tmp_pkg );
 			if( tmp_pkg == NULL ){
-				fprintf(stderr,"Failed to calloc tmp_pkg\n");
+				fprintf(stderr,"Failed to malloc tmp_pkg\n");
 				exit(1);
 			}
 
 
 			strncpy(
 				tmp_pkg->name,
-				file->d_name + pmatch[1].rm_so,
-				pmatch[1].rm_eo - pmatch[1].rm_so
+				file->d_name + ip_regex.pmatch[1].rm_so,
+				ip_regex.pmatch[1].rm_eo - ip_regex.pmatch[1].rm_so
 			);
-			tmp_pkg->name[ pmatch[1].rm_eo - pmatch[1].rm_so ] = '\0';
+			tmp_pkg->name[ ip_regex.pmatch[1].rm_eo - ip_regex.pmatch[1].rm_so ] = '\0';
 			strncpy(
 				tmp_pkg->version,
-				file->d_name + pmatch[2].rm_so,
-				pmatch[2].rm_eo - pmatch[2].rm_so
+				file->d_name + ip_regex.pmatch[2].rm_so,
+				ip_regex.pmatch[2].rm_eo - ip_regex.pmatch[2].rm_so
 			);
-			tmp_pkg->version[ pmatch[2].rm_eo - pmatch[2].rm_so ] = '\0';
+			tmp_pkg->version[ ip_regex.pmatch[2].rm_eo - ip_regex.pmatch[2].rm_so ] = '\0';
 
 			/* add if no existing_pkg or tmp_pkg has greater version */
 			if( ((existing_pkg = get_newest_pkg(list->pkgs,tmp_pkg->name,list->pkg_count)) == NULL)
 				|| (cmp_pkg_versions(existing_pkg->version,tmp_pkg->version) < 0 )){
 
-				list->pkgs[list->pkg_count] = calloc(1 , sizeof *list->pkgs[list->pkg_count] );
+				list->pkgs[list->pkg_count] = malloc( sizeof *list->pkgs[list->pkg_count] );
 				if( list->pkgs[list->pkg_count] == NULL ){
-					fprintf(stderr,"Failed to calloc list->pkgs[list->pkg_count]\n");
+					fprintf(stderr,"Failed to malloc list->pkgs[list->pkg_count]\n");
 					exit(1);
 				}
 				memcpy(list->pkgs[list->pkg_count],tmp_pkg,sizeof *tmp_pkg);
@@ -306,6 +361,8 @@ struct pkg_list *get_installed_pkgs(void){
 		}/* end while */
 	}
 	closedir(pkg_log_dir);
+	regfree(&ip_regex.regex);
+
 	return list;
 }
 
@@ -332,19 +389,18 @@ struct pkg_list *get_update_pkgs(void){
 	FILE *fh;
 	size_t getline_len;
 	ssize_t bytes_read;
-	regex_t regex;
-	size_t nmatch = MAX_NMATCH;
-	regmatch_t pmatch[MAX_PMATCH];
+	sg_regex up_regex;
 	char *getline_buffer = NULL;
 	pkg_info_t **realloc_tmp;
 	struct pkg_list *list;
 
 	list = malloc( sizeof *list );
 	list->pkg_count = 0;
+	up_regex.nmatch = MAX_REGEX_PARTS;
 
 	fh = open_file(PATCHES_LIST_L,"r");
 
-	regcomp(&regex,PKG_PARSE_REGEX, REG_EXTENDED|REG_NEWLINE);
+	up_regex.reg_return = regcomp(&up_regex.regex,PKG_PARSE_REGEX, REG_EXTENDED|REG_NEWLINE);
 
 	list->pkgs = malloc( sizeof *list->pkgs );
 	if( list->pkgs == NULL ){
@@ -355,12 +411,18 @@ struct pkg_list *get_update_pkgs(void){
 	while( (bytes_read = getline(&getline_buffer,&getline_len,fh)) != EOF ){
 		if( (strstr(getline_buffer,"/packages/")) != NULL ){
 
-			if( (regexec( &regex, getline_buffer, nmatch, pmatch, 0)) == 0 ){
+			up_regex.reg_return = regexec(
+				&up_regex.regex,
+				getline_buffer,
+				up_regex.nmatch,
+				up_regex.pmatch,
+				0
+			);
+			if( up_regex.reg_return == 0 ){
 
-				/* find out why malloc isn't working here... mem leak somewhere */
-				list->pkgs[list->pkg_count] = calloc( 1 , sizeof *list->pkgs[list->pkg_count] );
+				list->pkgs[list->pkg_count] = malloc( sizeof *list->pkgs[list->pkg_count] );
 				if( list->pkgs[list->pkg_count] == NULL ){
-					fprintf(stderr,"Failed to calloc list->pkgs[list->pkg_count]\n");
+					fprintf(stderr,"Failed to malloc list->pkgs[list->pkg_count]\n");
 					exit(1);
 				}
 
@@ -368,31 +430,31 @@ struct pkg_list *get_update_pkgs(void){
 				strncpy( list->pkgs[list->pkg_count]->location, PATCHDIR, strlen(PATCHDIR));
 				strncat(
 					list->pkgs[list->pkg_count]->location,
-					getline_buffer + pmatch[1].rm_so,
-					pmatch[1].rm_eo - pmatch[1].rm_so
+					getline_buffer + up_regex.pmatch[1].rm_so,
+					up_regex.pmatch[1].rm_eo - up_regex.pmatch[1].rm_so
 				);
 				list->pkgs[list->pkg_count]->location[
-					strlen(PATCHDIR) + (pmatch[1].rm_eo - pmatch[1].rm_so)
+					strlen(PATCHDIR) + (up_regex.pmatch[1].rm_eo - up_regex.pmatch[1].rm_so)
 				] = '\0';
 
 				/* pkg base name */
 				strncpy(
 					list->pkgs[list->pkg_count]->name,
-					getline_buffer + pmatch[2].rm_so,
-					pmatch[2].rm_eo - pmatch[2].rm_so
+					getline_buffer + up_regex.pmatch[2].rm_so,
+					up_regex.pmatch[2].rm_eo - up_regex.pmatch[2].rm_so
 				);
 				list->pkgs[list->pkg_count]->name[
-					pmatch[2].rm_eo - pmatch[2].rm_so
+					up_regex.pmatch[2].rm_eo - up_regex.pmatch[2].rm_so
 				] = '\0';
 
 				/* pkg version */
 				strncpy(
 					list->pkgs[list->pkg_count]->version,
-					getline_buffer + pmatch[3].rm_so,
-					pmatch[3].rm_eo - pmatch[3].rm_so
+					getline_buffer + up_regex.pmatch[3].rm_so,
+					up_regex.pmatch[3].rm_eo - up_regex.pmatch[3].rm_so
 				);
 				list->pkgs[list->pkg_count]->version[
-					pmatch[3].rm_eo - pmatch[3].rm_so
+					up_regex.pmatch[3].rm_eo - up_regex.pmatch[3].rm_so
 				] = '\0';
 
 				/* fill these in */
@@ -417,7 +479,7 @@ struct pkg_list *get_update_pkgs(void){
 	} /* end while */
 
 	if( getline_buffer ) free(getline_buffer);
-	regfree(&regex);
+	regfree(&up_regex.regex);
 	fclose(fh);
 	return list;
 }
@@ -570,14 +632,13 @@ int is_excluded(const rc_config *global_config,const char *pkg_name){
 
 void get_md5sum(const rc_config *global_config,pkg_info_t *pkg,char *md5_sum){
 	FILE *checksum_file;
-	regex_t md5sum_regex;
-	size_t nmatch = 10;
-	regmatch_t pmatch[10];
-	int regexec_return;
+	sg_regex md5sum_regex;
 	ssize_t getline_read;
 	size_t getline_len = 0;
 	char *getline_buffer = NULL;
 	char *cwd = NULL;
+
+	md5sum_regex.nmatch = MAX_REGEX_PARTS;
 
 	cwd = getcwd(NULL,0);
 
@@ -585,7 +646,7 @@ void get_md5sum(const rc_config *global_config,pkg_info_t *pkg,char *md5_sum){
 
 	checksum_file = open_file(CHECKSUM_FILE,"r");
 
-	regcomp(&md5sum_regex,MD5SUM_REGEX, REG_EXTENDED|REG_NEWLINE);
+	md5sum_regex.reg_return = regcomp(&md5sum_regex.regex,MD5SUM_REGEX, REG_EXTENDED|REG_NEWLINE);
 
 	while( (getline_read = getline(&getline_buffer,&getline_len,checksum_file) ) != EOF ){
 
@@ -594,35 +655,35 @@ void get_md5sum(const rc_config *global_config,pkg_info_t *pkg,char *md5_sum){
 			continue;
 		}
 
-		regexec_return = regexec( &md5sum_regex, getline_buffer, nmatch, pmatch, 0);
-		if( regexec_return == 0 ){
+		md5sum_regex.reg_return = regexec( &md5sum_regex.regex, getline_buffer, md5sum_regex.nmatch, md5sum_regex.pmatch, 0);
+		if( md5sum_regex.reg_return == 0 ){
 			char name[50];
 			char version[50];
 			char sum[34];
 
 			strncpy(
 				name,
-				getline_buffer + pmatch[3].rm_so,
-				pmatch[3].rm_eo - pmatch[3].rm_so
+				getline_buffer + md5sum_regex.pmatch[3].rm_so,
+				md5sum_regex.pmatch[3].rm_eo - md5sum_regex.pmatch[3].rm_so
 			);
-			name[pmatch[3].rm_eo - pmatch[3].rm_so] = '\0';
+			name[md5sum_regex.pmatch[3].rm_eo - md5sum_regex.pmatch[3].rm_so] = '\0';
 
 			strncpy(
 				version,
-				getline_buffer + pmatch[4].rm_so,
-				pmatch[4].rm_eo - pmatch[4].rm_so
+				getline_buffer + md5sum_regex.pmatch[4].rm_so,
+				md5sum_regex.pmatch[4].rm_eo - md5sum_regex.pmatch[4].rm_so
 			);
-			version[pmatch[4].rm_eo - pmatch[4].rm_so] = '\0';
+			version[md5sum_regex.pmatch[4].rm_eo - md5sum_regex.pmatch[4].rm_so] = '\0';
 
 			strncpy(
 				sum,
-				getline_buffer + pmatch[1].rm_so,
-				pmatch[1].rm_eo - pmatch[1].rm_so
+				getline_buffer + md5sum_regex.pmatch[1].rm_so,
+				md5sum_regex.pmatch[1].rm_eo - md5sum_regex.pmatch[1].rm_so
 			);
-			sum[pmatch[1].rm_eo - pmatch[1].rm_so] = '\0';
+			sum[md5sum_regex.pmatch[1].rm_eo - md5sum_regex.pmatch[1].rm_so] = '\0';
 
 			if( (strcmp(pkg->name,name) == 0) && (cmp_pkg_versions(pkg->version,version) == 0) ){
-				memcpy(md5_sum,sum,pmatch[1].rm_eo - pmatch[1].rm_so + 1);
+				memcpy(md5_sum,sum,md5sum_regex.pmatch[1].rm_eo - md5sum_regex.pmatch[1].rm_so + 1);
 				break;
 			}
 
@@ -631,13 +692,14 @@ void get_md5sum(const rc_config *global_config,pkg_info_t *pkg,char *md5_sum){
 	fclose(checksum_file);
 	chdir(cwd);
 	free(cwd);
+	regfree(&md5sum_regex.regex);
 
 	return;
 }
 
 int cmp_pkg_versions(char *a, char *b){
-	int ver_breakdown_1[] = { 0, 0, 0, 0 };
-	int ver_breakdown_2[] = { 0, 0, 0, 0 };
+	int ver_breakdown_1[] = { 0, 0, 0, 0, 0, 0 };
+	int ver_breakdown_2[] = { 0, 0, 0, 0, 0, 0 };
 	int version_part_count1,version_part_count2,position = 0;
 	int greater = 1,lesser = -1;
 
