@@ -1,15 +1,15 @@
 # base mirror url to directory with a PACKAGES.TXT
 # mirror can point to any release, ie: 9.0, 9.1, current, etc
-#SOURCE=ftp://ftp.slackware.no/pub/linux/slackware/slackware-9.0/
-SOURCE=ftp://ftp.slackware.no/pub/linux/slackware/slackware-9.1/
-#SOURCE=ftp://ftp.slackware.no/pub/linux/slackware/slackware-current/
+# SOURCE=http://ftp.slackware.at/slackware-9.0/
+SOURCE=http://ftp.slackware.at/slackware-9.1/
+# SOURCE=http://ftp.slackware.at/slackware-current/
 
 # you can use multiple sources, such as linuxpackages.net
 # (not recommended on production servers, see README)
 #SOURCE=ftp://ftp.linuxpackages.net/pub/Slackware-9.1/
 
 WORKINGDIR=/var/slapt-get
-EXCLUDE=kernel-ide,kernel-source,kernel-headers,kernel-modules,lilo
+EXCLUDE=kernel-ide,kernel-source,kernel-headers,kernel-modules,lilo,devs
 
 # SOURCE=ftp://ftp.slackware.no/pub/linux/slackware/slackware-9.1/
 # SOURCE=ftp://ftp.slackware.at/slackware-9.1/
