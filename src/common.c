@@ -214,10 +214,11 @@ int ask_yes_no(const char *format, ...)
 }
 
 char *str_replace_chr(const char *string,const char find, const char replace){
-	int i;
+	unsigned int i,len = 0;
 	char *clean = calloc( strlen(string) + 1, sizeof *clean);;
 
-	for(i = 0;i < (int)strlen(string);i++){
+	len = strlen(string);
+	for(i = 0;i < len; ++i){
 		if(string[i] == find ){
 			clean[i] = replace;
 		}else{
