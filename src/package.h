@@ -91,7 +91,7 @@ void add_pkg_to_pkg_list(struct pkg_list *list,pkg_info_t *pkg);
 void free_pkg_list(struct pkg_list *);
 
 /* update the local package cache */
-void update_pkg_cache(const rc_config *global_config);
+int update_pkg_cache(const rc_config *global_config);
 /* parse the PACKAGES.TXT file */
 struct pkg_list *parse_packages_txt(FILE *);
 struct pkg_list *get_available_pkgs(void);

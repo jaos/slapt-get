@@ -1586,7 +1586,7 @@ static void clear_head_cache(const char *cache_filename){
 }
 
 /* update package data from mirror url */
-void update_pkg_cache(const rc_config *global_config){
+int update_pkg_cache(const rc_config *global_config){
 	int i,source_dl_failed = 0;
 	FILE *pkg_list_fh_tmp;
 
@@ -1627,6 +1627,7 @@ void update_pkg_cache(const rc_config *global_config){
 				clear_head_cache(pkg_filename);
 			}
 		}
+		if( available_pkgs == NULL ) source_dl_failed = 1;
 		if( source_dl_failed != 1 && pkg_head != NULL ) write_head_cache(pkg_head,pkg_filename);
 		free(pkg_head);
 		free(pkg_local_head);
@@ -1684,13 +1685,21 @@ void update_pkg_cache(const rc_config *global_config){
 			){
 				source_dl_failed = 1;
 				clear_head_cache(checksum_filename);
+			}else{
+				if( global_config->dl_stats != 1 ) printf(_("Done\n"));
 			}
-			if( global_config->dl_stats != 1 ) printf(_("Done\n"));
 			rewind(tmp_checksum_f); /* make sure we are back at the front of the file */
 		}
 		if( source_dl_failed != 1 && checksum_head != NULL ) write_head_cache(checksum_head,checksum_filename);
 		free(checksum_head);
 		free(checksum_local_head);
+
+		/*
+			only do this double check if we know it didn't fail
+		*/
+		if( source_dl_failed != 1 ){
+			if( available_pkgs->pkg_count == 0 ) source_dl_failed = 1;
+		}
 
 		/* if the download failed don't do this, do it if cached or d/l was good */
 		if( source_dl_failed != 1 ){
@@ -1748,7 +1757,7 @@ void update_pkg_cache(const rc_config *global_config){
 	/* close the tmp pkg list file */
 	fclose(pkg_list_fh_tmp);
 
-	return;
+	return source_dl_failed;
 }
 
 struct pkg_list *init_pkg_list(void){

@@ -1,4 +1,7 @@
 
+0.9.8j Jul 31, 2004
+ * return code for failed --update now correctly returns 1 (fixing scripting issues with slapt-get)
+
 0.9.8i Jul 31, 2004
  * added new linuxpackages mirror to example.slapt-getrc
  * fixed package source caching so that if a download did not finish the cache is invalidated

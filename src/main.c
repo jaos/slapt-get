@@ -151,7 +151,7 @@ int main( int argc, char *argv[] ){
 	}
 
 	if( do_action == UPDATE ){
-		update_pkg_cache(global_config);
+		if( update_pkg_cache(global_config) == 1 ) exit(1);
 	}else if( do_action == INSTALL ){
 		if (optind < argc) {
 			int i;
@@ -176,6 +176,7 @@ int main( int argc, char *argv[] ){
 			free(paa);
 		}else{
 			usage();
+			exit(1);
 		}
 	}else if( do_action == REMOVE ){
 		if (optind < argc) {
@@ -201,6 +202,7 @@ int main( int argc, char *argv[] ){
 			free(paa);
 		}else{
 			usage();
+			exit(1);
 		}
 	}else if( do_action == SHOW ){
 		if (optind < argc) {
@@ -209,6 +211,7 @@ int main( int argc, char *argv[] ){
 			}
 		}else{
 			usage();
+			exit(1);
 		}
 	}else if( do_action == SEARCH ){
 		if (optind < argc) {
@@ -217,6 +220,7 @@ int main( int argc, char *argv[] ){
 			}
 		}else{
 			usage();
+			exit(1);
 		}
 	}else if( do_action == UPGRADE ){
 		pkg_action_upgrade_all(global_config);
