@@ -59,7 +59,8 @@ Table of Contents:
     is statically linked.
 
     The following packages are required to build slapt-get from source:
-    make, gcc, curl, glibc, kernel-headers, binutils, zlib, and openssl
+    make, gcc, curl, glibc, kernel-headers, binutils, zlib, gettext-tools,
+    and openssl
 
 
 
