@@ -45,9 +45,7 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 
 		/* If so, parse it out and try to get that version only */
 		if( pkg_regex.reg_return == 0 ){
-
-			char pkg_name[NAME_LEN];
-			char pkg_version[VERSION_LEN];
+			char *pkg_name,*pkg_version;
 
 			if( (pkg_regex.pmatch[1].rm_eo - pkg_regex.pmatch[1].rm_so) > NAME_LEN ){
 				fprintf(stderr,"Package name exceeds NAME_LEN: %d\n",NAME_LEN);
@@ -58,21 +56,19 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 				exit(1);
 			}
 
-			strncpy(
-				pkg_name,
+			pkg_name = strndup(
 				action_args->pkgs[i] + pkg_regex.pmatch[1].rm_so,
 				pkg_regex.pmatch[1].rm_eo - pkg_regex.pmatch[1].rm_so
 			);
-			pkg_name[ pkg_regex.pmatch[1].rm_eo - pkg_regex.pmatch[1].rm_so ] = '\0';
 
-			strncpy(
-				pkg_version,
+			pkg_version = strndup(
 				action_args->pkgs[i] + pkg_regex.pmatch[2].rm_so,
 				pkg_regex.pmatch[2].rm_eo - pkg_regex.pmatch[2].rm_so
 			);
-			pkg_version[ pkg_regex.pmatch[2].rm_eo - pkg_regex.pmatch[2].rm_so ] = '\0';
 
 			pkg = get_exact_pkg(avail_pkgs, pkg_name, pkg_version);
+			free(pkg_name);
+			free(pkg_version);
 
 		}
 
@@ -293,9 +289,7 @@ void pkg_action_show(const char *pkg_name){
 
 	/* If so, parse it out and try to get that version only */
 	if( pkg_regex.reg_return == 0 ){
-
-		char p_name[NAME_LEN];
-		char p_version[VERSION_LEN];
+		char *p_name,*p_version;
 
 		if( (pkg_regex.pmatch[1].rm_eo - pkg_regex.pmatch[1].rm_so) > NAME_LEN ){
 			fprintf(stderr,"Package name exceeds NAME_LEN: %d\n",NAME_LEN);
@@ -306,19 +300,19 @@ void pkg_action_show(const char *pkg_name){
 			exit(1);
 		}
 
-		strncpy(p_name,
+		p_name = strndup(
 			pkg_name + pkg_regex.pmatch[1].rm_so,
 			pkg_regex.pmatch[1].rm_eo - pkg_regex.pmatch[1].rm_so
 		);
-		p_name[ pkg_regex.pmatch[1].rm_eo - pkg_regex.pmatch[1].rm_so ] = '\0';
 
-		strncpy(p_version,
+		p_version = strndup(
 			pkg_name + pkg_regex.pmatch[2].rm_so,
 			pkg_regex.pmatch[2].rm_eo - pkg_regex.pmatch[2].rm_so
 		);
-		p_version[ pkg_regex.pmatch[2].rm_eo - pkg_regex.pmatch[2].rm_so ] = '\0';
 
 		pkg = get_exact_pkg(avail_pkgs, p_name, p_version);
+		free(p_name);
+		free(p_version);
 
 	}
 
@@ -384,7 +378,7 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 			installed_pkgs->pkgs[i]->name
 		);
 		if( update_pkg != NULL ){
-			int cmp_r;
+			int cmp_r = 0;
 
 			if( is_excluded(global_config,installed_pkgs->pkgs[i]) == 1 ){
 				add_exclude_to_transaction(&tran,update_pkg);

@@ -1,4 +1,7 @@
 
+0.9.9d Oct 16, 2004
+ * misc code cleanups
+
 0.9.9c Oct 13, 2004
  * updated src/transaction.c:add_deps_to_trans() for new get_pkg_dependencies
  * finally cleaned up get_pkg_dependencies, now --ignore-dep only ignores the

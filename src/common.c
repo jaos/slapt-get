@@ -129,9 +129,10 @@ void create_dir_structure(const char *dir_name){
 		/* if no more directory delim, then this must be last dir */
 		if( strstr(dir_name + position,"/" ) == NULL ){
 
-			dir_name_buffer = calloc( strlen(dir_name + position) + 1 , sizeof *dir_name_buffer );
-			strncpy(dir_name_buffer,dir_name + position,strlen(dir_name + position));
-			dir_name_buffer[ strlen(dir_name + position) ] = '\0';
+			dir_name_buffer = strndup(
+				dir_name + position,
+				strlen(dir_name + position)
+			);
 
 			if( strcmp(dir_name_buffer,".") != 0 ){
 				if( (mkdir(dir_name_buffer,0755)) == -1){
@@ -163,11 +164,10 @@ void create_dir_structure(const char *dir_name){
 
 				/* figure our dir name and mk it */
 				pointer = strchr(dir_name + position,'/');
-				dir_name_buffer = calloc(
-					strlen(dir_name + position) - strlen(pointer) + 1 , sizeof *dir_name_buffer
+				dir_name_buffer = strndup(
+					dir_name + position,
+					strlen(dir_name + position) - strlen(pointer)
 				);
-				strncpy(dir_name_buffer,dir_name + position, strlen(dir_name + position) - strlen(pointer));
-				dir_name_buffer[ (strlen(dir_name + position) - strlen(pointer)) ] = '\0';
 
 				if( strcmp(dir_name_buffer,".") != 0 ){
 					if( (mkdir(dir_name_buffer,0755)) == -1 ){

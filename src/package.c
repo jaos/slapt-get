@@ -234,19 +234,10 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 			execute_regex(&size_c_regex,getline_buffer);
 
 			if( size_c_regex.reg_return == 0 ){
-				size_c = calloc(
-					(size_c_regex.pmatch[1].rm_eo - size_c_regex.pmatch[1].rm_so) + 1 , sizeof *size_c 
-				);
-				if( size_c == NULL ){
-					fprintf(stderr,_("Failed to calloc %s\n"),"size_c");
-					exit(1);
-				}
-				strncpy(
-					size_c,
+				size_c = strndup(
 					getline_buffer + size_c_regex.pmatch[1].rm_so,
 					(size_c_regex.pmatch[1].rm_eo - size_c_regex.pmatch[1].rm_so)
 				);
-				size_c[ (size_c_regex.pmatch[1].rm_eo - size_c_regex.pmatch[1].rm_so) ] = '\0';
 				tmp_pkg->size_c = strtol(size_c, (char **)NULL, 10);
 				free(size_c);
 			}else{
@@ -268,21 +259,10 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 			execute_regex(&size_u_regex,getline_buffer);
 
 			if( size_u_regex.reg_return == 0 ){
-
-				size_u = calloc(
-					(size_u_regex.pmatch[1].rm_eo - size_u_regex.pmatch[1].rm_so) + 1 ,
-					sizeof *size_u
-				);
-
-				if( size_u == NULL ){
-					fprintf(stderr,_("Failed to calloc %s\n"),"size_u");
-					exit(1);
-				}
-				strncpy(
-					size_u,getline_buffer + size_u_regex.pmatch[1].rm_so,
+				size_u = strndup(
+					getline_buffer + size_u_regex.pmatch[1].rm_so,
 					(size_u_regex.pmatch[1].rm_eo - size_u_regex.pmatch[1].rm_so)
 				);
-				size_u[ (size_u_regex.pmatch[1].rm_eo - size_u_regex.pmatch[1].rm_so) ] = '\0';
 				tmp_pkg->size_u = strtol(size_u, (char **)NULL, 10);
 				free(size_u);
 			}else{
@@ -438,18 +418,10 @@ char *gen_short_pkg_description(pkg_info_t *pkg){
 	/* quit now if the description is going to be empty */
 	if( (int)string_size < 0 ) return NULL;
 
-	short_description = calloc( string_size + 1 , sizeof *short_description );
-	if( short_description == NULL ){
-		fprintf(stderr,_("Failed to calloc %s\n"),"short_description");
-		exit(1);
-	}
-
-	strncpy(
-		short_description,
+	short_description = strndup(
 		pkg->description + (strlen(pkg->name) + 2),
 		string_size
 	);
-	short_description[ string_size ] = '\0';
 
 	return short_description;
 }
@@ -542,33 +514,17 @@ struct pkg_list *get_installed_pkgs(void){
 
 			/* ignore unless we matched */
 			if( compressed_size_reg.reg_return == 0 ){
-				char *size_c;
-				size_c = calloc( compressed_size_reg.pmatch[1].rm_eo - compressed_size_reg.pmatch[1].rm_so + 1, sizeof *size_c);
-				if( size_c == NULL ){
-					fprintf(stderr,_("Failed to calloc %s\n"),"size_c");
-					exit(1);
-				}
-
-				strncpy(size_c,
+				char *size_c = strndup(
 					getline_buffer + compressed_size_reg.pmatch[1].rm_so,
 					(compressed_size_reg.pmatch[1].rm_eo - compressed_size_reg.pmatch[1].rm_so)
 				);
-
 				tmp_pkg->size_c = strtol(size_c,(char **)NULL,10);
 				free(size_c);
 			}else if(uncompressed_size_reg.reg_return == 0 ){
-				char *size_u;
-				size_u = calloc( uncompressed_size_reg.pmatch[1].rm_eo - uncompressed_size_reg.pmatch[1].rm_so + 1, sizeof *size_u);
-				if( size_u == NULL ){
-					fprintf(stderr,_("Failed to calloc %s\n"),"size_u");
-					exit(1);
-				}
-
-				strncpy(size_u,
+				char *size_u = strndup(
 					getline_buffer + uncompressed_size_reg.pmatch[1].rm_so,
 					(uncompressed_size_reg.pmatch[1].rm_eo - uncompressed_size_reg.pmatch[1].rm_so)
 				);
-
 				tmp_pkg->size_u = strtol(size_u,(char **)NULL,10);
 				free(size_u);
 			}else{
@@ -707,7 +663,7 @@ void free_pkg_list(struct pkg_list *list){
 
 int is_excluded(const rc_config *global_config,pkg_info_t *pkg){
 	int i,pkg_not_excluded = 0, pkg_is_excluded = 1;
-	int name_reg_ret,version_reg_ret;
+	int name_reg_ret = -1,version_reg_ret = -1;
 	sg_regex exclude_reg;
 
 	if( global_config->ignore_excludes == 1 )
@@ -1035,7 +991,7 @@ void write_pkg_data(const char *source_url,FILE *d_file,struct pkg_list *pkgs){
 
 struct pkg_list *search_pkg_list(struct pkg_list *available,const char *pattern){
 	int i;
-	int name_r,desc_r,loc_r,version_r;
+	int name_r = -1,desc_r = -1,loc_r = -1,version_r = -1;
 	sg_regex search_regex;
 	struct pkg_list *matches;
 
@@ -1122,9 +1078,10 @@ int get_pkg_dependencies(const rc_config *global_config,struct pkg_list *avail_p
 
 			/* build the buffer to contain the dep entry */
 			pointer = strchr(pkg->required + position,',');
-			buffer = calloc(strlen(pkg->required + position) - strlen(pointer) +1, sizeof *buffer);
-			strncpy(buffer,pkg->required + position, strlen(pkg->required + position) - strlen(pointer));
-			buffer[ strlen(pkg->required + position) - strlen(pointer) ] = '\0';
+			buffer = strndup(
+				pkg->required + position,
+				strlen(pkg->required + position) - strlen(pointer)
+			);
 
 			/* parse the dep entry and try to lookup a package */
 			if( strchr(buffer,'|') != NULL ){
@@ -1221,9 +1178,10 @@ struct pkg_list *get_pkg_conflicts(struct pkg_list *avail_pkgs,struct pkg_list *
 
 			/* build the buffer to contain the conflict entry */
 			pointer = strchr(pkg->conflicts + position,',');
-			buffer = calloc(strlen(pkg->conflicts + position) - strlen(pointer) +1, sizeof *buffer);
-			strncpy(buffer,pkg->conflicts + position, strlen(pkg->conflicts + position) - strlen(pointer));
-			buffer[ strlen(pkg->conflicts + position) - strlen(pointer) ] = '\0';
+			buffer = strndup(
+				pkg->conflicts + position,
+				strlen(pkg->conflicts + position) - strlen(pointer)
+			);
 
 			/* parse the conflict entry and try to lookup a package */
 			tmp_pkg = parse_meta_entry(avail_pkgs,installed_pkgs,buffer);
@@ -1484,12 +1442,16 @@ pkg_info_t *get_pkg_by_details(struct pkg_list *list,char *name,char *version,ch
 
 /* do a head request on the mirror data to find out if it's new */
 static char *head_mirror_data(const char *wurl,const char *file){
-	char *request_header,*request_header_ptr,*delim_ptr,*head_data;
-	int request_header_len;
+	char *request_header = NULL;
+	char *request_header_ptr = NULL;
+	char *delim_ptr = NULL;
+	char *head_data = NULL;
+	int request_header_len = 0;
 	char *url;
 
 	/* build url */
 	url = calloc( strlen(wurl) + strlen(file) + 2, sizeof *url );
+	url[0] = '\0';
 	strncat(url,wurl,strlen(wurl));
 	strncat(url,"/",1);
 	strncat(url,file,strlen(file));
@@ -1516,7 +1478,9 @@ static char *head_mirror_data(const char *wurl,const char *file){
 		free(head_data);
 		return NULL;
 	}
-	request_header_len = strlen(request_header_ptr) - strlen(delim_ptr);
+	request_header_len =
+		(request_header_ptr == NULL) ? 0 : strlen(request_header_ptr) -
+		(delim_ptr == NULL) ? 0 : strlen(delim_ptr);
 	request_header = calloc( request_header_len + 1, sizeof *request_header );
 	memcpy(request_header,request_header_ptr,request_header_len);
 
@@ -1590,10 +1554,14 @@ static void clear_head_cache(const char *cache_filename){
 /* update package data from mirror url */
 int update_pkg_cache(const rc_config *global_config){
 	int i,source_dl_failed = 0;
-	FILE *pkg_list_fh_tmp;
+	FILE *pkg_list_fh_tmp = NULL;
 
 	/* open tmp pkg list file */
 	pkg_list_fh_tmp = tmpfile();
+	if( pkg_list_fh_tmp == NULL ){
+		if( errno ) perror("tmpfile");
+		exit(1);
+	}
 
 	/* go through each package source and download the meta data */
 	for(i = 0; i < global_config->sources.count; i++){
@@ -2031,9 +1999,6 @@ void purge_old_cached_pkgs(const rc_config *global_config,char *dir_name,struct 
 				char *tmp_pkg_name,*tmp_pkg_version;
 				pkg_info_t *tmp_pkg;
 
-				tmp_pkg_name = malloc( sizeof *tmp_pkg_name * NAME_LEN + 1);
-				tmp_pkg_version = malloc( sizeof *tmp_pkg_version * VERSION_LEN + 1);
-
 				if((cached_pkgs_regex.pmatch[1].rm_eo - cached_pkgs_regex.pmatch[1].rm_so) >
 					NAME_LEN ){
 					fprintf(stderr,"cached package name too long\n");
@@ -2045,22 +2010,14 @@ void purge_old_cached_pkgs(const rc_config *global_config,char *dir_name,struct 
 					exit(1);
 				}
 
-				strncpy(
-					tmp_pkg_name,
+				tmp_pkg_name = strndup(
 					file->d_name + cached_pkgs_regex.pmatch[1].rm_so,
 					cached_pkgs_regex.pmatch[1].rm_eo - cached_pkgs_regex.pmatch[1].rm_so
 				);
-				tmp_pkg_name[
-					cached_pkgs_regex.pmatch[1].rm_eo - cached_pkgs_regex.pmatch[1].rm_so
-				] = '\0';
-				strncpy(
-					tmp_pkg_version,
+				tmp_pkg_version = strndup(
 					file->d_name + cached_pkgs_regex.pmatch[2].rm_so,
 					cached_pkgs_regex.pmatch[2].rm_eo - cached_pkgs_regex.pmatch[2].rm_so
 				);
-				tmp_pkg_version[
-					cached_pkgs_regex.pmatch[2].rm_eo - cached_pkgs_regex.pmatch[2].rm_so
-				] = '\0';
 
 				tmp_pkg = get_exact_pkg(avail_pkgs,tmp_pkg_name,tmp_pkg_version);
 				if( tmp_pkg == NULL ){
@@ -2156,9 +2113,10 @@ static pkg_info_t *find_or_requirement(struct pkg_list *avail_pkgs,struct pkg_li
 			next_token = index(required_str + position,'|');
 			str_len = strlen(required_str + position) - strlen(next_token);
 
-			string = malloc( sizeof *string * str_len + 1 );
-			strncpy(string,required_str + position, str_len);
-			string[str_len] = '\0';
+			string = strndup(
+				required_str + position,
+				str_len
+			);
 
 			pkg = parse_meta_entry(avail_pkgs,installed_pkgs,string);
 			free(string);

@@ -475,7 +475,7 @@ transaction *remove_from_transaction(transaction *tran,pkg_info_t *pkg){
 /* parse the dependencies for a package, and add them to the transaction as needed */
 /* check to see if a package is conflicted */
 int add_deps_to_trans(const rc_config *global_config, transaction *tran, struct pkg_list *avail_pkgs, struct pkg_list *installed_pkgs, pkg_info_t *pkg){
-	int c,dep_return;
+	int c,dep_return = -1;
 	struct pkg_list *deps;
 
 	if( global_config->disable_dep_check == 1) return -1;

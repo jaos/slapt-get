@@ -86,6 +86,7 @@ static size_t write_header_callback(void *buffer, size_t size, size_t nmemb, voi
 		head_t->data = tmp;
 		memcpy(&(head_t->data[head_t->size]),buffer,a_size);
 		head_t->size += a_size;
+		head_t->data[head_t->size] = '\0';
 	}
 
 	return nmemb;
@@ -96,7 +97,7 @@ char *head_request(const char *url){
 	CURLcode response;
 	struct head_data_t head_t;
 
-	head_t.data = NULL;
+	head_t.data = malloc( sizeof *head_t.data );
 	head_t.size = 0;
 
 	ch = curl_easy_init();
