@@ -58,6 +58,7 @@ int main( int argc, char *argv[] ){
 		{"S",0, 0, 'S'},
 		{"config",1, 0, 'C'},
 		{"autoclean", 0, 0, 'a'},
+		{0, 0, 0, 0},
 	};
 
 	/*
