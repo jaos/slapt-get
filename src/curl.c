@@ -53,6 +53,55 @@ int download_data(FILE *fh,const char *url){
 	return return_code;
 }
 
+int head_request(const char *filename,const char *url){
+	CURL *ch = NULL;
+	CURLcode response;
+	struct head_request_t head_d;
+	struct stat file_stat;
+	char *size_string;
+	int return_code = -1;
+
+	stat(filename,&file_stat);
+	/* return false if filesize is 0 */
+	if( (int)file_stat.st_size == 0 ){
+		return -1;
+	}
+
+	head_d.data = malloc( sizeof *head_d.data );
+	head_d.size = 0;
+
+	ch = curl_easy_init();
+	curl_easy_setopt(ch, CURLOPT_URL, url);
+	curl_easy_setopt(ch, CURLOPT_WRITEHEADER, (void *)&head_d);
+	curl_easy_setopt(ch, CURLOPT_WRITEFUNCTION, head_request_data_callback);
+	curl_easy_setopt(ch, CURLOPT_NOPROGRESS, 1);
+	curl_easy_setopt(ch, CURLOPT_NOBODY, 1);
+	curl_easy_setopt(ch, CURLOPT_USERAGENT, PROGRAM_NAME );
+
+	if( (response = curl_easy_perform(ch)) != 0 )
+		return_code = -1;
+
+	if( (size_string = strstr(head_d.data,"Content-Length: ")) != NULL ){
+		char *next_newline;
+		if( (next_newline = strstr(size_string,"\n")) != NULL ){
+			char *size;
+			int len = (strlen((size_string + strlen("Content-Length: "))) - strlen(next_newline));
+			size = malloc( sizeof *size * (len + 1));
+			strncpy(size,size_string + strlen("Content-Length: "),len);
+			if( (int)file_stat.st_size == atoi(size) ){
+				return_code = 0;
+			}else{
+				return_code = -1;
+			}
+			free(size);
+		}
+	}
+
+	curl_easy_cleanup(ch);
+	free(head_d.data);
+	return return_code;
+}
+
 int get_mirror_data_from_source(FILE *fh,const char *base_url,const char *filename){
 	int return_code = 0;
 	char *url = NULL;
@@ -221,5 +270,22 @@ int progress_callback(void *clientp, double dltotal, double dlnow, double ultota
 	/* */
 	printf("%c\b",spinner());
 	return 0;
+}
+
+/* head request callback */
+size_t head_request_data_callback(void *ptr, size_t size, size_t nmemb, void *data){
+	struct head_request_t *head_d;
+	int total;
+
+	total = size * nmemb;
+	head_d = (struct head_request_t *)data;
+
+	head_d->data = realloc(head_d->data, sizeof *head_d->data * head_d->size + total + 1);
+	if (head_d->data) {
+		memcpy(&(head_d->data[head_d->size]), ptr, total);
+		head_d->size += total;
+		head_d->data[head_d->size] = 0;
+	}
+	return total;
 }
 
