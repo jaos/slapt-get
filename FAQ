@@ -10,7 +10,7 @@ Frequenty Asked Questions:
 7.  What if I only want to download the updates?
 8.  How can I re-install an existing package?
 9.  Can I "dist-upgrade" to a newer Slackware release?
-10. What about package dependencies?
+10. What about package dependancies?
 11. What about multiple package sources, ala linuxpackages.net?
 12. I don't like the download spinner, how can I get more statistics?
 13. How can I install every available package?
@@ -104,11 +104,11 @@ Frequenty Asked Questions:
          Sometimes upgrades fail, make sure /bin/sh is either a binary or 
          symlink to `which bash`.
 
-10.  What about package dependencies?
+10.  What about package dependancies?
 
- Other tools try to provide dependency checking via various hacks (generating
- the dependency file, exploding the package, then ldd'ing binary files to find
- missing libraries before consulting the dependency file).  This is not a
+ Other tools try to provide dependancy checking via various hacks (generating
+ the dependancy file, exploding the package, then ldd'ing binary files to find
+ missing libraries before consulting the dependancy file).  This is not a
  reliable/fool proof method.  It is also extremely slow.
 
  I have sent Pat a request to include a requires field in the PACKAGES.TXT
@@ -152,12 +152,12 @@ Frequenty Asked Questions:
    man: man (format and display the on-line manual pages)
 
  He has declined the request at this time, citing a "niche" for a
- distribution without "dependency hell".  I believe leaving out the requirement
- field does not prevent dependency hell, it simply hides it, passing the burden
+ distribution without "dependancy hell".  I believe leaving out the requirement
+ field does not prevent dependancy hell, it simply hides it, passing the burden
  on to the users and system administrators who simply want to be able to
  quickly install and deploy servers and services.  Yes it is good for new users
  to become familiar with the process of locating and resolving library
- dependencies.  But I think this becomes tedious after the initial lesson has
+ dependancies.  But I think this becomes tedious after the initial lesson has
  been learned.  However, I am thankful for Pat's dedication to his goals and
  ideals.  So I have simply dropped the issue.
 
@@ -165,13 +165,14 @@ Frequenty Asked Questions:
  (without becoming overly complex or kludgey) they can convince Pat there is
  a need/demand for it.
 
+ We are working with the linuxpackages.net crew to integrate dependancy 
+ with their package listing.
+
 11. What about multiple package sources, ala linuxpackages.net?
 
- I have sent a request to LinuxPackages asking them to include a file list or
- a PACKAGES.TXT in the same manner as the slackware official packages are 
- listed.  This would make integrating their package listing trivial.
+ You can now use linuxpackages.net as your slapt-get source. Support for
+ multiple sources at once is forthcoming.
 
- We are now working together on a possible solution.
 
 12. I don't like the download spinner, how can I get more statistics?
 
@@ -206,9 +207,12 @@ Frequenty Asked Questions:
 
 14. What if I only want to upgrade one package?
 
- Then you follow the debian apt-get method if using --install.
+ Then you follow the debian apt-get method of using --install.
  If the package is already installed, it will check and install any newer
- versions.
+ versions:
+
+ slapt-get --install {pkg_name}
+
 
 15. What about Dropline support?
 
