@@ -23,9 +23,8 @@ $(OBJS):
 $(PROGRAM_NAME): libs
 	$(CC) -o $(PROGRAM_NAME) $(OBJS) $(CFLAGS) $(CURLFLAGS)
 
-#test with LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./src ./slapt-get
 withlibslapt: libs
-	$(CC) -o $(PROGRAM_NAME) $(NONLIBOBJS) $(CFLAGS) $(CURLFLAGS) -L./src -lslapt-$(VERSION)
+	$(CC) -o $(PROGRAM_NAME) $(NONLIBOBJS) $(CFLAGS) $(CURLFLAGS) -lslapt-$(VERSION)
 
 static: libs
 	$(CC) -o $(PROGRAM_NAME) $(OBJS) $(CFLAGS) $(CURLFLAGS) -static
@@ -36,7 +35,15 @@ staticinstall: static doinstall
 
 withlibslaptinstall: withlibslapt doinstall
 
-doinstall:
+libsinstall: libs
+	cp include/slapt.h /usr/include/
+	cp src/libslapt-$(VERSION).a src/libslapt-$(VERSION).so /usr/lib/
+	if [ -L /usr/lib/libslapt.so ]; then rm /usr/lib/libslapt.so;fi
+	ln -s /usr/lib/libslapt-$(VERSION).so /usr/lib/libslapt.so
+	if [ -L /usr/lib/libslapt.a ]; then rm /usr/lib/libslapt.a;fi
+	ln -s /usr/lib/libslapt-$(VERSION).a /usr/lib/libslapt.a
+
+doinstall: libsinstall
 	strip --strip-unneeded $(PROGRAM_NAME)
 	install $(PROGRAM_NAME) $(SBINDIR)
 	chown root:bin $(SBINDIR)$(PROGRAM_NAME)
@@ -49,12 +56,6 @@ doinstall:
 	for i in `ls po/ --ignore=slapt-get.pot --ignore=CVS |sed 's/.po//'` ;do if [ ! -d $(LOCALESDIR)/$$i/LC_MESSAGES ]; then mkdir -p $(LOCALESDIR)/$$i/LC_MESSAGES; fi; msgfmt -o $(LOCALESDIR)/$$i/LC_MESSAGES/slapt-get.mo po/$$i.po;done
 	mkdir -p /usr/doc/$(PROGRAM_NAME)-$(VERSION)/
 	cp example.slapt-getrc COPYING Changelog INSTALL README FAQ FAQ.html TODO /usr/doc/$(PROGRAM_NAME)-$(VERSION)/
-	cp include/slapt.h /usr/include/
-	cp src/libslapt-$(VERSION).a src/libslapt-$(VERSION).so /usr/lib/
-	if [ -L /usr/lib/libslapt.so ]; then rm /usr/lib/libslapt.so;fi
-	ln -s /usr/lib/libslapt-$(VERSION).so /usr/lib/libslapt.so
-	if [ -L /usr/lib/libslapt.a ]; then rm /usr/lib/libslapt.a;fi
-	ln -s /usr/lib/libslapt-$(VERSION).a /usr/lib/libslapt.a
 
 uninstall:
 	-rm /$(SBINDIR)/$(PROGRAM_NAME)
