@@ -459,5 +459,5 @@ msgstr "Pobieranie %s nie kompletne\n"
 
 #, c-format
 msgid "Could not find MD5 checksum for %s, override with --no-md5\n"
-msgstr "Could not find MD5 checksum for %s, override with --no-md5\n"
+msgstr "Nie znaleziono sum MD5 do %s, uniewa¿niaj z --no-md5\n"
 
