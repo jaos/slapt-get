@@ -38,7 +38,6 @@ void init_transaction(transaction *tran){
 
 int handle_transaction(const rc_config *global_config, transaction *tran){
 	int i;
-	char prompt_answer[10];
 	size_t download_size = 0;
 	size_t uncompressed_size = 0;
 
@@ -116,7 +115,8 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 			|| ( tran->install_pkgs->pkg_count > 0 && global_config->dist_upgrade != 0 ) )
 			&& (global_config->no_prompt == 0 && global_config->download_only == 0
 			&& global_config->simulate == 0 && global_config->print_uris == 0 )
-		) {
+	) {
+		char prompt_answer[10];
 		printf(_("Do you want to continue? [y/N] "));
 		fgets(prompt_answer,10,stdin);
 		if( tolower(prompt_answer[0]) != 'y' ){
