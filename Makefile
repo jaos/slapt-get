@@ -47,7 +47,7 @@ doinstall:
 	install -d /var/$(PROGRAM_NAME)
 	for i in `ls po/ --ignore=slapt-get.pot --ignore=CVS |sed 's/.po//'` ;do if [ ! -d $(LOCALESDIR)/$$i/LC_MESSAGES ]; then mkdir -p $(LOCALESDIR)/$$i/LC_MESSAGES; fi; msgfmt -o $(LOCALESDIR)/$$i/LC_MESSAGES/slapt-get.mo po/$$i.po;done
 	mkdir -p /usr/doc/$(PROGRAM_NAME)-$(VERSION)/
-	cp example.slapt-getrc COPYING Changelog INSTALL README FAQ TODO /usr/doc/$(PROGRAM_NAME)-$(VERSION)/
+	cp example.slapt-getrc COPYING Changelog INSTALL README FAQ FAQ.html TODO /usr/doc/$(PROGRAM_NAME)-$(VERSION)/
 	cp include/slapt.h /usr/include/
 	cp src/libslapt-$(VERSION).a src/libslapt-$(VERSION).so /usr/lib/
 	if [ -L /usr/lib/libslapt.so ]; then rm /usr/lib/libslapt.so;fi
@@ -95,7 +95,7 @@ dopkg:
 	@echo "# for example source entries and configuration hints." >> ./pkg/etc/slapt-get/slapt-getrc.new
 	@cat example.slapt-getrc |grep -v '^#'|grep -v '^$$' >> ./pkg/etc/slapt-get/slapt-getrc.new
 	@mkdir -p ./pkg/usr/doc/$(PROGRAM_NAME)-$(VERSION)/
-	@cp example.slapt-getrc COPYING Changelog INSTALL README FAQ TODO ./pkg/usr/doc/$(PROGRAM_NAME)-$(VERSION)/
+	@cp example.slapt-getrc COPYING Changelog INSTALL README FAQ FAQ.html TODO ./pkg/usr/doc/$(PROGRAM_NAME)-$(VERSION)/
 	@echo "if [ ! -d etc/slapt-get ]; then mkdir -p etc/slapt-get; fi; if [ -f etc/slapt-getrc -a ! -f etc/slapt-get/slapt-getrc ]; then mv etc/slapt-getrc etc/slapt-get/slapt-getrc; fi; if [ ! -f etc/slapt-get/slapt-getrc ]; then mv etc/slapt-get/slapt-getrc.new etc/slapt-get/slapt-getrc; else sed -re 's/(See \/usr\/doc\/slapt\-get\-).*(\/example\.slapt\-getrc)/\1$(VERSION)\2/' /etc/slapt-get/slapt-getrc > /tmp/tmp_slapt-getrc_tmp; cat /tmp/tmp_slapt-getrc_tmp > /etc/slapt-get/slapt-getrc; rm /tmp/tmp_slapt-getrc_tmp; diff -q etc/slapt-get/slapt-getrc etc/slapt-get/slapt-getrc.new >/dev/null 2>&1 && rm etc/slapt-get/slapt-getrc.new; fi;" > pkg/install/doinst.sh
 	@cp slack-desc pkg/install/
 	@cp slack-required pkg/install/
