@@ -1588,7 +1588,7 @@ int update_pkg_cache(const rc_config *global_config){
 		}else{
 			if( global_config->dl_stats == TRUE ) printf("\n");
 			if( (tmp_pkg_f = open_file(pkg_filename,"w+b")) == NULL ) exit(1);
-			if( get_mirror_data_from_source(tmp_pkg_f,global_config->dl_stats,global_config->sources.url[i],PKG_LIST) == 0 ){
+			if( get_mirror_data_from_source(tmp_pkg_f,global_config,global_config->sources.url[i],PKG_LIST) == 0 ){
 				rewind(tmp_pkg_f); /* make sure we are back at the front of the file */
 				available_pkgs = parse_packages_txt(tmp_pkg_f);
 				if( global_config->dl_stats == FALSE ) printf(_("Done\n"));
@@ -1623,7 +1623,7 @@ int update_pkg_cache(const rc_config *global_config){
 		}else{
 			if( global_config->dl_stats == TRUE ) printf("\n");
 			if( (tmp_patch_f = open_file(patch_filename,"w+b")) == NULL ) exit (1);
-			if( get_mirror_data_from_source(tmp_patch_f,global_config->dl_stats,global_config->sources.url[i],PATCHES_LIST) == 0 ){
+			if( get_mirror_data_from_source(tmp_patch_f,global_config,global_config->sources.url[i],PATCHES_LIST) == 0 ){
 				rewind(tmp_patch_f); /* make sure we are back at the front of the file */
 				patch_pkgs = parse_packages_txt(tmp_patch_f);
 				if( global_config->dl_stats == FALSE ) printf(_("Done\n"));
@@ -1655,7 +1655,7 @@ int update_pkg_cache(const rc_config *global_config){
 			if( global_config->dl_stats == TRUE ) printf("\n");
 			if( (tmp_checksum_f = open_file(checksum_filename,"w+b")) == NULL ) exit(1);
 			if( get_mirror_data_from_source(
-						tmp_checksum_f,global_config->dl_stats,global_config->sources.url[i],CHECKSUM_FILE
+						tmp_checksum_f,global_config,global_config->sources.url[i],CHECKSUM_FILE
 					) != 0
 			){
 				source_dl_failed = 1;

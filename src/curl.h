@@ -22,13 +22,13 @@ struct head_data_t {
 };
 
 /* this is the main download routine */
-int download_data(FILE *fh,const char *url,size_t bytes,int use_curl_dl_stats);
+int download_data(FILE *fh,const char *url,size_t bytes,const rc_config *global_config);
 char *head_request(const char *url);
 
 /*
 	this fills FILE with data from url, used for PACKAGES.TXT and CHECKSUMS
 */
-int get_mirror_data_from_source(FILE *fh,int use_curl_dl_stats,const char *base_url,const char *filename);
+int get_mirror_data_from_source(FILE *fh,const rc_config *global_config,const char *base_url,const char *filename);
 
 /* download pkg, cals download_data */
 int download_pkg(const rc_config *global_config,pkg_info_t *pkg);

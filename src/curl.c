@@ -19,7 +19,7 @@
 #include <main.h>
 static size_t write_header_callback(void *buffer, size_t size, size_t nmemb, void *userp);
 
-int download_data(FILE *fh,const char *url,size_t bytes,int use_curl_dl_stats){
+int download_data(FILE *fh,const char *url,size_t bytes,const rc_config *global_config){
 	CURL *ch = NULL;
 	CURLcode response;
 	char curl_err_buff[1024];
@@ -43,8 +43,12 @@ int download_data(FILE *fh,const char *url,size_t bytes,int use_curl_dl_stats){
 
 	headers = curl_slist_append(headers, "Pragma: "); /* override no-cache */
 
-	if( use_curl_dl_stats != 1 ){
-		curl_easy_setopt(ch, CURLOPT_PROGRESSFUNCTION, progress_callback );
+	if( global_config->dl_stats != 1 ){
+		if( global_config->progress_cb == NULL ){
+			curl_easy_setopt(ch, CURLOPT_PROGRESSFUNCTION, progress_callback );
+		}else{
+			curl_easy_setopt(ch, CURLOPT_PROGRESSFUNCTION, global_config->progress_cb );
+		}
 		curl_easy_setopt(ch, CURLOPT_PROGRESSDATA, &bytes);
 	}
 
@@ -141,7 +145,7 @@ char *head_request(const char *url){
 
 }
 
-int get_mirror_data_from_source(FILE *fh,int use_curl_dl_stats,const char *base_url,const char *filename){
+int get_mirror_data_from_source(FILE *fh,const rc_config *global_config,const char *base_url,const char *filename){
 	int return_code = 0;
 	char *url = NULL;
 
@@ -153,7 +157,7 @@ int get_mirror_data_from_source(FILE *fh,int use_curl_dl_stats,const char *base_
 	url[ strlen(base_url) ] = '\0';
 	strncat(url,filename,strlen(filename) );
 
-	return_code = download_data(fh,url,0,use_curl_dl_stats);
+	return_code = download_data(fh,url,0,global_config);
 
 	free(url);
 	/* make sure we are back at the front of the file */
@@ -205,7 +209,7 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	}
 
 	/* download the file to our file handle */
-	dl_return = download_data(fh,url,f_size,global_config->dl_stats);
+	dl_return = download_data(fh,url,f_size,global_config);
 	if( dl_return == 0 ){
 		if( global_config->dl_stats == FALSE ) printf(_("Done\n"));
 	}else if( dl_return == CURLE_HTTP_RANGE_ERROR ){

@@ -35,7 +35,6 @@ typedef struct {
 	int reg_return;
 } sg_regex;
 
-
 FILE *open_file(const char *file_name,const char *mode);
 int init_regex(sg_regex *regex_t, const char *regex_string);
 void execute_regex(sg_regex *regex_t,const char *string);

@@ -49,6 +49,8 @@ typedef struct {
 	BOOL_T print_uris;
 	BOOL_T dl_stats;
 	BOOL_T remove_obsolete;
+	int(*progress_cb)(void *,double,double,double,double);
+
 } rc_config;
 
 rc_config *read_rc_config(const char *file_name);
