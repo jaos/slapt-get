@@ -17,7 +17,7 @@ Frequenty Asked Questions:
 14. What if I only want to upgrade one package?
 15. What about Dropline support?
 16. How can I generate an exclude list for an entire disk set?
-17. How do I use a local file mirror?
+17. How do I use a local file source?
 
 
 
@@ -81,17 +81,17 @@ Frequenty Asked Questions:
 
 9.  Can I "dist-upgrade" to a newer Slackware release?
 
- Change your mirror location within /etc/slapt-getrc to point to the newer
+ Change your source location within /etc/slapt-getrc to point to the newer
  release directory.  --update your local package data cache, then --upgrade
  to the newer release.
 
- For instance, you have the following uncommented line as your mirror:
+ For instance, you have the following uncommented line as your source:
 
-  MIRROR=ftp://distro.ibiblio.org/pub/Linux/distributions/slackware/slackware-9.0/
+  SOURCE=ftp://distro.ibiblio.org/pub/Linux/distributions/slackware/slackware-9.0/
 
  Simply change the url to point to current, like so:
 
-  MIRROR=ftp://distro.ibiblio.org/pub/Linux/distributions/slackware/slackware-current/
+  SOURCE=ftp://distro.ibiblio.org/pub/Linux/distributions/slackware/slackware-current/
 
  Now you simply --update to retrieve the package data for that release.
 
@@ -244,7 +244,7 @@ Frequenty Asked Questions:
    done
    echo
 
-17. How do I use a local file mirror?
+17. How do I use a local file source?
 
  Within slapt-getrc, change your SOURCE= lines to point to file:// url's.
 
