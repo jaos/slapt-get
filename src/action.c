@@ -89,7 +89,7 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 			pkg = get_exact_pkg(avail_pkgs, tmp_pkg->name, tmp_pkg->version);
 
 			if( pkg == NULL ){
-				fprintf(stderr,_("No Such package: %s\n"),tmp_pkg->name);
+				fprintf(stderr,_("No such package: %s\n"),tmp_pkg->name);
 				continue;
 			}
 
@@ -103,7 +103,7 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 			pkg = get_newest_pkg(avail_pkgs,action_args->pkgs[i]);
 
 			if( pkg == NULL ){
-				fprintf(stderr,_("No Such package: %s\n"),action_args->pkgs[i]);
+				fprintf(stderr,_("No such package: %s\n"),action_args->pkgs[i]);
 				continue;
 			}
 
