@@ -1,5 +1,7 @@
 
 0.9.9j Apr 01, 2005
+ * correctly set free_pkgs in pkg_lists within init_transaction and checked for
+   it in free_transaction
  * use -fpic for library creation
  * updated withlibslapt make target 
  * added generate_suggestions() so that suggestions are properly detected
