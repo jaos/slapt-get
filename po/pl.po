@@ -482,5 +482,5 @@ msgstr "Wczytujê Listê Pakietów..."
 
 #, c-format
 msgid "Download of %s incomplete\n"
-msgstr "Download of %s incomplete\n"
+msgstr "Pobieranie %s nie kompletne\n"
 
