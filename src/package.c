@@ -782,27 +782,16 @@ void get_md5sum(const rc_config *global_config,pkg_info_t *pkg,char *md5_sum){
 	while( (getline_read = getline(&getline_buffer,&getline_len,checksum_file) ) != EOF ){
 
 		if( strstr(getline_buffer,".tgz") == NULL) continue;
+		if( strstr(getline_buffer,"/source/") != NULL) continue;
 
 		md5sum_regex.reg_return = regexec( &md5sum_regex.regex, getline_buffer, md5sum_regex.nmatch, md5sum_regex.pmatch, 0);
 		if( md5sum_regex.reg_return == 0 ){
+			char sum[34];
+			char location[50];
 			char name[50];
 			char version[50];
-			char sum[34];
 
-			strncpy(
-				name,
-				getline_buffer + md5sum_regex.pmatch[3].rm_so,
-				md5sum_regex.pmatch[3].rm_eo - md5sum_regex.pmatch[3].rm_so
-			);
-			name[md5sum_regex.pmatch[3].rm_eo - md5sum_regex.pmatch[3].rm_so] = '\0';
-
-			strncpy(
-				version,
-				getline_buffer + md5sum_regex.pmatch[4].rm_so,
-				md5sum_regex.pmatch[4].rm_eo - md5sum_regex.pmatch[4].rm_so
-			);
-			version[md5sum_regex.pmatch[4].rm_eo - md5sum_regex.pmatch[4].rm_so] = '\0';
-
+			/* md5 sum */
 			strncpy(
 				sum,
 				getline_buffer + md5sum_regex.pmatch[1].rm_so,
@@ -810,7 +799,36 @@ void get_md5sum(const rc_config *global_config,pkg_info_t *pkg,char *md5_sum){
 			);
 			sum[md5sum_regex.pmatch[1].rm_eo - md5sum_regex.pmatch[1].rm_so] = '\0';
 
-			if( (strcmp(pkg->name,name) == 0) && (cmp_pkg_versions(pkg->version,version) == 0) ){
+			/* location/directory */
+			strncpy(
+				location,
+				getline_buffer + md5sum_regex.pmatch[2].rm_so,
+				md5sum_regex.pmatch[2].rm_eo - md5sum_regex.pmatch[2].rm_so
+			);
+			location[md5sum_regex.pmatch[2].rm_eo - md5sum_regex.pmatch[2].rm_so] = '\0';
+
+			/* pkg name */
+			strncpy(
+				name,
+				getline_buffer + md5sum_regex.pmatch[3].rm_so,
+				md5sum_regex.pmatch[3].rm_eo - md5sum_regex.pmatch[3].rm_so
+			);
+			name[md5sum_regex.pmatch[3].rm_eo - md5sum_regex.pmatch[3].rm_so] = '\0';
+
+			/* pkg version */
+			strncpy(
+				version,
+				getline_buffer + md5sum_regex.pmatch[4].rm_so,
+				md5sum_regex.pmatch[4].rm_eo - md5sum_regex.pmatch[4].rm_so
+			);
+			version[md5sum_regex.pmatch[4].rm_eo - md5sum_regex.pmatch[4].rm_so] = '\0';
+
+			/* see if we can match up name, version, and location */
+			if( 
+				(strcmp(pkg->name,name) == 0)
+				&& (cmp_pkg_versions(pkg->version,version) == 0)
+				&& (strcmp(pkg->location,location) == 0)
+			){
 				memcpy(md5_sum,sum,md5sum_regex.pmatch[1].rm_eo - md5sum_regex.pmatch[1].rm_so + 1);
 				break;
 			}
