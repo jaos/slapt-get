@@ -22,11 +22,13 @@ static void version_info(void);
 
 int main( int argc, char *argv[] ){
 	rc_config *global_config; /* our config struct */
+	pkg_action_args_t *paa;
 	/* getopt needs these */
 	int c = 0;
 	extern char *optarg;
 	extern int optind, opterr, optopt;
 	enum action do_action = 0;
+	int option_index = 0;
 	static struct option long_options[] = {
 		{"update", 0, 0, 'u'},
 		{"upgrade", 0, 0, 'g'},
@@ -57,11 +59,13 @@ int main( int argc, char *argv[] ){
 		{"config",1, 0, 'C'},
 		{"autoclean", 0, 0, 'a'},
 	};
-	int option_index = 0;
-	/* */
-	pkg_action_args_t *paa;
 
-	setvbuf(stdout, (char *)NULL, _IONBF, 0); /* unbuffer stdout */
+	/*
+		this causes problems with slackware-current...
+		segfaults in getopt_long_only() when invalid
+		option is used
+	*/
+	setbuf(stdout,NULL);
 
 	#ifdef ENABLE_NLS
 	setlocale(LC_MESSAGES,getenv("LANG"));
