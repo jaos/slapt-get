@@ -164,3 +164,5 @@ void clean_pkg_dir(const char *dir_name);
 /* clean out old outdated packages in the cache */
 void purge_old_cached_pkgs(const rc_config *global_config,char *dir_name, struct pkg_list *avail_pkgs);
 
+/* make a copy of a package (needs to be freed with free_pkg) */
+pkg_info_t *copy_pkg(pkg_info_t *dst,pkg_info_t *src);

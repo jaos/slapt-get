@@ -1,5 +1,8 @@
 
 0.9.9j Mar 28, 2005
+ * added copy_pkg() to package.[ch] instead of using memcpy() in the transaction
+   code, so free_transaction() calls free_pkg() making all usage of pkg_info_t
+   objects uniform
  * translation updates
  * fixed precision error in curl progress callback, d/l stats now report
    correct percentage

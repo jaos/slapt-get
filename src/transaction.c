@@ -325,16 +325,14 @@ void add_install_to_transaction(transaction_t *tran,pkg_info_t *pkg){
 		tran->install_pkgs->pkgs[tran->install_pkgs->pkg_count] = slapt_malloc(
 			sizeof *tran->install_pkgs->pkgs[tran->install_pkgs->pkg_count]
 		);
-		tran->install_pkgs->pkgs[tran->install_pkgs->pkg_count] = memcpy(
+		tran->install_pkgs->pkgs[tran->install_pkgs->pkg_count] = copy_pkg(
 			tran->install_pkgs->pkgs[tran->install_pkgs->pkg_count],
-			pkg,
-			sizeof *pkg
+			pkg
 		);
 		queue_add_install(tran->queue,tran->install_pkgs->pkgs[tran->install_pkgs->pkg_count]);
+		add_suggestion(tran,tran->install_pkgs->pkgs[tran->install_pkgs->pkg_count]);
 
 		++tran->install_pkgs->pkg_count;
-
-		add_suggestion(tran,pkg);
 	}
 
 }
@@ -360,10 +358,9 @@ void add_remove_to_transaction(transaction_t *tran,pkg_info_t *pkg){
 		tran->remove_pkgs->pkgs[tran->remove_pkgs->pkg_count] = slapt_malloc(
 			sizeof *tran->remove_pkgs->pkgs[tran->remove_pkgs->pkg_count]
 		);
-		tran->remove_pkgs->pkgs[tran->remove_pkgs->pkg_count] = memcpy(
+		tran->remove_pkgs->pkgs[tran->remove_pkgs->pkg_count] = copy_pkg(
 			tran->remove_pkgs->pkgs[tran->remove_pkgs->pkg_count],
-			pkg,
-			sizeof *pkg
+			pkg
 		);
 		++tran->remove_pkgs->pkg_count;
 	}
@@ -391,10 +388,9 @@ void add_exclude_to_transaction(transaction_t *tran,pkg_info_t *pkg){
 		tran->exclude_pkgs->pkgs[tran->exclude_pkgs->pkg_count] = slapt_malloc(
 			sizeof *tran->exclude_pkgs->pkgs[tran->exclude_pkgs->pkg_count]
 		);
-		tran->exclude_pkgs->pkgs[tran->exclude_pkgs->pkg_count] = memcpy(
+		tran->exclude_pkgs->pkgs[tran->exclude_pkgs->pkg_count] = copy_pkg(
 			tran->exclude_pkgs->pkgs[tran->exclude_pkgs->pkg_count],
-			pkg,
-			sizeof *pkg
+			pkg
 		);
 		++tran->exclude_pkgs->pkg_count;
 	}
@@ -431,15 +427,13 @@ void add_upgrade_to_transaction(
 			sizeof *tran->upgrade_pkgs->pkgs[tran->upgrade_pkgs->pkg_count]->upgrade
 		);
 
-		tran->upgrade_pkgs->pkgs[tran->upgrade_pkgs->pkg_count]->installed = memcpy(
+		tran->upgrade_pkgs->pkgs[tran->upgrade_pkgs->pkg_count]->installed = copy_pkg(
 			tran->upgrade_pkgs->pkgs[tran->upgrade_pkgs->pkg_count]->installed,
-			installed_pkg,
-			sizeof *installed_pkg
+			installed_pkg
 		);
-		tran->upgrade_pkgs->pkgs[tran->upgrade_pkgs->pkg_count]->upgrade = memcpy(
+		tran->upgrade_pkgs->pkgs[tran->upgrade_pkgs->pkg_count]->upgrade = copy_pkg(
 			tran->upgrade_pkgs->pkgs[tran->upgrade_pkgs->pkg_count]->upgrade,
-			upgrade_pkg,
-			sizeof *upgrade_pkg
+			upgrade_pkg
 		);
 
 		queue_add_upgrade(
@@ -488,15 +482,13 @@ void free_transaction(transaction_t *tran){
 	unsigned int i;
 
 	for(i = 0;i < tran->install_pkgs->pkg_count; i++){
-		/* no free_pkg() b/c the *pkg is all memcpy'd */
-		free(tran->install_pkgs->pkgs[i]);
+		free_pkg(tran->install_pkgs->pkgs[i]);
 	}
 	free(tran->install_pkgs->pkgs);
 	free(tran->install_pkgs);
 
 	for(i = 0;i < tran->remove_pkgs->pkg_count; i++){
-		/* no free_pkg() b/c the *pkg is all memcpy'd */
-		free(tran->remove_pkgs->pkgs[i]);
+		free_pkg(tran->remove_pkgs->pkgs[i]);
 	}
 	free(tran->remove_pkgs->pkgs);
 	free(tran->remove_pkgs);
@@ -510,8 +502,7 @@ void free_transaction(transaction_t *tran){
 	free(tran->upgrade_pkgs);
 
 	for(i = 0; i < tran->exclude_pkgs->pkg_count;i++){
-		/* no free_pkg() b/c the *pkg is all memcpy'd */
-		free(tran->exclude_pkgs->pkgs[i]);
+		free_pkg(tran->exclude_pkgs->pkgs[i]);
 	}
 	free(tran->exclude_pkgs->pkgs);
 	free(tran->exclude_pkgs);

@@ -2119,3 +2119,12 @@ static pkg_info_t *find_or_requirement(struct pkg_list *avail_pkgs,struct pkg_li
 
 	return pkg;
 }
+
+pkg_info_t *copy_pkg(pkg_info_t *dst,pkg_info_t *src){
+	dst = memcpy(dst,src, sizeof *src);
+	dst->suggests = strndup(src->suggests, strlen(src->suggests));
+	dst->conflicts = strndup(src->conflicts, strlen(src->conflicts));
+	dst->required = strndup(src->required, strlen(src->required));
+	return dst;
+}
+
