@@ -59,13 +59,13 @@ int main( int argc, char *argv[] ){
 	while( ( c = getopt_long_only(argc,argv,"",long_options,&option_index ) ) != EOF ){
 		switch(c){
 			case 'u': /* update */
-				jaospkg_update(global_config);
+				pkg_action_update(global_config);
 				break;
 			case 'i': /* install */
 				if( optarg != NULL ){
-					jaospkg_install( global_config, optarg );
+					pkg_action_install( global_config, optarg );
 					for(;optind < argc;optind++){
-						jaospkg_install( global_config, argv[optind] );
+						pkg_action_install( global_config, argv[optind] );
 					}
 				}else{
 					usage();
@@ -73,9 +73,9 @@ int main( int argc, char *argv[] ){
 				break;
 			case 'r': /* remove */
 				if( optarg != NULL ){
-					jaospkg_remove( optarg );
+					pkg_action_remove( optarg );
 					for(;optind < argc;optind++){
-						jaospkg_remove( argv[optind] );
+						pkg_action_remove( argv[optind] );
 					}
 				}else{
 					usage();
@@ -83,29 +83,29 @@ int main( int argc, char *argv[] ){
 				break;
 			case 's': /* show */
 				if( optarg != NULL ){
-					jaospkg_show( optarg );
+					pkg_action_show( optarg );
 				}else{
 					usage();
 				}
 				break;
 			case 'e': /* search */
 				if( optarg != NULL ){
-					jaospkg_search( optarg );
+					pkg_action_search( optarg );
 				}else{
 					usage();
 				}
 				break;
 			case 't': /* list */
-				jaospkg_list();
+				pkg_action_list();
 				break;
 			case 'd': /* installed */
-				jaospkg_list_installed();
+				pkg_action_list_installed();
 				break;
 			case 'c': /* clean */
-				jaospkg_clean(global_config);
+				pkg_action_clean(global_config);
 				break;
 			case 'g': /* upgrade */
-				jaospkg_upgrade_all(global_config);
+				pkg_action_upgrade_all(global_config);
 				break;
 			case 'o': /* download only flag */
 				global_config->download_only = 1;
@@ -143,7 +143,7 @@ void usage(){
 	printf("%s - Jason Woodward <woodwardj at jaos dot org>\n",PROGRAM_NAME);
 	printf("A crude port of the Debian APT system to Slackware\n");
 	printf("Usage:\n");
-	printf("jaospkg [option(s)] [target]\n");
+	printf("%s [option(s)] [target]\n",PROGRAM_NAME);
 	printf("\n");
 	printf("Targets:\n");
 	printf("  --update    - retrieves pkg data from MIRROR\n");

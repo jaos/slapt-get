@@ -6,14 +6,14 @@
 # customary to leave one space after the ':'.
 
    |-----handy-ruler------------------------------------------------------|
-jaospkg: jaospkg (APT like system for Slackware)
-jaospkg:
-jaospkg: jaospkg is an APT like system for Slackware package management.  It
-jaospkg: allows one to search for packages, install them, and upgrade the
-jaospkg: installed packages all with a few simple commands.  Additional
-jaospkg: features include listing all available packages, listing all
-jaospkg: installed packages, and removing installed packages.
-jaospkg:
-jaospkg:
-jaospkg:
-jaospkg:
+slapt-get: slapt-get (APT like system for Slackware)
+slapt-get:
+slapt-get: slapt-get is an APT like system for Slackware package management.  It
+slapt-get: allows one to search for packages, install them, and upgrade the
+slapt-get: installed packages all with a few simple commands.  Additional
+slapt-get: features include listing all available packages, listing all
+slapt-get: installed packages, and removing installed packages.
+slapt-get:
+slapt-get:
+slapt-get:
+slapt-get:

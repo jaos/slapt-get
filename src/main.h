@@ -50,14 +50,14 @@ void version_info(void);
 /* */
 
 #define DEBUG 0
-#define PROGRAM_NAME "jaospkg"
-#define VERSION "0.8"
+#define PROGRAM_NAME "slapt-get"
+#define VERSION "0.9"
 #define PKG_LIST "PACKAGES.TXT"
 #define PKG_LIST_L "package_data_list"
 #define PATCHES_LIST "FILE_LIST"
 #define PATCHES_LIST_L "patches_list"
 #define PATCHDIR "patches/"
-#define RC_LOCATION "/etc/jaospkgrc"
+#define RC_LOCATION "/etc/slapt-getrc"
 #define REMOVE_CMD "/sbin/removepkg "
 #define INSTALL_CMD "/sbin/installpkg "
 #define UPGRADE_CMD "/sbin/upgradepkg "

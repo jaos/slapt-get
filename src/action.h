@@ -16,14 +16,14 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 /* FUNCTION DEFINITIONS */
-void jaospkg_clean(const rc_config *);
-void jaospkg_install(const rc_config *,const char *);
-void jaospkg_list(void);
-void jaospkg_list_installed(void);
-void jaospkg_remove(const char *);
-void jaospkg_search(const char *);
-void jaospkg_show(const char *);
-void jaospkg_upgrade(const rc_config *,pkg_info_t *);
-void jaospkg_upgrade_all(const rc_config *);
-void jaospkg_update(const rc_config *);
+void pkg_action_clean(const rc_config *);
+void pkg_action_install(const rc_config *,const char *);
+void pkg_action_list(void);
+void pkg_action_list_installed(void);
+void pkg_action_remove(const char *);
+void pkg_action_search(const char *);
+void pkg_action_show(const char *);
+void pkg_action_upgrade(const rc_config *,pkg_info_t *);
+void pkg_action_upgrade_all(const rc_config *);
+void pkg_action_update(const rc_config *);
 

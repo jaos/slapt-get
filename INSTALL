@@ -3,7 +3,7 @@ To install:
  $ make
  $ make install
 
- Edit /etc/jaospkgrc (see README for details)
+ Edit /etc/slapt-getrc (see README for details)
 
 To uninstall:
 

@@ -20,14 +20,14 @@ Table of Contents:
  1. Features
  2. Requirements
  3. Installation
- 4. jaospkgrc
+ 4. slapt-getrc
  5. Troubleshooting
 
 
 
  1. Features
 
-    Jaospkg tries to emulate Debian's apt-get as closely as possible.
+    slapt-get tries to emulate Debian's apt-get as closely as possible.
 
     * cache package data and update data from mirror site
     * show packages that are available (from cached data)
@@ -54,9 +54,9 @@ Table of Contents:
 
 
 
- 4. jaospkgrc
+ 4. slapt-getrc
 
-    The jaospkgrc file consists currently of the following keys:
+    The slapt-getrc file consists currently of the following keys:
      MIRROR
      WORKINGDIR
 

@@ -1,11 +1,11 @@
-PROGNAME=jaospkg
+PROGNAME=slapt-get
 VERSION=0.8
 CC=gcc
 CURLFLAGS=`curl-config --libs`
 CFLAGS=-W -Werror -Wall -O2 -ansi -pedantic -Iinclude -g
 OBJS=src/configuration.o src/package.o src/curl.o src/action.o src/main.o
-RCDEST=/etc/jaospkgrc
-RCSOURCE=example.jaospkgrc
+RCDEST=/etc/slapt-getrc
+RCSOURCE=example.slapt-getrc
 SBINDIR=/sbin/
 
 default: all
@@ -38,7 +38,7 @@ slackpkg: $(PROGNAME)
 	-@mkdir -p slackpkg/install
 	-@mkdir -p slackpkg/usr/man/man8
 	-@cp $(PROGNAME) ./slackpkg/sbin/
-	-@cp example.jaospkgrc ./slackpkg/etc/jaospkgrc
+	-@cp example.slapt-getrc ./slackpkg/etc/slapt-getrc
 	-@mkdir -p ./slackpkg/usr/doc/$(PROGNAME)-$(VERSION)/
 	-@cp COPYING Changelog INSTALL README TODO ./slackpkg/usr/doc/$(PROGNAME)-$(VERSION)/
 	-@cp slack-desc slackpkg/install/

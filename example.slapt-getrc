@@ -1,6 +1,6 @@
 # base mirror url to directory with PACKAGES.TXT
 MIRROR=http://sunsite.cnlab-switch.ch/ftp/mirror/slackware/slackware-9.0/
-WORKINGDIR=/var/jaospkg
+WORKINGDIR=/var/slapt-get
 EXCLUDE=kernel-ide,kernel-source,kernel-headers,kernel-modules
 
 # MIRROR=ftp://mirror.aarnet.edu.au/pub/slackware/slackware-9.0

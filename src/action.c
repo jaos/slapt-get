@@ -19,12 +19,12 @@
 #include <main.h>
 
 /* clean out local cache */
-void jaospkg_clean(const rc_config *global_config){
+void pkg_action_clean(const rc_config *global_config){
 	clean_pkg_dir(global_config->working_dir);
 }
 
 /* install pkg */
-void jaospkg_install(const rc_config *global_config,const char *pkg_name){
+void pkg_action_install(const rc_config *global_config,const char *pkg_name){
 	pkg_info_t *installed_pkg;
 	pkg_info_t *update_pkg;
 	pkg_info_t *pkg;
@@ -46,7 +46,7 @@ void jaospkg_install(const rc_config *global_config,const char *pkg_name){
 		&& (global_config->re_install != 1 ) ){
 
 		/* it's already installed, attempt an upgrade */
-		jaospkg_upgrade(global_config,installed_pkg);
+		pkg_action_upgrade(global_config,installed_pkg);
 
 	}else{
 
@@ -72,7 +72,7 @@ void jaospkg_install(const rc_config *global_config,const char *pkg_name){
 }
 
 /* list pkgs */
-void jaospkg_list(void){
+void pkg_action_list(void){
 	struct pkg_list *pkgs = NULL;
 	int iterator;
 
@@ -89,7 +89,7 @@ void jaospkg_list(void){
 }
 
 /* list installed pkgs */
-void jaospkg_list_installed(void){
+void pkg_action_list_installed(void){
 	int iterator;
 	struct pkg_list *installed_pkgs = NULL;
 
@@ -106,7 +106,7 @@ void jaospkg_list_installed(void){
 }
 
 /* remove/uninstall pkg */
-void jaospkg_remove(const char *pkg_name){
+void pkg_action_remove(const char *pkg_name){
 	pkg_info_t *pkg;
 	struct pkg_list *installed;
 
@@ -124,7 +124,7 @@ void jaospkg_remove(const char *pkg_name){
 }
 
 /* search for a pkg (support extended POSIX regex) */
-void jaospkg_search(const char *pattern){
+void pkg_action_search(const char *pattern){
 	struct pkg_list *pkgs = NULL;
 	int iterator,regexec_return;
 	regex_t regex;
@@ -161,7 +161,7 @@ void jaospkg_search(const char *pattern){
 }/* end search */
 
 /* show the details for a specific package */
-void jaospkg_show(const char *pkg_name){
+void pkg_action_show(const char *pkg_name){
 	pkg_info_t *pkg;
 	struct pkg_list *available_pkgs;
 
@@ -183,7 +183,7 @@ void jaospkg_show(const char *pkg_name){
 }
 
 /* update package data from mirror url */
-void jaospkg_update(const rc_config *global_config){
+void pkg_action_update(const rc_config *global_config){
 	FILE *pkg_list_fh;
 	FILE *patches_list_fh;
 
@@ -201,8 +201,8 @@ void jaospkg_update(const rc_config *global_config){
 }
 
 /* upgrade pkg */
-/* flesh me out so that jaospkg_upgrade_all() calls me */
-void jaospkg_upgrade(const rc_config *global_config,pkg_info_t *installed_pkg){
+/* flesh me out so that pkg_action_upgrade_all() calls me */
+void pkg_action_upgrade(const rc_config *global_config,pkg_info_t *installed_pkg){
 	pkg_info_t *update_pkg;
 	struct pkg_list *update_pkgs;
 	int cmp_result;
@@ -234,8 +234,8 @@ void jaospkg_upgrade(const rc_config *global_config,pkg_info_t *installed_pkg){
 }
 
 /* upgrade all installed pkgs with available updates */
-/* use jaospkg_upgrade() soon, pass in pkg_list(s) */
-void jaospkg_upgrade_all(const rc_config *global_config){
+/* use pkg_action_upgrade() soon, pass in pkg_list(s) */
+void pkg_action_upgrade_all(const rc_config *global_config){
 	int iterator;
 	struct pkg_list *installed_pkgs;
 	struct pkg_list *update_pkgs;
