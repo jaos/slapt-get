@@ -95,8 +95,8 @@ Table of Contents:
       This directory will have to be created.
 
     * EXCLUDE is a comma seperated list of pkgs you want excluded from
-    updating.
-
+    updating. This can be the package name, or a extended POSIX regex.
+    For example, to exclude dropline, use .*-dl$
 
 
  5. Troubleshooting

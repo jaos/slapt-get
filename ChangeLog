@@ -13,6 +13,10 @@
  * added is_required_by function, so --remove pkg also prompts to remove
    packages (recursively) that require it
  * added get_exact_pkg function
+ * EXCLUDE in slapt-getrc now supports POSIX and extended regex
+   (see example.slapt-getrc or README/FAQ)
+ * is_excluded() now takes a pkg_info_t type instead of char pkg name
+ * updated documentation
 
 0.9.6g Oct 22, 2003
  * updated --help output

@@ -662,7 +662,7 @@ int upgrade_pkg(const rc_config *global_config,pkg_info_t *installed_pkg,pkg_inf
 	int cmd_return = 0;
 
 	/* skip if excluded */
-	if( is_excluded(global_config,pkg->name) == 1 ){
+	if( is_excluded(global_config,pkg) == 1 ){
 		printf("excluding %s\n",pkg->name);
 		return 0;
 	}
@@ -752,8 +752,9 @@ void free_pkg_list(struct pkg_list *list){
 	free(list);
 }
 
-int is_excluded(const rc_config *global_config,const char *pkg_name){
+int is_excluded(const rc_config *global_config,pkg_info_t *pkg){
 	int i;
+	sg_regex exclude_reg;
 
 	if( global_config->ignore_excludes == 1 )
 		return 0;
@@ -762,15 +763,20 @@ int is_excluded(const rc_config *global_config,const char *pkg_name){
 	if( global_config->exclude_list == NULL )
 		return 0;
 
+	exclude_reg.nmatch = MAX_REGEX_PARTS;
+
 	for(i = 0; i < global_config->exclude_list->count;i++){
-		/*
-		 * this is kludgy... global_config->exclude_list->excludes[i] is 1 char longer
-		 * than pkg_name
-		*/
-		if( (strncmp(global_config->exclude_list->excludes[i],pkg_name,strlen(pkg_name)) == 0)
-			&& (strlen(global_config->exclude_list->excludes[i]) - strlen(pkg_name) < 2) ){
+		if( (strncmp(global_config->exclude_list->excludes[i],pkg->name,strlen(pkg->name)) == 0))
+			return 1;
+		regcomp(&exclude_reg.regex,global_config->exclude_list->excludes[i],REG_EXTENDED|REG_NEWLINE);
+		if(
+			(regexec( &exclude_reg.regex, pkg->name, exclude_reg.nmatch, exclude_reg.pmatch, 0) == 0)
+			|| (regexec( &exclude_reg.regex, pkg->version, exclude_reg.nmatch, exclude_reg.pmatch, 0) == 0)
+		){
+			regfree(&exclude_reg.regex);
 			return 1;
 		}
+		regfree(&exclude_reg.regex);
 	}
 
 	return 0;

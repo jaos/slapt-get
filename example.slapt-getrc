@@ -13,7 +13,7 @@ SOURCE=ftp://ftp.slackware.at/slackware-9.1/
 #SOURCE=file:///mnt/cdrom/
 
 WORKINGDIR=/var/slapt-get
-EXCLUDE=kernel-ide,kernel-source,kernel-headers,kernel-modules,lilo,devs
+EXCLUDE=kernel-ide,kernel-source,kernel-headers,kernel-modules,lilo,.*-dl$,devs
 
 # Other slackware mirrors to choose from
 # SOURCE=ftp://ftp.slackware.no/pub/linux/slackware/slackware-9.1/

@@ -101,7 +101,7 @@ int remove_pkg(const rc_config *,pkg_info_t *);
 void free_pkg_list(struct pkg_list *);
 
 /* exclude pkg based on pkg name */
-int is_excluded(const rc_config *,const char *);
+int is_excluded(const rc_config *,pkg_info_t *);
 
 /* lookup md5sum of file */
 void get_md5sum(const rc_config *,pkg_info_t *,char *);

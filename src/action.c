@@ -361,7 +361,7 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 		);
 		if( update_pkg != NULL ){
 
-			if( is_excluded(global_config,update_pkg->name) == 1 ){
+			if( is_excluded(global_config,update_pkg) == 1 ){
 				add_exclude_to_transaction(&tran,update_pkg);
 				continue;
 			}
@@ -404,7 +404,7 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 			);
 			/* add to install list if not already installed */
 			if( installed_pkg == NULL ){
-				if( is_excluded(global_config,matches->pkgs[i]->name) == 1 ){
+				if( is_excluded(global_config,matches->pkgs[i]) == 1 ){
 					add_exclude_to_transaction(&tran,matches->pkgs[i]);
 				}else{
 					int c;
