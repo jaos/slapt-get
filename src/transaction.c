@@ -483,7 +483,7 @@ int add_deps_to_trans(const rc_config *global_config, transaction *tran, struct 
 	/* check to see if there where issues with dep checking */
 	/* exclude the package if dep check barfed */
 	if( (deps->pkg_count == -1) && (global_config->ignore_dep == 0) ){
-		printf("Excluding %s, use --no-dep to override\n",pkg->name);
+		printf("Excluding %s, use --ignore-dep to override\n",pkg->name);
 		add_exclude_to_transaction(tran,pkg);
 		free(deps->pkgs);
 		free(deps);
