@@ -413,6 +413,8 @@ Frequently Asked Questions:
    slapt-get --search '^\.\/slackware\/xap$'|awk '{print $1}'| \
      xargs -r slapt-get --install
 
+ You will have to pass -y when you are happy with the results.
+
 
 19. How can I add dependency information to my packages?
 
