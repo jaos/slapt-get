@@ -292,11 +292,7 @@ void add_upgrade_to_transaction(
 
 int search_transaction(transaction *tran,pkg_info_t *pkg){
 	int i;
-	/* use to use the version */
-	/* strcmp(pkg->version,tran->install_pkgs->pkgs[i]->version)==0) */
-	/* strcmp(pkg->version,tran->upgrade_pkgs->pkgs[i]->upgrade->version)==0) */
-	/* strcmp(pkg->version,tran->remove_pkgs->pkgs[i]->version)==0) */
-	/* strcmp(pkg->version,tran->exclude_pkgs->pkgs[i]->version)==0) */
+
 	for(i = 0; i < tran->install_pkgs->pkg_count;i++){
 		if( strcmp(pkg->name,tran->install_pkgs->pkgs[i]->name)==0 )
 			return 1;
@@ -345,5 +341,56 @@ void free_transaction(transaction *tran){
 	free(tran->upgrade_pkgs);
 	free(tran->exclude_pkgs);
 
+}
+
+transaction *remove_from_transaction(transaction *tran,pkg_info_t *pkg){
+	int i;
+	transaction *new_tran = NULL;
+
+	if( search_transaction(tran,pkg) == 0 )
+		return tran;
+
+	/* since this is a pointer, malloc before calling init */
+	new_tran = malloc(sizeof *new_tran);
+	new_tran->install_pkgs = malloc( sizeof *new_tran->install_pkgs );
+	new_tran->remove_pkgs = malloc( sizeof *new_tran->remove_pkgs );
+	new_tran->upgrade_pkgs = malloc( sizeof *new_tran->upgrade_pkgs );
+	new_tran->exclude_pkgs = malloc( sizeof *new_tran->exclude_pkgs );
+	init_transaction(new_tran);
+
+	for(i = 0;i < tran->install_pkgs->pkg_count; i++){
+		if(
+			strcmp(pkg->name,tran->install_pkgs->pkgs[i]->name) != 0
+			&& strcmp(pkg->version,tran->install_pkgs->pkgs[i]->version) != 0
+			&& strcmp(pkg->location,tran->install_pkgs->pkgs[i]->location) != 0
+		) add_install_to_transaction(new_tran,tran->install_pkgs->pkgs[i]);
+	}
+	for(i = 0;i < tran->remove_pkgs->pkg_count; i++){
+		if(
+			strcmp(pkg->name,tran->remove_pkgs->pkgs[i]->name) != 0
+			&& strcmp(pkg->version,tran->remove_pkgs->pkgs[i]->version) != 0
+			&& strcmp(pkg->location,tran->remove_pkgs->pkgs[i]->location) != 0
+		) add_remove_to_transaction(new_tran,tran->remove_pkgs->pkgs[i]);
+	}
+	for(i = 0;i < tran->upgrade_pkgs->pkg_count; i++){
+		if(
+			strcmp(pkg->name,tran->upgrade_pkgs->pkgs[i]->upgrade->name) != 0
+			&& strcmp(pkg->version,tran->upgrade_pkgs->pkgs[i]->upgrade->version) != 0
+			&& strcmp(pkg->location,tran->upgrade_pkgs->pkgs[i]->upgrade->location) != 0
+		) add_upgrade_to_transaction(
+			new_tran,
+			tran->upgrade_pkgs->pkgs[i]->installed,
+			tran->upgrade_pkgs->pkgs[i]->upgrade
+		);
+	}
+	for(i = 0; i < tran->exclude_pkgs->pkg_count;i++){
+		if(
+			strcmp(pkg->name,tran->exclude_pkgs->pkgs[i]->name) != 0
+			&& strcmp(pkg->version,tran->exclude_pkgs->pkgs[i]->version) != 0
+			&& strcmp(pkg->location,tran->exclude_pkgs->pkgs[i]->location) != 0
+		) add_exclude_to_transaction(new_tran,tran->exclude_pkgs->pkgs[i]);
+	}
+
+	return new_tran;
 }
 
