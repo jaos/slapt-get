@@ -503,6 +503,7 @@ struct pkg_list *get_installed_pkgs(void){
 
 		/* open the package log file to grok data about the package from it */
 		pkg_f = open_file(pkg_f_name,"r");
+		free(pkg_f_name);
 		if( pkg_f == NULL ) exit(1);
 		while( (bytes_read = getline(&getline_buffer,&getline_len,pkg_f)) != EOF ){
 			execute_regex(&compressed_size_reg,getline_buffer);
@@ -543,6 +544,7 @@ struct pkg_list *get_installed_pkgs(void){
 				}
 			}
 		}
+		if(getline_buffer) free(getline_buffer);
 		fclose(pkg_f);
 
 		add_pkg_to_pkg_list(list,tmp_pkg);
@@ -606,6 +608,8 @@ int install_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	printf(_("Preparing to install %s-%s\n"),pkg->name,pkg->version);
 	if( (cmd_return = system(command)) != 0 ){
 		printf(_("Failed to execute command: [%s]\n"),command);
+		free(command);
+		free(pkg_file_name);
 		return -1;
 	}
 
@@ -631,6 +635,8 @@ int upgrade_pkg(const rc_config *global_config,pkg_info_t *installed_pkg,pkg_inf
 	printf(_("Preparing to replace %s-%s with %s-%s\n"),pkg->name,installed_pkg->version,pkg->name,pkg->version);
 	if( (cmd_return = system(command)) != 0 ){
 		printf(_("Failed to execute command: [%s]\n"),command);
+		free(command);
+		free(pkg_file_name);
 		return -1;
 	}
 
@@ -657,6 +663,7 @@ int remove_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	command = strncat(command,pkg->version,strlen(pkg->version));
 	if( (cmd_return = system(command)) != 0 ){
 		printf(_("Failed to execute command: [%s]\n"),command);
+		free(command);
 		return -1;
 	}
 
@@ -1895,6 +1902,7 @@ size_t get_pkg_file_size(const rc_config *global_config,pkg_info_t *pkg){
 	if( stat(file_name,&file_stat) == 0 ){
 		file_size = file_stat.st_size;
 	}
+	free(file_name);
 
 	return file_size;
 }

@@ -148,6 +148,7 @@ void working_dir_init(const rc_config *global_config){
 			exit(1);
 		}
 	}
+	closedir(working_dir);
 
 	if( access(global_config->working_dir,W_OK) == -1 ){
 		if( errno ) perror(global_config->working_dir);
@@ -166,6 +167,7 @@ void free_rc_config(rc_config *global_config){
 		free(global_config->exclude_list->excludes[i]);
 	}
 
+	free(global_config->exclude_list->excludes);
 	free(global_config->exclude_list);
 	free(global_config);
 

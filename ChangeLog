@@ -1,5 +1,7 @@
 
 0.9.9f Jan 11, 2005
+ * added a few missing free() calls, and a missing closedir() call in
+   working_dir_init()
  * exclude now searches on package location, so you can exclude disk
    sets as well
  * rewrote "Why yet another package management tool for slackware?" and

@@ -413,6 +413,7 @@ void free_transaction(transaction_t *tran){
 	for(i = 0;i < tran->upgrade_pkgs->pkg_count; i++){
 		free(tran->upgrade_pkgs->pkgs[i]->upgrade);
 		free(tran->upgrade_pkgs->pkgs[i]->installed);
+		free(tran->upgrade_pkgs->pkgs[i]);
 	}
 	free(tran->upgrade_pkgs->pkgs);
 
