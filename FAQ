@@ -327,7 +327,7 @@ Frequenty Asked Questions:
 				return;
 			fi
 	    NAME=$(echo $1|sed -re "s/(.*\/)(.*.tgz)$/\2/")
-	    LOCATION=$(echo $1|sed -re "s/(.*\/)(.*.tgz)$/\1/")
+	    LOCATION=$(echo $1|sed -re "s/(.*)\/(.*.tgz)$/\1/")
 	    SIZE=$( expr `gunzip -l $1 |tail -1|awk '{print $1}'` / 1024 )
 	    USIZE=$( expr `gunzip -l $1 |tail -1|awk '{print $2}'` / 1024 )
 	    REQUIRED=$(tar xzf $1 install/slack-required -O 2>/dev/null|xargs -r -iZ echo -n "Z,"|sed -e "s/,$//")
