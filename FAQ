@@ -38,6 +38,8 @@ Frequenty Asked Questions:
 37. How can I specify a username/password for the connection to the package source?
 38. /var/slapt-get is growing large, how can I safely free up space?
 39. What about extra or testing packages?
+40. Can I use slapt-get to mirror packages?
+41. Is there a way to use tab completion for the package names in Bash?
 
 
 
@@ -749,5 +751,36 @@ Frequenty Asked Questions:
 
  Example source entries for the extra and testing packages sets can be found
  within the example.slapt-getrc file.
+
+
+40. Can I use slapt-get to mirror packages?
+
+ Yes, you can use it to mirror packages by using the following:
+
+  slapt-get --list|awk '{print $1}'|xargs -r slapt-get --install {} \
+   --download-only --reinstall
+
+ The packages whill then be mirrored under ${ROOT}/var/slapt-get in the
+ directory structure they where found in.  You can then generate the 
+ PACKAGES.TXT and CHECKSUMS.md5 files using the script in question #17 which
+ would allow you to use this mirror as a slapt-get source.
+
+
+41. Is there a way to use tab completion for the package names in Bash?
+
+ Yes, this completion was contributed by Alec Thomas on the slapt-get-devel
+ mailing list.  This goes in your ~/.bashrc file (or in /etc/bash_completion,
+ /etc/bash_completion.d/, /etc/profile, or /etc/profile.d/):
+
+  complete_slaptget()
+  {
+	  cur=${COMP_WORDS[COMP_CWORD]}
+	  if [ "${COMP_WORDS[$[$COMP_CWORD-1]]}" = "--remove" ]; then
+		  COMPREPLY=( $( cd /var/log/packages; ls "$cur"* 2> /dev/null | sed -e 's/-[^-]*-[^-]*-[^-]*$//') )
+	  else
+		  COMPREPLY=( $( slapt-get --search "^$cur" 2> /dev/null | awk '{print $1}' ) )
+	  fi
+  }
+  complete -F complete_slaptget -o default slapt-get
 
 
