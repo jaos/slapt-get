@@ -98,6 +98,7 @@ char *head_request(const char *url){
 		return NULL;
 	}
 
+	curl_easy_cleanup(ch);
 	return head_t.data;
 
 }

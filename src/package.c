@@ -1396,8 +1396,8 @@ pkg_info_t *get_pkg_by_details(struct pkg_list *list,char *name,char *version,ch
 /* do a head request on the mirror data to find out if it's new */
 int head_mirror_data(const char *wurl,const char *file){
 	int return_code = -1;
-	char *last_modified,*last_modified_ptr,*newline_ptr,*head_data;
-	int last_modified_len;
+	char *request_header,*request_header_ptr,*delim_ptr,*head_data;
+	int request_header_len;
 	char *url;
 	char *head_filename,*filename;
 	FILE *tmp;
@@ -1419,16 +1419,25 @@ int head_mirror_data(const char *wurl,const char *file){
 		return -1;
 	}
 	/* extract the last modified date for storage and later comparison */
-	last_modified_ptr = strstr(head_data,"Last-Modified");
-	newline_ptr = strpbrk(last_modified_ptr,"\r\n");
-	if( last_modified_ptr == NULL || newline_ptr == NULL ){
+	request_header_ptr = strstr(head_data,"Last-Modified");
+	if( request_header_ptr == NULL ){
+		/* this is ftp, in which case the Content-Length will have to do */
+		request_header_ptr = strstr(head_data,"Content-Length");
+		if( request_header_ptr == NULL ){
+			free(head_data);
+			free(url);
+			return -1;
+		}/* give up finally */
+	}
+	delim_ptr = strpbrk(request_header_ptr,"\r\n");
+	if( delim_ptr == NULL ){
 		free(head_data);
 		free(url);
 		return -1;
 	}
-	last_modified_len = strlen(last_modified_ptr) - strlen(newline_ptr);
-	last_modified = calloc( last_modified_len + 1, sizeof *last_modified );
-	memcpy(last_modified,last_modified_ptr,last_modified_len);
+	request_header_len = strlen(request_header_ptr) - strlen(delim_ptr);
+	request_header = calloc( request_header_len + 1, sizeof *request_header );
+	memcpy(request_header,request_header_ptr,request_header_len);
 
 	/* store the header last modified date for later use */
 	filename = gen_filename_from_url(wurl,file);
@@ -1445,19 +1454,19 @@ int head_mirror_data(const char *wurl,const char *file){
 		return_code = -1;
 	}else{
 		/* if retrieved modified date and current are the same */
-		if( strcmp(last_modified,getline_buffer) == 0 ) return_code = 0;
+		if( strcmp(request_header,getline_buffer) == 0 ) return_code = 0;
 	}
 	fclose(tmp);
 
 	/* store the last modified date */
 	tmp = open_file(head_filename,"w");
 	if( tmp == NULL ) exit(1);
-	fprintf(tmp,"%s",last_modified);
+	fprintf(tmp,"%s",request_header);
 	fclose(tmp);
 
 	free(filename);
 	free(head_filename);
-	free(last_modified);
+	free(request_header);
 	free(url);
 	free(head_data);
 	return return_code;
