@@ -49,20 +49,6 @@ enum action {
 
 #define DEBUG 0
 #define DO_NOT_UNLINK_BAD_FILES 1
-#define PKG_LIST "PACKAGES.TXT"
-#define PKG_LIST_L "package_data"
-#define PATCHES_LIST "patches/PACKAGES.TXT"
-#define PATCHDIR "patches/"
-#define REMOVE_CMD "/sbin/removepkg "
-#define INSTALL_CMD "/sbin/installpkg "
-#define UPGRADE_CMD "/sbin/upgradepkg --reinstall "
-#define CHECKSUM_FILE "CHECKSUMS.md5"
 
 #define _(text) gettext(text)
-
-void usage(void);
-void version_info(void);
-char spinner(void);
-/* callback for curl progress */
-int progress_callback(void *clientp, double dltotal, double dlnow, double ultotal, double ulnow);
 
