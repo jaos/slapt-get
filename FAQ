@@ -41,6 +41,7 @@ Frequenty Asked Questions:
 40. Can I use slapt-get to mirror packages?
 41. Is there a way to use tab completion for the package names in Bash?
 42. How do I remove obsoleted packages?
+43. What provisions have you made for dialup users?
 
 
 
@@ -808,5 +809,17 @@ Frequenty Asked Questions:
 	  fi
   done
 
+
+
+43. What provisions have you made for dialup users?
+
+ Measurements to save bandwidth have been taken.
+  * Incomplete package downloads will resume from where they left off.
+  * The package data download (via --update) will only download those sources
+    that have changed since the last download.
+  * The transaction report gives accurate statistics about sizes required to
+    download, as well as how much additional space will be required after
+    unpacking the package archives.  This report will also indicate how
+    much is left to resume if the download was previously interrupted.
 
 
