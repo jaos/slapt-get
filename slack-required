@@ -1,5 +1,5 @@
 curl >= 7.10.3-i386-2
-glibc >= 2.3.1-i386-3
+glibc-solibs >= 2.3.1-i386-3
 binutils
 openssl >= 0.9.7a-i386-2
 pkgtools
