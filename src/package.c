@@ -277,7 +277,7 @@ struct pkg_list *get_installed_pkgs(void){
 
 			/* add if no existing_pkg or tmp_pkg has greater version */
 			if( ((existing_pkg = get_newest_pkg(list->pkgs,tmp_pkg->name,list->pkg_count)) == NULL)
-				|| (strcmp(existing_pkg->version,tmp_pkg->version) < 0 )){
+				|| (cmp_pkg_versions(existing_pkg->version,tmp_pkg->version) < 0 )){
 
 				list->pkgs[list->pkg_count] = calloc(1 , sizeof *list->pkgs[list->pkg_count] );
 				if( list->pkgs[list->pkg_count] == NULL ){
@@ -319,7 +319,7 @@ pkg_info_t *get_newest_pkg(pkg_info_t **pkgs,const char *pkg_name,int pkg_count)
 		/* if pkg has same name as our requested pkg */
 		if( (strcmp(pkgs[iterator]->name,pkg_name)) == 0 ){
 
-			if( (pkg == NULL) || strcmp(pkg->version,pkgs[iterator]->version) < 0 ){
+			if( (pkg == NULL) || cmp_pkg_versions(pkg->version,pkgs[iterator]->version) < 0 ){
 				pkg = pkgs[iterator];
 			}
 		}
@@ -450,7 +450,7 @@ int install_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	command = strcat(command,pkg_file_name);
 
 	if( global_config->download_only == 0 ){
-		printf("Preparing to install %s - %s\n",pkg->name,pkg->version);
+		printf("Preparing to install %s-%s\n",pkg->name,pkg->version);
 		if( (cmd_return = system(command)) == -1 ){
 			printf("Failed to execute command: [%s]\n",command);
 			exit(1);
@@ -622,7 +622,7 @@ void get_md5sum(const rc_config *global_config,pkg_info_t *pkg,char *md5_sum){
 			);
 			sum[pmatch[1].rm_eo - pmatch[1].rm_so] = '\0';
 
-			if( (strcmp(pkg->name,name) == 0) && (strcmp(pkg->version,version) == 0) ){
+			if( (strcmp(pkg->name,name) == 0) && (cmp_pkg_versions(pkg->version,version) == 0) ){
 				memcpy(md5_sum,sum,pmatch[1].rm_eo - pmatch[1].rm_so + 1);
 				break;
 			}
@@ -634,5 +634,74 @@ void get_md5sum(const rc_config *global_config,pkg_info_t *pkg,char *md5_sum){
 	free(cwd);
 
 	return;
+}
+
+int cmp_pkg_versions(char *a, char *b){
+	int ver_breakdown_1[] = { 0, 0, 0, 0 };
+	int ver_breakdown_2[] = { 0, 0, 0, 0 };
+	int count1,count2,position = 0,greater = 1,lesser = -1;
+
+	count1 = break_down_pkg_version(ver_breakdown_1,a);
+	count2 = break_down_pkg_version(ver_breakdown_2,b);
+
+	while( position < count1 && position < count2 ){
+		if( ver_breakdown_1[position] != ver_breakdown_2[position] ){
+
+			if( ver_breakdown_1[position] < ver_breakdown_2[position] )
+				return lesser;
+
+			if( ver_breakdown_1[position] > ver_breakdown_2[position] )
+				return greater;
+
+		}
+		++position;
+	}
+
+	/* if the integer version of each package is equal, 
+		 we fall back on strcmp */
+	return strcmp(a,b);
+}
+
+int break_down_pkg_version(int *v,char *version){
+	int pos = 0,count = 0,sv_size;
+	char *pointer,*tmp,*short_version;
+
+
+	/* generate a short version, leave out arch and release */
+	if( (pointer = strchr(version,'-')) == NULL ){
+		return 0;
+	}else{
+		sv_size = ( strlen(version) - strlen(pointer) + 1);
+		short_version = malloc( sizeof *short_version * sv_size );
+		memcpy(short_version,version,sv_size);
+		short_version[sv_size - 1] = '\0';
+		pointer = NULL;
+	}
+
+	while(pos < (sv_size - 1) ){
+		if( (pointer = strchr(short_version + pos,'.')) != NULL ){
+			int b_count = ( strlen(short_version + pos) - strlen(pointer) + 1 );
+			tmp = malloc( sizeof *tmp * b_count );
+			memcpy(tmp,short_version + pos,b_count);
+			tmp[b_count - 1] = '\0';
+			v[count] = atoi(tmp);
+			count++;
+			free(tmp);
+			pointer = NULL;
+			pos += b_count;
+		}else{
+			int b_count = ( strlen(short_version + pos) + 1 );
+			tmp = malloc( sizeof *tmp * b_count );
+			memcpy(tmp,short_version + pos,b_count);
+			tmp[b_count - 1] = '\0';
+			v[count] = atoi(tmp);
+			count++;
+			free(tmp);
+			pos += b_count;
+		}
+	}
+
+	free(short_version);
+	return count;
 }
 

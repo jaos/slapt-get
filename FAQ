@@ -13,6 +13,7 @@ Frequenty Asked Questions:
 10. What about package dependencies?
 11. What about multiple package sources, ala linuxpackages.net?
 12. I don't like the download spinner, how can I get more statistics?
+13. How can I install every available package?
 
 
 
@@ -168,11 +169,32 @@ Frequenty Asked Questions:
  a PACKAGES.TXT in the same manner as the slackware official packages are 
  listed.  This would make integrating their package listing trivial.
 
- I am awaiting a response.
+ We are now working together on a possible solution.
 
 12. I don't like the download spinner, how can I get more statistics?
 
  If you would like more notification on downloading pkgs/files, change the 
  USE_CURL_PROGRESS macro to 1 in include/curl.h.  This turns on curl's
  internal progress meter.  This requires a recompile.
+
+13. How can I install every available package?
+
+ Even though it's not build in, it's simple since  slapt-get is easy to script
+ with.  Here is a simple shell script to install every package that is
+ available but not currently installed:
+
+   #!/bin/sh
+   # Dan Barber <danb at mojolin dot com>
+   slapt-get --update
+   slapt-get --installed > /tmp/slapt_get_installed
+   for file in `slapt-get --list | cut -f1 -d" " | sort`
+     do
+     echo -n "$file "
+     if [ -z `grep "\W+$file\W+" /tmp/slapt_get_installed` ]; then
+       echo "not installed"
+       slapt-get --install $file
+     fi
+   done
+
+
 

@@ -2,6 +2,9 @@
 0.9.5 Oct 01, 2003
  * fixed pkg name so that slack-desc shows up... wasn't following
    new package naming convention.  Thanks Luke Yelavich <luke@audioslack.com>
+ * bug fix... replaced strcmp with cmp_pkg_versions(char *,char *);
+   now greater pkg versions are always correctly returned
+   Thanks to xspace <xspace@digitalhigh.de>
 
 0.9.4 Sep 29, 2003
  * downloads CHECKSUMS.md5 from mirror

@@ -214,10 +214,10 @@ void pkg_action_upgrade(const rc_config *global_config,pkg_info_t *installed_pkg
 	/* if we found an update, make sure it's version is greater */
 	if(
 		(update_pkg = get_newest_pkg(update_pkgs->pkgs,installed_pkg->name,update_pkgs->pkg_count)) != NULL
-		&& strcmp(available_pkg->version,update_pkg->version) < 0	
+		&& cmp_pkg_versions(available_pkg->version,update_pkg->version) < 0	
 	){
 
-		cmp_result = strcmp(installed_pkg->version,update_pkg->version);
+		cmp_result = cmp_pkg_versions(installed_pkg->version,update_pkg->version);
 
 		if( cmp_result < 0 ){ /* update_pkg is newer than installed_pkg */
 			if( (upgrade_pkg(global_config,installed_pkg,update_pkg)) == -1 ){
@@ -231,7 +231,7 @@ void pkg_action_upgrade(const rc_config *global_config,pkg_info_t *installed_pkg
 			}
 		}
 	}else{
-		if( strcmp(installed_pkg->version,available_pkg->version) < 0 ){
+		if( cmp_pkg_versions(installed_pkg->version,available_pkg->version) < 0 ){
 			if( (upgrade_pkg(global_config,installed_pkg,available_pkg)) == -1 ){
 				fprintf(stderr,"Failed to update %s.\n",installed_pkg->name);
 			}
@@ -272,7 +272,7 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 		if( update_pkg != NULL ){
 
 			/* if the update has a newer version */
-			if( (strcmp(installed_pkgs->pkgs[iterator]->version,update_pkg->version)) < 0 ){
+			if( (cmp_pkg_versions(installed_pkgs->pkgs[iterator]->version,update_pkg->version)) < 0 ){
 
 				/* attempt to upgrade */
 				if( (upgrade_pkg(global_config,installed_pkgs->pkgs[iterator],update_pkg)) == -1 ){
@@ -295,7 +295,7 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 			);
 			if( current_pkg != NULL ){
 				/* the current version of the pkg is greater than the installed version */
-				if( (strcmp(installed_pkgs->pkgs[iterator]->version,current_pkg->version)) < 0 ){
+				if( (cmp_pkg_versions(installed_pkgs->pkgs[iterator]->version,current_pkg->version)) < 0 ){
 					/* attempt to upgrade */
 					if( (upgrade_pkg(global_config,installed_pkgs->pkgs[iterator],current_pkg)) == -1 ){
 						fprintf(
@@ -304,7 +304,7 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 							installed_pkgs->pkgs[iterator]->name
 						);
 					}/* end upgrade attempt */
-				}/* end if strcmp */
+				}/* end if cmp_pkg_versions */
 			}/* end if current_pkg */
 		}
 

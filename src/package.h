@@ -70,3 +70,8 @@ void free_pkg_list(struct pkg_list *);
 int is_excluded(const rc_config *,const char *);
 /* lookup md5sum of file */
 void get_md5sum(const rc_config *,pkg_info_t *,char *);
+/* compare package versions */
+int cmp_pkg_versions(char *, char *);
+/* analyze the pkg version hunk by hunk */
+int break_down_pkg_version(int *,char *);
+
