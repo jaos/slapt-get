@@ -71,8 +71,8 @@ Frequenty Asked Questions:
 
 6.  How can I see what will be upgraded without upgrading?
 
- Use the --simulate option before --upgrade.
- See slapt-get --help
+ If the transaction report is not enough, use the --simulate option before
+ --upgrade.  See slapt-get --help
 
 7.  What if I only want to download the updates?
 
@@ -81,7 +81,7 @@ Frequenty Asked Questions:
 
 8.  How can I re-install an existing package?
 
- Use the --reinstall option before --install
+ Use the --reinstall option with --install pkg_name.
  See slapt-get --help
 
 9.  Can I "dist-upgrade" to a newer Slackware release?
@@ -263,7 +263,8 @@ Frequenty Asked Questions:
    #!/bin/sh
    # this should gen an exclude list for a particular dir set (first arg to script)
    DIR=$1
-   slapt-get --search "^\.\/slackware\/${DIR}$"|awk '{print $1}'|xargs -iZ echo -n "Z,"|sed -e 's/,$//'
+   slapt-get --search "^\.\/slackware\/${DIR}$"|awk '{print $1}'|\
+    xargs -iZ echo -n "Z,"|sed -e 's/,$//'
 
 17. How do I use a local file source?
 
@@ -273,7 +274,9 @@ Frequenty Asked Questions:
  SOURCE=ftp://ftp.slackware.no/pub/linux/slackware/slackware-9.1/
  SOURCE=file:///usr/src/local_pkg_repository/
 
- This local directory must have the PACKAGES.TXT and CHECKSUMS.md5 files present.
+ This local directory must have the PACKAGES.TXT and CHECKSUMS.md5 files
+ present.  This could be a mounted Slackware release CDROM, or a custom
+ repository.
 
  The CHECKSUMS.md5 file can be generated with find:
   rm CHECKSUMS.md5; find . -name '*.tgz' -exec md5sum {} >> CHECKSUMS.MD5 \;
