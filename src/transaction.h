@@ -24,11 +24,22 @@ struct suggests {
 };
 
 typedef struct {
+	union { pkg_info_t *i; pkg_upgrade_t *u; } pkg;
+	unsigned int type;
+} queue_i;
+
+typedef struct {
+	queue_i **pkgs;
+	unsigned int count;
+} queue_t;
+
+typedef struct {
 	struct pkg_list *install_pkgs;
 	struct pkg_upgrade_list *upgrade_pkgs;
 	struct pkg_list *remove_pkgs;
 	struct pkg_list *exclude_pkgs;
 	struct suggests *suggests;
+	queue_t *queue;
 } transaction_t;
 
 void init_transaction(transaction_t *);

@@ -17,6 +17,12 @@
  */
 
 #include <main.h>
+
+static queue_t *queue_init(void);
+static void queue_add_install(queue_t *t, pkg_info_t *p);
+static void queue_add_upgrade(queue_t *t, pkg_upgrade_t *p);
+static void queue_free(queue_t *t);
+
 static void add_suggestion(transaction_t *tran, pkg_info_t *pkg);
 static int disk_space(const rc_config *global_config,int space_needed );
 
@@ -34,6 +40,8 @@ void init_transaction(transaction_t *tran){
 	tran->suggests = slapt_malloc(sizeof *tran->suggests );
 	tran->suggests->pkgs = slapt_malloc(sizeof *tran->suggests->pkgs);
 	tran->suggests->count = 0;
+
+	tran->queue = queue_init();
 
 }
 
@@ -243,22 +251,24 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran){
 
 	/* if simulate is requested, just show what could happen and return */
 	if( global_config->simulate == TRUE ){
-		for(i = 0; i < tran->install_pkgs->pkg_count;i++){
-			printf(_("%s-%s is to be installed\n"),
-				tran->install_pkgs->pkgs[i]->name,tran->install_pkgs->pkgs[i]->version
-			);
-		}
-		for(i = 0; i < tran->upgrade_pkgs->pkg_count;i++){
-			printf(_("%s-%s is to be upgraded to version %s\n"),
-				tran->upgrade_pkgs->pkgs[i]->upgrade->name,
-				tran->upgrade_pkgs->pkgs[i]->installed->version,
-				tran->upgrade_pkgs->pkgs[i]->upgrade->version
-				);
-		}
 		for(i = 0; i < tran->remove_pkgs->pkg_count;i++){
 			printf(_("%s-%s is to be removed\n"),
 				tran->remove_pkgs->pkgs[i]->name,tran->remove_pkgs->pkgs[i]->version
 			);
+		}
+		for(i = 0;i < tran->queue->count; ++i){
+			if( tran->queue->pkgs[i]->type == INSTALL ){
+				printf(_("%s-%s is to be installed\n"),
+					tran->queue->pkgs[i]->pkg.i->name,
+					tran->queue->pkgs[i]->pkg.i->version
+				);
+			}else if( tran->queue->pkgs[i]->type == UPGRADE ){
+				printf(_("%s-%s is to be upgraded to version %s\n"),
+					tran->queue->pkgs[i]->pkg.u->upgrade->name,
+					tran->queue->pkgs[i]->pkg.u->installed->version,
+					tran->queue->pkgs[i]->pkg.u->upgrade->version
+				);
+			}
 		}
 		printf(_("Done\n"));
 		return 0;
@@ -277,14 +287,15 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran){
 		for(i = 0; i < tran->remove_pkgs->pkg_count;i++){
 			if( remove_pkg(global_config,tran->remove_pkgs->pkgs[i]) == -1 ) exit(1);
 		}
-		for(i = 0; i < tran->install_pkgs->pkg_count;i++){
-			if( install_pkg(global_config,tran->install_pkgs->pkgs[i]) == -1 ) exit(1);
-		}
-		for(i = 0; i < tran->upgrade_pkgs->pkg_count;i++){
-			if( upgrade_pkg( global_config,
-				tran->upgrade_pkgs->pkgs[i]->installed,
-				tran->upgrade_pkgs->pkgs[i]->upgrade
-			) == -1 ) exit(1);
+		for(i = 0;i < tran->queue->count; ++i){
+			if( tran->queue->pkgs[i]->type == INSTALL ){
+				if( install_pkg(global_config,tran->queue->pkgs[i]->pkg.i) == -1 ) exit(1);
+			}else if( tran->queue->pkgs[i]->type == UPGRADE ){
+				if( upgrade_pkg( global_config,
+					tran->queue->pkgs[i]->pkg.u->installed,
+					tran->queue->pkgs[i]->pkg.u->upgrade
+				) == -1 ) exit(1);
+			}
 		}
 	}
 
@@ -319,6 +330,8 @@ void add_install_to_transaction(transaction_t *tran,pkg_info_t *pkg){
 			pkg,
 			sizeof *pkg
 		);
+		queue_add_install(tran->queue,tran->install_pkgs->pkgs[tran->install_pkgs->pkg_count]);
+
 		++tran->install_pkgs->pkg_count;
 
 		add_suggestion(tran,pkg);
@@ -428,7 +441,14 @@ void add_upgrade_to_transaction(
 			upgrade_pkg,
 			sizeof *upgrade_pkg
 		);
+
+		queue_add_upgrade(
+			tran->queue,
+			tran->upgrade_pkgs->pkgs[tran->upgrade_pkgs->pkg_count]
+		);
+
 		++tran->upgrade_pkgs->pkg_count;
+
 	}
 
 }
@@ -501,6 +521,8 @@ void free_transaction(transaction_t *tran){
 	}
 	free(tran->suggests->pkgs);
 	free(tran->suggests);
+
+	queue_free(tran->queue);
 
 }
 
@@ -736,5 +758,45 @@ int search_transaction_by_pkg(transaction_t *tran,pkg_info_t *pkg){
 			return found;
 	}
 	return not_found;
+}
+
+static queue_t *queue_init(void){
+	queue_t *t = NULL;
+	t = slapt_malloc(sizeof *t);
+	t->pkgs = slapt_malloc(sizeof *t->pkgs);
+	t->count = 0;
+
+	return t;
+}
+
+static void queue_add_install(queue_t *t, pkg_info_t *p){
+	queue_i **tmp;
+	tmp = realloc(t->pkgs, sizeof *t->pkgs * (t->count + 1) );
+	if( !tmp ) return;
+	t->pkgs = tmp;
+	t->pkgs[t->count] = slapt_malloc(sizeof *t->pkgs[t->count] );
+	t->pkgs[t->count]->pkg.i = p;
+	t->pkgs[t->count]->type = INSTALL;
+	++t->count;
+}
+
+static void queue_add_upgrade(queue_t *t, pkg_upgrade_t *p){
+	queue_i **tmp;
+	tmp = realloc(t->pkgs, sizeof *t->pkgs * (t->count + 1) );
+	if( !tmp ) return;
+	t->pkgs = tmp;
+	t->pkgs[t->count] = slapt_malloc(sizeof *t->pkgs[t->count] );
+	t->pkgs[t->count]->pkg.u = p;
+	t->pkgs[t->count]->type = UPGRADE;
+	++t->count;
+}
+
+static void queue_free(queue_t *t){
+	unsigned int i;
+	for(i = 0; i < t->count; ++i){
+		free(t->pkgs[i]);
+	}
+	free(t->pkgs);
+	free(t);
 }
 
