@@ -1060,6 +1060,9 @@ static struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,s
 	char *buffer = NULL;
 
 	deps = init_pkg_list();
+	for(i = 0;i < parent_deps->pkg_count;i++){
+		add_pkg_to_pkg_list(deps,parent_deps->pkgs[i]);
+	}
 
 	/*
 	 * don't go any further if the required member is empty
@@ -1144,15 +1147,14 @@ static struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,s
 		}
 
 		/* if tmp_pkg is not already in the deps pkg_list */
-		if( (get_newest_pkg(deps,tmp_pkg->name) == NULL) &&
-		(get_newest_pkg(parent_deps,tmp_pkg->name) == NULL ) ){
+		if( (get_newest_pkg(deps,tmp_pkg->name) == NULL) ){
 			struct pkg_list *tmp_pkgs_deps = NULL;
 
 			/* add tmp_pkg to deps */
 			add_pkg_to_pkg_list(deps,tmp_pkg);
 
 			/* now check to see if tmp_pkg has dependencies */
-			tmp_pkgs_deps = lookup_pkg_dependencies(global_config,avail_pkgs,installed_pkgs,tmp_pkg,parent_deps);
+			tmp_pkgs_deps = lookup_pkg_dependencies(global_config,avail_pkgs,installed_pkgs,tmp_pkg,deps);
 			if( tmp_pkgs_deps->pkg_count > 0 ){
 
 				/* recurse for each dep found */

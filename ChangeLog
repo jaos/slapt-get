@@ -1,5 +1,6 @@
 
 0.9.8k Aug 13, 2004
+ * merged parent_deps into deps within lookup_pkg_dependencies() fixing more issues with recursive dependencies
  * fix for long package names that cause the regex to think it is a name and a version in one
    with --install and --show
  * added new linuxpackages.net mirror to example.slapt-getrc
