@@ -74,4 +74,5 @@ enum action {
 #define INSTALL_CMD "/sbin/installpkg "
 #define UPGRADE_CMD "/sbin/upgradepkg --reinstall "
 #define CHECKSUM_FILE "CHECKSUMS.md5"
+#define SLACK_BASE_SET_REGEX "^./slackware/a$"
 

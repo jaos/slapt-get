@@ -9,6 +9,7 @@
  * transaction report now shows how much will be downloaded
    and how much disk space will be used.
  * --update now shows url for each source download
+ * added --dist-upgrade for slackware release upgrades
 
 0.9.6c Oct 15, 2003
  * patch data is now fetched from patches/PACKAGES.TXT instead of

@@ -147,64 +147,25 @@ void pkg_action_remove(const rc_config *global_config,const pkg_action_args_t *a
 
 /* search for a pkg (support extended POSIX regex) */
 void pkg_action_search(const char *pattern){
+	int i;
 	struct pkg_list *pkgs = NULL;
-	int iterator;
-	sg_regex search_regex;
-	search_regex.nmatch = MAX_REGEX_PARTS;
-
-	/* compile our regex */
-	search_regex.reg_return = regcomp(&search_regex.regex, pattern, REG_EXTENDED|REG_NEWLINE);
-	if( search_regex.reg_return != 0 ){
-		size_t regerror_size;
-		char errbuf[1024];
-		size_t errbuf_size = 1024;
-		fprintf(stderr, "Failed to compile regex\n");
-
-		regerror_size = regerror(search_regex.reg_return, &search_regex.regex,errbuf,errbuf_size);
-		if( regerror_size != 0 ){
-			printf("Regex Error: %s\n",errbuf);
-		}
-		exit(1);
-	}
+	struct pkg_list *matches = NULL;
 
 	/* read in pkg data */
 	pkgs = get_available_pkgs();
+	matches = malloc( sizeof *matches );
+	matches->pkgs = malloc( sizeof *matches->pkgs * pkgs->pkg_count );
+	matches->pkg_count = 0;
 
-	for(iterator = 0; iterator < pkgs->pkg_count; iterator++ ){
-		if(
-			/* search pkg name */
-			( regexec(
-				&search_regex.regex,
-				pkgs->pkgs[iterator]->name,
-				search_regex.nmatch,
-				search_regex.pmatch,
-				0
-			) == 0)
-			||
-			/* search pkg description */
-			( regexec(
-				&search_regex.regex,
-				pkgs->pkgs[iterator]->description,
-				search_regex.nmatch,
-				search_regex.pmatch,
-				0
-			) == 0)
-			||
-			/* search pkg location */
-			( regexec(
-				&search_regex.regex,
-				pkgs->pkgs[iterator]->location,
-				search_regex.nmatch,
-				search_regex.pmatch,
-				0
-			) == 0)
-		){
-				char *short_description = gen_short_pkg_description(pkgs->pkgs[iterator]);
-				printf("%s - %s\n",pkgs->pkgs[iterator]->name,short_description);
-				free(short_description);
-		}
+	search_pkg_list(pkgs,matches,pattern);
+	for(i = 0; i < matches->pkg_count; i++){
+		char *short_description = gen_short_pkg_description(matches->pkgs[i]);
+		printf("%s - %s\n",matches->pkgs[i]->name,short_description);
+		free(short_description);
 	}
-	regfree(&search_regex.regex);
+
+	free(matches->pkgs);
+	free(matches);
 	free_pkg_list(pkgs);
 
 }/* end search */
@@ -327,10 +288,12 @@ void pkg_action_update(const rc_config *global_config){
 
 /* upgrade all installed pkgs with available updates */
 void pkg_action_upgrade_all(const rc_config *global_config){
-	int iterator;
+	int i;
 	struct pkg_list *installed_pkgs;
 	struct pkg_list *all_pkgs;
+	struct pkg_list *matches;
 	pkg_info_t *update_pkg;
+	pkg_info_t *installed_pkg;
 	transaction tran;
 
 	printf("Reading Package Lists... ");
@@ -339,12 +302,12 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 	printf("Done\n");
 	init_transaction(&tran);
 
-	for(iterator = 0; iterator < installed_pkgs->pkg_count;iterator++){
+	for(i = 0; i < installed_pkgs->pkg_count;i++){
 
 		/* see if we have an available update for the pkg */
 		update_pkg = get_newest_pkg(
 			all_pkgs->pkgs,
-			installed_pkgs->pkgs[iterator]->name,
+			installed_pkgs->pkgs[i]->name,
 			all_pkgs->pkg_count
 		);
 		if( update_pkg != NULL ){
@@ -354,17 +317,38 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 				continue;
 			}
 
-			/* if the update has a newer version */
-			if( (cmp_pkg_versions(installed_pkgs->pkgs[iterator]->version,update_pkg->version)) < 0 ){
-
-				/* attempt to upgrade */
-				add_upgrade_to_transaction(&tran,installed_pkgs->pkgs[iterator],update_pkg);
-
-			} /* end version check */
+			/* if the update has a newer version, attempt to upgrade */
+			if( (cmp_pkg_versions(installed_pkgs->pkgs[i]->version,update_pkg->version)) < 0 )
+				add_upgrade_to_transaction(&tran,installed_pkgs->pkgs[i],update_pkg);
 
 		}/* end upgrade pkg found */
 
 	}/* end for */
+
+	if( global_config->dist_upgrade == 1 ){
+		printf("dist upgrade code here\n");
+
+		matches = malloc( sizeof *matches );
+		matches->pkgs = malloc( sizeof *matches->pkgs * all_pkgs->pkg_count );
+		matches->pkg_count = 0;
+
+		search_pkg_list(all_pkgs,matches,SLACK_BASE_SET_REGEX);
+		for(i = 0; i < matches->pkg_count; i++){
+
+			installed_pkg = get_newest_pkg(
+				installed_pkgs->pkgs,
+				matches->pkgs[i]->name,
+				installed_pkgs->pkg_count
+			);
+			/* add to install list if not already installed */
+			if( installed_pkg == NULL )
+				add_install_to_transaction(&tran,installed_pkg);
+
+		}
+
+		free(matches->pkgs);
+		free(matches);
+	}
 
 	handle_transaction(global_config,&tran);
 

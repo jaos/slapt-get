@@ -50,6 +50,9 @@ slapt-get \- frontend to pkgtools
 .B --upgrade
 ]
 [
+.B --dist-upgrade
+]
+[
 .B --install
 ]
 [
@@ -111,6 +114,9 @@ Retrieves package data from MIRROR location.
 .TP
 .B --upgrade
 Upgrade installed packages if newer versions are available.
+.TP
+.B --dist-upgrade
+This is DANGEROUS.  Upgrade to newer Slackware release.  This is the same as --upgrade, with the addition of checking to make sure that all the base packages, from the base disk set, are also installed.  Prior to running dist-upgrade, make sure that the package cache is updated and the crucial packages (glibc-solibs, sed, and pkgtools) are upgraded.  See UPGRADE.TXT on your local Slackware mirror.
 .TP
 .B --install [package(s)]
 Install specified package(s).

@@ -18,7 +18,7 @@ Frequenty Asked Questions:
 15. What about Dropline support?
 16. How can I generate an exclude list for an entire disk set?
 17. How do I use a local file source?
-18. How can I make sure I have every package from the base installed?
+18. How can I download every package in a disk set?
 
 
 
@@ -86,7 +86,7 @@ Frequenty Asked Questions:
  Yes.
 
  Change your source location within /etc/slapt-getrc to point to the newer
- release directory.  --update your local package data cache, then --upgrade
+ release directory.  --update your local package cache, then --dist-upgrade
  to the newer release.  You will also want to disable any third party package
  sources while upgrading to a newer release so you do not mix and match
  packages.
@@ -103,11 +103,14 @@ Frequenty Asked Questions:
          place.  You can break a working system if you do not follow the
          suggestions in UPGRADE.TXT.
 
- Now you simply --update to retrieve the package data for that release.  This means
- doing the following:
+ Now you simply --dist-update to retrieve the package data for that release.
+ This means doing the following:
+
+   ### upgrade your local package cache
+   $ slapt-get --update
 
    ### make sure you have all the packages for the upgrade locally
-   $ slapt-get --download-only --upgrade
+   $ slapt-get --download-only --dist-upgrade
 
    ### switch to single user mode
    $ telinit 1
@@ -119,12 +122,7 @@ Frequenty Asked Questions:
    $ slapt-get --install sed
 
    ### then, let slapt-get upgrade the rest
-   $ slapt-get --upgrade
-
-   ### to make sure you install every package in the base
-   ### system, (see FAQ #18) use this:
-   slapt-get --search '^\.\/slackware\/a$'|awk '{print $1}'| \
-    xargs -r slapt-get --install
+   $ slapt-get --dist-upgrade
 
  Then follow the rest of the directions in UPGRADE.TXT.
 
@@ -401,18 +399,14 @@ Frequenty Asked Questions:
         -e "s/ZXbXZ/$totaluncomp_m/g" > $final_target && rm $target
  ### END SCRIPT
 
-18. How can I make sure I have every package from the base installed?
+18. How can I download every package in a disk set?
 
- If you just upgraded your Slackware install to a newer version, you may want
- to make sure that you have all the required base packages installed.  You can
- use the --search option and supply a directory (as shown from --show pkg_name).
+ You can search the package location field, which specifies which directory
+ the package resides in, on the mirror.
 
- Most mirrors use ./slackware/a as the directory for the base.  Thus to 
- upgrade:
+ Most mirrors use ./slackware/{disk set} as the directory for the set.  Thus
+ to install every package from xap:
 
-   ./slapt-get --search '^\.\/slackware\/a$'|awk '{print $1}'| \
+   ./slapt-get --search '^\.\/slackware\/xap$'|awk '{print $1}'| \
      xargs -r ./slapt-get --install
-
- You can do the same thing to install a whole disk set... just change the 
- expression to point to whichever disk set you want.
 
