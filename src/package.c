@@ -518,6 +518,7 @@ struct pkg_list *get_installed_pkgs(void){
 					tmp_pkg->description[0] = '\0';
 					while(1){
 						if((bytes_read = getline(&getline_buffer,&getline_len,pkg_f)) == EOF ) break;
+						if( strstr(getline_buffer,"FILE LIST:") != NULL ) break;
 						if( strcmp(getline_buffer,"\n") != 0 &&
 							/* don't overflow the buffer */
 							(strlen(tmp_pkg->description) + bytes_read) < DESCRIPTION_LEN
