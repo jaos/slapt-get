@@ -55,6 +55,7 @@ clean:
 #-@cp src/libslapt-$(VERSION).a src/libslapt-$(VERSION).so pkg/usr/lib/
 #-@strip pkg/usr/lib/libslapt-$(VERSION).so
 #-@ln -s pkg/usr/lib/libslapt-$(VERSION).so pkg/usr/lib/libslapt.so
+#cat main.h configuration.h package.h curl.h transaction.h action.h |grep -v '#include \"' > slapt.h
 
 pkg: $(PROGRAM_NAME) libs
 	-@mkdir pkg
