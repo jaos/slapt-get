@@ -3,8 +3,9 @@
  * added aaa_elflibs to the default exclude
  * fixed required_by() function for deep leveled recursive dependencies
  * moved package order so that package always follows it's dependencies
- * exclude suggestions if they are already present in current transaction
- * fixed --no-dep bug that was excluding requesting package instead of
+ * exclude suggestions from transaction report if they are already present in
+   current transaction
+ * fixed --no-dep bug that was excluding the requested package instead of
    installing it
  * fixed recursive dependency bug
  * upped the max size of package requires, suggests token can be ' ' or ',' now
