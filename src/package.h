@@ -37,9 +37,9 @@
 #define MIRROR_LEN 200
 #define LOCATION_LEN 50
 #define DESCRIPTION_LEN 1024
-#define REQUIRED_LEN 1024
-#define CONFLICTS_LEN 1024
-#define SUGGESTS_LEN 1024
+#define REQUIRED_LEN 2048
+#define CONFLICTS_LEN 2048
+#define SUGGESTS_LEN 2048
 #define MD5_STR_LEN 34
 #define MD5_CHECKSUM_FAILED -100
 #define PKG_LIST "PACKAGES.TXT"
@@ -60,9 +60,9 @@ typedef struct {
 	unsigned int size_c;
 	unsigned int size_u;
 	char description[DESCRIPTION_LEN];
-	char required[REQUIRED_LEN];
-	char conflicts[CONFLICTS_LEN];
-	char suggests[SUGGESTS_LEN];
+	char *required;
+	char *conflicts;
+	char *suggests;
 	char md5[MD5_STR_LEN];
 } pkg_info_t;
 
@@ -91,6 +91,7 @@ struct pkg_version_parts {
 __inline pkg_info_t *init_pkg(void);
 struct pkg_list *init_pkg_list(void);
 void add_pkg_to_pkg_list(struct pkg_list *list,pkg_info_t *pkg);
+void free_pkg(pkg_info_t *pkg);
 /* free memory allocated for pkg_list struct */
 void free_pkg_list(struct pkg_list *);
 

@@ -91,7 +91,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 				getline_buffer + name_regex.pmatch[1].rm_so,
 				name_regex.pmatch[1].rm_eo - name_regex.pmatch[1].rm_so
 			);
-			free(tmp_pkg);
+			free_pkg(tmp_pkg);
 			continue;
 		}
 		strncpy(tmp_pkg->name,
@@ -109,7 +109,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 				getline_buffer + name_regex.pmatch[2].rm_so,
 				name_regex.pmatch[2].rm_eo - name_regex.pmatch[2].rm_so
 			);
-			free(tmp_pkg);
+			free_pkg(tmp_pkg);
 			continue;
 		}
 		strncpy(tmp_pkg->version,
@@ -135,7 +135,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 						getline_buffer + mirror_regex.pmatch[1].rm_so,
 						mirror_regex.pmatch[1].rm_eo - mirror_regex.pmatch[1].rm_so
 					);
-					free(tmp_pkg);
+					free_pkg(tmp_pkg);
 					continue;
 				}
 
@@ -167,7 +167,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 						getline_buffer + location_regex.pmatch[1].rm_so,
 						location_regex.pmatch[1].rm_eo - location_regex.pmatch[1].rm_so
 					);
-					free(tmp_pkg);
+					free_pkg(tmp_pkg);
 					continue;
 				}
 
@@ -203,12 +203,12 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 
 			}else{
 				fprintf(stderr,_("regexec failed to parse location\n"));
-				free(tmp_pkg);
+				free_pkg(tmp_pkg);
 				continue;
 			}
 		}else{
 			fprintf(stderr,_("getline reached EOF attempting to read location\n"));
-			free(tmp_pkg);
+			free_pkg(tmp_pkg);
 			continue;
 		}
 
@@ -228,12 +228,12 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 				free(size_c);
 			}else{
 				fprintf(stderr,_("regexec failed to parse size_c\n"));
-				free(tmp_pkg);
+				free_pkg(tmp_pkg);
 				continue;
 			}
 		}else{
 			fprintf(stderr,_("getline reached EOF attempting to read size_c\n"));
-			free(tmp_pkg);
+			free_pkg(tmp_pkg);
 			continue;
 		}
 
@@ -253,12 +253,12 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 				free(size_u);
 			}else{
 				fprintf(stderr,_("regexec failed to parse size_u\n"));
-				free(tmp_pkg);
+				free_pkg(tmp_pkg);
 				continue;
 			}
 		}else{
 			fprintf(stderr,_("getline reached EOF attempting to read size_u\n"));
-			free(tmp_pkg);
+			free_pkg(tmp_pkg);
 			continue;
 		}
 
@@ -269,6 +269,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 			((bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh)) != EOF) &&
 			((char_pointer = strstr(getline_buffer,"PACKAGE REQUIRED")) != NULL)
 		){
+				char *tmp_realloc = NULL;
 				size_t req_len = strlen("PACKAGE REQUIRED") + 2;
 				char *req_str = char_pointer + req_len;
 				getline_buffer[bytes_read - 1] = '\0';
@@ -278,12 +279,19 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 						req_str,
 						strlen(req_str)
 					);
-					free(tmp_pkg);
+					free_pkg(tmp_pkg);
 					continue;
 				}
 
+				tmp_realloc = realloc(
+					tmp_pkg->required,
+					sizeof *tmp_pkg->required * (strlen(char_pointer + req_len) + 1)
+				);
+				if( tmp_realloc != NULL ){
+					tmp_pkg->required = tmp_realloc;
 				strncpy(tmp_pkg->required,char_pointer + req_len, strlen(char_pointer + req_len));
 				tmp_pkg->required[ strlen(char_pointer + req_len) ] = '\0';
+				}
 		}else{
 			/* required isn't provided... rewind one line */
 			fseek(pkg_list_fh, (ftell(pkg_list_fh) - f_pos) * -1, SEEK_CUR);
@@ -296,17 +304,23 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 			((bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh)) != EOF) &&
 			((char_pointer = strstr(getline_buffer,"PACKAGE CONFLICTS")) != NULL)
 		){
+				char *tmp_realloc = NULL;
 				char *conflicts = (char *)strpbrk(char_pointer,":") + 3;
 				if( strlen(conflicts) > CONFLICTS_LEN ){
 					fprintf( stderr, _("conflict too long [%s:%d]\n"),
 						conflicts,
 						strlen(conflicts)
 					);
-					free(tmp_pkg);
+					free_pkg(tmp_pkg);
 					continue;
 				}
 				getline_buffer[bytes_read - 1] = '\0';
+				tmp_realloc = realloc(tmp_pkg->conflicts, sizeof *tmp_pkg->conflicts * (strlen(conflicts) + 1));
+				if( tmp_realloc != NULL ){
+					tmp_pkg->conflicts = tmp_realloc;
 				strncat(tmp_pkg->conflicts,conflicts,strlen(conflicts));
+					tmp_pkg->conflicts[ strlen(conflicts) ] = '\0';
+				}
 		}else{
 			/* conflicts isn't provided... rewind one line */
 			fseek(pkg_list_fh, (ftell(pkg_list_fh) - f_pos) * -1, SEEK_CUR);
@@ -319,17 +333,23 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 			((bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh)) != EOF) &&
 			((char_pointer = strstr(getline_buffer,"PACKAGE SUGGESTS")) != NULL)
 		){
+				char *tmp_realloc = NULL;
 				char *suggests = (char *)strpbrk(char_pointer,":") + 3;
 				if( strlen(suggests) > SUGGESTS_LEN ){
 					fprintf( stderr, _("suggests too long [%s:%d]\n"),
 						suggests,
 						strlen(suggests)
 					);
-					free(tmp_pkg);
+					free_pkg(tmp_pkg);
 					continue;
 				}
 				getline_buffer[bytes_read - 1] = '\0';
+				tmp_realloc = realloc(tmp_pkg->suggests, sizeof *tmp_pkg->suggests * (strlen(suggests) + 1));
+				if( tmp_realloc != NULL ){
+					tmp_pkg->suggests = tmp_realloc;
 				strncat(tmp_pkg->suggests,suggests,strlen(suggests));
+					tmp_pkg->suggests[ strlen(suggests) ] = '\0';
+				}
 		}else{
 			/* suggests isn't provided... rewind one line */
 			fseek(pkg_list_fh, (ftell(pkg_list_fh) - f_pos) * -1, SEEK_CUR);
@@ -352,7 +372,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 						md5sum,
 						strlen(md5sum)
 					);
-					free(tmp_pkg);
+					free_pkg(tmp_pkg);
 					continue;
 				}
 
@@ -388,7 +408,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 			}
 		}else{
 			fprintf(stderr,_("error attempting to read pkg description\n"));
-			free(tmp_pkg);
+			free_pkg(tmp_pkg);
 			continue;
 		}
 
@@ -670,10 +690,17 @@ int remove_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	return cmd_return;
 }
 
+void free_pkg(pkg_info_t *pkg){
+	free(pkg->required);
+	free(pkg->conflicts);
+	free(pkg->suggests);
+	free(pkg);
+}
+
 void free_pkg_list(struct pkg_list *list){
 	unsigned int i;
 	for(i = 0;i < list->pkg_count;i++){
-		free(list->pkgs[i]);
+		free_pkg(list->pkgs[i]);
 	}
 	free(list->pkgs);
 	free(list);
@@ -1816,6 +1843,9 @@ __inline pkg_info_t *init_pkg(void){
 	pkg->mirror[0] = '\0';
 	pkg->location[0] = '\0';
 	pkg->description[0] = '\0';
+	pkg->required = slapt_malloc(sizeof *pkg->required);
+	pkg->conflicts = slapt_malloc(sizeof *pkg->conflicts);
+	pkg->suggests = slapt_malloc(sizeof *pkg->suggests);
 	pkg->required[0] = '\0';
 	pkg->conflicts[0] = '\0';
 	pkg->suggests[0] = '\0';

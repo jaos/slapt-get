@@ -1,5 +1,7 @@
 
 0.9.9g Jan 15, 2005
+ * made required, conflicts, and suggests into dynamically allocated strings
+   for package objects, and upped their max size to 2048
  * inlined init_pkg()
  * added missing fclose() calls in read_rc_config() and read_head_cache()
  * added missing free for getline buffer in get_md5sum() and update_pkg_cache()
