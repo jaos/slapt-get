@@ -56,15 +56,20 @@ int download_data(FILE *fh,const char *url,size_t bytes,int use_curl_dl_stats){
 		curl_easy_setopt(ch, CURLOPT_RESUME_FROM, bytes);
 	}
 
-	if( (response = curl_easy_perform(ch)) != 0 ){
+	if( (response = curl_easy_perform(ch)) != CURLE_OK ){
+		/*
+			* this is for proxy servers that can't resume 
+		*/
+		if( response == CURLE_HTTP_RANGE_ERROR ){
+			return_code = CURLE_HTTP_RANGE_ERROR;
 		/*
 			* this is a simple hack for all ftp sources that won't have a patches dir
 			* we don't want an ugly error to confuse the user
 		*/
-		if( strstr(url,PATCHES_LIST) != NULL ){
+		}else if( strstr(url,PATCHES_LIST) != NULL ){
 			return_code = 0;
 		}else{
-			fprintf(stderr,_("Failed to download: %s\n"),curl_err_buff);
+			fprintf(stderr,_("Failed to download: %s:%d\n"),curl_err_buff,response);
 			return_code = -1;
 		}
 	}
@@ -167,6 +172,7 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	char *url = NULL;
 	size_t f_size = 0;
 	int pkg_verify_return = -1;
+	int dl_return = -1;
 
 	if( verify_downloaded_pkg(global_config,pkg) == 0 ) return 0;
 
@@ -193,8 +199,24 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	}
 
 	/* download the file to our file handle */
-	if( download_data(fh,url,f_size,global_config->dl_stats) == 0 ){
+	dl_return = download_data(fh,url,f_size,global_config->dl_stats);
+	if( dl_return == 0 ){
 		if( global_config->dl_stats != 1 ) printf(_("Done\n"));
+	}else if( dl_return == CURLE_HTTP_RANGE_ERROR ){
+		/*
+			* this is for errors trying to resume.  unlink the file and
+			* try again.
+		*/
+		printf("\r");
+		fclose(fh);
+		if( unlink(file_name) == -1 ){
+			fprintf(stderr,_("Failed to unlink %s\n"),file_name);
+			if( errno ) perror(file_name);
+			exit(1);
+		}
+		free(file_name);
+		free(url);
+		return download_pkg(global_config,pkg);
 	}else{
 		fclose(fh);
 		#if DEBUG == 1

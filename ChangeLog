@@ -1,5 +1,7 @@
 
-0.9.9f Jan 08, 2005
+0.9.9f Jan 09, 2005
+ * if resume of pkg download is not supported by remote server or proxy,
+   remove partial file and try again
  * ensured --remove-obsolute ignores excluded packages
  * updated translations
  * added --remove-obsolete option for dist-upgrade (see FAQ #9 and #28)
