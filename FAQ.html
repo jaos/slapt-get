@@ -183,6 +183,14 @@
      the --update.  The second step above is made as a suggestion to follow
      the suggestions and conventions in UPGRADE.TXT.
 
+ For new packages that have been added to the disk sets you are using, you
+ should make sure any new packages are also installed.  For example:
+
+   ### install all gnome and X packages
+   $ slapt-get --search './slackware/gnome|./slackware/x'|awk '{print $1}'| \
+     xargs slapt-get --install
+
+
 
 <A NAME="slgFAQ10"><B>10.  What about package dependencies?</B></A>
 
