@@ -25,7 +25,7 @@ SOURCE=ftp://sunsite.cnlab-switch.ch/mirror/slackware/slackware-9.1/
 # other unofficial sources
 #SOURCE=http://www.tenboard.com/slackware/slackware-9.0/
 #SOURCE=http://www.tenboard.com/slackware/slackware-9.1/
-#SOURCE=http://www.slack.it/slackpack/
+#SOURCE=http://packs.slack.it/
 #SOURCE=http://slackpacks.tchelinux.com.br/
 #SOURCE=http://users.lichtsnel.nl/pub/slackware/
 
