@@ -17,6 +17,7 @@
  */
 
 #include <main.h>
+static void add_suggestion(transaction *tran, pkg_info_t *pkg);
 
 void init_transaction(transaction *tran){
 
@@ -29,6 +30,9 @@ void init_transaction(transaction *tran){
 	tran->remove_pkgs->pkgs = malloc( sizeof *tran->remove_pkgs->pkgs );
 	tran->upgrade_pkgs->pkgs = malloc( sizeof *tran->upgrade_pkgs->pkgs );
 	tran->exclude_pkgs->pkgs = malloc( sizeof *tran->exclude_pkgs->pkgs );
+
+	tran->suggests = malloc(sizeof *tran->suggests );
+	tran->suggests[0] = '\0';
 
 	tran->install_pkgs->pkg_count = 0;
 	tran->remove_pkgs->pkg_count = 0;
@@ -50,6 +54,12 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 			printf("%s ",tran->exclude_pkgs->pkgs[i]->name);
 		}
 		printf("\n");
+	}
+
+	/* show suggested pkgs */
+	if( strlen(tran->suggests) > 0 ){
+		printf(_("Suggested packages:\n"));
+		printf("  %s\n",tran->suggests);
 	}
 
 	/* show pkgs to install */
@@ -248,6 +258,8 @@ void add_install_to_transaction(transaction *tran,pkg_info_t *pkg){
 		++tran->install_pkgs->pkg_count;
 	}
 
+	add_suggestion(tran,pkg);
+
 }
 
 void add_remove_to_transaction(transaction *tran,pkg_info_t *pkg){
@@ -408,6 +420,8 @@ void free_transaction(transaction *tran){
 	free(tran->upgrade_pkgs);
 	free(tran->exclude_pkgs);
 
+	free(tran->suggests);
+
 }
 
 transaction *remove_from_transaction(transaction *tran,pkg_info_t *pkg){
@@ -539,3 +553,16 @@ int is_conflicted(transaction *tran, struct pkg_list *avail_pkgs, struct pkg_lis
 	return conflicted;
 }
 
+static void add_suggestion(transaction *tran, pkg_info_t *pkg){
+	char *tmp_buffer;
+
+	if( pkg->suggests == NULL || strlen(pkg->suggests) == 0 ){
+		return;
+	}
+
+	tmp_buffer = realloc(tran->suggests, strlen(tran->suggests) + strlen(pkg->suggests) + 1);
+	if( tmp_buffer != NULL ){
+		tran->suggests = tmp_buffer;
+		strncat(tran->suggests,pkg->suggests,strlen(pkg->suggests));
+	}
+}

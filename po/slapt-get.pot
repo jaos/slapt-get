@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.8j\n"
+"Project-Id-Version: 0.9.9\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2004-08-05 11:54+0500\n"
+"PO-Revision-Date: 2004-08-30 12:05+0500\n"
 "Last-Translator: Jason Woodward <woodwardj@jaos.org>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -470,5 +470,8 @@ msgid "Sources failed to download, correct sources and rerun --update\n"
 msgstr ""
 
 msgid "specify alternate slapt-getrc location"
+msgstr ""
+
+msgid "Suggested packages:\n"
 msgstr ""
 

@@ -335,6 +335,29 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 			fseek(pkg_list_fh, (ftell(pkg_list_fh) - f_pos) * -1, SEEK_CUR);
 		}
 
+		/* suggests, if provided */
+		f_pos = ftell(pkg_list_fh);
+		tmp_pkg->suggests[0] = '\0';
+		if(
+			((bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh)) != EOF) &&
+			((char_pointer = strstr(getline_buffer,"PACKAGE SUGGESTS")) != NULL)
+		){
+				char *suggests = strpbrk(char_pointer,":") + 3;
+				if( strlen(suggests) > SUGGESTS_LEN ){
+					fprintf( stderr, _("suggests too long [%s:%d]\n"),
+						suggests,
+						strlen(suggests)
+					);
+					free(tmp_pkg);
+					continue;
+				}
+				getline_buffer[bytes_read - 1] = '\0';
+				strncpy(tmp_pkg->suggests,suggests,strlen(suggests));
+		}else{
+			/* suggests isn't provided... rewind one line */
+			fseek(pkg_list_fh, (ftell(pkg_list_fh) - f_pos) * -1, SEEK_CUR);
+		}
+	
 		/* md5 checksum */
 		tmp_pkg->md5[0] = '\0'; /* just in case the md5sum is empty */
 		f_pos = ftell(pkg_list_fh);
@@ -986,6 +1009,7 @@ void write_pkg_data(const char *source_url,FILE *d_file,struct pkg_list *pkgs){
 		fprintf(d_file,"PACKAGE SIZE (uncompressed):  %d K\n",pkgs->pkgs[i]->size_u);
 		fprintf(d_file,"PACKAGE REQUIRED:  %s\n",pkgs->pkgs[i]->required);
 		fprintf(d_file,"PACKAGE CONFLICTS:  %s\n",pkgs->pkgs[i]->conflicts);
+		fprintf(d_file,"PACKAGE SUGGESTS:  %s\n",pkgs->pkgs[i]->suggests);
 		fprintf(d_file,"PACKAGE MD5 SUM:  %s\n",pkgs->pkgs[i]->md5);
 		fprintf(d_file,"PACKAGE DESCRIPTION:\n");
 		/* do we have to make up an empty description? */

@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.8j\n"
+"Project-Id-Version: 0.9.9\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2004-08-06 12:52+0500\n"
+"PO-Revision-Date: 2004-08-30 20:05+0500\n"
 "Last-Translator: Henrique Pinto <henrique.pinto@kdemail.net>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -470,4 +470,7 @@ msgstr "Falha no download a partir dos fontes, corrija os mesmos e rode --update
 
 msgid "specify alternate slapt-getrc location"
 msgstr "especifique outro caminho para o slapt-getrc"
+
+msgid "Suggested packages:\n"
+msgstr ""
 

@@ -21,6 +21,7 @@ struct _transaction {
 	struct pkg_upgrade_list *upgrade_pkgs;
 	struct pkg_list *remove_pkgs;
 	struct pkg_list *exclude_pkgs;
+	char *suggests;
 };
 typedef struct _transaction transaction;
 

@@ -45,6 +45,7 @@ Frequenty Asked Questions:
 44. Is there a way to get a report with the pending updates emailed to me?
 45. How do I specify authentication information in my package SOURCE entry?
 46. What if I don't trust third party sources for upgrades?
+47. How do I specify an addon thats not a dependency of my package?
 
 
 
@@ -336,6 +337,7 @@ Frequenty Asked Questions:
 	    USIZE=$( expr `gunzip -l $1 |tail -1|awk '{print $2}'` / 1024 )
 	    REQUIRED=$(tar xzf $1 install/slack-required -O 2>/dev/null|xargs -r -iZ echo -n "Z,"|sed -e "s/,$//")
 	    CONFLICTS=$(tar xzf $1 install/slack-conflicts -O 2>/dev/null|xargs -r -iZ echo -n "Z,"|sed -e "s/,$//")
+	    SUGGESTS=$(tar xzf $1 install/slack-suggests -O 2>/dev/null|xargs -r )
 	    METAFILE=${NAME%tgz}meta
 	    echo "PACKAGE NAME:  $NAME" > $LOCATION/$METAFILE
 	    echo "PACKAGE LOCATION:  $LOCATION" >> $LOCATION/$METAFILE
@@ -343,6 +345,7 @@ Frequenty Asked Questions:
 	    echo "PACKAGE SIZE (uncompressed):  $USIZE K" >> $LOCATION/$METAFILE
 	    echo "PACKAGE REQUIRED:  $REQUIRED" >> $LOCATION/$METAFILE
 	    echo "PACKAGE CONFLICTS:  $CONFLICTS" >> $LOCATION/$METAFILE
+	    echo "PACKAGE SUGGESTS:  $SUGGESTS" >> $LOCATION/$METAFILE
 	    echo "PACKAGE DESCRIPTION:" >> $LOCATION/$METAFILE
 	    tar xzf $1 install/slack-desc -O|grep -E '\w+\:'|grep -v '^#' >> $LOCATION/$METAFILE
 	    echo "" >> $LOCATION/$METAFILE
@@ -855,6 +858,19 @@ Frequenty Asked Questions:
  if your excludes and working directory are different in each file, you will
  want to specify --config with each invocation of slapt-get to ensure that file
  is parsed.
+
+
+47. How do I specify an addon thats not a dependency of my package?
+
+ You can include a slack-suggests file within your package's ./install/ directory.
+ The format of this file follows the slack-required, except version information
+ is to be left out.  This version information is useless as you are just making
+ a suggestion, not a requirement.  If there is a required version of a package
+ you can either specify it within ./install/slack-required or include it within
+ the documentation inside of your package.
+
+ The suggestion information is presented during the transaction report or via the
+ --show pkg-name query.
 
 
 

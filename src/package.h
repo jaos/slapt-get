@@ -38,6 +38,7 @@
 #define DESCRIPTION_LEN 1024
 #define REQUIRED_LEN 1024
 #define CONFLICTS_LEN 1024
+#define SUGGESTS_LEN 1024
 #define MD5_STR_LEN 34
 #define MD5_CHECKSUM_FAILED -100
 #define PKG_LIST "PACKAGES.TXT"
@@ -60,6 +61,7 @@ struct _pkg_info {
 	char description[DESCRIPTION_LEN];
 	char required[REQUIRED_LEN];
 	char conflicts[CONFLICTS_LEN];
+	char suggests[SUGGESTS_LEN];
 	char md5[MD5_STR_LEN];
 };
 typedef struct _pkg_info pkg_info_t;
