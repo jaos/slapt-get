@@ -1,5 +1,6 @@
 
 0.9.8h Jul 25, 2004
+ * updated example.slapt-getrc
  * removed needless "Retrieving checksum list [%s]...\n" string from translations
  * now ftp package sources print "Cached" if cached
  * added check in download_data, silence error if url contains "/patches/PACKAGES.TXT"
