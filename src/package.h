@@ -88,7 +88,7 @@ struct pkg_version_parts {
 
 
 
-pkg_info_t *init_pkg(void);
+__inline pkg_info_t *init_pkg(void);
 struct pkg_list *init_pkg_list(void);
 void add_pkg_to_pkg_list(struct pkg_list *list,pkg_info_t *pkg);
 /* free memory allocated for pkg_list struct */

@@ -1803,7 +1803,7 @@ void add_pkg_to_pkg_list(struct pkg_list *list,pkg_info_t *pkg){
 
 }
 
-pkg_info_t *init_pkg(void){
+__inline pkg_info_t *init_pkg(void){
 	pkg_info_t *pkg;
 
 	pkg = slapt_malloc( sizeof *pkg );
