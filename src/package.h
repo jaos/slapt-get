@@ -78,7 +78,7 @@ struct pkg_upgrade_list {
 };
 
 struct pkg_version_parts {
-	char parts[10][10];
+	char **parts;
 	int count;
 };
 

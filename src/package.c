@@ -24,7 +24,7 @@ static char *head_mirror_data(const char *wurl,const char *file);
 /* lookup md5sum of file */
 static void get_md5sum(pkg_info_t *pkg,FILE *checksum_file);
 /* analyze the pkg version hunk by hunk */
-static void break_down_pkg_version(struct pkg_version_parts *pvp,const char *version);
+static struct pkg_version_parts *break_down_pkg_version(const char *version);
 /* parse the meta lines */
 static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,char *dep_entry);
 /* called by is_required_by */
@@ -39,6 +39,8 @@ static void clear_head_cache(const char *cache_filename);
 static void write_head_cache(const char *cache, const char *cache_filename);
 /* read the cached head request */
 static char *read_head_cache(const char *cache_filename);
+/* free pkg_version_parts struct */
+static void free_pkg_version_parts(struct pkg_version_parts *parts);
 
 /* parse the PACKAGES.TXT file */
 struct pkg_list *get_available_pkgs(void){
@@ -799,44 +801,61 @@ static void get_md5sum(pkg_info_t *pkg,FILE *checksum_file){
 	return;
 }
 
+static void free_pkg_version_parts(struct pkg_version_parts *parts){
+	int i;
+	for(i = 0;i < parts->count;i++){
+		free(parts->parts[i]);
+	}
+	free(parts->parts);
+	free(parts);
+}
 
 int cmp_pkg_versions(char *a, char *b){
-	struct pkg_version_parts a_parts;
-	struct pkg_version_parts b_parts;
 	int position = 0;
 	int greater = 1,lesser = -1,equal = 0;
+	struct pkg_version_parts *a_parts;
+	struct pkg_version_parts *b_parts;
 
 	/* bail out early if possible */
 	if( strcmp(a,b) == 0 ) return equal;
 
-	a_parts.count = 0;
-	b_parts.count = 0;
+	a_parts = break_down_pkg_version(a);
+	b_parts = break_down_pkg_version(b);
 
-	break_down_pkg_version(&a_parts,a);
-	break_down_pkg_version(&b_parts,b);
-
-	while( position < a_parts.count && position < b_parts.count ){
-		if( strcmp(a_parts.parts[position],b_parts.parts[position]) != 0 ){
+	while( position < a_parts->count && position < b_parts->count ){
+		if( strcmp(a_parts->parts[position],b_parts->parts[position]) != 0 ){
 
 			/*
 			 * if the integer value of the version part is the same
 			 * and the # of version parts is the same (fixes 3.8.1p1-i486-1 to 3.8p1-i486-1)
 			*/ 
-			if( (atoi(a_parts.parts[position]) == atoi(b_parts.parts[position])) &&
-				(a_parts.count == b_parts.count) ){
+			if( (atoi(a_parts->parts[position]) == atoi(b_parts->parts[position])) &&
+				(a_parts->count == b_parts->count) ){
 
-				if( strcmp(a_parts.parts[position],b_parts.parts[position]) < 0 )
+				if( strcmp(a_parts->parts[position],b_parts->parts[position]) < 0 ){
+					free_pkg_version_parts(a_parts);
+					free_pkg_version_parts(b_parts);
 					return lesser;
-				if( strcmp(a_parts.parts[position],b_parts.parts[position]) > 0 )
+				}
+				if( strcmp(a_parts->parts[position],b_parts->parts[position]) > 0 ){
+					free_pkg_version_parts(a_parts);
+					free_pkg_version_parts(b_parts);
 					return greater;
+				}
 
 			}
 
-			if( atoi(a_parts.parts[position]) < atoi(b_parts.parts[position]) )
+			if( atoi(a_parts->parts[position]) < atoi(b_parts->parts[position]) ){
+				free_pkg_version_parts(a_parts);
+				free_pkg_version_parts(b_parts);
 				return lesser;
+			}
 
-			if( atoi(a_parts.parts[position]) > atoi(b_parts.parts[position]) )
+			if( atoi(a_parts->parts[position]) > atoi(b_parts->parts[position]) ){
+				free_pkg_version_parts(a_parts);
+				free_pkg_version_parts(b_parts);
 				return greater;
+			}
 
 		}
 		++position;
@@ -847,8 +866,20 @@ int cmp_pkg_versions(char *a, char *b){
 	 * parts are equal in both packages.  If pkg-a has 3 version parts
 	 * and pkg-b has 2, then we assume pkg-a to be greater.
 	*/
-	if(a_parts.count != b_parts.count)
-		return ( (a_parts.count > b_parts.count) ? greater : lesser );
+	if(a_parts->count != b_parts->count){
+		if( a_parts->count > b_parts->count ){
+			free_pkg_version_parts(a_parts);
+			free_pkg_version_parts(b_parts);
+			return greater;
+		}else{
+			free_pkg_version_parts(a_parts);
+			free_pkg_version_parts(b_parts);
+			return lesser;
+		}
+	}
+
+	free_pkg_version_parts(a_parts);
+	free_pkg_version_parts(b_parts);
 
 	/*
 	 * Now we check to see that the version follows the standard slackware
@@ -879,13 +910,18 @@ int cmp_pkg_versions(char *a, char *b){
 	return strcmp(a,b);
 }
 
-static void break_down_pkg_version(struct pkg_version_parts *pvp,const char *version){
+static struct pkg_version_parts *break_down_pkg_version(const char *version){
 	int pos = 0,sv_size = 0;
-	char *pointer,*tmp,*short_version;
+	char *pointer,*short_version;
+	struct pkg_version_parts *pvp;
+
+	pvp = malloc( sizeof *pvp );
+	pvp->parts = malloc( sizeof *pvp->parts );
+	pvp->count = 0;
 
 	/* generate a short version, leave out arch and release */
 	if( (pointer = strchr(version,'-')) == NULL ){
-		return;
+		return pvp;
 	}else{
 		sv_size = ( strlen(version) - strlen(pointer) + 1);
 		short_version = malloc( sizeof *short_version * sv_size );
@@ -895,46 +931,46 @@ static void break_down_pkg_version(struct pkg_version_parts *pvp,const char *ver
 	}
 
 	while(pos < (sv_size - 1) ){
+		char **tmp;
+
+		tmp = realloc(pvp->parts, sizeof *pvp->parts * (pvp->count + 1) );
+		if( tmp == NULL ){
+			fprintf(stderr,_("Failed to realloc %s\n"),"pvp->parts");
+			exit(1);
+		}
+		pvp->parts = tmp;
+
 		/* check for . as a seperator */
 		if( (pointer = strchr(short_version + pos,'.')) != NULL ){
 			int b_count = ( strlen(short_version + pos) - strlen(pointer) + 1 );
-			tmp = malloc( sizeof *tmp * b_count );
-			memcpy(tmp,short_version + pos,b_count);
-			tmp[b_count - 1] = '\0';
-			strncpy(pvp->parts[pvp->count],tmp,b_count);
-			pvp->parts[pvp->count][b_count] = '\0';
+			pvp->parts[pvp->count] = malloc( sizeof *pvp->parts[pvp->count] * b_count );
+			memcpy(pvp->parts[pvp->count],short_version + pos,b_count - 1);
+			pvp->parts[pvp->count][b_count - 1] = '\0';
 			++pvp->count;
-			free(tmp);
 			pointer = NULL;
 			pos += b_count;
 		/* check for _ as a seperator */
 		}else if( (pointer = strchr(short_version + pos,'_')) != NULL ){
 			int b_count = ( strlen(short_version + pos) - strlen(pointer) + 1 );
-			tmp = malloc( sizeof *tmp * b_count );
-			memcpy(tmp,short_version + pos,b_count);
-			tmp[b_count - 1] = '\0';
-			strncpy(pvp->parts[pvp->count],tmp,b_count);
-			pvp->parts[pvp->count][b_count] = '\0';
+			pvp->parts[pvp->count] = malloc( sizeof *pvp->parts[pvp->count] * b_count );
+			memcpy(pvp->parts[pvp->count],short_version + pos,b_count - 1);
+			pvp->parts[pvp->count][b_count - 1] = '\0';
 			++pvp->count;
-			free(tmp);
 			pointer = NULL;
 			pos += b_count;
 		/* must be the end of the string */
 		}else{
 			int b_count = ( strlen(short_version + pos) + 1 );
-			tmp = malloc( sizeof *tmp * b_count );
-			memcpy(tmp,short_version + pos,b_count);
-			tmp[b_count - 1] = '\0';
-			strncpy(pvp->parts[pvp->count],tmp,b_count);
-			pvp->parts[pvp->count][b_count] = '\0';
+			pvp->parts[pvp->count] = malloc( sizeof *pvp->parts[pvp->count] * b_count );
+			memcpy(pvp->parts[pvp->count],short_version + pos,b_count - 1);
+			pvp->parts[pvp->count][b_count - 1] = '\0';
 			++pvp->count;
-			free(tmp);
 			pos += b_count;
 		}
 	}
 
 	free(short_version);
-	return;
+	return pvp;
 }
 
 void write_pkg_data(const char *source_url,FILE *d_file,struct pkg_list *pkgs){
