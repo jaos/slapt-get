@@ -56,8 +56,9 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 			deps = lookup_pkg_dependencies(all,installed,pkg);
 
 			/* check to see if there where issues with dep checking */
-			if( deps->pkg_count == -1 ){
+			if( (deps->pkg_count == -1) && (global_config->no_dep == 0) ){
 				/* exclude the package if dep check barfed */
+				printf("Excluding %s, use --no-dep to override\n",pkg->name);
 				add_exclude_to_transaction(&tran,pkg);
 			}else{
 				for(c = 0; c < deps->pkg_count;c++){
@@ -89,8 +90,9 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 				deps = lookup_pkg_dependencies(all,installed,pkg);
 
 				/* check to see if there where issues with dep checking */
-				if( deps->pkg_count == -1 ){
+				if( (deps->pkg_count == -1) && (global_config->no_dep == 0 ) ){
 					/* exclude the package if dep check barfed */
+					printf("Excluding %s, use --no-dep to override\n",pkg->name);
 					add_exclude_to_transaction(&tran,pkg);
 				}else{
 					for(c = 0; c < deps->pkg_count;c++){
@@ -431,8 +433,9 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 				deps = lookup_pkg_dependencies(all_pkgs,installed_pkgs,update_pkg);
 
 				/* check to see if there where issues with dep checking */
-				if( deps->pkg_count == -1 ){
+				if( (deps->pkg_count == -1) && (global_config->no_dep == 0) ){
 					/* exclude the package if dep check barfed */
+					printf("Excluding %s, use --no-dep to override\n",update_pkg->name);
 					add_exclude_to_transaction(&tran,update_pkg);
 				}else{
 					for(c = 0; c < deps->pkg_count;c++){
@@ -478,8 +481,9 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 					deps = lookup_pkg_dependencies(all_pkgs,installed_pkgs,matches->pkgs[i]);
 
 					/* check to see if there where issues with dep checking */
-					if( deps->pkg_count == -1 ){
+					if( (deps->pkg_count == -1) && (global_config->no_dep == 0) ){
 						/* exclude the package if dep check barfed */
+						printf("Excluding %s, use --no-dep to override\n",matches->pkgs[i]->name);
 						add_exclude_to_transaction(&tran,matches->pkgs[i]);
 					}else{
 						for(c = 0; i < deps->pkg_count;c++){

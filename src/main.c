@@ -46,6 +46,7 @@ int main( int argc, char *argv[] ){
 		{"dist-upgrade",0, 0, 'h'},
 		{"help",0, 0, 'l'},
 		{"h",0, 0, 'l'},
+		{"no-dep",0, 0, 'p'},
 	};
 	int option_index = 0;
 	/* */
@@ -120,6 +121,9 @@ int main( int argc, char *argv[] ){
 			case 'l': /* help */
 				usage();
 				exit(1);
+			case 'p': /* no-dep */
+				global_config->no_dep = 1;
+				break;
 			default:
 				usage();
 				exit(1);
@@ -242,6 +246,7 @@ void usage(){
 	printf("  --reinstall       - %s\n",_("re-install the pkg"));
 	printf("  --ignore-excludes - %s\n",_("install/upgrade excludes"));
 	printf("  --no-md5          - %s\n",_("do not perform md5 check sum"));
+	printf("  --no-dep          - %s\n",_("ignore dependency failures"));
 	printf("  --interactive     - %s\n",_("prompt before each install/upgrade"));
 }
 

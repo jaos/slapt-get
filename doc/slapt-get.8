@@ -41,6 +41,9 @@ slapt-get \- frontend to pkgtools
 [
 .B --interactive
 ]
+[
+.B --no-dep
+]
 .LP
 .B targets:
 [
@@ -104,6 +107,9 @@ Ignore exclude list and install excluded packages anyway.
 .TP
 .B --no-md5
 Do not perform MD5 check sum on package.  This is dangerous!
+.TP
+.B --no-dep
+Ignore dependency failures on --install, --upgrade, or --dist-upgrade
 .TP
 .B --interactive
 Prompt before each package upgrade.

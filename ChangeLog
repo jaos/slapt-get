@@ -22,6 +22,7 @@
  * dep failure causes package to go into exclude for current transaction
  * added faq concerning proxies
  * added check for installed pkgs when there is no dep conditional
+ * added --no-dep to ignore dep check failures
 
 0.9.6g Oct 22, 2003
  * updated --help output
