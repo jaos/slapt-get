@@ -336,7 +336,7 @@
 
  ### BEGIN SCRIPT
     #!/bin/sh
-		#DL_URL=http://your_remove_pkg_host.tld/packages/
+    #DL_URL=http://your_remove_pkg_host.tld/packages/
 
     function gen_packages_txt {
 	    echo '' > PACKAGES.TXT
@@ -365,9 +365,9 @@
 	    SUGGESTS=$(tar xzf $1 install/slack-suggests -O 2>/dev/null|xargs -r )
 	    METAFILE=${NAME%tgz}meta
 	    echo "PACKAGE NAME:  $NAME" > $LOCATION/$METAFILE
-      if [ -n "$DL_URL" ]; then
-    	  echo "PACKAGE MIRROR:  $DL_URL" >> $LOCATION/$METAFILE
-			fi
+	    if [ -n "$DL_URL" ]; then
+	    	echo "PACKAGE MIRROR:  $DL_URL" >> $LOCATION/$METAFILE
+	    fi
 	    echo "PACKAGE LOCATION:  $LOCATION" >> $LOCATION/$METAFILE
 	    echo "PACKAGE SIZE (compressed):  $SIZE K" >> $LOCATION/$METAFILE
 	    echo "PACKAGE SIZE (uncompressed):  $USIZE K" >> $LOCATION/$METAFILE
