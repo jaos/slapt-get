@@ -1060,6 +1060,7 @@ static struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,s
 	char *buffer = NULL;
 
 	deps = init_pkg_list();
+	/* merge parent_deps into deps for simplification */
 	for(i = 0;i < parent_deps->pkg_count;i++){
 		add_pkg_to_pkg_list(deps,parent_deps->pkgs[i]);
 	}
