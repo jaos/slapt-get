@@ -242,6 +242,10 @@ int is_excluded(rc_config *global_config,char *pkg_name){
 	if( global_config->ignore_excludes == 1 )
 		return 0;
 
+	/* maybe EXCLUDE= isn't defined in our rc? */
+	if( global_config->exclude_lsit == NULL )
+		return 0;
+
 	for(i = 0; i < global_config->exclude_list->count;i++){
 		/*
 		 * this is kludgy... global_config->exclude_list->excludes[i] is 1 char longer

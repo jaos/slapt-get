@@ -11,6 +11,7 @@
  * --re-install option to install even if already installed
  * added EXCLUDE option in jaospkgrc (to exclude pkgs)
  * --ignore-excludes for --upgrade
+ * is_excluded() returns false if EXCLUDE= not defined
 
 0.7: Aug 28, 2003 
  * now creates directories within WORKINGDIR for each packages location
