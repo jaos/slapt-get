@@ -21,7 +21,7 @@
 /* install pkg */
 void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *action_args){
 	int i;
-	transaction tran;
+	transaction_t tran;
 	struct pkg_list *installed_pkgs;
 	struct pkg_list *avail_pkgs;
 	sg_regex pkg_regex;
@@ -201,7 +201,7 @@ void pkg_action_remove(const rc_config *global_config,const pkg_action_args_t *a
 	int i;
 	struct pkg_list *installed_pkgs;
 	struct pkg_list *available;
-	transaction tran;
+	transaction_t tran;
 
 	installed_pkgs = get_installed_pkgs();
 	available = get_available_pkgs();
@@ -372,7 +372,7 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 	int i;
 	struct pkg_list *installed_pkgs;
 	struct pkg_list *avail_pkgs;
-	transaction tran;
+	transaction_t tran;
 
 	printf(_("Reading Package Lists... "));
 	installed_pkgs = get_installed_pkgs();

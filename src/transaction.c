@@ -17,9 +17,9 @@
  */
 
 #include <main.h>
-static void add_suggestion(transaction *tran, pkg_info_t *pkg);
+static void add_suggestion(transaction_t *tran, pkg_info_t *pkg);
 
-void init_transaction(transaction *tran){
+void init_transaction(transaction_t *tran){
 
 	tran->install_pkgs = malloc( sizeof *tran->install_pkgs );
 	tran->remove_pkgs = malloc( sizeof *tran->remove_pkgs );
@@ -40,7 +40,7 @@ void init_transaction(transaction *tran){
 	tran->exclude_pkgs->pkg_count = 0;
 }
 
-int handle_transaction(const rc_config *global_config, transaction *tran){
+int handle_transaction(const rc_config *global_config, transaction_t *tran){
 	int i;
 	size_t download_size = 0;
 	size_t already_download_size = 0;
@@ -226,7 +226,7 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 	return 0;
 }
 
-void add_install_to_transaction(transaction *tran,pkg_info_t *pkg){
+void add_install_to_transaction(transaction_t *tran,pkg_info_t *pkg){
 	pkg_info_t **tmp_list;
 
 	/* don't add if already present in the transaction */
@@ -259,7 +259,7 @@ void add_install_to_transaction(transaction *tran,pkg_info_t *pkg){
 
 }
 
-void add_remove_to_transaction(transaction *tran,pkg_info_t *pkg){
+void add_remove_to_transaction(transaction_t *tran,pkg_info_t *pkg){
 	pkg_info_t **tmp_list;
 
 	/* don't add if already present in the transaction */
@@ -290,7 +290,7 @@ void add_remove_to_transaction(transaction *tran,pkg_info_t *pkg){
 
 }
 
-void add_exclude_to_transaction(transaction *tran,pkg_info_t *pkg){
+void add_exclude_to_transaction(transaction_t *tran,pkg_info_t *pkg){
 	pkg_info_t **tmp_list;
 
 	/* don't add if already present in the transaction */
@@ -322,7 +322,7 @@ void add_exclude_to_transaction(transaction *tran,pkg_info_t *pkg){
 }
 
 void add_upgrade_to_transaction(
-	transaction *tran, pkg_info_t *installed_pkg, pkg_info_t *upgrade_pkg
+	transaction_t *tran, pkg_info_t *installed_pkg, pkg_info_t *upgrade_pkg
 ){
 	pkg_upgrade_t **tmp_list;
 
@@ -366,7 +366,7 @@ void add_upgrade_to_transaction(
 
 }
 
-int search_transaction(transaction *tran,pkg_info_t *pkg){
+int search_transaction(transaction_t *tran,pkg_info_t *pkg){
 	int i,found = 1, not_found = 0;
 
 	for(i = 0; i < tran->install_pkgs->pkg_count;i++){
@@ -388,7 +388,7 @@ int search_transaction(transaction *tran,pkg_info_t *pkg){
 	return not_found;
 }
 
-static int search_upgrade_transaction(transaction *tran,pkg_info_t *pkg){
+static int search_upgrade_transaction(transaction_t *tran,pkg_info_t *pkg){
 	int i,found = 1, not_found = 0;
 	for(i = 0; i < tran->upgrade_pkgs->pkg_count;i++){
 		if( strcmp(pkg->name,tran->upgrade_pkgs->pkgs[i]->upgrade->name)==0 )
@@ -397,7 +397,7 @@ static int search_upgrade_transaction(transaction *tran,pkg_info_t *pkg){
 	return not_found;
 }
 
-void free_transaction(transaction *tran){
+void free_transaction(transaction_t *tran){
 	int i;
 
 	for(i = 0;i < tran->install_pkgs->pkg_count; i++){
@@ -430,9 +430,9 @@ void free_transaction(transaction *tran){
 
 }
 
-transaction *remove_from_transaction(transaction *tran,pkg_info_t *pkg){
+transaction_t *remove_from_transaction(transaction_t *tran,pkg_info_t *pkg){
 	int i;
-	transaction *new_tran = NULL;
+	transaction_t *new_tran = NULL;
 
 	if( search_transaction(tran,pkg) == 0 )
 		return tran;
@@ -483,7 +483,7 @@ transaction *remove_from_transaction(transaction *tran,pkg_info_t *pkg){
 
 /* parse the dependencies for a package, and add them to the transaction as needed */
 /* check to see if a package is conflicted */
-int add_deps_to_trans(const rc_config *global_config, transaction *tran, struct pkg_list *avail_pkgs, struct pkg_list *installed_pkgs, pkg_info_t *pkg){
+int add_deps_to_trans(const rc_config *global_config, transaction_t *tran, struct pkg_list *avail_pkgs, struct pkg_list *installed_pkgs, pkg_info_t *pkg){
 	int c,dep_return = -1;
 	struct pkg_list *deps;
 
@@ -544,7 +544,7 @@ int add_deps_to_trans(const rc_config *global_config, transaction *tran, struct 
 }
 
 /* make sure pkg isn't conflicted with what's already in the transaction */
-pkg_info_t *is_conflicted(transaction *tran, struct pkg_list *avail_pkgs, struct pkg_list *installed_pkgs, pkg_info_t *pkg){
+pkg_info_t *is_conflicted(transaction_t *tran, struct pkg_list *avail_pkgs, struct pkg_list *installed_pkgs, pkg_info_t *pkg){
 	int i;
 	struct pkg_list *conflicts;
 
@@ -578,7 +578,7 @@ pkg_info_t *is_conflicted(transaction *tran, struct pkg_list *avail_pkgs, struct
 	return NULL;
 }
 
-static void add_suggestion(transaction *tran, pkg_info_t *pkg){
+static void add_suggestion(transaction_t *tran, pkg_info_t *pkg){
 	char *tmp_buffer;
 
 	if( pkg->suggests == NULL || strlen(pkg->suggests) == 0 ){
