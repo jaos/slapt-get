@@ -69,7 +69,7 @@ typedef struct {
 struct pkg_list {
 	pkg_info_t **pkgs;
 	unsigned int pkg_count;
-	bool free_pkgs;
+	BOOL_T free_pkgs;
 };
 
 typedef struct {
