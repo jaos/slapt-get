@@ -296,7 +296,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 			((bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh)) != EOF) &&
 			((char_pointer = strstr(getline_buffer,"PACKAGE CONFLICTS")) != NULL)
 		){
-				char *conflicts = strpbrk(char_pointer,":") + 3;
+				char *conflicts = (char *)strpbrk(char_pointer,":") + 3;
 				if( strlen(conflicts) > CONFLICTS_LEN ){
 					fprintf( stderr, _("conflict too long [%s:%d]\n"),
 						conflicts,
@@ -319,7 +319,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 			((bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh)) != EOF) &&
 			((char_pointer = strstr(getline_buffer,"PACKAGE SUGGESTS")) != NULL)
 		){
-				char *suggests = strpbrk(char_pointer,":") + 3;
+				char *suggests = (char *)strpbrk(char_pointer,":") + 3;
 				if( strlen(suggests) > SUGGESTS_LEN ){
 					fprintf( stderr, _("suggests too long [%s:%d]\n"),
 						suggests,
@@ -344,7 +344,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 		){
 				char *md5sum;
 				getline_buffer[bytes_read - 1] = '\0';
-				md5sum = strpbrk(getline_buffer,":") + 3;
+				md5sum = (char *)strpbrk(getline_buffer,":") + 3;
 				/* don't overflow the buffer */
 				if( strlen(md5sum) > MD5_STR_LEN ){
 					fprintf( stderr, _("md5 sum too long [%s %s:%d]\n"),

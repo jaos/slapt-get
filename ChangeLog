@@ -1,5 +1,6 @@
 
-0.9.9f Jan 01, 2005
+0.9.9f Jan 02, 2005
+ * added cast to fix strpbrk() void pointer arith warning with gcc-3.4
  * updated FAQ
  * added alsa.* to default exclude
  * produce warning if slack-require information is too long
