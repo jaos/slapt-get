@@ -1,6 +1,8 @@
 
 0.9.8f Jun 10, 2004
  * makefile updates
+ * fixed /testing/ and /extra/ support so that the download url's and md5
+   checksums are detected/generated correctly
 
 0.9.8e Jun 07, 2004
  * moved search_transaction() calls into add_[install,upgrade,exclude]_to_transaction()
