@@ -11,7 +11,7 @@ CFLAGS=-W -Werror -Wall -O2 -ansi -pedantic -Iinclude $(DEFINES)
 
 default: all
 
-all: $(PROGRAM_NAME)
+all: slackpkg
 
 $(OBJS): 
 
