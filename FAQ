@@ -771,7 +771,7 @@ Frequently Asked Questions:
   "Note, however, that the actual PATH environment variable is not modified and
    is passed unchanged to the program that sudo executes."
 
- Make sure you include /sbin in your shell's PATH environment variable before using
+ Make sure you include /usr/sbin in your shell's PATH environment variable before using
  slapt-get via sudo.  Or use su - -c 'slapt-get [options] [arg]s'.
 
 
