@@ -5,6 +5,9 @@
  * Prompt to upgrade before downloading (thanks kyotou)
  * updated FAQ with dropline question, and upgrade single package question
  * options can now be passed in in any order, so --no-prompt at the end now works
+ * created struct pkg_list *get_available_and_update_pkgs(void) to search for
+   updates and newer available at once, simplified --install and --upgrade
+   part of roadmap to package action transactions.
 
 0.9.5e Oct 10, 2003
  * added a doinst.sh script (generated from the Makefile) to help 

@@ -26,44 +26,42 @@ void pkg_action_clean(const rc_config *global_config){
 /* install pkg */
 void pkg_action_install(const rc_config *global_config,const char *pkg_name){
 	pkg_info_t *installed_pkg;
-	pkg_info_t *update_pkg;
 	pkg_info_t *pkg;
 
 	struct pkg_list *installed;
-	struct pkg_list *updates;
-	struct pkg_list *available;
+	struct pkg_list *all;
 
-	updates = get_update_pkgs();
 	installed = get_installed_pkgs();
-	available = get_available_pkgs();
+	all = get_available_and_update_pkgs();
 
-	if( (pkg = get_newest_pkg(available->pkgs,pkg_name,available->pkg_count)) == NULL ){
+	/* make sure there is a package called pkg_name */
+	if( (pkg = get_newest_pkg(all->pkgs,pkg_name,all->pkg_count)) == NULL ){
 		fprintf(stderr,"No Such package: %s\n",pkg_name);
 		return;
 	}
 
-	if( ((installed_pkg = get_newest_pkg(installed->pkgs,pkg_name,installed->pkg_count)) != NULL)
-		&& (global_config->re_install != 1 ) ){
+	/* if it's not already installed, install it */
+	if((installed_pkg = get_newest_pkg(installed->pkgs,pkg_name,installed->pkg_count)) == NULL){
+
+		/* this way we install the most up to date pkg */
+		install_pkg(global_config,pkg);
+
+	}else{ /* else we upgrade or reinstall */
 
 		/* it's already installed, attempt an upgrade */
-		pkg_action_upgrade(global_config,installed_pkg,updates,pkg);
-
-	}else{
-
-		/* check to see if the package exists in the update list */
-		/* this way we install the most up to date pkg */
-		if( (update_pkg = get_newest_pkg(updates->pkgs,pkg_name,updates->pkg_count)) != NULL ){
-			install_pkg(global_config,update_pkg);
+		if(
+			((cmp_pkg_versions(installed_pkg->version,pkg->version)) < 0)
+			|| (global_config->re_install == 1)
+		){
+			upgrade_pkg(global_config,installed_pkg,pkg);
 		}else{
-			/* install from list */
-			install_pkg(global_config,pkg);
+			printf("%s is up to date.\n",installed_pkg->name);
 		}
 
 	}
 
 	free_pkg_list(installed);
-	free_pkg_list(updates);
-	free_pkg_list(available);
+	free_pkg_list(all);
 	return;
 }
 
@@ -215,65 +213,28 @@ void pkg_action_update(const rc_config *global_config){
 	return;
 }
 
-/* upgrade pkg */
-/* flesh me out so that pkg_action_upgrade_all() calls me */
-void pkg_action_upgrade(const rc_config *global_config,pkg_info_t *installed_pkg,struct pkg_list *update_pkgs,pkg_info_t *available_pkg){
-	pkg_info_t *update_pkg;
-	int cmp_result;
-
-	/* if we found an update, make sure it's version is greater */
-	if(
-		(update_pkg = get_newest_pkg(update_pkgs->pkgs,installed_pkg->name,update_pkgs->pkg_count)) != NULL
-		&& cmp_pkg_versions(available_pkg->version,update_pkg->version) < 0	
-	){
-
-		cmp_result = cmp_pkg_versions(installed_pkg->version,update_pkg->version);
-
-		if( cmp_result < 0 ){ /* update_pkg is newer than installed_pkg */
-			upgrade_pkg(global_config,installed_pkg,update_pkg);
-		}else{ 
-			if( cmp_result > 0 ){
-				printf("Newer version of %s already installed.\n",installed_pkg->name);
-			}else if( cmp_result == 0 ){
-				printf("%s is up to date.\n",installed_pkg->name);
-			}
-		}
-	}else{
-		if( cmp_pkg_versions(installed_pkg->version,available_pkg->version) < 0 ){
-			upgrade_pkg(global_config,installed_pkg,available_pkg);
-		}else{
-			printf("%s is already the newest version.\n",installed_pkg->name);
-		}
-	}
-
-}
-
 /* upgrade all installed pkgs with available updates */
 /* use pkg_action_upgrade() soon, pass in pkg_list(s) */
 void pkg_action_upgrade_all(const rc_config *global_config){
 	int iterator;
-	int try_dist_upgrade = 0;
 	struct pkg_list *installed_pkgs;
-	struct pkg_list *update_pkgs;
-	struct pkg_list *current_pkgs;
+	struct pkg_list *all_pkgs;
 	pkg_info_t *update_pkg;
-	pkg_info_t *current_pkg;
 
 	/* faster here to retrieve the listings once */
 	/* then use get_newest_pkg() to pull newest from each list */
 	printf("Reading Package Lists... ");
 	installed_pkgs = get_installed_pkgs();
-	update_pkgs = get_update_pkgs();
-	current_pkgs = get_available_pkgs();
+	all_pkgs = get_available_and_update_pkgs();
 	printf("Done\n");
 
 	for(iterator = 0; iterator < installed_pkgs->pkg_count;iterator++){
 
 		/* see if we have an available update for the pkg */
 		update_pkg = get_newest_pkg(
-			update_pkgs->pkgs,
+			all_pkgs->pkgs,
 			installed_pkgs->pkgs[iterator]->name,
-			update_pkgs->pkg_count
+			all_pkgs->pkg_count
 		);
 		if( update_pkg != NULL ){
 
@@ -283,36 +244,16 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 				/* attempt to upgrade */
 				upgrade_pkg(global_config,installed_pkgs->pkgs[iterator],update_pkg);
 
-			}else{
-				try_dist_upgrade = 1;
 			} /* end version check */
 
-		} else {
-			try_dist_upgrade = 1;
 		}/* end upgrade pkg found */
-
-		if( try_dist_upgrade == 1 ){
-			current_pkg = get_newest_pkg(
-				current_pkgs->pkgs,
-				installed_pkgs->pkgs[iterator]->name,
-				current_pkgs->pkg_count
-			);
-			if( current_pkg != NULL ){
-				/* the current version of the pkg is greater than the installed version */
-				if( (cmp_pkg_versions(installed_pkgs->pkgs[iterator]->version,current_pkg->version)) < 0 ){
-					/* attempt to upgrade */
-					upgrade_pkg(global_config,installed_pkgs->pkgs[iterator],current_pkg);
-				}/* end if cmp_pkg_versions */
-			}/* end if current_pkg */
-		}
 
 	}/* end for */
 
 
 	printf("Done.\n");
 
-	free_pkg_list(current_pkgs);
 	free_pkg_list(installed_pkgs);
-	free_pkg_list(update_pkgs);
+	free_pkg_list(all_pkgs);
 }
 

@@ -15,6 +15,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+
+/* variable defs */
+struct _transaction {
+	pkg_info_t **install; int install_count;
+	pkg_info_t **upgrade; int upgrade_count;
+	pkg_info_t **remove; int remove_count;
+};
+typedef struct _transaction transaction;
+/* */
+
 /* FUNCTION DEFINITIONS */
 void pkg_action_clean(const rc_config *);
 void pkg_action_install(const rc_config *,const char *);
@@ -23,7 +33,6 @@ void pkg_action_list_installed(void);
 void pkg_action_remove(const char *);
 void pkg_action_search(const char *);
 void pkg_action_show(const char *);
-void pkg_action_upgrade(const rc_config *,pkg_info_t *,struct pkg_list *,pkg_info_t *);
 void pkg_action_upgrade_all(const rc_config *);
 void pkg_action_update(const rc_config *);
 

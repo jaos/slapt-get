@@ -72,4 +72,6 @@ void get_md5sum(const rc_config *,pkg_info_t *,char *);
 int cmp_pkg_versions(char *, char *);
 /* analyze the pkg version hunk by hunk */
 int break_down_pkg_version(int *,char *);
+/* get available, installed, and update pkgs all in one */
+struct pkg_list *get_available_and_update_pkgs(void);
 
