@@ -1,5 +1,6 @@
 
-0.9.9f Jan 05, 2005
+0.9.9f Jan 06, 2005
+ * added Vietnamese translation by vu nguyen (vncasper at yahoo dot com)
  * changed longopts and switch cases to use macros for the command line
    argument parsing
  * fixed bug (in -current with glibc 3.3.3) by adding a missing {0, 0, 0, 0}

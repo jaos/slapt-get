@@ -1,0 +1,493 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2004
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <vncasper@yahoo.com>, 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.9.9f\n"
+"POT-Creation-Date: 2003-11-03 14:28+0000\n"
+"PO-Revision-Date: 2004-09-06 21:17+0500\n"
+"Last-Translator: Nguyễn Văn Vũ <vncasper@yahoo.com>\n"
+"Language-Team: gnome-vi <gnomevi-list@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Reading Package Lists... "
+msgstr "Đang lấy danh sách các gói phần mềm... "
+
+msgid "Done\n"
+msgstr "xong\n"
+
+#, c-format
+msgid "%s is up to date.\n"
+msgstr "%s là mới nhất.\n"
+
+msgid "yes"
+msgstr "yes"
+
+msgid "no"
+msgstr "no"
+
+#, c-format
+msgid "%s is not installed.\n"
+msgstr "%s chưa được cài đặt.\n"
+
+#, c-format
+msgid "Package Name: %s\n"
+msgstr "Tên gói phần mềm: %s\n"
+
+#, c-format
+msgid "Package Mirror: %s\n"
+msgstr "Mirror các gói phần mềm: %s\n"
+
+#, c-format
+msgid "Package Location: %s\n"
+msgstr "Vị trí gói phần mềm : %s\n"
+
+#, c-format
+msgid "Package Version: %s\n"
+msgstr "Phiên bản gói phần mềm: %s\n"
+
+#, c-format
+msgid "Package Size: %d K\n"
+msgstr "Kích thước gói phần mềm: %d K\n"
+
+#, c-format
+msgid "Package Installed Size: %d K\n"
+msgstr "Kích thước gói phần mềm được cài đặt: %d K\n"
+
+#, c-format
+msgid "Package Required: %s\n"
+msgstr "Gói phần mềm yêu cầu: %s\n"
+
+msgid "Package Description:\n"
+msgstr "Mô tả gói phần mềm:\n"
+
+#, c-format
+msgid "Package Installed: %s\n"
+msgstr "Gói phần mềm được cài đặt: %s\n"
+
+#, c-format
+msgid "No such package: %s\n"
+msgstr "Không tìm thấy gói phần mềm: %s\n"
+
+#, c-format
+msgid "Retrieving package data [%s]..."
+msgstr "Đang lấy danh sách gói phần mềm [%s]..."
+
+#, c-format
+msgid "Retrieving package data [%s]...\n"
+msgstr "Đang lấy danh sách gói phần mềm [%s]...\n"
+
+#, c-format
+msgid "Retrieving extras list [%s]..."
+msgstr "Đang lấy danh sách mở rộng [%s]..."
+
+#, c-format
+msgid "Retrieving extras list [%s]...\n"
+msgstr "Đang lấy danh sách mở rộng [%s]...\n"
+
+#, c-format
+msgid "Retrieving patch list [%s]..."
+msgstr "Đang lấy danh sách bản sửa lỗi [%s]..."
+
+#, c-format
+msgid "Retrieving patch list [%s]...\n"
+msgstr "Đang lấy danh sách bản sửa lỗi [%s]...\n"
+
+#, c-format
+msgid "Retrieving checksum list [%s]..."
+msgstr "Đang lấy danh sách checksum [%s]..."
+
+#, c-format
+msgid "Failed to malloc %s\n"
+msgstr "Bị lỗi khi cấp phát %s\n"
+
+#, c-format
+msgid "Maximum number of sources (%d) exceeded.\n"
+msgstr "Số lượng nguồn tối đa (%d) được phép vượt trội.\n"
+
+#, c-format
+msgid "Maximum length of source (%d) exceeded.\n"
+msgstr "Chiều dài nguồn tối đa (%d) được phép vượt trội.\n"
+
+#, c-format
+msgid "WORKINGDIR directive not set within %s.\n"
+msgstr "Chỉ thị WORKINGDIR không được xác lập bên trong %s.\n"
+
+#, c-format
+msgid "SOURCE directive not set within %s.\n"
+msgstr "Chỉ thị SOURCE không được xác lập bên trong %s.\n"
+
+#, c-format
+msgid "Failed to build working directory [%s]\n"
+msgstr "Bị lỗi trong khi xây dựng thư mục làm việc [%s]\n"
+
+#, c-format
+msgid "Please update permissions on %s or run with appropriate privileges\n"
+msgstr ""
+"Vui lòng cập nhật quyền truy cập trên %s hoặc thực thi với quyền người dùng hợp "
+"lệ\n"
+
+#, c-format
+msgid "Failed to open %s\n"
+msgstr "Bị lỗi khi mở %s\n"
+
+msgid "Perhaps you want to run --update?\n"
+msgstr "Có lẽ bạn muốn thực thi --update?\n"
+
+#, c-format
+msgid "Failed to opendir %s\n"
+msgstr "Bị lỗi khi mở thư mục %s\n"
+
+#, c-format
+msgid "Failed to chdir: %s\n"
+msgstr "Bị lỗi khi chuyển vào thư mục: %s\n"
+
+#, c-format
+msgid "unlinking %s\n"
+msgstr "xoá liên kết %s\n"
+
+msgid "Failed to get cwd\n"
+msgstr "Bị lỗi khi xác định thư mục hiện hành\n"
+
+#, c-format
+msgid "\tCurrent working directory: %s\n"
+msgstr "\tThư mục làm việc hiện hành: %s\n"
+
+#, c-format
+msgid "Failed to mkdir: %s\n"
+msgstr "Bị lỗi khi tạo thư mục: %s\n"
+
+#, c-format
+msgid "\tCreated directory: %s\n"
+msgstr "\tThư mục đã được tạo: %s\n"
+
+#, c-format
+msgid "Failed to chdir to %s\n"
+msgstr "Bị lỗi khi chuyển vào thư mục %s\n"
+
+#, c-format
+msgid "\tchdir into %s\n"
+msgstr "\tchuyển vào thư mục %s\n"
+
+#, c-format
+msgid "\tchdir back into %s\n"
+msgstr "\tchuyển trở lại thư mục %s\n"
+
+#, c-format
+msgid "Fetching url:[%s]\n"
+msgstr "Xác định URL:[%s]\n"
+
+#, c-format
+msgid "Failed to download: %s\n"
+msgstr "Bị lỗi khi đọc: %s\n"
+
+#, c-format
+msgid "Failed to calloc %s\n"
+msgstr "Bị lỗi khi cấp phát %s\n"
+
+#, c-format
+msgid "Downloading %s %s %s [%dK]..."
+msgstr "Đang nhận %s %s %s [%dK]..."
+
+#, c-format
+msgid "Downloading %s %s %s [%dK]...\n"
+msgstr "Đang nhận %s %s %s [%dK]...\n"
+
+#, c-format
+msgid "Failed to unlink %s\n"
+msgstr "Bị lỗi khi xoá %s\n"
+
+#, c-format
+msgid "md5 sum for %s is not correct, override with --no-md5!\n"
+msgstr "Tổng md5 của %s không đúng, bỏ qua với tuỳ chọn --no-md5!\n"
+
+#, c-format
+msgid "MD5 found:    [%s]\n"
+msgstr "MD5 tìm thấy:      [%s]\n"
+
+#, c-format
+msgid "MD5 expected: [%s]\n"
+msgstr "MD5 mong đợi: [%s]\n"
+
+#, c-format
+msgid "File: %s/%s\n"
+msgstr "Tập tin: %s/%s\n"
+
+msgid "An implementation of the Debian APT system to Slackware\n"
+msgstr "Phiên bản cài đặt của hệ thống APT Debian cho Slackware\n"
+
+msgid "Usage:\n"
+msgstr "Cách dùng:\n"
+
+#, c-format
+msgid "%s [option(s)] [target]\n"
+msgstr "%s [tuỳ chọn] [hành động]\n"
+
+msgid "Targets:\n"
+msgstr "Hành động:\n"
+
+msgid "retrieves pkg data from MIRROR"
+msgstr "lấy danh sách các gói phần mềm từ MIRROR"
+
+msgid "upgrade installed pkgs"
+msgstr "nâng cấp các gói phần mềm đã cài đặt"
+
+msgid "upgrade to newer release"
+msgstr "nâng cấp hệ thống lên phiên bản mới hơn"
+
+msgid "[pkg name(s)] - install specified pkg(s)"
+msgstr "[tên các gói phần mềm] - cài đặt những gói phần mềm được chỉ định"
+
+msgid "[pkg name(s)] - remove specified pkg(s)"
+msgstr "[tên các gói phần mềm] - gỡ bỏ những gói phần mềm được chỉ định"
+
+msgid "[pkg name] - show pkg description"
+msgstr "[tên gói phần mềm] - hiển thị thông tin mô tả gói phần mềm được chỉ định"
+
+msgid "[expression] - search available pkgs"
+msgstr "[biểu thức] - tìm kiếm các gói phần mềm hiện có theo điều kiện"
+
+msgid "list available pkgs"
+msgstr "liệt kê các gói phần mềm hiện có"
+
+msgid "list installed pkgs"
+msgstr "liệt kê danh sách các gói phần mềm đã cài đặt"
+
+msgid "purge cached pkgs"
+msgstr "xoá các gói phần mềm được lưu"
+
+msgid "print version and license info"
+msgstr "hiển thị phiên bản và giấy phép"
+
+msgid "Options:\n"
+msgstr "Tuỳ chọn:\n"
+
+msgid "only download pkg on install/upgrade"
+msgstr "chỉ download gói phần mềm trong khi cài đặt/nâng cấp"
+
+msgid "show pkgs to be installed/upgraded"
+msgstr "hiển thị các gói phần mềm được cài đặt/nâng cấp"
+
+msgid "do not prompt during install/upgrade"
+msgstr "bỏ qua mọi nhắc nhở trong khi cài đặt/nâng cấp"
+
+msgid "re-install the pkg"
+msgstr "cài đặt lại gói phần mềm"
+
+msgid "install/upgrade excludes"
+msgstr "bỏ qua những loại trừ trong khi cài đặt/nâng cấp"
+
+msgid "do not perform md5 check sum"
+msgstr "bỏ qua kiểm tổng md5"
+
+msgid "ignore dependency failures"
+msgstr "bỏ qua lỗi phụ thuộc"
+
+#, c-format
+msgid "%s version %s\n"
+msgstr "%s phiên bản %s\n"
+
+#, c-format
+msgid "regex failed on [%s]\n"
+msgstr "biểu thức bị lỗi [%s]\n"
+
+#, c-format
+msgid "pkg name too long [%s:%d]\n"
+msgstr "tên gói phần mềm quá dài [%s:%d]\n"
+
+#, c-format
+msgid "pkg version too long [%s:%d]\n"
+msgstr "phiên bản gói phần mềm quá dài [%s:%d]\n"
+
+#, c-format
+msgid "pkg mirror too long [%s:%d]\n"
+msgstr "mirror gói phần mềm quá dài [%s:%d]\n"
+
+#, c-format
+msgid "pkg location too long [%s:%d]\n"
+msgstr "nơi lưu giữ gói phần mềm quá dài [%s:%d]\n"
+
+msgid "regexec failed to parse location\n"
+msgstr "lỗi khi phân tích vị trí\n"
+
+msgid "getline reached EOF attempting to read location\n"
+msgstr "đã đến EOF khi thử đọc vị trí\n"
+
+msgid "regexec failed to parse size_c\n"
+msgstr "lỗi khi phân tích size_c\n"
+
+msgid "getline reached EOF attempting to read size_c\n"
+msgstr "đã đến EOF khi thử đọc size_c\n"
+
+msgid "regexec failed to parse size_u\n"
+msgstr "lỗi khi phân tích size_u\n"
+
+msgid "getline reached EOF attempting to read size_u\n"
+msgstr "đã đến EOF khi thử đọc size_u\n"
+
+msgid "error attempting to read pkg description\n"
+msgstr "lỗi xảy ra khi thử đọc thông tin mô tả gói phần mềm\n"
+
+#, c-format
+msgid "Failed to realloc %s\n"
+msgstr "Bị lỗi khi cấp phát thêm vùng nhớ %s\n"
+
+msgid "Failed to compile regex\n"
+msgstr "Bị lỗi khi biên dịch biểu thức\n"
+
+#, c-format
+msgid "Regex Error: %s\n"
+msgstr "Lỗi biểu thức: %s\n"
+
+#, c-format
+msgid "%s-%s is to be installed\n"
+msgstr "%s-%s đã được cài đặt\n"
+
+#, c-format
+msgid "Preparing to install %s-%s\n"
+msgstr "Chuẩn bị cài đặt %s-%s\n"
+
+#, c-format
+msgid "Failed to execute command: [%s]\n"
+msgstr "Bị lỗi khi thực hiện lệnh: [%s]\n"
+
+#, c-format
+msgid "%s-%s is to be upgraded to version %s\n"
+msgstr "%s-%s được nâng cấp lên phiên bản %s\n"
+
+#, c-format
+msgid "Preparing to replace %s-%s with %s-%s\n"
+msgstr "Chuẩn bị thay thế %s-%s bằng %s-%s\n"
+
+#, c-format
+msgid "%s-%s is to be removed\n"
+msgstr "%s-%s đã được gỡ bỏ\n"
+
+#, c-format
+msgid "Failed to compile regex [%s]\n"
+msgstr "Bị lỗi khi biên dịch biểu thức [%s]\n"
+
+#, c-format
+msgid "pkg conditional too long [%s:%d]\n"
+msgstr "điều kiện gói phần mềm quá dài [%s:%d]\n"
+
+msgid "The following packages have unmet dependencies:\n"
+msgstr "Các gói phần mềm sau đây có những phụ thuộc:\n"
+
+#, c-format
+msgid "  %s: Depends: %s\n"
+msgstr "  %s: Phụ thuộc: %s\n"
+
+msgid "The following packages have been EXCLUDED:\n"
+msgstr "Những gói phần mềm sau đây bị LOẠI TRỪ:\n"
+
+msgid "The following NEW packages will be installed:\n"
+msgstr "Những gói phần mềm sau đây sẽ được cài đặt MỚI:\n"
+
+msgid "The following packages will be REMOVED:\n"
+msgstr "Những gói phần mềm sau đây sẽ được GỠ BỎ:\n"
+
+msgid "The following packages will be upgraded:\n"
+msgstr "Những gói phần mềm sau đây sẽ được NÂNG CẤP:\n"
+
+#, c-format
+msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
+msgstr "%d gói được nâng cấp, %d gói được cài đặt mới, %d gói bị gỡ bỏ và %d gói giữ nguyên.\n"
+
+#, c-format
+msgid "Need to get %dK of archives.\n"
+msgstr "Cần lấy %dK từ kho lưu trữ.\n"
+
+#, c-format
+msgid "Need to get %dK/%dK of archives.\n"
+msgstr "Cần lấy %dK/%dK từ kho lưu trữ.\n"
+
+#, c-format
+msgid "After unpacking %dK disk space will be freed.\n"
+msgstr "Sau khi giải nén %dK không gian đĩa sẽ bị chiếm.\n"
+
+#, c-format
+msgid "After unpacking %dK of additional disk space will be used.\n"
+msgstr "Sau khi giải nén %dK không gian đĩa sẽ được sử dụng.\n"
+
+msgid "Do you want to continue? [y/N] "
+msgstr "Bạn có muốn tiếp tục không? [y/N] "
+
+msgid "Abort.\n"
+msgstr "Không.\n"
+
+#, c-format
+msgid "%s, which is to be installed, conflicts with %s\n"
+msgstr "%s, đã cài đặt,  xung đột với %s\n"
+
+#, c-format
+msgid "Installed %s conflicts with %s\n"
+msgstr "%s xung đột với %s\n"
+
+msgid "print URIs only, do not download"
+msgstr "chỉ hiển thị URI, không download dữ liệu"
+
+#, c-format
+msgid "Package MD5 Sum:  %s\n"
+msgstr "Tổng MD5 của gói phần mềm: %s\n"
+
+#, c-format
+msgid "md5 sum too long [%s %s:%d]\n"
+msgstr "tổng md5 quá dài [%s %s:%d]\n"
+
+#, c-format
+msgid "conflict too long [%s:%d]\n"
+msgstr "xung đột quá dài [%s:%d]\n"
+
+msgid "Reading Package Lists..."
+msgstr "Đang lấy danh sách gói phần mềm..."
+
+#, c-format
+msgid "Download of %s incomplete\n"
+msgstr "%s download chưa xong\n"
+
+#, c-format
+msgid "Could not find MD5 checksum for %s, override with --no-md5\n"
+msgstr "Không tìm thấy tổng MD5 cho %s, bỏ qua với tuỳ chọn --no-md5\n"
+
+#, c-format
+msgid "%s, which is required by %s, is excluded\n"
+msgstr "%s, được yêu cầu bởi %s, đã bị loại trừ\n"
+
+msgid "skip dependency check"
+msgstr "bỏ qua kiểm tra phụ thuộc"
+
+msgid "show download statistics"
+msgstr "thống kê download"
+
+msgid "Cached\n"
+msgstr "đã lưu\n"
+
+msgid "Sources failed to download, correct sources and rerun --update\n"
+msgstr "Kho nguồn bị lỗi khi download, hãy sửa chữa và thực thi lại với tuỳ chọn --update\n"
+
+msgid "specify alternate slapt-getrc location"
+msgstr "chọn tập tin cấu hình slapt-getrc khác tập tin cấu hình mặc định"
+
+msgid "Suggested packages:\n"
+msgstr "Những gói phần mềm đề nghị:\n"
+
+#, c-format
+msgid "Maximum length of working directory (%d) exceeded.\n"
+msgstr "Chiều dài thư mục làm việc tối đa được phép vượt trội (%d).\n"
+
+#, c-format
+msgid "Maximum length of excludes (%d) exceeded.\n"
+msgstr "Chiều dài phần loại trừ tối đa được phép vượt trội (%d).\n"
+
+msgid "only purge cache of older, unreacheable pkgs"
+msgstr "chỉ xoá những gói phần mềm cũ, không đọc được"
+
+#, c-format
+msgid "required too long [%s:%d]\n"
+msgstr "yêu cầu quá dài [%s:%d]\n"
+
