@@ -12,7 +12,7 @@ RCSOURCE=example.slapt-getrc
 LOCALESDIR=/usr/share/locale
 SBINDIR=/sbin/
 DEFINES=-DPROGRAM_NAME="\"$(PROGRAM_NAME)\"" -DVERSION="\"$(VERSION)\"" -DRC_LOCATION="\"$(RCDEST)\"" -DENABLE_NLS -DLOCALESDIR="\"$(LOCALESDIR)\""
-CFLAGS=-W -Werror -Wall -O2 -ansi -pedantic -Iinclude $(DEFINES)
+CFLAGS=-W -Werror -Wall -O2 -ansi -pedantic -Iinclude $(DEFINES) # add -fPIC for amd64
 
 default: $(PROGRAM_NAME)
 
