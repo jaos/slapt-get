@@ -361,9 +361,9 @@
 	    LOCATION=$(echo $1|sed -re "s/(.*)\/(.*.tgz)$/\1/")
 	    SIZE=$( expr `gunzip -l $1 |tail -1|awk '{print $1}'` / 1024 )
 	    USIZE=$( expr `gunzip -l $1 |tail -1|awk '{print $2}'` / 1024 )
-	    REQUIRED=$(tar xzf $1 install/slack-required -O 2>/dev/null|xargs -r -iZ echo -n "Z,"|sed -e "s/,$//")
-	    CONFLICTS=$(tar xzf $1 install/slack-conflicts -O 2>/dev/null|xargs -r -iZ echo -n "Z,"|sed -e "s/,$//")
-	    SUGGESTS=$(tar xzf $1 install/slack-suggests -O 2>/dev/null|xargs -r )
+	    REQUIRED=$(tar xzfO $1 install/slack-required 2>/dev/null|xargs -r -iZ echo -n "Z,"|sed -e "s/,$//")
+	    CONFLICTS=$(tar xzfO $1 install/slack-conflicts 2>/dev/null|xargs -r -iZ echo -n "Z,"|sed -e "s/,$//")
+	    SUGGESTS=$(tar xzfO $1 install/slack-suggests 2>/dev/null|xargs -r )
 	    METAFILE=${NAME%tgz}meta
 	    echo "PACKAGE NAME:  $NAME" > $LOCATION/$METAFILE
 	    if [ -n "$DL_URL" ]; then
@@ -376,7 +376,7 @@
 	    echo "PACKAGE CONFLICTS:  $CONFLICTS" >> $LOCATION/$METAFILE
 	    echo "PACKAGE SUGGESTS:  $SUGGESTS" >> $LOCATION/$METAFILE
 	    echo "PACKAGE DESCRIPTION:" >> $LOCATION/$METAFILE
-	    tar xzf $1 install/slack-desc -O|grep -E '\w+\:'|grep -v '^#' >> $LOCATION/$METAFILE
+	    tar xzfO $1 install/slack-desc |grep -E '\w+\:'|grep -v '^#' >> $LOCATION/$METAFILE
 	    echo "" >> $LOCATION/$METAFILE
     }
 
@@ -473,7 +473,7 @@
     PACKAGE REQUIRED:  man >= 1.5l-i386-1
 
  An example command to pull that data:
-   tar xzf pkg-name-version-arch-rel.tgz install/slack-required -O|xargs -iZ echo -n "Z,"|sed -e "s/,$//"
+   tar xzfO pkg-name-version-arch-rel.tgz install/slack-required |xargs -iZ echo -n "Z,"|sed -e "s/,$//"
 
 
 <a name="slgFAQ20"><b>20. How do I get the newest development version of slapt-get?</b></a>
