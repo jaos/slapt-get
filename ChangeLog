@@ -1,6 +1,6 @@
 
 0.9.9g Jan 28, 2005
- * transaction report now reports sizes in K or in M
+ * transaction report now reports sizes in kB or in MB
  * added check before downloading any packages that there is enough disk 
    space to accomodate both downloads and installed pkgs
  * added aaa_elflibs to the default exclude
