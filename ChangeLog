@@ -6,7 +6,6 @@
  * added staticinstall, withlibslaptinstall, staticpkg, and withlibslaptpkg make targets
  * updated error handling, cleaned up exits
  * fixed bug in cmp_pkg_versions when checking build versions, returning opposite than expected
- * moved progress_callback and head_request_data_callback to configuration.c
 
 0.9.7e Nov 21, 2003
  * added debugging in transaction functions

@@ -59,8 +59,3 @@ void gen_md5_sum_of_file(FILE *,char *);
 void usage(void);
 void version_info(void);
 
-/* callback for curl progress */
-int progress_callback(void *,double,double,double,double);
-/* callback for head request */
-size_t head_request_data_callback(void *,size_t,size_t,void *);
-
