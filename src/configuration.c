@@ -240,6 +240,8 @@ struct exclude_list *parse_exclude(char *line){
 	/* skip ahead past the = */
 	line = strchr(line,'=') + 1;
 
+	list->excludes = malloc( sizeof *list->excludes );
+
 	while( position < (int) strlen(line) ){
 		if( strstr(line + position,",") == NULL ){
 
