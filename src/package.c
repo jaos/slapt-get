@@ -1175,7 +1175,6 @@ pkg_info_t *parse_dep_entry(struct pkg_list *avail_pkgs,struct pkg_list *install
 		* before we try looping through installed_pkgs
 	*/
 	/* pkg_info_t *newest_installed_pkg; */
-	printf("going to compare against installed pkgs\n");
 	newest_installed_pkg = get_newest_pkg(installed_pkgs,tmp_pkg_name);
 	if( newest_installed_pkg != NULL ){
 		/* if condition is "=",">=", or "=<" and versions are the same */
@@ -1213,7 +1212,6 @@ pkg_info_t *parse_dep_entry(struct pkg_list *avail_pkgs,struct pkg_list *install
 		* check the newest version of tmp_pkg_name (in newest_avail_pkg)
 		* before we try looping through avail_pkgs
 	*/
-	printf("going to compare against available pkgs\n");
 	if( newest_avail_pkg != NULL ){
 		/* if condition is "=",">=", or "=<" and versions are the same */
 		if( (strstr(tmp_pkg_cond,"=") != NULL)
