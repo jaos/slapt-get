@@ -1,5 +1,6 @@
 
-0.9.8f Jun 13, 2004
+0.9.8f Jun 15, 2004
+ * initialized various integer values that needed it
  * /pasture support
  * makefile updates
  * fixed /testing/ and /extra/ support so that the download url's and md5

@@ -625,7 +625,7 @@ int upgrade_pkg(const rc_config *global_config,pkg_info_t *installed_pkg,pkg_inf
 
 int remove_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	char *command = NULL;
-	int cmd_return;
+	int cmd_return = 0;
 
 	(void)global_config;
 
@@ -650,7 +650,7 @@ int remove_pkg(const rc_config *global_config,pkg_info_t *pkg){
 
 void free_pkg_list(struct pkg_list *list){
 	int i;
-	for(i=0;i < list->pkg_count;i++){
+	for(i = 0;i < list->pkg_count;i++){
 		free(list->pkgs[i]);
 	}
 	free(list->pkgs);
