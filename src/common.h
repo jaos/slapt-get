@@ -21,13 +21,12 @@
 #define SLACK_BASE_SET_REGEX "^./slackware/a$"
 
 
-struct _sg_regex {
+typedef struct {
 	regex_t regex;
 	size_t nmatch;
 	regmatch_t pmatch[MAX_REGEX_PARTS];
 	int reg_return;
-};
-typedef struct _sg_regex sg_regex;
+} sg_regex;
 
 
 FILE *open_file(const char *file_name,const char *mode);

@@ -51,7 +51,7 @@
 #define CHECKSUM_FILE "CHECKSUMS.md5"
 #define HEAD_FILE_EXT ".head"
 
-struct _pkg_info {
+typedef struct {
 	char name[NAME_LEN];
 	char version[VERSION_LEN];
 	char mirror[MIRROR_LEN];
@@ -63,17 +63,18 @@ struct _pkg_info {
 	char conflicts[CONFLICTS_LEN];
 	char suggests[SUGGESTS_LEN];
 	char md5[MD5_STR_LEN];
-};
-typedef struct _pkg_info pkg_info_t;
+} pkg_info_t;
+
 struct pkg_list {
 	pkg_info_t **pkgs;
 	int pkg_count;
 };
-struct _pkg_upgrade {
+
+typedef struct {
 	pkg_info_t *installed;
 	pkg_info_t *upgrade;
-};
-typedef struct _pkg_upgrade pkg_upgrade_t;
+} pkg_upgrade_t;
+
 struct pkg_upgrade_list {
 	pkg_upgrade_t **pkgs;
 	int pkg_count;

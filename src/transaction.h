@@ -16,25 +16,24 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-struct _transaction {
+typedef struct {
 	struct pkg_list *install_pkgs;
 	struct pkg_upgrade_list *upgrade_pkgs;
 	struct pkg_list *remove_pkgs;
 	struct pkg_list *exclude_pkgs;
 	char *suggests;
-};
-typedef struct _transaction transaction;
+} transaction_t;
 
-void init_transaction(transaction *);
-int handle_transaction(const rc_config *,transaction *);
-void add_install_to_transaction(transaction *,pkg_info_t *pkg);
-void add_remove_to_transaction(transaction *,pkg_info_t *pkg);
-void add_upgrade_to_transaction(transaction *,pkg_info_t *installed_pkg,pkg_info_t *upgrade_pkg);
-void add_exclude_to_transaction(transaction *,pkg_info_t *pkg);
-int search_transaction(transaction *,pkg_info_t *pkg);
-void free_transaction(transaction *);
-transaction *remove_from_transaction(transaction *tran,pkg_info_t *pkg);
-int add_deps_to_trans(const rc_config *global_config, transaction *tran, struct pkg_list *avail_pkgs, struct pkg_list *installed_pkgs, pkg_info_t *pkg);
+void init_transaction(transaction_t *);
+int handle_transaction(const rc_config *,transaction_t *);
+void add_install_to_transaction(transaction_t *,pkg_info_t *pkg);
+void add_remove_to_transaction(transaction_t *,pkg_info_t *pkg);
+void add_upgrade_to_transaction(transaction_t *,pkg_info_t *installed_pkg,pkg_info_t *upgrade_pkg);
+void add_exclude_to_transaction(transaction_t *,pkg_info_t *pkg);
+int search_transaction(transaction_t *,pkg_info_t *pkg);
+void free_transaction(transaction_t *);
+transaction_t *remove_from_transaction(transaction_t *tran,pkg_info_t *pkg);
+int add_deps_to_trans(const rc_config *global_config, transaction_t *tran, struct pkg_list *avail_pkgs, struct pkg_list *installed_pkgs, pkg_info_t *pkg);
 /* check to see if a package is conflicted */
-pkg_info_t *is_conflicted(transaction *tran, struct pkg_list *avail_pkgs, struct pkg_list *installed_pkgs, pkg_info_t *pkg);
+pkg_info_t *is_conflicted(transaction_t *tran, struct pkg_list *avail_pkgs, struct pkg_list *installed_pkgs, pkg_info_t *pkg);
 

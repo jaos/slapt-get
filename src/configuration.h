@@ -33,7 +33,7 @@ struct source_list {
 	int count;
 };
 
-struct _configuration {
+typedef struct {
 	struct source_list sources;
 	char working_dir[WORKINGDIR_TOKEN_LEN];
 	int download_only;
@@ -48,8 +48,7 @@ struct _configuration {
 	int disable_dep_check;
 	int print_uris;
 	int dl_stats;
-};
-typedef struct _configuration rc_config;
+} rc_config;
 
 rc_config *read_rc_config(const char *file_name);
 void working_dir_init(const rc_config *global_config);
