@@ -1,5 +1,6 @@
 
-0.9.9b Sep 19, 2004
+0.9.9b Sep 20, 2004
+ * updated FAQ, added new Q: Will slapt-get break my system?
  * updated slack-desc with support entry pointing to slapt-get-user mailing list
  * updated documentation reflecting new location of the slapt-getrc file (thanks to Chris @ virtig01.net)
  * escaped + in package name within required_by(), fixing gtk+2 etc (thanks to Sergey Sukiyazov)

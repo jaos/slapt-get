@@ -45,6 +45,7 @@ Frequenty Asked Questions:
 44. Is there a way to get a report with the pending updates emailed to me?
 45. What if I don't trust third party sources for upgrades?
 46. How do I specify an addon thats not a dependency of my package?
+47. Will slapt-get break my system?
 
 
 
@@ -54,6 +55,8 @@ Frequenty Asked Questions:
  one to search slackware.com and mirrors for packages, compare them with
  installed packages, install new packages or upgrade installed packages all
  with a few simple commands. Great for scripting as well.
+
+ slapt-get is not affiliated or endorsed by Patrick Volkerding / slackware.com.
 
 
 2.  Why yet another package management tool for slackware?
@@ -495,6 +498,8 @@ Frequenty Asked Questions:
   # just setting them for the current command invocation
   $ http_proxy=http://host:port slapt-get --update
 
+ If you are using ~/.netrc, libcurl automatically picks up your preferences.
+
 
 27. How can I exclude all *pre*, *beta*, and *686* packages safely?
 
@@ -821,6 +826,7 @@ Frequenty Asked Questions:
 43. What provisions have you made for dialup users?
 
  Measurements to save bandwidth have been taken.
+
   * Incomplete package downloads will resume from where they left off.
   * The package data download (via --update) will only download those sources
     that have changed since the last download.
@@ -860,6 +866,21 @@ Frequenty Asked Questions:
 
  The suggestion information is presented during the transaction report or via the
  --show pkg-name query.
+
+
+47. Will slapt-get break my system?
+
+ slapt-get is a frontend to pkgtools.  As such you have the same ability to
+ break a working system using slapt-get as you do using upgradepkg without
+ caution.  A few points are in order:
+
+ * slapt-get will not make assumptions or do things without you telling it to.
+ * untested updates are risky, whether using official packages or third party
+   packages.
+ * slapt-get will not change your system such that you can only use slapt-get
+   or are somehow locked into using slapt-get.  The only additions to your
+   system are /etc/slapt-get and /var/slapt-get.  You are free to try another
+   solution or go back to manual upgradepkg.
 
 
 
