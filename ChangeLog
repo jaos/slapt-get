@@ -1,5 +1,7 @@
 
 0.9.6a Oct 14, 2003
+ * fixed issue with allocated strings with --install and --remove
+ * fixed --install pkgname --reinstall regression
 
 0.9.6 Oct 13, 2003
  * removed needless check in get_md5sum looking for common slack mirror

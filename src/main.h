@@ -71,6 +71,6 @@ enum action {
 #define PATCHDIR "patches/"
 #define REMOVE_CMD "/sbin/removepkg "
 #define INSTALL_CMD "/sbin/installpkg "
-#define UPGRADE_CMD "/sbin/upgradepkg "
+#define UPGRADE_CMD "/sbin/upgradepkg --reinstall "
 #define CHECKSUM_FILE "CHECKSUMS.md5"
 
