@@ -779,6 +779,9 @@
  All calls to installpkg, removepkg, and upgradepkg will be passed along this
  environment variable.  See the installpkg(8) manpage.
 
+ NOTE: Be sure to run ldconfig -f $ROOT to ensure appropriate library links are
+ built.
+
 
 <a name="slgFAQ33"><b>33. How do I specify the exact version of a package to install?</b></a>
 
