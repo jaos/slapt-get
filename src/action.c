@@ -289,15 +289,16 @@ void pkg_action_search(const char *pattern){
 	unsigned int i;
 	struct pkg_list *pkgs = NULL;
 	struct pkg_list *installed_pkgs = NULL;
-	struct pkg_list *matches = NULL;
+	struct pkg_list *matches = NULL,*i_matches = NULL;
 
 	/* read in pkg data */
 	pkgs = get_available_pkgs();
 	installed_pkgs = get_installed_pkgs();
 
 	matches = search_pkg_list(pkgs,pattern);
+	i_matches = search_pkg_list(installed_pkgs,pattern);
 
-	for(i = 0; i < matches->pkg_count; i++){
+	for(i = 0; i < matches->pkg_count; ++i){
 		char *short_description = gen_short_pkg_description(matches->pkgs[i]);
 
 		printf("%s %s [inst=%s]: %s\n",
@@ -313,7 +314,25 @@ void pkg_action_search(const char *pattern){
 		free(short_description);
 	}
 
+	for(i = 0; i < i_matches->pkg_count; ++i){
+		char *short_description = NULL;
+
+		if( get_exact_pkg(matches,i_matches->pkgs[i]->name,
+			i_matches->pkgs[i]->version) != NULL) continue;
+
+		short_description = gen_short_pkg_description(i_matches->pkgs[i]);
+
+		printf("%s %s [inst=%s]: %s\n",
+			i_matches->pkgs[i]->name,
+			i_matches->pkgs[i]->version,
+			_("yes"),
+			short_description
+		);
+		free(short_description);
+	}
+
 	free_pkg_list(matches);
+	free_pkg_list(i_matches);
 	free_pkg_list(pkgs);
 	free_pkg_list(installed_pkgs);
 

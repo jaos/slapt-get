@@ -1,5 +1,6 @@
 
-0.9.9i Feb 18, 2005
+0.9.9i Feb 20, 2005
+ * --search return installed packages as well
  * progress_cb for the progress callback is now part of rc_config structure (libslapt)
  * added public add_exclude() to configuration.c (libslapt)
  * init_regex now returns on failure
