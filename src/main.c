@@ -164,7 +164,6 @@ int main( int argc, char *argv[] ){
 				++optind;
 				++paa->count;
 			}
-			/* pkg_action_remove( global_config, argv[optind++] ); */
 			pkg_action_remove( global_config, paa );
 			for(i = 0; i < paa->count; i++){
 				free(paa->pkgs[i]);
