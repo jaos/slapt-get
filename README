@@ -81,7 +81,8 @@ Table of Contents:
     All that is required is the PACKAGES.TXT (see FAQ entry #17)
     and CHECKSUMS.md5.  Multiple sources can be defined.  Please do
     not add redundant mirror locations to the same release.  Mirror
-    fallback is not yet implemented.
+    fallback is not implemented.  Also, any time the source url(s)
+    are changed, slapt-get --update must be run to update local cache.
 
       NOTE: It is not recommended to mix 3rd party package sources
             with the official on production servers.  Sometimes 
