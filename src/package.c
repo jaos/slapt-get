@@ -1405,3 +1405,26 @@ struct pkg_list *is_required_by(struct pkg_list *avail, pkg_info_t *pkg){
 
 	return deps;
 }
+
+pkg_info_t *get_pkg_by_details(struct pkg_list *list,char *name,char *version,char *location){
+	int i;
+	for(i = 0; i < list->pkg_count; i++){
+
+		if( strcmp(list->pkgs[i]->name,name) == 0 ){
+			if( version != NULL ){
+				if(strcmp(list->pkgs[i]->version,version) == 0){
+					if( location != NULL ){
+						if(strcmp(list->pkgs[i]->location,location) == 0){
+							return list->pkgs[i];
+						}
+					}else{
+						return list->pkgs[i];
+					}
+				}
+			}
+		}
+
+	}
+	return NULL;
+}
+

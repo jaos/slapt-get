@@ -81,6 +81,8 @@ char *gen_short_pkg_description(pkg_info_t *);
 /* retrieve the newest pkg from pkg_info_t list */
 pkg_info_t *get_newest_pkg(struct pkg_list *,const char *);
 pkg_info_t *get_exact_pkg(struct pkg_list *,const char *,const char *);
+/* lookup package by details */
+pkg_info_t *get_pkg_by_details(struct pkg_list *,char *,char *,char *);
 
 /* install pkg */
 int install_pkg(const rc_config *,pkg_info_t *);
