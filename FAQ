@@ -23,7 +23,8 @@ Frequenty Asked Questions:
 22. How do I get the newest development version of slapt-get?
 23. How can I contribute my ideas or code?
 24. How can I get slapt-get to speak in my native tongue?
-25. How do I specify proxy settings?
+25. How do I set the output language?
+26. How do I specify proxy settings?
 
 
 
@@ -435,7 +436,14 @@ Frequenty Asked Questions:
 
  Email in your translation to the slapt-get-devel mailing list.
 
-25. How do I specify proxy settings?
+25. How do I set the output language?
+
+ You can change the locale at runtime by setting the LANG environment
+ variable.
+
+ $ LANG=fr slapt-get
+
+26. How do I specify proxy settings?
 
  slapt-get takes advantage of the normal http_proxy and ftp_proxy shell
  variables. Here are some examples:
