@@ -10,6 +10,8 @@
  * unlink faulty d/l files/pkgs (failed to d/l or checksum is bad)
  * fixed bug with ftp transfers... connections left open
    some ftp servers complain and deny access after so many connections
+ * doc updates
+ * install make target now creates /var/slapt-get
 
 0.9.3 Sep 24, 2003
  * default make target doesn't build slack pkg
