@@ -1,7 +1,8 @@
 
-0.9.5d Oct 06, 2003
+0.9.5d Oct 08, 2003
  * added initial slack-required for future dependancy support
  * added lilo to example slapt-getrc exclude list
+ * improved regex within package.h
 
 0.9.5c Oct 04, 2003
  * removed bad free() in get_installed_pkgs()

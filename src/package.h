@@ -19,14 +19,14 @@
 #define MAX_PKG_ENTRIES 1300
 #define MAX_NMATCH 4
 #define MAX_PMATCH 4
-#define PKG_PARSE_REGEX "([a-zA-Z0-9-._/]+/)([a-zA-Z0-9-+_]+)-([a-zA-Z0-9-._]+).tgz$"
-#define PKG_NAME_PATTERN "^PACKAGE NAME:  ([a-zA-Z0-9-+_]+)-([a-zA-Z0-9-._]+).tgz$"
+#define PKG_PARSE_REGEX "([a-zA-Z0-9._\\-\\/]+/)([a-zA-Z0-9+_\\-]+)-([a-zA-Z0-9._\\-]+).tgz$"
+#define PKG_NAME_PATTERN "^PACKAGE NAME:  ([a-zA-Z0-9+_\\-]+)-([a-zA-Z0-9._\\-]+).tgz$"
 #define PKG_LOCATION_PATTERN "^PACKAGE LOCATION:  (.*)$"
 #define PKG_SIZEC_PATTERN "^PACKAGE SIZE [(]+compressed[)]+:  ([0-9]+) K$"
 #define PKG_SIZEU_PATTERN "^PACKAGE SIZE [(]+uncompressed[)]+:  ([0-9]+) K$"
 #define PKG_LOG_DIR "/var/log/packages"
-#define PKG_LOG_PATTERN "^([a-zA-Z0-9-+_]+)-([a-zA-Z0-9-._]+)$"
-#define MD5SUM_REGEX "([a-zA-Z0-9]+)[ ]+([a-zA-Z0-9-._/]+/)([a-zA-Z0-9-+_]+)-([a-zA-Z0-9-._]+).tgz$"
+#define PKG_LOG_PATTERN "^([a-zA-Z0-9+_\\-]+)-([a-zA-Z0-9._\\-]+)$"
+#define MD5SUM_REGEX "([a-zA-Z0-9]+)[ ]+([a-zA-Z0-9._\\-\\/]+/)([a-zA-Z0-9+_\\-]+)-([a-zA-Z0-9._\\-]+).tgz$"
 
 /*
  * VARIABLE DEFINITIONS
