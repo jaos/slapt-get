@@ -131,10 +131,6 @@ rc_config *read_rc_config(const char *file_name){
 		return NULL;
 	}
 
-	/* create the working directory if needed */
-	working_dir_init(global_config);
-	chdir(global_config->working_dir);
-
 	return global_config;
 }
 

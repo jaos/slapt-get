@@ -1,4 +1,9 @@
 
+0.9.9 Aug 13, 2004
+ * moved working_dir_init out of read_rc_config() into main(), so that if the config
+   file location is overridden, you don't get warnings about permissions on working
+   directory
+
 0.9.8k Aug 13, 2004
  * merged parent_deps into deps within lookup_pkg_dependencies() fixing more issues with recursive dependencies
  * fix for long package names that cause the regex to think it is a name and a version in one

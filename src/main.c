@@ -158,6 +158,10 @@ int main( int argc, char *argv[] ){
 		}
 	}
 
+	/* create the working directory if needed */
+	working_dir_init(global_config);
+	chdir(global_config->working_dir);
+
 	if( do_action == UPDATE ){
 		if( update_pkg_cache(global_config) == 1 ) exit(1);
 	}else if( do_action == INSTALL ){
