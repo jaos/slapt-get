@@ -2,6 +2,10 @@
 0.9.6h Oct 24, 2003
  * parse package require/dep from PACKAGES.TXT
  * show parsed require/dep data with --show
+ * --list now shows pkg_name - pkg_vesion : pkg_description
+ * get_newest_pkg now only takes 2 arguments, struct pkg_list and char pkg_name
+ * resolves dependencies and adds them to the transaction
+ * make pkg now gzip's the manpage and strips the binary (thanks Jim)
 
 0.9.6g Oct 22, 2003
  * updated --help output

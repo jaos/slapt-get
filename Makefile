@@ -45,6 +45,7 @@ pkg: $(PROGRAM_NAME)
 	-@mkdir -p pkg/install
 	-@mkdir -p pkg/usr/man/man8
 	-@cp $(PROGRAM_NAME) ./pkg/sbin/
+	-@strip ./pkg/sbin/$(PROGRAM_NAME)
 	-@cp example.slapt-getrc ./pkg/etc/slapt-getrc.new
 	-@mkdir -p ./pkg/usr/doc/$(PROGRAM_NAME)-$(VERSION)/
 	-@cp COPYING Changelog INSTALL README FAQ TODO ./pkg/usr/doc/$(PROGRAM_NAME)-$(VERSION)/
@@ -52,5 +53,6 @@ pkg: $(PROGRAM_NAME)
 	-@cp slack-desc pkg/install/
 	-@cp slack-required pkg/install/
 	-@cp $(PROGRAM_NAME).8 pkg/usr/man/man8/
+	-@gzip pkg/usr/man/man8/$(PROGRAM_NAME).8
 	@( cd pkg; makepkg -c y $(PROGRAM_NAME)-$(VERSION)-$(ARCH)-$(RELEASE).tgz )
 
