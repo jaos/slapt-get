@@ -1443,6 +1443,8 @@ static struct pkg_list *required_by(const rc_config *global_config,struct pkg_li
 				}
 			}
 
+			free(required_of_required_by->pkgs);
+			free(required_of_required_by);
 		}
 
 	}
