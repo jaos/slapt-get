@@ -244,9 +244,8 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	if( global_config->no_md5_check == 0 ){
 
 		/* check to see if the md5sum is correct */
-		printf(_("verifying %s md5 checksum..."),pkg->name);
 		if( strcmp(md5_sum_of_file,md5_sum) != 0 ){
-			fprintf(stderr,_("md5 sum for %s is not correct!\n"),pkg->name);
+			fprintf(stderr,_("md5 checksum for %s is not correct!\n"),pkg->name);
 			#if DEBUG == 1
 			fprintf(stderr,_("MD5 found:    [%s]\n"),md5_sum_of_file);
 			fprintf(stderr,_("MD5 expected: [%s]\n"),md5_sum);
@@ -267,8 +266,6 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 			free(file_name);
 			return -1;
 
-		}else{
-			printf(_("Done\n"));
 		}
 		/* end md5 */
 	}
