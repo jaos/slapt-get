@@ -5,9 +5,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.9i\n"
+"Project-Id-Version: 0.9.9j\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2005-02-20 19:06+0500\n"
+"PO-Revision-Date: 2005-03-09 11:08+0500\n"
 "Last-Translator: Niklas Volbers <mithrandir42@web.de>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -238,6 +238,9 @@ msgstr "[Paketname] - Paketbeschreibung anzeigen"
 
 msgid "[expression] - search available pkgs"
 msgstr "[Ausdruck] - nach verfügbaren Paketen suchen"
+
+msgid "list pkgs"
+msgstr "Liste Pakete auf"
 
 msgid "list available pkgs"
 msgstr "Liste vorhanden Pakete auf"

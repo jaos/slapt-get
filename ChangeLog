@@ -1,5 +1,8 @@
 
-0.9.9j Mar 08, 2005
+0.9.9j Mar 09, 2005
+ * added --available option to only show packages available from the current
+   sources.  --list shows available and installed. --installed shows only
+   the installed with a new output format.
 
 0.9.9i Mar 06, 2005
  * set CURLOPT_HTTPAUTH to CURLAUTH_ANY for NTLM proxy users

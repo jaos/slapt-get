@@ -83,6 +83,9 @@ slapt-get \- frontend to pkgtools
 .B --list
 ]
 [
+.B --available
+]
+[
 .B --installed
 ]
 [
@@ -165,10 +168,13 @@ Search available packages. Applies POSIX and extended regular expression
 to the names, locations, and descriptions of packages.
 .TP
 .B --list
-List available packages.
+List all packages, installed and available.
+.TP
+.B --available
+List available packages only.  This will show you the packages present on your current sources.
 .TP
 .B --installed
-List installed packages.
+List installed packages only.
 .TP
 .B --clean
 Purge cached/downloaded packages from WORKINGDIR (/var/slapt-get/ by default).

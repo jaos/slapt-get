@@ -59,6 +59,7 @@ int main( int argc, char *argv[] ){
 		{"config",1, 0, CONFIG_OPT},
 		{"autoclean", 0, 0, AUTOCLEAN_OPT},
 		{"remove-obsolete", 0, 0, OBSOLETE_OPT},
+		{"available", 0, 0, AVAILABLE_OPT},
 		{0, 0, 0, 0},
 	};
 
@@ -180,6 +181,9 @@ int main( int argc, char *argv[] ){
 			case OBSOLETE_OPT: /* remove obsolete packages */
 				global_config->remove_obsolete = TRUE;
 				break;
+			case AVAILABLE_OPT: /* show available packages */
+				do_action = AVAILABLE;
+				break;
 			default:
 				usage();
 				free_rc_config(global_config);
@@ -262,10 +266,10 @@ int main( int argc, char *argv[] ){
 			pkg_action_upgrade_all(global_config);
 			break;
 		case LIST:
-			pkg_action_list();
+			pkg_action_list(LIST);
 			break;
 		case INSTALLED:
-			pkg_action_list_installed();
+			pkg_action_list(INSTALLED);
 			break;
 		case CLEAN:
 			/* clean out local cache */
@@ -277,6 +281,9 @@ int main( int argc, char *argv[] ){
 			break;
 		case AUTOCLEAN:
 			purge_old_cached_pkgs(global_config, NULL, NULL);
+			break;
+		case AVAILABLE:
+			pkg_action_list(AVAILABLE);
 			break;
 		case USAGE:
 		default:
@@ -303,7 +310,8 @@ void usage(void){
 	printf("  --remove       %s\n",_("[pkg name(s)] - remove specified pkg(s)"));
 	printf("  --show         %s\n",_("[pkg name] - show pkg description"));
 	printf("  --search       %s\n",_("[expression] - search available pkgs"));
-	printf("  --list         - %s\n",_("list available pkgs"));
+	printf("  --list         - %s\n",_("list pkgs"));
+	printf("  --available    - %s\n",_("list available pkgs"));
 	printf("  --installed    - %s\n",_("list installed pkgs"));
 	printf("  --clean        - %s\n",_("purge cached pkgs"));
 	printf("  --autoclean    - %s\n",_("only purge cache of older, unreacheable pkgs"));

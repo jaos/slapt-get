@@ -142,7 +142,7 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 }
 
 /* list pkgs */
-void pkg_action_list(void){
+void pkg_action_list(const int show){
 	struct pkg_list *pkgs = NULL;
 	struct pkg_list *installed_pkgs = NULL;
 	unsigned int i;
@@ -150,67 +150,57 @@ void pkg_action_list(void){
 	pkgs = get_available_pkgs();
 	installed_pkgs = get_installed_pkgs();
 
-	for(i = 0; i < pkgs->pkg_count; i++ ){
-		/* this should eliminate the printing of updates */
-		if( strstr(pkgs->pkgs[i]->description,"no description") == NULL ){
-			unsigned int bool_installed = 0;
-			char *short_description = gen_short_pkg_description(pkgs->pkgs[i]);
-
-			/* is it installed? */
-			if( get_exact_pkg(installed_pkgs,pkgs->pkgs[i]->name,pkgs->pkgs[i]->version) != NULL )
-				bool_installed = 1;
-
-			printf("%s %s [inst=%s]: %s\n",
-				pkgs->pkgs[i]->name,
-				pkgs->pkgs[i]->version,
-				bool_installed == 1
+	if( show == LIST || show == AVAILABLE ){
+		for(i = 0; i < pkgs->pkg_count; i++ ){
+			/* this should eliminate the printing of updates */
+			if( strstr(pkgs->pkgs[i]->description,"no description") == NULL ){
+				unsigned int bool_installed = 0;
+				char *short_description = gen_short_pkg_description(pkgs->pkgs[i]);
+	
+				/* is it installed? */
+				if( get_exact_pkg(installed_pkgs,pkgs->pkgs[i]->name,pkgs->pkgs[i]->version) != NULL )
+					bool_installed = 1;
+	
+				printf("%s %s [inst=%s]: %s\n",
+					pkgs->pkgs[i]->name,
+					pkgs->pkgs[i]->version,
+						bool_installed == 1
 					? _("yes")
 					: _("no"),
+					(short_description == NULL) ? "" : short_description
+				);
+				free(short_description);
+			}
+		}
+	}
+	if( show == LIST || show == INSTALLED ){
+		for(i = 0; i < installed_pkgs->pkg_count;++i){
+			char *short_description = NULL;
+
+			if( show == LIST ){
+				if( get_exact_pkg(pkgs,
+						installed_pkgs->pkgs[i]->name,
+						installed_pkgs->pkgs[i]->version
+					) != NULL 
+				) continue;
+			}
+
+			short_description = gen_short_pkg_description(installed_pkgs->pkgs[i]);
+	
+			printf("%s %s [inst=%s]: %s\n",
+				installed_pkgs->pkgs[i]->name,
+				installed_pkgs->pkgs[i]->version,
+				_("yes"),
 				(short_description == NULL) ? "" : short_description
 			);
 			free(short_description);
+
 		}
-	}
-	for(i = 0; i < installed_pkgs->pkg_count;++i){
-		char *short_description = NULL;
-		if( get_exact_pkg(pkgs,
-				installed_pkgs->pkgs[i]->name,
-				installed_pkgs->pkgs[i]->version
-			) != NULL 
-		) continue;
-
-		short_description = gen_short_pkg_description(installed_pkgs->pkgs[i]);
-
-		printf("%s %s [inst=%s]: %s\n",
-			installed_pkgs->pkgs[i]->name,
-			installed_pkgs->pkgs[i]->version,
-			_("yes"),
-			(short_description == NULL) ? "" : short_description
-		);
-			free(short_description);
-
 	}
 
 	free_pkg_list(pkgs);
 	free_pkg_list(installed_pkgs);
 
-}
-
-/* list installed pkgs */
-void pkg_action_list_installed(void){
-	unsigned int i;
-	struct pkg_list *installed_pkgs = NULL;
-
-	installed_pkgs = get_installed_pkgs();
-
-	for(i = 0; i < installed_pkgs->pkg_count; i++ ){
-		printf("%s - %s\n",
-			installed_pkgs->pkgs[i]->name,
-			installed_pkgs->pkgs[i]->version
-		);
-	}
-
-	free_pkg_list(installed_pkgs);
 }
 
 /* remove/uninstall pkg */
