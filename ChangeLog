@@ -13,8 +13,6 @@
  * added is_required_by function, so --remove pkg also prompts to remove
    packages (recursively) that require it
  * added get_exact_pkg function
- * can now specify exact pkgname and version (if multiple versions are present)
-   while doing install, ie: slapt-get --install arts-1.1.3-i386-1
 
 0.9.6g Oct 22, 2003
  * updated --help output

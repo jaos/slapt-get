@@ -27,7 +27,6 @@ void pkg_action_clean(const rc_config *global_config){
 void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *action_args){
 	int i;
 	transaction tran;
-	sg_regex pkg_nv;
 	struct pkg_list *installed;
 	struct pkg_list *all;
 	pkg_info_t *pkg = NULL;
@@ -40,46 +39,14 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 
 	init_transaction(&tran);
 
-	pkg_nv.nmatch = MAX_REGEX_PARTS;
-	regcomp(&pkg_nv.regex,PKG_NAMEVER,REG_EXTENDED|REG_NEWLINE);
-
-	(void)pkg;
-
 	for(i = 0; i < action_args->count; i++){
 
-		if( regexec(&pkg_nv.regex,action_args->pkgs[i],pkg_nv.nmatch,pkg_nv.pmatch,0) == 0 ){
-			/* if there is no version part */
-			if( (pkg_nv.pmatch[2].rm_eo - pkg_nv.pmatch[2].rm_so) == 0 ){
-				/* make sure there is a package called action_args->pkgs[i] */
-				if( (pkg = get_newest_pkg(all,action_args->pkgs[i])) == NULL ){
-					fprintf(stderr,"No Such package: %s\n",action_args->pkgs[i]);
-					continue;
-				}
-				installed_pkg = get_newest_pkg(installed,action_args->pkgs[i]);
-			}else{
-				char name[NAME_LEN];
-				char version[VERSION_LEN];
-				strncpy(name,
-					action_args->pkgs[i] + pkg_nv.pmatch[1].rm_so,
-					pkg_nv.pmatch[1].rm_eo - pkg_nv.pmatch[1].rm_so
-				);
-				name[pkg_nv.pmatch[1].rm_eo - pkg_nv.pmatch[1].rm_so] = '\0';
-				strncpy(version,
-					action_args->pkgs[i] + pkg_nv.pmatch[2].rm_so,
-					pkg_nv.pmatch[2].rm_eo - pkg_nv.pmatch[2].rm_so
-				);
-				version[pkg_nv.pmatch[2].rm_eo - pkg_nv.pmatch[2].rm_so] = '\0';
-				/* make sure there is a package called action_args->pkgs[i] */
-				if( (pkg = get_exact_pkg(all,name,version)) == NULL ){
-					fprintf(stderr,"No Such package: %s\n",action_args->pkgs[i]);
-					continue;
-				}
-				installed_pkg = get_exact_pkg(installed,name,version);
-			}
-
-		}else{
-			installed_pkg = get_newest_pkg(installed,action_args->pkgs[i]);
-		}	
+		/* make sure there is a package called action_args->pkgs[i] */
+		if( (pkg = get_newest_pkg(all,action_args->pkgs[i])) == NULL ){
+			fprintf(stderr,"No Such package: %s\n",action_args->pkgs[i]);
+			continue;
+		}
+		installed_pkg = get_newest_pkg(installed,action_args->pkgs[i]);
 
 		/* if it's not already installed, install it */
 		if( installed_pkg == NULL ){
