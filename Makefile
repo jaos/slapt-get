@@ -123,6 +123,6 @@ libs: CFLAGS += -fpic #change to -fPIC for amd64
 libs: $(OBJS)
 	touch libs
 	$(CC) -shared -o src/libslapt-$(VERSION).so $(LIBOBJS)
-	ar -r src/libslapt-$(VERSION).a src/common.o src/configuration.o src/package.o src/curl.o src/transaction.o
+	ar -r src/libslapt-$(VERSION).a $(LIBOBJS)
 	cat include/main.h include/common.h include/configuration.h include/package.h include/curl.h include/transaction.h |grep -v '#include \"' > include/slapt.h
 
