@@ -78,9 +78,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 		getline_buffer[bytes_read - 1] = '\0';
 
 		/* pull out package data */
-		if( strstr(getline_buffer,"PACKAGE NAME") == NULL ){
-			continue;
-		}
+		if( strstr(getline_buffer,"PACKAGE NAME") == NULL ) continue;
 
 		name_regex.reg_return = regexec(
 			&name_regex.regex,
@@ -396,9 +394,6 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 		list->pkgs[list->pkg_count] = tmp_pkg;
 		++list->pkg_count;
 		tmp_pkg = NULL;
-
-		/* printf("%c\b",spinner()); this interferes with --list scripting */
-		continue;
 	}
 	if( getline_buffer) free(getline_buffer);
 	regfree(&name_regex.regex);
@@ -493,47 +488,49 @@ struct pkg_list *get_installed_pkgs(void){
 	}
 
 	while( (file = readdir(pkg_log_dir)) != NULL ){
+		pkg_info_t *tmp_pkg;
+
 		ip_regex.reg_return = regexec(&ip_regex.regex,file->d_name,ip_regex.nmatch,ip_regex.pmatch,0);
-		if( ip_regex.reg_return == 0 ){
-			pkg_info_t *tmp_pkg;
-			tmp_pkg = malloc( sizeof *tmp_pkg );
-			if( tmp_pkg == NULL ){
-				fprintf(stderr,_("Failed to malloc %s\n"),"tmp_pkg");
-				exit(1);
+
+		/* skip if it doesn't match our regex */
+		if( ip_regex.reg_return != 0 ) continue;
+
+		tmp_pkg = malloc( sizeof *tmp_pkg );
+		if( tmp_pkg == NULL ){
+			fprintf(stderr,_("Failed to malloc %s\n"),"tmp_pkg");
+			exit(1);
+		}
+
+		strncpy(
+			tmp_pkg->name,
+			file->d_name + ip_regex.pmatch[1].rm_so,
+			ip_regex.pmatch[1].rm_eo - ip_regex.pmatch[1].rm_so
+		);
+		tmp_pkg->name[ ip_regex.pmatch[1].rm_eo - ip_regex.pmatch[1].rm_so ] = '\0';
+		strncpy(
+			tmp_pkg->version,
+			file->d_name + ip_regex.pmatch[2].rm_so,
+			ip_regex.pmatch[2].rm_eo - ip_regex.pmatch[2].rm_so
+		);
+		tmp_pkg->version[ ip_regex.pmatch[2].rm_eo - ip_regex.pmatch[2].rm_so ] = '\0';
+
+		list->pkgs[list->pkg_count] = tmp_pkg;
+		++list->pkg_count;
+		tmp_pkg = NULL;
+
+		/* grow our pkgs array */
+		realloc_tmp = realloc(list->pkgs , sizeof *list->pkgs * (list->pkg_count + 1 ) );
+		if( realloc_tmp == NULL ){
+			fprintf(stderr,_("Failed to realloc %s\n"),"pkgs");
+			if( errno ){
+				perror("realloc");
 			}
+			exit(1);
+		}else{
+			list->pkgs = realloc_tmp;
+		}
 
-
-			strncpy(
-				tmp_pkg->name,
-				file->d_name + ip_regex.pmatch[1].rm_so,
-				ip_regex.pmatch[1].rm_eo - ip_regex.pmatch[1].rm_so
-			);
-			tmp_pkg->name[ ip_regex.pmatch[1].rm_eo - ip_regex.pmatch[1].rm_so ] = '\0';
-			strncpy(
-				tmp_pkg->version,
-				file->d_name + ip_regex.pmatch[2].rm_so,
-				ip_regex.pmatch[2].rm_eo - ip_regex.pmatch[2].rm_so
-			);
-			tmp_pkg->version[ ip_regex.pmatch[2].rm_eo - ip_regex.pmatch[2].rm_so ] = '\0';
-
-			list->pkgs[list->pkg_count] = tmp_pkg;
-			++list->pkg_count;
-			tmp_pkg = NULL;
-
-			/* grow our pkgs array */
-			realloc_tmp = realloc(list->pkgs , sizeof *list->pkgs * (list->pkg_count + 1 ) );
-			if( realloc_tmp == NULL ){
-				fprintf(stderr,_("Failed to realloc %s\n"),"pkgs");
-				if( errno ){
-					perror("realloc");
-				}
-				exit(1);
-			}else{
-				list->pkgs = realloc_tmp;
-			}
-
-		}/* end while */
-	}
+	}/* end while */
 	closedir(pkg_log_dir);
 	regfree(&ip_regex.regex);
 

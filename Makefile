@@ -120,3 +120,5 @@ libs: $(OBJS)
 	ar -r src/libslapt-$(VERSION).a src/configuration.o src/package.o src/curl.o src/transaction.o
 	cat include/main.h include/configuration.h include/package.h include/curl.h include/transaction.h |grep -v '#include \"' > include/slapt.h
 
+test:
+	-@make -f t/Makefile default

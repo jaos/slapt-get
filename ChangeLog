@@ -1,5 +1,7 @@
 
 0.9.8c Feb 02, 2004
+ * initial testing framework
+ * misc code updates
  * doc updates
  * fixed segfault when slapt-getrc isn't present (return value from open() not checked)
 
