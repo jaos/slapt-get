@@ -512,7 +512,7 @@ Frequenty Asked Questions:
 
  or for i686 packages (or for i585 or i486):
 
-   [0-9\_\.\-]{1}i686[0-9\-\.\-]{1}
+   [0-9\_\.\-]+i686
 
  Anything matching these regex will be added to the exclude list for the
  transaction.

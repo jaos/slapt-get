@@ -1,5 +1,5 @@
 
-0.9.7h Dec 05, 2003
+0.9.7h Dec 08, 2003
  * updated FAQ
  * updated example dropline exclude regex (Francesco Gigli <jaramir@aruba.it>)
  * initialize global_config->exclude_list if EXCLUDE commented out (Francesco Gigli <jaramir@aruba.it>)
@@ -8,6 +8,7 @@
  * Polish translation updates by Paul Blazejowski <paulb at blazebox dot homeip dot net>
  * updated slack.it source entry in example.slapt-getrc
  * updated FAQ
+ * updated example.slaptgetrc
 
 0.9.7g Nov 23, 2003
  * updated break_down_pkg_version and cmp_pkg_versions for improved version checking
