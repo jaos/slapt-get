@@ -3,3 +3,4 @@ glibc-solibs >= 2.3.1-i386-3
 binutils
 openssl >= 0.9.7a-i386-2
 pkgtools
+zlib
