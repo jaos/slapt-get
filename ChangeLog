@@ -1,4 +1,7 @@
 
+0.9.7g Nov 23, 2003
+ * updated break_down_pkg_version and cmp_pkg_versions for improved version checking
+
 0.9.7f Nov 23, 2003
  * added staticinstall, withlibslaptinstall, staticpkg, and withlibslaptpkg make targets
  * updated error handling, cleaned up exits

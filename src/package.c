@@ -866,6 +866,9 @@ int cmp_pkg_versions(char *a, char *b){
 	int position = 0;
 	int greater = 1,lesser = -1;
 
+	/* bail out early if possible */
+	if( strcmp(a,b) == 0 ) return 0;
+
 	a_parts.count = 0;
 	b_parts.count = 0;
 
@@ -875,10 +878,20 @@ int cmp_pkg_versions(char *a, char *b){
 	while( position < a_parts.count && position < b_parts.count ){
 		if( strcmp(a_parts.parts[position],b_parts.parts[position]) != 0 ){
 
-			if( strcmp(a_parts.parts[position],b_parts.parts[position]) < 0 )
+			/* if the integer value of the version part is the same */
+			if( atoi(a_parts.parts[position]) == atoi(b_parts.parts[position]) ){
+
+				if( strcmp(a_parts.parts[position],b_parts.parts[position]) < 0 )
+					return lesser;
+				if( strcmp(a_parts.parts[position],b_parts.parts[position]) > 0 )
+					return greater;
+
+			}
+
+			if( atoi(a_parts.parts[position]) < atoi(b_parts.parts[position]) )
 				return lesser;
 
-			if( strcmp(a_parts.parts[position],b_parts.parts[position]) > 0 )
+			if( atoi(a_parts.parts[position]) > atoi(b_parts.parts[position]) )
 				return greater;
 
 		}
@@ -911,9 +924,6 @@ int cmp_pkg_versions(char *a, char *b){
 			if( atoi(a_build) == atoi(b_build) ) return 0;
 			if( atoi(a_build) < atoi(b_build) ) return 1;
 			if( atoi(a_build) > atoi(b_build) ) return -1;
-
-			/* fall back to strcmp */
-			return strcmp(a_build,b_build);
 		}
 
 	}
@@ -941,6 +951,7 @@ void break_down_pkg_version(struct pkg_version_parts *pvp,const char *version){
 	}
 
 	while(pos < (sv_size - 1) ){
+		/* check for . as a seperator */
 		if( (pointer = strchr(short_version + pos,'.')) != NULL ){
 			int b_count = ( strlen(short_version + pos) - strlen(pointer) + 1 );
 			tmp = malloc( sizeof *tmp * b_count );
@@ -952,6 +963,19 @@ void break_down_pkg_version(struct pkg_version_parts *pvp,const char *version){
 			free(tmp);
 			pointer = NULL;
 			pos += b_count;
+		/* check for _ as a seperator */
+		}else if( (pointer = strchr(short_version + pos,'_')) != NULL ){
+			int b_count = ( strlen(short_version + pos) - strlen(pointer) + 1 );
+			tmp = malloc( sizeof *tmp * b_count );
+			memcpy(tmp,short_version + pos,b_count);
+			tmp[b_count - 1] = '\0';
+			strncpy(pvp->parts[pvp->count],tmp,b_count);
+			pvp->parts[pvp->count][b_count] = '\0';
+			++pvp->count;
+			free(tmp);
+			pointer = NULL;
+			pos += b_count;
+		/* must be the end of the string */
 		}else{
 			int b_count = ( strlen(short_version + pos) + 1 );
 			tmp = malloc( sizeof *tmp * b_count );
