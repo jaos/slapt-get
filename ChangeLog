@@ -1,5 +1,5 @@
 
-0.9.9i Mar 01, 2005
+0.9.9i Mar 02, 2005
  * set CURLOPT_HTTPAUTH to CURLAUTH_ANY for NTLM proxy users
  * fixed --remove bug
  * --list now properly shows installed packages
