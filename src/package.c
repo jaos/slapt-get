@@ -223,7 +223,9 @@ struct pkg_list *parse_pkg_list(void){
 				if( (bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh)) != EOF ){
 					if( strcmp(getline_buffer,"\n") != 0 ){
 						strncat(list->pkgs[list->pkg_count]->description,getline_buffer,bytes_read);
-						list->pkgs[list->pkg_count]->description[strlen(list->pkgs[list->pkg_count]->description)] = '\0';
+						list->pkgs[list->pkg_count]->description[
+							strlen(list->pkgs[list->pkg_count]->description)
+						] = '\0';
 					}else{
 						break;
 					}
@@ -238,7 +240,8 @@ struct pkg_list *parse_pkg_list(void){
 
 		list->pkg_count += 1;
 		/* grow our struct array */
-		if( (list->pkgs = realloc(list->pkgs , sizeof(pkg_info *) * (list->pkg_count + 1) )) == NULL ){
+		list->pkgs = realloc(list->pkgs , sizeof(pkg_info *) * (list->pkg_count + 1) );
+		if( list->pkgs == NULL ){
 			fprintf(stderr,"Failed to realloc pkgs\n");
 			exit(1);
 		}
@@ -254,7 +257,8 @@ struct pkg_list *parse_pkg_list(void){
 char *gen_short_pkg_description(pkg_info *pkg){
 	char *short_description = NULL;
 	short_description = (char *) calloc(
-		strlen(pkg->description) - strlen(pkg->name) + 2 - strlen( index(pkg->description,'\n') ) + 1,
+		strlen(pkg->description) - strlen(pkg->name) + 2
+			- strlen( index(pkg->description,'\n') ) + 1,
 		sizeof(char)
 	);
 	if( short_description == NULL ){
@@ -264,7 +268,8 @@ char *gen_short_pkg_description(pkg_info *pkg){
 	short_description = memcpy(
 		short_description,
 		pkg->description + (strlen(pkg->name) + 2),
-		strlen(pkg->description) - (strlen(pkg->name) + 2) - strlen( index(pkg->description,'\n') )
+		strlen(pkg->description) - (strlen(pkg->name) + 2)
+			- strlen( index(pkg->description,'\n') )
 	);
 	short_description[ strlen(short_description) ] = '\0';
 
@@ -449,7 +454,9 @@ struct pkg_list *parse_update_pkg_list(void){
 					(char *)getline_buffer + pmatch[1].rm_so,
 					pmatch[1].rm_eo - pmatch[1].rm_so
 				);
-				list->pkgs[list->pkg_count]->location[strlen(list->pkgs[list->pkg_count]->location)] = '\0';
+				list->pkgs[list->pkg_count]->location[
+					strlen(list->pkgs[list->pkg_count]->location)
+				] = '\0';
 
 				/* pkg base name */
 				memcpy(
@@ -465,7 +472,9 @@ struct pkg_list *parse_update_pkg_list(void){
 					(char *)getline_buffer + pmatch[3].rm_so,
 					pmatch[3].rm_eo - pmatch[3].rm_so
 				);
-				list->pkgs[list->pkg_count]->version[ strlen(list->pkgs[list->pkg_count]->version) ] = '\0';
+				list->pkgs[list->pkg_count]->version[
+					strlen(list->pkgs[list->pkg_count]->version)
+				] = '\0';
 
 				/* fill these in */
 				list->pkgs[list->pkg_count]->description[0] = '\0';

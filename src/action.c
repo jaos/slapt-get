@@ -265,7 +265,11 @@ void jaospkg_upgrade_all(rc_config *global_config){
 						if( (strcmp(installed_pkgs->pkgs[iterator]->version,current_pkg->version)) < 0 ){
 							/* attempt to upgrade */
 							if( (upgrade_pkg(global_config,current_pkg)) == -1 ){
-								fprintf(stderr,"Failed to update %s.\n",installed_pkgs->pkgs[iterator]->name);
+								fprintf(
+									stderr,
+									"Failed to update %s.\n",
+									installed_pkgs->pkgs[iterator]->name
+								);
 								exit(1);
 							}/* end upgrade attempt */
 						}/* end if strcmp */
