@@ -1025,7 +1025,7 @@ void search_pkg_list(struct pkg_list *available,struct pkg_list *matches,const c
 }
 
 /* resolve dependencies for packages already in the current transaction */
-struct pkg_list *lookup_pkg_dependencies(struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,pkg_info_t *pkg){
+struct pkg_list *lookup_pkg_dependencies(const rc_config *global_config,struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,pkg_info_t *pkg){
 	int i;
 	struct pkg_list *deps;
 	int position = 0;
@@ -1092,6 +1092,16 @@ struct pkg_list *lookup_pkg_dependencies(struct pkg_list *avail_pkgs,struct pkg_
 
 		/* recurse for each dep found */
 		if( tmp_pkg != NULL ){
+
+			/* if this pkg is excluded */
+			if( is_excluded(global_config,tmp_pkg) == 1 ){
+				#if DEBUG == 1
+				fprintf(stderr,"Dep %s is excluded, for %s\n",tmp_pkg->name,pkg->name);
+				#endif
+				deps->pkg_count = -1;
+				return deps;
+			}
+
 			/* if tmp_pkg is not already in the deps pkg_list */
 			if( get_newest_pkg(deps,tmp_pkg->name) == NULL ){
 				struct pkg_list *tmp_pkgs_deps = NULL;
@@ -1113,7 +1123,7 @@ struct pkg_list *lookup_pkg_dependencies(struct pkg_list *avail_pkgs,struct pkg_
 				}/* end realloc check */
 
 				/* now check to see if tmp_pkg has dependencies */
-				tmp_pkgs_deps = lookup_pkg_dependencies(avail_pkgs,installed_pkgs,tmp_pkg);
+				tmp_pkgs_deps = lookup_pkg_dependencies(global_config,avail_pkgs,installed_pkgs,tmp_pkg);
 				if( tmp_pkgs_deps->pkg_count > 0 ){
 
 					for(i = 0; i < tmp_pkgs_deps->pkg_count; i++ ){

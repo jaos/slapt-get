@@ -119,7 +119,7 @@ void write_pkg_data(const char *,FILE *,struct pkg_list *);
 void search_pkg_list(struct pkg_list *,struct pkg_list *,const char *);
 
 /* resolve dependencies */
-struct pkg_list *lookup_pkg_dependencies(struct pkg_list *,struct pkg_list *,pkg_info_t *);
+struct pkg_list *lookup_pkg_dependencies(const rc_config *,struct pkg_list *,struct pkg_list *,pkg_info_t *);
 pkg_info_t *parse_dep_entry(struct pkg_list *,struct pkg_list *,pkg_info_t *,char *);
 struct pkg_list *is_required_by(struct pkg_list *, pkg_info_t *);
 

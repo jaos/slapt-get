@@ -53,7 +53,7 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 			int c;
 			struct pkg_list *deps;
 
-			deps = lookup_pkg_dependencies(all,installed,pkg);
+			deps = lookup_pkg_dependencies(global_config,all,installed,pkg);
 
 			/* check to see if there where issues with dep checking */
 			if( (deps->pkg_count == -1) && (global_config->no_dep == 0) ){
@@ -102,7 +102,7 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 				int c;
 				struct pkg_list *deps;
 
-				deps = lookup_pkg_dependencies(all,installed,pkg);
+				deps = lookup_pkg_dependencies(global_config,all,installed,pkg);
 
 				/* check to see if there where issues with dep checking */
 				if( (deps->pkg_count == -1) && (global_config->no_dep == 0 ) ){
@@ -465,7 +465,7 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 				int c;
 				struct pkg_list *deps;
 
-				deps = lookup_pkg_dependencies(all_pkgs,installed_pkgs,update_pkg);
+				deps = lookup_pkg_dependencies(global_config,all_pkgs,installed_pkgs,update_pkg);
 
 				/* check to see if there where issues with dep checking */
 				if( (deps->pkg_count == -1) && (global_config->no_dep == 0) ){
@@ -529,7 +529,7 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 					int c;
 					struct pkg_list *deps;
 
-					deps = lookup_pkg_dependencies(all_pkgs,installed_pkgs,matches->pkgs[i]);
+					deps = lookup_pkg_dependencies(global_config,all_pkgs,installed_pkgs,matches->pkgs[i]);
 
 					/* check to see if there where issues with dep checking */
 					if( (deps->pkg_count == -1) && (global_config->no_dep == 0) ){

@@ -5,6 +5,7 @@
  * added example linuxpackages.net source lines for each slack version
  * added head_request function to return if the named file is the same as the remote file
  * updated is_excluded, to continue loop if regex compile fails
+ * return dep failure if one of the deps is excluded
 
 0.9.7 Nov 03, 2003
  * parse package require/dep from PACKAGES.TXT
