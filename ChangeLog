@@ -5,6 +5,7 @@
  * --list now shows pkg_name - pkg_vesion : pkg_description
  * get_newest_pkg now only takes 2 arguments, struct pkg_list and char pkg_name
  * resolves dependencies and adds them to the transaction
+   using lookup_pkg_dependencies and parse_dep_entry functions
  * make pkg now gzip's the manpage and strips the binary (thanks Jim)
 
 0.9.6g Oct 22, 2003
