@@ -94,6 +94,8 @@ dopkg:
 	-@mkdir -p pkg$(LOCALESDIR)/pt_BR/LC_MESSAGES; msgfmt -o pkg$(LOCALESDIR)/pt_BR/LC_MESSAGES/slapt-get.mo po/pt_BR.po
 	-@mkdir -p pkg$(LOCALESDIR)/no/LC_MESSAGES; msgfmt -o pkg$(LOCALESDIR)/no/LC_MESSAGES/slapt-get.mo po/no.po
 	-@mkdir -p pkg$(LOCALESDIR)/nl/LC_MESSAGES; msgfmt -o pkg$(LOCALESDIR)/nl/LC_MESSAGES/slapt-get.mo po/nl.po
+	-@mkdir -p pkg$(LOCALESDIR)/es_ES/LC_MESSAGES; msgfmt -o pkg$(LOCALESDIR)/es_ES/LC_MESSAGES/slapt-get.mo po/es_ES.po
+	-@mkdir -p pkg$(LOCALESDIR)/es/LC_MESSAGES; msgfmt -o pkg$(LOCALESDIR)/es/LC_MESSAGES/slapt-get.mo po/es.po
 	-@cp $(PROGRAM_NAME) ./pkg/sbin/
 	-@chown root:bin ./pkg/sbin/$(PROGRAM_NAME)
 	-@strip ./pkg/sbin/$(PROGRAM_NAME)
