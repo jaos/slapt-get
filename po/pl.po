@@ -217,10 +217,6 @@ msgid "Failed to unlink %s\n"
 msgstr "Nie powiodło się odlinkowanie %s\n"
 
 #, c-format
-msgid "verifying %s md5 checksum..."
-msgstr "Weryfikacja sumy kontrolnej dla %s..."
-
-#, c-format
 msgid "md5 sum for %s is not correct!\n"
 msgstr "Suma kontrolna (md5) dla %s jest niepoprawna!\n"
 
