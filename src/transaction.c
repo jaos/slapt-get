@@ -637,7 +637,7 @@ static void add_suggestion(transaction_t *tran, pkg_info_t *pkg){
 		p = pkg->suggests + position;
 		if( p == NULL ) break;
 
-		si = index(p,' ');
+		si = strpbrk(p," ,");
 		if( si == NULL || strlen(si) <= 2 ) break;
 		si = si + 1;
 

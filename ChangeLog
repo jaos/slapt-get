@@ -1,5 +1,6 @@
 
-0.9.9g Jan 20, 2005
+0.9.9g Jan 21, 2005
+ * upped the max size of package requires, suggests token can be ' ' or ',' now
  * moved exclude check for installed version of package about to be updated
    so that packages that where not being upgraded wouldn't show up excluded
  * removed redundant NULL check for available_pkgs and patch_pkgs, added
