@@ -1318,11 +1318,11 @@ static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list 
 			return newest_installed_pkg;
 		/* if "<" */
 		if( strstr(tmp_pkg_cond,"<") != NULL )
-			if( cmp_pkg_versions(tmp_pkg_ver,newest_installed_pkg->version) > 0 )
+			if( cmp_pkg_versions(tmp_pkg_ver,newest_installed_pkg->version) < 0 )
 				return newest_installed_pkg;
 		/* if ">" */
 		if( strstr(tmp_pkg_cond,">") != NULL )
-			if( cmp_pkg_versions(tmp_pkg_ver,newest_installed_pkg->version) < 0 )
+			if( cmp_pkg_versions(tmp_pkg_ver,newest_installed_pkg->version) > 0 )
 				return newest_installed_pkg;
 	}
 	for(i = 0; i < installed_pkgs->pkg_count; i++){
@@ -1335,11 +1335,11 @@ static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list 
 			return installed_pkgs->pkgs[i];
 		/* if "<" */
 		if( strstr(tmp_pkg_cond,"<") != NULL )
-			if( cmp_pkg_versions(tmp_pkg_ver,installed_pkgs->pkgs[i]->version) > 0 )
+			if( cmp_pkg_versions(tmp_pkg_ver,installed_pkgs->pkgs[i]->version) < 0 )
 				return installed_pkgs->pkgs[i];
 		/* if ">" */
 		if( strstr(tmp_pkg_cond,">") != NULL )
-			if( cmp_pkg_versions(tmp_pkg_ver,installed_pkgs->pkgs[i]->version) < 0 )
+			if( cmp_pkg_versions(tmp_pkg_ver,installed_pkgs->pkgs[i]->version) > 0 )
 				return installed_pkgs->pkgs[i];
 	}
 
@@ -1354,11 +1354,11 @@ static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list 
 			return newest_avail_pkg;
 		/* if "<" */
 		if( strstr(tmp_pkg_cond,"<") != NULL )
-			if( cmp_pkg_versions(tmp_pkg_ver,newest_avail_pkg->version) > 0 )
+			if( cmp_pkg_versions(tmp_pkg_ver,newest_avail_pkg->version) < 0 )
 				return newest_avail_pkg;
 		/* if ">" */
 		if( strstr(tmp_pkg_cond,">") != NULL )
-			if( cmp_pkg_versions(tmp_pkg_ver,newest_avail_pkg->version) < 0 )
+			if( cmp_pkg_versions(tmp_pkg_ver,newest_avail_pkg->version) > 0 )
 				return newest_avail_pkg;
 	}
 
@@ -1373,11 +1373,11 @@ static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list 
 			return avail_pkgs->pkgs[i];
 		/* if "<" */
 		if( strstr(tmp_pkg_cond,"<") != NULL )
-			if( cmp_pkg_versions(tmp_pkg_ver,avail_pkgs->pkgs[i]->version) > 0 )
+			if( cmp_pkg_versions(tmp_pkg_ver,avail_pkgs->pkgs[i]->version) < 0 )
 				return avail_pkgs->pkgs[i];
 		/* if ">" */
 		if( strstr(tmp_pkg_cond,">") != NULL )
-			if( cmp_pkg_versions(tmp_pkg_ver,avail_pkgs->pkgs[i]->version) < 0 )
+			if( cmp_pkg_versions(tmp_pkg_ver,avail_pkgs->pkgs[i]->version) > 0 )
 				return avail_pkgs->pkgs[i];
 	}
 
