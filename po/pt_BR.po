@@ -465,5 +465,5 @@ msgid "%s, which is required by %s, is excluded\n"
 msgstr "%s, que é requerido por %s, está excluido\n"
 
 msgid "skip dependency check"
-msgstr "skip dependency check"
+msgstr "ignorar checagem de dependência"
 
