@@ -47,6 +47,31 @@ enum action {
 	LIST, INSTALLED, CLEAN, SHOWVERSION, AUTOCLEAN
 };
 
+#define UPDATE_OPT 'u'
+#define UPGRADE_OPT 'g'
+#define INSTALL_OPT 'i'
+#define REMOVE_OPT 'r'
+#define SHOW_OPT 's'
+#define SEARCH_OPT 'e'
+#define LIST_OPT 't'
+#define INSTALLED_OPT 'd'
+#define CLEAN_OPT 'c'
+#define DOWNLOAD_ONLY_OPT 'o'
+#define SIMULATE_OPT 'm'
+#define VERSION_OPT 'v'
+#define NO_PROMPT_OPT 'b'
+#define REINSTALL_OPT 'n'
+#define IGNORE_EXCLUDES_OPT 'x'
+#define NO_MD5_OPT '5'
+#define DIST_UPGRADE_OPT 'h'
+#define HELP_OPT 'l'
+#define IGNORE_DEP_OPT 'p'
+#define NO_DEP_OPT 'q'
+#define PRINT_URIS_OPT 'P'
+#define SHOW_STATS_OPT 'S'
+#define CONFIG_OPT 'C'
+#define AUTOCLEAN_OPT 'a'
+
 #define DEBUG 0
 #define DO_NOT_UNLINK_BAD_FILES 1
 

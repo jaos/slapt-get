@@ -30,34 +30,34 @@ int main( int argc, char *argv[] ){
 	enum action do_action = 0;
 	int option_index = 0;
 	static struct option long_options[] = {
-		{"update", 0, 0, 'u'},
-		{"upgrade", 0, 0, 'g'},
-		{"install", 0, 0, 'i'},
-		{"remove", 0, 0, 'r'},
-		{"show", 0, 0, 's'},
-		{"search", 0, 0, 'e'},
-		{"list", 0, 0, 't'},
-		{"installed", 0, 0, 'd'},
-		{"clean", 0, 0, 'c'},
-		{"download-only", 0, 0, 'o'},
-		{"simulate", 0, 0, 'm'},
-		{"s", 0, 0, 'm'},
-		{"version", 0, 0, 'v'},
-		{"no-prompt", 0, 0, 'b'},
-		{"y", 0, 0, 'b'},
-		{"reinstall", 0, 0, 'n'},
-		{"ignore-excludes", 0, 0, 'x'},
-		{"no-md5", 0, 0, '5'},
-		{"dist-upgrade",0, 0, 'h'},
-		{"help",0, 0, 'l'},
-		{"h",0, 0, 'l'},
-		{"ignore-dep",0, 0, 'p'},
-		{"no-dep",0, 0, 'q'},
-		{"print-uris",0, 0, 'P'},
-		{"show-stats",0, 0, 'S'},
-		{"S",0, 0, 'S'},
-		{"config",1, 0, 'C'},
-		{"autoclean", 0, 0, 'a'},
+		{"update", 0, 0, UPDATE_OPT},
+		{"upgrade", 0, 0, UPGRADE_OPT},
+		{"install", 0, 0, INSTALL_OPT},
+		{"remove", 0, 0, REMOVE_OPT},
+		{"show", 0, 0, SHOW_OPT},
+		{"search", 0, 0, SEARCH_OPT},
+		{"list", 0, 0, LIST_OPT},
+		{"installed", 0, 0, INSTALLED_OPT},
+		{"clean", 0, 0, CLEAN_OPT},
+		{"download-only", 0, 0, DOWNLOAD_ONLY_OPT},
+		{"simulate", 0, 0, SIMULATE_OPT},
+		{"s", 0, 0, SIMULATE_OPT},
+		{"version", 0, 0, VERSION_OPT},
+		{"no-prompt", 0, 0, NO_PROMPT_OPT},
+		{"y", 0, 0, NO_PROMPT_OPT},
+		{"reinstall", 0, 0, REINSTALL_OPT},
+		{"ignore-excludes", 0, 0, IGNORE_EXCLUDES_OPT},
+		{"no-md5", 0, 0, NO_MD5_OPT},
+		{"dist-upgrade",0, 0, DIST_UPGRADE_OPT},
+		{"help",0, 0, HELP_OPT},
+		{"h",0, 0, HELP_OPT},
+		{"ignore-dep",0, 0, IGNORE_DEP_OPT},
+		{"no-dep",0, 0, NO_DEP_OPT},
+		{"print-uris",0, 0, PRINT_URIS_OPT},
+		{"show-stats",0, 0, SHOW_STATS_OPT},
+		{"S",0, 0, SHOW_STATS_OPT},
+		{"config",1, 0, CONFIG_OPT},
+		{"autoclean", 0, 0, AUTOCLEAN_OPT},
 		{0, 0, 0, 0},
 	};
 
@@ -85,74 +85,74 @@ int main( int argc, char *argv[] ){
 
 	while( ( c = getopt_long_only(argc,argv,"",long_options,&option_index ) ) != EOF ){
 		switch(c){
-			case 'u': /* update */
+			case UPDATE_OPT: /* update */
 				do_action = UPDATE;
 				break;
-			case 'i': /* install */
+			case INSTALL_OPT: /* install */
 				do_action = INSTALL;
 				break;
-			case 'r': /* remove */
+			case REMOVE_OPT: /* remove */
 				do_action = REMOVE;
 				break;
-			case 's': /* show */
+			case SHOW_OPT: /* show */
 				do_action = SHOW;
 				break;
-			case 'e': /* search */
+			case SEARCH_OPT: /* search */
 				do_action = SEARCH;
 				break;
-			case 't': /* list */
+			case LIST_OPT: /* list */
 				do_action = LIST;
 				break;
-			case 'd': /* installed */
+			case INSTALLED_OPT: /* installed */
 				do_action = INSTALLED;
 				break;
-			case 'c': /* clean */
+			case CLEAN_OPT: /* clean */
 				do_action = CLEAN;
 				break;
-			case 'g': /* upgrade */
+			case UPGRADE_OPT: /* upgrade */
 				do_action = UPGRADE;
 				break;
-			case 'o': /* download only flag */
+			case DOWNLOAD_ONLY_OPT: /* download only flag */
 				global_config->download_only = 1;
 				break;
-			case 'm': /* simulate */
+			case SIMULATE_OPT: /* simulate */
 				global_config->simulate = 1;
 				break;
-			case 'v': /* version */
+			case VERSION_OPT: /* version */
 				do_action = SHOWVERSION;
 				break;
-			case 'b': /* auto */
+			case NO_PROMPT_OPT: /* auto */
 				global_config->no_prompt = 1;
 				break;
-			case 'n': /* reinstall */
+			case REINSTALL_OPT: /* reinstall */
 				global_config->re_install = 1;
 				break;
-			case 'x': /* ignore-excludes */
+			case IGNORE_EXCLUDES_OPT: /* ignore-excludes */
 				global_config->ignore_excludes = 1;
 				break;
-			case '5': /* no-md5 */
+			case NO_MD5_OPT: /* no-md5 */
 				global_config->no_md5_check = 1;
 				break;
-			case 'h': /* dist-upgrade */
+			case DIST_UPGRADE_OPT: /* dist-upgrade */
 				global_config->dist_upgrade = 1;
 				do_action = UPGRADE;
 				break;
-			case 'l': /* help */
+			case HELP_OPT: /* help */
 				usage();
 				exit(1);
-			case 'p': /* ignore-dep */
+			case IGNORE_DEP_OPT: /* ignore-dep */
 				global_config->ignore_dep = 1;
 				break;
-			case 'q': /* no-dep */
+			case NO_DEP_OPT: /* no-dep */
 				global_config->disable_dep_check = 1;
 				break;
-			case 'P': /* print-uris */
+			case PRINT_URIS_OPT: /* print-uris */
 				global_config->print_uris = 1;
 				break;
-			case 'S': /* download-stats */
+			case SHOW_STATS_OPT: /* download-stats */
 				global_config->dl_stats = 1;
 				break;
-			case 'C': /* override rc location */
+			case CONFIG_OPT: /* override rc location */
 				{
 					rc_config *tmp_gc = global_config;
 					global_config = read_rc_config(optarg);
@@ -174,7 +174,7 @@ int main( int argc, char *argv[] ){
 					free_rc_config(tmp_gc);
 				}
 				break;
-			case 'a': /* clean old old package versions */
+			case AUTOCLEAN_OPT: /* clean old old package versions */
 				do_action = AUTOCLEAN;
 				break;
 			default:

@@ -1,5 +1,7 @@
 
 0.9.9f Jan 05, 2005
+ * changed longopts and switch cases to use macros for the command line
+   argument parsing
  * fixed bug (in -current with glibc 3.3.3) where unknown option to
    getopt_long_only caused segfaults by adding a missing {0, 0, 0, 0}
  * added cast to fix strpbrk() void pointer arith warning with gcc-3.4
