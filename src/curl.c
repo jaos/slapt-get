@@ -267,6 +267,14 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 
 	if( global_config->no_md5_check == 0 ){
 
+		/* check to see that we actually have an md5 checksum */
+		if( strcmp(pkg->md5,"") == 0){
+			printf(_("Could not find MD5 checksum for %s, override with --no-md5\n"),pkg->name);
+			chdir(global_config->working_dir);
+			free(file_name);
+			return -1;
+		}
+
 		/* check to see if the md5sum is correct */
 		if( strcmp(md5_sum_of_file,pkg->md5) != 0 ){
 			fprintf(stderr,_("md5 checksum for %s is not correct!\n"),pkg->name);

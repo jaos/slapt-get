@@ -484,3 +484,7 @@ msgstr "Reading Package Lists..."
 msgid "Download of %s incomplete\n"
 msgstr "Download of %s incomplete\n"
 
+#, c-format
+msgid "Could not find MD5 checksum for %s, override with --no-md5\n"
+msgstr "Could not find MD5 checksum for %s, override with --no-md5\n"
+
