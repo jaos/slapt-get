@@ -1464,9 +1464,8 @@ char *head_mirror_data(const char *wurl,const char *file){
 		free(head_data);
 		return NULL;
 	}
-	request_header_len =
-		(request_header_ptr == NULL) ? 0 : strlen(request_header_ptr) -
-		(delim_ptr == NULL) ? 0 : strlen(delim_ptr);
+	
+	request_header_len = strlen(request_header_ptr) - strlen(delim_ptr);
 	request_header = calloc( request_header_len + 1, sizeof *request_header );
 	memcpy(request_header,request_header_ptr,request_header_len);
 
