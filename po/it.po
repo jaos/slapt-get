@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.8h\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2004-07-25 11:36+0500\n"
+"PO-Revision-Date: 2004-08-04 20:30+0500\n"
 "Last-Translator: Francesco Gigli <jaramir@slack.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -465,4 +465,7 @@ msgstr "show download statistics"
 
 msgid "Cached\n"
 msgstr "Cached\n"
+
+msgid "Sources failed to download, correct sources and rerun --update\n"
+msgstr ""
 

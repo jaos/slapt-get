@@ -1,5 +1,6 @@
 
-0.9.8j Jul 31, 2004
+0.9.8j Aug 04, 2004
+ * made sure missing package cache shows appropriate error and stops action
  * return code for failed --update now correctly returns 1 (fixing scripting issues with slapt-get)
 
 0.9.8i Jul 31, 2004

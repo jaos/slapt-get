@@ -31,6 +31,7 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 	printf( _("Reading Package Lists... ") );
 	installed_pkgs = get_installed_pkgs();
 	avail_pkgs = get_available_pkgs();
+	if( avail_pkgs == NULL || avail_pkgs->pkg_count == 0 ) exit(1);
 	printf( _("Done\n") );
 
 	init_transaction(&tran);
@@ -371,6 +372,7 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 	installed_pkgs = get_installed_pkgs();
 	avail_pkgs = get_available_pkgs();
 	if( avail_pkgs == NULL || installed_pkgs == NULL ) exit(1);
+	if( avail_pkgs->pkg_count == 0 ) exit(1);
 	printf(_("Done\n"));
 	init_transaction(&tran);
 

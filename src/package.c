@@ -1721,19 +1721,19 @@ int update_pkg_cache(const rc_config *global_config){
 			}
 			printf(_("Done\n"));
 
+			/* write package listings to disk */
+			if( available_pkgs != NULL ){
+				write_pkg_data(global_config->sources.url[i],pkg_list_fh_tmp,available_pkgs);
+				free_pkg_list(available_pkgs);
+			}
+			if( patch_pkgs != NULL ){
+				write_pkg_data(global_config->sources.url[i],pkg_list_fh_tmp,patch_pkgs);
+				free_pkg_list(patch_pkgs);
+			}
+
 		}
 		free(checksum_filename);
 		fclose(tmp_checksum_f);
-
-		/* write package listings to disk */
-		if( available_pkgs != NULL ){
-			write_pkg_data(global_config->sources.url[i],pkg_list_fh_tmp,available_pkgs);
-			free_pkg_list(available_pkgs);
-		}
-		if( patch_pkgs != NULL ){
-			write_pkg_data(global_config->sources.url[i],pkg_list_fh_tmp,patch_pkgs);
-			free_pkg_list(patch_pkgs);
-		}
 
 	}/* end for loop */
 
@@ -1752,6 +1752,8 @@ int update_pkg_cache(const rc_config *global_config){
 		}
 		fclose(pkg_list_fh);
 
+	}else{
+		printf(_("Sources failed to download, correct sources and rerun --update\n"));
 	}
 
 	/* close the tmp pkg list file */
