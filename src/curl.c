@@ -52,7 +52,7 @@ int download_data(FILE *fh,const char *url,size_t bytes,int use_curl_dl_stats){
 			* this is a simple hack for all ftp sources that won't have a patches dir
 			* we don't want an ugly error to confuse the user
 		*/
-		if( strstr(url,"/patches/PACKAGES.TXT") != NULL ){
+		if( strstr(url,PATCHES_LIST) != NULL ){
 			return_code = 0;
 		}else{
 			fprintf(stderr,_("Failed to download: %s\n"),curl_err_buff);
