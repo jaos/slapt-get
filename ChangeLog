@@ -1,5 +1,8 @@
 
 0.9.8e May 26, 2004
+ * write package data to temp file during --update, merge into final package_data
+   file upon successful download of all package data sources. Thanks go to
+   Matthew Robinson (moo@ooo.com) for the idea.
  * renamed variables in update_pkg_cache() to designate files (_f)
  * removed legacy parse_file_list()
  * initialized global_config->no_prompt and global_config->re_install

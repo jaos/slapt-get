@@ -1361,11 +1361,13 @@ pkg_info_t *get_pkg_by_details(struct pkg_list *list,char *name,char *version,ch
 
 /* update package data from mirror url */
 void update_pkg_cache(const rc_config *global_config){
-	int i;
-	FILE *pkg_list_fh;
+	int i,source_dl_failed = 0;
+	FILE *pkg_list_fh_tmp;
 
-	pkg_list_fh = open_file(PKG_LIST_L,"w+");
+	/* open tmp pkg list file */
+	pkg_list_fh_tmp = tmpfile();
 
+	/* go through each package source and download the meta data */
 	for(i = 0; i < global_config->sources.count; i++){
 		FILE *tmp_pkg_f,*tmp_patch_f,*tmp_checksum_f;
 		struct pkg_list *available_pkgs = NULL;
@@ -1382,6 +1384,8 @@ void update_pkg_cache(const rc_config *global_config){
 			rewind(tmp_pkg_f); /* make sure we are back at the front of the file */
 			available_pkgs = parse_packages_txt(tmp_pkg_f);
 			if( global_config->dl_stats != 1 ) printf(_("Done\n"));
+		}else{
+			source_dl_failed = 1;
 		}
 		fclose(tmp_pkg_f);
 
@@ -1396,6 +1400,9 @@ void update_pkg_cache(const rc_config *global_config){
 			rewind(tmp_patch_f); /* make sure we are back at the front of the file */
 			patch_pkgs = parse_packages_txt(tmp_patch_f);
 			if( global_config->dl_stats != 1 ) printf(_("Done\n"));
+		}else{
+			/* we don't care if the patch fails, for example current doesn't have patches */
+			/* source_dl_failed = 1; */
 		}
 		fclose(tmp_patch_f);
 
@@ -1410,7 +1417,7 @@ void update_pkg_cache(const rc_config *global_config){
 			int a;
 			if( global_config->dl_stats != 1 ) printf(_("Done\n"));
 
-			/* now map md5 sum to packages */
+			/* now map md5 checksums to packages */
 			printf(_("Reading Package Lists..."));
 			rewind(tmp_checksum_f); /* make sure we are back at the front of the file */
 			if( available_pkgs != NULL ){
@@ -1426,21 +1433,41 @@ void update_pkg_cache(const rc_config *global_config){
 				}
 			}
 			printf(_("Done\n"));
+		}else{
+			source_dl_failed = 1;
 		}
 		fclose(tmp_checksum_f);
 
 		/* write package listings to disk */
 		if( available_pkgs != NULL ){
-			write_pkg_data(global_config->sources.url[i],pkg_list_fh,available_pkgs);
+			write_pkg_data(global_config->sources.url[i],pkg_list_fh_tmp,available_pkgs);
 			free_pkg_list(available_pkgs);
 		}
 		if( patch_pkgs != NULL ){
-			write_pkg_data(global_config->sources.url[i],pkg_list_fh,patch_pkgs);
+			write_pkg_data(global_config->sources.url[i],pkg_list_fh_tmp,patch_pkgs);
 			free_pkg_list(patch_pkgs);
 		}
 
 	}
-	fclose(pkg_list_fh);
+
+	/* if all our downloads where a success, write to PKG_LIST_L */
+	if( source_dl_failed != 1 ){
+		ssize_t bytes_read;
+		size_t getline_len = 0;
+		char *getline_buffer = NULL;
+		FILE *pkg_list_fh;
+
+		pkg_list_fh = open_file(PKG_LIST_L,"w+");
+		rewind(pkg_list_fh_tmp);
+		while( (bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh_tmp) ) != EOF ){
+			fprintf(pkg_list_fh,getline_buffer);
+		}
+		fclose(pkg_list_fh);
+
+	}
+
+	/* close the tmp pkg list file */
+	fclose(pkg_list_fh_tmp);
 
 	return;
 }
