@@ -552,10 +552,11 @@ Frequently Asked Questions:
  user passes in --no-prompt on the command line).  After this confirmation, all
  packages will be downloaded before anything else happens.  If anything fails
  to download, the transaction is immediately aborted.	If all packages download
- successfully, all packages to be installed (new installs) are installed first.
- This should satisfy dependencies of the packages to be upgraded, which follow
- after the new installs.  Finally, all removals in the transaction are
- completed.  This helps keep your system in a consistent state.
+ successfully, all removals in the transaction are completed first (in case 
+ packages being installed/upgraded share files with the packages to be removed).
+ Next, all packages to be installed (new installs) are installed.  This should
+ satisfy dependencies of the packages to be upgraded, which follow after the new
+ installs.  This helps keep your system in a consistent state.
 
 
 27. How does the package version comparison algorithm work?

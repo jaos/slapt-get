@@ -1,5 +1,8 @@
 
 0.9.9g Jan 29, 2005
+ * changed order of transaction, removes now happen first in case files in the
+   packages to be removed are shared with those packages about to be installed
+   or upgraded.
  * ensure that package removal doesn't happen when --download-only is specified
  * updated documentation
  * transaction report now reports sizes in kB or in MB
