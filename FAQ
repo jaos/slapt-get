@@ -883,6 +883,7 @@ Frequenty Asked Questions:
    or are somehow locked into using slapt-get.  The only additions to your
    system are /etc/slapt-get and /var/slapt-get.  You are free to try another
    solution or go back to manual upgradepkg.
+ * UPGRADE.TXT is still required reading
 
 
 48. What is a meta package and how can I take advantage of it?
