@@ -1,6 +1,6 @@
 
 0.9.8e May 24, 2004
- * initialized global_config->no_prompt
+ * initialized global_config->no_prompt and global_config->re_install
  * moved create_dir_structure() and gen_md5_sum_of_file() and to common.[ch]
  * created gen_pkg_file_name() and gen_pkg_url() functions
  * tightened up scope on some variables
