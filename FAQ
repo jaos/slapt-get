@@ -172,6 +172,8 @@ Frequenty Asked Questions:
    PACKAGE DESCRIPTION:
    man: man (format and display the on-line manual pages)
 
+ which could be generated from a file such as: ./install/slack-required .
+
  He has declined the request at this time, citing a "niche" for a
  distribution without "dependancy hell".  I believe leaving out the requirement
  field does not prevent dependancy hell, it simply hides it, passing the burden
