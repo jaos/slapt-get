@@ -1242,6 +1242,7 @@ static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list 
 		#if DEBUG == 1
 		printf("regex %s failed on %s\n",REQUIRED_REGEX,dep_entry);
 		#endif
+		free_regex(&parse_dep_regex);
 		return NULL;
 	}
 
@@ -1266,8 +1267,14 @@ static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list 
 		#if DEBUG == 1
 		printf("no conditional\n");
 		#endif
-		if( newest_avail_pkg != NULL ) return newest_avail_pkg;
-		if( newest_installed_pkg != NULL ) return newest_installed_pkg;
+		if( newest_avail_pkg != NULL ){
+			free_regex(&parse_dep_regex);
+			return newest_avail_pkg;
+		}
+		if( newest_installed_pkg != NULL ){
+			free_regex(&parse_dep_regex);
+			return newest_installed_pkg;
+		}
 	}
 
 	if( (parse_dep_regex.pmatch[2].rm_eo - parse_dep_regex.pmatch[2].rm_so) > 3 ){

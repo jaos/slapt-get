@@ -1,5 +1,6 @@
 
 0.9.9g Jan 13, 2005
+ * added missing free_regex() calls in parse_meta_entry()
  * deps of pkg that conflict are now set to remove just like when conflicts of
    requested pkg to install are detected
  * fixed bug where conflict of a dep might slip through and allow the requested
