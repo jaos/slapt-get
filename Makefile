@@ -49,14 +49,21 @@ clean:
 	-rm src/*.o
 	-if [ -d pkg ]; then rm -rf pkg ;fi
 
+# add this back in later
+#-@mkdir -p pkg/usr/lib
+#-@mkdir -p pkg/usr/include/slapt
+#-@cp include/*.h pkg/usr/include/slapt/
+#-@mv pkg/usr/include/slapt/main.h pkg/usr/include/slapt/slapt.h
+#-@cp src/libslapt-$(VERSION).a src/libslapt-$(VERSION).so pkg/usr/lib/
+#-@strip pkg/usr/lib/libslapt-$(VERSION).so
+#-@ln -s pkg/usr/lib/libslapt-$(VERSION).so pkg/usr/lib/libslapt.so
+
 pkg: $(PROGRAM_NAME) libs
 	-@mkdir pkg
 	-@mkdir -p pkg/sbin
 	-@mkdir -p pkg/etc
 	-@mkdir -p pkg/install
 	-@mkdir -p pkg/usr/man/man8
-	-@mkdir -p pkg/usr/lib
-	-@mkdir -p pkg/usr/include/slapt
 	-@mkdir -p pkg$(LOCALESDIR)
 	-@mkdir -p pkg$(LOCALESDIR)/en/LC_MESSAGES; msgfmt -o pkg$(LOCALESDIR)/en/LC_MESSAGES/slapt-get.mo po/en.po
 	-@cp $(PROGRAM_NAME) ./pkg/sbin/
@@ -69,10 +76,6 @@ pkg: $(PROGRAM_NAME) libs
 	-@cp slack-desc pkg/install/
 	-@cp slack-required pkg/install/
 	-@cp $(PROGRAM_NAME).8 pkg/usr/man/man8/
-	-@cp include/*.h pkg/usr/include/slapt/
-	-@mv pkg/usr/include/slapt/main.h pkg/usr/include/slapt/slapt.h
-	-@cp src/libslapt-$(VERSION).a src/libslapt-$(VERSION).so pkg/usr/lib/
-	-@ln -s pkg/usr/lib/libslapt-$(VERSION).so pkg/usr/lib/libslapt.so
 	-@gzip pkg/usr/man/man8/$(PROGRAM_NAME).8
 	@( cd pkg; makepkg -l y -c y $(PROGRAM_NAME)-$(VERSION)-$(ARCH)-$(RELEASE).tgz )
 
