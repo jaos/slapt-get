@@ -18,10 +18,11 @@
 
 #include <main.h>
 
-void download_data(FILE *fh,const char *url){
+int download_data(FILE *fh,const char *url){
 	CURL *ch = NULL;
 	CURLcode response;
 	char curl_err_buff[1024];
+	int return_code = 1;
 
 #if DEBUG == 1
 	printf("Fetching url:[%s]\n",url);
@@ -37,9 +38,12 @@ void download_data(FILE *fh,const char *url){
 
 	if( (response = curl_easy_perform(ch)) != 0 ){
 		fprintf(stderr,"failed to download: %s\n",curl_err_buff);
+		return_code = -1;
 	}
 	/* curl_easy_cleanup(ch); */
 	curl_free(ch);
+
+	return return_code;
 }
 
 FILE *download_pkg_list(const rc_config *global_config){
@@ -64,10 +68,11 @@ FILE *download_pkg_list(const rc_config *global_config){
 
 	strncpy(url,global_config->mirror_url,strlen(global_config->mirror_url) );
 	strncat(url,PKG_LIST,strlen(PKG_LIST) );
-	download_data(fh,url);
+	if( download_data(fh,url) == 1 ){
 #if USE_CURL_PROGRESS == 0
-	printf("Done\n");
+		printf("Done\n");
 #endif
+	}
 
 	free(url);
 	rewind(fh); /* make sure we are back at the front of the file */
@@ -97,10 +102,11 @@ FILE *download_patches_list(const rc_config *global_config){
 	strncpy(url,global_config->mirror_url,strlen(global_config->mirror_url) );
 	strncat(url,PATCHDIR,strlen(PATCHDIR) );
 	strncat(url,PATCHES_LIST,strlen(PATCHES_LIST) );
-	download_data(fh,url);
+	if( download_data(fh,url) == 1 ){
 #if USE_CURL_PROGRESS == 0
-	printf("Done\n");
+		printf("Done\n");
 #endif
+	}
 
 	free(url);
 	rewind(fh); /* make sure we are back at the front of the file */
@@ -129,10 +135,11 @@ FILE *download_checksum_list(const rc_config *global_config){
 
 	strncpy(url,global_config->mirror_url,strlen(global_config->mirror_url) );
 	strncat(url,CHECKSUM_FILE,strlen(CHECKSUM_FILE) );
-	download_data(fh,url);
+	if( download_data(fh,url) == 1 ){
 #if USE_CURL_PROGRESS == 0
-	printf("Done\n");
+		printf("Done\n");
 #endif
+	}
 
 	free(url);
 	rewind(fh); /* make sure we are back at the front of the file */
@@ -202,11 +209,13 @@ char *download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 #endif
 
 	fh = open_file(file_name,"wb");
-	download_data(fh,url);
-
+	if( download_data(fh,url) == 1 ){
 #if USE_CURL_PROGRESS == 0
-	printf("Done\n");
+		printf("Done\n");
 #endif
+	}else{
+		return file_name;
+	}
 
 	fclose(fh);
 

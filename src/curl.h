@@ -19,7 +19,7 @@
 #define USE_CURL_PROGRESS 0
 
 /* FUNCTION DEFINITIONS */
-void download_data(FILE *,const char *);
+int download_data(FILE *,const char *);
 FILE *download_pkg_list(const rc_config *);
 FILE *download_file_list(const rc_config *);
 FILE *download_patches_list(const rc_config *);
