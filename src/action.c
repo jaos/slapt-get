@@ -371,7 +371,8 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 			}
 
 			/* if the update has a newer version, attempt to upgrade */
-			if( (cmp_pkg_versions(installed_pkgs->pkgs[i]->version,update_pkg->version)) < 0 ){
+			if( (cmp_pkg_versions(installed_pkgs->pkgs[i]->version,update_pkg->version)) < 0
+				|| (global_config->re_install == 1) ){
 				int c;
 				struct pkg_list *deps;
 
@@ -397,7 +398,8 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 								add_install_to_transaction(&tran,deps->pkgs[c]);
 							}else{
 								/* add upgrade if newer */
-								if(cmp_pkg_versions(dep_installed->version,deps->pkgs[c]->version) < 0 )
+								if(cmp_pkg_versions(dep_installed->version,deps->pkgs[c]->version) < 0
+									|| (global_config->re_install == 1) )
 									add_upgrade_to_transaction(&tran,dep_installed,deps->pkgs[c]);
 							}
 
@@ -464,7 +466,8 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 									add_install_to_transaction(&tran,deps->pkgs[c]);
 								}else{
 									/* add upgrade if newer */
-									if(cmp_pkg_versions(dep_installed->version,deps->pkgs[c]->version) < 0 )
+									if(cmp_pkg_versions(dep_installed->version,deps->pkgs[c]->version) < 0 
+										|| (global_config->re_install == 1) )
 										add_upgrade_to_transaction(&tran,dep_installed,deps->pkgs[c]);
 								}
 							}
