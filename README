@@ -34,15 +34,17 @@ Table of Contents:
     * supports multiple package sources (including linuxpackage.net)
     * cache package, update, and extra data from package sources
     * supports sources from ftp, ftps, http, https, file:/// and more (libcurl)
-    * verify package integrity with MD5 checksum
+    * resumes broken downloads and will verify package integrity with MD5
+      checksum
     * show packages that are available (from cached data) and installed
     * search package listing using POSIX and extended regular expressions
       by package name, location, and description
-    * retrieve, install, and remove packages by name
+    * retrieve, install, and remove packages by name or by specific version
     * retrieve and apply updates
     * upgrade from one slackware release to another in a few simple steps
     * show description of packages, including mirror location, version, size,
-      dependencies (where available), description, and installation status
+      dependencies (where available), conflicts (where available), description,
+      and installation status
     * exclude (hold) packages from upgrades, by name or by regular expression
     * transaction engine for install, remove, and upgrades
     * "compare package version" algorithm to prevent downgrades
