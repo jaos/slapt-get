@@ -300,24 +300,22 @@ void pkg_action_show(const char *pkg_name){
 	/* If so, parse it out and try to get that version only */
 	if( pkg_regex.reg_return == 0 ){
 
-		pkg_info_t *tmp_pkg = init_pkg();
+		char p_name[NAME_LEN];
+		char p_version[VERSION_LEN];
 
-		strncpy(tmp_pkg->name,
+		strncpy(p_name,
 			pkg_name + pkg_regex.pmatch[1].rm_so,
 			pkg_regex.pmatch[1].rm_eo - pkg_regex.pmatch[1].rm_so
 		);
+		p_name[ pkg_regex.pmatch[1].rm_eo - pkg_regex.pmatch[1].rm_so ] = '\0';
 
-		tmp_pkg->name[ pkg_regex.pmatch[1].rm_eo - pkg_regex.pmatch[1].rm_so ] = '\0';
-
-		strncpy(tmp_pkg->version,
+		strncpy(p_version,
 			pkg_name + pkg_regex.pmatch[2].rm_so,
 			pkg_regex.pmatch[2].rm_eo - pkg_regex.pmatch[2].rm_so
 		);
+		p_version[ pkg_regex.pmatch[2].rm_eo - pkg_regex.pmatch[2].rm_so ] = '\0';
 
-		tmp_pkg->version[ pkg_regex.pmatch[2].rm_eo - pkg_regex.pmatch[2].rm_so ] = '\0';
-		pkg = get_exact_pkg(avail_pkgs, tmp_pkg->name, tmp_pkg->version);
-
-		free(tmp_pkg);
+		pkg = get_exact_pkg(avail_pkgs, p_name, p_version);
 
 	}else{
 		pkg = get_newest_pkg(avail_pkgs,pkg_name);

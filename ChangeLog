@@ -1,5 +1,6 @@
 
 0.9.8e May 24, 2004
+ * pkg_action_show no longer uses a temp pkg_info_t, just 2 char *
  * updated FAQ, added question about mirroring and bash tab completion
  * moved create_dir_structure from configuration.[ch] to curl.[ch]
  * get compressed and uncompressed information from package log in
