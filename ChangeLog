@@ -1,5 +1,6 @@
 
 0.9.8e Jun 07, 2004
+ * moved search_transaction() calls into add_[install,upgrade,exclude]_to_transaction()
  * updated doinstall make target
  * dist-upgrade will now reinstall if the package versions differ (vanilla
    version cmp not good enough since it ignores arch)... this fixes packages

@@ -98,13 +98,8 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 
 				if( add_deps_to_trans(global_config,&tran,avail_pkgs,installed_pkgs,pkg) == 0 ){
 					/* this way we install the most up to date pkg */
-					/* make sure it is not already present from a dep check */
-					if( search_transaction(&tran,pkg) == 0 ){
-
-						if ( is_conflicted(&tran,avail_pkgs,installed_pkgs,pkg) == 0 )
-							add_install_to_transaction(&tran,pkg);
-
-					}
+					if ( is_conflicted(&tran,avail_pkgs,installed_pkgs,pkg) == 0 )
+						add_install_to_transaction(&tran,pkg);
 				}
 
 		}else{ /* else we upgrade or reinstall */
@@ -116,13 +111,8 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 			){
 
 				if( add_deps_to_trans(global_config,&tran,avail_pkgs,installed_pkgs,pkg) == 0 ){
-					/* make sure it is not already present from a dep check */
-					if( search_transaction(&tran,pkg) == 0 ){
-
-						if ( is_conflicted(&tran,avail_pkgs,installed_pkgs,pkg) == 0 )
-							add_upgrade_to_transaction(&tran,installed_pkg,pkg);
-
-					}
+					if ( is_conflicted(&tran,avail_pkgs,installed_pkgs,pkg) == 0 )
+						add_upgrade_to_transaction(&tran,installed_pkg,pkg);
 				}
 
 			}else{
@@ -218,11 +208,8 @@ void pkg_action_remove(const rc_config *global_config,const pkg_action_args_t *a
 
 			for(c = 0; c < deps->pkg_count;c++){
 
-				/* if not already in the transaction, add if installed */
-				if( search_transaction(&tran,deps->pkgs[c]) == 0 ){
-					if( get_newest_pkg(installed_pkgs,deps->pkgs[c]->name) != NULL ){
-						add_remove_to_transaction(&tran,deps->pkgs[c]);
-					}
+				if( get_newest_pkg(installed_pkgs,deps->pkgs[c]->name) != NULL ){
+					add_remove_to_transaction(&tran,deps->pkgs[c]);
 				}
 
 			}
@@ -232,8 +219,7 @@ void pkg_action_remove(const rc_config *global_config,const pkg_action_args_t *a
 			free(deps->pkgs);
 			free(deps);
 
-			if( search_transaction(&tran,pkg) == 0 )
-				add_remove_to_transaction(&tran,pkg);
+			add_remove_to_transaction(&tran,pkg);
 
 		}else{
 			printf(_("%s is not installed.\n"),action_args->pkgs[i]);
@@ -417,16 +403,11 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 			){
 
 				if( add_deps_to_trans(global_config,&tran,avail_pkgs,installed_pkgs,update_pkg) == 0 ){
-					/* add if it is not already present in trans */
-					if( search_transaction(&tran,update_pkg) == 0 ){
-						if( is_excluded(global_config,update_pkg) == 1 ){
-							add_exclude_to_transaction(&tran,update_pkg);
-						}else{
-
-							if ( is_conflicted(&tran,avail_pkgs,installed_pkgs,update_pkg) == 0 )
-								add_upgrade_to_transaction(&tran,installed_pkgs->pkgs[i],update_pkg);
-
-						}
+					if( is_excluded(global_config,update_pkg) == 1 ){
+						add_exclude_to_transaction(&tran,update_pkg);
+					}else{
+						if ( is_conflicted(&tran,avail_pkgs,installed_pkgs,update_pkg) == 0 )
+							add_upgrade_to_transaction(&tran,installed_pkgs->pkgs[i],update_pkg);
 					}
 				}
 
@@ -452,13 +433,8 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 				}else{
 
 					if( add_deps_to_trans(global_config,&tran,avail_pkgs,installed_pkgs,matches->pkgs[i]) == 0 ){
-						/* add if it is not already present in trans */
-						if( search_transaction(&tran,matches->pkgs[i]) == 0 ){
-
-							if ( is_conflicted(&tran,avail_pkgs,installed_pkgs,matches->pkgs[i]) == 0 )
-								add_install_to_transaction(&tran,matches->pkgs[i]);
-
-						}
+						if ( is_conflicted(&tran,avail_pkgs,installed_pkgs,matches->pkgs[i]) == 0 )
+							add_install_to_transaction(&tran,matches->pkgs[i]);
 					}
 
 				}
@@ -474,11 +450,8 @@ void pkg_action_upgrade_all(const rc_config *global_config){
 					add_exclude_to_transaction(&tran,matches->pkgs[i]);
 				}else{
 					if( add_deps_to_trans(global_config,&tran,avail_pkgs,installed_pkgs,matches->pkgs[i]) == 0 ){
-						/* add if it is not already present in trans */
-						if( search_transaction(&tran,matches->pkgs[i]) == 0 ){
-							if ( is_conflicted(&tran,avail_pkgs,installed_pkgs,matches->pkgs[i]) == 0 )
-								add_upgrade_to_transaction(&tran,installed_pkg,matches->pkgs[i]);
-						}
+						if ( is_conflicted(&tran,avail_pkgs,installed_pkgs,matches->pkgs[i]) == 0 )
+							add_upgrade_to_transaction(&tran,installed_pkg,matches->pkgs[i]);
 					}
 				}
 

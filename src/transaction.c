@@ -222,6 +222,9 @@ int handle_transaction(const rc_config *global_config, transaction *tran){
 void add_install_to_transaction(transaction *tran,pkg_info_t *pkg){
 	pkg_info_t **tmp_list;
 
+	/* don't add if already present in the transaction */
+	if( search_transaction(tran,pkg) == 1 ) return;
+
 	#if DEBUG == 1
 	printf("adding install of %s-%s@%s to transaction\n",
 		pkg->name,pkg->version,pkg->location);
@@ -278,6 +281,9 @@ void add_remove_to_transaction(transaction *tran,pkg_info_t *pkg){
 void add_exclude_to_transaction(transaction *tran,pkg_info_t *pkg){
 	pkg_info_t **tmp_list;
 
+	/* don't add if already present in the transaction */
+	if( search_transaction(tran,pkg) == 1 ) return;
+
 	#if DEBUG == 1
 	printf("adding exclude of %s-%s@%s to transaction\n",
 		pkg->name,pkg->version,pkg->location);
@@ -307,6 +313,9 @@ void add_upgrade_to_transaction(
 	transaction *tran, pkg_info_t *installed_pkg, pkg_info_t *upgrade_pkg
 ){
 	pkg_upgrade_t **tmp_list;
+
+	/* don't add if already present in the transaction */
+	if( search_transaction(tran,upgrade_pkg) == 1 ) return;
 
 	#if DEBUG == 1
 	printf("adding upgrade of %s-%s@%s to transaction\n",
