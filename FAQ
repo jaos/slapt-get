@@ -326,11 +326,11 @@ Frequenty Asked Questions:
 		    echo "File not found: $1"
 		    exit 1;
 	    fi
-			if [ "`echo $pkg|grep -E '([a-zA-Z0-9\\+_\\-]+)-([a-zA-Z0-9._\\-]+).tgz$'`" == "" ]; then
+			if [ "`echo $1|grep -E '([a-zA-Z0-9\\+_\\-]+)-([a-zA-Z0-9._\\-]+).tgz$'`" == "" ]; then
 				return;
 			fi
-	    NAME=$(echo $1|sed -re "s/([a-zA-Z0-9\/\.\-\+]+\/)(.*.tgz)$/\2/")
-	    LOCATION=$(echo $1|sed -re "s/([a-zA-Z0-9\/\.\-\+]+\/)(.*.tgz)$/\1/")
+	    NAME=$(echo $1|sed -re "s/(.*\/)(.*.tgz)$/\2/")
+	    LOCATION=$(echo $1|sed -re "s/(.*\/)(.*.tgz)$/\1/")
 	    SIZE=$( expr `gunzip -l $1 |tail -1|awk '{print $1}'` / 1024 )
 	    USIZE=$( expr `gunzip -l $1 |tail -1|awk '{print $2}'` / 1024 )
 	    REQUIRED=$(tar xzf $1 install/slack-required -O 2>/dev/null|xargs -r -iZ echo -n "Z,"|sed -e "s/,$//")
