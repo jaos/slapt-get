@@ -383,7 +383,7 @@ msgid "  %s: Depends: %s\n"
 msgstr " %s: Zale¿y: %s\n"
 
 msgid "The following packages have been EXCLUDED:\n"
-msgstr "Nastêpujace pakiety zosta³y POMINIÊTE:\n"
+msgstr "Nastêpuj±ce pakiety zosta³y POMINIÊTE:\n"
 
 msgid "The following NEW packages will be installed:\n"
 msgstr "Nastêpuj±ce NEW pakiety zostan± zainstalowane:\n"
