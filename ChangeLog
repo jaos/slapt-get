@@ -1,5 +1,6 @@
 
 0.9.8j Aug 05, 2004
+ * makefile update, fixing libslapt symlink
  * translation updates
  * made sure missing package cache shows appropriate error and stops action
  * return code for failed --update now correctly returns 1 (fixing scripting issues with slapt-get)
