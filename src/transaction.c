@@ -668,16 +668,21 @@ static void add_suggestion(transaction_t *tran, pkg_info_t *pkg){
 		if( p == NULL ) break;
 
 		si = strpbrk(p," ,");
-		if( si == NULL || strlen(si) <= 2 ) break;
-		si = si + 1;
+		if( si == NULL || strlen(si) <= 2 ){
+			total_len = strlen(p);
+			rest_len = 0;
+			tmp_suggests = strndup(p,strlen(p));
+		}else{
+			si = si + 1;
 
-		total_len = strlen(p);
-		rest_len = strlen(si);
+			total_len = strlen(p);
+			rest_len = strlen(si);
 
-		/* this will always encompass ending space, so we dont + 1 */
-		tmp_suggests = slapt_malloc(sizeof *tmp_suggests * (total_len - rest_len) );
-		tmp_suggests = strncpy(tmp_suggests,p,(total_len - rest_len));
-		tmp_suggests[total_len - rest_len - 1] = '\0';
+			/* this will always encompass ending space, so we dont + 1 */
+			tmp_suggests = slapt_malloc(sizeof *tmp_suggests * (total_len - rest_len) );
+			tmp_suggests = strncpy(tmp_suggests,p,(total_len - rest_len));
+			tmp_suggests[total_len - rest_len - 1] = '\0';
+		}
 
 		/* no need to add it if we already have it */
 		if( search_transaction(tran,tmp_suggests) == 1 ){
