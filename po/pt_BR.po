@@ -454,9 +454,9 @@ msgstr "Lendo Listas de Pacotes..."
 
 #, c-format
 msgid "Download of %s incomplete\n"
-msgstr "Download of %s incomplete\n"
+msgstr "Download de %s incompleto\n"
 
 #, c-format
 msgid "Could not find MD5 checksum for %s, override with --no-md5\n"
-msgstr "Could not find MD5 checksum for %s, override with --no-md5\n"
+msgstr "Não foi possível encontrar o checksum MD5 para %s, ignorar com --no-md5\n"
 
