@@ -1162,23 +1162,19 @@ int get_pkg_dependencies(const rc_config *global_config,struct pkg_list *avail_p
 				pkg_info_t *tmp = NULL;
 				unsigned int i = 0;
 				while(i < deps->pkg_count){
-					if( (strcmp(deps->pkgs[i]->name,tmp_pkg->name) == 0)
-						&& tmp == NULL
-					){
+					if( strcmp(deps->pkgs[i]->name,tmp_pkg->name) == 0 && tmp == NULL )
 						tmp = deps->pkgs[i];
-					}
-					if( tmp != NULL && (i+1 < deps->pkg_count) ){
+					if( tmp != NULL && (i+1 < deps->pkg_count) )
 						deps->pkgs[i] = deps->pkgs[i + 1];
-					}
 					++i;
 				}
 				if( tmp != NULL ) deps->pkgs[deps->pkg_count - 1] = tmp;
 			}
 
+		#if DEBUG == 1
 		}else{
-			#if DEBUG == 1
 			printf("%s already exists in dep list\n",tmp_pkg->name);
-			#endif
+		#endif
 		} /* end already exists in dep check */
 
 
