@@ -579,40 +579,24 @@ int add_deps_to_trans(const rc_config *global_config, transaction_t *tran, struc
 
 	/* loop through the deps */
 	for(c = 0; c < deps->pkg_count;c++){
+		pkg_info_t *dep_installed;
+		pkg_info_t *conflicted_pkg = NULL;
 
-		/* only check if it is not already present in trans */
-		if( search_transaction(tran,deps->pkgs[c]->name) == 0 ){
+		/*
+		 * the dep wouldn't get this far if it where excluded,
+		 * so we don't check for that here
+		 */
 
-			pkg_info_t *dep_installed;
+		if ( (conflicted_pkg = is_conflicted(tran,avail_pkgs,installed_pkgs,deps->pkgs[c])) != NULL ){
+			add_remove_to_transaction(tran,conflicted_pkg);
+		}
 
-			/*
-			 * the dep wouldn't get this far if it where excluded,
-			 * so we don't check for that here
-			 */
-
-			if( (dep_installed = get_newest_pkg(installed_pkgs,deps->pkgs[c]->name)) == NULL ){
-				pkg_info_t *conflicted_pkg = NULL;
-
-				if ( (conflicted_pkg = is_conflicted(tran,avail_pkgs,installed_pkgs,deps->pkgs[c])) != NULL ){
-					add_remove_to_transaction(tran,conflicted_pkg);
-				}
-				add_install_to_transaction(tran,deps->pkgs[c]);
-
-			}else{
-
-				/* add only if its a valid upgrade */
-				if(cmp_pkg_versions(dep_installed->version,deps->pkgs[c]->version) < 0 ){
-				pkg_info_t *conflicted_pkg = NULL;
-
-					if ( (conflicted_pkg = is_conflicted(tran,avail_pkgs,installed_pkgs,deps->pkgs[c])) != NULL ){
-						add_remove_to_transaction(tran,conflicted_pkg);
-					}
-					add_upgrade_to_transaction(tran,dep_installed,deps->pkgs[c]);
-
-				}
-
-			}
-
+		if( (dep_installed = get_newest_pkg(installed_pkgs,deps->pkgs[c]->name)) == NULL ){
+			add_install_to_transaction(tran,deps->pkgs[c]);
+		}else{
+			/* add only if its a valid upgrade */
+			if(cmp_pkg_versions(dep_installed->version,deps->pkgs[c]->version) < 0 )
+				add_upgrade_to_transaction(tran,dep_installed,deps->pkgs[c]);
 		}
 
 	}
