@@ -925,8 +925,12 @@ int cmp_pkg_versions(char *a, char *b){
 	while( position < a_parts.count && position < b_parts.count ){
 		if( strcmp(a_parts.parts[position],b_parts.parts[position]) != 0 ){
 
-			/* if the integer value of the version part is the same */
-			if( atoi(a_parts.parts[position]) == atoi(b_parts.parts[position]) ){
+			/*
+			 * if the integer value of the version part is the same
+			 * and the # of version parts is the same (fixes 3.8.1p1-i486-1 to 3.8p1-i486-1)
+			*/ 
+			if( (atoi(a_parts.parts[position]) == atoi(b_parts.parts[position]))
+				&& (a_parts.count == b_parts.count) ){
 
 				if( strcmp(a_parts.parts[position],b_parts.parts[position]) < 0 )
 					return lesser;
