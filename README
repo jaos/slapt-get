@@ -57,7 +57,7 @@ Table of Contents:
     * Package data download robustness, only writing changes if all sources
       download successfully as well as only downloading those sources that
       have changed since the last download
-    * i18n support via GNU gettext with over 14 language translations
+    * i18n support via GNU gettext with over 15 language translations
     * extremely fast and easy to script with
 
 
