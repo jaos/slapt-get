@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.9a\n"
+"Project-Id-Version: 0.9.9b\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2004-09-06 21:17+0500\n"
+"PO-Revision-Date: 2004-09-07 16:49+0500\n"
 "Last-Translator: Jason Woodward <woodwardj@jaos.org>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,44 +16,44 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "Reading Package Lists... "
-msgstr ""
+msgstr "Listes De Paquet De Lecture..."
 
 msgid "Done\n"
-msgstr ""
+msgstr "Done\n"
 
 #, c-format
 msgid "%s is up to date.\n"
-msgstr ""
+msgstr "%s est jusqu'à date.\n"
 
 msgid "yes"
-msgstr ""
+msgstr "oui"
 
 msgid "no"
-msgstr ""
+msgstr "non"
 
 #, c-format
 msgid "%s is not installed.\n"
-msgstr ""
+msgstr "%s n'est pas installed.\n"
 
 #, c-format
 msgid "Package Name: %s\n"
-msgstr ""
+msgstr "Nom De Paquet : %s\n"
 
 #, c-format
 msgid "Package Mirror: %s\n"
-msgstr ""
+msgstr "Miroir De Paquet : %s\n"
 
 #, c-format
 msgid "Package Location: %s\n"
-msgstr ""
+msgstr "Endroit De Paquet : %s\n"
 
 #, c-format
 msgid "Package Version: %s\n"
-msgstr ""
+msgstr "Version De Paquet : %s\n"
 
 #, c-format
 msgid "Package Size: %d K\n"
-msgstr ""
+msgstr "Taille De Paquet : %d K\n"
 
 #, c-format
 msgid "Package Installed Size: %d K\n"
@@ -61,18 +61,18 @@ msgstr ""
 
 #, c-format
 msgid "Package Required: %s\n"
-msgstr ""
+msgstr "Le Paquet A exigé : %s\n"
 
 msgid "Package Description:\n"
-msgstr ""
+msgstr "Paquet Description:\n"
 
 #, c-format
 msgid "Package Installed: %s\n"
-msgstr ""
+msgstr "Paquet Installé : %s\n"
 
 #, c-format
 msgid "No such package: %s\n"
-msgstr ""
+msgstr "Aucun un tel paquet : %s\n"
 
 #, c-format
 msgid "Retrieving package data [%s]..."
@@ -104,7 +104,7 @@ msgstr ""
 
 #, c-format
 msgid "Failed to malloc %s\n"
-msgstr ""
+msgstr "Échoué au malloc %s\n"
 
 #, c-format
 msgid "Maximum number of sources (%d) exceeded.\n"
@@ -132,25 +132,25 @@ msgstr ""
 
 #, c-format
 msgid "Failed to open %s\n"
-msgstr ""
+msgstr "N'a pas ouvert %s\n"
 
 msgid "Perhaps you want to run --update?\n"
 msgstr ""
 
 #, c-format
 msgid "Failed to opendir %s\n"
-msgstr ""
+msgstr "Échoué à l'opendir %s\n"
 
 #, c-format
 msgid "Failed to chdir: %s\n"
-msgstr ""
+msgstr "Échoué au chdir : %s\n"
 
 #, c-format
 msgid "unlinking %s\n"
-msgstr ""
+msgstr "détachement de %s\n"
 
 msgid "Failed to get cwd\n"
-msgstr ""
+msgstr "N'a pas obtenu le cwd\n"
 
 #, c-format
 msgid "\tCurrent working directory: %s\n"
@@ -158,35 +158,35 @@ msgstr ""
 
 #, c-format
 msgid "Failed to mkdir: %s\n"
-msgstr ""
+msgstr "Échoué au mkdir : %s\n"
 
 #, c-format
 msgid "\tCreated directory: %s\n"
-msgstr ""
+msgstr "\tCreated l'annuaire : %s\n"
 
 #, c-format
 msgid "Failed to chdir to %s\n"
-msgstr ""
+msgstr "Échoué au chdir à %s\n"
 
 #, c-format
 msgid "\tchdir into %s\n"
-msgstr ""
+msgstr "\tchdir dans %s\n"
 
 #, c-format
 msgid "\tchdir back into %s\n"
-msgstr ""
+msgstr "\tchdir de nouveau dans %s\n"
 
 #, c-format
 msgid "Fetching url:[%s]\n"
-msgstr ""
+msgstr "Chercher url:[%s]\n"
 
 #, c-format
 msgid "Failed to download: %s\n"
-msgstr ""
+msgstr "N'a pas téléchargé : %s\n"
 
 #, c-format
 msgid "Failed to calloc %s\n"
-msgstr ""
+msgstr "Échoué au calloc %s\n"
 
 #, c-format
 msgid "Downloading %s %s %s [%dK]..."
@@ -198,7 +198,7 @@ msgstr ""
 
 #, c-format
 msgid "Failed to unlink %s\n"
-msgstr ""
+msgstr "N'a pas détaché %s\n"
 
 #, c-format
 msgid "md5 sum for %s is not correct, override with --no-md5!\n"
@@ -206,28 +206,28 @@ msgstr ""
 
 #, c-format
 msgid "MD5 found:    [%s]\n"
-msgstr ""
+msgstr "MD5 trouvé : [ %s]\n"
 
 #, c-format
 msgid "MD5 expected: [%s]\n"
-msgstr ""
+msgstr "MD5 prévu : [ %s]\n"
 
 #, c-format
 msgid "File: %s/%s\n"
-msgstr ""
+msgstr "Dossier : %s/%s\n"
 
 msgid "An implementation of the Debian APT system to Slackware\n"
 msgstr ""
 
 msgid "Usage:\n"
-msgstr ""
+msgstr "Usage:\n"
 
 #, c-format
 msgid "%s [option(s)] [target]\n"
-msgstr ""
+msgstr "%s [ option(s) ] [ target]\n"
 
 msgid "Targets:\n"
-msgstr ""
+msgstr "Targets:\n"
 
 msgid "retrieves pkg data from MIRROR"
 msgstr ""
@@ -251,19 +251,19 @@ msgid "[expression] - search available pkgs"
 msgstr ""
 
 msgid "list available pkgs"
-msgstr ""
+msgstr "pkgs disponibles de liste"
 
 msgid "list installed pkgs"
-msgstr ""
+msgstr "pkgs installés par liste"
 
 msgid "purge cached pkgs"
-msgstr ""
+msgstr "pkgs cachés par purge"
 
 msgid "print version and license info"
 msgstr ""
 
 msgid "Options:\n"
-msgstr ""
+msgstr "Options:\n"
 
 msgid "only download pkg on install/upgrade"
 msgstr ""
@@ -278,7 +278,7 @@ msgid "re-install the pkg"
 msgstr ""
 
 msgid "install/upgrade excludes"
-msgstr ""
+msgstr "install/upgrade exclut"
 
 msgid "do not perform md5 check sum"
 msgstr ""
@@ -288,15 +288,15 @@ msgstr ""
 
 #, c-format
 msgid "%s version %s\n"
-msgstr ""
+msgstr "version %s de %s"
 
 #, c-format
 msgid "regex failed on [%s]\n"
-msgstr ""
+msgstr "le regex échoue dessus [ %s]\n"
 
 #, c-format
 msgid "pkg name too long [%s:%d]\n"
-msgstr ""
+msgstr "nom de pkg trop long [ %s:%d]\n"
 
 #, c-format
 msgid "pkg version too long [%s:%d]\n"
@@ -333,18 +333,18 @@ msgstr ""
 
 #, c-format
 msgid "Failed to realloc %s\n"
-msgstr ""
+msgstr "Échoué au realloc %s\n"
 
 msgid "Failed to compile regex\n"
-msgstr ""
+msgstr "N'a pas compilé le regex\n"
 
 #, c-format
 msgid "Regex Error: %s\n"
-msgstr ""
+msgstr "Erreur De Regex : %s\n"
 
 #, c-format
 msgid "%s-%s is to be installed\n"
-msgstr ""
+msgstr "%s-%s doit être installed\n"
 
 #, c-format
 msgid "Preparing to install %s-%s\n"
@@ -364,7 +364,7 @@ msgstr ""
 
 #, c-format
 msgid "%s-%s is to be removed\n"
-msgstr ""
+msgstr "%s-%s doit être removed\n"
 
 #, c-format
 msgid "Failed to compile regex [%s]\n"
@@ -379,7 +379,7 @@ msgstr ""
 
 #, c-format
 msgid "  %s: Depends: %s\n"
-msgstr ""
+msgstr "%s : Dépend : %s\n"
 
 msgid "The following packages have been EXCLUDED:\n"
 msgstr ""
@@ -414,10 +414,10 @@ msgid "After unpacking %dK of additional disk space will be used.\n"
 msgstr ""
 
 msgid "Do you want to continue? [y/N] "
-msgstr ""
+msgstr "Voulez-vous continuer ? [ y/N ]"
 
 msgid "Abort.\n"
-msgstr ""
+msgstr "Abort.\n"
 
 #, c-format
 msgid "%s, which is to be installed, conflicts with %s\n"
@@ -432,7 +432,7 @@ msgstr ""
 
 #, c-format
 msgid "Package MD5 Sum:  %s\n"
-msgstr ""
+msgstr "Somme Du Paquet MD5 : %s\n"
 
 #, c-format
 msgid "md5 sum too long [%s %s:%d]\n"
@@ -440,10 +440,10 @@ msgstr ""
 
 #, c-format
 msgid "conflict too long [%s:%d]\n"
-msgstr ""
+msgstr "conflit trop long [ %s:%d]\n"
 
 msgid "Reading Package Lists..."
-msgstr ""
+msgstr "Listes De Paquet De Lecture..."
 
 #, c-format
 msgid "Download of %s incomplete\n"
@@ -464,7 +464,7 @@ msgid "show download statistics"
 msgstr ""
 
 msgid "Cached\n"
-msgstr ""
+msgstr "Cached\n"
 
 msgid "Sources failed to download, correct sources and rerun --update\n"
 msgstr ""
@@ -473,7 +473,7 @@ msgid "specify alternate slapt-getrc location"
 msgstr ""
 
 msgid "Suggested packages:\n"
-msgstr ""
+msgstr "Packages: suggéré"
 
 #, c-format
 msgid "Maximum length of working directory (%d) exceeded.\n"
