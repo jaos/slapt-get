@@ -693,20 +693,19 @@ Frequenty Asked Questions:
  Packages such as lprng and cups sometimes duplicate the same functionality.
 
  To address this, include within your package ./install/slack-conflicts.  This
- file has the same syntax as the slack-required file.  
+ file has the same syntax as the slack-required file, just without the version
+ information.
 
  The following is a fictitious example of a lprng slack-conflicts file:
 
  # cat ./install/slack-conflicts
-   gnome-cups-manager <= 0.16
-   libgnomecups <= 0.1.5
+   gnome-cups-manager
+   libgnomecups
    cups
  #
 
- In this example, we want to specify that the gnome-cups-manager and
- libgnomecups packages are in conflict if they are below a certain version,
- (supposing that the older versions do not support lprng).  The third entry,
- cups, is a direct conflict, without any compatible version.
+ In this example, we want to specify that the gnome-cups-manager, cups, and
+ libgnomecups packages are in direct conflict with lprng.
 
 
 34. Is the ROOT environment variable honored for install and upgrading?
