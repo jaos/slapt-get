@@ -666,10 +666,15 @@ int remove_pkg(const rc_config *global_config,pkg_info_t *pkg){
 	}
 
 	/* build and execute our command */
-	command = calloc( strlen(REMOVE_CMD) + strlen(pkg->name) + 1 , sizeof *command );
+	command = calloc(
+		strlen(REMOVE_CMD) + strlen(pkg->name) + strlen("-") + strlen(pkg->version) + 1,
+		sizeof *command
+	);
 	command[0] = '\0';
 	command = strcat(command,REMOVE_CMD);
 	command = strcat(command,pkg->name);
+	command = strcat(command,"-");
+	command = strcat(command,pkg->version);
 	if( (cmd_return = system(command)) == -1 ){
 		printf("Failed to execute command: [%s]\n",command);
 		exit(1);

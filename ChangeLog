@@ -1,4 +1,9 @@
 
+0.9.6b Oct 14, 2003
+ * fixed bug when removing pkg by base pkg name and removepkg wouldn't find
+   entry in /var/log/packages.  Thanks to DanB at mojolin dot com and
+   tg at linuxpackages dot net.
+
 0.9.6a Oct 14, 2003
  * fixed issue with allocated strings with --install and --remove
  * fixed --install pkgname --reinstall regression
