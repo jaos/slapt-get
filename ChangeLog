@@ -1,5 +1,8 @@
 
 0.9.9j Mar 28, 2005
+ * added generate_suggestions() so that suggestions are properly detected
+   after transaction has been created instead of checking multiple times
+   if possible suggestions are present in the current transaction
  * fixed ignoring suggestion when there was only one suggestion
  * added copy_pkg() to package.[ch] instead of using memcpy() in the transaction
    code, so free_transaction() calls free_pkg() making all usage of pkg_info_t
