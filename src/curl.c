@@ -145,7 +145,7 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg){
 		free(file_name);
 		return 0;
 	}else if( pkg_verify_return == MD5_CHECKSUM_FAILED ){
-		fprintf(stderr,_("md5 checksum for %s is not correct, override with --no-md5!\n"),pkg->name);
+		fprintf(stderr,_("md5 sum for %s is not correct, override with --no-md5!\n"),pkg->name);
 		#if DO_NOT_UNLINK_BAD_FILES == 0
 		/* if the checksum fails, unlink the bogus file */
 		if( unlink(file_name) == -1 ){
