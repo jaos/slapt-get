@@ -34,14 +34,7 @@ rc_config *read_rc_config(const char *file_name){
 		}
 	}
 
-	rc = fopen(file_name,"r");
-	if( rc == NULL ){
-		fprintf(stderr,"Please create: %s.\n",file_name);
-		if( errno ){
-			perror(file_name);
-		}
-		exit(1);
-	}
+	rc = open_file(file_name,"r");
 
 	while( (g_size = getline(&getline_buffer,&gb_length,rc) ) != EOF ){
 		getline_buffer[g_size - 1] = '\0';
