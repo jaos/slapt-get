@@ -111,3 +111,5 @@ int break_down_pkg_version(int *,char *);
 /* write pkg data to disk */
 void write_pkg_data(const char *,FILE *,struct pkg_list *);
 
+/* search package list with pattern */
+void search_pkg_list(struct pkg_list *,struct pkg_list *,const char *);

@@ -930,3 +930,60 @@ void write_pkg_data(const char *source_url,FILE *d_file,struct pkg_list *pkgs){
 	}
 }
 
+void search_pkg_list(struct pkg_list *available,struct pkg_list *matches,const char *pattern){
+	int i;
+	sg_regex search_regex;
+	search_regex.nmatch = MAX_REGEX_PARTS;
+
+	/* compile our regex */
+	search_regex.reg_return = regcomp(&search_regex.regex, pattern, REG_EXTENDED|REG_NEWLINE);
+	if( search_regex.reg_return != 0 ){
+		size_t regerror_size;
+		char errbuf[1024];
+		size_t errbuf_size = 1024;
+		fprintf(stderr, "Failed to compile regex\n");
+
+		regerror_size = regerror(search_regex.reg_return, &search_regex.regex,errbuf,errbuf_size);
+		if( regerror_size != 0 ){
+			printf("Regex Error: %s\n",errbuf);
+		}
+		exit(1);
+	}
+
+	for(i = 0; i < available->pkg_count; i++ ){
+		if(
+			/* search pkg name */
+			( regexec(
+				&search_regex.regex,
+				available->pkgs[i]->name,
+				search_regex.nmatch,
+				search_regex.pmatch,
+				0
+			) == 0)
+			||
+			/* search pkg description */
+			( regexec(
+				&search_regex.regex,
+				available->pkgs[i]->description,
+				search_regex.nmatch,
+				search_regex.pmatch,
+				0
+			) == 0)
+			||
+			/* search pkg location */
+			( regexec(
+				&search_regex.regex,
+				available->pkgs[i]->location,
+				search_regex.nmatch,
+				search_regex.pmatch,
+				0
+			) == 0)
+		){
+			/* make alias here */
+			matches->pkgs[matches->pkg_count] = available->pkgs[i];
+			++matches->pkg_count;
+		}
+	}
+	regfree(&search_regex.regex);
+
+}
