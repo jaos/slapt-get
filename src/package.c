@@ -557,6 +557,15 @@ int upgrade_pkg(const rc_config *global_config,pkg_info_t *installed_pkg,pkg_inf
 		return 0;
 	}
 
+	if( global_config->no_prompt == 0 ){
+		printf("Replace %s-%s with %s-%s? [y|n] ",pkg->name,installed_pkg->version,pkg->name,pkg->version);
+		fgets(prompt_answer,10,stdin);
+		if( tolower(prompt_answer[0]) != 'y' ){
+			chdir(global_config->working_dir);
+			return cmd_return;
+		}
+	}
+
 	create_dir_structure(pkg->location);
 	chdir(pkg->location);
 
@@ -574,14 +583,6 @@ int upgrade_pkg(const rc_config *global_config,pkg_info_t *installed_pkg,pkg_inf
 	command = strcat(command,pkg_file_name);
 
 	if( global_config->download_only == 0 ){
-		if( global_config->no_prompt == 0 ){
-			printf("Replace %s-%s with %s-%s? [y|n] ",pkg->name,installed_pkg->version,pkg->name,pkg->version);
-			fgets(prompt_answer,10,stdin);
-			if( tolower(prompt_answer[0]) != 'y' ){
-				chdir(global_config->working_dir);
-				return cmd_return;
-			}
-		}
 		printf("Preparing to replace %s-%s with %s-%s\n",pkg->name,installed_pkg->version,pkg->name,pkg->version);
 		if( (cmd_return = system(command)) == -1 ){
 			printf("Failed to execute command: [%s]\n",command);

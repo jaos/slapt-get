@@ -14,6 +14,8 @@ Frequenty Asked Questions:
 11. What about multiple package sources, ala linuxpackages.net?
 12. I don't like the download spinner, how can I get more statistics?
 13. How can I install every available package?
+14. What if I only want to upgrade one package?
+15. What about Dropline support?
 
 
 
@@ -201,4 +203,16 @@ Frequenty Asked Questions:
    done
 
 
+
+14. What if I only want to upgrade one package?
+
+ Then you follow the debian apt-get method if using --install.
+ If the package is already installed, it will check and install any newer
+ versions.
+
+15. What about Dropline support?
+
+ There is no exception for dropline packages.  If you do not want them
+ upgraded, either put the package names into the exception list or answer
+ "NO" in interactive mode (do not use --no-prompt).
 

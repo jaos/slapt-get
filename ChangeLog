@@ -1,7 +1,9 @@
 
-0.9.5f Oct 10, 2003
+0.9.5f Oct 11, 2003
  * removed needless check in get_md5sum looking for common slack mirror
    directories.
+ * Prompt to upgrade before downloading (thanks kyotou)
+ * updated FAQ with dropline question, and upgrade single package question
 
 0.9.5e Oct 10, 2003
  * added a doinst.sh script (generated from the Makefile) to help 
