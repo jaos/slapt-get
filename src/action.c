@@ -273,11 +273,11 @@ void pkg_action_search(const char *pattern){
 
 /* show the details for a specific package */
 void pkg_action_show(const char *pkg_name){
-	pkg_info_t *pkg;
 	struct pkg_list *avail_pkgs;
 	struct pkg_list *installed_pkgs;
 	sg_regex pkg_regex;
 	int bool_installed = 0;
+	pkg_info_t *pkg = NULL;
 
 	avail_pkgs = get_available_pkgs();
 	installed_pkgs = get_installed_pkgs();
