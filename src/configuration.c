@@ -212,6 +212,10 @@ void add_exclude(struct exclude_list *list,const char *e){
 
 void add_source(struct source_list *list,const char *s){
 	char **realloc_tmp;
+	int source_len = 0;
+
+	if( s == NULL ) return;
+	source_len = strlen(s);
 
 	realloc_tmp = realloc(list->url,sizeof *list->url * (list->count + 1) );
 
@@ -219,24 +223,32 @@ void add_source(struct source_list *list,const char *s){
 
 	list->url = realloc_tmp;
 
-	if( s[strlen(s) - 1] != '/' ){
+	if( s[source_len - 1] == '/' ){
+
+		list->url[ list->count ] = strndup(s,source_len);
+		list->url[ list->count ][source_len] = '\0';
+
+	}else{
+
 		list->url[ list->count ] = slapt_malloc(
-			sizeof *list->url[list->count] * (strlen(s) + 2)
+			sizeof *list->url[list->count] * (source_len + 2)
 		);
+		list->url[list->count][0] = '\0';
+
 		list->url[list->count] = strncat(
 			list->url[list->count],
 			s,
-			strlen(s)
+			source_len
 		);
+
 		list->url[list->count] = strncat(
 			list->url[list->count],
 			"/",
 			strlen("/")
 		);
-		list->url[list->count][strlen(s) + 1] = '\0';
-	}else{
-		list->url[ list->count ] = strndup(s,strlen(s));
-		list->url[ list->count ][strlen(s)] = '\0';
+
+		list->url[list->count][source_len + 1] = '\0';
+
 	}
 
 	++list->count;
