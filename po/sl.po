@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.9j\n"
+"Project-Id-Version: 0.9.9k\n"
 "POT-Creation-Date: 2005-03-09\n"
-"PO-Revision-Date: 2005-03-09\n"
+"PO-Revision-Date: 2005-04-26 12:09+0500\n"
 "Last-Translator: Uros Trsavec <utrsav@walla.com>\n"
 "Language-Team: SloNiX <slonix.rn@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -287,18 +287,6 @@ msgstr "%s razlièica %s\n"
 msgid "regex failed on [%s]\n"
 msgstr "napaka regularnih izrazov pri [%s]\n"
 
-msgid "pkg name too long\n"
-msgstr "ime paketka je predolgo\n"
-
-msgid "pkg version too long\n"
-msgstr "razlièica paketka je predolga\n"
-
-msgid "pkg mirror too long\n"
-msgstr "altnernativa paketka je predolga\n"
-
-msgid "pkg location too long\n"
-msgstr "lokacija paketka je predolga\n"
-
 msgid "regexec failed to parse location\n"
 msgstr "regexec napaka pri razèlenitvi lokacije\n"
 
@@ -425,9 +413,6 @@ msgstr "Paketov MD5 Sum:  %s\n"
 msgid "md5 sum too long\n"
 msgstr "md5 sum predolg\n"
 
-msgid "conflict too long\n"
-msgstr "spor predolg\n"
-
 msgid "Reading Package Lists..."
 msgstr "Berem seznam paketov..."
 
@@ -469,9 +454,6 @@ msgstr "Maksimalna dolžina razširitev (%d) je prekoraèena.\n"
 
 msgid "only purge cache of older, unreacheable pkgs"
 msgstr "poèisti samo predpomnilnik starejši, nedosgljivih paketkov"
-
-msgid "required too long\n"
-msgstr "zahtevan predolg\n"
 
 msgid "remove obsolete packages (dist-upgrade only)"
 msgstr "odtrani zastarele paketke (dist-upgrade samo)"

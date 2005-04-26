@@ -5,9 +5,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.9j\n"
+"Project-Id-Version: 0.9.9k\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2005-03-09 11:08+0500\n"
+"PO-Revision-Date: 2005-04-26 12:09+0500\n"
 "Last-Translator: Niklas Volbers <mithrandir42@web.de>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -286,18 +286,6 @@ msgstr "%s Version %s\n"
 msgid "regex failed on [%s]\n"
 msgstr "regulärer Ausdruck scheiterte an [ %s]\n"
 
-msgid "pkg name too long\n"
-msgstr "Paket-Name zu lang\n"
-
-msgid "pkg version too long\n"
-msgstr "Paket-Version zu lang]\n"
-
-msgid "pkg mirror too long\n"
-msgstr "Paket-Mirror zu lang\n"
-
-msgid "pkg location too long\n"
-msgstr "Paket-Ort zu lang\n"
-
 msgid "regexec failed to parse location\n"
 msgstr "regexec konnte Ortsangabe nicht bestimmen\n"
 
@@ -424,9 +412,6 @@ msgstr "MD5-Prüfsumme des Pakets: %s\n"
 msgid "md5 sum too long\n"
 msgstr "MD5-Prüfsumme zu lang\n"
 
-msgid "conflict too long\n"
-msgstr "Konflikt zu lang\n"
-
 msgid "Reading Package Lists..."
 msgstr "Lese Paket-Listen..."
 
@@ -470,9 +455,6 @@ msgstr "Maximale Länge der auszuschließenden Pakete (%d) überschritten.\n"
 
 msgid "only purge cache of older, unreacheable pkgs"
 msgstr "nur alte, nicht mehr verfügbare Pakete aus Zwischenspeicher entfernen"
-
-msgid "required too long\n"
-msgstr "required zu lang\n"
 
 msgid "remove obsolete packages (dist-upgrade only)"
 msgstr "entferne veraltete Pakete (nur bei dist-upgrade)"

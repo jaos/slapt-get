@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.9j\n"
+"Project-Id-Version: 0.9.9k\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2005-03-09 11:08+0500\n"
+"PO-Revision-Date: 2005-04-26 12:09+0500\n"
 "Last-Translator: Oto Petrik <oto.petrik@centrum.cz>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -287,18 +287,6 @@ msgstr "%s verze %s\n"
 msgid "regex failed on [%s]\n"
 msgstr "regex neuspìl na [%s]\n"
 
-msgid "pkg name too long\n"
-msgstr "jméno balíku pøíli¹ dlouhé\n"
-
-msgid "pkg version too long\n"
-msgstr "verze balíku pøíli¹ dlouhá\n"
-
-msgid "pkg mirror too long\n"
-msgstr "zrcadlo balíku pøíli¹ dlouhé\n"
-
-msgid "pkg location too long\n"
-msgstr "umístìní balíku pøíli¹ dlouhé\n"
-
 msgid "regexec failed to parse location\n"
 msgstr "regexec neuspìl s analyzováním umístìní\n"
 
@@ -425,9 +413,6 @@ msgstr "MD5 souèet balíku:  %s\n"
 msgid "md5 sum too long\n"
 msgstr "md5 souèet pøíli¹ dlouhý\n"
 
-msgid "conflict too long\n"
-msgstr "kolize pøíli¹ dlouhá\n"
-
 msgid "Reading Package Lists..."
 msgstr "Naèítám seznam balíkù..."
 
@@ -471,9 +456,6 @@ msgstr "Maximální délka vylouèených (%d) pøekroèena.\n"
 
 msgid "only purge cache of older, unreacheable pkgs"
 msgstr "vyèisti pouze cache starých, nedostupnách balíkù"
-
-msgid "required too long\n"
-msgstr "required pøíli¹ dlouhá\n"
 
 msgid "remove obsolete packages (dist-upgrade only)"
 msgstr ""

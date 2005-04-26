@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.9j\n"
+"Project-Id-Version: 0.9.9k\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2005-03-09 11:08+0500\n"
+"PO-Revision-Date: 2005-04-26 12:09+0500\n"
 "Last-Translator: Nguyễn Văn Vũ <vncasper@yahoo.com>\n"
 "Language-Team: gnome-vi <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -288,18 +288,6 @@ msgstr "%s phiên bản %s\n"
 msgid "regex failed on [%s]\n"
 msgstr "biểu thức bị lỗi [%s]\n"
 
-msgid "pkg name too long\n"
-msgstr "tên gói phần mềm quá dài\n"
-
-msgid "pkg version too long\n"
-msgstr "phiên bản gói phần mềm quá dài\n"
-
-msgid "pkg mirror too long\n"
-msgstr "mirror gói phần mềm quá dài\n"
-
-msgid "pkg location too long\n"
-msgstr "nơi lưu giữ gói phần mềm quá dài\n"
-
 msgid "regexec failed to parse location\n"
 msgstr "lỗi khi phân tích vị trí\n"
 
@@ -428,9 +416,6 @@ msgstr "Tổng MD5 của gói phần mềm: %s\n"
 msgid "md5 sum too long\n"
 msgstr "tổng md5 quá dài\n"
 
-msgid "conflict too long\n"
-msgstr "xung đột quá dài\n"
-
 msgid "Reading Package Lists..."
 msgstr "Đang lấy danh sách gói phần mềm..."
 
@@ -476,9 +461,6 @@ msgstr "Chiều dài phần loại trừ tối đa được phép vượt trội
 
 msgid "only purge cache of older, unreacheable pkgs"
 msgstr "chỉ xoá những gói phần mềm cũ, không còn sử dụng"
-
-msgid "required too long\n"
-msgstr "yêu cầu quá dài\n"
 
 msgid "remove obsolete packages (dist-upgrade only)"
 msgstr "gỡ bỏ những gói phần mềm cũ (chỉ có hiệu lực với --dist-upgrade)"

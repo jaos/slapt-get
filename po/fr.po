@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.9j\n"
+"Project-Id-Version: 0.9.9k\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2005-03-09 11:08+0500\n"
+"PO-Revision-Date: 2005-04-26 12:09+0500\n"
 "Last-Translator: Jason Woodward <woodwardj@jaos.org>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -287,18 +287,6 @@ msgstr "version %s de %s\n"
 msgid "regex failed on [%s]\n"
 msgstr "le regex échoue dessus [ %s]\n"
 
-msgid "pkg name too long\n"
-msgstr "nom de pkg trop long]\n"
-
-msgid "pkg version too long\n"
-msgstr ""
-
-msgid "pkg mirror too long\n"
-msgstr ""
-
-msgid "pkg location too long\n"
-msgstr ""
-
 msgid "regexec failed to parse location\n"
 msgstr ""
 
@@ -425,9 +413,6 @@ msgstr "Somme Du Paquet MD5 : %s\n"
 msgid "md5 sum too long\n"
 msgstr ""
 
-msgid "conflict too long\n"
-msgstr "conflit trop long\n"
-
 msgid "Reading Package Lists..."
 msgstr "Listes De Paquet De Lecture..."
 
@@ -470,9 +455,6 @@ msgid "Maximum length of excludes (%d) exceeded.\n"
 msgstr ""
 
 msgid "only purge cache of older, unreacheable pkgs"
-msgstr ""
-
-msgid "required too long\n"
 msgstr ""
 
 msgid "remove obsolete packages (dist-upgrade only)"

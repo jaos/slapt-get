@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.9j\n"
+"Project-Id-Version: 0.9.9k\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2005-03-27 16:13+0000\n"
+"PO-Revision-Date: 2005-04-26 12:09+0500\n"
 "Last-Translator: Miguel Santinho <msantinho@simplicidade.com>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -286,18 +286,6 @@ msgstr "%s versão %s\n"
 msgid "regex failed on [%s]\n"
 msgstr "regex falhou em [%s]\n"
 
-msgid "pkg name too long\n"
-msgstr "nome do pacote muito longo\n"
-
-msgid "pkg version too long\n"
-msgstr "versão do pacote muito longa\n"
-
-msgid "pkg mirror too long\n"
-msgstr "mirror do pacote muito longo\n"
-
-msgid "pkg location too long\n"
-msgstr "localização do pacote muito longa\n"
-
 msgid "regexec failed to parse location\n"
 msgstr "regexec falhou ao analisar localização\n"
 
@@ -424,9 +412,6 @@ msgstr "MD5 Sum do pacote:  %s\n"
 msgid "md5 sum too long\n"
 msgstr "md5 sum muito longo\n"
 
-msgid "conflict too long\n"
-msgstr "conflito muito longo\n"
-
 msgid "Reading Package Lists..."
 msgstr "A ler Listas de Pacotes..."
 
@@ -468,9 +453,6 @@ msgstr "Tamanho máximo dos excluídos (%d) excedido.\n"
 
 msgid "only purge cache of older, unreacheable pkgs"
 msgstr "eliminar da cache apenas os pacotes antigos, desactualizados"
-
-msgid "required too long\n"
-msgstr "requerido muito longo\n"
 
 msgid "remove obsolete packages (dist-upgrade only)"
 msgstr "remover pacotes obsoletos (apenas em dist-upgrade)"
