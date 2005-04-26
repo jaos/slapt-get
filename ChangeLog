@@ -1,5 +1,6 @@
 
 0.9.9k Apr 25, 2005
+ * added libcurl option CURLOPT_FOLLOWLOCATION so HTTP redirects are followed
  * initialized source in sources list [fixing valgrind warning]
  * updated FAQ
 
