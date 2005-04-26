@@ -154,21 +154,21 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 					tmp_location[1] = '\0';
 					strncat(tmp_location,&tmp_pkg->location[0] + strlen("./testing"), strlen(tmp_pkg->location) - strlen("./testing"));
 					free(tmp_pkg->location);
-					tmp_pkg->location = strdup(tmp_location);
+					tmp_pkg->location = tmp_location;
 				}else if( strstr(tmp_pkg->location,"./extra/") != NULL ){
 					char *tmp_location = slapt_malloc(sizeof *tmp_location * (strlen(tmp_pkg->location) - strlen("./extra") + 2) );
 					tmp_location[0] = '.';
 					tmp_location[1] = '\0';
 					strncat(tmp_location,&tmp_pkg->location[0] + strlen("./extra"), strlen(tmp_pkg->location) - strlen("./extra"));
 					free(tmp_pkg->location);
-					tmp_pkg->location = strdup(tmp_location);
+					tmp_pkg->location = tmp_location;
 				}else if( strstr(tmp_pkg->location,"./pasture/") != NULL ){
 					char *tmp_location = slapt_malloc(sizeof *tmp_location * (strlen(tmp_pkg->location) - strlen("./pasture") + 2) );
 					tmp_location[0] = '.';
 					tmp_location[1] = '\0';
 					strncat(tmp_location,&tmp_pkg->location[0] + strlen("./pasture"), strlen(tmp_pkg->location) - strlen("./pasture"));
 					free(tmp_pkg->location);
-					tmp_pkg->location = strdup(tmp_location);
+					tmp_pkg->location = tmp_location;
 				}
 
 			}else{
