@@ -3,7 +3,8 @@
  * removed unneeded strings from translations
  * removed hard limits on package name, version, location, and description,
    fixing issue with greater than limit location in installed package causing
-   double free bug.
+   double free bug.  thanks to JP (jp dot guillemin at free dot fr) for the
+   bug report.
  * when parsing meta entry for w/o conditionals, return newest installed version
    instead of newest available by default, fall back to newest available other-
    wise.
