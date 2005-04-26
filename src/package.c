@@ -1940,8 +1940,12 @@ void purge_old_cached_pkgs(const rc_config *global_config,char *dir_name,struct 
 	struct dirent *file;
 	struct stat file_stat;
 	sg_regex cached_pkgs_regex;
+	int local_pkg_list = 0;
 
-	if( avail_pkgs == NULL ) avail_pkgs = get_available_pkgs();
+	if( avail_pkgs == NULL ){
+		avail_pkgs = get_available_pkgs();
+		local_pkg_list = 1;
+	}
 	if( dir_name == NULL ) dir_name = (char *)global_config->working_dir;
 	init_regex(&cached_pkgs_regex,PKG_PARSE_REGEX);
 
@@ -2028,6 +2032,9 @@ void purge_old_cached_pkgs(const rc_config *global_config,char *dir_name,struct 
 	closedir(dir);
 
 	free_regex(&cached_pkgs_regex);
+	if( local_pkg_list == 1 ){
+		free_pkg_list(avail_pkgs);
+	}
 
 }
 
