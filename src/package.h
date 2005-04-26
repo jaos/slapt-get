@@ -32,11 +32,6 @@
 #define PKG_LOG_PATTERN "^(.*{1,})\\-(.*[\\.\\-].*[\\.\\-].*)"
 #define MD5SUM_REGEX "([a-zA-Z0-9]{1,})[ ]{1,}([a-zA-Z0-9\\/._\\-]{1,})\\/(.*{1,})\\-(.*[\\.\\-].*[\\.\\-].*).tgz$"
 #define REQUIRED_REGEX "^[ ]{0,}([a-zA-Z0-9\\+_\\-]+)[ ]{0,}([\\<\\=\\>]+){0,}[ ]{0,}([a-zA-Z0-9\\.\\_\\-]+){0,}[ ]{0,}$"
-#define NAME_LEN 50
-#define VERSION_LEN 50
-#define MIRROR_LEN 200
-#define LOCATION_LEN 100
-#define DESCRIPTION_LEN 1024
 #define MD5_STR_LEN 34
 #define MD5_CHECKSUM_FAILED -100
 #define PKG_LIST "PACKAGES.TXT"
@@ -50,13 +45,13 @@
 #define HEAD_FILE_EXT ".head"
 
 typedef struct {
-	char name[NAME_LEN];
-	char version[VERSION_LEN];
-	char mirror[MIRROR_LEN];
-	char location[LOCATION_LEN];
+	char *name;
+	char *version;
+	char *mirror;
+	char *location;
 	unsigned int size_c;
 	unsigned int size_u;
-	char description[DESCRIPTION_LEN];
+	char *description;
 	char *required;
 	char *conflicts;
 	char *suggests;

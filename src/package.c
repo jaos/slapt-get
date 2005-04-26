@@ -85,12 +85,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 		tmp_pkg = init_pkg();
 
 		/* pkg name base */
-		/* don't overflow the buffer */
-		if( (name_regex.pmatch[1].rm_eo - name_regex.pmatch[1].rm_so) > NAME_LEN ){
-			fprintf( stderr, _("pkg name too long\n"));
-			free_pkg(tmp_pkg);
-			continue;
-		}
+		tmp_pkg->name = slapt_malloc(sizeof *tmp_pkg->name * (name_regex.pmatch[1].rm_eo - name_regex.pmatch[1].rm_so + 1));
 		strncpy(tmp_pkg->name,
 			getline_buffer + name_regex.pmatch[1].rm_so,
 			name_regex.pmatch[1].rm_eo - name_regex.pmatch[1].rm_so
@@ -100,12 +95,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 		] = '\0';
 
 		/* pkg version */
-		/* don't overflow the buffer */
-		if( (name_regex.pmatch[2].rm_eo - name_regex.pmatch[2].rm_so) > VERSION_LEN ){
-			fprintf( stderr, _("pkg version too long\n"));
-			free_pkg(tmp_pkg);
-			continue;
-		}
+		tmp_pkg->version = slapt_malloc(sizeof *tmp_pkg->version * (name_regex.pmatch[2].rm_eo - name_regex.pmatch[2].rm_so + 1));
 		strncpy(tmp_pkg->version,
 			getline_buffer + name_regex.pmatch[2].rm_so,
 			name_regex.pmatch[2].rm_eo - name_regex.pmatch[2].rm_so
@@ -122,13 +112,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 
 			if( mirror_regex.reg_return == 0 ){
 
-				/* don't overflow the buffer */
-				if( (mirror_regex.pmatch[1].rm_eo - mirror_regex.pmatch[1].rm_so) > MIRROR_LEN ){
-					fprintf( stderr, _("pkg mirror too long\n"));
-					free_pkg(tmp_pkg);
-					continue;
-				}
-
+				tmp_pkg->mirror = slapt_malloc( sizeof *tmp_pkg->mirror * (mirror_regex.pmatch[1].rm_eo - mirror_regex.pmatch[1].rm_so + 1) );
 				strncpy( tmp_pkg->mirror,
 					getline_buffer + mirror_regex.pmatch[1].rm_so,
 					mirror_regex.pmatch[1].rm_eo - mirror_regex.pmatch[1].rm_so
@@ -150,13 +134,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 
 			if( location_regex.reg_return == 0){
 
-				/* don't overflow the buffer */
-				if( (location_regex.pmatch[1].rm_eo - location_regex.pmatch[1].rm_so) > LOCATION_LEN ){
-					fprintf( stderr, _("pkg location too long\n"));
-					free_pkg(tmp_pkg);
-					continue;
-				}
-
+				tmp_pkg->location = slapt_malloc(sizeof *tmp_pkg->location * (location_regex.pmatch[1].rm_eo - location_regex.pmatch[1].rm_so + 1) );
 				strncpy(tmp_pkg->location,
 					getline_buffer + location_regex.pmatch[1].rm_so,
 					location_regex.pmatch[1].rm_eo - location_regex.pmatch[1].rm_so
@@ -171,20 +149,26 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 					PACKAGES.TXT location. this fixes the downloads and md5 checksum matching
 				*/
 				if( strstr(tmp_pkg->location,"./testing/") != NULL ){
-					char tmp_location[LOCATION_LEN] = {'.','\0'};
+					char *tmp_location = slapt_malloc(sizeof *tmp_location * (strlen(tmp_pkg->location) - strlen("./testing") + 2) );
+					tmp_location[0] = '.';
+					tmp_location[1] = '\0';
 					strncat(tmp_location,&tmp_pkg->location[0] + strlen("./testing"), strlen(tmp_pkg->location) - strlen("./testing"));
-					strncpy(tmp_pkg->location,tmp_location,strlen(tmp_location));
-					tmp_pkg->location[ strlen(tmp_location) ] = '\0';
+					free(tmp_pkg->location);
+					tmp_pkg->location = strdup(tmp_location);
 				}else if( strstr(tmp_pkg->location,"./extra/") != NULL ){
-					char tmp_location[LOCATION_LEN] = {'.','\0'};
+					char *tmp_location = slapt_malloc(sizeof *tmp_location * (strlen(tmp_pkg->location) - strlen("./extra") + 2) );
+					tmp_location[0] = '.';
+					tmp_location[1] = '\0';
 					strncat(tmp_location,&tmp_pkg->location[0] + strlen("./extra"), strlen(tmp_pkg->location) - strlen("./extra"));
-					strncpy(tmp_pkg->location,tmp_location,strlen(tmp_location));
-					tmp_pkg->location[ strlen(tmp_location) ] = '\0';
+					free(tmp_pkg->location);
+					tmp_pkg->location = strdup(tmp_location);
 				}else if( strstr(tmp_pkg->location,"./pasture/") != NULL ){
-					char tmp_location[LOCATION_LEN] = {'.','\0'};
+					char *tmp_location = slapt_malloc(sizeof *tmp_location * (strlen(tmp_pkg->location) - strlen("./pasture") + 2) );
+					tmp_location[0] = '.';
+					tmp_location[1] = '\0';
 					strncat(tmp_location,&tmp_pkg->location[0] + strlen("./pasture"), strlen(tmp_pkg->location) - strlen("./pasture"));
-					strncpy(tmp_pkg->location,tmp_location,strlen(tmp_location));
-					tmp_pkg->location[ strlen(tmp_location) ] = '\0';
+					free(tmp_pkg->location);
+					tmp_pkg->location = strdup(tmp_location);
 				}
 
 			}else{
@@ -342,25 +326,42 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh){
 		){
 
 			while( 1 ){
-				if( (bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh)) != EOF ){
+				char *tmp_desc = NULL;
 
-					if( strcmp(getline_buffer,"\n") != 0 &&
-						/* don't overflow the buffer */
-						(strlen(tmp_pkg->description) + bytes_read) < DESCRIPTION_LEN
-					){
-						strncat(tmp_pkg->description,getline_buffer,bytes_read);
-					}else{
-						break;
-					}
-
-				}else{
+				if( (bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh)) == EOF ){
 					break;
 				}
+
+				if( strcmp(getline_buffer,"\n") == 0){
+					break;
+				}
+
+				tmp_desc = realloc(tmp_pkg->description,sizeof *tmp_pkg->description * (strlen(tmp_pkg->description) + bytes_read + 1) );
+				if( tmp_desc == NULL ){
+					break;
+				}
+				tmp_pkg->description = tmp_desc;
+				strncat(tmp_pkg->description,getline_buffer,bytes_read);
+
 			}
 		}else{
 			fprintf(stderr,_("error attempting to read pkg description\n"));
 			free_pkg(tmp_pkg);
 			continue;
+		}
+
+		/* fillin details */
+		if( tmp_pkg->location == NULL ){
+			tmp_pkg->location = slapt_malloc(sizeof *tmp_pkg->location);
+			tmp_pkg->location[0] = '\0';
+		}
+		if( tmp_pkg->description == NULL ){
+			tmp_pkg->description = slapt_malloc(sizeof *tmp_pkg->location);
+			tmp_pkg->description[0] = '\0';
+		}
+		if( tmp_pkg->mirror == NULL ){
+			tmp_pkg->mirror = slapt_malloc(sizeof *tmp_pkg->location);
+			tmp_pkg->mirror[0] = '\0';
 		}
 
 		add_pkg_to_pkg_list(list,tmp_pkg);
@@ -453,12 +454,15 @@ struct pkg_list *get_installed_pkgs(void){
 
 		tmp_pkg = init_pkg();
 
+		tmp_pkg->name = slapt_malloc(sizeof *tmp_pkg->name * (ip_regex.pmatch[1].rm_eo - ip_regex.pmatch[1].rm_so + 1) );
 		strncpy(
 			tmp_pkg->name,
 			file->d_name + ip_regex.pmatch[1].rm_so,
 			ip_regex.pmatch[1].rm_eo - ip_regex.pmatch[1].rm_so
 		);
 		tmp_pkg->name[ ip_regex.pmatch[1].rm_eo - ip_regex.pmatch[1].rm_so ] = '\0';
+
+		tmp_pkg->version = slapt_malloc(sizeof *tmp_pkg->version * (ip_regex.pmatch[2].rm_eo - ip_regex.pmatch[2].rm_so + 1) );
 		strncpy(
 			tmp_pkg->version,
 			file->d_name + ip_regex.pmatch[2].rm_so,
@@ -498,11 +502,7 @@ struct pkg_list *get_installed_pkgs(void){
 				tmp_pkg->size_u = strtol(size_u,(char **)NULL,10);
 				free(size_u);
 			}else if( location_regex.reg_return == 0 ){
-				if( (location_regex.pmatch[1].rm_eo - location_regex.pmatch[1].rm_so) > LOCATION_LEN ){
-					fprintf( stderr, _("pkg location too long\n"));
-					free_pkg(tmp_pkg);
-					continue;
-				}
+				tmp_pkg->location = slapt_malloc(sizeof *tmp_pkg->location * (location_regex.pmatch[1].rm_eo - location_regex.pmatch[1].rm_so + 1));
 				strncpy(tmp_pkg->location,
 					getline_buffer + location_regex.pmatch[1].rm_so,
 					location_regex.pmatch[1].rm_eo - location_regex.pmatch[1].rm_so
@@ -514,16 +514,21 @@ struct pkg_list *get_installed_pkgs(void){
 			}else{
 				if(strstr(getline_buffer,"PACKAGE DESCRIPTION") != NULL){
 					while(1){
+						char *tmp_desc = NULL;
+
 						if((bytes_read = getline(&getline_buffer,&getline_len,pkg_f)) == EOF ) break;
+
 						if( strstr(getline_buffer,"FILE LIST:") != NULL ) break;
-						if( strcmp(getline_buffer,"\n") != 0 &&
-							/* don't overflow the buffer */
-							(strlen(tmp_pkg->description) + bytes_read) < DESCRIPTION_LEN
-						){
-							strncat(tmp_pkg->description,getline_buffer,bytes_read);
-						}else{
+
+						if( strcmp(getline_buffer,"\n") == 0) break;
+
+						tmp_desc = realloc(tmp_pkg->description,sizeof *tmp_pkg->description * (strlen(tmp_pkg->description) + bytes_read + 1) );
+						if( tmp_desc == NULL ){
 							break;
 						}
+						tmp_pkg->description = tmp_desc;
+						strncat(tmp_pkg->description,getline_buffer,bytes_read);
+
 					}
 				}else{
 					continue;
@@ -532,6 +537,20 @@ struct pkg_list *get_installed_pkgs(void){
 		}
 		if(getline_buffer) free(getline_buffer);
 		fclose(pkg_f);
+
+		/* fillin details */
+		if( tmp_pkg->location == NULL ){
+			tmp_pkg->location = slapt_malloc(sizeof *tmp_pkg->location);
+			tmp_pkg->location[0] = '\0';
+		}
+		if( tmp_pkg->description == NULL ){
+			tmp_pkg->description = slapt_malloc(sizeof *tmp_pkg->location);
+			tmp_pkg->description[0] = '\0';
+		}
+		if( tmp_pkg->mirror == NULL ){
+			tmp_pkg->mirror = slapt_malloc(sizeof *tmp_pkg->location);
+			tmp_pkg->mirror[0] = '\0';
+		}
 
 		add_pkg_to_pkg_list(list,tmp_pkg);
 		tmp_pkg = NULL;
@@ -663,6 +682,11 @@ void free_pkg(pkg_info_t *pkg){
 	free(pkg->required);
 	free(pkg->conflicts);
 	free(pkg->suggests);
+	free(pkg->name);
+	free(pkg->version);
+	free(pkg->mirror);
+	free(pkg->location);
+	free(pkg->description);
 	free(pkg);
 }
 
@@ -740,9 +764,7 @@ void get_md5sum(pkg_info_t *pkg,FILE *checksum_file){
 
 		if( md5sum_regex.reg_return == 0 ){
 			char sum[MD5_STR_LEN];
-			char location[50];
-			char name[50];
-			char version[50];
+			char *location, *name, *version;
 
 			/* md5 sum */
 			strncpy(
@@ -753,6 +775,7 @@ void get_md5sum(pkg_info_t *pkg,FILE *checksum_file){
 			sum[md5sum_regex.pmatch[1].rm_eo - md5sum_regex.pmatch[1].rm_so] = '\0';
 
 			/* location/directory */
+			location = slapt_malloc(sizeof *location * (md5sum_regex.pmatch[2].rm_eo - md5sum_regex.pmatch[2].rm_so + 1) );
 			strncpy(
 				location,
 				getline_buffer + md5sum_regex.pmatch[2].rm_so,
@@ -761,6 +784,7 @@ void get_md5sum(pkg_info_t *pkg,FILE *checksum_file){
 			location[md5sum_regex.pmatch[2].rm_eo - md5sum_regex.pmatch[2].rm_so] = '\0';
 
 			/* pkg name */
+			name = slapt_malloc(sizeof *name * (md5sum_regex.pmatch[3].rm_eo - md5sum_regex.pmatch[3].rm_so + 1) );
 			strncpy(
 				name,
 				getline_buffer + md5sum_regex.pmatch[3].rm_so,
@@ -769,6 +793,7 @@ void get_md5sum(pkg_info_t *pkg,FILE *checksum_file){
 			name[md5sum_regex.pmatch[3].rm_eo - md5sum_regex.pmatch[3].rm_so] = '\0';
 
 			/* pkg version */
+			version = slapt_malloc(sizeof *version * (md5sum_regex.pmatch[4].rm_eo - md5sum_regex.pmatch[4].rm_so + 1));
 			strncpy(
 				version,
 				getline_buffer + md5sum_regex.pmatch[4].rm_so,
@@ -786,9 +811,15 @@ void get_md5sum(pkg_info_t *pkg,FILE *checksum_file){
 				printf("%s-%s@%s, %s-%s@%s: %s\n",pkg->name,pkg->version,pkg->location,name,version,location,sum);
 				#endif
 				memcpy(pkg->md5,sum,md5sum_regex.pmatch[1].rm_eo - md5sum_regex.pmatch[1].rm_so + 1);
+				free(name);
+				free(version);
+				free(location);
 				break;
 			}
 
+			free(name);
+			free(version);
+			free(location);
 		}
 	}
 	if( getline_buffer ) free(getline_buffer);
@@ -1034,12 +1065,19 @@ struct pkg_list *search_pkg_list(struct pkg_list *available,const char *pattern)
 
 		execute_regex(&search_regex,available->pkgs[i]->name);
 		name_r = search_regex.reg_return;
+
 		execute_regex(&search_regex,available->pkgs[i]->version);
 		version_r = search_regex.reg_return;
-		execute_regex(&search_regex,available->pkgs[i]->description);
-		desc_r = search_regex.reg_return;
-		execute_regex(&search_regex,available->pkgs[i]->location);
-		loc_r = search_regex.reg_return;
+
+		if( available->pkgs[i]->description != NULL ){
+			execute_regex(&search_regex,available->pkgs[i]->description);
+			desc_r = search_regex.reg_return;
+		}
+
+		if( available->pkgs[i]->location != NULL ){
+			execute_regex(&search_regex,available->pkgs[i]->location);
+			loc_r = search_regex.reg_return;
+		}
 
 		/* search pkg name, pkg description, pkg location */
 		if( name_r == 0 || version_r == 0 || desc_r == 0 || loc_r == 0 ){
@@ -1249,9 +1287,11 @@ struct pkg_list *get_pkg_conflicts(struct pkg_list *avail_pkgs,struct pkg_list *
 static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,char *dep_entry){
 	unsigned int i;
 	sg_regex parse_dep_regex;
-	char tmp_pkg_name[NAME_LEN],tmp_pkg_cond[3],tmp_pkg_ver[VERSION_LEN];
+	char *tmp_pkg_name = NULL,*tmp_pkg_ver = NULL;
+	char tmp_pkg_cond[3];
 	pkg_info_t *newest_avail_pkg;
 	pkg_info_t *newest_installed_pkg;
+	int tmp_name_len =0, tmp_ver_len = 0, tmp_cond_len = 0;
 
 	init_regex(&parse_dep_regex,REQUIRED_REGEX);
 
@@ -1267,52 +1307,56 @@ static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list 
 		return NULL;
 	}
 
-	if( (parse_dep_regex.pmatch[1].rm_eo - parse_dep_regex.pmatch[1].rm_so) > NAME_LEN ){
-		fprintf( stderr, _("pkg name too long\n"));
-		exit(1);
-	}
+	tmp_name_len = parse_dep_regex.pmatch[1].rm_eo - parse_dep_regex.pmatch[1].rm_so;
+	tmp_cond_len = parse_dep_regex.pmatch[2].rm_eo - parse_dep_regex.pmatch[2].rm_so;
+	tmp_ver_len =	 parse_dep_regex.pmatch[3].rm_eo - parse_dep_regex.pmatch[3].rm_so;
+
+	tmp_pkg_name = slapt_malloc( sizeof *tmp_pkg_name * (tmp_name_len + 1));
 	strncpy( tmp_pkg_name,
 		dep_entry + parse_dep_regex.pmatch[1].rm_so,
-		parse_dep_regex.pmatch[1].rm_eo - parse_dep_regex.pmatch[1].rm_so
+		tmp_name_len
 	);
-	tmp_pkg_name[ parse_dep_regex.pmatch[1].rm_eo - parse_dep_regex.pmatch[1].rm_so ] = '\0';
+	tmp_pkg_name[ tmp_name_len ] = '\0';
 
 	newest_avail_pkg = get_newest_pkg(avail_pkgs,tmp_pkg_name);
 	newest_installed_pkg = get_newest_pkg(installed_pkgs,tmp_pkg_name);
 
 	/* if there is no conditional and version, return newest */
-	if( (parse_dep_regex.pmatch[2].rm_eo - parse_dep_regex.pmatch[2].rm_so) == 0 ){
+	if( tmp_cond_len == 0 ){
 		#if DEBUG == 1
 		printf("no conditional\n");
 		#endif
 		if( newest_installed_pkg != NULL ){
 			free_regex(&parse_dep_regex);
+			free(tmp_pkg_name);
 			return newest_installed_pkg;
 		}
 		if( newest_avail_pkg != NULL ){
 			free_regex(&parse_dep_regex);
+			free(tmp_pkg_name);
 			return newest_avail_pkg;
 		}
 	}
 
-	if( (parse_dep_regex.pmatch[2].rm_eo - parse_dep_regex.pmatch[2].rm_so) > 3 ){
+	if( tmp_cond_len > 3 ){
 		fprintf( stderr, _("pkg conditional too long\n"));
-		exit(1);
+		free_regex(&parse_dep_regex);
+		free(tmp_pkg_name);
+		return NULL;
 	}
-	if( (parse_dep_regex.pmatch[3].rm_eo - parse_dep_regex.pmatch[3].rm_so) > VERSION_LEN ){
-		fprintf( stderr, _("pkg version too long\n"));
-		exit(1);
-	}
+
 	strncpy( tmp_pkg_cond,
 		dep_entry + parse_dep_regex.pmatch[2].rm_so,
-		parse_dep_regex.pmatch[2].rm_eo - parse_dep_regex.pmatch[2].rm_so
+		tmp_cond_len
 	);
-	tmp_pkg_cond[ parse_dep_regex.pmatch[2].rm_eo - parse_dep_regex.pmatch[2].rm_so ] = '\0';
+	tmp_pkg_cond[ tmp_cond_len ] = '\0';
+
+	tmp_pkg_ver = slapt_malloc( sizeof *tmp_pkg_ver * (tmp_ver_len + 1));
 	strncpy( tmp_pkg_ver,
 		dep_entry + parse_dep_regex.pmatch[3].rm_so,
-		parse_dep_regex.pmatch[3].rm_eo - parse_dep_regex.pmatch[3].rm_so
+		tmp_ver_len
 	);
-	tmp_pkg_ver[ parse_dep_regex.pmatch[3].rm_eo - parse_dep_regex.pmatch[3].rm_so ] = '\0';
+	tmp_pkg_ver[ tmp_ver_len ] = '\0';
 
 	free_regex(&parse_dep_regex);
 
@@ -1321,35 +1365,66 @@ static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list 
 		* before we try looping through installed_pkgs
 	*/
 	if( newest_installed_pkg != NULL ){
+
 		/* if condition is "=",">=", or "=<" and versions are the same */
 		if( (strchr(tmp_pkg_cond,'=') != NULL) &&
-		(cmp_pkg_versions(tmp_pkg_ver,newest_installed_pkg->version) == 0) )
+		(cmp_pkg_versions(tmp_pkg_ver,newest_installed_pkg->version) == 0) ){
+			free(tmp_pkg_name);
+			free(tmp_pkg_ver);
 			return newest_installed_pkg;
+		}
+
 		/* if "<" */
-		if( strchr(tmp_pkg_cond,'<') != NULL )
-			if( cmp_pkg_versions(newest_installed_pkg->version,tmp_pkg_ver) < 0 )
+		if( strchr(tmp_pkg_cond,'<') != NULL ){
+			if( cmp_pkg_versions(newest_installed_pkg->version,tmp_pkg_ver) < 0 ){
+				free(tmp_pkg_name);
+				free(tmp_pkg_ver);
 				return newest_installed_pkg;
+			}
+		}
+
 		/* if ">" */
-		if( strchr(tmp_pkg_cond,'>') != NULL )
-			if( cmp_pkg_versions(newest_installed_pkg->version,tmp_pkg_ver) > 0 )
+		if( strchr(tmp_pkg_cond,'>') != NULL ){
+			if( cmp_pkg_versions(newest_installed_pkg->version,tmp_pkg_ver) > 0 ){
+				free(tmp_pkg_name);
+				free(tmp_pkg_ver);
 				return newest_installed_pkg;
+			}
+		}
+
 	}
+
 	for(i = 0; i < installed_pkgs->pkg_count; i++){
+
 		if( strcmp(tmp_pkg_name,installed_pkgs->pkgs[i]->name) != 0 )
 			continue;
 
 		/* if condition is "=",">=", or "=<" and versions are the same */
 		if( (strchr(tmp_pkg_cond,'=') != NULL) &&
-		(cmp_pkg_versions(tmp_pkg_ver,installed_pkgs->pkgs[i]->version) == 0) )
+		(cmp_pkg_versions(tmp_pkg_ver,installed_pkgs->pkgs[i]->version) == 0) ){
+			free(tmp_pkg_name);
+			free(tmp_pkg_ver);
 			return installed_pkgs->pkgs[i];
+		}
+
 		/* if "<" */
-		if( strchr(tmp_pkg_cond,'<') != NULL )
-			if( cmp_pkg_versions(installed_pkgs->pkgs[i]->version,tmp_pkg_ver) < 0 )
+		if( strchr(tmp_pkg_cond,'<') != NULL ){
+			if( cmp_pkg_versions(installed_pkgs->pkgs[i]->version,tmp_pkg_ver) < 0 ){
+				free(tmp_pkg_name);
+				free(tmp_pkg_ver);
 				return installed_pkgs->pkgs[i];
+			}
+		}
+
 		/* if ">" */
-		if( strchr(tmp_pkg_cond,'>') != NULL )
-			if( cmp_pkg_versions(installed_pkgs->pkgs[i]->version,tmp_pkg_ver) > 0 )
+		if( strchr(tmp_pkg_cond,'>') != NULL ){
+			if( cmp_pkg_versions(installed_pkgs->pkgs[i]->version,tmp_pkg_ver) > 0 ){
+				free(tmp_pkg_name);
+				free(tmp_pkg_ver);
 				return installed_pkgs->pkgs[i];
+			}
+		}
+
 	}
 
 	/*
@@ -1357,38 +1432,71 @@ static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,struct pkg_list 
 		* before we try looping through avail_pkgs
 	*/
 	if( newest_avail_pkg != NULL ){
+
 		/* if condition is "=",">=", or "=<" and versions are the same */
 		if( (strchr(tmp_pkg_cond,'=') != NULL) &&
-		(cmp_pkg_versions(tmp_pkg_ver,newest_avail_pkg->version) == 0) )
+		(cmp_pkg_versions(tmp_pkg_ver,newest_avail_pkg->version) == 0) ){
+			free(tmp_pkg_name);
+			free(tmp_pkg_ver);
 			return newest_avail_pkg;
+		}
+
 		/* if "<" */
-		if( strchr(tmp_pkg_cond,'<') != NULL )
-			if( cmp_pkg_versions(newest_avail_pkg->version,tmp_pkg_ver) < 0 )
+		if( strchr(tmp_pkg_cond,'<') != NULL ){
+			if( cmp_pkg_versions(newest_avail_pkg->version,tmp_pkg_ver) < 0 ){
+				free(tmp_pkg_name);
+				free(tmp_pkg_ver);
 				return newest_avail_pkg;
+			}
+		}
+
 		/* if ">" */
-		if( strchr(tmp_pkg_cond,'>') != NULL )
-			if( cmp_pkg_versions(newest_avail_pkg->version,tmp_pkg_ver) > 0 )
+		if( strchr(tmp_pkg_cond,'>') != NULL ){
+			if( cmp_pkg_versions(newest_avail_pkg->version,tmp_pkg_ver) > 0 ){
+				free(tmp_pkg_name);
+				free(tmp_pkg_ver);
 				return newest_avail_pkg;
+			}
+		}
+
 	}
 
 	/* loop through avail_pkgs */
 	for(i = 0; i < avail_pkgs->pkg_count; i++){
+
 		if( strcmp(tmp_pkg_name,avail_pkgs->pkgs[i]->name) != 0 )
 			continue;
 
 		/* if condition is "=",">=", or "=<" and versions are the same */
 		if( (strchr(tmp_pkg_cond,'=') != NULL) &&
-		(cmp_pkg_versions(tmp_pkg_ver,avail_pkgs->pkgs[i]->version) == 0) )
+		(cmp_pkg_versions(tmp_pkg_ver,avail_pkgs->pkgs[i]->version) == 0) ){
+			free(tmp_pkg_name);
+			free(tmp_pkg_ver);
 			return avail_pkgs->pkgs[i];
+		}
+
 		/* if "<" */
-		if( strchr(tmp_pkg_cond,'<') != NULL )
-			if( cmp_pkg_versions(avail_pkgs->pkgs[i]->version,tmp_pkg_ver) < 0 )
+		if( strchr(tmp_pkg_cond,'<') != NULL ){
+			if( cmp_pkg_versions(avail_pkgs->pkgs[i]->version,tmp_pkg_ver) < 0 ){
+				free(tmp_pkg_name);
+				free(tmp_pkg_ver);
 				return avail_pkgs->pkgs[i];
+			}
+		}
+
 		/* if ">" */
-		if( strchr(tmp_pkg_cond,'>') != NULL )
-			if( cmp_pkg_versions(avail_pkgs->pkgs[i]->version,tmp_pkg_ver) > 0 )
+		if( strchr(tmp_pkg_cond,'>') != NULL ){
+			if( cmp_pkg_versions(avail_pkgs->pkgs[i]->version,tmp_pkg_ver) > 0 ){
+				free(tmp_pkg_name);
+				free(tmp_pkg_ver);
 				return avail_pkgs->pkgs[i];
+			}
+		}
+
 	}
+
+	free(tmp_pkg_name);
+	free(tmp_pkg_ver);
 
 	return NULL;
 }
@@ -1406,14 +1514,16 @@ struct pkg_list *is_required_by(const rc_config *global_config,struct pkg_list *
 static void required_by(const rc_config *global_config,struct pkg_list *avail, pkg_info_t *pkg,struct pkg_list *required_by_list){
 	unsigned int i;
 	sg_regex required_by_reg;
-	char escapedName[NAME_LEN], *escaped_ptr;
+	char *escapedName = NULL, *escaped_ptr;
 
 	/*
 	 * don't go any further if disable_dep_check is set
 	*/
 	if( global_config->disable_dep_check == TRUE) return;
 
-	for(i = 0, escaped_ptr = escapedName; i < NAME_LEN && pkg->name[i]; i++){
+	escapedName = slapt_malloc(sizeof *escapedName * (strlen(pkg->name) + 1) );
+
+	for(i = 0, escaped_ptr = escapedName; i < strlen(pkg->name) && pkg->name[i]; i++){
 		if( pkg->name[i] == '+' ){
 			*escaped_ptr++ = '\\';
 			*escaped_ptr++ = pkg->name[i];
@@ -1422,6 +1532,7 @@ static void required_by(const rc_config *global_config,struct pkg_list *avail, p
 		}
 		*escaped_ptr = '\0';
 	}
+
 	init_regex(&required_by_reg,escapedName);
 
 	for(i = 0; i < avail->pkg_count;i++){
@@ -1434,6 +1545,7 @@ static void required_by(const rc_config *global_config,struct pkg_list *avail, p
 		add_pkg_to_pkg_list(required_by_list,avail->pkgs[i]);
 	}
 
+	free(escapedName);
 	free_regex(&required_by_reg);
 }
 
@@ -1784,17 +1896,24 @@ __inline pkg_info_t *init_pkg(void){
 	pkg->size_c = 0;
 	pkg->size_u = 0;
 
-	pkg->name[0] = '\0';
-	pkg->version[0] = '\0';
-	pkg->mirror[0] = '\0';
-	pkg->location[0] = '\0';
+	pkg->name = NULL;
+	pkg->version = NULL;
+	pkg->mirror = NULL;
+	pkg->location = NULL;
+
+	pkg->description = slapt_malloc(sizeof *pkg->description); 
 	pkg->description[0] = '\0';
+
 	pkg->required = slapt_malloc(sizeof *pkg->required);
-	pkg->conflicts = slapt_malloc(sizeof *pkg->conflicts);
-	pkg->suggests = slapt_malloc(sizeof *pkg->suggests);
 	pkg->required[0] = '\0';
+
+	pkg->conflicts = slapt_malloc(sizeof *pkg->conflicts);
 	pkg->conflicts[0] = '\0';
+
+	pkg->suggests = slapt_malloc(sizeof *pkg->suggests);
 	pkg->suggests[0] = '\0';
+
+
 	pkg->md5[0] = '\0';
 
 	return pkg;
@@ -1991,17 +2110,6 @@ void purge_old_cached_pkgs(const rc_config *global_config,char *dir_name,struct 
 				char *tmp_pkg_name,*tmp_pkg_version;
 				pkg_info_t *tmp_pkg;
 
-				if((cached_pkgs_regex.pmatch[1].rm_eo - cached_pkgs_regex.pmatch[1].rm_so) >
-					NAME_LEN ){
-					fprintf(stderr,"cached package name too long\n");
-					exit(1);
-				}
-				if((cached_pkgs_regex.pmatch[2].rm_eo - cached_pkgs_regex.pmatch[2].rm_so) >
-					VERSION_LEN ){
-					fprintf(stderr,"cached package version too long\n");
-					exit(1);
-				}
-
 				tmp_pkg_name = strndup(
 					file->d_name + cached_pkgs_regex.pmatch[1].rm_so,
 					cached_pkgs_regex.pmatch[1].rm_eo - cached_pkgs_regex.pmatch[1].rm_so
@@ -2012,6 +2120,9 @@ void purge_old_cached_pkgs(const rc_config *global_config,char *dir_name,struct 
 				);
 
 				tmp_pkg = get_exact_pkg(avail_pkgs,tmp_pkg_name,tmp_pkg_version);
+				free(tmp_pkg_name);
+				free(tmp_pkg_version);
+
 				if( tmp_pkg == NULL ){
 
 					if(global_config->no_prompt == TRUE ){
@@ -2130,6 +2241,11 @@ static pkg_info_t *find_or_requirement(struct pkg_list *avail_pkgs,struct pkg_li
 
 pkg_info_t *copy_pkg(pkg_info_t *dst,pkg_info_t *src){
 	dst = memcpy(dst,src, sizeof *src);
+	dst->name = strndup(src->name,strlen(src->name));
+	dst->version = strndup(src->version,strlen(src->version));
+	dst->mirror = strndup(src->mirror,strlen(src->mirror));
+	dst->location = strndup(src->location,strlen(src->location));
+	dst->description = strndup(src->description,strlen(src->description));
 	dst->suggests = strndup(src->suggests, strlen(src->suggests));
 	dst->conflicts = strndup(src->conflicts, strlen(src->conflicts));
 	dst->required = strndup(src->required, strlen(src->required));

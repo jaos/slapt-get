@@ -1,5 +1,8 @@
 
 0.9.9k Apr 25, 2005
+ * removed hard limits on package name, version, location, and description,
+   fixing issue with greater than limit location in installed package causing
+   double free bug.
  * when parsing meta entry for w/o conditionals, return newest installed version
    instead of newest available by default, fall back to newest available other-
    wise.

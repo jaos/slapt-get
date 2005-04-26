@@ -47,15 +47,6 @@ void pkg_action_install(const rc_config *global_config,const pkg_action_args_t *
 		if( pkg_regex.reg_return == 0 ){
 			char *pkg_name,*pkg_version;
 
-			if( (pkg_regex.pmatch[1].rm_eo - pkg_regex.pmatch[1].rm_so) > NAME_LEN ){
-				fprintf(stderr,"Package name exceeds NAME_LEN: %d\n",NAME_LEN);
-				exit(1);
-			}
-			if( (pkg_regex.pmatch[2].rm_eo - pkg_regex.pmatch[2].rm_so) > VERSION_LEN ){
-				fprintf(stderr,"Package version exceeds NAME_LEN: %d\n",VERSION_LEN);
-				exit(1);
-			}
-
 			pkg_name = strndup(
 				action_args->pkgs[i] + pkg_regex.pmatch[1].rm_so,
 				pkg_regex.pmatch[1].rm_eo - pkg_regex.pmatch[1].rm_so
@@ -228,15 +219,6 @@ void pkg_action_remove(const rc_config *global_config,const pkg_action_args_t *a
 		if( pkg_regex.reg_return == 0 ){
 			char *pkg_name,*pkg_version;
 
-			if( (pkg_regex.pmatch[1].rm_eo - pkg_regex.pmatch[1].rm_so) > NAME_LEN ){
-				fprintf(stderr,"Package name exceeds NAME_LEN: %d\n",NAME_LEN);
-				exit(1);
-			}
-			if( (pkg_regex.pmatch[2].rm_eo - pkg_regex.pmatch[2].rm_so) > VERSION_LEN ){
-				fprintf(stderr,"Package version exceeds NAME_LEN: %d\n",VERSION_LEN);
-				exit(1);
-			}
-
 			pkg_name = strndup(
 				action_args->pkgs[i] + pkg_regex.pmatch[1].rm_so,
 				pkg_regex.pmatch[1].rm_eo - pkg_regex.pmatch[1].rm_so
@@ -365,15 +347,6 @@ void pkg_action_show(const char *pkg_name){
 	/* If so, parse it out and try to get that version only */
 	if( pkg_regex.reg_return == 0 ){
 		char *p_name,*p_version;
-
-		if( (pkg_regex.pmatch[1].rm_eo - pkg_regex.pmatch[1].rm_so) > NAME_LEN ){
-			fprintf(stderr,"Package name exceeds NAME_LEN: %d\n",NAME_LEN);
-			exit(1);
-		}
-		if( (pkg_regex.pmatch[2].rm_eo - pkg_regex.pmatch[2].rm_so) > VERSION_LEN ){
-			fprintf(stderr,"Package version exceeds NAME_LEN: %d\n",VERSION_LEN);
-			exit(1);
-		}
 
 		p_name = strndup(
 			pkg_name + pkg_regex.pmatch[1].rm_so,
