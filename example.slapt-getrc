@@ -3,7 +3,7 @@ WORKINGDIR=/var/slapt-get
 
 
 # exclude package names and expressions
-EXCLUDE=kernel-.*,alsa-.*,lilo,.*-[0-9]dl$,devs,aaa_elflibs
+EXCLUDE=kernel-.*,alsa-.*,lilo,.*-[0-9]dl$,devs,aaa_elflibs,x86_64
 # * to exclude pre and beta packages, add this as an exclude: 
 # [0-9\_\.\-]{1}pre[0-9\-\.\-]{1}
 # To exclude architectures such as i686, use the following:

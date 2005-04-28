@@ -1,5 +1,6 @@
 
-0.9.9k Apr 26, 2005
+0.9.9k Apr 28, 2005
+ * added exclude for x86_64 packages
  * removed unneeded strings from translations
  * removed hard limits on package name, version, location, and description,
    fixing issue with greater than limit location in installed package causing
