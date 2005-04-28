@@ -30,7 +30,7 @@ SOURCE=http://software.jaos.org/slackpacks/10.1/
 
 # you can use multiple sources, such as linuxpackages.net
 # (not recommended on production servers, see README)
-# Supported version are 8.1 9.0 9.1 10.0
+# Supported version are 8.1 9.0 9.1 10.0 10.1
 # For the latest mirrors list please visit 
 # http://www.linuxpackages.net/mirrors.php
 ### NYI New York
@@ -56,6 +56,13 @@ SOURCE=http://software.jaos.org/slackpacks/10.1/
 ### IEEE Student Brach / Croatia
 #SOURCE=http://www.nymphomatic.org/mirror/linuxpackages/Slackware-10.1/
 #SOURCE=ftp://ftp.nymphomatic.org/linuxpackages/Slackware-10.1/
+### University of Belgrade 2 / Belgrade Serbia and Montenegro
+#SOURCE=http://mirror2.etf.bg.ac.yu/linuxpackages/Slackware-10.1/
+### Naist / Japan
+#SOURCE=http://ftp.naist.jp/pub/Linux/linuxpackages/Slackware-10.1/
+#SOURCE=ftp://ftp.nara.wide.ad.jp/pub/Linux/linuxpackages/Slackware-10.1/
+### Software Mirror / Colorado
+#SOURCE=http://www.software-mirror.com/linuxpackages/Slackware-10.1/
 # * no current with linuxpackages.net
 
 # audioslack sources
@@ -75,10 +82,13 @@ SOURCE=http://software.jaos.org/slackpacks/10.1/
 #SOURCE=http://slackpacks.tchelinux.com.br/
 #SOURCE=http://slackware.rm-f.net/slackware-10.0/rkeene/
 #SOURCE=http://slackware.rm-f.net/slackware-9.1/rkeene/
-#SOURCE=ftp://ftp.oceighty.net/slackware-10.0/
-#SOURCE=ftp://ftp.oceighty.net/slackware-current/
 #SOURCE=http://shtrom.free.fr/slackware/slackware-10.0/
 #SOURCE=http://www.stabellini.net/repository/Stefano_Stabellini/
+#SOURCE=ftp://ftp.gware.org/10.1/2.10.0/packages/
+#SOURCE=http://carroll.aset.psu.edu/pub/linux/distributions/collegelinux/current/
+#SOURCE=http://distro.ibiblio.org/pub/linux/distributions/vectorlinux/veclinux-5.0/packages/
+#SOURCE=http://mirror.datapipe.net/norlug/frg/frg-current/
+
 
 # pull from your cdrom
 #SOURCE=file:///mnt/cdrom/
@@ -143,3 +153,5 @@ SOURCE=http://software.jaos.org/slackpacks/10.1/
 #SOURCE=ftp://sunsite.icm.edu.pl/pub/Linux/slackware/slackware-10.1/
 #SOURCE=ftp://sunsite.informatik.rwth-aachen.de/pub/Linux/slackware/slackware-10.1/
 #SOURCE=ftp://sunsite.pub.ro/pub/Linux/distributions/slackware/slackware-10.1/
+#SOURCE=ftp://ftp.oceighty.net/slackware-10.0/
+#SOURCE=ftp://ftp.oceighty.net/slackware-current/
