@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.9k\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2005-04-29 23:05+0500\n"
+"PO-Revision-Date: 2005-04-30 17:59+0500\n"
 "Last-Translator: Oto Petrik <oto.petrik@centrum.cz>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -57,7 +57,7 @@ msgstr "Velikost balíku: %d K\n"
 
 #, c-format
 msgid "Package Installed Size: %d K\n"
-msgstr "Velikost instalovaného balíku: %d K\n"
+msgstr "Velikost nainstalovaného balíku: %d K\n"
 
 #, c-format
 msgid "Package Required: %s\n"
@@ -100,7 +100,7 @@ msgstr "Stahuji seznam oprav [%s]...\n"
 
 #, c-format
 msgid "Retrieving checksum list [%s]..."
-msgstr "Stahuji seznam kontrolních souètù [%s]..,"
+msgstr "Stahuji seznam kontrolních souètù [%s]..."
 
 msgid "Failed to malloc\n"
 msgstr "Nepodaøilo se alokovat(malloc)\n"
@@ -229,55 +229,55 @@ msgid "upgrade to newer release"
 msgstr "pový¹í na novìj¹í vydání"
 
 msgid "[pkg name(s)] - install specified pkg(s)"
-msgstr "[jméno balíku(ù)] - instaluj zadaný balík(y)"
+msgstr "[jméno balíku(ù)] - instaluje zadaný balík(y)"
 
 msgid "[pkg name(s)] - remove specified pkg(s)"
-msgstr "[jméno balíku(ù)] - odstraò zadaný balík(y)"
+msgstr "[jméno balíku(ù)] - odstraní zadaný balík(y)"
 
 msgid "[pkg name] - show pkg description"
-msgstr "[jméno balíku] - uka¾ popis balíku"
+msgstr "[jméno balíku] - zobrazí popis balíku"
 
 msgid "[expression] - search available pkgs"
-msgstr "[výraz] - hledej dostupné balíky"
+msgstr "[výraz] - prohledá dostupné balíky"
 
 msgid "list pkgs"
-msgstr "vypi¹ balíky"
+msgstr "vypí¹e balíky"
 
 msgid "list available pkgs"
-msgstr "vypi¹ dostupné balíky"
+msgstr "vypí¹e dostupné balíky"
 
 msgid "list installed pkgs"
-msgstr "vypi¹ nainstalované balíky"
+msgstr "vypí¹e nainstalované balíky"
 
 msgid "purge cached pkgs"
-msgstr "vyèisti balíkovou cache"
+msgstr "vyèistí balíkovou cache"
 
 msgid "print version and license info"
-msgstr "zobraz informace o verzi a licenci"
+msgstr "zobrazí informace o verzi a licenci"
 
 msgid "Options:\n"
 msgstr "Pøepínaèe:\n"
 
 msgid "only download pkg on install/upgrade"
-msgstr "pouze stáhni balíky pro instalaci/pový¹ení"
+msgstr "pouze stáhne balíky pro instalaci/pový¹ení"
 
 msgid "show pkgs to be installed/upgraded"
-msgstr "uka¾ balíky k instalaci/pový¹ení"
+msgstr "zobrazí balíky k instalaci/pový¹ení"
 
 msgid "do not prompt during install/upgrade"
-msgstr "nedotazuj se v prùbìhu instalace/pový¹ení"
+msgstr "nedotazuje se v prùbìhu instalace/pový¹ení"
 
 msgid "re-install the pkg"
-msgstr "pøeinstaluj balík"
+msgstr "pøeinstaluje balík"
 
 msgid "install/upgrade excludes"
 msgstr "instalace/pový¹ení vynechá"
 
 msgid "do not perform md5 check sum"
-msgstr "neprovádìj md5 kontrolní souèet"
+msgstr "neprovádí md5 kontrolní souèet"
 
 msgid "ignore dependency failures"
-msgstr "ignoruj chyby závislostí"
+msgstr "ignoruje chyby závislostí"
 
 #, c-format
 msgid "%s version %s\n"
@@ -333,7 +333,7 @@ msgstr "Nepodaøilo se spustit pøíkaz: [%s]\n"
 
 #, c-format
 msgid "%s-%s is to be upgraded to version %s\n"
-msgstr "%s-%s bude upgradován na verzi %s\n"
+msgstr "%s-%s bude pový¹en na verzi %s\n"
 
 #, c-format
 msgid "Preparing to replace %s-%s with %s-%s\n"
@@ -404,7 +404,7 @@ msgid "Installed %s conflicts with %s\n"
 msgstr "Nainstalovaný %s koliduje s %s\n"
 
 msgid "print URIs only, do not download"
-msgstr "pouze vypi¹ URI, nestahuj"
+msgstr "pouze vypí¹e URI, nestahuje"
 
 #, c-format
 msgid "Package MD5 Sum:  %s\n"
@@ -429,10 +429,10 @@ msgid "%s, which is required by %s, is excluded\n"
 msgstr "%s, který je potøebný pro %s, je vylouèen\n"
 
 msgid "skip dependency check"
-msgstr "pøeskoè kontrolu závislostí"
+msgstr "pøeskoèí kontrolu závislostí"
 
 msgid "show download statistics"
-msgstr "uka¾ statistiku stahování"
+msgstr "zobrazí statistiku stahování"
 
 msgid "Cached\n"
 msgstr "Cacheovaný\n"
@@ -447,24 +447,24 @@ msgid "Suggested packages:\n"
 msgstr "Navrhované balíky:\n"
 
 msgid "only purge cache of older, unreacheable pkgs"
-msgstr "vyèisti pouze cache starých, nedostupnách balíkù"
+msgstr "vyèistí pouze cache starých, nedostupnách balíkù"
 
 msgid "remove obsolete packages (dist-upgrade only)"
-msgstr ""
+msgstr "odstraní zastaralé balíky (pouze dist-upgrade)"
 
 #, c-format
 msgid "You don't have enough free space in %s\n"
-msgstr "Na %s nemÃ¡te dostatek volnÃ©ho mÃ­sta\n"
+msgstr "Na %s není dostatek volného místa\n"
 
 #, c-format
 msgid "Package Conflicts: %s\n"
-msgstr ""
+msgstr "Balík koliduje s: %s\n"
 
 #, c-format
 msgid "Package Suggests: %s\n"
-msgstr ""
+msgstr "Balík navrhuje: %s\n"
 
 #, c-format
 msgid "Failed to parse package data from %s\n"
-msgstr "Failed to parse package data from %s\n"
+msgstr "Nepodaèilo se analyzovat popisy balíkù z %s\n"
 
