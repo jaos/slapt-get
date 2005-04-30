@@ -1,5 +1,7 @@
 
-0.9.9k Apr 28, 2005
+0.9.9k Apr 29, 2005
+ * added missing strings to translations, updated translations
+ * give more notification when package sources fail to download
  * updated example.slapt-getrc with additional package sources
  * added exclude for x86_64 packages
  * removed unneeded strings from translations

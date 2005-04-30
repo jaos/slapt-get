@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.9k\n"
 "POT-Creation-Date: 2005-03-09\n"
-"PO-Revision-Date: 2005-04-26 12:09+0500\n"
+"PO-Revision-Date: 2005-04-29 23:05+0500\n"
 "Last-Translator: Uros Trsavec <utrsav@walla.com>\n"
 "Language-Team: SloNiX <slonix.rn@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -446,12 +446,6 @@ msgstr "doloèi alternativno slapt-getrc lokacijo"
 msgid "Suggested packages:\n"
 msgstr "Predlagani paketi:\n"
 
-msgid "Maximum length of working directory (%d) exceeded.\n"
-msgstr "Maksimalna dolžina delovne mape (%d) je prekoraèena.\n"
-
-msgid "Maximum length of excludes (%d) exceeded.\n"
-msgstr "Maksimalna dolžina razširitev (%d) je prekoraèena.\n"
-
 msgid "only purge cache of older, unreacheable pkgs"
 msgstr "poèisti samo predpomnilnik starejši, nedosgljivih paketkov"
 
@@ -461,4 +455,16 @@ msgstr "odtrani zastarele paketke (dist-upgrade samo)"
 #, c-format
 msgid "You don't have enough free space in %s\n"
 msgstr "V %s ni na voljo dovolj praznega prostora.\n"
+
+#, c-format
+msgid "Package Conflicts: %s\n"
+msgstr ""
+
+#, c-format
+msgid "Package Suggests: %s\n"
+msgstr ""
+
+#, c-format
+msgid "Failed to parse package data from %s\n"
+msgstr "Failed to parse package data from %s\n"
 

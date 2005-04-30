@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.9k\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2005-04-26 12:09+0500\n"
+"PO-Revision-Date: 2005-04-29 23:05+0500\n"
 "Last-Translator: Nguyễn Văn Vũ <vncasper@yahoo.com>\n"
 "Language-Team: gnome-vi <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -451,14 +451,6 @@ msgstr "chọn tập tin cấu hình slapt-getrc khác tập tin cấu hình m�
 msgid "Suggested packages:\n"
 msgstr "Những gói phần mềm đề nghị:\n"
 
-#, c-format
-msgid "Maximum length of working directory (%d) exceeded.\n"
-msgstr "Chiều dài thư mục làm việc tối đa được phép vượt trội (%d).\n"
-
-#, c-format
-msgid "Maximum length of excludes (%d) exceeded.\n"
-msgstr "Chiều dài phần loại trừ tối đa được phép vượt trội (%d).\n"
-
 msgid "only purge cache of older, unreacheable pkgs"
 msgstr "chỉ xoá những gói phần mềm cũ, không còn sử dụng"
 
@@ -468,3 +460,16 @@ msgstr "gỡ bỏ những gói phần mềm cũ (chỉ có hiệu lực với --
 #, c-format
 msgid "You don't have enough free space in %s\n"
 msgstr "Dung lượng đĩa còn lại không đủ cho %s\n"
+
+#, c-format
+msgid "Package Conflicts: %s\n"
+msgstr ""
+
+#, c-format
+msgid "Package Suggests: %s\n"
+msgstr ""
+
+#, c-format
+msgid "Failed to parse package data from %s\n"
+msgstr "Failed to parse package data from %s\n"
+

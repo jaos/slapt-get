@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.9k\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2005-04-26 12:09+0500\n"
+"PO-Revision-Date: 2005-04-29 23:05+0500\n"
 "Last-Translator: Oto Petrik <oto.petrik@centrum.cz>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -446,14 +446,6 @@ msgstr "specifikujte náhradní umístìní slapt-getrc"
 msgid "Suggested packages:\n"
 msgstr "Navrhované balíky:\n"
 
-#, c-format
-msgid "Maximum length of working directory (%d) exceeded.\n"
-msgstr "Maximální délka pracovního adresáøe (%d) pøekroèena.\n"
-
-#, c-format
-msgid "Maximum length of excludes (%d) exceeded.\n"
-msgstr "Maximální délka vylouèených (%d) pøekroèena.\n"
-
 msgid "only purge cache of older, unreacheable pkgs"
 msgstr "vyèisti pouze cache starých, nedostupnách balíkù"
 
@@ -463,4 +455,16 @@ msgstr ""
 #, c-format
 msgid "You don't have enough free space in %s\n"
 msgstr "Na %s nemÃ¡te dostatek volnÃ©ho mÃ­sta\n"
+
+#, c-format
+msgid "Package Conflicts: %s\n"
+msgstr ""
+
+#, c-format
+msgid "Package Suggests: %s\n"
+msgstr ""
+
+#, c-format
+msgid "Failed to parse package data from %s\n"
+msgstr "Failed to parse package data from %s\n"
 

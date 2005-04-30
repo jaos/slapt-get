@@ -1715,6 +1715,7 @@ int update_pkg_cache(const rc_config *global_config){
 			printf(_("Cached\n"));
 			if( (tmp_pkg_f = open_file(pkg_filename,"r")) == NULL ) exit(1);
 			available_pkgs = parse_packages_txt(tmp_pkg_f);
+			fclose(tmp_pkg_f);
 		}else{
 			if( global_config->dl_stats == TRUE ) printf("\n");
 			if( (tmp_pkg_f = open_file(pkg_filename,"w+b")) == NULL ) exit(1);
@@ -1726,17 +1727,23 @@ int update_pkg_cache(const rc_config *global_config){
 				source_dl_failed = 1;
 				clear_head_cache(pkg_filename);
 			}
+			fclose(tmp_pkg_f);
 		}
+		free(pkg_local_head);
 		if( available_pkgs == NULL || available_pkgs->pkg_count < 1 ){
-			source_dl_failed = 1;
 			clear_head_cache(pkg_filename);
+			fprintf(stderr,_("Failed to parse package data from %s\n"),
+				global_config->sources->url[i]
+			);
+			free(pkg_head);
+			free(pkg_filename);
+			if ( available_pkgs ) free_pkg_list(available_pkgs);
+			continue;
 		}
 		/* if all is good, write it */
 		if( source_dl_failed != 1 && pkg_head != NULL ) write_head_cache(pkg_head,pkg_filename);
 		free(pkg_head);
-		free(pkg_local_head);
 		free(pkg_filename);
-		fclose(tmp_pkg_f);
 
 
 		/* download PATCHES_LIST */

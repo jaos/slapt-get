@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.9k\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2005-04-26 12:09+0500\n"
+"PO-Revision-Date: 2005-04-29 23:05+0500\n"
 "Last-Translator: Niklas Volbers <mithrandir42@web.de>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -445,14 +445,6 @@ msgstr "anderen Ort für die Konfigurationsdatei slapt-getrc angeben"
 msgid "Suggested packages:\n"
 msgstr "Vorgeschlagene Pakete:\n"
 
-#, c-format
-msgid "Maximum length of working directory (%d) exceeded.\n"
-msgstr "Maximale Länge des Arbeitsverzeichnisses (%d) überschritten.\n"
-
-#, c-format
-msgid "Maximum length of excludes (%d) exceeded.\n"
-msgstr "Maximale Länge der auszuschließenden Pakete (%d) überschritten.\n"
-
 msgid "only purge cache of older, unreacheable pkgs"
 msgstr "nur alte, nicht mehr verfügbare Pakete aus Zwischenspeicher entfernen"
 
@@ -462,4 +454,16 @@ msgstr "entferne veraltete Pakete (nur bei dist-upgrade)"
 #, c-format
 msgid "You don't have enough free space in %s\n"
 msgstr "Sie haben nicht genug freien Platz in %s\n"
+
+#, c-format
+msgid "Package Conflicts: %s\n"
+msgstr ""
+
+#, c-format
+msgid "Package Suggests: %s\n"
+msgstr ""
+
+#, c-format
+msgid "Failed to parse package data from %s\n"
+msgstr "Failed to parse package data from %s\n"
 
