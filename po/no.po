@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.9k\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2005-04-29 23:05+0500\n"
+"PO-Revision-Date: 2005-04-30 08:17+0500\n"
 "Last-Translator: Joran Kvalvaag <jk@nerdworks.org>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -447,7 +447,7 @@ msgid "Suggested packages:\n"
 msgstr "Anbefalte pakker:\n"
 
 msgid "only purge cache of older, unreacheable pkgs"
-msgstr ""
+msgstr "slett bare mellomlager av eldre utilgjengelige pakker"
 
 msgid "remove obsolete packages (dist-upgrade only)"
 msgstr "fjern gamle pakker (kun dist-oppgradering)"
@@ -458,13 +458,13 @@ msgstr "Du har ikke nok ledig plass i %s\n"
 
 #, c-format
 msgid "Package Conflicts: %s\n"
-msgstr ""
+msgstr "Pakkekonflikter: %s\n"
 
 #, c-format
 msgid "Package Suggests: %s\n"
-msgstr ""
+msgstr "Pakkeforslag: %s\n"
 
 #, c-format
 msgid "Failed to parse package data from %s\n"
-msgstr "Failed to parse package data from %s\n"
+msgstr "Kunne ikke analysere pakkedata fra %s\n"
 
