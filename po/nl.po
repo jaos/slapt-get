@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.9k\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2005-04-29 23:05+0500\n"
-"Last-Translator: Jason Woodward <woodwardj@jaos.org>\n"
+"PO-Revision-Date: 2005-05-01 12:42+0500\n"
+"Last-Translator: Stefan Koopmanschap <stefan@electronicmusicworld.com>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -33,7 +33,7 @@ msgstr "nee"
 
 #, c-format
 msgid "%s is not installed.\n"
-msgstr "%s is niet geïnstalleerd.\n"
+msgstr "%s is niet geÃ¯nstalleerd.\n"
 
 #, c-format
 msgid "Package Name: %s\n"
@@ -68,7 +68,7 @@ msgstr "Beschrijving:\n"
 
 #, c-format
 msgid "Package Installed: %s\n"
-msgstr "Package geïnstalleerd: %s\n"
+msgstr "Package geÃ¯nstalleerd: %s\n"
 
 #, c-format
 msgid "No such package: %s\n"
@@ -223,7 +223,7 @@ msgid "retrieves pkg data from MIRROR"
 msgstr "haalt pkg data op van MIRROR"
 
 msgid "upgrade installed pkgs"
-msgstr "vernieuwt geïnstalleerde pkgs"
+msgstr "vernieuwt geÃ¯nstalleerde pkgs"
 
 msgid "upgrade to newer release"
 msgstr "vernieuwt naar nieuwere versie"
@@ -247,7 +247,7 @@ msgid "list available pkgs"
 msgstr "Toon beschikbare pkgs"
 
 msgid "list installed pkgs"
-msgstr "Toon geïnstalleerde pkgs"
+msgstr "Toon geÃ¯nstalleerde pkgs"
 
 msgid "purge cached pkgs"
 msgstr "laat opgeslagen pkgs verlopen"
@@ -349,7 +349,7 @@ msgid "The following packages have been EXCLUDED:\n"
 msgstr "De volgende packages zijn WEGGELATEN:\n"
 
 msgid "The following NEW packages will be installed:\n"
-msgstr "De volgende NIEUWE packages zullen geïnstalleerd worden:\n"
+msgstr "De volgende NIEUWE packages zullen geï¿½nstalleerd worden:\n"
 
 msgid "The following packages will be REMOVED:\n"
 msgstr "De volgende packages zullen worden VERWIJDERD:\n"
@@ -359,7 +359,7 @@ msgstr "De volgende packages zullen worden geupgrade:\n"
 
 #, c-format
 msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
-msgstr "%d upgraded, %d nieuw geïnstalleerd, %d te verwijderen en %d niet geupgrade.\n"
+msgstr "%d upgraded, %d nieuw geï¿½nstalleerd, %d te verwijderen en %d niet geupgrade.\n"
 
 #, c-format
 msgid "Need to get %0.1d%s of archives.\n"
@@ -385,7 +385,7 @@ msgstr "Afbreken.\n"
 
 #, c-format
 msgid "%s-%s is to be installed\n"
-msgstr "%s-%s zal worden geïnstalleerd\n"
+msgstr "%s-%s zal worden geÃ¯nstalleerd\n"
 
 #, c-format
 msgid "%s-%s is to be upgraded to version %s\n"
@@ -397,11 +397,11 @@ msgstr "%s-%s zal worden verwijderd\n"
 
 #, c-format
 msgid "%s, which is to be installed, conflicts with %s\n"
-msgstr "%s, wat zal worden geïnstalleerd heeft een conflict met %s\n"
+msgstr "%s, wat zal worden geÃ¯nstalleerd heeft een conflict met %s\n"
 
 #, c-format
 msgid "Installed %s conflicts with %s\n"
-msgstr "Geïnstalleerd %s heeft een conflict met %s\n"
+msgstr "GeÃ¯nstalleerd %s heeft een conflict met %s\n"
 
 msgid "print URIs only, do not download"
 msgstr "toon alleen URI, niet downloaden"
@@ -435,22 +435,22 @@ msgid "show download statistics"
 msgstr "show download statistics"
 
 msgid "Cached\n"
-msgstr "Cached\n"
+msgstr "Gecached\n"
 
 msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr ""
+msgstr "Kon niet downloaden van bronnen, herstel bronnen en doe nogmaals --update\n"
 
 msgid "specify alternate slapt-getrc location"
-msgstr ""
+msgstr "Specificeer alternatieve slapt-getrc lokatie"
 
 msgid "Suggested packages:\n"
-msgstr ""
+msgstr "Aanbevolen packages:\n"
 
 msgid "only purge cache of older, unreacheable pkgs"
-msgstr ""
+msgstr "verwijder alleen de cache van oudere, niet bereikbare pkgs"
 
 msgid "remove obsolete packages (dist-upgrade only)"
-msgstr ""
+msgstr "verwijder niet meer gebruikte packages (alleen dist-upgrade)"
 
 #, c-format
 msgid "You don't have enough free space in %s\n"
@@ -458,11 +458,11 @@ msgstr "U heeft niet voldoende vrije schijfruimte op %s\n"
 
 #, c-format
 msgid "Package Conflicts: %s\n"
-msgstr ""
+msgstr "Package conflicten: %s\n"
 
 #, c-format
 msgid "Package Suggests: %s\n"
-msgstr ""
+msgstr "Package raad aan: %s\n"
 
 #, c-format
 msgid "Failed to parse package data from %s\n"
