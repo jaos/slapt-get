@@ -637,7 +637,7 @@ pkg_info_t *is_conflicted(transaction_t *tran, struct pkg_list *avail_pkgs, stru
 		){
 			pkg_info_t *c = conflicts->pkgs[i];
 			printf(_("%s, which is to be installed, conflicts with %s\n"),
-				conflicts->pkgs[i]->name,conflicts->pkgs[i]->version, pkg->name,pkg->version
+				conflicts->pkgs[i]->name,pkg->name
 			);
 			free_pkg_list(conflicts);
 			return c;
