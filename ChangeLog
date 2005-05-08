@@ -1,5 +1,6 @@
 
-0.9.9k May 02, 2005
+0.9.9k May 08, 2005
+ * fixed a few warnings for gcc 4.0 support
  * added missing strings to translations, updated translations
  * give more notification when package sources fail to download
  * updated example.slapt-getrc with additional package sources
