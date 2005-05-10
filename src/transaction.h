@@ -52,9 +52,12 @@ int search_transaction(transaction_t *,char *pkg_name);
 int search_transaction_by_pkg(transaction_t *tran,pkg_info_t *pkg);
 void free_transaction(transaction_t *);
 transaction_t *remove_from_transaction(transaction_t *tran,pkg_info_t *pkg);
-int add_deps_to_trans(const rc_config *global_config, transaction_t *tran, struct pkg_list *avail_pkgs, struct pkg_list *installed_pkgs, pkg_info_t *pkg);
+int add_deps_to_trans(const rc_config *global_config, transaction_t *tran,
+                      struct pkg_list *avail_pkgs,
+                      struct pkg_list *installed_pkgs, pkg_info_t *pkg);
 /* check to see if a package is conflicted */
-pkg_info_t *is_conflicted(transaction_t *tran, struct pkg_list *avail_pkgs, struct pkg_list *installed_pkgs, pkg_info_t *pkg);
+pkg_info_t *is_conflicted(transaction_t *tran, struct pkg_list *avail_pkgs,
+                          struct pkg_list *installed_pkgs, pkg_info_t *pkg);
 
 void generate_suggestions(transaction_t *tran);
 

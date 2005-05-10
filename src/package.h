@@ -110,17 +110,21 @@ void write_pkg_data(const char *source_url,FILE *d_file,struct pkg_list *pkgs);
 /* retrieve the newest pkg from pkg_info_t list */
 pkg_info_t *get_newest_pkg(struct pkg_list *,const char *);
 /* get the exact package */
-pkg_info_t *get_exact_pkg(struct pkg_list *list,const char *name,const char *version);
+pkg_info_t *get_exact_pkg(struct pkg_list *list,const char *name,
+                          const char *version);
 /* lookup package by details */
-pkg_info_t *get_pkg_by_details(struct pkg_list *list,char *name,char *version,char *location);
+pkg_info_t *get_pkg_by_details(struct pkg_list *list,char *name,
+                               char *version,char *location);
 /* search package list with pattern */
-struct pkg_list *search_pkg_list(struct pkg_list *available,const char *pattern);
+struct pkg_list *search_pkg_list(struct pkg_list *available,
+                                 const char *pattern);
 
 
 /* install pkg */
 int install_pkg(const rc_config *,pkg_info_t *);
 /* upgrade pkg */
-int upgrade_pkg(const rc_config *global_config,pkg_info_t *installed_pkg,pkg_info_t *pkg);
+int upgrade_pkg(const rc_config *global_config,pkg_info_t *installed_pkg,
+                pkg_info_t *pkg);
 /* remove pkg */
 int remove_pkg(const rc_config *,pkg_info_t *);
 
@@ -148,16 +152,23 @@ size_t get_pkg_file_size(const rc_config *global_config,pkg_info_t *pkg);
 int cmp_pkg_versions(char *a, char *b);
 
 /* resolve dependencies */
-int get_pkg_dependencies(const rc_config *global_config,struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,pkg_info_t *pkg,struct pkg_list *deps);
+int get_pkg_dependencies(const rc_config *global_config,
+                         struct pkg_list *avail_pkgs,
+                         struct pkg_list *installed_pkgs,pkg_info_t *pkg,
+                         struct pkg_list *deps);
 /* lookup package conflicts */
-struct pkg_list *get_pkg_conflicts(struct pkg_list *avail_pkgs,struct pkg_list *installed_pkgs,pkg_info_t *pkg);
+struct pkg_list *get_pkg_conflicts(struct pkg_list *avail_pkgs,
+                                   struct pkg_list *installed_pkgs,
+                                   pkg_info_t *pkg);
 /* return list of packages required by */
-struct pkg_list *is_required_by(const rc_config *global_config,struct pkg_list *avail, pkg_info_t *pkg);
+struct pkg_list *is_required_by(const rc_config *global_config,
+                                struct pkg_list *avail, pkg_info_t *pkg);
 
 /* empty packages from cache dir */
 void clean_pkg_dir(const char *dir_name);
 /* clean out old outdated packages in the cache */
-void purge_old_cached_pkgs(const rc_config *global_config,char *dir_name, struct pkg_list *avail_pkgs);
+void purge_old_cached_pkgs(const rc_config *global_config,char *dir_name,
+                           struct pkg_list *avail_pkgs);
 
 /* make a copy of a package (needs to be freed with free_pkg) */
 pkg_info_t *copy_pkg(pkg_info_t *dst,pkg_info_t *src);
