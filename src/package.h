@@ -45,38 +45,38 @@
 #define HEAD_FILE_EXT ".head"
 
 typedef struct {
-	char *name;
-	char *version;
-	char *mirror;
-	char *location;
-	unsigned int size_c;
-	unsigned int size_u;
-	char *description;
-	char *required;
-	char *conflicts;
-	char *suggests;
-	char md5[MD5_STR_LEN];
+  char *name;
+  char *version;
+  char *mirror;
+  char *location;
+  unsigned int size_c;
+  unsigned int size_u;
+  char *description;
+  char *required;
+  char *conflicts;
+  char *suggests;
+  char md5[MD5_STR_LEN];
 } pkg_info_t;
 
 struct pkg_list {
-	pkg_info_t **pkgs;
-	unsigned int pkg_count;
-	BOOL_T free_pkgs;
+  pkg_info_t **pkgs;
+  unsigned int pkg_count;
+  BOOL_T free_pkgs;
 };
 
 typedef struct {
-	pkg_info_t *installed;
-	pkg_info_t *upgrade;
+  pkg_info_t *installed;
+  pkg_info_t *upgrade;
 } pkg_upgrade_t;
 
 struct pkg_upgrade_list {
-	pkg_upgrade_t **pkgs;
-	unsigned int pkg_count;
+  pkg_upgrade_t **pkgs;
+  unsigned int pkg_count;
 };
 
 struct pkg_version_parts {
-	char **parts;
-	unsigned int count;
+  char **parts;
+  unsigned int count;
 };
 
 

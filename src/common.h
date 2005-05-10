@@ -29,10 +29,10 @@ JFALSE = FALSE, JTRUE = TRUE
 } BOOL_T;
 
 typedef struct {
-	regex_t regex;
-	size_t nmatch;
-	regmatch_t pmatch[MAX_REGEX_PARTS];
-	int reg_return;
+  regex_t regex;
+  size_t nmatch;
+  regmatch_t pmatch[MAX_REGEX_PARTS];
+  int reg_return;
 } sg_regex;
 
 FILE *open_file(const char *file_name,const char *mode);

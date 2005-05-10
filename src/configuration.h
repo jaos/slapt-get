@@ -22,32 +22,32 @@
 #define EXCLUDE_TOKEN "EXCLUDE="
 
 struct exclude_list {
-	char **excludes;
-	unsigned int count;
+  char **excludes;
+  unsigned int count;
 };
 
 struct source_list {
-	char **url;
-	unsigned int count;
+  char **url;
+  unsigned int count;
 };
 
 typedef struct {
-	struct source_list *sources;
-	char working_dir[WORKINGDIR_TOKEN_LEN];
-	BOOL_T download_only;
-	BOOL_T dist_upgrade;
-	BOOL_T simulate;
-	BOOL_T no_prompt;
-	BOOL_T re_install;
-	struct exclude_list *exclude_list;
-	BOOL_T ignore_excludes;
-	BOOL_T no_md5_check;
-	BOOL_T ignore_dep;
-	BOOL_T disable_dep_check;
-	BOOL_T print_uris;
-	BOOL_T dl_stats;
-	BOOL_T remove_obsolete;
-	int(*progress_cb)(void *,double,double,double,double);
+  struct source_list *sources;
+  char working_dir[WORKINGDIR_TOKEN_LEN];
+  BOOL_T download_only;
+  BOOL_T dist_upgrade;
+  BOOL_T simulate;
+  BOOL_T no_prompt;
+  BOOL_T re_install;
+  struct exclude_list *exclude_list;
+  BOOL_T ignore_excludes;
+  BOOL_T no_md5_check;
+  BOOL_T ignore_dep;
+  BOOL_T disable_dep_check;
+  BOOL_T print_uris;
+  BOOL_T dl_stats;
+  BOOL_T remove_obsolete;
+  int(*progress_cb)(void *,double,double,double,double);
 
 } rc_config;
 

@@ -17,8 +17,8 @@
  */
 
 struct head_data_t {
-	char *data;
-	size_t size;
+  char *data;
+  size_t size;
 };
 
 /* this is the main download routine */
@@ -27,7 +27,7 @@ int download_data(FILE *fh,const char *url,size_t bytes,
 char *head_request(const char *url);
 
 /*
-	this fills FILE with data from url, used for PACKAGES.TXT and CHECKSUMS
+  this fills FILE with data from url, used for PACKAGES.TXT and CHECKSUMS
 */
 int get_mirror_data_from_source(FILE *fh,const rc_config *global_config,
                                 const char *base_url,const char *filename);

@@ -17,8 +17,8 @@
  */
 
 typedef struct {
-	char **pkgs;
-	unsigned int count;
+  char **pkgs;
+  unsigned int count;
 } pkg_action_args_t;
 
 pkg_action_args_t *init_pkg_action_args(int arg_count);
