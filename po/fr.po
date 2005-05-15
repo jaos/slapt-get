@@ -119,7 +119,7 @@ msgstr "La tentative de création du répertoire de travail [%s] a échoué\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr "Merci de mettre à jour les permissions sur %s, ou de le lancer avec les privilèges adéquats"
+msgstr "Merci de mettre à jour les permissions sur %s, ou de le lancer avec les privilèges adéquats\n"
 
 #, c-format
 msgid "Failed to open %s\n"
@@ -426,7 +426,7 @@ msgstr "Pas de somme de vérification MD5 pour %s. Pour vous passer de cette véri
 
 #, c-format
 msgid "%s, which is required by %s, is excluded\n"
-msgstr "%s, qui est requis par %s, est exclu\n""
+msgstr "%s, qui est requis par %s, est exclu\n"
 
 msgid "skip dependency check"
 msgstr "ne pas faire la vérification des dépendances"
