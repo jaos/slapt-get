@@ -79,6 +79,16 @@ struct pkg_version_parts {
   unsigned int count;
 };
 
+typedef struct {
+  char *pkg;
+  char *error;
+} pkg_err_t;
+
+struct pkg_err_list {
+  unsigned int err_count;
+  pkg_err_t **errs;
+};
+
 
 
 __inline pkg_info_t *init_pkg(void);
@@ -155,7 +165,9 @@ int cmp_pkg_versions(char *a, char *b);
 int get_pkg_dependencies(const rc_config *global_config,
                          struct pkg_list *avail_pkgs,
                          struct pkg_list *installed_pkgs,pkg_info_t *pkg,
-                         struct pkg_list *deps);
+                         struct pkg_list *deps,
+                         struct pkg_err_list *conflict_err,
+                         struct pkg_err_list *missing_err);
 /* lookup package conflicts */
 struct pkg_list *get_pkg_conflicts(struct pkg_list *avail_pkgs,
                                    struct pkg_list *installed_pkgs,
@@ -172,3 +184,12 @@ void purge_old_cached_pkgs(const rc_config *global_config,char *dir_name,
 
 /* make a copy of a package (needs to be freed with free_pkg) */
 pkg_info_t *copy_pkg(pkg_info_t *dst,pkg_info_t *src);
+
+/* package error handling api to handle errors within core functions */
+struct pkg_err_list *init_pkg_err_list(void);
+void add_pkg_err_to_list(struct pkg_err_list *l,
+                         const char *pkg,const char *err);
+int search_pkg_err_list(struct pkg_err_list *l,
+                        const char *pkg, const char *err);
+void free_pkg_err_list(struct pkg_err_list *l);
+

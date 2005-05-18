@@ -1,5 +1,8 @@
 
-0.9.9k May 17, 2005
+0.9.9k May 18, 2005
+ * added pkg_err_t typedef and api for error handling (libslapt)
+   updated transaction code to show conflict and missing dependency
+   notifications during the transaction handler.
  * fixed regression in slack-required file
  * code formatting updates
  * fixed a few warnings for gcc 4.0 support

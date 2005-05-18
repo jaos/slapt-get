@@ -39,6 +39,8 @@ typedef struct {
   struct pkg_list *remove_pkgs;
   struct pkg_list *exclude_pkgs;
   struct suggests *suggests;
+  struct pkg_err_list *conflict_err;
+  struct pkg_err_list *missing_err;
   queue_t *queue;
 } transaction_t;
 

@@ -25,6 +25,8 @@ static void queue_free(queue_t *t);
 
 static void add_suggestion(transaction_t *tran, pkg_info_t *pkg);
 static int disk_space(const rc_config *global_config,int space_needed );
+static int search_upgrade_transaction(transaction_t *tran,pkg_info_t *pkg);
+static int search_exclude_transaction(transaction_t *tran,pkg_info_t *pkg);
 
 void init_transaction(transaction_t *tran)
 {
@@ -49,6 +51,9 @@ void init_transaction(transaction_t *tran)
 
   tran->queue = queue_init();
 
+  tran->conflict_err = init_pkg_err_list();
+  tran->missing_err = init_pkg_err_list();
+
 }
 
 int handle_transaction(const rc_config *global_config, transaction_t *tran)
@@ -57,6 +62,23 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran)
   size_t download_size = 0;
   size_t already_download_size = 0;
   size_t uncompressed_size = 0;
+
+  /* show unmet dependencies */
+  if ( tran->missing_err->err_count > 0 ) {
+    fprintf(stderr,_("The following packages have unmet dependencies:\n"));
+    for (i=0; i < tran->missing_err->err_count; ++i) {
+      fprintf(stderr,_("  %s: Depends: %s\n"),
+        tran->missing_err->errs[i]->pkg,tran->missing_err->errs[i]->error);
+    }
+  }
+
+  /* show conflicts */
+  if ( tran->conflict_err->err_count > 0 ) {
+    for (i=0; i < tran->conflict_err->err_count; ++i) {
+      printf(_("%s, which is required by %s, is excluded\n"),
+        tran->conflict_err->errs[i]->error,tran->conflict_err->errs[i]->pkg);
+    }
+  }
 
   /* show pkgs to exclude */
   if ( tran->exclude_pkgs->pkg_count > 0 ) {
@@ -460,19 +482,19 @@ int search_transaction(transaction_t *tran,char *pkg_name)
   unsigned int i,found = 1, not_found = 0;
 
   for (i = 0; i < tran->install_pkgs->pkg_count;i++) {
-    if ( strcmp(pkg_name,tran->install_pkgs->pkgs[i]->name)==0 )
+    if ( strcmp(pkg_name,tran->install_pkgs->pkgs[i]->name) == 0 )
       return found;
   }
   for (i = 0; i < tran->upgrade_pkgs->pkg_count;i++) {
-    if ( strcmp(pkg_name,tran->upgrade_pkgs->pkgs[i]->upgrade->name)==0 )
+    if ( strcmp(pkg_name,tran->upgrade_pkgs->pkgs[i]->upgrade->name) == 0 )
       return found;
   }
   for (i = 0; i < tran->remove_pkgs->pkg_count;i++) {
-    if ( strcmp(pkg_name,tran->remove_pkgs->pkgs[i]->name)==0 )
+    if ( strcmp(pkg_name,tran->remove_pkgs->pkgs[i]->name) == 0 )
       return found;
   }
   for (i = 0; i < tran->exclude_pkgs->pkg_count;i++) {
-    if ( strcmp(pkg_name,tran->exclude_pkgs->pkgs[i]->name)==0 )
+    if ( strcmp(pkg_name,tran->exclude_pkgs->pkgs[i]->name) == 0 )
       return found;
   }
   return not_found;
@@ -482,7 +504,7 @@ static int search_upgrade_transaction(transaction_t *tran,pkg_info_t *pkg)
 {
   unsigned int i,found = 1, not_found = 0;
   for (i = 0; i < tran->upgrade_pkgs->pkg_count;i++) {
-    if ( strcmp(pkg->name,tran->upgrade_pkgs->pkgs[i]->upgrade->name)==0 )
+    if ( strcmp(pkg->name,tran->upgrade_pkgs->pkgs[i]->upgrade->name) == 0 )
       return found;
   }
   return not_found;
@@ -531,6 +553,9 @@ void free_transaction(transaction_t *tran)
   free(tran->suggests);
 
   queue_free(tran->queue);
+
+  free_pkg_err_list(tran->conflict_err);
+  free_pkg_err_list(tran->missing_err);
 
 }
 
@@ -602,12 +627,15 @@ int add_deps_to_trans(const rc_config *global_config, transaction_t *tran,
   deps = init_pkg_list();
 
   dep_return = get_pkg_dependencies(
-    global_config,avail_pkgs,installed_pkgs,pkg,deps
+    global_config,avail_pkgs,installed_pkgs,pkg,
+    deps,tran->conflict_err,tran->missing_err
   );
 
   /* check to see if there where issues with dep checking */
   /* exclude the package if dep check barfed */
-  if ( (dep_return == -1) && (global_config->ignore_dep == FALSE) ) {
+  if ( (dep_return == -1) && (global_config->ignore_dep == FALSE) &&
+      ( search_exclude_transaction(tran,pkg) == 0 )
+  ) {
     printf("Excluding %s, use --ignore-dep to override\n",pkg->name);
     add_exclude_to_transaction(tran,pkg);
     free_pkg_list(deps);
@@ -771,23 +799,23 @@ int search_transaction_by_pkg(transaction_t *tran,pkg_info_t *pkg)
   unsigned int i,found = 1, not_found = 0;
 
   for (i = 0; i < tran->install_pkgs->pkg_count;i++) {
-    if (( strcmp(pkg->name,tran->install_pkgs->pkgs[i]->name)==0 )
-    && (strcmp(pkg->version,tran->install_pkgs->pkgs[i]->version)==0))
+    if (( strcmp(pkg->name,tran->install_pkgs->pkgs[i]->name) == 0 )
+    && (strcmp(pkg->version,tran->install_pkgs->pkgs[i]->version) == 0))
       return found;
   }
   for (i = 0; i < tran->upgrade_pkgs->pkg_count;i++) {
-    if (( strcmp(pkg->name,tran->upgrade_pkgs->pkgs[i]->upgrade->name)==0 )
-    && (strcmp(pkg->version,tran->upgrade_pkgs->pkgs[i]->upgrade->version)==0 ))
+    if (( strcmp(pkg->name,tran->upgrade_pkgs->pkgs[i]->upgrade->name) == 0 )
+    && (strcmp(pkg->version,tran->upgrade_pkgs->pkgs[i]->upgrade->version) == 0 ))
       return found;
   }
   for (i = 0; i < tran->remove_pkgs->pkg_count;i++) {
-    if (( strcmp(pkg->name,tran->remove_pkgs->pkgs[i]->name)==0 )
-    && (strcmp(pkg->version,tran->remove_pkgs->pkgs[i]->version)==0 ))
+    if (( strcmp(pkg->name,tran->remove_pkgs->pkgs[i]->name) == 0 )
+    && (strcmp(pkg->version,tran->remove_pkgs->pkgs[i]->version) == 0 ))
       return found;
   }
   for (i = 0; i < tran->exclude_pkgs->pkg_count;i++) {
-    if (( strcmp(pkg->name,tran->exclude_pkgs->pkgs[i]->name)==0 )
-    && (strcmp(pkg->version,tran->exclude_pkgs->pkgs[i]->version)==0 ))
+    if (( strcmp(pkg->name,tran->exclude_pkgs->pkgs[i]->name) == 0 )
+    && (strcmp(pkg->version,tran->exclude_pkgs->pkgs[i]->version) == 0 ))
       return found;
   }
   return not_found;
@@ -843,5 +871,15 @@ void generate_suggestions(transaction_t *tran)
   for (i = 0;i < tran->install_pkgs->pkg_count; ++i) {
     add_suggestion(tran,tran->install_pkgs->pkgs[i]);
   }
+}
+
+static int search_exclude_transaction(transaction_t *tran,pkg_info_t *pkg)
+{
+  unsigned int i,found = 1, not_found = 0;
+  for (i = 0; i < tran->exclude_pkgs->pkg_count;i++) {
+    if ( strcmp(pkg->name,tran->exclude_pkgs->pkgs[i]->name) == 0 )
+      return found;
+  }
+  return not_found;
 }
 

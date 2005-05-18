@@ -1216,7 +1216,9 @@ struct pkg_list *search_pkg_list(struct pkg_list *available,const char *pattern)
 int get_pkg_dependencies(const rc_config *global_config,
                          struct pkg_list *avail_pkgs,
                          struct pkg_list *installed_pkgs,pkg_info_t *pkg,
-                         struct pkg_list *deps)
+                         struct pkg_list *deps,
+                         struct pkg_err_list *conflict_err,
+                         struct pkg_err_list *missing_err)
 {
   int position = 0, len = 0;
   char *pointer = NULL;
@@ -1240,6 +1242,12 @@ int get_pkg_dependencies(const rc_config *global_config,
   if ( deps == NULL )
     deps = init_pkg_list();
 
+  if ( conflict_err == NULL )
+    conflict_err = init_pkg_err_list();
+
+  if ( missing_err == NULL )
+    missing_err = init_pkg_err_list();
+
   /* parse dep line */
   len = strlen(pkg->required);
   while ( position < len ) {
@@ -1258,8 +1266,7 @@ int get_pkg_dependencies(const rc_config *global_config,
 
       if ( tmp_pkg == NULL ) {
         /* if we can't find a required dep, return -1 */
-        fprintf(stderr,_("The following packages have unmet dependencies:\n"));
-        fprintf(stderr,_("  %s: Depends: %s\n"),pkg->name,pointer);
+        add_pkg_err_to_list(missing_err,pkg->name,pointer);
         return -1;
       }
 
@@ -1289,8 +1296,7 @@ int get_pkg_dependencies(const rc_config *global_config,
 
       if ( tmp_pkg == NULL ) {
         /* if we can't find a required dep, stop */
-        fprintf(stderr,_("The following packages have unmet dependencies:\n"));
-        fprintf(stderr,_("  %s: Depends: %s\n"),pkg->name,buffer);
+        add_pkg_err_to_list(missing_err,pkg->name,pointer);
         free(buffer);
         return -1;
       }
@@ -1303,8 +1309,7 @@ int get_pkg_dependencies(const rc_config *global_config,
     if ( (is_excluded(global_config,tmp_pkg) == 1) &&
     (global_config->ignore_dep == FALSE) ) {
       if ( get_exact_pkg(installed_pkgs,tmp_pkg->name,tmp_pkg->version) == NULL ) {
-        printf(_("%s, which is required by %s, is excluded\n"),
-          tmp_pkg->name,pkg->name);
+        add_pkg_err_to_list(conflict_err,pkg->name,tmp_pkg->name);
         return -1;
       }
     }
@@ -1318,7 +1323,8 @@ int get_pkg_dependencies(const rc_config *global_config,
 
       /* now check to see if tmp_pkg has dependencies */
       dep_check_return = get_pkg_dependencies(
-        global_config,avail_pkgs,installed_pkgs,tmp_pkg,deps
+        global_config,avail_pkgs,installed_pkgs,tmp_pkg,
+        deps,conflict_err,missing_err
       );
       if ( dep_check_return == -1 && global_config->ignore_dep == FALSE ) {
         return -1;
@@ -2455,5 +2461,63 @@ pkg_info_t *copy_pkg(pkg_info_t *dst,pkg_info_t *src)
   dst->conflicts = strndup(src->conflicts, strlen(src->conflicts));
   dst->required = strndup(src->required, strlen(src->required));
   return dst;
+}
+
+struct pkg_err_list *init_pkg_err_list(void)
+{
+  struct pkg_err_list *l = slapt_malloc( sizeof *l );
+  l->errs = slapt_malloc( sizeof *l->errs );
+  l->err_count = 0;
+
+  return l;
+}
+
+void add_pkg_err_to_list(struct pkg_err_list *l,
+                         const char *pkg,const char *err)
+{
+  pkg_err_t **tmp;
+
+  if ( search_pkg_err_list(l,pkg,err) == 1 )
+    return;
+
+  tmp = realloc(l->errs, sizeof *l->errs * (l->err_count + 1) );
+  if ( tmp == NULL )
+    return;
+
+  l->errs = tmp;
+  
+  l->errs[l->err_count] = slapt_malloc( sizeof *l->errs[l->err_count] );
+  l->errs[l->err_count]->pkg = strdup(pkg);
+  l->errs[l->err_count]->error = strdup(err);
+
+  ++l->err_count;
+
+}
+
+int search_pkg_err_list(struct pkg_err_list *l,
+                        const char *pkg, const char *err)
+{
+  unsigned int i,found = 1, not_found = 0;
+  for (i = 0; i < l->err_count; ++i) {
+    if ( strcmp(l->errs[i]->pkg,pkg) == 0 &&
+         strcmp(l->errs[i]->error,err) == 0
+    ) {
+      return found;
+    }
+  }
+  return not_found;
+}
+
+void free_pkg_err_list(struct pkg_err_list *l)
+{
+  unsigned int i;
+
+  for (i = 0; i < l->err_count; ++i) {
+    free(l->errs[i]->pkg);
+    free(l->errs[i]->error);
+    free(l->errs[i]);
+  }
+  free(l->errs);
+  free(l);
 }
 
