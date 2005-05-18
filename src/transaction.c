@@ -594,7 +594,7 @@ int add_deps_to_trans(const rc_config *global_config, transaction_t *tran,
 {
   unsigned int c;
   int dep_return = -1;
-  struct pkg_list *deps;
+  struct pkg_list *deps = NULL;
 
   if ( global_config->disable_dep_check == TRUE ) return 0;
   if ( pkg == NULL ) return 0;
@@ -650,7 +650,7 @@ pkg_info_t *is_conflicted(transaction_t *tran, struct pkg_list *avail_pkgs,
                           struct pkg_list *installed_pkgs, pkg_info_t *pkg)
 {
   unsigned int i;
-  struct pkg_list *conflicts;
+  struct pkg_list *conflicts = NULL;
 
   /* if conflicts exist, check to see if they are installed
      or in the current transaction

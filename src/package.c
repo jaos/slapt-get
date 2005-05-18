@@ -38,7 +38,7 @@ static pkg_info_t *find_or_requirement(struct pkg_list *avail_pkgs,
 struct pkg_list *get_available_pkgs(void)
 {
   FILE *pkg_list_fh;
-  struct pkg_list *list;
+  struct pkg_list *list = NULL;
 
   /* open pkg list */
   pkg_list_fh = open_file(PKG_LIST_L,"r");
@@ -57,7 +57,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh)
 {
   sg_regex name_regex, mirror_regex,location_regex, size_c_regex, size_u_regex;
   ssize_t bytes_read;
-  struct pkg_list *list;
+  struct pkg_list *list = NULL;
   long f_pos = 0;
   size_t getline_len = 0;
   char *getline_buffer = NULL;
@@ -459,7 +459,7 @@ struct pkg_list *get_installed_pkgs(void)
   char *pkg_log_dirname = NULL;
   struct dirent *file;
   sg_regex ip_regex, compressed_size_reg, uncompressed_size_reg,location_regex;
-  struct pkg_list *list;
+  struct pkg_list *list = NULL;
 
   list = init_pkg_list();
 
@@ -1177,7 +1177,7 @@ struct pkg_list *search_pkg_list(struct pkg_list *available,const char *pattern)
   unsigned int i;
   int name_r = -1,desc_r = -1,loc_r = -1,version_r = -1;
   sg_regex search_regex;
-  struct pkg_list *matches;
+  struct pkg_list *matches = NULL;
 
   matches = init_pkg_list();
 
@@ -1236,6 +1236,9 @@ int get_pkg_dependencies(const rc_config *global_config,
   #if DEBUG == 1
   printf("Resolving deps for %s, with dep data: %s\n",pkg->name,pkg->required);
   #endif
+
+  if ( dep == NULL )
+    deps = init_pkg_list();
 
   /* parse dep line */
   len = strlen(pkg->required);
@@ -1354,7 +1357,7 @@ struct pkg_list *get_pkg_conflicts(struct pkg_list *avail_pkgs,
                                    struct pkg_list *installed_pkgs,
                                    pkg_info_t *pkg)
 {
-  struct pkg_list *conflicts;
+  struct pkg_list *conflicts = NULL;
   int position = 0,len = 0;
   char *pointer = NULL;
   char *buffer = NULL;
@@ -1641,9 +1644,7 @@ struct pkg_list *is_required_by(const rc_config *global_config,
                                 struct pkg_list *avail,
                                 pkg_info_t *pkg)
 {
-  struct pkg_list *required_by_list;
-
-  required_by_list = init_pkg_list();
+  struct pkg_list *required_by_list = init_pkg_list();
 
   required_by(global_config,avail,pkg,required_by_list);
 
@@ -2049,7 +2050,7 @@ int update_pkg_cache(const rc_config *global_config)
 
 struct pkg_list *init_pkg_list(void)
 {
-  struct pkg_list *list;
+  struct pkg_list *list = NULL;
 
   list = slapt_malloc( sizeof *list );
   list->pkgs = slapt_malloc( sizeof *list->pkgs );
