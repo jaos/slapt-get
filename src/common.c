@@ -22,9 +22,9 @@
 FILE *open_file(const char *file_name,const char *mode)
 {
   FILE *fh = NULL;
-  if( (fh = fopen(file_name,mode)) == NULL ) {
+  if ( (fh = fopen(file_name,mode)) == NULL ) {
     fprintf(stderr,_("Failed to open %s\n"),file_name);
-    if( errno ) {
+    if ( errno ) {
       perror(file_name);
     }
     return NULL;
@@ -41,13 +41,13 @@ int init_regex(sg_regex *regex_t, const char *regex_string)
   /* compile our regex */
   regex_t->reg_return = regcomp(&regex_t->regex, regex_string,
                                 REG_EXTENDED|REG_NEWLINE|REG_ICASE);
-  if( regex_t->reg_return != 0 ) {
+  if ( regex_t->reg_return != 0 ) {
     size_t regerror_size;
     char errbuf[1024];
     size_t errbuf_size = 1024;
     fprintf(stderr, _("Failed to compile regex\n"));
 
-    if( (regerror_size =
+    if ( (regerror_size =
     regerror(regex_t->reg_return, &regex_t->regex,errbuf,errbuf_size)) ) {
       printf(_("Regex Error: %s\n"),errbuf);
     }
@@ -100,12 +100,12 @@ void gen_md5_sum_of_file(FILE *f,char *result_sum)
 
   result_sum[0] = '\0';
 
-  for(i = 0; i < md_len; i++) {
+  for (i = 0; i < md_len; i++) {
     char *p = slapt_malloc( sizeof *p * 3 );
 
-    if( snprintf(p,3,"%02x",md_value[i]) > 0 ) {
+    if ( snprintf(p,3,"%02x",md_value[i]) > 0 ) {
 
-      if( (result_sum_tmp = strncat(result_sum,p,3)) != NULL )
+      if ( (result_sum_tmp = strncat(result_sum,p,3)) != NULL )
         result_sum = result_sum_tmp;
 
     }
@@ -122,10 +122,10 @@ void create_dir_structure(const char *dir_name)
   int position = 0,len = 0;
 
   cwd = getcwd(NULL,0);
-  if( cwd == NULL ) {
+  if ( cwd == NULL ) {
     fprintf(stderr,_("Failed to get cwd\n"));
     return;
-  }else{
+  } else {
     #if DEBUG == 1
     fprintf(stderr,_("\tCurrent working directory: %s\n"),cwd);
     #endif
@@ -138,27 +138,27 @@ void create_dir_structure(const char *dir_name)
     char *dir_name_buffer = NULL;
 
     /* if no more directory delim, then this must be last dir */
-    if( strstr(dir_name + position,"/" ) == NULL ) {
+    if ( strstr(dir_name + position,"/" ) == NULL ) {
 
       dir_name_buffer = strndup(
         dir_name + position,
         strlen(dir_name + position)
       );
 
-      if( strcmp(dir_name_buffer,".") != 0 ) {
-        if( (mkdir(dir_name_buffer,0755)) == -1) {
+      if ( strcmp(dir_name_buffer,".") != 0 ) {
+        if ( (mkdir(dir_name_buffer,0755)) == -1) {
           #if DEBUG == 1
           fprintf(stderr,_("Failed to mkdir: %s\n"),dir_name_buffer);
           #endif
-        }else{
+        } else {
           #if DEBUG == 1
           fprintf(stderr,_("\tCreated directory: %s\n"),dir_name_buffer);
           #endif
         }
-        if( (chdir(dir_name_buffer)) == -1 ) {
+        if ( (chdir(dir_name_buffer)) == -1 ) {
           fprintf(stderr,_("Failed to chdir to %s\n"),dir_name_buffer);
           return;
-        }else{
+        } else {
           #if DEBUG == 1
           fprintf(stderr,_("\tchdir into %s\n"),dir_name_buffer);
           #endif
@@ -167,11 +167,11 @@ void create_dir_structure(const char *dir_name)
 
       free(dir_name_buffer);
       break;
-    }else{
-      if( dir_name[position] == '/' ) {
+    } else {
+      if ( dir_name[position] == '/' ) {
         /* move on ahead */
         ++position;
-      }else{
+      } else {
 
         /* figure our dir name and mk it */
         pointer = strchr(dir_name + position,'/');
@@ -180,13 +180,13 @@ void create_dir_structure(const char *dir_name)
           strlen(dir_name + position) - strlen(pointer)
         );
 
-        if( strcmp(dir_name_buffer,".") != 0 ) {
-          if( (mkdir(dir_name_buffer,0755)) == -1 ) {
+        if ( strcmp(dir_name_buffer,".") != 0 ) {
+          if ( (mkdir(dir_name_buffer,0755)) == -1 ) {
             #if DEBUG == 1
             fprintf(stderr,_("Failed to mkdir: %s\n"),dir_name_buffer);
             #endif
           }
-          if( (chdir(dir_name_buffer)) == -1 ) {
+          if ( (chdir(dir_name_buffer)) == -1 ) {
             fprintf(stderr,_("Failed to chdir to %s\n"),dir_name_buffer);
             free(dir_name_buffer);
             return;
@@ -199,7 +199,7 @@ void create_dir_structure(const char *dir_name)
     }
   }/* end while */
 
-  if( (chdir(cwd)) == -1 ) {
+  if ( (chdir(cwd)) == -1 ) {
     fprintf(stderr,_("Failed to chdir to %s\n"),cwd);
     return;
   }
@@ -217,9 +217,9 @@ int ask_yes_no(const char *format, ...)
   va_end(arg_list);
 
   fgets(prompt_answer,10,stdin);
-  if( tolower(prompt_answer[0]) == 'y' )
+  if ( tolower(prompt_answer[0]) == 'y' )
     return 1;
-  if( tolower(prompt_answer[0]) == 'n' )
+  if ( tolower(prompt_answer[0]) == 'n' )
     return 0;
   return -1;
 }
@@ -230,10 +230,10 @@ char *str_replace_chr(const char *string,const char find, const char replace)
   char *clean = slapt_calloc( strlen(string) + 1, sizeof *clean);;
 
   len = strlen(string);
-  for(i = 0;i < len; ++i) {
-    if(string[i] == find ) {
+  for (i = 0;i < len; ++i) {
+    if (string[i] == find ) {
       clean[i] = replace;
-    }else{
+    } else {
       clean[i] = string[i];
     }
   }
@@ -245,9 +245,9 @@ char *str_replace_chr(const char *string,const char find, const char replace)
 __inline void *slapt_malloc(size_t s)
 {
   void *p;
-  if( ! (p = malloc(s)) ) {
+  if ( ! (p = malloc(s)) ) {
     fprintf(stderr,_("Failed to malloc\n"));
-    if( errno ) perror("malloc");
+    if ( errno ) perror("malloc");
     exit(1);
   }
   return p;
@@ -256,9 +256,9 @@ __inline void *slapt_malloc(size_t s)
 __inline void *slapt_calloc(size_t n,size_t s)
 {
   void *p;
-  if( ! (p = calloc(n,s)) ) {
+  if ( ! (p = calloc(n,s)) ) {
     fprintf(stderr,_("Failed to calloc\n"));
-    if( errno ) perror("calloc");
+    if ( errno ) perror("calloc");
     exit(1);
   }
   return p;

@@ -59,15 +59,15 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran)
   size_t uncompressed_size = 0;
 
   /* show pkgs to exclude */
-  if( tran->exclude_pkgs->pkg_count > 0 ) {
+  if ( tran->exclude_pkgs->pkg_count > 0 ) {
     unsigned int len = 0;
     printf(_("The following packages have been EXCLUDED:\n"));
     printf("  ");
-    for(i = 0; i < tran->exclude_pkgs->pkg_count;i++) {
-      if( len + strlen(tran->exclude_pkgs->pkgs[i]->name) + 1 < MAX_LINE_LEN ) {
+    for (i = 0; i < tran->exclude_pkgs->pkg_count;i++) {
+      if ( len + strlen(tran->exclude_pkgs->pkgs[i]->name) + 1 < MAX_LINE_LEN ) {
         printf("%s ",tran->exclude_pkgs->pkgs[i]->name);
         len += strlen(tran->exclude_pkgs->pkgs[i]->name) + 1;
-      }else{
+      } else {
         printf("\n  %s ",tran->exclude_pkgs->pkgs[i]->name);
         len = strlen(tran->exclude_pkgs->pkgs[i]->name) + 3;
       }
@@ -77,19 +77,19 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran)
 
   /* show suggested pkgs */
   generate_suggestions(tran);
-  if( tran->suggests->count > 0 ) {
+  if ( tran->suggests->count > 0 ) {
     unsigned int len = 0;
 
     printf(_("Suggested packages:\n"));
     printf("  ");
-    for(i = 0; i < tran->suggests->count; ++i) {
+    for (i = 0; i < tran->suggests->count; ++i) {
       /* don't show suggestion for something we already have in the transaction */
-      if( search_transaction(tran,tran->suggests->pkgs[i]) == 1 ) continue;
+      if ( search_transaction(tran,tran->suggests->pkgs[i]) == 1 ) continue;
 
-      if( len + strlen(tran->suggests->pkgs[i]) + 1 < MAX_LINE_LEN ) {
+      if ( len + strlen(tran->suggests->pkgs[i]) + 1 < MAX_LINE_LEN ) {
         printf("%s ",tran->suggests->pkgs[i]);
         len += strlen(tran->suggests->pkgs[i]) + 1;
-      }else{
+      } else {
         printf("\n  %s ",tran->suggests->pkgs[i]);
         len = strlen(tran->suggests->pkgs[i]) + 3;
       }
@@ -99,15 +99,15 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran)
   }
 
   /* show pkgs to install */
-  if( tran->install_pkgs->pkg_count > 0 ) {
+  if ( tran->install_pkgs->pkg_count > 0 ) {
     unsigned int len = 0;
     printf(_("The following NEW packages will be installed:\n"));
     printf("  ");
-    for(i = 0; i < tran->install_pkgs->pkg_count;i++) {
-      if( len + strlen(tran->install_pkgs->pkgs[i]->name) + 1 < MAX_LINE_LEN ) {
+    for (i = 0; i < tran->install_pkgs->pkg_count;i++) {
+      if ( len + strlen(tran->install_pkgs->pkgs[i]->name) + 1 < MAX_LINE_LEN ) {
         printf("%s ",tran->install_pkgs->pkgs[i]->name);
         len += strlen(tran->install_pkgs->pkgs[i]->name) + 1;
-      }else{
+      } else {
         printf("\n  %s ",tran->install_pkgs->pkgs[i]->name);
         len = strlen(tran->install_pkgs->pkgs[i]->name) + 3;
       }
@@ -121,15 +121,15 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran)
   }
 
   /* show pkgs to remove */
-  if( tran->remove_pkgs->pkg_count > 0 ) {
+  if ( tran->remove_pkgs->pkg_count > 0 ) {
     unsigned int len = 0;
     printf(_("The following packages will be REMOVED:\n"));
     printf("  ");
-    for(i = 0; i < tran->remove_pkgs->pkg_count;i++) {
-      if( len + strlen(tran->remove_pkgs->pkgs[i]->name) + 1 < MAX_LINE_LEN ) {
+    for (i = 0; i < tran->remove_pkgs->pkg_count;i++) {
+      if ( len + strlen(tran->remove_pkgs->pkgs[i]->name) + 1 < MAX_LINE_LEN ) {
         printf("%s ",tran->remove_pkgs->pkgs[i]->name);
         len += strlen(tran->remove_pkgs->pkgs[i]->name) + 1;
-      }else{
+      } else {
         printf("\n  %s ",tran->remove_pkgs->pkgs[i]->name);
         len = strlen(tran->remove_pkgs->pkgs[i]->name) + 3;
       }
@@ -139,15 +139,15 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran)
   }
 
   /* show pkgs to upgrade */
-  if( tran->upgrade_pkgs->pkg_count > 0 ) {
+  if ( tran->upgrade_pkgs->pkg_count > 0 ) {
     unsigned int len = 0;
     printf(_("The following packages will be upgraded:\n"));
     printf("  ");
-    for(i = 0; i < tran->upgrade_pkgs->pkg_count;i++) {
-      if(len+strlen(tran->upgrade_pkgs->pkgs[i]->upgrade->name)+1<MAX_LINE_LEN) {
+    for (i = 0; i < tran->upgrade_pkgs->pkg_count;i++) {
+      if (len+strlen(tran->upgrade_pkgs->pkgs[i]->upgrade->name)+1<MAX_LINE_LEN) {
         printf("%s ",tran->upgrade_pkgs->pkgs[i]->upgrade->name);
         len += strlen(tran->upgrade_pkgs->pkgs[i]->upgrade->name) + 1;
-      }else{
+      } else {
         printf("\n  %s ",tran->upgrade_pkgs->pkgs[i]->upgrade->name);
         len = strlen(tran->upgrade_pkgs->pkgs[i]->upgrade->name) + 3;
       }
@@ -171,13 +171,13 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran)
   );
 
   /* only show this if we are going to do download something */
-  if( tran->upgrade_pkgs->pkg_count > 0 || tran->install_pkgs->pkg_count > 0 ) {
+  if ( tran->upgrade_pkgs->pkg_count > 0 || tran->install_pkgs->pkg_count > 0 ) {
     /* how much we need to download */
     int need_to_download_size = download_size - already_download_size;
     /* make sure it's not negative due to changing pkg sizes on upgrades */
-    if( need_to_download_size < 0 ) need_to_download_size = 0;
+    if ( need_to_download_size < 0 ) need_to_download_size = 0;
 
-    if(disk_space(global_config,need_to_download_size+uncompressed_size) != 0) {
+    if (disk_space(global_config,need_to_download_size+uncompressed_size) != 0) {
       printf(
         _("You don't have enough free space in %s\n"),
         global_config->working_dir
@@ -185,7 +185,7 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran)
       return 1;
     }
 
-    if( already_download_size > 0 ) {
+    if ( already_download_size > 0 ) {
       printf(_("Need to get %.1d%s/%.1d%s of archives.\n"),
         (need_to_download_size > 1024 ) ? need_to_download_size / 1024
           : need_to_download_size,
@@ -193,7 +193,7 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran)
         (download_size > 1024 ) ? download_size / 1024 : download_size,
         (download_size > 1024 ) ? "MB" : "kB"
       );
-    }else{
+    } else {
       printf(_("Need to get %.1d%s of archives.\n"),
         (download_size > 1024 ) ? download_size / 1024 : download_size,
         (download_size > 1024 ) ? "MB" : "kB"
@@ -201,18 +201,18 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran)
     }
   }
 
-  if( tran->upgrade_pkgs->pkg_count > 0 || tran->remove_pkgs->pkg_count > 0 ||
+  if ( tran->upgrade_pkgs->pkg_count > 0 || tran->remove_pkgs->pkg_count > 0 ||
   tran->install_pkgs->pkg_count > 0 ) {
 
-    if( global_config->download_only == FALSE ) {
-      if( (int)uncompressed_size < 0 ) {
+    if ( global_config->download_only == FALSE ) {
+      if ( (int)uncompressed_size < 0 ) {
         uncompressed_size *= -1;
         printf(_("After unpacking %.1d%s disk space will be freed.\n"),
           (uncompressed_size > 1024 ) ? uncompressed_size / 1024
             : uncompressed_size,
           (uncompressed_size > 1024 ) ? "MB" : "kB"
         );
-      }else{
+      } else {
         printf(_("After unpacking %.1d%s of additional disk space will be used.\n"),
           (uncompressed_size > 1024 ) ? uncompressed_size / 1024
             : uncompressed_size,
@@ -223,25 +223,25 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran)
   }
 
   /* prompt */
-  if(
+  if (
       (tran->upgrade_pkgs->pkg_count > 0 || tran->remove_pkgs->pkg_count > 0 ||
       ( tran->install_pkgs->pkg_count > 0 && global_config->dist_upgrade == TRUE ) ) &&
       (global_config->no_prompt == FALSE && global_config->download_only == FALSE &&
       global_config->simulate == FALSE && global_config->print_uris == FALSE )
   ) {
-    if( ask_yes_no(_("Do you want to continue? [y/N] ")) != 1 ) {
+    if ( ask_yes_no(_("Do you want to continue? [y/N] ")) != 1 ) {
       printf(_("Abort.\n"));
       return 1;
     }
   }
 
   if ( global_config->print_uris == TRUE ) {
-    for(i = 0; i < tran->install_pkgs->pkg_count;i++) {
+    for (i = 0; i < tran->install_pkgs->pkg_count;i++) {
       const pkg_info_t *info = tran->install_pkgs->pkgs[i];
       const char *location = info->location + strspn(info->location, "./");
       printf("%s%s/%s-%s.tgz\n", info->mirror, location, info->name, info->version);
     }
-    for(i = 0; i < tran->upgrade_pkgs->pkg_count;i++) {
+    for (i = 0; i < tran->upgrade_pkgs->pkg_count;i++) {
       const pkg_info_t *info = tran->upgrade_pkgs->pkgs[i]->upgrade;
       const char *location = info->location + strspn(info->location, "./");
       printf("%s%s/%s-%s.tgz\n", info->mirror, location, info->name, info->version);
@@ -250,19 +250,19 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran)
   }
 
   /* if simulate is requested, just show what could happen and return */
-  if( global_config->simulate == TRUE ) {
-    for(i = 0; i < tran->remove_pkgs->pkg_count;i++) {
+  if ( global_config->simulate == TRUE ) {
+    for (i = 0; i < tran->remove_pkgs->pkg_count;i++) {
       printf(_("%s-%s is to be removed\n"),
         tran->remove_pkgs->pkgs[i]->name,tran->remove_pkgs->pkgs[i]->version
       );
     }
-    for(i = 0;i < tran->queue->count; ++i) {
-      if( tran->queue->pkgs[i]->type == INSTALL ) {
+    for (i = 0;i < tran->queue->count; ++i) {
+      if ( tran->queue->pkgs[i]->type == INSTALL ) {
         printf(_("%s-%s is to be installed\n"),
           tran->queue->pkgs[i]->pkg.i->name,
           tran->queue->pkgs[i]->pkg.i->version
         );
-      }else if( tran->queue->pkgs[i]->type == UPGRADE ) {
+      }else if ( tran->queue->pkgs[i]->type == UPGRADE ) {
         printf(_("%s-%s is to be upgraded to version %s\n"),
           tran->queue->pkgs[i]->pkg.u->upgrade->name,
           tran->queue->pkgs[i]->pkg.u->installed->version,
@@ -275,23 +275,23 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran)
   }
 
   /* download pkgs */
-  for(i = 0; i < tran->install_pkgs->pkg_count;i++)
-    if( download_pkg(global_config,tran->install_pkgs->pkgs[i]) != 0 ) exit(1);
-  for(i = 0; i < tran->upgrade_pkgs->pkg_count;i++)
-    if( download_pkg(global_config,tran->upgrade_pkgs->pkgs[i]->upgrade) != 0 ) exit(1);
+  for (i = 0; i < tran->install_pkgs->pkg_count;i++)
+    if ( download_pkg(global_config,tran->install_pkgs->pkgs[i]) != 0 ) exit(1);
+  for (i = 0; i < tran->upgrade_pkgs->pkg_count;i++)
+    if ( download_pkg(global_config,tran->upgrade_pkgs->pkgs[i]->upgrade) != 0 ) exit(1);
 
   printf("\n");
 
   /* run transaction, remove, install, and upgrade */
-  if( global_config->download_only == FALSE ) {
-    for(i = 0; i < tran->remove_pkgs->pkg_count;i++) {
-      if( remove_pkg(global_config,tran->remove_pkgs->pkgs[i]) == -1 ) exit(1);
+  if ( global_config->download_only == FALSE ) {
+    for (i = 0; i < tran->remove_pkgs->pkg_count;i++) {
+      if ( remove_pkg(global_config,tran->remove_pkgs->pkgs[i]) == -1 ) exit(1);
     }
-    for(i = 0;i < tran->queue->count; ++i) {
-      if( tran->queue->pkgs[i]->type == INSTALL ) {
-        if( install_pkg(global_config,tran->queue->pkgs[i]->pkg.i) == -1 ) exit(1);
-      }else if( tran->queue->pkgs[i]->type == UPGRADE ) {
-        if( upgrade_pkg( global_config,
+    for (i = 0;i < tran->queue->count; ++i) {
+      if ( tran->queue->pkgs[i]->type == INSTALL ) {
+        if ( install_pkg(global_config,tran->queue->pkgs[i]->pkg.i) == -1 ) exit(1);
+      }else if ( tran->queue->pkgs[i]->type == UPGRADE ) {
+        if ( upgrade_pkg( global_config,
           tran->queue->pkgs[i]->pkg.u->installed,
           tran->queue->pkgs[i]->pkg.u->upgrade
         ) == -1 ) exit(1);
@@ -309,7 +309,7 @@ void add_install_to_transaction(transaction_t *tran,pkg_info_t *pkg)
   pkg_info_t **tmp_list;
 
   /* don't add if already present in the transaction */
-  if( search_transaction_by_pkg(tran,pkg) == 1 ) return;
+  if ( search_transaction_by_pkg(tran,pkg) == 1 ) return;
 
   #if DEBUG == 1
   printf("adding install of %s-%s@%s to transaction\n",
@@ -320,7 +320,7 @@ void add_install_to_transaction(transaction_t *tran,pkg_info_t *pkg)
     tran->install_pkgs->pkgs,
     sizeof *tran->install_pkgs->pkgs * ( tran->install_pkgs->pkg_count + 1 )
   );
-  if( tmp_list != NULL ) {
+  if ( tmp_list != NULL ) {
     tran->install_pkgs->pkgs = tmp_list;
 
     tran->install_pkgs->pkgs[tran->install_pkgs->pkg_count] = slapt_malloc(
@@ -345,7 +345,7 @@ void add_remove_to_transaction(transaction_t *tran,pkg_info_t *pkg)
   pkg_info_t **tmp_list;
 
   /* don't add if already present in the transaction */
-  if( search_transaction_by_pkg(tran,pkg) == 1 ) return;
+  if ( search_transaction_by_pkg(tran,pkg) == 1 ) return;
 
   #if DEBUG == 1
   printf("adding remove of %s-%s@%s to transaction\n",
@@ -356,7 +356,7 @@ void add_remove_to_transaction(transaction_t *tran,pkg_info_t *pkg)
     tran->remove_pkgs->pkgs,
     sizeof *tran->remove_pkgs->pkgs * ( tran->remove_pkgs->pkg_count + 1 )
   );
-  if( tmp_list != NULL ) {
+  if ( tmp_list != NULL ) {
     tran->remove_pkgs->pkgs = tmp_list;
 
     tran->remove_pkgs->pkgs[tran->remove_pkgs->pkg_count] = slapt_malloc(
@@ -376,7 +376,7 @@ void add_exclude_to_transaction(transaction_t *tran,pkg_info_t *pkg)
   pkg_info_t **tmp_list;
 
   /* don't add if already present in the transaction */
-  if( search_transaction_by_pkg(tran,pkg) == 1 ) return;
+  if ( search_transaction_by_pkg(tran,pkg) == 1 ) return;
 
   #if DEBUG == 1
   printf("adding exclude of %s-%s@%s to transaction\n",
@@ -387,7 +387,7 @@ void add_exclude_to_transaction(transaction_t *tran,pkg_info_t *pkg)
     tran->exclude_pkgs->pkgs,
     sizeof *tran->exclude_pkgs->pkgs * ( tran->exclude_pkgs->pkg_count + 1 )
   );
-  if( tmp_list != NULL ) {
+  if ( tmp_list != NULL ) {
     tran->exclude_pkgs->pkgs = tmp_list;
 
     tran->exclude_pkgs->pkgs[tran->exclude_pkgs->pkg_count] = slapt_malloc(
@@ -409,7 +409,7 @@ void add_upgrade_to_transaction(transaction_t *tran, pkg_info_t *installed_pkg,
   pkg_upgrade_t **tmp_list;
 
   /* don't add if already present in the transaction */
-  if( search_transaction_by_pkg(tran,upgrade_pkg) == 1 ) return;
+  if ( search_transaction_by_pkg(tran,upgrade_pkg) == 1 ) return;
 
   #if DEBUG == 1
   printf("adding upgrade of %s-%s@%s to transaction\n",
@@ -420,7 +420,7 @@ void add_upgrade_to_transaction(transaction_t *tran, pkg_info_t *installed_pkg,
     tran->upgrade_pkgs->pkgs,
     sizeof *tran->upgrade_pkgs->pkgs * ( tran->upgrade_pkgs->pkg_count + 1 )
   );
-  if( tmp_list != NULL ) {
+  if ( tmp_list != NULL ) {
     tran->upgrade_pkgs->pkgs = tmp_list;
 
     tran->upgrade_pkgs->pkgs[tran->upgrade_pkgs->pkg_count] = slapt_malloc(
@@ -459,20 +459,20 @@ int search_transaction(transaction_t *tran,char *pkg_name)
 {
   unsigned int i,found = 1, not_found = 0;
 
-  for(i = 0; i < tran->install_pkgs->pkg_count;i++) {
-    if( strcmp(pkg_name,tran->install_pkgs->pkgs[i]->name)==0 )
+  for (i = 0; i < tran->install_pkgs->pkg_count;i++) {
+    if ( strcmp(pkg_name,tran->install_pkgs->pkgs[i]->name)==0 )
       return found;
   }
-  for(i = 0; i < tran->upgrade_pkgs->pkg_count;i++) {
-    if( strcmp(pkg_name,tran->upgrade_pkgs->pkgs[i]->upgrade->name)==0 )
+  for (i = 0; i < tran->upgrade_pkgs->pkg_count;i++) {
+    if ( strcmp(pkg_name,tran->upgrade_pkgs->pkgs[i]->upgrade->name)==0 )
       return found;
   }
-  for(i = 0; i < tran->remove_pkgs->pkg_count;i++) {
-    if( strcmp(pkg_name,tran->remove_pkgs->pkgs[i]->name)==0 )
+  for (i = 0; i < tran->remove_pkgs->pkg_count;i++) {
+    if ( strcmp(pkg_name,tran->remove_pkgs->pkgs[i]->name)==0 )
       return found;
   }
-  for(i = 0; i < tran->exclude_pkgs->pkg_count;i++) {
-    if( strcmp(pkg_name,tran->exclude_pkgs->pkgs[i]->name)==0 )
+  for (i = 0; i < tran->exclude_pkgs->pkg_count;i++) {
+    if ( strcmp(pkg_name,tran->exclude_pkgs->pkgs[i]->name)==0 )
       return found;
   }
   return not_found;
@@ -481,8 +481,8 @@ int search_transaction(transaction_t *tran,char *pkg_name)
 static int search_upgrade_transaction(transaction_t *tran,pkg_info_t *pkg)
 {
   unsigned int i,found = 1, not_found = 0;
-  for(i = 0; i < tran->upgrade_pkgs->pkg_count;i++) {
-    if( strcmp(pkg->name,tran->upgrade_pkgs->pkgs[i]->upgrade->name)==0 )
+  for (i = 0; i < tran->upgrade_pkgs->pkg_count;i++) {
+    if ( strcmp(pkg->name,tran->upgrade_pkgs->pkgs[i]->upgrade->name)==0 )
       return found;
   }
   return not_found;
@@ -492,23 +492,23 @@ void free_transaction(transaction_t *tran)
 {
   unsigned int i;
 
-  if( tran->install_pkgs->free_pkgs == TRUE ) {
-    for(i = 0;i < tran->install_pkgs->pkg_count; i++) {
+  if ( tran->install_pkgs->free_pkgs == TRUE ) {
+    for (i = 0;i < tran->install_pkgs->pkg_count; i++) {
       free_pkg(tran->install_pkgs->pkgs[i]);
     }
   }
   free(tran->install_pkgs->pkgs);
   free(tran->install_pkgs);
 
-  if( tran->remove_pkgs->free_pkgs == TRUE ) {
-    for(i = 0;i < tran->remove_pkgs->pkg_count; i++) {
+  if ( tran->remove_pkgs->free_pkgs == TRUE ) {
+    for (i = 0;i < tran->remove_pkgs->pkg_count; i++) {
       free_pkg(tran->remove_pkgs->pkgs[i]);
     }
   }
   free(tran->remove_pkgs->pkgs);
   free(tran->remove_pkgs);
 
-  for(i = 0;i < tran->upgrade_pkgs->pkg_count; i++) {
+  for (i = 0;i < tran->upgrade_pkgs->pkg_count; i++) {
     free_pkg(tran->upgrade_pkgs->pkgs[i]->upgrade);
     free_pkg(tran->upgrade_pkgs->pkgs[i]->installed);
     free(tran->upgrade_pkgs->pkgs[i]);
@@ -516,15 +516,15 @@ void free_transaction(transaction_t *tran)
   free(tran->upgrade_pkgs->pkgs);
   free(tran->upgrade_pkgs);
 
-  if( tran->exclude_pkgs->free_pkgs == TRUE ) {
-    for(i = 0; i < tran->exclude_pkgs->pkg_count;i++) {
+  if ( tran->exclude_pkgs->free_pkgs == TRUE ) {
+    for (i = 0; i < tran->exclude_pkgs->pkg_count;i++) {
       free_pkg(tran->exclude_pkgs->pkgs[i]);
     }
   }
   free(tran->exclude_pkgs->pkgs);
   free(tran->exclude_pkgs);
 
-  for(i = 0; i < tran->suggests->count; ++i) {
+  for (i = 0; i < tran->suggests->count; ++i) {
     free(tran->suggests->pkgs[i]);
   }
   free(tran->suggests->pkgs);
@@ -539,7 +539,7 @@ transaction_t *remove_from_transaction(transaction_t *tran,pkg_info_t *pkg)
   unsigned int i;
   transaction_t *new_tran = NULL;
 
-  if( search_transaction_by_pkg(tran,pkg) == 0 )
+  if ( search_transaction_by_pkg(tran,pkg) == 0 )
     return tran;
 
   /* since this is a pointer, slapt_malloc before calling init */
@@ -550,22 +550,22 @@ transaction_t *remove_from_transaction(transaction_t *tran,pkg_info_t *pkg)
   new_tran->exclude_pkgs = slapt_malloc( sizeof *new_tran->exclude_pkgs );
   init_transaction(new_tran);
 
-  for(i = 0;i < tran->install_pkgs->pkg_count; i++) {
-    if(
+  for (i = 0;i < tran->install_pkgs->pkg_count; i++) {
+    if (
       strcmp(pkg->name,tran->install_pkgs->pkgs[i]->name) != 0 &&
       strcmp(pkg->version,tran->install_pkgs->pkgs[i]->version) != 0 &&
       strcmp(pkg->location,tran->install_pkgs->pkgs[i]->location) != 0
     ) add_install_to_transaction(new_tran,tran->install_pkgs->pkgs[i]);
   }
-  for(i = 0;i < tran->remove_pkgs->pkg_count; i++) {
-    if(
+  for (i = 0;i < tran->remove_pkgs->pkg_count; i++) {
+    if (
       strcmp(pkg->name,tran->remove_pkgs->pkgs[i]->name) != 0 &&
       strcmp(pkg->version,tran->remove_pkgs->pkgs[i]->version) != 0 &&
       strcmp(pkg->location,tran->remove_pkgs->pkgs[i]->location) != 0
     ) add_remove_to_transaction(new_tran,tran->remove_pkgs->pkgs[i]);
   }
-  for(i = 0;i < tran->upgrade_pkgs->pkg_count; i++) {
-    if(
+  for (i = 0;i < tran->upgrade_pkgs->pkg_count; i++) {
+    if (
       strcmp(pkg->name,tran->upgrade_pkgs->pkgs[i]->upgrade->name) != 0 &&
       strcmp(pkg->version,tran->upgrade_pkgs->pkgs[i]->upgrade->version) != 0 &&
       strcmp(pkg->location,tran->upgrade_pkgs->pkgs[i]->upgrade->location) != 0
@@ -575,8 +575,8 @@ transaction_t *remove_from_transaction(transaction_t *tran,pkg_info_t *pkg)
       tran->upgrade_pkgs->pkgs[i]->upgrade
     );
   }
-  for(i = 0; i < tran->exclude_pkgs->pkg_count;i++) {
-    if(
+  for (i = 0; i < tran->exclude_pkgs->pkg_count;i++) {
+    if (
       strcmp(pkg->name,tran->exclude_pkgs->pkgs[i]->name) != 0 &&
       strcmp(pkg->version,tran->exclude_pkgs->pkgs[i]->version) != 0 &&
       strcmp(pkg->location,tran->exclude_pkgs->pkgs[i]->location) != 0
@@ -596,8 +596,8 @@ int add_deps_to_trans(const rc_config *global_config, transaction_t *tran,
   int dep_return = -1;
   struct pkg_list *deps;
 
-  if( global_config->disable_dep_check == TRUE ) return 0;
-  if( pkg == NULL ) return 0;
+  if ( global_config->disable_dep_check == TRUE ) return 0;
+  if ( pkg == NULL ) return 0;
 
   deps = init_pkg_list();
 
@@ -607,7 +607,7 @@ int add_deps_to_trans(const rc_config *global_config, transaction_t *tran,
 
   /* check to see if there where issues with dep checking */
   /* exclude the package if dep check barfed */
-  if( (dep_return == -1) && (global_config->ignore_dep == FALSE) ) {
+  if ( (dep_return == -1) && (global_config->ignore_dep == FALSE) ) {
     printf("Excluding %s, use --ignore-dep to override\n",pkg->name);
     add_exclude_to_transaction(tran,pkg);
     free_pkg_list(deps);
@@ -615,7 +615,7 @@ int add_deps_to_trans(const rc_config *global_config, transaction_t *tran,
   }
 
   /* loop through the deps */
-  for(c = 0; c < deps->pkg_count;c++) {
+  for (c = 0; c < deps->pkg_count;c++) {
     pkg_info_t *dep_installed;
     pkg_info_t *conflicted_pkg = NULL;
 
@@ -630,11 +630,11 @@ int add_deps_to_trans(const rc_config *global_config, transaction_t *tran,
     }
 
     dep_installed = get_newest_pkg(installed_pkgs,deps->pkgs[c]->name);
-    if( dep_installed == NULL ) {
+    if ( dep_installed == NULL ) {
       add_install_to_transaction(tran,deps->pkgs[c]);
-    }else{
+    } else {
       /* add only if its a valid upgrade */
-      if(cmp_pkg_versions(dep_installed->version,deps->pkgs[c]->version) < 0 )
+      if (cmp_pkg_versions(dep_installed->version,deps->pkgs[c]->version) < 0 )
         add_upgrade_to_transaction(tran,dep_installed,deps->pkgs[c]);
     }
 
@@ -656,8 +656,8 @@ pkg_info_t *is_conflicted(transaction_t *tran, struct pkg_list *avail_pkgs,
      or in the current transaction
   */
   conflicts = get_pkg_conflicts(avail_pkgs,installed_pkgs,pkg);
-  for(i = 0; i < conflicts->pkg_count; i++) {
-    if(
+  for (i = 0; i < conflicts->pkg_count; i++) {
+    if (
       search_upgrade_transaction(tran,conflicts->pkgs[i]) == 1
       || get_newest_pkg(tran->install_pkgs,conflicts->pkgs[i]->name) != NULL
     ) {
@@ -668,7 +668,7 @@ pkg_info_t *is_conflicted(transaction_t *tran, struct pkg_list *avail_pkgs,
       free_pkg_list(conflicts);
       return c;
     }
-    if(get_newest_pkg(installed_pkgs,conflicts->pkgs[i]->name) != NULL) {
+    if (get_newest_pkg(installed_pkgs,conflicts->pkgs[i]->name) != NULL) {
       pkg_info_t *c = conflicts->pkgs[i];
       printf(_("Installed %s conflicts with %s\n"),
         conflicts->pkgs[i]->name,pkg->name);
@@ -686,7 +686,7 @@ static void add_suggestion(transaction_t *tran, pkg_info_t *pkg)
 {
   unsigned int position = 0,len = 0;
 
-  if( pkg->suggests == NULL || (len = strlen(pkg->suggests)) == 0 ) {
+  if ( pkg->suggests == NULL || (len = strlen(pkg->suggests)) == 0 ) {
     return;
   }
 
@@ -696,14 +696,14 @@ static void add_suggestion(transaction_t *tran, pkg_info_t *pkg)
     char **tmp_realloc;
 
     p = pkg->suggests + position;
-    if( p == NULL ) break;
+    if ( p == NULL ) break;
 
     si = strpbrk(p," ,");
-    if( si == NULL || strlen(si) <= 2 ) {
+    if ( si == NULL || strlen(si) <= 2 ) {
       total_len = strlen(p);
       rest_len = 0;
       tmp_suggests = strndup(p,strlen(p));
-    }else{
+    } else {
       si = si + 1;
 
       total_len = strlen(p);
@@ -716,7 +716,7 @@ static void add_suggestion(transaction_t *tran, pkg_info_t *pkg)
     }
 
     /* no need to add it if we already have it */
-    if( search_transaction(tran,tmp_suggests) == 1 ) {
+    if ( search_transaction(tran,tmp_suggests) == 1 ) {
       free(tmp_suggests);
       position += (total_len - rest_len);
       continue;
@@ -727,7 +727,7 @@ static void add_suggestion(transaction_t *tran, pkg_info_t *pkg)
         sizeof *tran->suggests->pkgs * (tran->suggests->count + 1)
       );
 
-    if( tmp_realloc != NULL ) {
+    if ( tmp_realloc != NULL ) {
       tran->suggests->pkgs = tmp_realloc;
       tran->suggests->pkgs[tran->suggests->count] = slapt_malloc(
         sizeof *tran->suggests->pkgs[tran->suggests->count]
@@ -753,13 +753,13 @@ static int disk_space(const rc_config *global_config,int space_needed )
 
   space_needed *= 1024;
 
-  if( space_needed < 0 ) return 0;
+  if ( space_needed < 0 ) return 0;
 
-  if( statvfs(global_config->working_dir,&statvfs_buf) != 0 ) {
-    if( errno ) perror("statvfs");
+  if ( statvfs(global_config->working_dir,&statvfs_buf) != 0 ) {
+    if ( errno ) perror("statvfs");
     return 1;
-  }else{
-    if( statvfs_buf.f_bfree < ( space_needed / statvfs_buf.f_bsize) )
+  } else {
+    if ( statvfs_buf.f_bfree < ( space_needed / statvfs_buf.f_bsize) )
       return 1;
   }
 
@@ -770,23 +770,23 @@ int search_transaction_by_pkg(transaction_t *tran,pkg_info_t *pkg)
 {
   unsigned int i,found = 1, not_found = 0;
 
-  for(i = 0; i < tran->install_pkgs->pkg_count;i++) {
-    if(( strcmp(pkg->name,tran->install_pkgs->pkgs[i]->name)==0 )
+  for (i = 0; i < tran->install_pkgs->pkg_count;i++) {
+    if (( strcmp(pkg->name,tran->install_pkgs->pkgs[i]->name)==0 )
     && (strcmp(pkg->version,tran->install_pkgs->pkgs[i]->version)==0))
       return found;
   }
-  for(i = 0; i < tran->upgrade_pkgs->pkg_count;i++) {
-    if(( strcmp(pkg->name,tran->upgrade_pkgs->pkgs[i]->upgrade->name)==0 )
+  for (i = 0; i < tran->upgrade_pkgs->pkg_count;i++) {
+    if (( strcmp(pkg->name,tran->upgrade_pkgs->pkgs[i]->upgrade->name)==0 )
     && (strcmp(pkg->version,tran->upgrade_pkgs->pkgs[i]->upgrade->version)==0 ))
       return found;
   }
-  for(i = 0; i < tran->remove_pkgs->pkg_count;i++) {
-    if(( strcmp(pkg->name,tran->remove_pkgs->pkgs[i]->name)==0 )
+  for (i = 0; i < tran->remove_pkgs->pkg_count;i++) {
+    if (( strcmp(pkg->name,tran->remove_pkgs->pkgs[i]->name)==0 )
     && (strcmp(pkg->version,tran->remove_pkgs->pkgs[i]->version)==0 ))
       return found;
   }
-  for(i = 0; i < tran->exclude_pkgs->pkg_count;i++) {
-    if(( strcmp(pkg->name,tran->exclude_pkgs->pkgs[i]->name)==0 )
+  for (i = 0; i < tran->exclude_pkgs->pkg_count;i++) {
+    if (( strcmp(pkg->name,tran->exclude_pkgs->pkgs[i]->name)==0 )
     && (strcmp(pkg->version,tran->exclude_pkgs->pkgs[i]->version)==0 ))
       return found;
   }
@@ -807,7 +807,7 @@ static void queue_add_install(queue_t *t, pkg_info_t *p)
 {
   queue_i **tmp;
   tmp = realloc(t->pkgs, sizeof *t->pkgs * (t->count + 1) );
-  if( !tmp ) return;
+  if ( !tmp ) return;
   t->pkgs = tmp;
   t->pkgs[t->count] = slapt_malloc(sizeof *t->pkgs[t->count] );
   t->pkgs[t->count]->pkg.i = p;
@@ -819,7 +819,7 @@ static void queue_add_upgrade(queue_t *t, pkg_upgrade_t *p)
 {
   queue_i **tmp;
   tmp = realloc(t->pkgs, sizeof *t->pkgs * (t->count + 1) );
-  if( !tmp ) return;
+  if ( !tmp ) return;
   t->pkgs = tmp;
   t->pkgs[t->count] = slapt_malloc(sizeof *t->pkgs[t->count] );
   t->pkgs[t->count]->pkg.u = p;
@@ -830,7 +830,7 @@ static void queue_add_upgrade(queue_t *t, pkg_upgrade_t *p)
 static void queue_free(queue_t *t)
 {
   unsigned int i;
-  for(i = 0; i < t->count; ++i) {
+  for (i = 0; i < t->count; ++i) {
     free(t->pkgs[i]);
   }
   free(t->pkgs);
@@ -840,7 +840,7 @@ static void queue_free(queue_t *t)
 void generate_suggestions(transaction_t *tran)
 {
   unsigned int i;
-  for(i = 0;i < tran->install_pkgs->pkg_count; ++i) {
+  for (i = 0;i < tran->install_pkgs->pkg_count; ++i) {
     add_suggestion(tran,tran->install_pkgs->pkgs[i]);
   }
 }

@@ -1,5 +1,5 @@
 
-0.9.9k May 15, 2005
+0.9.9k May 17, 2005
  * fixed regression in slack-required file
  * code formatting updates
  * fixed a few warnings for gcc 4.0 support

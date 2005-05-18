@@ -72,11 +72,11 @@ int main( int argc, char *argv[] )
   textdomain(PROGRAM_NAME);
   #endif
 
-  if( argc < 2 ) usage(), exit(1);
+  if ( argc < 2 ) usage(), exit(1);
 
   /* load up the configuration file */
   global_config = read_rc_config(RC_LOCATION);
-  if( global_config == NULL ) {
+  if ( global_config == NULL ) {
     exit(1);
   }
   curl_global_init(CURL_GLOBAL_ALL);
@@ -156,7 +156,7 @@ int main( int argc, char *argv[] )
         {
           rc_config *tmp_gc = global_config;
           global_config = read_rc_config(optarg);
-          if( global_config == NULL ) {
+          if ( global_config == NULL ) {
             free_rc_config(tmp_gc);
             curl_global_cleanup();
             exit(1);
@@ -199,7 +199,7 @@ int main( int argc, char *argv[] )
     case REMOVE:
     case SHOW:
     case SEARCH:
-      if( optind >= argc )
+      if ( optind >= argc )
         do_action = 0;
       break;
     default:
@@ -208,7 +208,7 @@ int main( int argc, char *argv[] )
       break;
   }
 
-  if( do_action == USAGE ) {
+  if ( do_action == USAGE ) {
     usage();
     free_rc_config(global_config);
     curl_global_cleanup();
@@ -221,7 +221,7 @@ int main( int argc, char *argv[] )
 
   switch(do_action) {
     case UPDATE:
-      if( update_pkg_cache(global_config) == 1 ) {
+      if ( update_pkg_cache(global_config) == 1 ) {
         free_rc_config(global_config);
         curl_global_cleanup();
         exit(1);

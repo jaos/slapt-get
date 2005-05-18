@@ -51,10 +51,10 @@ int download_data(FILE *fh,const char *url,size_t bytes,
 
   headers = curl_slist_append(headers, "Pragma: "); /* override no-cache */
 
-  if( global_config->dl_stats != 1 ) {
-    if( global_config->progress_cb == NULL ) {
+  if ( global_config->dl_stats != 1 ) {
+    if ( global_config->progress_cb == NULL ) {
       curl_easy_setopt(ch, CURLOPT_PROGRESSFUNCTION, progress_callback );
-    }else{
+    } else {
       curl_easy_setopt(ch, CURLOPT_PROGRESSFUNCTION,
                        global_config->progress_cb );
     }
@@ -64,24 +64,24 @@ int download_data(FILE *fh,const char *url,size_t bytes,
   curl_easy_setopt(ch, CURLOPT_ERRORBUFFER, curl_err_buff );
 
   /* resume */
-  if( bytes > 0 ) {
+  if ( bytes > 0 ) {
     fseek(fh,0,SEEK_END);
     curl_easy_setopt(ch, CURLOPT_RESUME_FROM, bytes);
   }
 
-  if( (response = curl_easy_perform(ch)) != CURLE_OK ) {
+  if ( (response = curl_easy_perform(ch)) != CURLE_OK ) {
     /*
       * this is for proxy servers that can't resume 
     */
-    if( response == CURLE_HTTP_RANGE_ERROR ) {
+    if ( response == CURLE_HTTP_RANGE_ERROR ) {
       return_code = CURLE_HTTP_RANGE_ERROR;
     /*
       * this is a simple hack for all ftp sources that won't have a patches dir
       * we don't want an ugly error to confuse the user
     */
-    }else if( strstr(url,PATCHES_LIST) != NULL ) {
+    }else if ( strstr(url,PATCHES_LIST) != NULL ) {
       return_code = 0;
-    }else{
+    } else {
       fprintf(stderr,_("Failed to download: %s\n"),curl_err_buff);
       return_code = -1;
     }
@@ -107,7 +107,7 @@ static size_t write_header_callback(void *buffer, size_t size,
   struct head_data_t *head_t = (struct head_data_t *)userp;
   
   tmp = (char *)realloc( head_t->data, head_t->size + a_size + 1);
-  if( tmp != NULL ) {
+  if ( tmp != NULL ) {
     head_t->data = tmp;
     memcpy(&(head_t->data[head_t->size]),buffer,a_size);
     head_t->size += a_size;
@@ -149,7 +149,7 @@ char *head_request(const char *url)
 
   headers = curl_slist_append(headers, "Pragma: "); /* override no-cache */
 
-  if( (response = curl_easy_perform(ch)) != 0 ) {
+  if ( (response = curl_easy_perform(ch)) != 0 ) {
     free(head_t.data);
     curl_easy_cleanup(ch);
     curl_slist_free_all(headers);
@@ -194,7 +194,7 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg)
   int pkg_verify_return = -1;
   int dl_return = -1;
 
-  if( verify_downloaded_pkg(global_config,pkg) == 0 ) return 0;
+  if ( verify_downloaded_pkg(global_config,pkg) == 0 ) return 0;
 
   chdir(global_config->working_dir); /* just in case */
   create_dir_structure(pkg->location);
@@ -204,14 +204,14 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg)
   file_name = gen_pkg_file_name(global_config,pkg);
   f_size = get_pkg_file_size(global_config,pkg);
 
-  if( global_config->dl_stats == TRUE ) {
+  if ( global_config->dl_stats == TRUE ) {
     int dl_total_size = pkg->size_c - (f_size/1024);
     printf(_("Downloading %s %s %s [%.1d%s]...\n"),
       pkg->mirror,pkg->name,pkg->version,
       ( dl_total_size > 1024 ) ? dl_total_size / 1024 : dl_total_size,
       ( dl_total_size > 1024 ) ? "MB" : "kB"
     );
-  }else{
+  } else {
     int dl_total_size = pkg->size_c - (f_size/1024);
     printf(_("Downloading %s %s %s [%.1d%s]..."),
       pkg->mirror,pkg->name,pkg->version,
@@ -222,7 +222,7 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg)
 
   /* open the file to write, append if already present */
   fh = open_file(file_name,"a+b");
-  if( fh == NULL ) {
+  if ( fh == NULL ) {
     free(file_name);
     free(url);
     return -1;
@@ -230,24 +230,24 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg)
 
   /* download the file to our file handle */
   dl_return = download_data(fh,url,f_size,global_config);
-  if( dl_return == 0 ) {
-    if( global_config->dl_stats == FALSE ) printf(_("Done\n"));
-  }else if( dl_return == CURLE_HTTP_RANGE_ERROR ) {
+  if ( dl_return == 0 ) {
+    if ( global_config->dl_stats == FALSE ) printf(_("Done\n"));
+  }else if ( dl_return == CURLE_HTTP_RANGE_ERROR ) {
     /*
       * this is for errors trying to resume.  unlink the file and
       * try again.
     */
     printf("\r");
     fclose(fh);
-    if( unlink(file_name) == -1 ) {
+    if ( unlink(file_name) == -1 ) {
       fprintf(stderr,_("Failed to unlink %s\n"),file_name);
-      if( errno ) perror(file_name);
+      if ( errno ) perror(file_name);
       exit(1);
     }
     free(file_name);
     free(url);
     return download_pkg(global_config,pkg);
-  }else{
+  } else {
     fclose(fh);
     #if DEBUG == 1
     printf("Failure: %s-%s from %s %s\n",pkg->name,pkg->version,
@@ -255,9 +255,9 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg)
     #endif
     #if DO_NOT_UNLINK_BAD_FILES == 0
     /* if the d/l fails, unlink the empty file */
-    if( unlink(file_name) == -1 ) {
+    if ( unlink(file_name) == -1 ) {
       fprintf(stderr,_("Failed to unlink %s\n"),file_name);
-      if( errno ) perror(file_name);
+      if ( errno ) perror(file_name);
     }
     #endif
     free(url);
@@ -270,23 +270,23 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg)
 
   /* check to make sure we have the complete file */
   pkg_verify_return = verify_downloaded_pkg(global_config,pkg);
-  if( pkg_verify_return == 0 ) {
+  if ( pkg_verify_return == 0 ) {
     free(file_name);
     return 0;
-  }else if( pkg_verify_return == MD5_CHECKSUM_FAILED ) {
+  }else if ( pkg_verify_return == MD5_CHECKSUM_FAILED ) {
     fprintf(stderr,
       _("md5 sum for %s is not correct, override with --no-md5!\n"),
       pkg->name);
     #if DO_NOT_UNLINK_BAD_FILES == 0
     /* if the checksum fails, unlink the bogus file */
-    if( unlink(file_name) == -1 ) {
+    if ( unlink(file_name) == -1 ) {
       fprintf(stderr,_("Failed to unlink %s\n"),file_name);
-      if( errno ) perror("unlink");
+      if ( errno ) perror("unlink");
     }
     #endif
     free(file_name);
     return -1;
-  }else{
+  } else {
     printf(_("Download of %s incomplete\n"),pkg->name);
     free(file_name);
     return -1;
@@ -302,9 +302,9 @@ int progress_callback(void *clientp, double dltotal, double dlnow,
   (void) ultotal;
   (void) ulnow;
 
-  if( (dltotal + *bytes) == 0 ) {
+  if ( (dltotal + *bytes) == 0 ) {
     percent = 0;
-  }else{
+  } else {
     percent = ((*bytes + dlnow)*100)/(dltotal + *bytes);
   }
   printf("%3d%%\b\b\b\b",percent);
@@ -316,10 +316,10 @@ char spinner(void)
   static int spinner_index = 0;
   static const char spinner_parts[] = "\\|/-";
 
-  if( spinner_index > 3 ) {
+  if ( spinner_index > 3 ) {
     spinner_index = 0;
     return spinner_parts[spinner_index];
-  }else{
+  } else {
     return spinner_parts[spinner_index++];
   }
 }
