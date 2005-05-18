@@ -81,7 +81,7 @@ int main( int argc, char *argv[] )
   }
   curl_global_init(CURL_GLOBAL_ALL);
 
-  while( ( c = getopt_long_only(argc,argv,"",long_options,&option_index ) ) != -1 ) {
+  while ( ( c = getopt_long_only(argc,argv,"",long_options,&option_index ) ) != -1 ) {
     switch(c) {
       case UPDATE_OPT: /* update */
         do_action = UPDATE;

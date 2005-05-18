@@ -690,7 +690,7 @@ static void add_suggestion(transaction_t *tran, pkg_info_t *pkg)
     return;
   }
 
-  while( position < len ) {
+  while ( position < len ) {
     int total_len = 0,rest_len = 0;
     char *p = NULL,*si = NULL,*tmp_suggests = NULL;
     char **tmp_realloc;

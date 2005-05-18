@@ -90,7 +90,7 @@ void gen_md5_sum_of_file(FILE *f,char *result_sum)
 
   rewind(f);
 
-  while( (getline_read = getline(&getline_buffer, &getline_size, f)) != EOF )
+  while ( (getline_read = getline(&getline_buffer, &getline_size, f)) != EOF )
     EVP_DigestUpdate(&mdctx, getline_buffer, getline_read);
 
   free(getline_buffer);
@@ -132,7 +132,7 @@ void create_dir_structure(const char *dir_name)
   }
 
   len = strlen(dir_name);
-  while( position < len ) {
+  while ( position < len ) {
 
     char *pointer = NULL;
     char *dir_name_buffer = NULL;

@@ -72,7 +72,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh)
   init_regex(&size_c_regex,PKG_SIZEC_PATTERN);
   init_regex(&size_u_regex,PKG_SIZEU_PATTERN);
 
-  while( (bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh) ) != EOF ) {
+  while ( (bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh) ) != EOF ) {
 
     pkg_info_t *tmp_pkg;
 
@@ -373,7 +373,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh)
       (strstr(getline_buffer,"PACKAGE DESCRIPTION") != NULL)
     ) {
 
-      while( 1 ) {
+      while ( 1 ) {
         char *tmp_desc = NULL;
 
         if ( (bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh)) == EOF ) {
@@ -493,7 +493,7 @@ struct pkg_list *get_installed_pkgs(void)
     return list;
   }
 
-  while( (file = readdir(pkg_log_dir)) != NULL ) {
+  while ( (file = readdir(pkg_log_dir)) != NULL ) {
     pkg_info_t *tmp_pkg;
     FILE *pkg_f;
     char *pkg_f_name;
@@ -543,7 +543,7 @@ struct pkg_list *get_installed_pkgs(void)
     pkg_f = open_file(pkg_f_name,"r");
     free(pkg_f_name);
     if ( pkg_f == NULL ) exit(1);
-    while( (bytes_read = getline(&getline_buffer,&getline_len,pkg_f)) != EOF ) {
+    while ( (bytes_read = getline(&getline_buffer,&getline_len,pkg_f)) != EOF ) {
 
       execute_regex(&compressed_size_reg,getline_buffer);
       execute_regex(&uncompressed_size_reg,getline_buffer);
@@ -588,7 +588,7 @@ struct pkg_list *get_installed_pkgs(void)
           continue;
         }
 
-        while(1) {
+        while (1) {
           char *tmp_desc = NULL;
 
           if ((bytes_read = getline(&getline_buffer,&getline_len,pkg_f)) == EOF ) {
@@ -850,7 +850,7 @@ void get_md5sum(pkg_info_t *pkg,FILE *checksum_file)
 
   init_regex(&md5sum_regex,MD5SUM_REGEX);
 
-  while( (getline_read = getline(&getline_buffer,&getline_len,checksum_file) ) != EOF ) {
+  while ( (getline_read = getline(&getline_buffer,&getline_len,checksum_file) ) != EOF ) {
 
     /* ignore if it is not our package */
     if ( strstr(getline_buffer,pkg->name) == NULL) continue;
@@ -965,7 +965,7 @@ int cmp_pkg_versions(char *a, char *b)
   a_parts = break_down_pkg_version(a);
   b_parts = break_down_pkg_version(b);
 
-  while( position < a_parts->count && position < b_parts->count ) {
+  while ( position < a_parts->count && position < b_parts->count ) {
     if ( strcmp(a_parts->parts[position],b_parts->parts[position]) != 0 ) {
 
       /*
@@ -1081,7 +1081,7 @@ static struct pkg_version_parts *break_down_pkg_version(const char *version)
     pointer = NULL;
   }
 
-  while(pos < (sv_size - 1) ) {
+  while (pos < (sv_size - 1) ) {
     char **tmp;
 
     tmp = realloc(pvp->parts, sizeof *pvp->parts * (pvp->count + 1) );
@@ -1242,7 +1242,7 @@ int get_pkg_dependencies(const rc_config *global_config,
 
   /* parse dep line */
   len = strlen(pkg->required);
-  while( position < len ) {
+  while ( position < len ) {
     pkg_info_t *tmp_pkg = NULL;
 
     /* either the last or there was only one to begin with */
@@ -1326,7 +1326,7 @@ int get_pkg_dependencies(const rc_config *global_config,
         /* now move the package to the end after it's dependencies */
         pkg_info_t *tmp = NULL;
         unsigned int i = 0;
-        while(i < deps->pkg_count) {
+        while (i < deps->pkg_count) {
           if ( strcmp(deps->pkgs[i]->name,tmp_pkg->name) == 0 && tmp == NULL )
             tmp = deps->pkgs[i];
           /* move all subsequent packages up */
@@ -1375,7 +1375,7 @@ struct pkg_list *get_pkg_conflicts(struct pkg_list *avail_pkgs,
 
   /* parse conflict line */
   len = strlen(pkg->conflicts);
-  while( position < len ) {
+  while ( position < len ) {
     pkg_info_t *tmp_pkg = NULL;
 
     /* either the last or there was only one to begin with */
@@ -2032,7 +2032,7 @@ int update_pkg_cache(const rc_config *global_config)
     if ( (pkg_list_fh = open_file(PKG_LIST_L,"w+")) == NULL ) exit(1);
     if ( pkg_list_fh == NULL ) exit(1);
     rewind(pkg_list_fh_tmp);
-    while( (bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh_tmp) ) != EOF ) {
+    while ( (bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh_tmp) ) != EOF ) {
       fprintf(pkg_list_fh,"%s",getline_buffer);
     }
     if ( getline_buffer ) free(getline_buffer);
@@ -2280,7 +2280,7 @@ void purge_old_cached_pkgs(const rc_config *global_config,char *dir_name,
     return;
   }
 
-  while( (file = readdir(dir)) ) {
+  while ( (file = readdir(dir)) ) {
 
     /* make sure we don't have . or .. */
     if ( (strcmp(file->d_name,"..")) == 0 || (strcmp(file->d_name,".") == 0) )
@@ -2365,7 +2365,7 @@ void clean_pkg_dir(const char *dir_name)
     return;
   }
 
-  while( (file = readdir(dir)) ) {
+  while ( (file = readdir(dir)) ) {
 
     /* make sure we don't have . or .. */
     if ( (strcmp(file->d_name,"..")) == 0 || (strcmp(file->d_name,".") == 0) )
@@ -2404,7 +2404,7 @@ static pkg_info_t *find_or_requirement(struct pkg_list *avail_pkgs,
   int position = 0, len = 0;
 
   len = strlen(required_str);
-  while( position < len ) {
+  while ( position < len ) {
 
     if ( strchr(required_str + position,'|') == NULL ) {
       char *string = required_str + position;

@@ -54,7 +54,7 @@ rc_config *read_rc_config(const char *file_name)
   rc = open_file(file_name,"r");
   if ( rc == NULL ) exit(1);
 
-  while( (g_size = getline(&getline_buffer,&gb_length,rc) ) != EOF ) {
+  while ( (g_size = getline(&getline_buffer,&gb_length,rc) ) != EOF ) {
     getline_buffer[g_size - 1] = '\0';
 
     /* check to see if it has our key and value seperated by our token */
@@ -176,7 +176,7 @@ static struct exclude_list *parse_exclude(char *line)
   line = strchr(line,'=') + 1;
 
   len = strlen(line);
-  while( position < len ) {
+  while ( position < len ) {
 
     if ( strstr(line + position,",") == NULL ) {
       char *pointer = NULL;
