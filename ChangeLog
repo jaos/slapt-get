@@ -6,7 +6,8 @@
  * fixed regression in slack-required file
  * code formatting updates
  * fixed a few warnings for gcc 4.0 support
- * added missing strings to translations, updated translations
+ * added missing strings to translations, updated translations, added
+   French translation by Verachten Bruno
  * give more notification when package sources fail to download
  * updated example.slapt-getrc with additional package sources
  * added exclude for x86_64 packages
