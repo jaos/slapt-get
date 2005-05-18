@@ -1237,7 +1237,7 @@ int get_pkg_dependencies(const rc_config *global_config,
   printf("Resolving deps for %s, with dep data: %s\n",pkg->name,pkg->required);
   #endif
 
-  if ( dep == NULL )
+  if ( deps == NULL )
     deps = init_pkg_list();
 
   /* parse dep line */
