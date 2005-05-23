@@ -72,7 +72,7 @@ SOURCE=http://software.jaos.org/slackpacks/10.1/
 # slackware testing, extra, and pasture
 #SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-10.1/extra/
 #SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-10.1/testing/
-#SOURCE=http://www.slackware.com/pub/slackware/slackware-10.1/pasture/
+#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-10.1/pasture/
 
 # other unofficial sources
 #SOURCE=http://www.tenboard.com/slackware/slackware-9.1/
