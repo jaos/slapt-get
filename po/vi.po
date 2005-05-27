@@ -1,7 +1,7 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2004
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <vncasper@yahoo.com>, 2004.
+# vi slapt-get translation
+# Copyright (C) 2004, 2005
+# This file is distributed under the same license as the slapt-get package.
+# Nguyễn Văn Vũ <vncasper@yahoo.com>, 2004, 2005
 #
 msgid ""
 msgstr ""

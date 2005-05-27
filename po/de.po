@@ -1,6 +1,7 @@
-# Copyright (C) 2004
+# german slapt-get translation
+# Copyright (C) 2004, 2005
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Niklas Volbers <mithrandir42@web.de>, 2004, 2005
 #
 #, fuzzy
 msgid ""

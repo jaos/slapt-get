@@ -1,7 +1,7 @@
-# translation of pl.po to
-# Copyright (C) 2004
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# translation of slapt-get to pl.po
+# Copyright (C) 2004, 2005
+# This file is distributed under the same license as the slapt-get package.
+# Sajmon <sajmon@tenboard.com>, 2004, 2005.
 #
 msgid ""
 msgstr ""

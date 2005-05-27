@@ -1,13 +1,13 @@
-# translation of pt_BR.po to 
-# Copyright (C) 2004
-# This file is distributed under the same license as the PACKAGE package.
-# , 2004.
+# translation of slapt-get to pt_BR.po
+# Copyright (C) 2004, 2005
+# This file is distributed under the same license as the slapt-get package.
+# Miquel Santinho <msantinho@simplicidade.com>, 2004, 2005.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.9k\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2005-04-29 23:05+0500\n"
+"PO-Revision-Date: 2005-05-27 00:00+0000\n"
 "Last-Translator: Miguel Santinho <msantinho@simplicidade.com>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgid "Reading Package Lists... "
 msgstr "A ler listas de Pacotes... "
 
 msgid "Done\n"
-msgstr "Feito\n"
+msgstr "Concluído\n"
 
 #, c-format
 msgid "%s is up to date.\n"
@@ -453,17 +453,17 @@ msgstr "remover pacotes obsoletos (apenas em dist-upgrade)"
 
 #, c-format
 msgid "You don't have enough free space in %s\n"
-msgstr "Você não possui espaço livre suficiente em %s\n"
+msgstr "Não existe espaço livre suficiente em %s\n"
 
 #, c-format
 msgid "Package Conflicts: %s\n"
-msgstr ""
+msgstr "Conflitos do Pacote:"
 
 #, c-format
 msgid "Package Suggests: %s\n"
-msgstr ""
+msgstr "Sugestões do Pacote:"
 
 #, c-format
 msgid "Failed to parse package data from %s\n"
-msgstr "Failed to parse package data from %s\n"
+msgstr "Falha ao analisar dados do pacote %s\n"
 

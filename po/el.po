@@ -1,7 +1,7 @@
 # Αρχείο Ελληνικών για το Slapt-Get.
-# Copyright (C) 2004
-# This file is distributed under the same license as the PACKAGE package.
-# Savvas Efstratiadis, 2004.
+# Copyright (C) 2004, 2005
+# This file is distributed under the same license as the slapt-get package.
+# Savvas Efstratiadis, 2004, 2005.
 
 msgid ""
 msgstr ""

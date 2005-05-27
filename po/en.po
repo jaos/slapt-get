@@ -1,7 +1,7 @@
-# SOME DESCRIPTIVE TITLE.
+# english slapt-get translation
 # Copyright (C) 2004
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# This file is distributed under the same license as the slapt-get package.
+# Jason Woodward <woodwardj@jaos.org>, 2003, 2004, 2005
 #
 #, fuzzy
 msgid ""
