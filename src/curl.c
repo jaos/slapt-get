@@ -307,7 +307,7 @@ int progress_callback(void *clientp, double dltotal, double dlnow,
   } else {
     percent = ((*bytes + dlnow)*100)/(dltotal + *bytes);
   }
-  printf("%3d%%\b\b\b\b",percent);
+  printf("%3d%%\b\b\b\b",(int)percent);
   return 0;
 }
 
