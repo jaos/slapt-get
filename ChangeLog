@@ -1,5 +1,6 @@
 
 0.9.9l May 27, 2005
+ * fixed bug in remove_from_transaction() function (libslapt)
  * updated translations
  * updated example.slapt-getrc
 
