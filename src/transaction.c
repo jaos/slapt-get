@@ -499,7 +499,7 @@ int search_transaction(transaction_t *tran,char *pkg_name)
   return not_found;
 }
 
-static int search_upgrade_transaction(transaction_t *tran,pkg_info_t *pkg)
+int search_upgrade_transaction(transaction_t *tran,pkg_info_t *pkg)
 {
   unsigned int i,found = 1, not_found = 0;
   for (i = 0; i < tran->upgrade_pkgs->pkg_count;i++) {
