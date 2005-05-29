@@ -25,7 +25,6 @@ static void queue_free(queue_t *t);
 
 static void add_suggestion(transaction_t *tran, pkg_info_t *pkg);
 static int disk_space(const rc_config *global_config,int space_needed );
-static int search_exclude_transaction(transaction_t *tran,pkg_info_t *pkg);
 
 void init_transaction(transaction_t *tran)
 {
@@ -648,7 +647,7 @@ int add_deps_to_trans(const rc_config *global_config, transaction_t *tran,
   /* check to see if there where issues with dep checking */
   /* exclude the package if dep check barfed */
   if ( (dep_return == -1) && (global_config->ignore_dep == FALSE) &&
-      ( search_exclude_transaction(tran,pkg) == 0 )
+      (get_exact_pkg(tran->exclude_pkgs,pkg) == NULL)
   ) {
     printf("Excluding %s, use --ignore-dep to override\n",pkg->name);
     add_exclude_to_transaction(tran,pkg);
@@ -885,15 +884,5 @@ void generate_suggestions(transaction_t *tran)
   for (i = 0;i < tran->install_pkgs->pkg_count; ++i) {
     add_suggestion(tran,tran->install_pkgs->pkgs[i]);
   }
-}
-
-int search_exclude_transaction(transaction_t *tran,pkg_info_t *pkg)
-{
-  unsigned int i,found = 1, not_found = 0;
-  for (i = 0; i < tran->exclude_pkgs->pkg_count;i++) {
-    if ( strcmp(pkg->name,tran->exclude_pkgs->pkgs[i]->name) == 0 )
-      return found;
-  }
-  return not_found;
 }
 
