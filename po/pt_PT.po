@@ -457,11 +457,11 @@ msgstr "Não existe espaço livre suficiente em %s\n"
 
 #, c-format
 msgid "Package Conflicts: %s\n"
-msgstr "Conflitos do Pacote:"
+msgstr "Conflitos do Pacote: %s\n"
 
 #, c-format
 msgid "Package Suggests: %s\n"
-msgstr "Sugestões do Pacote:"
+msgstr "Sugestões do Pacote: %s\n"
 
 #, c-format
 msgid "Failed to parse package data from %s\n"
