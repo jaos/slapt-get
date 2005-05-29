@@ -62,4 +62,5 @@ pkg_info_t *is_conflicted(transaction_t *tran, struct pkg_list *avail_pkgs,
                           struct pkg_list *installed_pkgs, pkg_info_t *pkg);
 
 void generate_suggestions(transaction_t *tran);
+static int search_upgrade_transaction(transaction_t *tran,pkg_info_t *pkg);
 

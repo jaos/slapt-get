@@ -25,7 +25,6 @@ static void queue_free(queue_t *t);
 
 static void add_suggestion(transaction_t *tran, pkg_info_t *pkg);
 static int disk_space(const rc_config *global_config,int space_needed );
-static int search_upgrade_transaction(transaction_t *tran,pkg_info_t *pkg);
 static int search_exclude_transaction(transaction_t *tran,pkg_info_t *pkg);
 
 void init_transaction(transaction_t *tran)
@@ -888,7 +887,7 @@ void generate_suggestions(transaction_t *tran)
   }
 }
 
-static int search_exclude_transaction(transaction_t *tran,pkg_info_t *pkg)
+int search_exclude_transaction(transaction_t *tran,pkg_info_t *pkg)
 {
   unsigned int i,found = 1, not_found = 0;
   for (i = 0; i < tran->exclude_pkgs->pkg_count;i++) {
