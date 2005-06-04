@@ -407,11 +407,11 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh)
       tmp_pkg->location[0] = '\0';
     }
     if ( tmp_pkg->description == NULL ) {
-      tmp_pkg->description = slapt_malloc(sizeof *tmp_pkg->location);
+      tmp_pkg->description = slapt_malloc(sizeof *tmp_pkg->description);
       tmp_pkg->description[0] = '\0';
     }
     if ( tmp_pkg->mirror == NULL ) {
-      tmp_pkg->mirror = slapt_malloc(sizeof *tmp_pkg->location);
+      tmp_pkg->mirror = slapt_malloc(sizeof *tmp_pkg->mirror);
       tmp_pkg->mirror[0] = '\0';
     }
 
@@ -624,11 +624,11 @@ struct pkg_list *get_installed_pkgs(void)
       tmp_pkg->location[0] = '\0';
     }
     if ( tmp_pkg->description == NULL ) {
-      tmp_pkg->description = slapt_malloc(sizeof *tmp_pkg->location);
+      tmp_pkg->description = slapt_malloc(sizeof *tmp_pkg->description);
       tmp_pkg->description[0] = '\0';
     }
     if ( tmp_pkg->mirror == NULL ) {
-      tmp_pkg->mirror = slapt_malloc(sizeof *tmp_pkg->location);
+      tmp_pkg->mirror = slapt_malloc(sizeof *tmp_pkg->mirror);
       tmp_pkg->mirror[0] = '\0';
     }
 

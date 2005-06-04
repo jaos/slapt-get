@@ -1,4 +1,7 @@
 
+0.9.9m Jun 03, 2005
+ * small updates
+
 0.9.9l May 29, 2005
  * removed private search_exclude_transaction() in favor of
    get_exact_pkg(tran->exclude_pkgs,pkg) (libslapt)
