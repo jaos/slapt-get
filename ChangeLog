@@ -1,5 +1,7 @@
 
-0.9.9m Jun 03, 2005
+0.9.9m Jun 05, 2005
+ * fixed bug where packages w/o descriptions wouldn't show up in --available
+   or --list
  * small updates
 
 0.9.9l May 29, 2005
