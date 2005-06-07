@@ -1296,7 +1296,7 @@ int get_pkg_dependencies(const rc_config *global_config,
 
       if ( tmp_pkg == NULL ) {
         /* if we can't find a required dep, stop */
-        add_pkg_err_to_list(missing_err,pkg->name,pointer);
+        add_pkg_err_to_list(missing_err,pkg->name,buffer);
         free(buffer);
         return -1;
       }

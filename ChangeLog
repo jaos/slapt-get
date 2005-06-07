@@ -1,5 +1,7 @@
 
-0.9.9m Jun 05, 2005
+0.9.9m Jun 07, 2005
+ * fixed bug where missing dep notification was incorrectly printed with
+   multiple dependencies
  * fixed bug where packages w/o descriptions wouldn't show up in --available
    or --list
  * small updates
