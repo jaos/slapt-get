@@ -202,7 +202,7 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran)
         _("You don't have enough free space in %s\n"),
         global_config->working_dir
       );
-      return 1;
+      exit(1);
     }
 
     if ( already_download_size > 0 ) {
