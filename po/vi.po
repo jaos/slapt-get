@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.9k\n"
+"Project-Id-Version: 0.9.9m\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2005-04-29 23:05+0500\n"
+"PO-Revision-Date: 2005-06-10 00:49+0500\n"
 "Last-Translator: Nguyễn Văn Vũ <vncasper@yahoo.com>\n"
 "Language-Team: gnome-vi <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -438,7 +438,7 @@ msgid "show download statistics"
 msgstr "thống kê quá trình lấy dữ liệu từ kho lưu trữ"
 
 msgid "Cached\n"
-msgstr "đã lưu\n"
+msgstr "đã có\n"
 
 msgid "Sources failed to download, correct sources and rerun --update\n"
 msgstr ""
@@ -449,7 +449,7 @@ msgid "specify alternate slapt-getrc location"
 msgstr "chọn tập tin cấu hình slapt-getrc khác tập tin cấu hình mặc định"
 
 msgid "Suggested packages:\n"
-msgstr "Những gói phần mềm đề nghị:\n"
+msgstr "Những gói phần mềm được đề nghị:\n"
 
 msgid "only purge cache of older, unreacheable pkgs"
 msgstr "chỉ xoá những gói phần mềm cũ, không còn sử dụng"
@@ -463,13 +463,13 @@ msgstr "Dung lượng đĩa còn lại không đủ cho %s\n"
 
 #, c-format
 msgid "Package Conflicts: %s\n"
-msgstr ""
+msgstr "Những gói phần mềm gây xung đột: %s\n"
 
 #, c-format
 msgid "Package Suggests: %s\n"
-msgstr ""
+msgstr "Những gói phần mềm đề nhgị: %s\n"
 
 #, c-format
 msgid "Failed to parse package data from %s\n"
-msgstr "Failed to parse package data from %s\n"
+msgstr "Bị lỗi khi chuyển đổi gói dữ liệu từ %s\n"
 
