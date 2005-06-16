@@ -960,13 +960,13 @@ int cmp_pkg_versions(char *a, char *b)
   struct pkg_version_parts *b_parts;
 
   /* bail out early if possible */
-  if ( strcmp(a,b) == 0 ) return equal;
+  if ( strcasecmp(a,b) == 0 ) return equal;
 
   a_parts = break_down_pkg_version(a);
   b_parts = break_down_pkg_version(b);
 
   while ( position < a_parts->count && position < b_parts->count ) {
-    if ( strcmp(a_parts->parts[position],b_parts->parts[position]) != 0 ) {
+    if ( strcasecmp(a_parts->parts[position],b_parts->parts[position]) != 0 ) {
 
       /*
        * if the integer value of the version part is the same
@@ -976,12 +976,12 @@ int cmp_pkg_versions(char *a, char *b)
       if ( (atoi(a_parts->parts[position]) == atoi(b_parts->parts[position])) &&
         (a_parts->count == b_parts->count) ) {
 
-        if ( strcmp(a_parts->parts[position],b_parts->parts[position]) < 0 ) {
+        if ( strcasecmp(a_parts->parts[position],b_parts->parts[position]) < 0 ) {
           free_pkg_version_parts(a_parts);
           free_pkg_version_parts(b_parts);
           return lesser;
         }
-        if ( strcmp(a_parts->parts[position],b_parts->parts[position]) > 0 ) {
+        if ( strcasecmp(a_parts->parts[position],b_parts->parts[position]) > 0 ) {
           free_pkg_version_parts(a_parts);
           free_pkg_version_parts(b_parts);
           return greater;
@@ -1052,7 +1052,7 @@ int cmp_pkg_versions(char *a, char *b)
    * then we fall back on strcmp.
   */
   if ( strchr(a,'-') == NULL && strchr(b,'-') == NULL )
-    return strcmp(a,b);
+    return strcasecmp(a,b);
 
   return equal;
 }

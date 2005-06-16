@@ -1,5 +1,6 @@
 
-0.9.9m Jun 10, 2005
+0.9.9m Jun 16, 2005
+ * ignore case when comparing versions
  * updated vi translation from Vu
  * exit returning error code when disk space check fails
  * fixed bug where missing dep notification was incorrectly printed with
