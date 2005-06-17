@@ -1,5 +1,6 @@
 
-0.9.9m Jun 16, 2005
+0.9.9m Jun 17, 2005
+ * be quit if a file doesn't exist when we test with verify_downloaded_pkg();
  * ignore case when comparing versions
  * updated vi translation from Vu
  * exit returning error code when disk space check fails

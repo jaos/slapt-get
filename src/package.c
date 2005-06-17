@@ -2225,7 +2225,7 @@ int verify_downloaded_pkg(const rc_config *global_config,pkg_info_t *pkg)
   file_name = gen_pkg_file_name(global_config,pkg);
 
   /* return if we can't open the file */
-  if ( ( fh_test = open_file(file_name,"r") ) == NULL ) {
+  if ( ( fh_test = fopen(file_name,"r") ) == NULL ) {
     free(file_name);
     return not_verified;
   }
