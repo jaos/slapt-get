@@ -1,5 +1,6 @@
 
-0.9.9m Jun 17, 2005
+0.9.9m Jun 19, 2005
+ * removed lilo from default exclude list, added glibc.*
  * be quit if a file doesn't exist when we test with verify_downloaded_pkg();
  * ignore case when comparing versions
  * updated vi translation from Vu
