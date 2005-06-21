@@ -36,26 +36,31 @@ staticinstall: static doinstall
 withlibslaptinstall: withlibslapt doinstall
 
 libsinstall: libs
-	cp include/slapt.h /usr/include/
-	cp src/libslapt-$(VERSION).a src/libslapt-$(VERSION).so /usr/lib/
-	if [ -L /usr/lib/libslapt.so ]; then rm /usr/lib/libslapt.so;fi
-	ln -s /usr/lib/libslapt-$(VERSION).so /usr/lib/libslapt.so
-	if [ -L /usr/lib/libslapt.a ]; then rm /usr/lib/libslapt.a;fi
-	ln -s /usr/lib/libslapt-$(VERSION).a /usr/lib/libslapt.a
+	if [ ! -d $(DESTDIR)/usr/include ]; then mkdir -p $(DESTDIR)/usr/include;fi
+	cp include/slapt.h $(DESTDIR)/usr/include/
+	if [ ! -d $(DESTDIR)/usr/lib ]; then mkdir -p $(DESTDIR)/usr/lib;fi
+	cp src/libslapt-$(VERSION).a src/libslapt-$(VERSION).so $(DESTDIR)/usr/lib/
+	if [ -L $(DESTDIR)/usr/lib/libslapt.so ]; then rm $(DESTDIR)/usr/lib/libslapt.so;fi
+	cd $(DESTDIR)/usr/lib; ln -s libslapt-$(VERSION).so libslapt.so
+	if [ -L $(DESTDIR)/usr/lib/libslapt.a ]; then rm $(DESTDIR)/usr/lib/libslapt.a;fi
+	cd $(DESTDIR)/usr/lib; ln -s libslapt-$(VERSION).a libslapt.a
 
 doinstall: libsinstall
 	strip --strip-unneeded $(PROGRAM_NAME)
-	install $(PROGRAM_NAME) $(SBINDIR)
-	chown root:bin $(SBINDIR)$(PROGRAM_NAME)
-	if [ ! -d /etc/slapt-get ]; then mkdir -p /etc/slapt-get;fi
-	if [ -f /etc/slapt-getrc ]; then mv /etc/slapt-getrc $(RCDEST);fi
-	if [ ! -f $(RCDEST) ]; then install --mode=0644 -b $(RCSOURCE) $(RCDEST); else install --mode=0644 -b $(RCSOURCE) $(RCDEST).new;fi
-	install $(PROGRAM_NAME).8 /usr/man/man8/
-	gzip -f /usr/man/man8/$(PROGRAM_NAME).8
-	install -d /var/$(PROGRAM_NAME)
-	for i in `ls po/ --ignore=slapt-get.pot --ignore=CVS |sed 's/.po//'` ;do if [ ! -d $(LOCALESDIR)/$$i/LC_MESSAGES ]; then mkdir -p $(LOCALESDIR)/$$i/LC_MESSAGES; fi; msgfmt -o $(LOCALESDIR)/$$i/LC_MESSAGES/slapt-get.mo po/$$i.po;done
-	mkdir -p /usr/doc/$(PROGRAM_NAME)-$(VERSION)/
-	cp example.slapt-getrc COPYING Changelog INSTALL README FAQ FAQ.html TODO /usr/doc/$(PROGRAM_NAME)-$(VERSION)/
+	if [ ! -d $(DESTDIR)$(SBINDIR) ]; then mkdir -p $(DESTDIR)$(SBINDIR);fi
+	install $(PROGRAM_NAME) $(DESTDIR)$(SBINDIR)
+	chown root:bin $(DESTDIR)$(SBINDIR)$(PROGRAM_NAME)
+	if [ ! -d $(DESTDIR)/etc/slapt-get ]; then mkdir -p $(DESTDIR)/etc/slapt-get;fi
+	if [ -f $(DESTDIR)/etc/slapt-getrc ]; then mv $(DESTDIR)/etc/slapt-getrc $(DESTDIR)$(RCDEST);fi
+	if [ ! -f $(DESTDIR)$(RCDEST) ]; then install --mode=0644 -b $(RCSOURCE) $(DESTDIR)$(RCDEST); else install --mode=0644 -b $(RCSOURCE) $(DESTDIR)$(RCDEST).new;fi
+	if [ ! -d $(DESTDIR)/usr/man ]; then mkdir -p $(DESTDIR)/usr/man;fi
+	if [ ! -d $(DESTDIR)/usr/man/man8 ]; then mkdir -p $(DESTDIR)/usr/man/man8;fi
+	install $(PROGRAM_NAME).8 $(DESTDIR)/usr/man/man8/
+	gzip -f $(DESTDIR)/usr/man/man8/$(PROGRAM_NAME).8
+	install -d $(DESTDIR)/var/$(PROGRAM_NAME)
+	for i in `ls po/ --ignore=slapt-get.pot --ignore=CVS |sed 's/.po//'` ;do if [ ! -d $(DESTDIR)$(LOCALESDIR)/$$i/LC_MESSAGES ]; then mkdir -p $(DESTDIR)$(LOCALESDIR)/$$i/LC_MESSAGES; fi; msgfmt -o $(DESTDIR)$(LOCALESDIR)/$$i/LC_MESSAGES/slapt-get.mo po/$$i.po;done
+	mkdir -p $(DESTDIR)/usr/doc/$(PROGRAM_NAME)-$(VERSION)/
+	cp example.slapt-getrc COPYING Changelog INSTALL README FAQ FAQ.html TODO $(DESTDIR)/usr/doc/$(PROGRAM_NAME)-$(VERSION)/
 
 uninstall:
 	-rm /$(SBINDIR)/$(PROGRAM_NAME)

@@ -210,3 +210,5 @@ Table of Contents:
 
    Verachten Bruno <gounthar at gmail dot com> authored the French translation.
 
+   freerock <freerock at gmail dot com> contributed the DESTDIR support for the makefile.
+
