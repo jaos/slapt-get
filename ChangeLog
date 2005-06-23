@@ -1,5 +1,6 @@
 
-0.9.9m Jun 21, 2005
+0.9.9m Jun 23, 2005
+ * added Slovak translation by Erik Gyepes
  * added DESTDIR support to the makefile (thanks freerock)
  * removed lilo from default exclude list, added glibc.*
  * be quit if a file doesn't exist when we test with verify_downloaded_pkg();
