@@ -1,5 +1,6 @@
 
-0.9.9m Jun 23, 2005
+0.9.9m Jun 27, 2005
+ * improved speed of parsing installed directories
  * added Slovak translation by Erik Gyepes
  * added DESTDIR support to the makefile (thanks freerock)
  * removed lilo from default exclude list, added glibc.*

@@ -486,20 +486,20 @@ struct pkg_list *get_installed_pkgs(void)
   }
 
   if ( (pkg_log_dir = opendir(pkg_log_dirname)) == NULL ) {
-    if ( errno ) {
+
+    if ( errno )
       perror(pkg_log_dirname);
-    }
+
     free(pkg_log_dirname);
     return list;
   }
 
   while ( (file = readdir(pkg_log_dir)) != NULL ) {
-    pkg_info_t *tmp_pkg;
-    FILE *pkg_f;
-    char *pkg_f_name;
-    size_t getline_len;
-    ssize_t bytes_read;
-    char *getline_buffer = NULL;
+    pkg_info_t *tmp_pkg = NULL;
+    FILE *pkg_f = NULL;
+    char *pkg_f_name = NULL;
+    struct stat stat_buf;
+    char *pkg_data = NULL;
 
     execute_regex(&ip_regex,file->d_name);
 
@@ -539,84 +539,91 @@ struct pkg_list *get_installed_pkgs(void)
     strncat(pkg_f_name,"/",strlen("/"));
     strncat(pkg_f_name,file->d_name,strlen(file->d_name));
 
-    /* open the package log file to grok data about the package from it */
+    /*
+       open the package log file so that we can mmap it and parse out the
+       package attributes.
+    */
     pkg_f = open_file(pkg_f_name,"r");
+    if ( pkg_f == NULL )
+      exit(1);
+
+    /* used with mmap */
+    if (stat(pkg_f_name,&stat_buf) == -1) {
+
+      if (errno)
+        perror(pkg_f_name);
+
+      exit(1);
+    }
+
     free(pkg_f_name);
-    if ( pkg_f == NULL ) exit(1);
-    while ( (bytes_read = getline(&getline_buffer,&getline_len,pkg_f)) != EOF ) {
 
-      execute_regex(&compressed_size_reg,getline_buffer);
-      execute_regex(&uncompressed_size_reg,getline_buffer);
-      execute_regex(&location_regex,getline_buffer);
+    pkg_data = (char *)mmap(NULL,stat_buf.st_size,PROT_READ,MAP_PRIVATE,fileno(pkg_f),0);
+    if (pkg_data == NULL) {
 
-      /* ignore unless we matched */
-      if ( compressed_size_reg.reg_return == 0 ) {
+      if (errno)
+        perror(pkg_f_name);
 
-        char *size_c = strndup(
-          getline_buffer + compressed_size_reg.pmatch[1].rm_so,
-          (compressed_size_reg.pmatch[1].rm_eo - compressed_size_reg.pmatch[1].rm_so)
-        );
-        tmp_pkg->size_c = strtol(size_c,(char **)NULL,10);
-        free(size_c);
+      exit(1);
+    }
 
-      }else if (uncompressed_size_reg.reg_return == 0 ) {
+    fclose(pkg_f);
 
-        char *size_u = strndup(
-          getline_buffer + uncompressed_size_reg.pmatch[1].rm_so,
-          (uncompressed_size_reg.pmatch[1].rm_eo - uncompressed_size_reg.pmatch[1].rm_so)
-        );
-        tmp_pkg->size_u = strtol(size_u,(char **)NULL,10);
-        free(size_u);
+    execute_regex(&compressed_size_reg,pkg_data);
+    execute_regex(&uncompressed_size_reg,pkg_data);
+    execute_regex(&location_regex,pkg_data);
 
-      }else if ( location_regex.reg_return == 0 ) {
+    if ( compressed_size_reg.reg_return == 0 ) {
 
-        tmp_pkg->location = slapt_malloc(
-          sizeof *tmp_pkg->location *
-          (location_regex.pmatch[1].rm_eo - location_regex.pmatch[1].rm_so + 1)
-        );
-        strncpy(tmp_pkg->location,
-          getline_buffer + location_regex.pmatch[1].rm_so,
-          location_regex.pmatch[1].rm_eo - location_regex.pmatch[1].rm_so
-        );
-        tmp_pkg->location[
-          location_regex.pmatch[1].rm_eo - location_regex.pmatch[1].rm_so
-        ] = '\0';
-
-      } else {
-
-        if (strstr(getline_buffer,"PACKAGE DESCRIPTION") == NULL) {
-          continue;
-        }
-
-        while (1) {
-          char *tmp_desc = NULL;
-
-          if ((bytes_read = getline(&getline_buffer,&getline_len,pkg_f)) == EOF ) {
-            break;
-          }
-
-          if ( strstr(getline_buffer,"FILE LIST:") != NULL ) break;
-
-          if ( strcmp(getline_buffer,"\n") == 0) break;
-
-          tmp_desc = realloc(
-            tmp_pkg->description,
-            sizeof *tmp_pkg->description *
-            (strlen(tmp_pkg->description) + bytes_read + 1)
-          );
-          if ( tmp_desc == NULL ) {
-            break;
-          }
-          tmp_pkg->description = tmp_desc;
-          strncat(tmp_pkg->description,getline_buffer,bytes_read);
-
-        }
-
-      }
+      char *size_c = strndup(
+        pkg_data + compressed_size_reg.pmatch[1].rm_so,
+        (compressed_size_reg.pmatch[1].rm_eo - compressed_size_reg.pmatch[1].rm_so)
+      );
+      tmp_pkg->size_c = strtol(size_c,(char **)NULL,10);
+      free(size_c);
 
     }
-    if (getline_buffer) free(getline_buffer);
-    fclose(pkg_f);
+    if (uncompressed_size_reg.reg_return == 0 ) {
+
+      char *size_u = strndup(
+        pkg_data + uncompressed_size_reg.pmatch[1].rm_so,
+        (uncompressed_size_reg.pmatch[1].rm_eo - uncompressed_size_reg.pmatch[1].rm_so)
+      );
+      tmp_pkg->size_u = strtol(size_u,(char **)NULL,10);
+      free(size_u);
+
+    }
+    if ( location_regex.reg_return == 0 ) {
+
+      tmp_pkg->location = slapt_malloc(
+        sizeof *tmp_pkg->location *
+        (location_regex.pmatch[1].rm_eo - location_regex.pmatch[1].rm_so + 1)
+      );
+      strncpy(tmp_pkg->location,
+        pkg_data + location_regex.pmatch[1].rm_so,
+        location_regex.pmatch[1].rm_eo - location_regex.pmatch[1].rm_so
+      );
+      tmp_pkg->location[
+        location_regex.pmatch[1].rm_eo - location_regex.pmatch[1].rm_so
+      ] = '\0';
+
+    }
+    if (strstr(pkg_data,"PACKAGE DESCRIPTION") != NULL) {
+      char *desc_p = strstr(pkg_data,"PACKAGE DESCRIPTION");
+      char *nl = strchr(desc_p,'\n');
+      char *filelist_p = NULL;
+
+      if (nl != NULL)
+        desc_p = ++nl;
+
+      filelist_p = strstr(desc_p,"FILE LIST");
+      if (filelist_p != NULL) {
+        size_t len = strlen(desc_p) - strlen(filelist_p) + 1;
+        tmp_pkg->description = slapt_malloc(sizeof *tmp_pkg->description * len);
+        strncpy(tmp_pkg->description,desc_p,len - 1);
+        tmp_pkg->description[len - 1] = '\0';
+      }
+    }
 
     /* fillin details */
     if ( tmp_pkg->location == NULL ) {
@@ -1847,7 +1854,10 @@ int update_pkg_cache(const rc_config *global_config)
   /* open tmp pkg list file */
   pkg_list_fh_tmp = tmpfile();
   if ( pkg_list_fh_tmp == NULL ) {
-    if ( errno ) perror("tmpfile");
+
+    if ( errno )
+      perror("tmpfile");
+
     exit(1);
   }
 
@@ -2275,13 +2285,19 @@ void purge_old_cached_pkgs(const rc_config *global_config,char *dir_name,
   init_regex(&cached_pkgs_regex,PKG_PARSE_REGEX);
 
   if ( (dir = opendir(dir_name)) == NULL ) {
-    if ( errno ) perror(dir_name);
+
+    if ( errno )
+      perror(dir_name);
+
     fprintf(stderr,_("Failed to opendir %s\n"),dir_name);
     return;
   }
 
   if ( chdir(dir_name) == -1 ) {
-    if ( errno ) perror(dir_name);
+
+    if ( errno )
+      perror(dir_name);
+
     fprintf(stderr,_("Failed to chdir: %s\n"),dir_name);
     return;
   }

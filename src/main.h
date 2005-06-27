@@ -35,6 +35,7 @@
 #include <libintl.h>
 #include <locale.h>
 #include <sys/statvfs.h>
+#include <sys/mman.h>
 
 #include "common.h"
 #include "configuration.h"
