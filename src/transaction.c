@@ -797,7 +797,10 @@ static int disk_space(const rc_config *global_config,int space_needed )
   if ( space_needed < 0 ) return 0;
 
   if ( statvfs(global_config->working_dir,&statvfs_buf) != 0 ) {
-    if ( errno ) perror("statvfs");
+
+    if ( errno )
+      perror("statvfs");
+
     return 1;
   } else {
     if ( statvfs_buf.f_bfree < ( space_needed / statvfs_buf.f_bsize) )

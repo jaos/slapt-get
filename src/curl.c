@@ -239,14 +239,21 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg)
     */
     printf("\r");
     fclose(fh);
+
     if ( unlink(file_name) == -1 ) {
       fprintf(stderr,_("Failed to unlink %s\n"),file_name);
-      if ( errno ) perror(file_name);
+
+      if ( errno )
+        perror(file_name);
+
       exit(1);
     }
+
     free(file_name);
     free(url);
+
     return download_pkg(global_config,pkg);
+
   } else {
     fclose(fh);
     #if DEBUG == 1
@@ -257,12 +264,17 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg)
     /* if the d/l fails, unlink the empty file */
     if ( unlink(file_name) == -1 ) {
       fprintf(stderr,_("Failed to unlink %s\n"),file_name);
-      if ( errno ) perror(file_name);
+
+      if ( errno )
+        perror(file_name);
+
     }
     #endif
     free(url);
     free(file_name);
+
     return -1;
+
   }
 
   fclose(fh);
@@ -271,8 +283,10 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg)
   /* check to make sure we have the complete file */
   pkg_verify_return = verify_downloaded_pkg(global_config,pkg);
   if ( pkg_verify_return == 0 ) {
+
     free(file_name);
     return 0;
+
   }else if ( pkg_verify_return == MD5_CHECKSUM_FAILED ) {
     fprintf(stderr,
       _("md5 sum for %s is not correct, override with --no-md5!\n"),
@@ -281,11 +295,16 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg)
     /* if the checksum fails, unlink the bogus file */
     if ( unlink(file_name) == -1 ) {
       fprintf(stderr,_("Failed to unlink %s\n"),file_name);
-      if ( errno ) perror("unlink");
+
+      if ( errno )
+        perror("unlink");
+
     }
     #endif
     free(file_name);
+
     return -1;
+
   } else {
     printf(_("Download of %s incomplete\n"),pkg->name);
     free(file_name);

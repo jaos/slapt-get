@@ -24,9 +24,10 @@ FILE *open_file(const char *file_name,const char *mode)
   FILE *fh = NULL;
   if ( (fh = fopen(file_name,mode)) == NULL ) {
     fprintf(stderr,_("Failed to open %s\n"),file_name);
-    if ( errno ) {
+
+    if ( errno )
       perror(file_name);
-    }
+
     return NULL;
   }
   return fh;
@@ -247,7 +248,10 @@ __inline void *slapt_malloc(size_t s)
   void *p;
   if ( ! (p = malloc(s)) ) {
     fprintf(stderr,_("Failed to malloc\n"));
-    if ( errno ) perror("malloc");
+
+    if ( errno )
+      perror("malloc");
+
     exit(1);
   }
   return p;
@@ -258,7 +262,10 @@ __inline void *slapt_calloc(size_t n,size_t s)
   void *p;
   if ( ! (p = calloc(n,s)) ) {
     fprintf(stderr,_("Failed to calloc\n"));
-    if ( errno ) perror("calloc");
+
+    if ( errno )
+      perror("calloc");
+
     exit(1);
   }
   return p;

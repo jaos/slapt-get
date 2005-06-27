@@ -126,14 +126,20 @@ void working_dir_init(const rc_config *global_config)
     ) {
       printf(_("Failed to build working directory [%s]\n"),
         global_config->working_dir);
-      if ( errno ) perror(global_config->working_dir);
+
+      if ( errno )
+        perror(global_config->working_dir);
+
       exit(1);
     }
   }
   closedir(working_dir);
 
   if ( access(global_config->working_dir,W_OK) == -1 ) {
-    if ( errno ) perror(global_config->working_dir);
+
+    if ( errno )
+      perror(global_config->working_dir);
+
     fprintf(stderr,
       _("Please update permissions on %s or run with appropriate privileges\n"),
       global_config->working_dir);
