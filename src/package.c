@@ -574,7 +574,6 @@ struct pkg_list *get_installed_pkgs(void)
       exit(1);
     }
 
-    free(pkg_f_name);
     fclose(pkg_f);
 
     execute_regex(&compressed_size_reg,pkg_data);
@@ -632,6 +631,16 @@ struct pkg_list *get_installed_pkgs(void)
         tmp_pkg->description[len - 1] = '\0';
       }
     }
+
+    /* mmap */
+    if (munmap(pkg_data,stat_buf.st_size) == -1) {
+      if (errno)
+        perror(pkg_f_name);
+
+      fprintf(stderr,"munmap failed: %s\n",pkg_f_name);
+      exit(1);
+    }
+    free(pkg_f_name);
 
     /* fillin details */
     if ( tmp_pkg->location == NULL ) {
