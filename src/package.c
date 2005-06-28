@@ -499,6 +499,7 @@ struct pkg_list *get_installed_pkgs(void)
     FILE *pkg_f = NULL;
     char *pkg_f_name = NULL;
     struct stat stat_buf;
+    char *pkg_data_mapped = NULL;
     char *pkg_data = NULL;
 
     execute_regex(&ip_regex,file->d_name);
@@ -564,22 +565,38 @@ struct pkg_list *get_installed_pkgs(void)
       continue;
     }
 
-    pkg_data = (char *)mmap(NULL,stat_buf.st_size,PROT_READ,MAP_PRIVATE,fileno(pkg_f),0);
-    if (pkg_data == NULL) {
+    pkg_data_mapped = (char *)mmap(NULL,stat_buf.st_size,PROT_READ,MAP_PRIVATE,fileno(pkg_f),0);
+    if (pkg_data == MAP_FAILED) {
 
       if (errno)
         perror(pkg_f_name);
 
       fprintf(stderr,"mmap failed: %s\n",pkg_f_name);
       exit(1);
+    } else {
+      size_t len = strlen(pkg_data_mapped);
+      char *p = strstr(pkg_data_mapped,"FILE LIST");
+
+      fclose(pkg_f);
+
+      if (p != NULL) {
+        pkg_data = strndup(pkg_data_mapped,len - strlen(p));
+      } else {
+        pkg_data = strdup(pkg_data_mapped);
+      }
+
+      /* munmap */
+      if (munmap(pkg_data_mapped,stat_buf.st_size) == -1) {
+        if (errno)
+          perror(pkg_f_name);
+  
+        fprintf(stderr,"munmap failed: %s\n",pkg_f_name);
+        exit(1);
+      }
+      free(pkg_f_name);
     }
 
-    fclose(pkg_f);
-
     execute_regex(&compressed_size_reg,pkg_data);
-    execute_regex(&uncompressed_size_reg,pkg_data);
-    execute_regex(&location_regex,pkg_data);
-
     if ( compressed_size_reg.reg_return == 0 ) {
 
       char *size_c = strndup(
@@ -590,6 +607,8 @@ struct pkg_list *get_installed_pkgs(void)
       free(size_c);
 
     }
+
+    execute_regex(&uncompressed_size_reg,pkg_data);
     if (uncompressed_size_reg.reg_return == 0 ) {
 
       char *size_u = strndup(
@@ -600,6 +619,8 @@ struct pkg_list *get_installed_pkgs(void)
       free(size_u);
 
     }
+
+    execute_regex(&location_regex,pkg_data);
     if ( location_regex.reg_return == 0 ) {
 
       tmp_pkg->location = slapt_malloc(
@@ -615,32 +636,18 @@ struct pkg_list *get_installed_pkgs(void)
       ] = '\0';
 
     }
+
     if (strstr(pkg_data,"PACKAGE DESCRIPTION") != NULL) {
       char *desc_p = strstr(pkg_data,"PACKAGE DESCRIPTION");
       char *nl = strchr(desc_p,'\n');
-      char *filelist_p = NULL;
 
       if (nl != NULL)
         desc_p = ++nl;
 
-      filelist_p = strstr(desc_p,"FILE LIST");
-      if (filelist_p != NULL) {
-        size_t len = strlen(desc_p) - strlen(filelist_p) + 1;
-        tmp_pkg->description = slapt_malloc(sizeof *tmp_pkg->description * len);
-        strncpy(tmp_pkg->description,desc_p,len - 1);
-        tmp_pkg->description[len - 1] = '\0';
-      }
+      tmp_pkg->description = slapt_malloc(sizeof *tmp_pkg->description * (strlen(desc_p) + 1));
+      strncpy(tmp_pkg->description,desc_p,strlen(desc_p));
+      tmp_pkg->description[strlen(desc_p)] = '\0';
     }
-
-    /* mmap */
-    if (munmap(pkg_data,stat_buf.st_size) == -1) {
-      if (errno)
-        perror(pkg_f_name);
-
-      fprintf(stderr,"munmap failed: %s\n",pkg_f_name);
-      exit(1);
-    }
-    free(pkg_f_name);
 
     /* fillin details */
     if ( tmp_pkg->location == NULL ) {
