@@ -1784,7 +1784,9 @@ void write_head_cache(const char *cache, const char *cache_filename)
   head_filename = gen_head_cache_filename(cache_filename);
 
   /* store the last modified date */
-  if ( (tmp = open_file(head_filename,"w")) == NULL ) exit(1);
+  if ( (tmp = open_file(head_filename,"w")) == NULL )
+    exit(1);
+
   fprintf(tmp,"%s",cache);
   fclose(tmp);
 
@@ -1804,7 +1806,10 @@ char *read_head_cache(const char *cache_filename)
 
   tmp = open_file(head_filename,"a+");
   free(head_filename);
-  if ( tmp == NULL ) exit(1);
+
+  if ( tmp == NULL )
+    exit(1);
+
   rewind(tmp);
   gl_return_size = getline(&getline_buffer, &gl_n, tmp);
   fclose(tmp);
@@ -1839,7 +1844,10 @@ void clear_head_cache(const char *cache_filename)
   head_filename = gen_head_cache_filename(cache_filename);
 
   tmp = open_file(head_filename,"w");
-  if ( tmp == NULL ) exit(1);
+
+  if ( tmp == NULL )
+    exit(1);
+
   fclose(tmp);
   free(head_filename);
 
@@ -1881,12 +1889,18 @@ int update_pkg_cache(const rc_config *global_config)
     /* open for reading if cached, otherwise write it from the downloaded data */
     if ( pkg_head != NULL && pkg_local_head != NULL && strcmp(pkg_head,pkg_local_head) == 0) {
       printf(_("Cached\n"));
-      if ( (tmp_pkg_f = open_file(pkg_filename,"r")) == NULL ) exit(1);
+
+      if ( (tmp_pkg_f = open_file(pkg_filename,"r")) == NULL )
+        exit(1);
+
       available_pkgs = parse_packages_txt(tmp_pkg_f);
       fclose(tmp_pkg_f);
     } else {
       if ( global_config->dl_stats == TRUE ) printf("\n");
-      if ( (tmp_pkg_f = open_file(pkg_filename,"w+b")) == NULL ) exit(1);
+
+      if ( (tmp_pkg_f = open_file(pkg_filename,"w+b")) == NULL )
+        exit(1);
+
       if ( get_mirror_data_from_source(tmp_pkg_f,global_config,global_config->sources->url[i],PKG_LIST) == 0 ) {
         rewind(tmp_pkg_f); /* make sure we are back at the front of the file */
         available_pkgs = parse_packages_txt(tmp_pkg_f);
@@ -1924,7 +1938,10 @@ int update_pkg_cache(const rc_config *global_config)
     if ( patch_head != NULL && patch_local_head != NULL && strcmp(patch_head,patch_local_head) == 0) {
 
       printf(_("Cached\n"));
-      if ( (tmp_patch_f = open_file(patch_filename,"r")) == NULL ) exit(1);
+
+      if ( (tmp_patch_f = open_file(patch_filename,"r")) == NULL )
+        exit(1);
+
       patch_pkgs = parse_packages_txt(tmp_patch_f);
 
     } else {
@@ -1977,7 +1994,10 @@ int update_pkg_cache(const rc_config *global_config)
     if ( checksum_head != NULL && checksum_local_head != NULL &&
     strcmp(checksum_head,checksum_local_head) == 0) {
       printf(_("Cached\n"));
-      if ( (tmp_checksum_f = open_file(checksum_filename,"r")) == NULL ) exit(1);
+
+      if ( (tmp_checksum_f = open_file(checksum_filename,"r")) == NULL )
+        exit(1);
+
     } else {
       if ( global_config->dl_stats == TRUE ) printf("\n");
       if ( (tmp_checksum_f = open_file(checksum_filename,"w+b")) == NULL ) {
@@ -2045,8 +2065,12 @@ int update_pkg_cache(const rc_config *global_config)
     char *getline_buffer = NULL;
     FILE *pkg_list_fh;
 
-    if ( (pkg_list_fh = open_file(PKG_LIST_L,"w+")) == NULL ) exit(1);
-    if ( pkg_list_fh == NULL ) exit(1);
+    if ( (pkg_list_fh = open_file(PKG_LIST_L,"w+")) == NULL )
+      exit(1);
+
+    if ( pkg_list_fh == NULL )
+      exit(1);
+
     rewind(pkg_list_fh_tmp);
     while ( (bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh_tmp) ) != EOF ) {
       fprintf(pkg_list_fh,"%s",getline_buffer);

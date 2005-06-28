@@ -72,7 +72,10 @@ int main( int argc, char *argv[] )
   textdomain(PROGRAM_NAME);
   #endif
 
-  if ( argc < 2 ) usage(), exit(1);
+  if ( argc < 2 ) {
+    usage();
+    exit(1);
+  }
 
   /* load up the configuration file */
   global_config = read_rc_config(RC_LOCATION);

@@ -52,7 +52,9 @@ rc_config *read_rc_config(const char *file_name)
   global_config->sources->count = 0;
 
   rc = open_file(file_name,"r");
-  if ( rc == NULL ) exit(1);
+
+  if ( rc == NULL )
+    exit(1);
 
   while ( (g_size = getline(&getline_buffer,&gb_length,rc) ) != EOF ) {
     getline_buffer[g_size - 1] = '\0';

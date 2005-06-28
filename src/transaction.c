@@ -295,26 +295,37 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran)
   }
 
   /* download pkgs */
-  for (i = 0; i < tran->install_pkgs->pkg_count;i++)
-    if ( download_pkg(global_config,tran->install_pkgs->pkgs[i]) != 0 ) exit(1);
-  for (i = 0; i < tran->upgrade_pkgs->pkg_count;i++)
-    if ( download_pkg(global_config,tran->upgrade_pkgs->pkgs[i]->upgrade) != 0 ) exit(1);
+  for (i = 0; i < tran->install_pkgs->pkg_count;i++) {
+    if ( download_pkg(global_config,tran->install_pkgs->pkgs[i]) != 0 ) {
+      exit(1);
+    }
+  }
+
+  for (i = 0; i < tran->upgrade_pkgs->pkg_count;i++) {
+    if ( download_pkg(global_config,tran->upgrade_pkgs->pkgs[i]->upgrade) != 0 ) {
+      exit(1);
+    }
+  }
 
   printf("\n");
 
   /* run transaction, remove, install, and upgrade */
   if ( global_config->download_only == FALSE ) {
     for (i = 0; i < tran->remove_pkgs->pkg_count;i++) {
-      if ( remove_pkg(global_config,tran->remove_pkgs->pkgs[i]) == -1 ) exit(1);
+      if ( remove_pkg(global_config,tran->remove_pkgs->pkgs[i]) == -1 ) {
+        exit(1);
+      }
     }
     for (i = 0;i < tran->queue->count; ++i) {
       if ( tran->queue->pkgs[i]->type == INSTALL ) {
-        if ( install_pkg(global_config,tran->queue->pkgs[i]->pkg.i) == -1 ) exit(1);
+        if ( install_pkg(global_config,tran->queue->pkgs[i]->pkg.i) == -1 ) {
+          exit(1);
+        }
       }else if ( tran->queue->pkgs[i]->type == UPGRADE ) {
-        if ( upgrade_pkg( global_config,
-          tran->queue->pkgs[i]->pkg.u->installed,
-          tran->queue->pkgs[i]->pkg.u->upgrade
-        ) == -1 ) exit(1);
+        if ( upgrade_pkg( global_config, tran->queue->pkgs[i]->pkg.u->installed,
+             tran->queue->pkgs[i]->pkg.u->upgrade) == -1 ) {
+          exit(1);
+        }
       }
     }
   }
