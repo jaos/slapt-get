@@ -468,4 +468,3 @@ msgstr "Balík doporuèuje: %s\n"
 msgid "Failed to parse package data from %s\n"
 msgstr "Nepodarilo sa analyzova» dáta balíkov z %s\n"
 
---------------010504070502030508040001--
