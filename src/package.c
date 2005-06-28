@@ -553,10 +553,16 @@ struct pkg_list *get_installed_pkgs(void)
       if (errno)
         perror(pkg_f_name);
 
+      fprintf(stderr,"stat failed: %s\n",pkg_f_name);
       exit(1);
     }
 
-    free(pkg_f_name);
+    if ((int)stat_buf.st_size < 1) {
+      free_pkg(tmp_pkg);
+      free(pkg_f_name);
+      fclose(pkg_f);
+      continue;
+    }
 
     pkg_data = (char *)mmap(NULL,stat_buf.st_size,PROT_READ,MAP_PRIVATE,fileno(pkg_f),0);
     if (pkg_data == NULL) {
@@ -564,9 +570,11 @@ struct pkg_list *get_installed_pkgs(void)
       if (errno)
         perror(pkg_f_name);
 
+      fprintf(stderr,"mmap failed: %s\n",pkg_f_name);
       exit(1);
     }
 
+    free(pkg_f_name);
     fclose(pkg_f);
 
     execute_regex(&compressed_size_reg,pkg_data);
@@ -781,14 +789,30 @@ int remove_pkg(const rc_config *global_config,pkg_info_t *pkg)
 
 void free_pkg(pkg_info_t *pkg)
 {
-  free(pkg->required);
-  free(pkg->conflicts);
-  free(pkg->suggests);
-  free(pkg->name);
-  free(pkg->version);
-  free(pkg->mirror);
-  free(pkg->location);
-  free(pkg->description);
+  if (pkg->required != NULL)
+    free(pkg->required);
+
+  if (pkg->conflicts != NULL)
+    free(pkg->conflicts);
+
+  if (pkg->suggests != NULL)
+    free(pkg->suggests);
+
+  if (pkg->name != NULL)
+    free(pkg->name);
+
+  if (pkg->version != NULL)
+    free(pkg->version);
+
+  if (pkg->mirror != NULL)
+    free(pkg->mirror);
+
+  if (pkg->location != NULL)
+    free(pkg->location);
+
+  if (pkg->description != NULL)
+    free(pkg->description);
+
   free(pkg);
 }
 
