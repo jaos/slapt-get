@@ -649,6 +649,8 @@ struct pkg_list *get_installed_pkgs(void)
       tmp_pkg->description[strlen(desc_p)] = '\0';
     }
 
+    free(pkg_data);
+
     /* fillin details */
     if ( tmp_pkg->location == NULL ) {
       tmp_pkg->location = slapt_malloc(sizeof *tmp_pkg->location);
