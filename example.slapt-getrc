@@ -84,11 +84,12 @@ SOURCE=http://software.jaos.org/slackpacks/10.1/
 #SOURCE=http://slackware.rm-f.net/slackware-9.1/rkeene/
 #SOURCE=http://shtrom.free.fr/slackware/slackware-10.0/
 #SOURCE=http://www.stabellini.net/repository/Stefano_Stabellini/
-#SOURCE=ftp://ftp.gware.org/10.1/2.10.0/packages/
 #SOURCE=http://carroll.aset.psu.edu/pub/linux/distributions/collegelinux/current/
 #SOURCE=http://distro.ibiblio.org/pub/linux/distributions/vectorlinux/veclinux-5.0/packages/
 #SOURCE=http://mirror.datapipe.net/norlug/frg/frg-current/
+#SOURCE=ftp://ftp.gware.org/10.1/2.10.0/packages/
 #SOURCE=ftp://ftp.gware.org/10.1/2.10.1/packages/
+#SOURCE=http://www.kadu.net/download/binary/slackware/slackware-10.1/
 
 
 # pull from your cdrom
