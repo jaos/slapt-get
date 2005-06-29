@@ -4,7 +4,7 @@
  * added Slovak translation by Erik Gyepes
  * added DESTDIR support to the makefile (thanks freerock)
  * removed lilo from default exclude list, added glibc.*
- * be quit if a file doesn't exist when we test with verify_downloaded_pkg();
+ * be quiet if a file doesn't exist when we test with verify_downloaded_pkg();
  * ignore case when comparing versions
  * updated vi translation from Vu
  * exit returning error code when disk space check fails
