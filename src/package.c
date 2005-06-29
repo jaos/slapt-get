@@ -1885,7 +1885,8 @@ int update_pkg_cache(const rc_config *global_config)
       available_pkgs = parse_packages_txt(tmp_pkg_f);
       fclose(tmp_pkg_f);
     } else {
-      if ( global_config->dl_stats == TRUE ) printf("\n");
+      if ( global_config->dl_stats == TRUE )
+        printf("\n");
 
       if ( (tmp_pkg_f = open_file(pkg_filename,"w+b")) == NULL )
         exit(1);
@@ -1893,7 +1894,10 @@ int update_pkg_cache(const rc_config *global_config)
       if ( get_mirror_data_from_source(tmp_pkg_f,global_config,global_config->sources->url[i],PKG_LIST) == 0 ) {
         rewind(tmp_pkg_f); /* make sure we are back at the front of the file */
         available_pkgs = parse_packages_txt(tmp_pkg_f);
-        if ( global_config->dl_stats == FALSE ) printf(_("Done\n"));
+
+        if ( global_config->dl_stats == FALSE )
+          printf(_("Done\n"));
+
       } else {
         source_dl_failed = 1;
         clear_head_cache(pkg_filename);
@@ -1946,7 +1950,8 @@ int update_pkg_cache(const rc_config *global_config)
       if ( get_mirror_data_from_source(tmp_patch_f,global_config,global_config->sources->url[i],PATCHES_LIST) == 0 ) {
         rewind(tmp_patch_f); /* make sure we are back at the front of the file */
         patch_pkgs = parse_packages_txt(tmp_patch_f);
-        if ( global_config->dl_stats == FALSE ) printf(_("Done\n"));
+        if ( global_config->dl_stats == FALSE )
+          printf(_("Done\n"));
 
       } else {
         /* we don't care if the patch fails, for example current doesn't have patches */
@@ -1988,7 +1993,9 @@ int update_pkg_cache(const rc_config *global_config)
         exit(1);
 
     } else {
-      if ( global_config->dl_stats == TRUE ) printf("\n");
+      if ( global_config->dl_stats == TRUE )
+        printf("\n");
+
       if ( (tmp_checksum_f = open_file(checksum_filename,"w+b")) == NULL ) {
         exit(1);
       }
@@ -2000,7 +2007,9 @@ int update_pkg_cache(const rc_config *global_config)
         source_dl_failed = 1;
         clear_head_cache(checksum_filename);
       } else {
-        if ( global_config->dl_stats == FALSE ) printf(_("Done\n"));
+        if ( global_config->dl_stats == FALSE )
+          printf(_("Done\n"));
+
       }
       /* make sure we are back at the front of the file */
       rewind(tmp_checksum_f);
