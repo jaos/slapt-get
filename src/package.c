@@ -79,7 +79,8 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh)
     getline_buffer[bytes_read - 1] = '\0';
 
     /* pull out package data */
-    if ( strstr(getline_buffer,"PACKAGE NAME") == NULL ) continue;
+    if ( strstr(getline_buffer,"PACKAGE NAME") == NULL )
+      continue;
 
     execute_regex(&name_regex,getline_buffer);
 
@@ -499,13 +500,13 @@ struct pkg_list *get_installed_pkgs(void)
     FILE *pkg_f = NULL;
     char *pkg_f_name = NULL;
     struct stat stat_buf;
-    char *pkg_data_mapped = NULL;
     char *pkg_data = NULL;
 
     execute_regex(&ip_regex,file->d_name);
 
     /* skip if it doesn't match our regex */
-    if ( ip_regex.reg_return != 0 ) continue;
+    if ( ip_regex.reg_return != 0 )
+      continue;
 
     tmp_pkg = init_pkg();
 
@@ -565,37 +566,24 @@ struct pkg_list *get_installed_pkgs(void)
       continue;
     }
 
-    pkg_data_mapped = (char *)mmap(NULL,stat_buf.st_size,PROT_READ,MAP_PRIVATE,fileno(pkg_f),0);
-    if (pkg_data == MAP_FAILED) {
+    /* keep it private (changes not written) and writeable */
+    pkg_data = (char *)mmap(0,(size_t)stat_buf.st_size,
+                            PROT_READ|PROT_WRITE,MAP_PRIVATE,fileno(pkg_f),0);
+    if (pkg_data == (void *)-1) {
 
       if (errno)
         perror(pkg_f_name);
 
       fprintf(stderr,"mmap failed: %s\n",pkg_f_name);
       exit(1);
-    } else {
-      size_t len = strlen(pkg_data_mapped);
-      char *p = strstr(pkg_data_mapped,"FILE LIST");
-
-      fclose(pkg_f);
-
-      if (p != NULL) {
-        pkg_data = strndup(pkg_data_mapped,len - strlen(p));
-      } else {
-        pkg_data = strdup(pkg_data_mapped);
-      }
-
-      /* munmap */
-      if (munmap(pkg_data_mapped,stat_buf.st_size) == -1) {
-        if (errno)
-          perror(pkg_f_name);
-  
-        fprintf(stderr,"munmap failed: %s\n",pkg_f_name);
-        exit(1);
-      }
-      free(pkg_f_name);
     }
 
+    fclose(pkg_f);
+
+    /* add \0 for strlen to work */
+    pkg_data[stat_buf.st_size - 1] = '\0';
+
+    /* pull out compressed size */
     execute_regex(&compressed_size_reg,pkg_data);
     if ( compressed_size_reg.reg_return == 0 ) {
 
@@ -608,6 +596,7 @@ struct pkg_list *get_installed_pkgs(void)
 
     }
 
+    /* pull out uncompressed size */
     execute_regex(&uncompressed_size_reg,pkg_data);
     if (uncompressed_size_reg.reg_return == 0 ) {
 
@@ -620,6 +609,7 @@ struct pkg_list *get_installed_pkgs(void)
 
     }
 
+    /* pull out location */
     execute_regex(&location_regex,pkg_data);
     if ( location_regex.reg_return == 0 ) {
 
@@ -640,16 +630,35 @@ struct pkg_list *get_installed_pkgs(void)
     if (strstr(pkg_data,"PACKAGE DESCRIPTION") != NULL) {
       char *desc_p = strstr(pkg_data,"PACKAGE DESCRIPTION");
       char *nl = strchr(desc_p,'\n');
+      char *filelist_p = NULL;
 
       if (nl != NULL)
         desc_p = ++nl;
 
-      tmp_pkg->description = slapt_malloc(sizeof *tmp_pkg->description * (strlen(desc_p) + 1));
-      strncpy(tmp_pkg->description,desc_p,strlen(desc_p));
-      tmp_pkg->description[strlen(desc_p)] = '\0';
+      filelist_p = strstr(desc_p,"FILE LIST");
+      if (filelist_p != NULL) {
+        size_t len = strlen(desc_p) - strlen(filelist_p) + 1;
+        tmp_pkg->description = slapt_malloc(sizeof *tmp_pkg->description * len);
+        strncpy(tmp_pkg->description,desc_p,len - 1);
+        tmp_pkg->description[len - 1] = '\0';
+      } else {
+        size_t len = strlen(desc_p) + 1;
+        tmp_pkg->description = slapt_malloc(sizeof *tmp_pkg->description * len);
+        strncpy(tmp_pkg->description,desc_p,len - 1);
+        tmp_pkg->description[len - 1] = '\0';
+      }
+
     }
 
-    free(pkg_data);
+    /* mmap */
+    if (munmap(pkg_data,stat_buf.st_size) == -1) {
+      if (errno)
+        perror(pkg_f_name);
+
+      fprintf(stderr,"munmap failed: %s\n",pkg_f_name);
+      exit(1);
+    }
+    free(pkg_f_name);
 
     /* fillin details */
     if ( tmp_pkg->location == NULL ) {
@@ -902,10 +911,14 @@ void get_md5sum(pkg_info_t *pkg,FILE *checksum_file)
   while ( (getline_read = getline(&getline_buffer,&getline_len,checksum_file) ) != EOF ) {
 
     /* ignore if it is not our package */
-    if ( strstr(getline_buffer,pkg->name) == NULL) continue;
-    if ( strstr(getline_buffer,pkg->version) == NULL) continue;
-    if ( strstr(getline_buffer,".tgz") == NULL) continue;
-    if ( strstr(getline_buffer,".asc") != NULL) continue;
+    if ( strstr(getline_buffer,pkg->name) == NULL)
+      continue;
+    if ( strstr(getline_buffer,pkg->version) == NULL)
+      continue;
+    if ( strstr(getline_buffer,".tgz") == NULL)
+      continue;
+    if ( strstr(getline_buffer,".asc") != NULL)
+      continue;
 
     execute_regex(&md5sum_regex,getline_buffer);
 
@@ -1734,10 +1747,12 @@ static void required_by(const rc_config *global_config,struct pkg_list *avail,
 
   for (i = 0; i < avail->pkg_count;i++) {
 
-    if ( strcmp(avail->pkgs[i]->required,"") == 0 ) continue;
+    if ( strcmp(avail->pkgs[i]->required,"") == 0 )
+      continue;
 
     execute_regex(&required_by_reg,avail->pkgs[i]->required);
-    if ( required_by_reg.reg_return != 0 ) continue;
+    if ( required_by_reg.reg_return != 0 )
+      continue;
 
     add_pkg_to_pkg_list(required_by_list,avail->pkgs[i]);
   }
