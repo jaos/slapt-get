@@ -172,11 +172,15 @@ void pkg_action_list(const int show)
       char *short_description = NULL;
 
       if ( show == LIST ) {
+
         if ( get_exact_pkg(pkgs,
             installed_pkgs->pkgs[i]->name,
             installed_pkgs->pkgs[i]->version
           ) != NULL 
-        ) continue;
+        ) {
+          continue;
+        }
+
       }
 
       short_description = gen_short_pkg_description(installed_pkgs->pkgs[i]);
@@ -313,7 +317,9 @@ void pkg_action_search(const char *pattern)
     char *short_description = NULL;
 
     if ( get_exact_pkg(matches,i_matches->pkgs[i]->name,
-      i_matches->pkgs[i]->version) != NULL) continue;
+         i_matches->pkgs[i]->version) != NULL) {
+        continue;
+    }
 
     short_description = gen_short_pkg_description(i_matches->pkgs[i]);
 
@@ -557,7 +563,9 @@ void pkg_action_upgrade_all(const rc_config *global_config)
       package that is newer than this one
     */
     if ( (newer_installed_pkg = get_newest_pkg(installed_pkgs,installed_pkgs->pkgs[i]->name)) != NULL ) {
-      if ( cmp_pkg_versions(installed_pkgs->pkgs[i]->version,newer_installed_pkg->version) < 0 ) continue;
+      if ( cmp_pkg_versions(installed_pkgs->pkgs[i]->version,newer_installed_pkg->version) < 0 ) {
+        continue;
+      }
     }
 
     /* see if we have an available update for the pkg */

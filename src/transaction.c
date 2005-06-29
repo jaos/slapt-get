@@ -104,7 +104,8 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran)
     printf("  ");
     for (i = 0; i < tran->suggests->count; ++i) {
       /* don't show suggestion for something we already have in the transaction */
-      if ( search_transaction(tran,tran->suggests->pkgs[i]) == 1 ) continue;
+      if ( search_transaction(tran,tran->suggests->pkgs[i]) == 1 )
+        continue;
 
       if ( len + strlen(tran->suggests->pkgs[i]) + 1 < MAX_LINE_LEN ) {
         printf("%s ",tran->suggests->pkgs[i]);
@@ -590,7 +591,9 @@ transaction_t *remove_from_transaction(transaction_t *tran,pkg_info_t *pkg)
       strcmp(pkg->name,tran->install_pkgs->pkgs[i]->name) == 0 &&
       strcmp(pkg->version,tran->install_pkgs->pkgs[i]->version) == 0 &&
       strcmp(pkg->location,tran->install_pkgs->pkgs[i]->location) == 0
-    ) continue;
+    ) {
+      continue;
+    }
 
     add_install_to_transaction(new_tran,tran->install_pkgs->pkgs[i]);
   }
@@ -601,7 +604,9 @@ transaction_t *remove_from_transaction(transaction_t *tran,pkg_info_t *pkg)
       strcmp(pkg->name,tran->remove_pkgs->pkgs[i]->name) == 0 &&
       strcmp(pkg->version,tran->remove_pkgs->pkgs[i]->version) == 0 &&
       strcmp(pkg->location,tran->remove_pkgs->pkgs[i]->location) == 0
-    ) continue;
+    ) {
+      continue;
+    }
 
     add_remove_to_transaction(new_tran,tran->remove_pkgs->pkgs[i]);
   }
@@ -612,7 +617,9 @@ transaction_t *remove_from_transaction(transaction_t *tran,pkg_info_t *pkg)
       strcmp(pkg->name,tran->upgrade_pkgs->pkgs[i]->upgrade->name) == 0 &&
       strcmp(pkg->version,tran->upgrade_pkgs->pkgs[i]->upgrade->version) == 0 &&
       strcmp(pkg->location,tran->upgrade_pkgs->pkgs[i]->upgrade->location) == 0
-    ) continue;
+    ) {
+      continue;
+    }
 
     add_upgrade_to_transaction(
       new_tran,
@@ -627,7 +634,9 @@ transaction_t *remove_from_transaction(transaction_t *tran,pkg_info_t *pkg)
       strcmp(pkg->name,tran->exclude_pkgs->pkgs[i]->name) == 0 &&
       strcmp(pkg->version,tran->exclude_pkgs->pkgs[i]->version) == 0 &&
       strcmp(pkg->location,tran->exclude_pkgs->pkgs[i]->location) == 0
-    ) continue;
+    ) {
+      continue;
+    }
 
     add_exclude_to_transaction(new_tran,tran->exclude_pkgs->pkgs[i]);
   }
