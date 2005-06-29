@@ -20,6 +20,11 @@
 static size_t write_header_callback(void *buffer,
                                     size_t size, size_t nmemb, void *userp);
 
+struct head_data_t {
+  char *data;
+  size_t size;
+};
+
 int download_data(FILE *fh,const char *url,size_t bytes,
                   const rc_config *global_config)
 {
@@ -342,5 +347,81 @@ char spinner(void)
   } else {
     return spinner_parts[spinner_index++];
   }
+}
+
+void write_head_cache(const char *cache, const char *cache_filename)
+{
+  char *head_filename;
+  FILE *tmp;
+
+  head_filename = gen_head_cache_filename(cache_filename);
+
+  /* store the last modified date */
+  if ( (tmp = open_file(head_filename,"w")) == NULL )
+    exit(1);
+
+  fprintf(tmp,"%s",cache);
+  fclose(tmp);
+
+  free(head_filename);
+
+}
+
+char *read_head_cache(const char *cache_filename)
+{
+  char *head_filename;
+  FILE *tmp;
+  char *getline_buffer = NULL;
+  size_t gl_n;
+  ssize_t gl_return_size;
+
+  head_filename = gen_head_cache_filename(cache_filename);
+
+  tmp = open_file(head_filename,"a+");
+  free(head_filename);
+
+  if ( tmp == NULL )
+    exit(1);
+
+  rewind(tmp);
+  gl_return_size = getline(&getline_buffer, &gl_n, tmp);
+  fclose(tmp);
+
+  if ( gl_return_size == -1 ) {
+    free(getline_buffer);
+    return NULL;
+  }
+
+  return getline_buffer;
+}
+
+char *gen_head_cache_filename(const char *filename_from_url)
+{
+  char *head_filename;
+
+  head_filename = slapt_calloc(
+    strlen(filename_from_url) + strlen(HEAD_FILE_EXT) + 1, sizeof *head_filename
+  );
+  strncat(head_filename,filename_from_url,strlen(filename_from_url));
+  strncat(head_filename,HEAD_FILE_EXT,strlen(HEAD_FILE_EXT));
+
+  return head_filename;
+}
+
+void clear_head_cache(const char *cache_filename)
+{
+  char *head_filename;
+  FILE *tmp;
+
+  head_filename = gen_head_cache_filename(cache_filename);
+
+  tmp = open_file(head_filename,"w");
+
+  if ( tmp == NULL )
+    exit(1);
+
+  fclose(tmp);
+  free(head_filename);
+
 }
 
