@@ -341,7 +341,8 @@ void add_install_to_transaction(transaction_t *tran,pkg_info_t *pkg)
   pkg_info_t **tmp_list;
 
   /* don't add if already present in the transaction */
-  if ( search_transaction_by_pkg(tran,pkg) == 1 ) return;
+  if ( search_transaction_by_pkg(tran,pkg) == 1 )
+    return;
 
   #if DEBUG == 1
   printf("adding install of %s-%s@%s to transaction\n",
@@ -377,7 +378,8 @@ void add_remove_to_transaction(transaction_t *tran,pkg_info_t *pkg)
   pkg_info_t **tmp_list;
 
   /* don't add if already present in the transaction */
-  if ( search_transaction_by_pkg(tran,pkg) == 1 ) return;
+  if ( search_transaction_by_pkg(tran,pkg) == 1 )
+    return;
 
   #if DEBUG == 1
   printf("adding remove of %s-%s@%s to transaction\n",
@@ -408,7 +410,8 @@ void add_exclude_to_transaction(transaction_t *tran,pkg_info_t *pkg)
   pkg_info_t **tmp_list;
 
   /* don't add if already present in the transaction */
-  if ( search_transaction_by_pkg(tran,pkg) == 1 ) return;
+  if ( search_transaction_by_pkg(tran,pkg) == 1 )
+    return;
 
   #if DEBUG == 1
   printf("adding exclude of %s-%s@%s to transaction\n",
@@ -441,7 +444,8 @@ void add_upgrade_to_transaction(transaction_t *tran, pkg_info_t *installed_pkg,
   pkg_upgrade_t **tmp_list;
 
   /* don't add if already present in the transaction */
-  if ( search_transaction_by_pkg(tran,upgrade_pkg) == 1 ) return;
+  if ( search_transaction_by_pkg(tran,upgrade_pkg) == 1 )
+    return;
 
   #if DEBUG == 1
   printf("adding upgrade of %s-%s@%s to transaction\n",
@@ -654,8 +658,11 @@ int add_deps_to_trans(const rc_config *global_config, transaction_t *tran,
   int dep_return = -1;
   struct pkg_list *deps = NULL;
 
-  if ( global_config->disable_dep_check == TRUE ) return 0;
-  if ( pkg == NULL ) return 0;
+  if ( global_config->disable_dep_check == TRUE )
+    return 0;
+
+  if ( pkg == NULL )
+    return 0;
 
   deps = init_pkg_list();
 
@@ -757,7 +764,8 @@ static void add_suggestion(transaction_t *tran, pkg_info_t *pkg)
     char **tmp_realloc;
 
     p = pkg->suggests + position;
-    if ( p == NULL ) break;
+    if ( p == NULL )
+      break;
 
     si = strpbrk(p," ,");
     if ( si == NULL || strlen(si) <= 2 ) {
@@ -814,7 +822,8 @@ static int disk_space(const rc_config *global_config,int space_needed )
 
   space_needed *= 1024;
 
-  if ( space_needed < 0 ) return 0;
+  if ( space_needed < 0 )
+    return 0;
 
   if ( statvfs(global_config->working_dir,&statvfs_buf) != 0 ) {
 
@@ -871,7 +880,10 @@ static void queue_add_install(queue_t *t, pkg_info_t *p)
 {
   queue_i **tmp;
   tmp = realloc(t->pkgs, sizeof *t->pkgs * (t->count + 1) );
-  if ( !tmp ) return;
+
+  if ( !tmp )
+    return;
+
   t->pkgs = tmp;
   t->pkgs[t->count] = slapt_malloc(sizeof *t->pkgs[t->count] );
   t->pkgs[t->count]->pkg.i = p;
@@ -883,7 +895,10 @@ static void queue_add_upgrade(queue_t *t, pkg_upgrade_t *p)
 {
   queue_i **tmp;
   tmp = realloc(t->pkgs, sizeof *t->pkgs * (t->count + 1) );
-  if ( !tmp ) return;
+
+  if ( !tmp )
+    return;
+
   t->pkgs = tmp;
   t->pkgs[t->count] = slapt_malloc(sizeof *t->pkgs[t->count] );
   t->pkgs[t->count]->pkg.u = p;

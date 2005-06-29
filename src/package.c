@@ -442,7 +442,8 @@ char *gen_short_pkg_description(pkg_info_t *pkg)
   }
 
   /* quit now if the description is going to be empty */
-  if ( (int)string_size < 0 ) return NULL;
+  if ( (int)string_size < 0 )
+    return NULL;
 
   short_description = strndup(
     pkg->description + (strlen(pkg->name) + 2),
@@ -1022,7 +1023,8 @@ int cmp_pkg_versions(char *a, char *b)
   struct pkg_version_parts *b_parts;
 
   /* bail out early if possible */
-  if ( strcasecmp(a,b) == 0 ) return equal;
+  if ( strcasecmp(a,b) == 0 )
+    return equal;
 
   a_parts = break_down_pkg_version(a);
   b_parts = break_down_pkg_version(b);
@@ -1102,9 +1104,15 @@ int cmp_pkg_versions(char *a, char *b)
     if ( a_build != NULL && b_build != NULL ) {
       /* they are equal if the integer values are equal */
       /* for instance, "1rob" and "1" will be equal */
-      if ( atoi(a_build) == atoi(b_build) ) return equal;
-      if ( atoi(a_build) < atoi(b_build) ) return greater;
-      if ( atoi(a_build) > atoi(b_build) ) return lesser;
+      if ( atoi(a_build) == atoi(b_build) )
+        return equal;
+
+      if ( atoi(a_build) < atoi(b_build) )
+        return greater;
+
+      if ( atoi(a_build) > atoi(b_build) )
+        return lesser;
+
     }
 
   }
@@ -1729,7 +1737,8 @@ static void required_by(const rc_config *global_config,struct pkg_list *avail,
   /*
    * don't go any further if disable_dep_check is set
   */
-  if ( global_config->disable_dep_check == TRUE) return;
+  if ( global_config->disable_dep_check == TRUE)
+    return;
 
   escapedName = slapt_malloc(sizeof *escapedName * (strlen(pkg->name) + 1) );
 
@@ -2303,7 +2312,8 @@ int verify_downloaded_pkg(const rc_config *global_config,pkg_info_t *pkg)
     return not_verified;
   }
   /* if not checking the md5 checksum and the sizes match, assume its good */
-  if ( global_config->no_md5_check == TRUE ) return is_verified;
+  if ( global_config->no_md5_check == TRUE )
+    return is_verified;
 
   /* check to see that we actually have an md5 checksum */
   if ( strcmp(pkg->md5,"") == 0) {
@@ -2327,7 +2337,8 @@ int verify_downloaded_pkg(const rc_config *global_config,pkg_info_t *pkg)
   fclose(fh_test);
 
   /* check to see if the md5sum is correct */
-  if ( strcmp(md5sum_f,pkg->md5) == 0 ) return is_verified;
+  if ( strcmp(md5sum_f,pkg->md5) == 0 )
+    return is_verified;
 
   return MD5_CHECKSUM_FAILED;
 
@@ -2514,7 +2525,8 @@ static pkg_info_t *find_or_requirement(struct pkg_list *avail_pkgs,
 
       pkg = parse_meta_entry(avail_pkgs,installed_pkgs,string);
 
-      if ( pkg != NULL ) break;
+      if ( pkg != NULL )
+        break;
 
       position += strlen(string);
     } else {
@@ -2535,7 +2547,8 @@ static pkg_info_t *find_or_requirement(struct pkg_list *avail_pkgs,
       pkg = parse_meta_entry(avail_pkgs,installed_pkgs,string);
       free(string);
 
-      if ( pkg != NULL ) break;
+      if ( pkg != NULL )
+        break;
 
       position += str_len;
     }

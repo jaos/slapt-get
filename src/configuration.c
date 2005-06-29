@@ -226,7 +226,8 @@ void add_exclude(struct exclude_list *list,const char *e)
   realloc_tmp =
     realloc( list->excludes, sizeof *list->excludes * (list->count + 1) );
 
-  if ( realloc_tmp == NULL ) return;
+  if ( realloc_tmp == NULL )
+    return;
 
   list->excludes = realloc_tmp;
   list->excludes[ list->count ] = strndup(e, strlen(e));
@@ -240,12 +241,15 @@ void add_source(struct source_list *list,const char *s)
   char **realloc_tmp;
   int source_len = 0;
 
-  if ( s == NULL ) return;
+  if ( s == NULL )
+    return;
+
   source_len = strlen(s);
 
   realloc_tmp = realloc(list->url,sizeof *list->url * (list->count + 1) );
 
-  if ( realloc_tmp == NULL ) return;
+  if ( realloc_tmp == NULL )
+    return;
 
   list->url = realloc_tmp;
 

@@ -194,7 +194,8 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg)
   int pkg_verify_return = -1;
   int dl_return = -1;
 
-  if ( verify_downloaded_pkg(global_config,pkg) == 0 ) return 0;
+  if ( verify_downloaded_pkg(global_config,pkg) == 0 )
+    return 0;
 
   chdir(global_config->working_dir); /* just in case */
   create_dir_structure(pkg->location);
