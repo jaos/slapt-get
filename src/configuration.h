@@ -1,20 +1,3 @@
-/*
- * Copyright (C) 2003,2004,2005 Jason Woodward <woodwardj at jaos dot org>
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Library General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- */
 
 #define SOURCE_TOKEN "SOURCE="
 #define WORKINGDIR_TOKEN "WORKINGDIR="
@@ -34,12 +17,12 @@ struct source_list {
 typedef struct {
   struct source_list *sources;
   char working_dir[WORKINGDIR_TOKEN_LEN];
+  struct exclude_list *exclude_list;
   BOOL_T download_only;
   BOOL_T dist_upgrade;
   BOOL_T simulate;
   BOOL_T no_prompt;
   BOOL_T re_install;
-  struct exclude_list *exclude_list;
   BOOL_T ignore_excludes;
   BOOL_T no_md5_check;
   BOOL_T ignore_dep;
@@ -51,8 +34,31 @@ typedef struct {
 
 } rc_config;
 
+/*
+  read the configuration from file_name
+  returns (rc_config *) or NULL
+*/
 rc_config *read_rc_config(const char *file_name);
+
+/*
+  check that working_dir exists or make it if permissions allow
+*/
 void working_dir_init(const rc_config *global_config);
+
+/*
+  free rc_config structure
+*/
 void free_rc_config(rc_config *global_config);
+
+/*
+  add an exclude expression to the exclude list.
+  commonly called with global_config->exclude_list
+*/
 void add_exclude(struct exclude_list *list,const char *e);
+
+/*
+  add an source expression to the source list.
+  commonly called with global_config->source_list
+*/
 void add_source(struct source_list *list,const char *s);
+

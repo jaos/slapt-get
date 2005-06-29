@@ -1,20 +1,3 @@
-/*
- * Copyright (C) 2003,2004,2005 Jason Woodward <woodwardj at jaos dot org>
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Library General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- */
 
 #define PKG_PARSE_REGEX "(.*{1,})\\-(.*[\\.\\-].*[\\.\\-].*).tgz[ ]{0,}$"
 #define PKG_NAMEVER "(.*{1,})\\-(.*[\\.\\-].*[\\.\\-].*)"
@@ -89,35 +72,30 @@ struct pkg_err_list {
   pkg_err_t **errs;
 };
 
-
-
+/* returns an empty package structure */
 __inline pkg_info_t *init_pkg(void);
-struct pkg_list *init_pkg_list(void);
-void add_pkg_to_pkg_list(struct pkg_list *list,pkg_info_t *pkg);
+/* frees the package structure */
 void free_pkg(pkg_info_t *pkg);
-/* free memory allocated for pkg_list struct */
+
+/* create an empty package list */
+struct pkg_list *init_pkg_list(void);
+/* add a package to a package list */
+void add_pkg_to_pkg_list(struct pkg_list *list,pkg_info_t *pkg);
+/* free package list */
 void free_pkg_list(struct pkg_list *);
 
 /* update the local package cache */
 int update_pkg_cache(const rc_config *global_config);
-/* do a head request on the mirror data to find out if it's new */
-char *head_mirror_data(const char *wurl,const char *file);
-/* clear head cache storage file */
-void clear_head_cache(const char *cache_filename);
-/* cache the head request */
-void write_head_cache(const char *cache, const char *cache_filename);
-/* read the cached head request */
-char *read_head_cache(const char *cache_filename);
+/* write pkg data to disk */
+void write_pkg_data(const char *source_url,FILE *d_file,struct pkg_list *pkgs);
 /* parse the PACKAGES.TXT file */
 struct pkg_list *parse_packages_txt(FILE *);
+/* return a list of available packages */
 struct pkg_list *get_available_pkgs(void);
 /* retrieve list of installed pkgs */
 struct pkg_list *get_installed_pkgs(void);
-/* write pkg data to disk */
-void write_pkg_data(const char *source_url,FILE *d_file,struct pkg_list *pkgs);
 
-
-/* retrieve the newest pkg from pkg_info_t list */
+/* retrieve the newest package from package list */
 pkg_info_t *get_newest_pkg(struct pkg_list *,const char *);
 /* get the exact package */
 pkg_info_t *get_exact_pkg(struct pkg_list *list,const char *name,
@@ -130,62 +108,119 @@ struct pkg_list *search_pkg_list(struct pkg_list *available,
                                  const char *pattern);
 
 
-/* install pkg */
+/*
+  install package by calling installpkg
+  returns 0 on success, -1 on error
+*/
 int install_pkg(const rc_config *,pkg_info_t *);
-/* upgrade pkg */
+/*
+  upgrade package by calling upgradepkg
+  returns 0 on success, -1 on error
+*/
 int upgrade_pkg(const rc_config *global_config,pkg_info_t *installed_pkg,
                 pkg_info_t *pkg);
-/* remove pkg */
+/*
+  remove package by calling removepkg
+  returns 0 on success, -1 on error
+*/
 int remove_pkg(const rc_config *,pkg_info_t *);
 
 
-/* generate a short description */
+/*
+  generate a short description, returns (char *) on success or NULLon error
+  caller responsible for freeing the returned data
+*/
 char *gen_short_pkg_description(pkg_info_t *);
-/* generate the filename from the url */
+/*
+  generate the filename from the url
+  caller responsible for freeing the returned data
+*/
 char *gen_filename_from_url(const char *url,const char *file);
-/* generate the package file name */
+/*
+  generate the package file name
+  caller responsible for freeing the returned data
+*/
 char *gen_pkg_file_name(const rc_config *global_config,pkg_info_t *pkg);
-/* generate the head cache filename */
+/*
+  generate the head cache filename
+  caller responsible for freeing the returned data
+*/
 char *gen_head_cache_filename(const char *filename_from_url);
-/* generate the download url for a package */
+/*
+  generate the download url for a package
+  caller responsible for freeing the returned data
+*/
 char *gen_pkg_url(pkg_info_t *pkg);
-/* exclude pkg based on pkg name */
+/*
+  exclude pkg based on pkg name
+  returns 1 if package is present in the exclude list, 0 if not present
+*/
 int is_excluded(const rc_config *,pkg_info_t *);
-/* package is already downloaded and cached, md5sum if applicable is ok */
+/*
+  package is already downloaded and cached, md5sum if applicable is ok
+  returns 0 if download is cached, -1 if not
+*/
 int verify_downloaded_pkg(const rc_config *global_config,pkg_info_t *pkg);
-/* lookup md5sum of file */
+/*
+  fill in the md5sum of the package
+*/
 void get_md5sum(pkg_info_t *pkg,FILE *checksum_file);
-/* find out the pkg file size (post download) */
+/*
+  find out the pkg file size (post download)
+*/
 size_t get_pkg_file_size(const rc_config *global_config,pkg_info_t *pkg);
 
-/* compare package versions (returns just like strcmp) */
+/*
+  compare package versions
+  returns just like strcmp,
+    > 0 if a is greater than b
+    < 0 if a is less than b
+    0 if a and b are equal
+*/
 int cmp_pkg_versions(char *a, char *b);
 
-/* resolve dependencies */
+/*
+  resolve dependencies
+  returns 0 on success, -1 on error setting conflict_err and missing_err
+  (usually called with transaction->conflict_err and transaction->missing_err)
+*/
 int get_pkg_dependencies(const rc_config *global_config,
                          struct pkg_list *avail_pkgs,
                          struct pkg_list *installed_pkgs,pkg_info_t *pkg,
                          struct pkg_list *deps,
                          struct pkg_err_list *conflict_err,
                          struct pkg_err_list *missing_err);
-/* lookup package conflicts */
+/*
+  return list of package conflicts
+*/
 struct pkg_list *get_pkg_conflicts(struct pkg_list *avail_pkgs,
                                    struct pkg_list *installed_pkgs,
                                    pkg_info_t *pkg);
-/* return list of packages required by */
+/*
+  return list of packages required by
+*/
 struct pkg_list *is_required_by(const rc_config *global_config,
                                 struct pkg_list *avail, pkg_info_t *pkg);
 
-/* empty packages from cache dir */
+/*
+  empty packages from cache dir
+*/
 void clean_pkg_dir(const char *dir_name);
-/* clean out old outdated packages in the cache */
+/*
+  clean out old outdated packages in the cache that are no longer available
+  in the current source lists (ie are not downloadable)
+*/
 void purge_old_cached_pkgs(const rc_config *global_config,char *dir_name,
                            struct pkg_list *avail_pkgs);
 
-/* make a copy of a package (needs to be freed with free_pkg) */
+/*
+  make a copy of a package (needs to be freed with free_pkg)
+*/
 pkg_info_t *copy_pkg(pkg_info_t *dst,pkg_info_t *src);
 
-/* package error handling api to handle errors within core functions */
+/*
+  package error handling api to handle errors within core functions
+*/
 struct pkg_err_list *init_pkg_err_list(void);
 void add_pkg_err_to_list(struct pkg_err_list *l,
                          const char *pkg,const char *err);

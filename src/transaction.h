@@ -1,21 +1,8 @@
-/*
- * Copyright (C) 2003,2004,2005 Jason Woodward <woodwardj at jaos dot org>
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Library General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- */
 
+/*
+  this defines the max length of the transaction summary lines, hopefully
+  someday this will be replaced with a more dynamic solution.
+*/
 #define MAX_LINE_LEN 80
 
 struct suggests {
@@ -25,7 +12,7 @@ struct suggests {
 
 typedef struct {
   union { pkg_info_t *i; pkg_upgrade_t *u; } pkg;
-  unsigned int type;
+  unsigned int type; /* this is enum action defined in main.h */
 } queue_i;
 
 typedef struct {
@@ -44,23 +31,57 @@ typedef struct {
   queue_t *queue;
 } transaction_t;
 
+/* fill in transaction structure with defaults */
 void init_transaction(transaction_t *);
+/*
+  download and install/remove/upgrade packages as defined in the transaction
+  returns 0 on success
+*/
 int handle_transaction(const rc_config *,transaction_t *);
+
+/* add package for installation to transaction */
 void add_install_to_transaction(transaction_t *,pkg_info_t *pkg);
+/* add package for removal to transaction */
 void add_remove_to_transaction(transaction_t *,pkg_info_t *pkg);
-void add_upgrade_to_transaction(transaction_t *,pkg_info_t *installed_pkg,pkg_info_t *upgrade_pkg);
+/* add package to upgrade to transaction */
+void add_upgrade_to_transaction(transaction_t *,pkg_info_t *installed_pkg,
+                                pkg_info_t *upgrade_pkg);
+/* add package to exclude to transaction */
 void add_exclude_to_transaction(transaction_t *,pkg_info_t *pkg);
-int search_transaction(transaction_t *,char *pkg_name);
-int search_transaction_by_pkg(transaction_t *tran,pkg_info_t *pkg);
-void free_transaction(transaction_t *);
+/* remove package from transaction, returns modified transaction */
 transaction_t *remove_from_transaction(transaction_t *tran,pkg_info_t *pkg);
+
+/* search transaction by package name.  returns 1 if found, 0 otherwise */
+int search_transaction(transaction_t *,char *pkg_name);
+/*
+  search transaction by package attributes
+  returns 1 if found, 0 otherwise
+*/
+int search_transaction_by_pkg(transaction_t *tran,pkg_info_t *pkg);
+/*
+  searches the upgrade list of the transaction for the present of the package
+  returns 1 if found, 0 if not found
+*/
+int search_upgrade_transaction(transaction_t *tran,pkg_info_t *pkg);
+
+/*
+  add dependencies for package to transaction, returns -1 on error, 0 otherwise
+*/
 int add_deps_to_trans(const rc_config *global_config, transaction_t *tran,
                       struct pkg_list *avail_pkgs,
                       struct pkg_list *installed_pkgs, pkg_info_t *pkg);
-/* check to see if a package is conflicted */
+
+/*
+  check to see if a package has a conflict already present in the transaction
+  returns conflicted package or NULL if none
+*/
 pkg_info_t *is_conflicted(transaction_t *tran, struct pkg_list *avail_pkgs,
                           struct pkg_list *installed_pkgs, pkg_info_t *pkg);
 
+/*
+  generate a list of suggestions based on the current packages in the transaction
+*/
 void generate_suggestions(transaction_t *tran);
-int search_upgrade_transaction(transaction_t *tran,pkg_info_t *pkg);
 
+/* free the transaction structure and it's members */
+void free_transaction(transaction_t *);

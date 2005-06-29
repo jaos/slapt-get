@@ -1,42 +1,54 @@
+
 /*
- * Copyright (C) 2003,2004,2005 Jason Woodward <woodwardj at jaos dot org>
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Library General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- */
-
-struct head_data_t {
-  char *data;
-  size_t size;
-};
-
-/* this is the main download routine */
+  this is the main download routine, returns 0 on success.  On error returns
+  -1 or CURLE_HTTP_RANGE_ERROR
+*/
 int download_data(FILE *fh,const char *url,size_t bytes,
                   const rc_config *global_config);
+
+/*
+  retrieves the head data for the url, returns (char *) or NULL on error
+*/
 char *head_request(const char *url);
 
 /*
   this fills FILE with data from url, used for PACKAGES.TXT and CHECKSUMS
+  returns 0 on success, on error -1 or CURLE_HTTP_RANGE_ERROR
 */
 int get_mirror_data_from_source(FILE *fh,const rc_config *global_config,
                                 const char *base_url,const char *filename);
 
-/* download pkg, calls download_data */
+/*
+  download pkg, calls download_data
+  returns 0 on success, on error -1 or CURLE_HTTP_RANGE_ERROR
+*/
 int download_pkg(const rc_config *global_config,pkg_info_t *pkg);
 
 /* callback for curl progress */
 char spinner(void);
+
+/*
+  this is the default progress callback if global_config->progress_cb == NULL
+*/
 int progress_callback(void *clientp, double dltotal, double dlnow,
                       double ultotal, double ulnow);
+
+/*
+  do a head request on the mirror data to find out if it's new
+  returns (char *) or NULL
+*/
+char *head_mirror_data(const char *wurl,const char *file);
+/*
+  clear head cache storage file
+*/
+void clear_head_cache(const char *cache_filename);
+/*
+  cache the head request
+*/
+void write_head_cache(const char *cache, const char *cache_filename);
+/*
+  read the cached head request
+  returns (char *) or NULL
+*/
+char *read_head_cache(const char *cache_filename);
 
