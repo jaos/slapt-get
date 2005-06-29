@@ -32,7 +32,7 @@ char *head_request(const char *url);
 int get_mirror_data_from_source(FILE *fh,const rc_config *global_config,
                                 const char *base_url,const char *filename);
 
-/* download pkg, cals download_data */
+/* download pkg, calls download_data */
 int download_pkg(const rc_config *global_config,pkg_info_t *pkg);
 
 /* callback for curl progress */
