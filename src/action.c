@@ -18,6 +18,8 @@
 
 #include <main.h>
 
+static int cmp_pkg_arch(const char *a,const char *b);
+
 /* install pkg */
 void pkg_action_install(const rc_config *global_config,
                         const pkg_action_args_t *action_args)
@@ -585,7 +587,7 @@ void pkg_action_upgrade_all(const rc_config *global_config)
         (
           global_config->dist_upgrade == TRUE &&
           cmp_r == 0 &&
-          strcmp(installed_pkgs->pkgs[i]->version,update_pkg->version) != 0
+          cmp_pkg_arch(installed_pkgs->pkgs[i]->version,update_pkg->version) != 0
         )
       ) {
 
@@ -641,5 +643,44 @@ void free_pkg_action_args(pkg_action_args_t *paa)
 
   free(paa->pkgs);
   free(paa);
+}
+
+static int cmp_pkg_arch(const char *a,const char *b)
+{
+  int r = 0;
+  sg_regex a_arch_regex, b_arch_regex;
+
+  init_regex(&a_arch_regex,PKG_VER);
+  init_regex(&b_arch_regex,PKG_VER);
+
+  execute_regex(&a_arch_regex,a);
+  execute_regex(&b_arch_regex,b);
+
+  if (a_arch_regex.reg_return != 0 || a_arch_regex.reg_return != 0) {
+
+    free_regex(&a_arch_regex);
+    free_regex(&b_arch_regex);
+
+    return strcmp(a,b);
+
+  } else {
+    char *a_arch = slapt_malloc(sizeof *a_arch * (a_arch_regex.pmatch[2].rm_eo - a_arch_regex.pmatch[2].rm_so +1));
+    char *b_arch = slapt_malloc(sizeof *b_arch * (b_arch_regex.pmatch[2].rm_eo - b_arch_regex.pmatch[2].rm_so +1));
+
+    strncpy(a_arch,a + a_arch_regex.pmatch[2].rm_so,(a_arch_regex.pmatch[2].rm_eo - a_arch_regex.pmatch[2].rm_so));
+    a_arch[a_arch_regex.pmatch[2].rm_eo - a_arch_regex.pmatch[2].rm_so] = '\0';
+    b_arch[b_arch_regex.pmatch[2].rm_eo - b_arch_regex.pmatch[2].rm_so] = '\0';
+    strncpy(b_arch,b + b_arch_regex.pmatch[2].rm_so,(b_arch_regex.pmatch[2].rm_eo - b_arch_regex.pmatch[2].rm_so));
+
+    r = strcmp(a_arch,b_arch);
+
+    free(a_arch);
+    free(b_arch);
+  }
+
+  free_regex(&a_arch_regex);
+  free_regex(&b_arch_regex);
+
+  return r;
 }
 
