@@ -259,7 +259,6 @@ void add_source(struct source_list *list,const char *s)
     list->url[ list->count ][source_len] = '\0';
 
   } else {
-    fprintf(stderr,"[%s] ",s);
 
     list->url[ list->count ] = slapt_malloc(
       sizeof *list->url[list->count] * (source_len + 2)
@@ -288,7 +287,6 @@ void add_source(struct source_list *list,const char *s)
     }
 
     list->url[list->count][source_len + 1] = '\0';
-    fprintf(stderr,"[%s]\n",list->url[list->count]);
 
   }
 
