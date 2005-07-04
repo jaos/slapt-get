@@ -259,6 +259,7 @@ void add_source(struct source_list *list,const char *s)
     list->url[ list->count ][source_len] = '\0';
 
   } else {
+    fprintf(stderr,"[%s] ",s);
 
     list->url[ list->count ] = slapt_malloc(
       sizeof *list->url[list->count] * (source_len + 2)
@@ -271,13 +272,23 @@ void add_source(struct source_list *list,const char *s)
       source_len
     );
 
-    list->url[list->count] = strncat(
-      list->url[list->count],
-      "/",
-      strlen("/")
-    );
+    if (isblank(list->url[list->count][source_len - 1]) == 0) {
+      list->url[list->count] = strncat(
+        list->url[list->count],
+        "/",
+        strlen("/")
+      );
+    } else {
+      if (list->url[list->count][source_len - 2] == '/') {
+        list->url[list->count][source_len - 2] = '/';
+        list->url[list->count][source_len - 1] = '\0';
+      } else {
+        list->url[list->count][source_len - 1] = '/';
+      }
+    }
 
     list->url[list->count][source_len + 1] = '\0';
+    fprintf(stderr,"[%s]\n",list->url[list->count]);
 
   }
 
