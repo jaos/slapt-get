@@ -1,4 +1,7 @@
 
+0.9.10 Jul 04, 2005
+ * check in update_pkg_cache() to make sure patch_pkgs is initialized
+
 0.9.9m Jun 30, 2005
  * --dist-upgrade update so that only packages with different arches and the
    the same versions are reinstalled

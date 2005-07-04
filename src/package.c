@@ -2038,19 +2038,28 @@ int update_pkg_cache(const rc_config *global_config)
         get_md5sum(available_pkgs->pkgs[a],tmp_checksum_f);
         printf("%c\b",spinner());
       }
-      for (a = 0;a < patch_pkgs->pkg_count;a++) {
-        get_md5sum(patch_pkgs->pkgs[a],tmp_checksum_f);
-        printf("%c\b",spinner());
+      if (patch_pkgs) {
+        for (a = 0;a < patch_pkgs->pkg_count;a++) {
+          get_md5sum(patch_pkgs->pkgs[a],tmp_checksum_f);
+          printf("%c\b",spinner());
+        }
       }
       printf(_("Done\n"));
 
       /* write package listings to disk */
       write_pkg_data(global_config->sources->url[i],pkg_list_fh_tmp,available_pkgs);
-      write_pkg_data(global_config->sources->url[i],pkg_list_fh_tmp,patch_pkgs);
+
+      if (patch_pkgs)
+        write_pkg_data(global_config->sources->url[i],pkg_list_fh_tmp,patch_pkgs);
 
     }
-    if ( available_pkgs ) free_pkg_list(available_pkgs);
-    if ( patch_pkgs ) free_pkg_list(patch_pkgs);
+
+    if (available_pkgs)
+      free_pkg_list(available_pkgs);
+
+    if (patch_pkgs)
+      free_pkg_list(patch_pkgs);
+
     free(checksum_filename);
     fclose(tmp_checksum_f);
 
