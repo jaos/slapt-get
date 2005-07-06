@@ -1,5 +1,5 @@
 
-0.9.10 Jul 04, 2005
+0.9.10 Jul 06, 2005
  * updated configuration parser to detect sources with spaces at the end
    and updated handling of sources without trailing slashes
  * check in update_pkg_cache() to make sure patch_pkgs is initialized
