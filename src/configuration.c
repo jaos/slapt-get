@@ -239,55 +239,34 @@ void add_exclude(struct exclude_list *list,const char *e)
 void add_source(struct source_list *list,const char *s)
 {
   char **realloc_tmp;
-  int source_len = 0;
+  unsigned int i;
 
   if ( s == NULL )
     return;
 
-  source_len = strlen(s);
-
-  realloc_tmp = realloc(list->url,sizeof *list->url * (list->count + 1) );
+  realloc_tmp = realloc(list->url,sizeof *list->url * (list->count + 2) );
 
   if ( realloc_tmp == NULL )
     return;
 
   list->url = realloc_tmp;
+  /* we make nul + 1 in case we have to add a / */
+  list->url[list->count] = slapt_malloc(sizeof *list->url[list->count] * (strlen(s) + 2));
 
-  if ( s[source_len - 1] == '/' ) {
-
-    list->url[ list->count ] = strndup(s,source_len);
-    list->url[ list->count ][source_len] = '\0';
-
-  } else {
-
-    list->url[ list->count ] = slapt_malloc(
-      sizeof *list->url[list->count] * (source_len + 2)
-    );
-    list->url[list->count][0] = '\0';
-
-    list->url[list->count] = strncat(
-      list->url[list->count],
-      s,
-      source_len
-    );
-
-    if (isblank(list->url[list->count][source_len - 1]) == 0) {
-      list->url[list->count] = strncat(
-        list->url[list->count],
-        "/",
-        strlen("/")
-      );
+  /* walk the source to make sure no additional garbage is at the end */
+  for (i = 0; i < strlen(s); ++i) {
+    if (isblank(s[i]) == 0) {
+      list->url[list->count][i] = s[i];
     } else {
-      if (list->url[list->count][source_len - 2] == '/') {
-        list->url[list->count][source_len - 2] = '/';
-        list->url[list->count][source_len - 1] = '\0';
-      } else {
-        list->url[list->count][source_len - 1] = '/';
-      }
+      list->url[list->count][i] = '\0';
     }
+  }
+  list->url[ list->count ][strlen(s)] = '\0';
 
-    list->url[list->count][source_len + 1] = '\0';
-
+  /* add a trailing / if it's not there */
+  if (list->url[list->count][strlen(list->url[list->count]) - 1] != '/') {
+    list->url[list->count][strlen(list->url[list->count])] = '/';
+    list->url[list->count][strlen(list->url[list->count]) + 1] = '\0';
   }
 
   ++list->count;
