@@ -12,7 +12,7 @@ RCSOURCE=example.slapt-getrc
 LOCALESDIR=/usr/share/locale
 SBINDIR=/usr/sbin/
 DEFINES=-DPROGRAM_NAME="\"$(PROGRAM_NAME)\"" -DVERSION="\"$(VERSION)\"" -DRC_LOCATION="\"$(RCDEST)\"" -DENABLE_NLS -DLOCALESDIR="\"$(LOCALESDIR)\""
-CFLAGS=-W -Werror -Wall -O2 -ansi -pedantic -Iinclude $(DEFINES) # add -fPIC for amd64
+CFLAGS=-W -Werror -Wall -O2 -ansi -pedantic $(DEFINES) # add -fPIC for amd64
 
 default: $(PROGRAM_NAME)
 
@@ -37,7 +37,7 @@ withlibslaptinstall: withlibslapt doinstall
 
 libsinstall: libs
 	if [ ! -d $(DESTDIR)/usr/include ]; then mkdir -p $(DESTDIR)/usr/include;fi
-	cp include/slapt.h $(DESTDIR)/usr/include/
+	cp src/slapt.h $(DESTDIR)/usr/include/
 	if [ ! -d $(DESTDIR)/usr/lib ]; then mkdir -p $(DESTDIR)/usr/lib;fi
 	cp src/libslapt-$(VERSION).a src/libslapt-$(VERSION).so $(DESTDIR)/usr/lib/
 	if [ -L $(DESTDIR)/usr/lib/libslapt.so ]; then rm $(DESTDIR)/usr/lib/libslapt.so;fi
@@ -78,7 +78,7 @@ clean:
 	-rm src/*.o
 	-rm src/*.a
 	-rm src/*.so
-	-rm include/slapt.h
+	-rm src/slapt.h
 	-if [ -d pkg ]; then rm -rf pkg ;fi
 	-if [ -f libs ]; then rm -rf libs ;fi
 
@@ -112,7 +112,7 @@ dopkg:
 	@gzip pkg/usr/man/man8/$(PROGRAM_NAME).8
 	@mkdir -p pkg/usr/lib
 	@mkdir -p pkg/usr/include
-	@cp include/slapt.h pkg/usr/include/
+	@cp src/slapt.h pkg/usr/include/
 	@cp src/libslapt-$(VERSION).a src/libslapt-$(VERSION).so pkg/usr/lib/
 	@strip pkg/usr/lib/libslapt-$(VERSION).so
 	@( cd pkg/usr/lib; ln -s libslapt-$(VERSION).so libslapt.so; ln -s libslapt-$(VERSION).a libslapt.a )
@@ -129,5 +129,5 @@ libs: $(OBJS)
 	touch libs
 	$(CC) -shared -o src/libslapt-$(VERSION).so $(LIBOBJS)
 	ar -r src/libslapt-$(VERSION).a $(LIBOBJS)
-	cat include/main.h include/common.h include/configuration.h include/package.h include/curl.h include/transaction.h |grep -v '#include \"' > include/slapt.h
+	cat src/main.h src/common.h src/configuration.h src/package.h src/curl.h src/transaction.h |grep -v '#include \"' > src/slapt.h
 

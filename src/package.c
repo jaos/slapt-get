@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <main.h>
+#include "main.h"
 /* analyze the pkg version hunk by hunk */
 static struct pkg_version_parts *break_down_pkg_version(const char *version);
 /* parse the meta lines */
