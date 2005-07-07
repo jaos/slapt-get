@@ -1,6 +1,6 @@
 PACKAGE=slapt-get
 VERSION=0.9.10
-ARCH=`case $(uname -m) in i[3456]86) echo i386 ;; x86_64) echo x86_64 ;; *) uname -m ;; esac`
+ARCH=$(shell uname -m | sed -e "s/i[3456]86/i386/")
 RELEASE=1
 CC=gcc
 CURLFLAGS=`curl-config --libs`
