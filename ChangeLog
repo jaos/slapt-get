@@ -1,7 +1,5 @@
 
-0.9.10 Jul 07, 2005
- * updated build process to use autoconf/automake
- * moved header files into src
+0.9.10 Jul 06, 2005
  * updated configuration parser to detect sources with spaces at the end
    and updated handling of sources without trailing slashes
  * check in update_pkg_cache() to make sure patch_pkgs is initialized

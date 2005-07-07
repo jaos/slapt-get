@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include "main.h"
+#include <main.h>
 
 static queue_t *queue_init(void);
 static void queue_add_install(queue_t *t, pkg_info_t *p);

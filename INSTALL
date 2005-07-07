@@ -1,8 +1,7 @@
-- Source install ---------------------------------------------------
+- Using Make: ---------------------------------------------------
 
  To install:
 
-  $ ./configure --prefix=/usr 
   $ make
   $ make install
 
@@ -16,7 +15,6 @@
 
  To install:
 
-  $ ./configure --prefix=/usr
   $ make pkg
   $ installpkg ./pkg/slapt-get-${VERSION}-${ARCH}-${RELEASE}.tgz
 
