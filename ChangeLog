@@ -1,5 +1,6 @@
 
-0.9.10 Jul 06, 2005
+0.9.10 Jul 07, 2005
+ * updated build process to use autoconf/automake
  * moved header files into src
  * updated configuration parser to detect sources with spaces at the end
    and updated handling of sources without trailing slashes

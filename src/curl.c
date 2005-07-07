@@ -41,7 +41,7 @@ int download_data(FILE *fh,const char *url,size_t bytes,
   curl_easy_setopt(ch, CURLOPT_URL, url);
   curl_easy_setopt(ch, CURLOPT_WRITEDATA, fh);
   curl_easy_setopt(ch, CURLOPT_NOPROGRESS, 0);
-  curl_easy_setopt(ch, CURLOPT_USERAGENT, PROGRAM_NAME );
+  curl_easy_setopt(ch, CURLOPT_USERAGENT, PACKAGE );
   curl_easy_setopt(ch, CURLOPT_FTP_USE_EPSV, 0);
 /* this is a check for slack 9.0's curl libs */
 #ifdef CURLOPT_FTP_USE_EPRT
@@ -136,7 +136,7 @@ char *head_request(const char *url)
   curl_easy_setopt(ch, CURLOPT_URL, url);
   curl_easy_setopt(ch, CURLOPT_WRITEFUNCTION, write_header_callback);
   curl_easy_setopt(ch, CURLOPT_NOPROGRESS, 1);
-  curl_easy_setopt(ch, CURLOPT_USERAGENT, PROGRAM_NAME );
+  curl_easy_setopt(ch, CURLOPT_USERAGENT, PACKAGE );
   curl_easy_setopt(ch, CURLOPT_FILE, &head_t);
   curl_easy_setopt(ch, CURLOPT_HEADER, 1);
   curl_easy_setopt(ch, CURLOPT_NOBODY, 1);

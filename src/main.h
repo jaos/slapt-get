@@ -45,6 +45,7 @@
 #include "curl.h"
 #include "transaction.h"
 #include "action.h"
+#include "config.h"
 
 enum action {
   USAGE = 0, UPDATE, INSTALL, REMOVE, SHOW, SEARCH, UPGRADE,

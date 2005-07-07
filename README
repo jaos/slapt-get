@@ -173,44 +173,4 @@ Table of Contents:
    Thanks to James Simmons over at linuxpackages.net for his interest, support,
    and ideas.
 
-   nixon <nixon at klub dot chip dot pl> and simon
-   <ssiimm at poczta dot onet dot pl> authored the Polish translation.  With
-   updates by Paul Blazejowski <paulb at blazebox dot homeip dot net>, and
-   Piotr Simon <sajmon at tenboard dot com>.
-
-   Arnaldo de Moraes Pereira <arnaldo at sp-dhn dot com dot br> authored the
-   Brazilian Portuguese translation.
-
-   Michiel H. <myself at mhil dot net> authored the Dutch translation.
-
-   Joran Kvalvaag <jk at nerdworks dot org> authored the Norwegian translation.
-
-   Ruben <ruben at snpp dot com dot ar> authored the Latin American and Spanish
-   translations.
-
-   Francesco Gigli <jaramir at slack dot it> authored the Italian translation.
-
-   Joel Bjurman <ypolt at lediga dot st> authored the Swedish translation.
-
-   Savvas Efstratiadis <pigouinos at mailworks dot org> authored the Greek
-   translation.
-
-   Niklas Volbers <mithrandir42 at web dot de> authored the German translation.
-
-   Oto Petrik <oto.petrik at centrum dot cz > authored the Czech translation.
-
-   Piotr Simon <sajmon at tenboard dot com> created the HTML version of the FAQ.
-
-   Miguel Santinho <info at Simplicidade dot com> authored the Portuguese_Portugal
-   translation.
- 
-   Vu Nguyen (vncasper at yahoo dot com) authored the Vietnamese translation.
-
-   publikum at users dot sourceforge dot net authored the Slovenian translation.
-
-   Verachten Bruno <gounthar at gmail dot com> authored the French translation.
-
-   freerock <freerock at gmail dot com> contributed the DESTDIR support for the makefile.
-
-   Erik Gyepes <depi at depi dot sk> contributed the Slovak translation.
-
+   See AUTHORS for more info.

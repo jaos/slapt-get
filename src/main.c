@@ -68,8 +68,8 @@ int main( int argc, char *argv[] )
 
   #ifdef ENABLE_NLS
   setlocale(LC_ALL,"");
-  bindtextdomain(PROGRAM_NAME,LOCALESDIR);
-  textdomain(PROGRAM_NAME);
+  bindtextdomain(GETTEXT_PACKAGE,PACKAGE_LOCALE_DIR);
+  textdomain(GETTEXT_PACKAGE);
   #endif
 
   if ( argc < 2 ) {
@@ -302,10 +302,10 @@ int main( int argc, char *argv[] )
 
 void usage(void)
 {
-  printf("%s - Jason Woodward <woodwardj at jaos dot org>\n",PROGRAM_NAME);
+  printf("%s - Jason Woodward <woodwardj at jaos dot org>\n",PACKAGE);
   printf(_("An implementation of the Debian APT system to Slackware\n"));
   printf(_("Usage:\n"));
-  printf(_("%s [option(s)] [target]\n"),PROGRAM_NAME);
+  printf(_("%s [option(s)] [target]\n"),PACKAGE);
   printf("\n");
   printf(_("Targets:\n"));
   printf("  --update       - %s\n",_("retrieves pkg data from MIRROR"));
@@ -339,7 +339,7 @@ void usage(void)
 
 void version_info(void)
 {
-  printf(_("%s version %s\n"),PROGRAM_NAME,VERSION);
+  printf(_("%s version %s\n"),PACKAGE,VERSION);
   printf("\n");
   printf("This program is free software; you can redistribute it and/or modify\n");
   printf("it under the terms of the GNU General Public License as published by\n");
