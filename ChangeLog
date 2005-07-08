@@ -1,5 +1,6 @@
 
 0.9.10 Jul 07, 2005
+ * translation updates
  * moved header files into src/, updated Makefile
  * updated configuration parser to detect sources with spaces at the end
    and updated handling of sources without trailing slashes

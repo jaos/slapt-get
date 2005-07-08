@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.9k\n"
+"Project-Id-Version: 0.9.10\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2005-05-01 09:47+0200\n"
+"PO-Revision-Date: 2005-07-08 09:38+0500\n"
 "Last-Translators: Sajmon <sajmon@tenboard.com>, Paul Blazejowski <paulb@blazebox.homeip.net>, nixon <nixon@klub.chip.pl> and simon <ssiimm@poczta.onet.pl>\n"
 "Language-Team: polish slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -179,12 +179,12 @@ msgid "Failed to calloc\n"
 msgstr "Nie powiod³o siê calloc\n"
 
 #, c-format
-msgid "Downloading %s %s %s [%0.1d%s]..."
-msgstr "Pobieram %s %s %s [%0.1d%s]..."
+msgid "Downloading %s %s %s [%.1d%s]..."
+msgstr "Pobieram %s %s %s [%.1d%s]..."
 
 #, c-format
-msgid "Downloading %s %s %s [%0.1d%s]...\n"
-msgstr "Pobieram %s %s %s [%0.1d%s]...\n"
+msgid "Downloading %s %s %s [%.1d%s]...\n"
+msgstr "Pobieram %s %s %s [%.1d%s]...\n"
 
 #, c-format
 msgid "Failed to unlink %s\n"
@@ -374,20 +374,20 @@ msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
 msgstr "%d uaktualnione(ych), %d nowe zainstalowane, %d do usuniêcia i %d nieuaktualnione.\n"
 
 #, c-format
-msgid "Need to get %0.1d%s of archives.\n"
-msgstr "Potrzeba ¶ci±gn±æ %0.1d%s danych.\n"
+msgid "Need to get %.1d%s of archives.\n"
+msgstr "Potrzeba ¶ci±gn±æ %.1d%s danych.\n"
 
 #, c-format
-msgid "Need to get %0.1d%s/%0.1d%s of archives.\n"
-msgstr "Potrzeba ¶ci±gn±æ %0.1d%s/%0.1d%s danych.\n"
+msgid "Need to get %.1d%s/%.1d%s of archives.\n"
+msgstr "Potrzeba ¶ci±gn±æ %.1d%s/%.1d%s danych.\n"
 
 #, c-format
-msgid "After unpacking %0.1d%s disk space will be freed.\n"
-msgstr "Po rozpakowaniu, %0.1d%s miejsca na dysku zostanie zwolnione.\n"
+msgid "After unpacking %.1d%s disk space will be freed.\n"
+msgstr "Po rozpakowaniu, %.1d%s miejsca na dysku zostanie zwolnione.\n"
 
 #, c-format
-msgid "After unpacking %0.1d%s of additional disk space will be used.\n"
-msgstr "Po rozpakowaniu, %0.1d%s miejsca na dysku zostanie u¿yte.\n"
+msgid "After unpacking %.1d%s of additional disk space will be used.\n"
+msgstr "Po rozpakowaniu, %.1d%s miejsca na dysku zostanie u¿yte.\n"
 
 msgid "Do you want to continue? [y/N] "
 msgstr "Czy chcesz kontynuowaæ? [y/N] "
