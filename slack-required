@@ -1,8 +1,8 @@
 curl >= 7.12.2-i486-1
 libidn
-glibc-solibs >= 2.3.4-i486-1
+glibc-solibs >= 2.3.4-i486-1 | glibc
 binutils
-openssl-solibs >= 0.9.7e-i486-3
+openssl-solibs >= 0.9.7e-i486-3 | openssl
 pkgtools
 zlib
 
