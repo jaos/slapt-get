@@ -50,7 +50,7 @@ doinstall: libsinstall
 	strip --strip-unneeded $(PACKAGE)
 	if [ ! -d $(DESTDIR)$(SBINDIR) ]; then mkdir -p $(DESTDIR)$(SBINDIR);fi
 	install $(PACKAGE) $(DESTDIR)$(SBINDIR)
-	chown root:bin $(DESTDIR)$(SBINDIR)$(PACKAGE)
+	-chown root:bin $(DESTDIR)$(SBINDIR)$(PACKAGE)
 	if [ ! -d $(DESTDIR)/etc/slapt-get ]; then mkdir -p $(DESTDIR)/etc/slapt-get;fi
 	if [ -f $(DESTDIR)/etc/slapt-getrc ]; then mv $(DESTDIR)/etc/slapt-getrc $(DESTDIR)$(RCDEST);fi
 	if [ ! -f $(DESTDIR)$(RCDEST) ]; then install --mode=0644 -b $(RCSOURCE) $(DESTDIR)$(RCDEST); else install --mode=0644 -b $(RCSOURCE) $(DESTDIR)$(RCDEST).new;fi
