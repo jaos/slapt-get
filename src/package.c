@@ -463,6 +463,7 @@ struct pkg_list *get_installed_pkgs(void)
   struct dirent *file;
   sg_regex ip_regex, compressed_size_reg, uncompressed_size_reg,location_regex;
   struct pkg_list *list = NULL;
+  size_t pls = 1;
 
   list = init_pkg_list();
 
@@ -561,15 +562,20 @@ struct pkg_list *get_installed_pkgs(void)
       exit(1);
     }
 
+    /* don't mmap empty files */
     if ((int)stat_buf.st_size < 1) {
       free_pkg(tmp_pkg);
       free(pkg_f_name);
       fclose(pkg_f);
       continue;
+    } else {
+      /* only mmap what we need */
+      pls = (size_t)stat_buf.st_size;
+      if (pls > MAX_MMAP_SIZE)
+        pls = MAX_MMAP_SIZE;
     }
 
-    /* keep it private (changes not written) and writeable */
-    pkg_data = (char *)mmap(0,(size_t)stat_buf.st_size,
+    pkg_data = (char *)mmap(0,pls,
                             PROT_READ|PROT_WRITE,MAP_PRIVATE,fileno(pkg_f),0);
     if (pkg_data == (void *)-1) {
 
@@ -583,7 +589,7 @@ struct pkg_list *get_installed_pkgs(void)
     fclose(pkg_f);
 
     /* add \0 for strlen to work */
-    pkg_data[stat_buf.st_size - 1] = '\0';
+    pkg_data[pls - 1] = '\0';
 
     /* pull out compressed size */
     execute_regex(&compressed_size_reg,pkg_data);
@@ -652,8 +658,8 @@ struct pkg_list *get_installed_pkgs(void)
 
     }
 
-    /* mmap */
-    if (munmap(pkg_data,stat_buf.st_size) == -1) {
+    /* munmap now that we are done */
+    if (munmap(pkg_data,pls) == -1) {
       if (errno)
         perror(pkg_f_name);
 

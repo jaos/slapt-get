@@ -1,5 +1,6 @@
 
 0.9.10 Jul 14, 2005
+ * limit mmap'd size for very large packages
  * updated Vi translation
  * updated find_or_requirement() to prefer installed packages
  * translation updates

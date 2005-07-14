@@ -26,6 +26,7 @@
 #define UPGRADE_CMD "/sbin/upgradepkg --reinstall "
 #define CHECKSUM_FILE "CHECKSUMS.md5"
 #define HEAD_FILE_EXT ".head"
+#define MAX_MMAP_SIZE 1024
 
 typedef struct {
   char *name;
