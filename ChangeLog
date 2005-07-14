@@ -1,5 +1,6 @@
 
-0.9.10 Jul 09, 2005
+0.9.10 Jul 14, 2005
+ * updated Vi translation
  * updated find_or_requirement() to prefer installed packages
  * translation updates
  * moved header files into src/, updated Makefile
