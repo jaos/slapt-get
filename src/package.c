@@ -645,15 +645,33 @@ struct pkg_list *get_installed_pkgs(void)
 
       filelist_p = strstr(desc_p,"FILE LIST");
       if (filelist_p != NULL) {
+        char *tmp_desc = NULL;
         size_t len = strlen(desc_p) - strlen(filelist_p) + 1;
-        tmp_pkg->description = slapt_malloc(sizeof *tmp_pkg->description * len);
-        strncpy(tmp_pkg->description,desc_p,len - 1);
-        tmp_pkg->description[len - 1] = '\0';
+
+        tmp_desc = realloc(tmp_pkg->description,
+          sizeof *tmp_pkg->description *
+          (strlen(tmp_pkg->description) + len + 1)
+        );
+        if (tmp_desc != NULL) {
+          tmp_pkg->description = tmp_desc;
+          strncpy(tmp_pkg->description,desc_p,len - 1);
+          tmp_pkg->description[len - 1] = '\0';
+        }
+
       } else {
+        char *tmp_desc = NULL;
         size_t len = strlen(desc_p) + 1;
-        tmp_pkg->description = slapt_malloc(sizeof *tmp_pkg->description * len);
-        strncpy(tmp_pkg->description,desc_p,len - 1);
-        tmp_pkg->description[len - 1] = '\0';
+
+        tmp_desc = realloc(tmp_pkg->description,
+          sizeof *tmp_pkg->description *
+          (strlen(tmp_pkg->description) + len + 1)
+        );
+        if (tmp_desc != NULL) {
+          tmp_pkg->description = tmp_desc;
+          strncpy(tmp_pkg->description,desc_p,len - 1);
+          tmp_pkg->description[len - 1] = '\0';
+        }
+
       }
 
     }
