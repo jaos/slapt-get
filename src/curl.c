@@ -80,11 +80,15 @@ int download_data(FILE *fh,const char *url,size_t bytes,
     */
     if (response == CURLE_HTTP_RANGE_ERROR) {
       return_code = CURLE_HTTP_RANGE_ERROR;
+    } else if (response == CURLE_FTP_BAD_DOWNLOAD_RESUME) {
+      return_code = CURLE_FTP_BAD_DOWNLOAD_RESUME;
+    } else if (response == CURLE_PARTIAL_FILE) {
+      return_code = CURLE_PARTIAL_FILE;
     /*
       * this is a simple hack for all ftp sources that won't have a patches dir
       * we don't want an ugly error to confuse the user
     */
-    }else if (strstr(url,PATCHES_LIST) != NULL) {
+    } else if (strstr(url,PATCHES_LIST) != NULL) {
       return_code = 0;
     } else {
       fprintf(stderr,_("Failed to download: %s\n"),curl_err_buff);
@@ -254,7 +258,9 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg)
   if (dl_return == 0) {
     if (global_config->dl_stats == FALSE && global_config->progress_cb == NULL)
       printf(_("Done\n"));
-  }else if (dl_return == CURLE_HTTP_RANGE_ERROR) {
+  }else if (dl_return == CURLE_HTTP_RANGE_ERROR ||
+            dl_return == CURLE_FTP_BAD_DOWNLOAD_RESUME ||
+            dl_return == CURLE_PARTIAL_FILE) {
     /*
       * this is for errors trying to resume.  unlink the file and
       * try again.
