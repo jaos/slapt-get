@@ -186,7 +186,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh)
           );
           free(tmp_pkg->location);
           tmp_pkg->location = tmp_location;
-        }else if (strstr(tmp_pkg->location,"./extra/") != NULL) {
+        } else if (strstr(tmp_pkg->location,"./extra/") != NULL) {
           char *tmp_location = slapt_malloc(
             sizeof *tmp_location *
             (strlen(tmp_pkg->location) - strlen("./extra") + 2)
@@ -199,7 +199,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh)
           );
           free(tmp_pkg->location);
           tmp_pkg->location = tmp_location;
-        }else if (strstr(tmp_pkg->location,"./pasture/") != NULL) {
+        } else if (strstr(tmp_pkg->location,"./pasture/") != NULL) {
           char *tmp_location = slapt_malloc(
             sizeof *tmp_location *
             (strlen(tmp_pkg->location) - strlen("./pasture") + 2)
@@ -1201,7 +1201,7 @@ static struct pkg_version_parts *break_down_pkg_version(const char *version)
       pointer = NULL;
       pos += b_count;
     /* check for _ as a seperator */
-    }else if ((pointer = strchr(short_version + pos,'_')) != NULL) {
+    } else if ((pointer = strchr(short_version + pos,'_')) != NULL) {
       int b_count = (strlen(short_version + pos) - strlen(pointer) + 1);
       pvp->parts[pvp->count] = slapt_malloc(
         sizeof *pvp->parts[pvp->count] * b_count);

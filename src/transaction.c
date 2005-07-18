@@ -289,7 +289,7 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran)
           tran->queue->pkgs[i]->pkg.i->name,
           tran->queue->pkgs[i]->pkg.i->version
         );
-      }else if ( tran->queue->pkgs[i]->type == UPGRADE ) {
+      } else if ( tran->queue->pkgs[i]->type == UPGRADE ) {
         printf(_("%s-%s is to be upgraded to version %s\n"),
           tran->queue->pkgs[i]->pkg.u->upgrade->name,
           tran->queue->pkgs[i]->pkg.u->installed->version,
@@ -328,7 +328,7 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran)
         if ( install_pkg(global_config,tran->queue->pkgs[i]->pkg.i) == -1 ) {
           exit(1);
         }
-      }else if ( tran->queue->pkgs[i]->type == UPGRADE ) {
+      } else if ( tran->queue->pkgs[i]->type == UPGRADE ) {
         if ( upgrade_pkg( global_config, tran->queue->pkgs[i]->pkg.u->installed,
              tran->queue->pkgs[i]->pkg.u->upgrade) == -1 ) {
           exit(1);

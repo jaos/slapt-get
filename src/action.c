@@ -485,7 +485,7 @@ void pkg_action_upgrade_all(const rc_config *global_config)
       /* even if it's installed, check to see that the packages are different */
       /* simply running a version comparison won't do it since sometimes the */
       /* arch is the only thing that changes */
-      }else if (
+      } else if (
         (cmp_pkg_versions(installed_pkg->version,upgrade_pkg->version) <= 0) &&
         strcmp(installed_pkg->version,upgrade_pkg->version) != 0
       ) {

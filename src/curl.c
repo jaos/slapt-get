@@ -258,7 +258,7 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg)
   if (dl_return == 0) {
     if (global_config->dl_stats == FALSE && global_config->progress_cb == NULL)
       printf(_("Done\n"));
-  }else if (dl_return == CURLE_HTTP_RANGE_ERROR ||
+  } else if (dl_return == CURLE_HTTP_RANGE_ERROR ||
             dl_return == CURLE_FTP_BAD_DOWNLOAD_RESUME ||
             dl_return == CURLE_PARTIAL_FILE) {
     /*
@@ -315,7 +315,7 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg)
     free(file_name);
     return 0;
 
-  }else if (pkg_verify_return == MD5_CHECKSUM_FAILED) {
+  } else if (pkg_verify_return == MD5_CHECKSUM_FAILED) {
     fprintf(stderr,
       _("md5 sum for %s is not correct, override with --no-md5!\n"),
       pkg->name);

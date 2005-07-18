@@ -88,7 +88,7 @@ rc_config *read_rc_config(const char *file_name)
         ] = '\0';
       }
 
-    }else if ( strstr(getline_buffer,EXCLUDE_TOKEN) != NULL ) {
+    } else if ( strstr(getline_buffer,EXCLUDE_TOKEN) != NULL ) {
        /* exclude list */
       global_config->exclude_list = parse_exclude(getline_buffer);
     }
