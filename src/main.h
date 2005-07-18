@@ -38,6 +38,7 @@
 #include <locale.h>
 #include <sys/statvfs.h>
 #include <sys/mman.h>
+#include <zlib.h>
 
 #include "common.h"
 #include "configuration.h"

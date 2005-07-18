@@ -18,15 +18,19 @@
 #define MD5_STR_LEN 34
 #define MD5_CHECKSUM_FAILED -100
 #define PKG_LIST "PACKAGES.TXT"
+#define PKG_LIST_GZ "PACKAGES.TXT.gz"
 #define PKG_LIST_L "package_data"
 #define PATCHES_LIST "patches/PACKAGES.TXT"
+#define PATCHES_LIST_GZ "patches/PACKAGES.TXT.gz"
 #define PATCHDIR "patches/"
 #define REMOVE_CMD "/sbin/removepkg "
 #define INSTALL_CMD "/sbin/installpkg "
 #define UPGRADE_CMD "/sbin/upgradepkg --reinstall "
 #define CHECKSUM_FILE "CHECKSUMS.md5"
+#define CHECKSUM_FILE_GZ "CHECKSUMS.md5.gz"
 #define HEAD_FILE_EXT ".head"
 #define MAX_MMAP_SIZE 1024
+#define MAX_ZLIB_BUFFER 1024
 
 typedef struct {
   char *name;

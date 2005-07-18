@@ -1,5 +1,5 @@
 PACKAGE=slapt-get
-VERSION=0.9.10
+VERSION=0.9.10a
 ARCH=$(shell uname -m | sed -e "s/i[3456]86/i386/")
 RELEASE=1
 CC=gcc
