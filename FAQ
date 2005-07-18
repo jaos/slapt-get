@@ -325,6 +325,10 @@ Frequently Asked Questions:
  ### BEGIN SCRIPT
     #!/bin/sh
     #DL_URL=http://your_remove_pkg_host.tld/packages/
+    # This program is free software; you can redistribute it and/or modify
+    # it under the terms of the GNU General Public License as published by
+    # the Free Software Foundation; either version 2 of the License, or
+    # any later version.
 
     function gen_packages_txt {
 	    echo '' > PACKAGES.TXT
@@ -627,6 +631,10 @@ Frequently Asked Questions:
  #!/bin/sh
  # slapt-get wrapper to hack dependencies via ldd where slack-required isn't available
  # Copyright (C) 11-30-2003 Jason Woodward <woodwardj at jaos dot org>
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation; either version 2 of the License, or
+ # any later version.
  WORKINGDIR=`grep WORKINGDIR /etc/slapt-get/slapt-getrc|cut -f2 -d'='`
  MF=MANIFEST
  PKGLINES=${WORKINGDIR}/depslapt_pkgs
