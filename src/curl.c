@@ -197,7 +197,7 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg)
   char *url = NULL;
   size_t f_size = 0;
   int pkg_verify_return = -1;
-  int dl_return = -1;
+  int dl_return = -1, dl_total_size = 0;
 
   if (verify_downloaded_pkg(global_config,pkg) == 0)
     return 0;
@@ -209,17 +209,30 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg)
   url = gen_pkg_url(pkg);
   file_name = gen_pkg_file_name(global_config,pkg);
   f_size = get_pkg_file_size(global_config,pkg);
+  dl_total_size = pkg->size_c - (f_size/1024);
+
+  /* if file on disk is larger than the supposed size, unlink it */
+  if (dl_total_size < 0) {
+    if (unlink(file_name) == -1) {
+      fprintf(stderr,_("Failed to unlink %s\n"),file_name);
+
+      if (errno)
+        perror(file_name);
+
+      exit(1);
+    }
+    dl_total_size = pkg->size_c;
+    f_size = 0;
+  }
 
   if (global_config->progress_cb == NULL) {
     if (global_config->dl_stats == TRUE) {
-      int dl_total_size = pkg->size_c - (f_size/1024);
       printf(_("Downloading %s %s %s [%.1d%s]...\n"),
         pkg->mirror,pkg->name,pkg->version,
         ( dl_total_size > 1024 ) ? dl_total_size / 1024 : dl_total_size,
         ( dl_total_size > 1024 ) ? "MB" : "kB"
       );
     } else {
-      int dl_total_size = pkg->size_c - (f_size/1024);
       printf(_("Downloading %s %s %s [%.1d%s]..."),
         pkg->mirror,pkg->name,pkg->version,
         ( dl_total_size > 1024 ) ? dl_total_size / 1024 : dl_total_size,

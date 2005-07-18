@@ -125,6 +125,7 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran)
     printf(_("The following NEW packages will be installed:\n"));
     printf("  ");
     for (i = 0; i < tran->install_pkgs->pkg_count;i++) {
+      size_t existing_file_size = 0;
       if ( len + strlen(tran->install_pkgs->pkgs[i]->name) + 1 < MAX_LINE_LEN ) {
         printf("%s ",tran->install_pkgs->pkgs[i]->name);
         len += strlen(tran->install_pkgs->pkgs[i]->name) + 1;
@@ -132,10 +133,12 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran)
         printf("\n  %s ",tran->install_pkgs->pkgs[i]->name);
         len = strlen(tran->install_pkgs->pkgs[i]->name) + 3;
       }
-      already_download_size += get_pkg_file_size(
+      existing_file_size = get_pkg_file_size(
         global_config,tran->install_pkgs->pkgs[i]
       ) / 1024;
       download_size += tran->install_pkgs->pkgs[i]->size_c;
+      if (existing_file_size < tran->install_pkgs->pkgs[i]->size_c)
+        already_download_size += existing_file_size;
       uncompressed_size += tran->install_pkgs->pkgs[i]->size_u;
     }
     printf("\n");
@@ -165,6 +168,7 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran)
     printf(_("The following packages will be upgraded:\n"));
     printf("  ");
     for (i = 0; i < tran->upgrade_pkgs->pkg_count;i++) {
+      size_t existing_file_size = 0;
       if (len+strlen(tran->upgrade_pkgs->pkgs[i]->upgrade->name)+1<MAX_LINE_LEN) {
         printf("%s ",tran->upgrade_pkgs->pkgs[i]->upgrade->name);
         len += strlen(tran->upgrade_pkgs->pkgs[i]->upgrade->name) + 1;
@@ -172,10 +176,12 @@ int handle_transaction(const rc_config *global_config, transaction_t *tran)
         printf("\n  %s ",tran->upgrade_pkgs->pkgs[i]->upgrade->name);
         len = strlen(tran->upgrade_pkgs->pkgs[i]->upgrade->name) + 3;
       }
-      already_download_size += get_pkg_file_size(
+      existing_file_size = get_pkg_file_size(
         global_config,tran->upgrade_pkgs->pkgs[i]->upgrade
       ) / 1024;
       download_size += tran->upgrade_pkgs->pkgs[i]->upgrade->size_c;
+      if (existing_file_size < tran->upgrade_pkgs->pkgs[i]->upgrade->size_c)
+        already_download_size += existing_file_size;
       uncompressed_size += tran->upgrade_pkgs->pkgs[i]->upgrade->size_u;
       uncompressed_size -= tran->upgrade_pkgs->pkgs[i]->installed->size_u;
     }
