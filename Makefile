@@ -14,6 +14,7 @@ SBINDIR=/usr/sbin/
 GETTEXT_PACKAGE=$(PACKAGE)
 DEFINES=-DPACKAGE="\"$(PACKAGE)\"" -DVERSION="\"$(VERSION)\"" -DRC_LOCATION="\"$(RCDEST)\"" -DENABLE_NLS -DPACKAGE_LOCALE_DIR="\"$(PACKAGE_LOCALE_DIR)\"" -DGETTEXT_PACKAGE="\"$(GETTEXT_PACKAGE)\""
 CFLAGS=-W -Werror -Wall -O2 -ansi -pedantic $(DEFINES) # add -fPIC for amd64
+LDFLAGS=$(CURLFLAGS) -lz
 
 default: $(PACKAGE)
 
@@ -22,13 +23,13 @@ all: pkg
 $(OBJS): 
 
 $(PACKAGE): libs
-	$(CC) -o $(PACKAGE) $(OBJS) $(CFLAGS) $(CURLFLAGS)
+	$(CC) -o $(PACKAGE) $(OBJS) $(CFLAGS) $(LDFLAGS)
 
 withlibslapt: libs
-	$(CC) -o $(PACKAGE) $(NONLIBOBJS) $(CFLAGS) $(CURLFLAGS) -lslapt-$(VERSION)
+	$(CC) -o $(PACKAGE) $(NONLIBOBJS) $(CFLAGS) $(LDFLAGS) -lslapt-$(VERSION)
 
 static: libs
-	$(CC) -o $(PACKAGE) $(OBJS) $(CFLAGS) $(CURLFLAGS) -static
+	$(CC) -o $(PACKAGE) $(OBJS) $(CFLAGS) $(LDFLAGS) -static
 
 install: $(PACKAGE) doinstall
 
