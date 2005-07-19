@@ -33,6 +33,8 @@ static void free_pkg_version_parts(struct pkg_version_parts *parts);
 static pkg_info_t *find_or_requirement(struct pkg_list *avail_pkgs,
                                        struct pkg_list *installed_pkgs,
                                        char *required_str);
+/* uncompress compressed package data */
+static FILE *slapt_gunzip_file (const char *file_name,FILE *dest_file);
 
 /* parse the PACKAGES.TXT file */
 struct pkg_list *get_available_pkgs(void)
@@ -1905,20 +1907,12 @@ int update_pkg_cache(const rc_config *global_config)
 
       /* is it cached ? */
       if (pkg_local_head != NULL && strcmp(pkg_head,pkg_local_head) == 0) {
-        gzFile *data = NULL;
         FILE *tmp_pkg_f = NULL;
-        char buffer[MAX_ZLIB_BUFFER];
 
-        if ((data = gzopen(pkg_filename,"rb")) == NULL) 
-          exit(1);
         if ((tmp_pkg_f = tmpfile()) == NULL) 
           exit(1);
 
-        while (gzgets(data,buffer,MAX_ZLIB_BUFFER) != Z_NULL) {
-          fprintf(tmp_pkg_f,"%s",buffer);
-        }
-        gzclose(data);
-        rewind(tmp_pkg_f);
+        slapt_gunzip_file(pkg_filename,tmp_pkg_f);
 
         available_pkgs = parse_packages_txt(tmp_pkg_f);
         fclose(tmp_pkg_f);
@@ -1951,23 +1945,13 @@ int update_pkg_cache(const rc_config *global_config)
         /* retrieve the compressed package data */
         if (get_mirror_data_from_source(tmp_pkg_f,global_config,global_config->sources->url[i],PKG_LIST_GZ) == 0 ) {
           FILE *tmp_pkg_uncompressed_f = NULL;
-          gzFile *data = NULL;
-          char buffer[MAX_ZLIB_BUFFER];
 
           fclose(tmp_pkg_f);
-          if ((data = gzopen(pkg_filename,"rb")) == NULL)
-            exit(1);
 
           if ((tmp_pkg_uncompressed_f = tmpfile()) == NULL)
             exit(1);
 
-          /* write uncompressed data into tmpfile */
-          while (gzgets(data,buffer,MAX_ZLIB_BUFFER) != Z_NULL) {
-            fprintf(tmp_pkg_uncompressed_f,"%s",buffer);
-          }
-
-          gzclose(data);
-          rewind(tmp_pkg_uncompressed_f);
+          slapt_gunzip_file(pkg_filename,tmp_pkg_uncompressed_f);
 
           /* parse packages from what we downloaded */
           available_pkgs = parse_packages_txt(tmp_pkg_uncompressed_f);
@@ -2101,20 +2085,12 @@ int update_pkg_cache(const rc_config *global_config)
       char *patch_local_head = read_head_cache(patch_filename);
 
       if (patch_local_head != NULL && strcmp(patch_head,patch_local_head) == 0) {
-        gzFile *data = NULL;
         FILE *tmp_patch_f = NULL;
-        char buffer[MAX_ZLIB_BUFFER];
 
-        if ((data = gzopen(patch_filename,"rb")) == NULL)
-          exit(1);
         if ((tmp_patch_f = tmpfile()) == NULL)
           exit(1);
 
-        while (gzgets(data,buffer,MAX_ZLIB_BUFFER) != Z_NULL) {
-          fprintf(tmp_patch_f,"%s",buffer);
-        }
-        gzclose(data);
-        rewind(tmp_patch_f);
+        slapt_gunzip_file(patch_filename,tmp_patch_f);
 
         patch_pkgs = parse_packages_txt(tmp_patch_f);
         fclose(tmp_patch_f);
@@ -2128,21 +2104,13 @@ int update_pkg_cache(const rc_config *global_config)
 
         if (get_mirror_data_from_source(tmp_patch_f,global_config,global_config->sources->url[i],PATCHES_LIST_GZ) == 0 ) {
           FILE *tmp_patch_uncompressed_f = NULL;
-          gzFile *data = NULL;
-          char buffer[MAX_ZLIB_BUFFER];
 
           fclose(tmp_patch_f);
-          if ((data = gzopen(patch_filename,"rb")) == NULL)
-            exit(1);
 
           if ((tmp_patch_uncompressed_f = tmpfile()) == NULL)
             exit(1);
 
-          while (gzgets(data,buffer,MAX_ZLIB_BUFFER) != Z_NULL) {
-            fprintf(tmp_patch_uncompressed_f,"%s",buffer);
-          }
-          gzclose(data);
-          rewind(tmp_patch_uncompressed_f);
+          slapt_gunzip_file(patch_filename,tmp_patch_uncompressed_f);
 
           patch_pkgs = parse_packages_txt(tmp_patch_uncompressed_f);
 
@@ -2235,26 +2203,16 @@ int update_pkg_cache(const rc_config *global_config)
       char *local_head = read_head_cache(filename);
 
       if (local_head != NULL && strcmp(checksum_head,local_head) == 0) {
-        gzFile *data = NULL;
-        char buffer[MAX_ZLIB_BUFFER];
 
-        if ((data = gzopen(filename,"rb")) == NULL)
-          exit(1);
         if ((tmp_checksum_f = tmpfile()) == NULL)
           exit(1);
 
-        while (gzgets(data,buffer,MAX_ZLIB_BUFFER) != Z_NULL) {
-          fprintf(tmp_checksum_f,"%s",buffer);
-        }
-        gzclose(data);
-        rewind(tmp_checksum_f);
+        slapt_gunzip_file(filename,tmp_checksum_f);
 
         printf(_("Cached\n"));
 
       } else {
-        gzFile *data = NULL;
         FILE *working_checksum_f = NULL;
-        char buffer[MAX_ZLIB_BUFFER];
 
         if ((working_checksum_f = open_file(filename,"w+b")) == NULL)
           exit(1);
@@ -2269,17 +2227,11 @@ int update_pkg_cache(const rc_config *global_config)
             printf(_("Done\n"));
 
           fclose(working_checksum_f);
-          if ((data = gzopen(filename,"rb")) == NULL)
-            exit(1);
 
           if ((tmp_checksum_f = tmpfile()) == NULL)
             exit(1);
 
-          while (gzgets(data,buffer,MAX_ZLIB_BUFFER) != Z_NULL) {
-            fprintf(tmp_checksum_f,"%s",buffer);
-          }
-          gzclose(data);
-          rewind(tmp_checksum_f);
+          slapt_gunzip_file(filename,tmp_checksum_f);
 
           /* if all is good, write it */
           write_head_cache(checksum_head,filename);
@@ -2947,5 +2899,27 @@ void free_pkg_err_list(struct pkg_err_list *l)
   }
   free(l->errs);
   free(l);
+}
+
+/* FIXME this sucks... it needs to check file headers and more */
+static FILE *slapt_gunzip_file (const char *file_name,FILE *dest_file)
+{
+  gzFile *data = NULL;
+  char buffer[MAX_ZLIB_BUFFER];
+
+  if (dest_file == NULL)
+    if ((dest_file = tmpfile()) == NULL)
+      exit(1);
+
+  if ((data = gzopen(file_name,"rb")) == NULL) 
+    exit(1);
+
+  while (gzgets(data,buffer,MAX_ZLIB_BUFFER) != Z_NULL) {
+    fprintf(dest_file,"%s",buffer);
+  }
+  gzclose(data);
+  rewind(dest_file);
+
+  return dest_file;
 }
 
