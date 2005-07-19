@@ -2149,7 +2149,9 @@ int update_pkg_cache(const rc_config *global_config)
           if (global_config->dl_stats == FALSE)
             printf(_("Done\n"));
 
-          write_head_cache(patch_head,patch_filename);
+          if (patch_head != NULL)
+            write_head_cache(patch_head,patch_filename);
+
           fclose(tmp_patch_uncompressed_f);
         } else {
           fclose(tmp_patch_f);
@@ -2198,7 +2200,9 @@ int update_pkg_cache(const rc_config *global_config)
           if (global_config->dl_stats == FALSE)
             printf(_("Done\n"));
 
-          write_head_cache(patch_head,patch_filename);
+          if (patch_head != NULL)
+            write_head_cache(patch_head,patch_filename);
+
         } else {
           /* we don't care if the patch fails, for example current doesn't have patches */
           /* source_dl_failed = 1; */
