@@ -233,3 +233,10 @@ int search_pkg_err_list(struct pkg_err_list *l,
                         const char *pkg, const char *err);
 void free_pkg_err_list(struct pkg_err_list *l);
 
+/* download the PACKAGES.TXT and CHECKSUMS.md5 files */
+struct pkg_list *slapt_get_pkg_source_packages (const rc_config *global_config,
+                                 const char *url);
+struct pkg_list *slapt_get_pkg_source_patches (const rc_config *global_config,
+                                const char *url);
+FILE *slapt_get_pkg_source_checksums (const rc_config *global_config,
+                                 const char *url);

@@ -346,7 +346,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh)
       /* suggests isn't provided... rewind one line */
       fseek(pkg_list_fh, (ftell(pkg_list_fh) - f_pos) * -1, SEEK_CUR);
     }
-  
+
     /* md5 checksum */
     f_pos = ftell(pkg_list_fh);
     if (
@@ -1864,7 +1864,7 @@ char *head_mirror_data(const char *wurl,const char *file)
     free(head_data);
     return NULL;
   }
-  
+
   request_header_len = strlen(request_header_ptr) - strlen(delim_ptr);
   request_header = slapt_calloc(request_header_len + 1, sizeof *request_header);
   memcpy(request_header,request_header_ptr,request_header_len);
@@ -1893,468 +1893,53 @@ int update_pkg_cache(const rc_config *global_config)
   for (i = 0; i < global_config->sources->count; i++) {
     struct pkg_list *available_pkgs = NULL;
     struct pkg_list *patch_pkgs = NULL;
-    char *pkg_head = NULL, *patch_head = NULL, *checksum_head = NULL;
+    FILE *tmp_checksum_f = NULL;
 
-    /*
-      * download our PKG_LIST
-    */
+    /* download our PKG_LIST */
     printf(_("Retrieving package data [%s]..."),global_config->sources->url[i]);
-
-    /* try gzipped package list */
-    if ((pkg_head = head_mirror_data(global_config->sources->url[i],PKG_LIST_GZ)) != NULL) {
-      char *pkg_filename = gen_filename_from_url(global_config->sources->url[i],PKG_LIST_GZ);
-      char *pkg_local_head = read_head_cache(pkg_filename);
-
-      /* is it cached ? */
-      if (pkg_local_head != NULL && strcmp(pkg_head,pkg_local_head) == 0) {
-        FILE *tmp_pkg_f = NULL;
-
-        if ((tmp_pkg_f = tmpfile()) == NULL) 
-          exit(1);
-
-        slapt_gunzip_file(pkg_filename,tmp_pkg_f);
-
-        available_pkgs = parse_packages_txt(tmp_pkg_f);
-        fclose(tmp_pkg_f);
-
-        if (available_pkgs == NULL || available_pkgs->pkg_count < 1 ) {
-          clear_head_cache(pkg_filename);
-          fprintf(stderr,_("Failed to parse package data from %s\n"),
-            pkg_filename
-          );
-
-          if (available_pkgs)
-            free_pkg_list(available_pkgs);
-
-          free(pkg_filename);
-          free(pkg_local_head);
-          source_dl_failed = 1;
-          continue;
-        }
-
-        printf(_("Cached\n"));
-      } else {
-        FILE *tmp_pkg_f = NULL;
-
-        if (global_config->dl_stats == TRUE)
-          printf("\n");
-
-        if ((tmp_pkg_f = open_file(pkg_filename,"w+b")) == NULL)
-          exit(1);
-
-        /* retrieve the compressed package data */
-        if (get_mirror_data_from_source(tmp_pkg_f,global_config,global_config->sources->url[i],PKG_LIST_GZ) == 0 ) {
-          FILE *tmp_pkg_uncompressed_f = NULL;
-
-          fclose(tmp_pkg_f);
-
-          if ((tmp_pkg_uncompressed_f = tmpfile()) == NULL)
-            exit(1);
-
-          slapt_gunzip_file(pkg_filename,tmp_pkg_uncompressed_f);
-
-          /* parse packages from what we downloaded */
-          available_pkgs = parse_packages_txt(tmp_pkg_uncompressed_f);
-
-          fclose(tmp_pkg_uncompressed_f);
-
-          /* if we can't parse any packages out of this */
-          if (available_pkgs == NULL || available_pkgs->pkg_count < 1 ) {
-            clear_head_cache(pkg_filename);
-
-            fprintf(stderr,_("Failed to parse package data from %s\n"),
-              global_config->sources->url[i]
-            );
-
-            if (available_pkgs)
-              free_pkg_list(available_pkgs);
-
-            free(pkg_filename);
-            free(pkg_local_head);
-            source_dl_failed = 1;
-            continue;
-          }
-
-          /* commit the head data for later comparisons */
-          write_head_cache(pkg_head,pkg_filename);
-
-          if (global_config->dl_stats == FALSE)
-            printf(_("Done\n"));
-
-        } else {
-          fclose(tmp_pkg_f);
-          source_dl_failed = 1;
-          clear_head_cache(pkg_filename);
-          free(pkg_filename);
-          free(pkg_local_head);
-          continue;
-        }
-
-      }
-
-      free(pkg_filename);
-      free(pkg_local_head);
-
-    } else { /* fall back to uncompressed package list */
-      char *pkg_filename = gen_filename_from_url(global_config->sources->url[i],PKG_LIST_GZ);
-      char *pkg_local_head = read_head_cache(pkg_filename);
-      /*
-        we go ahead and run the head request, not caring if it failed.
-        If the subsequent download fails as well, it will give a nice
-        error message of why.
-      */
-      pkg_head = head_mirror_data(global_config->sources->url[i],PKG_LIST);
-
-      /* is it cached ? */
-      if (pkg_head != NULL && pkg_local_head != NULL && strcmp(pkg_head,pkg_local_head) == 0) {
-        FILE *tmp_pkg_f = NULL;
-        if ((tmp_pkg_f = open_file(pkg_filename,"r")) == NULL) 
-          exit(1);
-
-        available_pkgs = parse_packages_txt(tmp_pkg_f);
-        fclose(tmp_pkg_f);
-        printf(_("Cached\n"));
-      } else {
-        FILE *tmp_pkg_f = NULL;
-
-        if (global_config->dl_stats == TRUE)
-          printf("\n");
-
-        if ((tmp_pkg_f = open_file(pkg_filename,"w+b")) == NULL)
-          exit(1);
-
-        /* retrieve the uncompressed package data */
-        if (get_mirror_data_from_source(tmp_pkg_f,global_config,global_config->sources->url[i],PKG_LIST) == 0 ) {
-          rewind(tmp_pkg_f); /* make sure we are back at the front of the file */
-
-          /* parse packages from what we downloaded */
-          available_pkgs = parse_packages_txt(tmp_pkg_f);
-
-          /* if we can't parse any packages out of this */
-          if (available_pkgs == NULL || available_pkgs->pkg_count < 1 ) {
-            clear_head_cache(pkg_filename);
-
-            fprintf(stderr,_("Failed to parse package data from %s\n"),
-              global_config->sources->url[i]
-            );
-
-            if (available_pkgs)
-              free_pkg_list(available_pkgs);
-
-            fclose(tmp_pkg_f);
-            free(pkg_filename);
-            free(pkg_local_head);
-            source_dl_failed = 1;
-            clear_head_cache(pkg_filename);
-            continue;
-          }
-
-          /* commit the head data for later comparisons */
-          write_head_cache(pkg_head,pkg_filename);
-
-          if (global_config->dl_stats == FALSE)
-            printf(_("Done\n"));
-
-        } else {
-          source_dl_failed = 1;
-          clear_head_cache(pkg_filename);
-          free(pkg_filename);
-          free(pkg_local_head);
-          source_dl_failed = 1;
-          fclose(tmp_pkg_f);
-          continue;
-        }
-
-        fclose(tmp_pkg_f);
-      }
-
-      free(pkg_filename);
-      free(pkg_local_head);
-
+    available_pkgs = slapt_get_pkg_source_packages(global_config,global_config->sources->url[i]);
+    if (available_pkgs == NULL) {
+      source_dl_failed = 1;
+      continue;
     }
-    if (pkg_head != NULL)
-      free(pkg_head);
 
-    /*
-      * download PATCHES_LIST
-    */
+    /* download PATCHES_LIST */
     printf(_("Retrieving patch list [%s]..."),global_config->sources->url[i]);
+    patch_pkgs = slapt_get_pkg_source_patches(global_config,global_config->sources->url[i]);
 
-    if ((patch_head = head_mirror_data(global_config->sources->url[i],PATCHES_LIST_GZ)) != NULL) {
-      char *patch_filename = gen_filename_from_url(global_config->sources->url[i],PATCHES_LIST_GZ);
-      char *patch_local_head = read_head_cache(patch_filename);
 
-      if (patch_local_head != NULL && strcmp(patch_head,patch_local_head) == 0) {
-        FILE *tmp_patch_f = NULL;
+    /* download checksum file */
+    printf(_("Retrieving checksum list [%s]..."),global_config->sources->url[i]);
+    tmp_checksum_f = slapt_get_pkg_source_checksums(global_config,global_config->sources->url[i]);
 
-        if ((tmp_patch_f = tmpfile()) == NULL)
-          exit(1);
+    if (tmp_checksum_f != NULL) {
+      unsigned int a;
 
-        slapt_gunzip_file(patch_filename,tmp_patch_f);
-
-        patch_pkgs = parse_packages_txt(tmp_patch_f);
-        fclose(tmp_patch_f);
-
-        printf(_("Cached\n"));
-      } else {
-        FILE *tmp_patch_f = NULL;
-
-        if ((tmp_patch_f = open_file(patch_filename,"w+b")) == NULL)
-          exit (1);
-
-        if (get_mirror_data_from_source(tmp_patch_f,global_config,global_config->sources->url[i],PATCHES_LIST_GZ) == 0 ) {
-          FILE *tmp_patch_uncompressed_f = NULL;
-
-          fclose(tmp_patch_f);
-
-          if ((tmp_patch_uncompressed_f = tmpfile()) == NULL)
-            exit(1);
-
-          slapt_gunzip_file(patch_filename,tmp_patch_uncompressed_f);
-
-          patch_pkgs = parse_packages_txt(tmp_patch_uncompressed_f);
-
-          if (global_config->dl_stats == FALSE)
-            printf(_("Done\n"));
-
-          if (patch_head != NULL)
-            write_head_cache(patch_head,patch_filename);
-
-          fclose(tmp_patch_uncompressed_f);
-        } else {
-          fclose(tmp_patch_f);
-          /* we don't care if the patch fails, for example current doesn't have patches */
-          /* source_dl_failed = 1; */
-          clear_head_cache(patch_filename);
-        }
-
-        if (global_config->dl_stats == TRUE)
-          printf("\n");
-
+      /* now map md5 checksums to packages */
+      printf(_("Reading Package Lists..."));
+      for (a = 0;a < available_pkgs->pkg_count;a++) {
+        get_md5sum(available_pkgs->pkgs[a],tmp_checksum_f);
+        printf("%c\b",spinner());
       }
-
-      free(patch_local_head);
-      free(patch_filename);
-
-    } else {
-      char *patch_filename = gen_filename_from_url(global_config->sources->url[i],PATCHES_LIST);
-      char *patch_local_head = read_head_cache(patch_filename);
-      /*
-        we go ahead and run the head request, not caring if it failed.
-        If the subsequent download fails as well, it will give a nice
-        error message of why.
-      */
-      patch_head = head_mirror_data(global_config->sources->url[i],PATCHES_LIST);
-
-      if (patch_head != NULL && patch_local_head != NULL && strcmp(patch_head,patch_local_head) == 0) {
-        FILE *tmp_patch_f = NULL;
-
-        if ((tmp_patch_f = open_file(patch_filename,"r")) == NULL)
-          exit(1);
-
-        patch_pkgs = parse_packages_txt(tmp_patch_f);
-
-        printf(_("Cached\n"));
-        fclose(tmp_patch_f);
-      } else {
-        FILE *tmp_patch_f = NULL;
-
-        if ((tmp_patch_f = open_file(patch_filename,"w+b")) == NULL)
-          exit (1);
-
-        if (get_mirror_data_from_source(tmp_patch_f,global_config,global_config->sources->url[i],PATCHES_LIST) == 0 ) {
-          rewind(tmp_patch_f); /* make sure we are back at the front of the file */
-          patch_pkgs = parse_packages_txt(tmp_patch_f);
-          if (global_config->dl_stats == FALSE)
-            printf(_("Done\n"));
-
-          if (patch_head != NULL)
-            write_head_cache(patch_head,patch_filename);
-
-        } else {
-          /* we don't care if the patch fails, for example current doesn't have patches */
-          /* source_dl_failed = 1; */
-          clear_head_cache(patch_filename);
-
-        }
-
-        if (global_config->dl_stats == TRUE)
-          printf("\n");
-
-        fclose(tmp_patch_f);
-      }
-
-      free(patch_local_head);
-      free(patch_filename);
-    }
-    if (patch_head != NULL)
-      free(patch_head);
-
-
-    /*
-      * download checksum file
-    */
-    printf(_("Retrieving checksum list [%s]..."),
-      global_config->sources->url[i]);
-
-    if ((checksum_head = head_mirror_data(global_config->sources->url[i],CHECKSUM_FILE_GZ)) != NULL) {
-      FILE *tmp_checksum_f = NULL;
-      char *filename = gen_filename_from_url(global_config->sources->url[i],CHECKSUM_FILE_GZ);
-      char *local_head = read_head_cache(filename);
-
-      if (local_head != NULL && strcmp(checksum_head,local_head) == 0) {
-
-        if ((tmp_checksum_f = tmpfile()) == NULL)
-          exit(1);
-
-        slapt_gunzip_file(filename,tmp_checksum_f);
-
-        printf(_("Cached\n"));
-
-      } else {
-        FILE *working_checksum_f = NULL;
-
-        if ((working_checksum_f = open_file(filename,"w+b")) == NULL)
-          exit(1);
-
-        if (get_mirror_data_from_source(working_checksum_f,global_config,
-                                        global_config->sources->url[i],
-                                        CHECKSUM_FILE_GZ) == 0) {
-
-          if (global_config->dl_stats == TRUE)
-            printf("\n");
-          if (global_config->dl_stats == FALSE)
-            printf(_("Done\n"));
-
-          fclose(working_checksum_f);
-
-          if ((tmp_checksum_f = tmpfile()) == NULL)
-            exit(1);
-
-          slapt_gunzip_file(filename,tmp_checksum_f);
-
-          /* if all is good, write it */
-          write_head_cache(checksum_head,filename);
-
-        } else {
-          source_dl_failed = 1;
-          clear_head_cache(filename);
-          tmp_checksum_f = working_checksum_f;
-          working_checksum_f = NULL;
-          free(filename);
-          free(local_head);
-          fclose(tmp_checksum_f);
-          continue;
-        }
-        /* make sure we are back at the front of the file */
-        rewind(tmp_checksum_f);
-
-      }
-
-      if (tmp_checksum_f != NULL) {
-        unsigned int a;
-
-        /* now map md5 checksums to packages */
-        printf(_("Reading Package Lists..."));
-        for (a = 0;a < available_pkgs->pkg_count;a++) {
-          get_md5sum(available_pkgs->pkgs[a],tmp_checksum_f);
+      if (patch_pkgs) {
+        for (a = 0;a < patch_pkgs->pkg_count;a++) {
+          get_md5sum(patch_pkgs->pkgs[a],tmp_checksum_f);
           printf("%c\b",spinner());
         }
-        if (patch_pkgs) {
-          for (a = 0;a < patch_pkgs->pkg_count;a++) {
-            get_md5sum(patch_pkgs->pkgs[a],tmp_checksum_f);
-            printf("%c\b",spinner());
-          }
-        }
-        printf(_("Done\n"));
-
-        /* write package listings to disk */
-        write_pkg_data(global_config->sources->url[i],pkg_list_fh_tmp,available_pkgs);
-
-        if (patch_pkgs)
-          write_pkg_data(global_config->sources->url[i],pkg_list_fh_tmp,patch_pkgs);
-
-        fclose(tmp_checksum_f);
       }
+      printf(_("Done\n"));
 
-      free(filename);
-      free(local_head);
+      /* write package listings to disk */
+      write_pkg_data(global_config->sources->url[i],pkg_list_fh_tmp,available_pkgs);
+
+      if (patch_pkgs)
+        write_pkg_data(global_config->sources->url[i],pkg_list_fh_tmp,patch_pkgs);
+
+      fclose(tmp_checksum_f);
     } else {
-      FILE *tmp_checksum_f = NULL;
-      char *filename = gen_filename_from_url(global_config->sources->url[i],CHECKSUM_FILE);
-      char *local_head = read_head_cache(filename);
-      /*
-        we go ahead and run the head request, not caring if it failed.
-        If the subsequent download fails as well, it will give a nice
-        error message of why.
-      */
-      checksum_head = head_mirror_data(global_config->sources->url[i],CHECKSUM_FILE);
-
-      if (checksum_head != NULL && local_head != NULL && strcmp(checksum_head,local_head) == 0) {
-        if ((tmp_checksum_f = open_file(filename,"r")) == NULL)
-          exit(1);
-
-        printf(_("Cached\n"));
-
-      } else {
-        if ((tmp_checksum_f = open_file(filename,"w+b")) == NULL)
-          exit(1);
-
-        if (get_mirror_data_from_source(tmp_checksum_f,global_config,
-                                        global_config->sources->url[i],
-                                        CHECKSUM_FILE) == 0) {
-          if (global_config->dl_stats == FALSE)
-            printf(_("Done\n"));
-        } else {
-          source_dl_failed = 1;
-          clear_head_cache(filename);
-          fclose(tmp_checksum_f);
-          free(filename);
-          free(local_head);
-          continue;
-        }
-        /* make sure we are back at the front of the file */
-        rewind(tmp_checksum_f);
-
-        /* if all is good, write it */
-        write_head_cache(checksum_head,filename);
-
-        if (global_config->dl_stats == TRUE)
-          printf("\n");
-
-      }
-
-      if (tmp_checksum_f != NULL) {
-        unsigned int a;
-
-        /* now map md5 checksums to packages */
-        printf(_("Reading Package Lists..."));
-        for (a = 0;a < available_pkgs->pkg_count;a++) {
-          get_md5sum(available_pkgs->pkgs[a],tmp_checksum_f);
-          printf("%c\b",spinner());
-        }
-        if (patch_pkgs) {
-          for (a = 0;a < patch_pkgs->pkg_count;a++) {
-            get_md5sum(patch_pkgs->pkgs[a],tmp_checksum_f);
-            printf("%c\b",spinner());
-          }
-        }
-        printf(_("Done\n"));
-
-        /* write package listings to disk */
-        write_pkg_data(global_config->sources->url[i],pkg_list_fh_tmp,available_pkgs);
-
-        if (patch_pkgs)
-          write_pkg_data(global_config->sources->url[i],pkg_list_fh_tmp,patch_pkgs);
-
-        fclose(tmp_checksum_f);
-      }
-
-      free(filename);
-      free(local_head);
+      source_dl_failed = 1;
     }
-    if (checksum_head != NULL)
-      free(checksum_head);
+
 
     if (available_pkgs)
       free_pkg_list(available_pkgs);
@@ -2865,7 +2450,7 @@ void add_pkg_err_to_list(struct pkg_err_list *l,
     return;
 
   l->errs = tmp;
-  
+
   l->errs[l->err_count] = slapt_malloc(sizeof *l->errs[l->err_count]);
   l->errs[l->err_count]->pkg = strdup(pkg);
   l->errs[l->err_count]->error = strdup(err);
@@ -2921,5 +2506,425 @@ static FILE *slapt_gunzip_file (const char *file_name,FILE *dest_file)
   rewind(dest_file);
 
   return dest_file;
+}
+
+struct pkg_list *slapt_get_pkg_source_packages (const rc_config *global_config,
+                                 const char *url)
+{
+  struct pkg_list *available_pkgs = NULL;
+  char *pkg_head = NULL;
+
+  /* try gzipped package list */
+  if ((pkg_head = head_mirror_data(url,PKG_LIST_GZ)) != NULL) {
+    char *pkg_filename = gen_filename_from_url(url,PKG_LIST_GZ);
+    char *pkg_local_head = read_head_cache(pkg_filename);
+
+    /* is it cached ? */
+    if (pkg_local_head != NULL && strcmp(pkg_head,pkg_local_head) == 0) {
+      FILE *tmp_pkg_f = NULL;
+
+      if ((tmp_pkg_f = tmpfile()) == NULL) 
+        exit(1);
+
+      slapt_gunzip_file(pkg_filename,tmp_pkg_f);
+
+      available_pkgs = parse_packages_txt(tmp_pkg_f);
+      fclose(tmp_pkg_f);
+
+      if (available_pkgs == NULL || available_pkgs->pkg_count < 1 ) {
+        clear_head_cache(pkg_filename);
+        fprintf(stderr,_("Failed to parse package data from %s\n"),
+          pkg_filename
+        );
+
+        if (available_pkgs)
+          free_pkg_list(available_pkgs);
+
+        free(pkg_filename);
+        free(pkg_local_head);
+        return NULL;
+      }
+
+      if (global_config->progress_cb == NULL)
+        printf(_("Cached\n"));
+    } else {
+      FILE *tmp_pkg_f = NULL;
+
+      if (global_config->progress_cb == NULL && global_config->dl_stats == TRUE)
+        printf("\n");
+
+      if ((tmp_pkg_f = open_file(pkg_filename,"w+b")) == NULL)
+        exit(1);
+
+      /* retrieve the compressed package data */
+      if (get_mirror_data_from_source(tmp_pkg_f,global_config,url,PKG_LIST_GZ) == 0 ) {
+        FILE *tmp_pkg_uncompressed_f = NULL;
+
+        fclose(tmp_pkg_f);
+
+        if ((tmp_pkg_uncompressed_f = tmpfile()) == NULL)
+          exit(1);
+
+        slapt_gunzip_file(pkg_filename,tmp_pkg_uncompressed_f);
+
+        /* parse packages from what we downloaded */
+        available_pkgs = parse_packages_txt(tmp_pkg_uncompressed_f);
+
+        fclose(tmp_pkg_uncompressed_f);
+
+        /* if we can't parse any packages out of this */
+        if (available_pkgs == NULL || available_pkgs->pkg_count < 1 ) {
+          clear_head_cache(pkg_filename);
+
+          fprintf(stderr,_("Failed to parse package data from %s\n"),url);
+
+          if (available_pkgs)
+            free_pkg_list(available_pkgs);
+
+          free(pkg_filename);
+          free(pkg_local_head);
+          return NULL;
+        }
+
+        /* commit the head data for later comparisons */
+        write_head_cache(pkg_head,pkg_filename);
+
+        if (global_config->progress_cb == NULL && global_config->dl_stats == FALSE)
+          printf(_("Done\n"));
+
+      } else {
+        fclose(tmp_pkg_f);
+        clear_head_cache(pkg_filename);
+        free(pkg_filename);
+        free(pkg_local_head);
+        return NULL;
+      }
+
+    }
+
+    free(pkg_filename);
+    free(pkg_local_head);
+
+  } else { /* fall back to uncompressed package list */
+    char *pkg_filename = gen_filename_from_url(url,PKG_LIST_GZ);
+    char *pkg_local_head = read_head_cache(pkg_filename);
+    /*
+      we go ahead and run the head request, not caring if it failed.
+      If the subsequent download fails as well, it will give a nice
+      error message of why.
+    */
+    pkg_head = head_mirror_data(url,PKG_LIST);
+
+    /* is it cached ? */
+    if (pkg_head != NULL && pkg_local_head != NULL && strcmp(pkg_head,pkg_local_head) == 0) {
+      FILE *tmp_pkg_f = NULL;
+      if ((tmp_pkg_f = open_file(pkg_filename,"r")) == NULL) 
+        exit(1);
+
+      available_pkgs = parse_packages_txt(tmp_pkg_f);
+      fclose(tmp_pkg_f);
+
+      if (global_config->progress_cb == NULL)
+        printf(_("Cached\n"));
+
+    } else {
+      FILE *tmp_pkg_f = NULL;
+
+      if (global_config->progress_cb == NULL && global_config->dl_stats == TRUE)
+        printf("\n");
+
+      if ((tmp_pkg_f = open_file(pkg_filename,"w+b")) == NULL)
+        exit(1);
+
+      /* retrieve the uncompressed package data */
+      if (get_mirror_data_from_source(tmp_pkg_f,global_config,url,PKG_LIST) == 0 ) {
+        rewind(tmp_pkg_f); /* make sure we are back at the front of the file */
+
+        /* parse packages from what we downloaded */
+        available_pkgs = parse_packages_txt(tmp_pkg_f);
+
+        /* if we can't parse any packages out of this */
+        if (available_pkgs == NULL || available_pkgs->pkg_count < 1 ) {
+          clear_head_cache(pkg_filename);
+
+          fprintf(stderr,_("Failed to parse package data from %s\n"),url);
+
+          if (available_pkgs)
+            free_pkg_list(available_pkgs);
+
+          fclose(tmp_pkg_f);
+          free(pkg_filename);
+          free(pkg_local_head);
+          clear_head_cache(pkg_filename);
+          return NULL;
+        }
+
+        /* commit the head data for later comparisons */
+        write_head_cache(pkg_head,pkg_filename);
+
+        if (global_config->progress_cb == NULL && global_config->dl_stats == FALSE)
+          printf(_("Done\n"));
+
+      } else {
+        clear_head_cache(pkg_filename);
+        free(pkg_filename);
+        free(pkg_local_head);
+        fclose(tmp_pkg_f);
+        return NULL;
+      }
+
+      fclose(tmp_pkg_f);
+    }
+
+    free(pkg_filename);
+    free(pkg_local_head);
+
+  }
+  if (pkg_head != NULL)
+    free(pkg_head);
+
+  return available_pkgs;
+}
+
+struct pkg_list *slapt_get_pkg_source_patches (const rc_config *global_config,
+                                const char *url)
+{
+  struct pkg_list *patch_pkgs = NULL;
+  char *patch_head = NULL;
+
+  if ((patch_head = head_mirror_data(url,PATCHES_LIST_GZ)) != NULL) {
+    char *patch_filename = gen_filename_from_url(url,PATCHES_LIST_GZ);
+    char *patch_local_head = read_head_cache(patch_filename);
+
+    if (patch_local_head != NULL && strcmp(patch_head,patch_local_head) == 0) {
+      FILE *tmp_patch_f = NULL;
+
+      if ((tmp_patch_f = tmpfile()) == NULL)
+        exit(1);
+
+      slapt_gunzip_file(patch_filename,tmp_patch_f);
+
+      patch_pkgs = parse_packages_txt(tmp_patch_f);
+      fclose(tmp_patch_f);
+
+      if (global_config->progress_cb == NULL)
+        printf(_("Cached\n"));
+
+    } else {
+      FILE *tmp_patch_f = NULL;
+
+      if ((tmp_patch_f = open_file(patch_filename,"w+b")) == NULL)
+        exit (1);
+
+      if (get_mirror_data_from_source(tmp_patch_f,global_config,url,PATCHES_LIST_GZ) == 0 ) {
+        FILE *tmp_patch_uncompressed_f = NULL;
+
+        fclose(tmp_patch_f);
+
+        if ((tmp_patch_uncompressed_f = tmpfile()) == NULL)
+          exit(1);
+
+        slapt_gunzip_file(patch_filename,tmp_patch_uncompressed_f);
+
+        patch_pkgs = parse_packages_txt(tmp_patch_uncompressed_f);
+
+        if (global_config->progress_cb == NULL && global_config->dl_stats == FALSE)
+          printf(_("Done\n"));
+
+        if (patch_head != NULL)
+          write_head_cache(patch_head,patch_filename);
+
+        fclose(tmp_patch_uncompressed_f);
+      } else {
+        fclose(tmp_patch_f);
+        /* we don't care if the patch fails, for example current doesn't have patches */
+        /* source_dl_failed = 1; */
+        clear_head_cache(patch_filename);
+      }
+
+      if (global_config->progress_cb == NULL && global_config->dl_stats == TRUE)
+        printf("\n");
+
+    }
+
+    free(patch_local_head);
+    free(patch_filename);
+
+  } else {
+    char *patch_filename = gen_filename_from_url(url,PATCHES_LIST);
+    char *patch_local_head = read_head_cache(patch_filename);
+    /*
+      we go ahead and run the head request, not caring if it failed.
+      If the subsequent download fails as well, it will give a nice
+      error message of why.
+    */
+    patch_head = head_mirror_data(url,PATCHES_LIST);
+
+    if (patch_head != NULL && patch_local_head != NULL && strcmp(patch_head,patch_local_head) == 0) {
+      FILE *tmp_patch_f = NULL;
+
+      if ((tmp_patch_f = open_file(patch_filename,"r")) == NULL)
+        exit(1);
+
+      patch_pkgs = parse_packages_txt(tmp_patch_f);
+
+      if (global_config->progress_cb == NULL)
+        printf(_("Cached\n"));
+
+      fclose(tmp_patch_f);
+    } else {
+      FILE *tmp_patch_f = NULL;
+
+      if ((tmp_patch_f = open_file(patch_filename,"w+b")) == NULL)
+        exit (1);
+
+      if (get_mirror_data_from_source(tmp_patch_f,global_config,url,PATCHES_LIST) == 0 ) {
+        rewind(tmp_patch_f); /* make sure we are back at the front of the file */
+        patch_pkgs = parse_packages_txt(tmp_patch_f);
+
+        if (global_config->progress_cb == NULL && global_config->dl_stats == FALSE)
+          printf(_("Done\n"));
+
+        if (patch_head != NULL)
+          write_head_cache(patch_head,patch_filename);
+
+      } else {
+        /* we don't care if the patch fails, for example current doesn't have patches */
+        /* source_dl_failed = 1; */
+        clear_head_cache(patch_filename);
+
+      }
+
+      if (global_config->progress_cb == NULL && global_config->dl_stats == TRUE)
+        printf("\n");
+
+      fclose(tmp_patch_f);
+    }
+
+    free(patch_local_head);
+    free(patch_filename);
+  }
+  if (patch_head != NULL)
+    free(patch_head);
+
+  return patch_pkgs;
+}
+
+FILE *slapt_get_pkg_source_checksums (const rc_config *global_config,
+                                 const char *url)
+{
+  FILE *tmp_checksum_f = NULL;
+  char *checksum_head = NULL;
+
+  if ((checksum_head = head_mirror_data(url,CHECKSUM_FILE_GZ)) != NULL) {
+    char *filename = gen_filename_from_url(url,CHECKSUM_FILE_GZ);
+    char *local_head = read_head_cache(filename);
+
+    if (local_head != NULL && strcmp(checksum_head,local_head) == 0) {
+
+      if ((tmp_checksum_f = tmpfile()) == NULL)
+        exit(1);
+
+      slapt_gunzip_file(filename,tmp_checksum_f);
+
+      if (global_config->progress_cb == NULL)
+        printf(_("Cached\n"));
+
+    } else {
+      FILE *working_checksum_f = NULL;
+
+      if ((working_checksum_f = open_file(filename,"w+b")) == NULL)
+        exit(1);
+
+      if (get_mirror_data_from_source(working_checksum_f,global_config,url,
+                                      CHECKSUM_FILE_GZ) == 0) {
+
+        if (global_config->progress_cb == NULL && global_config->dl_stats == TRUE)
+          printf("\n");
+        if (global_config->progress_cb == NULL && global_config->dl_stats == FALSE)
+          printf(_("Done\n"));
+
+        fclose(working_checksum_f);
+
+        if ((tmp_checksum_f = tmpfile()) == NULL)
+          exit(1);
+
+        slapt_gunzip_file(filename,tmp_checksum_f);
+
+        /* if all is good, write it */
+        write_head_cache(checksum_head,filename);
+
+      } else {
+        clear_head_cache(filename);
+        tmp_checksum_f = working_checksum_f;
+        working_checksum_f = NULL;
+        free(filename);
+        free(local_head);
+        fclose(tmp_checksum_f);
+        if (checksum_head != NULL)
+          free(checksum_head);
+        return NULL;
+      }
+      /* make sure we are back at the front of the file */
+      rewind(tmp_checksum_f);
+
+    }
+    free(filename);
+    free(local_head);
+  } else {
+    char *filename = gen_filename_from_url(url,CHECKSUM_FILE);
+    char *local_head = read_head_cache(filename);
+    /*
+      we go ahead and run the head request, not caring if it failed.
+      If the subsequent download fails as well, it will give a nice
+      error message of why.
+    */
+    checksum_head = head_mirror_data(url,CHECKSUM_FILE);
+
+    if (checksum_head != NULL && local_head != NULL && strcmp(checksum_head,local_head) == 0) {
+      if ((tmp_checksum_f = open_file(filename,"r")) == NULL)
+        exit(1);
+
+      if (global_config->progress_cb == NULL)
+        printf(_("Cached\n"));
+
+    } else {
+      if ((tmp_checksum_f = open_file(filename,"w+b")) == NULL)
+        exit(1);
+
+      if (get_mirror_data_from_source(tmp_checksum_f,global_config,url,
+                                      CHECKSUM_FILE) == 0) {
+
+        if (global_config->progress_cb == NULL && global_config->dl_stats == FALSE)
+          printf(_("Done\n"));
+
+      } else {
+        clear_head_cache(filename);
+        fclose(tmp_checksum_f);
+        free(filename);
+        free(local_head);
+        if (checksum_head != NULL)
+          free(checksum_head);
+        return NULL;
+      }
+      /* make sure we are back at the front of the file */
+      rewind(tmp_checksum_f);
+
+      /* if all is good, write it */
+      write_head_cache(checksum_head,filename);
+
+      if (global_config->progress_cb == NULL &&
+          global_config->dl_stats == TRUE)
+        printf("\n");
+
+    }
+
+    free(filename);
+    free(local_head);
+  }
+  if (checksum_head != NULL)
+    free(checksum_head);
+
+  return tmp_checksum_f;
 }
 
