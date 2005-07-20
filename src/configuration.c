@@ -18,40 +18,40 @@
 
 #include "main.h"
 /* parse the exclude list */
-static struct exclude_list *parse_exclude(char *line);
+static struct slapt_exclude_list *parse_exclude(char *line);
 
 
-rc_config *read_rc_config(const char *file_name)
+slapt_rc_config *slapt_read_rc_config(const char *file_name)
 {
   FILE *rc = NULL;
-  rc_config *global_config;
+  slapt_rc_config *global_config;
   char *getline_buffer = NULL;
   size_t gb_length = 0;
   ssize_t g_size;
 
   global_config = slapt_malloc( sizeof *global_config );
   /* initialize */
-  global_config->download_only = FALSE;
-  global_config->simulate = FALSE;
-  global_config->ignore_excludes = FALSE;
-  global_config->no_md5_check = FALSE;
-  global_config->dist_upgrade = FALSE;
-  global_config->ignore_dep = FALSE;
-  global_config->disable_dep_check = FALSE;
-  global_config->print_uris = FALSE;
-  global_config->dl_stats = FALSE;
-  global_config->no_prompt = FALSE;
-  global_config->re_install = FALSE;
+  global_config->download_only = SLAPT_FALSE;
+  global_config->simulate = SLAPT_FALSE;
+  global_config->ignore_excludes = SLAPT_FALSE;
+  global_config->no_md5_check = SLAPT_FALSE;
+  global_config->dist_upgrade = SLAPT_FALSE;
+  global_config->ignore_dep = SLAPT_FALSE;
+  global_config->disable_dep_check = SLAPT_FALSE;
+  global_config->print_uris = SLAPT_FALSE;
+  global_config->dl_stats = SLAPT_FALSE;
+  global_config->no_prompt = SLAPT_FALSE;
+  global_config->re_install = SLAPT_FALSE;
   global_config->exclude_list = NULL;
   global_config->working_dir[0] = '\0';
-  global_config->remove_obsolete = FALSE;
+  global_config->remove_obsolete = SLAPT_FALSE;
   global_config->progress_cb = NULL;
   global_config->sources = slapt_malloc(sizeof *global_config->sources );
   global_config->sources->url =
     slapt_malloc(sizeof *global_config->sources->url );
   global_config->sources->count = 0;
 
-  rc = open_file(file_name,"r");
+  rc = slapt_open_file(file_name,"r");
 
   if ( rc == NULL )
     exit(1);
@@ -70,7 +70,7 @@ rc_config *read_rc_config(const char *file_name)
       /* SOURCE URL */
 
       if ( strlen(getline_buffer) > strlen(SOURCE_TOKEN) ) {
-        add_source(global_config->sources,getline_buffer +
+        slapt_add_source(global_config->sources,getline_buffer +
                    strlen(SOURCE_TOKEN));
       }
 
@@ -99,7 +99,8 @@ rc_config *read_rc_config(const char *file_name)
   if ( getline_buffer ) free(getline_buffer);
 
   if ( strcmp(global_config->working_dir,"") == 0 ) {
-    fprintf(stderr,_("WORKINGDIR directive not set within %s.\n"),file_name);
+    fprintf(stderr,gettext("WORKINGDIR directive not set within %s.\n"),
+            file_name);
     return NULL;
   }
   if ( global_config->exclude_list == NULL ) {
@@ -111,14 +112,14 @@ rc_config *read_rc_config(const char *file_name)
     global_config->exclude_list->count = 0;
   }
   if ( global_config->sources->count == 0 ) {
-    fprintf(stderr,_("SOURCE directive not set within %s.\n"),file_name);
+    fprintf(stderr,gettext("SOURCE directive not set within %s.\n"),file_name);
     return NULL;
   }
 
   return global_config;
 }
 
-void working_dir_init(const rc_config *global_config)
+void slapt_working_dir_init(const slapt_rc_config *global_config)
 {
   DIR *working_dir;
 
@@ -126,7 +127,7 @@ void working_dir_init(const rc_config *global_config)
     if ( mkdir(global_config->working_dir,
         S_IRUSR|S_IWUSR|S_IXUSR|S_IRGRP|S_IXGRP|S_IROTH|S_IXOTH) == -1
     ) {
-      printf(_("Failed to build working directory [%s]\n"),
+      printf(gettext("Failed to build working directory [%s]\n"),
         global_config->working_dir);
 
       if ( errno )
@@ -143,7 +144,7 @@ void working_dir_init(const rc_config *global_config)
       perror(global_config->working_dir);
 
     fprintf(stderr,
-      _("Please update permissions on %s or run with appropriate privileges\n"),
+      gettext("Please update permissions on %s or run with appropriate privileges\n"),
       global_config->working_dir);
     exit(1);
   }
@@ -151,7 +152,7 @@ void working_dir_init(const rc_config *global_config)
   return;
 }
 
-void free_rc_config(rc_config *global_config)
+void slapt_free_rc_config(slapt_rc_config *global_config)
 {
   unsigned int i;
   
@@ -171,9 +172,9 @@ void free_rc_config(rc_config *global_config)
 
 }
 
-static struct exclude_list *parse_exclude(char *line)
+static struct slapt_exclude_list *parse_exclude(char *line)
 {
-  struct exclude_list *list;
+  struct slapt_exclude_list *list;
   unsigned int position = 0, len = 0;
 
   list = slapt_malloc( sizeof *list );
@@ -191,7 +192,7 @@ static struct exclude_list *parse_exclude(char *line)
 
       pointer = line + position;
 
-      add_exclude(list,pointer);
+      slapt_add_exclude(list,pointer);
 
       break;
     } else {
@@ -208,7 +209,7 @@ static struct exclude_list *parse_exclude(char *line)
           strlen(line + position) - strlen(pointer)
         );
 
-        add_exclude(list,buffer);
+        slapt_add_exclude(list,buffer);
         free(buffer);
         position += (strlen(line + position) - strlen(pointer) );
       }
@@ -219,7 +220,7 @@ static struct exclude_list *parse_exclude(char *line)
   return list;
 }
 
-void add_exclude(struct exclude_list *list,const char *e)
+void slapt_add_exclude(struct slapt_exclude_list *list,const char *e)
 {
   char **realloc_tmp;
 
@@ -236,7 +237,7 @@ void add_exclude(struct exclude_list *list,const char *e)
 
 }
 
-void add_source(struct source_list *list,const char *s)
+void slapt_add_source(struct slapt_source_list *list,const char *s)
 {
   char **realloc_tmp;
   int source_len = 0;

@@ -1,5 +1,6 @@
 
-0.9.10a Jul 19, 2005
+0.9.10a Jul 20, 2005
+ * data type, functions, and macros renamed with slapt_|SLAPT_ (libslapt)
  * support for compressed package data. --update now checks for PACKAGES.TXT.gz
    and CHECKSUMS.md5.gz, otherwise falls back on expected file names
  * handled CURLE_FTP_BAD_DOWNLOAD_RESUME and CURLE_PARTIAL_FILE errors

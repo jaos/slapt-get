@@ -25,8 +25,8 @@ struct head_data_t {
   size_t size;
 };
 
-int download_data(FILE *fh,const char *url,size_t bytes,
-                  const rc_config *global_config)
+int slapt_download_data(FILE *fh,const char *url,size_t bytes,
+                  const slapt_rc_config *global_config)
 {
   CURL *ch = NULL;
   CURLcode response;
@@ -34,8 +34,8 @@ int download_data(FILE *fh,const char *url,size_t bytes,
   int return_code = 0;
   struct curl_slist *headers = NULL;
 
-#if DEBUG == 1
-  printf(_("Fetching url:[%s]\n"),url);
+#if SLAPT_DEBUG == 1
+  printf(gettext("Fetching url:[%s]\n"),url);
 #endif
   ch = curl_easy_init();
   curl_easy_setopt(ch, CURLOPT_URL, url);
@@ -58,7 +58,7 @@ int download_data(FILE *fh,const char *url,size_t bytes,
 
   if (global_config->dl_stats != 1) {
     if (global_config->progress_cb == NULL) {
-      curl_easy_setopt(ch, CURLOPT_PROGRESSFUNCTION, progress_callback );
+      curl_easy_setopt(ch, CURLOPT_PROGRESSFUNCTION, slapt_progress_callback );
     } else {
       curl_easy_setopt(ch, CURLOPT_PROGRESSFUNCTION,
                        global_config->progress_cb );
@@ -88,10 +88,10 @@ int download_data(FILE *fh,const char *url,size_t bytes,
       * this is a simple hack for all ftp sources that won't have a patches dir
       * we don't want an ugly error to confuse the user
     */
-    } else if (strstr(url,PATCHES_LIST) != NULL) {
+    } else if (strstr(url,SLAPT_PATCHES_LIST) != NULL) {
       return_code = 0;
     } else {
-      fprintf(stderr,_("Failed to download: %s\n"),curl_err_buff);
+      fprintf(stderr,gettext("Failed to download: %s\n"),curl_err_buff);
       return_code = -1;
     }
   }
@@ -126,7 +126,7 @@ static size_t write_header_callback(void *buffer, size_t size,
   return nmemb;
 }
 
-char *head_request(const char *url)
+char *slapt_head_request(const char *url)
 {
   CURL *ch = NULL;
   CURLcode response;
@@ -171,8 +171,10 @@ char *head_request(const char *url)
 
 }
 
-int get_mirror_data_from_source(FILE *fh,const rc_config *global_config,
-                                const char *base_url,const char *filename)
+int slapt_get_mirror_data_from_source(FILE *fh,
+                                      const slapt_rc_config *global_config,
+                                      const char *base_url,
+                                      const char *filename)
 {
   int return_code = 0;
   char *url = NULL;
@@ -185,7 +187,7 @@ int get_mirror_data_from_source(FILE *fh,const rc_config *global_config,
   url[ strlen(base_url) ] = '\0';
   strncat(url,filename,strlen(filename) );
 
-  return_code = download_data(fh,url,0,global_config);
+  return_code = slapt_download_data(fh,url,0,global_config);
 
   free(url);
   /* make sure we are back at the front of the file */
@@ -194,7 +196,8 @@ int get_mirror_data_from_source(FILE *fh,const rc_config *global_config,
   return return_code;
 }
 
-int download_pkg(const rc_config *global_config,pkg_info_t *pkg)
+int slapt_download_pkg(const slapt_rc_config *global_config,
+                       slapt_pkg_info_t *pkg)
 {
   FILE *fh = NULL;
   char *file_name = NULL;
@@ -203,22 +206,22 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg)
   int pkg_verify_return = -1;
   int dl_return = -1, dl_total_size = 0;
 
-  if (verify_downloaded_pkg(global_config,pkg) == 0)
+  if (slapt_verify_downloaded_pkg(global_config,pkg) == 0)
     return 0;
 
   chdir(global_config->working_dir); /* just in case */
-  create_dir_structure(pkg->location);
+  slapt_create_dir_structure(pkg->location);
 
   /* build the url, file name, and get the file size if the file is present */
-  url = gen_pkg_url(pkg);
-  file_name = gen_pkg_file_name(global_config,pkg);
-  f_size = get_pkg_file_size(global_config,pkg);
+  url = slapt_gen_pkg_url(pkg);
+  file_name = slapt_gen_pkg_file_name(global_config,pkg);
+  f_size = slapt_get_pkg_file_size(global_config,pkg);
   dl_total_size = pkg->size_c - (f_size/1024);
 
   /* if file on disk is larger than the supposed size, unlink it */
   if (dl_total_size < 0) {
     if (unlink(file_name) == -1) {
-      fprintf(stderr,_("Failed to unlink %s\n"),file_name);
+      fprintf(stderr,gettext("Failed to unlink %s\n"),file_name);
 
       if (errno)
         perror(file_name);
@@ -230,14 +233,14 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg)
   }
 
   if (global_config->progress_cb == NULL) {
-    if (global_config->dl_stats == TRUE) {
-      printf(_("Downloading %s %s %s [%.1d%s]...\n"),
+    if (global_config->dl_stats == SLAPT_TRUE) {
+      printf(gettext("Downloading %s %s %s [%.1d%s]...\n"),
         pkg->mirror,pkg->name,pkg->version,
         ( dl_total_size > 1024 ) ? dl_total_size / 1024 : dl_total_size,
         ( dl_total_size > 1024 ) ? "MB" : "kB"
       );
     } else {
-      printf(_("Downloading %s %s %s [%.1d%s]..."),
+      printf(gettext("Downloading %s %s %s [%.1d%s]..."),
         pkg->mirror,pkg->name,pkg->version,
         ( dl_total_size > 1024 ) ? dl_total_size / 1024 : dl_total_size,
         ( dl_total_size > 1024 ) ? "MB" : "kB"
@@ -246,7 +249,7 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg)
   }
 
   /* open the file to write, append if already present */
-  fh = open_file(file_name,"a+b");
+  fh = slapt_open_file(file_name,"a+b");
   if (fh == NULL) {
     free(file_name);
     free(url);
@@ -254,10 +257,11 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg)
   }
 
   /* download the file to our file handle */
-  dl_return = download_data(fh,url,f_size,global_config);
+  dl_return = slapt_download_data(fh,url,f_size,global_config);
   if (dl_return == 0) {
-    if (global_config->dl_stats == FALSE && global_config->progress_cb == NULL)
-      printf(_("Done\n"));
+    if (global_config->dl_stats == SLAPT_FALSE &&
+        global_config->progress_cb == NULL)
+      printf(gettext("Done\n"));
   } else if (dl_return == CURLE_HTTP_RANGE_ERROR ||
             dl_return == CURLE_FTP_BAD_DOWNLOAD_RESUME ||
             dl_return == CURLE_PARTIAL_FILE) {
@@ -269,7 +273,7 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg)
     fclose(fh);
 
     if (unlink(file_name) == -1) {
-      fprintf(stderr,_("Failed to unlink %s\n"),file_name);
+      fprintf(stderr,gettext("Failed to unlink %s\n"),file_name);
 
       if (errno)
         perror(file_name);
@@ -280,18 +284,18 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg)
     free(file_name);
     free(url);
 
-    return download_pkg(global_config,pkg);
+    return slapt_download_pkg(global_config,pkg);
 
   } else {
     fclose(fh);
-    #if DEBUG == 1
+    #if SLAPT_DEBUG == 1
     printf("Failure: %s-%s from %s %s\n",pkg->name,pkg->version,
            pkg->mirror,pkg->location);
     #endif
-    #if DO_NOT_UNLINK_BAD_FILES == 0
+    #if SLAPT_DO_NOT_UNLINK_BAD_FILES == 0
     /* if the d/l fails, unlink the empty file */
     if (unlink(file_name) == -1) {
-      fprintf(stderr,_("Failed to unlink %s\n"),file_name);
+      fprintf(stderr,gettext("Failed to unlink %s\n"),file_name);
 
       if (errno)
         perror(file_name);
@@ -309,20 +313,20 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg)
   free(url);
 
   /* check to make sure we have the complete file */
-  pkg_verify_return = verify_downloaded_pkg(global_config,pkg);
+  pkg_verify_return = slapt_verify_downloaded_pkg(global_config,pkg);
   if (pkg_verify_return == 0) {
 
     free(file_name);
     return 0;
 
-  } else if (pkg_verify_return == MD5_CHECKSUM_FAILED) {
+  } else if (pkg_verify_return == SLAPT_MD5_CHECKSUM_FAILED) {
     fprintf(stderr,
-      _("md5 sum for %s is not correct, override with --no-md5!\n"),
+      gettext("md5 sum for %s is not correct, override with --no-md5!\n"),
       pkg->name);
-    #if DO_NOT_UNLINK_BAD_FILES == 0
+    #if SLAPT_DO_NOT_UNLINK_BAD_FILES == 0
     /* if the checksum fails, unlink the bogus file */
     if (unlink(file_name) == -1) {
-      fprintf(stderr,_("Failed to unlink %s\n"),file_name);
+      fprintf(stderr,gettext("Failed to unlink %s\n"),file_name);
 
       if (errno)
         perror("unlink");
@@ -334,14 +338,14 @@ int download_pkg(const rc_config *global_config,pkg_info_t *pkg)
     return -1;
 
   } else {
-    printf(_("Download of %s incomplete\n"),pkg->name);
+    printf(gettext("Download of %s incomplete\n"),pkg->name);
     free(file_name);
     return -1;
   }
 
 }
 
-int progress_callback(void *clientp, double dltotal, double dlnow,
+int slapt_progress_callback(void *clientp, double dltotal, double dlnow,
                       double ultotal, double ulnow)
 {
   size_t percent = 0;
@@ -358,28 +362,28 @@ int progress_callback(void *clientp, double dltotal, double dlnow,
   return 0;
 }
 
-char spinner(void)
+char slapt_spinner(void)
 {
-  static int spinner_index = 0;
-  static const char spinner_parts[] = "\\|/-";
+  static int slapt_spinner_index = 0;
+  static const char slapt_spinner_parts[] = "\\|/-";
 
-  if (spinner_index > 3) {
-    spinner_index = 0;
-    return spinner_parts[spinner_index];
+  if (slapt_spinner_index > 3) {
+    slapt_spinner_index = 0;
+    return slapt_spinner_parts[slapt_spinner_index];
   } else {
-    return spinner_parts[spinner_index++];
+    return slapt_spinner_parts[slapt_spinner_index++];
   }
 }
 
-void write_head_cache(const char *cache, const char *cache_filename)
+void slapt_write_head_cache(const char *cache, const char *cache_filename)
 {
   char *head_filename;
   FILE *tmp;
 
-  head_filename = gen_head_cache_filename(cache_filename);
+  head_filename = slapt_gen_head_cache_filename(cache_filename);
 
   /* store the last modified date */
-  if ((tmp = open_file(head_filename,"w")) == NULL)
+  if ((tmp = slapt_open_file(head_filename,"w")) == NULL)
     exit(1);
 
   fprintf(tmp,"%s",cache);
@@ -389,7 +393,7 @@ void write_head_cache(const char *cache, const char *cache_filename)
 
 }
 
-char *read_head_cache(const char *cache_filename)
+char *slapt_read_head_cache(const char *cache_filename)
 {
   char *head_filename;
   FILE *tmp;
@@ -397,9 +401,9 @@ char *read_head_cache(const char *cache_filename)
   size_t gl_n;
   ssize_t gl_return_size;
 
-  head_filename = gen_head_cache_filename(cache_filename);
+  head_filename = slapt_gen_head_cache_filename(cache_filename);
 
-  tmp = open_file(head_filename,"a+");
+  tmp = slapt_open_file(head_filename,"a+");
   free(head_filename);
 
   if (tmp == NULL)
@@ -417,27 +421,28 @@ char *read_head_cache(const char *cache_filename)
   return getline_buffer;
 }
 
-char *gen_head_cache_filename(const char *filename_from_url)
+char *slapt_gen_head_cache_filename(const char *filename_from_url)
 {
   char *head_filename;
 
   head_filename = slapt_calloc(
-    strlen(filename_from_url) + strlen(HEAD_FILE_EXT) + 1, sizeof *head_filename
+    strlen(filename_from_url) + strlen(SLAPT_HEAD_FILE_EXT) + 1,
+    sizeof *head_filename
   );
   strncat(head_filename,filename_from_url,strlen(filename_from_url));
-  strncat(head_filename,HEAD_FILE_EXT,strlen(HEAD_FILE_EXT));
+  strncat(head_filename,SLAPT_HEAD_FILE_EXT,strlen(SLAPT_HEAD_FILE_EXT));
 
   return head_filename;
 }
 
-void clear_head_cache(const char *cache_filename)
+void slapt_clear_head_cache(const char *cache_filename)
 {
   char *head_filename;
   FILE *tmp;
 
-  head_filename = gen_head_cache_filename(cache_filename);
+  head_filename = slapt_gen_head_cache_filename(cache_filename);
 
-  tmp = open_file(head_filename,"w");
+  tmp = slapt_open_file(head_filename,"w");
 
   if (tmp == NULL)
     exit(1);

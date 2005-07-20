@@ -18,65 +18,70 @@
 
 #include "main.h"
 /* analyze the pkg version hunk by hunk */
-static struct pkg_version_parts *break_down_pkg_version(const char *version);
+static struct slapt_pkg_version_parts *break_down_pkg_version(const char *version);
 /* parse the meta lines */
-static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,
-                                    struct pkg_list *installed_pkgs,
-                                    char *dep_entry);
-/* called by is_required_by */
-static void required_by(const rc_config *global_config,
-                        struct pkg_list *avail, pkg_info_t *pkg,
-                        struct pkg_list *required_by_list);
+static slapt_pkg_info_t *parse_meta_entry(struct slapt_pkg_list *avail_pkgs,
+                                          struct slapt_pkg_list *installed_pkgs,
+                                          char *dep_entry);
+/* called by slapt_is_required_by */
+static void required_by(const slapt_rc_config *global_config,
+                        struct slapt_pkg_list *avail, slapt_pkg_info_t *pkg,
+                        struct slapt_pkg_list *required_by_list);
 /* free pkg_version_parts struct */
-static void free_pkg_version_parts(struct pkg_version_parts *parts);
+static void slapt_free_pkg_version_parts(struct slapt_pkg_version_parts *parts);
 /* find dependency from "or" requirement */
-static pkg_info_t *find_or_requirement(struct pkg_list *avail_pkgs,
-                                       struct pkg_list *installed_pkgs,
-                                       char *required_str);
+static slapt_pkg_info_t *find_or_requirement(struct slapt_pkg_list *avail_pkgs,
+                                             struct slapt_pkg_list *installed_pkgs,
+                                             char *required_str);
 /* uncompress compressed package data */
 static FILE *slapt_gunzip_file (const char *file_name,FILE *dest_file);
 
 /* parse the PACKAGES.TXT file */
-struct pkg_list *get_available_pkgs(void)
+struct slapt_pkg_list *slapt_get_available_pkgs(void)
 {
   FILE *pkg_list_fh;
-  struct pkg_list *list = NULL;
+  struct slapt_pkg_list *list = NULL;
 
   /* open pkg list */
-  pkg_list_fh = open_file(PKG_LIST_L,"r");
+  pkg_list_fh = slapt_open_file(SLAPT_PKG_LIST_L,"r");
   if (pkg_list_fh == NULL) {
-    fprintf(stderr,_("Perhaps you want to run --update?\n"));
-    list = init_pkg_list();
+    fprintf(stderr,gettext("Perhaps you want to run --update?\n"));
+    list = slapt_init_pkg_list();
     return list; /* return an empty list */
   }
-  list = parse_packages_txt(pkg_list_fh);
+  list = slapt_parse_packages_txt(pkg_list_fh);
   fclose(pkg_list_fh);
 
   return list;
 }
 
-struct pkg_list *parse_packages_txt(FILE *pkg_list_fh)
+struct slapt_pkg_list *slapt_parse_packages_txt(FILE *pkg_list_fh)
 {
-  sg_regex name_regex, mirror_regex,location_regex, size_c_regex, size_u_regex;
+  slapt_regex name_regex,
+              mirror_regex,
+              location_regex,
+              size_c_regex,
+              size_u_regex;
   ssize_t bytes_read;
-  struct pkg_list *list = NULL;
+  struct slapt_pkg_list *list = NULL;
   long f_pos = 0;
   size_t getline_len = 0;
   char *getline_buffer = NULL;
   char *char_pointer = NULL;
 
-  list = init_pkg_list();
+  list = slapt_init_pkg_list();
 
   /* compile our regexen */
-  init_regex(&name_regex,PKG_NAME_PATTERN);
-  init_regex(&mirror_regex,PKG_MIRROR_PATTERN);
-  init_regex(&location_regex,PKG_LOCATION_PATTERN);
-  init_regex(&size_c_regex,PKG_SIZEC_PATTERN);
-  init_regex(&size_u_regex,PKG_SIZEU_PATTERN);
+  slapt_init_regex(&name_regex,SLAPT_PKG_NAME_PATTERN);
+  slapt_init_regex(&mirror_regex,SLAPT_PKG_MIRROR_PATTERN);
+  slapt_init_regex(&location_regex,SLAPT_PKG_LOCATION_PATTERN);
+  slapt_init_regex(&size_c_regex,SLAPT_PKG_SIZEC_PATTERN);
+  slapt_init_regex(&size_u_regex,SLAPT_PKG_SIZEU_PATTERN);
 
-  while ((bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh)) != EOF) {
+  while ((bytes_read = getline(&getline_buffer,&getline_len,
+                               pkg_list_fh)) != EOF) {
 
-    pkg_info_t *tmp_pkg;
+    slapt_pkg_info_t *tmp_pkg;
 
     getline_buffer[bytes_read - 1] = '\0';
 
@@ -84,16 +89,16 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh)
     if (strstr(getline_buffer,"PACKAGE NAME") == NULL)
       continue;
 
-    execute_regex(&name_regex,getline_buffer);
+    slapt_execute_regex(&name_regex,getline_buffer);
 
     /* skip this line if we didn't find a package name */
     if (name_regex.reg_return != 0) {
-      fprintf(stderr,_("regex failed on [%s]\n"),getline_buffer);
+      fprintf(stderr,gettext("regex failed on [%s]\n"),getline_buffer);
       continue;
     }
     /* otherwise keep going and parse out the rest of the pkg data */
 
-    tmp_pkg = init_pkg();
+    tmp_pkg = slapt_init_pkg();
 
     /* pkg name base */
     tmp_pkg->name = slapt_malloc(
@@ -127,7 +132,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh)
     f_pos = ftell(pkg_list_fh);
     if (getline(&getline_buffer,&getline_len,pkg_list_fh) != EOF) {
 
-      execute_regex(&mirror_regex,getline_buffer);
+      slapt_execute_regex(&mirror_regex,getline_buffer);
 
       if (mirror_regex.reg_return == 0) {
 
@@ -153,7 +158,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh)
     /* location */
     if ((getline(&getline_buffer,&getline_len,pkg_list_fh) != EOF)) {
 
-      execute_regex(&location_regex,getline_buffer);
+      slapt_execute_regex(&location_regex,getline_buffer);
 
       if (location_regex.reg_return == 0) {
 
@@ -173,7 +178,8 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh)
         /*
           extra, testing, and pasture support
           they add in extraneous /extra/, /testing/, or /pasture/ in the
-          PACKAGES.TXT location. this fixes the downloads and md5 checksum matching
+          PACKAGES.TXT location. this fixes the downloads and md5 checksum
+          matching
         */
         if (strstr(tmp_pkg->location,"./testing/") != NULL) {
           char *tmp_location = slapt_malloc(
@@ -217,13 +223,13 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh)
         }
 
       } else {
-        fprintf(stderr,_("regexec failed to parse location\n"));
-        free_pkg(tmp_pkg);
+        fprintf(stderr,gettext("regexec failed to parse location\n"));
+        slapt_free_pkg(tmp_pkg);
         continue;
       }
     } else {
-      fprintf(stderr,_("getline reached EOF attempting to read location\n"));
-      free_pkg(tmp_pkg);
+      fprintf(stderr,gettext("getline reached EOF attempting to read location\n"));
+      slapt_free_pkg(tmp_pkg);
       continue;
     }
 
@@ -232,7 +238,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh)
 
       char *size_c = NULL;
 
-      execute_regex(&size_c_regex,getline_buffer);
+      slapt_execute_regex(&size_c_regex,getline_buffer);
 
       if (size_c_regex.reg_return == 0) {
         size_c = strndup(
@@ -242,13 +248,13 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh)
         tmp_pkg->size_c = strtol(size_c, (char **)NULL, 10);
         free(size_c);
       } else {
-        fprintf(stderr,_("regexec failed to parse size_c\n"));
-        free_pkg(tmp_pkg);
+        fprintf(stderr,gettext("regexec failed to parse size_c\n"));
+        slapt_free_pkg(tmp_pkg);
         continue;
       }
     } else {
-      fprintf(stderr,_("getline reached EOF attempting to read size_c\n"));
-      free_pkg(tmp_pkg);
+      fprintf(stderr,gettext("getline reached EOF attempting to read size_c\n"));
+      slapt_free_pkg(tmp_pkg);
       continue;
     }
 
@@ -257,7 +263,7 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh)
 
       char *size_u = NULL;
 
-      execute_regex(&size_u_regex,getline_buffer);
+      slapt_execute_regex(&size_u_regex,getline_buffer);
 
       if (size_u_regex.reg_return == 0) {
         size_u = strndup(
@@ -267,13 +273,13 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh)
         tmp_pkg->size_u = strtol(size_u, (char **)NULL, 10);
         free(size_u);
       } else {
-        fprintf(stderr,_("regexec failed to parse size_u\n"));
-        free_pkg(tmp_pkg);
+        fprintf(stderr,gettext("regexec failed to parse size_u\n"));
+        slapt_free_pkg(tmp_pkg);
         continue;
       }
     } else {
-      fprintf(stderr,_("getline reached EOF attempting to read size_u\n"));
-      free_pkg(tmp_pkg);
+      fprintf(stderr,gettext("getline reached EOF attempting to read size_u\n"));
+      slapt_free_pkg(tmp_pkg);
       continue;
     }
 
@@ -293,7 +299,8 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh)
         );
         if (tmp_realloc != NULL) {
           tmp_pkg->required = tmp_realloc;
-          strncpy(tmp_pkg->required,char_pointer + req_len, strlen(char_pointer + req_len));
+          strncpy(tmp_pkg->required,char_pointer + req_len,
+                  strlen(char_pointer + req_len));
           tmp_pkg->required[ strlen(char_pointer + req_len) ] = '\0';
         }
     } else {
@@ -304,7 +311,8 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh)
     /* conflicts, if provided */
     f_pos = ftell(pkg_list_fh);
     if (
-      ((bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh)) != EOF) &&
+      ((bytes_read = getline(&getline_buffer,&getline_len,
+                             pkg_list_fh)) != EOF) &&
       ((char_pointer = strstr(getline_buffer,"PACKAGE CONFLICTS")) != NULL)
     ) {
         char *tmp_realloc = NULL;
@@ -327,7 +335,8 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh)
     /* suggests, if provided */
     f_pos = ftell(pkg_list_fh);
     if (
-      ((bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh)) != EOF) &&
+      ((bytes_read = getline(&getline_buffer,&getline_len,
+                             pkg_list_fh)) != EOF) &&
       ((char_pointer = strstr(getline_buffer,"PACKAGE SUGGESTS")) != NULL)
     ) {
         char *tmp_realloc = NULL;
@@ -350,21 +359,22 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh)
     /* md5 checksum */
     f_pos = ftell(pkg_list_fh);
     if (
-      ((bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh)) != EOF) &&
+      ((bytes_read = getline(&getline_buffer,&getline_len,
+                             pkg_list_fh)) != EOF) &&
       (strstr(getline_buffer,"PACKAGE MD5 SUM") != NULL)
     ) {
         char *md5sum;
         getline_buffer[bytes_read - 1] = '\0';
         md5sum = (char *)strpbrk(getline_buffer,":") + 3;
         /* don't overflow the buffer */
-        if (strlen(md5sum) > MD5_STR_LEN) {
-          fprintf(stderr, _("md5 sum too long\n"));
-          free_pkg(tmp_pkg);
+        if (strlen(md5sum) > SLAPT_MD5_STR_LEN) {
+          fprintf(stderr, gettext("md5 sum too long\n"));
+          slapt_free_pkg(tmp_pkg);
           continue;
         }
 
-        strncpy(tmp_pkg->md5,md5sum,MD5_STR_LEN);
-        tmp_pkg->md5[MD5_STR_LEN] = '\0';
+        strncpy(tmp_pkg->md5,md5sum,SLAPT_MD5_STR_LEN);
+        tmp_pkg->md5[SLAPT_MD5_STR_LEN] = '\0';
     } else {
       /* md5 sum isn't provided... rewind one line */
       fseek(pkg_list_fh, (ftell(pkg_list_fh) - f_pos) * -1, SEEK_CUR);
@@ -379,7 +389,8 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh)
       while (1) {
         char *tmp_desc = NULL;
 
-        if ((bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh)) == EOF) {
+        if ((bytes_read = getline(&getline_buffer,&getline_len,
+                                  pkg_list_fh)) == EOF) {
           break;
         }
 
@@ -399,8 +410,8 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh)
 
       }
     } else {
-      fprintf(stderr,_("error attempting to read pkg description\n"));
-      free_pkg(tmp_pkg);
+      fprintf(stderr,gettext("error attempting to read pkg description\n"));
+      slapt_free_pkg(tmp_pkg);
       continue;
     }
 
@@ -418,23 +429,23 @@ struct pkg_list *parse_packages_txt(FILE *pkg_list_fh)
       tmp_pkg->mirror[0] = '\0';
     }
 
-    add_pkg_to_pkg_list(list,tmp_pkg);
+    slapt_add_pkg_to_pkg_list(list,tmp_pkg);
     tmp_pkg = NULL;
   }
 
   if (getline_buffer)
     free(getline_buffer);
-  free_regex(&name_regex);
-  free_regex(&mirror_regex);
-  free_regex(&location_regex);
-  free_regex(&size_c_regex);
-  free_regex(&size_u_regex);
+  slapt_free_regex(&name_regex);
+  slapt_free_regex(&mirror_regex);
+  slapt_free_regex(&location_regex);
+  slapt_free_regex(&size_c_regex);
+  slapt_free_regex(&size_u_regex);
 
-  list->free_pkgs = TRUE;
+  list->free_pkgs = SLAPT_TRUE;
   return list;
 }
 
-char *gen_short_pkg_description(pkg_info_t *pkg)
+char *slapt_gen_short_pkg_description(slapt_pkg_info_t *pkg)
 {
   char *short_description = NULL;
   size_t string_size = 0;
@@ -457,38 +468,42 @@ char *gen_short_pkg_description(pkg_info_t *pkg)
 }
 
 
-struct pkg_list *get_installed_pkgs(void)
+struct slapt_pkg_list *slapt_get_installed_pkgs(void)
 {
   DIR *pkg_log_dir;
   char *root_env_entry = NULL;
   char *pkg_log_dirname = NULL;
   struct dirent *file;
-  sg_regex ip_regex, compressed_size_reg, uncompressed_size_reg,location_regex;
-  struct pkg_list *list = NULL;
+  slapt_regex ip_regex,
+              compressed_size_reg,
+              uncompressed_size_reg,
+              location_regex;
+  struct slapt_pkg_list *list = NULL;
   size_t pls = 1;
 
-  list = init_pkg_list();
+  list = slapt_init_pkg_list();
 
-  init_regex(&ip_regex,PKG_LOG_PATTERN);
-  init_regex(&compressed_size_reg,PKG_LOG_SIZEC_PATTERN);
-  init_regex(&uncompressed_size_reg,PKG_LOG_SIZEU_PATTERN);
-  init_regex(&location_regex,PKG_LOCATION_PATTERN);
+  slapt_init_regex(&ip_regex,SLAPT_PKG_LOG_PATTERN);
+  slapt_init_regex(&compressed_size_reg,SLAPT_PKG_LOG_SIZEC_PATTERN);
+  slapt_init_regex(&uncompressed_size_reg,SLAPT_PKG_LOG_SIZEU_PATTERN);
+  slapt_init_regex(&location_regex,SLAPT_PKG_LOCATION_PATTERN);
 
   /* Generate package log directory using ROOT env variable if set */
-  if (getenv(ROOT_ENV_NAME) && strlen(getenv(ROOT_ENV_NAME)) < ROOT_ENV_LEN) {
-    root_env_entry = getenv(ROOT_ENV_NAME);
+  if (getenv(SLAPT_ROOT_ENV_NAME) &&
+      strlen(getenv(SLAPT_ROOT_ENV_NAME)) < SLAPT_ROOT_ENV_LEN) {
+    root_env_entry = getenv(SLAPT_ROOT_ENV_NAME);
   }
   pkg_log_dirname = slapt_calloc(
-    strlen(PKG_LOG_DIR)+
+    strlen(SLAPT_PKG_LOG_DIR)+
     (root_env_entry ? strlen(root_env_entry) : 0) + 1 ,
     sizeof *pkg_log_dirname
   );
   *pkg_log_dirname = '\0';
   if (root_env_entry) {
     strncpy(pkg_log_dirname, root_env_entry,strlen(root_env_entry));
-    strncat(pkg_log_dirname, PKG_LOG_DIR,strlen(PKG_LOG_DIR));
+    strncat(pkg_log_dirname, SLAPT_PKG_LOG_DIR,strlen(SLAPT_PKG_LOG_DIR));
   } else {
-    strncat(pkg_log_dirname, PKG_LOG_DIR,strlen(PKG_LOG_DIR));
+    strncat(pkg_log_dirname, SLAPT_PKG_LOG_DIR,strlen(SLAPT_PKG_LOG_DIR));
   }
 
   if ((pkg_log_dir = opendir(pkg_log_dirname)) == NULL) {
@@ -501,19 +516,19 @@ struct pkg_list *get_installed_pkgs(void)
   }
 
   while ((file = readdir(pkg_log_dir)) != NULL) {
-    pkg_info_t *tmp_pkg = NULL;
+    slapt_pkg_info_t *tmp_pkg = NULL;
     FILE *pkg_f = NULL;
     char *pkg_f_name = NULL;
     struct stat stat_buf;
     char *pkg_data = NULL;
 
-    execute_regex(&ip_regex,file->d_name);
+    slapt_execute_regex(&ip_regex,file->d_name);
 
     /* skip if it doesn't match our regex */
     if (ip_regex.reg_return != 0)
       continue;
 
-    tmp_pkg = init_pkg();
+    tmp_pkg = slapt_init_pkg();
 
     tmp_pkg->name = slapt_malloc(
       sizeof *tmp_pkg->name *
@@ -550,7 +565,7 @@ struct pkg_list *get_installed_pkgs(void)
        open the package log file so that we can mmap it and parse out the
        package attributes.
     */
-    pkg_f = open_file(pkg_f_name,"r");
+    pkg_f = slapt_open_file(pkg_f_name,"r");
     if (pkg_f == NULL)
       exit(1);
 
@@ -566,15 +581,15 @@ struct pkg_list *get_installed_pkgs(void)
 
     /* don't mmap empty files */
     if ((int)stat_buf.st_size < 1) {
-      free_pkg(tmp_pkg);
+      slapt_free_pkg(tmp_pkg);
       free(pkg_f_name);
       fclose(pkg_f);
       continue;
     } else {
       /* only mmap what we need */
       pls = (size_t)stat_buf.st_size;
-      if (pls > MAX_MMAP_SIZE)
-        pls = MAX_MMAP_SIZE;
+      if (pls > SLAPT_MAX_MMAP_SIZE)
+        pls = SLAPT_MAX_MMAP_SIZE;
     }
 
     pkg_data = (char *)mmap(0,pls,
@@ -594,7 +609,7 @@ struct pkg_list *get_installed_pkgs(void)
     pkg_data[pls - 1] = '\0';
 
     /* pull out compressed size */
-    execute_regex(&compressed_size_reg,pkg_data);
+    slapt_execute_regex(&compressed_size_reg,pkg_data);
     if (compressed_size_reg.reg_return == 0) {
 
       char *size_c = strndup(
@@ -607,7 +622,7 @@ struct pkg_list *get_installed_pkgs(void)
     }
 
     /* pull out uncompressed size */
-    execute_regex(&uncompressed_size_reg,pkg_data);
+    slapt_execute_regex(&uncompressed_size_reg,pkg_data);
     if (uncompressed_size_reg.reg_return == 0 ) {
 
       char *size_u = strndup(
@@ -620,7 +635,7 @@ struct pkg_list *get_installed_pkgs(void)
     }
 
     /* pull out location */
-    execute_regex(&location_regex,pkg_data);
+    slapt_execute_regex(&location_regex,pkg_data);
     if (location_regex.reg_return == 0) {
 
       tmp_pkg->location = slapt_malloc(
@@ -702,32 +717,33 @@ struct pkg_list *get_installed_pkgs(void)
       tmp_pkg->mirror[0] = '\0';
     }
 
-    add_pkg_to_pkg_list(list,tmp_pkg);
+    slapt_add_pkg_to_pkg_list(list,tmp_pkg);
     tmp_pkg = NULL;
 
   }/* end while */
   closedir(pkg_log_dir);
-  free_regex(&ip_regex);
+  slapt_free_regex(&ip_regex);
   free(pkg_log_dirname);
-  free_regex(&compressed_size_reg);
-  free_regex(&uncompressed_size_reg);
-  free_regex(&location_regex);
+  slapt_free_regex(&compressed_size_reg);
+  slapt_free_regex(&uncompressed_size_reg);
+  slapt_free_regex(&location_regex);
 
-  list->free_pkgs = TRUE;
+  list->free_pkgs = SLAPT_TRUE;
   return list;
 }
 
 /* lookup newest package from pkg_list */
-pkg_info_t *get_newest_pkg(struct pkg_list *pkg_list,const char *pkg_name)
+slapt_pkg_info_t *slapt_get_newest_pkg(struct slapt_pkg_list *pkg_list,
+                                       const char *pkg_name)
 {
   unsigned int i;
-  pkg_info_t *pkg = NULL;
+  slapt_pkg_info_t *pkg = NULL;
 
   for (i = 0; i < pkg_list->pkg_count; i++ ) {
 
     /* if pkg has same name as our requested pkg */
     if ((strcmp(pkg_list->pkgs[i]->name,pkg_name)) == 0) {
-      if ((pkg == NULL) || (cmp_pkg_versions(pkg->version,
+      if ((pkg == NULL) || (slapt_cmp_pkg_versions(pkg->version,
       pkg_list->pkgs[i]->version) < 0) ) {
         pkg = pkg_list->pkgs[i];
       }
@@ -738,10 +754,12 @@ pkg_info_t *get_newest_pkg(struct pkg_list *pkg_list,const char *pkg_name)
   return pkg;
 }
 
-pkg_info_t *get_exact_pkg(struct pkg_list *list,const char *name,const char *version)
+slapt_pkg_info_t *slapt_get_exact_pkg(struct slapt_pkg_list *list,
+                                      const char *name,
+                                      const char *version)
 {
   unsigned int i;
-  pkg_info_t *pkg = NULL;
+  slapt_pkg_info_t *pkg = NULL;
 
   for (i = 0; i < list->pkg_count;i++) {
     if ((strcmp(name,list->pkgs[i]->name)==0) &&
@@ -752,26 +770,27 @@ pkg_info_t *get_exact_pkg(struct pkg_list *list,const char *name,const char *ver
   return pkg;
 }
 
-int install_pkg(const rc_config *global_config,pkg_info_t *pkg)
+int slapt_install_pkg(const slapt_rc_config *global_config,
+                      slapt_pkg_info_t *pkg)
 {
   char *pkg_file_name = NULL;
   char *command = NULL;
   int cmd_return = 0;
 
   /* build the file name */
-  pkg_file_name = gen_pkg_file_name(global_config,pkg);
+  pkg_file_name = slapt_gen_pkg_file_name(global_config,pkg);
 
   /* build and execute our command */
   command = slapt_calloc(
-    strlen(INSTALL_CMD) + strlen(pkg_file_name) + 1 , sizeof *command
+    strlen(SLAPT_INSTALL_CMD) + strlen(pkg_file_name) + 1 , sizeof *command
    );
   command[0] = '\0';
-  command = strncat(command,INSTALL_CMD,strlen(INSTALL_CMD));
+  command = strncat(command,SLAPT_INSTALL_CMD,strlen(SLAPT_INSTALL_CMD));
   command = strncat(command,pkg_file_name,strlen(pkg_file_name));
 
-  printf(_("Preparing to install %s-%s\n"),pkg->name,pkg->version);
+  printf(gettext("Preparing to install %s-%s\n"),pkg->name,pkg->version);
   if ((cmd_return = system(command)) != 0) {
-    printf(_("Failed to execute command: [%s]\n"),command);
+    printf(gettext("Failed to execute command: [%s]\n"),command);
     free(command);
     free(pkg_file_name);
     return -1;
@@ -782,28 +801,29 @@ int install_pkg(const rc_config *global_config,pkg_info_t *pkg)
   return cmd_return;
 }
 
-int upgrade_pkg(const rc_config *global_config,pkg_info_t *installed_pkg,
-                pkg_info_t *pkg)
+int slapt_upgrade_pkg(const slapt_rc_config *global_config,
+                      slapt_pkg_info_t *installed_pkg,
+                      slapt_pkg_info_t *pkg)
 {
   char *pkg_file_name = NULL;
   char *command = NULL;
   int cmd_return = 0;
 
   /* build the file name */
-  pkg_file_name = gen_pkg_file_name(global_config,pkg);
+  pkg_file_name = slapt_gen_pkg_file_name(global_config,pkg);
 
   /* build and execute our command */
   command = slapt_calloc(
-    strlen(UPGRADE_CMD) + strlen(pkg_file_name) + 1 , sizeof *command
+    strlen(SLAPT_UPGRADE_CMD) + strlen(pkg_file_name) + 1 , sizeof *command
   );
   command[0] = '\0';
-  command = strncat(command,UPGRADE_CMD,strlen(UPGRADE_CMD));
+  command = strncat(command,SLAPT_UPGRADE_CMD,strlen(SLAPT_UPGRADE_CMD));
   command = strncat(command,pkg_file_name,strlen(pkg_file_name));
 
-  printf(_("Preparing to replace %s-%s with %s-%s\n"),
+  printf(gettext("Preparing to replace %s-%s with %s-%s\n"),
     pkg->name,installed_pkg->version,pkg->name,pkg->version);
   if ((cmd_return = system(command)) != 0) {
-    printf(_("Failed to execute command: [%s]\n"),command);
+    printf(gettext("Failed to execute command: [%s]\n"),command);
     free(command);
     free(pkg_file_name);
     return -1;
@@ -814,7 +834,7 @@ int upgrade_pkg(const rc_config *global_config,pkg_info_t *installed_pkg,
   return cmd_return;
 }
 
-int remove_pkg(const rc_config *global_config,pkg_info_t *pkg)
+int slapt_remove_pkg(const slapt_rc_config *global_config,slapt_pkg_info_t *pkg)
 {
   char *command = NULL;
   int cmd_return = 0;
@@ -823,17 +843,17 @@ int remove_pkg(const rc_config *global_config,pkg_info_t *pkg)
 
   /* build and execute our command */
   command = slapt_calloc(
-    strlen(REMOVE_CMD) + strlen(pkg->name) + strlen("-") +
+    strlen(SLAPT_REMOVE_CMD) + strlen(pkg->name) + strlen("-") +
     strlen(pkg->version) + 1,
     sizeof *command
   );
   command[0] = '\0';
-  command = strncat(command,REMOVE_CMD,strlen(REMOVE_CMD));
+  command = strncat(command,SLAPT_REMOVE_CMD,strlen(SLAPT_REMOVE_CMD));
   command = strncat(command,pkg->name,strlen(pkg->name));
   command = strncat(command,"-",strlen("-"));
   command = strncat(command,pkg->version,strlen(pkg->version));
   if ((cmd_return = system(command)) != 0) {
-    printf(_("Failed to execute command: [%s]\n"),command);
+    printf(gettext("Failed to execute command: [%s]\n"),command);
     free(command);
     return -1;
   }
@@ -842,7 +862,7 @@ int remove_pkg(const rc_config *global_config,pkg_info_t *pkg)
   return cmd_return;
 }
 
-void free_pkg(pkg_info_t *pkg)
+void slapt_free_pkg(slapt_pkg_info_t *pkg)
 {
   if (pkg->required != NULL)
     free(pkg->required);
@@ -871,25 +891,26 @@ void free_pkg(pkg_info_t *pkg)
   free(pkg);
 }
 
-void free_pkg_list(struct pkg_list *list)
+void slapt_free_pkg_list(struct slapt_pkg_list *list)
 {
   unsigned int i;
-  if (list->free_pkgs == TRUE) {
+  if (list->free_pkgs == SLAPT_TRUE) {
     for (i = 0;i < list->pkg_count;i++) {
-      free_pkg(list->pkgs[i]);
+      slapt_free_pkg(list->pkgs[i]);
     }
   }
   free(list->pkgs);
   free(list);
 }
 
-int is_excluded(const rc_config *global_config,pkg_info_t *pkg)
+int slapt_is_excluded(const slapt_rc_config *global_config,
+                      slapt_pkg_info_t *pkg)
 {
-  unsigned int i,pkg_not_excluded = 0, pkg_is_excluded = 1;
+  unsigned int i,pkg_not_excluded = 0, pkg_slapt_is_excluded = 1;
   int name_reg_ret = -1,version_reg_ret = -1,location_reg_ret = -1;
-  sg_regex exclude_reg;
+  slapt_regex exclude_reg;
 
-  if (global_config->ignore_excludes == TRUE)
+  if (global_config->ignore_excludes == SLAPT_TRUE)
     return pkg_not_excluded;
 
   /* maybe EXCLUDE= isn't defined in our rc? */
@@ -899,44 +920,47 @@ int is_excluded(const rc_config *global_config,pkg_info_t *pkg)
   for (i = 0; i < global_config->exclude_list->count;i++) {
 
     /* return if its an exact match */
-    if ((strncmp(global_config->exclude_list->excludes[i],pkg->name,strlen(pkg->name)) == 0))
-      return pkg_is_excluded;
+    if ((strncmp(global_config->exclude_list->excludes[i],
+                 pkg->name,strlen(pkg->name)) == 0))
+      return pkg_slapt_is_excluded;
 
     /*
       this regex has to be init'd and free'd within the loop b/c the regex is pulled 
       from the exclude list
     */
-    if (init_regex(&exclude_reg,global_config->exclude_list->excludes[i]) == -1)
+    if (slapt_init_regex(&exclude_reg,
+                         global_config->exclude_list->excludes[i]) == -1)
       continue;
 
-    execute_regex(&exclude_reg,pkg->name);
+    slapt_execute_regex(&exclude_reg,pkg->name);
     name_reg_ret = exclude_reg.reg_return;
-    execute_regex(&exclude_reg,pkg->version);
+    slapt_execute_regex(&exclude_reg,pkg->version);
     version_reg_ret = exclude_reg.reg_return;
-    execute_regex(&exclude_reg,pkg->location);
+    slapt_execute_regex(&exclude_reg,pkg->location);
     location_reg_ret = exclude_reg.reg_return;
 
     if (name_reg_ret == 0 || version_reg_ret == 0 || location_reg_ret == 0) {
-      free_regex(&exclude_reg);
-      return pkg_is_excluded;
+      slapt_free_regex(&exclude_reg);
+      return pkg_slapt_is_excluded;
     }
-    free_regex(&exclude_reg);
+    slapt_free_regex(&exclude_reg);
 
   }
 
   return pkg_not_excluded;
 }
 
-void get_md5sum(pkg_info_t *pkg,FILE *checksum_file)
+void slapt_get_md5sum(slapt_pkg_info_t *pkg,FILE *checksum_file)
 {
-  sg_regex md5sum_regex;
+  slapt_regex md5sum_regex;
   ssize_t getline_read;
   size_t getline_len = 0;
   char *getline_buffer = NULL;
 
-  init_regex(&md5sum_regex,MD5SUM_REGEX);
+  slapt_init_regex(&md5sum_regex,SLAPT_MD5SUM_REGEX);
 
-  while ((getline_read = getline(&getline_buffer,&getline_len,checksum_file)) != EOF) {
+  while ((getline_read = getline(&getline_buffer,&getline_len,
+                                 checksum_file)) != EOF) {
 
     /* ignore if it is not our package */
     if (strstr(getline_buffer,pkg->name) == NULL)
@@ -948,10 +972,10 @@ void get_md5sum(pkg_info_t *pkg,FILE *checksum_file)
     if (strstr(getline_buffer,".asc") != NULL)
       continue;
 
-    execute_regex(&md5sum_regex,getline_buffer);
+    slapt_execute_regex(&md5sum_regex,getline_buffer);
 
     if (md5sum_regex.reg_return == 0) {
-      char sum[MD5_STR_LEN];
+      char sum[SLAPT_MD5_STR_LEN];
       char *location, *name, *version;
 
       /* md5 sum */
@@ -1001,10 +1025,10 @@ void get_md5sum(pkg_info_t *pkg,FILE *checksum_file)
       /* see if we can match up name, version, and location */
       if (
         (strcmp(pkg->name,name) == 0) &&
-        (cmp_pkg_versions(pkg->version,version) == 0) &&
+        (slapt_cmp_pkg_versions(pkg->version,version) == 0) &&
         (strcmp(pkg->location,location) == 0)
       ) {
-        #if DEBUG == 1
+        #if SLAPT_DEBUG == 1
         printf("%s-%s@%s, %s-%s@%s: %s\n",
           pkg->name,pkg->version,pkg->location,name,version,location,sum);
         #endif
@@ -1026,16 +1050,16 @@ void get_md5sum(pkg_info_t *pkg,FILE *checksum_file)
   if (getline_buffer)
     free(getline_buffer);
 
-  #if DEBUG == 1
+  #if SLAPT_DEBUG == 1
   printf("%s-%s@%s = %s\n",pkg->name,pkg->version,pkg->location,pkg->md5);
   #endif
-  free_regex(&md5sum_regex);
+  slapt_free_regex(&md5sum_regex);
   rewind(checksum_file);
 
   return;
 }
 
-static void free_pkg_version_parts(struct pkg_version_parts *parts)
+static void slapt_free_pkg_version_parts(struct slapt_pkg_version_parts *parts)
 {
   unsigned int i;
   for (i = 0;i < parts->count;i++) {
@@ -1045,12 +1069,12 @@ static void free_pkg_version_parts(struct pkg_version_parts *parts)
   free(parts);
 }
 
-int cmp_pkg_versions(char *a, char *b)
+int slapt_cmp_pkg_versions(const char *a, const char *b)
 {
   unsigned int position = 0;
   int greater = 1,lesser = -1,equal = 0;
-  struct pkg_version_parts *a_parts;
-  struct pkg_version_parts *b_parts;
+  struct slapt_pkg_version_parts *a_parts;
+  struct slapt_pkg_version_parts *b_parts;
 
   /* bail out early if possible */
   if (strcasecmp(a,b) == 0)
@@ -1071,27 +1095,27 @@ int cmp_pkg_versions(char *a, char *b)
         (a_parts->count == b_parts->count)) {
 
         if (strcasecmp(a_parts->parts[position],b_parts->parts[position]) < 0) {
-          free_pkg_version_parts(a_parts);
-          free_pkg_version_parts(b_parts);
+          slapt_free_pkg_version_parts(a_parts);
+          slapt_free_pkg_version_parts(b_parts);
           return lesser;
         }
         if (strcasecmp(a_parts->parts[position],b_parts->parts[position]) > 0) {
-          free_pkg_version_parts(a_parts);
-          free_pkg_version_parts(b_parts);
+          slapt_free_pkg_version_parts(a_parts);
+          slapt_free_pkg_version_parts(b_parts);
           return greater;
         }
 
       }
 
       if (atoi(a_parts->parts[position]) < atoi(b_parts->parts[position])) {
-        free_pkg_version_parts(a_parts);
-        free_pkg_version_parts(b_parts);
+        slapt_free_pkg_version_parts(a_parts);
+        slapt_free_pkg_version_parts(b_parts);
         return lesser;
       }
 
       if (atoi(a_parts->parts[position]) > atoi(b_parts->parts[position])) {
-        free_pkg_version_parts(a_parts);
-        free_pkg_version_parts(b_parts);
+        slapt_free_pkg_version_parts(a_parts);
+        slapt_free_pkg_version_parts(b_parts);
         return greater;
       }
 
@@ -1106,18 +1130,18 @@ int cmp_pkg_versions(char *a, char *b)
   */
   if (a_parts->count != b_parts->count) {
     if (a_parts->count > b_parts->count) {
-      free_pkg_version_parts(a_parts);
-      free_pkg_version_parts(b_parts);
+      slapt_free_pkg_version_parts(a_parts);
+      slapt_free_pkg_version_parts(b_parts);
       return greater;
     } else {
-      free_pkg_version_parts(a_parts);
-      free_pkg_version_parts(b_parts);
+      slapt_free_pkg_version_parts(a_parts);
+      slapt_free_pkg_version_parts(b_parts);
       return lesser;
     }
   }
 
-  free_pkg_version_parts(a_parts);
-  free_pkg_version_parts(b_parts);
+  slapt_free_pkg_version_parts(a_parts);
+  slapt_free_pkg_version_parts(b_parts);
 
   /*
    * Now we check to see that the version follows the standard slackware
@@ -1157,11 +1181,11 @@ int cmp_pkg_versions(char *a, char *b)
   return equal;
 }
 
-static struct pkg_version_parts *break_down_pkg_version(const char *version)
+static struct slapt_pkg_version_parts *break_down_pkg_version(const char *version)
 {
   int pos = 0,sv_size = 0;
   char *pointer,*short_version;
-  struct pkg_version_parts *pvp;
+  struct slapt_pkg_version_parts *pvp;
 
   pvp = slapt_malloc(sizeof *pvp);
   pvp->parts = slapt_malloc(sizeof *pvp->parts);
@@ -1186,7 +1210,7 @@ static struct pkg_version_parts *break_down_pkg_version(const char *version)
 
     tmp = realloc(pvp->parts, sizeof *pvp->parts * (pvp->count + 1) );
     if (tmp == NULL) {
-      fprintf(stderr,_("Failed to realloc %s\n"),"pvp->parts");
+      fprintf(stderr,gettext("Failed to realloc %s\n"),"pvp->parts");
       exit(1);
     }
     pvp->parts = tmp;
@@ -1230,7 +1254,8 @@ static struct pkg_version_parts *break_down_pkg_version(const char *version)
   return pvp;
 }
 
-void write_pkg_data(const char *source_url,FILE *d_file,struct pkg_list *pkgs)
+void slapt_write_pkg_data(const char *source_url,FILE *d_file,
+                          struct slapt_pkg_list *pkgs)
 {
   unsigned int i;
 
@@ -1272,53 +1297,54 @@ void write_pkg_data(const char *source_url,FILE *d_file,struct pkg_list *pkgs)
   }
 }
 
-struct pkg_list *search_pkg_list(struct pkg_list *available,const char *pattern)
+struct slapt_pkg_list *slapt_search_pkg_list(struct slapt_pkg_list *available,
+                                             const char *pattern)
 {
   unsigned int i;
   int name_r = -1,desc_r = -1,loc_r = -1,version_r = -1;
-  sg_regex search_regex;
-  struct pkg_list *matches = NULL;
+  slapt_regex search_regex;
+  struct slapt_pkg_list *matches = NULL;
 
-  matches = init_pkg_list();
+  matches = slapt_init_pkg_list();
 
-  if (init_regex(&search_regex,pattern) == -1)
+  if (slapt_init_regex(&search_regex,pattern) == -1)
     return matches;
 
   for (i = 0; i < available->pkg_count; i++ ) {
 
-    execute_regex(&search_regex,available->pkgs[i]->name);
+    slapt_execute_regex(&search_regex,available->pkgs[i]->name);
     name_r = search_regex.reg_return;
 
-    execute_regex(&search_regex,available->pkgs[i]->version);
+    slapt_execute_regex(&search_regex,available->pkgs[i]->version);
     version_r = search_regex.reg_return;
 
     if (available->pkgs[i]->description != NULL) {
-      execute_regex(&search_regex,available->pkgs[i]->description);
+      slapt_execute_regex(&search_regex,available->pkgs[i]->description);
       desc_r = search_regex.reg_return;
     }
 
     if (available->pkgs[i]->location != NULL) {
-      execute_regex(&search_regex,available->pkgs[i]->location);
+      slapt_execute_regex(&search_regex,available->pkgs[i]->location);
       loc_r = search_regex.reg_return;
     }
 
     /* search pkg name, pkg description, pkg location */
     if (name_r == 0 || version_r == 0 || desc_r == 0 || loc_r == 0) {
-      add_pkg_to_pkg_list(matches,available->pkgs[i]);
+      slapt_add_pkg_to_pkg_list(matches,available->pkgs[i]);
     }
   }
-  free_regex(&search_regex);
+  slapt_free_regex(&search_regex);
 
   return matches;
 }
 
 /* lookup dependencies for pkg */
-int get_pkg_dependencies(const rc_config *global_config,
-                         struct pkg_list *avail_pkgs,
-                         struct pkg_list *installed_pkgs,pkg_info_t *pkg,
-                         struct pkg_list *deps,
-                         struct pkg_err_list *conflict_err,
-                         struct pkg_err_list *missing_err)
+int slapt_get_pkg_dependencies(const slapt_rc_config *global_config,
+                         struct slapt_pkg_list *avail_pkgs,
+                         struct slapt_pkg_list *installed_pkgs,slapt_pkg_info_t *pkg,
+                         struct slapt_pkg_list *deps,
+                         struct slapt_pkg_err_list *conflict_err,
+                         struct slapt_pkg_err_list *missing_err)
 {
   int position = 0, len = 0;
   char *pointer = NULL;
@@ -1328,30 +1354,30 @@ int get_pkg_dependencies(const rc_config *global_config,
    * don't go any further if the required member is empty
    * or disable_dep_check is set
   */
-  if (global_config->disable_dep_check == TRUE ||
+  if (global_config->disable_dep_check == SLAPT_TRUE ||
     strcmp(pkg->required,"") == 0 ||
     strcmp(pkg->required," ") == 0 ||
     strcmp(pkg->required,"  ") == 0
   )
     return 1;
 
-  #if DEBUG == 1
+  #if SLAPT_DEBUG == 1
   printf("Resolving deps for %s, with dep data: %s\n",pkg->name,pkg->required);
   #endif
 
   if (deps == NULL)
-    deps = init_pkg_list();
+    deps = slapt_init_pkg_list();
 
   if (conflict_err == NULL)
-    conflict_err = init_pkg_err_list();
+    conflict_err = slapt_init_pkg_err_list();
 
   if (missing_err == NULL)
-    missing_err = init_pkg_err_list();
+    missing_err = slapt_init_pkg_err_list();
 
   /* parse dep line */
   len = strlen(pkg->required);
   while (position < len) {
-    pkg_info_t *tmp_pkg = NULL;
+    slapt_pkg_info_t *tmp_pkg = NULL;
 
     /* either the last or there was only one to begin with */
     if (strstr(pkg->required + position,",") == NULL) {
@@ -1366,7 +1392,7 @@ int get_pkg_dependencies(const rc_config *global_config,
 
       if (tmp_pkg == NULL) {
         /* if we can't find a required dep, return -1 */
-        add_pkg_err_to_list(missing_err,pkg->name,pointer);
+        slapt_add_pkg_err_to_list(missing_err,pkg->name,pointer);
         return -1;
       }
 
@@ -1396,7 +1422,7 @@ int get_pkg_dependencies(const rc_config *global_config,
 
       if (tmp_pkg == NULL) {
         /* if we can't find a required dep, stop */
-        add_pkg_err_to_list(missing_err,pkg->name,buffer);
+        slapt_add_pkg_err_to_list(missing_err,pkg->name,buffer);
         free(buffer);
         return -1;
       }
@@ -1406,31 +1432,32 @@ int get_pkg_dependencies(const rc_config *global_config,
     }
 
     /* if this pkg is excluded */
-    if ((is_excluded(global_config,tmp_pkg) == 1) &&
-    (global_config->ignore_dep == FALSE)) {
-      if (get_exact_pkg(installed_pkgs,tmp_pkg->name,tmp_pkg->version) == NULL) {
-        add_pkg_err_to_list(conflict_err,pkg->name,tmp_pkg->name);
+    if ((slapt_is_excluded(global_config,tmp_pkg) == 1) &&
+    (global_config->ignore_dep == SLAPT_FALSE)) {
+      if (slapt_get_exact_pkg(installed_pkgs,tmp_pkg->name,
+                              tmp_pkg->version) == NULL) {
+        slapt_add_pkg_err_to_list(conflict_err,pkg->name,tmp_pkg->name);
         return -1;
       }
     }
 
     /* if tmp_pkg is not already in the deps pkg_list */
-    if ((get_newest_pkg(deps,tmp_pkg->name) == NULL)) {
+    if ((slapt_get_newest_pkg(deps,tmp_pkg->name) == NULL)) {
       int dep_check_return;
 
       /* add tmp_pkg to deps so that we don't needlessly recurse */
-      add_pkg_to_pkg_list(deps,tmp_pkg);
+      slapt_add_pkg_to_pkg_list(deps,tmp_pkg);
 
       /* now check to see if tmp_pkg has dependencies */
-      dep_check_return = get_pkg_dependencies(
+      dep_check_return = slapt_get_pkg_dependencies(
         global_config,avail_pkgs,installed_pkgs,tmp_pkg,
         deps,conflict_err,missing_err
       );
-      if (dep_check_return == -1 && global_config->ignore_dep == FALSE) {
+      if (dep_check_return == -1 && global_config->ignore_dep == SLAPT_FALSE) {
         return -1;
       } else {
         /* now move the package to the end after it's dependencies */
-        pkg_info_t *tmp = NULL;
+        slapt_pkg_info_t *tmp = NULL;
         unsigned int i = 0;
         while (i < deps->pkg_count) {
           if (strcmp(deps->pkgs[i]->name,tmp_pkg->name) == 0 && tmp == NULL)
@@ -1448,7 +1475,7 @@ int get_pkg_dependencies(const rc_config *global_config,
           deps->pkgs[deps->pkg_count - 1] = tmp;
       }
 
-    #if DEBUG == 1
+    #if SLAPT_DEBUG == 1
     } else {
       printf("%s already exists in dep list\n",tmp_pkg->name);
     #endif
@@ -1460,16 +1487,16 @@ int get_pkg_dependencies(const rc_config *global_config,
 }
 
 /* lookup conflicts for package */
-struct pkg_list *get_pkg_conflicts(struct pkg_list *avail_pkgs,
-                                   struct pkg_list *installed_pkgs,
-                                   pkg_info_t *pkg)
+struct slapt_pkg_list *slapt_get_pkg_conflicts(struct slapt_pkg_list *avail_pkgs,
+                                               struct slapt_pkg_list *installed_pkgs,
+                                               slapt_pkg_info_t *pkg)
 {
-  struct pkg_list *conflicts = NULL;
+  struct slapt_pkg_list *conflicts = NULL;
   int position = 0,len = 0;
   char *pointer = NULL;
   char *buffer = NULL;
 
-  conflicts = init_pkg_list();
+  conflicts = slapt_init_pkg_list();
 
   /*
    * don't go any further if the required member is empty
@@ -1483,7 +1510,7 @@ struct pkg_list *get_pkg_conflicts(struct pkg_list *avail_pkgs,
   /* parse conflict line */
   len = strlen(pkg->conflicts);
   while (position < len) {
-    pkg_info_t *tmp_pkg = NULL;
+    slapt_pkg_info_t *tmp_pkg = NULL;
 
     /* either the last or there was only one to begin with */
     if (strstr(pkg->conflicts + position,",") == NULL) {
@@ -1516,7 +1543,7 @@ struct pkg_list *get_pkg_conflicts(struct pkg_list *avail_pkgs,
     }
 
     if (tmp_pkg != NULL) {
-      add_pkg_to_pkg_list(conflicts,tmp_pkg);
+      slapt_add_pkg_to_pkg_list(conflicts,tmp_pkg);
     }
 
   }/* end while */
@@ -1524,29 +1551,29 @@ struct pkg_list *get_pkg_conflicts(struct pkg_list *avail_pkgs,
   return conflicts;
 }
 
-static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,
-                                    struct pkg_list *installed_pkgs,
-                                    char *dep_entry)
+static slapt_pkg_info_t *parse_meta_entry(struct slapt_pkg_list *avail_pkgs,
+                                          struct slapt_pkg_list *installed_pkgs,
+                                          char *dep_entry)
 {
   unsigned int i;
-  sg_regex parse_dep_regex;
+  slapt_regex parse_dep_regex;
   char *tmp_pkg_name = NULL,*tmp_pkg_ver = NULL;
   char tmp_pkg_cond[3];
-  pkg_info_t *newest_avail_pkg;
-  pkg_info_t *newest_installed_pkg;
+  slapt_pkg_info_t *newest_avail_pkg;
+  slapt_pkg_info_t *newest_installed_pkg;
   int tmp_name_len =0, tmp_ver_len = 0, tmp_cond_len = 0;
 
-  init_regex(&parse_dep_regex,REQUIRED_REGEX);
+  slapt_init_regex(&parse_dep_regex,SLAPT_REQUIRED_REGEX);
 
   /* regex to pull out pieces */
-  execute_regex(&parse_dep_regex,dep_entry);
+  slapt_execute_regex(&parse_dep_regex,dep_entry);
 
   /* if the regex failed, just skip out */
   if (parse_dep_regex.reg_return != 0) {
-    #if DEBUG == 1
-    printf("regex %s failed on %s\n",REQUIRED_REGEX,dep_entry);
+    #if SLAPT_DEBUG == 1
+    printf("regex %s failed on %s\n",SLAPT_REQUIRED_REGEX,dep_entry);
     #endif
-    free_regex(&parse_dep_regex);
+    slapt_free_regex(&parse_dep_regex);
     return NULL;
   }
 
@@ -1564,29 +1591,29 @@ static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,
   );
   tmp_pkg_name[ tmp_name_len ] = '\0';
 
-  newest_avail_pkg = get_newest_pkg(avail_pkgs,tmp_pkg_name);
-  newest_installed_pkg = get_newest_pkg(installed_pkgs,tmp_pkg_name);
+  newest_avail_pkg = slapt_get_newest_pkg(avail_pkgs,tmp_pkg_name);
+  newest_installed_pkg = slapt_get_newest_pkg(installed_pkgs,tmp_pkg_name);
 
   /* if there is no conditional and version, return newest */
   if (tmp_cond_len == 0 ) {
-    #if DEBUG == 1
+    #if SLAPT_DEBUG == 1
     printf("no conditional\n");
     #endif
     if (newest_installed_pkg != NULL) {
-      free_regex(&parse_dep_regex);
+      slapt_free_regex(&parse_dep_regex);
       free(tmp_pkg_name);
       return newest_installed_pkg;
     }
     if (newest_avail_pkg != NULL) {
-      free_regex(&parse_dep_regex);
+      slapt_free_regex(&parse_dep_regex);
       free(tmp_pkg_name);
       return newest_avail_pkg;
     }
   }
 
   if (tmp_cond_len > 3 ) {
-    fprintf(stderr, _("pkg conditional too long\n"));
-    free_regex(&parse_dep_regex);
+    fprintf(stderr, gettext("pkg conditional too long\n"));
+    slapt_free_regex(&parse_dep_regex);
     free(tmp_pkg_name);
     return NULL;
   }
@@ -1604,7 +1631,7 @@ static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,
   );
   tmp_pkg_ver[ tmp_ver_len ] = '\0';
 
-  free_regex(&parse_dep_regex);
+  slapt_free_regex(&parse_dep_regex);
 
   /*
     * check the newest version of tmp_pkg_name (in newest_installed_pkg)
@@ -1614,7 +1641,7 @@ static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,
 
     /* if condition is "=",">=", or "=<" and versions are the same */
     if ((strchr(tmp_pkg_cond,'=') != NULL) &&
-    (cmp_pkg_versions(tmp_pkg_ver,newest_installed_pkg->version) == 0) ) {
+    (slapt_cmp_pkg_versions(tmp_pkg_ver,newest_installed_pkg->version) == 0) ) {
       free(tmp_pkg_name);
       free(tmp_pkg_ver);
       return newest_installed_pkg;
@@ -1622,7 +1649,7 @@ static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,
 
     /* if "<" */
     if (strchr(tmp_pkg_cond,'<') != NULL) {
-      if (cmp_pkg_versions(newest_installed_pkg->version,tmp_pkg_ver) < 0 ) {
+      if (slapt_cmp_pkg_versions(newest_installed_pkg->version,tmp_pkg_ver) < 0 ) {
         free(tmp_pkg_name);
         free(tmp_pkg_ver);
         return newest_installed_pkg;
@@ -1631,7 +1658,7 @@ static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,
 
     /* if ">" */
     if (strchr(tmp_pkg_cond,'>') != NULL) {
-      if (cmp_pkg_versions(newest_installed_pkg->version,tmp_pkg_ver) > 0 ) {
+      if (slapt_cmp_pkg_versions(newest_installed_pkg->version,tmp_pkg_ver) > 0 ) {
         free(tmp_pkg_name);
         free(tmp_pkg_ver);
         return newest_installed_pkg;
@@ -1647,7 +1674,7 @@ static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,
 
     /* if condition is "=",">=", or "=<" and versions are the same */
     if ((strchr(tmp_pkg_cond,'=') != NULL) &&
-    (cmp_pkg_versions(tmp_pkg_ver,installed_pkgs->pkgs[i]->version) == 0) ) {
+    (slapt_cmp_pkg_versions(tmp_pkg_ver,installed_pkgs->pkgs[i]->version) == 0) ) {
       free(tmp_pkg_name);
       free(tmp_pkg_ver);
       return installed_pkgs->pkgs[i];
@@ -1655,7 +1682,8 @@ static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,
 
     /* if "<" */
     if (strchr(tmp_pkg_cond,'<') != NULL) {
-      if (cmp_pkg_versions(installed_pkgs->pkgs[i]->version,tmp_pkg_ver) < 0 ) {
+      if (slapt_cmp_pkg_versions(installed_pkgs->pkgs[i]->version,
+                                 tmp_pkg_ver) < 0 ) {
         free(tmp_pkg_name);
         free(tmp_pkg_ver);
         return installed_pkgs->pkgs[i];
@@ -1664,7 +1692,8 @@ static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,
 
     /* if ">" */
     if (strchr(tmp_pkg_cond,'>') != NULL) {
-      if (cmp_pkg_versions(installed_pkgs->pkgs[i]->version,tmp_pkg_ver) > 0 ) {
+      if (slapt_cmp_pkg_versions(installed_pkgs->pkgs[i]->version,
+                                 tmp_pkg_ver) > 0 ) {
         free(tmp_pkg_name);
         free(tmp_pkg_ver);
         return installed_pkgs->pkgs[i];
@@ -1681,7 +1710,7 @@ static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,
 
     /* if condition is "=",">=", or "=<" and versions are the same */
     if ((strchr(tmp_pkg_cond,'=') != NULL) &&
-    (cmp_pkg_versions(tmp_pkg_ver,newest_avail_pkg->version) == 0) ) {
+    (slapt_cmp_pkg_versions(tmp_pkg_ver,newest_avail_pkg->version) == 0) ) {
       free(tmp_pkg_name);
       free(tmp_pkg_ver);
       return newest_avail_pkg;
@@ -1689,7 +1718,7 @@ static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,
 
     /* if "<" */
     if (strchr(tmp_pkg_cond,'<') != NULL) {
-      if (cmp_pkg_versions(newest_avail_pkg->version,tmp_pkg_ver) < 0 ) {
+      if (slapt_cmp_pkg_versions(newest_avail_pkg->version,tmp_pkg_ver) < 0 ) {
         free(tmp_pkg_name);
         free(tmp_pkg_ver);
         return newest_avail_pkg;
@@ -1698,7 +1727,7 @@ static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,
 
     /* if ">" */
     if (strchr(tmp_pkg_cond,'>') != NULL) {
-      if (cmp_pkg_versions(newest_avail_pkg->version,tmp_pkg_ver) > 0 ) {
+      if (slapt_cmp_pkg_versions(newest_avail_pkg->version,tmp_pkg_ver) > 0 ) {
         free(tmp_pkg_name);
         free(tmp_pkg_ver);
         return newest_avail_pkg;
@@ -1715,7 +1744,7 @@ static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,
 
     /* if condition is "=",">=", or "=<" and versions are the same */
     if ((strchr(tmp_pkg_cond,'=') != NULL) &&
-    (cmp_pkg_versions(tmp_pkg_ver,avail_pkgs->pkgs[i]->version) == 0) ) {
+    (slapt_cmp_pkg_versions(tmp_pkg_ver,avail_pkgs->pkgs[i]->version) == 0)) {
       free(tmp_pkg_name);
       free(tmp_pkg_ver);
       return avail_pkgs->pkgs[i];
@@ -1723,7 +1752,7 @@ static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,
 
     /* if "<" */
     if (strchr(tmp_pkg_cond,'<') != NULL) {
-      if (cmp_pkg_versions(avail_pkgs->pkgs[i]->version,tmp_pkg_ver) < 0 ) {
+      if (slapt_cmp_pkg_versions(avail_pkgs->pkgs[i]->version,tmp_pkg_ver) < 0) {
         free(tmp_pkg_name);
         free(tmp_pkg_ver);
         return avail_pkgs->pkgs[i];
@@ -1732,7 +1761,7 @@ static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,
 
     /* if ">" */
     if (strchr(tmp_pkg_cond,'>') != NULL) {
-      if (cmp_pkg_versions(avail_pkgs->pkgs[i]->version,tmp_pkg_ver) > 0 ) {
+      if (slapt_cmp_pkg_versions(avail_pkgs->pkgs[i]->version,tmp_pkg_ver) > 0 ) {
         free(tmp_pkg_name);
         free(tmp_pkg_ver);
         return avail_pkgs->pkgs[i];
@@ -1747,28 +1776,30 @@ static pkg_info_t *parse_meta_entry(struct pkg_list *avail_pkgs,
   return NULL;
 }
 
-struct pkg_list *is_required_by(const rc_config *global_config,
-                                struct pkg_list *avail,
-                                pkg_info_t *pkg)
+struct slapt_pkg_list *slapt_is_required_by(const slapt_rc_config *global_config,
+                                            struct slapt_pkg_list *avail,
+                                            slapt_pkg_info_t *pkg)
 {
-  struct pkg_list *required_by_list = init_pkg_list();
+  struct slapt_pkg_list *required_by_list = slapt_init_pkg_list();
 
   required_by(global_config,avail,pkg,required_by_list);
 
   return required_by_list;
 }
 
-static void required_by(const rc_config *global_config,struct pkg_list *avail,
-                        pkg_info_t *pkg,struct pkg_list *required_by_list)
+static void required_by(const slapt_rc_config *global_config,
+                        struct slapt_pkg_list *avail,
+                        slapt_pkg_info_t *pkg,
+                        struct slapt_pkg_list *required_by_list)
 {
   unsigned int i;
-  sg_regex required_by_reg;
+  slapt_regex required_by_reg;
   char *escapedName = NULL, *escaped_ptr;
 
   /*
    * don't go any further if disable_dep_check is set
   */
-  if (global_config->disable_dep_check == TRUE)
+  if (global_config->disable_dep_check == SLAPT_TRUE)
     return;
 
   escapedName = slapt_malloc(sizeof *escapedName * (strlen(pkg->name) + 1) );
@@ -1783,26 +1814,28 @@ static void required_by(const rc_config *global_config,struct pkg_list *avail,
     *escaped_ptr = '\0';
   }
 
-  init_regex(&required_by_reg,escapedName);
+  slapt_init_regex(&required_by_reg,escapedName);
 
   for (i = 0; i < avail->pkg_count;i++) {
 
     if (strcmp(avail->pkgs[i]->required,"") == 0 )
       continue;
 
-    execute_regex(&required_by_reg,avail->pkgs[i]->required);
+    slapt_execute_regex(&required_by_reg,avail->pkgs[i]->required);
     if (required_by_reg.reg_return != 0 )
       continue;
 
-    add_pkg_to_pkg_list(required_by_list,avail->pkgs[i]);
+    slapt_add_pkg_to_pkg_list(required_by_list,avail->pkgs[i]);
   }
 
   free(escapedName);
-  free_regex(&required_by_reg);
+  slapt_free_regex(&required_by_reg);
 }
 
-pkg_info_t *get_pkg_by_details(struct pkg_list *list,char *name,char *version,
-                               char *location)
+slapt_pkg_info_t *slapt_get_pkg_by_details(struct slapt_pkg_list *list,
+                                           const char *name,
+                                           const char *version,
+                                           const char *location)
 {
   unsigned int i;
   for (i = 0; i < list->pkg_count; i++) {
@@ -1826,7 +1859,7 @@ pkg_info_t *get_pkg_by_details(struct pkg_list *list,char *name,char *version,
 }
 
 /* do a head request on the mirror data to find out if it's new */
-char *head_mirror_data(const char *wurl,const char *file)
+char *slapt_head_mirror_data(const char *wurl,const char *file)
 {
   char *request_header = NULL;
   char *request_header_ptr = NULL;
@@ -1843,7 +1876,7 @@ char *head_mirror_data(const char *wurl,const char *file)
   strncat(url,file,strlen(file));
 
   /* retrieve the header info */
-  head_data = head_request(url);
+  head_data = slapt_head_request(url);
   free(url);
   if (head_data == NULL) {
     return NULL;
@@ -1874,7 +1907,7 @@ char *head_mirror_data(const char *wurl,const char *file)
 }
 
 /* update package data from mirror url */
-int update_pkg_cache(const rc_config *global_config)
+int slapt_update_pkg_cache(const slapt_rc_config *global_config)
 {
   unsigned int i,source_dl_failed = 0;
   FILE *pkg_list_fh_tmp = NULL;
@@ -1891,49 +1924,61 @@ int update_pkg_cache(const rc_config *global_config)
 
   /* go through each package source and download the meta data */
   for (i = 0; i < global_config->sources->count; i++) {
-    struct pkg_list *available_pkgs = NULL;
-    struct pkg_list *patch_pkgs = NULL;
+    struct slapt_pkg_list *available_pkgs = NULL;
+    struct slapt_pkg_list *patch_pkgs = NULL;
     FILE *tmp_checksum_f = NULL;
 
-    /* download our PKG_LIST */
-    printf(_("Retrieving package data [%s]..."),global_config->sources->url[i]);
-    available_pkgs = slapt_get_pkg_source_packages(global_config,global_config->sources->url[i]);
+    /* download our SLAPT_PKG_LIST */
+    printf(gettext("Retrieving package data [%s]..."),
+                   global_config->sources->url[i]);
+    available_pkgs =
+      slapt_get_pkg_source_packages(global_config,
+                                    global_config->sources->url[i]);
     if (available_pkgs == NULL) {
       source_dl_failed = 1;
       continue;
     }
 
-    /* download PATCHES_LIST */
-    printf(_("Retrieving patch list [%s]..."),global_config->sources->url[i]);
-    patch_pkgs = slapt_get_pkg_source_patches(global_config,global_config->sources->url[i]);
+    /* download SLAPT_PATCHES_LIST */
+    printf(gettext("Retrieving patch list [%s]..."),
+                    global_config->sources->url[i]);
+    patch_pkgs =
+      slapt_get_pkg_source_patches(global_config,
+                                   global_config->sources->url[i]);
 
 
     /* download checksum file */
-    printf(_("Retrieving checksum list [%s]..."),global_config->sources->url[i]);
-    tmp_checksum_f = slapt_get_pkg_source_checksums(global_config,global_config->sources->url[i]);
+    printf(gettext("Retrieving checksum list [%s]..."),
+                   global_config->sources->url[i]);
+    tmp_checksum_f =
+      slapt_get_pkg_source_checksums(global_config,
+                                     global_config->sources->url[i]);
 
     if (tmp_checksum_f != NULL) {
       unsigned int a;
 
       /* now map md5 checksums to packages */
-      printf(_("Reading Package Lists..."));
+      printf(gettext("Reading Package Lists..."));
       for (a = 0;a < available_pkgs->pkg_count;a++) {
-        get_md5sum(available_pkgs->pkgs[a],tmp_checksum_f);
-        printf("%c\b",spinner());
+        slapt_get_md5sum(available_pkgs->pkgs[a],tmp_checksum_f);
+        printf("%c\b",slapt_spinner());
       }
       if (patch_pkgs) {
         for (a = 0;a < patch_pkgs->pkg_count;a++) {
-          get_md5sum(patch_pkgs->pkgs[a],tmp_checksum_f);
-          printf("%c\b",spinner());
+          slapt_get_md5sum(patch_pkgs->pkgs[a],tmp_checksum_f);
+          printf("%c\b",slapt_spinner());
         }
       }
-      printf(_("Done\n"));
+      printf(gettext("Done\n"));
 
       /* write package listings to disk */
-      write_pkg_data(global_config->sources->url[i],pkg_list_fh_tmp,available_pkgs);
+      slapt_write_pkg_data(global_config->sources->url[i],
+                           pkg_list_fh_tmp,available_pkgs);
 
-      if (patch_pkgs)
-        write_pkg_data(global_config->sources->url[i],pkg_list_fh_tmp,patch_pkgs);
+      if (patch_pkgs) {
+        slapt_write_pkg_data(global_config->sources->url[i],
+                             pkg_list_fh_tmp,patch_pkgs);
+      }
 
       fclose(tmp_checksum_f);
     } else {
@@ -1942,28 +1987,29 @@ int update_pkg_cache(const rc_config *global_config)
 
 
     if (available_pkgs)
-      free_pkg_list(available_pkgs);
+      slapt_free_pkg_list(available_pkgs);
 
     if (patch_pkgs)
-      free_pkg_list(patch_pkgs);
+      slapt_free_pkg_list(patch_pkgs);
 
   }/* end for loop */
 
-  /* if all our downloads where a success, write to PKG_LIST_L */
+  /* if all our downloads where a success, write to SLAPT_PKG_LIST_L */
   if (source_dl_failed != 1 ) {
     ssize_t bytes_read;
     size_t getline_len = 0;
     char *getline_buffer = NULL;
     FILE *pkg_list_fh;
 
-    if ((pkg_list_fh = open_file(PKG_LIST_L,"w+")) == NULL)
+    if ((pkg_list_fh = slapt_open_file(SLAPT_PKG_LIST_L,"w+")) == NULL)
       exit(1);
 
     if (pkg_list_fh == NULL)
       exit(1);
 
     rewind(pkg_list_fh_tmp);
-    while ((bytes_read = getline(&getline_buffer,&getline_len,pkg_list_fh_tmp) ) != EOF) {
+    while ((bytes_read = getline(&getline_buffer,&getline_len,
+                                 pkg_list_fh_tmp)) != EOF) {
       fprintf(pkg_list_fh,"%s",getline_buffer);
     }
 
@@ -1973,7 +2019,7 @@ int update_pkg_cache(const rc_config *global_config)
     fclose(pkg_list_fh);
 
   } else {
-    printf(_("Sources failed to download, correct sources and rerun --update\n"));
+    printf(gettext("Sources failed to download, correct sources and rerun --update\n"));
   }
 
   /* close the tmp pkg list file */
@@ -1982,28 +2028,29 @@ int update_pkg_cache(const rc_config *global_config)
   return source_dl_failed;
 }
 
-struct pkg_list *init_pkg_list(void)
+struct slapt_pkg_list *slapt_init_pkg_list(void)
 {
-  struct pkg_list *list = NULL;
+  struct slapt_pkg_list *list = NULL;
 
   list = slapt_malloc(sizeof *list);
   list->pkgs = slapt_malloc(sizeof *list->pkgs);
   list->pkg_count = 0;
-  list->free_pkgs = FALSE;
+  list->free_pkgs = SLAPT_FALSE;
 
   return list;
 }
 
-void add_pkg_to_pkg_list(struct pkg_list *list,pkg_info_t *pkg)
+void slapt_add_pkg_to_pkg_list(struct slapt_pkg_list *list,
+                               slapt_pkg_info_t *pkg)
 {
-  pkg_info_t **realloc_tmp;
+  slapt_pkg_info_t **realloc_tmp;
 
   /* grow our struct array */
   realloc_tmp = realloc(list->pkgs,
     sizeof *list->pkgs * (list->pkg_count + 1)
   );
   if (realloc_tmp == NULL) {
-    fprintf(stderr,_("Failed to realloc %s\n"),"pkgs");
+    fprintf(stderr,gettext("Failed to realloc %s\n"),"pkgs");
     exit(1);
   }
 
@@ -2013,9 +2060,9 @@ void add_pkg_to_pkg_list(struct pkg_list *list,pkg_info_t *pkg)
 
 }
 
-__inline pkg_info_t *init_pkg(void)
+__inline slapt_pkg_info_t *slapt_init_pkg(void)
 {
-  pkg_info_t *pkg;
+  slapt_pkg_info_t *pkg;
 
   pkg = slapt_malloc(sizeof *pkg);
 
@@ -2046,7 +2093,8 @@ __inline pkg_info_t *init_pkg(void)
 }
 
 /* generate the package file name */
-char *gen_pkg_file_name(const rc_config *global_config,pkg_info_t *pkg)
+char *slapt_gen_pkg_file_name(const slapt_rc_config *global_config,
+                              slapt_pkg_info_t *pkg)
 {
   char *file_name = NULL;
 
@@ -2073,7 +2121,7 @@ char *gen_pkg_file_name(const rc_config *global_config,pkg_info_t *pkg)
 }
 
 /* generate the download url for a package */
-char *gen_pkg_url(pkg_info_t *pkg)
+char *slapt_gen_pkg_url(slapt_pkg_info_t *pkg)
 {
   char *url = NULL;
   char *file_name = NULL;
@@ -2105,14 +2153,15 @@ char *gen_pkg_url(pkg_info_t *pkg)
 }
 
 /* find out the pkg file size (post download) */
-size_t get_pkg_file_size(const rc_config *global_config,pkg_info_t *pkg)
+size_t slapt_get_pkg_file_size(const slapt_rc_config *global_config,
+                               slapt_pkg_info_t *pkg)
 {
   char *file_name = NULL;
   struct stat file_stat;
   size_t file_size = 0;
 
   /* build the file name */
-  file_name = gen_pkg_file_name(global_config,pkg);
+  file_name = slapt_gen_pkg_file_name(global_config,pkg);
 
   if (stat(file_name,&file_stat) == 0 ) {
     file_size = file_stat.st_size;
@@ -2123,35 +2172,36 @@ size_t get_pkg_file_size(const rc_config *global_config,pkg_info_t *pkg)
 }
 
 /* package is already downloaded and cached, md5sum if applicable is ok */
-int verify_downloaded_pkg(const rc_config *global_config,pkg_info_t *pkg)
+int slapt_verify_downloaded_pkg(const slapt_rc_config *global_config,
+                                slapt_pkg_info_t *pkg)
 {
   char *file_name = NULL;
   FILE *fh_test = NULL;
   size_t file_size = 0;
-  char md5sum_f[MD5_STR_LEN];
+  char md5sum_f[SLAPT_MD5_STR_LEN];
   int is_verified = 0,not_verified = -1;
 
   /*
     check the file size first so we don't run an md5 checksum
     on an incomplete file
   */
-  file_size = get_pkg_file_size(global_config,pkg);
+  file_size = slapt_get_pkg_file_size(global_config,pkg);
   if ((unsigned int)(file_size/1024) != pkg->size_c) {
     return not_verified;
   }
   /* if not checking the md5 checksum and the sizes match, assume its good */
-  if (global_config->no_md5_check == TRUE)
+  if (global_config->no_md5_check == SLAPT_TRUE)
     return is_verified;
 
   /* check to see that we actually have an md5 checksum */
   if (strcmp(pkg->md5,"") == 0) {
-    printf(_("Could not find MD5 checksum for %s, override with --no-md5\n"),
+    printf(gettext("Could not find MD5 checksum for %s, override with --no-md5\n"),
       pkg->name);
     return not_verified;
   }
 
   /* build the file name */
-  file_name = gen_pkg_file_name(global_config,pkg);
+  file_name = slapt_gen_pkg_file_name(global_config,pkg);
 
   /* return if we can't open the file */
   if ((fh_test = fopen(file_name,"r") ) == NULL) {
@@ -2161,18 +2211,18 @@ int verify_downloaded_pkg(const rc_config *global_config,pkg_info_t *pkg)
   free(file_name);
 
   /* generate the md5 checksum */
-  gen_md5_sum_of_file(fh_test,md5sum_f);
+  slapt_gen_md5_sum_of_file(fh_test,md5sum_f);
   fclose(fh_test);
 
   /* check to see if the md5sum is correct */
   if (strcmp(md5sum_f,pkg->md5) == 0 )
     return is_verified;
 
-  return MD5_CHECKSUM_FAILED;
+  return SLAPT_MD5_CHECKSUM_FAILED;
 
 }
 
-char *gen_filename_from_url(const char *url,const char *file)
+char *slapt_gen_filename_from_url(const char *url,const char *file)
 {
   char *filename,*cleaned;
 
@@ -2181,38 +2231,39 @@ char *gen_filename_from_url(const char *url,const char *file)
   strncat(filename,url,strlen(url));
   strncat(filename,file,strlen(file));
 
-  cleaned = str_replace_chr(filename,'/','#');
+  cleaned = slapt_str_replace_chr(filename,'/','#');
 
   free(filename);
 
   return cleaned;
 }
 
-void purge_old_cached_pkgs(const rc_config *global_config,char *dir_name,
-                           struct pkg_list *avail_pkgs)
+void slapt_purge_old_cached_pkgs(const slapt_rc_config *global_config,
+                                 const char *dir_name,
+                                 struct slapt_pkg_list *avail_pkgs)
 {
   DIR *dir;
   struct dirent *file;
   struct stat file_stat;
-  sg_regex cached_pkgs_regex;
+  slapt_regex cached_pkgs_regex;
   int local_pkg_list = 0;
 
   if (avail_pkgs == NULL) {
-    avail_pkgs = get_available_pkgs();
+    avail_pkgs = slapt_get_available_pkgs();
     local_pkg_list = 1;
   }
 
   if (dir_name == NULL)
     dir_name = (char *)global_config->working_dir;
 
-  init_regex(&cached_pkgs_regex,PKG_PARSE_REGEX);
+  slapt_init_regex(&cached_pkgs_regex,SLAPT_PKG_PARSE_REGEX);
 
   if ((dir = opendir(dir_name)) == NULL) {
 
     if (errno)
       perror(dir_name);
 
-    fprintf(stderr,_("Failed to opendir %s\n"),dir_name);
+    fprintf(stderr,gettext("Failed to opendir %s\n"),dir_name);
     return;
   }
 
@@ -2221,14 +2272,14 @@ void purge_old_cached_pkgs(const rc_config *global_config,char *dir_name,
     if (errno)
       perror(dir_name);
 
-    fprintf(stderr,_("Failed to chdir: %s\n"),dir_name);
+    fprintf(stderr,gettext("Failed to chdir: %s\n"),dir_name);
     return;
   }
 
   while ((file = readdir(dir)) ) {
 
     /* make sure we don't have . or .. */
-    if ((strcmp(file->d_name,"..")) == 0 || (strcmp(file->d_name,".") == 0) )
+    if ((strcmp(file->d_name,"..")) == 0 || (strcmp(file->d_name,".") == 0))
       continue;
 
     /* setup file_stat struct */
@@ -2237,9 +2288,9 @@ void purge_old_cached_pkgs(const rc_config *global_config,char *dir_name,
 
     /* if its a directory, recurse */
     if (S_ISDIR(file_stat.st_mode) ) {
-      purge_old_cached_pkgs(global_config,file->d_name,avail_pkgs);
+      slapt_purge_old_cached_pkgs(global_config,file->d_name,avail_pkgs);
       if ((chdir("..")) == -1 ) {
-        fprintf(stderr,_("Failed to chdir: %s\n"),dir_name);
+        fprintf(stderr,gettext("Failed to chdir: %s\n"),dir_name);
         return;
       }
       continue;
@@ -2248,12 +2299,12 @@ void purge_old_cached_pkgs(const rc_config *global_config,char *dir_name,
     /* if its a package */
     if (strstr(file->d_name,".tgz") != NULL) {
 
-      execute_regex(&cached_pkgs_regex,file->d_name);
+      slapt_execute_regex(&cached_pkgs_regex,file->d_name);
 
       /* if our regex matches */
       if (cached_pkgs_regex.reg_return == 0 ) {
         char *tmp_pkg_name,*tmp_pkg_version;
-        pkg_info_t *tmp_pkg;
+        slapt_pkg_info_t *tmp_pkg;
 
         tmp_pkg_name = strndup(
           file->d_name + cached_pkgs_regex.pmatch[1].rm_so,
@@ -2264,16 +2315,16 @@ void purge_old_cached_pkgs(const rc_config *global_config,char *dir_name,
           cached_pkgs_regex.pmatch[2].rm_eo - cached_pkgs_regex.pmatch[2].rm_so
         );
 
-        tmp_pkg = get_exact_pkg(avail_pkgs,tmp_pkg_name,tmp_pkg_version);
+        tmp_pkg = slapt_get_exact_pkg(avail_pkgs,tmp_pkg_name,tmp_pkg_version);
         free(tmp_pkg_name);
         free(tmp_pkg_version);
 
         if (tmp_pkg == NULL) {
 
-          if (global_config->no_prompt == TRUE) {
+          if (global_config->no_prompt == SLAPT_TRUE) {
               unlink(file->d_name);
           } else {
-            if (ask_yes_no(_("Delete %s ? [y/N]"), file->d_name) == 1 )
+            if (slapt_ask_yes_no(gettext("Delete %s ? [y/N]"),file->d_name) == 1)
               unlink(file->d_name);
           }
 
@@ -2287,33 +2338,33 @@ void purge_old_cached_pkgs(const rc_config *global_config,char *dir_name,
   }
   closedir(dir);
 
-  free_regex(&cached_pkgs_regex);
+  slapt_free_regex(&cached_pkgs_regex);
   if (local_pkg_list == 1 ) {
-    free_pkg_list(avail_pkgs);
+    slapt_free_pkg_list(avail_pkgs);
   }
 
 }
 
-void clean_pkg_dir(const char *dir_name)
+void slapt_clean_pkg_dir(const char *dir_name)
 {
   DIR *dir;
   struct dirent *file;
   struct stat file_stat;
 
   if ((dir = opendir(dir_name)) == NULL) {
-    fprintf(stderr,_("Failed to opendir %s\n"),dir_name);
+    fprintf(stderr,gettext("Failed to opendir %s\n"),dir_name);
     return;
   }
 
   if (chdir(dir_name) == -1 ) {
-    fprintf(stderr,_("Failed to chdir: %s\n"),dir_name);
+    fprintf(stderr,gettext("Failed to chdir: %s\n"),dir_name);
     return;
   }
 
   while ((file = readdir(dir))) {
 
     /* make sure we don't have . or .. */
-    if ((strcmp(file->d_name,"..")) == 0 || (strcmp(file->d_name,".") == 0) )
+    if ((strcmp(file->d_name,"..")) == 0 || (strcmp(file->d_name,".") == 0))
       continue;
 
     if ((stat(file->d_name,&file_stat)) == -1)
@@ -2321,16 +2372,16 @@ void clean_pkg_dir(const char *dir_name)
 
     /* if its a directory, recurse */
     if (S_ISDIR(file_stat.st_mode) ) {
-      clean_pkg_dir(file->d_name);
+      slapt_clean_pkg_dir(file->d_name);
       if ((chdir("..")) == -1) {
-        fprintf(stderr,_("Failed to chdir: %s\n"),dir_name);
+        fprintf(stderr,gettext("Failed to chdir: %s\n"),dir_name);
         return;
       }
       continue;
     }
     if (strstr(file->d_name,".tgz") !=NULL) {
-      #if DEBUG == 1
-      printf(_("unlinking %s\n"),file->d_name);
+      #if SLAPT_DEBUG == 1
+      printf(gettext("unlinking %s\n"),file->d_name);
       #endif
       unlink(file->d_name);
     }
@@ -2340,11 +2391,11 @@ void clean_pkg_dir(const char *dir_name)
 }
 
 /* find dependency from "or" requirement */
-static pkg_info_t *find_or_requirement(struct pkg_list *avail_pkgs,
-                                       struct pkg_list *installed_pkgs,
-                                       char *required_str)
+static slapt_pkg_info_t *find_or_requirement(struct slapt_pkg_list *avail_pkgs,
+                                             struct slapt_pkg_list *installed_pkgs,
+                                             char *required_str)
 {
-  pkg_info_t *pkg = NULL;
+  slapt_pkg_info_t *pkg = NULL;
   int position = 0, len = 0;
 
   len = strlen(required_str);
@@ -2352,13 +2403,14 @@ static pkg_info_t *find_or_requirement(struct pkg_list *avail_pkgs,
 
     if (strchr(required_str + position,'|') == NULL) {
       char *string = required_str + position;
-      pkg_info_t *tmp_pkg = NULL;
+      slapt_pkg_info_t *tmp_pkg = NULL;
 
       tmp_pkg = parse_meta_entry(avail_pkgs,installed_pkgs,string);
 
       if (tmp_pkg != NULL) {
         /* installed packages are preferred */
-        if (get_exact_pkg(installed_pkgs,tmp_pkg->name,tmp_pkg->version) != NULL) {
+        if (slapt_get_exact_pkg(installed_pkgs,tmp_pkg->name,
+                                tmp_pkg->version) != NULL) {
           pkg = tmp_pkg;
           break;
         } else {
@@ -2374,7 +2426,7 @@ static pkg_info_t *find_or_requirement(struct pkg_list *avail_pkgs,
       char *string = NULL;
       int str_len = 0;
       char *next_token = NULL;
-      pkg_info_t *tmp_pkg = NULL;
+      slapt_pkg_info_t *tmp_pkg = NULL;
 
       if (required_str[position] == '|') {
         ++position;
@@ -2394,7 +2446,8 @@ static pkg_info_t *find_or_requirement(struct pkg_list *avail_pkgs,
 
       if (tmp_pkg != NULL) {
         /* installed packages are preferred */
-        if (get_exact_pkg(installed_pkgs,tmp_pkg->name,tmp_pkg->version) != NULL) {
+        if (slapt_get_exact_pkg(installed_pkgs,tmp_pkg->name,
+                                tmp_pkg->version) != NULL) {
           pkg = tmp_pkg;
           break;
         } else {
@@ -2414,7 +2467,7 @@ static pkg_info_t *find_or_requirement(struct pkg_list *avail_pkgs,
   return pkg;
 }
 
-pkg_info_t *copy_pkg(pkg_info_t *dst,pkg_info_t *src)
+slapt_pkg_info_t *slapt_copy_pkg(slapt_pkg_info_t *dst,slapt_pkg_info_t *src)
 {
   dst = memcpy(dst,src, sizeof *src);
   dst->name = strndup(src->name,strlen(src->name));
@@ -2428,21 +2481,21 @@ pkg_info_t *copy_pkg(pkg_info_t *dst,pkg_info_t *src)
   return dst;
 }
 
-struct pkg_err_list *init_pkg_err_list(void)
+struct slapt_pkg_err_list *slapt_init_pkg_err_list(void)
 {
-  struct pkg_err_list *l = slapt_malloc(sizeof *l);
+  struct slapt_pkg_err_list *l = slapt_malloc(sizeof *l);
   l->errs = slapt_malloc(sizeof *l->errs);
   l->err_count = 0;
 
   return l;
 }
 
-void add_pkg_err_to_list(struct pkg_err_list *l,
+void slapt_add_pkg_err_to_list(struct slapt_pkg_err_list *l,
                          const char *pkg,const char *err)
 {
-  pkg_err_t **tmp;
+  slapt_pkg_err_t **tmp;
 
-  if (search_pkg_err_list(l,pkg,err) == 1)
+  if (slapt_search_pkg_err_list(l,pkg,err) == 1)
     return;
 
   tmp = realloc(l->errs, sizeof *l->errs * (l->err_count + 1) );
@@ -2459,7 +2512,7 @@ void add_pkg_err_to_list(struct pkg_err_list *l,
 
 }
 
-int search_pkg_err_list(struct pkg_err_list *l,
+int slapt_search_pkg_err_list(struct slapt_pkg_err_list *l,
                         const char *pkg, const char *err)
 {
   unsigned int i,found = 1, not_found = 0;
@@ -2473,7 +2526,7 @@ int search_pkg_err_list(struct pkg_err_list *l,
   return not_found;
 }
 
-void free_pkg_err_list(struct pkg_err_list *l)
+void slapt_free_pkg_err_list(struct slapt_pkg_err_list *l)
 {
   unsigned int i;
 
@@ -2490,7 +2543,7 @@ void free_pkg_err_list(struct pkg_err_list *l)
 static FILE *slapt_gunzip_file (const char *file_name,FILE *dest_file)
 {
   gzFile *data = NULL;
-  char buffer[MAX_ZLIB_BUFFER];
+  char buffer[SLAPT_MAX_ZLIB_BUFFER];
 
   if (dest_file == NULL)
     if ((dest_file = tmpfile()) == NULL)
@@ -2499,7 +2552,7 @@ static FILE *slapt_gunzip_file (const char *file_name,FILE *dest_file)
   if ((data = gzopen(file_name,"rb")) == NULL) 
     exit(1);
 
-  while (gzgets(data,buffer,MAX_ZLIB_BUFFER) != Z_NULL) {
+  while (gzgets(data,buffer,SLAPT_MAX_ZLIB_BUFFER) != Z_NULL) {
     fprintf(dest_file,"%s",buffer);
   }
   gzclose(data);
@@ -2508,16 +2561,16 @@ static FILE *slapt_gunzip_file (const char *file_name,FILE *dest_file)
   return dest_file;
 }
 
-struct pkg_list *slapt_get_pkg_source_packages (const rc_config *global_config,
-                                 const char *url)
+struct slapt_pkg_list *slapt_get_pkg_source_packages (const slapt_rc_config *global_config,
+                                                      const char *url)
 {
-  struct pkg_list *available_pkgs = NULL;
+  struct slapt_pkg_list *available_pkgs = NULL;
   char *pkg_head = NULL;
 
   /* try gzipped package list */
-  if ((pkg_head = head_mirror_data(url,PKG_LIST_GZ)) != NULL) {
-    char *pkg_filename = gen_filename_from_url(url,PKG_LIST_GZ);
-    char *pkg_local_head = read_head_cache(pkg_filename);
+  if ((pkg_head = slapt_head_mirror_data(url,SLAPT_PKG_LIST_GZ)) != NULL) {
+    char *pkg_filename = slapt_gen_filename_from_url(url,SLAPT_PKG_LIST_GZ);
+    char *pkg_local_head = slapt_read_head_cache(pkg_filename);
 
     /* is it cached ? */
     if (pkg_local_head != NULL && strcmp(pkg_head,pkg_local_head) == 0) {
@@ -2528,17 +2581,17 @@ struct pkg_list *slapt_get_pkg_source_packages (const rc_config *global_config,
 
       slapt_gunzip_file(pkg_filename,tmp_pkg_f);
 
-      available_pkgs = parse_packages_txt(tmp_pkg_f);
+      available_pkgs = slapt_parse_packages_txt(tmp_pkg_f);
       fclose(tmp_pkg_f);
 
       if (available_pkgs == NULL || available_pkgs->pkg_count < 1 ) {
-        clear_head_cache(pkg_filename);
-        fprintf(stderr,_("Failed to parse package data from %s\n"),
+        slapt_clear_head_cache(pkg_filename);
+        fprintf(stderr,gettext("Failed to parse package data from %s\n"),
           pkg_filename
         );
 
         if (available_pkgs)
-          free_pkg_list(available_pkgs);
+          slapt_free_pkg_list(available_pkgs);
 
         free(pkg_filename);
         free(pkg_local_head);
@@ -2546,18 +2599,20 @@ struct pkg_list *slapt_get_pkg_source_packages (const rc_config *global_config,
       }
 
       if (global_config->progress_cb == NULL)
-        printf(_("Cached\n"));
+        printf(gettext("Cached\n"));
     } else {
       FILE *tmp_pkg_f = NULL;
 
-      if (global_config->progress_cb == NULL && global_config->dl_stats == TRUE)
+      if (global_config->progress_cb == NULL &&
+          global_config->dl_stats == SLAPT_TRUE)
         printf("\n");
 
-      if ((tmp_pkg_f = open_file(pkg_filename,"w+b")) == NULL)
+      if ((tmp_pkg_f = slapt_open_file(pkg_filename,"w+b")) == NULL)
         exit(1);
 
       /* retrieve the compressed package data */
-      if (get_mirror_data_from_source(tmp_pkg_f,global_config,url,PKG_LIST_GZ) == 0 ) {
+      if (slapt_get_mirror_data_from_source(tmp_pkg_f,global_config,url,
+                                            SLAPT_PKG_LIST_GZ) == 0 ) {
         FILE *tmp_pkg_uncompressed_f = NULL;
 
         fclose(tmp_pkg_f);
@@ -2568,18 +2623,18 @@ struct pkg_list *slapt_get_pkg_source_packages (const rc_config *global_config,
         slapt_gunzip_file(pkg_filename,tmp_pkg_uncompressed_f);
 
         /* parse packages from what we downloaded */
-        available_pkgs = parse_packages_txt(tmp_pkg_uncompressed_f);
+        available_pkgs = slapt_parse_packages_txt(tmp_pkg_uncompressed_f);
 
         fclose(tmp_pkg_uncompressed_f);
 
         /* if we can't parse any packages out of this */
         if (available_pkgs == NULL || available_pkgs->pkg_count < 1 ) {
-          clear_head_cache(pkg_filename);
+          slapt_clear_head_cache(pkg_filename);
 
-          fprintf(stderr,_("Failed to parse package data from %s\n"),url);
+          fprintf(stderr,gettext("Failed to parse package data from %s\n"),url);
 
           if (available_pkgs)
-            free_pkg_list(available_pkgs);
+            slapt_free_pkg_list(available_pkgs);
 
           free(pkg_filename);
           free(pkg_local_head);
@@ -2587,14 +2642,15 @@ struct pkg_list *slapt_get_pkg_source_packages (const rc_config *global_config,
         }
 
         /* commit the head data for later comparisons */
-        write_head_cache(pkg_head,pkg_filename);
+        slapt_write_head_cache(pkg_head,pkg_filename);
 
-        if (global_config->progress_cb == NULL && global_config->dl_stats == FALSE)
-          printf(_("Done\n"));
+        if (global_config->progress_cb == NULL &&
+            global_config->dl_stats == SLAPT_FALSE)
+          printf(gettext("Done\n"));
 
       } else {
         fclose(tmp_pkg_f);
-        clear_head_cache(pkg_filename);
+        slapt_clear_head_cache(pkg_filename);
         free(pkg_filename);
         free(pkg_local_head);
         return NULL;
@@ -2606,67 +2662,71 @@ struct pkg_list *slapt_get_pkg_source_packages (const rc_config *global_config,
     free(pkg_local_head);
 
   } else { /* fall back to uncompressed package list */
-    char *pkg_filename = gen_filename_from_url(url,PKG_LIST_GZ);
-    char *pkg_local_head = read_head_cache(pkg_filename);
+    char *pkg_filename = slapt_gen_filename_from_url(url,SLAPT_PKG_LIST_GZ);
+    char *pkg_local_head = slapt_read_head_cache(pkg_filename);
     /*
       we go ahead and run the head request, not caring if it failed.
       If the subsequent download fails as well, it will give a nice
       error message of why.
     */
-    pkg_head = head_mirror_data(url,PKG_LIST);
+    pkg_head = slapt_head_mirror_data(url,SLAPT_PKG_LIST);
 
     /* is it cached ? */
-    if (pkg_head != NULL && pkg_local_head != NULL && strcmp(pkg_head,pkg_local_head) == 0) {
+    if (pkg_head != NULL && pkg_local_head != NULL &&
+        strcmp(pkg_head,pkg_local_head) == 0) {
       FILE *tmp_pkg_f = NULL;
-      if ((tmp_pkg_f = open_file(pkg_filename,"r")) == NULL) 
+      if ((tmp_pkg_f = slapt_open_file(pkg_filename,"r")) == NULL) 
         exit(1);
 
-      available_pkgs = parse_packages_txt(tmp_pkg_f);
+      available_pkgs = slapt_parse_packages_txt(tmp_pkg_f);
       fclose(tmp_pkg_f);
 
       if (global_config->progress_cb == NULL)
-        printf(_("Cached\n"));
+        printf(gettext("Cached\n"));
 
     } else {
       FILE *tmp_pkg_f = NULL;
 
-      if (global_config->progress_cb == NULL && global_config->dl_stats == TRUE)
+      if (global_config->progress_cb == NULL &&
+          global_config->dl_stats == SLAPT_TRUE)
         printf("\n");
 
-      if ((tmp_pkg_f = open_file(pkg_filename,"w+b")) == NULL)
+      if ((tmp_pkg_f = slapt_open_file(pkg_filename,"w+b")) == NULL)
         exit(1);
 
       /* retrieve the uncompressed package data */
-      if (get_mirror_data_from_source(tmp_pkg_f,global_config,url,PKG_LIST) == 0 ) {
+      if (slapt_get_mirror_data_from_source(tmp_pkg_f,global_config,url,
+                                            SLAPT_PKG_LIST) == 0 ) {
         rewind(tmp_pkg_f); /* make sure we are back at the front of the file */
 
         /* parse packages from what we downloaded */
-        available_pkgs = parse_packages_txt(tmp_pkg_f);
+        available_pkgs = slapt_parse_packages_txt(tmp_pkg_f);
 
         /* if we can't parse any packages out of this */
         if (available_pkgs == NULL || available_pkgs->pkg_count < 1 ) {
-          clear_head_cache(pkg_filename);
+          slapt_clear_head_cache(pkg_filename);
 
-          fprintf(stderr,_("Failed to parse package data from %s\n"),url);
+          fprintf(stderr,gettext("Failed to parse package data from %s\n"),url);
 
           if (available_pkgs)
-            free_pkg_list(available_pkgs);
+            slapt_free_pkg_list(available_pkgs);
 
           fclose(tmp_pkg_f);
           free(pkg_filename);
           free(pkg_local_head);
-          clear_head_cache(pkg_filename);
+          slapt_clear_head_cache(pkg_filename);
           return NULL;
         }
 
         /* commit the head data for later comparisons */
-        write_head_cache(pkg_head,pkg_filename);
+        slapt_write_head_cache(pkg_head,pkg_filename);
 
-        if (global_config->progress_cb == NULL && global_config->dl_stats == FALSE)
-          printf(_("Done\n"));
+        if (global_config->progress_cb == NULL &&
+            global_config->dl_stats == SLAPT_FALSE)
+          printf(gettext("Done\n"));
 
       } else {
-        clear_head_cache(pkg_filename);
+        slapt_clear_head_cache(pkg_filename);
         free(pkg_filename);
         free(pkg_local_head);
         fclose(tmp_pkg_f);
@@ -2686,15 +2746,15 @@ struct pkg_list *slapt_get_pkg_source_packages (const rc_config *global_config,
   return available_pkgs;
 }
 
-struct pkg_list *slapt_get_pkg_source_patches (const rc_config *global_config,
-                                const char *url)
+struct slapt_pkg_list *slapt_get_pkg_source_patches (const slapt_rc_config *global_config,
+                                                     const char *url)
 {
-  struct pkg_list *patch_pkgs = NULL;
+  struct slapt_pkg_list *patch_pkgs = NULL;
   char *patch_head = NULL;
 
-  if ((patch_head = head_mirror_data(url,PATCHES_LIST_GZ)) != NULL) {
-    char *patch_filename = gen_filename_from_url(url,PATCHES_LIST_GZ);
-    char *patch_local_head = read_head_cache(patch_filename);
+  if ((patch_head = slapt_head_mirror_data(url,SLAPT_PATCHES_LIST_GZ)) != NULL) {
+    char *patch_filename = slapt_gen_filename_from_url(url,SLAPT_PATCHES_LIST_GZ);
+    char *patch_local_head = slapt_read_head_cache(patch_filename);
 
     if (patch_local_head != NULL && strcmp(patch_head,patch_local_head) == 0) {
       FILE *tmp_patch_f = NULL;
@@ -2704,19 +2764,20 @@ struct pkg_list *slapt_get_pkg_source_patches (const rc_config *global_config,
 
       slapt_gunzip_file(patch_filename,tmp_patch_f);
 
-      patch_pkgs = parse_packages_txt(tmp_patch_f);
+      patch_pkgs = slapt_parse_packages_txt(tmp_patch_f);
       fclose(tmp_patch_f);
 
       if (global_config->progress_cb == NULL)
-        printf(_("Cached\n"));
+        printf(gettext("Cached\n"));
 
     } else {
       FILE *tmp_patch_f = NULL;
 
-      if ((tmp_patch_f = open_file(patch_filename,"w+b")) == NULL)
+      if ((tmp_patch_f = slapt_open_file(patch_filename,"w+b")) == NULL)
         exit (1);
 
-      if (get_mirror_data_from_source(tmp_patch_f,global_config,url,PATCHES_LIST_GZ) == 0 ) {
+      if (slapt_get_mirror_data_from_source(tmp_patch_f,global_config,url,
+                                            SLAPT_PATCHES_LIST_GZ) == 0 ) {
         FILE *tmp_patch_uncompressed_f = NULL;
 
         fclose(tmp_patch_f);
@@ -2726,23 +2787,25 @@ struct pkg_list *slapt_get_pkg_source_patches (const rc_config *global_config,
 
         slapt_gunzip_file(patch_filename,tmp_patch_uncompressed_f);
 
-        patch_pkgs = parse_packages_txt(tmp_patch_uncompressed_f);
+        patch_pkgs = slapt_parse_packages_txt(tmp_patch_uncompressed_f);
 
-        if (global_config->progress_cb == NULL && global_config->dl_stats == FALSE)
-          printf(_("Done\n"));
+        if (global_config->progress_cb == NULL &&
+            global_config->dl_stats == SLAPT_FALSE)
+          printf(gettext("Done\n"));
 
         if (patch_head != NULL)
-          write_head_cache(patch_head,patch_filename);
+          slapt_write_head_cache(patch_head,patch_filename);
 
         fclose(tmp_patch_uncompressed_f);
       } else {
         fclose(tmp_patch_f);
-        /* we don't care if the patch fails, for example current doesn't have patches */
-        /* source_dl_failed = 1; */
-        clear_head_cache(patch_filename);
+        /* we don't care if the patch fails, for example current
+          doesn't have patches source_dl_failed = 1; */
+        slapt_clear_head_cache(patch_filename);
       }
 
-      if (global_config->progress_cb == NULL && global_config->dl_stats == TRUE)
+      if (global_config->progress_cb == NULL &&
+          global_config->dl_stats == SLAPT_TRUE)
         printf("\n");
 
     }
@@ -2751,51 +2814,55 @@ struct pkg_list *slapt_get_pkg_source_patches (const rc_config *global_config,
     free(patch_filename);
 
   } else {
-    char *patch_filename = gen_filename_from_url(url,PATCHES_LIST);
-    char *patch_local_head = read_head_cache(patch_filename);
+    char *patch_filename = slapt_gen_filename_from_url(url,SLAPT_PATCHES_LIST);
+    char *patch_local_head = slapt_read_head_cache(patch_filename);
     /*
       we go ahead and run the head request, not caring if it failed.
       If the subsequent download fails as well, it will give a nice
       error message of why.
     */
-    patch_head = head_mirror_data(url,PATCHES_LIST);
+    patch_head = slapt_head_mirror_data(url,SLAPT_PATCHES_LIST);
 
-    if (patch_head != NULL && patch_local_head != NULL && strcmp(patch_head,patch_local_head) == 0) {
+    if (patch_head != NULL && patch_local_head != NULL &&
+        strcmp(patch_head,patch_local_head) == 0) {
       FILE *tmp_patch_f = NULL;
 
-      if ((tmp_patch_f = open_file(patch_filename,"r")) == NULL)
+      if ((tmp_patch_f = slapt_open_file(patch_filename,"r")) == NULL)
         exit(1);
 
-      patch_pkgs = parse_packages_txt(tmp_patch_f);
+      patch_pkgs = slapt_parse_packages_txt(tmp_patch_f);
 
       if (global_config->progress_cb == NULL)
-        printf(_("Cached\n"));
+        printf(gettext("Cached\n"));
 
       fclose(tmp_patch_f);
     } else {
       FILE *tmp_patch_f = NULL;
 
-      if ((tmp_patch_f = open_file(patch_filename,"w+b")) == NULL)
+      if ((tmp_patch_f = slapt_open_file(patch_filename,"w+b")) == NULL)
         exit (1);
 
-      if (get_mirror_data_from_source(tmp_patch_f,global_config,url,PATCHES_LIST) == 0 ) {
+      if (slapt_get_mirror_data_from_source(tmp_patch_f,global_config,url,
+                                            SLAPT_PATCHES_LIST) == 0 ) {
         rewind(tmp_patch_f); /* make sure we are back at the front of the file */
-        patch_pkgs = parse_packages_txt(tmp_patch_f);
+        patch_pkgs = slapt_parse_packages_txt(tmp_patch_f);
 
-        if (global_config->progress_cb == NULL && global_config->dl_stats == FALSE)
-          printf(_("Done\n"));
+        if (global_config->progress_cb == NULL &&
+            global_config->dl_stats == SLAPT_FALSE)
+          printf(gettext("Done\n"));
 
         if (patch_head != NULL)
-          write_head_cache(patch_head,patch_filename);
+          slapt_write_head_cache(patch_head,patch_filename);
 
       } else {
-        /* we don't care if the patch fails, for example current doesn't have patches */
-        /* source_dl_failed = 1; */
-        clear_head_cache(patch_filename);
+        /* we don't care if the patch fails, for example current
+           doesn't have patches source_dl_failed = 1; */
+        slapt_clear_head_cache(patch_filename);
 
       }
 
-      if (global_config->progress_cb == NULL && global_config->dl_stats == TRUE)
+      if (global_config->progress_cb == NULL &&
+          global_config->dl_stats == SLAPT_TRUE)
         printf("\n");
 
       fclose(tmp_patch_f);
@@ -2810,15 +2877,15 @@ struct pkg_list *slapt_get_pkg_source_patches (const rc_config *global_config,
   return patch_pkgs;
 }
 
-FILE *slapt_get_pkg_source_checksums (const rc_config *global_config,
-                                 const char *url)
+FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,
+                                      const char *url)
 {
   FILE *tmp_checksum_f = NULL;
   char *checksum_head = NULL;
 
-  if ((checksum_head = head_mirror_data(url,CHECKSUM_FILE_GZ)) != NULL) {
-    char *filename = gen_filename_from_url(url,CHECKSUM_FILE_GZ);
-    char *local_head = read_head_cache(filename);
+  if ((checksum_head = slapt_head_mirror_data(url,SLAPT_CHECKSUM_FILE_GZ)) != NULL) {
+    char *filename = slapt_gen_filename_from_url(url,SLAPT_CHECKSUM_FILE_GZ);
+    char *local_head = slapt_read_head_cache(filename);
 
     if (local_head != NULL && strcmp(checksum_head,local_head) == 0) {
 
@@ -2828,21 +2895,23 @@ FILE *slapt_get_pkg_source_checksums (const rc_config *global_config,
       slapt_gunzip_file(filename,tmp_checksum_f);
 
       if (global_config->progress_cb == NULL)
-        printf(_("Cached\n"));
+        printf(gettext("Cached\n"));
 
     } else {
       FILE *working_checksum_f = NULL;
 
-      if ((working_checksum_f = open_file(filename,"w+b")) == NULL)
+      if ((working_checksum_f = slapt_open_file(filename,"w+b")) == NULL)
         exit(1);
 
-      if (get_mirror_data_from_source(working_checksum_f,global_config,url,
-                                      CHECKSUM_FILE_GZ) == 0) {
+      if (slapt_get_mirror_data_from_source(working_checksum_f,global_config,url,
+                                      SLAPT_CHECKSUM_FILE_GZ) == 0) {
 
-        if (global_config->progress_cb == NULL && global_config->dl_stats == TRUE)
+        if (global_config->progress_cb == NULL &&
+            global_config->dl_stats == SLAPT_TRUE)
           printf("\n");
-        if (global_config->progress_cb == NULL && global_config->dl_stats == FALSE)
-          printf(_("Done\n"));
+        if (global_config->progress_cb == NULL &&
+            global_config->dl_stats == SLAPT_FALSE)
+          printf(gettext("Done\n"));
 
         fclose(working_checksum_f);
 
@@ -2852,10 +2921,10 @@ FILE *slapt_get_pkg_source_checksums (const rc_config *global_config,
         slapt_gunzip_file(filename,tmp_checksum_f);
 
         /* if all is good, write it */
-        write_head_cache(checksum_head,filename);
+        slapt_write_head_cache(checksum_head,filename);
 
       } else {
-        clear_head_cache(filename);
+        slapt_clear_head_cache(filename);
         tmp_checksum_f = working_checksum_f;
         working_checksum_f = NULL;
         free(filename);
@@ -2872,34 +2941,36 @@ FILE *slapt_get_pkg_source_checksums (const rc_config *global_config,
     free(filename);
     free(local_head);
   } else {
-    char *filename = gen_filename_from_url(url,CHECKSUM_FILE);
-    char *local_head = read_head_cache(filename);
+    char *filename = slapt_gen_filename_from_url(url,SLAPT_CHECKSUM_FILE);
+    char *local_head = slapt_read_head_cache(filename);
     /*
       we go ahead and run the head request, not caring if it failed.
       If the subsequent download fails as well, it will give a nice
       error message of why.
     */
-    checksum_head = head_mirror_data(url,CHECKSUM_FILE);
+    checksum_head = slapt_head_mirror_data(url,SLAPT_CHECKSUM_FILE);
 
-    if (checksum_head != NULL && local_head != NULL && strcmp(checksum_head,local_head) == 0) {
-      if ((tmp_checksum_f = open_file(filename,"r")) == NULL)
+    if (checksum_head != NULL && local_head != NULL &&
+        strcmp(checksum_head,local_head) == 0) {
+      if ((tmp_checksum_f = slapt_open_file(filename,"r")) == NULL)
         exit(1);
 
       if (global_config->progress_cb == NULL)
-        printf(_("Cached\n"));
+        printf(gettext("Cached\n"));
 
     } else {
-      if ((tmp_checksum_f = open_file(filename,"w+b")) == NULL)
+      if ((tmp_checksum_f = slapt_open_file(filename,"w+b")) == NULL)
         exit(1);
 
-      if (get_mirror_data_from_source(tmp_checksum_f,global_config,url,
-                                      CHECKSUM_FILE) == 0) {
+      if (slapt_get_mirror_data_from_source(tmp_checksum_f,global_config,url,
+                                            SLAPT_CHECKSUM_FILE) == 0) {
 
-        if (global_config->progress_cb == NULL && global_config->dl_stats == FALSE)
-          printf(_("Done\n"));
+        if (global_config->progress_cb == NULL &&
+            global_config->dl_stats == SLAPT_FALSE)
+          printf(gettext("Done\n"));
 
       } else {
-        clear_head_cache(filename);
+        slapt_clear_head_cache(filename);
         fclose(tmp_checksum_f);
         free(filename);
         free(local_head);
@@ -2911,10 +2982,10 @@ FILE *slapt_get_pkg_source_checksums (const rc_config *global_config,
       rewind(tmp_checksum_f);
 
       /* if all is good, write it */
-      write_head_cache(checksum_head,filename);
+      slapt_write_head_cache(checksum_head,filename);
 
       if (global_config->progress_cb == NULL &&
-          global_config->dl_stats == TRUE)
+          global_config->dl_stats == SLAPT_TRUE)
         printf("\n");
 
     }

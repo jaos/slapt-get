@@ -22,45 +22,45 @@ static void version_info(void);
 
 int main( int argc, char *argv[] )
 {
-  rc_config *global_config; /* our config struct */
-  pkg_action_args_t *paa;
+  slapt_rc_config *global_config; /* our config struct */
+  slapt_pkg_action_args_t *paa;
   /* getopt needs these */
   int c = 0;
   extern char *optarg;
   extern int optind, opterr, optopt;
-  enum action do_action = 0;
+  enum slapt_action do_action = 0;
   int option_index = 0;
   static struct option long_options[] = {
-    {"update", 0, 0, UPDATE_OPT},
-    {"upgrade", 0, 0, UPGRADE_OPT},
-    {"install", 0, 0, INSTALL_OPT},
-    {"remove", 0, 0, REMOVE_OPT},
-    {"show", 0, 0, SHOW_OPT},
-    {"search", 0, 0, SEARCH_OPT},
-    {"list", 0, 0, LIST_OPT},
-    {"installed", 0, 0, INSTALLED_OPT},
-    {"clean", 0, 0, CLEAN_OPT},
-    {"download-only", 0, 0, DOWNLOAD_ONLY_OPT},
-    {"simulate", 0, 0, SIMULATE_OPT},
-    {"s", 0, 0, SIMULATE_OPT},
-    {"version", 0, 0, VERSION_OPT},
-    {"no-prompt", 0, 0, NO_PROMPT_OPT},
-    {"y", 0, 0, NO_PROMPT_OPT},
-    {"reinstall", 0, 0, REINSTALL_OPT},
-    {"ignore-excludes", 0, 0, IGNORE_EXCLUDES_OPT},
-    {"no-md5", 0, 0, NO_MD5_OPT},
-    {"dist-upgrade",0, 0, DIST_UPGRADE_OPT},
-    {"help",0, 0, HELP_OPT},
-    {"h",0, 0, HELP_OPT},
-    {"ignore-dep",0, 0, IGNORE_DEP_OPT},
-    {"no-dep",0, 0, NO_DEP_OPT},
-    {"print-uris",0, 0, PRINT_URIS_OPT},
-    {"show-stats",0, 0, SHOW_STATS_OPT},
-    {"S",0, 0, SHOW_STATS_OPT},
-    {"config",1, 0, CONFIG_OPT},
-    {"autoclean", 0, 0, AUTOCLEAN_OPT},
-    {"remove-obsolete", 0, 0, OBSOLETE_OPT},
-    {"available", 0, 0, AVAILABLE_OPT},
+    {"update", 0, 0, SLAPT_UPDATE_OPT},
+    {"upgrade", 0, 0, SLAPT_UPGRADE_OPT},
+    {"install", 0, 0, SLAPT_INSTALL_OPT},
+    {"remove", 0, 0, SLAPT_REMOVE_OPT},
+    {"show", 0, 0, SLAPT_SHOW_OPT},
+    {"search", 0, 0, SLAPT_SEARCH_OPT},
+    {"list", 0, 0, SLAPT_LIST_OPT},
+    {"installed", 0, 0, SLAPT_INSTALLED_OPT},
+    {"clean", 0, 0, SLAPT_CLEAN_OPT},
+    {"download-only", 0, 0, SLAPT_DOWNLOAD_ONLY_OPT},
+    {"simulate", 0, 0, SLAPT_SIMULATE_OPT},
+    {"s", 0, 0, SLAPT_SIMULATE_OPT},
+    {"version", 0, 0, SLAPT_VERSION_OPT},
+    {"no-prompt", 0, 0, SLAPT_NO_PROMPT_OPT},
+    {"y", 0, 0, SLAPT_NO_PROMPT_OPT},
+    {"reinstall", 0, 0, SLAPT_REINSTALL_OPT},
+    {"ignore-excludes", 0, 0, SLAPT_IGNORE_EXCLUDES_OPT},
+    {"no-md5", 0, 0, SLAPT_NO_MD5_OPT},
+    {"dist-upgrade",0, 0, SLAPT_DIST_UPGRADE_OPT},
+    {"help",0, 0, SLAPT_HELP_OPT},
+    {"h",0, 0, SLAPT_HELP_OPT},
+    {"ignore-dep",0, 0, SLAPT_IGNORE_DEP_OPT},
+    {"no-dep",0, 0, SLAPT_NO_DEP_OPT},
+    {"print-uris",0, 0, SLAPT_PRINT_URIS_OPT},
+    {"show-stats",0, 0, SLAPT_SHOW_STATS_OPT},
+    {"S",0, 0, SLAPT_SHOW_STATS_OPT},
+    {"config",1, 0, SLAPT_CONFIG_OPT},
+    {"autoclean", 0, 0, SLAPT_AUTOCLEAN_OPT},
+    {"remove-obsolete", 0, 0, SLAPT_OBSOLETE_OPT},
+    {"available", 0, 0, SLAPT_AVAILABLE_OPT},
     {0, 0, 0, 0},
   };
 
@@ -78,89 +78,90 @@ int main( int argc, char *argv[] )
   }
 
   /* load up the configuration file */
-  global_config = read_rc_config(RC_LOCATION);
+  global_config = slapt_read_rc_config(RC_LOCATION);
   if ( global_config == NULL ) {
     exit(1);
   }
   curl_global_init(CURL_GLOBAL_ALL);
 
-  while ( ( c = getopt_long_only(argc,argv,"",long_options,&option_index ) ) != -1 ) {
+  while ((c = getopt_long_only(argc,argv,"",long_options,
+                               &option_index)) != -1) {
     switch(c) {
-      case UPDATE_OPT: /* update */
+      case SLAPT_UPDATE_OPT: /* update */
         do_action = UPDATE;
         break;
-      case INSTALL_OPT: /* install */
+      case SLAPT_INSTALL_OPT: /* install */
         do_action = INSTALL;
         break;
-      case REMOVE_OPT: /* remove */
+      case SLAPT_REMOVE_OPT: /* remove */
         do_action = REMOVE;
         break;
-      case SHOW_OPT: /* show */
+      case SLAPT_SHOW_OPT: /* show */
         do_action = SHOW;
         break;
-      case SEARCH_OPT: /* search */
+      case SLAPT_SEARCH_OPT: /* search */
         do_action = SEARCH;
         break;
-      case LIST_OPT: /* list */
+      case SLAPT_LIST_OPT: /* list */
         do_action = LIST;
         break;
-      case INSTALLED_OPT: /* installed */
+      case SLAPT_INSTALLED_OPT: /* installed */
         do_action = INSTALLED;
         break;
-      case CLEAN_OPT: /* clean */
+      case SLAPT_CLEAN_OPT: /* clean */
         do_action = CLEAN;
         break;
-      case UPGRADE_OPT: /* upgrade */
+      case SLAPT_UPGRADE_OPT: /* upgrade */
         do_action = UPGRADE;
         break;
-      case DOWNLOAD_ONLY_OPT: /* download only flag */
-        global_config->download_only = TRUE;
+      case SLAPT_DOWNLOAD_ONLY_OPT: /* download only flag */
+        global_config->download_only = SLAPT_TRUE;
         break;
-      case SIMULATE_OPT: /* simulate */
-        global_config->simulate = TRUE;
+      case SLAPT_SIMULATE_OPT: /* simulate */
+        global_config->simulate = SLAPT_TRUE;
         break;
-      case VERSION_OPT: /* version */
+      case SLAPT_VERSION_OPT: /* version */
         do_action = SHOWVERSION;
         break;
-      case NO_PROMPT_OPT: /* auto */
-        global_config->no_prompt = TRUE;
+      case SLAPT_NO_PROMPT_OPT: /* auto */
+        global_config->no_prompt = SLAPT_TRUE;
         break;
-      case REINSTALL_OPT: /* reinstall */
-        global_config->re_install = TRUE;
+      case SLAPT_REINSTALL_OPT: /* reinstall */
+        global_config->re_install = SLAPT_TRUE;
         break;
-      case IGNORE_EXCLUDES_OPT: /* ignore-excludes */
-        global_config->ignore_excludes = TRUE;
+      case SLAPT_IGNORE_EXCLUDES_OPT: /* ignore-excludes */
+        global_config->ignore_excludes = SLAPT_TRUE;
         break;
-      case NO_MD5_OPT: /* no-md5 */
-        global_config->no_md5_check = TRUE;
+      case SLAPT_NO_MD5_OPT: /* no-md5 */
+        global_config->no_md5_check = SLAPT_TRUE;
         break;
-      case DIST_UPGRADE_OPT: /* dist-upgrade */
-        global_config->dist_upgrade = TRUE;
+      case SLAPT_DIST_UPGRADE_OPT: /* dist-upgrade */
+        global_config->dist_upgrade = SLAPT_TRUE;
         do_action = UPGRADE;
         break;
-      case HELP_OPT: /* help */
+      case SLAPT_HELP_OPT: /* help */
         usage();
-        free_rc_config(global_config);
+        slapt_free_rc_config(global_config);
         curl_global_cleanup();
         exit(1);
-      case IGNORE_DEP_OPT: /* ignore-dep */
-        global_config->ignore_dep = TRUE;
+      case SLAPT_IGNORE_DEP_OPT: /* ignore-dep */
+        global_config->ignore_dep = SLAPT_TRUE;
         break;
-      case NO_DEP_OPT: /* no-dep */
-        global_config->disable_dep_check = TRUE;
+      case SLAPT_NO_DEP_OPT: /* no-dep */
+        global_config->disable_dep_check = SLAPT_TRUE;
         break;
-      case PRINT_URIS_OPT: /* print-uris */
-        global_config->print_uris = TRUE;
+      case SLAPT_PRINT_URIS_OPT: /* print-uris */
+        global_config->print_uris = SLAPT_TRUE;
         break;
-      case SHOW_STATS_OPT: /* download-stats */
-        global_config->dl_stats = TRUE;
+      case SLAPT_SHOW_STATS_OPT: /* download-stats */
+        global_config->dl_stats = SLAPT_TRUE;
         break;
-      case CONFIG_OPT: /* override rc location */
+      case SLAPT_CONFIG_OPT: /* override rc location */
         {
-          rc_config *tmp_gc = global_config;
-          global_config = read_rc_config(optarg);
+          slapt_rc_config *tmp_gc = global_config;
+          global_config = slapt_read_rc_config(optarg);
           if ( global_config == NULL ) {
-            free_rc_config(tmp_gc);
+            slapt_free_rc_config(tmp_gc);
             curl_global_cleanup();
             exit(1);
           }
@@ -176,21 +177,21 @@ int main( int argc, char *argv[] )
           global_config->disable_dep_check = tmp_gc->disable_dep_check;
           global_config->print_uris = tmp_gc->print_uris;
           global_config->dl_stats = tmp_gc->dl_stats;
-          free_rc_config(tmp_gc);
+          slapt_free_rc_config(tmp_gc);
         }
         break;
-      case AUTOCLEAN_OPT: /* clean old old package versions */
+      case SLAPT_AUTOCLEAN_OPT: /* clean old old package versions */
         do_action = AUTOCLEAN;
         break;
-      case OBSOLETE_OPT: /* remove obsolete packages */
-        global_config->remove_obsolete = TRUE;
+      case SLAPT_OBSOLETE_OPT: /* remove obsolete packages */
+        global_config->remove_obsolete = SLAPT_TRUE;
         break;
-      case AVAILABLE_OPT: /* show available packages */
+      case SLAPT_AVAILABLE_OPT: /* show available packages */
         do_action = AVAILABLE;
         break;
       default:
         usage();
-        free_rc_config(global_config);
+        slapt_free_rc_config(global_config);
         curl_global_cleanup();
         exit(1);
     }
@@ -213,25 +214,25 @@ int main( int argc, char *argv[] )
 
   if ( do_action == USAGE ) {
     usage();
-    free_rc_config(global_config);
+    slapt_free_rc_config(global_config);
     curl_global_cleanup();
     exit(1);
   }
 
   /* create the working directory if needed */
-  working_dir_init(global_config);
+  slapt_working_dir_init(global_config);
   chdir(global_config->working_dir);
 
   switch(do_action) {
     case UPDATE:
-      if ( update_pkg_cache(global_config) == 1 ) {
-        free_rc_config(global_config);
+      if ( slapt_update_pkg_cache(global_config) == 1 ) {
+        slapt_free_rc_config(global_config);
         curl_global_cleanup();
         exit(1);
       }
       break;
     case INSTALL:
-      paa = init_pkg_action_args((argc - optind));
+      paa = slapt_init_pkg_action_args((argc - optind));
       while (optind < argc) {
         paa->pkgs[paa->count] = slapt_malloc(
           ( strlen(argv[optind]) + 1 ) * sizeof *paa->pkgs[paa->count]
@@ -240,11 +241,11 @@ int main( int argc, char *argv[] )
         ++optind;
         ++paa->count;
       }
-      pkg_action_install( global_config, paa );
-      free_pkg_action_args(paa);
+      slapt_pkg_action_install( global_config, paa );
+      slapt_free_pkg_action_args(paa);
       break;
     case REMOVE:
-      paa = init_pkg_action_args((argc - optind));
+      paa = slapt_init_pkg_action_args((argc - optind));
       while (optind < argc) {
         paa->pkgs[paa->count] = slapt_malloc(
           ( strlen(argv[optind]) + 1 ) * sizeof *paa->pkgs[paa->count]
@@ -253,41 +254,41 @@ int main( int argc, char *argv[] )
         ++optind;
         ++paa->count;
       }
-      pkg_action_remove( global_config, paa );
-      free_pkg_action_args(paa);
+      slapt_pkg_action_remove( global_config, paa );
+      slapt_free_pkg_action_args(paa);
       break;
     case SHOW:
       while (optind < argc) {
-        pkg_action_show( argv[optind++] );
+        slapt_pkg_action_show( argv[optind++] );
       }
       break;
     case SEARCH:
       while (optind < argc) {
-        pkg_action_search( argv[optind++] );
+        slapt_pkg_action_search( argv[optind++] );
       }
       break;
     case UPGRADE:
-      pkg_action_upgrade_all(global_config);
+      slapt_pkg_action_upgrade_all(global_config);
       break;
     case LIST:
-      pkg_action_list(LIST);
+      slapt_pkg_action_list(LIST);
       break;
     case INSTALLED:
-      pkg_action_list(INSTALLED);
+      slapt_pkg_action_list(INSTALLED);
       break;
     case CLEAN:
       /* clean out local cache */
-      clean_pkg_dir(global_config->working_dir);
+      slapt_clean_pkg_dir(global_config->working_dir);
       chdir(global_config->working_dir);
       break;
     case SHOWVERSION:
       version_info();
       break;
     case AUTOCLEAN:
-      purge_old_cached_pkgs(global_config, NULL, NULL);
+      slapt_purge_old_cached_pkgs(global_config, NULL, NULL);
       break;
     case AVAILABLE:
-      pkg_action_list(AVAILABLE);
+      slapt_pkg_action_list(AVAILABLE);
       break;
     case USAGE:
     default:
@@ -295,7 +296,7 @@ int main( int argc, char *argv[] )
       exit(255);
   }
 
-  free_rc_config(global_config);
+  slapt_free_rc_config(global_config);
   curl_global_cleanup();
   return 0;
 }
@@ -303,43 +304,43 @@ int main( int argc, char *argv[] )
 void usage(void)
 {
   printf("%s - Jason Woodward <woodwardj at jaos dot org>\n",PACKAGE);
-  printf(_("An implementation of the Debian APT system to Slackware\n"));
-  printf(_("Usage:\n"));
-  printf(_("%s [option(s)] [target]\n"),PACKAGE);
+  printf(gettext("An implementation of the Debian APT system to Slackware\n"));
+  printf(gettext("Usage:\n"));
+  printf(gettext("%s [option(s)] [target]\n"),PACKAGE);
   printf("\n");
-  printf(_("Targets:\n"));
-  printf("  --update       - %s\n",_("retrieves pkg data from MIRROR"));
-  printf("  --upgrade      - %s\n",_("upgrade installed pkgs"));
-  printf("  --dist-upgrade - %s\n",_("upgrade to newer release"));
-  printf("  --install      %s\n",_("[pkg name(s)] - install specified pkg(s)"));
-  printf("  --remove       %s\n",_("[pkg name(s)] - remove specified pkg(s)"));
-  printf("  --show         %s\n",_("[pkg name] - show pkg description"));
-  printf("  --search       %s\n",_("[expression] - search available pkgs"));
-  printf("  --list         - %s\n",_("list pkgs"));
-  printf("  --available    - %s\n",_("list available pkgs"));
-  printf("  --installed    - %s\n",_("list installed pkgs"));
-  printf("  --clean        - %s\n",_("purge cached pkgs"));
-  printf("  --autoclean    - %s\n",_("only purge cache of older, unreacheable pkgs"));
-  printf("  --version      - %s\n",_("print version and license info"));
+  printf(gettext("Targets:\n"));
+  printf("  --update       - %s\n",gettext("retrieves pkg data from MIRROR"));
+  printf("  --upgrade      - %s\n",gettext("upgrade installed pkgs"));
+  printf("  --dist-upgrade - %s\n",gettext("upgrade to newer release"));
+  printf("  --install      %s\n",gettext("[pkg name(s)] - install specified pkg(s)"));
+  printf("  --remove       %s\n",gettext("[pkg name(s)] - remove specified pkg(s)"));
+  printf("  --show         %s\n",gettext("[pkg name] - show pkg description"));
+  printf("  --search       %s\n",gettext("[expression] - search available pkgs"));
+  printf("  --list         - %s\n",gettext("list pkgs"));
+  printf("  --available    - %s\n",gettext("list available pkgs"));
+  printf("  --installed    - %s\n",gettext("list installed pkgs"));
+  printf("  --clean        - %s\n",gettext("purge cached pkgs"));
+  printf("  --autoclean    - %s\n",gettext("only purge cache of older, unreacheable pkgs"));
+  printf("  --version      - %s\n",gettext("print version and license info"));
   printf("\n");
-  printf(_("Options:\n"));
-  printf("  --download-only     - %s\n",_("only download pkg on install/upgrade"));
-  printf("  --simulate|-s       - %s\n",_("show pkgs to be installed/upgraded"));
-  printf("  --no-prompt|-y      - %s\n",_("do not prompt during install/upgrade"));
-  printf("  --reinstall         - %s\n",_("re-install the pkg"));
-  printf("  --ignore-excludes   - %s\n",_("install/upgrade excludes"));
-  printf("  --no-md5            - %s\n",_("do not perform md5 check sum"));
-  printf("  --no-dep            - %s\n",_("skip dependency check"));
-  printf("  --ignore-dep        - %s\n",_("ignore dependency failures"));
-  printf("  --print-uris        - %s\n",_("print URIs only, do not download"));
-  printf("  --show-stats|-S     - %s\n",_("show download statistics"));
-  printf("  --config []         - %s\n",_("specify alternate slapt-getrc location"));
-  printf("  --remove-obsolete   - %s\n",_("remove obsolete packages (dist-upgrade only)"));
+  printf(gettext("Options:\n"));
+  printf("  --download-only     - %s\n",gettext("only download pkg on install/upgrade"));
+  printf("  --simulate|-s       - %s\n",gettext("show pkgs to be installed/upgraded"));
+  printf("  --no-prompt|-y      - %s\n",gettext("do not prompt during install/upgrade"));
+  printf("  --reinstall         - %s\n",gettext("re-install the pkg"));
+  printf("  --ignore-excludes   - %s\n",gettext("install/upgrade excludes"));
+  printf("  --no-md5            - %s\n",gettext("do not perform md5 check sum"));
+  printf("  --no-dep            - %s\n",gettext("skip dependency check"));
+  printf("  --ignore-dep        - %s\n",gettext("ignore dependency failures"));
+  printf("  --print-uris        - %s\n",gettext("print URIs only, do not download"));
+  printf("  --show-stats|-S     - %s\n",gettext("show download statistics"));
+  printf("  --config []         - %s\n",gettext("specify alternate slapt-getrc location"));
+  printf("  --remove-obsolete   - %s\n",gettext("remove obsolete packages (dist-upgrade only)"));
 }
 
 void version_info(void)
 {
-  printf(_("%s version %s\n"),PACKAGE,VERSION);
+  printf(gettext("%s version %s\n"),PACKAGE,VERSION);
   printf("\n");
   printf("This program is free software; you can redistribute it and/or modify\n");
   printf("it under the terms of the GNU General Public License as published by\n");

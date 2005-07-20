@@ -1,36 +1,37 @@
 
 
-#define MAX_REGEX_PARTS 10
-#define SLACK_BASE_SET_REGEX "^./slackware/a$"
+#define SLAPT_MAX_REGEX_PARTS 10
+#define SLAPT_SLACK_BASE_SET_REGEX "^./slackware/a$"
 
 typedef enum {
 #if !defined(FALSE) && !defined(TRUE)
-FALSE = 0, TRUE
+SLAPT_FALSE = 0, SLAPT_TRUE
 #else
-JFALSE = FALSE, JTRUE = TRUE
+SLAPT_FALSE = FALSE, SLAPT_TRUE = TRUE
 #endif
-} BOOL_T;
+} SLAPT_BOOL_T;
 
 typedef struct {
   regex_t regex;
   size_t nmatch;
-  regmatch_t pmatch[MAX_REGEX_PARTS];
+  regmatch_t pmatch[SLAPT_MAX_REGEX_PARTS];
   int reg_return;
-} sg_regex;
+} slapt_regex;
 
-FILE *open_file(const char *file_name,const char *mode);
-int init_regex(sg_regex *regex_t, const char *regex_string);
-void execute_regex(sg_regex *regex_t,const char *string);
-void free_regex(sg_regex *regex_t);
-void create_dir_structure(const char *dir_name);
+FILE *slapt_open_file(const char *file_name,const char *mode);
+int slapt_init_regex(slapt_regex *regex_t, const char *regex_string);
+void slapt_execute_regex(slapt_regex *regex_t,const char *string);
+void slapt_free_regex(slapt_regex *regex_t);
+void slapt_create_dir_structure(const char *dir_name);
 /* generate an md5sum of filehandle */
-void gen_md5_sum_of_file(FILE *f,char *result_sum);
+void slapt_gen_md5_sum_of_file(FILE *f,char *result_sum);
 
 /* Ask the user to answer yes or no.
  * return 1 on yes, 0 on no, else -1.
  */
-int ask_yes_no(const char *format, ...);
-char *str_replace_chr(const char *string,const char find, const char replace);
+int slapt_ask_yes_no(const char *format, ...);
+char *slapt_str_replace_chr(const char *string,const char find,
+                            const char replace);
 __inline void *slapt_malloc(size_t s);
 __inline void *slapt_calloc(size_t n,size_t s);
 

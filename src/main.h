@@ -47,40 +47,38 @@
 #include "transaction.h"
 #include "action.h"
 
-enum action {
+enum slapt_action {
   USAGE = 0, UPDATE, INSTALL, REMOVE, SHOW, SEARCH, UPGRADE,
   LIST, INSTALLED, CLEAN, SHOWVERSION, AUTOCLEAN, AVAILABLE
 };
 
-#define UPDATE_OPT 'u'
-#define UPGRADE_OPT 'g'
-#define INSTALL_OPT 'i'
-#define REMOVE_OPT 'r'
-#define SHOW_OPT 's'
-#define SEARCH_OPT 'e'
-#define LIST_OPT 't'
-#define INSTALLED_OPT 'd'
-#define CLEAN_OPT 'c'
-#define DOWNLOAD_ONLY_OPT 'o'
-#define SIMULATE_OPT 'm'
-#define VERSION_OPT 'v'
-#define NO_PROMPT_OPT 'b'
-#define REINSTALL_OPT 'n'
-#define IGNORE_EXCLUDES_OPT 'x'
-#define NO_MD5_OPT '5'
-#define DIST_UPGRADE_OPT 'h'
-#define HELP_OPT 'l'
-#define IGNORE_DEP_OPT 'p'
-#define NO_DEP_OPT 'q'
-#define PRINT_URIS_OPT 'P'
-#define SHOW_STATS_OPT 'S'
-#define CONFIG_OPT 'C'
-#define AUTOCLEAN_OPT 'a'
-#define OBSOLETE_OPT 'O'
-#define AVAILABLE_OPT 'A'
+#define SLAPT_UPDATE_OPT 'u'
+#define SLAPT_UPGRADE_OPT 'g'
+#define SLAPT_INSTALL_OPT 'i'
+#define SLAPT_REMOVE_OPT 'r'
+#define SLAPT_SHOW_OPT 's'
+#define SLAPT_SEARCH_OPT 'e'
+#define SLAPT_LIST_OPT 't'
+#define SLAPT_INSTALLED_OPT 'd'
+#define SLAPT_CLEAN_OPT 'c'
+#define SLAPT_DOWNLOAD_ONLY_OPT 'o'
+#define SLAPT_SIMULATE_OPT 'm'
+#define SLAPT_VERSION_OPT 'v'
+#define SLAPT_NO_PROMPT_OPT 'b'
+#define SLAPT_REINSTALL_OPT 'n'
+#define SLAPT_IGNORE_EXCLUDES_OPT 'x'
+#define SLAPT_NO_MD5_OPT '5'
+#define SLAPT_DIST_UPGRADE_OPT 'h'
+#define SLAPT_HELP_OPT 'l'
+#define SLAPT_IGNORE_DEP_OPT 'p'
+#define SLAPT_NO_DEP_OPT 'q'
+#define SLAPT_PRINT_URIS_OPT 'P'
+#define SLAPT_SHOW_STATS_OPT 'S'
+#define SLAPT_CONFIG_OPT 'C'
+#define SLAPT_AUTOCLEAN_OPT 'a'
+#define SLAPT_OBSOLETE_OPT 'O'
+#define SLAPT_AVAILABLE_OPT 'A'
 
-#define DEBUG 0
-#define DO_NOT_UNLINK_BAD_FILES 1
-
-#define _(text) gettext(text)
+#define SLAPT_DEBUG 0
+#define SLAPT_DO_NOT_UNLINK_BAD_FILES 1
 

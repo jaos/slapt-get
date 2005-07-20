@@ -1,36 +1,36 @@
 
-#define PKG_PARSE_REGEX "(.*{1,})\\-(.*[\\.\\-].*[\\.\\-].*).tgz[ ]{0,}$"
-#define PKG_NAMEVER "(.*{1,})\\-(.*[\\.\\-].*[\\.\\-].*)"
-#define PKG_VER "(.*)[\\.\\-](.*)[\\.\\-](.*)"
-#define PKG_NAME_PATTERN "^PACKAGE NAME:[ ]{1,}(.*{1,})\\-(.*[\\.\\-].*[\\.\\-].*).tgz[ ]{0,}$"
-#define PKG_MIRROR_PATTERN "^PACKAGE MIRROR:[ ]+(.*)$"
-#define PKG_LOCATION_PATTERN "^PACKAGE LOCATION:[ ]+(.*)$"
-#define PKG_SIZEC_PATTERN "^PACKAGE SIZE [(]+compressed[)]{1,}:[ ]{1,}([0-9]{1,}) K$"
-#define PKG_SIZEU_PATTERN "^PACKAGE SIZE [(]+uncompressed[)]{1,}:[ ]{1,}([0-9]{1,}) K$"
-#define PKG_LOG_SIZEC_PATTERN "^COMPRESSED PACKAGE SIZE:[ ]{1,}([0-9]{1,}) K$"
-#define PKG_LOG_SIZEU_PATTERN "^UNCOMPRESSED PACKAGE SIZE:[ ]{1,}([0-9]{1,}) K$"
-#define PKG_LOG_DIR "/var/log/packages"
-#define ROOT_ENV_NAME "ROOT"
-#define ROOT_ENV_LEN 255
-#define PKG_LOG_PATTERN "^(.*{1,})\\-(.*[\\.\\-].*[\\.\\-].*)"
-#define MD5SUM_REGEX "([a-zA-Z0-9]{1,})[ ]{1,}([a-zA-Z0-9\\/._\\-]{1,})\\/(.*{1,})\\-(.*[\\.\\-].*[\\.\\-].*).tgz$"
-#define REQUIRED_REGEX "^[ ]{0,}([a-zA-Z0-9\\+_\\-]+)[ ]{0,}([\\<\\=\\>]+){0,}[ ]{0,}([a-zA-Z0-9\\.\\_\\-]+){0,}[ ]{0,}$"
-#define MD5_STR_LEN 34
-#define MD5_CHECKSUM_FAILED -100
-#define PKG_LIST "PACKAGES.TXT"
-#define PKG_LIST_GZ "PACKAGES.TXT.gz"
-#define PKG_LIST_L "package_data"
-#define PATCHES_LIST "patches/PACKAGES.TXT"
-#define PATCHES_LIST_GZ "patches/PACKAGES.TXT.gz"
-#define PATCHDIR "patches/"
-#define REMOVE_CMD "/sbin/removepkg "
-#define INSTALL_CMD "/sbin/installpkg "
-#define UPGRADE_CMD "/sbin/upgradepkg --reinstall "
-#define CHECKSUM_FILE "CHECKSUMS.md5"
-#define CHECKSUM_FILE_GZ "CHECKSUMS.md5.gz"
-#define HEAD_FILE_EXT ".head"
-#define MAX_MMAP_SIZE 1024
-#define MAX_ZLIB_BUFFER 1024
+#define SLAPT_PKG_PARSE_REGEX "(.*{1,})\\-(.*[\\.\\-].*[\\.\\-].*).tgz[ ]{0,}$"
+#define SLAPT_PKG_NAMEVER "(.*{1,})\\-(.*[\\.\\-].*[\\.\\-].*)"
+#define SLAPT_PKG_VER "(.*)[\\.\\-](.*)[\\.\\-](.*)"
+#define SLAPT_PKG_NAME_PATTERN "^PACKAGE NAME:[ ]{1,}(.*{1,})\\-(.*[\\.\\-].*[\\.\\-].*).tgz[ ]{0,}$"
+#define SLAPT_PKG_MIRROR_PATTERN "^PACKAGE MIRROR:[ ]+(.*)$"
+#define SLAPT_PKG_LOCATION_PATTERN "^PACKAGE LOCATION:[ ]+(.*)$"
+#define SLAPT_PKG_SIZEC_PATTERN "^PACKAGE SIZE [(]+compressed[)]{1,}:[ ]{1,}([0-9]{1,}) K$"
+#define SLAPT_PKG_SIZEU_PATTERN "^PACKAGE SIZE [(]+uncompressed[)]{1,}:[ ]{1,}([0-9]{1,}) K$"
+#define SLAPT_PKG_LOG_SIZEC_PATTERN "^COMPRESSED PACKAGE SIZE:[ ]{1,}([0-9]{1,}) K$"
+#define SLAPT_PKG_LOG_SIZEU_PATTERN "^UNCOMPRESSED PACKAGE SIZE:[ ]{1,}([0-9]{1,}) K$"
+#define SLAPT_PKG_LOG_DIR "/var/log/packages"
+#define SLAPT_ROOT_ENV_NAME "ROOT"
+#define SLAPT_ROOT_ENV_LEN 255
+#define SLAPT_PKG_LOG_PATTERN "^(.*{1,})\\-(.*[\\.\\-].*[\\.\\-].*)"
+#define SLAPT_MD5SUM_REGEX "([a-zA-Z0-9]{1,})[ ]{1,}([a-zA-Z0-9\\/._\\-]{1,})\\/(.*{1,})\\-(.*[\\.\\-].*[\\.\\-].*).tgz$"
+#define SLAPT_REQUIRED_REGEX "^[ ]{0,}([a-zA-Z0-9\\+_\\-]+)[ ]{0,}([\\<\\=\\>]+){0,}[ ]{0,}([a-zA-Z0-9\\.\\_\\-]+){0,}[ ]{0,}$"
+#define SLAPT_MD5_STR_LEN 34
+#define SLAPT_MD5_CHECKSUM_FAILED -100
+#define SLAPT_PKG_LIST "PACKAGES.TXT"
+#define SLAPT_PKG_LIST_GZ "PACKAGES.TXT.gz"
+#define SLAPT_PKG_LIST_L "package_data"
+#define SLAPT_PATCHES_LIST "patches/PACKAGES.TXT"
+#define SLAPT_PATCHES_LIST_GZ "patches/PACKAGES.TXT.gz"
+#define SLAPT_PATCHDIR "patches/"
+#define SLAPT_REMOVE_CMD "/sbin/removepkg "
+#define SLAPT_INSTALL_CMD "/sbin/installpkg "
+#define SLAPT_UPGRADE_CMD "/sbin/upgradepkg --reinstall "
+#define SLAPT_CHECKSUM_FILE "CHECKSUMS.md5"
+#define SLAPT_CHECKSUM_FILE_GZ "CHECKSUMS.md5.gz"
+#define SLAPT_HEAD_FILE_EXT ".head"
+#define SLAPT_MAX_MMAP_SIZE 1024
+#define SLAPT_MAX_ZLIB_BUFFER 1024
 
 typedef struct {
   char *name;
@@ -43,26 +43,26 @@ typedef struct {
   char *required;
   char *conflicts;
   char *suggests;
-  char md5[MD5_STR_LEN];
-} pkg_info_t;
+  char md5[SLAPT_MD5_STR_LEN];
+} slapt_pkg_info_t;
 
-struct pkg_list {
-  pkg_info_t **pkgs;
+struct slapt_pkg_list {
+  slapt_pkg_info_t **pkgs;
   unsigned int pkg_count;
-  BOOL_T free_pkgs;
+  SLAPT_BOOL_T free_pkgs;
 };
 
 typedef struct {
-  pkg_info_t *installed;
-  pkg_info_t *upgrade;
-} pkg_upgrade_t;
+  slapt_pkg_info_t *installed;
+  slapt_pkg_info_t *upgrade;
+} slapt_pkg_upgrade_t;
 
-struct pkg_upgrade_list {
-  pkg_upgrade_t **pkgs;
+struct slapt_pkg_upgrade_list {
+  slapt_pkg_upgrade_t **pkgs;
   unsigned int pkg_count;
 };
 
-struct pkg_version_parts {
+struct slapt_pkg_version_parts {
   char **parts;
   unsigned int count;
 };
@@ -70,110 +70,119 @@ struct pkg_version_parts {
 typedef struct {
   char *pkg;
   char *error;
-} pkg_err_t;
+} slapt_pkg_err_t;
 
-struct pkg_err_list {
+struct slapt_pkg_err_list {
   unsigned int err_count;
-  pkg_err_t **errs;
+  slapt_pkg_err_t **errs;
 };
 
 /* returns an empty package structure */
-__inline pkg_info_t *init_pkg(void);
+__inline slapt_pkg_info_t *slapt_init_pkg(void);
 /* frees the package structure */
-void free_pkg(pkg_info_t *pkg);
+void slapt_free_pkg(slapt_pkg_info_t *pkg);
 
 /* create an empty package list */
-struct pkg_list *init_pkg_list(void);
+struct slapt_pkg_list *slapt_init_pkg_list(void);
 /* add a package to a package list */
-void add_pkg_to_pkg_list(struct pkg_list *list,pkg_info_t *pkg);
+void slapt_add_pkg_to_pkg_list(struct slapt_pkg_list *list,
+                               slapt_pkg_info_t *pkg);
 /* free package list */
-void free_pkg_list(struct pkg_list *);
+void slapt_free_pkg_list(struct slapt_pkg_list *);
 
 /* update the local package cache */
-int update_pkg_cache(const rc_config *global_config);
+int slapt_update_pkg_cache(const slapt_rc_config *global_config);
 /* write pkg data to disk */
-void write_pkg_data(const char *source_url,FILE *d_file,struct pkg_list *pkgs);
+void slapt_write_pkg_data(const char *source_url,FILE *d_file,
+                          struct slapt_pkg_list *pkgs);
 /* parse the PACKAGES.TXT file */
-struct pkg_list *parse_packages_txt(FILE *);
+struct slapt_pkg_list *slapt_parse_packages_txt(FILE *);
 /* return a list of available packages */
-struct pkg_list *get_available_pkgs(void);
+struct slapt_pkg_list *slapt_get_available_pkgs(void);
 /* retrieve list of installed pkgs */
-struct pkg_list *get_installed_pkgs(void);
+struct slapt_pkg_list *slapt_get_installed_pkgs(void);
 
 /* retrieve the newest package from package list */
-pkg_info_t *get_newest_pkg(struct pkg_list *,const char *);
+slapt_pkg_info_t *slapt_get_newest_pkg(struct slapt_pkg_list *,const char *);
 /* get the exact package */
-pkg_info_t *get_exact_pkg(struct pkg_list *list,const char *name,
-                          const char *version);
+slapt_pkg_info_t *slapt_get_exact_pkg(struct slapt_pkg_list *list,
+                                      const char *name,
+                                      const char *version);
 /* lookup package by details */
-pkg_info_t *get_pkg_by_details(struct pkg_list *list,char *name,
-                               char *version,char *location);
+slapt_pkg_info_t *slapt_get_pkg_by_details(struct slapt_pkg_list *list,
+                                           const char *name,
+                                           const char *version,
+                                           const char *location);
 /* search package list with pattern */
-struct pkg_list *search_pkg_list(struct pkg_list *available,
-                                 const char *pattern);
+struct slapt_pkg_list *slapt_search_pkg_list(struct slapt_pkg_list *available,
+                                             const char *pattern);
 
 
 /*
   install package by calling installpkg
   returns 0 on success, -1 on error
 */
-int install_pkg(const rc_config *,pkg_info_t *);
+int slapt_install_pkg(const slapt_rc_config *,slapt_pkg_info_t *);
 /*
   upgrade package by calling upgradepkg
   returns 0 on success, -1 on error
 */
-int upgrade_pkg(const rc_config *global_config,pkg_info_t *installed_pkg,
-                pkg_info_t *pkg);
+int slapt_upgrade_pkg(const slapt_rc_config *global_config,
+                      slapt_pkg_info_t *installed_pkg,
+                      slapt_pkg_info_t *pkg);
 /*
   remove package by calling removepkg
   returns 0 on success, -1 on error
 */
-int remove_pkg(const rc_config *,pkg_info_t *);
+int slapt_remove_pkg(const slapt_rc_config *,slapt_pkg_info_t *);
 
 
 /*
-  generate a short description, returns (char *) on success or NULLon error
+  generate a short description, returns (char *) on success or NULL on error
   caller responsible for freeing the returned data
 */
-char *gen_short_pkg_description(pkg_info_t *);
+char *slapt_gen_short_pkg_description(slapt_pkg_info_t *);
 /*
   generate the filename from the url
   caller responsible for freeing the returned data
 */
-char *gen_filename_from_url(const char *url,const char *file);
+char *slapt_gen_filename_from_url(const char *url,const char *file);
 /*
   generate the package file name
   caller responsible for freeing the returned data
 */
-char *gen_pkg_file_name(const rc_config *global_config,pkg_info_t *pkg);
+char *slapt_gen_pkg_file_name(const slapt_rc_config *global_config,
+                              slapt_pkg_info_t *pkg);
 /*
   generate the head cache filename
   caller responsible for freeing the returned data
 */
-char *gen_head_cache_filename(const char *filename_from_url);
+char *slapt_gen_head_cache_filename(const char *filename_from_url);
 /*
   generate the download url for a package
   caller responsible for freeing the returned data
 */
-char *gen_pkg_url(pkg_info_t *pkg);
+char *slapt_gen_pkg_url(slapt_pkg_info_t *pkg);
 /*
   exclude pkg based on pkg name
   returns 1 if package is present in the exclude list, 0 if not present
 */
-int is_excluded(const rc_config *,pkg_info_t *);
+int slapt_is_excluded(const slapt_rc_config *,slapt_pkg_info_t *);
 /*
   package is already downloaded and cached, md5sum if applicable is ok
   returns 0 if download is cached, -1 if not
 */
-int verify_downloaded_pkg(const rc_config *global_config,pkg_info_t *pkg);
+int slapt_verify_downloaded_pkg(const slapt_rc_config *global_config,
+                                slapt_pkg_info_t *pkg);
 /*
   fill in the md5sum of the package
 */
-void get_md5sum(pkg_info_t *pkg,FILE *checksum_file);
+void slapt_get_md5sum(slapt_pkg_info_t *pkg,FILE *checksum_file);
 /*
   find out the pkg file size (post download)
 */
-size_t get_pkg_file_size(const rc_config *global_config,pkg_info_t *pkg);
+size_t slapt_get_pkg_file_size(const slapt_rc_config *global_config,
+                               slapt_pkg_info_t *pkg);
 
 /*
   compare package versions
@@ -182,61 +191,64 @@ size_t get_pkg_file_size(const rc_config *global_config,pkg_info_t *pkg);
     < 0 if a is less than b
     0 if a and b are equal
 */
-int cmp_pkg_versions(char *a, char *b);
+int slapt_cmp_pkg_versions(const char *a, const char *b);
 
 /*
   resolve dependencies
   returns 0 on success, -1 on error setting conflict_err and missing_err
   (usually called with transaction->conflict_err and transaction->missing_err)
 */
-int get_pkg_dependencies(const rc_config *global_config,
-                         struct pkg_list *avail_pkgs,
-                         struct pkg_list *installed_pkgs,pkg_info_t *pkg,
-                         struct pkg_list *deps,
-                         struct pkg_err_list *conflict_err,
-                         struct pkg_err_list *missing_err);
+int slapt_get_pkg_dependencies(const slapt_rc_config *global_config,
+                         struct slapt_pkg_list *avail_pkgs,
+                         struct slapt_pkg_list *installed_pkgs,
+                         slapt_pkg_info_t *pkg,
+                         struct slapt_pkg_list *deps,
+                         struct slapt_pkg_err_list *conflict_err,
+                         struct slapt_pkg_err_list *missing_err);
 /*
   return list of package conflicts
 */
-struct pkg_list *get_pkg_conflicts(struct pkg_list *avail_pkgs,
-                                   struct pkg_list *installed_pkgs,
-                                   pkg_info_t *pkg);
+struct slapt_pkg_list *slapt_get_pkg_conflicts(struct slapt_pkg_list *avail_pkgs,
+                                               struct slapt_pkg_list *installed_pkgs,
+                                               slapt_pkg_info_t *pkg);
 /*
   return list of packages required by
 */
-struct pkg_list *is_required_by(const rc_config *global_config,
-                                struct pkg_list *avail, pkg_info_t *pkg);
+struct slapt_pkg_list *slapt_is_required_by(const slapt_rc_config *global_config,
+                                            struct slapt_pkg_list *avail,
+                                            slapt_pkg_info_t *pkg);
 
 /*
   empty packages from cache dir
 */
-void clean_pkg_dir(const char *dir_name);
+void slapt_clean_pkg_dir(const char *dir_name);
 /*
   clean out old outdated packages in the cache that are no longer available
   in the current source lists (ie are not downloadable)
 */
-void purge_old_cached_pkgs(const rc_config *global_config,char *dir_name,
-                           struct pkg_list *avail_pkgs);
+void slapt_purge_old_cached_pkgs(const slapt_rc_config *global_config,
+                                 const char *dir_name,
+                                 struct slapt_pkg_list *avail_pkgs);
 
 /*
   make a copy of a package (needs to be freed with free_pkg)
 */
-pkg_info_t *copy_pkg(pkg_info_t *dst,pkg_info_t *src);
+slapt_pkg_info_t *slapt_copy_pkg(slapt_pkg_info_t *dst,slapt_pkg_info_t *src);
 
 /*
   package error handling api to handle errors within core functions
 */
-struct pkg_err_list *init_pkg_err_list(void);
-void add_pkg_err_to_list(struct pkg_err_list *l,
-                         const char *pkg,const char *err);
-int search_pkg_err_list(struct pkg_err_list *l,
-                        const char *pkg, const char *err);
-void free_pkg_err_list(struct pkg_err_list *l);
+struct slapt_pkg_err_list *slapt_init_pkg_err_list(void);
+void slapt_add_pkg_err_to_list(struct slapt_pkg_err_list *l,
+                               const char *pkg,const char *err);
+int slapt_search_pkg_err_list(struct slapt_pkg_err_list *l,
+                              const char *pkg, const char *err);
+void slapt_free_pkg_err_list(struct slapt_pkg_err_list *l);
 
 /* download the PACKAGES.TXT and CHECKSUMS.md5 files */
-struct pkg_list *slapt_get_pkg_source_packages (const rc_config *global_config,
-                                 const char *url);
-struct pkg_list *slapt_get_pkg_source_patches (const rc_config *global_config,
-                                const char *url);
-FILE *slapt_get_pkg_source_checksums (const rc_config *global_config,
-                                 const char *url);
+struct slapt_pkg_list *slapt_get_pkg_source_packages (const slapt_rc_config *global_config,
+                                                      const char *url);
+struct slapt_pkg_list *slapt_get_pkg_source_patches (const slapt_rc_config *global_config,
+                                                     const char *url);
+FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,
+                                      const char *url);

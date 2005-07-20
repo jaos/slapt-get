@@ -19,11 +19,11 @@
 #include "main.h"
 
 
-FILE *open_file(const char *file_name,const char *mode)
+FILE *slapt_open_file(const char *file_name,const char *mode)
 {
   FILE *fh = NULL;
   if ( (fh = fopen(file_name,mode)) == NULL ) {
-    fprintf(stderr,_("Failed to open %s\n"),file_name);
+    fprintf(stderr,gettext("Failed to open %s\n"),file_name);
 
     if ( errno )
       perror(file_name);
@@ -34,10 +34,10 @@ FILE *open_file(const char *file_name,const char *mode)
 }
 
 /* initialize regex structure and compilie the regular expression */
-int init_regex(sg_regex *regex_t, const char *regex_string)
+int slapt_init_regex(slapt_regex *regex_t, const char *regex_string)
 {
 
-  regex_t->nmatch = MAX_REGEX_PARTS;
+  regex_t->nmatch = SLAPT_MAX_REGEX_PARTS;
 
   /* compile our regex */
   regex_t->reg_return = regcomp(&regex_t->regex, regex_string,
@@ -46,11 +46,11 @@ int init_regex(sg_regex *regex_t, const char *regex_string)
     size_t regerror_size;
     char errbuf[1024];
     size_t errbuf_size = 1024;
-    fprintf(stderr, _("Failed to compile regex\n"));
+    fprintf(stderr, gettext("Failed to compile regex\n"));
 
     if ( (regerror_size =
     regerror(regex_t->reg_return, &regex_t->regex,errbuf,errbuf_size)) ) {
-      printf(_("Regex Error: %s\n"),errbuf);
+      printf(gettext("Regex Error: %s\n"),errbuf);
     }
     return -1;
   }
@@ -62,18 +62,18 @@ int init_regex(sg_regex *regex_t, const char *regex_string)
   execute the regular expression and set the return code
   in the passed in structure
  */
-void execute_regex(sg_regex *regex_t,const char *string)
+void slapt_execute_regex(slapt_regex *regex_t,const char *string)
 {
   regex_t->reg_return = regexec(&regex_t->regex, string,
                                 regex_t->nmatch,regex_t->pmatch,0);
 }
 
-void free_regex(sg_regex *regex_t)
+void slapt_free_regex(slapt_regex *regex_t)
 {
   regfree(&regex_t->regex);
 }
 
-void gen_md5_sum_of_file(FILE *f,char *result_sum)
+void slapt_gen_md5_sum_of_file(FILE *f,char *result_sum)
 {
   EVP_MD_CTX mdctx;
   const EVP_MD *md;
@@ -117,18 +117,18 @@ void gen_md5_sum_of_file(FILE *f,char *result_sum)
 }
 
 /* recursively create dirs */
-void create_dir_structure(const char *dir_name)
+void slapt_create_dir_structure(const char *dir_name)
 {
   char *cwd = NULL;
   int position = 0,len = 0;
 
   cwd = getcwd(NULL,0);
   if ( cwd == NULL ) {
-    fprintf(stderr,_("Failed to get cwd\n"));
+    fprintf(stderr,gettext("Failed to get cwd\n"));
     return;
   } else {
-    #if DEBUG == 1
-    fprintf(stderr,_("\tCurrent working directory: %s\n"),cwd);
+    #if SLAPT_DEBUG == 1
+    fprintf(stderr,gettext("\tCurrent working directory: %s\n"),cwd);
     #endif
   }
 
@@ -148,20 +148,20 @@ void create_dir_structure(const char *dir_name)
 
       if ( strcmp(dir_name_buffer,".") != 0 ) {
         if ( (mkdir(dir_name_buffer,0755)) == -1) {
-          #if DEBUG == 1
-          fprintf(stderr,_("Failed to mkdir: %s\n"),dir_name_buffer);
+          #if SLAPT_DEBUG == 1
+          fprintf(stderr,gettext("Failed to mkdir: %s\n"),dir_name_buffer);
           #endif
         } else {
-          #if DEBUG == 1
-          fprintf(stderr,_("\tCreated directory: %s\n"),dir_name_buffer);
+          #if SLAPT_DEBUG == 1
+          fprintf(stderr,gettext("\tCreated directory: %s\n"),dir_name_buffer);
           #endif
         }
         if ( (chdir(dir_name_buffer)) == -1 ) {
-          fprintf(stderr,_("Failed to chdir to %s\n"),dir_name_buffer);
+          fprintf(stderr,gettext("Failed to chdir to %s\n"),dir_name_buffer);
           return;
         } else {
-          #if DEBUG == 1
-          fprintf(stderr,_("\tchdir into %s\n"),dir_name_buffer);
+          #if SLAPT_DEBUG == 1
+          fprintf(stderr,gettext("\tchdir into %s\n"),dir_name_buffer);
           #endif
         }
       }/* don't create . */
@@ -183,12 +183,12 @@ void create_dir_structure(const char *dir_name)
 
         if ( strcmp(dir_name_buffer,".") != 0 ) {
           if ( (mkdir(dir_name_buffer,0755)) == -1 ) {
-            #if DEBUG == 1
-            fprintf(stderr,_("Failed to mkdir: %s\n"),dir_name_buffer);
+            #if SLAPT_DEBUG == 1
+            fprintf(stderr,gettext("Failed to mkdir: %s\n"),dir_name_buffer);
             #endif
           }
           if ( (chdir(dir_name_buffer)) == -1 ) {
-            fprintf(stderr,_("Failed to chdir to %s\n"),dir_name_buffer);
+            fprintf(stderr,gettext("Failed to chdir to %s\n"),dir_name_buffer);
             free(dir_name_buffer);
             return;
           }
@@ -201,14 +201,14 @@ void create_dir_structure(const char *dir_name)
   }/* end while */
 
   if ( (chdir(cwd)) == -1 ) {
-    fprintf(stderr,_("Failed to chdir to %s\n"),cwd);
+    fprintf(stderr,gettext("Failed to chdir to %s\n"),cwd);
     return;
   }
 
   free(cwd);
 }
 
-int ask_yes_no(const char *format, ...)
+int slapt_ask_yes_no(const char *format, ...)
 {
   char prompt_answer[10];
   va_list arg_list;
@@ -225,7 +225,8 @@ int ask_yes_no(const char *format, ...)
   return -1;
 }
 
-char *str_replace_chr(const char *string,const char find, const char replace)
+char *slapt_str_replace_chr(const char *string,const char find,
+                            const char replace)
 {
   unsigned int i,len = 0;
   char *clean = slapt_calloc( strlen(string) + 1, sizeof *clean);;
@@ -247,7 +248,7 @@ __inline void *slapt_malloc(size_t s)
 {
   void *p;
   if ( ! (p = malloc(s)) ) {
-    fprintf(stderr,_("Failed to malloc\n"));
+    fprintf(stderr,gettext("Failed to malloc\n"));
 
     if ( errno )
       perror("malloc");
@@ -261,7 +262,7 @@ __inline void *slapt_calloc(size_t n,size_t s)
 {
   void *p;
   if ( ! (p = calloc(n,s)) ) {
-    fprintf(stderr,_("Failed to calloc\n"));
+    fprintf(stderr,gettext("Failed to calloc\n"));
 
     if ( errno )
       perror("calloc");
