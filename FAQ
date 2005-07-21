@@ -333,11 +333,13 @@ Frequently Asked Questions:
     function gen_packages_txt {
 	    echo '' > PACKAGES.TXT
 	    find . -type f -name '*.meta' -exec cat {} \; >> PACKAGES.TXT
+      cat PACKAGES.TXT | gzip -c - > PACKAGES.TXT.gz
     }
 
     function gen_md5_checksums {
 	    echo '' > CHECKSUMS.md5
 	    find . -type f -name '*.tgz' -exec md5sum {} \; >> CHECKSUMS.md5
+      cat CHECKSUMS.md5 | gzip -c - > CHECKSUMS.md5.gz
     }
 
     function gen_meta {
@@ -457,7 +459,7 @@ Frequently Asked Questions:
 
  An example slack-required file is present within the slapt-get slack package.
 
- This data will then need to be extracted when the mirror's PACKAGES.TXT file
+ This data will then need to be extracted when the mirrors PACKAGES.TXT file
  is generated.  See FAQ #17 for an example of how to generate the
  PACKAGES.TXT file.  The following is an example entry:
 
@@ -790,12 +792,12 @@ Frequently Asked Questions:
 
 34. Why is upgradepkg complaining it cannot find installpkg or removepkg, with sudo?
 
- Right from the sudo man page's Security Notes section:
+ Right from the sudo man pages Security Notes section:
 
   "Note, however, that the actual PATH environment variable is not modified and
    is passed unchanged to the program that sudo executes."
 
- Make sure you include /sbin in your shell's PATH environment variable before using
+ Make sure you include /sbin in your shells PATH environment variable before using
  slapt-get via sudo.  Or use su - -c 'slapt-get [options] [arg]s'.
 
 
@@ -910,7 +912,7 @@ Frequently Asked Questions:
 
 44. How do I specify an addon that is not a dependency of my package?
 
- You can include a slack-suggests file within your package's ./install/ directory.
+ You can include a slack-suggests file within your packages ./install/ directory.
  The format of this file follows the slack-required, except version information
  is to be left out.  This version information is useless as you are just making
  a suggestion, not a requirement.  If there is a required version of a package
@@ -941,7 +943,7 @@ Frequently Asked Questions:
 
 46. What is a meta package and how can I take advantage of it?
 
- A meta package is a package that only contains it's dependencies in the
+ A meta package is a package that only contains its dependencies in the
  slack-required file.  There is nothing in the package to install, it just
  provides a name and a dependency list.  A good example would be GNOME.  If a
  "gnome" meta package existed that required the gtk libraries and gnome
@@ -986,7 +988,7 @@ Frequently Asked Questions:
  The same can be done with the MANIFEST.bz2 file.  You can use one of the 
  following solutions:
 
- Put something like this in your shell's rc file (or /etc/profile) would do
+ Put something like this in your shells rc file (or /etc/profile) would do
  just as well:
 
   # begin
@@ -1080,7 +1082,7 @@ Frequently Asked Questions:
    ./$PROG.[sS]lack[bB]uild )
    fi
 
- For a more advanced version of this, check out Piotr's site:
+ For a more advanced version of this, check out Piotrs site:
  http://www.tenboard.com/slackware/index.php?path=SlackBuilds/
 
 
