@@ -295,12 +295,16 @@ int slapt_handle_transaction (const slapt_rc_config *global_config,
     for (i = 0; i < tran->install_pkgs->pkg_count;i++) {
       const slapt_pkg_info_t *info = tran->install_pkgs->pkgs[i];
       const char *location = info->location + strspn(info->location, "./");
-      printf("%s%s/%s-%s.tgz\n", info->mirror, location, info->name, info->version);
+      printf("%s%s/%s-%s%s\n",
+             info->mirror, location, info->name,
+             info->version, info->file_ext);
     }
     for (i = 0; i < tran->upgrade_pkgs->pkg_count;i++) {
       const slapt_pkg_info_t *info = tran->upgrade_pkgs->pkgs[i]->upgrade;
       const char *location = info->location + strspn(info->location, "./");
-      printf("%s%s/%s-%s.tgz\n", info->mirror, location, info->name, info->version);
+      printf("%s%s/%s-%s%s\n",
+             info->mirror, location, info->name,
+             info->version, info->file_ext);
     }
     return 0;
   }

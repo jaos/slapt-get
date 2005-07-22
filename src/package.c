@@ -101,32 +101,34 @@ struct slapt_pkg_list *slapt_parse_packages_txt(FILE *pkg_list_fh)
     tmp_pkg = slapt_init_pkg();
 
     /* pkg name base */
-    tmp_pkg->name = slapt_malloc(
-      sizeof *tmp_pkg->name * 
-      (name_regex.pmatch[1].rm_eo - name_regex.pmatch[1].rm_so + 1)
-    );
+    tmp_pkg->name = slapt_malloc(sizeof *tmp_pkg->name * 
+      (name_regex.pmatch[1].rm_eo - name_regex.pmatch[1].rm_so + 1));
 
-    strncpy(tmp_pkg->name,
-      getline_buffer + name_regex.pmatch[1].rm_so,
-      name_regex.pmatch[1].rm_eo - name_regex.pmatch[1].rm_so
-    );
-    tmp_pkg->name[
-      name_regex.pmatch[1].rm_eo - name_regex.pmatch[1].rm_so
-    ] = '\0';
+    strncpy(tmp_pkg->name, getline_buffer + name_regex.pmatch[1].rm_so,
+      name_regex.pmatch[1].rm_eo - name_regex.pmatch[1].rm_so);
+
+    tmp_pkg->name[name_regex.pmatch[1].rm_eo -
+                  name_regex.pmatch[1].rm_so] = '\0';
 
     /* pkg version */
-    tmp_pkg->version = slapt_malloc(
-      sizeof *tmp_pkg->version *
-      (name_regex.pmatch[2].rm_eo - name_regex.pmatch[2].rm_so + 1)
-    );
+    tmp_pkg->version = slapt_malloc(sizeof *tmp_pkg->version *
+      (name_regex.pmatch[2].rm_eo - name_regex.pmatch[2].rm_so + 1));
 
-    strncpy(tmp_pkg->version,
-      getline_buffer + name_regex.pmatch[2].rm_so,
-      name_regex.pmatch[2].rm_eo - name_regex.pmatch[2].rm_so
-    );
-    tmp_pkg->version[
-      name_regex.pmatch[2].rm_eo - name_regex.pmatch[2].rm_so
-    ] = '\0';
+    strncpy(tmp_pkg->version, getline_buffer + name_regex.pmatch[2].rm_so,
+      name_regex.pmatch[2].rm_eo - name_regex.pmatch[2].rm_so);
+
+    tmp_pkg->version[name_regex.pmatch[2].rm_eo -
+                     name_regex.pmatch[2].rm_so] = '\0';
+
+    /* file extension */
+    tmp_pkg->file_ext = slapt_malloc(sizeof *tmp_pkg->file_ext *
+      (name_regex.pmatch[3].rm_eo - name_regex.pmatch[3].rm_so + 1));
+
+    strncpy(tmp_pkg->file_ext, getline_buffer + name_regex.pmatch[3].rm_so,
+      name_regex.pmatch[3].rm_eo - name_regex.pmatch[3].rm_so);
+
+    tmp_pkg->file_ext[name_regex.pmatch[3].rm_eo -
+                     name_regex.pmatch[3].rm_so] = '\0';
 
     /* mirror */
     f_pos = ftell(pkg_list_fh);
@@ -552,6 +554,9 @@ struct slapt_pkg_list *slapt_get_installed_pkgs(void)
     );
     tmp_pkg->version[ ip_regex.pmatch[2].rm_eo - ip_regex.pmatch[2].rm_so ] = '\0';
 
+    tmp_pkg->file_ext = slapt_malloc(sizeof *tmp_pkg->file_ext * 1);
+    tmp_pkg->file_ext[0] = '\0';
+
     /* build the package filename including the package directory */
     pkg_f_name = slapt_malloc(
       sizeof *pkg_f_name * (strlen(pkg_log_dirname) + strlen(file->d_name) + 2)
@@ -876,6 +881,9 @@ void slapt_free_pkg(slapt_pkg_info_t *pkg)
   if (pkg->name != NULL)
     free(pkg->name);
 
+  if (pkg->file_ext != NULL)
+    free(pkg->file_ext);
+
   if (pkg->version != NULL)
     free(pkg->version);
 
@@ -967,7 +975,7 @@ void slapt_get_md5sum(slapt_pkg_info_t *pkg,FILE *checksum_file)
       continue;
     if (strstr(getline_buffer,pkg->version) == NULL)
       continue;
-    if (strstr(getline_buffer,".tgz") == NULL)
+    if (strstr(getline_buffer,pkg->file_ext) == NULL)
       continue;
     if (strstr(getline_buffer,".asc") != NULL)
       continue;
@@ -1261,8 +1269,8 @@ void slapt_write_pkg_data(const char *source_url,FILE *d_file,
 
   for (i=0;i < pkgs->pkg_count;i++) {
 
-    fprintf(d_file,"PACKAGE NAME:  %s-%s.tgz\n",
-      pkgs->pkgs[i]->name,pkgs->pkgs[i]->version);
+    fprintf(d_file,"PACKAGE NAME:  %s-%s%s\n",
+      pkgs->pkgs[i]->name,pkgs->pkgs[i]->version,pkgs->pkgs[i]->file_ext);
     if (strlen(pkgs->pkgs[i]->mirror) > 0) {
       fprintf(d_file,"PACKAGE MIRROR:  %s\n",pkgs->pkgs[i]->mirror);
     } else {
@@ -2073,6 +2081,7 @@ __inline slapt_pkg_info_t *slapt_init_pkg(void)
   pkg->version = NULL;
   pkg->mirror = NULL;
   pkg->location = NULL;
+  pkg->file_ext = NULL;
 
   pkg->description = slapt_malloc(sizeof *pkg->description); 
   pkg->description[0] = '\0';
@@ -2102,7 +2111,7 @@ char *slapt_gen_pkg_file_name(const slapt_rc_config *global_config,
   file_name = slapt_calloc(
     strlen(global_config->working_dir)+strlen("/") +
     strlen(pkg->location)+strlen("/") +
-    strlen(pkg->name)+strlen("-")+strlen(pkg->version)+strlen(".tgz") + 1,
+    strlen(pkg->name)+strlen("-")+strlen(pkg->version)+strlen(pkg->file_ext) + 1,
     sizeof *file_name
   );
   file_name = strncpy(file_name,
@@ -2115,7 +2124,7 @@ char *slapt_gen_pkg_file_name(const slapt_rc_config *global_config,
   file_name = strncat(file_name,pkg->name,strlen(pkg->name));
   file_name = strncat(file_name,"-",strlen("-"));
   file_name = strncat(file_name,pkg->version,strlen(pkg->version));
-  file_name = strncat(file_name,".tgz",strlen(".tgz"));
+  file_name = strncat(file_name,pkg->file_ext,strlen(pkg->file_ext));
 
   return file_name;
 }
@@ -2127,23 +2136,19 @@ char *slapt_gen_pkg_url(slapt_pkg_info_t *pkg)
   char *file_name = NULL;
 
   /* build the file name */
-  file_name = slapt_calloc(
-    strlen(pkg->name)+strlen("-")+strlen(pkg->version)+strlen(".tgz") + 1 ,
-    sizeof *file_name
-  );
+  file_name = slapt_calloc(strlen(pkg->name) + strlen("-") +
+                           strlen(pkg->version) + strlen(pkg->file_ext) + 1,
+                           sizeof *file_name);
   file_name = strncpy(file_name,pkg->name,strlen(pkg->name));
   file_name = strncat(file_name,"-",strlen("-"));
   file_name = strncat(file_name,pkg->version,strlen(pkg->version));
-  file_name = strncat(file_name,".tgz",strlen(".tgz"));
+  file_name = strncat(file_name,pkg->file_ext,strlen(pkg->file_ext));
 
-  url = slapt_calloc(
-    strlen(pkg->mirror) + strlen(pkg->location)
-      + strlen(file_name) + strlen("/") + 1,
-    sizeof *url
-  );
+  url = slapt_calloc(strlen(pkg->mirror) + strlen(pkg->location) +
+                     strlen(file_name) + strlen("/") + 1, sizeof *url);
 
   url = strncpy(url,pkg->mirror,strlen(pkg->mirror));
-  url[ strlen(pkg->mirror) ] = '\0';
+  url[strlen(pkg->mirror)] = '\0';
   url = strncat(url,pkg->location,strlen(pkg->location));
   url = strncat(url,"/",strlen("/"));
   url = strncat(url,file_name,strlen(file_name));
@@ -2297,7 +2302,7 @@ void slapt_purge_old_cached_pkgs(const slapt_rc_config *global_config,
     }
 
     /* if its a package */
-    if (strstr(file->d_name,".tgz") != NULL) {
+    if (strstr(file->d_name,".t") != NULL) {
 
       slapt_execute_regex(&cached_pkgs_regex,file->d_name);
 
@@ -2350,6 +2355,7 @@ void slapt_clean_pkg_dir(const char *dir_name)
   DIR *dir;
   struct dirent *file;
   struct stat file_stat;
+  slapt_regex cached_pkgs_regex;
 
   if ((dir = opendir(dir_name)) == NULL) {
     fprintf(stderr,gettext("Failed to opendir %s\n"),dir_name);
@@ -2360,6 +2366,8 @@ void slapt_clean_pkg_dir(const char *dir_name)
     fprintf(stderr,gettext("Failed to chdir: %s\n"),dir_name);
     return;
   }
+
+  slapt_init_regex(&cached_pkgs_regex,SLAPT_PKG_PARSE_REGEX);
 
   while ((file = readdir(dir))) {
 
@@ -2379,14 +2387,21 @@ void slapt_clean_pkg_dir(const char *dir_name)
       }
       continue;
     }
-    if (strstr(file->d_name,".tgz") !=NULL) {
-      #if SLAPT_DEBUG == 1
-      printf(gettext("unlinking %s\n"),file->d_name);
-      #endif
-      unlink(file->d_name);
+    if (strstr(file->d_name,".t") !=NULL) {
+      slapt_execute_regex(&cached_pkgs_regex,file->d_name);
+
+      /* if our regex matches */
+      if (cached_pkgs_regex.reg_return == 0 ) {
+        #if SLAPT_DEBUG == 1
+        printf(gettext("unlinking %s\n"),file->d_name);
+        #endif
+        unlink(file->d_name);
+      }
     }
   }
   closedir(dir);
+
+  slapt_free_regex(&cached_pkgs_regex);
 
 }
 
@@ -2470,14 +2485,34 @@ static slapt_pkg_info_t *find_or_requirement(struct slapt_pkg_list *avail_pkgs,
 slapt_pkg_info_t *slapt_copy_pkg(slapt_pkg_info_t *dst,slapt_pkg_info_t *src)
 {
   dst = memcpy(dst,src, sizeof *src);
-  dst->name = strndup(src->name,strlen(src->name));
-  dst->version = strndup(src->version,strlen(src->version));
-  dst->mirror = strndup(src->mirror,strlen(src->mirror));
-  dst->location = strndup(src->location,strlen(src->location));
-  dst->description = strndup(src->description,strlen(src->description));
-  dst->suggests = strndup(src->suggests, strlen(src->suggests));
-  dst->conflicts = strndup(src->conflicts, strlen(src->conflicts));
-  dst->required = strndup(src->required, strlen(src->required));
+
+  if (src->name != NULL)
+    dst->name = strndup(src->name,strlen(src->name));
+
+  if (src->version != NULL)
+    dst->version = strndup(src->version,strlen(src->version));
+
+  if (src->file_ext != NULL)
+    dst->file_ext = strndup(src->file_ext,strlen(src->file_ext));
+
+  if (src->mirror != NULL)
+    dst->mirror = strndup(src->mirror,strlen(src->mirror));
+
+  if (src->location != NULL)
+    dst->location = strndup(src->location,strlen(src->location));
+
+  if (src->description != NULL)
+    dst->description = strndup(src->description,strlen(src->description));
+
+  if (src->suggests != NULL)
+    dst->suggests = strndup(src->suggests, strlen(src->suggests));
+
+  if (src->conflicts != NULL)
+    dst->conflicts = strndup(src->conflicts, strlen(src->conflicts));
+
+  if (src->required != NULL)
+    dst->required = strndup(src->required, strlen(src->required));
+
   return dst;
 }
 
