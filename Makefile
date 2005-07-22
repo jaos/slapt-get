@@ -1,6 +1,7 @@
 PACKAGE=slapt-get
 VERSION=0.9.10a
 ARCH=$(shell uname -m | sed -e "s/i[3456]86/i386/")
+LIBDIR=/usr/lib
 RELEASE=1
 CC=gcc
 CURLFLAGS=`curl-config --libs`
@@ -13,8 +14,12 @@ PACKAGE_LOCALE_DIR=/usr/share/locale
 SBINDIR=/usr/sbin/
 GETTEXT_PACKAGE=$(PACKAGE)
 DEFINES=-DPACKAGE="\"$(PACKAGE)\"" -DVERSION="\"$(VERSION)\"" -DRC_LOCATION="\"$(RCDEST)\"" -DENABLE_NLS -DPACKAGE_LOCALE_DIR="\"$(PACKAGE_LOCALE_DIR)\"" -DGETTEXT_PACKAGE="\"$(GETTEXT_PACKAGE)\""
-CFLAGS=-W -Werror -Wall -O2 -ansi -pedantic $(DEFINES) # add -fPIC for amd64
+CFLAGS=-W -Werror -Wall -O2 -ansi -pedantic $(DEFINES) -fpic
 LDFLAGS=$(CURLFLAGS) -lz
+ifeq ($(ARCH),x86_64)
+	LIBDIR=/usr/lib64
+	CFLAGS=-W -Werror -Wall -O2 -ansi -pedantic $(DEFINES) -fPIC
+endif
 
 default: $(PACKAGE)
 
@@ -40,12 +45,12 @@ withlibslaptinstall: withlibslapt doinstall
 libsinstall: libs
 	if [ ! -d $(DESTDIR)/usr/include ]; then mkdir -p $(DESTDIR)/usr/include;fi
 	cp src/slapt.h $(DESTDIR)/usr/include/
-	if [ ! -d $(DESTDIR)/usr/lib ]; then mkdir -p $(DESTDIR)/usr/lib;fi
-	cp src/libslapt-$(VERSION).a src/libslapt-$(VERSION).so $(DESTDIR)/usr/lib/
-	if [ -L $(DESTDIR)/usr/lib/libslapt.so ]; then rm $(DESTDIR)/usr/lib/libslapt.so;fi
-	cd $(DESTDIR)/usr/lib; ln -s libslapt-$(VERSION).so libslapt.so
-	if [ -L $(DESTDIR)/usr/lib/libslapt.a ]; then rm $(DESTDIR)/usr/lib/libslapt.a;fi
-	cd $(DESTDIR)/usr/lib; ln -s libslapt-$(VERSION).a libslapt.a
+	if [ ! -d $(DESTDIR)$(LIBDIR) ]; then mkdir -p $(DESTDIR)$(LIBDIR);fi
+	cp src/libslapt-$(VERSION).a src/libslapt-$(VERSION).so $(DESTDIR)$(LIBDIR)/
+	if [ -L $(DESTDIR)$(LIBDIR)/libslapt.so ]; then rm $(DESTDIR)$(LIBDIR)/libslapt.so;fi
+	cd $(DESTDIR)$(LIBDIR); ln -s libslapt-$(VERSION).so libslapt.so
+	if [ -L $(DESTDIR)$(LIBDIR)/libslapt.a ]; then rm $(DESTDIR)$(LIBDIR)/libslapt.a;fi
+	cd $(DESTDIR)$(LIBDIR); ln -s libslapt-$(VERSION).a libslapt.a
 
 doinstall: libsinstall
 	strip --strip-unneeded $(PACKAGE)
@@ -72,8 +77,8 @@ uninstall:
 	-rm -r /usr/doc/$(PACKAGE)-$(VERSION)
 	-find /usr/share/locale/ -name 'slapt-get.mo' -exec rm {} \;
 	-rm /usr/include/slapt.h
-	-readlink /usr/lib/libslapt.so|xargs -r rm
-	-rm /usr/lib/libslapt.so
+	-readlink $(LIBDIR)/libslapt.so|xargs -r rm
+	-rm $(LIBDIR)/libslapt.so
 
 clean:
 	-if [ -f $(PACKAGE) ]; then rm $(PACKAGE);fi
@@ -112,12 +117,12 @@ dopkg:
 	cp slack-required pkg/install/
 	cp $(PACKAGE).8 pkg/usr/man/man8/
 	gzip pkg/usr/man/man8/$(PACKAGE).8
-	mkdir -p pkg/usr/lib
+	mkdir -p pkg$(LIBDIR)
 	mkdir -p pkg/usr/include
 	cp src/slapt.h pkg/usr/include/
-	cp src/libslapt-$(VERSION).a src/libslapt-$(VERSION).so pkg/usr/lib/
-	strip pkg/usr/lib/libslapt-$(VERSION).so
-	( cd pkg/usr/lib; ln -s libslapt-$(VERSION).so libslapt.so; ln -s libslapt-$(VERSION).a libslapt.a )
+	cp src/libslapt-$(VERSION).a src/libslapt-$(VERSION).so pkg$(LIBDIR)/
+	strip pkg$(LIBDIR)/libslapt-$(VERSION).so
+	( cd pkg$(LIBDIR); ln -s libslapt-$(VERSION).so libslapt.so; ln -s libslapt-$(VERSION).a libslapt.a )
 	-( cd pkg; /sbin/makepkg -l y -c n $(PACKAGE)-$(VERSION)-$(ARCH)-$(RELEASE).tgz )
 
 po_file:
@@ -126,7 +131,6 @@ po_file:
 	-xgettext -d slapt-get -o po/slapt-get.pot -a -C --no-location po/gettext_strings
 	-rm po/gettext_strings
 
-libs: CFLAGS += -fpic #change to -fPIC for amd64
 libs: $(OBJS)
 	touch libs
 	$(CC) -shared -o src/libslapt-$(VERSION).so $(LIBOBJS)
