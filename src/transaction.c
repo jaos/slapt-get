@@ -204,7 +204,7 @@ int slapt_handle_transaction (const slapt_rc_config *global_config,
 
       download_size += tran->upgrade_pkgs->pkgs[i]->upgrade->size_c;
 
-      if (existing_file_size < tran->upgrade_pkgs->pkgs[i]->upgrade->size_c)
+      if (existing_file_size <= tran->upgrade_pkgs->pkgs[i]->upgrade->size_c)
           already_download_size += existing_file_size;
 
       uncompressed_size += tran->upgrade_pkgs->pkgs[i]->upgrade->size_u;
