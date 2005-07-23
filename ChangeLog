@@ -1,5 +1,5 @@
 
-0.9.10a Jul 21, 2005
+0.9.10a Jul 23, 2005
  * support packages that end in .tlz and .tbz as well as the normal .tgz
  * data type, functions, and macros renamed with slapt_|SLAPT_ (libslapt)
  * support for compressed package data. --update now checks for PACKAGES.TXT.gz

@@ -2288,7 +2288,7 @@ void slapt_purge_old_cached_pkgs(const slapt_rc_config *global_config,
       continue;
 
     /* setup file_stat struct */
-    if ((stat(file->d_name,&file_stat)) == -1)
+    if ((lstat(file->d_name,&file_stat)) == -1)
       continue;
 
     /* if its a directory, recurse */
@@ -2375,7 +2375,7 @@ void slapt_clean_pkg_dir(const char *dir_name)
     if ((strcmp(file->d_name,"..")) == 0 || (strcmp(file->d_name,".") == 0))
       continue;
 
-    if ((stat(file->d_name,&file_stat)) == -1)
+    if ((lstat(file->d_name,&file_stat)) == -1)
       continue;
 
     /* if its a directory, recurse */
