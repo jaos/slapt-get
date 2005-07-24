@@ -149,7 +149,7 @@ int slapt_handle_transaction (const slapt_rc_config *global_config,
 
       download_size += tran->install_pkgs->pkgs[i]->size_c;
 
-      if (existing_file_size < tran->install_pkgs->pkgs[i]->size_c)
+      if (existing_file_size <= tran->install_pkgs->pkgs[i]->size_c)
         already_download_size += existing_file_size;
 
       uncompressed_size += tran->install_pkgs->pkgs[i]->size_u;
