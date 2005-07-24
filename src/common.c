@@ -210,17 +210,17 @@ void slapt_create_dir_structure(const char *dir_name)
 
 int slapt_ask_yes_no(const char *format, ...)
 {
-  char prompt_answer[10];
   va_list arg_list;
+  int answer;
 
   va_start(arg_list, format);
   vprintf(format, arg_list);
   va_end(arg_list);
 
-  fgets(prompt_answer,10,stdin);
-  if ( tolower(prompt_answer[0]) == 'y' )
+  answer = fgetc(stdin);
+  if (tolower(answer) == 'y')
     return 1;
-  if ( tolower(prompt_answer[0]) == 'n' )
+  if (tolower(answer) == 'n')
     return 0;
   return -1;
 }
