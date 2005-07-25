@@ -793,7 +793,6 @@ int slapt_install_pkg(const slapt_rc_config *global_config,
   command = strncat(command,SLAPT_INSTALL_CMD,strlen(SLAPT_INSTALL_CMD));
   command = strncat(command,pkg_file_name,strlen(pkg_file_name));
 
-  printf(gettext("Preparing to install %s-%s\n"),pkg->name,pkg->version);
   if ((cmd_return = system(command)) != 0) {
     printf(gettext("Failed to execute command: [%s]\n"),command);
     free(command);
@@ -807,7 +806,6 @@ int slapt_install_pkg(const slapt_rc_config *global_config,
 }
 
 int slapt_upgrade_pkg(const slapt_rc_config *global_config,
-                      slapt_pkg_info_t *installed_pkg,
                       slapt_pkg_info_t *pkg)
 {
   char *pkg_file_name = NULL;
@@ -825,8 +823,6 @@ int slapt_upgrade_pkg(const slapt_rc_config *global_config,
   command = strncat(command,SLAPT_UPGRADE_CMD,strlen(SLAPT_UPGRADE_CMD));
   command = strncat(command,pkg_file_name,strlen(pkg_file_name));
 
-  printf(gettext("Preparing to replace %s-%s with %s-%s\n"),
-    pkg->name,installed_pkg->version,pkg->name,pkg->version);
   if ((cmd_return = system(command)) != 0) {
     printf(gettext("Failed to execute command: [%s]\n"),command);
     free(command);

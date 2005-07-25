@@ -1,5 +1,7 @@
 
 0.9.10a Jul 25, 2005
+ * libslapt updates, moving console notification for [install|upgrade]pkg into
+   slapt-get specific transaction handler.
  * support packages that end in .tlz and .tbz as well as the normal .tgz
  * data type, functions, and macros renamed with slapt_|SLAPT_ (libslapt)
  * support for compressed package data. --update now checks for PACKAGES.TXT.gz

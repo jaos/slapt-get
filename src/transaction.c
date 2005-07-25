@@ -366,13 +366,20 @@ int slapt_handle_transaction (const slapt_rc_config *global_config,
     for (i = 0;i < tran->queue->count; ++i) {
 
       if (tran->queue->pkgs[i]->type == INSTALL) {
+        printf(gettext("Preparing to install %s-%s\n"),
+               tran->queue->pkgs[i]->pkg.i->name,
+               tran->queue->pkgs[i]->pkg.i->version);
         if (slapt_install_pkg(global_config,
             tran->queue->pkgs[i]->pkg.i) == -1) {
           exit(1);
         }
       } else if (tran->queue->pkgs[i]->type == UPGRADE) {
+        printf(gettext("Preparing to replace %s-%s with %s-%s\n"),
+               tran->queue->pkgs[i]->pkg.u->upgrade->name,
+               tran->queue->pkgs[i]->pkg.u->installed->version,
+               tran->queue->pkgs[i]->pkg.u->upgrade->name,
+               tran->queue->pkgs[i]->pkg.u->upgrade->version);
         if (slapt_upgrade_pkg(global_config,
-            tran->queue->pkgs[i]->pkg.u->installed,
             tran->queue->pkgs[i]->pkg.u->upgrade) == -1) {
           exit(1);
         }

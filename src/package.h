@@ -129,7 +129,6 @@ int slapt_install_pkg(const slapt_rc_config *,slapt_pkg_info_t *);
   returns 0 on success, -1 on error
 */
 int slapt_upgrade_pkg(const slapt_rc_config *global_config,
-                      slapt_pkg_info_t *installed_pkg,
                       slapt_pkg_info_t *pkg);
 /*
   remove package by calling removepkg
