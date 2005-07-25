@@ -452,3 +452,51 @@ void slapt_clear_head_cache(const char *cache_filename)
 
 }
 
+/* do a head request on the mirror data to find out if it's new */
+char *slapt_head_mirror_data(const char *wurl,const char *file)
+{
+  char *request_header = NULL;
+  char *request_header_ptr = NULL;
+  char *delim_ptr = NULL;
+  char *head_data = NULL;
+  int request_header_len = 0;
+  char *url;
+
+  /* build url */
+  url = slapt_calloc(strlen(wurl) + strlen(file) + 2, sizeof *url);
+  url[0] = '\0';
+  strncat(url,wurl,strlen(wurl));
+  strncat(url,"/",1);
+  strncat(url,file,strlen(file));
+
+  /* retrieve the header info */
+  head_data = slapt_head_request(url);
+  free(url);
+  if (head_data == NULL) {
+    return NULL;
+  }
+
+  /* extract the last modified date for storage and later comparison */
+  request_header_ptr = strstr(head_data,"Last-Modified");
+  if (request_header_ptr == NULL) {
+    /* this is ftp, in which case the Content-Length will have to do */
+    request_header_ptr = strstr(head_data,"Content-Length");
+    if (request_header_ptr == NULL) {
+      free(head_data);
+      return NULL;
+    }/* give up finally */
+  }
+  delim_ptr = strpbrk(request_header_ptr,"\r\n");
+  if (delim_ptr == NULL) {
+    free(head_data);
+    return NULL;
+  }
+
+  request_header_len = strlen(request_header_ptr) - strlen(delim_ptr);
+  request_header = slapt_calloc(request_header_len + 1, sizeof *request_header);
+  memcpy(request_header,request_header_ptr,request_header_len);
+
+  free(head_data);
+  return request_header;
+}
+
