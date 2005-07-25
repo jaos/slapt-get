@@ -2587,6 +2587,7 @@ struct slapt_pkg_list *slapt_get_pkg_source_packages (const slapt_rc_config *glo
 
       if (global_config->progress_cb == NULL)
         printf(gettext("Cached\n"));
+
     } else {
       FILE *tmp_pkg_f = NULL;
 
