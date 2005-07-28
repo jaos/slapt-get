@@ -1,5 +1,5 @@
 PACKAGE=slapt-get
-VERSION=0.9.10a
+VERSION=0.9.10b
 ARCH=$(shell uname -m | sed -e "s/i[3456]86/i386/")
 LIBDIR=/usr/lib
 RELEASE=1
@@ -115,6 +115,7 @@ dopkg:
 	echo "if [ ! -d etc/slapt-get ]; then mkdir -p etc/slapt-get; fi; if [ -f etc/slapt-getrc -a ! -f etc/slapt-get/slapt-getrc ]; then mv etc/slapt-getrc etc/slapt-get/slapt-getrc; fi; if [ ! -f etc/slapt-get/slapt-getrc ]; then mv etc/slapt-get/slapt-getrc.new etc/slapt-get/slapt-getrc; else sed -re 's/(See \/usr\/doc\/slapt\-get\-).*(\/example\.slapt\-getrc)/\1$(VERSION)\2/' /etc/slapt-get/slapt-getrc > /tmp/tmp_slapt-getrc_tmp; cat /tmp/tmp_slapt-getrc_tmp > /etc/slapt-get/slapt-getrc; rm /tmp/tmp_slapt-getrc_tmp; diff -q etc/slapt-get/slapt-getrc etc/slapt-get/slapt-getrc.new >/dev/null 2>&1 && rm etc/slapt-get/slapt-getrc.new; fi;" > pkg/install/doinst.sh
 	cp slack-desc pkg/install/
 	cp slack-required pkg/install/
+	cp slack-suggests pkg/install/
 	cp $(PACKAGE).8 pkg/usr/man/man8/
 	gzip pkg/usr/man/man8/$(PACKAGE).8
 	mkdir -p pkg$(LIBDIR)

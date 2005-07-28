@@ -1,4 +1,7 @@
 
+0.9.10b Jul 28, 2005
+ * added slack-suggests containing gslapt
+
 0.9.10a Jul 25, 2005
  * libslapt updates, moving console notification for [install|upgrade]pkg into
    slapt-get specific transaction handler.
