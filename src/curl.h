@@ -27,9 +27,6 @@ int slapt_get_mirror_data_from_source(FILE *fh,
 int slapt_download_pkg(const slapt_rc_config *global_config,
                        slapt_pkg_info_t *pkg);
 
-/* callback for curl progress */
-char slapt_spinner(void);
-
 /*
   this is the default progress callback if global_config->progress_cb == NULL
 */

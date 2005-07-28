@@ -177,7 +177,7 @@ int slapt_verify_downloaded_pkg(const slapt_rc_config *global_config,
 /*
   fill in the md5sum of the package
 */
-void slapt_get_md5sum(slapt_pkg_info_t *pkg,FILE *checksum_file);
+void slapt_get_md5sums(struct slapt_pkg_list *pkgs, FILE *checksum_file);
 /*
   find out the pkg file size (post download)
 */

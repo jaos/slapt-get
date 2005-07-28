@@ -1,5 +1,6 @@
 
 0.9.10b Jul 28, 2005
+ * merged patch from Ondrej Zary to speedup merging package data with md5sums
  * added slack-suggests containing gslapt
 
 0.9.10a Jul 25, 2005

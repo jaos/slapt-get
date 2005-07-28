@@ -362,19 +362,6 @@ int slapt_progress_callback(void *clientp, double dltotal, double dlnow,
   return 0;
 }
 
-char slapt_spinner(void)
-{
-  static int slapt_spinner_index = 0;
-  static const char slapt_spinner_parts[] = "\\|/-";
-
-  if (slapt_spinner_index > 3) {
-    slapt_spinner_index = 0;
-    return slapt_spinner_parts[slapt_spinner_index];
-  } else {
-    return slapt_spinner_parts[slapt_spinner_index++];
-  }
-}
-
 void slapt_write_head_cache(const char *cache, const char *cache_filename)
 {
   char *head_filename;

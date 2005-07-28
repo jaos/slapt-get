@@ -954,24 +954,24 @@ int slapt_is_excluded(const slapt_rc_config *global_config,
   return pkg_not_excluded;
 }
 
-void slapt_get_md5sum(slapt_pkg_info_t *pkg,FILE *checksum_file)
+void slapt_get_md5sums(struct slapt_pkg_list *pkgs, FILE *checksum_file)
 {
   slapt_regex md5sum_regex;
   ssize_t getline_read;
   size_t getline_len = 0;
   char *getline_buffer = NULL;
+  unsigned int a;
 
   slapt_init_regex(&md5sum_regex,SLAPT_MD5SUM_REGEX);
 
   while ((getline_read = getline(&getline_buffer,&getline_len,
                                  checksum_file)) != EOF) {
 
-    /* ignore if it is not our package */
-    if (strstr(getline_buffer,pkg->name) == NULL)
-      continue;
-    if (strstr(getline_buffer,pkg->version) == NULL)
-      continue;
-    if (strstr(getline_buffer,pkg->file_ext) == NULL)
+    if (
+      (strstr(getline_buffer,".tgz") == NULL) &&
+      (strstr(getline_buffer,".tlz") == NULL) &&
+      (strstr(getline_buffer,".tbz") == NULL)
+    )
       continue;
     if (strstr(getline_buffer,".asc") != NULL)
       continue;
@@ -1027,22 +1027,22 @@ void slapt_get_md5sum(slapt_pkg_info_t *pkg,FILE *checksum_file)
       version[md5sum_regex.pmatch[4].rm_eo - md5sum_regex.pmatch[4].rm_so] = '\0';
 
       /* see if we can match up name, version, and location */
-      if (
-        (strcmp(pkg->name,name) == 0) &&
-        (slapt_cmp_pkg_versions(pkg->version,version) == 0) &&
-        (strcmp(pkg->location,location) == 0)
-      ) {
-        #if SLAPT_DEBUG == 1
-        printf("%s-%s@%s, %s-%s@%s: %s\n",
-          pkg->name,pkg->version,pkg->location,name,version,location,sum);
-        #endif
-        memcpy(pkg->md5,
-          sum,md5sum_regex.pmatch[1].rm_eo - md5sum_regex.pmatch[1].rm_so + 1
-        );
-        free(name);
-        free(version);
-        free(location);
-        break;
+      for (a = 0;a < pkgs->pkg_count;a++) {
+        if (
+          (strcmp(pkgs->pkgs[a]->name,name) == 0) &&
+          (slapt_cmp_pkg_versions(pkgs->pkgs[a]->version,version) == 0) &&
+          (strcmp(pkgs->pkgs[a]->location,location) == 0)
+        ) {
+          #if SLAPT_DEBUG == 1
+          printf("%s-%s@%s, %s-%s@%s: %s\n",
+                 pkgs->pkgs[a]->name,pkgs->pkgs[a]->version,
+                 pkgs->pkgs[a]->location,name,version,location,sum);
+          #endif
+          memcpy(pkgs->pkgs[a]->md5,
+            sum,md5sum_regex.pmatch[1].rm_eo - md5sum_regex.pmatch[1].rm_so + 1
+          );
+          break;
+        }
       }
 
       free(name);
@@ -1054,9 +1054,6 @@ void slapt_get_md5sum(slapt_pkg_info_t *pkg,FILE *checksum_file)
   if (getline_buffer)
     free(getline_buffer);
 
-  #if SLAPT_DEBUG == 1
-  printf("%s-%s@%s = %s\n",pkg->name,pkg->version,pkg->location,pkg->md5);
-  #endif
   slapt_free_regex(&md5sum_regex);
   rewind(checksum_file);
 
@@ -1911,20 +1908,15 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
                                      global_config->sources->url[i]);
 
     if (tmp_checksum_f != NULL) {
-      unsigned int a;
 
       /* now map md5 checksums to packages */
       printf(gettext("Reading Package Lists..."));
-      for (a = 0;a < available_pkgs->pkg_count;a++) {
-        slapt_get_md5sum(available_pkgs->pkgs[a],tmp_checksum_f);
-        printf("%c\b",slapt_spinner());
-      }
-      if (patch_pkgs) {
-        for (a = 0;a < patch_pkgs->pkg_count;a++) {
-          slapt_get_md5sum(patch_pkgs->pkgs[a],tmp_checksum_f);
-          printf("%c\b",slapt_spinner());
-        }
-      }
+
+      slapt_get_md5sums(available_pkgs, tmp_checksum_f);
+
+      if (patch_pkgs)
+        slapt_get_md5sums(patch_pkgs, tmp_checksum_f);
+
       printf(gettext("Done\n"));
 
       /* write package listings to disk */
