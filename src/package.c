@@ -2618,7 +2618,8 @@ struct slapt_pkg_list *slapt_get_pkg_source_packages (const slapt_rc_config *glo
         }
 
         /* commit the head data for later comparisons */
-        slapt_write_head_cache(pkg_head,pkg_filename);
+        if (pkg_head != NULL)
+          slapt_write_head_cache(pkg_head,pkg_filename);
 
         if (global_config->progress_cb == NULL &&
             global_config->dl_stats == SLAPT_FALSE)
@@ -2695,7 +2696,8 @@ struct slapt_pkg_list *slapt_get_pkg_source_packages (const slapt_rc_config *glo
         }
 
         /* commit the head data for later comparisons */
-        slapt_write_head_cache(pkg_head,pkg_filename);
+        if (pkg_head != NULL)
+          slapt_write_head_cache(pkg_head,pkg_filename);
 
         if (global_config->progress_cb == NULL &&
             global_config->dl_stats == SLAPT_FALSE)
@@ -2897,7 +2899,8 @@ FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,
         slapt_gunzip_file(filename,tmp_checksum_f);
 
         /* if all is good, write it */
-        slapt_write_head_cache(checksum_head,filename);
+        if (checksum_head != NULL)
+          slapt_write_head_cache(checksum_head,filename);
 
       } else {
         slapt_clear_head_cache(filename);
@@ -2958,7 +2961,8 @@ FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,
       rewind(tmp_checksum_f);
 
       /* if all is good, write it */
-      slapt_write_head_cache(checksum_head,filename);
+      if (checksum_head != NULL)
+        slapt_write_head_cache(checksum_head,filename);
 
       if (global_config->progress_cb == NULL &&
           global_config->dl_stats == SLAPT_TRUE)

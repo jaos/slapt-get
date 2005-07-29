@@ -1,5 +1,6 @@
 
 0.9.10b Jul 28, 2005
+ * fixed bug trying to head file:// sources
  * merged patch from Ondrej Zary to speedup merging package data with md5sums
  * added slack-suggests containing gslapt
 
