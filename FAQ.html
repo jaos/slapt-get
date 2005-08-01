@@ -347,13 +347,13 @@
     function gen_packages_txt {
 	    echo '' &gt; PACKAGES.TXT
 	    find . -type f -name '*.meta' -exec cat {} \; &gt;&gt; PACKAGES.TXT
-      cat PACKAGES.TXT | gzip -c - &gt; PACKAGES.TXT.gz
+      cat PACKAGES.TXT | gzip -9 -c - &gt; PACKAGES.TXT.gz
     }
 
     function gen_md5_checksums {
 	    echo '' &gt; CHECKSUMS.md5
 	    find . -type f -name '*.tgz' -exec md5sum {} \; &gt;&gt; CHECKSUMS.md5
-      cat CHECKSUMS.md5 | gzip -c - &gt; CHECKSUMS.md5.gz
+      cat CHECKSUMS.md5 | gzip -9 -c - &gt; CHECKSUMS.md5.gz
     }
 
     function gen_meta {

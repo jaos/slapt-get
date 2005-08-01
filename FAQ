@@ -333,13 +333,13 @@ Frequently Asked Questions:
     function gen_packages_txt {
 	    echo '' > PACKAGES.TXT
 	    find . -type f -name '*.meta' -exec cat {} \; >> PACKAGES.TXT
-      cat PACKAGES.TXT | gzip -c - > PACKAGES.TXT.gz
+      cat PACKAGES.TXT | gzip -9 -c - > PACKAGES.TXT.gz
     }
 
     function gen_md5_checksums {
 	    echo '' > CHECKSUMS.md5
 	    find . -type f -name '*.tgz' -exec md5sum {} \; >> CHECKSUMS.md5
-      cat CHECKSUMS.md5 | gzip -c - > CHECKSUMS.md5.gz
+      cat CHECKSUMS.md5 | gzip -9 -c - > CHECKSUMS.md5.gz
     }
 
     function gen_meta {
