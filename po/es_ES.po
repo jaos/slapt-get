@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.10\n"
+"Project-Id-Version: 0.9.10b\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2005-07-08 09:38+0500\n"
+"PO-Revision-Date: 2005-08-01 16:25+0500\n"
 "Last-Translator: Ruben Gutierrez <ruben@snpp.com.ar>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -438,19 +438,19 @@ msgid "Cached\n"
 msgstr "Cached\n"
 
 msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr ""
+msgstr "Sources failed to download, correct sources and rerun --update\n"
 
 msgid "specify alternate slapt-getrc location"
-msgstr ""
+msgstr "specify alternate slapt-getrc location"
 
 msgid "Suggested packages:\n"
-msgstr ""
+msgstr "Suggested packages:\n"
 
 msgid "only purge cache of older, unreacheable pkgs"
-msgstr ""
+msgstr "only purge cache of older, unreacheable pkgs"
 
 msgid "remove obsolete packages (dist-upgrade only)"
-msgstr ""
+msgstr "remove obsolete packages (dist-upgrade only)"
 
 #, c-format
 msgid "You don't have enough free space in %s\n"
@@ -458,11 +458,11 @@ msgstr "No tiene suficiente espacio libre en %s\n"
 
 #, c-format
 msgid "Package Conflicts: %s\n"
-msgstr ""
+msgstr "Package Conflicts: %s\n"
 
 #, c-format
 msgid "Package Suggests: %s\n"
-msgstr ""
+msgstr "Package Suggests: %s\n"
 
 #, c-format
 msgid "Failed to parse package data from %s\n"
