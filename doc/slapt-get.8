@@ -56,6 +56,9 @@ slapt-get \- frontend to pkgtools
 [
 .B --remove-obsolete
 ]
+[
+.B --retry []
+]
 .LP
 .B targets:
 [
@@ -143,6 +146,9 @@ Specify file location of slapt-get configuration.  This overrides the default lo
 .TP
 .B --remove-obsolete
 Remove installed packages that are no longer available.  This works for dist-upgrade only.  This removes packages that are no longer available from any current package sources, but are currently installed.  Be careful as this will also remove custom built packages.  
+.TP
+.B --retry []
+Specify the number of retries to attempt if the package download fails.
 .SH TARGETS
 .TP
 .B --update
