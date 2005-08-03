@@ -30,6 +30,7 @@ typedef struct {
   SLAPT_BOOL_T print_uris;
   SLAPT_BOOL_T dl_stats;
   SLAPT_BOOL_T remove_obsolete;
+  unsigned int retry;
   int(*progress_cb)(void *,double,double,double,double);
 
 } slapt_rc_config;

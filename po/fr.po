@@ -468,3 +468,6 @@ msgstr "Suggestion De Paquet: %s\n"
 msgid "Failed to parse package data from %s\n"
 msgstr "Echec de l'analyse des données du paquet à partir de %s\n"
 
+msgid "specify number of download retry attempts"
+msgstr "specify number of download retry attempts"
+

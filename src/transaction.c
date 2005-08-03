@@ -341,15 +341,31 @@ int slapt_handle_transaction (const slapt_rc_config *global_config,
 
   /* download pkgs */
   for (i = 0; i < tran->install_pkgs->pkg_count;i++) {
-    if (slapt_download_pkg(global_config,tran->install_pkgs->pkgs[i]) != 0) {
-      exit(1);
+    unsigned int retry_count, failed = 1;
+    for (retry_count = 0; retry_count < global_config->retry; ++retry_count) {
+      if (slapt_download_pkg(global_config,tran->install_pkgs->pkgs[i]) != 0) {
+        failed = 1;
+      } else {
+        failed = 0;
+        break;
+      }
     }
+    if (failed == 1)
+      exit(1);
   }
 
   for (i = 0; i < tran->upgrade_pkgs->pkg_count;i++) {
-    if (slapt_download_pkg(global_config,tran->upgrade_pkgs->pkgs[i]->upgrade) != 0) {
-      exit(1);
+    unsigned int retry_count, failed = 1;
+    for (retry_count = 0; retry_count < global_config->retry; ++retry_count) {
+      if (slapt_download_pkg(global_config,tran->upgrade_pkgs->pkgs[i]->upgrade) != 0) {
+        failed = 1;
+      } else {
+        failed = 0;
+        break;
+      }
     }
+    if (failed == 1)
+      exit(1);
   }
 
   printf("\n");

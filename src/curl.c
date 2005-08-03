@@ -287,7 +287,11 @@ int slapt_download_pkg(const slapt_rc_config *global_config,
     free(file_name);
     free(url);
 
-    return slapt_download_pkg(global_config,pkg);
+    /* if we set retry, make sure this counts as a retry */
+    if (global_config->retry > 1)
+      return -1;
+    else
+      return slapt_download_pkg(global_config,pkg);
 
   } else {
     fclose(fh);

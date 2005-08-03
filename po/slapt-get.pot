@@ -468,3 +468,6 @@ msgstr ""
 msgid "Failed to parse package data from %s\n"
 msgstr ""
 
+msgid "specify number of download retry attempts"
+msgstr ""
+

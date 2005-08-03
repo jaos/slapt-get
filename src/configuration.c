@@ -50,6 +50,7 @@ slapt_rc_config *slapt_read_rc_config(const char *file_name)
   global_config->sources->url =
     slapt_malloc(sizeof *global_config->sources->url );
   global_config->sources->count = 0;
+  global_config->retry = 1;
 
   rc = slapt_open_file(file_name,"r");
 
