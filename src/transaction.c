@@ -803,7 +803,7 @@ int slapt_add_deps_to_trans(const slapt_rc_config *global_config,
       slapt_add_install_to_transaction(tran,deps->pkgs[c]);
     } else {
       /* add only if its a valid upgrade */
-      if (slapt_cmp_pkg_versions(dep_installed->version,deps->pkgs[c]->version) < 0)
+      if (slapt_cmp_pkgs(dep_installed,deps->pkgs[c]) < 0)
         slapt_add_upgrade_to_transaction(tran,dep_installed,deps->pkgs[c]);
     }
 

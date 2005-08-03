@@ -98,7 +98,11 @@ void slapt_write_pkg_data(const char *source_url,FILE *d_file,
                           struct slapt_pkg_list *pkgs);
 /* parse the PACKAGES.TXT file */
 struct slapt_pkg_list *slapt_parse_packages_txt(FILE *);
-/* return a list of available packages */
+/*
+  return a list of available packages must be already chdir'd to
+  rc_config->working_dir.  Otherwise, open a filehandle to the package data
+  and pass it to slapt_parse_packages_txt();
+*/
 struct slapt_pkg_list *slapt_get_available_pkgs(void);
 /* retrieve list of installed pkgs */
 struct slapt_pkg_list *slapt_get_installed_pkgs(void);
@@ -115,7 +119,7 @@ slapt_pkg_info_t *slapt_get_pkg_by_details(struct slapt_pkg_list *list,
                                            const char *version,
                                            const char *location);
 /* search package list with pattern */
-struct slapt_pkg_list *slapt_search_pkg_list(struct slapt_pkg_list *available,
+struct slapt_pkg_list *slapt_search_pkg_list(struct slapt_pkg_list *list,
                                              const char *pattern);
 
 
@@ -192,6 +196,7 @@ size_t slapt_get_pkg_file_size(const slapt_rc_config *global_config,
     0 if a and b are equal
 */
 int slapt_cmp_pkg_versions(const char *a, const char *b);
+#define slapt_cmp_pkgs(x,y) slapt_cmp_pkg_versions(x->version,y->version)
 
 /*
   resolve dependencies

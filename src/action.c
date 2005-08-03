@@ -107,7 +107,7 @@ void slapt_pkg_action_install(const slapt_rc_config *global_config,
 
       /* it is already installed, attempt an upgrade */
       if (
-        ((slapt_cmp_pkg_versions(installed_pkg->version,pkg->version)) < 0) ||
+        ((slapt_cmp_pkgs(installed_pkg,pkg)) < 0) ||
         (global_config->re_install == SLAPT_TRUE)
       ) {
 
@@ -471,8 +471,7 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
         * if there is a newer available version (such as from patches/)
         * use it instead
       */
-      if (slapt_cmp_pkg_versions(matches->pkgs[i]->version,
-                                 newer_avail_pkg->version) < 0 ) {
+      if (slapt_cmp_pkgs(matches->pkgs[i],newer_avail_pkg) < 0 ) {
         slapt_upgrade_pkg = newer_avail_pkg;
       } else {
         slapt_upgrade_pkg = matches->pkgs[i];
@@ -502,8 +501,7 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
       /* simply running a version comparison won't do it since sometimes the */
       /* arch is the only thing that changes */
       } else if (
-        (slapt_cmp_pkg_versions(installed_pkg->version,
-                                slapt_upgrade_pkg->version) <= 0) &&
+        (slapt_cmp_pkgs(installed_pkg,slapt_upgrade_pkg) <= 0) &&
         strcmp(installed_pkg->version,slapt_upgrade_pkg->version) != 0
       ) {
 
@@ -592,8 +590,7 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
     if ((newer_installed_pkg =
             slapt_get_newest_pkg(installed_pkgs,
             installed_pkgs->pkgs[i]->name)) != NULL) {
-      if (slapt_cmp_pkg_versions(installed_pkgs->pkgs[i]->version,
-                                 newer_installed_pkg->version) < 0) {
+      if (slapt_cmp_pkgs(installed_pkgs->pkgs[i],newer_installed_pkg) < 0) {
         continue;
       }
     }
@@ -607,8 +604,7 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
       int cmp_r = 0;
 
       /* if the update has a newer version, attempt to upgrade */
-      cmp_r = slapt_cmp_pkg_versions(installed_pkgs->pkgs[i]->version,
-                                     update_pkg->version);
+      cmp_r = slapt_cmp_pkgs(installed_pkgs->pkgs[i],update_pkg);
       if (
         /* either it's greater, or we want to reinstall */
         cmp_r < 0 || (global_config->re_install == SLAPT_TRUE) ||

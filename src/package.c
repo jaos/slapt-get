@@ -748,8 +748,7 @@ slapt_pkg_info_t *slapt_get_newest_pkg(struct slapt_pkg_list *pkg_list,
 
     /* if pkg has same name as our requested pkg */
     if ((strcmp(pkg_list->pkgs[i]->name,pkg_name)) == 0) {
-      if ((pkg == NULL) || (slapt_cmp_pkg_versions(pkg->version,
-      pkg_list->pkgs[i]->version) < 0) ) {
+      if ((pkg == NULL) || (slapt_cmp_pkgs(pkg,pkg_list->pkgs[i]) < 0) ) {
         pkg = pkg_list->pkgs[i];
       }
     }
@@ -1298,7 +1297,7 @@ void slapt_write_pkg_data(const char *source_url,FILE *d_file,
   }
 }
 
-struct slapt_pkg_list *slapt_search_pkg_list(struct slapt_pkg_list *available,
+struct slapt_pkg_list *slapt_search_pkg_list(struct slapt_pkg_list *list,
                                              const char *pattern)
 {
   unsigned int i;
@@ -1311,27 +1310,27 @@ struct slapt_pkg_list *slapt_search_pkg_list(struct slapt_pkg_list *available,
   if (slapt_init_regex(&search_regex,pattern) == -1)
     return matches;
 
-  for (i = 0; i < available->pkg_count; i++ ) {
+  for (i = 0; i < list->pkg_count; i++ ) {
 
-    slapt_execute_regex(&search_regex,available->pkgs[i]->name);
+    slapt_execute_regex(&search_regex,list->pkgs[i]->name);
     name_r = search_regex.reg_return;
 
-    slapt_execute_regex(&search_regex,available->pkgs[i]->version);
+    slapt_execute_regex(&search_regex,list->pkgs[i]->version);
     version_r = search_regex.reg_return;
 
-    if (available->pkgs[i]->description != NULL) {
-      slapt_execute_regex(&search_regex,available->pkgs[i]->description);
+    if (list->pkgs[i]->description != NULL) {
+      slapt_execute_regex(&search_regex,list->pkgs[i]->description);
       desc_r = search_regex.reg_return;
     }
 
-    if (available->pkgs[i]->location != NULL) {
-      slapt_execute_regex(&search_regex,available->pkgs[i]->location);
+    if (list->pkgs[i]->location != NULL) {
+      slapt_execute_regex(&search_regex,list->pkgs[i]->location);
       loc_r = search_regex.reg_return;
     }
 
     /* search pkg name, pkg description, pkg location */
     if (name_r == 0 || version_r == 0 || desc_r == 0 || loc_r == 0) {
-      slapt_add_pkg_to_pkg_list(matches,available->pkgs[i]);
+      slapt_add_pkg_to_pkg_list(matches,list->pkgs[i]);
     }
   }
   slapt_free_regex(&search_regex);

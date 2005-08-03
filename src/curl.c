@@ -262,9 +262,11 @@ int slapt_download_pkg(const slapt_rc_config *global_config,
   /* download the file to our file handle */
   dl_return = slapt_download_data(fh,url,f_size,global_config);
   if (dl_return == 0) {
+
     if (global_config->dl_stats == SLAPT_FALSE &&
         global_config->progress_cb == NULL)
       printf(gettext("Done\n"));
+
   } else if (dl_return == CURLE_HTTP_RANGE_ERROR ||
             dl_return == CURLE_FTP_BAD_DOWNLOAD_RESUME ||
             dl_return == CURLE_PARTIAL_FILE) {
