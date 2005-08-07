@@ -165,7 +165,7 @@ void slapt_pkg_action_list(const int show)
                               pkgs->pkgs[i]->version) != NULL )
         bool_installed = 1;
  
-      printf("%s %s [inst=%s]: %s\n",
+      printf("%s-%s [inst=%s]: %s\n",
         pkgs->pkgs[i]->name,
         pkgs->pkgs[i]->version,
           bool_installed == 1
@@ -195,7 +195,7 @@ void slapt_pkg_action_list(const int show)
       short_description =
         slapt_gen_short_pkg_description(installed_pkgs->pkgs[i]);
   
-      printf("%s %s [inst=%s]: %s\n",
+      printf("%s-%s [inst=%s]: %s\n",
         installed_pkgs->pkgs[i]->name,
         installed_pkgs->pkgs[i]->version,
         gettext("yes"),
@@ -311,7 +311,7 @@ void slapt_pkg_action_search(const char *pattern)
     char *short_description =
       slapt_gen_short_pkg_description(matches->pkgs[i]);
 
-    printf("%s %s [inst=%s]: %s\n",
+    printf("%s-%s [inst=%s]: %s\n",
       matches->pkgs[i]->name,
       matches->pkgs[i]->version,
       ( slapt_get_exact_pkg( installed_pkgs,
@@ -334,7 +334,7 @@ void slapt_pkg_action_search(const char *pattern)
 
     short_description = slapt_gen_short_pkg_description(i_matches->pkgs[i]);
 
-    printf("%s %s [inst=%s]: %s\n",
+    printf("%s-%s [inst=%s]: %s\n",
       i_matches->pkgs[i]->name,
       i_matches->pkgs[i]->version,
       gettext("yes"),
