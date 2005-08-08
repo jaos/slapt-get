@@ -965,8 +965,8 @@ Frequently Asked Questions:
  --install.  You will also need to provide --reinstall.  For example:
 
   # slapt-get --search rsync
-  rsync 2.5.6-i386-1 [inst=no]: rsync
-  rsync 2.6.2-i386-1 [inst=yes]: rsync
+  rsync-2.5.6-i386-1 [inst=no]: rsync
+  rsync-2.6.2-i386-1 [inst=yes]: rsync
 
   # slapt-get --install rsync-2.5.6-i386-1 --reinstall
   Reading Package Lists... Done
