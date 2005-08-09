@@ -237,13 +237,13 @@ int slapt_download_pkg(const slapt_rc_config *global_config,
 
   if (global_config->progress_cb == NULL) {
     if (global_config->dl_stats == SLAPT_TRUE) {
-      printf(gettext("Downloading %s %s %s [%.1d%s]...\n"),
+      printf(gettext("Get %s %s %s [%.1d%s]...\n"),
         pkg->mirror,pkg->name,pkg->version,
         ( dl_total_size > 1024 ) ? dl_total_size / 1024 : dl_total_size,
         ( dl_total_size > 1024 ) ? "MB" : "kB"
       );
     } else {
-      printf(gettext("Downloading %s %s %s [%.1d%s]..."),
+      printf(gettext("Get %s %s %s [%.1d%s]..."),
         pkg->mirror,pkg->name,pkg->version,
         ( dl_total_size > 1024 ) ? dl_total_size / 1024 : dl_total_size,
         ( dl_total_size > 1024 ) ? "MB" : "kB"

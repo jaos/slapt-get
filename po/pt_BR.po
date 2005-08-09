@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.10b\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2005-08-01 16:25+0500\n"
+"PO-Revision-Date: 2005-08-09 11:42+0500\n"
 "Last-Translator: Henrique Pinto <henrique.pinto@kdemail.net>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -178,12 +178,12 @@ msgid "Failed to calloc\n"
 msgstr "Falha no calloc para\n"
 
 #, c-format
-msgid "Downloading %s %s %s [%.1d%s]..."
-msgstr "Fazendo o download de %s %s %s [%.1d%s]..."
+msgid "Get %s %s %s [%.1d%s]..."
+msgstr "Obtendo %s %s %s [%.1d%s]..."
 
 #, c-format
-msgid "Downloading %s %s %s [%.1d%s]...\n"
-msgstr "Fazendo o download de %s %s %s [%.1d%s]...\n"
+msgid "Get %s %s %s [%.1d%s]...\n"
+msgstr "Obtendo %s %s %s [%.1d%s]...\n"
 
 #, c-format
 msgid "Failed to unlink %s\n"

@@ -1,5 +1,6 @@
 
 0.9.10b Aug 09, 2005
+ * updated download output 
  * updated output of --list, --available, --installed, and --search joining
    the package name and version (as suggested by chino)
  * added a slapt_cmp_pkgs macro to call slapt_cmp_versions
