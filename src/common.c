@@ -211,17 +211,23 @@ void slapt_create_dir_structure(const char *dir_name)
 int slapt_ask_yes_no(const char *format, ...)
 {
   va_list arg_list;
-  int answer;
+  int answer, parsed_answer = 0;
 
   va_start(arg_list, format);
   vprintf(format, arg_list);
   va_end(arg_list);
 
-  answer = fgetc(stdin);
-  if (tolower(answer) == 'y')
+  while ((answer = fgetc(stdin)) != '\n') {
+    if ( ((tolower(answer) == 'y') ||
+          (tolower(answer) == 'n')) && parsed_answer == 0)
+      parsed_answer = tolower(answer);
+  }
+
+  if (parsed_answer == 'y')
     return 1;
-  if (tolower(answer) == 'n')
+  if (parsed_answer == 'n')
     return 0;
+
   return -1;
 }
 

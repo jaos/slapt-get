@@ -1,4 +1,8 @@
 
+0.9.10c Aug 15, 2005
+ * updated prompting to better handling input for autoclean and transaction
+   accepting.
+
 0.9.10b Aug 09, 2005
  * updated download output 
  * updated output of --list, --available, --installed, and --search joining
