@@ -217,7 +217,10 @@ int slapt_ask_yes_no(const char *format, ...)
   vprintf(format, arg_list);
   va_end(arg_list);
 
-  while ((answer = fgetc(stdin)) != '\n') {
+  while ((answer = fgetc(stdin)) != EOF) {
+    if (answer == '\n')
+      break;
+
     if ( ((tolower(answer) == 'y') ||
           (tolower(answer) == 'n')) && parsed_answer == 0)
       parsed_answer = tolower(answer);
