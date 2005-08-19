@@ -31,7 +31,7 @@ $(PACKAGE): libs
 	$(CC) -o $(PACKAGE) $(OBJS) $(CFLAGS) $(LDFLAGS)
 
 withlibslapt: libs
-	$(CC) -o $(PACKAGE) $(NONLIBOBJS) $(CFLAGS) $(LDFLAGS) -lslapt-$(VERSION)
+	$(CC) -o $(PACKAGE) $(NONLIBOBJS) -L./src -Wl,-R$(LIBDIR) $(CFLAGS) $(LDFLAGS) -lslapt
 
 static: libs
 	$(CC) -o $(PACKAGE) $(OBJS) $(CFLAGS) $(LDFLAGS) -static
@@ -46,11 +46,10 @@ libsinstall: libs
 	if [ ! -d $(DESTDIR)/usr/include ]; then mkdir -p $(DESTDIR)/usr/include;fi
 	cp src/slapt.h $(DESTDIR)/usr/include/
 	if [ ! -d $(DESTDIR)$(LIBDIR) ]; then mkdir -p $(DESTDIR)$(LIBDIR);fi
-	cp src/libslapt-$(VERSION).a src/libslapt-$(VERSION).so $(DESTDIR)$(LIBDIR)/
 	if [ -L $(DESTDIR)$(LIBDIR)/libslapt.so ]; then rm $(DESTDIR)$(LIBDIR)/libslapt.so;fi
-	cd $(DESTDIR)$(LIBDIR); ln -s libslapt-$(VERSION).so libslapt.so
 	if [ -L $(DESTDIR)$(LIBDIR)/libslapt.a ]; then rm $(DESTDIR)$(LIBDIR)/libslapt.a;fi
-	cd $(DESTDIR)$(LIBDIR); ln -s libslapt-$(VERSION).a libslapt.a
+	cp src/libslapt.a src/libslapt.so.$(VERSION) $(DESTDIR)$(LIBDIR)/
+	cd $(DESTDIR)$(LIBDIR); ln -s libslapt.so.$(VERSION) libslapt.so
 
 doinstall: libsinstall
 	strip --strip-unneeded $(PACKAGE)
@@ -121,9 +120,9 @@ dopkg:
 	mkdir -p pkg$(LIBDIR)
 	mkdir -p pkg/usr/include
 	cp src/slapt.h pkg/usr/include/
-	cp src/libslapt-$(VERSION).a src/libslapt-$(VERSION).so pkg$(LIBDIR)/
-	strip pkg$(LIBDIR)/libslapt-$(VERSION).so
-	( cd pkg$(LIBDIR); ln -s libslapt-$(VERSION).so libslapt.so; ln -s libslapt-$(VERSION).a libslapt.a )
+	cp src/libslapt.a src/libslapt.so.$(VERSION) pkg$(LIBDIR)/
+	strip pkg$(LIBDIR)/libslapt.so.$(VERSION)
+	( cd pkg$(LIBDIR); ln -s libslapt.so.$(VERSION) libslapt.so )
 	-( cd pkg; /sbin/makepkg -l y -c n $(PACKAGE)-$(VERSION)-$(ARCH)-$(RELEASE).tgz )
 
 po_file:
@@ -134,7 +133,8 @@ po_file:
 
 libs: $(OBJS)
 	touch libs
-	$(CC) -shared -o src/libslapt-$(VERSION).so $(LIBOBJS)
-	ar -r src/libslapt-$(VERSION).a $(LIBOBJS)
+	$(CC) -shared -o src/libslapt.so.$(VERSION) $(LIBOBJS)
+	( cd src; ln -s libslapt.so.$(VERSION) libslapt.so )
+	ar -r src/libslapt.a $(LIBOBJS)
 	cat src/main.h src/common.h src/configuration.h src/package.h src/curl.h src/transaction.h |grep -v '#include \"' > src/slapt.h
 

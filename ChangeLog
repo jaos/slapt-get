@@ -1,5 +1,7 @@
 
 0.9.10c Aug 19, 2005
+ * updated withlibslapt make target, and the library naming convention 
+   from libslapt-$(VERSION).so to libslapt.so.$(VERSION)
  * updated pt_PT translation from Miguel
  * updated prompting to better handling input for autoclean and transaction
    accepting.
