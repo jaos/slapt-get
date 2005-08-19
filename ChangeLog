@@ -1,5 +1,6 @@
 
 0.9.10c Aug 15, 2005
+ * updated pt_PT translation from Miguel
  * updated prompting to better handling input for autoclean and transaction
    accepting.
 
