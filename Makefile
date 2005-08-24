@@ -134,7 +134,7 @@ po_file:
 libs: $(OBJS)
 	touch libs
 	$(CC) -shared -o src/libslapt.so.$(VERSION) $(LIBOBJS)
-	( cd src; ln -s libslapt.so.$(VERSION) libslapt.so )
+	( cd src; if [ -f libslapt.so ]; then rm libslapt.so;fi; ln -s libslapt.so.$(VERSION) libslapt.so )
 	ar -r src/libslapt.a $(LIBOBJS)
 	cat src/main.h src/common.h src/configuration.h src/package.h src/curl.h src/transaction.h |grep -v '#include \"' > src/slapt.h
 
