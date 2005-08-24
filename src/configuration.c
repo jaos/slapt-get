@@ -296,3 +296,35 @@ void slapt_add_source(struct slapt_source_list *list,const char *s)
 
 }
 
+void slapt_remove_source (struct slapt_source_list *list, const char *s)
+{
+  char *tmp = NULL;
+  unsigned int i = 0;
+
+  while ( i < list->count ) {
+    if ( strcmp(s,list->url[i]) == 0 && tmp == NULL ) {
+      tmp = list->url[i];
+    }
+    if ( tmp != NULL && (i+1 < list->count) ) {
+      list->url[i] = list->url[i + 1];
+    }
+    ++i;
+  }
+  if ( tmp != NULL ) {
+    char **realloc_tmp;
+    int count = list->count - 1;
+    if ( count < 1 ) count = 1;
+
+    free(tmp);
+
+    realloc_tmp = realloc(list->url,sizeof *list->url * count );
+    if ( realloc_tmp != NULL ) {
+      list->url = realloc_tmp;
+      if (list->count > 0)
+        --list->count;
+    }
+
+  }
+
+}
+

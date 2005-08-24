@@ -1,5 +1,6 @@
 
-0.9.10c Aug 19, 2005
+0.9.10c Aug 24, 2005
+ * added slapt_remove_source to compliment slapt_add_source 
  * updated withlibslapt make target, and the library naming convention 
    from libslapt-$(VERSION).so to libslapt.so.$(VERSION)
  * updated pt_PT translation from Miguel
