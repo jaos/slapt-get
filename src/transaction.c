@@ -74,7 +74,7 @@ int slapt_handle_transaction (const slapt_rc_config *global_config,
   /* show conflicts */
   if (tran->conflict_err->err_count > 0) {
     for (i=0; i < tran->conflict_err->err_count; ++i) {
-      printf(gettext("%s, which is required by %s, is excluded\n"),
+      fprintf(stderr,gettext("%s, which is required by %s, is excluded\n"),
         tran->conflict_err->errs[i]->error,tran->conflict_err->errs[i]->pkg);
     }
   }
