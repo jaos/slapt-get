@@ -59,6 +59,9 @@ slapt-get \- frontend to pkgtools
 [
 .B --retry []
 ]
+[
+.B --no-upgrade
+]
 .LP
 .B targets:
 [
@@ -149,6 +152,9 @@ Remove installed packages that are no longer available.  This works for dist-upg
 .TP
 .B --retry []
 Specify the number of retries to attempt if the package download fails.
+.TP
+.B --no-upgrade
+Install the package rather than attempting to detect if a previous version is installed and upgrading it.  This is useful for installing kernel packages.  This option is only valid for --install targets.
 .SH TARGETS
 .TP
 .B --update

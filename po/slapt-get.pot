@@ -471,3 +471,6 @@ msgstr ""
 msgid "specify number of download retry attempts"
 msgstr ""
 
+msgid "install package, do not attempt to upgrade"
+msgstr ""
+

@@ -5,9 +5,9 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.10b\n"
+"Project-Id-Version: 0.9.10c\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2005-08-09 11:42+0500\n"
+"PO-Revision-Date: 2005-08-27 01:32+0500\n"
 "Last-Translator: Savvas Eftratiadis <pigouinos@mailworks.org.\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -469,4 +469,7 @@ msgstr "Failed to parse package data from %s\n"
 
 msgid "specify number of download retry attempts"
 msgstr "specify number of download retry attempts"
+
+msgid "install package, do not attempt to upgrade"
+msgstr "install package, do not attempt to upgrade"
 

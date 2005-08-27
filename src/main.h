@@ -79,6 +79,7 @@ enum slapt_action {
 #define SLAPT_OBSOLETE_OPT 'O'
 #define SLAPT_AVAILABLE_OPT 'A'
 #define SLAPT_RETRY_OPT 'R'
+#define SLAPT_NO_UPGRADE_OPT 'N'
 
 #define SLAPT_DEBUG 0
 #define SLAPT_DO_NOT_UNLINK_BAD_FILES 1

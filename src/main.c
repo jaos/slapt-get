@@ -62,6 +62,7 @@ int main( int argc, char *argv[] )
     {"remove-obsolete", 0, 0, SLAPT_OBSOLETE_OPT},
     {"available", 0, 0, SLAPT_AVAILABLE_OPT},
     {"retry", 1, 0, SLAPT_RETRY_OPT},
+    {"no-upgrade", 0, 0, SLAPT_NO_UPGRADE_OPT},
     {0, 0, 0, 0},
   };
 
@@ -183,6 +184,9 @@ int main( int argc, char *argv[] )
         break;
       case SLAPT_RETRY_OPT: /* set number of retry attempts */
         global_config->retry = (atoi(optarg) > 0) ? atoi(optarg) : 1;
+        break;
+      case SLAPT_NO_UPGRADE_OPT: /* do not attempt to upgrade */
+        global_config->no_upgrade = SLAPT_TRUE;
         break;
       case SLAPT_AUTOCLEAN_OPT: /* clean old old package versions */
         do_action = AUTOCLEAN;
@@ -341,6 +345,7 @@ void usage(void)
   printf("  --config []         - %s\n",gettext("specify alternate slapt-getrc location"));
   printf("  --remove-obsolete   - %s\n",gettext("remove obsolete packages (dist-upgrade only)"));
   printf("  --retry []          - %s\n",gettext("specify number of download retry attempts"));
+  printf("  --no-upgrade        - %s\n",gettext("install package, do not attempt to upgrade"));
 }
 
 void version_info(void)

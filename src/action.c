@@ -85,7 +85,7 @@ void slapt_pkg_action_install(const slapt_rc_config *global_config,
     installed_pkg = slapt_get_newest_pkg(installed_pkgs,pkg->name);
 
     /* if it is not already installed, install it */
-    if ( installed_pkg == NULL ) {
+    if ( installed_pkg == NULL || global_config->no_upgrade == SLAPT_TRUE) {
 
       if ( slapt_add_deps_to_trans(global_config,&tran,avail_pkgs,
                                    installed_pkgs,pkg) == 0 ) {

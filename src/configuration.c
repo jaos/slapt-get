@@ -45,6 +45,7 @@ slapt_rc_config *slapt_read_rc_config(const char *file_name)
   global_config->exclude_list = NULL;
   global_config->working_dir[0] = '\0';
   global_config->remove_obsolete = SLAPT_FALSE;
+  global_config->no_upgrade = SLAPT_FALSE;
   global_config->progress_cb = NULL;
   global_config->sources = slapt_malloc(sizeof *global_config->sources );
   global_config->sources->url =

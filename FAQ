@@ -51,6 +51,7 @@ Frequently Asked Questions:
 48. How can I search the contents of a package for a file or library?
 49. Will slapt-get support a --compile like option for slackbuilds?
 50. What about mirror fall back / fail-over ?
+51. How do I install a kernel rather than upgrade the existing kernel?
 
 
 
@@ -1103,5 +1104,12 @@ Frequently Asked Questions:
 
  This will allow you to check backup package sources in the event your primary
  are not available.
+
+
+51. How do I install a kernel rather than upgrade the existing kernel?
+
+ When you run --upgrade or --install kernel-ide, slapt-get attempts to install
+ the newest version of kernel-ide (in this example) and upgrade the existing
+ version.  To override this, use --install kernel-ide --no-upgrade.
 
 
