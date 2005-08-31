@@ -227,7 +227,8 @@ int slapt_handle_transaction (const slapt_rc_config *global_config,
     /* how much we need to download */
     int need_to_download_size = download_size - already_download_size;
     /* make sure it's not negative due to changing pkg sizes on upgrades */
-    if (need_to_download_size < 0) need_to_download_size = 0;
+    if (need_to_download_size < 0)
+      need_to_download_size = 0;
 
     if (disk_space(global_config,need_to_download_size+uncompressed_size) != 0) {
       printf(

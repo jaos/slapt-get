@@ -1,5 +1,5 @@
 
-0.9.10c Aug 28, 2005
+0.9.10c Aug 31, 2005
  * added --no-upgrade so that packages (such as the kernel) can be installed
    side by side with an existing version.  This disables the check for --install
    arguments that automatically selects the package for upgrade.
