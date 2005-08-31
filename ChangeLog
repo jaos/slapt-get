@@ -1,5 +1,6 @@
 
 0.9.10c Aug 31, 2005
+ * French translation update by solsTiCe d'Hiver
  * added --no-upgrade so that packages (such as the kernel) can be installed
    side by side with an existing version.  This disables the check for --install
    arguments that automatically selects the package for upgrade.
