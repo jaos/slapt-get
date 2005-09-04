@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.10c\n"
+"Project-Id-Version: 0.9.10d\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2005-08-27 01:32+0500\n"
+"PO-Revision-Date: 2005-09-04 17:34+0500\n"
 "Last-Translator: Miguel Santinho <msantinho@simplicidade.com>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -471,5 +471,5 @@ msgid "specify number of download retry attempts"
 msgstr "especifique o número de tentativas para download"
 
 msgid "install package, do not attempt to upgrade"
-msgstr "install package, do not attempt to upgrade"
+msgstr "instale o pacote, não tente actualizá-lo"
 

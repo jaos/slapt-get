@@ -1,4 +1,7 @@
 
+0.9.10d Sep 04, 2005
+ * updated Portuguese_Portugal translation from Miguel
+
 0.9.10c Aug 31, 2005
  * French translation update by solsTiCe d'Hiver
  * added --no-upgrade so that packages (such as the kernel) can be installed
