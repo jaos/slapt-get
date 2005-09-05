@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.10c\n"
+"Project-Id-Version: 0.9.10d\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2005-08-27 01:32+0500\n"
+"PO-Revision-Date: 2005-09-05 10:37+0500\n"
 "Last-Translator: Nguyễn Văn Vũ <vncasper@yahoo.com>\n"
 "Language-Team: gnome-vi <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "Reading Package Lists... "
-msgstr "Đang đọc danh sách gói phần mềm... "
+msgstr "Cập nhật danh sách gói phần mềm... "
 
 msgid "Done\n"
 msgstr "Xong\n"
@@ -75,31 +75,31 @@ msgstr "Không tìm thấy gói phần mềm: %s\n"
 
 #, c-format
 msgid "Retrieving package data [%s]..."
-msgstr "Đang lấy thông tin gói phần mềm [%s]..."
+msgstr "Cập nhật danh sách gói phần mềm [%s]..."
 
 #, c-format
 msgid "Retrieving package data [%s]...\n"
-msgstr "Đang lấy thông tin gói phần mềm [%s]...\n"
+msgstr "Cập nhật danh sách gói phần mềm [%s]...\n"
 
 #, c-format
 msgid "Retrieving extras list [%s]..."
-msgstr "Đang lấy danh sách mở rộng [%s]..."
+msgstr "Cập nhật danh sách mở rộng [%s]..."
 
 #, c-format
 msgid "Retrieving extras list [%s]...\n"
-msgstr "Đang lấy danh sách mở rộng [%s]...\n"
+msgstr "Cập nhật danh sách mở rộng [%s]...\n"
 
 #, c-format
 msgid "Retrieving patch list [%s]..."
-msgstr "Đang lấy danh sách bản sửa lỗi [%s]..."
+msgstr "Cập nhật danh sách bản sửa lỗi [%s]..."
 
 #, c-format
 msgid "Retrieving patch list [%s]...\n"
-msgstr "Đang lấy danh sách bản sửa lỗi [%s]...\n"
+msgstr "Cập nhật danh sách bản sửa lỗi [%s]...\n"
 
 #, c-format
 msgid "Retrieving checksum list [%s]..."
-msgstr "Đang lấy danh sách kiểm tổng (checksum) [%s]..."
+msgstr "Cập nhật danh sách kiểm tổng (checksum) [%s]..."
 
 msgid "Failed to malloc\n"
 msgstr "Bị lỗi khi cấp phát\n"
@@ -168,7 +168,7 @@ msgstr "\tquay về thư mục %s\n"
 
 #, c-format
 msgid "Fetching url:[%s]\n"
-msgstr "Đang lấy url:[%s]\n"
+msgstr "Cập nhật url:[%s]\n"
 
 #, c-format
 msgid "Failed to download: %s\n"
@@ -179,11 +179,11 @@ msgstr "Bị lỗi khi cấp phát\n"
 
 #, c-format
 msgid "Get %s %s %s [%.1d%s]..."
-msgstr "Đang lấy dữ liệu %s %s %s [%.1d%s]..."
+msgstr "Đang nhận dữ liệu %s %s %s [%.1d%s]..."
 
 #, c-format
 msgid "Get %s %s %s [%.1d%s]...\n"
-msgstr "Đang lấy dữ liệu %s %s %s [%.1d%s]...\n"
+msgstr "Đang nhận dữ liệu %s %s %s [%.1d%s]...\n"
 
 #, c-format
 msgid "Failed to unlink %s\n"
@@ -219,7 +219,7 @@ msgid "Targets:\n"
 msgstr "Hành động:\n"
 
 msgid "retrieves pkg data from MIRROR"
-msgstr "lấy thông tin các gói phần mềm từ kho lưu trữ"
+msgstr "cập nhật danh sách gói phần mềm từ kho lưu trữ"
 
 msgid "upgrade installed pkgs"
 msgstr "nâng cấp các gói phần mềm đã cài đặt"
@@ -234,7 +234,7 @@ msgid "[pkg name(s)] - remove specified pkg(s)"
 msgstr "[tên các gói phần mềm] - gỡ bỏ những gói phần mềm được chỉ định"
 
 msgid "[pkg name] - show pkg description"
-msgstr "[tên gói phần mềm] - hiển thị thông tin mô tả gói phần mềm được chỉ định"
+msgstr "[tên gói phần mềm] - mô tả gói phần mềm được chỉ định"
 
 msgid "[expression] - search available pkgs"
 msgstr "[biểu thức] - tìm kiếm các gói phần mềm hiện có theo điều kiện"
@@ -252,7 +252,7 @@ msgid "purge cached pkgs"
 msgstr "xoá các gói phần mềm được bảo lưu"
 
 msgid "print version and license info"
-msgstr "hiển thị thông tin về phiên bản và giấy phép sử dụng"
+msgstr "hiển thị phiên bản và giấy phép sử dụng"
 
 msgid "Options:\n"
 msgstr "Tuỳ chọn:\n"
@@ -305,7 +305,7 @@ msgid "getline reached EOF attempting to read size_u\n"
 msgstr "getline đã đến EOF khi thử đọc size_u\n"
 
 msgid "error attempting to read pkg description\n"
-msgstr "lỗi khi thử đọc thông tin mô tả gói phần mềm\n"
+msgstr "lỗi khi thử đọc mô tả gói phần mềm\n"
 
 #, c-format
 msgid "Failed to realloc %s\n"
@@ -357,16 +357,16 @@ msgid "  %s: Depends: %s\n"
 msgstr "  %s: Phụ thuộc: %s\n"
 
 msgid "The following packages have been EXCLUDED:\n"
-msgstr "BỎ QUA những gói phần mềm sau:\n"
+msgstr "Bỏ qua những gói phần mềm sau:\n"
 
 msgid "The following NEW packages will be installed:\n"
-msgstr "Cài đặt MỚI những gói phần mềm sau:\n"
+msgstr "Cài đặt những gói phần mềm sau:\n"
 
 msgid "The following packages will be REMOVED:\n"
-msgstr "GỠ BỎ những gói phần mềm sau:\n"
+msgstr "Gỡ bỏ những gói phần mềm sau:\n"
 
 msgid "The following packages will be upgraded:\n"
-msgstr "NÂNG CẤP những gói phần mềm sau:\n"
+msgstr "Nâng cấp những gói phần mềm sau:\n"
 
 #, c-format
 msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
@@ -396,7 +396,7 @@ msgstr "Không.\n"
 
 #, c-format
 msgid "%s, which is to be installed, conflicts with %s\n"
-msgstr "%s, sẽ được cài đặt, xung đột với %s\n"
+msgstr "%s, chuẩn bị cài đặt, xung đột với %s\n"
 
 #, c-format
 msgid "Installed %s conflicts with %s\n"
@@ -413,7 +413,7 @@ msgid "md5 sum too long\n"
 msgstr "tổng md5 quá dài\n"
 
 msgid "Reading Package Lists..."
-msgstr "Đang đọc danh sách gói phần mềm..."
+msgstr "Cập nhật danh sách gói phần mềm..."
 
 #, c-format
 msgid "Download of %s incomplete\n"
@@ -434,7 +434,7 @@ msgid "show download statistics"
 msgstr "thống kê quá trình lấy dữ liệu từ kho lưu trữ"
 
 msgid "Cached\n"
-msgstr "Đã bảo lưu\n"
+msgstr "Dự trữ\n"
 
 msgid "Sources failed to download, correct sources and rerun --update\n"
 msgstr ""
@@ -459,19 +459,19 @@ msgstr "Dung lượng đĩa còn lại không đủ cho %s\n"
 
 #, c-format
 msgid "Package Conflicts: %s\n"
-msgstr "Những gói phần mềm gây xung đột: %s\n"
+msgstr "Xung đột: %s\n"
 
 #, c-format
 msgid "Package Suggests: %s\n"
-msgstr "Những gói phần mềm đề nghị: %s\n"
+msgstr "Đề nghị: %s\n"
 
 #, c-format
 msgid "Failed to parse package data from %s\n"
 msgstr "Bị lỗi khi chuyển đổi gói dữ liệu từ %s\n"
 
 msgid "specify number of download retry attempts"
-msgstr "specify number of download retry attempts"
+msgstr "chỉ định số lần kết nối lại với kho lưu trữ khi bị mất kết nối"
 
 msgid "install package, do not attempt to upgrade"
-msgstr "install package, do not attempt to upgrade"
+msgstr "cài đặt mới, không nâng cấp"
 
