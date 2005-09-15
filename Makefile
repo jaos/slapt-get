@@ -65,9 +65,9 @@ doinstall: libsinstall
 	if [ ! -d $(DESTDIR)/usr/man/man8 ]; then mkdir -p $(DESTDIR)/usr/man/man8;fi
 	if [ ! -d $(DESTDIR)/usr/man/ru/man8 ]; then mkdir -p $(DESTDIR)/usr/man/ru/man8;fi
 	if [ ! -d $(DESTDIR)/usr/man/uk/man8 ]; then mkdir -p $(DESTDIR)/usr/man/uk/man8;fi
-	install $(PACKAGE).8 $(DESTDIR)/usr/man/man8/
-	install $(PACKAGE).ru.8 $(DESTDIR)/usr/man/ru/man8/$(PACKAGE).8
-	install $(PACKAGE).uk.8 $(DESTDIR)/usr/man/uk/man8/$(PACKAGE).8
+	install doc/$(PACKAGE).8 $(DESTDIR)/usr/man/man8/
+	install doc/$(PACKAGE).ru.8 $(DESTDIR)/usr/man/ru/man8/$(PACKAGE).8
+	install doc/$(PACKAGE).uk.8 $(DESTDIR)/usr/man/uk/man8/$(PACKAGE).8
 	gzip -f $(DESTDIR)/usr/man/man8/$(PACKAGE).8
 	gzip -f $(DESTDIR)/usr/man/ru/man8/$(PACKAGE).8
 	gzip -f $(DESTDIR)/usr/man/uk/man8/$(PACKAGE).8
@@ -128,9 +128,9 @@ dopkg:
 	cp slack-desc pkg/install/
 	cp slack-required pkg/install/
 	cp slack-suggests pkg/install/
-	cp $(PACKAGE).8 pkg/usr/man/man8/
-	cp $(PACKAGE).ru.8 pkg/usr/man/ru/man8/$(PACKAGE).8
-	cp $(PACKAGE).uk.8 pkg/usr/man/uk/man8/$(PACKAGE).8
+	cp doc/$(PACKAGE).8 pkg/usr/man/man8/
+	cp doc/$(PACKAGE).ru.8 pkg/usr/man/ru/man8/$(PACKAGE).8
+	cp doc/$(PACKAGE).uk.8 pkg/usr/man/uk/man8/$(PACKAGE).8
 	gzip pkg/usr/man/man8/$(PACKAGE).8
 	gzip pkg/usr/man/ru/man8/$(PACKAGE).8
 	gzip pkg/usr/man/uk/man8/$(PACKAGE).8
