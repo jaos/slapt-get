@@ -1,0 +1,476 @@
+# translation of slapt-get to Russian
+# Copyright (C) 2005
+# This file is distributed under the same license as the slapt-get package.
+# sin <digitalhunger@gmail.com>,  2005.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.9.10c\n"
+"POT-Creation-Date: 2005-09-07 23:24 EEST\n"
+"PO-Revision-Date: 2005-09-07 23:24 EEST\n"
+"Last-Translators: sin <digitalhunger@gmail.com>\n"
+"Language-Team: DeepStyle Team <hottab@deepstyle.org.ua>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=koi8-u\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: mcedit :)\n"
+
+msgid "Reading Package Lists... "
+msgstr "Читання списку пакет╕в... "
+
+msgid "Done\n"
+msgstr "Готово\n"
+
+#, c-format
+msgid "%s is up to date.\n"
+msgstr "%s не потребу╓ оновлення.\n"
+
+msgid "yes"
+msgstr "так"
+
+msgid "no"
+msgstr "н╕"
+
+#, c-format
+msgid "%s is not installed.\n"
+msgstr "%s не встановлено.\n"
+
+#, c-format
+msgid "Package Name: %s\n"
+msgstr "╤м'я пакету: %s\n"
+
+#, c-format
+msgid "Package Mirror: %s\n"
+msgstr "Дзеркало пакету: %s\n"
+
+#, c-format
+msgid "Package Location: %s\n"
+msgstr "Розташування пакету: %s\n"
+
+#, c-format
+msgid "Package Version: %s\n"
+msgstr "Верс╕я пакету: %s\n"
+
+#, c-format
+msgid "Package Size: %d K\n"
+msgstr "Розм╕р пакету: %d K\n"
+
+#, c-format
+msgid "Package Installed Size: %d K\n"
+msgstr "Розм╕р встановленого пакету: %d K\n"
+
+#, c-format
+msgid "Package Required: %s\n"
+msgstr "Потребуються пакети: %s\n"
+
+msgid "Package Description:\n"
+msgstr "Описання пакету:\n"
+
+#, c-format
+msgid "Package Installed: %s\n"
+msgstr "Встановлений пакет: %s\n"
+
+#, c-format
+msgid "No such package: %s\n"
+msgstr "Нема такого пакету: %s\n"
+
+#, c-format
+msgid "Retrieving package data [%s]..."
+msgstr "Одержання даних пакету [%s]..."
+
+#, c-format
+msgid "Retrieving package data [%s]...\n"
+msgstr "Одержання даних пакету [%s]...\n"
+
+#, c-format
+msgid "Retrieving extras list [%s]..."
+msgstr "Одержання списку додатк╕в [%s]..."
+
+#, c-format
+msgid "Retrieving extras list [%s]...\n"
+msgstr "Одержання списку додатк╕в [%s]...\n"
+
+#, c-format
+msgid "Retrieving patch list [%s]..."
+msgstr "Одержання списку патч╕в [%s]..."
+
+#, c-format
+msgid "Retrieving patch list [%s]...\n"
+msgstr "Одержання списку патч╕в [%s]...\n"
+
+#, c-format
+msgid "Retrieving checksum list [%s]..."
+msgstr "Одержання контрольно╖ суми [%s]..."
+
+msgid "Failed to malloc\n"
+msgstr "Невдалий malloc\n"
+
+#, c-format
+msgid "WORKINGDIR directive not set within %s.\n"
+msgstr "Директива WORKINGDIR не встановлена у %s.\n"
+
+#, c-format
+msgid "SOURCE directive not set within %s.\n"
+msgstr "Директива SOURCE не встановлена у %s.\n"
+
+#, c-format
+msgid "Failed to build working directory [%s]\n"
+msgstr "Не можу створити робочий каталог [%s]\n"
+
+#, c-format
+msgid "Please update permissions on %s or run with appropriate privileges\n"
+msgstr "Недостатньо прав доступу к %s \n"
+
+#, c-format
+msgid "Failed to open %s\n"
+msgstr "Не можу в╕дкрити %s.\n"
+
+msgid "Perhaps you want to run --update?\n"
+msgstr "Можливо, вам потр╕бна опц╕я --update?\n"
+
+#, c-format
+msgid "Failed to opendir %s\n"
+msgstr "Не можу в╕дкрити каталог %s\n"
+
+#, c-format
+msgid "Failed to chdir: %s\n"
+msgstr "Не можу перейти в каталог %s.\n"
+
+#, c-format
+msgid "unlinking %s\n"
+msgstr "Видалення посилань: %s\n"
+
+msgid "Failed to get cwd\n"
+msgstr "Не можу отримати cwd\n"
+
+#, c-format
+msgid "\tCurrent working directory: %s\n"
+msgstr "\tПоточний робочий каталог: %s\n"
+
+#, c-format
+msgid "Failed to mkdir: %s\n"
+msgstr "Не можу створити каталог: %s\n"
+
+#, c-format
+msgid "\tCreated directory: %s\n"
+msgstr "Створено каталог:  %s\n"
+
+#, c-format
+msgid "Failed to chdir to %s\n"
+msgstr "Не можу перейти в каталог %s.\n"
+
+#, c-format
+msgid "\tchdir into %s\n"
+msgstr "\tперех╕д в каталог %s\n"
+
+#, c-format
+msgid "\tchdir back into %s\n"
+msgstr "\tверта╓мось в каталог %s\n"
+
+#, c-format
+msgid "Fetching url:[%s]\n"
+msgstr "Одержання url:[%s]\n"
+
+#, c-format
+msgid "Failed to download: %s\n"
+msgstr "Не можу завантажити: %s\n"
+
+msgid "Failed to calloc\n"
+msgstr "Невдалий calloc\n"
+
+#, c-format
+msgid "Get %s %s %s [%.1d%s]..."
+msgstr "Одержання %s %s %s [%.1d%s]..."
+
+#, c-format
+msgid "Get %s %s %s [%.1d%s]...\n"
+msgstr "Одержання %s %s %s [%.1d%s]...\n"
+
+#, c-format
+msgid "Failed to unlink %s\n"
+msgstr "Не можу видалити посилання %s\n"
+
+#, c-format
+msgid "md5 sum for %s is not correct, override with --no-md5!\n"
+msgstr "Контрольна сума (md5) для %s неправильна, спробуйте з --no-md5!\n"
+
+#, c-format
+msgid "MD5 found:    [%s]\n"
+msgstr "Знайдена MD5: [%s]\n"
+
+#, c-format
+msgid "MD5 expected: [%s]\n"
+msgstr "Оч╕кувана MD5: [%s]\n"
+
+#, c-format
+msgid "File: %s/%s\n"
+msgstr "Файл: %s/%s\n"
+
+msgid "An implementation of the Debian APT system to Slackware\n"
+msgstr "Реализац╕я системи APT з Debian для Slackware\n"
+
+msgid "Usage:\n"
+msgstr "Використання:\n"
+
+#, c-format
+msgid "%s [option(s)] [target]\n"
+msgstr "%s [опц╕╖] [мета]\n"
+
+msgid "Targets:\n"
+msgstr "Ц╕л╕:\n"
+
+msgid "retrieves pkg data from MIRROR"
+msgstr "одержу╓ дан╕ пакету з MIRROR"
+
+msgid "upgrade installed pkgs"
+msgstr "оновити встановлен╕ пакети"
+
+msgid "upgrade to newer release"
+msgstr "оновити до б╕льш св╕жо╖ верс╕╖"
+
+msgid "[pkg name(s)] - install specified pkg(s)"
+msgstr "[╕м'я пакету] - встановити вказан╕ пакети"
+
+msgid "[pkg name(s)] - remove specified pkg(s)"
+msgstr "[╕м'я пакету] - видалити вказан╕ пакети"
+
+msgid "[pkg name] - show pkg description"
+msgstr "[╕м'я пакету] - показати описання пакету"
+
+msgid "[expression] - search available pkgs"
+msgstr "[вираз] - шукати доступн╕ пакети"
+
+msgid "list pkgs"
+msgstr "список пакет╕в"
+
+msgid "list available pkgs"
+msgstr "список доступних пакет╕в"
+
+msgid "list installed pkgs"
+msgstr "список встановлених пакет╕в"
+
+msgid "purge cached pkgs"
+msgstr "очистити кеш пакет╕в"
+
+msgid "print version and license info"
+msgstr "показати верс╕ю та л╕ценз╕ю"
+
+msgid "Options:\n"
+msgstr "Опц╕╖:\n"
+
+msgid "only download pkg on install/upgrade"
+msgstr "т╕льки закачати пакети для встановлення/оновлення"
+
+msgid "show pkgs to be installed/upgraded"
+msgstr "показати пакети для всстановлення/оновлення"
+
+msgid "do not prompt during install/upgrade"
+msgstr "не перепитуватти п╕д час всстановлення/оновлення"
+
+msgid "re-install the pkg"
+msgstr "перевстановити пакет"
+
+msgid "install/upgrade excludes"
+msgstr "виключення встановлення/оновлення"
+
+msgid "do not perform md5 check sum"
+msgstr "не перев╕ряти контрольну суму md5"
+
+msgid "ignore dependency failures"
+msgstr "╕гнорувати залежност╕"
+
+#, c-format
+msgid "%s version %s\n"
+msgstr "%s верс╕я %s\n"
+
+#, c-format
+msgid "regex failed on [%s]\n"
+msgstr "помилка regex на [%s]\n"
+
+msgid "regexec failed to parse location\n"
+msgstr "regexec не може обробити адресу\n"
+
+msgid "getline reached EOF attempting to read location\n"
+msgstr "getline досяг EOF читаючи адресу\n"
+
+msgid "regexec failed to parse size_c\n"
+msgstr "regexec не може обробити size_c\n"
+
+msgid "getline reached EOF attempting to read size_c\n"
+msgstr "getline досяг EOF читаючи size_c\n"
+
+msgid "regexec failed to parse size_u\n"
+msgstr "regexec не може обробити size_u\n"
+
+msgid "getline reached EOF attempting to read size_u\n"
+msgstr "getline досяг EOF читаючи size_u\n"
+
+msgid "error attempting to read pkg description\n"
+msgstr "не можу прочитати описання пакету\n"
+
+#, c-format
+msgid "Failed to realloc %s\n"
+msgstr "Невдалий realloc %s\n"
+
+msgid "Failed to compile regex\n"
+msgstr "Помилка комп╕ляц╕╖ regex\n"
+
+#, c-format
+msgid "Regex Error: %s\n"
+msgstr "Помилка regex: %s\n"
+
+#, c-format
+msgid "%s-%s is to be installed\n"
+msgstr "%s-%s буде встановлено\n"
+
+#, c-format
+msgid "Preparing to install %s-%s\n"
+msgstr "П╕дготовка до встановлення %s-%s\n"
+
+#, c-format
+msgid "Failed to execute command: [%s]\n"
+msgstr "Не можу виконати команду: [%s]\n"
+
+#, c-format
+msgid "%s-%s is to be upgraded to version %s\n"
+msgstr "%s-%s буде оновлено до верс╕╖ %s\n"
+
+#, c-format
+msgid "Preparing to replace %s-%s with %s-%s\n"
+msgstr "П╕дготовка до зам╕ни %s-%s на %s-%s\n"
+
+#, c-format
+msgid "%s-%s is to be removed\n"
+msgstr "%s-%s буде видалено.\n"
+
+#, c-format
+msgid "Failed to compile regex [%s]\n"
+msgstr "Помилка комп╕ляц╕╖ regex [%s]\n"
+
+msgid "pkg conditional too long\n"
+msgstr "зм╕нна пакета надто довга\n"
+
+msgid "The following packages have unmet dependencies:\n"
+msgstr "Незадов╕льнен╕ залежност╕ у пакетах:\n"
+
+#, c-format
+msgid "  %s: Depends: %s\n"
+msgstr " %s: Потребу╓: %s\n"
+
+msgid "The following packages have been EXCLUDED:\n"
+msgstr "Наступн╕ пакети ПРОПУЩЕНО:\n"
+
+msgid "The following NEW packages will be installed:\n"
+msgstr "Наступн╕ НОВ╤ пакети будуть встановлен╕:\n"
+
+msgid "The following packages will be REMOVED:\n"
+msgstr "Наступн╕ пакети будуть ВИДАЛЕН╤:\n"
+
+msgid "The following packages will be upgraded:\n"
+msgstr "Наступн╕ пакети будуть оновлен╕:\n"
+
+#, c-format
+msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
+msgstr "%d оновлено, %d встановлено, %d для видалення %d не оновлено.\n"
+
+#, c-format
+msgid "Need to get%.1d%s of archives.\n"
+msgstr "До одержання: %.1d%s з архив╕в.\n"
+
+#, c-format
+msgid "Need to get %.1d%s/%.1d%s of archives.\n"
+msgstr "До одержання: %.1d%s/%.1d%s з архив╕в.\n"
+
+#, c-format
+msgid "After unpacking %.1d%s disk space will be freed.\n"
+msgstr "П╕сля розпаковки буде зв╕льнено %.1d%s дискового простору.\n"
+
+#, c-format
+msgid "After unpacking %.1d%s of additional disk space will be used.\n"
+msgstr "П╕сля розпаковки буде зайнято додатково %.1d%s на диску.\n"
+
+msgid "Do you want to continue? [y/N] "
+msgstr "Продовжити? [y/N] "
+
+msgid "Abort.\n"
+msgstr "Перервати.\n"
+
+#, c-format
+msgid "%s, which is to be installed, conflicts with %s\n"
+msgstr "%s, назначений для встановлення, конфл╕кту╓ з %s\n"
+
+#, c-format
+msgid "Installed %s conflicts with %s\n"
+msgstr "Встановлений %s конфл╕кту╓ з %s\n"
+
+msgid "print URIs only, do not download"
+msgstr "Т╕льки показати URI, не завантажувати"
+
+#, c-format
+msgid "Package MD5 Sum:  %s\n"
+msgstr "MD5-сума пакету: %s\n"
+
+msgid "md5 sum too long\n"
+msgstr "Сума md5 дуже велика\n"
+
+msgid "Reading Package Lists..."
+msgstr "Читаю списки пакет╕в..."
+
+#, c-format
+msgid "Download of %s incomplete\n"
+msgstr "Завантаження %s не завершено\n"
+
+#, c-format
+msgid "Could not find MD5 checksum for %s, override with --no-md5\n"
+msgstr "Не можу знайти суму MD5 для %s, скористайтесь --no-md5\n"
+
+#, c-format
+msgid "%s, which is required by %s, is excluded\n"
+msgstr "%s, необх╕дний для %s, пропущено\n"
+
+msgid "skip dependency check"
+msgstr "пропуск перев╕рки залежностей"
+
+msgid "show download statistics"
+msgstr "показати статистику завантаження"
+
+msgid "Cached\n"
+msgstr "Збережено\n"
+
+msgid "Sources failed to download, correct sources and rerun --update\n"
+msgstr "Помилка завантаження з адреси, виправте адресу та перезапуст╕ть --update\n"
+
+msgid "specify alternate slapt-getrc location"
+msgstr "вказати альтернативний slapt-getrc"
+
+msgid "Suggested packages:\n"
+msgstr "Запропонован╕ пакети:\n"
+
+msgid "only purge cache of older, unreacheable pkgs"
+msgstr "т╕льки очистка кеша старих, недосяжних пакет╕в"
+
+msgid "remove obsolete packages (dist-upgrade only)"
+msgstr "видалити застар╕л╕ пакети (т╕льки dist-upgrade)"
+
+#, c-format
+msgid "You don't have enough free space in %s\n"
+msgstr "Недостатньо м╕сця на %s\n"
+
+#, c-format
+msgid "Package Conflicts: %s\n"
+msgstr "Конфл╕кт пакету: %s\n"
+
+#, c-format
+msgid "Package Suggests: %s\n"
+msgstr "Пакет оч╕ку╓: %s\n"
+
+#, c-format
+msgid "Failed to parse package data from %s\n"
+msgstr "Не можу обробити дан╕ пакету %s\n"
+
+msgid "specify number of download retry attempts"
+msgstr "вкаж╕ть к╕льк╕сть повторних спроб завантаження"
+
+msgid "install package, do not attempt to upgrade"
+msgstr "встановити пакет, не намагатися оновляти"
+

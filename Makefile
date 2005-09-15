@@ -60,9 +60,17 @@ doinstall: libsinstall
 	if [ -f $(DESTDIR)/etc/slapt-getrc ]; then mv $(DESTDIR)/etc/slapt-getrc $(DESTDIR)$(RCDEST);fi
 	if [ ! -f $(DESTDIR)$(RCDEST) ]; then install --mode=0644 -b $(RCSOURCE) $(DESTDIR)$(RCDEST); else install --mode=0644 -b $(RCSOURCE) $(DESTDIR)$(RCDEST).new;fi
 	if [ ! -d $(DESTDIR)/usr/man ]; then mkdir -p $(DESTDIR)/usr/man;fi
+	if [ ! -d $(DESTDIR)/usr/man/ru ]; then mkdir -p $(DESTDIR)/usr/man/ru;fi
+	if [ ! -d $(DESTDIR)/usr/man/uk ]; then mkdir -p $(DESTDIR)/usr/man/uk;fi
 	if [ ! -d $(DESTDIR)/usr/man/man8 ]; then mkdir -p $(DESTDIR)/usr/man/man8;fi
+	if [ ! -d $(DESTDIR)/usr/man/ru/man8 ]; then mkdir -p $(DESTDIR)/usr/man/ru/man8;fi
+	if [ ! -d $(DESTDIR)/usr/man/uk/man8 ]; then mkdir -p $(DESTDIR)/usr/man/uk/man8;fi
 	install $(PACKAGE).8 $(DESTDIR)/usr/man/man8/
+	install $(PACKAGE).ru.8 $(DESTDIR)/usr/man/ru/man8/$(PACKAGE).8
+	install $(PACKAGE).uk.8 $(DESTDIR)/usr/man/uk/man8/$(PACKAGE).8
 	gzip -f $(DESTDIR)/usr/man/man8/$(PACKAGE).8
+	gzip -f $(DESTDIR)/usr/man/ru/man8/$(PACKAGE).8
+	gzip -f $(DESTDIR)/usr/man/uk/man8/$(PACKAGE).8
 	install -d $(DESTDIR)/var/$(PACKAGE)
 	for i in `ls po/ --ignore=slapt-get.pot --ignore=CVS |sed 's/.po//'` ;do if [ ! -d $(DESTDIR)$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES ]; then mkdir -p $(DESTDIR)$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES; fi; msgfmt -o $(DESTDIR)$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES/slapt-get.mo po/$$i.po;done
 	mkdir -p $(DESTDIR)/usr/doc/$(PACKAGE)-$(VERSION)/
@@ -72,6 +80,8 @@ uninstall:
 	-rm /$(SBINDIR)/$(PACKAGE)
 	-@echo leaving $(RCDEST)
 	-rm /usr/man/man8/$(PACKAGE).8.gz
+	-rm /usr/man/ru/man8/$(PACKAGE).8.gz
+	-rm /usr/man/uk/man8/$(PACKAGE).8.gz
 	-@echo leaving /var/$(PACKAGE)
 	-rm -r /usr/doc/$(PACKAGE)-$(VERSION)
 	-find /usr/share/locale/ -name 'slapt-get.mo' -exec rm {} \;
@@ -102,6 +112,8 @@ dopkg:
 	mkdir -p pkg/etc/slapt-get
 	mkdir -p pkg/install
 	mkdir -p pkg/usr/man/man8
+	mkdir -p pkg/usr/man/ru/man8
+	mkdir -p pkg/usr/man/uk/man8
 	for i in `ls po/ --ignore=slapt-get.pot --ignore=CVS |sed 's/.po//'` ;do mkdir -p pkg$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES; msgfmt -o pkg$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES/slapt-get.mo po/$$i.po; done
 	cp $(PACKAGE) ./pkg/$(SBINDIR)
 	-chown root:bin ./pkg/$(SBINDIR)
@@ -117,7 +129,11 @@ dopkg:
 	cp slack-required pkg/install/
 	cp slack-suggests pkg/install/
 	cp $(PACKAGE).8 pkg/usr/man/man8/
+	cp $(PACKAGE).ru.8 pkg/usr/man/ru/man8/$(PACKAGE).8
+	cp $(PACKAGE).uk.8 pkg/usr/man/uk/man8/$(PACKAGE).8
 	gzip pkg/usr/man/man8/$(PACKAGE).8
+	gzip pkg/usr/man/ru/man8/$(PACKAGE).8
+	gzip pkg/usr/man/uk/man8/$(PACKAGE).8
 	mkdir -p pkg$(LIBDIR)
 	mkdir -p pkg/usr/include
 	cp src/slapt.h pkg/usr/include/
