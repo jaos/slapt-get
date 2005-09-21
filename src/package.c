@@ -1263,7 +1263,7 @@ void slapt_write_pkg_data(const char *source_url,FILE *d_file,
 
     fprintf(d_file,"PACKAGE NAME:  %s-%s%s\n",
       pkgs->pkgs[i]->name,pkgs->pkgs[i]->version,pkgs->pkgs[i]->file_ext);
-    if (strlen(pkgs->pkgs[i]->mirror) > 0) {
+    if (pkgs->pkgs[i]->mirror != NULL && strlen(pkgs->pkgs[i]->mirror) > 0) {
       fprintf(d_file,"PACKAGE MIRROR:  %s\n",pkgs->pkgs[i]->mirror);
     } else {
       fprintf(d_file,"PACKAGE MIRROR:  %s\n",source_url);
@@ -1862,17 +1862,8 @@ slapt_pkg_info_t *slapt_get_pkg_by_details(struct slapt_pkg_list *list,
 int slapt_update_pkg_cache(const slapt_rc_config *global_config)
 {
   unsigned int i,source_dl_failed = 0;
-  FILE *pkg_list_fh_tmp = NULL;
-
-  /* open tmp pkg list file */
-  pkg_list_fh_tmp = tmpfile();
-  if (pkg_list_fh_tmp == NULL) {
-
-    if (errno)
-      perror("tmpfile");
-
-    exit(1);
-  }
+  struct slapt_pkg_list *new_pkgs = slapt_init_pkg_list();
+  new_pkgs->free_pkgs = SLAPT_TRUE;
 
   /* go through each package source and download the meta data */
   for (i = 0; i < global_config->sources->count; i++) {
@@ -1907,25 +1898,28 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
                                      global_config->sources->url[i]);
 
     if (tmp_checksum_f != NULL) {
+      unsigned int pkg_i;
 
       /* now map md5 checksums to packages */
       printf(gettext("Reading Package Lists..."));
 
       slapt_get_md5sums(available_pkgs, tmp_checksum_f);
-
-      if (patch_pkgs)
-        slapt_get_md5sums(patch_pkgs, tmp_checksum_f);
-
-      printf(gettext("Done\n"));
-
-      /* write package listings to disk */
-      slapt_write_pkg_data(global_config->sources->url[i],
-                           pkg_list_fh_tmp,available_pkgs);
+      for (pkg_i = 0; pkg_i < available_pkgs->pkg_count; ++pkg_i) {
+        available_pkgs->pkgs[pkg_i]->mirror = strdup(global_config->sources->url[i]);
+        slapt_add_pkg_to_pkg_list(new_pkgs,available_pkgs->pkgs[pkg_i]);
+      }
+      available_pkgs->free_pkgs = SLAPT_FALSE;
 
       if (patch_pkgs) {
-        slapt_write_pkg_data(global_config->sources->url[i],
-                             pkg_list_fh_tmp,patch_pkgs);
+        slapt_get_md5sums(patch_pkgs, tmp_checksum_f);
+        for (pkg_i = 0; pkg_i < patch_pkgs->pkg_count; ++pkg_i) {
+          patch_pkgs->pkgs[pkg_i]->mirror = strdup(global_config->sources->url[i]);
+          slapt_add_pkg_to_pkg_list(new_pkgs,patch_pkgs->pkgs[pkg_i]);
+        }
+        patch_pkgs->free_pkgs = SLAPT_FALSE;
       }
+
+      printf(gettext("Done\n"));
 
       fclose(tmp_checksum_f);
     } else {
@@ -1943,25 +1937,12 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
 
   /* if all our downloads where a success, write to SLAPT_PKG_LIST_L */
   if (source_dl_failed != 1 ) {
-    ssize_t bytes_read;
-    size_t getline_len = 0;
-    char *getline_buffer = NULL;
     FILE *pkg_list_fh;
 
     if ((pkg_list_fh = slapt_open_file(SLAPT_PKG_LIST_L,"w+")) == NULL)
       exit(1);
 
-    if (pkg_list_fh == NULL)
-      exit(1);
-
-    rewind(pkg_list_fh_tmp);
-    while ((bytes_read = getline(&getline_buffer,&getline_len,
-                                 pkg_list_fh_tmp)) != EOF) {
-      fprintf(pkg_list_fh,"%s",getline_buffer);
-    }
-
-    if (getline_buffer)
-      free(getline_buffer);
+    slapt_write_pkg_data(NULL,pkg_list_fh,new_pkgs);
 
     fclose(pkg_list_fh);
 
@@ -1969,8 +1950,7 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
     printf(gettext("Sources failed to download, correct sources and rerun --update\n"));
   }
 
-  /* close the tmp pkg list file */
-  fclose(pkg_list_fh_tmp);
+  slapt_free_pkg_list(new_pkgs);
 
   return source_dl_failed;
 }
