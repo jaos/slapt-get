@@ -2618,7 +2618,7 @@ struct slapt_pkg_list *slapt_get_pkg_source_packages (const slapt_rc_config *glo
     free(pkg_local_head);
 
   } else { /* fall back to uncompressed package list */
-    char *pkg_filename = slapt_gen_filename_from_url(url,SLAPT_PKG_LIST_GZ);
+    char *pkg_filename = slapt_gen_filename_from_url(url,SLAPT_PKG_LIST);
     char *pkg_local_head = slapt_read_head_cache(pkg_filename);
     /*
       we go ahead and run the head request, not caring if it failed.

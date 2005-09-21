@@ -1,5 +1,6 @@
 
-0.9.10d Sep 15, 2005
+0.9.10d Sep 21, 2005
+ * fixed naming of data cache file for uncompressed PACKAGES.TXT
  * updated the package data download to save on disk i/o
  * created a doc/ directory for the man pages
  * added Russian and Unkrainian translations (and man pages) by sin of the DeepStyle team
