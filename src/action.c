@@ -536,7 +536,7 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
       for (r = 0; r < installed_pkgs->pkg_count; r++) {
 
         /*
-           * hif we can't find the installed package in our available pkg list,
+           * if we can't find the installed package in our available pkg list,
            * it must be obsolete
         */
         if (slapt_get_newest_pkg(avail_pkgs,
