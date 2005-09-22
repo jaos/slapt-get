@@ -1,5 +1,7 @@
 
 0.9.10d Sep 22, 2005
+ * added reference to Stefano Stabellini's PACKAGES.TXT with dependency
+   information to FAQ #10.
  * introduced --install-set option to install whole disk sets
  * fixed naming of data cache file for uncompressed PACKAGES.TXT
  * updated the package data download to save on disk i/o
