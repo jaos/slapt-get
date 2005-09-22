@@ -63,6 +63,7 @@ int main( int argc, char *argv[] )
     {"available", 0, 0, SLAPT_AVAILABLE_OPT},
     {"retry", 1, 0, SLAPT_RETRY_OPT},
     {"no-upgrade", 0, 0, SLAPT_NO_UPGRADE_OPT},
+    {"install-set", 0, 0, SLAPT_INSTALL_DISK_SET_OPT},
     {0, 0, 0, 0},
   };
 
@@ -197,6 +198,9 @@ int main( int argc, char *argv[] )
       case SLAPT_AVAILABLE_OPT: /* show available packages */
         do_action = AVAILABLE;
         break;
+      case SLAPT_INSTALL_DISK_SET_OPT: /* install a disk set */
+        do_action = INSTALL_DISK_SET;
+        break;
       default:
         usage();
         slapt_free_rc_config(global_config);
@@ -208,6 +212,7 @@ int main( int argc, char *argv[] )
   /* Check optionnal arguments presence */
   switch(do_action) {
     case INSTALL:
+    case INSTALL_DISK_SET:
     case REMOVE:
     case SHOW:
     case SEARCH:
@@ -251,6 +256,45 @@ int main( int argc, char *argv[] )
       }
       slapt_pkg_action_install( global_config, paa );
       slapt_free_pkg_action_args(paa);
+      break;
+    case INSTALL_DISK_SET:
+      {
+        unsigned int set_i;
+        struct slapt_pkg_list *set_pkgs = slapt_init_pkg_list();
+        struct slapt_pkg_list *avail_pkgs = slapt_get_available_pkgs();
+
+        while (optind < argc) {
+          unsigned int search_i;
+          struct slapt_pkg_list *matches = NULL;
+          char *search = slapt_malloc(sizeof *search * (strlen(argv[optind]) + 3));
+          snprintf(search,strlen(argv[optind]) + 3,"/%s$",argv[optind]);
+          matches = slapt_search_pkg_list(avail_pkgs,search);
+          free(search);
+          for (search_i = 0; search_i < matches->pkg_count; ++search_i) {
+            slapt_add_pkg_to_pkg_list(set_pkgs,matches->pkgs[search_i]);
+          }
+          slapt_free_pkg_list(matches);
+          ++optind;
+        }
+
+        paa = slapt_init_pkg_action_args(set_pkgs->pkg_count);
+
+        for (set_i = 0; set_i < set_pkgs->pkg_count; ++set_i) {
+          paa->pkgs[paa->count] = slapt_malloc(
+            ( strlen(set_pkgs->pkgs[set_i]->name) + 1 ) * sizeof *paa->pkgs[paa->count]
+          );
+          memcpy(paa->pkgs[paa->count],set_pkgs->pkgs[set_i]->name,
+                 strlen(set_pkgs->pkgs[set_i]->name) + 1);
+          ++paa->count;
+        }
+
+        slapt_free_pkg_list(set_pkgs);
+        slapt_free_pkg_list(avail_pkgs);
+
+        slapt_pkg_action_install( global_config, paa );
+        slapt_free_pkg_action_args(paa);
+
+      }
       break;
     case REMOVE:
       paa = slapt_init_pkg_action_args((argc - optind));
@@ -321,6 +365,7 @@ void usage(void)
   printf("  --upgrade      - %s\n",gettext("upgrade installed pkgs"));
   printf("  --dist-upgrade - %s\n",gettext("upgrade to newer release"));
   printf("  --install      %s\n",gettext("[pkg name(s)] - install specified pkg(s)"));
+  printf("  --install-set  %s\n",gettext("[disk set(s)] - install specified disk set(s)"));
   printf("  --remove       %s\n",gettext("[pkg name(s)] - remove specified pkg(s)"));
   printf("  --show         %s\n",gettext("[pkg name] - show pkg description"));
   printf("  --search       %s\n",gettext("[expression] - search available pkgs"));

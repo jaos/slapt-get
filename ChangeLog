@@ -1,5 +1,6 @@
 
-0.9.10d Sep 21, 2005
+0.9.10d Sep 22, 2005
+ * introduced --install-set option to install whole disk sets
  * fixed naming of data cache file for uncompressed PACKAGES.TXT
  * updated the package data download to save on disk i/o
  * created a doc/ directory for the man pages

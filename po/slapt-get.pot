@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.10b\n"
+"Project-Id-Version: 0.9.10d\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2005-08-09 11:42+0500\n"
+"PO-Revision-Date: 2005-09-22 12:13+0500\n"
 "Last-Translator: Jason Woodward <woodwardj@jaos.org>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -472,5 +472,8 @@ msgid "specify number of download retry attempts"
 msgstr ""
 
 msgid "install package, do not attempt to upgrade"
+msgstr ""
+
+msgid "[disk set(s)] - install specified disk set(s)"
 msgstr ""
 

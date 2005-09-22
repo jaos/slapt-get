@@ -196,9 +196,8 @@
  packages already installed will be upgraded.  To accomplish this, you can
  specify slapt-get to install a disk set like so:
 
-   ### install all gnome and X packages
-   $ slapt-get --search '^./slackware/gnome$|^./slackware/x$'|awk '{print $1}'| \
-     xargs -r slapt-get --install
+   ### install all X and X application packages
+   $ slapt-get --install-set x xap
 
  Do the same for all your installed disk sets, such as gnome, x, xap, l, n, etc.
 
@@ -287,7 +286,7 @@
  with.  Here is how to install every package that is available but not
  currently installed:
 
-   slapt-get --available|grep inst=no|awk '{print $1}'|sort|uniq|xargs -r slapt-get --install
+   slapt-get --available|grep inst=no|awk '{print $1}'|uniq|xargs -r slapt-get --install
 
 
 <a name="slgFAQ14"><b>14. What if I only want to upgrade one package?</b></a>
@@ -427,15 +426,12 @@
 
 <a name="slgFAQ18"><b>18. How can I download every package in a disk set?</b></a>
 
- You can search the package location field, which specifies which directory
- the package resides in, on the mirror.
+ You can use the install-set option to install all of the packages within a
+ disk set.
 
- To install every package from xap, search for the ./slackware/xap disk set:
+ To install every package from xap:
 
-   slapt-get --search '^\.\/slackware\/xap$'|awk '{print $1}'| \
-     xargs -r slapt-get --install
-
- You will have to pass -y when you are happy with the results.
+   slapt-get --install-set xap
 
 
 <a name="slgFAQ19"><b>19. How can I add dependency information to my packages?</b></a>
