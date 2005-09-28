@@ -57,11 +57,11 @@ struct slapt_pkg_list *slapt_get_available_pkgs(void)
 
 struct slapt_pkg_list *slapt_parse_packages_txt(FILE *pkg_list_fh)
 {
-  slapt_regex name_regex,
-              mirror_regex,
-              location_regex,
-              size_c_regex,
-              size_u_regex;
+  slapt_regex_t *name_regex = NULL,
+              *mirror_regex = NULL,
+              *location_regex = NULL,
+              *size_c_regex = NULL,
+              *size_u_regex = NULL;
   ssize_t bytes_read;
   struct slapt_pkg_list *list = NULL;
   long f_pos = 0;
@@ -72,11 +72,21 @@ struct slapt_pkg_list *slapt_parse_packages_txt(FILE *pkg_list_fh)
   list = slapt_init_pkg_list();
 
   /* compile our regexen */
-  slapt_init_regex(&name_regex,SLAPT_PKG_NAME_PATTERN);
-  slapt_init_regex(&mirror_regex,SLAPT_PKG_MIRROR_PATTERN);
-  slapt_init_regex(&location_regex,SLAPT_PKG_LOCATION_PATTERN);
-  slapt_init_regex(&size_c_regex,SLAPT_PKG_SIZEC_PATTERN);
-  slapt_init_regex(&size_u_regex,SLAPT_PKG_SIZEU_PATTERN);
+  if ((name_regex = slapt_init_regex(SLAPT_PKG_NAME_PATTERN)) == NULL) {
+    exit(EXIT_FAILURE);
+  }
+  if ((mirror_regex = slapt_init_regex(SLAPT_PKG_MIRROR_PATTERN)) == NULL) {
+    exit(EXIT_FAILURE);
+  }
+  if ((location_regex = slapt_init_regex(SLAPT_PKG_LOCATION_PATTERN)) == NULL) {
+    exit(EXIT_FAILURE);
+  }
+  if ((size_c_regex = slapt_init_regex(SLAPT_PKG_SIZEC_PATTERN)) == NULL) {
+    exit(EXIT_FAILURE);
+  }
+  if ((size_u_regex = slapt_init_regex(SLAPT_PKG_SIZEU_PATTERN)) == NULL) {
+    exit(EXIT_FAILURE);
+  }
 
   while ((bytes_read = getline(&getline_buffer,&getline_len,
                                pkg_list_fh)) != EOF) {
@@ -89,10 +99,10 @@ struct slapt_pkg_list *slapt_parse_packages_txt(FILE *pkg_list_fh)
     if (strstr(getline_buffer,"PACKAGE NAME") == NULL)
       continue;
 
-    slapt_execute_regex(&name_regex,getline_buffer);
+    slapt_execute_regex(name_regex,getline_buffer);
 
     /* skip this line if we didn't find a package name */
-    if (name_regex.reg_return != 0) {
+    if (name_regex->reg_return != 0) {
       fprintf(stderr,gettext("regex failed on [%s]\n"),getline_buffer);
       continue;
     }
@@ -102,53 +112,53 @@ struct slapt_pkg_list *slapt_parse_packages_txt(FILE *pkg_list_fh)
 
     /* pkg name base */
     tmp_pkg->name = slapt_malloc(sizeof *tmp_pkg->name * 
-      (name_regex.pmatch[1].rm_eo - name_regex.pmatch[1].rm_so + 1));
+      (name_regex->pmatch[1].rm_eo - name_regex->pmatch[1].rm_so + 1));
 
-    strncpy(tmp_pkg->name, getline_buffer + name_regex.pmatch[1].rm_so,
-      name_regex.pmatch[1].rm_eo - name_regex.pmatch[1].rm_so);
+    strncpy(tmp_pkg->name, getline_buffer + name_regex->pmatch[1].rm_so,
+      name_regex->pmatch[1].rm_eo - name_regex->pmatch[1].rm_so);
 
-    tmp_pkg->name[name_regex.pmatch[1].rm_eo -
-                  name_regex.pmatch[1].rm_so] = '\0';
+    tmp_pkg->name[name_regex->pmatch[1].rm_eo -
+                  name_regex->pmatch[1].rm_so] = '\0';
 
     /* pkg version */
     tmp_pkg->version = slapt_malloc(sizeof *tmp_pkg->version *
-      (name_regex.pmatch[2].rm_eo - name_regex.pmatch[2].rm_so + 1));
+      (name_regex->pmatch[2].rm_eo - name_regex->pmatch[2].rm_so + 1));
 
-    strncpy(tmp_pkg->version, getline_buffer + name_regex.pmatch[2].rm_so,
-      name_regex.pmatch[2].rm_eo - name_regex.pmatch[2].rm_so);
+    strncpy(tmp_pkg->version, getline_buffer + name_regex->pmatch[2].rm_so,
+      name_regex->pmatch[2].rm_eo - name_regex->pmatch[2].rm_so);
 
-    tmp_pkg->version[name_regex.pmatch[2].rm_eo -
-                     name_regex.pmatch[2].rm_so] = '\0';
+    tmp_pkg->version[name_regex->pmatch[2].rm_eo -
+                     name_regex->pmatch[2].rm_so] = '\0';
 
     /* file extension */
     tmp_pkg->file_ext = slapt_malloc(sizeof *tmp_pkg->file_ext *
-      (name_regex.pmatch[3].rm_eo - name_regex.pmatch[3].rm_so + 1));
+      (name_regex->pmatch[3].rm_eo - name_regex->pmatch[3].rm_so + 1));
 
-    strncpy(tmp_pkg->file_ext, getline_buffer + name_regex.pmatch[3].rm_so,
-      name_regex.pmatch[3].rm_eo - name_regex.pmatch[3].rm_so);
+    strncpy(tmp_pkg->file_ext, getline_buffer + name_regex->pmatch[3].rm_so,
+      name_regex->pmatch[3].rm_eo - name_regex->pmatch[3].rm_so);
 
-    tmp_pkg->file_ext[name_regex.pmatch[3].rm_eo -
-                     name_regex.pmatch[3].rm_so] = '\0';
+    tmp_pkg->file_ext[name_regex->pmatch[3].rm_eo -
+                     name_regex->pmatch[3].rm_so] = '\0';
 
     /* mirror */
     f_pos = ftell(pkg_list_fh);
     if (getline(&getline_buffer,&getline_len,pkg_list_fh) != EOF) {
 
-      slapt_execute_regex(&mirror_regex,getline_buffer);
+      slapt_execute_regex(mirror_regex,getline_buffer);
 
-      if (mirror_regex.reg_return == 0) {
+      if (mirror_regex->reg_return == 0) {
 
         tmp_pkg->mirror = slapt_malloc(
           sizeof *tmp_pkg->mirror *
-          (mirror_regex.pmatch[1].rm_eo - mirror_regex.pmatch[1].rm_so + 1)
+          (mirror_regex->pmatch[1].rm_eo - mirror_regex->pmatch[1].rm_so + 1)
         );
 
         strncpy(tmp_pkg->mirror,
-          getline_buffer + mirror_regex.pmatch[1].rm_so,
-          mirror_regex.pmatch[1].rm_eo - mirror_regex.pmatch[1].rm_so
+          getline_buffer + mirror_regex->pmatch[1].rm_so,
+          mirror_regex->pmatch[1].rm_eo - mirror_regex->pmatch[1].rm_so
         );
         tmp_pkg->mirror[
-          mirror_regex.pmatch[1].rm_eo - mirror_regex.pmatch[1].rm_so
+          mirror_regex->pmatch[1].rm_eo - mirror_regex->pmatch[1].rm_so
         ] = '\0';
 
       } else {
@@ -160,21 +170,21 @@ struct slapt_pkg_list *slapt_parse_packages_txt(FILE *pkg_list_fh)
     /* location */
     if ((getline(&getline_buffer,&getline_len,pkg_list_fh) != EOF)) {
 
-      slapt_execute_regex(&location_regex,getline_buffer);
+      slapt_execute_regex(location_regex,getline_buffer);
 
-      if (location_regex.reg_return == 0) {
+      if (location_regex->reg_return == 0) {
 
         tmp_pkg->location = slapt_malloc(
           sizeof *tmp_pkg->location *
-          (location_regex.pmatch[1].rm_eo - location_regex.pmatch[1].rm_so + 1)
+          (location_regex->pmatch[1].rm_eo - location_regex->pmatch[1].rm_so + 1)
         );
 
         strncpy(tmp_pkg->location,
-          getline_buffer + location_regex.pmatch[1].rm_so,
-          location_regex.pmatch[1].rm_eo - location_regex.pmatch[1].rm_so
+          getline_buffer + location_regex->pmatch[1].rm_so,
+          location_regex->pmatch[1].rm_eo - location_regex->pmatch[1].rm_so
         );
         tmp_pkg->location[
-          location_regex.pmatch[1].rm_eo - location_regex.pmatch[1].rm_so
+          location_regex->pmatch[1].rm_eo - location_regex->pmatch[1].rm_so
         ] = '\0';
 
         /*
@@ -240,12 +250,12 @@ struct slapt_pkg_list *slapt_parse_packages_txt(FILE *pkg_list_fh)
 
       char *size_c = NULL;
 
-      slapt_execute_regex(&size_c_regex,getline_buffer);
+      slapt_execute_regex(size_c_regex,getline_buffer);
 
-      if (size_c_regex.reg_return == 0) {
+      if (size_c_regex->reg_return == 0) {
         size_c = strndup(
-          getline_buffer + size_c_regex.pmatch[1].rm_so,
-          (size_c_regex.pmatch[1].rm_eo - size_c_regex.pmatch[1].rm_so)
+          getline_buffer + size_c_regex->pmatch[1].rm_so,
+          (size_c_regex->pmatch[1].rm_eo - size_c_regex->pmatch[1].rm_so)
         );
         tmp_pkg->size_c = strtol(size_c, (char **)NULL, 10);
         free(size_c);
@@ -265,12 +275,12 @@ struct slapt_pkg_list *slapt_parse_packages_txt(FILE *pkg_list_fh)
 
       char *size_u = NULL;
 
-      slapt_execute_regex(&size_u_regex,getline_buffer);
+      slapt_execute_regex(size_u_regex,getline_buffer);
 
-      if (size_u_regex.reg_return == 0) {
+      if (size_u_regex->reg_return == 0) {
         size_u = strndup(
-          getline_buffer + size_u_regex.pmatch[1].rm_so,
-          (size_u_regex.pmatch[1].rm_eo - size_u_regex.pmatch[1].rm_so)
+          getline_buffer + size_u_regex->pmatch[1].rm_so,
+          (size_u_regex->pmatch[1].rm_eo - size_u_regex->pmatch[1].rm_so)
         );
         tmp_pkg->size_u = strtol(size_u, (char **)NULL, 10);
         free(size_u);
@@ -437,11 +447,11 @@ struct slapt_pkg_list *slapt_parse_packages_txt(FILE *pkg_list_fh)
 
   if (getline_buffer)
     free(getline_buffer);
-  slapt_free_regex(&name_regex);
-  slapt_free_regex(&mirror_regex);
-  slapt_free_regex(&location_regex);
-  slapt_free_regex(&size_c_regex);
-  slapt_free_regex(&size_u_regex);
+  slapt_free_regex(name_regex);
+  slapt_free_regex(mirror_regex);
+  slapt_free_regex(location_regex);
+  slapt_free_regex(size_c_regex);
+  slapt_free_regex(size_u_regex);
 
   list->free_pkgs = SLAPT_TRUE;
   return list;
@@ -476,19 +486,27 @@ struct slapt_pkg_list *slapt_get_installed_pkgs(void)
   char *root_env_entry = NULL;
   char *pkg_log_dirname = NULL;
   struct dirent *file;
-  slapt_regex ip_regex,
-              compressed_size_reg,
-              uncompressed_size_reg,
-              location_regex;
+  slapt_regex_t *ip_regex = NULL,
+              *compressed_size_reg = NULL,
+              *uncompressed_size_reg = NULL,
+              *location_regex = NULL;
   struct slapt_pkg_list *list = NULL;
   size_t pls = 1;
 
   list = slapt_init_pkg_list();
 
-  slapt_init_regex(&ip_regex,SLAPT_PKG_LOG_PATTERN);
-  slapt_init_regex(&compressed_size_reg,SLAPT_PKG_LOG_SIZEC_PATTERN);
-  slapt_init_regex(&uncompressed_size_reg,SLAPT_PKG_LOG_SIZEU_PATTERN);
-  slapt_init_regex(&location_regex,SLAPT_PKG_LOCATION_PATTERN);
+  if ((ip_regex = slapt_init_regex(SLAPT_PKG_LOG_PATTERN)) == NULL) {
+    exit(EXIT_FAILURE);
+  }
+  if ((compressed_size_reg = slapt_init_regex(SLAPT_PKG_LOG_SIZEC_PATTERN)) == NULL) {
+    exit(EXIT_FAILURE);
+  }
+  if ((uncompressed_size_reg = slapt_init_regex(SLAPT_PKG_LOG_SIZEU_PATTERN)) == NULL) {
+    exit(EXIT_FAILURE);
+  }
+  if ((location_regex = slapt_init_regex(SLAPT_PKG_LOCATION_PATTERN)) == NULL) {
+    exit(EXIT_FAILURE);
+  }
 
   /* Generate package log directory using ROOT env variable if set */
   if (getenv(SLAPT_ROOT_ENV_NAME) &&
@@ -524,35 +542,35 @@ struct slapt_pkg_list *slapt_get_installed_pkgs(void)
     struct stat stat_buf;
     char *pkg_data = NULL;
 
-    slapt_execute_regex(&ip_regex,file->d_name);
+    slapt_execute_regex(ip_regex,file->d_name);
 
     /* skip if it doesn't match our regex */
-    if (ip_regex.reg_return != 0)
+    if (ip_regex->reg_return != 0)
       continue;
 
     tmp_pkg = slapt_init_pkg();
 
     tmp_pkg->name = slapt_malloc(
       sizeof *tmp_pkg->name *
-      (ip_regex.pmatch[1].rm_eo - ip_regex.pmatch[1].rm_so + 1)
+      (ip_regex->pmatch[1].rm_eo - ip_regex->pmatch[1].rm_so + 1)
     );
     strncpy(
       tmp_pkg->name,
-      file->d_name + ip_regex.pmatch[1].rm_so,
-      ip_regex.pmatch[1].rm_eo - ip_regex.pmatch[1].rm_so
+      file->d_name + ip_regex->pmatch[1].rm_so,
+      ip_regex->pmatch[1].rm_eo - ip_regex->pmatch[1].rm_so
     );
-    tmp_pkg->name[ ip_regex.pmatch[1].rm_eo - ip_regex.pmatch[1].rm_so ] = '\0';
+    tmp_pkg->name[ ip_regex->pmatch[1].rm_eo - ip_regex->pmatch[1].rm_so ] = '\0';
 
     tmp_pkg->version = slapt_malloc(
       sizeof *tmp_pkg->version *
-      (ip_regex.pmatch[2].rm_eo - ip_regex.pmatch[2].rm_so + 1)
+      (ip_regex->pmatch[2].rm_eo - ip_regex->pmatch[2].rm_so + 1)
     );
     strncpy(
       tmp_pkg->version,
-      file->d_name + ip_regex.pmatch[2].rm_so,
-      ip_regex.pmatch[2].rm_eo - ip_regex.pmatch[2].rm_so
+      file->d_name + ip_regex->pmatch[2].rm_so,
+      ip_regex->pmatch[2].rm_eo - ip_regex->pmatch[2].rm_so
     );
-    tmp_pkg->version[ ip_regex.pmatch[2].rm_eo - ip_regex.pmatch[2].rm_so ] = '\0';
+    tmp_pkg->version[ ip_regex->pmatch[2].rm_eo - ip_regex->pmatch[2].rm_so ] = '\0';
 
     tmp_pkg->file_ext = slapt_malloc(sizeof *tmp_pkg->file_ext * 1);
     tmp_pkg->file_ext[0] = '\0';
@@ -614,12 +632,12 @@ struct slapt_pkg_list *slapt_get_installed_pkgs(void)
     pkg_data[pls - 1] = '\0';
 
     /* pull out compressed size */
-    slapt_execute_regex(&compressed_size_reg,pkg_data);
-    if (compressed_size_reg.reg_return == 0) {
+    slapt_execute_regex(compressed_size_reg,pkg_data);
+    if (compressed_size_reg->reg_return == 0) {
 
       char *size_c = strndup(
-        pkg_data + compressed_size_reg.pmatch[1].rm_so,
-        (compressed_size_reg.pmatch[1].rm_eo - compressed_size_reg.pmatch[1].rm_so)
+        pkg_data + compressed_size_reg->pmatch[1].rm_so,
+        (compressed_size_reg->pmatch[1].rm_eo - compressed_size_reg->pmatch[1].rm_so)
       );
       tmp_pkg->size_c = strtol(size_c,(char **)NULL,10);
       free(size_c);
@@ -627,12 +645,12 @@ struct slapt_pkg_list *slapt_get_installed_pkgs(void)
     }
 
     /* pull out uncompressed size */
-    slapt_execute_regex(&uncompressed_size_reg,pkg_data);
-    if (uncompressed_size_reg.reg_return == 0 ) {
+    slapt_execute_regex(uncompressed_size_reg,pkg_data);
+    if (uncompressed_size_reg->reg_return == 0 ) {
 
       char *size_u = strndup(
-        pkg_data + uncompressed_size_reg.pmatch[1].rm_so,
-        (uncompressed_size_reg.pmatch[1].rm_eo - uncompressed_size_reg.pmatch[1].rm_so)
+        pkg_data + uncompressed_size_reg->pmatch[1].rm_so,
+        (uncompressed_size_reg->pmatch[1].rm_eo - uncompressed_size_reg->pmatch[1].rm_so)
       );
       tmp_pkg->size_u = strtol(size_u,(char **)NULL,10);
       free(size_u);
@@ -640,19 +658,19 @@ struct slapt_pkg_list *slapt_get_installed_pkgs(void)
     }
 
     /* pull out location */
-    slapt_execute_regex(&location_regex,pkg_data);
-    if (location_regex.reg_return == 0) {
+    slapt_execute_regex(location_regex,pkg_data);
+    if (location_regex->reg_return == 0) {
 
       tmp_pkg->location = slapt_malloc(
         sizeof *tmp_pkg->location *
-        (location_regex.pmatch[1].rm_eo - location_regex.pmatch[1].rm_so + 1)
+        (location_regex->pmatch[1].rm_eo - location_regex->pmatch[1].rm_so + 1)
       );
       strncpy(tmp_pkg->location,
-        pkg_data + location_regex.pmatch[1].rm_so,
-        location_regex.pmatch[1].rm_eo - location_regex.pmatch[1].rm_so
+        pkg_data + location_regex->pmatch[1].rm_so,
+        location_regex->pmatch[1].rm_eo - location_regex->pmatch[1].rm_so
       );
       tmp_pkg->location[
-        location_regex.pmatch[1].rm_eo - location_regex.pmatch[1].rm_so
+        location_regex->pmatch[1].rm_eo - location_regex->pmatch[1].rm_so
       ] = '\0';
 
     }
@@ -727,11 +745,11 @@ struct slapt_pkg_list *slapt_get_installed_pkgs(void)
 
   }/* end while */
   closedir(pkg_log_dir);
-  slapt_free_regex(&ip_regex);
+  slapt_free_regex(ip_regex);
   free(pkg_log_dirname);
-  slapt_free_regex(&compressed_size_reg);
-  slapt_free_regex(&uncompressed_size_reg);
-  slapt_free_regex(&location_regex);
+  slapt_free_regex(compressed_size_reg);
+  slapt_free_regex(uncompressed_size_reg);
+  slapt_free_regex(location_regex);
 
   list->free_pkgs = SLAPT_TRUE;
   return list;
@@ -911,7 +929,6 @@ int slapt_is_excluded(const slapt_rc_config *global_config,
 {
   unsigned int i,pkg_not_excluded = 0, pkg_slapt_is_excluded = 1;
   int name_reg_ret = -1,version_reg_ret = -1,location_reg_ret = -1;
-  slapt_regex exclude_reg;
 
   if (global_config->ignore_excludes == SLAPT_TRUE)
     return pkg_not_excluded;
@@ -921,6 +938,7 @@ int slapt_is_excluded(const slapt_rc_config *global_config,
     return pkg_not_excluded;
 
   for (i = 0; i < global_config->exclude_list->count;i++) {
+    slapt_regex_t *exclude_reg = NULL;
 
     /* return if its an exact match */
     if ((strncmp(global_config->exclude_list->excludes[i],
@@ -931,22 +949,26 @@ int slapt_is_excluded(const slapt_rc_config *global_config,
       this regex has to be init'd and free'd within the loop b/c the regex is pulled 
       from the exclude list
     */
-    if (slapt_init_regex(&exclude_reg,
-                         global_config->exclude_list->excludes[i]) == -1)
+    if ((exclude_reg =
+          slapt_init_regex(global_config->exclude_list->excludes[i])) == NULL) {
+      fprintf(stderr,"\n\nugh %s\n\n",global_config->exclude_list->excludes[i]);
       continue;
+    }
 
-    slapt_execute_regex(&exclude_reg,pkg->name);
-    name_reg_ret = exclude_reg.reg_return;
-    slapt_execute_regex(&exclude_reg,pkg->version);
-    version_reg_ret = exclude_reg.reg_return;
-    slapt_execute_regex(&exclude_reg,pkg->location);
-    location_reg_ret = exclude_reg.reg_return;
+    slapt_execute_regex(exclude_reg,pkg->name);
+    name_reg_ret = exclude_reg->reg_return;
+
+    slapt_execute_regex(exclude_reg,pkg->version);
+    version_reg_ret = exclude_reg->reg_return;
+
+    slapt_execute_regex(exclude_reg,pkg->location);
+    location_reg_ret = exclude_reg->reg_return;
+
+    slapt_free_regex(exclude_reg);
 
     if (name_reg_ret == 0 || version_reg_ret == 0 || location_reg_ret == 0) {
-      slapt_free_regex(&exclude_reg);
       return pkg_slapt_is_excluded;
     }
-    slapt_free_regex(&exclude_reg);
 
   }
 
@@ -955,13 +977,15 @@ int slapt_is_excluded(const slapt_rc_config *global_config,
 
 void slapt_get_md5sums(struct slapt_pkg_list *pkgs, FILE *checksum_file)
 {
-  slapt_regex md5sum_regex;
+  slapt_regex_t *md5sum_regex = NULL;
   ssize_t getline_read;
   size_t getline_len = 0;
   char *getline_buffer = NULL;
   unsigned int a;
 
-  slapt_init_regex(&md5sum_regex,SLAPT_MD5SUM_REGEX);
+  if ((md5sum_regex = slapt_init_regex(SLAPT_MD5SUM_REGEX)) == NULL) {
+    exit(EXIT_FAILURE);
+  }
 
   while ((getline_read = getline(&getline_buffer,&getline_len,
                                  checksum_file)) != EOF) {
@@ -975,55 +999,55 @@ void slapt_get_md5sums(struct slapt_pkg_list *pkgs, FILE *checksum_file)
     if (strstr(getline_buffer,".asc") != NULL)
       continue;
 
-    slapt_execute_regex(&md5sum_regex,getline_buffer);
+    slapt_execute_regex(md5sum_regex,getline_buffer);
 
-    if (md5sum_regex.reg_return == 0) {
+    if (md5sum_regex->reg_return == 0) {
       char sum[SLAPT_MD5_STR_LEN];
       char *location, *name, *version;
 
       /* md5 sum */
       strncpy(
         sum,
-        getline_buffer + md5sum_regex.pmatch[1].rm_so,
-        md5sum_regex.pmatch[1].rm_eo - md5sum_regex.pmatch[1].rm_so
+        getline_buffer + md5sum_regex->pmatch[1].rm_so,
+        md5sum_regex->pmatch[1].rm_eo - md5sum_regex->pmatch[1].rm_so
       );
-      sum[md5sum_regex.pmatch[1].rm_eo - md5sum_regex.pmatch[1].rm_so] = '\0';
+      sum[md5sum_regex->pmatch[1].rm_eo - md5sum_regex->pmatch[1].rm_so] = '\0';
 
       /* location/directory */
       location = slapt_malloc(
         sizeof *location *
-        (md5sum_regex.pmatch[2].rm_eo - md5sum_regex.pmatch[2].rm_so + 1)
+        (md5sum_regex->pmatch[2].rm_eo - md5sum_regex->pmatch[2].rm_so + 1)
       );
       strncpy(
         location,
-        getline_buffer + md5sum_regex.pmatch[2].rm_so,
-        md5sum_regex.pmatch[2].rm_eo - md5sum_regex.pmatch[2].rm_so
+        getline_buffer + md5sum_regex->pmatch[2].rm_so,
+        md5sum_regex->pmatch[2].rm_eo - md5sum_regex->pmatch[2].rm_so
       );
-      location[md5sum_regex.pmatch[2].rm_eo - md5sum_regex.pmatch[2].rm_so] = '\0';
+      location[md5sum_regex->pmatch[2].rm_eo - md5sum_regex->pmatch[2].rm_so] = '\0';
 
       /* pkg name */
       name = slapt_malloc(
         sizeof *name *
-        (md5sum_regex.pmatch[3].rm_eo - md5sum_regex.pmatch[3].rm_so + 1)
+        (md5sum_regex->pmatch[3].rm_eo - md5sum_regex->pmatch[3].rm_so + 1)
       );
       strncpy(
         name,
-        getline_buffer + md5sum_regex.pmatch[3].rm_so,
-        md5sum_regex.pmatch[3].rm_eo - md5sum_regex.pmatch[3].rm_so
+        getline_buffer + md5sum_regex->pmatch[3].rm_so,
+        md5sum_regex->pmatch[3].rm_eo - md5sum_regex->pmatch[3].rm_so
       );
-      name[md5sum_regex.pmatch[3].rm_eo - md5sum_regex.pmatch[3].rm_so] = '\0';
+      name[md5sum_regex->pmatch[3].rm_eo - md5sum_regex->pmatch[3].rm_so] = '\0';
 
       /* pkg version */
       version = slapt_malloc(
         sizeof *version *
-        (md5sum_regex.pmatch[4].rm_eo - md5sum_regex.pmatch[4].rm_so + 1)
+        (md5sum_regex->pmatch[4].rm_eo - md5sum_regex->pmatch[4].rm_so + 1)
       );
       strncpy(
         version,
-        getline_buffer + md5sum_regex.pmatch[4].rm_so,
-        md5sum_regex.pmatch[4].rm_eo - md5sum_regex.pmatch[4].rm_so
+        getline_buffer + md5sum_regex->pmatch[4].rm_so,
+        md5sum_regex->pmatch[4].rm_eo - md5sum_regex->pmatch[4].rm_so
       );
-      version[md5sum_regex.pmatch[4].rm_eo - md5sum_regex.pmatch[4].rm_so] = '\0';
+      version[md5sum_regex->pmatch[4].rm_eo - md5sum_regex->pmatch[4].rm_so] = '\0';
 
       /* see if we can match up name, version, and location */
       for (a = 0;a < pkgs->pkg_count;a++) {
@@ -1038,7 +1062,7 @@ void slapt_get_md5sums(struct slapt_pkg_list *pkgs, FILE *checksum_file)
                  pkgs->pkgs[a]->location,name,version,location,sum);
           #endif
           memcpy(pkgs->pkgs[a]->md5,
-            sum,md5sum_regex.pmatch[1].rm_eo - md5sum_regex.pmatch[1].rm_so + 1
+            sum,md5sum_regex->pmatch[1].rm_eo - md5sum_regex->pmatch[1].rm_so + 1
           );
           break;
         }
@@ -1053,7 +1077,7 @@ void slapt_get_md5sums(struct slapt_pkg_list *pkgs, FILE *checksum_file)
   if (getline_buffer)
     free(getline_buffer);
 
-  slapt_free_regex(&md5sum_regex);
+  slapt_free_regex(md5sum_regex);
   rewind(checksum_file);
 
   return;
@@ -1302,30 +1326,30 @@ struct slapt_pkg_list *slapt_search_pkg_list(struct slapt_pkg_list *list,
 {
   unsigned int i;
   int name_r = -1,desc_r = -1,loc_r = -1,version_r = -1;
-  slapt_regex search_regex;
+  slapt_regex_t *search_regex = NULL;
   struct slapt_pkg_list *matches = NULL;
 
   matches = slapt_init_pkg_list();
 
-  if (slapt_init_regex(&search_regex,pattern) == -1)
+  if ((search_regex = slapt_init_regex(pattern)) == NULL)
     return matches;
 
   for (i = 0; i < list->pkg_count; i++ ) {
 
-    slapt_execute_regex(&search_regex,list->pkgs[i]->name);
-    name_r = search_regex.reg_return;
+    slapt_execute_regex(search_regex,list->pkgs[i]->name);
+    name_r = search_regex->reg_return;
 
-    slapt_execute_regex(&search_regex,list->pkgs[i]->version);
-    version_r = search_regex.reg_return;
+    slapt_execute_regex(search_regex,list->pkgs[i]->version);
+    version_r = search_regex->reg_return;
 
     if (list->pkgs[i]->description != NULL) {
-      slapt_execute_regex(&search_regex,list->pkgs[i]->description);
-      desc_r = search_regex.reg_return;
+      slapt_execute_regex(search_regex,list->pkgs[i]->description);
+      desc_r = search_regex->reg_return;
     }
 
     if (list->pkgs[i]->location != NULL) {
-      slapt_execute_regex(&search_regex,list->pkgs[i]->location);
-      loc_r = search_regex.reg_return;
+      slapt_execute_regex(search_regex,list->pkgs[i]->location);
+      loc_r = search_regex->reg_return;
     }
 
     /* search pkg name, pkg description, pkg location */
@@ -1333,7 +1357,7 @@ struct slapt_pkg_list *slapt_search_pkg_list(struct slapt_pkg_list *list,
       slapt_add_pkg_to_pkg_list(matches,list->pkgs[i]);
     }
   }
-  slapt_free_regex(&search_regex);
+  slapt_free_regex(search_regex);
 
   return matches;
 }
@@ -1556,37 +1580,39 @@ static slapt_pkg_info_t *parse_meta_entry(struct slapt_pkg_list *avail_pkgs,
                                           char *dep_entry)
 {
   unsigned int i;
-  slapt_regex parse_dep_regex;
+  slapt_regex_t *parse_dep_regex = NULL;
   char *tmp_pkg_name = NULL,*tmp_pkg_ver = NULL;
   char tmp_pkg_cond[3];
   slapt_pkg_info_t *newest_avail_pkg;
   slapt_pkg_info_t *newest_installed_pkg;
   int tmp_name_len =0, tmp_ver_len = 0, tmp_cond_len = 0;
 
-  slapt_init_regex(&parse_dep_regex,SLAPT_REQUIRED_REGEX);
+  if ((parse_dep_regex = slapt_init_regex(SLAPT_REQUIRED_REGEX)) == NULL) {
+    exit(EXIT_FAILURE);
+  }
 
   /* regex to pull out pieces */
-  slapt_execute_regex(&parse_dep_regex,dep_entry);
+  slapt_execute_regex(parse_dep_regex,dep_entry);
 
   /* if the regex failed, just skip out */
-  if (parse_dep_regex.reg_return != 0) {
+  if (parse_dep_regex->reg_return != 0) {
     #if SLAPT_DEBUG == 1
     printf("regex %s failed on %s\n",SLAPT_REQUIRED_REGEX,dep_entry);
     #endif
-    slapt_free_regex(&parse_dep_regex);
+    slapt_free_regex(parse_dep_regex);
     return NULL;
   }
 
   tmp_name_len =
-    parse_dep_regex.pmatch[1].rm_eo - parse_dep_regex.pmatch[1].rm_so;
+    parse_dep_regex->pmatch[1].rm_eo - parse_dep_regex->pmatch[1].rm_so;
   tmp_cond_len =
-    parse_dep_regex.pmatch[2].rm_eo - parse_dep_regex.pmatch[2].rm_so;
+    parse_dep_regex->pmatch[2].rm_eo - parse_dep_regex->pmatch[2].rm_so;
   tmp_ver_len =
-    parse_dep_regex.pmatch[3].rm_eo - parse_dep_regex.pmatch[3].rm_so;
+    parse_dep_regex->pmatch[3].rm_eo - parse_dep_regex->pmatch[3].rm_so;
 
   tmp_pkg_name = slapt_malloc(sizeof *tmp_pkg_name * (tmp_name_len + 1));
   strncpy(tmp_pkg_name,
-    dep_entry + parse_dep_regex.pmatch[1].rm_so,
+    dep_entry + parse_dep_regex->pmatch[1].rm_so,
     tmp_name_len
   );
   tmp_pkg_name[ tmp_name_len ] = '\0';
@@ -1600,12 +1626,12 @@ static slapt_pkg_info_t *parse_meta_entry(struct slapt_pkg_list *avail_pkgs,
     printf("no conditional\n");
     #endif
     if (newest_installed_pkg != NULL) {
-      slapt_free_regex(&parse_dep_regex);
+      slapt_free_regex(parse_dep_regex);
       free(tmp_pkg_name);
       return newest_installed_pkg;
     }
     if (newest_avail_pkg != NULL) {
-      slapt_free_regex(&parse_dep_regex);
+      slapt_free_regex(parse_dep_regex);
       free(tmp_pkg_name);
       return newest_avail_pkg;
     }
@@ -1613,25 +1639,25 @@ static slapt_pkg_info_t *parse_meta_entry(struct slapt_pkg_list *avail_pkgs,
 
   if (tmp_cond_len > 3 ) {
     fprintf(stderr, gettext("pkg conditional too long\n"));
-    slapt_free_regex(&parse_dep_regex);
+    slapt_free_regex(parse_dep_regex);
     free(tmp_pkg_name);
     return NULL;
   }
 
   strncpy(tmp_pkg_cond,
-    dep_entry + parse_dep_regex.pmatch[2].rm_so,
+    dep_entry + parse_dep_regex->pmatch[2].rm_so,
     tmp_cond_len
   );
   tmp_pkg_cond[ tmp_cond_len ] = '\0';
 
   tmp_pkg_ver = slapt_malloc(sizeof *tmp_pkg_ver * (tmp_ver_len + 1));
   strncpy(tmp_pkg_ver,
-    dep_entry + parse_dep_regex.pmatch[3].rm_so,
+    dep_entry + parse_dep_regex->pmatch[3].rm_so,
     tmp_ver_len
   );
   tmp_pkg_ver[ tmp_ver_len ] = '\0';
 
-  slapt_free_regex(&parse_dep_regex);
+  slapt_free_regex(parse_dep_regex);
 
   /*
     * check the newest version of tmp_pkg_name (in newest_installed_pkg)
@@ -1793,7 +1819,7 @@ static void required_by(const slapt_rc_config *global_config,
                         struct slapt_pkg_list *required_by_list)
 {
   unsigned int i;
-  slapt_regex required_by_reg;
+  slapt_regex_t *required_by_reg = NULL;
   char *escapedName = NULL, *escaped_ptr;
 
   /*
@@ -1814,22 +1840,24 @@ static void required_by(const slapt_rc_config *global_config,
     *escaped_ptr = '\0';
   }
 
-  slapt_init_regex(&required_by_reg,escapedName);
+  if ((required_by_reg = slapt_init_regex(escapedName)) == NULL) {
+    exit(EXIT_FAILURE);
+  }
 
   for (i = 0; i < avail->pkg_count;i++) {
 
     if (strcmp(avail->pkgs[i]->required,"") == 0 )
       continue;
 
-    slapt_execute_regex(&required_by_reg,avail->pkgs[i]->required);
-    if (required_by_reg.reg_return != 0 )
+    slapt_execute_regex(required_by_reg,avail->pkgs[i]->required);
+    if (required_by_reg->reg_return != 0 )
       continue;
 
     slapt_add_pkg_to_pkg_list(required_by_list,avail->pkgs[i]);
   }
 
   free(escapedName);
-  slapt_free_regex(&required_by_reg);
+  slapt_free_regex(required_by_reg);
 }
 
 slapt_pkg_info_t *slapt_get_pkg_by_details(struct slapt_pkg_list *list,
@@ -2169,7 +2197,7 @@ void slapt_purge_old_cached_pkgs(const slapt_rc_config *global_config,
   DIR *dir;
   struct dirent *file;
   struct stat file_stat;
-  slapt_regex cached_pkgs_regex;
+  slapt_regex_t *cached_pkgs_regex = NULL;
   int local_pkg_list = 0;
 
   if (avail_pkgs == NULL) {
@@ -2180,7 +2208,9 @@ void slapt_purge_old_cached_pkgs(const slapt_rc_config *global_config,
   if (dir_name == NULL)
     dir_name = (char *)global_config->working_dir;
 
-  slapt_init_regex(&cached_pkgs_regex,SLAPT_PKG_PARSE_REGEX);
+  if ((cached_pkgs_regex = slapt_init_regex(SLAPT_PKG_PARSE_REGEX)) == NULL) {
+    exit(EXIT_FAILURE);
+  }
 
   if ((dir = opendir(dir_name)) == NULL) {
 
@@ -2223,20 +2253,20 @@ void slapt_purge_old_cached_pkgs(const slapt_rc_config *global_config,
     /* if its a package */
     if (strstr(file->d_name,".t") != NULL) {
 
-      slapt_execute_regex(&cached_pkgs_regex,file->d_name);
+      slapt_execute_regex(cached_pkgs_regex,file->d_name);
 
       /* if our regex matches */
-      if (cached_pkgs_regex.reg_return == 0 ) {
+      if (cached_pkgs_regex->reg_return == 0 ) {
         char *tmp_pkg_name,*tmp_pkg_version;
         slapt_pkg_info_t *tmp_pkg;
 
         tmp_pkg_name = strndup(
-          file->d_name + cached_pkgs_regex.pmatch[1].rm_so,
-          cached_pkgs_regex.pmatch[1].rm_eo - cached_pkgs_regex.pmatch[1].rm_so
+          file->d_name + cached_pkgs_regex->pmatch[1].rm_so,
+          cached_pkgs_regex->pmatch[1].rm_eo - cached_pkgs_regex->pmatch[1].rm_so
         );
         tmp_pkg_version = strndup(
-          file->d_name + cached_pkgs_regex.pmatch[2].rm_so,
-          cached_pkgs_regex.pmatch[2].rm_eo - cached_pkgs_regex.pmatch[2].rm_so
+          file->d_name + cached_pkgs_regex->pmatch[2].rm_so,
+          cached_pkgs_regex->pmatch[2].rm_eo - cached_pkgs_regex->pmatch[2].rm_so
         );
 
         tmp_pkg = slapt_get_exact_pkg(avail_pkgs,tmp_pkg_name,tmp_pkg_version);
@@ -2262,7 +2292,7 @@ void slapt_purge_old_cached_pkgs(const slapt_rc_config *global_config,
   }
   closedir(dir);
 
-  slapt_free_regex(&cached_pkgs_regex);
+  slapt_free_regex(cached_pkgs_regex);
   if (local_pkg_list == 1 ) {
     slapt_free_pkg_list(avail_pkgs);
   }
@@ -2274,7 +2304,7 @@ void slapt_clean_pkg_dir(const char *dir_name)
   DIR *dir;
   struct dirent *file;
   struct stat file_stat;
-  slapt_regex cached_pkgs_regex;
+  slapt_regex_t *cached_pkgs_regex = NULL;
 
   if ((dir = opendir(dir_name)) == NULL) {
     fprintf(stderr,gettext("Failed to opendir %s\n"),dir_name);
@@ -2286,7 +2316,9 @@ void slapt_clean_pkg_dir(const char *dir_name)
     return;
   }
 
-  slapt_init_regex(&cached_pkgs_regex,SLAPT_PKG_PARSE_REGEX);
+  if ((cached_pkgs_regex = slapt_init_regex(SLAPT_PKG_PARSE_REGEX)) == NULL) {
+    exit(EXIT_FAILURE);
+  }
 
   while ((file = readdir(dir))) {
 
@@ -2307,10 +2339,10 @@ void slapt_clean_pkg_dir(const char *dir_name)
       continue;
     }
     if (strstr(file->d_name,".t") !=NULL) {
-      slapt_execute_regex(&cached_pkgs_regex,file->d_name);
+      slapt_execute_regex(cached_pkgs_regex,file->d_name);
 
       /* if our regex matches */
-      if (cached_pkgs_regex.reg_return == 0 ) {
+      if (cached_pkgs_regex->reg_return == 0 ) {
         #if SLAPT_DEBUG == 1
         printf(gettext("unlinking %s\n"),file->d_name);
         #endif
@@ -2320,7 +2352,7 @@ void slapt_clean_pkg_dir(const char *dir_name)
   }
   closedir(dir);
 
-  slapt_free_regex(&cached_pkgs_regex);
+  slapt_free_regex(cached_pkgs_regex);
 
 }
 

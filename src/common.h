@@ -16,12 +16,12 @@ typedef struct {
   size_t nmatch;
   regmatch_t pmatch[SLAPT_MAX_REGEX_PARTS];
   int reg_return;
-} slapt_regex;
+} slapt_regex_t;
 
 FILE *slapt_open_file(const char *file_name,const char *mode);
-int slapt_init_regex(slapt_regex *regex_t, const char *regex_string);
-void slapt_execute_regex(slapt_regex *regex_t,const char *string);
-void slapt_free_regex(slapt_regex *regex_t);
+slapt_regex_t *slapt_init_regex(const char *regex_string);
+void slapt_execute_regex(slapt_regex_t *regex_t,const char *string);
+void slapt_free_regex(slapt_regex_t *regex_t);
 void slapt_create_dir_structure(const char *dir_name);
 /* generate an md5sum of filehandle */
 void slapt_gen_md5_sum_of_file(FILE *f,char *result_sum);

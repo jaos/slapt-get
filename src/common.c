@@ -34,10 +34,12 @@ FILE *slapt_open_file(const char *file_name,const char *mode)
 }
 
 /* initialize regex structure and compilie the regular expression */
-int slapt_init_regex(slapt_regex *regex_t, const char *regex_string)
+slapt_regex_t *slapt_init_regex(const char *regex_string)
 {
+  slapt_regex_t *regex_t = slapt_malloc(sizeof *regex_t);
 
   regex_t->nmatch = SLAPT_MAX_REGEX_PARTS;
+  regex_t->reg_return = -1;
 
   /* compile our regex */
   regex_t->reg_return = regcomp(&regex_t->regex, regex_string,
@@ -48,29 +50,31 @@ int slapt_init_regex(slapt_regex *regex_t, const char *regex_string)
     size_t errbuf_size = 1024;
     fprintf(stderr, gettext("Failed to compile regex\n"));
 
-    if ( (regerror_size =
-    regerror(regex_t->reg_return, &regex_t->regex,errbuf,errbuf_size)) ) {
+    if ( (regerror_size = regerror(regex_t->reg_return,
+                                   &regex_t->regex,errbuf,errbuf_size)) ) {
       printf(gettext("Regex Error: %s\n"),errbuf);
     }
-    return -1;
+    free(regex_t);
+    return NULL;
   }
 
-  return 0;
+  return regex_t;
 }
 
 /*
   execute the regular expression and set the return code
   in the passed in structure
  */
-void slapt_execute_regex(slapt_regex *regex_t,const char *string)
+void slapt_execute_regex(slapt_regex_t *regex_t,const char *string)
 {
   regex_t->reg_return = regexec(&regex_t->regex, string,
                                 regex_t->nmatch,regex_t->pmatch,0);
 }
 
-void slapt_free_regex(slapt_regex *regex_t)
+void slapt_free_regex(slapt_regex_t *regex_t)
 {
   regfree(&regex_t->regex);
+  free(regex_t);
 }
 
 void slapt_gen_md5_sum_of_file(FILE *f,char *result_sum)
