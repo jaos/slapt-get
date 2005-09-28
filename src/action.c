@@ -139,7 +139,9 @@ void slapt_pkg_action_install(const slapt_rc_config *global_config,
 
   slapt_free_regex(&pkg_regex);
 
-  slapt_handle_transaction(global_config,tran);
+  if (slapt_handle_transaction(global_config,tran) != 0) {
+    exit(EXIT_FAILURE);
+  }
 
   slapt_free_transaction(tran);
   return;
@@ -287,7 +289,9 @@ void slapt_pkg_action_remove(const slapt_rc_config *global_config,
   slapt_free_pkg_list(avail_pkgs);
   slapt_free_regex(&pkg_regex);
 
-  slapt_handle_transaction(global_config,tran);
+  if (slapt_handle_transaction(global_config,tran) != 0) {
+    exit(EXIT_FAILURE);
+  }
 
   slapt_free_transaction(tran);
 }
@@ -649,7 +653,9 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
   slapt_free_pkg_list(installed_pkgs);
   slapt_free_pkg_list(avail_pkgs);
 
-  slapt_handle_transaction(global_config,tran);
+  if (slapt_handle_transaction(global_config,tran) != 0) {
+    exit(EXIT_FAILURE);
+  }
 
   slapt_free_transaction(tran);
 }
