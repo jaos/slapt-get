@@ -26,8 +26,9 @@ static void queue_free(slapt_queue_t *t);
 static void add_suggestion(slapt_transaction_t *tran, slapt_pkg_info_t *pkg);
 static int disk_space(const slapt_rc_config *global_config,int space_needed);
 
-void slapt_init_transaction(slapt_transaction_t *tran)
+slapt_transaction_t *slapt_init_transaction(void)
 {
+  slapt_transaction_t *tran = malloc(sizeof *tran);
 
   tran->install_pkgs = slapt_init_pkg_list();
   tran->install_pkgs->free_pkgs = SLAPT_TRUE;
@@ -52,6 +53,7 @@ void slapt_init_transaction(slapt_transaction_t *tran)
   tran->conflict_err = slapt_init_pkg_err_list();
   tran->missing_err = slapt_init_pkg_err_list();
 
+  return tran;
 }
 
 int slapt_handle_transaction (const slapt_rc_config *global_config,
@@ -668,6 +670,7 @@ void slapt_free_transaction(slapt_transaction_t *tran)
   slapt_free_pkg_err_list(tran->conflict_err);
   slapt_free_pkg_err_list(tran->missing_err);
 
+  free(tran);
 }
 
 slapt_transaction_t *slapt_remove_from_transaction(slapt_transaction_t *tran,
@@ -685,7 +688,7 @@ slapt_transaction_t *slapt_remove_from_transaction(slapt_transaction_t *tran,
   new_tran->remove_pkgs = slapt_malloc(sizeof *new_tran->remove_pkgs);
   new_tran->upgrade_pkgs = slapt_malloc(sizeof *new_tran->upgrade_pkgs);
   new_tran->exclude_pkgs = slapt_malloc(sizeof *new_tran->exclude_pkgs);
-  slapt_init_transaction(new_tran);
+  new_tran = slapt_init_transaction();
 
   for (i = 0;i < tran->install_pkgs->pkg_count; i++) {
 

@@ -1,5 +1,6 @@
 
 0.9.10d Sep 28, 2005
+ * changed slapt_init_transaction() to return slapt_transaction_t *
  * added libslapt.3 manpage
  * added reference to Stefano Stabellini's PACKAGES.TXT with dependency
    information to FAQ #10.

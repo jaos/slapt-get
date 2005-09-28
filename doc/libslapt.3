@@ -375,7 +375,7 @@ Adding, removing, and upgrading packages can be wrapped in a \fIslapt_transactio
     slapt_queue_t *queue;
   } slapt_transaction_t;
 .sp
-.B "void slapt_init_transaction(slapt_transaction_t *);"
+.B "slapt_transaction_t *slapt_init_transaction(void);"
 .B "void slapt_free_transaction(slapt_transaction_t *);"
 .B "int slapt_handle_transaction(const slapt_rc_config *,slapt_transaction_t *);"
 .sp

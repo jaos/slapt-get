@@ -32,7 +32,7 @@ typedef struct {
 } slapt_transaction_t;
 
 /* fill in transaction structure with defaults */
-void slapt_init_transaction(slapt_transaction_t *);
+slapt_transaction_t *slapt_init_transaction(void);
 /*
   download and install/remove/upgrade packages as defined in the transaction
   returns 0 on success
