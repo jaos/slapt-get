@@ -28,7 +28,7 @@ static int disk_space(const slapt_rc_config *global_config,int space_needed);
 
 slapt_transaction_t *slapt_init_transaction(void)
 {
-  slapt_transaction_t *tran = malloc(sizeof *tran);
+  slapt_transaction_t *tran = slapt_malloc(sizeof *tran);
 
   tran->install_pkgs = slapt_init_pkg_list();
   tran->install_pkgs->free_pkgs = SLAPT_TRUE;
