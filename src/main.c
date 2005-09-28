@@ -247,12 +247,8 @@ int main( int argc, char *argv[] )
     case INSTALL:
       paa = slapt_init_pkg_action_args((argc - optind));
       while (optind < argc) {
-        paa->pkgs[paa->count] = slapt_malloc(
-          ( strlen(argv[optind]) + 1 ) * sizeof *paa->pkgs[paa->count]
-        );
-        memcpy(paa->pkgs[paa->count],argv[optind],strlen(argv[optind]) + 1);
+        slapt_add_pkg_action_args(paa,argv[optind]);
         ++optind;
-        ++paa->count;
       }
       slapt_pkg_action_install( global_config, paa );
       slapt_free_pkg_action_args(paa);
@@ -280,12 +276,7 @@ int main( int argc, char *argv[] )
         paa = slapt_init_pkg_action_args(set_pkgs->pkg_count);
 
         for (set_i = 0; set_i < set_pkgs->pkg_count; ++set_i) {
-          paa->pkgs[paa->count] = slapt_malloc(
-            ( strlen(set_pkgs->pkgs[set_i]->name) + 1 ) * sizeof *paa->pkgs[paa->count]
-          );
-          memcpy(paa->pkgs[paa->count],set_pkgs->pkgs[set_i]->name,
-                 strlen(set_pkgs->pkgs[set_i]->name) + 1);
-          ++paa->count;
+          slapt_add_pkg_action_args(paa,set_pkgs->pkgs[set_i]->name);
         }
 
         slapt_free_pkg_list(set_pkgs);
@@ -299,12 +290,8 @@ int main( int argc, char *argv[] )
     case REMOVE:
       paa = slapt_init_pkg_action_args((argc - optind));
       while (optind < argc) {
-        paa->pkgs[paa->count] = slapt_malloc(
-          ( strlen(argv[optind]) + 1 ) * sizeof *paa->pkgs[paa->count]
-        );
-        memcpy(paa->pkgs[paa->count],argv[optind],strlen(argv[optind]) + 1);
+        slapt_add_pkg_action_args(paa,argv[optind]);
         ++optind;
-        ++paa->count;
       }
       slapt_pkg_action_remove( global_config, paa );
       slapt_free_pkg_action_args(paa);

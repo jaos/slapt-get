@@ -677,6 +677,17 @@ slapt_pkg_action_args_t *slapt_init_pkg_action_args(int arg_count)
   return paa;
 }
 
+slapt_pkg_action_args_t *slapt_add_pkg_action_args(slapt_pkg_action_args_t *p,
+                                                   const char *arg)
+{
+  p->pkgs[p->count] = slapt_malloc(
+    ( strlen(arg) + 1 ) * sizeof *p->pkgs[p->count]
+  );
+  memcpy(p->pkgs[p->count],arg,strlen(arg) + 1);
+  ++p->count;
+  return p;
+}
+
 void slapt_free_pkg_action_args(slapt_pkg_action_args_t *paa)
 {
   unsigned int i;

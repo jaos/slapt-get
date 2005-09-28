@@ -5,6 +5,8 @@ typedef struct {
 } slapt_pkg_action_args_t;
 
 slapt_pkg_action_args_t *slapt_init_pkg_action_args(int arg_count);
+slapt_pkg_action_args_t *slapt_add_pkg_action_args(slapt_pkg_action_args_t *p,
+                                                   const char *arg);
 void slapt_free_pkg_action_args(slapt_pkg_action_args_t *paa);
 
 void slapt_pkg_action_install(const slapt_rc_config *global_config,
