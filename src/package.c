@@ -572,7 +572,7 @@ struct slapt_pkg_list *slapt_get_installed_pkgs(void)
     */
     pkg_f = slapt_open_file(pkg_f_name,"r");
     if (pkg_f == NULL)
-      exit(1);
+      exit(EXIT_FAILURE);
 
     /* used with mmap */
     if (stat(pkg_f_name,&stat_buf) == -1) {
@@ -581,7 +581,7 @@ struct slapt_pkg_list *slapt_get_installed_pkgs(void)
         perror(pkg_f_name);
 
       fprintf(stderr,"stat failed: %s\n",pkg_f_name);
-      exit(1);
+      exit(EXIT_FAILURE);
     }
 
     /* don't mmap empty files */
@@ -605,7 +605,7 @@ struct slapt_pkg_list *slapt_get_installed_pkgs(void)
         perror(pkg_f_name);
 
       fprintf(stderr,"mmap failed: %s\n",pkg_f_name);
-      exit(1);
+      exit(EXIT_FAILURE);
     }
 
     fclose(pkg_f);
@@ -704,7 +704,7 @@ struct slapt_pkg_list *slapt_get_installed_pkgs(void)
         perror(pkg_f_name);
 
       fprintf(stderr,"munmap failed: %s\n",pkg_f_name);
-      exit(1);
+      exit(EXIT_FAILURE);
     }
     free(pkg_f_name);
 
@@ -1211,7 +1211,7 @@ static struct slapt_pkg_version_parts *break_down_pkg_version(const char *versio
     tmp = realloc(pvp->parts, sizeof *pvp->parts * (pvp->count + 1) );
     if (tmp == NULL) {
       fprintf(stderr,gettext("Failed to realloc %s\n"),"pvp->parts");
-      exit(1);
+      exit(EXIT_FAILURE);
     }
     pvp->parts = tmp;
 
@@ -1940,7 +1940,7 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
     FILE *pkg_list_fh;
 
     if ((pkg_list_fh = slapt_open_file(SLAPT_PKG_LIST_L,"w+")) == NULL)
-      exit(1);
+      exit(EXIT_FAILURE);
 
     slapt_write_pkg_data(NULL,pkg_list_fh,new_pkgs);
 
@@ -1978,7 +1978,7 @@ void slapt_add_pkg_to_pkg_list(struct slapt_pkg_list *list,
   );
   if (realloc_tmp == NULL) {
     fprintf(stderr,gettext("Failed to realloc %s\n"),"pkgs");
-    exit(1);
+    exit(EXIT_FAILURE);
   }
 
   list->pkgs = realloc_tmp;
@@ -2501,10 +2501,10 @@ static FILE *slapt_gunzip_file (const char *file_name,FILE *dest_file)
 
   if (dest_file == NULL)
     if ((dest_file = tmpfile()) == NULL)
-      exit(1);
+      exit(EXIT_FAILURE);
 
   if ((data = gzopen(file_name,"rb")) == NULL) 
-    exit(1);
+    exit(EXIT_FAILURE);
 
   while (gzgets(data,buffer,SLAPT_MAX_ZLIB_BUFFER) != Z_NULL) {
     fprintf(dest_file,"%s",buffer);
@@ -2531,7 +2531,7 @@ struct slapt_pkg_list *slapt_get_pkg_source_packages (const slapt_rc_config *glo
       FILE *tmp_pkg_f = NULL;
 
       if ((tmp_pkg_f = tmpfile()) == NULL) 
-        exit(1);
+        exit(EXIT_FAILURE);
 
       slapt_gunzip_file(pkg_filename,tmp_pkg_f);
 
@@ -2563,7 +2563,7 @@ struct slapt_pkg_list *slapt_get_pkg_source_packages (const slapt_rc_config *glo
         printf("\n");
 
       if ((tmp_pkg_f = slapt_open_file(pkg_filename,"w+b")) == NULL)
-        exit(1);
+        exit(EXIT_FAILURE);
 
       /* retrieve the compressed package data */
       if (slapt_get_mirror_data_from_source(tmp_pkg_f,global_config,url,
@@ -2573,7 +2573,7 @@ struct slapt_pkg_list *slapt_get_pkg_source_packages (const slapt_rc_config *glo
         fclose(tmp_pkg_f);
 
         if ((tmp_pkg_uncompressed_f = tmpfile()) == NULL)
-          exit(1);
+          exit(EXIT_FAILURE);
 
         slapt_gunzip_file(pkg_filename,tmp_pkg_uncompressed_f);
 
@@ -2632,7 +2632,7 @@ struct slapt_pkg_list *slapt_get_pkg_source_packages (const slapt_rc_config *glo
         strcmp(pkg_head,pkg_local_head) == 0) {
       FILE *tmp_pkg_f = NULL;
       if ((tmp_pkg_f = slapt_open_file(pkg_filename,"r")) == NULL) 
-        exit(1);
+        exit(EXIT_FAILURE);
 
       available_pkgs = slapt_parse_packages_txt(tmp_pkg_f);
       fclose(tmp_pkg_f);
@@ -2648,7 +2648,7 @@ struct slapt_pkg_list *slapt_get_pkg_source_packages (const slapt_rc_config *glo
         printf("\n");
 
       if ((tmp_pkg_f = slapt_open_file(pkg_filename,"w+b")) == NULL)
-        exit(1);
+        exit(EXIT_FAILURE);
 
       /* retrieve the uncompressed package data */
       if (slapt_get_mirror_data_from_source(tmp_pkg_f,global_config,url,
@@ -2717,7 +2717,7 @@ struct slapt_pkg_list *slapt_get_pkg_source_patches (const slapt_rc_config *glob
       FILE *tmp_patch_f = NULL;
 
       if ((tmp_patch_f = tmpfile()) == NULL)
-        exit(1);
+        exit(EXIT_FAILURE);
 
       slapt_gunzip_file(patch_filename,tmp_patch_f);
 
@@ -2740,7 +2740,7 @@ struct slapt_pkg_list *slapt_get_pkg_source_patches (const slapt_rc_config *glob
         fclose(tmp_patch_f);
 
         if ((tmp_patch_uncompressed_f = tmpfile()) == NULL)
-          exit(1);
+          exit(EXIT_FAILURE);
 
         slapt_gunzip_file(patch_filename,tmp_patch_uncompressed_f);
 
@@ -2785,7 +2785,7 @@ struct slapt_pkg_list *slapt_get_pkg_source_patches (const slapt_rc_config *glob
       FILE *tmp_patch_f = NULL;
 
       if ((tmp_patch_f = slapt_open_file(patch_filename,"r")) == NULL)
-        exit(1);
+        exit(EXIT_FAILURE);
 
       patch_pkgs = slapt_parse_packages_txt(tmp_patch_f);
 
@@ -2847,7 +2847,7 @@ FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,
     if (local_head != NULL && strcmp(checksum_head,local_head) == 0) {
 
       if ((tmp_checksum_f = tmpfile()) == NULL)
-        exit(1);
+        exit(EXIT_FAILURE);
 
       slapt_gunzip_file(filename,tmp_checksum_f);
 
@@ -2858,7 +2858,7 @@ FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,
       FILE *working_checksum_f = NULL;
 
       if ((working_checksum_f = slapt_open_file(filename,"w+b")) == NULL)
-        exit(1);
+        exit(EXIT_FAILURE);
 
       if (slapt_get_mirror_data_from_source(working_checksum_f,global_config,url,
                                       SLAPT_CHECKSUM_FILE_GZ) == 0) {
@@ -2873,7 +2873,7 @@ FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,
         fclose(working_checksum_f);
 
         if ((tmp_checksum_f = tmpfile()) == NULL)
-          exit(1);
+          exit(EXIT_FAILURE);
 
         slapt_gunzip_file(filename,tmp_checksum_f);
 
@@ -2911,14 +2911,14 @@ FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,
     if (checksum_head != NULL && local_head != NULL &&
         strcmp(checksum_head,local_head) == 0) {
       if ((tmp_checksum_f = slapt_open_file(filename,"r")) == NULL)
-        exit(1);
+        exit(EXIT_FAILURE);
 
       if (global_config->progress_cb == NULL)
         printf(gettext("Cached\n"));
 
     } else {
       if ((tmp_checksum_f = slapt_open_file(filename,"w+b")) == NULL)
-        exit(1);
+        exit(EXIT_FAILURE);
 
       if (slapt_get_mirror_data_from_source(tmp_checksum_f,global_config,url,
                                             SLAPT_CHECKSUM_FILE) == 0) {

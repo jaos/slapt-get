@@ -235,7 +235,7 @@ int slapt_handle_transaction (const slapt_rc_config *global_config,
         gettext("You don't have enough free space in %s\n"),
         global_config->working_dir
      );
-      exit(1);
+      exit(EXIT_FAILURE);
     }
 
     if (already_download_size > 0) {
@@ -352,7 +352,7 @@ int slapt_handle_transaction (const slapt_rc_config *global_config,
       }
     }
     if (failed == 1)
-      exit(1);
+      exit(EXIT_FAILURE);
   }
 
   for (i = 0; i < tran->upgrade_pkgs->pkg_count;i++) {
@@ -366,7 +366,7 @@ int slapt_handle_transaction (const slapt_rc_config *global_config,
       }
     }
     if (failed == 1)
-      exit(1);
+      exit(EXIT_FAILURE);
   }
 
   printf("\n");
@@ -376,7 +376,7 @@ int slapt_handle_transaction (const slapt_rc_config *global_config,
 
     for (i = 0; i < tran->remove_pkgs->pkg_count;i++) {
       if (slapt_remove_pkg(global_config,tran->remove_pkgs->pkgs[i]) == -1) {
-        exit(1);
+        exit(EXIT_FAILURE);
       }
     }
 
@@ -388,7 +388,7 @@ int slapt_handle_transaction (const slapt_rc_config *global_config,
                tran->queue->pkgs[i]->pkg.i->version);
         if (slapt_install_pkg(global_config,
             tran->queue->pkgs[i]->pkg.i) == -1) {
-          exit(1);
+          exit(EXIT_FAILURE);
         }
       } else if (tran->queue->pkgs[i]->type == UPGRADE) {
         printf(gettext("Preparing to replace %s-%s with %s-%s\n"),
@@ -398,7 +398,7 @@ int slapt_handle_transaction (const slapt_rc_config *global_config,
                tran->queue->pkgs[i]->pkg.u->upgrade->version);
         if (slapt_upgrade_pkg(global_config,
             tran->queue->pkgs[i]->pkg.u->upgrade) == -1) {
-          exit(1);
+          exit(EXIT_FAILURE);
         }
       }
 

@@ -229,7 +229,7 @@ int slapt_download_pkg(const slapt_rc_config *global_config,
       if (errno)
         perror(file_name);
 
-      exit(1);
+      exit(EXIT_FAILURE);
     }
     dl_total_size = pkg->size_c;
     f_size = 0;
@@ -283,7 +283,7 @@ int slapt_download_pkg(const slapt_rc_config *global_config,
       if (errno)
         perror(file_name);
 
-      exit(1);
+      exit(EXIT_FAILURE);
     }
 
     free(file_name);
@@ -380,7 +380,7 @@ void slapt_write_head_cache(const char *cache, const char *cache_filename)
 
   /* store the last modified date */
   if ((tmp = slapt_open_file(head_filename,"w")) == NULL)
-    exit(1);
+    exit(EXIT_FAILURE);
 
   fprintf(tmp,"%s",cache);
   fclose(tmp);
@@ -403,7 +403,7 @@ char *slapt_read_head_cache(const char *cache_filename)
   free(head_filename);
 
   if (tmp == NULL)
-    exit(1);
+    exit(EXIT_FAILURE);
 
   rewind(tmp);
   gl_return_size = getline(&getline_buffer, &gl_n, tmp);
@@ -441,7 +441,7 @@ void slapt_clear_head_cache(const char *cache_filename)
   tmp = slapt_open_file(head_filename,"w");
 
   if (tmp == NULL)
-    exit(1);
+    exit(EXIT_FAILURE);
 
   fclose(tmp);
   free(head_filename);

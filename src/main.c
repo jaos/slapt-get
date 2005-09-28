@@ -77,13 +77,13 @@ int main( int argc, char *argv[] )
 
   if ( argc < 2 ) {
     usage();
-    exit(1);
+    exit(EXIT_FAILURE);
   }
 
   /* load up the configuration file */
   global_config = slapt_read_rc_config(RC_LOCATION);
   if ( global_config == NULL ) {
-    exit(1);
+    exit(EXIT_FAILURE);
   }
   curl_global_init(CURL_GLOBAL_ALL);
 
@@ -146,7 +146,7 @@ int main( int argc, char *argv[] )
         usage();
         slapt_free_rc_config(global_config);
         curl_global_cleanup();
-        exit(1);
+        exit(EXIT_FAILURE);
       case SLAPT_IGNORE_DEP_OPT: /* ignore-dep */
         global_config->ignore_dep = SLAPT_TRUE;
         break;
@@ -166,7 +166,7 @@ int main( int argc, char *argv[] )
           if ( global_config == NULL ) {
             slapt_free_rc_config(tmp_gc);
             curl_global_cleanup();
-            exit(1);
+            exit(EXIT_FAILURE);
           }
           /* preserve existing command line options */
           global_config->download_only = tmp_gc->download_only;
@@ -205,7 +205,7 @@ int main( int argc, char *argv[] )
         usage();
         slapt_free_rc_config(global_config);
         curl_global_cleanup();
-        exit(1);
+        exit(EXIT_FAILURE);
     }
   }
 
@@ -229,7 +229,7 @@ int main( int argc, char *argv[] )
     usage();
     slapt_free_rc_config(global_config);
     curl_global_cleanup();
-    exit(1);
+    exit(EXIT_FAILURE);
   }
 
   /* create the working directory if needed */
@@ -241,7 +241,7 @@ int main( int argc, char *argv[] )
       if ( slapt_update_pkg_cache(global_config) == 1 ) {
         slapt_free_rc_config(global_config);
         curl_global_cleanup();
-        exit(1);
+        exit(EXIT_FAILURE);
       }
       break;
     case INSTALL:

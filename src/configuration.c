@@ -56,7 +56,7 @@ slapt_rc_config *slapt_read_rc_config(const char *file_name)
   rc = slapt_open_file(file_name,"r");
 
   if ( rc == NULL )
-    exit(1);
+    exit(EXIT_FAILURE);
 
   while ( (g_size = getline(&getline_buffer,&gb_length,rc) ) != EOF ) {
     getline_buffer[g_size - 1] = '\0';
@@ -135,7 +135,7 @@ void slapt_working_dir_init(const slapt_rc_config *global_config)
       if ( errno )
         perror(global_config->working_dir);
 
-      exit(1);
+      exit(EXIT_FAILURE);
     }
   }
   closedir(working_dir);
@@ -148,7 +148,7 @@ void slapt_working_dir_init(const slapt_rc_config *global_config)
     fprintf(stderr,
       gettext("Please update permissions on %s or run with appropriate privileges\n"),
       global_config->working_dir);
-    exit(1);
+    exit(EXIT_FAILURE);
   }
 
   return;

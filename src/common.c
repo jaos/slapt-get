@@ -262,7 +262,7 @@ __inline void *slapt_malloc(size_t s)
     if ( errno )
       perror("malloc");
 
-    exit(1);
+    exit(EXIT_FAILURE);
   }
   return p;
 }
@@ -276,7 +276,7 @@ __inline void *slapt_calloc(size_t n,size_t s)
     if ( errno )
       perror("calloc");
 
-    exit(1);
+    exit(EXIT_FAILURE);
   }
   return p;
 }

@@ -35,7 +35,7 @@ void slapt_pkg_action_install(const slapt_rc_config *global_config,
   avail_pkgs = slapt_get_available_pkgs();
 
   if ( avail_pkgs == NULL || avail_pkgs->pkg_count == 0 )
-    exit(1);
+    exit(EXIT_FAILURE);
 
   printf( gettext("Done\n") );
 
@@ -363,7 +363,7 @@ void slapt_pkg_action_show(const char *pkg_name)
   installed_pkgs = slapt_get_installed_pkgs();
 
   if ( avail_pkgs == NULL || installed_pkgs == NULL )
-    exit(1);
+    exit(EXIT_FAILURE);
 
   slapt_init_regex(&pkg_regex,SLAPT_PKG_LOG_PATTERN);
 
@@ -442,10 +442,10 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
   avail_pkgs = slapt_get_available_pkgs();
 
   if ( avail_pkgs == NULL || installed_pkgs == NULL )
-    exit(1);
+    exit(EXIT_FAILURE);
 
   if ( avail_pkgs->pkg_count == 0 )
-    exit(1);
+    exit(EXIT_FAILURE);
 
   printf(gettext("Done\n"));
   slapt_init_transaction(&tran);
