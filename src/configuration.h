@@ -57,6 +57,7 @@ void slapt_free_rc_config(slapt_rc_config *global_config);
   commonly called with global_config->exclude_list
 */
 void slapt_add_exclude(struct slapt_exclude_list *list,const char *e);
+void slapt_remove_exclude(struct slapt_exclude_list *list,const char *e);
 
 /*
   add or remove a package source url to the source list.

@@ -1,5 +1,6 @@
 
 0.9.10d Sep 28, 2005
+ * added slapt_remove_exclude() to compliment slapt_add_exclude()
  * changed slapt_init_regex() to return slapt_regex_t *
  * changed slapt_init_transaction() to return slapt_transaction_t *
  * added libslapt.3 manpage

@@ -105,7 +105,7 @@ The \fIstruct slapt_source_list\fP stores the package sources.  Sources can be a
 .fi
 .sp
 .TP
-The \fIstruct slapt_exclude_list\fP stores the package excludes.  Excludes can be added with \fIslapt_add_exclude\fP().  Typically, \fIslapt_rc_config->excludes\fP is passed as the first argument, but it could be any pointer to a \fIstruct slapt_exclude_list\fP.
+The \fIstruct slapt_exclude_list\fP stores the package excludes.  Excludes can be added and removed with \fIslapt_add_exclude\fP() and \fIslapt_remove_exclude\fP().  Typically, \fIslapt_rc_config->excludes\fP is passed as the first argument, but it could be any pointer to a \fIstruct slapt_exclude_list\fP.
 .sp
 .nf
   struct slapt_exclude_list {
@@ -114,6 +114,7 @@ The \fIstruct slapt_exclude_list\fP stores the package excludes.  Excludes can b
   };
 .sp
 .B "void slapt_add_exclude(struct slapt_exclude_list *list,const char *e);"
+.B "void slapt_remove_exclude(struct slapt_exclude_list *list,const char *e);"
 .fi
 .sp
 .TP

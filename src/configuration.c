@@ -239,6 +239,38 @@ void slapt_add_exclude(struct slapt_exclude_list *list,const char *e)
 
 }
 
+void slapt_remove_exclude(struct slapt_exclude_list *list,const char *e)
+{
+  unsigned int i = 0;
+  char *tmp = NULL;
+
+  while (i < list->count) {
+    if ( strcmp(e,list->excludes[i]) == 0 && tmp == NULL ) {
+      tmp = list->excludes[i];
+    }
+    if ( tmp != NULL && (i+1 < list->count) ) {
+      list->excludes[i] = list->excludes[i + 1];
+    }
+    ++i;
+  }
+  if ( tmp != NULL ) {
+    char **realloc_tmp;
+    int count = list->count - 1;
+    if ( count < 1 )
+      count = 1;
+
+    free(tmp);
+
+    realloc_tmp = realloc(list->excludes, sizeof *list->excludes * count);
+    if ( realloc_tmp != NULL ) {
+      list->excludes = realloc_tmp;
+      if (list->count > 0)
+        --list->count;
+    }
+
+  }
+}
+
 void slapt_add_source(struct slapt_source_list *list,const char *s)
 {
   char **realloc_tmp;
