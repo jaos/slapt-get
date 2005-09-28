@@ -551,8 +551,8 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
         */
         if (slapt_get_newest_pkg(avail_pkgs,
                                  installed_pkgs->pkgs[r]->name) == NULL) {
-            struct    slapt_pkg_list  *deps;
-            unsigned  int       c;
+            struct slapt_pkg_list *deps;
+            unsigned int c;
             /*
               any packages that require this package we are about to remove
               should be scheduled to remove as well

@@ -25,7 +25,7 @@ FILE *slapt_open_file(const char *file_name,const char *mode)
   if ( (fh = fopen(file_name,mode)) == NULL ) {
     fprintf(stderr,gettext("Failed to open %s\n"),file_name);
 
-    if ( errno )
+    if (errno)
       perror(file_name);
 
     return NULL;
@@ -51,7 +51,7 @@ slapt_regex_t *slapt_init_regex(const char *regex_string)
     fprintf(stderr, gettext("Failed to compile regex\n"));
 
     if ( (regerror_size = regerror(regex_t->reg_return,
-                                   &regex_t->regex,errbuf,errbuf_size)) ) {
+                                   &regex_t->regex,errbuf,errbuf_size)) != 0 ) {
       printf(gettext("Regex Error: %s\n"),errbuf);
     }
     free(regex_t);
