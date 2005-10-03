@@ -1,4 +1,7 @@
 
+0.9.10e Oct 03, 2005
+ * updated Portuguese_Portugal translation from Miguel
+
 0.9.10d Oct 02, 2005
  * added slapt_remove_exclude() to compliment slapt_add_exclude()
  * changed slapt_init_regex() to return slapt_regex_t *
