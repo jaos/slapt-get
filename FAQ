@@ -493,10 +493,10 @@ Frequently Asked Questions:
 22. How can I get slapt-get to speak in my native tongue?
 
  GNU gettext is used to extract all translatable strings from the source.
- Please look in the po/ directory of the slapt-get source, or in
- /usr/share/slapt-get/locales.  Copy the slapt-get.pot file to a new file named
- with your native language abbreviation, ending in .po.  For example, to
- translate to German, download the current translation file available here:
+ Please look in the po/ directory of the slapt-get source.  Copy the
+ slapt-get.pot file to a new file named with your native language abbreviation,
+ ending in .po.  For example, to translate to German, download the current
+ translation file available here:
  http://software.jaos.org/BUILD/slapt-get/po/slapt-get.pot
 
  $ cp slapt-get.pot de.po
@@ -559,7 +559,7 @@ Frequently Asked Questions:
 
  The last few series of releases (0.9.6x and 0.9.7x) have supported
  transactions so that nothing happens unless everything checks out properly.
- The transaction is built up of packages to install, upgrade and remove.	The
+ The transaction is built up of packages to install, upgrade and remove. The
  transaction status will be reported to the user to be confirmed (unless the
  user passes in --no-prompt on the command line).  After this confirmation, all
  packages will be downloaded before anything else happens.  If anything fails
@@ -568,7 +568,9 @@ Frequently Asked Questions:
  packages being installed/upgraded share files with the packages to be removed).
  Next, all packages to be installed (new installs) are installed.  This should
  satisfy dependencies of the packages to be upgraded, which follow after the new
- installs.  This helps keep your system in a consistent state.
+ installs.  The order of package dependencies, where available, is honored. 
+ These dependencies are installed prior to the packages that require them. 
+ This helps keep your system in a consistent state.
 
 
 27. How does the package version comparison algorithm work?

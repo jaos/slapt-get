@@ -507,10 +507,10 @@
 <a name="slgFAQ22"><b>22. How can I get slapt-get to speak in my native tongue?</b></a>
 
  GNU gettext is used to extract all translatable strings from the source.
- Please look in the po/ directory of the slapt-get source, or in
- /usr/share/slapt-get/locales.  Copy the slapt-get.pot file to a new file named
- with your native language abbreviation, ending in .po.  For example, to
- translate to German, download the current translation file available here:
+ Please look in the po/ directory of the slapt-get source.  Copy the
+ slapt-get.pot file to a new file named with your native language abbreviation,
+ ending in .po.  For example, to translate to German, download the current
+ translation file available here:
  http://software.jaos.org/BUILD/slapt-get/po/slapt-get.pot
 
  $ cp slapt-get.pot de.po
@@ -582,7 +582,9 @@
  packages being installed/upgraded share files with the packages to be removed).
  Next, all packages to be installed (new installs) are installed.  This should
  satisfy dependencies of the packages to be upgraded, which follow after the new
- installs.  This helps keep your system in a consistent state.
+ installs.  The order of package dependencies, where available, is honored. 
+ These dependencies are installed prior to the packages that require them. 
+ This helps keep your system in a consistent state.
 
 
 <a name="slgFAQ27"><b>27. How does the package version comparison algorithm work?</b></a>
