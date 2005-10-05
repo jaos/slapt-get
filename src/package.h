@@ -33,18 +33,18 @@
 #define SLAPT_MAX_ZLIB_BUFFER 1024
 
 typedef struct {
+  char md5[SLAPT_MD5_STR_LEN];
   char *name;
   char *version;
   char *mirror;
   char *location;
-  unsigned int size_c;
-  unsigned int size_u;
   char *description;
   char *required;
   char *conflicts;
   char *suggests;
-  char md5[SLAPT_MD5_STR_LEN];
   char *file_ext;
+  unsigned int size_c;
+  unsigned int size_u;
 } slapt_pkg_info_t;
 
 struct slapt_pkg_list {
@@ -74,8 +74,8 @@ typedef struct {
 } slapt_pkg_err_t;
 
 struct slapt_pkg_err_list {
-  unsigned int err_count;
   slapt_pkg_err_t **errs;
+  unsigned int err_count;
 };
 
 /* returns an empty package structure */

@@ -45,7 +45,7 @@ void slapt_pkg_action_install(const slapt_rc_config *global_config,
     exit(EXIT_FAILURE);
   }
 
-  for (i = 0; i < action_args->count; i++) {
+  for (i = 0; i < action_args->count; ++i) {
     slapt_pkg_info_t *pkg = NULL;
     slapt_pkg_info_t *installed_pkg = NULL;
 
@@ -160,7 +160,7 @@ void slapt_pkg_action_list(const int show)
   installed_pkgs = slapt_get_installed_pkgs();
 
   if ( show == LIST || show == AVAILABLE ) {
-    for (i = 0; i < pkgs->pkg_count; i++ ) {
+    for (i = 0; i < pkgs->pkg_count; ++i ) {
       unsigned int bool_installed = 0;
       char *short_description = slapt_gen_short_pkg_description(pkgs->pkgs[i]);
 
@@ -232,7 +232,7 @@ void slapt_pkg_action_remove(const slapt_rc_config *global_config,
     exit(EXIT_FAILURE);
   }
 
-  for (i = 0; i < action_args->count; i++) {
+  for (i = 0; i < action_args->count; ++i) {
     unsigned int c;
     struct slapt_pkg_list *deps = NULL;
     slapt_pkg_info_t *pkg = NULL;
@@ -274,7 +274,7 @@ void slapt_pkg_action_remove(const slapt_rc_config *global_config,
 
     deps = slapt_is_required_by(global_config,avail_pkgs,pkg);
 
-    for (c = 0; c < deps->pkg_count;c++) {
+    for (c = 0; c < deps->pkg_count; ++c) {
 
       if ( slapt_get_exact_pkg(installed_pkgs,deps->pkgs[c]->name,
       deps->pkgs[c]->version) != NULL ) {
@@ -464,7 +464,7 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
     struct slapt_pkg_list *matches =
       slapt_search_pkg_list(avail_pkgs,SLAPT_SLACK_BASE_SET_REGEX);
 
-    for (i = 0; i < matches->pkg_count; i++) {
+    for (i = 0; i < matches->pkg_count; ++i) {
       slapt_pkg_info_t *installed_pkg = NULL;
       slapt_pkg_info_t *newer_avail_pkg = NULL;
       slapt_pkg_info_t *slapt_upgrade_pkg = NULL;
@@ -543,7 +543,7 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
     if ( global_config->remove_obsolete == SLAPT_TRUE ) {
       unsigned int r;
 
-      for (r = 0; r < installed_pkgs->pkg_count; r++) {
+      for (r = 0; r < installed_pkgs->pkg_count; ++r) {
 
         /*
            * if we can't find the installed package in our available pkg list,
@@ -559,7 +559,7 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
             */
             deps = slapt_is_required_by(global_config,avail_pkgs,
                                         installed_pkgs->pkgs[r]);
-            for (c = 0; c < deps->pkg_count; c++ ) {
+            for (c = 0; c < deps->pkg_count; ++c ) {
               if ( slapt_get_exact_pkg(avail_pkgs,deps->pkgs[c]->name,
               deps->pkgs[c]->version) == NULL ) {
                 if ( slapt_is_excluded(global_config,deps->pkgs[c]) != 1 ) {
@@ -589,7 +589,7 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
     
   }
 
-  for (i = 0; i < installed_pkgs->pkg_count;i++) {
+  for (i = 0; i < installed_pkgs->pkg_count; ++i) {
     slapt_pkg_info_t *update_pkg = NULL;
     slapt_pkg_info_t *newer_installed_pkg = NULL;
 
@@ -692,7 +692,7 @@ void slapt_free_pkg_action_args(slapt_pkg_action_args_t *paa)
 {
   unsigned int i;
 
-  for (i = 0; i < paa->count; i++) {
+  for (i = 0; i < paa->count; ++i) {
     free(paa->pkgs[i]);
   }
 

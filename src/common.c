@@ -105,7 +105,7 @@ void slapt_gen_md5_sum_of_file(FILE *f,char *result_sum)
 
   result_sum[0] = '\0';
 
-  for (i = 0; i < md_len; i++) {
+  for (i = 0; i < md_len; ++i) {
     char *p = slapt_malloc( sizeof *p * 3 );
 
     if ( snprintf(p,3,"%02x",md_value[i]) > 0 ) {

@@ -762,7 +762,7 @@ slapt_pkg_info_t *slapt_get_newest_pkg(struct slapt_pkg_list *pkg_list,
   unsigned int i;
   slapt_pkg_info_t *pkg = NULL;
 
-  for (i = 0; i < pkg_list->pkg_count; i++ ) {
+  for (i = 0; i < pkg_list->pkg_count; ++i ) {
 
     /* if pkg has same name as our requested pkg */
     if ((strcmp(pkg_list->pkgs[i]->name,pkg_name)) == 0) {
@@ -1818,7 +1818,7 @@ static void required_by(const slapt_rc_config *global_config,
                         slapt_pkg_info_t *pkg,
                         struct slapt_pkg_list *required_by_list)
 {
-  unsigned int i;
+  unsigned int i, name_len = 0;
   slapt_regex_t *required_by_reg = NULL;
   char *escapedName = NULL, *escaped_ptr;
 
@@ -1830,7 +1830,8 @@ static void required_by(const slapt_rc_config *global_config,
 
   escapedName = slapt_malloc(sizeof *escapedName * (strlen(pkg->name) + 1) );
 
-  for (i = 0, escaped_ptr = escapedName; i < strlen(pkg->name) && pkg->name[i]; i++) {
+  name_len = strlen(pkg->name);
+  for (i = 0, escaped_ptr = escapedName; i < name_len && pkg->name[i]; i++) {
     if (pkg->name[i] == '+' ) {
       *escaped_ptr++ = '\\';
       *escaped_ptr++ = pkg->name[i];

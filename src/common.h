@@ -12,9 +12,9 @@ SLAPT_FALSE = FALSE, SLAPT_TRUE = TRUE
 } SLAPT_BOOL_T;
 
 typedef struct {
+  regmatch_t pmatch[SLAPT_MAX_REGEX_PARTS];
   regex_t regex;
   size_t nmatch;
-  regmatch_t pmatch[SLAPT_MAX_REGEX_PARTS];
   int reg_return;
 } slapt_regex_t;
 

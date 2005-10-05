@@ -57,9 +57,10 @@ slapt-get stores the configuration information in a \fIslapt_rc_config\fP object
 
 .nf
   typedef struct {
-    struct slapt_source_list *sources;
     char working_dir[WORKINGDIR_TOKEN_LEN];
+    struct slapt_source_list *sources;
     struct slapt_exclude_list *exclude_list;
+    int (*progress_cb) (void *,double,double,double,double);
     SLAPT_BOOL_T download_only;
     SLAPT_BOOL_T dist_upgrade;
     SLAPT_BOOL_T simulate;
@@ -74,7 +75,6 @@ slapt-get stores the configuration information in a \fIslapt_rc_config\fP object
     SLAPT_BOOL_T remove_obsolete;
     SLAPT_BOOL_T no_upgrade;
     unsigned int retry;
-    int (*progress_cb) (void *,double,double,double,double);
   } slapt_rc_config;
 .fi
 
@@ -128,18 +128,18 @@ slapt-get stores packages within \fIslapt_pkg_info_t\fP objects.
 .sp
 .nf
   typedef struct {
+    char md5[SLAPT_MD5_STR_LEN];
     char *name;
     char *version;
     char *mirror;
     char *location;
-    unsigned int size_c;
-    unsigned int size_u;
     char *description;
     char *required;
     char *conflicts;
     char *suggests;
-    char md5[SLAPT_MD5_STR_LEN];
     char *file_ext;
+    unsigned int size_c;
+    unsigned int size_u;
   } slapt_pkg_info_t;
 .fi
 .sp
@@ -230,8 +230,8 @@ The following functions deal with determining package dependencies and conflicts
   } slapt_pkg_err_t;
 .sp
   struct slapt_pkg_err_list {
-    unsigned int err_count;
     slapt_pkg_err_t **errs;
+    unsigned int err_count;
   };
 .sp
 .B "struct slapt_pkg_err_list *slapt_init_pkg_err_list(void);"
@@ -423,9 +423,9 @@ Miscellaneous functionality within libslapt.
 .sp
 .nf
   typedef struct {
+    regmatch_t pmatch[SLAPT_MAX_REGEX_PARTS];
     regex_t regex;
     size_t nmatch;
-    regmatch_t pmatch[SLAPT_MAX_REGEX_PARTS];
     int reg_return;
   } slapt_regex_t;
 .sp

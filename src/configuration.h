@@ -15,9 +15,10 @@ struct slapt_source_list {
 };
 
 typedef struct {
-  struct slapt_source_list *sources;
   char working_dir[WORKINGDIR_TOKEN_LEN];
+  struct slapt_source_list *sources;
   struct slapt_exclude_list *exclude_list;
+  int(*progress_cb)(void *,double,double,double,double);
   SLAPT_BOOL_T download_only;
   SLAPT_BOOL_T dist_upgrade;
   SLAPT_BOOL_T simulate;
@@ -32,8 +33,6 @@ typedef struct {
   SLAPT_BOOL_T remove_obsolete;
   SLAPT_BOOL_T no_upgrade;
   unsigned int retry;
-  int(*progress_cb)(void *,double,double,double,double);
-
 } slapt_rc_config;
 
 /*
