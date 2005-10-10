@@ -1934,7 +1934,11 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
 
       slapt_get_md5sums(available_pkgs, tmp_checksum_f);
       for (pkg_i = 0; pkg_i < available_pkgs->pkg_count; ++pkg_i) {
-        available_pkgs->pkgs[pkg_i]->mirror = strdup(global_config->sources->url[i]);
+        /* honor the mirror if it was set in the PACKAGES.TXT */
+        if (available_pkgs->pkgs[pkg_i]->mirror == NULL ||
+            strlen(available_pkgs->pkgs[pkg_i]->mirror) == 0) {
+          available_pkgs->pkgs[pkg_i]->mirror = strdup(global_config->sources->url[i]);
+        }
         slapt_add_pkg_to_pkg_list(new_pkgs,available_pkgs->pkgs[pkg_i]);
       }
       available_pkgs->free_pkgs = SLAPT_FALSE;
@@ -1942,7 +1946,11 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
       if (patch_pkgs) {
         slapt_get_md5sums(patch_pkgs, tmp_checksum_f);
         for (pkg_i = 0; pkg_i < patch_pkgs->pkg_count; ++pkg_i) {
-          patch_pkgs->pkgs[pkg_i]->mirror = strdup(global_config->sources->url[i]);
+          /* honor the mirror if it was set in the PACKAGES.TXT */
+          if (patch_pkgs->pkgs[pkg_i]->mirror == NULL ||
+              strlen(patch_pkgs->pkgs[pkg_i]->mirror) == 0) {
+            patch_pkgs->pkgs[pkg_i]->mirror = strdup(global_config->sources->url[i]);
+          }
           slapt_add_pkg_to_pkg_list(new_pkgs,patch_pkgs->pkgs[pkg_i]);
         }
         patch_pkgs->free_pkgs = SLAPT_FALSE;

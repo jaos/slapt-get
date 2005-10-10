@@ -1,5 +1,6 @@
 
-0.9.10e Oct 05, 2005
+0.9.10e Oct 10, 2005
+ * fixed hardcoded mirror setting in PACKAGES.TXT regression
  * updated Portuguese_Portugal translation from Miguel
 
 0.9.10d Oct 02, 2005
