@@ -1,5 +1,6 @@
 
-0.9.10e Oct 10, 2005
+0.9.10e Oct 14, 2005
+ * removed duplicate slapt_add_exclude_to_transaction() calls
  * fixed hardcoded mirror setting in PACKAGES.TXT regression
  * updated Portuguese_Portugal translation from Miguel
 

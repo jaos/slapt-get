@@ -102,6 +102,8 @@ void slapt_pkg_action_install(const slapt_rc_config *global_config,
         slapt_add_install_to_transaction(tran,pkg);
 
       } else {
+        printf("Excluding %s, use --ignore-dep to override\n",
+               pkg->name);
         slapt_add_exclude_to_transaction(tran,pkg);
       }
 
@@ -125,6 +127,8 @@ void slapt_pkg_action_install(const slapt_rc_config *global_config,
           slapt_add_upgrade_to_transaction(tran,installed_pkg,pkg);
 
         } else {
+          printf("Excluding %s, use --ignore-dep to override\n",
+                 pkg->name);
           slapt_add_exclude_to_transaction(tran,pkg);
         }
 
@@ -503,6 +507,8 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
             slapt_add_install_to_transaction(tran,slapt_upgrade_pkg);
           } else {
             /* otherwise exclude */
+            printf("Excluding %s, use --ignore-dep to override\n",
+                   slapt_upgrade_pkg->name);
             slapt_add_exclude_to_transaction(tran,slapt_upgrade_pkg);
           }
 
@@ -529,6 +535,8 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
                                              slapt_upgrade_pkg);
           } else {
             /* otherwise exclude */
+            printf("Excluding %s, use --ignore-dep to override\n",
+                   slapt_upgrade_pkg->name);
             slapt_add_exclude_to_transaction(tran,slapt_upgrade_pkg);
           }
         }
@@ -646,6 +654,8 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
                                              update_pkg);
           } else {
             /* otherwise exclude */
+            printf("Excluding %s, use --ignore-dep to override\n",
+                   update_pkg->name);
             slapt_add_exclude_to_transaction(tran,update_pkg);
           }
         }

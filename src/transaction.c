@@ -779,8 +779,6 @@ int slapt_add_deps_to_trans(const slapt_rc_config *global_config,
   if ((dep_return == -1) && (global_config->ignore_dep == SLAPT_FALSE) &&
       (slapt_get_exact_pkg(tran->exclude_pkgs,pkg->name,pkg->version) == NULL)
  ) {
-    printf("Excluding %s, use --ignore-dep to override\n",pkg->name);
-    slapt_add_exclude_to_transaction(tran,pkg);
     slapt_free_pkg_list(deps);
     return -1;
   }
