@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.9d\n"
+"Project-Id-Version: 0.9.10f\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2004-09-06 21:17+0500\n"
+"PO-Revision-Date: 2005-11-05 12:24+0500\n"
 "Last-Translator: Oto Petrik <oto.petrik@centrum.cz>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -485,4 +485,7 @@ msgstr "Maximální délka vylouèených (%d) pøekroèena.\n"
 
 msgid "only purge cache of older, unreacheable pkgs"
 msgstr "vyèisti pouze cache starých, nedostupnách balíkù"
+
+msgid "always prompt during install/upgrade"
+msgstr "always prompt during install/upgrade"
 

@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.10e\n"
+"Project-Id-Version: 0.9.10f\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2005-10-02 22:43+0400\n"
+"PO-Revision-Date: 2005-11-05 12:24+0500\n"
 "Last-Translator: Miguel Santinho <msantinho@simplicidade.com>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -475,4 +475,7 @@ msgstr "instale o pacote, não tente actualizá-lo"
 
 msgid "[disk set(s)] - install specified disk set(s)"
 msgstr "[disk set(s)] - instalar 'disk set(s)' especificados"
+
+msgid "always prompt during install/upgrade"
+msgstr "always prompt during install/upgrade"
 

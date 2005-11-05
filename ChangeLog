@@ -1,4 +1,7 @@
 
+0.9.10f Nov 05, 2005
+ * added --prompt|-p option to always prompt (Kanedaaa)
+
 0.9.10e Oct 14, 2005
  * removed duplicate slapt_add_exclude_to_transaction() calls
  * fixed hardcoded mirror setting in PACKAGES.TXT regression

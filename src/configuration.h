@@ -23,6 +23,7 @@ typedef struct {
   SLAPT_BOOL_T dist_upgrade;
   SLAPT_BOOL_T simulate;
   SLAPT_BOOL_T no_prompt;
+  SLAPT_BOOL_T prompt;
   SLAPT_BOOL_T re_install;
   SLAPT_BOOL_T ignore_excludes;
   SLAPT_BOOL_T no_md5_check;

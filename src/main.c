@@ -46,6 +46,8 @@ int main( int argc, char *argv[] )
     {"version", 0, 0, SLAPT_VERSION_OPT},
     {"no-prompt", 0, 0, SLAPT_NO_PROMPT_OPT},
     {"y", 0, 0, SLAPT_NO_PROMPT_OPT},
+    {"prompt", 0, 0, SLAPT_PROMPT_OPT},
+    {"p", 0, 0, SLAPT_PROMPT_OPT},
     {"reinstall", 0, 0, SLAPT_REINSTALL_OPT},
     {"ignore-excludes", 0, 0, SLAPT_IGNORE_EXCLUDES_OPT},
     {"no-md5", 0, 0, SLAPT_NO_MD5_OPT},
@@ -129,6 +131,9 @@ int main( int argc, char *argv[] )
       case SLAPT_NO_PROMPT_OPT: /* auto */
         global_config->no_prompt = SLAPT_TRUE;
         break;
+      case SLAPT_PROMPT_OPT: /* always prompt */
+        global_config->prompt = SLAPT_TRUE;
+        break;
       case SLAPT_REINSTALL_OPT: /* reinstall */
         global_config->re_install = SLAPT_TRUE;
         break;
@@ -173,6 +178,7 @@ int main( int argc, char *argv[] )
           global_config->dist_upgrade = tmp_gc->dist_upgrade;
           global_config->simulate = tmp_gc->simulate;
           global_config->no_prompt = tmp_gc->no_prompt;
+          global_config->prompt = tmp_gc->prompt;
           global_config->re_install = tmp_gc->re_install;
           global_config->ignore_excludes = tmp_gc->ignore_excludes;
           global_config->no_md5_check = tmp_gc->no_md5_check;
@@ -367,6 +373,7 @@ void usage(void)
   printf("  --download-only     - %s\n",gettext("only download pkg on install/upgrade"));
   printf("  --simulate|-s       - %s\n",gettext("show pkgs to be installed/upgraded"));
   printf("  --no-prompt|-y      - %s\n",gettext("do not prompt during install/upgrade"));
+  printf("  --prompt|-p         - %s\n",gettext("always prompt during install/upgrade"));
   printf("  --reinstall         - %s\n",gettext("re-install the pkg"));
   printf("  --ignore-excludes   - %s\n",gettext("install/upgrade excludes"));
   printf("  --no-md5            - %s\n",gettext("do not perform md5 check sum"));

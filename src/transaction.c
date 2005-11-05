@@ -279,15 +279,15 @@ int slapt_handle_transaction (const slapt_rc_config *global_config,
   }
 
   /* prompt */
-  if (
-      (tran->upgrade_pkgs->pkg_count > 0 || tran->remove_pkgs->pkg_count > 0 ||
+  if ((global_config->prompt == SLAPT_TRUE) ||
+      ((tran->upgrade_pkgs->pkg_count > 0 || tran->remove_pkgs->pkg_count > 0 ||
       (tran->install_pkgs->pkg_count > 0 &&
        global_config->dist_upgrade == SLAPT_TRUE)) &&
       (global_config->no_prompt == SLAPT_FALSE &&
        global_config->download_only == SLAPT_FALSE &&
        global_config->simulate == SLAPT_FALSE &&
-       global_config->print_uris == SLAPT_FALSE)
- ) {
+       global_config->print_uris == SLAPT_FALSE))
+  ) {
     if (slapt_ask_yes_no(gettext("Do you want to continue? [y/N] ")) != 1) {
       printf(gettext("Abort.\n"));
       return 1;

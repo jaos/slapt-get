@@ -67,6 +67,7 @@ enum slapt_action {
 #define SLAPT_SIMULATE_OPT 'm'
 #define SLAPT_VERSION_OPT 'v'
 #define SLAPT_NO_PROMPT_OPT 'b'
+#define SLAPT_PROMPT_OPT 'y'
 #define SLAPT_REINSTALL_OPT 'n'
 #define SLAPT_IGNORE_EXCLUDES_OPT 'x'
 #define SLAPT_NO_MD5_OPT '5'

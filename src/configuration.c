@@ -41,6 +41,7 @@ slapt_rc_config *slapt_read_rc_config(const char *file_name)
   global_config->print_uris = SLAPT_FALSE;
   global_config->dl_stats = SLAPT_FALSE;
   global_config->no_prompt = SLAPT_FALSE;
+  global_config->prompt = SLAPT_FALSE;
   global_config->re_install = SLAPT_FALSE;
   global_config->exclude_list = NULL;
   global_config->working_dir[0] = '\0';

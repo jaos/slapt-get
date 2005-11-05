@@ -30,6 +30,9 @@ slapt-get \- frontend to pkgtools
 .B --no-prompt|-y
 ]
 [
+.B --prompt|-p
+]
+[
 .B --reinstall
 ]
 [
@@ -124,7 +127,10 @@ Download the package only.  Do not install/upgrade.  Packages are downloaded to 
 Will not install or download packages.
 .TP
 .B --no-prompt|-y
-Do not prompt for package upgrade confirmation.
+Do not prompt for package upgrade/remove confirmation.
+.TP
+.B --prompt|-p
+Always prompt for package install confirmation.
 .TP
 .B --reinstall
 Install the package even if it is already installed.
