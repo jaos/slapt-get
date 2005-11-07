@@ -1,5 +1,6 @@
 
-0.9.10f Nov 05, 2005
+0.9.10f Nov 07, 2005
+ * made --install-set ignore excluded packages
  * added --prompt|-p option to always prompt (Kanedaaa)
 
 0.9.10e Oct 14, 2005

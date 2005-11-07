@@ -269,14 +269,20 @@ int main( int argc, char *argv[] )
           unsigned int search_i;
           struct slapt_pkg_list *matches = NULL;
           char *search = slapt_malloc(sizeof *search * (strlen(argv[optind]) + 3));
+
           snprintf(search,strlen(argv[optind]) + 3,"/%s$",argv[optind]);
           matches = slapt_search_pkg_list(avail_pkgs,search);
           free(search);
+
           for (search_i = 0; search_i < matches->pkg_count; ++search_i) {
-            slapt_add_pkg_to_pkg_list(set_pkgs,matches->pkgs[search_i]);
+            if (slapt_is_excluded(global_config,matches->pkgs[search_i]) == 0) {
+              slapt_add_pkg_to_pkg_list(set_pkgs,matches->pkgs[search_i]);
+            }
           }
+
           slapt_free_pkg_list(matches);
           ++optind;
+
         }
 
         paa = slapt_init_pkg_action_args(set_pkgs->pkg_count);
