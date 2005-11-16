@@ -1,5 +1,5 @@
 
-0.9.10f Nov 14, 2005
+0.9.10f Nov 16, 2005
  * updated Russian and Unkrainian translations
  * made --install-set ignore excluded packages
  * added --prompt|-p option to always prompt (Kanedaaa)
