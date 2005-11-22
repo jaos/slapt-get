@@ -2771,6 +2771,10 @@ struct slapt_pkg_list *slapt_get_pkg_source_patches (const slapt_rc_config *glob
     } else {
       FILE *tmp_patch_f = NULL;
 
+      if (global_config->progress_cb == NULL &&
+          global_config->dl_stats == SLAPT_TRUE)
+        printf("\n");
+
       if ((tmp_patch_f = slapt_open_file(patch_filename,"w+b")) == NULL)
         exit (1);
 
@@ -2837,6 +2841,10 @@ struct slapt_pkg_list *slapt_get_pkg_source_patches (const slapt_rc_config *glob
     } else {
       FILE *tmp_patch_f = NULL;
 
+      if (global_config->progress_cb == NULL &&
+          global_config->dl_stats == SLAPT_TRUE)
+        printf("\n");
+
       if ((tmp_patch_f = slapt_open_file(patch_filename,"w+b")) == NULL)
         exit (1);
 
@@ -2897,6 +2905,10 @@ FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,
 
     } else {
       FILE *working_checksum_f = NULL;
+
+      if (global_config->progress_cb == NULL &&
+          global_config->dl_stats == SLAPT_TRUE)
+        printf("\n");
 
       if ((working_checksum_f = slapt_open_file(filename,"w+b")) == NULL)
         exit(EXIT_FAILURE);
@@ -2960,6 +2972,10 @@ FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,
     } else {
       if ((tmp_checksum_f = slapt_open_file(filename,"w+b")) == NULL)
         exit(EXIT_FAILURE);
+
+      if (global_config->progress_cb == NULL &&
+          global_config->dl_stats == SLAPT_TRUE)
+        printf("\n");
 
       if (slapt_get_mirror_data_from_source(tmp_checksum_f,global_config,url,
                                             SLAPT_CHECKSUM_FILE) == 0) {

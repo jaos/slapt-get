@@ -1,5 +1,6 @@
 
-0.9.10f Nov 17, 2005
+0.9.10f Nov 21, 2005
+ * updated formatting of statitstics when --show-stats|-S is in use
  * updated Russian and Unkrainian translations
  * made --install-set ignore excluded packages
  * added --prompt|-p option to always prompt (Kanedaaa)
