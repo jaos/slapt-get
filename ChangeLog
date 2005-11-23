@@ -1,5 +1,5 @@
 
-0.9.10f Nov 21, 2005
+0.9.10f Nov 23, 2005
  * updated formatting of statitstics when --show-stats|-S is in use
  * updated Russian and Unkrainian translations
  * made --install-set ignore excluded packages
