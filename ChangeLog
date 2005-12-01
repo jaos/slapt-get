@@ -1,5 +1,5 @@
 
-0.9.10f Dec 1, 2005
+0.9.11 Dec 1, 2005
  * added slapt_clean_description() to remove the package name from the
    package description.
  * try to install/upgrade essential packages first
