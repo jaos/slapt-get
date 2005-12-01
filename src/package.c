@@ -3015,3 +3015,22 @@ FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,
   return tmp_checksum_f;
 }
 
+void slapt_clean_description (char *description, const char *name)
+{
+  char *p = NULL;
+  char *token = NULL;
+
+  if (description == NULL || name == NULL)
+    return;
+
+  token = calloc(strlen(name) + 3, sizeof *token);
+  token = strcat(token,name);
+  token = strcat(token,": ");
+
+  while ( (p = strstr( description, token )) != NULL ) {
+    memmove( p, p + strlen(token), strlen(p) - strlen(token) + 1);
+  }
+
+  free(token);
+}
+

@@ -257,3 +257,6 @@ struct slapt_pkg_list *slapt_get_pkg_source_patches (const slapt_rc_config *glob
                                                      const char *url);
 FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,
                                       const char *url);
+
+/* clean package name from package description */
+void slapt_clean_description (char *description, const char *name);

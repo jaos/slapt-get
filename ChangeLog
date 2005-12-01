@@ -1,5 +1,7 @@
 
-0.9.10f Nov 30, 2005
+0.9.10f Dec 1, 2005
+ * added slapt_clean_description() to remove the package name from the
+   package description.
  * try to install/upgrade essential packages first
    (glibc-solibs, sed, pkgtools) for dist-upgrade
  * Bulgarian translation by Victor Keranov

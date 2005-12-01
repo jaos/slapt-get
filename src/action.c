@@ -412,6 +412,8 @@ void slapt_pkg_action_show(const char *pkg_name)
   }
 
   if ( pkg != NULL ) {
+    char *description = strdup(pkg->description);
+    slapt_clean_description(description,pkg->name);
 
     if ( slapt_get_exact_pkg(installed_pkgs,pkg->name,pkg->version) != NULL)
       bool_installed = 1;
@@ -434,6 +436,7 @@ void slapt_pkg_action_show(const char *pkg_name)
         : gettext("no")
     );
 
+    free(description);
   } else {
     printf(gettext("No such package: %s\n"),pkg_name);
   }
