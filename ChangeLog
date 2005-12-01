@@ -5,7 +5,7 @@
  * try to install/upgrade essential packages first
    (glibc-solibs, sed, pkgtools) for dist-upgrade
  * Bulgarian translation by Victor Keranov
- * updated formatting of statitstics when --show-stats|-S is in use
+ * updated formatting of statistics when --show-stats|-S is in use
  * updated Russian and Unkrainian translations
  * made --install-set ignore excluded packages
  * added --prompt|-p option to always prompt (Kanedaaa)
