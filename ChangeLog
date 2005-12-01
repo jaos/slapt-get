@@ -1,5 +1,7 @@
 
 0.9.10f Nov 30, 2005
+ * try to install/upgrade essential packages first
+   (glibc-solibs, sed, pkgtools) for dist-upgrade
  * Bulgarian translation by Victor Keranov
  * updated formatting of statitstics when --show-stats|-S is in use
  * updated Russian and Unkrainian translations
