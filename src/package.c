@@ -3025,7 +3025,7 @@ void slapt_clean_description (char *description, const char *name)
 
   token = calloc(strlen(name) + 3, sizeof *token);
   token = strcat(token,name);
-  token = strcat(token,": ");
+  token = strcat(token,":");
 
   while ( (p = strstr( description, token )) != NULL ) {
     memmove( p, p + strlen(token), strlen(p) - strlen(token) + 1);

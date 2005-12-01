@@ -429,7 +429,7 @@ void slapt_pkg_action_show(const char *pkg_name)
     printf(gettext("Package Suggests: %s\n"),pkg->suggests);
     printf(gettext("Package MD5 Sum:  %s\n"),pkg->md5);
     printf(gettext("Package Description:\n"));
-    printf("%s",pkg->description);
+    printf("%s",description);
     printf(gettext("Package Installed: %s\n"),
       bool_installed == 1
         ? gettext("yes")
