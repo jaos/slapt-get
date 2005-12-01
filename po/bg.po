@@ -1,0 +1,481 @@
+# slapt-get Bulgarian translation
+# Copyright (C) 2005 Victor Keranov
+# This file is distributed under the same license as the PACKAGE package.
+# Victor Keranov <victor_keranov@mail.bg>, 2005.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.9.10f\n"
+"POT-Creation-Date: 2003-11-03 14:28+0000\n"
+"PO-Revision-Date: 2005-11-30 21:14+0500\n"
+"Last-Translator: Victor Keranov <victor_keranov@mail.bg>\n"
+"Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=cp-1251\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Reading Package Lists... "
+msgstr ""
+
+msgid "Done\n"
+msgstr "Готово\n"
+
+#, c-format
+msgid "%s is up to date.\n"
+msgstr ""
+
+msgid "yes"
+msgstr "да"
+
+msgid "no"
+msgstr "не"
+
+#, c-format
+msgid "%s is not installed.\n"
+msgstr "%s не е инсталиран.\n"
+
+#, c-format
+msgid "Package Name: %s\n"
+msgstr "Име на пакет: %s\n"
+
+#, c-format
+msgid "Package Mirror: %s\n"
+msgstr ""
+
+#, c-format
+msgid "Package Location: %s\n"
+msgstr ""
+
+#, c-format
+msgid "Package Version: %s\n"
+msgstr "Версия на пакета: %s\n"
+
+#, c-format
+msgid "Package Size: %d K\n"
+msgstr "Размер на пакета: %d K\n"
+
+#, c-format
+msgid "Package Installed Size: %d K\n"
+msgstr "Размер на инсталирания пакет: %d K\n"
+
+#, c-format
+msgid "Package Required: %s\n"
+msgstr ""
+
+msgid "Package Description:\n"
+msgstr "Описание на пакета:\n"
+
+#, c-format
+msgid "Package Installed: %s\n"
+msgstr "Инсталиран пакет: %s\n"
+
+#, c-format
+msgid "No such package: %s\n"
+msgstr "Няма такъв пакет: %s\n"
+
+#, c-format
+msgid "Retrieving package data [%s]..."
+msgstr ""
+
+#, c-format
+msgid "Retrieving package data [%s]...\n"
+msgstr ""
+
+#, c-format
+msgid "Retrieving extras list [%s]..."
+msgstr ""
+
+#, c-format
+msgid "Retrieving extras list [%s]...\n"
+msgstr ""
+
+#, c-format
+msgid "Retrieving patch list [%s]..."
+msgstr ""
+
+#, c-format
+msgid "Retrieving patch list [%s]...\n"
+msgstr ""
+
+#, c-format
+msgid "Retrieving checksum list [%s]..."
+msgstr ""
+
+msgid "Failed to malloc\n"
+msgstr ""
+
+#, c-format
+msgid "WORKINGDIR directive not set within %s.\n"
+msgstr ""
+
+#, c-format
+msgid "SOURCE directive not set within %s.\n"
+msgstr ""
+
+#, c-format
+msgid "Failed to build working directory [%s]\n"
+msgstr ""
+
+#, c-format
+msgid "Please update permissions on %s or run with appropriate privileges\n"
+msgstr ""
+
+#, c-format
+msgid "Failed to open %s\n"
+msgstr "Неуспех при отварянето на %s\n"
+
+msgid "Perhaps you want to run --update?\n"
+msgstr "Може би желаете да стартирате --update?\n"
+
+#, c-format
+msgid "Failed to opendir %s\n"
+msgstr ""
+
+#, c-format
+msgid "Failed to chdir: %s\n"
+msgstr ""
+
+#, c-format
+msgid "unlinking %s\n"
+msgstr ""
+
+msgid "Failed to get cwd\n"
+msgstr ""
+
+#, c-format
+msgid "\tCurrent working directory: %s\n"
+msgstr ""
+
+#, c-format
+msgid "Failed to mkdir: %s\n"
+msgstr ""
+
+#, c-format
+msgid "\tCreated directory: %s\n"
+msgstr "\tСъздадена директория: %s\n"
+
+#, c-format
+msgid "Failed to chdir to %s\n"
+msgstr ""
+
+#, c-format
+msgid "\tchdir into %s\n"
+msgstr ""
+
+#, c-format
+msgid "\tchdir back into %s\n"
+msgstr ""
+
+#, c-format
+msgid "Fetching url:[%s]\n"
+msgstr ""
+
+#, c-format
+msgid "Failed to download: %s\n"
+msgstr ""
+
+msgid "Failed to calloc\n"
+msgstr ""
+
+#, c-format
+msgid "Get %s %s %s [%.1d%s]..."
+msgstr ""
+
+#, c-format
+msgid "Get %s %s %s [%.1d%s]...\n"
+msgstr ""
+
+#, c-format
+msgid "Failed to unlink %s\n"
+msgstr ""
+
+#, c-format
+msgid "md5 sum for %s is not correct, override with --no-md5!\n"
+msgstr ""
+
+#, c-format
+msgid "MD5 found:    [%s]\n"
+msgstr "Открита MD5 сума:    [%s]\n"
+
+#, c-format
+msgid "MD5 expected: [%s]\n"
+msgstr "Очаквана MD5 сума: [%s]\n"
+
+#, c-format
+msgid "File: %s/%s\n"
+msgstr "Файл: %s/%s\n"
+
+msgid "An implementation of the Debian APT system to Slackware\n"
+msgstr "Подобна на Debian APT система за Slackware\n"
+
+msgid "Usage:\n"
+msgstr "Употреба:\n"
+
+#, c-format
+msgid "%s [option(s)] [target]\n"
+msgstr ""
+
+msgid "Targets:\n"
+msgstr ""
+
+msgid "retrieves pkg data from MIRROR"
+msgstr ""
+
+msgid "upgrade installed pkgs"
+msgstr ""
+
+msgid "upgrade to newer release"
+msgstr ""
+
+msgid "[pkg name(s)] - install specified pkg(s)"
+msgstr ""
+
+msgid "[pkg name(s)] - remove specified pkg(s)"
+msgstr ""
+
+msgid "[pkg name] - show pkg description"
+msgstr ""
+
+msgid "[expression] - search available pkgs"
+msgstr ""
+
+msgid "list pkgs"
+msgstr "покажи пакетите"
+
+msgid "list available pkgs"
+msgstr "покажи наличните пакети"
+
+msgid "list installed pkgs"
+msgstr "покажи инсталираните пакети"
+
+msgid "purge cached pkgs"
+msgstr "изчисти кешираните пакети"
+
+msgid "print version and license info"
+msgstr "покажи версията и лиценза"
+
+msgid "Options:\n"
+msgstr "Опции:\n"
+
+msgid "only download pkg on install/upgrade"
+msgstr ""
+
+msgid "show pkgs to be installed/upgraded"
+msgstr "покажи пакетите, които ще бъдат инсталирани/ъпгрейднати"
+
+msgid "do not prompt during install/upgrade"
+msgstr ""
+
+msgid "re-install the pkg"
+msgstr "преинсталиране на пакет"
+
+msgid "install/upgrade excludes"
+msgstr ""
+
+msgid "do not perform md5 check sum"
+msgstr "без проверка на md5 суми"
+
+msgid "ignore dependency failures"
+msgstr "игнорирай наличието на зависимости"
+
+#, c-format
+msgid "%s version %s\n"
+msgstr "%s версия %s\n"
+
+#, c-format
+msgid "regex failed on [%s]\n"
+msgstr ""
+
+msgid "regexec failed to parse location\n"
+msgstr ""
+
+msgid "getline reached EOF attempting to read location\n"
+msgstr ""
+
+msgid "regexec failed to parse size_c\n"
+msgstr ""
+
+msgid "getline reached EOF attempting to read size_c\n"
+msgstr ""
+
+msgid "regexec failed to parse size_u\n"
+msgstr ""
+
+msgid "getline reached EOF attempting to read size_u\n"
+msgstr ""
+
+msgid "error attempting to read pkg description\n"
+msgstr "грешка при четенето на описанието на пакета\n"
+
+#, c-format
+msgid "Failed to realloc %s\n"
+msgstr ""
+
+msgid "Failed to compile regex\n"
+msgstr ""
+
+#, c-format
+msgid "Regex Error: %s\n"
+msgstr ""
+
+#, c-format
+msgid "%s-%s is to be installed\n"
+msgstr ""
+
+#, c-format
+msgid "Preparing to install %s-%s\n"
+msgstr ""
+
+#, c-format
+msgid "Failed to execute command: [%s]\n"
+msgstr ""
+
+#, c-format
+msgid "%s-%s is to be upgraded to version %s\n"
+msgstr "%s-%s ще бъде ъпгрейднат до версия %s\n"
+
+#, c-format
+msgid "Preparing to replace %s-%s with %s-%s\n"
+msgstr ""
+
+#, c-format
+msgid "%s-%s is to be removed\n"
+msgstr "%s-%s ще бъде премахнат\n"
+
+#, c-format
+msgid "Failed to compile regex [%s]\n"
+msgstr ""
+
+msgid "pkg conditional too long\n"
+msgstr ""
+
+msgid "The following packages have unmet dependencies:\n"
+msgstr ""
+
+#, c-format
+msgid "  %s: Depends: %s\n"
+msgstr "  %s: Зависимости: %s\n"
+
+msgid "The following packages have been EXCLUDED:\n"
+msgstr ""
+
+msgid "The following NEW packages will be installed:\n"
+msgstr "Следните НОВИ пакети ще бъдат инсталирани:\n"
+
+msgid "The following packages will be REMOVED:\n"
+msgstr "Следните пакети ще бъдат премахнати:\n"
+
+msgid "The following packages will be upgraded:\n"
+msgstr "Следните пакети ще бъдат ъпгрейднати:\n"
+
+#, c-format
+msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
+msgstr "%d ъпгрейднати, %d инсталирани, %d за премахване и %d не ъпгрейднати.\n"
+
+#, c-format
+msgid "Need to get %.1d%s of archives.\n"
+msgstr "Нужно е да се изтеглят %.1d%s архиви.\n"
+
+#, c-format
+msgid "Need to get %.1d%s/%.1d%s of archives.\n"
+msgstr "Нужно е да се изтеглят %.1d%s/%.1d%s архиви.\n"
+
+#, c-format
+msgid "After unpacking %.1d%s disk space will be freed.\n"
+msgstr "След разархивиране %.1d%s дисково пространство ще бъде освободено.\n"
+
+#, c-format
+msgid "After unpacking %.1d%s of additional disk space will be used.\n"
+msgstr "След разархивиране %.1d%s дисково пространство ще бъде използвано.\n"
+
+msgid "Do you want to continue? [y/N] "
+msgstr "Желаете ли да продължите? [y(да)/N(НЕ)] "
+
+msgid "Abort.\n"
+msgstr "Прекратяване.\n"
+
+#, c-format
+msgid "%s, which is to be installed, conflicts with %s\n"
+msgstr ""
+
+#, c-format
+msgid "Installed %s conflicts with %s\n"
+msgstr ""
+
+msgid "print URIs only, do not download"
+msgstr "покажи само линковете, без изтегляне"
+
+#, c-format
+msgid "Package MD5 Sum:  %s\n"
+msgstr "MD5 сума на пакета:  %s\n"
+
+msgid "md5 sum too long\n"
+msgstr "md5 сумата е твърде дълга\n"
+
+msgid "Reading Package Lists..."
+msgstr "Прочитане на списъците с пакети..."
+
+#, c-format
+msgid "Download of %s incomplete\n"
+msgstr "Изтеглянето на %s е незавършено\n"
+
+#, c-format
+msgid "Could not find MD5 checksum for %s, override with --no-md5\n"
+msgstr ""
+
+#, c-format
+msgid "%s, which is required by %s, is excluded\n"
+msgstr ""
+
+msgid "skip dependency check"
+msgstr "пропусни проверката за зависимости"
+
+msgid "show download statistics"
+msgstr "покажи статистика на тегленето"
+
+msgid "Cached\n"
+msgstr ""
+
+msgid "Sources failed to download, correct sources and rerun --update\n"
+msgstr ""
+
+msgid "specify alternate slapt-getrc location"
+msgstr ""
+
+msgid "Suggested packages:\n"
+msgstr ""
+
+msgid "only purge cache of older, unreacheable pkgs"
+msgstr ""
+
+msgid "remove obsolete packages (dist-upgrade only)"
+msgstr "премахване на остаряли пакети (само при dist-upgrade)"
+
+#, c-format
+msgid "You don't have enough free space in %s\n"
+msgstr "Нямате достатъчно дисково пространство в %s\n"
+
+#, c-format
+msgid "Package Conflicts: %s\n"
+msgstr ""
+
+#, c-format
+msgid "Package Suggests: %s\n"
+msgstr ""
+
+#, c-format
+msgid "Failed to parse package data from %s\n"
+msgstr ""
+
+msgid "specify number of download retry attempts"
+msgstr ""
+
+msgid "install package, do not attempt to upgrade"
+msgstr ""
+
+msgid "[disk set(s)] - install specified disk set(s)"
+msgstr ""
+
+msgid "always prompt during install/upgrade"
+msgstr ""

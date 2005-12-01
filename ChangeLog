@@ -1,5 +1,6 @@
 
-0.9.10f Nov 23, 2005
+0.9.10f Nov 30, 2005
+ * Bulgarian translation by Victor Keranov
  * updated formatting of statitstics when --show-stats|-S is in use
  * updated Russian and Unkrainian translations
  * made --install-set ignore excluded packages
