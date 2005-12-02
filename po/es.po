@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the slapt-get package.
 # Ruben Gutierrez <ruben@snpp.com.ar>, 2004, 2005.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.10f\n"

@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the slapt-get package.
 # Francesco Gigli <jaramir@slack.it>, 2004.
 #
-#,fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.10f\n"
