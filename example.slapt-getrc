@@ -99,6 +99,7 @@ SOURCE=http://software.jaos.org/slackpacks/10.2/
 #SOURCE=http://www.slackages.com/slapt-get/jlp/
 #SOURCE=http://www.slackages.com/slapt-get/jto/
 #SOURCE=http://mirror.on.net.mk/Damjan/slackware-10.2/
+#SOURCE=http://packages.slackforge.net/
 
 
 # pull from your cdrom
