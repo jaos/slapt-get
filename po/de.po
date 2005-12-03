@@ -1,6 +1,6 @@
 # german slapt-get translation
 # Copyright (C) 2004, 2005
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the slapt-get package.
 # Niklas Volbers <mithrandir42@web.de>, 2004, 2005
 #
 msgid ""

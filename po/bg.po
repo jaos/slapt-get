@@ -1,42 +1,42 @@
 # slapt-get Bulgarian translation
 # Copyright (C) 2005 Victor Keranov
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the slapt-get package.
 # Victor Keranov <victor_keranov@mail.bg>, 2005.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.11\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2005-11-30 21:14+0500\n"
+"PO-Revision-Date: 2005-12-02 22:58+0500\n"
 "Last-Translator: Victor Keranov <victor_keranov@mail.bg>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=cp-1251\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "Reading Package Lists... "
-msgstr ""
+msgstr "Р§РµС‚РµРЅРµ РЅР° СЃРїРёСЃСЉС†РёС‚Рµ СЃ РїР°РєРµС‚Рё... "
 
 msgid "Done\n"
-msgstr "Готово\n"
+msgstr "Р“РѕС‚РѕРІРѕ\n"
 
 #, c-format
 msgid "%s is up to date.\n"
 msgstr ""
 
 msgid "yes"
-msgstr "да"
+msgstr "РґР°"
 
 msgid "no"
-msgstr "не"
+msgstr "РЅРµ"
 
 #, c-format
 msgid "%s is not installed.\n"
-msgstr "%s не е инсталиран.\n"
+msgstr "%s РЅРµ Рµ РёРЅСЃС‚Р°Р»РёСЂР°РЅ.\n"
 
 #, c-format
 msgid "Package Name: %s\n"
-msgstr "Име на пакет: %s\n"
+msgstr "РРјРµ РЅР° РїР°РєРµС‚: %s\n"
 
 #, c-format
 msgid "Package Mirror: %s\n"
@@ -44,42 +44,42 @@ msgstr ""
 
 #, c-format
 msgid "Package Location: %s\n"
-msgstr ""
+msgstr "РњРµСЃС‚РѕРїРѕР»РѕР¶РµРЅРёРµ РЅР° РїР°РєРµС‚: %s\n"
 
 #, c-format
 msgid "Package Version: %s\n"
-msgstr "Версия на пакета: %s\n"
+msgstr "Р’РµСЂСЃРёСЏ РЅР° РїР°РєРµС‚: %s\n"
 
 #, c-format
 msgid "Package Size: %d K\n"
-msgstr "Размер на пакета: %d K\n"
+msgstr "РћР±РµРј РЅР° РїР°РєРµС‚: %d K\n"
 
 #, c-format
 msgid "Package Installed Size: %d K\n"
-msgstr "Размер на инсталирания пакет: %d K\n"
+msgstr "РћР±РµРј РЅР° РёРЅСЃС‚Р°Р»РёСЂР°РЅ РїР°РєРµС‚: %d K\n"
 
 #, c-format
 msgid "Package Required: %s\n"
 msgstr ""
 
 msgid "Package Description:\n"
-msgstr "Описание на пакета:\n"
+msgstr "РћРїРёСЃР°РЅРёРµ РЅР° РїР°РєРµС‚:\n"
 
 #, c-format
 msgid "Package Installed: %s\n"
-msgstr "Инсталиран пакет: %s\n"
+msgstr "РРЅСЃС‚Р°Р»РёСЂР°РЅ РїР°РєРµС‚: %s\n"
 
 #, c-format
 msgid "No such package: %s\n"
-msgstr "Няма такъв пакет: %s\n"
+msgstr "РќСЏРјР° С‚Р°РєСЉРІ РїР°РєРµС‚: %s\n"
 
 #, c-format
 msgid "Retrieving package data [%s]..."
-msgstr ""
+msgstr "РџРѕР»СѓС‡Р°РІР°РЅРµ РЅР° РёРЅС„РѕСЂРјР°С†РёСЏ Р·Р° РїР°РєРµС‚РёС‚Рµ [%s]..."
 
 #, c-format
 msgid "Retrieving package data [%s]...\n"
-msgstr ""
+msgstr "РџРѕР»СѓС‡Р°РІР°РЅРµ РЅР° РёРЅС„РѕСЂРјР°С†РёСЏ Р·Р° РїР°РєРµС‚РёС‚Рµ [%s]...\n"
 
 #, c-format
 msgid "Retrieving extras list [%s]..."
@@ -91,15 +91,15 @@ msgstr ""
 
 #, c-format
 msgid "Retrieving patch list [%s]..."
-msgstr ""
+msgstr "РџРѕР»СѓС‡Р°РІР°РЅРµ РЅР° СЃРїРёСЃСЉРє СЃ СЉРїРґРµР№С‚Рё [%s]..."
 
 #, c-format
 msgid "Retrieving patch list [%s]...\n"
-msgstr ""
+msgstr "РџРѕР»СѓС‡Р°РІР°РЅРµ РЅР° СЃРїРёСЃСЉРє СЃ СЉРїРґРµР№С‚Рё [%s]...\n"
 
 #, c-format
 msgid "Retrieving checksum list [%s]..."
-msgstr ""
+msgstr "РџРѕР»СѓС‡Р°РІР°РЅРµ РЅР° СЃРїРёСЃСЉРє СЃ MD5 СЃСѓРјРё [%s]..."
 
 msgid "Failed to malloc\n"
 msgstr ""
@@ -114,7 +114,7 @@ msgstr ""
 
 #, c-format
 msgid "Failed to build working directory [%s]\n"
-msgstr ""
+msgstr "РќРµСѓСЃРїРµС… РїСЂРё СЃСЉР·РґР°РІР°РЅРµС‚Рѕ РЅР° СЂР°Р±РѕС‚РЅР° РґРёСЂРµРєС‚РѕСЂРёСЏ [%s]\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
@@ -122,10 +122,10 @@ msgstr ""
 
 #, c-format
 msgid "Failed to open %s\n"
-msgstr "Неуспех при отварянето на %s\n"
+msgstr "РќРµСѓСЃРїРµС… РїСЂРё РѕС‚РІР°СЂСЏРЅРµ РЅР° %s\n"
 
 msgid "Perhaps you want to run --update?\n"
-msgstr "Може би желаете да стартирате --update?\n"
+msgstr "РњРѕР¶Рµ Р±Рё Р¶РµР»Р°РµС‚Рµ РґР° СЃС‚Р°СЂС‚РёСЂР°С‚Рµ --update?\n"
 
 #, c-format
 msgid "Failed to opendir %s\n"
@@ -144,7 +144,7 @@ msgstr ""
 
 #, c-format
 msgid "\tCurrent working directory: %s\n"
-msgstr ""
+msgstr "\tРќР°СЃС‚РѕСЏС‰Р° СЂР°Р±РѕС‚РЅР° РґРёСЂРµРєС‚РѕСЂРёСЏ: %s\n"
 
 #, c-format
 msgid "Failed to mkdir: %s\n"
@@ -152,7 +152,7 @@ msgstr ""
 
 #, c-format
 msgid "\tCreated directory: %s\n"
-msgstr "\tСъздадена директория: %s\n"
+msgstr ""
 
 #, c-format
 msgid "Failed to chdir to %s\n"
@@ -191,96 +191,96 @@ msgstr ""
 
 #, c-format
 msgid "md5 sum for %s is not correct, override with --no-md5!\n"
-msgstr ""
+msgstr "md5 СЃСѓРјР°С‚Р° РЅР° %s Рµ РіСЂРµС€РЅР°, РїСЂРµР·Р°РїРёСЃ СЃ --no-md5!\n"
 
 #, c-format
 msgid "MD5 found:    [%s]\n"
-msgstr "Открита MD5 сума:    [%s]\n"
+msgstr "РќР°РјРµСЂРµРЅР° MD5 СЃСѓРјР°:    [%s]\n"
 
 #, c-format
 msgid "MD5 expected: [%s]\n"
-msgstr "Очаквана MD5 сума: [%s]\n"
+msgstr "РћС‡Р°РєРІР°РЅР° MD5 СЃСѓРјР°: [%s]\n"
 
 #, c-format
 msgid "File: %s/%s\n"
-msgstr "Файл: %s/%s\n"
+msgstr "Р¤Р°Р№Р»: %s/%s\n"
 
 msgid "An implementation of the Debian APT system to Slackware\n"
-msgstr "Подобна на Debian APT система за Slackware\n"
+msgstr "РџРѕРґРѕР±РЅР° РЅР° Debian APT РїР°РєРµС‚РЅР° СЃРёСЃС‚РµРјР° Р·Р° Slackware\n"
 
 msgid "Usage:\n"
-msgstr "Употреба:\n"
+msgstr "РЈРїРѕС‚СЂРµР±Р°:\n"
 
 #, c-format
 msgid "%s [option(s)] [target]\n"
-msgstr ""
+msgstr "%s [РѕРїС†РёСЏ] [РґРµР№СЃС‚РІРёРµ]\n"
 
 msgid "Targets:\n"
-msgstr ""
+msgstr "Р”РµР№СЃС‚РІРёСЏ:\n"
 
 msgid "retrieves pkg data from MIRROR"
-msgstr ""
+msgstr "РїРѕР»СѓС‡Р°РІР°РЅРµ РЅР° РёРЅС„РѕСЂРјР°С†РёСЏ Р·Р° РїР°РєРµС‚РёС‚Рµ РѕС‚ СЃСЉСЂРІСЉСЂ"
 
 msgid "upgrade installed pkgs"
-msgstr ""
+msgstr "РѕР±РЅРѕРІСЏРІР°РЅРµ РЅР° РёРЅСЃС‚Р°Р»РёСЂР°РЅРёС‚Рµ РїР°РєРµС‚Рё"
 
 msgid "upgrade to newer release"
-msgstr ""
+msgstr "РѕР±РЅРѕРІСЏРІР°РЅРµ РґРѕ РїРѕ-РЅРѕРІР° РІРµСЂСЃРёСЏ РЅР° РґРёСЃС‚СЂРёР±СѓС†РёСЏС‚Р°"
 
 msgid "[pkg name(s)] - install specified pkg(s)"
-msgstr ""
+msgstr "[РёРјРµ РЅР° РїР°РєРµС‚] - РёРЅСЃС‚Р°Р»РёСЂР°РЅРµ РЅР° РёР·Р±СЂР°РЅ РїР°РєРµС‚"
 
 msgid "[pkg name(s)] - remove specified pkg(s)"
-msgstr ""
+msgstr "[РёРјРµ РЅР° РїР°РєРµС‚] - РїСЂРµРјР°С…РІР°РЅРµ РЅР° РёР·Р±СЂР°РЅ РїР°РєРµС‚"
 
 msgid "[pkg name] - show pkg description"
-msgstr ""
+msgstr "[РёРјРµ РЅР° РїР°РєРµС‚] - РїРѕРєР°Р·РІР°РЅРµ РЅР° РѕРїРёСЃР°РЅРёРµС‚Рѕ РЅР° РїР°РєРµС‚Р°"
 
 msgid "[expression] - search available pkgs"
-msgstr ""
+msgstr "[РѕРїРёСЃР°РЅРёРµ] - С‚СЉСЂСЃРµРЅРµ Р·Р° РєРѕРЅРєСЂРµС‚РµРЅ РїР°РєРµС‚"
 
 msgid "list pkgs"
-msgstr "покажи пакетите"
+msgstr "РїРѕРєР°Р·РІР°РЅРµ РЅР° РІСЃРёС‡РєРё РїР°РєРµС‚Рё"
 
 msgid "list available pkgs"
-msgstr "покажи наличните пакети"
+msgstr "РїРѕРєР°Р·РІР°РЅРµ РЅР° РЅР°Р»РёС‡РЅРёС‚Рµ, РЅРѕ РЅРµРёРЅСЃС‚Р°Р»РёСЂР°РЅРё РїР°РєРµС‚Рё"
 
 msgid "list installed pkgs"
-msgstr "покажи инсталираните пакети"
+msgstr "РїРѕРєР°Р·РІР°РЅРµ РЅР° РёРЅСЃС‚Р°Р»РёСЂР°РЅРёС‚Рµ РїР°РєРµС‚Рё"
 
 msgid "purge cached pkgs"
-msgstr "изчисти кешираните пакети"
+msgstr "РёР·С‡РёС‚РІР°РЅРµ РЅР° РєРµС€РёСЂР°РЅРё РїР°РєРµС‚Рё"
 
 msgid "print version and license info"
-msgstr "покажи версията и лиценза"
+msgstr "РїРѕРєР°Р·РІР°РЅРµ РЅР° РІРµСЂСЃРёСЏС‚Р° Рё Р»РёС†РµРЅР·РЅР°С‚Р° РёРЅС„РѕСЂРјР°С†РёСЏ"
 
 msgid "Options:\n"
-msgstr "Опции:\n"
+msgstr "РћРїС†РёРё:\n"
 
 msgid "only download pkg on install/upgrade"
-msgstr ""
+msgstr "СЃР°РјРѕ РёР·С‚РµРіР»СЏРЅРµ РЅР° РїР°РєРµС‚РёС‚Рµ РїСЂРё РёРЅСЃС‚Р°Р»РёСЂР°РЅРµ/РѕР±РЅРѕРІСЏРІР°РЅРµ"
 
 msgid "show pkgs to be installed/upgraded"
-msgstr "покажи пакетите, които ще бъдат инсталирани/ъпгрейднати"
+msgstr "РїРѕРєР°Р·РІР°РЅРµ РЅР° РїР°РєРµС‚РёС‚Рµ Р·Р° РёРЅСЃС‚Р°Р»РёСЂР°РЅРµ/СЉРїРіСЂРµР№Рґ"
 
 msgid "do not prompt during install/upgrade"
-msgstr ""
+msgstr "Р±РµР· РёСЃРєР°РЅРµ РЅР° РїРѕС‚РІСЉСЂР¶РґРµРЅРёРµ РїСЂРё РёРЅСЃС‚Р°Р»РёСЂР°РЅРµ/РѕР±РЅРѕРІСЏРІР°РЅРµ"
 
 msgid "re-install the pkg"
-msgstr "преинсталиране на пакет"
+msgstr "РїСЂРµРёРЅСЃС‚Р°Р»РёСЂР°РЅРµ РЅР° РїР°РєРµС‚"
 
 msgid "install/upgrade excludes"
-msgstr ""
+msgstr "РёРЅСЃС‚Р°Р»РёСЂР°РЅРµ/РѕР±РЅРѕРІСЏРІР°РЅРµ РЅР° РёР·РєР»СЋС‡РµРЅРёС‚Рµ"
 
 msgid "do not perform md5 check sum"
-msgstr "без проверка на md5 суми"
+msgstr "Р±РµР· РїСЂРѕРІРµСЂРєР° РЅР° md5 СЃСѓРјРёС‚Рµ"
 
 msgid "ignore dependency failures"
-msgstr "игнорирай наличието на зависимости"
+msgstr "РёРіРЅРѕСЂРёРЅР°РЅРµ РЅР° РіСЂРµС€РєРёС‚Рµ РѕС‚ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё"
 
 #, c-format
 msgid "%s version %s\n"
-msgstr "%s версия %s\n"
+msgstr "%s РІРµСЂСЃРёСЏ %s\n"
 
 #, c-format
 msgid "regex failed on [%s]\n"
@@ -305,7 +305,7 @@ msgid "getline reached EOF attempting to read size_u\n"
 msgstr ""
 
 msgid "error attempting to read pkg description\n"
-msgstr "грешка при четенето на описанието на пакета\n"
+msgstr "РіСЂРµС€РєР° РїСЂРё РѕРїРёС‚ Р·Р° РїСЂРѕС‡РёС‚Р°РЅРµ РЅР° РѕРїРёСЃР°РЅРёРµС‚Рѕ РЅР° РїР°РєРµС‚Р°\n"
 
 #, c-format
 msgid "Failed to realloc %s\n"
@@ -320,27 +320,27 @@ msgstr ""
 
 #, c-format
 msgid "%s-%s is to be installed\n"
-msgstr ""
+msgstr "%s-%s С‰Рµ Р±СЉРґРµ РёРЅСЃС‚Р°Р»РёСЂР°РЅ\n"
 
 #, c-format
 msgid "Preparing to install %s-%s\n"
-msgstr ""
+msgstr "РџРѕРґРіРѕС‚РѕРІРєР° Р·Р° РёРЅСЃС‚Р°Р»РёСЂР°РЅРµ РЅР° %s-%s\n"
 
 #, c-format
 msgid "Failed to execute command: [%s]\n"
-msgstr ""
+msgstr "РќРµСѓСЃРїРµС… РїСЂРё РёР·РїСЉР»РЅРµРЅРёРµС‚Рѕ РЅР° РєРѕРјР°РЅРґР°: [%s]\n"
 
 #, c-format
 msgid "%s-%s is to be upgraded to version %s\n"
-msgstr "%s-%s ще бъде ъпгрейднат до версия %s\n"
+msgstr "%s-%s С‰Рµ Р±СЉРґРµ РѕР±РЅРѕРІРµРЅ РґРѕ РІРµСЂСЃРёСЏ %s\n"
 
 #, c-format
 msgid "Preparing to replace %s-%s with %s-%s\n"
-msgstr ""
+msgstr "РџРѕРґРіРѕС‚РѕРІРєР° Р·Р° Р·Р°РјРµСЃС‚РІР°РЅРµ РЅР° %s-%s СЃ %s-%s\n"
 
 #, c-format
 msgid "%s-%s is to be removed\n"
-msgstr "%s-%s ще бъде премахнат\n"
+msgstr "%s-%s С‰Рµ Р±СЉРґРµ РїСЂРµРјР°С…РЅР°С‚\n"
 
 #, c-format
 msgid "Failed to compile regex [%s]\n"
@@ -354,45 +354,45 @@ msgstr ""
 
 #, c-format
 msgid "  %s: Depends: %s\n"
-msgstr "  %s: Зависимости: %s\n"
+msgstr "  %s: Р—Р°РІРёСЃРёРјРѕСЃС‚Рё: %s\n"
 
 msgid "The following packages have been EXCLUDED:\n"
-msgstr ""
+msgstr "РЎР»РµРґРЅРёС‚Рµ РїР°РєРµС‚Рё Р±СЏС…Р° РР—РљР›Р®Р§Р•РќР:\n"
 
 msgid "The following NEW packages will be installed:\n"
-msgstr "Следните НОВИ пакети ще бъдат инсталирани:\n"
+msgstr "РЎР»РµРґРЅРёС‚Рµ РќРћР’Р РїР°РєРµС‚Рё С‰Рµ Р±СЉРґР°С‚ РёРЅСЃС‚Р°Р»РёСЂР°РЅРё:\n"
 
 msgid "The following packages will be REMOVED:\n"
-msgstr "Следните пакети ще бъдат премахнати:\n"
+msgstr "РЎР»РµРґРЅРёС‚Рµ РїР°РєРµС‚Рё С‰Рµ Р±СЉРґР°С‚ РџР Р•РњРђРҐРќРђРўР:\n"
 
 msgid "The following packages will be upgraded:\n"
-msgstr "Следните пакети ще бъдат ъпгрейднати:\n"
+msgstr "РЎР»РµРґРЅРёС‚Рµ РїР°РєРµС‚Рё С‰Рµ Р±СЉРґР°С‚ РѕР±РЅРѕРІРµРЅРё:\n"
 
 #, c-format
 msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
-msgstr "%d ъпгрейднати, %d инсталирани, %d за премахване и %d не ъпгрейднати.\n"
+msgstr "%d РѕР±РЅРѕРІРµРЅРё, %d РёРЅСЃС‚Р°Р»РёСЂР°РЅРё, %d Р·Р° РїСЂРµРјР°С…РІР°РЅРµ Рё %d РЅРµРѕР±РЅРѕРІРµРЅРё.\n"
 
 #, c-format
 msgid "Need to get %.1d%s of archives.\n"
-msgstr "Нужно е да се изтеглят %.1d%s архиви.\n"
+msgstr ""
 
 #, c-format
 msgid "Need to get %.1d%s/%.1d%s of archives.\n"
-msgstr "Нужно е да се изтеглят %.1d%s/%.1d%s архиви.\n"
+msgstr ""
 
 #, c-format
 msgid "After unpacking %.1d%s disk space will be freed.\n"
-msgstr "След разархивиране %.1d%s дисково пространство ще бъде освободено.\n"
+msgstr "РЎР»РµРґ СЂР°Р·Р°СЂС…РёРІРёСЂР°РЅРµ %.1d%s РѕС‚ РґРёСЃРєРѕРІРѕС‚Рѕ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІРѕ С‰Рµ Р±СЉРґРµ РѕСЃРІРѕР±РѕРґРµРЅРѕ.\n"
 
 #, c-format
 msgid "After unpacking %.1d%s of additional disk space will be used.\n"
-msgstr "След разархивиране %.1d%s дисково пространство ще бъде използвано.\n"
+msgstr "РЎР»РµРґ СЂР°Р·Р°СЂС…РёРІРёСЂР°РЅРµ %.1d%s РѕС‚ РґРёСЃРєРѕРІРѕС‚Рѕ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІРѕ С‰Рµ Р±СЉРґРµ РёР·РїРѕР»Р·РІР°РЅРѕ.\n"
 
 msgid "Do you want to continue? [y/N] "
-msgstr "Желаете ли да продължите? [y(да)/N(НЕ)] "
+msgstr "Р–РµР»Р°РµС‚Рµ Р»Рё РґР° РїСЂРѕРґСЉР»Р¶РёС‚Рµ? [y(РґР°)/N(РќР•)] "
 
 msgid "Abort.\n"
-msgstr "Прекратяване.\n"
+msgstr "РџСЂРµРєСЉСЃРІР°РЅРµ.\n"
 
 #, c-format
 msgid "%s, which is to be installed, conflicts with %s\n"
@@ -403,57 +403,57 @@ msgid "Installed %s conflicts with %s\n"
 msgstr ""
 
 msgid "print URIs only, do not download"
-msgstr "покажи само линковете, без изтегляне"
+msgstr "РїРѕРєР°Р·РІР°РЅРµ СЃР°РјРѕ РЅР° Р»РёРЅРєРѕРІРµС‚Рµ, Р±РµР· РёР·С‚РµРіР»СЏРЅРµ"
 
 #, c-format
 msgid "Package MD5 Sum:  %s\n"
-msgstr "MD5 сума на пакета:  %s\n"
+msgstr "MD5 СЃСѓРјР° РЅР° РїР°РєРµС‚Р°:  %s\n"
 
 msgid "md5 sum too long\n"
-msgstr "md5 сумата е твърде дълга\n"
+msgstr "md5 СЃСѓРјР°С‚Р° Рµ С‚РІСЉСЂРґРµ РґСЉР»РіР°\n"
 
 msgid "Reading Package Lists..."
-msgstr "Прочитане на списъците с пакети..."
+msgstr "РџСЂРѕС‡РёС‚Р°РЅРµ РЅР° СЃРїРёСЃСЉС†РёС‚Рµ СЃ РїР°РєРµС‚Рё..."
 
 #, c-format
 msgid "Download of %s incomplete\n"
-msgstr "Изтеглянето на %s е незавършено\n"
+msgstr "РР·С‚РµРіР»СЏРЅРµС‚Рѕ РЅР° %s Рµ РЅРµР·Р°РІСЉСЂС€РµРЅРѕ\n"
 
 #, c-format
 msgid "Could not find MD5 checksum for %s, override with --no-md5\n"
-msgstr ""
+msgstr "MD5 СЃСѓРјР°С‚Р° РЅР° %s РЅРµ Р±Рµ РЅР°РјРµСЂРµРЅР°, РїСЂРµР·Р°РїРёСЃ СЃ --no-md5\n"
 
 #, c-format
 msgid "%s, which is required by %s, is excluded\n"
-msgstr ""
+msgstr "%s, РєРѕР№С‚Рѕ СЃРµ РёР·РёСЃРєРІР° РѕС‚ %s, Рµ РёР·РєР»СЋС‡РµРЅ\n"
 
 msgid "skip dependency check"
-msgstr "пропусни проверката за зависимости"
+msgstr "Р±РµР· РїСЂРѕРІРµСЂРєР° Р·Р° Р·Р°РІРёСЃРёРјРѕСЃС‚Рё"
 
 msgid "show download statistics"
-msgstr "покажи статистика на тегленето"
+msgstr "РїРѕРєР°Р·РІР°РЅРµ РЅР° СЃС‚Р°С‚РёСЃС‚РёРєР°С‚Р° РЅР° С‚РµРіР»РµРЅРµ"
 
 msgid "Cached\n"
 msgstr ""
 
 msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr ""
+msgstr "РќРµСѓСЃРїРµС… РїСЂРё РёР·С‚РµРіР»СЏРЅРµС‚Рѕ РЅР° РёР·С‚РѕС‡РЅРёС†РёС‚Рµ, РїРѕРїСЂР°РІРµС‚Рµ РёР·С‚РѕС‡РЅРёС†РёС‚Рµ Рё СЃС‚Р°СЂС‚РёСЂР°Р№С‚Рµ РѕС‚РЅРѕРІРѕ --update\n"
 
 msgid "specify alternate slapt-getrc location"
-msgstr ""
+msgstr "РїРѕСЃРѕС‡РІР°РЅРµ РЅР° Р°Р»С‚РµСЂРЅР°С‚РёРІРµРЅ slapt-getrc С„Р°Р№Р»"
 
 msgid "Suggested packages:\n"
 msgstr ""
 
 msgid "only purge cache of older, unreacheable pkgs"
-msgstr ""
+msgstr "РёР·С‡РёСЃС‚РІР°РЅРµ РЅР° РєРµС€РёСЂР°РЅРё СЃС‚Р°СЂРё Рё РЅРµРёР·РїРѕР»Р·РІР°РµРјРё РїР°РєРµС‚Рё"
 
 msgid "remove obsolete packages (dist-upgrade only)"
-msgstr "премахване на остаряли пакети (само при dist-upgrade)"
+msgstr "РїСЂРµРјР°С…РІР°РЅРµ РЅР° РѕСЃС‚Р°СЂРµР»Рё РїР°РєРµС‚Рё (СЃР°РјРѕ РїСЂРё dist-upgrade)"
 
 #, c-format
 msgid "You don't have enough free space in %s\n"
-msgstr "Нямате достатъчно дисково пространство в %s\n"
+msgstr "РќСЏРјР° РґРѕСЃС‚Р°С‚СЉС‡РЅРѕ СЃРІРѕР±РѕРґРЅРѕ РјСЏСЃС‚Рѕ РІ %s\n"
 
 #, c-format
 msgid "Package Conflicts: %s\n"
@@ -468,13 +468,14 @@ msgid "Failed to parse package data from %s\n"
 msgstr ""
 
 msgid "specify number of download retry attempts"
-msgstr ""
+msgstr "РїРѕСЃРѕС‡РІР°РЅРµ РЅР° Р±СЂРѕСЏ РѕРїРёС‚Рё РёР·С‚РµРіР»СЏРЅРµ"
 
 msgid "install package, do not attempt to upgrade"
-msgstr ""
+msgstr "РёРЅСЃС‚Р°Р»РёСЂР°РЅРµ РЅР° РїР°РєРµС‚, Р±РµР· РѕРїРёС‚ Р·Р° РѕР±РЅРѕРІСЏРІР°РЅРµ"
 
 msgid "[disk set(s)] - install specified disk set(s)"
-msgstr ""
+msgstr "[РґРёСЂРµРєС‚РѕСЂРёСЏ] - РёРЅСЃС‚Р°Р»РёСЂР°РЅРµ РЅР° С†РµР»Рё РґРёСЂРµРєС‚РѕСЂРёРё РѕС‚ СЃСЉСЂРІСЉСЂ"
 
 msgid "always prompt during install/upgrade"
-msgstr ""
+msgstr "РёСЃРєР°РЅРµ РЅР° РїРѕС‚РІСЉСЂР¶РґРµРЅРёРµ РїСЂРё РёРЅСЃС‚Р°Р»РёСЂР°РЅРµ/РѕР±РЅРѕРІСЏРІР°РЅРµ"
+

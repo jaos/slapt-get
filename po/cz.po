@@ -1,6 +1,6 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2004
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the slapt-get package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
