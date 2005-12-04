@@ -1,0 +1,481 @@
+# Indonesian slapt-get translation
+# Copyright (C) 2005
+# This file is distributed under the same license as the slapt-get package.
+# Kemas Antonius <kyantonius@kyantonius.com>, 2005
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.9.11a\n"
+"POT-Creation-Date: 2003-11-03 14:28+0000\n"
+"PO-Revision-Date: 2005-11-05 12:24+0500\n"
+"Last-Translator: Kemas Antonius <kyantonius@kyantonius.com>\n"
+"Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Reading Package Lists... "
+msgstr "Membaca daftar paket..."
+
+msgid "Done\n"
+msgstr "Selesai\n"
+
+#, c-format
+msgid "%s is up to date.\n"
+msgstr "%s sudah mutakhir.\n"
+
+msgid "yes"
+msgstr "ya"
+
+msgid "no"
+msgstr "tidak"
+
+#, c-format
+msgid "%s is not installed.\n"
+msgstr "%s tidak terinstal.\n"
+
+#, c-format
+msgid "Package Name: %s\n"
+msgstr "Nama paket: %s\n"
+
+#, c-format
+msgid "Package Mirror: %s\n"
+msgstr "Sumber alternatif: %s\n"
+
+#, c-format
+msgid "Package Location: %s\n"
+msgstr "Lokasi paket: %s\n"
+
+#, c-format
+msgid "Package Version: %s\n"
+msgstr "Versi paket: %s\n"
+
+#, c-format
+msgid "Package Size: %d K\n"
+msgstr "Besar paket: %d K\n"
+
+#, c-format
+msgid "Package Installed Size: %d K\n"
+msgstr "Besar paket terinstal: %d K\n"
+
+#, c-format
+msgid "Package Required: %s\n"
+msgstr "Paket yang dibutuhkan: %s\n"
+
+msgid "Package Description:\n"
+msgstr "Deskripsi paket:\n"
+
+#, c-format
+msgid "Package Installed: %s\n"
+msgstr "Paket terinstal: %s\n"
+
+#, c-format
+msgid "No such package: %s\n"
+msgstr "Tidak ditemukan paket: %s\n"
+
+#, c-format
+msgid "Retrieving package data [%s]..."
+msgstr "Mengambil data paket [%s]..."
+
+#, c-format
+msgid "Retrieving package data [%s]...\n"
+msgstr "Mengambil data paket [%s]...\n"
+
+#, c-format
+msgid "Retrieving extras list [%s]..."
+msgstr "Mengambil daftar ekstra [%s]..."
+
+#, c-format
+msgid "Retrieving extras list [%s]...\n"
+msgstr "Mengambil daftar ekstra [%s]...\n"
+
+#, c-format
+msgid "Retrieving patch list [%s]..."
+msgstr "Mengambil daftar tambalan [%s]..."
+
+#, c-format
+msgid "Retrieving patch list [%s]...\n"
+msgstr "Mengambil daftar tambalan [%s]...\n"
+
+#, c-format
+msgid "Retrieving checksum list [%s]..."
+msgstr "Mengambil daftar checksum [%s]..."
+
+msgid "Failed to malloc\n"
+msgstr "malloc gagal\n"
+
+#, c-format
+msgid "WORKINGDIR directive not set within %s.\n"
+msgstr "Instruksi WORKINGDIR tidak diberikan di %s.\n"
+
+#, c-format
+msgid "SOURCE directive not set within %s.\n"
+msgstr "Instruksi SOURCE tidak diberikan di %s.\n"
+
+#, c-format
+msgid "Failed to build working directory [%s]\n"
+msgstr "Gagal membangun direktori kerja [%s]\n"
+
+#, c-format
+msgid "Please update permissions on %s or run with appropriate privileges\n"
+msgstr "Silakan memperbaiki hak akses %s atau jalankan dengan hak akses yang memadai\n"
+
+#, c-format
+msgid "Failed to open %s\n"
+msgstr "Gagal membuka %s\n"
+
+msgid "Perhaps you want to run --update?\n"
+msgstr "Mungkin anda ingin menjalankan --update?\n"
+
+#, c-format
+msgid "Failed to opendir %s\n"
+msgstr "Gagal membuka direktori %s\n"
+
+#, c-format
+msgid "Failed to chdir: %s\n"
+msgstr "Gagal mengganti direktori: %s\n"
+
+#, c-format
+msgid "unlinking %s\n"
+msgstr "melepaskan taut %s\n"
+
+msgid "Failed to get cwd\n"
+msgstr "Gagal mendapatkan cwd\n"
+
+#, c-format
+msgid "\tCurrent working directory: %s\n"
+msgstr "\tDirektori kerja saat ini: %s\n"
+
+#, c-format
+msgid "Failed to mkdir: %s\n"
+msgstr "Gagal membuat direktori: %s\n"
+
+#, c-format
+msgid "\tCreated directory: %s\n"
+msgstr "\tDirektory yang telah dibuat: %s\n"
+
+#, c-format
+msgid "Failed to chdir to %s\n"
+msgstr "Gagal mengganti direktori ke %s\n"
+
+#, c-format
+msgid "\tchdir into %s\n"
+msgstr "\tganti direktori ke %s\n"
+
+#, c-format
+msgid "\tchdir back into %s\n"
+msgstr "\tganti direktori kembali ke %s\n"
+
+#, c-format
+msgid "Fetching url:[%s]\n"
+msgstr "Mengambil url:[%s]\n"
+
+#, c-format
+msgid "Failed to download: %s\n"
+msgstr "Gagal men-download: %s\n"
+
+msgid "Failed to calloc\n"
+msgstr "calloc gagal\n"
+
+#, c-format
+msgid "Get %s %s %s [%.1d%s]..."
+msgstr "Mendapatkan %s %s %s [%.1d%s]..."
+
+#, c-format
+msgid "Get %s %s %s [%.1d%s]...\n"
+msgstr "Mendapatkan %s %s %s [%.1d%s]...\n"
+
+#, c-format
+msgid "Failed to unlink %s\n"
+msgstr "Gagal melepaskan taut %s\n"
+
+#, c-format
+msgid "md5 sum for %s is not correct, override with --no-md5!\n"
+msgstr "md5 sum untuk %s tidak benar, langkahi dengan --no-md5!\n"
+
+#, c-format
+msgid "MD5 found:    [%s]\n"
+msgstr "MD5 diperoleh:    [%s]\n"
+
+#, c-format
+msgid "MD5 expected: [%s]\n"
+msgstr "MD5 diperkirakan: [%s]\n"
+
+#, c-format
+msgid "File: %s/%s\n"
+msgstr "Berkas: %s/%s\n"
+
+msgid "An implementation of the Debian APT system to Slackware\n"
+msgstr "Sebuah implementasi dari sistem APT Debian untuk Slackware\n"
+
+msgid "Usage:\n"
+msgstr "Penggunaan:\n"
+
+#, c-format
+msgid "%s [option(s)] [target]\n"
+msgstr "%s [opsi] [target]\n"
+
+msgid "Targets:\n"
+msgstr "Target:\n"
+
+msgid "retrieves pkg data from MIRROR"
+msgstr "mengambil data pkg dari MIRROR"
+
+msgid "upgrade installed pkgs"
+msgstr "memperbaharui pkg yang telah terinstal"
+
+msgid "upgrade to newer release"
+msgstr "memperbaharui ke rilis terbaru"
+
+msgid "[pkg name(s)] - install specified pkg(s)"
+msgstr "[nama pkg] - instal pkg yang telah dipilih"
+
+msgid "[pkg name(s)] - remove specified pkg(s)"
+msgstr "[nama pkg] - hapus pkg yang telah dipilih"
+
+msgid "[pkg name] - show pkg description"
+msgstr "[nama pkg] - tampilkan deskripsi pkg"
+
+msgid "[expression] - search available pkgs"
+msgstr "[ekspresi] - mencari pkg yang tersedia"
+
+msgid "list pkgs"
+msgstr "daftar pkg"
+
+msgid "list available pkgs"
+msgstr "daftar pkg yang tersedia"
+
+msgid "list installed pkgs"
+msgstr "daftar pkg yang terinstal"
+
+msgid "purge cached pkgs"
+msgstr "buang habis data sementara pkg"
+
+msgid "print version and license info"
+msgstr "cetak informasi versi dan lisensi"
+
+msgid "Options:\n"
+msgstr "Opsi:\n"
+
+msgid "only download pkg on install/upgrade"
+msgstr "hanya download pkg sewaktu instalasi/pembaharuan"
+
+msgid "show pkgs to be installed/upgraded"
+msgstr "tampilkan pkg yang akan diinstal/diperbaharui"
+
+msgid "do not prompt during install/upgrade"
+msgstr "jangan tampilkan pertanyaan selama instalasi/pembaharuan"
+
+msgid "re-install the pkg"
+msgstr "instal ulang pkg"
+
+msgid "install/upgrade excludes"
+msgstr "instal/perbaharui tanpa mengikutsertakan"
+
+msgid "do not perform md5 check sum"
+msgstr "jangan lakukan md5 check sum"
+
+msgid "ignore dependency failures"
+msgstr "abaikan kesalahan dependensi"
+
+#, c-format
+msgid "%s version %s\n"
+msgstr "%s versi %s\n"
+
+#, c-format
+msgid "regex failed on [%s]\n"
+msgstr "regex gagal pada [%s]\n"
+
+msgid "regexec failed to parse location\n"
+msgstr "regexec gagal mengenal lokasi\n"
+
+msgid "getline reached EOF attempting to read location\n"
+msgstr "getline sudah mencapai EOF dalam usaha membaca lokasi\n"
+
+msgid "regexec failed to parse size_c\n"
+msgstr "regexec gagal mengenal size_c\n"
+
+msgid "getline reached EOF attempting to read size_c\n"
+msgstr "getline sudah mencapau EOF dalam usaha membaca size_c\n"
+
+msgid "regexec failed to parse size_u\n"
+msgstr "regexec gagal mengenal size_u\n"
+
+msgid "getline reached EOF attempting to read size_u\n"
+msgstr "getline sudah mencapai EOF dalam usaha membaca size_u\n"
+
+msgid "error attempting to read pkg description\n"
+msgstr "terjadi kesalahan dalam usaha membaca deskripsi pkg\n"
+
+#, c-format
+msgid "Failed to realloc %s\n"
+msgstr "realloc gagal pada %s\n"
+
+msgid "Failed to compile regex\n"
+msgstr "Gagal mengkompilasi regex\n"
+
+#, c-format
+msgid "Regex Error: %s\n"
+msgstr "Kesalahan regex: %s\n"
+
+#, c-format
+msgid "%s-%s is to be installed\n"
+msgstr "%s-%s akan diinstal\n"
+
+#, c-format
+msgid "Preparing to install %s-%s\n"
+msgstr "Persiapan untuk menginstal %s-%s\n"
+
+#, c-format
+msgid "Failed to execute command: [%s]\n"
+msgstr "Gagal mengeksekusi perintah: [%s]\n"
+
+#, c-format
+msgid "%s-%s is to be upgraded to version %s\n"
+msgstr "%s-%s akan diperbaharui ke versi %s\n"
+
+#, c-format
+msgid "Preparing to replace %s-%s with %s-%s\n"
+msgstr "Persiapan untuk mengganti %s-%s dengan %s-%s\n"
+
+#, c-format
+msgid "%s-%s is to be removed\n"
+msgstr "%s-%s akan dihapus\n"
+
+#, c-format
+msgid "Failed to compile regex [%s]\n"
+msgstr "Gagal mengkompilasi regex [%s]\n"
+
+msgid "pkg conditional too long\n"
+msgstr "persyaratan pkg terlalu panjang\n"
+
+msgid "The following packages have unmet dependencies:\n"
+msgstr "Paket-paket berikut tidak memenuhi dependensi:\n"
+
+#, c-format
+msgid "  %s: Depends: %s\n"
+msgstr "  %s: bergantung kepada: %s\n"
+
+msgid "The following packages have been EXCLUDED:\n"
+msgstr "Paket-paket berikut tidak diikutsertakan:"
+
+msgid "The following NEW packages will be installed:\n"
+msgstr "Paket-paket baru yang akan diinstal:\n"
+
+msgid "The following packages will be REMOVED:\n"
+msgstr "Paket-paket berikut akan dihapus:\n"
+
+msgid "The following packages will be upgraded:\n"
+msgstr "Paket-paket berikut akan diperbaharui:\n"
+
+#, c-format
+msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
+msgstr "%d diperbaharui, %d baru diinstal, %d dihapus dan %d tidak diperbaharui.\n"
+
+#, c-format
+msgid "Need to get %.1d%s of archives.\n"
+msgstr "Harus mendapatkan %.1d%s arsip.\n"
+
+#, c-format
+msgid "Need to get %.1d%s/%.1d%s of archives.\n"
+msgstr "Harus mendapatkan %.1d%s/%.1d%s arsip.\n"
+
+#, c-format
+msgid "After unpacking %.1d%s disk space will be freed.\n"
+msgstr "Setelah dibuka %.1d%s ruang disket akan dibebaskan.\n"
+
+#, c-format
+msgid "After unpacking %.1d%s of additional disk space will be used.\n"
+msgstr "Setelah dibuka %.1d%s tambahan ruang disket akan digunakan.\n"
+
+msgid "Do you want to continue? [y/N] "
+msgstr "Apakah anda ingin lanjut ke langkah berikutnya? [y/N] "
+
+msgid "Abort.\n"
+msgstr "Batal.\n"
+
+#, c-format
+msgid "%s, which is to be installed, conflicts with %s\n"
+msgstr "%s yang akan diinstal, memiliki konflik dengan %s\n"
+
+#, c-format
+msgid "Installed %s conflicts with %s\n"
+msgstr "%s yang telah terinstal memiliki konflik dengan %s\n"
+
+msgid "print URIs only, do not download"
+msgstr "cetak URI saja, jangan download"
+
+#, c-format
+msgid "Package MD5 Sum:  %s\n"
+msgstr "MD5 sum paket:  %s\n"
+
+msgid "md5 sum too long\n"
+msgstr "md5 sum terlalu panjang\n"
+
+msgid "Reading Package Lists..."
+msgstr "Membaca daftar paket..."
+
+#, c-format
+msgid "Download of %s incomplete\n"
+msgstr "Download $s tidak lengkap\n"
+
+#, c-format
+msgid "Could not find MD5 checksum for %s, override with --no-md5\n"
+msgstr "Tidak diperoleh MD% checksum untuk %s, langkahi dengan --no-md5\n"
+
+#, c-format
+msgid "%s, which is required by %s, is excluded\n"
+msgstr "%s yang dibutuhkan oleh %s, tidak diikutsertakan\n"
+
+msgid "skip dependency check"
+msgstr "langkahi pemeriksaan dependensi"
+
+msgid "show download statistics"
+msgstr "tampilkan statistik download"
+
+msgid "Cached\n"
+msgstr "Tersimpan sementara\n"
+
+msgid "Sources failed to download, correct sources and rerun --update\n"
+msgstr "Gagal men-download dari sumber yang ada, perbaiki sumber dan jalankan kembali --update\n"
+
+msgid "specify alternate slapt-getrc location"
+msgstr "tentukan alternatif lokasi slapt-getrc"
+
+msgid "Suggested packages:\n"
+msgstr "Paket-paket yang disarankan:\n"
+
+msgid "only purge cache of older, unreacheable pkgs"
+msgstr "hanya buang habis data sementara yang tersimpan untuk pkg yang sudah lama dan tidak tesedia lagi"
+
+msgid "remove obsolete packages (dist-upgrade only)"
+msgstr "hapus pkg yang tidak perlu (hanya untuk dist-upgrade saja)"
+
+#, c-format
+msgid "You don't have enough free space in %s\n"
+msgstr "Anda tidak memiliki ruang disket yang cukup di %s\n"
+
+#, c-format
+msgid "Package Conflicts: %s\n"
+msgstr "Konflik paket: %s\n"
+
+#, c-format
+msgid "Package Suggests: %s\n"
+msgstr "Paket menyarankan: %s\n"
+
+#, c-format
+msgid "Failed to parse package data from %s\n"
+msgstr "Gagal mengenal data paket dari %s\n"
+
+msgid "specify number of download retry attempts"
+msgstr "tentukan jumlah usaha untuk mencoba download"
+
+msgid "install package, do not attempt to upgrade"
+msgstr "instal paket, jangan memperbaharui"
+
+msgid "[disk set(s)] - install specified disk set(s)"
+msgstr "[set disket] - instal set disk yang telah ditentukan"
+
+msgid "always prompt during install/upgrade"
+msgstr "munculkan pertanyaan selama instalasi/pembaharuan"
+
