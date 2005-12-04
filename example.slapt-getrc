@@ -100,6 +100,7 @@ SOURCE=http://software.jaos.org/slackpacks/10.2/
 #SOURCE=http://www.slackages.com/slapt-get/jto/
 #SOURCE=http://mirror.on.net.mk/Damjan/slackware-10.2/
 #SOURCE=http://packages.slackforge.net/
+#SOURCE=http://droplinegnome.org/home/harmon/extra/
 
 
 # pull from your cdrom
