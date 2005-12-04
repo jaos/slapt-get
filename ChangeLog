@@ -1,4 +1,7 @@
 
+0.9.11a Dec 3, 2005
+ * updated Polish translation from Piotr
+
 0.9.11 Dec 2, 2005
  * added slapt_clean_description() to remove the package name from the
    package description.
