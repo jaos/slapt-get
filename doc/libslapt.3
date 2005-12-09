@@ -25,13 +25,13 @@ slapt_pkg_info_t *pkg = slapt_get_exact_pkg(available,
 if (!slapt_is_excluded(config,pkg)) {
   slapt_download_pkg(config,pkg);
 
-  if (install_pkg(config,pkg) != 0) {
+  if (slapt_install_pkg(config,pkg) != 0) {
     fprintf(stderr,"error installing %s\\n"pkg->name);
   }
-  if (upgrade_pkg(config,pkg) != 0) {
+  if (slapt_upgrade_pkg(config,pkg) != 0) {
     fprintf(stderr,"error upgrading %s\\n"pkg->name);
   }
-  if (remove_pkg(config,pkg) != 0) {
+  if (slapt_remove_pkg(config,pkg) != 0) {
     fprintf(stderr,"error removing %s\\n"pkg->name);
   }
 }
