@@ -221,7 +221,7 @@ Comparing package versions is done with the \fIslapt_cmp_pkgs\fP macro.  It call
 .fi
 .sp
 .TP
-The following functions deal with determining package dependencies and conflicts and returning them within a package list.  Some require the use of a \fIstruct slapt_pkg_err_list\fP of \fIslapt_pkg_err_t\fP objects for reporting errors on which packages failed or were missing.  \fIslapt_search_pkg_err_list\fP() returns 0 if the package and error string combination does not already exist in the \fIstruct slapt_pkg_err_list\fP, 1 if found.
+The following functions deal with determining package dependencies and conflicts and returning them within a package list.  Some require the use of a \fIstruct slapt_pkg_err_list\fP of \fIslapt_pkg_err_t\fP objects for reporting errors on which packages failed or were missing.  \fIslapt_search_pkg_err_list\fP() returns 0 if the package and error string combination does not already exist in the \fIstruct slapt_pkg_err_list\fP, or 1 if found.
 .sp
 .nf
   typedef struct {
@@ -243,7 +243,7 @@ The following functions deal with determining package dependencies and conflicts
 .sp
 .fi
 .TP
-\fIslapt_get_pkg_dependencies\fP() fills a \fIstruct slapt_pkg_list\fP of dependencies for the specified package.  These dependencies are pulled from the available package list and the installed package lists.  Missing and conflict errors are placed in \fIstruct slapt_pkg_err_list\fP.  \fIdeps\fP, \fIconflict_err\fP, and \fImissing_err\fP are initialized if null.  \fIslapt_get_pkg_dependencies\fP() returns 0 on success, or -1 on error.
+\fIslapt_get_pkg_dependencies\fP() fills a \fIstruct slapt_pkg_list\fP of dependencies for the specified package.  These dependencies are pulled from the available package list and the installed package lists.  Missing and conflict errors are placed in \fIstruct slapt_pkg_err_list\fP.  \fIdeps\fP, \fIconflict_err\fP, and \fImissing_err\fP are initialized if NULL.  \fIslapt_get_pkg_dependencies\fP() returns 0 on success, or -1 on error.
 .sp
 .nf
 .B "int slapt_get_pkg_dependencies(const slapt_rc_config *global_config,
@@ -293,7 +293,7 @@ The \fIworking_dir\fP, defined within the \fIslapt_rc_config\fP object, caches t
 .fi
 .sp
 .TP
-The following use used to clean the package name from the package description.  This modifies the string in place.  It is best to copy the \fIpkg->description\fP to a new string prior to calling \fIslapt_clean_description\fP().
+The \fIslapt_clean_description\fP() function is used to clean the package name from the package description.  This modifies the string in place.  It is best to copy the \fIpkg->description\fP to a new string prior to calling \fIslapt_clean_description\fP().
 .sp
 .nf
 .B void slapt_clean_description (char *description, const char *name);
@@ -301,7 +301,7 @@ The following use used to clean the package name from the package description.  
 .sp
 .IP \fBDOWNLOADING\fP
 .TP
-Downloading packages and the package data from various sources is handled with the following functions.
+Downloading packages and the package data from various sources is handled with the following functions.  Functions with integer return types return non-zero on error.
 .sp
 .nf
 .B "int slapt_update_pkg_cache(const slapt_rc_config *global_config);"
