@@ -39,6 +39,7 @@
 #include <sys/statvfs.h>
 #include <sys/mman.h>
 #include <zlib.h>
+#include <utime.h>
 
 #include "common.h"
 #include "configuration.h"

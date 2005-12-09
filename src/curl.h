@@ -1,12 +1,5 @@
 
 /*
-  this is the main download routine, returns 0 on success.  On error returns
-  -1 or CURLE_HTTP_RANGE_ERROR
-*/
-int slapt_download_data(FILE *fh,const char *url,size_t bytes,
-                  const slapt_rc_config *global_config);
-
-/*
   retrieves the head data for the url, returns (char *) or NULL on error
 */
 char *slapt_head_request(const char *url);

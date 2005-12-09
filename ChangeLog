@@ -1,5 +1,6 @@
 
-0.9.11a Dec 5, 2005
+0.9.11a Dec 9, 2005
+ * now preserves access and modification time of downloaded package
  * added Indonesian translation by Kemas Antonius
  * updated Portuguese_Portugal translation from Miguel
  * updated Polish translation from Piotr

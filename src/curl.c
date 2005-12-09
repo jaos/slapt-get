@@ -25,7 +25,7 @@ struct head_data_t {
   size_t size;
 };
 
-int slapt_download_data(FILE *fh,const char *url,size_t bytes,
+static int slapt_download_data(FILE *fh,const char *url,size_t bytes,long *filetime,
                   const slapt_rc_config *global_config)
 {
   CURL *ch = NULL;
@@ -78,23 +78,28 @@ int slapt_download_data(FILE *fh,const char *url,size_t bytes,
     /*
       * this is for proxy servers that can't resume 
     */
-    if (response == CURLE_HTTP_RANGE_ERROR) {
+    if ( response == CURLE_HTTP_RANGE_ERROR ) {
       return_code = CURLE_HTTP_RANGE_ERROR;
-    } else if (response == CURLE_FTP_BAD_DOWNLOAD_RESUME) {
+    } else if ( response == CURLE_FTP_BAD_DOWNLOAD_RESUME ) {
       return_code = CURLE_FTP_BAD_DOWNLOAD_RESUME;
-    } else if (response == CURLE_PARTIAL_FILE) {
+    } else if ( response == CURLE_PARTIAL_FILE ) {
       return_code = CURLE_PARTIAL_FILE;
     /*
       * this is a simple hack for all ftp sources that won't have a patches dir
       * we don't want an ugly error to confuse the user
     */
-    } else if (strstr(url,SLAPT_PATCHES_LIST) != NULL) {
+    } else if ( strstr(url,SLAPT_PATCHES_LIST) != NULL ) {
       return_code = 0;
     } else {
       fprintf(stderr,gettext("Failed to download: %s\n"),curl_err_buff);
       return_code = -1;
     }
   }
+
+  if ( filetime != NULL ) {
+    curl_easy_getinfo(ch, CURLINFO_FILETIME, filetime);
+  }
+
   /*
    * need to use curl_easy_cleanup() so that we don't 
     * have tons of open connections, getting rejected
@@ -187,7 +192,7 @@ int slapt_get_mirror_data_from_source(FILE *fh,
   url[ strlen(base_url) ] = '\0';
   strncat(url,filename,strlen(filename) );
 
-  return_code = slapt_download_data(fh,url,0,global_config);
+  return_code = slapt_download_data(fh,url,0,NULL,global_config);
 
   free(url);
   /* make sure we are back at the front of the file */
@@ -205,6 +210,7 @@ int slapt_download_pkg(const slapt_rc_config *global_config,
   size_t f_size = 0;
   int pkg_verify_return = -1;
   int dl_return = -1, dl_total_size = 0;
+  long filetime = 0;
 
   if (slapt_verify_downloaded_pkg(global_config,pkg) == 0)
     return 0;
@@ -260,7 +266,7 @@ int slapt_download_pkg(const slapt_rc_config *global_config,
   }
 
   /* download the file to our file handle */
-  dl_return = slapt_download_data(fh,url,f_size,global_config);
+  dl_return = slapt_download_data(fh,url,f_size,&filetime,global_config);
   if (dl_return == 0) {
 
     if (global_config->dl_stats == SLAPT_FALSE &&
@@ -320,6 +326,14 @@ int slapt_download_pkg(const slapt_rc_config *global_config,
 
   fclose(fh);
   free(url);
+
+  /* preserve the file access and modification time */
+  if ( filetime > 0 ) {
+    struct utimbuf times;
+    times.actime = (time_t)filetime;
+    times.modtime = (time_t)filetime;
+    utime(file_name, &times); /* set the time we got */
+  }
 
   /* check to make sure we have the complete file */
   pkg_verify_return = slapt_verify_downloaded_pkg(global_config,pkg);
