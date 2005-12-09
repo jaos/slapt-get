@@ -292,6 +292,13 @@ The \fIworking_dir\fP, defined within the \fIslapt_rc_config\fP object, caches t
 .B "                                 struct slapt_pkg_list *avail_pkgs);"
 .fi
 .sp
+.TP
+The following use used to clean the package name from the package description.  This modifies the string in place.  It is best to copy the \fIpkg->description\fP to a new string prior to calling \fIslapt_clean_description\fP().
+.sp
+.nf
+.B void slapt_clean_description (char *description, const char *name);
+.fi
+.sp
 .IP \fBDOWNLOADING\fP
 .TP
 Downloading packages and the package data from various sources is handled with the following functions.
@@ -302,8 +309,6 @@ Downloading packages and the package data from various sources is handled with t
 .B "                       slapt_pkg_info_t *pkg);"
 .B "int slapt_verify_downloaded_pkg(const slapt_rc_config *global_config,"
 .B "                                slapt_pkg_info_t *pkg);"
-.B "int slapt_download_data(FILE *fh,const char *url,size_t bytes,"
-.B "                        const slapt_rc_config *global_config);"
 .sp
 .B "int slapt_get_mirror_data_from_source(FILE *fh,"
 .B "                                      const slapt_rc_config *global_config,"
