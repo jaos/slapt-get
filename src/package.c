@@ -1828,7 +1828,7 @@ static void required_by(const slapt_rc_config *global_config,
   if (global_config->disable_dep_check == SLAPT_TRUE)
     return;
 
-  escapedName = slapt_malloc(sizeof *escapedName * (strlen(pkg->name) + 1) );
+  escapedName = slapt_malloc(sizeof *escapedName * (strlen(pkg->name) + 2) );
 
   name_len = strlen(pkg->name);
   for (i = 0, escaped_ptr = escapedName; i < name_len && pkg->name[i]; i++) {
