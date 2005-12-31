@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.11\n"
+"Project-Id-Version: 0.9.11a\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2005-12-02 22:58+0500\n"
+"PO-Revision-Date: 2005-12-31 16:26+0500\n"
 "Last-Translator: Victor Keranov <victor_keranov@mail.bg>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -374,11 +374,11 @@ msgstr "%d обновени, %d инсталирани, %d за премахва
 
 #, c-format
 msgid "Need to get %.1d%s of archives.\n"
-msgstr ""
+msgstr "Необходимо е да се изтеглят %.1d%s архиви.\n"
 
 #, c-format
 msgid "Need to get %.1d%s/%.1d%s of archives.\n"
-msgstr ""
+msgstr "Необходимо е да се изтеглят %.1d%s/%.1d%s архиви.\n"
 
 #, c-format
 msgid "After unpacking %.1d%s disk space will be freed.\n"
@@ -443,7 +443,7 @@ msgid "specify alternate slapt-getrc location"
 msgstr "посочване на алтернативен slapt-getrc файл"
 
 msgid "Suggested packages:\n"
-msgstr ""
+msgstr "Предложени пакети:\n"
 
 msgid "only purge cache of older, unreacheable pkgs"
 msgstr "изчистване на кеширани стари и неизползваеми пакети"
