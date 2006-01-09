@@ -357,7 +357,7 @@ msgid "  %s: Depends: %s\n"
 msgstr "  %s: bergantung kepada: %s\n"
 
 msgid "The following packages have been EXCLUDED:\n"
-msgstr "Paket-paket berikut tidak diikutsertakan:"
+msgstr "Paket-paket berikut tidak diikutsertakan:\n"
 
 msgid "The following NEW packages will be installed:\n"
 msgstr "Paket-paket baru yang akan diinstal:\n"
