@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.10f\n"
+"Project-Id-Version: 0.9.11b\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2005-11-05 12:24+0500\n"
+"PO-Revision-Date: 2006-01-09 11:12+0500\n"
 "Last-Translator: Nguyễn Văn Vũ <vncasper@yahoo.com>\n"
 "Language-Team: gnome-vi <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -476,8 +476,8 @@ msgid "install package, do not attempt to upgrade"
 msgstr "cài đặt mới, không nâng cấp"
 
 msgid "[disk set(s)] - install specified disk set(s)"
-msgstr "[disk set(s)] - install specified disk set(s)"
+msgstr "[bộ đĩa] - cài đặt bộ đĩa được chỉ định"
 
 msgid "always prompt during install/upgrade"
-msgstr "always prompt during install/upgrade"
+msgstr "luôn hỏi ý kiến trong khi cài đặt/nâng cấp"
 
