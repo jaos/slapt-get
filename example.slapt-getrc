@@ -100,6 +100,7 @@ SOURCE=http://software.jaos.org/slackpacks/10.2/
 #SOURCE=http://droplinegnome.org/home/harmon/extra/
 #SOURCE=http://mirror.datapipe.net/norlug/mutagenix/packages/
 #SOURCE=http://www2.linuxpackages.net/packages/SlackBuilds/
+#SOURCE=http://stx.mikeasoft.com/
 
 
 # pull from your cdrom
