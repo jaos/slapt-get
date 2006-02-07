@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.11b\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2006-01-09 11:12+0500\n"
+"PO-Revision-Date: 2006-02-07 16:28+0500\n"
 "Last-Translator: Nguyễn Văn Vũ <vncasper@yahoo.com>\n"
 "Language-Team: gnome-vi <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -480,4 +480,8 @@ msgstr "[bộ đĩa] - cài đặt bộ đĩa được chỉ định"
 
 msgid "always prompt during install/upgrade"
 msgstr "luôn hỏi ý kiến trong khi cài đặt/nâng cấp"
+
+#, c-format
+msgid "Excluding %s, use --ignore-dep to override\n"
+msgstr ""
 

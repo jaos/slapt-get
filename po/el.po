@@ -5,9 +5,9 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.10f\n"
+"Project-Id-Version: 0.9.11b\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2005-11-05 12:24+0500\n"
+"PO-Revision-Date: 2006-02-07 16:28+0500\n"
 "Last-Translator: Savvas Eftratiadis <pigouinos@mailworks.org.\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -478,4 +478,8 @@ msgstr "[disk set(s)] - install specified disk set(s)"
 
 msgid "always prompt during install/upgrade"
 msgstr "always prompt during install/upgrade"
+
+#, c-format
+msgid "Excluding %s, use --ignore-dep to override\n"
+msgstr ""
 
