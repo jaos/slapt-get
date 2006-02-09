@@ -1,19 +1,19 @@
 # translation of slapt-get to pl.po
-# Copyright (C) 2004, 2005
+# Copyright (C) 2004, 2005, 2006
 # This file is distributed under the same license as the slapt-get package.
-# Sajmon <sajmon@tenboard.com>, 2004, 2005.
+# Sajmon <sajmon@tenboard.com>, 2004, 2005, 2006
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.11b\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2006-02-07 16:28+0500\n"
+"PO-Revision-Date: 2006-02-09 00:05+0500\n"
 "Last-Translators: Sajmon <sajmon@tenboard.com>, Paul Blazejowski <paulb@blazebox.homeip.net>, nixon <nixon@klub.chip.pl> and simon <ssiimm@poczta.onet.pl>\n"
 "Language-Team: polish slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-2\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11\n"
+"X-Generator: KBabel 1.11.1\n"
 
 msgid "Reading Package Lists... "
 msgstr "Wczytujê Listê Pakietów..."
@@ -418,7 +418,7 @@ msgstr "Wczytujê Listê Pakietów..."
 
 #, c-format
 msgid "Download of %s incomplete\n"
-msgstr "Pobieranie %s nie kompletne\n"
+msgstr "Pobieranie %s niekompletne\n"
 
 #, c-format
 msgid "Could not find MD5 checksum for %s, override with --no-md5\n"
@@ -432,7 +432,7 @@ msgid "skip dependency check"
 msgstr "nie wykonuj sprawdzania zale¿no¶ci"
 
 msgid "show download statistics"
-msgstr "wy¶wietl statystiki poboru"
+msgstr "wy¶wietl statystyki poboru"
 
 msgid "Cached\n"
 msgstr "Zachowane\n"
@@ -482,5 +482,5 @@ msgstr "zawsze potwierdzaj podczas instalacji/aktualizacji"
 
 #, c-format
 msgid "Excluding %s, use --ignore-dep to override\n"
-msgstr ""
+msgstr "Pominiêto %s, u¿yj --ignore-dep ¿eby uniewa¿niæ\n"
 
