@@ -1118,12 +1118,12 @@ int slapt_cmp_pkg_versions(const char *a, const char *b)
       if ((atoi(a_parts->parts[position]) == atoi(b_parts->parts[position])) &&
         (a_parts->count == b_parts->count)) {
 
-        if (strcasecmp(a_parts->parts[position],b_parts->parts[position]) < 0) {
+        if (strverscmp(a_parts->parts[position],b_parts->parts[position]) < 0) {
           slapt_free_pkg_version_parts(a_parts);
           slapt_free_pkg_version_parts(b_parts);
           return lesser;
         }
-        if (strcasecmp(a_parts->parts[position],b_parts->parts[position]) > 0) {
+        if (strverscmp(a_parts->parts[position],b_parts->parts[position]) > 0) {
           slapt_free_pkg_version_parts(a_parts);
           slapt_free_pkg_version_parts(b_parts);
           return greater;
@@ -1200,7 +1200,7 @@ int slapt_cmp_pkg_versions(const char *a, const char *b)
    * then we fall back on strcmp.
   */
   if (strchr(a,'-') == NULL && strchr(b,'-') == NULL)
-    return strcasecmp(a,b);
+    return strverscmp(a,b);
 
   return equal;
 }
