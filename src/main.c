@@ -41,6 +41,7 @@ int main( int argc, char *argv[] )
     {"installed", 0, 0, SLAPT_INSTALLED_OPT},
     {"clean", 0, 0, SLAPT_CLEAN_OPT},
     {"download-only", 0, 0, SLAPT_DOWNLOAD_ONLY_OPT},
+    {"d", 0, 0, SLAPT_DOWNLOAD_ONLY_OPT},
     {"simulate", 0, 0, SLAPT_SIMULATE_OPT},
     {"s", 0, 0, SLAPT_SIMULATE_OPT},
     {"version", 0, 0, SLAPT_VERSION_OPT},
@@ -60,6 +61,7 @@ int main( int argc, char *argv[] )
     {"show-stats",0, 0, SLAPT_SHOW_STATS_OPT},
     {"S",0, 0, SLAPT_SHOW_STATS_OPT},
     {"config",1, 0, SLAPT_CONFIG_OPT},
+    {"c",1, 0, SLAPT_CONFIG_OPT},
     {"autoclean", 0, 0, SLAPT_AUTOCLEAN_OPT},
     {"remove-obsolete", 0, 0, SLAPT_OBSOLETE_OPT},
     {"available", 0, 0, SLAPT_AVAILABLE_OPT},
@@ -376,7 +378,7 @@ void usage(void)
   printf("  --version      - %s\n",gettext("print version and license info"));
   printf("\n");
   printf(gettext("Options:\n"));
-  printf("  --download-only     - %s\n",gettext("only download pkg on install/upgrade"));
+  printf("  --download-only|-d  - %s\n",gettext("only download pkg on install/upgrade"));
   printf("  --simulate|-s       - %s\n",gettext("show pkgs to be installed/upgraded"));
   printf("  --no-prompt|-y      - %s\n",gettext("do not prompt during install/upgrade"));
   printf("  --prompt|-p         - %s\n",gettext("always prompt during install/upgrade"));
@@ -387,7 +389,7 @@ void usage(void)
   printf("  --ignore-dep        - %s\n",gettext("ignore dependency failures"));
   printf("  --print-uris        - %s\n",gettext("print URIs only, do not download"));
   printf("  --show-stats|-S     - %s\n",gettext("show download statistics"));
-  printf("  --config []         - %s\n",gettext("specify alternate slapt-getrc location"));
+  printf("  --config|-c []      - %s\n",gettext("specify alternate slapt-getrc location"));
   printf("  --remove-obsolete   - %s\n",gettext("remove obsolete packages (dist-upgrade only)"));
   printf("  --retry []          - %s\n",gettext("specify number of download retry attempts"));
   printf("  --no-upgrade        - %s\n",gettext("install package, do not attempt to upgrade"));
