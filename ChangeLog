@@ -1,5 +1,5 @@
 
-0.9.11b Feb 11, 2006
+0.9.11b Feb 14, 2006
  * improved version comparison, falling back on strverscmp rather than strcasecmp.
  * Polish translation updates from Piotr
  * moved previously hardcoded string "Excluding %s, use --ignore-dep to override\n" into translations
