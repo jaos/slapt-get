@@ -101,7 +101,8 @@ SOURCE=http://software.jaos.org/slackpacks/10.2/
 #SOURCE=http://mirror.datapipe.net/norlug/mutagenix/packages/
 #SOURCE=http://www2.linuxpackages.net/packages/SlackBuilds/
 #SOURCE=http://stx.mikeasoft.com/
-#SOURCE=http://slackpacks.rlworkman.net/
+#SOURCE=http://slackpacks.rlworkman.net/10.2/
+#SOURCE=http://slackpacks.rlworkman.net/current/
 
 
 # pull from your cdrom
