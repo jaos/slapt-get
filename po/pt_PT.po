@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.11b\n"
+"Project-Id-Version: 0.9.11c\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2006-02-07 16:28+0500\n"
+"PO-Revision-Date: 2006-03-04 13:34+0500\n"
 "Last-Translator: Miguel Santinho <msantinho@simplicidade.com>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -481,5 +481,5 @@ msgstr "perguntar sempre durante a instalação/actualização"
 
 #, c-format
 msgid "Excluding %s, use --ignore-dep to override\n"
-msgstr ""
+msgstr "A excluir %s, utilize --ignore-dep para reescrever\n"
 
