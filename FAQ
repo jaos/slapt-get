@@ -700,7 +700,7 @@ Frequently Asked Questions:
  	for pkg in "$@"
  	do
  		INST=`ls /var/log/packages/|grep ${pkg}|sort -rn|head -1`
-    FILES="`cat /var/log/packages/$INST|grep 'bin\/\|lib/lib'|grep -v '\/$'`"
+    FILES="`cat /var/log/packages/$INST|grep 'bin\/\|lib\/lib.*\.so'|grep -v '\/$'`"
  		for file in $FILES
  		do
  			MISSINGLIBS=`ldd /${file}|grep -i 'not found'|awk '{print $1}'|sort|uniq`
