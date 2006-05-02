@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.11b\n"
+"Project-Id-Version: 0.9.11c\n"
 "POT-Creation-Date: 2005-09-07 23:24 EEST\n"
-"PO-Revision-Date: 2006-02-07 16:28+0500\n"
+"PO-Revision-Date: 2006-05-01 16:28+0500\n"
 "Last-Translators: sin <digitalhunger@gmail.com>\n"
 "Language-Team: DeepStyle Team <hottab@deepstyle.org.ua>\n"
 "MIME-Version: 1.0\n"
@@ -482,5 +482,5 @@ msgstr "завжди питати при встановленн╕/поновленн╕"
 
 #, c-format
 msgid "Excluding %s, use --ignore-dep to override\n"
-msgstr ""
+msgstr "Виключено %s, вкажiть --ignore-dep, щоб встановлювався %s \n"
 
