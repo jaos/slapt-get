@@ -1,0 +1,485 @@
+# Simplified Chinese slapt-get translation
+# Copyright (C) 2004
+# This file is distributed under the same license as the slapt-get package.
+# Yang Jinsong <shannleon@gmail.com>, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.9.11c\n"
+"POT-Creation-Date: 2003-11-03 14:28+0000\n"
+"PO-Revision-Date: 2006-05-01 15:41+0800\n"
+"Last-Translator: Yang Jinsong <shannleon@gmail.com>\n"
+"Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Reading Package Lists... "
+msgstr "读取软件包列表... "
+
+msgid "Done\n"
+msgstr "完成\n"
+
+#, c-format
+msgid "%s is up to date.\n"
+msgstr "%s 已经是最新的.\n"
+
+msgid "yes"
+msgstr "yes"
+
+msgid "no"
+msgstr "no"
+
+#, c-format
+msgid "%s is not installed.\n"
+msgstr "%s 没有安装.\n"
+
+#, c-format
+msgid "Package Name: %s\n"
+msgstr "软件包名称: %s\n"
+
+#, c-format
+msgid "Package Mirror: %s\n"
+msgstr "软件包镜像: %s\n"
+
+#, c-format
+msgid "Package Location: %s\n"
+msgstr "软件包位置: %s\n"
+
+#, c-format
+msgid "Package Version: %s\n"
+msgstr "软件包版本: %s\n"
+
+#, c-format
+msgid "Package Size: %d K\n"
+msgstr "软件包大小: %d K\n"
+
+#, c-format
+msgid "Package Installed Size: %d K\n"
+msgstr "软件包安装后大小: %d K\n"
+
+#, c-format
+msgid "Package Required: %s\n"
+msgstr "软件包需要: %s\n"
+
+msgid "Package Description:\n"
+msgstr "软件包描述:\n"
+
+#, c-format
+msgid "Package Installed: %s\n"
+msgstr "软件包已安装: %s\n"
+
+#, c-format
+msgid "No such package: %s\n"
+msgstr "没有此软件包: %s\n"
+
+#, c-format
+msgid "Retrieving package data [%s]..."
+msgstr "检索软件包数据 [%s]..."
+
+#, c-format
+msgid "Retrieving package data [%s]...\n"
+msgstr "检索软件包数据 [%s]...\n"
+
+#, c-format
+msgid "Retrieving extras list [%s]..."
+msgstr "检索附加软件包列表 [%s]..."
+
+#, c-format
+msgid "Retrieving extras list [%s]...\n"
+msgstr "检索附加软件包列表 [%s]...\n"
+
+#, c-format
+msgid "Retrieving patch list [%s]..."
+msgstr "检索补丁包列表 [%s]..."
+
+#, c-format
+msgid "Retrieving patch list [%s]...\n"
+msgstr "检索补丁包列表 [%s]...\n"
+
+#, c-format
+msgid "Retrieving checksum list [%s]..."
+msgstr "检索校验码列表 [%s]..."
+
+msgid "Failed to malloc\n"
+msgstr "malloc 失败\n"
+
+#, c-format
+msgid "WORKINGDIR directive not set within %s.\n"
+msgstr "%s 中没有设置 WORKINGDIR 关键字.\n"
+
+#, c-format
+msgid "SOURCE directive not set within %s.\n"
+msgstr "%s 中没有设置 SOURCE 关键字.\n"
+
+#, c-format
+msgid "Failed to build working directory [%s]\n"
+msgstr "建立工作目录 [%s] 失败\n"
+
+#, c-format
+msgid "Please update permissions on %s or run with appropriate privileges\n"
+msgstr "请更改 %s 的权限\n"
+
+#, c-format
+msgid "Failed to open %s\n"
+msgstr "打开 %s 失败\n"
+
+msgid "Perhaps you want to run --update?\n"
+msgstr "可能你需要运行 --update?\n"
+
+#, c-format
+msgid "Failed to opendir %s\n"
+msgstr "打开目录 %s 失败\n"
+
+#, c-format
+msgid "Failed to chdir: %s\n"
+msgstr "进入目录 %s 失败\n"
+
+#, c-format
+msgid "unlinking %s\n"
+msgstr "删除链接 %s\n"
+
+msgid "Failed to get cwd\n"
+msgstr "无法获得当前工作目录\n"
+
+#, c-format
+msgid "\tCurrent working directory: %s\n"
+msgstr "\t当前工作目录: %s\n"
+
+#, c-format
+msgid "Failed to mkdir: %s\n"
+msgstr "建立目录 %s 失败\n"
+
+#, c-format
+msgid "\tCreated directory: %s\n"
+msgstr "\t已建立目录: %s\n"
+
+#, c-format
+msgid "Failed to chdir to %s\n"
+msgstr "进入目录 %s 失败\n"
+
+#, c-format
+msgid "\tchdir into %s\n"
+msgstr "\t进入目录 %s\n"
+
+#, c-format
+msgid "\tchdir back into %s\n"
+msgstr "\t回到目录 %s\n"
+
+#, c-format
+msgid "Fetching url:[%s]\n"
+msgstr "下载网址:[%s]\n"
+
+#, c-format
+msgid "Failed to download: %s\n"
+msgstr "下载 %s 失败\n"
+
+msgid "Failed to calloc\n"
+msgstr "calloc 失败\n"
+
+#, c-format
+msgid "Get %s %s %s [%.1d%s]..."
+msgstr "获取 %s %s %s [%.1d%s]..."
+
+#, c-format
+msgid "Get %s %s %s [%.1d%s]...\n"
+msgstr "获取 %s %s %s [%.1d%s]...\n"
+
+#, c-format
+msgid "Failed to unlink %s\n"
+msgstr "删除链接 %s 失败\n"
+
+#, c-format
+msgid "md5 sum for %s is not correct, override with --no-md5!\n"
+msgstr "%s 的 MD5 校验值不正确，使用 --no-md5 选项忽略此问题\n"
+
+#, c-format
+msgid "MD5 found:    [%s]\n"
+msgstr "发现的 MD5 校验值:    [%s]\n"
+
+#, c-format
+msgid "MD5 expected: [%s]\n"
+msgstr "期待的 MD5 校验值: [%s]\n"
+
+#, c-format
+msgid "File: %s/%s\n"
+msgstr "文件: %s/%s\n"
+
+msgid "An implementation of the Debian APT system to Slackware\n"
+msgstr "Debian APT 系统的 Slackware 实现\n"
+
+msgid "Usage:\n"
+msgstr "用法:\n"
+
+#, c-format
+msgid "%s [option(s)] [target]\n"
+msgstr "%s [选项(可多选)] [目的]\n"
+
+msgid "Targets:\n"
+msgstr "目的:\n"
+
+msgid "retrieves pkg data from MIRROR"
+msgstr "从镜像上检索软件包数据"
+
+msgid "upgrade installed pkgs"
+msgstr "升级已安装软件包"
+
+msgid "upgrade to newer release"
+msgstr "升级至更新的 release 版本"
+
+msgid "[pkg name(s)] - install specified pkg(s)"
+msgstr "[软件包名称(可多选)] - 安装软件包"
+
+msgid "[pkg name(s)] - remove specified pkg(s)"
+msgstr "[软件包名称(可多选)] - 删除软件包"
+
+msgid "[pkg name] - show pkg description"
+msgstr "[软件包名称] - 显示软件包描述"
+
+msgid "[expression] - search available pkgs"
+msgstr "[表达式] - 查找可用的软件包"
+
+msgid "list pkgs"
+msgstr "列出软件包"
+
+msgid "list available pkgs"
+msgstr "列出可用软件包"
+
+msgid "list installed pkgs"
+msgstr "列出已安装软件包"
+
+msgid "purge cached pkgs"
+msgstr "清空缓存的软件包"
+
+msgid "print version and license info"
+msgstr "显示版本和版权信息"
+
+msgid "Options:\n"
+msgstr "选项:\n"
+
+msgid "only download pkg on install/upgrade"
+msgstr "执行安装/升级时只下载软件包"
+
+msgid "show pkgs to be installed/upgraded"
+msgstr "显示将要被安装/升级的软件包"
+
+msgid "do not prompt during install/upgrade"
+msgstr "安装/升级时不询问"
+
+msgid "re-install the pkg"
+msgstr "重新安装软件包"
+
+msgid "install/upgrade excludes"
+msgstr "安装/升级已设置为排除的软件包"
+
+msgid "do not perform md5 check sum"
+msgstr "不执行 MD5 校验"
+
+msgid "ignore dependency failures"
+msgstr "忽略依赖失败"
+
+#, c-format
+msgid "%s version %s\n"
+msgstr "%s 版本 %s\n"
+
+#, c-format
+msgid "regex failed on [%s]\n"
+msgstr "regex failed on [%s]\n"
+
+msgid "regexec failed to parse location\n"
+msgstr "regexec failed to parse location\n"
+
+msgid "getline reached EOF attempting to read location\n"
+msgstr "getline reached EOF attempting to read location\n"
+
+msgid "regexec failed to parse size_c\n"
+msgstr "regexec failed to parse size_c\n"
+
+msgid "getline reached EOF attempting to read size_c\n"
+msgstr "getline reached EOF attempting to read size_c\n"
+
+msgid "regexec failed to parse size_u\n"
+msgstr "regexec failed to parse size_u\n"
+
+msgid "getline reached EOF attempting to read size_u\n"
+msgstr "getline reached EOF attempting to read size_u\n"
+
+msgid "error attempting to read pkg description\n"
+msgstr "尝试读取软家包描述时发生错误\n"
+
+#, c-format
+msgid "Failed to realloc %s\n"
+msgstr "Failed to realloc %s\n"
+
+msgid "Failed to compile regex\n"
+msgstr "Failed to compile regex\n"
+
+#, c-format
+msgid "Regex Error: %s\n"
+msgstr "Regex Error: %s\n"
+
+#, c-format
+msgid "%s-%s is to be installed\n"
+msgstr "%s-%s 将要被安装\n"
+
+#, c-format
+msgid "Preparing to install %s-%s\n"
+msgstr "准备安装 %s-%s\n"
+
+#, c-format
+msgid "Failed to execute command: [%s]\n"
+msgstr "执行命令 [%s] 失败\n"
+
+#, c-format
+msgid "%s-%s is to be upgraded to version %s\n"
+msgstr "%s-%s 将要被升级为版本 %s\n"
+
+#, c-format
+msgid "Preparing to replace %s-%s with %s-%s\n"
+msgstr "准备将 %s-%s 替换为 %s-%s\n"
+
+#, c-format
+msgid "%s-%s is to be removed\n"
+msgstr "%s-%s 将要被删除\n"
+
+#, c-format
+msgid "Failed to compile regex [%s]\n"
+msgstr "Failed to compile regex [%s]\n"
+
+msgid "pkg conditional too long\n"
+msgstr "pkg conditional too long\n"
+
+msgid "The following packages have unmet dependencies:\n"
+msgstr "以下软件包没有满足依赖:\n"
+
+#, c-format
+msgid "  %s: Depends: %s\n"
+msgstr "  %s: 依赖于: %s\n"
+
+msgid "The following packages have been EXCLUDED:\n"
+msgstr "以下软件包已被设置为_排除_:\n"
+
+msgid "The following NEW packages will be installed:\n"
+msgstr "以下_新_软件包将要被安装:\n"
+
+msgid "The following packages will be REMOVED:\n"
+msgstr "以下软件包将要被_删除_:\n"
+
+msgid "The following packages will be upgraded:\n"
+msgstr "以下软件包将要被升级:\n"
+
+#, c-format
+msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
+msgstr "%d 升级, %d 安装, %d 删除, %d 不升级.\n"
+
+#, c-format
+msgid "Need to get %.1d%s of archives.\n"
+msgstr "需要获取 %.1d%s 的档案.\n"
+
+#, c-format
+msgid "Need to get %.1d%s/%.1d%s of archives.\n"
+msgstr "需要获取 %.1d%s/%.1d%s 的档案.\n"
+
+#, c-format
+msgid "After unpacking %.1d%s disk space will be freed.\n"
+msgstr "解压后 %.1d%s 的磁盘空间将被回收.\n"
+
+#, c-format
+msgid "After unpacking %.1d%s of additional disk space will be used.\n"
+msgstr "解压后 %.1d%s 的附加磁盘空间将会被使用.\n"
+
+msgid "Do you want to continue? [y/N] "
+msgstr "继续吗? [y/N] "
+
+msgid "Abort.\n"
+msgstr "中止.\n"
+
+#, c-format
+msgid "%s, which is to be installed, conflicts with %s\n"
+msgstr "将要被安装的 %s 与 %s 有冲突\n"
+
+#, c-format
+msgid "Installed %s conflicts with %s\n"
+msgstr "已安装的 %s 与 %s 有冲突\n"
+
+msgid "print URIs only, do not download"
+msgstr "只显示 URIs ，不下载"
+
+#, c-format
+msgid "Package MD5 Sum:  %s\n"
+msgstr "软件包 MD5 校验值:  %s\n"
+
+msgid "md5 sum too long\n"
+msgstr "MD5 校验值太长\n"
+
+msgid "Reading Package Lists..."
+msgstr "读取软件包列表..."
+
+#, c-format
+msgid "Download of %s incomplete\n"
+msgstr "下载 %s 未完成\n"
+
+#, c-format
+msgid "Could not find MD5 checksum for %s, override with --no-md5\n"
+msgstr "无法找到 %s 的 MD5 校验值, 使用 --no-md5 选项忽略此问题\n"
+
+#, c-format
+msgid "%s, which is required by %s, is excluded\n"
+msgstr "%s 为 %s 所需要, 但却被设置为排除\n"
+
+msgid "skip dependency check"
+msgstr "跳过依赖检查"
+
+msgid "show download statistics"
+msgstr "显示下载状况"
+
+msgid "Cached\n"
+msgstr "已缓存\n"
+
+msgid "Sources failed to download, correct sources and rerun --update\n"
+msgstr "源下载失败, 请修正源并且执行 --update\n"
+
+msgid "specify alternate slapt-getrc location"
+msgstr "指定其他的 slapt-getrc 文件位置"
+
+msgid "Suggested packages:\n"
+msgstr "建议安装的软件包:\n"
+
+msgid "only purge cache of older, unreacheable pkgs"
+msgstr "只清除过时和无法获取的软件包"
+
+msgid "remove obsolete packages (dist-upgrade only)"
+msgstr "删除老旧的软件包 (只适用于 dist-upgrade)"
+
+#, c-format
+msgid "You don't have enough free space in %s\n"
+msgstr "你在 %s 上没有足够的自由空间\n"
+
+#, c-format
+msgid "Package Conflicts: %s\n"
+msgstr "软件包冲突: %s\n"
+
+#, c-format
+msgid "Package Suggests: %s\n"
+msgstr "软件包建议安装: %s\n"
+
+#, c-format
+msgid "Failed to parse package data from %s\n"
+msgstr "分析 %s 的软件包数据失败\n"
+
+msgid "specify number of download retry attempts"
+msgstr "指定下载重试的次数"
+
+msgid "install package, do not attempt to upgrade"
+msgstr "安装软件包, 不要尝试升级"
+
+msgid "[disk set(s)] - install specified disk set(s)"
+msgstr "[磁盘集合(可多选)] - 安装选定的磁盘集合"
+
+msgid "always prompt during install/upgrade"
+msgstr "安装/升级时总是询问"
+
+#, c-format
+msgid "Excluding %s, use --ignore-dep to override\n"
+msgstr "排除 %s, 使用 --ignore-dep 选项覆盖此设置\n"
+
