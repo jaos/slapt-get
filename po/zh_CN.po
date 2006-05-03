@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.11c\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2006-05-01 15:41+0800\n"
+"PO-Revision-Date: 2006-05-01 21:30+0800\n"
 "Last-Translator: Yang Jinsong <shannleon@gmail.com>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -25,10 +25,10 @@ msgid "%s is up to date.\n"
 msgstr "%s 已经是最新的.\n"
 
 msgid "yes"
-msgstr "yes"
+msgstr "是"
 
 msgid "no"
-msgstr "no"
+msgstr "否"
 
 #, c-format
 msgid "%s is not installed.\n"
@@ -118,7 +118,7 @@ msgstr "建立工作目录 [%s] 失败\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr "请更改 %s 的权限\n"
+msgstr "请更改 %s 的权限或以更高的权限运行\n"
 
 #, c-format
 msgid "Failed to open %s\n"
@@ -137,7 +137,7 @@ msgstr "进入目录 %s 失败\n"
 
 #, c-format
 msgid "unlinking %s\n"
-msgstr "删除链接 %s\n"
+msgstr "正在删除链接 %s\n"
 
 msgid "Failed to get cwd\n"
 msgstr "无法获得当前工作目录\n"
@@ -305,7 +305,7 @@ msgid "getline reached EOF attempting to read size_u\n"
 msgstr "getline reached EOF attempting to read size_u\n"
 
 msgid "error attempting to read pkg description\n"
-msgstr "尝试读取软家包描述时发生错误\n"
+msgstr "尝试读取软件包描述时发生错误\n"
 
 #, c-format
 msgid "Failed to realloc %s\n"
