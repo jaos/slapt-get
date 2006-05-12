@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.11c\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2006-05-01 21:30+0800\n"
+"PO-Revision-Date: 2006-05-06 01:17+0800\n"
 "Last-Translator: Yang Jinsong <shannleon@gmail.com>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -316,7 +316,7 @@ msgstr "Failed to compile regex\n"
 
 #, c-format
 msgid "Regex Error: %s\n"
-msgstr "Regex Error: %s\n"
+msgstr "正则表达式错误: %s\n"
 
 #, c-format
 msgid "%s-%s is to be installed\n"
@@ -382,11 +382,11 @@ msgstr "需要获取 %.1d%s/%.1d%s 的档案.\n"
 
 #, c-format
 msgid "After unpacking %.1d%s disk space will be freed.\n"
-msgstr "解压后 %.1d%s 的磁盘空间将被回收.\n"
+msgstr "完成后 %.1d%s 的磁盘空间将被回收.\n"
 
 #, c-format
 msgid "After unpacking %.1d%s of additional disk space will be used.\n"
-msgstr "解压后 %.1d%s 的附加磁盘空间将会被使用.\n"
+msgstr "完成后 %.1d%s 的附加磁盘空间将会被使用.\n"
 
 msgid "Do you want to continue? [y/N] "
 msgstr "继续吗? [y/N] "
