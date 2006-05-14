@@ -187,6 +187,10 @@ Frequently Asked Questions:
 
  Do the same for all your installed disk sets, such as gnome, x, xap, l, n, etc.
 
+ Piotr Simon has a script that easily identifies new packages from release
+ release.  You can find it here:
+ http://www.tenboard.com/slackware/index.php?path=SlackBuilds/
+
 
 
 10.  What about package dependencies?
