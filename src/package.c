@@ -3121,7 +3121,7 @@ char *slapt_get_pkg_changelog(const slapt_pkg_info_t *pkg)
   int changelog_len = 0;
 
   if ((working_changelog_f = slapt_open_file(filename,"rb")) == NULL)
-    exit(EXIT_FAILURE);
+    return NULL;
 
   /* used with mmap */
   if (stat(filename,&stat_buf) == -1) {
