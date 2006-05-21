@@ -1926,6 +1926,11 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
       slapt_get_pkg_source_checksums(global_config,
                                      global_config->sources->url[i]);
 
+    printf(gettext("Retrieving ChangeLog.txt [%s]..."),
+                   global_config->sources->url[i]);
+    slapt_get_pkg_source_changelog(global_config,
+                                     global_config->sources->url[i]);
+
     if (tmp_checksum_f != NULL) {
       unsigned int pkg_i;
 
@@ -2092,14 +2097,9 @@ char *slapt_gen_pkg_url(slapt_pkg_info_t *pkg)
   char *file_name = NULL;
 
   /* build the file name */
-  file_name = slapt_calloc(strlen(pkg->name) + strlen("-") +
-                           strlen(pkg->version) + strlen(pkg->file_ext) + 1,
-                           sizeof *file_name);
-  file_name = strncpy(file_name,pkg->name,strlen(pkg->name));
-  file_name = strncat(file_name,"-",strlen("-"));
-  file_name = strncat(file_name,pkg->version,strlen(pkg->version));
-  file_name = strncat(file_name,pkg->file_ext,strlen(pkg->file_ext));
+  file_name = slapt_stringify_pkg(pkg);
 
+  /* build the url */
   url = slapt_calloc(strlen(pkg->mirror) + strlen(pkg->location) +
                      strlen(file_name) + strlen("/") + 1, sizeof *url);
 
@@ -3015,6 +3015,82 @@ FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,
   return tmp_checksum_f;
 }
 
+int slapt_get_pkg_source_changelog (const slapt_rc_config *global_config,
+                                      const char *url)
+{
+  FILE *tmp_changelog_f = NULL;
+  char *changelog_head  = NULL;
+  char *filename        = NULL;
+  char *local_head      = NULL;
+  int success = 0,failure = -1;
+
+  changelog_head  = slapt_head_mirror_data(url,SLAPT_CHANGELOG_FILE);
+  filename        = slapt_gen_filename_from_url(url,SLAPT_CHANGELOG_FILE);
+  local_head      = slapt_read_head_cache(filename);
+
+  if (changelog_head == NULL) {
+    if (global_config->progress_cb == NULL)
+      printf(gettext("Done\n"));
+    return success;
+  }
+
+  if (local_head != NULL && strcmp(changelog_head,local_head) == 0) {
+
+    if ((tmp_changelog_f = tmpfile()) == NULL)
+      exit(EXIT_FAILURE);
+
+    if (global_config->progress_cb == NULL)
+      printf(gettext("Cached\n"));
+  
+  } else {
+    FILE *working_changelog_f = NULL;
+
+    if (global_config->progress_cb == NULL &&
+        global_config->dl_stats == SLAPT_TRUE)
+      printf("\n");
+
+    if ((working_changelog_f = slapt_open_file(filename,"w+b")) == NULL)
+      exit(EXIT_FAILURE);
+
+    if (slapt_get_mirror_data_from_source(working_changelog_f,global_config,url,
+                                    SLAPT_CHANGELOG_FILE) == 0) {
+
+      if (global_config->progress_cb == NULL &&
+          global_config->dl_stats == SLAPT_TRUE)
+        printf("\n");
+      if (global_config->progress_cb == NULL &&
+          global_config->dl_stats == SLAPT_FALSE)
+        printf(gettext("Done\n"));
+
+      /* if all is good, write it */
+      if (changelog_head != NULL)
+        slapt_write_head_cache(changelog_head,filename);
+
+      fclose(working_changelog_f);
+
+    } else {
+      slapt_clear_head_cache(filename);
+      tmp_changelog_f = working_changelog_f;
+      working_changelog_f = NULL;
+      free(filename);
+      free(local_head);
+      fclose(tmp_changelog_f);
+      if (changelog_head != NULL)
+        free(changelog_head);
+      return failure;
+    }
+
+  }
+  free(filename);
+  free(local_head);
+
+  if (changelog_head != NULL)
+    free(changelog_head);
+
+  return success;
+
+}
+
 void slapt_clean_description (char *description, const char *name)
 {
   char *p = NULL;
@@ -3032,5 +3108,127 @@ void slapt_clean_description (char *description, const char *name)
   }
 
   free(token);
+}
+
+/* retrieve the packages changelog entry, if any.  Returns NULL otherwise */
+char *slapt_get_pkg_changelog(const slapt_pkg_info_t *pkg)
+{
+  char *filename = slapt_gen_filename_from_url(pkg->mirror,SLAPT_CHANGELOG_FILE);
+  FILE *working_changelog_f = NULL;
+  struct stat stat_buf;
+  char *pkg_data = NULL, *pkg_name = NULL, *changelog = NULL, *ptr = NULL;
+  size_t pls = 1;
+  int changelog_len = 0;
+
+  if ((working_changelog_f = slapt_open_file(filename,"rb")) == NULL)
+    exit(EXIT_FAILURE);
+
+  /* used with mmap */
+  if (stat(filename,&stat_buf) == -1) {
+
+    if (errno)
+      perror(filename);
+
+    fprintf(stderr,"stat failed: %s\n",filename);
+    exit(EXIT_FAILURE);
+  }
+
+  /* don't mmap empty files */
+  if ((int)stat_buf.st_size < 1) {
+    free(filename);
+    fclose(working_changelog_f);
+    return NULL;
+  }
+
+  pls = (size_t)stat_buf.st_size;
+
+  pkg_data = (char *)mmap(0, pls,
+    PROT_READ|PROT_WRITE, MAP_PRIVATE, fileno(working_changelog_f), 0);
+
+  if (pkg_data == (void *)-1) {
+    if (errno)
+      perror(filename);
+
+    fprintf(stderr,"mmap failed: %s\n",filename);
+    exit(EXIT_FAILURE);
+  }
+
+  fclose(working_changelog_f);
+
+  /* add \0 for strlen to work */
+  pkg_data[pls - 1] = '\0';
+
+  /* search for the entry within the changelog */
+  pkg_name = slapt_stringify_pkg(pkg);
+
+  if ((ptr = strstr(pkg_data,pkg_name)) != NULL) {
+    int finished_parsing = 0;
+
+    ptr += strlen(pkg_name);
+    if (ptr[0] == ':')
+      ptr++;
+
+    while (finished_parsing != 1) {
+      char *newline = strchr(ptr,'\n');
+      char *start_ptr = ptr, *tmp = NULL;
+      int remaining_len = 0;
+
+      if (ptr[0] != '\n' && isblank(ptr[0]) == 0)
+        break;
+
+      /* figure out how much to copy in */
+      if (newline != NULL) {
+        remaining_len = strlen(start_ptr) - strlen(newline);
+        ptr = newline + 1; /* skip newline */
+      } else {
+        remaining_len = strlen(start_ptr);
+        finished_parsing = 1;
+      }
+
+      tmp = realloc(changelog, sizeof *changelog * (changelog_len + remaining_len + 1));
+      if (tmp != NULL) {
+        changelog = tmp;
+
+        if (changelog_len == 0)
+          changelog[0] = '\0';
+
+        changelog = strncat(changelog, start_ptr, remaining_len);
+        changelog_len += remaining_len;
+        changelog[changelog_len] = '\0';
+      }
+
+    }
+
+  }
+  free(pkg_name);
+
+  /* munmap now that we are done */
+  if (munmap(pkg_data,pls) == -1) {
+    if (errno)
+      perror(filename);
+
+    fprintf(stderr,"munmap failed: %s\n",filename);
+    exit(EXIT_FAILURE);
+  }
+  free(filename);
+
+  return changelog;
+}
+
+char *slapt_stringify_pkg(const slapt_pkg_info_t *pkg)
+{
+  char *pkg_str = NULL;
+  int pkg_str_len = 0;
+
+  pkg_str_len = strlen(pkg->name) + strlen(pkg->version) + strlen(pkg->file_ext) + 2; /* for the - and \0 */
+  
+  pkg_str = slapt_malloc(sizeof *pkg_str * pkg_str_len);
+
+  if (snprintf(pkg_str, pkg_str_len, "%s-%s%s",pkg->name,pkg->version,pkg->file_ext) < 1) {
+    free(pkg_str);
+    return NULL;
+  }
+
+  return pkg_str;
 }
 

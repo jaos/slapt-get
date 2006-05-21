@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.11c\n"
 "POT-Creation-Date: 2006-03-08 19:49+0900\n"
-"PO-Revision-Date: 2006-03-08 19:49+0900\n"
+"PO-Revision-Date: 2006-05-20 22:22+0500\n"
 "Last-Translator: S_A <shin1.abe@nifty.com>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -484,5 +484,12 @@ msgstr "インストール/アップグレード時に常にプロンプトを�
 
 #, c-format
 msgid "Excluding %s, use --ignore-dep to override\n"
-msgstr ""
+msgstr "Excluding %s, use --ignore-dep to override\n"
+
+msgid "Package ChangeLog"
+msgstr "Package ChangeLog"
+
+#, c-format
+msgid "Retrieving ChangeLog.txt [%s]..."
+msgstr "Retrieving ChangeLog.txt [%s]..."
 

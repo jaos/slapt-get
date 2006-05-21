@@ -483,3 +483,10 @@ msgstr ""
 msgid "Excluding %s, use --ignore-dep to override\n"
 msgstr ""
 
+msgid "Package ChangeLog"
+msgstr ""
+
+#, c-format
+msgid "Retrieving ChangeLog.txt [%s]..."
+msgstr ""
+

@@ -5,9 +5,9 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.11b\n"
+"Project-Id-Version: 0.9.11c\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2006-02-07 16:28+0500\n"
+"PO-Revision-Date: 2006-05-20 22:22+0500\n"
 "Last-Translator: Savvas Eftratiadis <pigouinos@mailworks.org.\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -481,5 +481,12 @@ msgstr "always prompt during install/upgrade"
 
 #, c-format
 msgid "Excluding %s, use --ignore-dep to override\n"
-msgstr ""
+msgstr "Excluding %s, use --ignore-dep to override\n"
+
+msgid "Package ChangeLog"
+msgstr "Package ChangeLog"
+
+#, c-format
+msgid "Retrieving ChangeLog.txt [%s]..."
+msgstr "Retrieving ChangeLog.txt [%s]..."
 

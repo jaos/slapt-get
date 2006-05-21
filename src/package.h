@@ -22,6 +22,7 @@
 #define SLAPT_PKG_LIST_L "package_data"
 #define SLAPT_PATCHES_LIST "patches/PACKAGES.TXT"
 #define SLAPT_PATCHES_LIST_GZ "patches/PACKAGES.TXT.gz"
+#define SLAPT_CHANGELOG_FILE "ChangeLog.txt"
 #define SLAPT_PATCHDIR "patches/"
 #define SLAPT_REMOVE_CMD "/sbin/removepkg "
 #define SLAPT_INSTALL_CMD "/sbin/installpkg "
@@ -257,6 +258,14 @@ struct slapt_pkg_list *slapt_get_pkg_source_patches (const slapt_rc_config *glob
                                                      const char *url);
 FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,
                                       const char *url);
+int slapt_get_pkg_source_changelog (const slapt_rc_config *global_config,
+                                      const char *url);
 
 /* clean package name from package description */
 void slapt_clean_description (char *description, const char *name);
+
+/* retrieve the packages changelog entry, if any.  Returns NULL otherwise */
+char *slapt_get_pkg_changelog(const slapt_pkg_info_t *pkg);
+
+char *slapt_stringify_pkg(const slapt_pkg_info_t *pkg);
+

@@ -377,9 +377,8 @@ void slapt_pkg_action_show(const char *pkg_name)
   if ( avail_pkgs == NULL || installed_pkgs == NULL )
     exit(EXIT_FAILURE);
 
-  if ((pkg_regex = slapt_init_regex(SLAPT_PKG_LOG_PATTERN)) == NULL) {
+  if ((pkg_regex = slapt_init_regex(SLAPT_PKG_LOG_PATTERN)) == NULL)
     exit(EXIT_FAILURE);
-  }
 
   /* Use regex to see if they specified a particular version */
   slapt_execute_regex(pkg_regex,pkg_name);
@@ -408,10 +407,12 @@ void slapt_pkg_action_show(const char *pkg_name)
 
   } else {
     pkg = slapt_get_newest_pkg(avail_pkgs,pkg_name);
-    if ( pkg == NULL ) pkg = slapt_get_newest_pkg(installed_pkgs,pkg_name);
+    if ( pkg == NULL )
+      pkg = slapt_get_newest_pkg(installed_pkgs,pkg_name);
   }
 
   if ( pkg != NULL ) {
+    char *changelog = slapt_get_pkg_changelog(pkg);
     char *description = strdup(pkg->description);
     slapt_clean_description(description,pkg->name);
 
@@ -430,6 +431,13 @@ void slapt_pkg_action_show(const char *pkg_name)
     printf(gettext("Package MD5 Sum:  %s\n"),pkg->md5);
     printf(gettext("Package Description:\n"));
     printf("%s",description);
+
+    if (changelog != NULL) {
+      printf("%s:\n",gettext("Package ChangeLog"));
+      printf("%s\n\n", changelog);
+      free(changelog);
+    }
+
     printf(gettext("Package Installed: %s\n"),
       bool_installed == 1
         ? gettext("yes")
