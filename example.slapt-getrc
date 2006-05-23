@@ -105,6 +105,7 @@ SOURCE=http://software.jaos.org/slackpacks/10.2/
 #SOURCE=http://slackpacks.rlworkman.net/10.2/
 #SOURCE=http://slackpacks.rlworkman.net/current/
 #SOURCE=http://www.slackware.com/~alien/slackbuilds/
+#SOURCE=http://slack.sarava.org/packages/slackware/slackware-10.2/
 
 
 # pull from your cdrom
