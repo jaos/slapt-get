@@ -1,5 +1,5 @@
 
-0.9.11c May 24, 2006
+0.9.11c May 25, 2006
  * added ChangeLog.txt downloading, --show now shows the changelog entry if present
  * updated patterns to fix version parsing problem with
    apache-1.3.35-i486-2_slack10.2
