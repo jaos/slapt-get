@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.11c\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2006-05-20 22:22+0500\n"
+"PO-Revision-Date: 2006-05-24 20:50+0500\n"
 "Last-Translator: Victor Keranov <victor_keranov@mail.bg>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -434,7 +434,7 @@ msgid "show download statistics"
 msgstr "показване на статистиката на теглене"
 
 msgid "Cached\n"
-msgstr "Cached\n"
+msgstr "Кеширан\n"
 
 msgid "Sources failed to download, correct sources and rerun --update\n"
 msgstr "Неуспех при изтеглянето на източниците, поправете източниците и стартирайте отново --update\n"
@@ -484,9 +484,9 @@ msgid "Excluding %s, use --ignore-dep to override\n"
 msgstr "%s се изключва, използвайте --ignore-dep\n"
 
 msgid "Package ChangeLog"
-msgstr "Package ChangeLog"
+msgstr "Лог на промените"
 
 #, c-format
 msgid "Retrieving ChangeLog.txt [%s]..."
-msgstr "Retrieving ChangeLog.txt [%s]..."
+msgstr "Получаване на ChangeLog.txt [%s]..."
 
