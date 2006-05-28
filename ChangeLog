@@ -1,4 +1,7 @@
 
+0.9.11d May 28, 2006
+ * fixed regression in parsing versions in dependencies
+
 0.9.11c May 25, 2006
  * added ChangeLog.txt downloading, --show now shows the changelog entry if present
  * updated patterns to fix version parsing problem with
