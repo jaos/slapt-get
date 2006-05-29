@@ -1,21 +1,20 @@
-# translation of slapt-get.pot to
 # Japanese slapt-get translation
 # Copyright (C) 2004
 # This file is distributed under the same license as the slapt-get package.
 #
-# Jason Woodward <woodwardj@jaos.org>, 2003, 2004, 2005.
 # S_A <shin1.abe@nifty.com>, 2006.
+# JW <J_W@somewhere.c0.jp>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.11c\n"
+"Project-Id-Version: 0.9.11e\n"
 "POT-Creation-Date: 2006-03-08 19:49+0900\n"
-"PO-Revision-Date: 2006-05-20 22:22+0500\n"
-"Last-Translator: S_A <shin1.abe@nifty.com>\n"
+"PO-Revision-Date: 2006-05-29 18:56+0900\n"
+"Last-Translator: JW <J_W@somewhere.c0.jp>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.1\n"
+"X-Generator: KBabel 1.11.2\n"
 
 msgid "Reading Package Lists... "
 msgstr "パッケージリストを読み込み中... "
@@ -487,9 +486,9 @@ msgid "Excluding %s, use --ignore-dep to override\n"
 msgstr "Excluding %s, use --ignore-dep to override\n"
 
 msgid "Package ChangeLog"
-msgstr "Package ChangeLog"
+msgstr "パッケージ更新履歴 (ChangeLog)"
 
 #, c-format
 msgid "Retrieving ChangeLog.txt [%s]..."
-msgstr "Retrieving ChangeLog.txt [%s]..."
+msgstr "ChangeLog.txt [%s] を取得中..."
 
