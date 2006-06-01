@@ -1938,12 +1938,20 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
       printf(gettext("Reading Package Lists..."));
 
       slapt_get_md5sums(available_pkgs, tmp_checksum_f);
+
       for (pkg_i = 0; pkg_i < available_pkgs->pkg_count; ++pkg_i) {
+        int mirror_len = -1;
+
         /* honor the mirror if it was set in the PACKAGES.TXT */
         if (available_pkgs->pkgs[pkg_i]->mirror == NULL ||
-            strlen(available_pkgs->pkgs[pkg_i]->mirror) == 0) {
+            (mirror_len = strlen(available_pkgs->pkgs[pkg_i]->mirror)) == 0) {
+
+          if (mirror_len == 0)
+            free(available_pkgs->pkgs[pkg_i]->mirror);
+
           available_pkgs->pkgs[pkg_i]->mirror = strdup(global_config->sources->url[i]);
         }
+
         slapt_add_pkg_to_pkg_list(new_pkgs,available_pkgs->pkgs[pkg_i]);
       }
       available_pkgs->free_pkgs = SLAPT_FALSE;
@@ -1951,11 +1959,18 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
       if (patch_pkgs) {
         slapt_get_md5sums(patch_pkgs, tmp_checksum_f);
         for (pkg_i = 0; pkg_i < patch_pkgs->pkg_count; ++pkg_i) {
+          int mirror_len = -1;
+
           /* honor the mirror if it was set in the PACKAGES.TXT */
           if (patch_pkgs->pkgs[pkg_i]->mirror == NULL ||
-              strlen(patch_pkgs->pkgs[pkg_i]->mirror) == 0) {
+              (mirror_len = strlen(patch_pkgs->pkgs[pkg_i]->mirror)) == 0) {
+
+            if (mirror_len == 0)
+              free(patch_pkgs->pkgs[pkg_i]->mirror);
+
             patch_pkgs->pkgs[pkg_i]->mirror = strdup(global_config->sources->url[i]);
           }
+
           slapt_add_pkg_to_pkg_list(new_pkgs,patch_pkgs->pkgs[pkg_i]);
         }
         patch_pkgs->free_pkgs = SLAPT_FALSE;
@@ -3018,7 +3033,6 @@ FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,
 int slapt_get_pkg_source_changelog (const slapt_rc_config *global_config,
                                       const char *url)
 {
-  FILE *tmp_changelog_f = NULL;
   char *changelog_head  = NULL;
   char *filename        = NULL;
   char *local_head      = NULL;
@@ -3031,13 +3045,11 @@ int slapt_get_pkg_source_changelog (const slapt_rc_config *global_config,
   if (changelog_head == NULL) {
     if (global_config->progress_cb == NULL)
       printf(gettext("Done\n"));
+    free(filename);
     return success;
   }
 
   if (local_head != NULL && strcmp(changelog_head,local_head) == 0) {
-
-    if ((tmp_changelog_f = tmpfile()) == NULL)
-      exit(EXIT_FAILURE);
 
     if (global_config->progress_cb == NULL)
       printf(gettext("Cached\n"));
@@ -3070,11 +3082,8 @@ int slapt_get_pkg_source_changelog (const slapt_rc_config *global_config,
 
     } else {
       slapt_clear_head_cache(filename);
-      tmp_changelog_f = working_changelog_f;
-      working_changelog_f = NULL;
       free(filename);
       free(local_head);
-      fclose(tmp_changelog_f);
       if (changelog_head != NULL)
         free(changelog_head);
       return failure;
