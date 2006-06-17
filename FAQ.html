@@ -141,7 +141,7 @@
 
 <a name="slgFAQ9"><b>9.  Can I "dist-upgrade" to a newer Slackware release?</b></a>
 
- Yes.
+ Yes. See also <a href="http://slackwiki.org/Upgrade_Using_Slapt-get">http://slackwiki.org/Upgrade_Using_Slapt-get</a>.
 
  Change your source location within /etc/slapt-get/slapt-getrc to point to
  the newer release directory.  --update your local package cache, then
@@ -171,11 +171,21 @@
    ### upgrade your local package cache
    $ slapt-get --update
 
-   ### first, upgrade the most important
+   ### first, download all of the packages prior to upgrading
+   $ slapt-get --dist-upgrade --download-only
+
+   ### second, install (not upgrade!) the newest kernel
+   $ slapt-get --install kernel --no-upgrade
+
+   ### then, upgrade the most important
    #(this installs any newer versions)
    $ slapt-get --install glibc-solibs pkgtools sed
 
-   ### then, let slapt-get upgrade the rest
+ In newer versions of slapt-get, dist-upgrade automatically handles
+ installing/upgrading glibc-solibs, pkgtools, and sed prior to any
+ other changes.
+
+   ### finally, let slapt-get upgrade the rest
    $ slapt-get --dist-upgrade
 
   You can specify --remove-obsolete to remove all depreciated packages.
