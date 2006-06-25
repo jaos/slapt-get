@@ -109,7 +109,7 @@
 
  You can use the --search feature, supplying an expression.  POSIX 
  and extended regular expressions are supported.  This searches the name,
- location, or description of packages.
+ version, location, or description of packages.
 
 
 <a name="slgFAQ5"><b>5.  Can I upgrade all my installed packages?</b></a>
@@ -762,8 +762,8 @@
 
 <a name="slgFAQ30"><b>30. Does EXCLUDE work for install as well as upgrade and dist-upgrade?</b></a>
 
- No, EXCLUDE is only consulted for upgrading and dist-upgrading.  If you
- specify the package name as an argument to --install, slapt-get will 
+ No, EXCLUDE is only consulted for install-set, upgrading, and dist-upgrading.  
+ If you specify the package name as an argument to --install, slapt-get will 
  ignore the EXCLUDE list.
 
  This does not apply to dependencies.  If a dependency of a specified package
@@ -875,6 +875,9 @@
  directory structure they where found in.  You can then generate the 
  PACKAGES.TXT and CHECKSUMS.md5 files using the script in <a href="#slgFAQ17">FAQ #17</a> which would
  allow you to use this mirror as a slapt-get source.
+
+ Optionally, you can set this directory as your WORKINGDIR in order to
+ avoid copying the package files.
 
 
 <a name="slgFAQ39"><b>39. Is there a way to use tab completion for the package names in Bash?</b></a>
