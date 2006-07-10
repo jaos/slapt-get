@@ -72,7 +72,7 @@ msgstr "PAKIET ZAINSTALOWANY: %s\n"
 
 #, c-format
 msgid "No such package: %s\n"
-msgstr "Niema takiego pakietu: %s\n"
+msgstr "Nie ma takiego pakietu: %s\n"
 
 #, c-format
 msgid "Retrieving package data [%s]..."
@@ -207,7 +207,7 @@ msgid "File: %s/%s\n"
 msgstr "Plik: %s/%s\n"
 
 msgid "An implementation of the Debian APT system to Slackware\n"
-msgstr "Implementacja systemu APT z Debiana do Slackwarea\n"
+msgstr "Implementacja systemu APT z Debiana dla Slackware'a\n"
 
 msgid "Usage:\n"
 msgstr "U¿ycie:\n"
@@ -393,7 +393,7 @@ msgid "Do you want to continue? [y/N] "
 msgstr "Czy chcesz kontynuowaæ? [y/N] "
 
 msgid "Abort.\n"
-msgstr "Abort.\n"
+msgstr "Koniec.\n"
 
 #, c-format
 msgid "%s, which is to be installed, conflicts with %s\n"
@@ -485,7 +485,7 @@ msgid "Excluding %s, use --ignore-dep to override\n"
 msgstr "Pominiêto %s, u¿yj --ignore-dep ¿eby uniewa¿niæ\n"
 
 msgid "Package ChangeLog"
-msgstr "Pakiet ChangeLog"
+msgstr "Lista zmian pakietu (ChangeLog)"
 
 #, c-format
 msgid "Retrieving ChangeLog.txt [%s]..."
