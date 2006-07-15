@@ -8,15 +8,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.11e\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2006-06-18 12:40+0500\n"
+"PO-Revision-Date: 2006-07-14 12:38+0200\n"
 "Last-Translator: Manfred Mueller <nekdesk@nekdesk.de>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.2\n"
 
 msgid "Reading Package Lists... "
-msgstr "Lese Paketlisten ein..."
+msgstr "Lese Paket-Listen ein... "
 
 msgid "Done\n"
 msgstr "Fertig\n"
@@ -41,7 +42,7 @@ msgstr "Paket-Name: %s\n"
 
 #, c-format
 msgid "Package Mirror: %s\n"
-msgstr "Paket-Mirror: %s\n"
+msgstr "Paket-Quelle: %s\n"
 
 #, c-format
 msgid "Package Location: %s\n"
@@ -57,7 +58,7 @@ msgstr "Paket-Groesse: %d K\n"
 
 #, c-format
 msgid "Package Installed Size: %d K\n"
-msgstr "Paket-Groessee nach Installation: %d K\n"
+msgstr "Paket-Groesse nach Installation: %d K\n"
 
 #, c-format
 msgid "Package Required: %s\n"
@@ -68,39 +69,39 @@ msgstr "Paket-Beschreibung:\n"
 
 #, c-format
 msgid "Package Installed: %s\n"
-msgstr "Paket installiert: %s\n"
+msgstr "Paket %s installiert\n"
 
 #, c-format
 msgid "No such package: %s\n"
-msgstr "Paket nicht vorhanden: %s\n"
+msgstr "Paket %s nicht vorhanden\n"
 
 #, c-format
 msgid "Retrieving package data [%s]..."
-msgstr "Rufe Paketdaten ab [%s]..."
+msgstr "Rufe Paket-Daten von [%s] ab... "
 
 #, c-format
 msgid "Retrieving package data [%s]...\n"
-msgstr "Rufe Paketdaten ab [%s]...\n"
+msgstr "Rufe Paket-Daten von [%s] ab... \n"
 
 #, c-format
 msgid "Retrieving extras list [%s]..."
-msgstr "Rufe Extras-Liste ab [%s]..."
+msgstr "Rufe Extra-Liste von [%s] ab... "
 
 #, c-format
 msgid "Retrieving extras list [%s]...\n"
-msgstr "Rufe Extras-Liste ab [%s]...\n"
+msgstr "Rufe Extras-Liste von [%s] ab... \n"
 
 #, c-format
 msgid "Retrieving patch list [%s]..."
-msgstr "Rufe Patch-Liste ab [%s]..."
+msgstr "Rufe Patch-Liste von [%s] ab... "
 
 #, c-format
 msgid "Retrieving patch list [%s]...\n"
-msgstr "Rufe Patch-Liste ab [%s]...\n"
+msgstr "Rufe Patch-Liste von [%s] ab... \n"
 
 #, c-format
 msgid "Retrieving checksum list [%s]..."
-msgstr "Rufe Pruefsummen-Liste ab [%s]..."
+msgstr "Rufe Pruefsummen-Liste von [%s] ab... "
 
 msgid "Failed to malloc\n"
 msgstr "Fehler bei malloc\n"
@@ -115,30 +116,30 @@ msgstr "SOURCE Anweisung (Quelle) ist in %s nicht angegeben.\n"
 
 #, c-format
 msgid "Failed to build working directory [%s]\n"
-msgstr "Konnte Arbeitsverzeichnis nicht erstellen [%s]\n"
+msgstr "Konnte Arbeitsverzeichnis [%s] nicht erstellen.\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr "Bitte ï¿½aendern sie die Berechtigungen von %s oder starten sie slapt-get mit entsprechenden Berechtigungen\n"
+msgstr "Bitte aendern sie die Berechtigungen von %s oder starten sie slapt-get mit entsprechenden Berechtigungen\n"
 
 #, c-format
 msgid "Failed to open %s\n"
-msgstr "Konnte %s nicht ï¿½oeffnen\n"
+msgstr "Konnte %s nicht oeffnen\n"
 
 msgid "Perhaps you want to run --update?\n"
 msgstr "Moechten sie vielleicht --update aufrufen?\n"
 
 #, c-format
 msgid "Failed to opendir %s\n"
-msgstr "Konnte Verzeichnis %s nicht oeffnen.\n"
+msgstr "Konnte Verzeichnis %s nicht oeffnen\n"
 
 #, c-format
 msgid "Failed to chdir: %s\n"
-msgstr "Konnte nicht in Verzeichnis %s wechseln.\n"
+msgstr "Konnte nicht in Verzeichnis %s wechseln\n"
 
 #, c-format
 msgid "unlinking %s\n"
-msgstr "Entferne Verknuepfung %s\n"
+msgstr "Loese Verknuepfung %s\n"
 
 msgid "Failed to get cwd\n"
 msgstr "Konnte aktuelles Arbeitsverzeichnis nicht bestimmen.\n"
@@ -149,15 +150,15 @@ msgstr "\tDerzeitiges Arbeitsverzeichnis: %s\n"
 
 #, c-format
 msgid "Failed to mkdir: %s\n"
-msgstr "Konnte Verzeichnis %s nicht erstellen.\n"
+msgstr "Konnte Verzeichnis %s nicht erstellen\n"
 
 #, c-format
 msgid "\tCreated directory: %s\n"
-msgstr "\tVerzeichnis %s erstellt.\n"
+msgstr "\tVerzeichnis %s erstellt\n"
 
 #, c-format
 msgid "Failed to chdir to %s\n"
-msgstr "Konnte nicht in Verzeichnis %s wechseln\n"
+msgstr "Konnte nicht nach Verzeichnis %s wechseln\n"
 
 #, c-format
 msgid "\tchdir into %s\n"
@@ -173,26 +174,26 @@ msgstr "Hole URL:[%s]\n"
 
 #, c-format
 msgid "Failed to download: %s\n"
-msgstr "Download von %s gescheitert.\n"
+msgstr "Download von %s gescheitert\n"
 
 msgid "Failed to calloc\n"
 msgstr "Fehler bei calloc\n"
 
 #, c-format
 msgid "Get %s %s %s [%.1d%s]..."
-msgstr "Hole %s %s %s [%.1d%s]..."
+msgstr "Hole %s %s %s [%.1d%s]... "
 
 #, c-format
 msgid "Get %s %s %s [%.1d%s]...\n"
-msgstr "Hole %s %s %s [%.1d%s]...\n"
+msgstr "Hole %s %s %s [%.1d%s]... \n"
 
 #, c-format
 msgid "Failed to unlink %s\n"
-msgstr "Konnte die Verknuepfung %s nicht loeschen\n"
+msgstr "Konnte die Verknuepfung %s nicht loesen\n"
 
 #, c-format
 msgid "md5 sum for %s is not correct, override with --no-md5!\n"
-msgstr "MD5 Pruefsumme fuer %s ist nicht korrekt, mit --no-md5 uebergehen!\n"
+msgstr "MD5-Pruefsumme fuer %s ist nicht korrekt, mit --no-md5 uebergehen!\n"
 
 #, c-format
 msgid "MD5 found:    [%s]\n"
@@ -220,13 +221,13 @@ msgid "Targets:\n"
 msgstr "Ziele:\n"
 
 msgid "retrieves pkg data from MIRROR"
-msgstr "ruft Paketdaten vom MIRROR (Spiegelserver) ab."
+msgstr "Ruft Paketdaten vom MIRROR (Spiegelserver) ab."
 
 msgid "upgrade installed pkgs"
-msgstr "aktualisiere installierte Pakete"
+msgstr "Aktualisiere installierte Pakete"
 
 msgid "upgrade to newer release"
-msgstr "auf neuere Version aktualisieren"
+msgstr "Auf neuere Version aktualisieren"
 
 msgid "[pkg name(s)] - install specified pkg(s)"
 msgstr "[Paketname(n)] - installiere angegebene(s) Paket(e)"
@@ -244,7 +245,7 @@ msgid "list pkgs"
 msgstr "Liste Pakete auf"
 
 msgid "list available pkgs"
-msgstr "Liste vorhanden Pakete auf"
+msgstr "Liste verfuegbare Pakete auf"
 
 msgid "list installed pkgs"
 msgstr "Liste installierte Pakete auf"
@@ -253,7 +254,7 @@ msgid "purge cached pkgs"
 msgstr "Pakete aus Zwischenspeicher entfernen"
 
 msgid "print version and license info"
-msgstr "Versions- und Lizenzinformationen ausgeben"
+msgstr "Versions- und Lizenzinformationen anzeigen"
 
 msgid "Options:\n"
 msgstr "Optionen:\n"
@@ -265,19 +266,19 @@ msgid "show pkgs to be installed/upgraded"
 msgstr "Pakete bei Installation/Aktualisierung anzeigen"
 
 msgid "do not prompt during install/upgrade"
-msgstr "nicht nachfragen bei Installation/Aktualisierung"
+msgstr "Bei Installation/Aktualisierung nicht nachfragen"
 
 msgid "re-install the pkg"
 msgstr "Paket erneut installieren"
 
 msgid "install/upgrade excludes"
-msgstr "keine Pakete bei Installation/Aktualisierung ausschliessen"
+msgstr "Keine Pakete bei Installation/Aktualisierung ausschliessen"
 
 msgid "do not perform md5 check sum"
-msgstr "keine MD5 Pruefsummen verwenden"
+msgstr "Keine MD5-Pruefsummen verwenden"
 
 msgid "ignore dependency failures"
-msgstr "ignoriere Fehler bei der Abhaengigkeitspruefung"
+msgstr "Ignoriere Fehler bei der Abhaengigkeitspruefung"
 
 #, c-format
 msgid "%s version %s\n"
@@ -285,25 +286,25 @@ msgstr "%s Version %s\n"
 
 #, c-format
 msgid "regex failed on [%s]\n"
-msgstr "regulaerer Ausdruck scheiterte an [ %s]\n"
+msgstr "Regulaerer Ausdruck scheiterte an [ %s]\n"
 
 msgid "regexec failed to parse location\n"
 msgstr "regexec konnte Ortsangabe nicht bestimmen\n"
 
 msgid "getline reached EOF attempting to read location\n"
-msgstr "getline kam beim Versuch die Ortsangabe einzulesen ans Ende der Datei\n"
+msgstr "getline kam beim Versuch die Ortsangabe einzulesen an das Ende der Datei\n"
 
 msgid "regexec failed to parse size_c\n"
 msgstr "regexec konnte size_c nicht bestimmen\n"
 
 msgid "getline reached EOF attempting to read size_c\n"
-msgstr "getline kam beim Versuch size_c einzulesen ans Ende der Datei\n"
+msgstr "getline kam beim Versuch size_c einzulesen an das Ende der Datei\n"
 
 msgid "regexec failed to parse size_u\n"
 msgstr "regexec konnte size_u nicht bestimmen\n"
 
 msgid "getline reached EOF attempting to read size_u\n"
-msgstr "getline kam beim Versuch size_u zu bestimmen ans Ende der Datei\n"
+msgstr "getline kam beim Versuch size_u zu bestimmen an das Ende der Datei\n"
 
 msgid "error attempting to read pkg description\n"
 msgstr "Fehler beim Lesen der Paketbeschreibung\n"
@@ -329,11 +330,11 @@ msgstr "Bereite Installation von %s-%s vor\n"
 
 #, c-format
 msgid "Failed to execute command: [%s]\n"
-msgstr "Konnte Befehl [%s] nicht ausfuehren.\n"
+msgstr "Konnte Befehl [%s] nicht ausfuehren\n"
 
 #, c-format
 msgid "%s-%s is to be upgraded to version %s\n"
-msgstr "%s-%s soll auf Version %s aktualisiert werden \n"
+msgstr "%s-%s soll aktualisiert werden auf Version %s\n"
 
 #, c-format
 msgid "Preparing to replace %s-%s with %s-%s\n"
@@ -345,7 +346,7 @@ msgstr "%s-%s soll entfernt werden\n"
 
 #, c-format
 msgid "Failed to compile regex [%s]\n"
-msgstr "Konnte regulaeren Ausdruck nicht uebersetzen [%s]\n"
+msgstr "Konnte regulaeren Ausdruck [%s] nicht übersetzen\n"
 
 msgid "pkg conditional too long\n"
 msgstr "Paket-Bedingungen zu lang\n"
@@ -367,7 +368,7 @@ msgid "The following packages will be REMOVED:\n"
 msgstr "Die folgenden Pakete werden ENTFERNT:\n"
 
 msgid "The following packages will be upgraded:\n"
-msgstr "Die folgenden Pakete werden AKTUALISIERT:\n"
+msgstr "Die folgenden Pakete werden aktualisiert:\n"
 
 #, c-format
 msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
@@ -408,13 +409,13 @@ msgstr "URIs nur ausgeben, nicht herunterladen"
 
 #, c-format
 msgid "Package MD5 Sum:  %s\n"
-msgstr "MD5-Pruefsumme des Pakets: %s\n"
+msgstr "MD5-Pruefsumme des Paketes: %s\n"
 
 msgid "md5 sum too long\n"
 msgstr "MD5-Pruefsumme zu lang\n"
 
 msgid "Reading Package Lists..."
-msgstr "Lese Paket-Listen..."
+msgstr "Lese Paket-Listen... "
 
 #, c-format
 msgid "Download of %s incomplete\n"
@@ -422,11 +423,11 @@ msgstr "Download von %s unvollstaendig\n"
 
 #, c-format
 msgid "Could not find MD5 checksum for %s, override with --no-md5\n"
-msgstr "Konnte MD5 Pruefsumme fuer %s nicht finden, mit --no-md5 uebergehen\n"
+msgstr "Konnte MD5-Pruefsumme für %s nicht finden, mit --no-md5 uebergehen\n"
 
 #, c-format
 msgid "%s, which is required by %s, is excluded\n"
-msgstr "%s, welches von %s benoetigt wird, ist ausgeschlossen\n"
+msgstr "Paket %s, welches von %s benoetigt wird, ist ausgeschlossen\n"
 
 msgid "skip dependency check"
 msgstr "Abhaengigkeitspruefung ueberspringen"
@@ -438,19 +439,19 @@ msgid "Cached\n"
 msgstr "Im Zwischenspeicher\n"
 
 msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr "Von den Quellen konnte nichts runtergeladen werden, Quellen korrigieren und erneut starten mit --update\n"
+msgstr "Von den Quellen konnte nichts heruntergeladen werden, Quellen korrigieren und slapt-get erneut mit --update starten\n"
 
 msgid "specify alternate slapt-getrc location"
-msgstr "anderen Ort fuer die Konfigurationsdatei slapt-getrc angeben"
+msgstr "Anderen Ort für die Konfigurationsdatei slapt-getrc angeben"
 
 msgid "Suggested packages:\n"
 msgstr "Vorgeschlagene Pakete:\n"
 
 msgid "only purge cache of older, unreacheable pkgs"
-msgstr "nur alte, nicht mehr verfuegbare Pakete aus Zwischenspeicher entfernen"
+msgstr "Nur alte, nicht mehr verfuegbare Pakete aus Zwischenspeicher entfernen"
 
 msgid "remove obsolete packages (dist-upgrade only)"
-msgstr "entferne veraltete Pakete (nur bei dist-upgrade)"
+msgstr "Entferne veraltete Pakete (nur bei dist-upgrade)"
 
 #, c-format
 msgid "You don't have enough free space in %s\n"
@@ -462,32 +463,32 @@ msgstr "Paket im Konflikt mit: %s\n"
 
 #, c-format
 msgid "Package Suggests: %s\n"
-msgstr "Paket empfiehlt: %s\n"
+msgstr "Packet empfiehlt: %s\n"
 
 #, c-format
 msgid "Failed to parse package data from %s\n"
-msgstr "Kann Paket-Daten von %s nicht einlesen\n"
+msgstr "Konnte die Paket-Daten von %s nicht einlesen\n"
 
 msgid "specify number of download retry attempts"
-msgstr "Maximale Anzahl der Download-Versuche angeben"
+msgstr "Maximale Anzahl an Download-Versuchen"
 
 msgid "install package, do not attempt to upgrade"
-msgstr "Paket installieren, nicht upgraden"
+msgstr "Paket installieren, NICHT erneuern"
 
 msgid "[disk set(s)] - install specified disk set(s)"
-msgstr "[disk set(s)] - Installiere angegebene(n) Disk-Set(s)"
+msgstr "[disk set(s)] - installiere Gruppe(n))"
 
 msgid "always prompt during install/upgrade"
-msgstr "Waehrend Installation/Upgrade immer fragen"
+msgstr "Bei Installation/Aktualisierung immer nachfragen"
 
 #, c-format
 msgid "Excluding %s, use --ignore-dep to override\n"
-msgstr "Schliesse %s aus, --ignore-dep zum ueberschreiben benutzen\n"
+msgstr "Schliesse %s aus, mit --ignore-dep to override ueberschreiben\n"
 
 msgid "Package ChangeLog"
-msgstr "Paket ChangeLog"
+msgstr "Paket-Historie"
 
 #, c-format
 msgid "Retrieving ChangeLog.txt [%s]..."
-msgstr "Lade ChangeLog.txt [%s]..."
+msgstr "Lade Paket-Historie von [%s]... "
 
