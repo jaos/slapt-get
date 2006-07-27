@@ -3036,18 +3036,26 @@ int slapt_get_pkg_source_changelog (const slapt_rc_config *global_config,
   char *changelog_head  = NULL;
   char *filename        = NULL;
   char *local_head      = NULL;
+  char *location_gz     = SLAPT_CHANGELOG_FILE_GZ;
+  char *location_uncomp = SLAPT_CHANGELOG_FILE;
+  char *location        = location_gz;
   int success = 0,failure = -1;
 
-  changelog_head  = slapt_head_mirror_data(url,SLAPT_CHANGELOG_FILE);
-  filename        = slapt_gen_filename_from_url(url,SLAPT_CHANGELOG_FILE);
-  local_head      = slapt_read_head_cache(filename);
+  changelog_head  = slapt_head_mirror_data(url,location);
+
+  if (changelog_head == NULL) {
+    location = location_uncomp;
+    changelog_head  = slapt_head_mirror_data(url,location);
+  }
 
   if (changelog_head == NULL) {
     if (global_config->progress_cb == NULL)
       printf(gettext("Done\n"));
-    free(filename);
     return success;
   }
+
+  filename    = slapt_gen_filename_from_url(url,location);
+  local_head  = slapt_read_head_cache(filename);
 
   if (local_head != NULL && strcmp(changelog_head,local_head) == 0) {
 
@@ -3065,7 +3073,7 @@ int slapt_get_pkg_source_changelog (const slapt_rc_config *global_config,
       exit(EXIT_FAILURE);
 
     if (slapt_get_mirror_data_from_source(working_changelog_f,global_config,url,
-                                    SLAPT_CHANGELOG_FILE) == 0) {
+                                    location) == 0) {
 
       if (global_config->progress_cb == NULL &&
           global_config->dl_stats == SLAPT_TRUE)
@@ -3079,6 +3087,15 @@ int slapt_get_pkg_source_changelog (const slapt_rc_config *global_config,
         slapt_write_head_cache(changelog_head,filename);
 
       fclose(working_changelog_f);
+
+      if (strcmp(location,location_gz) == 0) {
+        char *uncomp_filename = slapt_gen_filename_from_url(url, location_uncomp);
+        FILE *uncomp_f = slapt_open_file(uncomp_filename,"w+b");
+        free(uncomp_filename);
+
+        slapt_gunzip_file(filename,uncomp_f);
+        fclose(uncomp_f);
+      }
 
     } else {
       slapt_clear_head_cache(filename);

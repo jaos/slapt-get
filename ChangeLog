@@ -1,5 +1,6 @@
 
-0.9.11e Jul 15, 2006
+0.9.11e Jul 26, 2006
+ * added support for downloading compressed ChangeLog.txt.gz
  * updated Polish translation with small updates from Lukasz Stlmach
  * updated documentation (thanks sky@hi.eclipse.co.uk)
  * updated German translation

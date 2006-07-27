@@ -23,6 +23,7 @@
 #define SLAPT_PATCHES_LIST "patches/PACKAGES.TXT"
 #define SLAPT_PATCHES_LIST_GZ "patches/PACKAGES.TXT.gz"
 #define SLAPT_CHANGELOG_FILE "ChangeLog.txt"
+#define SLAPT_CHANGELOG_FILE_GZ "ChangeLog.txt.gz"
 #define SLAPT_PATCHDIR "patches/"
 #define SLAPT_REMOVE_CMD "/sbin/removepkg "
 #define SLAPT_INSTALL_CMD "/sbin/installpkg "
