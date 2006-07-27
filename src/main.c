@@ -217,7 +217,7 @@ int main( int argc, char *argv[] )
     }
   }
 
-  /* Check optionnal arguments presence */
+  /* Check optional arguments presence */
   switch(do_action) {
     case INSTALL:
     case INSTALL_DISK_SET:
