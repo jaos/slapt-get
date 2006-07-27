@@ -891,7 +891,7 @@ Frequently Asked Questions:
  part of the basic Slackware install.  If you only have the official Slackware
  package sources in your slapt-getrc file, then you can do the following:
 
-  # slapt-get --dist-upgrade --remove-obsolete
+  # slapt-get --remove --remove-obsolete
 
  NOTE: You will want to exclude any packages that are self made so they are
        not removed.

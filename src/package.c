@@ -3258,3 +3258,46 @@ char *slapt_stringify_pkg(const slapt_pkg_info_t *pkg)
   return pkg_str;
 }
 
+struct slapt_pkg_list *
+  slapt_get_obsolete( const slapt_rc_config *global_config,
+                      struct slapt_pkg_list *avail_pkgs,
+                      struct slapt_pkg_list *installed_pkgs)
+{
+  unsigned int r;
+  struct slapt_pkg_list *obsolete = slapt_init_pkg_list();
+
+  for (r = 0; r < installed_pkgs->pkg_count; ++r) {
+
+    /*
+       * if we can't find the installed package in our available pkg list,
+       * it must be obsolete
+    */
+    if (slapt_get_newest_pkg(avail_pkgs, installed_pkgs->pkgs[r]->name) == NULL) {
+        struct slapt_pkg_list *deps;
+        unsigned int c;
+
+        /*
+          any packages that require this package we are about to remove
+          should be scheduled to remove as well
+        */
+        deps = slapt_is_required_by(global_config,avail_pkgs,
+                                    installed_pkgs->pkgs[r]);
+
+        for (c = 0; c < deps->pkg_count; ++c ) {
+
+          if ( slapt_get_exact_pkg(avail_pkgs,deps->pkgs[c]->name,
+                  deps->pkgs[c]->version) == NULL ) {
+              slapt_add_pkg_to_pkg_list(obsolete,deps->pkgs[c]);
+          }
+        }
+
+        slapt_free_pkg_list(deps);
+
+        slapt_add_pkg_to_pkg_list(obsolete, installed_pkgs->pkgs[r]);
+
+    }
+
+  }
+
+  return obsolete;
+}

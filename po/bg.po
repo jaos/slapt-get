@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.11c\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2006-05-24 20:50+0500\n"
+"PO-Revision-Date: 2006-07-26 23:08+0500\n"
 "Last-Translator: Victor Keranov <victor_keranov@mail.bg>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -448,7 +448,7 @@ msgstr "Предложени пакети:\n"
 msgid "only purge cache of older, unreacheable pkgs"
 msgstr "изчистване на кеширани стари и неизползваеми пакети"
 
-msgid "remove obsolete packages (dist-upgrade only)"
+msgid "remove obsolete packages"
 msgstr "премахване на остарели пакети (само при dist-upgrade)"
 
 #, c-format

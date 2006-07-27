@@ -229,8 +229,11 @@ void slapt_pkg_action_remove(const slapt_rc_config *global_config,
   slapt_regex_t *pkg_regex = NULL;
   slapt_transaction_t *tran = NULL;
 
+  printf(gettext("Reading Package Lists... "));
   installed_pkgs = slapt_get_installed_pkgs();
   avail_pkgs = slapt_get_available_pkgs();
+  printf(gettext("Done\n"));
+
   tran = slapt_init_transaction();
   if ((pkg_regex = slapt_init_regex(SLAPT_PKG_LOG_PATTERN)) == NULL) {
     exit(EXIT_FAILURE);
@@ -291,6 +294,21 @@ void slapt_pkg_action_remove(const slapt_rc_config *global_config,
 
     slapt_add_remove_to_transaction(tran,pkg);
 
+  }
+
+  if (global_config->remove_obsolete == SLAPT_TRUE) {
+    struct slapt_pkg_list *obsolete = slapt_get_obsolete(
+      global_config, avail_pkgs, installed_pkgs);
+
+    for (i = 0; i < obsolete->pkg_count; ++i) {
+      if ( slapt_is_excluded(global_config,obsolete->pkgs[i]) != 1 ) {
+        slapt_add_remove_to_transaction(tran,obsolete->pkgs[i]);
+      } else {
+        slapt_add_exclude_to_transaction(tran,obsolete->pkgs[i]);
+      }
+    }
+
+    slapt_free_pkg_list(obsolete);
   }
 
   slapt_free_pkg_list(installed_pkgs);
@@ -585,42 +603,20 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
     /* remove obsolete packages if prompted to */
     if ( global_config->remove_obsolete == SLAPT_TRUE ) {
       unsigned int r;
+      struct slapt_pkg_list *obsolete = slapt_get_obsolete(
+        global_config, avail_pkgs, installed_pkgs);
 
-      for (r = 0; r < installed_pkgs->pkg_count; ++r) {
+      for (r = 0; r < obsolete->pkg_count; ++r) {
 
-        /*
-           * if we can't find the installed package in our available pkg list,
-           * it must be obsolete
-        */
-        if (slapt_get_newest_pkg(avail_pkgs,
-                                 installed_pkgs->pkgs[r]->name) == NULL) {
-            struct slapt_pkg_list *deps;
-            unsigned int c;
-            /*
-              any packages that require this package we are about to remove
-              should be scheduled to remove as well
-            */
-            deps = slapt_is_required_by(global_config,avail_pkgs,
-                                        installed_pkgs->pkgs[r]);
-            for (c = 0; c < deps->pkg_count; ++c ) {
-              if ( slapt_get_exact_pkg(avail_pkgs,deps->pkgs[c]->name,
-              deps->pkgs[c]->version) == NULL ) {
-                if ( slapt_is_excluded(global_config,deps->pkgs[c]) != 1 ) {
-                  slapt_add_remove_to_transaction(tran,deps->pkgs[c]);
-                } else {
-                  slapt_add_exclude_to_transaction(tran,deps->pkgs[c]);
-                }
-              }
-            }
-            slapt_free_pkg_list(deps);
-            if (slapt_is_excluded(global_config,installed_pkgs->pkgs[r]) != 1) {
-              slapt_add_remove_to_transaction(tran,installed_pkgs->pkgs[r]);
-            } else {
-              slapt_add_exclude_to_transaction(tran,installed_pkgs->pkgs[r]);
-            }
+        if ( slapt_is_excluded(global_config,obsolete->pkgs[r]) != 1 ) {
+          slapt_add_remove_to_transaction(tran,obsolete->pkgs[r]);
+        } else {
+          slapt_add_exclude_to_transaction(tran,obsolete->pkgs[r]);
         }
 
       }
+
+      slapt_free_pkg_list(obsolete);
 
     }/* end if remove_obsolete */
 

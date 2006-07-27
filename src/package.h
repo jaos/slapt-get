@@ -142,6 +142,12 @@ int slapt_upgrade_pkg(const slapt_rc_config *global_config,
 */
 int slapt_remove_pkg(const slapt_rc_config *,slapt_pkg_info_t *);
 
+/* get a list of obsolete packages */
+struct slapt_pkg_list *
+  slapt_get_obsolete( const slapt_rc_config *global_config,
+                      struct slapt_pkg_list *avail_pkgs,
+                      struct slapt_pkg_list *installed_pkgs);
+
 
 /*
   generate a short description, returns (char *) on success or NULL on error

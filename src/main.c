@@ -222,6 +222,8 @@ int main( int argc, char *argv[] )
     case INSTALL:
     case INSTALL_DISK_SET:
     case REMOVE:
+        if (global_config->remove_obsolete == SLAPT_TRUE)
+          break;
     case SHOW:
     case SEARCH:
       if ( optind >= argc )
@@ -390,7 +392,7 @@ void usage(void)
   printf("  --print-uris        - %s\n",gettext("print URIs only, do not download"));
   printf("  --show-stats|-S     - %s\n",gettext("show download statistics"));
   printf("  --config|-c []      - %s\n",gettext("specify alternate slapt-getrc location"));
-  printf("  --remove-obsolete   - %s\n",gettext("remove obsolete packages (dist-upgrade only)"));
+  printf("  --remove-obsolete   - %s\n",gettext("remove obsolete packages"));
   printf("  --retry []          - %s\n",gettext("specify number of download retry attempts"));
   printf("  --no-upgrade        - %s\n",gettext("install package, do not attempt to upgrade"));
 }
