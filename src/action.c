@@ -297,7 +297,7 @@ void slapt_pkg_action_remove(const slapt_rc_config *global_config,
   }
 
   if (global_config->remove_obsolete == SLAPT_TRUE) {
-    struct slapt_pkg_list *obsolete = slapt_get_obsolete(
+    struct slapt_pkg_list *obsolete = slapt_get_obsolete_pkgs(
       global_config, avail_pkgs, installed_pkgs);
 
     for (i = 0; i < obsolete->pkg_count; ++i) {
@@ -603,7 +603,7 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
     /* remove obsolete packages if prompted to */
     if ( global_config->remove_obsolete == SLAPT_TRUE ) {
       unsigned int r;
-      struct slapt_pkg_list *obsolete = slapt_get_obsolete(
+      struct slapt_pkg_list *obsolete = slapt_get_obsolete_pkgs(
         global_config, avail_pkgs, installed_pkgs);
 
       for (r = 0; r < obsolete->pkg_count; ++r) {

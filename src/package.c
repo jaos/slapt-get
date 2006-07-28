@@ -3259,9 +3259,9 @@ char *slapt_stringify_pkg(const slapt_pkg_info_t *pkg)
 }
 
 struct slapt_pkg_list *
-  slapt_get_obsolete( const slapt_rc_config *global_config,
-                      struct slapt_pkg_list *avail_pkgs,
-                      struct slapt_pkg_list *installed_pkgs)
+  slapt_get_obsolete_pkgs ( const slapt_rc_config *global_config,
+                            struct slapt_pkg_list *avail_pkgs,
+                            struct slapt_pkg_list *installed_pkgs)
 {
   unsigned int r;
   struct slapt_pkg_list *obsolete = slapt_init_pkg_list();
