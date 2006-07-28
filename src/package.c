@@ -3146,7 +3146,7 @@ char *slapt_get_pkg_changelog(const slapt_pkg_info_t *pkg)
   size_t pls = 1;
   int changelog_len = 0;
 
-  if ((working_changelog_f = slapt_open_file(filename,"rb")) == NULL)
+  if ((working_changelog_f = fopen(filename,"rb")) == NULL)
     return NULL;
 
   /* used with mmap */
