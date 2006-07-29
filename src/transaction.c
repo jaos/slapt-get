@@ -232,14 +232,6 @@ int slapt_handle_transaction (const slapt_rc_config *global_config,
     if (need_to_download_size < 0)
       need_to_download_size = 0;
 
-    if (disk_space(global_config,need_to_download_size+uncompressed_size) != 0) {
-      printf(
-        gettext("You don't have enough free space in %s\n"),
-        global_config->working_dir
-     );
-      exit(EXIT_FAILURE);
-    }
-
     if (already_download_size > 0) {
       printf(gettext("Need to get %.1d%s/%.1d%s of archives.\n"),
         (need_to_download_size > 1024) ? need_to_download_size / 1024
@@ -254,6 +246,15 @@ int slapt_handle_transaction (const slapt_rc_config *global_config,
         (download_size > 1024) ? "MB" : "kB"
      );
     }
+
+    if (disk_space(global_config,need_to_download_size+uncompressed_size) != 0) {
+      printf(
+        gettext("You don't have enough free space in %s\n"),
+        global_config->working_dir
+     );
+      exit(EXIT_FAILURE);
+    }
+
   }
 
   if (tran->upgrade_pkgs->pkg_count > 0 || tran->remove_pkgs->pkg_count > 0 ||

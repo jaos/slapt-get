@@ -1,5 +1,6 @@
 
-0.9.11e Jul 27, 2006
+0.9.11e Jul 29, 2006
+ * show disk space warning *after* showing how much is to be downloaded
  * suppress the warning when opening the ChangeLog.txt fails
    (for installed packages)
  * --remove-obsolete now works with --remove as well as --dist-upgrade
