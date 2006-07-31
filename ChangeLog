@@ -1,4 +1,7 @@
 
+0.9.11f Jul 31, 2006
+ * fixed encoding issue with pt_PT
+
 0.9.11e Jul 29, 2006
  * show disk space warning *after* showing how much is to be downloaded
  * suppress the warning when opening the ChangeLog.txt fails
