@@ -20,14 +20,15 @@
 static void usage(void);
 static void version_info(void);
 
+extern char *optarg;
+extern int optind, opterr, optopt;
+
 int main( int argc, char *argv[] )
 {
   slapt_rc_config *global_config; /* our config struct */
   slapt_pkg_action_args_t *paa;
-  /* getopt needs these */
+
   int c = 0;
-  extern char *optarg;
-  extern int optind, opterr, optopt;
   enum slapt_action do_action = 0;
   int option_index = 0;
   static struct option long_options[] = {

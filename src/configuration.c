@@ -99,7 +99,9 @@ slapt_rc_config *slapt_read_rc_config(const char *file_name)
   }
 
   fclose(rc);
-  if ( getline_buffer ) free(getline_buffer);
+
+  if ( getline_buffer )
+    free(getline_buffer);
 
   if ( strcmp(global_config->working_dir,"") == 0 ) {
     fprintf(stderr,gettext("WORKINGDIR directive not set within %s.\n"),
@@ -344,10 +346,13 @@ void slapt_remove_source (struct slapt_source_list *list, const char *s)
     }
     ++i;
   }
+
   if ( tmp != NULL ) {
     char **realloc_tmp;
     int count = list->count - 1;
-    if ( count < 1 ) count = 1;
+
+    if ( count < 1 )
+      count = 1;
 
     free(tmp);
 

@@ -222,16 +222,19 @@ int slapt_ask_yes_no(const char *format, ...)
   va_end(arg_list);
 
   while ((answer = fgetc(stdin)) != EOF) {
+
     if (answer == '\n')
       break;
 
     if ( ((tolower(answer) == 'y') ||
           (tolower(answer) == 'n')) && parsed_answer == 0)
       parsed_answer = tolower(answer);
+
   }
 
   if (parsed_answer == 'y')
     return 1;
+
   if (parsed_answer == 'n')
     return 0;
 
