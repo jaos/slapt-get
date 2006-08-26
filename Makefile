@@ -55,7 +55,7 @@ doinstall: libsinstall
 	strip --strip-unneeded $(PACKAGE)
 	if [ ! -d $(DESTDIR)$(SBINDIR) ]; then mkdir -p $(DESTDIR)$(SBINDIR);fi
 	install $(PACKAGE) $(DESTDIR)$(SBINDIR)
-	-chown root:bin $(DESTDIR)$(SBINDIR)$(PACKAGE)
+	-chown $$(stat --format "%u:%g" /usr/sbin) $(DESTDIR)$(SBINDIR)$(PACKAGE)
 	if [ ! -d $(DESTDIR)/etc/slapt-get ]; then mkdir -p $(DESTDIR)/etc/slapt-get;fi
 	if [ -f $(DESTDIR)/etc/slapt-getrc ]; then mv $(DESTDIR)/etc/slapt-getrc $(DESTDIR)$(RCDEST);fi
 	if [ ! -f $(DESTDIR)$(RCDEST) ]; then install --mode=0644 -b $(RCSOURCE) $(DESTDIR)$(RCDEST); else install --mode=0644 -b $(RCSOURCE) $(DESTDIR)$(RCDEST).new;fi
@@ -121,8 +121,8 @@ dopkg:
 	mkdir -p pkg/usr/man/uk/man8
 	for i in `ls po/ --ignore=slapt-get.pot --ignore=CVS |sed 's/.po//'` ;do mkdir -p pkg$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES; msgfmt -o pkg$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES/slapt-get.mo po/$$i.po; done
 	cp $(PACKAGE) ./pkg/$(SBINDIR)
-	-chown root:bin ./pkg/$(SBINDIR)
-	-chown root:bin ./pkg/$(SBINDIR)/$(PACKAGE)
+	-chown $$(stat --format "%u:%g" /usr/sbin) ./pkg/$(SBINDIR)
+	-chown $$(stat --format "%u:%g" /usr/sbin) ./pkg/$(SBINDIR)/$(PACKAGE)
 	strip ./pkg/$(SBINDIR)/$(PACKAGE)
 	echo "# See /usr/doc/$(PACKAGE)-$(VERSION)/example.slapt-getrc " > ./pkg/etc/slapt-get/slapt-getrc.new
 	echo "# for example source entries and configuration hints." >> ./pkg/etc/slapt-get/slapt-getrc.new

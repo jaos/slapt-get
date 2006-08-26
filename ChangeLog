@@ -1,5 +1,7 @@
 
-0.9.11f Aug 20, 2006
+0.9.11f Aug 26, 2006
+ * Makefile now uses the same Group ID of /usr/sbin on the system
+   for Slack 11 compatibility (Thanks Ricardo Garcia).
  * fixed encoding issue with pt_PT
 
 0.9.11e Jul 29, 2006
