@@ -21,7 +21,7 @@ slapt-get \- frontend to pkgtools
 .LP
 .B options:
 [
-.B --download-only
+.B --download-only|-d
 ]
 [
 .B --simulate|-s
@@ -54,7 +54,7 @@ slapt-get \- frontend to pkgtools
 .B --show-stats|-S
 ]
 [
-.B --config []
+.B --config|-c []
 ]
 [
 .B --remove-obsolete
@@ -120,7 +120,7 @@ installed packages, and removing installed packages.
 tries to emulate Debian's apt-get as closely as possible.
 .SH OPTIONS
 .TP
-.B --download-only
+.B --download-only|-d
 Download the package only.  Do not install/upgrade.  Packages are downloaded to /var/slapt-get/.
 .TP
 .B --simulate|-s
@@ -153,7 +153,7 @@ Print URIs of packages to be downloaded to stdout, but do not download.
 .B --show-stats|-S
 Show the download statistics
 .TP
-.B --config []
+.B --config|-c []
 Specify file location of slapt-get configuration.  This overrides the default location, /etc/slapt-get/slapt-getrc.
 .TP
 .B --remove-obsolete
