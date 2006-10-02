@@ -1,5 +1,6 @@
 
-0.9.11f Sep 14, 2006
+0.9.11f Oct 01, 2006
+ * added zenwalk example source
  * man page updates by Piotr
  * Makefile now uses the same Group ID of /usr/sbin on the system
    for Slack 11 compatibility (Thanks Ricardo Garcia).
