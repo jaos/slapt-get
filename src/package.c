@@ -1818,9 +1818,10 @@ static void required_by(const slapt_rc_config *global_config,
                         slapt_pkg_info_t *pkg,
                         struct slapt_pkg_list *required_by_list)
 {
-  unsigned int i, name_len = 0;
+  unsigned int i, name_len = 0, escape_count = 0;
   slapt_regex_t *required_by_reg = NULL;
   char *escapedName = NULL, *escaped_ptr;
+  char p;
 
   /*
    * don't go any further if disable_dep_check is set
@@ -1828,7 +1829,15 @@ static void required_by(const slapt_rc_config *global_config,
   if (global_config->disable_dep_check == SLAPT_TRUE)
     return;
 
-  escapedName = slapt_malloc(sizeof *escapedName * (strlen(pkg->name) + 2) );
+  escaped_ptr = pkg->name;
+  while ( (p = *escaped_ptr++) )
+  {
+    if (p == '+')
+      escape_count++;
+  }
+  escaped_ptr = NULL;
+
+  escapedName = slapt_malloc(sizeof *escapedName * (strlen(pkg->name) + escape_count + 1) );
 
   name_len = strlen(pkg->name);
   for (i = 0, escaped_ptr = escapedName; i < name_len && pkg->name[i]; i++) {

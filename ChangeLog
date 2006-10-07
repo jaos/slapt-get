@@ -1,4 +1,7 @@
 
+0.9.11g Oct 06, 2006
+ * fixed crash bug in is_required_by (thanks to MacIver and Larhzu)
+
 0.9.11f Oct 03, 2006
  * slack 11 release
  * added zenwalk example source
