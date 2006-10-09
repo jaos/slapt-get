@@ -794,7 +794,7 @@ slapt_pkg_info_t *slapt_get_exact_pkg(struct slapt_pkg_list *list,
 {
 
   if (list->ordered) {
-    unsigned int min = 0, max = list->pkg_count;
+    unsigned int min = 0, max = list->pkg_count - 1;
 
     while (max >= min)
     {
@@ -1929,7 +1929,7 @@ slapt_pkg_info_t *slapt_get_pkg_by_details(struct slapt_pkg_list *list,
 {
 
   if (list->ordered) {
-    int min = 0, max = list->pkg_count;
+    int min = 0, max = list->pkg_count - 1;
 
     while (max >= min)
     {
