@@ -53,6 +53,7 @@ struct slapt_pkg_list {
   slapt_pkg_info_t **pkgs;
   unsigned int pkg_count;
   SLAPT_BOOL_T free_pkgs;
+  SLAPT_BOOL_T ordered;
 };
 
 typedef struct {

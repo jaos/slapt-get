@@ -17,6 +17,9 @@
  */
 
 #include "main.h"
+
+/* used by qsort */
+static int pkg_compare (const void *a, const void *b);
 /* analyze the pkg version hunk by hunk */
 static struct slapt_pkg_version_parts *break_down_pkg_version(const char *version);
 /* parse the meta lines */
@@ -51,6 +54,10 @@ struct slapt_pkg_list *slapt_get_available_pkgs(void)
   }
   list = slapt_parse_packages_txt(pkg_list_fh);
   fclose(pkg_list_fh);
+
+  qsort( list->pkgs, list->pkg_count, sizeof(list->pkgs[0]), pkg_compare );
+
+  list->ordered = SLAPT_TRUE;
 
   return list;
 }
@@ -752,6 +759,11 @@ struct slapt_pkg_list *slapt_get_installed_pkgs(void)
   slapt_free_regex(location_regex);
 
   list->free_pkgs = SLAPT_TRUE;
+
+  qsort( list->pkgs, list->pkg_count, sizeof(list->pkgs[0]), pkg_compare );
+
+  list->ordered = SLAPT_TRUE;
+
   return list;
 }
 
@@ -780,16 +792,56 @@ slapt_pkg_info_t *slapt_get_exact_pkg(struct slapt_pkg_list *list,
                                       const char *name,
                                       const char *version)
 {
-  unsigned int i;
-  slapt_pkg_info_t *pkg = NULL;
 
-  for (i = 0; i < list->pkg_count;i++) {
-    if ((strcmp(name,list->pkgs[i]->name)==0) &&
-    (strcmp(version,list->pkgs[i]->version)==0) ) {
-      return list->pkgs[i];
+  if (list->ordered) {
+    unsigned int min = 0, max = list->pkg_count;
+
+    while (max >= min)
+    {
+      int pivot    = (min + max) / 2;
+      int name_cmp  = strcmp(list->pkgs[pivot]->name, name);
+
+      if ( name_cmp == 0 ) {
+
+        int version_cmp = slapt_cmp_pkg_versions(list->pkgs[pivot]->version, version);
+
+        if ( version_cmp == 0 ) {
+
+          return list->pkgs[pivot];
+
+        } else {
+
+          if ( version_cmp < 0 )
+            min = pivot + 1;
+          else
+            max = pivot - 1;
+           
+        }
+
+      } else {
+
+        if ( name_cmp < 0 )
+          min = pivot + 1;
+        else
+          max = pivot - 1;
+
+      }
+
     }
+
+  } else {
+    unsigned int i;
+
+    for (i = 0; i < list->pkg_count;i++) {
+      if ((strcmp(name,list->pkgs[i]->name)==0) &&
+        (strcmp(version,list->pkgs[i]->version)==0) ) {
+          return list->pkgs[i];
+      }
+    }
+
   }
-  return pkg;
+
+  return NULL;
 }
 
 int slapt_install_pkg(const slapt_rc_config *global_config,
@@ -1875,24 +1927,77 @@ slapt_pkg_info_t *slapt_get_pkg_by_details(struct slapt_pkg_list *list,
                                            const char *version,
                                            const char *location)
 {
-  unsigned int i;
-  for (i = 0; i < list->pkg_count; i++) {
 
-    if (strcmp(list->pkgs[i]->name,name) == 0 ) {
-      if (version != NULL) {
-        if (strcmp(list->pkgs[i]->version,version) == 0) {
-          if (location != NULL) {
-            if (strcmp(list->pkgs[i]->location,location) == 0) {
+  if (list->ordered) {
+    int min = 0, max = list->pkg_count;
+
+    while (max >= min)
+    {
+      int pivot    = (min + max) / 2;
+      int name_cmp  = strcmp(list->pkgs[pivot]->name, name);
+
+      if ( name_cmp == 0 ) {
+
+        int version_cmp = slapt_cmp_pkg_versions(list->pkgs[pivot]->version, version);
+
+        if ( version_cmp == 0 ) {
+
+          int location_cmp = strcmp(list->pkgs[pivot]->location, location);
+
+          if ( location_cmp == 0 )
+            return list->pkgs[pivot];
+
+          else {
+
+            if (location_cmp < 0 )
+              min = pivot + 1;
+            else
+              max = pivot - 1;
+
+          }
+
+
+        } else {
+
+          if ( version_cmp < 0 )
+            min = pivot + 1;
+          else
+            max = pivot - 1;
+           
+        }
+
+      } else {
+
+        if ( name_cmp < 0 )
+          min = pivot + 1;
+        else
+          max = pivot - 1;
+
+      }
+
+    }
+
+  } else {
+    unsigned int i;
+
+    for (i = 0; i < list->pkg_count; i++) {
+
+      if (strcmp(list->pkgs[i]->name,name) == 0 ) {
+        if (version != NULL) {
+          if (strcmp(list->pkgs[i]->version,version) == 0) {
+            if (location != NULL) {
+              if (strcmp(list->pkgs[i]->location,location) == 0) {
+                return list->pkgs[i];
+              }
+            } else {
               return list->pkgs[i];
             }
-          } else {
-            return list->pkgs[i];
           }
         }
       }
     }
-
   }
+
   return NULL;
 }
 
@@ -2008,6 +2113,8 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
     if ((pkg_list_fh = slapt_open_file(SLAPT_PKG_LIST_L,"w+")) == NULL)
       exit(EXIT_FAILURE);
 
+    qsort( new_pkgs->pkgs, new_pkgs->pkg_count, sizeof(new_pkgs->pkgs[0]), pkg_compare );
+
     slapt_write_pkg_data(NULL,pkg_list_fh,new_pkgs);
 
     fclose(pkg_list_fh);
@@ -2025,10 +2132,11 @@ struct slapt_pkg_list *slapt_init_pkg_list(void)
 {
   struct slapt_pkg_list *list = NULL;
 
-  list = slapt_malloc(sizeof *list);
-  list->pkgs = slapt_malloc(sizeof *list->pkgs);
+  list            = slapt_malloc(sizeof *list);
+  list->pkgs      = slapt_malloc(sizeof *list->pkgs);
   list->pkg_count = 0;
   list->free_pkgs = SLAPT_FALSE;
+  list->ordered   = SLAPT_FALSE;
 
   return list;
 }
@@ -2062,23 +2170,23 @@ __inline slapt_pkg_info_t *slapt_init_pkg(void)
   pkg->size_c = 0;
   pkg->size_u = 0;
 
-  pkg->name = NULL;
-  pkg->version = NULL;
-  pkg->mirror = NULL;
+  pkg->name     = NULL;
+  pkg->version  = NULL;
+  pkg->mirror   = NULL;
   pkg->location = NULL;
   pkg->file_ext = NULL;
 
-  pkg->description = slapt_malloc(sizeof *pkg->description); 
+  pkg->description    = slapt_malloc(sizeof *pkg->description); 
   pkg->description[0] = '\0';
 
-  pkg->required = slapt_malloc(sizeof *pkg->required);
-  pkg->required[0] = '\0';
+  pkg->required       = slapt_malloc(sizeof *pkg->required);
+  pkg->required[0]    = '\0';
 
-  pkg->conflicts = slapt_malloc(sizeof *pkg->conflicts);
-  pkg->conflicts[0] = '\0';
+  pkg->conflicts      = slapt_malloc(sizeof *pkg->conflicts);
+  pkg->conflicts[0]   = '\0';
 
-  pkg->suggests = slapt_malloc(sizeof *pkg->suggests);
-  pkg->suggests[0] = '\0';
+  pkg->suggests       = slapt_malloc(sizeof *pkg->suggests);
+  pkg->suggests[0]    = '\0';
 
 
   pkg->md5[0] = '\0';
@@ -3310,3 +3418,18 @@ struct slapt_pkg_list *
 
   return obsolete;
 }
+
+static int pkg_compare (const void *a, const void *b)
+{
+  int cmp = 0;
+
+  slapt_pkg_info_t *pkg_a = *(slapt_pkg_info_t * const *)a;
+  slapt_pkg_info_t *pkg_b = *(slapt_pkg_info_t * const *)b;
+
+  cmp = strcmp(pkg_a->name, pkg_b->name);
+
+  return (cmp == 0)
+        ? slapt_cmp_pkgs(pkg_a, pkg_b)
+        : cmp;
+}
+
