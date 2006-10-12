@@ -110,7 +110,8 @@ SOURCE=http://software.jaos.org/slackpacks/11.0/
 #SOURCE=http://slack.sarava.org/packages/slackware/slackware-10.2/
 #SOURCE=http://www.robertjohnkaper.com/downloads/atlantik/slackware-10.2/
 #SOURCE=http://jinx.tp2.be/slackware/
-#SOURCE=http://zenwalk.mirrors.tds.net/pub/linux/zenwalk/i486/current/packages/
+#SOURCE=http://download.zenwalk.org/i486/snapshot/
+#SOURCE=http://de.repos.slackware-current.net/
 
 
 # pull from your cdrom
