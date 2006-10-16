@@ -33,7 +33,7 @@ FILE *slapt_open_file(const char *file_name,const char *mode)
   return fh;
 }
 
-/* initialize regex structure and compilie the regular expression */
+/* initialize regex structure and compile the regular expression */
 slapt_regex_t *slapt_init_regex(const char *regex_string)
 {
   slapt_regex_t *regex_t = slapt_malloc(sizeof *regex_t);
