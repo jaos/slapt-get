@@ -1,5 +1,5 @@
 
-0.9.11g Oct 12, 2006
+0.9.11g Oct 15, 2006
  * improved worst case lookup time for searching packages on package lists
    that are known to be sorted.
  * fixed crash bug in is_required_by (thanks to MacIver and Larhzu)

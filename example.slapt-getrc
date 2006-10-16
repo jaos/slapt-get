@@ -79,7 +79,7 @@ SOURCE=http://software.jaos.org/slackpacks/11.0/
 #SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-10.2/pasture/
 
 # other unofficial sources
-#SOURCE=http://www.tenboard.com/slackware/slackware-10.2/
+#SOURCE=http://www.tenboard.com/slackware/slackware-11.0/
 #SOURCE=http://www.slacky.it/download/
 #SOURCE=http://slackpacks.tchelinux.com.br/
 #SOURCE=http://slackware.rm-f.net/slackware-10.2/
@@ -94,7 +94,7 @@ SOURCE=http://software.jaos.org/slackpacks/11.0/
 #SOURCE=http://mirror.datapipe.net/norlug/frg64/current/
 #SOURCE=ftp://ftp.gware.org/10.2/2.12.0/packages
 #SOURCE=ftp://ftp.gware.org/x86_64/2.10.2/packages/
-#SOURCE=http://www.kadu.net/download/binary/slackware/slackware-10.2/
+#SOURCE=http://www.kadu.net/download/binary/slackware/slackware-11.0/
 #SOURCE=http://www.slackages.com/slapt-get/jlp/
 #SOURCE=http://www.slackages.com/slapt-get/jto/
 #SOURCE=http://mirror.on.net.mk/Damjan/slackware-10.2/
