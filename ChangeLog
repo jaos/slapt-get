@@ -1,5 +1,6 @@
 
-0.9.11g Oct 15, 2006
+0.9.11g Oct 29, 2006
+ * extended configuration api
  * improved worst case lookup time for searching packages on package lists
    that are known to be sorted.
  * fixed crash bug in is_required_by (thanks to MacIver and Larhzu)

@@ -21,38 +21,42 @@
 static struct slapt_exclude_list *parse_exclude(char *line);
 
 
+slapt_rc_config *slapt_init_config(void)
+{
+  slapt_rc_config *global_config = slapt_malloc( sizeof *global_config );
+
+  global_config->download_only      = SLAPT_FALSE;
+  global_config->simulate           = SLAPT_FALSE;
+  global_config->ignore_excludes    = SLAPT_FALSE;
+  global_config->no_md5_check       = SLAPT_FALSE;
+  global_config->dist_upgrade       = SLAPT_FALSE;
+  global_config->ignore_dep         = SLAPT_FALSE;
+  global_config->disable_dep_check  = SLAPT_FALSE;
+  global_config->print_uris         = SLAPT_FALSE;
+  global_config->dl_stats           = SLAPT_FALSE;
+  global_config->no_prompt          = SLAPT_FALSE;
+  global_config->prompt             = SLAPT_FALSE;
+  global_config->re_install         = SLAPT_FALSE;
+  global_config->remove_obsolete    = SLAPT_FALSE;
+  global_config->no_upgrade         = SLAPT_FALSE;
+  global_config->working_dir[0]     = '\0';
+  global_config->progress_cb        = NULL;
+
+  global_config->sources      = slapt_init_source_list();
+  global_config->exclude_list = slapt_init_exclude_list();
+
+  global_config->retry = 1;
+
+  return global_config;
+}
+
 slapt_rc_config *slapt_read_rc_config(const char *file_name)
 {
   FILE *rc = NULL;
-  slapt_rc_config *global_config;
+  slapt_rc_config *global_config = slapt_init_config();
   char *getline_buffer = NULL;
   size_t gb_length = 0;
   ssize_t g_size;
-
-  global_config = slapt_malloc( sizeof *global_config );
-  /* initialize */
-  global_config->download_only = SLAPT_FALSE;
-  global_config->simulate = SLAPT_FALSE;
-  global_config->ignore_excludes = SLAPT_FALSE;
-  global_config->no_md5_check = SLAPT_FALSE;
-  global_config->dist_upgrade = SLAPT_FALSE;
-  global_config->ignore_dep = SLAPT_FALSE;
-  global_config->disable_dep_check = SLAPT_FALSE;
-  global_config->print_uris = SLAPT_FALSE;
-  global_config->dl_stats = SLAPT_FALSE;
-  global_config->no_prompt = SLAPT_FALSE;
-  global_config->prompt = SLAPT_FALSE;
-  global_config->re_install = SLAPT_FALSE;
-  global_config->exclude_list = NULL;
-  global_config->working_dir[0] = '\0';
-  global_config->remove_obsolete = SLAPT_FALSE;
-  global_config->no_upgrade = SLAPT_FALSE;
-  global_config->progress_cb = NULL;
-  global_config->sources = slapt_malloc(sizeof *global_config->sources );
-  global_config->sources->url =
-    slapt_malloc(sizeof *global_config->sources->url );
-  global_config->sources->count = 0;
-  global_config->retry = 1;
 
   rc = slapt_open_file(file_name,"r");
 
@@ -93,6 +97,7 @@ slapt_rc_config *slapt_read_rc_config(const char *file_name)
 
     } else if ( strstr(getline_buffer,EXCLUDE_TOKEN) != NULL ) {
        /* exclude list */
+      slapt_free_exclude_list(global_config->exclude_list);
       global_config->exclude_list = parse_exclude(getline_buffer);
     }
 
@@ -107,14 +112,6 @@ slapt_rc_config *slapt_read_rc_config(const char *file_name)
     fprintf(stderr,gettext("WORKINGDIR directive not set within %s.\n"),
             file_name);
     return NULL;
-  }
-  if ( global_config->exclude_list == NULL ) {
-    /* at least initialize */
-    global_config->exclude_list =
-      slapt_malloc( sizeof *global_config->exclude_list );
-    global_config->exclude_list->excludes =
-      slapt_malloc( sizeof *global_config->exclude_list->excludes );
-    global_config->exclude_list->count = 0;
   }
   if ( global_config->sources->count == 0 ) {
     fprintf(stderr,gettext("SOURCE directive not set within %s.\n"),file_name);
@@ -159,22 +156,9 @@ void slapt_working_dir_init(const slapt_rc_config *global_config)
 
 void slapt_free_rc_config(slapt_rc_config *global_config)
 {
-  unsigned int i;
-  
-  for (i = 0; i < global_config->exclude_list->count; ++i) {
-    free(global_config->exclude_list->excludes[i]);
-  }
-  free(global_config->exclude_list->excludes);
-  free(global_config->exclude_list);
-
-  for (i = 0; i < global_config->sources->count; ++i) {
-    free(global_config->sources->url[i]);
-  }
-  free(global_config->sources->url);
-  free(global_config->sources);
-
+  slapt_free_exclude_list(global_config->exclude_list);
+  slapt_free_source_list(global_config->sources);
   free(global_config);
-
 }
 
 static struct slapt_exclude_list *parse_exclude(char *line)
@@ -225,6 +209,15 @@ static struct slapt_exclude_list *parse_exclude(char *line)
   return list;
 }
 
+struct slapt_exclude_list *slapt_init_exclude_list(void)
+{
+  struct slapt_exclude_list *list = slapt_malloc(sizeof *list);
+  list->excludes = slapt_malloc(sizeof *list->excludes);
+  list->count = 0;
+
+  return list;
+}
+
 void slapt_add_exclude(struct slapt_exclude_list *list,const char *e)
 {
   char **realloc_tmp;
@@ -272,6 +265,26 @@ void slapt_remove_exclude(struct slapt_exclude_list *list,const char *e)
     }
 
   }
+}
+
+void slapt_free_exclude_list(struct slapt_exclude_list *list)
+{
+  unsigned int i;
+  
+  for (i = 0; i < list->count; ++i) {
+    free(list->excludes[i]);
+  }
+  free(list->excludes);
+  free(list);
+}
+
+struct slapt_source_list *slapt_init_source_list(void)
+{
+  struct slapt_source_list *list = slapt_malloc(sizeof *list);
+  list->url = slapt_malloc(sizeof *list->url);
+  list->count = 0;
+
+  return list;
 }
 
 void slapt_add_source(struct slapt_source_list *list,const char *s)
@@ -365,5 +378,16 @@ void slapt_remove_source (struct slapt_source_list *list, const char *s)
 
   }
 
+}
+
+void slapt_free_source_list(struct slapt_source_list *list)
+{
+  unsigned int i;
+
+  for (i = 0; i < list->count; ++i) {
+    free(list->url[i]);
+  }
+  free(list->url);
+  free(list);
 }
 
