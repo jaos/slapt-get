@@ -1,5 +1,6 @@
 
-0.9.11g Oct 29, 2006
+0.9.11g Nov 10, 2006
+ * fixed sorting to sort by location as well
  * extended configuration api
  * improved worst case lookup time for searching packages on package lists
    that are known to be sorted.

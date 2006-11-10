@@ -3428,8 +3428,23 @@ static int pkg_compare (const void *a, const void *b)
 
   cmp = strcmp(pkg_a->name, pkg_b->name);
 
-  return (cmp == 0)
-        ? slapt_cmp_pkgs(pkg_a, pkg_b)
-        : cmp;
+  if (cmp == 0) {
+
+    if ((cmp = slapt_cmp_pkgs(pkg_a, pkg_b)) == 0) {
+
+      return strcmp(pkg_a->location,pkg_b->location);
+
+    } else {
+
+      return cmp;
+
+    }
+
+  } else {
+
+   return cmp;
+
+  }
+
 }
 
