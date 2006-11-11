@@ -33,6 +33,8 @@ static int slapt_download_data(FILE *fh,const char *url,size_t bytes,long *filet
   char curl_err_buff[1024];
   int return_code = 0;
   struct curl_slist *headers = NULL;
+  struct slapt_progress_data *cb_data = slapt_init_progress_data();
+  cb_data->bytes = bytes;
 
 #if SLAPT_DEBUG == 1
   printf(gettext("Fetching url:[%s]\n"),url);
@@ -66,7 +68,7 @@ static int slapt_download_data(FILE *fh,const char *url,size_t bytes,long *filet
       curl_easy_setopt(ch, CURLOPT_PROGRESSFUNCTION,
                        global_config->progress_cb );
     }
-    curl_easy_setopt(ch, CURLOPT_PROGRESSDATA, &bytes);
+    curl_easy_setopt(ch, CURLOPT_PROGRESSDATA, cb_data);
   }
 
   curl_easy_setopt(ch, CURLOPT_ERRORBUFFER, curl_err_buff );
@@ -112,6 +114,7 @@ static int slapt_download_data(FILE *fh,const char *url,size_t bytes,long *filet
   /* can't do a curl_free() after curl_easy_cleanup() */
   /* curl_free(ch); */
   curl_slist_free_all(headers);
+  slapt_free_progress_data(cb_data);
 
   return return_code;
 }
@@ -378,14 +381,15 @@ int slapt_progress_callback(void *clientp, double dltotal, double dlnow,
                       double ultotal, double ulnow)
 {
   size_t percent = 0;
-  size_t *bytes = (size_t *)clientp;
+  struct slapt_progress_data *cb_data = (struct slapt_progress_data *)clientp;
+  size_t bytes = cb_data->bytes;
   (void) ultotal;
   (void) ulnow;
 
-  if ((dltotal + *bytes) == 0) {
+  if ((dltotal + bytes) == 0) {
     percent = 0;
   } else {
-    percent = ((*bytes + dlnow)*100)/(dltotal + *bytes);
+    percent = ((bytes + dlnow)*100)/(dltotal + bytes);
   }
   printf("%3d%%\b\b\b\b",(int)percent);
   return 0;
@@ -514,5 +518,18 @@ char *slapt_head_mirror_data(const char *wurl,const char *file)
 
   free(head_data);
   return request_header;
+}
+
+struct slapt_progress_data *slapt_init_progress_data(void)
+{
+  struct slapt_progress_data *d = malloc( sizeof *d );
+  d->bytes  = 0;
+  d->start  = time(NULL);
+  return d;
+}
+
+void slapt_free_progress_data(struct slapt_progress_data *d)
+{
+  free(d);
 }
 

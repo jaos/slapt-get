@@ -45,3 +45,12 @@ void slapt_write_head_cache(const char *cache, const char *cache_filename);
 */
 char *slapt_read_head_cache(const char *cache_filename);
 
+struct slapt_progress_data
+{
+  size_t bytes;
+  time_t start;
+};
+
+struct slapt_progress_data *slapt_init_progress_data(void);
+void slapt_free_progress_data(struct slapt_progress_data *d);
+
