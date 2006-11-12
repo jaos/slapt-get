@@ -60,9 +60,9 @@ int slapt_handle_transaction (const slapt_rc_config *global_config,
                               slapt_transaction_t *tran)
 {
   unsigned int i;
-  size_t download_size = 0;
-  size_t already_download_size = 0;
-  size_t uncompressed_size = 0;
+  double download_size = 0;
+  double already_download_size = 0;
+  double uncompressed_size = 0;
 
   /* show unmet dependencies */
   if (tran->missing_err->err_count > 0) {
@@ -233,16 +233,16 @@ int slapt_handle_transaction (const slapt_rc_config *global_config,
       need_to_download_size = 0;
 
     if (already_download_size > 0) {
-      printf(gettext("Need to get %.1d%s/%.1d%s of archives.\n"),
-        (need_to_download_size > 1024) ? need_to_download_size / 1024
+      printf(gettext("Need to get %.1f%s/%.1f%s of archives.\n"),
+        (need_to_download_size > 1024) ? need_to_download_size / (double)1024
           : need_to_download_size,
         (need_to_download_size > 1024) ? "MB" : "kB",
-        (download_size > 1024) ? download_size / 1024 : download_size,
+        (download_size > 1024) ? download_size / (double)1024 : download_size,
         (download_size > 1024) ? "MB" : "kB"
      );
     } else {
-      printf(gettext("Need to get %.1d%s of archives.\n"),
-        (download_size > 1024) ? download_size / 1024 : download_size,
+      printf(gettext("Need to get %.1f%s of archives.\n"),
+        (download_size > 1024) ? download_size / (double)1024 : download_size,
         (download_size > 1024) ? "MB" : "kB"
      );
     }
@@ -263,15 +263,15 @@ int slapt_handle_transaction (const slapt_rc_config *global_config,
     if (global_config->download_only == SLAPT_FALSE) {
       if ((int)uncompressed_size < 0) {
         uncompressed_size *= -1;
-        printf(gettext("After unpacking %.1d%s disk space will be freed.\n"),
-          (uncompressed_size > 1024) ? uncompressed_size / 1024
+        printf(gettext("After unpacking %.1f%s disk space will be freed.\n"),
+          (uncompressed_size > 1024) ? uncompressed_size / (double)1024
             : uncompressed_size,
           (uncompressed_size > 1024) ? "MB" : "kB"
        );
       } else {
         printf(
-          gettext("After unpacking %.1d%s of additional disk space will be used.\n"),
-          (uncompressed_size > 1024) ? uncompressed_size / 1024
+          gettext("After unpacking %.1f%s of additional disk space will be used.\n"),
+          (uncompressed_size > 1024) ? uncompressed_size / (double)1024
             : uncompressed_size,
           (uncompressed_size > 1024) ? "MB" : "kB"
        );
