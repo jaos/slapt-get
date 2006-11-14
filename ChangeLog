@@ -1,5 +1,6 @@
 
-0.9.11g Nov 12, 2006
+0.9.11g Nov 13, 2006
+ * added Turkish translation by Bekir SONAT 
  * default data passed to the download callback now uses a struct for more 
    information needed for additional download statistics.
  * fixed sorting to sort by location as well

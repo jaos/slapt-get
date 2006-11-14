@@ -57,7 +57,7 @@ Table of Contents:
     * Package data download robustness, only writing changes if all sources
       download successfully as well as only downloading those sources that
       have changed since the last download
-    * i18n support via GNU gettext with over 20 language translations
+    * i18n support via GNU gettext with over 24 language translations
     * extremely fast and easy to script with
 
 
@@ -225,4 +225,6 @@ Table of Contents:
    S_A <shin1 dot abe at nifty dot com> contributed the Japanese translation.
 
    Yang Jinsong <shannleon at gmail dot com> contributed the simplified Chinese translation.
+
+   Bekir SONAT <corlinux at gmail dot com> contributed the Turkish translation.
 
