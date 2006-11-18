@@ -27,9 +27,9 @@ static slapt_pkg_info_t *parse_meta_entry(struct slapt_pkg_list *avail_pkgs,
                                           struct slapt_pkg_list *installed_pkgs,
                                           char *dep_entry);
 /* called by slapt_is_required_by */
-static void required_by(const slapt_rc_config *global_config,
-                        struct slapt_pkg_list *avail, slapt_pkg_info_t *pkg,
+static void required_by(struct slapt_pkg_list *avail, const char *pkg_name,
                         struct slapt_pkg_list *required_by_list);
+static char *escape_package_name(slapt_pkg_info_t *pkg);
 /* free pkg_version_parts struct */
 static void slapt_free_pkg_version_parts(struct slapt_pkg_version_parts *parts);
 /* find dependency from "or" requirement */
@@ -1859,27 +1859,28 @@ struct slapt_pkg_list *slapt_is_required_by(const slapt_rc_config *global_config
                                             slapt_pkg_info_t *pkg)
 {
   struct slapt_pkg_list *required_by_list = slapt_init_pkg_list();
-
-  required_by(global_config,avail,pkg,required_by_list);
-
-  return required_by_list;
-}
-
-static void required_by(const slapt_rc_config *global_config,
-                        struct slapt_pkg_list *avail,
-                        slapt_pkg_info_t *pkg,
-                        struct slapt_pkg_list *required_by_list)
-{
-  unsigned int i, name_len = 0, escape_count = 0;
-  slapt_regex_t *required_by_reg = NULL;
-  char *escapedName = NULL, *escaped_ptr;
-  char p;
+  char *escaped_pkg_name = NULL;
 
   /*
    * don't go any further if disable_dep_check is set
   */
   if (global_config->disable_dep_check == SLAPT_TRUE)
-    return;
+    return required_by_list;
+
+  escaped_pkg_name = escape_package_name(pkg);
+
+  required_by(avail,escaped_pkg_name,required_by_list);
+
+  free(escaped_pkg_name);
+
+  return required_by_list;
+}
+
+static char *escape_package_name(slapt_pkg_info_t *pkg)
+{
+  unsigned int name_len = 0, escape_count = 0, i;
+  char *escaped_name = NULL, *escaped_ptr;
+  char p;
 
   escaped_ptr = pkg->name;
   while ( (p = *escaped_ptr++) )
@@ -1889,10 +1890,10 @@ static void required_by(const slapt_rc_config *global_config,
   }
   escaped_ptr = NULL;
 
-  escapedName = slapt_malloc(sizeof *escapedName * (strlen(pkg->name) + escape_count + 1) );
+  escaped_name = slapt_malloc(sizeof *escaped_name * (strlen(pkg->name) + escape_count + 1) );
 
   name_len = strlen(pkg->name);
-  for (i = 0, escaped_ptr = escapedName; i < name_len && pkg->name[i]; i++) {
+  for (i = 0, escaped_ptr = escaped_name; i < name_len && pkg->name[i]; i++) {
     if (pkg->name[i] == '+' ) {
       *escaped_ptr++ = '\\';
       *escaped_ptr++ = pkg->name[i];
@@ -1902,23 +1903,39 @@ static void required_by(const slapt_rc_config *global_config,
     *escaped_ptr = '\0';
   }
 
-  if ((required_by_reg = slapt_init_regex(escapedName)) == NULL) {
+  return escaped_name;
+}
+
+static void required_by(struct slapt_pkg_list *avail,
+                        const char *pkg_name,
+                        struct slapt_pkg_list *required_by_list)
+{
+  unsigned int i;
+  slapt_regex_t *required_by_reg = NULL;
+
+  if ((required_by_reg = slapt_init_regex(pkg_name)) == NULL) {
     exit(EXIT_FAILURE);
   }
 
   for (i = 0; i < avail->pkg_count;i++) {
+    slapt_pkg_info_t *pkg_ptr = avail->pkgs[i];
 
-    if (strcmp(avail->pkgs[i]->required,"") == 0 )
+    if (strcmp(pkg_ptr->required,"") == 0 )
       continue;
 
-    slapt_execute_regex(required_by_reg,avail->pkgs[i]->required);
+    slapt_execute_regex(required_by_reg,pkg_ptr->required);
     if (required_by_reg->reg_return != 0 )
       continue;
 
-    slapt_add_pkg_to_pkg_list(required_by_list,avail->pkgs[i]);
+    if (slapt_get_newest_pkg(required_by_list, pkg_ptr->name) == NULL) {
+      char *escaped_pkg_name = escape_package_name(pkg_ptr);
+      slapt_add_pkg_to_pkg_list(required_by_list,pkg_ptr);
+      required_by(avail, escaped_pkg_name, required_by_list );
+      free(escaped_pkg_name);
+    }
+
   }
 
-  free(escapedName);
   slapt_free_regex(required_by_reg);
 }
 

@@ -1,9 +1,10 @@
 
-0.9.11g Nov 13, 2006
+0.9.11g Nov 18, 2006
+ * fixed bug in incorrectly detecting requirements on package removal
  * added Turkish translation by Bekir SONAT 
- * default data passed to the download callback now uses a struct for more 
-   information needed for additional download statistics.
- * fixed sorting to sort by location as well
+ * updated download callback data structure making more informative
+   download statistics possible.
+ * updating package sort to also sort by location
  * extended configuration api
  * improved worst case lookup time for searching packages on package lists
    that are known to be sorted.
