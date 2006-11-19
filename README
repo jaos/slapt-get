@@ -45,7 +45,8 @@ Table of Contents:
     * upgrade from one Slackware release to another in a few simple steps
     * show description of packages, including mirror location, version, size,
       dependencies (where available), conflicts (where available), suggestions
-      (where available), description, and installation status
+      (where available), description, installation status, and the package
+      changelog entry (where available).
     * exclude (hold) packages from upgrades, by name or by regular expression
     * transaction engine for install, remove, and upgrades, reporting concise
       information on what is to be done, ensuring each step happens correctly
@@ -103,11 +104,12 @@ Table of Contents:
             as rigorously tested as official packages.
 
     * WORKINGDIR will hold the package data and downloaded packages.
-      This directory will have to be created.
+      This directory will be created automatically as permissions
+      allow.
 
     * EXCLUDE is a comma separated list of packages you want excluded from
     updating. This can be the package name, or a extended POSIX regex.
-    For example, to exclude Dropline, use .*-[0-9]dl$
+    For example, to exclude Dropline, use .*-[0-9]dl$.  See regex(7).
 
 
 
@@ -135,12 +137,15 @@ Table of Contents:
     * --clean to remove all downloaded packages from the local cache.
     * --autoclean to remove packages from local cache that are no longer
       available on the package sources specified in the slapt-getrc file.
+    * --remove-obsolete along with --remove or --dist-upgrade will mark
+      all non-downloadable packages for removal.
+      
 
 
 
  6. Troubleshooting
 
-   Probably lots of bugs.  email bug reports to me:
+   Probably some bugs.  Email bug reports to me:
     Jason Woodward <woodwardj at jaos dot org>
 
    or directly to the mailing lists:
@@ -156,7 +161,7 @@ Table of Contents:
 
    Please do not add redundant mirror locations to the same release.  Mirror
    fall back is not implemented (see FAQ #50).  Also, any time the source url(s)
-   are changed, slapt-get --update must be run to update local cache.
+   are changed, slapt-get --update must be run to update the local cache.
 
    If you are getting segfaults, add -g to CFLAGS in the Makefile, change the
    DEBUG define in src/main.h to 1, and rebuild ( make clean && make ).  Run
