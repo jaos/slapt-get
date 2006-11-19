@@ -454,6 +454,11 @@
 
    slapt-get --install-set xap
 
+ Disk set names are not hardcoded.  slapt-get performs a search for any
+ packages with a location of /{disk_set_arg}$.  So custom repositories
+ with directory structures of ./foo, ./bar, and ./baz can use "foo", "bar", and
+ "baz" as --install-set options.
+
 
 <a name="slgFAQ19"><b>19. How can I add dependency information to my packages?</b></a>
 
