@@ -1,5 +1,6 @@
 
-0.9.11g Nov 18, 2006
+0.9.11g Nov 19, 2006
+ * Added FAQ entry describing CHECKSUMS.md5, PACKAGES.TXT, and package_data (Per)
  * fixed bug in incorrectly detecting requirements on package removal
  * added Turkish translation by Bekir SONAT 
  * updated download callback data structure making more informative

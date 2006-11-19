@@ -52,6 +52,7 @@ Frequently Asked Questions:
 49. Will slapt-get support a --compile like option for slackbuilds?
 50. What about mirror fall back / fail-over ?
 51. How do I install a kernel rather than upgrade the existing kernel?
+52. What are the relationships of CHECKSUMS.md5, PACKAGES.TXT and package_data?
 
 
 
@@ -1132,5 +1133,31 @@ Frequently Asked Questions:
  When you run --upgrade or --install kernel-ide, slapt-get attempts to install
  the newest version of kernel-ide (in this example) and upgrade the existing
  version.  To override this, use --install kernel-ide --no-upgrade.
+
+
+52. What are the relationships of CHECKSUMS.md5, PACKAGES.TXT and package_data?
+
+ The CHECKSUMS.md5 and PACKAGES.TXT come from the remote package sources.  The
+ contents of these files are merged into a modified PACKAGES.TXT format that
+ represents the packages from all current package sources.
+
+ The merging of all package source information happens during the --update 
+ phase.  Each package source is checked in turn.  Every package in the
+ PACKAGES.TXT files is matched with the corresponding entry in the CHECKSUMS.md5
+ of the package source.  The package data, md5sum, and package source url is
+ committed to a running package list.  This list is committed to the 
+ package_data file within the working directory (as configured in slapt-getrc).
+ package_data represents the aggregate package listing from all current package
+ sources. 
+
+ In the event that a package cannot be matched by name and location to the entry
+ within the PACKAGES.TXT, the package entry within package_data is left with an
+ empty md5sum.
+
+ If the CHECKSUMS.md5 and PACKAGES.TXT files are not successfully retreived,
+ the running package list is not committed to package_data.  The previous
+ contents of package_data are preserved.  slapt-get immediately aborts with an
+ error in this case.  Gslapt, however, prompts to temporarily disable the
+ source and continue.
 
 
