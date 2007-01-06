@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2003,2004,2005,2006 Jason Woodward <woodwardj at jaos dot org>
+ * Copyright (C) 2003-2007 Jason Woodward <woodwardj at jaos dot org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -803,7 +803,7 @@ slapt_pkg_info_t *slapt_get_exact_pkg(struct slapt_pkg_list *list,
 
       if ( name_cmp == 0 ) {
 
-        int version_cmp = slapt_cmp_pkg_versions(list->pkgs[pivot]->version, version);
+        int version_cmp = strverscmp(list->pkgs[pivot]->version, version);
 
         if ( version_cmp == 0 ) {
 
@@ -3447,7 +3447,7 @@ static int pkg_compare (const void *a, const void *b)
 
   if (cmp == 0) {
 
-    if ((cmp = slapt_cmp_pkgs(pkg_a, pkg_b)) == 0) {
+    if ((cmp = strverscmp(pkg_a->version, pkg_b->version)) == 0) {
 
       return strcmp(pkg_a->location,pkg_b->location);
 
