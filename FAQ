@@ -935,10 +935,11 @@ Frequently Asked Questions:
   slapt-get --config /etc/slapt-get/slapt-getrc.official --update && \
   slapt-get --dist-upgrade
 
- You will have to run --update every time you change your config file.  Also,
- if your excludes and working directory are different in each file, you will
- want to specify --config with each invocation of slapt-get to ensure that file
- is parsed.
+ You will have to run --update every time you change your config file if the
+ WORKINGDIR option is the same between configuration files.  Also, if your
+ excludes and working directory are different in each file, you will want to
+ specify --config with each invocation of slapt-get to ensure that file is
+ parsed.
 
 
 44. How do I specify an addon that is not a dependency of my package?
