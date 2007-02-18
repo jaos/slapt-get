@@ -986,7 +986,7 @@ int slapt_is_excluded(const slapt_rc_config *global_config,
     return pkg_not_excluded;
 
   /* maybe EXCLUDE= isn't defined in our rc? */
-  if (global_config->exclude_list == NULL)
+  if (global_config->exclude_list->count == 0)
     return pkg_not_excluded;
 
   for (i = 0; i < global_config->exclude_list->count;i++) {
