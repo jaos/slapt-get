@@ -574,7 +574,8 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
         strcmp(installed_pkg->version,slapt_upgrade_pkg->version) != 0
       ) {
 
-        if ( slapt_is_excluded(global_config,slapt_upgrade_pkg) == 1 ) {
+        if ( slapt_is_excluded(global_config,installed_pkg) == 1 
+            || slapt_is_excluded(global_config,slapt_upgrade_pkg) == 1 ) {
           slapt_add_exclude_to_transaction(tran,slapt_upgrade_pkg);
         } else {
           /* if all deps are added and there is no conflicts, add on */

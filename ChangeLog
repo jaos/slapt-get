@@ -1,5 +1,6 @@
 
 0.9.11h Feb 18, 2007
+ * honor exclude for /a/ packages during dist-upgrade (thanks Lukasz)
  * fixed non NULL exclude check (thanks Lukasz)
  * Sorting and searching should use the more precise strverscmp() rather than
    the less precise slapt_cmp_pkg_versions() (Piotr)
