@@ -24,7 +24,7 @@ static void queue_add_upgrade(slapt_queue_t *t, slapt_pkg_upgrade_t *p);
 static void queue_free(slapt_queue_t *t);
 
 static void add_suggestion(slapt_transaction_t *tran, slapt_pkg_info_t *pkg);
-static int disk_space(const slapt_rc_config *global_config,const double space_needed);
+static int disk_space(const slapt_rc_config *global_config,double space_needed);
 
 slapt_transaction_t *slapt_init_transaction(void)
 {
