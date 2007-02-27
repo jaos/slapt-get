@@ -1,5 +1,6 @@
 
-0.9.11h Feb 20, 2007
+0.9.11h Feb 26, 2007
+ * Polish translation update from Lukasz
  * Do not consider the uncompressed size of the packages if download_only
    is specified (thanks Norbert).
  * honor exclude for /a/ packages during dist-upgrade (thanks Lukasz)
