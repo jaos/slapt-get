@@ -1,5 +1,6 @@
 
-0.9.11i Mar 20, 2007
+0.9.11i Mar 21, 2007
+ * Added shortcuts for update (u) and install (i) (thanks Piotr)
  * --show now shows the installed version if it is newer than the 
    newest available version (thanks Piotr)
 
@@ -938,3 +939,4 @@
 
 0.1: Aug 15, 2003
  * initial version
+

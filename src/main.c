@@ -33,8 +33,10 @@ int main( int argc, char *argv[] )
   int option_index = 0;
   static struct option long_options[] = {
     {"update", 0, 0, SLAPT_UPDATE_OPT},
+    {"u", 0, 0, SLAPT_UPDATE_OPT},
     {"upgrade", 0, 0, SLAPT_UPGRADE_OPT},
     {"install", 0, 0, SLAPT_INSTALL_OPT},
+    {"i", 0, 0, SLAPT_INSTALL_OPT},
     {"remove", 0, 0, SLAPT_REMOVE_OPT},
     {"show", 0, 0, SLAPT_SHOW_OPT},
     {"search", 0, 0, SLAPT_SEARCH_OPT},
@@ -365,10 +367,10 @@ void usage(void)
   printf(gettext("%s [option(s)] [target]\n"),PACKAGE);
   printf("\n");
   printf(gettext("Targets:\n"));
-  printf("  --update       - %s\n",gettext("retrieves pkg data from MIRROR"));
+  printf("  --update|-u    - %s\n",gettext("retrieves pkg data from MIRROR"));
   printf("  --upgrade      - %s\n",gettext("upgrade installed pkgs"));
   printf("  --dist-upgrade - %s\n",gettext("upgrade to newer release"));
-  printf("  --install      %s\n",gettext("[pkg name(s)] - install specified pkg(s)"));
+  printf("  --install|-i   %s\n",gettext("[pkg name(s)] - install specified pkg(s)"));
   printf("  --install-set  %s\n",gettext("[disk set(s)] - install specified disk set(s)"));
   printf("  --remove       %s\n",gettext("[pkg name(s)] - remove specified pkg(s)"));
   printf("  --show         %s\n",gettext("[pkg name] - show pkg description"));
