@@ -1,4 +1,8 @@
 
+0.9.11i Mar 20, 2007
+ * --show now shows the installed version if it is newer than the 
+   newest available version (thanks Piotr)
+
 0.9.11h Feb 26, 2007
  * Polish translation update from Lukasz
  * Do not consider the uncompressed size of the packages if download_only
