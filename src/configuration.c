@@ -323,11 +323,7 @@ void slapt_add_source(struct slapt_source_list *list,const char *s)
     );
 
     if (isblank(list->url[list->count][source_len - 1]) == 0) {
-      list->url[list->count] = strncat(
-        list->url[list->count],
-        "/",
-        strlen("/")
-      );
+      list->url[list->count] = strncat(list->url[list->count], "/", 1);
     } else {
       if (list->url[list->count][source_len - 2] == '/') {
         list->url[list->count][source_len - 2] = '/';

@@ -1,5 +1,6 @@
 
-0.9.11i Mar 21, 2007
+0.9.11i Apr 27, 2007
+ * replaced useless strlen(constant) calls
  * Added shortcuts for update (u) and install (i) (thanks Piotr)
  * --show now shows the installed version if it is newer than the 
    newest available version (thanks Piotr)

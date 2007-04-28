@@ -203,39 +203,39 @@ struct slapt_pkg_list *slapt_parse_packages_txt(FILE *pkg_list_fh)
         if (strstr(tmp_pkg->location,"./testing/") != NULL) {
           char *tmp_location = slapt_malloc(
             sizeof *tmp_location *
-            (strlen(tmp_pkg->location) - strlen("./testing") + 2)
+            (strlen(tmp_pkg->location) - 7) /* ./testing - 2 */
           );
           tmp_location[0] = '.';
           tmp_location[1] = '\0';
           strncat(tmp_location,
-            &tmp_pkg->location[0] + strlen("./testing"),
-            strlen(tmp_pkg->location) - strlen("./testing")
+            &tmp_pkg->location[0] + 9, /* ./testing */
+            strlen(tmp_pkg->location) - 9 /* ./testing */
           );
           free(tmp_pkg->location);
           tmp_pkg->location = tmp_location;
         } else if (strstr(tmp_pkg->location,"./extra/") != NULL) {
           char *tmp_location = slapt_malloc(
             sizeof *tmp_location *
-            (strlen(tmp_pkg->location) - strlen("./extra") + 2)
+            (strlen(tmp_pkg->location) - 5 ) /* ./extra/ - 2 */
           );
           tmp_location[0] = '.';
           tmp_location[1] = '\0';
           strncat(tmp_location,
-            &tmp_pkg->location[0] + strlen("./extra"),
-            strlen(tmp_pkg->location) - strlen("./extra")
+            &tmp_pkg->location[0] + 7, /* ./extra */
+            strlen(tmp_pkg->location) - 7 /* ./extra */
           );
           free(tmp_pkg->location);
           tmp_pkg->location = tmp_location;
         } else if (strstr(tmp_pkg->location,"./pasture/") != NULL) {
           char *tmp_location = slapt_malloc(
             sizeof *tmp_location *
-            (strlen(tmp_pkg->location) - strlen("./pasture") + 2)
+            (strlen(tmp_pkg->location) - 7) /* ./pasture - 2 */
           );
           tmp_location[0] = '.';
           tmp_location[1] = '\0';
           strncat(tmp_location,
-            &tmp_pkg->location[0] + strlen("./pasture"),
-            strlen(tmp_pkg->location) - strlen("./pasture")
+            &tmp_pkg->location[0] + 9, /* ./pasture */
+            strlen(tmp_pkg->location) - 9 /* ./pasture */
           );
           free(tmp_pkg->location);
           tmp_pkg->location = tmp_location;
@@ -309,7 +309,7 @@ struct slapt_pkg_list *slapt_parse_packages_txt(FILE *pkg_list_fh)
       ((char_pointer = strstr(getline_buffer,"PACKAGE REQUIRED")) != NULL)
     ) {
         char *tmp_realloc = NULL;
-        size_t req_len = strlen("PACKAGE REQUIRED") + 2;
+        size_t req_len = 18; /* "PACKAGE REQUIRED" + 2 */
         getline_buffer[bytes_read - 1] = '\0';
 
         tmp_realloc = realloc(
@@ -588,7 +588,7 @@ struct slapt_pkg_list *slapt_get_installed_pkgs(void)
     );
     pkg_f_name[0] = '\0';
     strncat(pkg_f_name,pkg_log_dirname,strlen(pkg_log_dirname));
-    strncat(pkg_f_name,"/",strlen("/"));
+    strncat(pkg_f_name,"/",1);
     strncat(pkg_f_name,file->d_name,strlen(file->d_name));
 
     /*
@@ -913,14 +913,13 @@ int slapt_remove_pkg(const slapt_rc_config *global_config,slapt_pkg_info_t *pkg)
 
   /* build and execute our command */
   command = slapt_calloc(
-    strlen(SLAPT_REMOVE_CMD) + strlen(pkg->name) + strlen("-") +
-    strlen(pkg->version) + 1,
+    strlen(SLAPT_REMOVE_CMD) + strlen(pkg->name) + strlen(pkg->version) + 2,
     sizeof *command
   );
   command[0] = '\0';
   command = strncat(command,SLAPT_REMOVE_CMD,strlen(SLAPT_REMOVE_CMD));
   command = strncat(command,pkg->name,strlen(pkg->name));
-  command = strncat(command,"-",strlen("-"));
+  command = strncat(command,"-",1);
   command = strncat(command,pkg->version,strlen(pkg->version));
   if ((cmd_return = system(command)) != 0) {
     printf(gettext("Failed to execute command: [%s]\n"),command);
@@ -2219,20 +2218,19 @@ char *slapt_gen_pkg_file_name(const slapt_rc_config *global_config,
 
   /* build the file name */
   file_name = slapt_calloc(
-    strlen(global_config->working_dir)+strlen("/") +
-    strlen(pkg->location)+strlen("/") +
-    strlen(pkg->name)+strlen("-")+strlen(pkg->version)+strlen(pkg->file_ext) + 1,
+    strlen(global_config->working_dir) + strlen(pkg->location) + 
+    strlen(pkg->name) + strlen(pkg->version)+strlen(pkg->file_ext) + 4,
     sizeof *file_name
   );
   file_name = strncpy(file_name,
     global_config->working_dir,strlen(global_config->working_dir)
   );
   file_name[ strlen(global_config->working_dir) ] = '\0';
-  file_name = strncat(file_name,"/",strlen("/"));
+  file_name = strncat(file_name,"/",1);
   file_name = strncat(file_name,pkg->location,strlen(pkg->location));
-  file_name = strncat(file_name,"/",strlen("/"));
+  file_name = strncat(file_name,"/",1);
   file_name = strncat(file_name,pkg->name,strlen(pkg->name));
-  file_name = strncat(file_name,"-",strlen("-"));
+  file_name = strncat(file_name,"-",1);
   file_name = strncat(file_name,pkg->version,strlen(pkg->version));
   file_name = strncat(file_name,pkg->file_ext,strlen(pkg->file_ext));
 
@@ -2250,12 +2248,12 @@ char *slapt_gen_pkg_url(slapt_pkg_info_t *pkg)
 
   /* build the url */
   url = slapt_calloc(strlen(pkg->mirror) + strlen(pkg->location) +
-                     strlen(file_name) + strlen("/") + 1, sizeof *url);
+                     strlen(file_name) + 2, sizeof *url);
 
   url = strncpy(url,pkg->mirror,strlen(pkg->mirror));
   url[strlen(pkg->mirror)] = '\0';
   url = strncat(url,pkg->location,strlen(pkg->location));
-  url = strncat(url,"/",strlen("/"));
+  url = strncat(url,"/",1);
   url = strncat(url,file_name,strlen(file_name));
 
   free(file_name);
