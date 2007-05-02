@@ -356,7 +356,7 @@ int main( int argc, char *argv[] )
 
   slapt_free_rc_config(global_config);
   curl_global_cleanup();
-  return 0;
+  return EXIT_SUCCESS;
 }
 
 void usage(void)
