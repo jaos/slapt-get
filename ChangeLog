@@ -1,5 +1,6 @@
 
-0.9.11i Apr 27, 2007
+0.9.11i May 20, 2007
+ * Individual package download size now represented by a float (Ricardo Garcia)
  * replaced useless strlen(constant) calls
  * Added shortcuts for update (u) and install (i) (thanks Piotr)
  * --show now shows the installed version if it is newer than the 

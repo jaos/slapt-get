@@ -4,9 +4,9 @@
 # Bekir SONAT <bekirsonat@kde.org.tr>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.11g\n"
+"Project-Id-Version: 0.9.11i\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2006-11-13 19:17+0200\n"
+"PO-Revision-Date: 2007-05-20 16:00+0500\n"
 "Last-Translator: Bekir SONAT <bekirsonat@kde.org.tr>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -182,12 +182,12 @@ msgid "Failed to calloc\n"
 msgstr "Başarısız calloc\n"
 
 #, c-format
-msgid "Get %s %s %s [%.1d%s]..."
-msgstr "Al %s %s %s [%.1d%s]..."
+msgid "Get %s %s %s [%.1f%s]..."
+msgstr "Al %s %s %s [%.1f%s]..."
 
 #, c-format
-msgid "Get %s %s %s [%.1d%s]...\n"
-msgstr "Al %s %s %s [%.1d%s]...\n"
+msgid "Get %s %s %s [%.1f%s]...\n"
+msgstr "Al %s %s %s [%.1f%s]...\n"
 
 #, c-format
 msgid "Failed to unlink %s\n"

@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.11h\n"
+"Project-Id-Version: 0.9.11i\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2006-07-26 23:08+0500\n"
+"PO-Revision-Date: 2007-05-20 16:00+0500\n"
 "Last-Translators: Sajmon <sajmon@tenboard.com>, Paul Blazejowski <paulb@blazebox.homeip.net>, nixon <nixon@klub.chip.pl> and simon <ssiimm@poczta.onet.pl>\n"
 "Language-Team: polish slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -179,12 +179,12 @@ msgid "Failed to calloc\n"
 msgstr "Nie powiod³o siê calloc\n"
 
 #, c-format
-msgid "Get %s %s %s [%.1d%s]..."
-msgstr "Pob %s %s %s [%.1d%s]..."
+msgid "Get %s %s %s [%.1f%s]..."
+msgstr "Pob %s %s %s [%.1f%s]..."
 
 #, c-format
-msgid "Get %s %s %s [%.1d%s]...\n"
-msgstr "Pob %s %s %s [%.1d%s]...\n"
+msgid "Get %s %s %s [%.1f%s]...\n"
+msgstr "Pob %s %s %s [%.1f%s]...\n"
 
 #, c-format
 msgid "Failed to unlink %s\n"

@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.11b\n"
+"Project-Id-Version: 0.9.11i\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2006-07-26 23:08+0500\n"
+"PO-Revision-Date: 2007-05-20 16:00+0500\n"
 "Last-Translator: Jason Woodward <woodwardj@jaos.org>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -178,11 +178,11 @@ msgid "Failed to calloc\n"
 msgstr ""
 
 #, c-format
-msgid "Get %s %s %s [%.1d%s]..."
+msgid "Get %s %s %s [%.1f%s]..."
 msgstr ""
 
 #, c-format
-msgid "Get %s %s %s [%.1d%s]...\n"
+msgid "Get %s %s %s [%.1f%s]...\n"
 msgstr ""
 
 #, c-format

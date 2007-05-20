@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.11c\n"
+"Project-Id-Version: 0.9.11i\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2006-07-26 23:08+0500\n"
+"PO-Revision-Date: 2007-05-20 16:00+0500\n"
 "Last-Translator: Oto Petrik <oto.petrik@centrum.cz>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -188,12 +188,12 @@ msgid "Failed to calloc %s\n"
 msgstr "Nepodaøilo se alokovat(calloc) %s\n"
 
 #, c-format
-msgid "Downloading %s %s %s [%dK]..."
-msgstr "Stahuji %s %s %s [%dK]..."
+msgid "Get %s %s %s [%.1f%s]..."
+msgstr "Stahuji %s %s %s [%.1f%s]..."
 
 #, c-format
-msgid "Downloading %s %s %s [%dK]...\n"
-msgstr "Stahuji %s %s %s [%dK]...\n"
+msgid "Get %s %s %s [%.1f%s]...\n"
+msgstr "Stahuji %s %s %s [%.1f%s]...\n"
 
 #, c-format
 msgid "Failed to unlink %s\n"
