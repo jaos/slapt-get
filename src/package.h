@@ -94,7 +94,9 @@ void slapt_add_pkg_to_pkg_list(struct slapt_pkg_list *list,
 /* free package list */
 void slapt_free_pkg_list(struct slapt_pkg_list *);
 
-/* update the local package cache */
+/*
+  update the local package cache. Must be chdir'd to working_dir.
+*/
 int slapt_update_pkg_cache(const slapt_rc_config *global_config);
 /* write pkg data to disk */
 void slapt_write_pkg_data(const char *source_url,FILE *d_file,
@@ -102,7 +104,7 @@ void slapt_write_pkg_data(const char *source_url,FILE *d_file,
 /* parse the PACKAGES.TXT file */
 struct slapt_pkg_list *slapt_parse_packages_txt(FILE *);
 /*
-  return a list of available packages must be already chdir'd to
+  return a list of available packages.  Must be chdir'd to
   rc_config->working_dir.  Otherwise, open a filehandle to the package data
   and pass it to slapt_parse_packages_txt();
 */
