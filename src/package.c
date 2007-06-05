@@ -475,7 +475,7 @@ char *slapt_gen_short_pkg_description(slapt_pkg_info_t *pkg)
   }
 
   /* quit now if the description is going to be empty */
-  if ((int)string_size < 0)
+  if ((int)string_size < 1)
     return NULL;
 
   short_description = strndup(

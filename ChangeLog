@@ -1,5 +1,7 @@
 
-0.9.11i May 20, 2007
+0.9.11i Jun 04, 2007
+ * Wrapped generated slapt.h in ifndef guard
+ * Added initial unit testing to tree
  * Individual package download size now represented by a float (Ricardo Garcia)
  * replaced useless strlen(constant) calls
  * Added shortcuts for update (u) and install (i) (thanks Piotr)

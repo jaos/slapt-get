@@ -93,7 +93,7 @@ uninstall:
 	-readlink $(LIBDIR)/libslapt.so|xargs -r rm
 	-rm $(LIBDIR)/libslapt.so
 
-clean:
+clean: testclean
 	-if [ -f $(PACKAGE) ]; then rm $(PACKAGE);fi
 	-rm src/*.o
 	-rm src/*.a
@@ -160,5 +160,14 @@ libs: $(OBJS)
 	$(CC) -shared -o src/libslapt.so.$(VERSION) $(LIBOBJS)
 	( cd src; if [ -f libslapt.so ]; then rm libslapt.so;fi; ln -s libslapt.so.$(VERSION) libslapt.so )
 	ar -r src/libslapt.a $(LIBOBJS)
-	cat src/main.h src/common.h src/configuration.h src/package.h src/curl.h src/transaction.h |grep -v '#include \"' > src/slapt.h
+	-@echo "#ifndef LIB_SLAPT" > src/slapt.h
+	-@echo "#define LIB_SLAPT 1" >> src/slapt.h
+	-@cat src/main.h src/common.h src/configuration.h src/package.h src/curl.h src/transaction.h |grep -v '#include \"' >> src/slapt.h
+	-@echo "#endif" >> src/slapt.h
+
+test: libs
+	(cd t; make runtest)
+
+testclean:
+	-@(cd t; make clean)
 

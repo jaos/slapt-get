@@ -221,13 +221,16 @@ int slapt_download_pkg(const slapt_rc_config *global_config,
   int dl_return = -1, dl_total_size = 0;
   long filetime = 0;
 
+  if (pkg == NULL)
+    return -1;
+
   if (slapt_verify_downloaded_pkg(global_config,pkg) == 0)
     return 0;
 
   if (pkg->mirror == NULL || strlen(pkg->mirror) == 0)
     return -1;
 
-  chdir(global_config->working_dir); /* just in case */
+  /* chdir(global_config->working_dir); */ /* just in case */
   slapt_create_dir_structure(pkg->location);
 
   /* build the url, file name, and get the file size if the file is present */
