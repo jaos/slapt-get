@@ -166,8 +166,8 @@ libs: $(OBJS)
 	-@echo "#endif" >> src/slapt.h
 
 test: libs
-	(cd t; make runtest)
+	(if [ -d t ]; then cd t; make runtest;fi)
 
 testclean:
-	-@(cd t; make clean)
+	-@(if [ -d t ]; then cd t; make clean;fi)
 
