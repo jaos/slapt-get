@@ -75,7 +75,7 @@ Table of Contents:
     and openssl.
 
     Optionally, if gpgpme is installed, slapt-get can be built with support
-    for signature verification with gnupg.
+    for signature verification with gnupg. gpgme requires libgpg-error.
 
 
 
