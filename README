@@ -77,6 +77,8 @@ Table of Contents:
     Optionally, if gpgpme is installed, slapt-get can be built with support
     for signature verification with gnupg. gpgme requires libgpg-error.
 
+    The unit tests in t/ require check (http://check.sourceforge.net/).
+
 
 
  3. Installation
@@ -169,6 +171,8 @@ Table of Contents:
    If you are getting segfaults, add -g to CFLAGS in the Makefile, change the
    DEBUG define in src/main.h to 1, and rebuild ( make clean && make ).  Run
    in gdb and let me know via email where the fault happens.
+
+   Run the test suite and report any failing tests to the mailing list.
 
    See the FAQ for more info.
 
