@@ -3057,6 +3057,10 @@ struct slapt_pkg_list *slapt_get_pkg_source_patches (const slapt_rc_config *glob
            doesn't have patches source_dl_failed = 1; */
         slapt_clear_head_cache(patch_filename);
 
+        if (global_config->progress_cb == NULL &&
+            global_config->dl_stats == SLAPT_FALSE)
+          printf(gettext("Done\n"));
+
       }
 
       if (global_config->progress_cb == NULL &&
