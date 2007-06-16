@@ -74,7 +74,7 @@ Table of Contents:
     make, gcc, curl, glibc, kernel-headers, binutils, zlib, gettext-tools,
     and openssl.
 
-    Optionally, if gpgpme is installed, slapt-get can be built with support
+    If gpgpme is installed, slapt-get can be built with support
     for signature verification with gnupg. gpgme requires libgpg-error.
 
     The unit tests in t/ require check (http://check.sourceforge.net/).
