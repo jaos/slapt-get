@@ -5,3 +5,5 @@ binutils
 openssl-solibs | openssl
 pkgtools
 zlib
+gpgme
+libgpg-error
