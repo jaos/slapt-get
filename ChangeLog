@@ -1,5 +1,11 @@
 
-0.9.11i Jun 04, 2007
+0.9.12 Jun 16, 2007
+ * added GPG signature verification via gpgme (thanks Pat Volkerding for
+   adding gpgme to -current)
+ * Updated downloading in libslapt for better notification.  This also resulted
+   in some simplification in code.  Removed unused DEBUG ifdefs.  Removed
+   deprecated translation strings.  Added error condition strings and
+   slapt_strerror() function.  New translation strings.  Bumped to 0.9.12.
  * Wrapped generated slapt.h in ifndef guard
  * Added initial unit testing to tree
    (requires Check from http://check.sourceforge.net)

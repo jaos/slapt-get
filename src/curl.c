@@ -30,15 +30,11 @@ static int slapt_download_data(FILE *fh,const char *url,size_t bytes,long *filet
 {
   CURL *ch = NULL;
   CURLcode response;
-  char curl_err_buff[1024];
   int return_code = 0;
   struct curl_slist *headers = NULL;
   struct slapt_progress_data *cb_data = slapt_init_progress_data();
   cb_data->bytes = bytes;
 
-#if SLAPT_DEBUG == 1
-  printf(gettext("Fetching url:[%s]\n"),url);
-#endif
   ch = curl_easy_init();
   curl_easy_setopt(ch, CURLOPT_URL, url);
   curl_easy_setopt(ch, CURLOPT_WRITEDATA, fh);
@@ -71,39 +67,17 @@ static int slapt_download_data(FILE *fh,const char *url,size_t bytes,long *filet
     curl_easy_setopt(ch, CURLOPT_PROGRESSDATA, cb_data);
   }
 
-  curl_easy_setopt(ch, CURLOPT_ERRORBUFFER, curl_err_buff );
-
   /* resume */
   if (bytes > 0) {
     fseek(fh,0,SEEK_END);
     curl_easy_setopt(ch, CURLOPT_RESUME_FROM, bytes);
   }
 
-  if ((response = curl_easy_perform(ch)) != CURLE_OK) {
-    /*
-      * this is for proxy servers that can't resume 
-    */
-    if ( response == CURLE_HTTP_RANGE_ERROR ) {
-      return_code = CURLE_HTTP_RANGE_ERROR;
-    } else if ( response == CURLE_FTP_BAD_DOWNLOAD_RESUME ) {
-      return_code = CURLE_FTP_BAD_DOWNLOAD_RESUME;
-    } else if ( response == CURLE_PARTIAL_FILE ) {
-      return_code = CURLE_PARTIAL_FILE;
-    /*
-      * this is a simple hack for all ftp sources that won't have a patches dir
-      * we don't want an ugly error to confuse the user
-    */
-    } else if ( strstr(url,SLAPT_PATCHES_LIST) != NULL ) {
-      return_code = 0;
-    } else {
-      fprintf(stderr,gettext("Failed to download: %s\n"),curl_err_buff);
-      return_code = -1;
-    }
-  }
+  if ((response = curl_easy_perform(ch)) != CURLE_OK)
+    return_code = response;
 
-  if ( filetime != NULL ) {
+  if ( filetime != NULL )
     curl_easy_getinfo(ch, CURLINFO_FILETIME, filetime);
-  }
 
   /*
    * need to use curl_easy_cleanup() so that we don't 
@@ -185,7 +159,7 @@ char *slapt_head_request(const char *url)
 
 }
 
-int slapt_get_mirror_data_from_source(FILE *fh,
+const char *slapt_get_mirror_data_from_source(FILE *fh,
                                       const slapt_rc_config *global_config,
                                       const char *base_url,
                                       const char *filename)
@@ -207,28 +181,34 @@ int slapt_get_mirror_data_from_source(FILE *fh,
   /* make sure we are back at the front of the file */
   /* DISABLED */
   /* rewind(fh); */
-  return return_code;
+  return  return_code != 0
+          ? curl_easy_strerror(return_code)
+          : NULL;
 }
 
-int slapt_download_pkg(const slapt_rc_config *global_config,
-                       slapt_pkg_info_t *pkg)
+const char *slapt_download_pkg(const slapt_rc_config *global_config,
+                               slapt_pkg_info_t *pkg)
 {
   FILE *fh = NULL;
   char *file_name = NULL;
   char *url = NULL;
   size_t f_size = 0;
-  int pkg_verify_return = -1;
+  slapt_code_t verify = SLAPT_OK;
   int dl_return = -1, dl_total_size = 0;
   long filetime = 0;
 
-  if (pkg == NULL)
-    return -1;
+  if (pkg == NULL) {
+      fprintf(stderr,"slapt_download_pkg() called without a package!\n");
+      exit(EXIT_FAILURE);
+  }
 
-  if (slapt_verify_downloaded_pkg(global_config,pkg) == 0)
-    return 0;
+  if (slapt_verify_downloaded_pkg(global_config,pkg) == SLAPT_OK)
+    return NULL;
 
-  if (pkg->mirror == NULL || strlen(pkg->mirror) == 0)
-    return -1;
+  if (pkg->mirror == NULL || strlen(pkg->mirror) == 0) {
+      fprintf(stderr,"slapt_download_pkg() called with a package that does not have a mirror!\n");
+      exit(EXIT_FAILURE);
+  }
 
   /* chdir(global_config->working_dir); */ /* just in case */
   slapt_create_dir_structure(pkg->location);
@@ -272,9 +252,7 @@ int slapt_download_pkg(const slapt_rc_config *global_config,
   /* open the file to write, append if already present */
   fh = slapt_open_file(file_name,"a+b");
   if (fh == NULL) {
-    free(file_name);
-    free(url);
-    return -1;
+    exit(EXIT_FAILURE);
   }
 
   /* download the file to our file handle */
@@ -309,16 +287,12 @@ int slapt_download_pkg(const slapt_rc_config *global_config,
 
     /* if we set retry, make sure this counts as a retry */
     if (global_config->retry > 1)
-      return -1;
+      return curl_easy_strerror(dl_return);
     else
       return slapt_download_pkg(global_config,pkg);
 
   } else {
     fclose(fh);
-    #if SLAPT_DEBUG == 1
-    printf("Failure: %s-%s from %s %s\n",pkg->name,pkg->version,
-           pkg->mirror,pkg->location);
-    #endif
     #if SLAPT_DO_NOT_UNLINK_BAD_FILES == 0
     /* if the d/l fails, unlink the empty file */
     if (unlink(file_name) == -1) {
@@ -332,7 +306,7 @@ int slapt_download_pkg(const slapt_rc_config *global_config,
     free(url);
     free(file_name);
 
-    return -1;
+    return curl_easy_strerror(dl_return);
 
   }
 
@@ -348,16 +322,14 @@ int slapt_download_pkg(const slapt_rc_config *global_config,
   }
 
   /* check to make sure we have the complete file */
-  pkg_verify_return = slapt_verify_downloaded_pkg(global_config,pkg);
-  if (pkg_verify_return == 0) {
+  verify = slapt_verify_downloaded_pkg(global_config,pkg);
+  if (verify == SLAPT_OK) {
 
     free(file_name);
-    return 0;
+    return NULL;
 
-  } else if (pkg_verify_return == SLAPT_MD5_CHECKSUM_FAILED) {
-    fprintf(stderr,
-      gettext("md5 sum for %s is not correct, override with --no-md5!\n"),
-      pkg->name);
+  } else {
+
     #if SLAPT_DO_NOT_UNLINK_BAD_FILES == 0
     /* if the checksum fails, unlink the bogus file */
     if (unlink(file_name) == -1) {
@@ -368,14 +340,9 @@ int slapt_download_pkg(const slapt_rc_config *global_config,
 
     }
     #endif
-    free(file_name);
 
-    return -1;
-
-  } else {
-    printf(gettext("Download of %s incomplete\n"),pkg->name);
     free(file_name);
-    return -1;
+    return slapt_strerror(verify);
   }
 
 }

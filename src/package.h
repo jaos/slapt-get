@@ -16,7 +16,6 @@
 #define SLAPT_MD5SUM_REGEX "([a-zA-Z0-9]{1,})[ ]{1,}([a-zA-Z0-9\\/._\\-]{1,})\\/(.*{1,})\\-(.*[\\-].*[\\-].*).t[gbl]z$"
 #define SLAPT_REQUIRED_REGEX "^[ ]{0,}([a-zA-Z0-9\\+_\\-]+)[ ]{0,}([\\<\\=\\>]+){0,}[ ]{0,}([a-zA-Z0-9\\.\\_\\-]+){0,}[ ]{0,}$"
 #define SLAPT_MD5_STR_LEN 34
-#define SLAPT_MD5_CHECKSUM_FAILED -100
 #define SLAPT_PKG_LIST "PACKAGES.TXT"
 #define SLAPT_PKG_LIST_GZ "PACKAGES.TXT.gz"
 #define SLAPT_PKG_LIST_L "package_data"
@@ -185,9 +184,9 @@ char *slapt_gen_pkg_url(slapt_pkg_info_t *pkg);
 int slapt_is_excluded(const slapt_rc_config *,slapt_pkg_info_t *);
 /*
   package is already downloaded and cached, md5sum if applicable is ok
-  returns 0 if download is cached, -1 if not
+  returns slapt_code_t.
 */
-int slapt_verify_downloaded_pkg(const slapt_rc_config *global_config,
+slapt_code_t slapt_verify_downloaded_pkg(const slapt_rc_config *global_config,
                                 slapt_pkg_info_t *pkg);
 /*
   fill in the md5sum of the package
@@ -261,15 +260,18 @@ int slapt_search_pkg_err_list(struct slapt_pkg_err_list *l,
                               const char *pkg, const char *err);
 void slapt_free_pkg_err_list(struct slapt_pkg_err_list *l);
 
-/* download the PACKAGES.TXT and CHECKSUMS.md5 files */
+/*
+  download the PACKAGES.TXT and CHECKSUMS.md5 files
+  compressed is set to 1 if the compressed version was downloaded.
+*/
 struct slapt_pkg_list *slapt_get_pkg_source_packages (const slapt_rc_config *global_config,
-                                                      const char *url);
+                                                      const char *url, unsigned int *compressed);
 struct slapt_pkg_list *slapt_get_pkg_source_patches (const slapt_rc_config *global_config,
-                                                     const char *url);
+                                                     const char *url, unsigned int *compressed);
 FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,
-                                      const char *url);
+                                      const char *url, unsigned int *compressed);
 int slapt_get_pkg_source_changelog (const slapt_rc_config *global_config,
-                                      const char *url);
+                                      const char *url, unsigned int *compressed);
 
 /* clean package name from package description */
 void slapt_clean_description (char *description, const char *name);

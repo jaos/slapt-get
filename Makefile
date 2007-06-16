@@ -1,5 +1,5 @@
 PACKAGE=slapt-get
-VERSION=0.9.11i
+VERSION=0.9.12
 ARCH=$(shell uname -m | sed -e "s/i[3456]86/i386/")
 LIBDIR=/usr/lib
 RELEASE=1
@@ -7,6 +7,7 @@ CC=gcc
 CURLFLAGS=`curl-config --libs`
 OBJS=src/common.o src/configuration.o src/package.o src/curl.o src/transaction.o src/action.o src/main.o
 LIBOBJS=src/common.o src/configuration.o src/package.o src/curl.o src/transaction.o
+LIBHEADERS=src/main.h src/common.h src/configuration.h src/package.h src/curl.h src/transaction.h
 NONLIBOBJS=src/action.o src/main.o
 RCDEST=/etc/slapt-get/slapt-getrc
 RCSOURCE=example.slapt-getrc
@@ -14,11 +15,19 @@ PACKAGE_LOCALE_DIR=/usr/share/locale
 SBINDIR=/usr/sbin/
 GETTEXT_PACKAGE=$(PACKAGE)
 DEFINES=-DPACKAGE="\"$(PACKAGE)\"" -DVERSION="\"$(VERSION)\"" -DRC_LOCATION="\"$(RCDEST)\"" -DENABLE_NLS -DPACKAGE_LOCALE_DIR="\"$(PACKAGE_LOCALE_DIR)\"" -DGETTEXT_PACKAGE="\"$(GETTEXT_PACKAGE)\""
-CFLAGS=-W -Werror -Wall -O2 -ansi -pedantic $(DEFINES) -fpic
 LDFLAGS=$(CURLFLAGS) -lz
+HAS_GPGME=$(shell gpgme-config --libs 2>&1 >/dev/null && echo 1)
+ifeq ($(HAS_GPGME),1)
+	DEFINES+=-DSLAPT_HAS_GPGME
+	OBJS+=src/gpgme.o
+	LIBOBJS+=src/gpgme.o
+	LIBHEADERS+=src/gpgme.h
+	LDFLAGS+=`gpgme-config --libs`
+endif
+CFLAGS=-W -Werror -Wall -g -ansi -pedantic $(DEFINES) -fpic
 ifeq ($(ARCH),x86_64)
 	LIBDIR=/usr/lib64
-	CFLAGS=-W -Werror -Wall -O2 -ansi -pedantic $(DEFINES) -fPIC
+	CFLAGS=-W -Werror -Wall -g -ansi -pedantic $(DEFINES) -fPIC
 endif
 
 default: $(PACKAGE)
@@ -162,7 +171,7 @@ libs: $(OBJS)
 	ar -r src/libslapt.a $(LIBOBJS)
 	-@echo "#ifndef LIB_SLAPT" > src/slapt.h
 	-@echo "#define LIB_SLAPT 1" >> src/slapt.h
-	-@cat src/main.h src/common.h src/configuration.h src/package.h src/curl.h src/transaction.h |grep -v '#include \"' >> src/slapt.h
+	-@cat $(LIBHEADERS) |grep -v '#include \"' >> src/slapt.h
 	-@echo "#endif" >> src/slapt.h
 
 test: libs

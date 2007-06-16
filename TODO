@@ -2,6 +2,8 @@ slapt-get is pretty feature complete.  At the moment, bug fixes are the most imp
 
 Future enhancements, fixes, or features:
 
+ * test GPG functionality
+ * write more unit tests (using check)
  * test test test
  * more translations (volunteers needed)
 

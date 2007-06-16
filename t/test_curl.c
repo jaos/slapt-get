@@ -16,7 +16,7 @@ static int _progress_cb(void *clientp, double dltotal, double dlnow,
 START_TEST (test_slapt_get_mirror_data_from_source)
 {
   FILE *f             = NULL;
-  int r               = -1;
+  const char *err     = NULL;
   slapt_rc_config *rc = slapt_read_rc_config("./data/rc1");
   const char *url     = "http://software.jaos.org/slackpacks/10.0/";
   char *packages      = "PACKAGES.TXT"; 
@@ -26,23 +26,23 @@ START_TEST (test_slapt_get_mirror_data_from_source)
   rc->progress_cb     = _progress_cb; /* silence */
 
   f = slapt_open_file("data/PACKAGES.TXT","w+b");
-  r = slapt_get_mirror_data_from_source(f, rc, url, packages);
-  fail_unless (r == 0);
+  err = slapt_get_mirror_data_from_source(f, rc, url, packages);
+  fail_if (err);
   fclose(f);
 
   f = slapt_open_file("data/PACKAGES.TXT.gz","w+b");
-  r = slapt_get_mirror_data_from_source(f, rc, url, packages_gz);
-  fail_unless (r == 0);
+  err = slapt_get_mirror_data_from_source(f, rc, url, packages_gz);
+  fail_if (err);
   fclose(f);
 
   f = slapt_open_file("data/CHECKSUMS.md5","w+b");
-  r = slapt_get_mirror_data_from_source(f, rc, url, checksums);
-  fail_unless (r == 0);
+  err = slapt_get_mirror_data_from_source(f, rc, url, checksums);
+  fail_if (err);
   fclose(f);
 
   f = slapt_open_file("data/CHECKSUMS.md5.gz","w+b");
-  r = slapt_get_mirror_data_from_source(f, rc, url, checksums_gz);
-  fail_unless (r == 0);
+  err = slapt_get_mirror_data_from_source(f, rc, url, checksums_gz);
+  fail_if (err);
   fclose(f);
 
   unlink("data/PACKAGES.TXT");
@@ -57,13 +57,13 @@ END_TEST
 
 START_TEST (test_slapt_download_pkg)
 {
-  int r                 = -1;
+  const char *err       = NULL;
   slapt_rc_config *rc   = slapt_read_rc_config("./data/rc1");
   rc->progress_cb       = _progress_cb; /* silence */
   slapt_working_dir_init(rc);
 
-  r = slapt_download_pkg(rc, &pkg);
-  fail_unless (r == 0);
+  err = slapt_download_pkg(rc, &pkg);
+  fail_if (err);
 
   slapt_free_rc_config(rc);
 }

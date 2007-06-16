@@ -1107,11 +1107,6 @@ void slapt_get_md5sums(struct slapt_pkg_list *pkgs, FILE *checksum_file)
           (slapt_cmp_pkg_versions(pkgs->pkgs[a]->version,version) == 0) &&
           (strcmp(pkgs->pkgs[a]->location,location) == 0)
         ) {
-          #if SLAPT_DEBUG == 1
-          printf("%s-%s@%s, %s-%s@%s: %s\n",
-                 pkgs->pkgs[a]->name,pkgs->pkgs[a]->version,
-                 pkgs->pkgs[a]->location,name,version,location,sum);
-          #endif
           memcpy(pkgs->pkgs[a]->md5,
             sum,md5sum_regex->pmatch[1].rm_eo - md5sum_regex->pmatch[1].rm_so + 1
           );
@@ -1436,10 +1431,6 @@ int slapt_get_pkg_dependencies(const slapt_rc_config *global_config,
   )
     return 1;
 
-  #if SLAPT_DEBUG == 1
-  printf("Resolving deps for %s, with dep data: %s\n",pkg->name,pkg->required);
-  #endif
-
   if (deps == NULL)
     deps = slapt_init_pkg_list();
 
@@ -1550,10 +1541,6 @@ int slapt_get_pkg_dependencies(const slapt_rc_config *global_config,
           deps->pkgs[deps->pkg_count - 1] = tmp;
       }
 
-    #if SLAPT_DEBUG == 1
-    } else {
-      printf("%s already exists in dep list\n",tmp_pkg->name);
-    #endif
     } /* end already exists in dep check */
 
 
@@ -1647,9 +1634,6 @@ static slapt_pkg_info_t *parse_meta_entry(struct slapt_pkg_list *avail_pkgs,
 
   /* if the regex failed, just skip out */
   if (parse_dep_regex->reg_return != 0) {
-    #if SLAPT_DEBUG == 1
-    printf("regex %s failed on %s\n",SLAPT_REQUIRED_REGEX,dep_entry);
-    #endif
     slapt_free_regex(parse_dep_regex);
     return NULL;
   }
@@ -1673,9 +1657,6 @@ static slapt_pkg_info_t *parse_meta_entry(struct slapt_pkg_list *avail_pkgs,
 
   /* if there is no conditional and version, return newest */
   if (tmp_cond_len == 0 ) {
-    #if SLAPT_DEBUG == 1
-    printf("no conditional\n");
-    #endif
     if (newest_installed_pkg != NULL) {
       slapt_free_regex(parse_dep_regex);
       free(tmp_pkg_name);
@@ -2020,7 +2001,7 @@ slapt_pkg_info_t *slapt_get_pkg_by_details(struct slapt_pkg_list *list,
 /* update package data from mirror url */
 int slapt_update_pkg_cache(const slapt_rc_config *global_config)
 {
-  unsigned int i,source_dl_failed = 0;
+  unsigned int i,source_dl_failed = 0, compressed = 0;
   struct slapt_pkg_list *new_pkgs = slapt_init_pkg_list();
   new_pkgs->free_pkgs = SLAPT_TRUE;
 
@@ -2029,13 +2010,18 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
     struct slapt_pkg_list *available_pkgs = NULL;
     struct slapt_pkg_list *patch_pkgs = NULL;
     FILE *tmp_checksum_f = NULL;
+    #ifdef SLAPT_HAS_GPGME
+    FILE *tmp_signature_f = NULL;
+    FILE *tmp_checksum_to_verify_f = NULL;
+    #endif
 
     /* download our SLAPT_PKG_LIST */
     printf(gettext("Retrieving package data [%s]..."),
                    global_config->sources->url[i]);
     available_pkgs =
       slapt_get_pkg_source_packages(global_config,
-                                    global_config->sources->url[i]);
+                                    global_config->sources->url[i],
+                                    &compressed);
     if (available_pkgs == NULL) {
       source_dl_failed = 1;
       continue;
@@ -2046,7 +2032,8 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
                     global_config->sources->url[i]);
     patch_pkgs =
       slapt_get_pkg_source_patches(global_config,
-                                   global_config->sources->url[i]);
+                                   global_config->sources->url[i],
+                                   &compressed);
 
 
     /* download checksum file */
@@ -2054,12 +2041,56 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
                    global_config->sources->url[i]);
     tmp_checksum_f =
       slapt_get_pkg_source_checksums(global_config,
-                                     global_config->sources->url[i]);
+                                     global_config->sources->url[i],
+                                     &compressed);
 
-    printf(gettext("Retrieving ChangeLog.txt [%s]..."),
-                   global_config->sources->url[i]);
-    slapt_get_pkg_source_changelog(global_config,
-                                     global_config->sources->url[i]);
+    #ifdef SLAPT_HAS_GPGME
+    printf(gettext("Retrieving checksum signature [%s]..."), global_config->sources->url[i]);
+    tmp_signature_f = slapt_get_pkg_source_checksums_signature (global_config,
+                                                                global_config->sources->url[i],
+                                                                &compressed);
+    /* if we downloaded the compressed checksums, open it raw (w/o gunzippign) */
+    if (compressed == 1)
+    {
+      char *filename = slapt_gen_filename_from_url(global_config->sources->url[i],
+                                                   SLAPT_CHECKSUM_FILE_GZ);
+      tmp_checksum_to_verify_f = slapt_open_file(filename,"r");
+      free(filename);
+    } else {
+      tmp_checksum_to_verify_f = tmp_checksum_f;
+    }
+
+    if (tmp_signature_f != NULL && tmp_checksum_to_verify_f != NULL) {
+      slapt_code_t verified = SLAPT_CHECKSUMS_NOT_VERIFIED;
+      printf(gettext("Verifying checksum signature [%s]..."), global_config->sources->url[i]);
+      verified = slapt_gpg_verify_checksums(tmp_checksum_to_verify_f, tmp_signature_f);
+      if (verified == SLAPT_CHECKSUMS_VERIFIED) {
+        printf("%s\n",gettext("Verified"));
+      } else if (verified == SLAPT_CHECKSUMS_MISSING_KEY) {
+        printf("%s\n",gettext("No key for verification"));
+      } else {
+        printf("%s\n",gettext("Not Verified"));
+        source_dl_failed = 1;
+        fclose(tmp_checksum_f);
+        tmp_checksum_f = NULL;
+      }
+    }
+
+    if (tmp_signature_f)
+      fclose(tmp_signature_f);
+
+    /* if we opened the raw gzipped checksums, close it here */
+    if (compressed == 1)
+      fclose(tmp_checksum_to_verify_f);
+    #endif
+
+    if (source_dl_failed != 1) {
+      printf(gettext("Retrieving ChangeLog.txt [%s]..."),
+                     global_config->sources->url[i]);
+      slapt_get_pkg_source_changelog(global_config,
+                                     global_config->sources->url[i],
+                                     &compressed);
+    }
 
     if (tmp_checksum_f != NULL) {
       unsigned int pkg_i;
@@ -2280,14 +2311,13 @@ size_t slapt_get_pkg_file_size(const slapt_rc_config *global_config,
 }
 
 /* package is already downloaded and cached, md5sum if applicable is ok */
-int slapt_verify_downloaded_pkg(const slapt_rc_config *global_config,
+slapt_code_t slapt_verify_downloaded_pkg(const slapt_rc_config *global_config,
                                 slapt_pkg_info_t *pkg)
 {
   char *file_name = NULL;
   FILE *fh_test = NULL;
   size_t file_size = 0;
   char md5sum_f[SLAPT_MD5_STR_LEN];
-  int is_verified = 0,not_verified = -1;
 
   /*
     check the file size first so we don't run an md5 checksum
@@ -2295,17 +2325,15 @@ int slapt_verify_downloaded_pkg(const slapt_rc_config *global_config,
   */
   file_size = slapt_get_pkg_file_size(global_config,pkg);
   if ((unsigned int)(file_size/1024) != pkg->size_c) {
-    return not_verified;
+    return SLAPT_DOWNLOAD_INCOMPLETE;
   }
   /* if not checking the md5 checksum and the sizes match, assume its good */
   if (global_config->no_md5_check == SLAPT_TRUE)
-    return is_verified;
+    return SLAPT_OK;
 
   /* check to see that we actually have an md5 checksum */
   if (strcmp(pkg->md5,"") == 0) {
-    printf(gettext("Could not find MD5 checksum for %s, override with --no-md5\n"),
-      pkg->name);
-    return not_verified;
+    return SLAPT_MD5_CHECKSUM_MISSING;
   }
 
   /* build the file name */
@@ -2314,7 +2342,7 @@ int slapt_verify_downloaded_pkg(const slapt_rc_config *global_config,
   /* return if we can't open the file */
   if ((fh_test = fopen(file_name,"r") ) == NULL) {
     free(file_name);
-    return not_verified;
+    return SLAPT_DOWNLOAD_INCOMPLETE;
   }
   free(file_name);
 
@@ -2324,9 +2352,9 @@ int slapt_verify_downloaded_pkg(const slapt_rc_config *global_config,
 
   /* check to see if the md5sum is correct */
   if (strcmp(md5sum_f,pkg->md5) == 0 )
-    return is_verified;
+    return SLAPT_OK;
 
-  return SLAPT_MD5_CHECKSUM_FAILED;
+  return SLAPT_MD5_CHECKSUM_MISMATCH;
 
 }
 
@@ -2499,9 +2527,6 @@ void slapt_clean_pkg_dir(const char *dir_name)
 
       /* if our regex matches */
       if (cached_pkgs_regex->reg_return == 0 ) {
-        #if SLAPT_DEBUG == 1
-        printf(gettext("unlinking %s\n"),file->d_name);
-        #endif
         unlink(file->d_name);
       }
     }
@@ -2704,10 +2729,12 @@ static FILE *slapt_gunzip_file (const char *file_name,FILE *dest_file)
 }
 
 struct slapt_pkg_list *slapt_get_pkg_source_packages (const slapt_rc_config *global_config,
-                                                      const char *url)
+                                                      const char *url, unsigned int *compressed)
 {
   struct slapt_pkg_list *available_pkgs = NULL;
   char *pkg_head = NULL;
+
+  *compressed = 0;
 
   /* try gzipped package list */
   if ((pkg_head = slapt_head_mirror_data(url,SLAPT_PKG_LIST_GZ)) != NULL) {
@@ -2745,6 +2772,7 @@ struct slapt_pkg_list *slapt_get_pkg_source_packages (const slapt_rc_config *glo
 
     } else {
       FILE *tmp_pkg_f = NULL;
+      const char *err = NULL;
 
       if (global_config->progress_cb == NULL &&
           global_config->dl_stats == SLAPT_TRUE)
@@ -2754,8 +2782,10 @@ struct slapt_pkg_list *slapt_get_pkg_source_packages (const slapt_rc_config *glo
         exit(EXIT_FAILURE);
 
       /* retrieve the compressed package data */
-      if (slapt_get_mirror_data_from_source(tmp_pkg_f,global_config,url,
-                                            SLAPT_PKG_LIST_GZ) == 0 ) {
+      err = slapt_get_mirror_data_from_source(tmp_pkg_f,  
+                                              global_config,url,
+                                              SLAPT_PKG_LIST_GZ);
+      if (!err) {
         FILE *tmp_pkg_uncompressed_f = NULL;
 
         fclose(tmp_pkg_f);
@@ -2793,6 +2823,7 @@ struct slapt_pkg_list *slapt_get_pkg_source_packages (const slapt_rc_config *glo
           printf(gettext("Done\n"));
 
       } else {
+        fprintf(stderr,gettext("Failed to download: %s\n"),err);
         fclose(tmp_pkg_f);
         slapt_clear_head_cache(pkg_filename);
         free(pkg_filename);
@@ -2804,6 +2835,7 @@ struct slapt_pkg_list *slapt_get_pkg_source_packages (const slapt_rc_config *glo
 
     free(pkg_filename);
     free(pkg_local_head);
+    *compressed = 1;
 
   } else { /* fall back to uncompressed package list */
     char *pkg_filename = slapt_gen_filename_from_url(url,SLAPT_PKG_LIST);
@@ -2830,6 +2862,7 @@ struct slapt_pkg_list *slapt_get_pkg_source_packages (const slapt_rc_config *glo
 
     } else {
       FILE *tmp_pkg_f = NULL;
+      const char *err = NULL;
 
       if (global_config->progress_cb == NULL &&
           global_config->dl_stats == SLAPT_TRUE)
@@ -2839,8 +2872,10 @@ struct slapt_pkg_list *slapt_get_pkg_source_packages (const slapt_rc_config *glo
         exit(EXIT_FAILURE);
 
       /* retrieve the uncompressed package data */
-      if (slapt_get_mirror_data_from_source(tmp_pkg_f,global_config,url,
-                                            SLAPT_PKG_LIST) == 0 ) {
+      err = slapt_get_mirror_data_from_source(tmp_pkg_f,
+                                              global_config,url,
+                                              SLAPT_PKG_LIST);
+      if (!err) {
         rewind(tmp_pkg_f); /* make sure we are back at the front of the file */
 
         /* parse packages from what we downloaded */
@@ -2871,6 +2906,7 @@ struct slapt_pkg_list *slapt_get_pkg_source_packages (const slapt_rc_config *glo
           printf(gettext("Done\n"));
 
       } else {
+        fprintf(stderr,gettext("Failed to download: %s\n"),err);
         slapt_clear_head_cache(pkg_filename);
         free(pkg_filename);
         free(pkg_local_head);
@@ -2892,10 +2928,11 @@ struct slapt_pkg_list *slapt_get_pkg_source_packages (const slapt_rc_config *glo
 }
 
 struct slapt_pkg_list *slapt_get_pkg_source_patches (const slapt_rc_config *global_config,
-                                                     const char *url)
+                                                     const char *url, unsigned int *compressed)
 {
   struct slapt_pkg_list *patch_pkgs = NULL;
   char *patch_head = NULL;
+  *compressed = 0;
 
   if ((patch_head = slapt_head_mirror_data(url,SLAPT_PATCHES_LIST_GZ)) != NULL) {
     char *patch_filename = slapt_gen_filename_from_url(url,SLAPT_PATCHES_LIST_GZ);
@@ -2917,6 +2954,7 @@ struct slapt_pkg_list *slapt_get_pkg_source_patches (const slapt_rc_config *glob
 
     } else {
       FILE *tmp_patch_f = NULL;
+      const char *err = NULL;
 
       if (global_config->progress_cb == NULL &&
           global_config->dl_stats == SLAPT_TRUE)
@@ -2925,8 +2963,10 @@ struct slapt_pkg_list *slapt_get_pkg_source_patches (const slapt_rc_config *glob
       if ((tmp_patch_f = slapt_open_file(patch_filename,"w+b")) == NULL)
         exit (1);
 
-      if (slapt_get_mirror_data_from_source(tmp_patch_f,global_config,url,
-                                            SLAPT_PATCHES_LIST_GZ) == 0 ) {
+      err = slapt_get_mirror_data_from_source(tmp_patch_f,
+                                              global_config,url,
+                                              SLAPT_PATCHES_LIST_GZ);
+      if (!err) {
         FILE *tmp_patch_uncompressed_f = NULL;
 
         fclose(tmp_patch_f);
@@ -2947,6 +2987,7 @@ struct slapt_pkg_list *slapt_get_pkg_source_patches (const slapt_rc_config *glob
 
         fclose(tmp_patch_uncompressed_f);
       } else {
+        fprintf(stderr,gettext("Failed to download: %s\n"),err);
         fclose(tmp_patch_f);
         /* we don't care if the patch fails, for example current
           doesn't have patches source_dl_failed = 1; */
@@ -2961,6 +3002,7 @@ struct slapt_pkg_list *slapt_get_pkg_source_patches (const slapt_rc_config *glob
 
     free(patch_local_head);
     free(patch_filename);
+    *compressed = 1;
 
   } else {
     char *patch_filename = slapt_gen_filename_from_url(url,SLAPT_PATCHES_LIST);
@@ -2987,6 +3029,7 @@ struct slapt_pkg_list *slapt_get_pkg_source_patches (const slapt_rc_config *glob
       fclose(tmp_patch_f);
     } else {
       FILE *tmp_patch_f = NULL;
+      const char *err = NULL;
 
       if (global_config->progress_cb == NULL &&
           global_config->dl_stats == SLAPT_TRUE)
@@ -2995,8 +3038,10 @@ struct slapt_pkg_list *slapt_get_pkg_source_patches (const slapt_rc_config *glob
       if ((tmp_patch_f = slapt_open_file(patch_filename,"w+b")) == NULL)
         exit (1);
 
-      if (slapt_get_mirror_data_from_source(tmp_patch_f,global_config,url,
-                                            SLAPT_PATCHES_LIST) == 0 ) {
+      err = slapt_get_mirror_data_from_source(tmp_patch_f,
+                                              global_config,url,
+                                              SLAPT_PATCHES_LIST);
+      if (!err) {
         rewind(tmp_patch_f); /* make sure we are back at the front of the file */
         patch_pkgs = slapt_parse_packages_txt(tmp_patch_f);
 
@@ -3031,10 +3076,11 @@ struct slapt_pkg_list *slapt_get_pkg_source_patches (const slapt_rc_config *glob
 }
 
 FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,
-                                      const char *url)
+                                      const char *url, unsigned int *compressed)
 {
   FILE *tmp_checksum_f = NULL;
   char *checksum_head = NULL;
+  *compressed = 0;
 
   if ((checksum_head = slapt_head_mirror_data(url,SLAPT_CHECKSUM_FILE_GZ)) != NULL) {
     char *filename = slapt_gen_filename_from_url(url,SLAPT_CHECKSUM_FILE_GZ);
@@ -3052,6 +3098,7 @@ FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,
 
     } else {
       FILE *working_checksum_f = NULL;
+      const char *err = NULL;
 
       if (global_config->progress_cb == NULL &&
           global_config->dl_stats == SLAPT_TRUE)
@@ -3060,8 +3107,10 @@ FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,
       if ((working_checksum_f = slapt_open_file(filename,"w+b")) == NULL)
         exit(EXIT_FAILURE);
 
-      if (slapt_get_mirror_data_from_source(working_checksum_f,global_config,url,
-                                      SLAPT_CHECKSUM_FILE_GZ) == 0) {
+      err = slapt_get_mirror_data_from_source(working_checksum_f,
+                                              global_config,url,
+                                              SLAPT_CHECKSUM_FILE_GZ);
+      if (!err) {
 
         if (global_config->progress_cb == NULL &&
             global_config->dl_stats == SLAPT_TRUE)
@@ -3082,6 +3131,7 @@ FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,
           slapt_write_head_cache(checksum_head,filename);
 
       } else {
+        fprintf(stderr,gettext("Failed to download: %s\n"),err);
         slapt_clear_head_cache(filename);
         tmp_checksum_f = working_checksum_f;
         working_checksum_f = NULL;
@@ -3096,8 +3146,11 @@ FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,
       rewind(tmp_checksum_f);
 
     }
+
     free(filename);
     free(local_head);
+    *compressed = 1;
+
   } else {
     char *filename = slapt_gen_filename_from_url(url,SLAPT_CHECKSUM_FILE);
     char *local_head = slapt_read_head_cache(filename);
@@ -3117,6 +3170,8 @@ FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,
         printf(gettext("Cached\n"));
 
     } else {
+      const char *err = NULL;
+
       if ((tmp_checksum_f = slapt_open_file(filename,"w+b")) == NULL)
         exit(EXIT_FAILURE);
 
@@ -3124,14 +3179,17 @@ FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,
           global_config->dl_stats == SLAPT_TRUE)
         printf("\n");
 
-      if (slapt_get_mirror_data_from_source(tmp_checksum_f,global_config,url,
-                                            SLAPT_CHECKSUM_FILE) == 0) {
+      err = slapt_get_mirror_data_from_source(tmp_checksum_f,
+                                              global_config,url,
+                                              SLAPT_CHECKSUM_FILE);
+      if (!err) {
 
         if (global_config->progress_cb == NULL &&
             global_config->dl_stats == SLAPT_FALSE)
           printf(gettext("Done\n"));
 
       } else {
+        fprintf(stderr,gettext("Failed to download: %s\n"),err);
         slapt_clear_head_cache(filename);
         fclose(tmp_checksum_f);
         free(filename);
@@ -3163,7 +3221,7 @@ FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,
 }
 
 int slapt_get_pkg_source_changelog (const slapt_rc_config *global_config,
-                                      const char *url)
+                                      const char *url, unsigned int *compressed)
 {
   char *changelog_head  = NULL;
   char *filename        = NULL;
@@ -3172,12 +3230,15 @@ int slapt_get_pkg_source_changelog (const slapt_rc_config *global_config,
   char *location_uncomp = SLAPT_CHANGELOG_FILE;
   char *location        = location_gz;
   int success = 0,failure = -1;
+  *compressed = 0;
 
   changelog_head  = slapt_head_mirror_data(url,location);
 
   if (changelog_head == NULL) {
     location = location_uncomp;
     changelog_head  = slapt_head_mirror_data(url,location);
+  } else {
+    *compressed = 1;
   }
 
   if (changelog_head == NULL) {
@@ -3196,6 +3257,7 @@ int slapt_get_pkg_source_changelog (const slapt_rc_config *global_config,
   
   } else {
     FILE *working_changelog_f = NULL;
+    const char *err = NULL;
 
     if (global_config->progress_cb == NULL &&
         global_config->dl_stats == SLAPT_TRUE)
@@ -3204,9 +3266,10 @@ int slapt_get_pkg_source_changelog (const slapt_rc_config *global_config,
     if ((working_changelog_f = slapt_open_file(filename,"w+b")) == NULL)
       exit(EXIT_FAILURE);
 
-    if (slapt_get_mirror_data_from_source(working_changelog_f,global_config,url,
-                                    location) == 0) {
-
+    err = slapt_get_mirror_data_from_source(working_changelog_f,
+                                            global_config,url,
+                                            location);
+    if (!err) {
       if (global_config->progress_cb == NULL &&
           global_config->dl_stats == SLAPT_TRUE)
         printf("\n");
@@ -3230,6 +3293,7 @@ int slapt_get_pkg_source_changelog (const slapt_rc_config *global_config,
       }
 
     } else {
+      fprintf(stderr,gettext("Failed to download: %s\n"),err);
       slapt_clear_head_cache(filename);
       free(filename);
       free(local_head);

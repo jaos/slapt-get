@@ -356,14 +356,18 @@ int slapt_handle_transaction (const slapt_rc_config *global_config,
   /* download pkgs */
   for (i = 0; i < tran->install_pkgs->pkg_count; ++i) {
     unsigned int retry_count, failed = 1;
+
     for (retry_count = 0; retry_count < global_config->retry; ++retry_count) {
-      if (slapt_download_pkg(global_config,tran->install_pkgs->pkgs[i]) != 0) {
+      const char *err = slapt_download_pkg(global_config,tran->install_pkgs->pkgs[i]);
+      if (err) {
+        fprintf(stderr,gettext("Failed to download: %s\n"),err);
         failed = 1;
       } else {
         failed = 0;
         break;
       }
     }
+
     if (failed == 1)
       exit(EXIT_FAILURE);
   }
@@ -371,7 +375,9 @@ int slapt_handle_transaction (const slapt_rc_config *global_config,
   for (i = 0; i < tran->upgrade_pkgs->pkg_count; ++i) {
     unsigned int retry_count, failed = 1;
     for (retry_count = 0; retry_count < global_config->retry; ++retry_count) {
-      if (slapt_download_pkg(global_config,tran->upgrade_pkgs->pkgs[i]->upgrade) != 0) {
+      const char *err = slapt_download_pkg(global_config,tran->upgrade_pkgs->pkgs[i]->upgrade);
+      if (err) {
+        fprintf(stderr,gettext("Failed to download: %s\n"),err);
         failed = 1;
       } else {
         failed = 0;
@@ -433,11 +439,6 @@ void slapt_add_install_to_transaction(slapt_transaction_t *tran,
   if (slapt_search_transaction_by_pkg(tran,pkg) == 1)
     return;
 
-  #if SLAPT_DEBUG == 1
-  printf("adding install of %s-%s@%s to transaction\n",
-    pkg->name,pkg->version,pkg->location);
-  #endif
-
   tmp_list = realloc(
     tran->install_pkgs->pkgs,
     sizeof *tran->install_pkgs->pkgs * (tran->install_pkgs->pkg_count + 1)
@@ -471,11 +472,6 @@ void slapt_add_remove_to_transaction(slapt_transaction_t *tran,
   if (slapt_search_transaction_by_pkg(tran,pkg) == 1)
     return;
 
-  #if SLAPT_DEBUG == 1
-  printf("adding remove of %s-%s@%s to transaction\n",
-    pkg->name,pkg->version,pkg->location);
-  #endif
-
   tmp_list = realloc(
     tran->remove_pkgs->pkgs,
     sizeof *tran->remove_pkgs->pkgs * (tran->remove_pkgs->pkg_count + 1)
@@ -503,11 +499,6 @@ void slapt_add_exclude_to_transaction(slapt_transaction_t *tran,
   /* don't add if already present in the transaction */
   if (slapt_search_transaction_by_pkg(tran,pkg) == 1)
     return;
-
-  #if SLAPT_DEBUG == 1
-  printf("adding exclude of %s-%s@%s to transaction\n",
-    pkg->name,pkg->version,pkg->location);
-  #endif
 
   tmp_list = realloc(
     tran->exclude_pkgs->pkgs,
@@ -538,12 +529,6 @@ void slapt_add_upgrade_to_transaction(slapt_transaction_t *tran,
   /* don't add if already present in the transaction */
   if (slapt_search_transaction_by_pkg(tran,slapt_upgrade_pkg) == 1)
     return;
-
-  #if SLAPT_DEBUG == 1
-  printf("adding upgrade of %s-%s@%s to transaction\n",
-         slapt_upgrade_pkg->name,slapt_upgrade_pkg->version,
-         slapt_upgrade_pkg->location);
-  #endif
 
   tmp_list = realloc(
     tran->upgrade_pkgs->pkgs,

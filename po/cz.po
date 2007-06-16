@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.11i\n"
+"Project-Id-Version: 0.9.12\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2007-05-20 16:00+0500\n"
+"PO-Revision-Date: 2007-06-15 23:10+0500\n"
 "Last-Translator: Oto Petrik <oto.petrik@centrum.cz>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -144,40 +144,20 @@ msgstr "Nepodaøilo se otevøít adresáø %s\n"
 msgid "Failed to chdir: %s\n"
 msgstr "Nepodaøilo se zmìnit adresáø: %s\n"
 
-#, c-format
-msgid "unlinking %s\n"
-msgstr "ma¾u %s\n"
-
 msgid "Failed to get cwd\n"
 msgstr "Nepodaøilo se získat cwd\n"
-
-#, c-format
-msgid "\tCurrent working directory: %s\n"
-msgstr "\tSouèasný pracovní adresáø: %s\n"
 
 #, c-format
 msgid "Failed to mkdir: %s\n"
 msgstr "Nepodaøilo se vyrobit adresáø: %s\n"
 
 #, c-format
-msgid "\tCreated directory: %s\n"
-msgstr "\tVyroben adresáø: %s\n"
-
-#, c-format
 msgid "Failed to chdir to %s\n"
 msgstr "Nepodaøilo se zmìnit adresáø na: %s\n"
 
 #, c-format
-msgid "\tchdir into %s\n"
-msgstr "\tzmìnìn adresáø na %s\n"
-
-#, c-format
 msgid "\tchdir back into %s\n"
 msgstr "\tzmìnìn adresáø zpìt na %s\n"
-
-#, c-format
-msgid "Fetching url:[%s]\n"
-msgstr "Stahuji url:[%s]\n"
 
 #, c-format
 msgid "Failed to download: %s\n"
@@ -198,10 +178,6 @@ msgstr "Stahuji %s %s %s [%.1f%s]...\n"
 #, c-format
 msgid "Failed to unlink %s\n"
 msgstr "Nepodaøilo se smazat %s\n"
-
-#, c-format
-msgid "md5 sum for %s is not correct, override with --no-md5!\n"
-msgstr "md5 souèet pro %s je nesprávný, ignoruj pomocí --no-md5!\n"
 
 #, c-format
 msgid "MD5 found:    [%s]\n"
@@ -445,14 +421,6 @@ msgid "Reading Package Lists..."
 msgstr "Naèítám seznam balíkù..."
 
 #, c-format
-msgid "Download of %s incomplete\n"
-msgstr "Sta¾ení %s je nekompletní\n"
-
-#, c-format
-msgid "Could not find MD5 checksum for %s, override with --no-md5\n"
-msgstr "Nemohu najít MD5 souèet pro %s, ignoruj pomocí --no-md5\n"
-
-#, c-format
 msgid "%s, which is required by %s, is excluded\n"
 msgstr "%s, který je potøebný pro %s, je vylouèen\n"
 
@@ -498,4 +466,46 @@ msgstr "Package ChangeLog"
 #, c-format
 msgid "Retrieving ChangeLog.txt [%s]..."
 msgstr "Retrieving ChangeLog.txt [%s]..."
+
+msgid "MD5 checksum mismatch, override with --no-md5"
+msgstr "MD5 checksum mismatch, override with --no-md5"
+
+msgid "Missing MD5 checksum, override with --no-md5"
+msgstr "Missing MD5 checksum, override with --no-md5"
+
+msgid "Incomplete download"
+msgstr "Incomplete download"
+
+msgid "GPG key successfully imported"
+msgstr "GPG key successfully imported"
+
+msgid "GPG key could not be imported"
+msgstr "GPG key could not be imported"
+
+msgid "GPG key already present"
+msgstr "GPG key already present"
+
+msgid "Checksums signature successfully verified"
+msgstr "Checksums signature successfully verified"
+
+msgid "Checksums signature could not be verified"
+msgstr "Checksums signature could not be verified"
+
+msgid "Verified"
+msgstr "Verified"
+
+msgid "Not Verified"
+msgstr "Not Verified"
+
+msgid "Retrieving GPG key [%s]..."
+msgstr "Retrieving GPG key [%s]..."
+
+msgid "Retrieving checksum signature [%s]..."
+msgstr "Retrieving checksum signature [%s]..."
+
+msgid "No key for verification"
+msgstr "No key for verification"
+
+msgid "retrieve GPG keys for sources"
+msgstr "retrieve GPG keys for sources"
 

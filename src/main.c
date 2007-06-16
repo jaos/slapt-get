@@ -71,6 +71,9 @@ int main( int argc, char *argv[] )
     {"retry", 1, 0, SLAPT_RETRY_OPT},
     {"no-upgrade", 0, 0, SLAPT_NO_UPGRADE_OPT},
     {"install-set", 0, 0, SLAPT_INSTALL_DISK_SET_OPT},
+    #ifdef SLAPT_HAS_GPGME
+    {"add-keys", 0, 0, SLAPT_ADD_KEYS_OPT},
+    #endif
     {0, 0, 0, 0},
   };
 
@@ -212,6 +215,11 @@ int main( int argc, char *argv[] )
       case SLAPT_INSTALL_DISK_SET_OPT: /* install a disk set */
         do_action = INSTALL_DISK_SET;
         break;
+      #ifdef SLAPT_HAS_GPGME
+      case SLAPT_ADD_KEYS_OPT: /* retrieve GPG keys for sources */
+        do_action = ADD_KEYS;
+        break;
+      #endif
       default:
         usage();
         slapt_free_rc_config(global_config);
@@ -348,6 +356,11 @@ int main( int argc, char *argv[] )
     case AVAILABLE:
       slapt_pkg_action_list(AVAILABLE);
       break;
+    #ifdef SLAPT_HAS_GPGME
+    case ADD_KEYS:
+      slapt_pkg_action_add_keys(global_config);
+      break;
+    #endif
     case USAGE:
     default:
       printf("main.c(l.%d): This should never be reached\n", __LINE__);
@@ -380,6 +393,9 @@ void usage(void)
   printf("  --installed    - %s\n",gettext("list installed pkgs"));
   printf("  --clean        - %s\n",gettext("purge cached pkgs"));
   printf("  --autoclean    - %s\n",gettext("only purge cache of older, unreacheable pkgs"));
+  #ifdef SLAPT_HAS_GPGME
+  printf("  --add-keys     - %s\n",gettext("retrieve GPG keys for sources"));
+  #endif
   printf("  --version      - %s\n",gettext("print version and license info"));
   printf("\n");
   printf(gettext("Options:\n"));

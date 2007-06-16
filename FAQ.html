@@ -67,6 +67,7 @@
 <a href="#slgFAQ50">50. What about mirror fall back / fail-over ?</a>
 <a href="#slgFAQ51">51. How do I install a kernel rather than upgrade the existing kernel?</a>
 <a href="#slgFAQ52">52. What are the relationships of CHECKSUMS.md5, PACKAGES.TXT and package_data?</a>
+<a href="#slgFAQ53">53. Does slapt-get support the GPG/PGP signature verification?</a>
 
 
 
@@ -1179,6 +1180,18 @@
  contents of package_data are preserved.  slapt-get immediately aborts with an
  error in this case.  Gslapt, however, prompts to temporarily disable the
  source and continue.
+
+
+<a name="slgFAQ53"><b>53. Does slapt-get support the GPG/PGP signature verification?</b></a>
+
+ Yes, as of 0.9.12 slapt-get can be built with gpgme support that allows 
+ slapt-get to verify the signature of the CHECKSUMS file on each mirror.  
+ This requires the presence of the signature file and the GPG-KEY file on
+ the package source.  The GPG-KEY is imported into the local keychain using
+ the --add-keys option.  When running --update, the signature file for the
+ CHECKSUMS listing is downloaded and verification is attempted.  If the key
+ is not present slapt-get mentions this and continues on.  slapt-get only halts
+ if verification failed.
 
 
 </pre>

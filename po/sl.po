@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.11i\n"
+"Project-Id-Version: 0.9.12\n"
 "POT-Creation-Date: 2005-03-09\n"
-"PO-Revision-Date: 2007-05-20 16:00+0500\n"
+"PO-Revision-Date: 2007-06-15 23:10+0500\n"
 "Last-Translator: Uros Trsavec <utrsav@walla.com>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -135,40 +135,20 @@ msgstr "Ni uspelo odpreti mape %s\n"
 msgid "Failed to chdir: %s\n"
 msgstr "Napaka pri chdir: %s\n"
 
-#, c-format
-msgid "unlinking %s\n"
-msgstr "prekinjam povezavo %s\n"
-
 msgid "Failed to get cwd\n"
 msgstr "Napaka pri pridobitvi cwd\n"
-
-#, c-format
-msgid "\tCurrent working directory: %s\n"
-msgstr "\tTrenutna delovna mapa: %s\n"
 
 #, c-format
 msgid "Failed to mkdir: %s\n"
 msgstr "Napaka pri mkdir: %s\n"
 
 #, c-format
-msgid "\tCreated directory: %s\n"
-msgstr "\tNarejena mapa: %s\n"
-
-#, c-format
 msgid "Failed to chdir to %s\n"
 msgstr "Napak pri chdir na %s\n"
 
 #, c-format
-msgid "\tchdir into %s\n"
-msgstr "\tchdir v %s\n"
-
-#, c-format
 msgid "\tchdir back into %s\n"
 msgstr "\tchdir nazaj v %s\n"
-
-#, c-format
-msgid "Fetching url:[%s]\n"
-msgstr "Išèem url:[%s]\n"
 
 #, c-format
 msgid "Failed to download: %s\n"
@@ -188,10 +168,6 @@ msgstr "Dobi %s %s %s [%.1f%s]...\n"
 #, c-format
 msgid "Failed to unlink %s\n"
 msgstr "Napaka pri prekinjanju povezave%s\n"
-
-#, c-format
-msgid "md5 sum for %s is not correct, override with --no-md5!\n"
-msgstr "md5 sum za %s ni pravilen, prepiši z --no-md5!\n"
 
 #, c-format
 msgid "MD5 found:    [%s]\n"
@@ -416,14 +392,6 @@ msgid "Reading Package Lists..."
 msgstr "Berem seznam paketov..."
 
 #, c-format
-msgid "Download of %s incomplete\n"
-msgstr "%s nedokonèanih prenosov\n"
-
-#, c-format
-msgid "Could not find MD5 checksum for %s, override with --no-md5\n"
-msgstr "MD5 kontrolna vsota za %s ni bila najdena, prepiši z --no-md5\n"
-
-#, c-format
 msgid "%s, which is required by %s, is excluded\n"
 msgstr "%s, ki je potreben s strani %s, je bil izloèen\n"
 
@@ -489,4 +457,46 @@ msgstr "Package ChangeLog"
 #, c-format
 msgid "Retrieving ChangeLog.txt [%s]..."
 msgstr "Retrieving ChangeLog.txt [%s]..."
+
+msgid "MD5 checksum mismatch, override with --no-md5"
+msgstr "MD5 checksum mismatch, override with --no-md5"
+
+msgid "Missing MD5 checksum, override with --no-md5"
+msgstr "Missing MD5 checksum, override with --no-md5"
+
+msgid "Incomplete download"
+msgstr "Incomplete download"
+
+msgid "GPG key successfully imported"
+msgstr "GPG key successfully imported"
+
+msgid "GPG key could not be imported"
+msgstr "GPG key could not be imported"
+
+msgid "GPG key already present"
+msgstr "GPG key already present"
+
+msgid "Checksums signature successfully verified"
+msgstr "Checksums signature successfully verified"
+
+msgid "Checksums signature could not be verified"
+msgstr "Checksums signature could not be verified"
+
+msgid "Verified"
+msgstr "Verified"
+
+msgid "Not Verified"
+msgstr "Not Verified"
+
+msgid "Retrieving GPG key [%s]..."
+msgstr "Retrieving GPG key [%s]..."
+
+msgid "Retrieving checksum signature [%s]..."
+msgstr "Retrieving checksum signature [%s]..."
+
+msgid "No key for verification"
+msgstr "No key for verification"
+
+msgid "retrieve GPG keys for sources"
+msgstr "retrieve GPG keys for sources"
 

@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.11i\n"
+"Project-Id-Version: 0.9.12\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2007-05-20 16:00+0500\n"
+"PO-Revision-Date: 2007-06-15 23:10+0500\n"
 "Last-Translator: Nguyễn Văn Vũ <vncasper@yahoo.com>\n"
 "Language-Team: gnome-vi <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -135,40 +135,20 @@ msgstr "Bị lỗi khi mở thư mục %s\n"
 msgid "Failed to chdir: %s\n"
 msgstr "Bị lỗi khi chuyển vào thư mục: %s\n"
 
-#, c-format
-msgid "unlinking %s\n"
-msgstr "xoá liên kết %s\n"
-
 msgid "Failed to get cwd\n"
 msgstr "Bị lỗi khi xác định thư mục hiện hành\n"
-
-#, c-format
-msgid "\tCurrent working directory: %s\n"
-msgstr "\tThư mục làm việc hiện hành: %s\n"
 
 #, c-format
 msgid "Failed to mkdir: %s\n"
 msgstr "Bị lỗi khi tạo thư mục: %s\n"
 
 #, c-format
-msgid "\tCreated directory: %s\n"
-msgstr "\tThư mục đã được tạo: %s\n"
-
-#, c-format
 msgid "Failed to chdir to %s\n"
 msgstr "Bị lỗi khi chuyển vào thư mục %s\n"
 
 #, c-format
-msgid "\tchdir into %s\n"
-msgstr "\tchuyển vào thư mục %s\n"
-
-#, c-format
 msgid "\tchdir back into %s\n"
 msgstr "\tquay về thư mục %s\n"
-
-#, c-format
-msgid "Fetching url:[%s]\n"
-msgstr "Cập nhật url:[%s]\n"
 
 #, c-format
 msgid "Failed to download: %s\n"
@@ -188,10 +168,6 @@ msgstr "Đang nhận dữ liệu %s %s %s [%.1f%s]...\n"
 #, c-format
 msgid "Failed to unlink %s\n"
 msgstr "Bị lỗi khi xoá %s\n"
-
-#, c-format
-msgid "md5 sum for %s is not correct, override with --no-md5!\n"
-msgstr "Tổng md5 của %s không đúng, bỏ qua với tuỳ chọn --no-md5!\n"
 
 #, c-format
 msgid "MD5 found:    [%s]\n"
@@ -416,14 +392,6 @@ msgid "Reading Package Lists..."
 msgstr "Cập nhật danh sách gói phần mềm..."
 
 #, c-format
-msgid "Download of %s incomplete\n"
-msgstr "Chưa lấy xong dữ liệu của %s\n"
-
-#, c-format
-msgid "Could not find MD5 checksum for %s, override with --no-md5\n"
-msgstr "Không tìm thấy tổng MD5 cho %s, bỏ qua với tuỳ chọn --no-md5\n"
-
-#, c-format
 msgid "%s, which is required by %s, is excluded\n"
 msgstr "%s, do %s yêu cầu, được bỏ qua\n"
 
@@ -491,4 +459,46 @@ msgstr "Package ChangeLog"
 #, c-format
 msgid "Retrieving ChangeLog.txt [%s]..."
 msgstr "Retrieving ChangeLog.txt [%s]..."
+
+msgid "MD5 checksum mismatch, override with --no-md5"
+msgstr "MD5 checksum mismatch, override with --no-md5"
+
+msgid "Missing MD5 checksum, override with --no-md5"
+msgstr "Missing MD5 checksum, override with --no-md5"
+
+msgid "Incomplete download"
+msgstr "Incomplete download"
+
+msgid "GPG key successfully imported"
+msgstr "GPG key successfully imported"
+
+msgid "GPG key could not be imported"
+msgstr "GPG key could not be imported"
+
+msgid "GPG key already present"
+msgstr "GPG key already present"
+
+msgid "Checksums signature successfully verified"
+msgstr "Checksums signature successfully verified"
+
+msgid "Checksums signature could not be verified"
+msgstr "Checksums signature could not be verified"
+
+msgid "Verified"
+msgstr "Verified"
+
+msgid "Not Verified"
+msgstr "Not Verified"
+
+msgid "Retrieving GPG key [%s]..."
+msgstr "Retrieving GPG key [%s]..."
+
+msgid "Retrieving checksum signature [%s]..."
+msgstr "Retrieving checksum signature [%s]..."
+
+msgid "No key for verification"
+msgstr "No key for verification"
+
+msgid "retrieve GPG keys for sources"
+msgstr "retrieve GPG keys for sources"
 

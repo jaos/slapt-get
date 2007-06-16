@@ -4,9 +4,9 @@
 # Bekir SONAT <bekirsonat@kde.org.tr>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.11i\n"
+"Project-Id-Version: 0.9.12\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2007-05-20 16:00+0500\n"
+"PO-Revision-Date: 2007-06-15 23:10+0500\n"
 "Last-Translator: Bekir SONAT <bekirsonat@kde.org.tr>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -137,24 +137,12 @@ msgstr "%s dizini açılamıyor\n"
 msgid "Failed to chdir: %s\n"
 msgstr "Başarısız chdir: %s\n"
 
-#, c-format
-msgid "unlinking %s\n"
-msgstr "%s bağlantısı kaldırılıyor\n"
-
 msgid "Failed to get cwd\n"
 msgstr "Başarısız cwd\n"
 
 #, c-format
-msgid "\tCurrent working directory: %s\n"
-msgstr "\tBulunulan çalışma dizini: %s\n"
-
-#, c-format
 msgid "Failed to mkdir: %s\n"
 msgstr "Başarısız mkdir: %s\n"
-
-#, c-format
-msgid "\tCreated directory: %s\n"
-msgstr "\tOluşturulan dizin: %s\n"
 
 #, c-format
 msgid "Failed to chdir to %s\n"
@@ -162,17 +150,8 @@ msgstr "Başarısız chdir %s\n"
 
 #, c-format
 #, fuzzy
-msgid "\tchdir into %s\n"
-msgstr "\tchdir %s\n"
-
-#, c-format
-#, fuzzy
 msgid "\tchdir back into %s\n"
 msgstr "\tDönülen chdir %s\n"
-
-#, c-format
-msgid "Fetching url:[%s]\n"
-msgstr "Eşleştirilen konum:[%s]\n"
 
 #, c-format
 msgid "Failed to download: %s\n"
@@ -192,10 +171,6 @@ msgstr "Al %s %s %s [%.1f%s]...\n"
 #, c-format
 msgid "Failed to unlink %s\n"
 msgstr "Başarısız unlink %s\n"
-
-#, c-format
-msgid "md5 sum for %s is not correct, override with --no-md5!\n"
-msgstr "%s için md5 sağlaması doğru değil, --no-md5 seçeneği ile atlayabilirsiniz!\n"
 
 #, c-format
 msgid "MD5 found:    [%s]\n"
@@ -422,14 +397,6 @@ msgid "Reading Package Lists..."
 msgstr "Paket Listelerini Okuyor..."
 
 #, c-format
-msgid "Download of %s incomplete\n"
-msgstr "%s indirme yarım kaldı\n"
-
-#, c-format
-msgid "Could not find MD5 checksum for %s, override with --no-md5\n"
-msgstr "%s dosyasının MD5 imza dosyası bulunamadı, --no-md5 ile atlayabilirsiniz\n"
-
-#, c-format
 #, fuzzy
 msgid "%s, which is required by %s, is excluded\n"
 msgstr "%s, %s tarafından gereksiniliyordu,-dışlandı\n"
@@ -496,4 +463,46 @@ msgstr "Paket EvrimGüncesi"
 #, c-format
 msgid "Retrieving ChangeLog.txt [%s]..."
 msgstr "[%s] için ChangeLog.txt EvrimGüncesi alınıyor..."
+
+msgid "MD5 checksum mismatch, override with --no-md5"
+msgstr "MD5 checksum mismatch, override with --no-md5"
+
+msgid "Missing MD5 checksum, override with --no-md5"
+msgstr "Missing MD5 checksum, override with --no-md5"
+
+msgid "Incomplete download"
+msgstr "Incomplete download"
+
+msgid "GPG key successfully imported"
+msgstr "GPG key successfully imported"
+
+msgid "GPG key could not be imported"
+msgstr "GPG key could not be imported"
+
+msgid "GPG key already present"
+msgstr "GPG key already present"
+
+msgid "Checksums signature successfully verified"
+msgstr "Checksums signature successfully verified"
+
+msgid "Checksums signature could not be verified"
+msgstr "Checksums signature could not be verified"
+
+msgid "Verified"
+msgstr "Verified"
+
+msgid "Not Verified"
+msgstr "Not Verified"
+
+msgid "Retrieving GPG key [%s]..."
+msgstr "Retrieving GPG key [%s]..."
+
+msgid "Retrieving checksum signature [%s]..."
+msgstr "Retrieving checksum signature [%s]..."
+
+msgid "No key for verification"
+msgstr "No key for verification"
+
+msgid "retrieve GPG keys for sources"
+msgstr "retrieve GPG keys for sources"
 

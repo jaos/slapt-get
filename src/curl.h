@@ -6,19 +6,18 @@ char *slapt_head_request(const char *url);
 
 /*
   this fills FILE with data from url, used for PACKAGES.TXT and CHECKSUMS
-  returns 0 on success, on error -1 or CURLE_HTTP_RANGE_ERROR
+  Returns error on failure.
 */
-int slapt_get_mirror_data_from_source(FILE *fh,
-                                      const slapt_rc_config *global_config,
-                                      const char *base_url,
-                                      const char *filename);
+const char *slapt_get_mirror_data_from_source(FILE *fh,
+                                              const slapt_rc_config *global_config,
+                                              const char *base_url,
+                                              const char *filename);
 
 /*
-  download pkg, calls download_data
-  returns 0 on success, on error -1 or CURLE_HTTP_RANGE_ERROR
+  download pkg, calls download_data.  returns error on failure.
 */
-int slapt_download_pkg(const slapt_rc_config *global_config,
-                       slapt_pkg_info_t *pkg);
+const char *slapt_download_pkg(const slapt_rc_config *global_config,
+                               slapt_pkg_info_t *pkg);
 
 /*
   this is the default progress callback if global_config->progress_cb == NULL

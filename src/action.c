@@ -798,3 +798,32 @@ static int cmp_pkg_arch(const char *a,const char *b)
   return r;
 }
 
+#ifdef SLAPT_HAS_GPGME
+void slapt_pkg_action_add_keys(const slapt_rc_config *global_config)
+{
+  unsigned int s = 0, compressed = 0;
+  for(s = 0; s < global_config->sources->count; s++)
+  {
+    FILE *gpg_key = NULL;
+    printf(gettext("Retrieving GPG key [%s]..."), global_config->sources->url[s]);
+    gpg_key = slapt_get_pkg_source_gpg_key (global_config,
+                                            global_config->sources->url[s],
+                                            &compressed);
+    if (gpg_key != NULL)
+    {
+      slapt_code_t r = slapt_add_pkg_source_gpg_key(gpg_key);
+      if (r == SLAPT_GPG_KEY_UNCHANGED) {
+        printf("%s.\n",gettext("GPG key already present"));
+      } else if (r == SLAPT_GPG_KEY_IMPORTED) {
+        printf("%s.\n",gettext("GPG key successfully imported"));
+      } else {
+        printf("%s.\n",gettext("GPG key could not be imported"));
+      }
+      
+      fclose(gpg_key);
+    }
+
+  }
+
+}
+#endif

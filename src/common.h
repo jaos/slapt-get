@@ -11,6 +11,21 @@ SLAPT_FALSE = FALSE, SLAPT_TRUE = TRUE
 #endif
 } SLAPT_BOOL_T;
 
+typedef enum {
+  SLAPT_OK = 0,
+  SLAPT_MD5_CHECKSUM_MISMATCH,
+  SLAPT_MD5_CHECKSUM_MISSING,
+  #ifdef SLAPT_HAS_GPGME
+  SLAPT_GPG_KEY_IMPORTED,
+  SLAPT_GPG_KEY_NOT_IMPORTED,
+  SLAPT_GPG_KEY_UNCHANGED,
+  SLAPT_CHECKSUMS_VERIFIED,
+  SLAPT_CHECKSUMS_MISSING_KEY,
+  SLAPT_CHECKSUMS_NOT_VERIFIED,
+  #endif
+  SLAPT_DOWNLOAD_INCOMPLETE
+} slapt_code_t;
+
 typedef struct {
   regmatch_t pmatch[SLAPT_MAX_REGEX_PARTS];
   regex_t regex;
@@ -34,4 +49,7 @@ char *slapt_str_replace_chr(const char *string,const char find,
                             const char replace);
 __inline void *slapt_malloc(size_t s);
 __inline void *slapt_calloc(size_t n,size_t s);
+
+/* return human readable error */
+const char *slapt_strerror(slapt_code_t code);
 

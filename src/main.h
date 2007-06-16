@@ -47,10 +47,16 @@
 #include "curl.h"
 #include "transaction.h"
 #include "action.h"
+#ifdef SLAPT_HAS_GPGME
+  #include "gpgme.h"
+#endif
 
 enum slapt_action {
   USAGE = 0, UPDATE, INSTALL, REMOVE, SHOW, SEARCH, UPGRADE,
   LIST, INSTALLED, CLEAN, SHOWVERSION, AUTOCLEAN, AVAILABLE,
+  #ifdef SLAPT_HAS_GPGME
+  ADD_KEYS,
+  #endif
   INSTALL_DISK_SET
 };
 
@@ -84,7 +90,9 @@ enum slapt_action {
 #define SLAPT_AVAILABLE_OPT 'A'
 #define SLAPT_RETRY_OPT 'R'
 #define SLAPT_NO_UPGRADE_OPT 'N'
+#ifdef SLAPT_HAS_GPGME
+  #define SLAPT_ADD_KEYS_OPT 'k'
+#endif
 
-#define SLAPT_DEBUG 0
 #define SLAPT_DO_NOT_UNLINK_BAD_FILES 1
 

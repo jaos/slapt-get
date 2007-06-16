@@ -72,7 +72,10 @@ Table of Contents:
 
     The following packages are required to build slapt-get from source:
     make, gcc, curl, glibc, kernel-headers, binutils, zlib, gettext-tools,
-    and openssl
+    and openssl.
+
+    Optionally, if gpgpme is installed, slapt-get can be built with support
+    for signature verification with gnupg.
 
 
 

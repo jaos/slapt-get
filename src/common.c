@@ -130,10 +130,6 @@ void slapt_create_dir_structure(const char *dir_name)
   if ( cwd == NULL ) {
     fprintf(stderr,gettext("Failed to get cwd\n"));
     return;
-  } else {
-    #if SLAPT_DEBUG == 1
-    fprintf(stderr,gettext("\tCurrent working directory: %s\n"),cwd);
-    #endif
   }
 
   len = strlen(dir_name);
@@ -152,21 +148,14 @@ void slapt_create_dir_structure(const char *dir_name)
 
       if ( strcmp(dir_name_buffer,".") != 0 ) {
         if ( (mkdir(dir_name_buffer,0755)) == -1) {
-          #if SLAPT_DEBUG == 1
-          fprintf(stderr,gettext("Failed to mkdir: %s\n"),dir_name_buffer);
-          #endif
-        } else {
-          #if SLAPT_DEBUG == 1
-          fprintf(stderr,gettext("\tCreated directory: %s\n"),dir_name_buffer);
-          #endif
+          if (errno != EEXIST) {
+            fprintf(stderr,gettext("Failed to mkdir: %s\n"),dir_name_buffer);
+            exit(EXIT_FAILURE);
+          }
         }
         if ( (chdir(dir_name_buffer)) == -1 ) {
           fprintf(stderr,gettext("Failed to chdir to %s\n"),dir_name_buffer);
-          return;
-        } else {
-          #if SLAPT_DEBUG == 1
-          fprintf(stderr,gettext("\tchdir into %s\n"),dir_name_buffer);
-          #endif
+          exit(EXIT_FAILURE);
         }
       }/* don't create . */
 
@@ -187,14 +176,14 @@ void slapt_create_dir_structure(const char *dir_name)
 
         if ( strcmp(dir_name_buffer,".") != 0 ) {
           if ( (mkdir(dir_name_buffer,0755)) == -1 ) {
-            #if SLAPT_DEBUG == 1
-            fprintf(stderr,gettext("Failed to mkdir: %s\n"),dir_name_buffer);
-            #endif
+            if (errno != EEXIST) {
+              fprintf(stderr,gettext("Failed to mkdir: %s\n"),dir_name_buffer);
+              exit(EXIT_FAILURE);
+            }
           }
           if ( (chdir(dir_name_buffer)) == -1 ) {
             fprintf(stderr,gettext("Failed to chdir to %s\n"),dir_name_buffer);
-            free(dir_name_buffer);
-            return;
+            exit(EXIT_FAILURE);
           }
         } /* don't create . */
 
@@ -286,5 +275,35 @@ __inline void *slapt_calloc(size_t n,size_t s)
     exit(EXIT_FAILURE);
   }
   return p;
+}
+
+const char *slapt_strerror(slapt_code_t code)
+{
+  switch (code) {
+    case SLAPT_OK:
+      return "No error";
+    case SLAPT_MD5_CHECKSUM_MISMATCH:
+      return gettext("MD5 checksum mismatch, override with --no-md5");
+    case SLAPT_MD5_CHECKSUM_MISSING:
+      return gettext("Missing MD5 checksum, override with --no-md5");
+    case SLAPT_DOWNLOAD_INCOMPLETE:
+      return gettext("Incomplete download");
+    #ifdef SLAPT_HAS_GPGME
+    case SLAPT_GPG_KEY_IMPORTED:
+      return gettext("GPG key successfully imported");
+    case SLAPT_GPG_KEY_NOT_IMPORTED:
+      return gettext("GPG key could not be imported");
+    case SLAPT_GPG_KEY_UNCHANGED:
+      return gettext("GPG key already present");
+    case SLAPT_CHECKSUMS_VERIFIED:
+      return gettext("Checksums signature successfully verified");
+    case SLAPT_CHECKSUMS_NOT_VERIFIED:
+      return gettext("Checksums signature could not be verified");
+    case SLAPT_CHECKSUMS_MISSING_KEY:
+      return gettext("No key for verification");
+    #endif
+  };
+
+  return gettext("Unknown error");
 }
 
