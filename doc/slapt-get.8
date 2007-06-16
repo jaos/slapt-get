@@ -107,6 +107,9 @@ slapt-get \- frontend to pkgtools
 .B --autoclean
 ]
 [
+.B --add-keys
+]
+[
 .B --version
 ]
 .SH DESCRIPTION
@@ -205,6 +208,9 @@ Purge cached/downloaded packages from WORKINGDIR (/var/slapt-get/ by default).
 .TP
 .B --autoclean
 Like  clean, autoclean clears out the local repository of retrieved package files. The difference is that it only removes package files that can no longer be downloaded, and are largely useless. This allows a cache to be maintained over  a  long  period without  it  growing  out  of control.
+.TP
+.B --add-keys
+Check each package source for a GPG-KEY file.  Download and import into the local keychain.
 .TP
 .B --version
 Print version and license info.

@@ -107,6 +107,9 @@ slapt-get \- фронт-энд для pkgtools
 .B --autoclean
 ]
 [
+.B --add-keys
+]
+[
 .B --version
 ]
 .SH ОПИСАНИЕ
@@ -207,6 +210,9 @@ Install specified disk set(s).  example: --install-set xap n l
 .TP
 .B --autoclean
 Как и --clean, autoclean очищает локальный репозиторий полученных пакетов. Разница заключается в том, что будут удалены только те пакеты, которые уже не могут быть загружены, и вообщем-то бесполезны. Это позволяет содержать кэш длительное время, не давая ему бесконтрольно разрастаться.
+.TP
+.B --add-keys
+Check each package source for a GPG-KEY file.  Download and import into the local keychain.
 .TP
 .B --version
 Показать версию и лицензию.
