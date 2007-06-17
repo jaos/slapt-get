@@ -1,5 +1,6 @@
 
 0.9.12 Jun 16, 2007
+ * german updates by Manfred
  * added GPG signature verification via gpgme (thanks Pat Volkerding for
    adding gpgme to -current)
  * Updated downloading in libslapt for better notification.  This also resulted

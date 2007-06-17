@@ -2,14 +2,14 @@
 # Copyright (C) 2004, 2005, 2006
 # This file is distributed under the same license as the slapt-get package.
 # Niklas Volbers <mithrandir42@web.de>, 2004, 2005
-# Manfred Mueller <linux@nass-ek.de>, 2006
+# Manfred Mueller <mmueller@live-modules.org>, 2006, 2007
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.12\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2007-06-15 23:10+0500\n"
-"Last-Translator: Manfred Mueller <nekdesk@nekdesk.de>\n"
+"PO-Revision-Date: 2007-06-17 18:22+0100\n"
+"Last-Translator: Manfred Mueller <mmueller@live-modules.org>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -461,44 +461,44 @@ msgid "Retrieving ChangeLog.txt [%s]..."
 msgstr "Lade Paket-Historie von [%s]... "
 
 msgid "MD5 checksum mismatch, override with --no-md5"
-msgstr "MD5 checksum mismatch, override with --no-md5"
+msgstr "MD5 Pruefsumme unterschiedlich, mit --no-md5 ueberschreiben"
 
 msgid "Missing MD5 checksum, override with --no-md5"
-msgstr "Missing MD5 checksum, override with --no-md5"
+msgstr "Fehlende MD5 Pruefsumme, mit --no-md5 ueberschreiben"
 
 msgid "Incomplete download"
-msgstr "Incomplete download"
+msgstr "Unvollstaendiger download"
 
 msgid "GPG key successfully imported"
-msgstr "GPG key successfully imported"
+msgstr "GPG-Schluessel erfolgreich importiert"
 
 msgid "GPG key could not be imported"
-msgstr "GPG key could not be imported"
+msgstr "Fehler beim Importieren des GPG-Schluessels"
 
 msgid "GPG key already present"
-msgstr "GPG key already present"
+msgstr "GPG-Schluessel bereits vorhanden"
 
 msgid "Checksums signature successfully verified"
-msgstr "Checksums signature successfully verified"
+msgstr "Pruefsummen-Signatur erfolgreich bestaetigt"
 
 msgid "Checksums signature could not be verified"
-msgstr "Checksums signature could not be verified"
+msgstr "Pruefsummen-Signatur NICHT bestaetigt"
 
 msgid "Verified"
-msgstr "Verified"
+msgstr "Bestaetigt"
 
 msgid "Not Verified"
-msgstr "Not Verified"
+msgstr "NICHT bestaetigt"
 
 msgid "Retrieving GPG key [%s]..."
-msgstr "Retrieving GPG key [%s]..."
+msgstr "Empfange GPG-Schluessel [%s]..."
 
 msgid "Retrieving checksum signature [%s]..."
-msgstr "Retrieving checksum signature [%s]..."
+msgstr "Empfange Pruefsummen-Signatur [%s]..."
 
 msgid "No key for verification"
-msgstr "No key for verification"
+msgstr "Kein Schluessel zu bestaetigen"
 
 msgid "retrieve GPG keys for sources"
-msgstr "retrieve GPG keys for sources"
+msgstr "Empfange GPG-Schluessel fuer die Quellen"
 
