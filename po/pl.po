@@ -460,44 +460,44 @@ msgid "Retrieving ChangeLog.txt [%s]..."
 msgstr "Pobieram ChangeLog.txt [%s]..."
 
 msgid "MD5 checksum mismatch, override with --no-md5"
-msgstr "MD5 checksum mismatch, override with --no-md5"
+msgstr "MD5 suma nie pasuje, u¿yj --no-md5 ¿eby uniewa¿niæ"
 
 msgid "Missing MD5 checksum, override with --no-md5"
-msgstr "Missing MD5 checksum, override with --no-md5"
+msgstr "Brak sumy MD5, u¿yj --no-md5 ¿eby uniewa¿niæ"
 
 msgid "Incomplete download"
-msgstr "Incomplete download"
+msgstr "Niekompletny download"
 
 msgid "GPG key successfully imported"
-msgstr "GPG key successfully imported"
+msgstr "GPG* klucz pomy¶lnie importowany"
 
 msgid "GPG key could not be imported"
-msgstr "GPG key could not be imported"
+msgstr "Import klucza GPG nieudany"
 
 msgid "GPG key already present"
-msgstr "GPG key already present"
+msgstr "GPG klucz ju¿ istnieje"
 
 msgid "Checksums signature successfully verified"
-msgstr "Checksums signature successfully verified"
+msgstr "Suma kontrolna podpisu potwiedzona"
 
 msgid "Checksums signature could not be verified"
-msgstr "Checksums signature could not be verified"
+msgstr "Nie mogê potwiedziæ sumy kontrolnej podpisu"
 
 msgid "Verified"
-msgstr "Verified"
+msgstr "Potwierdzone"
 
 msgid "Not Verified"
-msgstr "Not Verified"
+msgstr "Nie potwierdzone"
 
 msgid "Retrieving GPG key [%s]..."
-msgstr "Retrieving GPG key [%s]..."
+msgstr "Pobieram klucz GPG [%s]..."
 
 msgid "Retrieving checksum signature [%s]..."
-msgstr "Retrieving checksum signature [%s]..."
+msgstr "Pobieram sumê kontroln± podpisu [%s]..."
 
 msgid "No key for verification"
-msgstr "No key for verification"
+msgstr "Brak klucza do potwierdzenia"
 
 msgid "retrieve GPG keys for sources"
-msgstr "retrieve GPG keys for sources"
+msgstr "pobieraj klucze GPG ¼róde³"
 
