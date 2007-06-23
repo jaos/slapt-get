@@ -2082,6 +2082,8 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
     /* if we opened the raw gzipped checksums, close it here */
     if (compressed == 1)
       fclose(tmp_checksum_to_verify_f);
+    else
+      rewind(tmp_checksum_f);
     #endif
 
     if (source_dl_failed != 1) {

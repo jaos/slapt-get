@@ -1,5 +1,6 @@
 
-0.9.12 Jun 18, 2007
+0.9.12 Jun 23, 2007
+ * rewind checksum file after verifying it
  * polish updates from Piotr
  * german updates by Manfred
  * added GPG signature verification via gpgme (thanks Pat Volkerding for
