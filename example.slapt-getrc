@@ -3,7 +3,7 @@ WORKINGDIR=/var/slapt-get
 
 
 # exclude package names and expressions
-EXCLUDE=^kernel-.*,^alsa-.*,^glibc.*,.*-[0-9]+dl$,^devs$,^udev$,aaa_elflibs,x86_64
+EXCLUDE=^kernel-.*,^alsa-.*,^glibc.*,.*-[0-9]dl$,^devs$,^udev$,aaa_elflibs,i[3456]86
 # * to exclude pre and beta packages, add this as an exclude: 
 # [0-9\_\.\-]{1}pre[0-9\-\.\-]{1}
 # To exclude architectures such as i686, use the following:
@@ -13,24 +13,16 @@ EXCLUDE=^kernel-.*,^alsa-.*,^glibc.*,.*-[0-9]+dl$,^devs$,^udev$,aaa_elflibs,x86_
 # base url to directory with a PACKAGES.TXT
 # can point to any release, ie: 9.0, 10.0, current, etc
 # you should really choose from an example mirror url below
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-8.1/
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-9.0/
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-9.1/
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-10.0/
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-10.1/
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-10.2/
-SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-11.0/
 #SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-current/
+#SOURCE=http://ftp.heanet.ie/pub/slamd64/slamd64-10.1/tree/
+#SOURCE=http://ftp.heanet.ie/pub/slamd64/slamd64-10.2/tree/
+#SOURCE=http://ftp.heanet.ie/pub/slamd64/slamd64-10.2b/
+#SOURCE=http://ftp.heanet.ie/pub/slamd64/slamd64-11.0/
 
 # slapt source
-#SOURCE=http://software.jaos.org/slackpacks/8.1/
-#SOURCE=http://software.jaos.org/slackpacks/9.0/
-#SOURCE=http://software.jaos.org/slackpacks/9.1/
-#SOURCE=http://software.jaos.org/slackpacks/10.0/
-#SOURCE=http://software.jaos.org/slackpacks/10.1/
-#SOURCE=http://software.jaos.org/slackpacks/10.2/
-SOURCE=http://software.jaos.org/slackpacks/11.0/
-#SOURCE=http://software.jaos.org/slackpacks/current/
+#SOURCE=http://software.jaos.org/slackpacks/10.1-x86_64/
+#SOURCE=http://software.jaos.org/slackpacks/10.2-x86_64/
+SOURCE=http://software.jaos.org/slackpacks/11.0-x86_64/
 
 # you can use multiple sources, such as linuxpackages.net
 # (not recommended on production servers, see README)
@@ -38,146 +30,42 @@ SOURCE=http://software.jaos.org/slackpacks/11.0/
 # For the latest mirrors list please visit 
 # http://www.linuxpackages.net/mirrors.php
 ### NYI New York
-#SOURCE=http://www2.linuxpackages.net/packages/Slackware-10.2/
-#SOURCE=ftp://ftp3.linuxpackages.net/pub/Slackware-10.2/
+#SOURCE=http://www2.linuxpackages.net/packages/Slackware-10.2-x86_64/
+#SOURCE=ftp://ftp3.linuxpackages.net/pub/Slackware-10.2-x86_64/
 ### Opensys Romania
-#SOURCE=http://opensys.linuxpackages.net/Slackware-10.2/
-#SOURCE=ftp://opensys.linuxpackages.net/pub/Slackware-10.2/
+#SOURCE=http://opensys.linuxpackages.net/Slackware-10.2-x86_64/
+#SOURCE=ftp://opensys.linuxpackages.net/pub/Slackware-10.2-x86_64/
 ### University of Belgrade
-#SOURCE=http://mirror.etf.bg.ac.yu/linuxpackages/Slackware-10.2/
-#SOURCE=ftp://mirror.etf.bg.ac.yu/linuxpackages/Slackware-10.2/
+#SOURCE=http://mirror.etf.bg.ac.yu/linuxpackages/Slackware-10.2-x86_64/
+#SOURCE=ftp://mirror.etf.bg.ac.yu/linuxpackages/Slackware-10.2-x86_64/
 ### Evolution Dallas TX
-#SOURCE=ftp://ftp4.linuxpackages.net/pub/Slackware-10.2/
+#SOURCE=ftp://ftp4.linuxpackages.net/pub/Slackware-10.2-x86_64/
 ### Americas Internet Direct San Antonio TX
-#SOURCE=http://www1.linuxpackages.net/packages/Slackware-10.2/
+#SOURCE=http://www1.linuxpackages.net/packages/Slackware-10.2-x86_64/
 ### Scarlet.be / Belgium
-#SOURCE=http://ftp.scarlet.be/pub/linuxpackages/Slackware-10.2/
-#SOURCE=ftp://ftp.scarlet.be/pub/linuxpackages/Slackware-10.2/
+#SOURCE=http://ftp.scarlet.be/pub/linuxpackages/Slackware-10.2-x86_64/
+#SOURCE=ftp://ftp.scarlet.be/pub/linuxpackages/Slackware-10.2-x86_64/
 ### Chang-Gung Univeristy / Taiwan
-#SOURCE=http://linuxpackages.cgucccc.org/Slackware-10.2/
+#SOURCE=http://linuxpackages.cgucccc.org/Slackware-10.2-x86_64/
 ### Szombathely Linux Association / Hungary
-#SOURCE=ftp://ftp.slackware.hu/linuxpackages/Slackware-10.2/
+#SOURCE=ftp://ftp.slackware.hu/linuxpackages/Slackware-10.2-x86_64/
 ### IEEE Student Brach / Croatia
-#SOURCE=http://www.nymphomatic.org/mirror/linuxpackages/Slackware-10.2/
-#SOURCE=ftp://ftp.nymphomatic.org/linuxpackages/Slackware-10.2/
+#SOURCE=http://www.nymphomatic.org/mirror/linuxpackages/Slackware-10.2-x86_64/
+#SOURCE=ftp://ftp.nymphomatic.org/linuxpackages/Slackware-10.2-x86_64/
 ### University of Belgrade 2 / Belgrade Serbia and Montenegro
-#SOURCE=http://mirror2.etf.bg.ac.yu/linuxpackages/Slackware-10.2/
+#SOURCE=http://mirror2.etf.bg.ac.yu/linuxpackages/Slackware-10.2-x86_64/
 ### Naist / Japan
-#SOURCE=http://ftp.naist.jp/pub/Linux/linuxpackages/Slackware-10.2/
-#SOURCE=ftp://ftp.nara.wide.ad.jp/pub/Linux/linuxpackages/Slackware-10.2/
+#SOURCE=http://ftp.naist.jp/pub/Linux/linuxpackages/Slackware-10.2-x86_64/
+#SOURCE=ftp://ftp.nara.wide.ad.jp/pub/Linux/linuxpackages/Slackware-10.2-x86_64/
 ### Software Mirror / Colorado
-#SOURCE=http://www.software-mirror.com/linuxpackages/Slackware-10.2/
+#SOURCE=http://www.software-mirror.com/linuxpackages/Slackware-10.2-x86_64/
 # * no current with linuxpackages.net
-
-# audioslack sources
-#SOURCE=http://www.audioslack.com/packages/9.1
-#SOURCE=http://www.audioslack.com/packages/10.0
-
-# slackware testing, extra, and pasture
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-10.2/extra/
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-10.2/testing/
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-10.2/pasture/
-
-# other unofficial sources
-#SOURCE=http://www.tenboard.com/slackware/slackware-11.0/
-#SOURCE=http://www.slacky.it/download/
-#SOURCE=http://slackpacks.tchelinux.com.br/
-#SOURCE=http://slackware.rm-f.net/slackware-10.2/
-#SOURCE=http://slackware.rm-f.net/slamd64-10.2/
-#SOURCE=http://shtrom.free.fr/slackware/slackware-10.1/
-#SOURCE=http://www.stabellini.net/repository/Stefano_Stabellini/
-#SOURCE=http://carroll.aset.psu.edu/pub/linux/distributions/collegelinux/current/
-#SOURCE=http://distro.ibiblio.org/pub/linux/distributions/vectorlinux/veclinux-5.0/packages/
-#SOURCE=http://distro.ibiblio.org/pub/linux/distributions/vectorlinux/veclinux-5.0/packages-new/
-#SOURCE=http://distro.ibiblio.org/pub/linux/distributions/vectorlinux/veclinux-5.0/packages-test/
-#SOURCE=http://mirror.datapipe.net/norlug/frg/frg-current/
-#SOURCE=http://mirror.datapipe.net/norlug/frg64/current/
-#SOURCE=ftp://ftp.gware.org/10.2/2.12.0/packages
-#SOURCE=ftp://ftp.gware.org/x86_64/2.10.2/packages/
-#SOURCE=http://www.kadu.net/download/binary/slackware/slackware-11.0/
-#SOURCE=http://www.slackages.com/slapt-get/jlp/
-#SOURCE=http://www.slackages.com/slapt-get/jto/
-#SOURCE=http://mirror.on.net.mk/Damjan/slackware-10.2/
-#SOURCE=http://packages.slackforge.net/slackware-10.2/
-#SOURCE=http://harmon.droplinegnome.org/extra/
-#SOURCE=http://trovao.droplinegnome.org/extras/
-#SOURCE=http://mirror.datapipe.net/norlug/mutagenix/packages/
-#SOURCE=http://www2.linuxpackages.net/packages/SlackBuilds/
-#SOURCE=http://stx.mikeasoft.com/
-#SOURCE=http://slackpacks.rlworkman.net/10.2/
-#SOURCE=http://slackpacks.rlworkman.net/current/
-#SOURCE=http://www.slackware.com/~alien/slackbuilds/
-#SOURCE=http://slack.sarava.org/packages/slackware/slackware-10.2/
-#SOURCE=http://www.robertjohnkaper.com/downloads/atlantik/slackware-10.2/
-#SOURCE=http://jinx.tp2.be/slackware/
-#SOURCE=http://download.zenwalk.org/i486/snapshot/
-#SOURCE=http://de.repos.slackware-current.net/
-
 
 # pull from your cdrom
 #SOURCE=file:///mnt/cdrom/
 
+#SOURCE=http://mirror.datapipe.net/norlug/frg64/frg64-current/
+#SOURCE=ftp://ftp.gware.org/x86_64/2.10.2/packages/
+#SOURCE=http://www.websightdesigns.com/files/gware/x86_64/2.10.2/packages/
+#SOURCE=http://slackware.rm-f.net/slamd64-10.2/
 
-# slackware mirrors to choose from
-#SOURCE=http://carroll.cac.psu.edu/pub/linux/distributions/slackware/slackware-11.0/
-#SOURCE=http://darkstar.ist.utl.pt/slackware/slackware-11.0/
-#SOURCE=http://download.sourceforge.net/pub/mirrors/slackware/slackware-11.0/
-#SOURCE=http://ftp.man.olsztyn.pl/pub/linux/distributions/slackware/slackware-current/
-#SOURCE=http://ftp.planetmirror.com/pub/slackware/slackware-11.0/
-#SOURCE=http://gd.tuwien.ac.at/opsys/linux/slackware/slackware-11.0/
-#SOURCE=http://mirror.aarnet.edu.au/pub/slackware/slackware-current/
-#SOURCE=http://mirror.switch.ch/ftp/mirror/slackware/slackware-11.0/
-#SOURCE=http://ncart.scs.ryerson.ca/pub/slackware/slackware-11.0/
-#SOURCE=http://slackware.oregonstate.edu/slackware-11.0/
-#SOURCE=http://sunsite.cnlab-switch.ch/ftp/mirror/slackware/slackware/slackware-11.0/
-#SOURCE=http://www.slackware.at/data/slackware-11.0/
-#SOURCE=http://www.slackware.no/linux/slackware/slackware-11.0/
-#SOURCE=ftp://carroll.cac.psu.edu/pub/linux/distributions/slackware/slackware-11.0/
-#SOURCE=ftp://darkstar.ist.utl.pt/pub/slackware/slackware-11.0/
-#SOURCE=ftp://distro.ibiblio.org/pub/linux/distributions/slackware/slackware-11.0/
-#SOURCE=ftp://dl.xs4all.nl/pub/mirror/slackware/slackware-11.0/
-#SOURCE=ftp://ftp-linux.cc.gatech.edu/pub/Linux/distributions/slackware/slackware-11.0/
-#SOURCE=ftp://ftp.biochem.uthscsa.edu/pub/linux/slackware/slackware-11.0/
-#SOURCE=ftp://ftp.cerias.purdue.edu/pub/os/slackware/slackware-11.0/
-#SOURCE=ftp://ftp.cs.columbia.edu/archives/os/linux/slackware/slackware-11.0/
-#SOURCE=ftp://ftp.cs.cuhk.hk/pub/slackware/slackware-current/
-#SOURCE=ftp://ftp.cyb.it/pub/ftp.slackware.com/slackware-current/
-#SOURCE=ftp://ftp.edisontel.it/pub/Slackware_Mirror/slackware-11.0/
-#SOURCE=ftp://ftp.etse.urv.es/pub/linux/slackware/slackware-11.0/
-#SOURCE=ftp://ftp.heanet.ie/mirrors/ftp.slackware.com/pub/slackware/slackware-11.0/
-#SOURCE=ftp://ftp.kreonet.re.kr/pub/Linux/slackware/slackware-11.0/
-#SOURCE=ftp://ftp.linux.tucows.com/pub/distributions/Slackware/slackware-11.0/
-#SOURCE=ftp://ftp.lip6.fr/pub/linux/distributions/slackware/slackware-11.0/
-#SOURCE=ftp://ftp.loxinfo.co.th/linux/slackware/slackware-11.0/
-#SOURCE=ftp://ftp.man.olsztyn.pl/pub/linux/distributions/slackware/slackware-current/
-#SOURCE=ftp://ftp.mirror.ac.uk/sites/ftp.slackware.com/slackware-11.0/
-#SOURCE=ftp://ftp.nluug.nl/pub/os/Linux/distr/slackware/slackware-11.0/
-#SOURCE=ftp://ftp.physics.upatras.gr/mirror/slackware/slackware-11.0/
-#SOURCE=ftp://ftp.planetmirror.com/pub/slackware/slackware-11.0/
-#SOURCE=ftp://ftp.rediris.es/mirror/linux/distributions/slackware/slackware-11.0/
-#SOURCE=ftp://ftp.slackware-brasil.com.br/slackware-11.0/
-#SOURCE=ftp://ftp.slackware.at/slackware-11.0/
-#SOURCE=ftp://ftp.slackware.no/pub/linux/slackware/slackware-11.0/
-#SOURCE=ftp://ftp.slackwarebrasil.org/pub/linux/slackware/slackware-11.0/
-#SOURCE=ftp://ftp.sunet.se/pub/Linux/distributions/slackware/slackware-11.0/
-#SOURCE=ftp://ftp.tau.ac.il/pub/OS/Slackware/slackware-11.0/
-#SOURCE=ftp://ftp.ulatina.ac.cr/Unix/Linux/Slackware/slackware-11.0/
-#SOURCE=ftp://ftp.unina.it/pub/linux/distributions/slackware/slackware-11.0/
-#SOURCE=ftp://ftp.uniovi.es/pub/slackware/
-#SOURCE=ftp://gd.tuwien.ac.at/opsys/linux/slackware/slackware-11.0/
-#SOURCE=ftp://mirror.aarnet.edu.au/pub/slackware/slackware-current/
-#SOURCE=ftp://mirror.pudas.net/slackware/slackware-11.0/
-#SOURCE=ftp://mirror.switch.ch/mirror/slackware/slackware-11.0/
-#SOURCE=ftp://ncart.scs.ryerson.ca/pub/slackware/slackware-11.0/
-#SOURCE=ftp://sharon.esrac.ele.tue.nl/pub/slackware/slackware-11.0/
-#SOURCE=ftp://slackware.linux.no/pub/slackware/slackware-11.0/
-#SOURCE=ftp://slackware.oregonstate.edu/pub/slackware/slackware-11.0/
-#SOURCE=ftp://sunsite.cnlab-switch.ch/mirror/slackware/slackware-11.0/
-#SOURCE=ftp://sunsite.cnlab-switch.ch/mirror/slackware/slackware-11.0/
-#SOURCE=ftp://sunsite.icm.edu.pl/pub/Linux/slackware/slackware-11.0/
-#SOURCE=ftp://sunsite.informatik.rwth-aachen.de/pub/Linux/slackware/slackware-11.0/
-#SOURCE=ftp://sunsite.pub.ro/pub/Linux/distributions/slackware/slackware-11.0/
-#SOURCE=http://slackware.itsoft.at/slackware/slackware-11.0/
-#SOURCE=ftp://slackware.itsoft.at/slackware/slackware-11.0/
-#SOURCE=ftp://ftp.oceighty.net/slackware-10.0/
-#SOURCE=ftp://ftp.oceighty.net/slackware-current/

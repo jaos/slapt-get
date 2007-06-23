@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.12\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2007-06-15 23:10+0500\n"
+"PO-Revision-Date: 2007-06-23 14:15+0500\n"
 "Last-Translator: Nguyễn Văn Vũ <vncasper@yahoo.com>\n"
 "Language-Team: gnome-vi <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -501,4 +501,7 @@ msgstr "No key for verification"
 
 msgid "retrieve GPG keys for sources"
 msgstr "retrieve GPG keys for sources"
+
+msgid "Verifying checksum signature [%s]..."
+msgstr "Verifying checksum signature [%s]..."
 
