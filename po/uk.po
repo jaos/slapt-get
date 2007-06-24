@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.12\n"
 "POT-Creation-Date: 2005-09-07 23:24 EEST\n"
-"PO-Revision-Date: 2007-06-23 14:15+0500\n"
+"PO-Revision-Date: 2007-06-15 23:10+0500\n"
 "Last-Translators: sin <digitalhunger@gmail.com>\n"
 "Language-Team: DeepStyle Team <hottab@deepstyle.org.ua>\n"
 "MIME-Version: 1.0\n"
@@ -453,54 +453,51 @@ msgid "Excluding %s, use --ignore-dep to override\n"
 msgstr "Виключено %s, вкажiть --ignore-dep, щоб встановлювався %s \n"
 
 msgid "Package ChangeLog"
-msgstr "Package ChangeLog"
+msgstr "ChangeLog пакунку"
 
 #, c-format
 msgid "Retrieving ChangeLog.txt [%s]..."
-msgstr "Retrieving ChangeLog.txt [%s]..."
-
+msgstr "Отримання ChangeLog.txt [%s]..."
+ 
 msgid "MD5 checksum mismatch, override with --no-md5"
-msgstr "MD5 checksum mismatch, override with --no-md5"
+msgstr "Контрольна сума MD5 не сп╕впада╓, --no-md5 в╕дключа╓ перев╕рку"
 
 msgid "Missing MD5 checksum, override with --no-md5"
-msgstr "Missing MD5 checksum, override with --no-md5"
+msgstr "Контрольна сума MD5 в╕дсутня, --no-md5 в╕дключа╓ перев╕рку"
 
 msgid "Incomplete download"
-msgstr "Incomplete download"
+msgstr "Завантаження було перервано"
 
 msgid "GPG key successfully imported"
-msgstr "GPG key successfully imported"
+msgstr "Ключ GPG усп╕шно ╕мпортовано"
 
 msgid "GPG key could not be imported"
-msgstr "GPG key could not be imported"
+msgstr "Не вдалося ╕мпортувати ключ GPG"
 
 msgid "GPG key already present"
-msgstr "GPG key already present"
+msgstr "Ключ GPG вже присутн╕й"
 
 msgid "Checksums signature successfully verified"
-msgstr "Checksums signature successfully verified"
+msgstr "Контрольна сума перев╕рена усп╕шно"
 
 msgid "Checksums signature could not be verified"
-msgstr "Checksums signature could not be verified"
+msgstr "Неможливо перев╕рити контрольну суму"
 
 msgid "Verified"
-msgstr "Verified"
+msgstr "Перев╕рено"
 
 msgid "Not Verified"
-msgstr "Not Verified"
+msgstr "Не перев╕рено"
 
 msgid "Retrieving GPG key [%s]..."
-msgstr "Retrieving GPG key [%s]..."
+msgstr "Отримання ключа GPG [%s]..."
 
 msgid "Retrieving checksum signature [%s]..."
-msgstr "Retrieving checksum signature [%s]..."
+msgstr "Отримання контрольно╖ суми [%s]..."
 
 msgid "No key for verification"
-msgstr "No key for verification"
+msgstr "В╕дсутн╕й ключ для перев╕рки"
 
 msgid "retrieve GPG keys for sources"
-msgstr "retrieve GPG keys for sources"
-
-msgid "Verifying checksum signature [%s]..."
-msgstr "Verifying checksum signature [%s]..."
+msgstr "отримати ключ╕ GPG для джерел"
 
