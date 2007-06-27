@@ -504,3 +504,10 @@ msgstr "pobieraj klucze GPG ¼róde³"
 msgid "Verifying checksum signature [%s]..."
 msgstr "Potwierdzam sumê kontroln± podpisu [%s]..."
 
+msgid "Unknown error"
+msgstr "Unknown error"
+
+#, c-format
+msgid "Not Found\n"
+msgstr "Not Found\n"
+

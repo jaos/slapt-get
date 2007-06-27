@@ -512,3 +512,10 @@ msgstr "retrieve GPG keys for sources"
 msgid "Verifying checksum signature [%s]..."
 msgstr "Verifying checksum signature [%s]..."
 
+msgid "Unknown error"
+msgstr "Unknown error"
+
+#, c-format
+msgid "Not Found\n"
+msgstr "Not Found\n"
+

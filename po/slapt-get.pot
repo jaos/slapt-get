@@ -503,3 +503,10 @@ msgstr ""
 msgid "Verifying checksum signature [%s]..."
 msgstr ""
 
+msgid "Unknown error"
+msgstr ""
+
+#, c-format
+msgid "Not Found\n"
+msgstr ""
+
