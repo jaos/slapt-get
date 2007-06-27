@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.12\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2007-06-23 14:15+0500\n"
+"PO-Revision-Date: 2007-06-27 12:00+0500\n"
 "Last-Translator: Oto Petrik <oto.petrik@centrum.cz>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -102,16 +102,8 @@ msgid "Retrieving checksum list [%s]..."
 msgstr "Stahuji seznam kontrolních souètù [%s]..,"
 
 #, c-format
-msgid "Failed to malloc %s\n"
-msgstr "Nepodaøilo se alokovat(malloc) %s\n"
-
-#, c-format
-msgid "Maximum number of sources (%d) exceeded.\n"
-msgstr "Maximální poèet zdrojù (%d) pøekroèen.\n"
-
-#, c-format
-msgid "Maximum length of source (%d) exceeded.\n"
-msgstr "Maximální délka zdroje (%d) pøekroèena.\n"
+msgid "Failed to malloc\n"
+msgstr "Nepodaøilo se alokovat(malloc)\n"
 
 #, c-format
 msgid "WORKINGDIR directive not set within %s.\n"
@@ -164,8 +156,8 @@ msgid "Failed to download: %s\n"
 msgstr "Nepodaøilo se stáhnout: %s\n"
 
 #, c-format
-msgid "Failed to calloc %s\n"
-msgstr "Nepodaøilo se alokovat(calloc) %s\n"
+msgid "Failed to calloc\n"
+msgstr "Nepodaøilo se alokovat(calloc)\n"
 
 #, c-format
 msgid "Get %s %s %s [%.1f%s]..."
@@ -225,6 +217,9 @@ msgstr "[jméno balíku] - uka¾ popis balíku"
 msgid "[expression] - search available pkgs"
 msgstr "[výraz] - hledej dostupné balíky"
 
+msgid "list pkgs"
+msgstr "list pkgs"
+
 msgid "list available pkgs"
 msgstr "vypi¹ dostupné balíky"
 
@@ -268,22 +263,6 @@ msgstr "%s verze %s\n"
 #, c-format
 msgid "regex failed on [%s]\n"
 msgstr "regex neuspìl na [%s]\n"
-
-#, c-format
-msgid "pkg name too long [%s:%d]\n"
-msgstr "jméno balíku pøíli¹ dlouhé [%s:%d]\n"
-
-#, c-format
-msgid "pkg version too long [%s:%d]\n"
-msgstr "verze balíku pøíli¹ dlouhá [%s:%d]\n"
-
-#, c-format
-msgid "pkg mirror too long [%s:%d]\n"
-msgstr "zrcadlo balíku pøíli¹ dlouhé [%s:%d]\n"
-
-#, c-format
-msgid "pkg location too long [%s:%d]\n"
-msgstr "umístìní balíku pøíli¹ dlouhé [%s:%d]\n"
 
 msgid "regexec failed to parse location\n"
 msgstr "regexec neuspìl s analyzováním umístìní\n"
@@ -346,8 +325,8 @@ msgid "Failed to compile regex [%s]\n"
 msgstr "Nepodaøilo se zkompilovat regex [%s]\n"
 
 #, c-format
-msgid "pkg conditional too long [%s:%d]\n"
-msgstr "podmínka balíku pøíli¹ dlouhá [%s:%s]\n"
+msgid "pkg conditional too long\n"
+msgstr "podmínka balíku pøíli¹ dlouhá\n"
 
 msgid "The following packages have unmet dependencies:\n"
 msgstr "Následující balíky mají nesplnìné závislosti:\n"
@@ -373,20 +352,20 @@ msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
 msgstr "%d pový¹eno, %d novì nainstalováno, %d odstranìno a %d nepový¹eno.\n"
 
 #, c-format
-msgid "Need to get %dK of archives.\n"
-msgstr "Je tøeba získat %dK of archivù.\n"
+msgid "Need to get %.1d%s of archives.\n"
+msgstr "Je tøeba získat %.1d%s of archivù.\n"
 
 #, c-format
-msgid "Need to get %dK/%dK of archives.\n"
-msgstr "Je tøeba získat %dK/%dK of archivù.\n"
+msgid "Need to get %.1d%s/%.1d%s of archives.\n"
+msgstr "Je tøeba získat %.1d%s/%.1d%s of archivù.\n"
 
 #, c-format
-msgid "After unpacking %dK disk space will be freed.\n"
-msgstr "Po rozbalení bude uvolnìno %dK diskového prostoru.\n"
+msgid "After unpacking %.1d%s disk space will be freed.\n"
+msgstr "Po rozbalení bude uvolnìno %.1d%s diskového prostoru.\n"
 
 #, c-format
-msgid "After unpacking %dK of additional disk space will be used.\n"
-msgstr "Po rozbalení bude pou¾ito dal¹ích %dK diskového prostoru.\n"
+msgid "After unpacking %.1d%s of additional disk space will be used.\n"
+msgstr "Po rozbalení bude pou¾ito dal¹ích %.1d%s diskového prostoru.\n"
 
 msgid "Do you want to continue? [y/N] "
 msgstr "Chcete pokraèovat? [y/N] "
@@ -410,12 +389,8 @@ msgid "Package MD5 Sum:  %s\n"
 msgstr "MD5 souèet balíku:  %s\n"
 
 #, c-format
-msgid "md5 sum too long [%s %s:%d]\n"
-msgstr "md5 souèet pøíli¹ dlouhý [%s %s:%d]\n"
-
-#, c-format
-msgid "conflict too long [%s:%d]\n"
-msgstr "kolize pøíli¹ dlouhá [%s:%d]\n"
+msgid "md5 sum too long\n"
+msgstr "md5 souèet pøíli¹ dlouhý\n"
 
 msgid "Reading Package Lists..."
 msgstr "Naèítám seznam balíkù..."
@@ -442,16 +417,36 @@ msgstr "specifikujte náhradní umístìní slapt-getrc"
 msgid "Suggested packages:\n"
 msgstr "Navrhované balíky:\n"
 
-#, c-format
-msgid "Maximum length of working directory (%d) exceeded.\n"
-msgstr "Maximální délka pracovního adresáøe (%d) pøekroèena.\n"
-
-#, c-format
-msgid "Maximum length of excludes (%d) exceeded.\n"
-msgstr "Maximální délka vylouèených (%d) pøekroèena.\n"
-
 msgid "only purge cache of older, unreacheable pkgs"
 msgstr "vyèisti pouze cache starých, nedostupnách balíkù"
+
+msgid "remove obsolete packages"
+msgstr "remove obsolete packages"
+
+#, c-format
+msgid "You don't have enough free space in %s\n"
+msgstr "You don't have enough free space in %s\n"
+
+#, c-format
+msgid "Package Conflicts: %s\n"
+msgstr "Package Conflicts: %s\n"
+
+#, c-format
+msgid "Package Suggests: %s\n"
+msgstr "Package Suggests: %s\n"
+
+#, c-format
+msgid "Failed to parse package data from %s\n"
+msgstr "Failed to parse package data from %s\n"
+
+msgid "specify number of download retry attempts"
+msgstr "specify number of download retry attempts"
+
+msgid "install package, do not attempt to upgrade"
+msgstr "install package, do not attempt to upgrade"
+
+msgid "[disk set(s)] - install specified disk set(s)"
+msgstr "[disk set(s)] - install specified disk set(s)"
 
 msgid "always prompt during install/upgrade"
 msgstr "always prompt during install/upgrade"
