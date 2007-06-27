@@ -2735,6 +2735,7 @@ struct slapt_pkg_list *slapt_get_pkg_source_packages (const slapt_rc_config *glo
 {
   struct slapt_pkg_list *available_pkgs = NULL;
   char *pkg_head = NULL;
+  SLAPT_BOOL_T is_interactive = slapt_is_interactive(global_config);
 
   *compressed = 0;
 
@@ -2769,15 +2770,14 @@ struct slapt_pkg_list *slapt_get_pkg_source_packages (const slapt_rc_config *glo
         return NULL;
       }
 
-      if (global_config->progress_cb == NULL)
+      if (is_interactive)
         printf(gettext("Cached\n"));
 
     } else {
       FILE *tmp_pkg_f = NULL;
       const char *err = NULL;
 
-      if (global_config->progress_cb == NULL &&
-          global_config->dl_stats == SLAPT_TRUE)
+      if (global_config->dl_stats == SLAPT_TRUE)
         printf("\n");
 
       if ((tmp_pkg_f = slapt_open_file(pkg_filename,"w+b")) == NULL)
@@ -2820,8 +2820,7 @@ struct slapt_pkg_list *slapt_get_pkg_source_packages (const slapt_rc_config *glo
         if (pkg_head != NULL)
           slapt_write_head_cache(pkg_head,pkg_filename);
 
-        if (global_config->progress_cb == NULL &&
-            global_config->dl_stats == SLAPT_FALSE)
+        if (is_interactive)
           printf(gettext("Done\n"));
 
       } else {
@@ -2859,15 +2858,14 @@ struct slapt_pkg_list *slapt_get_pkg_source_packages (const slapt_rc_config *glo
       available_pkgs = slapt_parse_packages_txt(tmp_pkg_f);
       fclose(tmp_pkg_f);
 
-      if (global_config->progress_cb == NULL)
+      if (is_interactive)
         printf(gettext("Cached\n"));
 
     } else {
       FILE *tmp_pkg_f = NULL;
       const char *err = NULL;
 
-      if (global_config->progress_cb == NULL &&
-          global_config->dl_stats == SLAPT_TRUE)
+      if (global_config->dl_stats == SLAPT_TRUE)
         printf("\n");
 
       if ((tmp_pkg_f = slapt_open_file(pkg_filename,"w+b")) == NULL)
@@ -2903,8 +2901,7 @@ struct slapt_pkg_list *slapt_get_pkg_source_packages (const slapt_rc_config *glo
         if (pkg_head != NULL)
           slapt_write_head_cache(pkg_head,pkg_filename);
 
-        if (global_config->progress_cb == NULL &&
-            global_config->dl_stats == SLAPT_FALSE)
+        if (is_interactive)
           printf(gettext("Done\n"));
 
       } else {
@@ -2934,6 +2931,7 @@ struct slapt_pkg_list *slapt_get_pkg_source_patches (const slapt_rc_config *glob
 {
   struct slapt_pkg_list *patch_pkgs = NULL;
   char *patch_head = NULL;
+  SLAPT_BOOL_T is_interactive = slapt_is_interactive(global_config);
   *compressed = 0;
 
   if ((patch_head = slapt_head_mirror_data(url,SLAPT_PATCHES_LIST_GZ)) != NULL) {
@@ -2951,15 +2949,14 @@ struct slapt_pkg_list *slapt_get_pkg_source_patches (const slapt_rc_config *glob
       patch_pkgs = slapt_parse_packages_txt(tmp_patch_f);
       fclose(tmp_patch_f);
 
-      if (global_config->progress_cb == NULL)
+      if (is_interactive)
         printf(gettext("Cached\n"));
 
     } else {
       FILE *tmp_patch_f = NULL;
       const char *err = NULL;
 
-      if (global_config->progress_cb == NULL &&
-          global_config->dl_stats == SLAPT_TRUE)
+      if (global_config->dl_stats == SLAPT_TRUE)
         printf("\n");
 
       if ((tmp_patch_f = slapt_open_file(patch_filename,"w+b")) == NULL)
@@ -2980,8 +2977,7 @@ struct slapt_pkg_list *slapt_get_pkg_source_patches (const slapt_rc_config *glob
 
         patch_pkgs = slapt_parse_packages_txt(tmp_patch_uncompressed_f);
 
-        if (global_config->progress_cb == NULL &&
-            global_config->dl_stats == SLAPT_FALSE)
+        if (is_interactive)
           printf(gettext("Done\n"));
 
         if (patch_head != NULL)
@@ -2996,8 +2992,7 @@ struct slapt_pkg_list *slapt_get_pkg_source_patches (const slapt_rc_config *glob
         slapt_clear_head_cache(patch_filename);
       }
 
-      if (global_config->progress_cb == NULL &&
-          global_config->dl_stats == SLAPT_TRUE)
+      if (global_config->dl_stats == SLAPT_TRUE)
         printf("\n");
 
     }
@@ -3025,7 +3020,7 @@ struct slapt_pkg_list *slapt_get_pkg_source_patches (const slapt_rc_config *glob
 
       patch_pkgs = slapt_parse_packages_txt(tmp_patch_f);
 
-      if (global_config->progress_cb == NULL)
+      if (is_interactive)
         printf(gettext("Cached\n"));
 
       fclose(tmp_patch_f);
@@ -3033,8 +3028,7 @@ struct slapt_pkg_list *slapt_get_pkg_source_patches (const slapt_rc_config *glob
       FILE *tmp_patch_f = NULL;
       const char *err = NULL;
 
-      if (global_config->progress_cb == NULL &&
-          global_config->dl_stats == SLAPT_TRUE)
+      if (global_config->dl_stats == SLAPT_TRUE)
         printf("\n");
 
       if ((tmp_patch_f = slapt_open_file(patch_filename,"w+b")) == NULL)
@@ -3047,8 +3041,7 @@ struct slapt_pkg_list *slapt_get_pkg_source_patches (const slapt_rc_config *glob
         rewind(tmp_patch_f); /* make sure we are back at the front of the file */
         patch_pkgs = slapt_parse_packages_txt(tmp_patch_f);
 
-        if (global_config->progress_cb == NULL &&
-            global_config->dl_stats == SLAPT_FALSE)
+        if (is_interactive)
           printf(gettext("Done\n"));
 
         if (patch_head != NULL)
@@ -3059,14 +3052,12 @@ struct slapt_pkg_list *slapt_get_pkg_source_patches (const slapt_rc_config *glob
            doesn't have patches source_dl_failed = 1; */
         slapt_clear_head_cache(patch_filename);
 
-        if (global_config->progress_cb == NULL &&
-            global_config->dl_stats == SLAPT_FALSE)
+        if (is_interactive)
           printf(gettext("Done\n"));
 
       }
 
-      if (global_config->progress_cb == NULL &&
-          global_config->dl_stats == SLAPT_TRUE)
+      if (global_config->dl_stats == SLAPT_TRUE)
         printf("\n");
 
       fclose(tmp_patch_f);
@@ -3086,6 +3077,7 @@ FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,
 {
   FILE *tmp_checksum_f = NULL;
   char *checksum_head = NULL;
+  SLAPT_BOOL_T is_interactive = slapt_is_interactive(global_config);
   *compressed = 0;
 
   if ((checksum_head = slapt_head_mirror_data(url,SLAPT_CHECKSUM_FILE_GZ)) != NULL) {
@@ -3099,15 +3091,14 @@ FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,
 
       slapt_gunzip_file(filename,tmp_checksum_f);
 
-      if (global_config->progress_cb == NULL)
+      if (is_interactive)
         printf(gettext("Cached\n"));
 
     } else {
       FILE *working_checksum_f = NULL;
       const char *err = NULL;
 
-      if (global_config->progress_cb == NULL &&
-          global_config->dl_stats == SLAPT_TRUE)
+      if (global_config->dl_stats == SLAPT_TRUE)
         printf("\n");
 
       if ((working_checksum_f = slapt_open_file(filename,"w+b")) == NULL)
@@ -3118,11 +3109,9 @@ FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,
                                               SLAPT_CHECKSUM_FILE_GZ);
       if (!err) {
 
-        if (global_config->progress_cb == NULL &&
-            global_config->dl_stats == SLAPT_TRUE)
+        if (global_config->dl_stats == SLAPT_TRUE)
           printf("\n");
-        if (global_config->progress_cb == NULL &&
-            global_config->dl_stats == SLAPT_FALSE)
+        if (is_interactive) 
           printf(gettext("Done\n"));
 
         fclose(working_checksum_f);
@@ -3172,7 +3161,7 @@ FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,
       if ((tmp_checksum_f = slapt_open_file(filename,"r")) == NULL)
         exit(EXIT_FAILURE);
 
-      if (global_config->progress_cb == NULL)
+      if (is_interactive)
         printf(gettext("Cached\n"));
 
     } else {
@@ -3181,8 +3170,7 @@ FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,
       if ((tmp_checksum_f = slapt_open_file(filename,"w+b")) == NULL)
         exit(EXIT_FAILURE);
 
-      if (global_config->progress_cb == NULL &&
-          global_config->dl_stats == SLAPT_TRUE)
+      if (global_config->dl_stats == SLAPT_TRUE)
         printf("\n");
 
       err = slapt_get_mirror_data_from_source(tmp_checksum_f,
@@ -3190,8 +3178,7 @@ FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,
                                               SLAPT_CHECKSUM_FILE);
       if (!err) {
 
-        if (global_config->progress_cb == NULL &&
-            global_config->dl_stats == SLAPT_FALSE)
+        if (is_interactive)
           printf(gettext("Done\n"));
 
       } else {
@@ -3211,8 +3198,7 @@ FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,
       if (checksum_head != NULL)
         slapt_write_head_cache(checksum_head,filename);
 
-      if (global_config->progress_cb == NULL &&
-          global_config->dl_stats == SLAPT_TRUE)
+      if (global_config->dl_stats == SLAPT_TRUE)
         printf("\n");
 
     }
@@ -3236,6 +3222,7 @@ int slapt_get_pkg_source_changelog (const slapt_rc_config *global_config,
   char *location_uncomp = SLAPT_CHANGELOG_FILE;
   char *location        = location_gz;
   int success = 0,failure = -1;
+  SLAPT_BOOL_T is_interactive = slapt_is_interactive(global_config);
   *compressed = 0;
 
   changelog_head  = slapt_head_mirror_data(url,location);
@@ -3248,7 +3235,7 @@ int slapt_get_pkg_source_changelog (const slapt_rc_config *global_config,
   }
 
   if (changelog_head == NULL) {
-    if (global_config->progress_cb == NULL)
+    if (is_interactive)
       printf(gettext("Done\n"));
     return success;
   }
@@ -3258,15 +3245,14 @@ int slapt_get_pkg_source_changelog (const slapt_rc_config *global_config,
 
   if (local_head != NULL && strcmp(changelog_head,local_head) == 0) {
 
-    if (global_config->progress_cb == NULL)
+    if (is_interactive)
       printf(gettext("Cached\n"));
   
   } else {
     FILE *working_changelog_f = NULL;
     const char *err = NULL;
 
-    if (global_config->progress_cb == NULL &&
-        global_config->dl_stats == SLAPT_TRUE)
+    if (global_config->dl_stats == SLAPT_TRUE)
       printf("\n");
 
     if ((working_changelog_f = slapt_open_file(filename,"w+b")) == NULL)
@@ -3276,11 +3262,9 @@ int slapt_get_pkg_source_changelog (const slapt_rc_config *global_config,
                                             global_config,url,
                                             location);
     if (!err) {
-      if (global_config->progress_cb == NULL &&
-          global_config->dl_stats == SLAPT_TRUE)
+      if (global_config->dl_stats == SLAPT_TRUE)
         printf("\n");
-      if (global_config->progress_cb == NULL &&
-          global_config->dl_stats == SLAPT_FALSE)
+      if (is_interactive)
         printf(gettext("Done\n"));
 
       /* if all is good, write it */

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.12\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2007-06-27 12:00+0500\n"
+"PO-Revision-Date: 2007-06-27 15:15+0500\n"
 "Last-Translator: Joran Kvalvaag <jk@nerdworks.org>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -160,10 +160,6 @@ msgstr "Klarte ikke å calloc\n"
 #, c-format
 msgid "Get %s %s %s [%.1f%s]..."
 msgstr "Get %s %s %s [%.1f%s]..."
-
-#, c-format
-msgid "Get %s %s %s [%.1f%s]...\n"
-msgstr "Get %s %s %s [%.1f%s]...\n"
 
 #, c-format
 msgid "Failed to unlink %s\n"

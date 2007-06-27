@@ -195,6 +195,7 @@ const char *slapt_download_pkg(const slapt_rc_config *global_config,
   size_t f_size = 0;
   slapt_code_t verify = SLAPT_OK;
   int dl_return = -1, dl_total_size = 0;
+  SLAPT_BOOL_T is_interactive = slapt_is_interactive(global_config);
   long filetime = 0;
 
   if (pkg == NULL) {
@@ -234,19 +235,13 @@ const char *slapt_download_pkg(const slapt_rc_config *global_config,
   }
 
   if (global_config->progress_cb == NULL) {
-    if (global_config->dl_stats == SLAPT_TRUE) {
-      printf(gettext("Get %s %s %s [%.1f%s]...\n"),
-        pkg->mirror,pkg->name,pkg->version,
-        ( dl_total_size > 1024 ) ? dl_total_size / 1024.0 : dl_total_size,
-        ( dl_total_size > 1024 ) ? "MB" : "kB"
-      );
-    } else {
-      printf(gettext("Get %s %s %s [%.1f%s]..."),
-        pkg->mirror,pkg->name,pkg->version,
-        ( dl_total_size > 1024 ) ? dl_total_size / 1024.0 : dl_total_size,
-        ( dl_total_size > 1024 ) ? "MB" : "kB"
-      );
-    }
+    printf(gettext("Get %s %s %s [%.1f%s]..."),
+      pkg->mirror,pkg->name,pkg->version,
+      ( dl_total_size > 1024 ) ? dl_total_size / 1024.0 : dl_total_size,
+      ( dl_total_size > 1024 ) ? "MB" : "kB"
+    );
+    if (global_config->dl_stats == SLAPT_TRUE)
+      printf("\n");
   }
 
   /* open the file to write, append if already present */
@@ -259,8 +254,7 @@ const char *slapt_download_pkg(const slapt_rc_config *global_config,
   dl_return = slapt_download_data(fh,url,f_size,&filetime,global_config);
   if (dl_return == 0) {
 
-    if (global_config->dl_stats == SLAPT_FALSE &&
-        global_config->progress_cb == NULL)
+    if (is_interactive)
       printf(gettext("Done\n"));
 
   } else if (dl_return == CURLE_HTTP_RANGE_ERROR ||

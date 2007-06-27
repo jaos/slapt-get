@@ -64,3 +64,4 @@ void slapt_add_source(struct slapt_source_list *list,const char *s);
 void slapt_remove_source (struct slapt_source_list *list, const char *s);
 void slapt_free_source_list(struct slapt_source_list *list);
 
+SLAPT_BOOL_T slapt_is_interactive(const slapt_rc_config *);

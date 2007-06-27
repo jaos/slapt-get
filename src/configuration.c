@@ -387,3 +387,12 @@ void slapt_free_source_list(struct slapt_source_list *list)
   free(list);
 }
 
+SLAPT_BOOL_T slapt_is_interactive(const slapt_rc_config *global_config)
+{
+  SLAPT_BOOL_T interactive  = global_config->progress_cb == NULL 
+                            ? SLAPT_TRUE
+                            : SLAPT_FALSE;
+
+  return interactive;
+}
+
