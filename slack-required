@@ -7,5 +7,3 @@ pkgtools
 zlib
 gpgme
 libgpg-error
-gnupg
-libassuan
