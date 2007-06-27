@@ -6,6 +6,8 @@ libslapt \- slapt-get library
 #define _GNU_SOURCE
 #include <slapt.h>
 
+/* initialize slapt_rc_config */
+slapt_rc_config *slapt_init_config(void);
 /* parse config file for sources, excludes, and working_dir*/
 slapt_rc_config *config = slapt_read_rc_config("/etc/slapt-get/slapt-getrc");
 /* get a list of installed packages */
@@ -23,16 +25,18 @@ slapt_pkg_info_t *pkg = slapt_get_exact_pkg(available,
                                             "slapt-get",
                                             "0.9.10c-i386-1");
 if (!slapt_is_excluded(config,pkg)) {
-  slapt_download_pkg(config,pkg);
+  const char *error = slapt_download_pkg(config,pkg);
 
-  if (slapt_install_pkg(config,pkg) != 0) {
-    fprintf(stderr,"error installing %s\\n"pkg->name);
-  }
-  if (slapt_upgrade_pkg(config,pkg) != 0) {
-    fprintf(stderr,"error upgrading %s\\n"pkg->name);
-  }
-  if (slapt_remove_pkg(config,pkg) != 0) {
-    fprintf(stderr,"error removing %s\\n"pkg->name);
+  if (error == NULL) {
+    if (slapt_install_pkg(config,pkg) != 0) {
+      fprintf(stderr,"error installing %s\\n"pkg->name);
+    }
+    if (slapt_upgrade_pkg(config,pkg) != 0) {
+      fprintf(stderr,"error upgrading %s\\n"pkg->name);
+    }
+    if (slapt_remove_pkg(config,pkg) != 0) {
+      fprintf(stderr,"error removing %s\\n"pkg->name);
+    }
   }
 }
 slapt_free_pkg(pkg);
@@ -79,9 +83,11 @@ slapt-get stores the configuration information in a \fIslapt_rc_config\fP object
 .fi
 
 .TP
-The \fIslapt_rc_config\fP is created with the \fIslapt_read_rc_config\fP() function by passing in the file location of the configuration to parse.
+The \fIslapt_rc_config\fP is created with the \fIslapt_read_rc_config\fP() function by passing in the file location of the configuration to parse, or by calling \fIslapt_init_config\fP() to return an empty, initialized \fIslapt_rc_config\fP.
 .sp
 .B "slapt_rc_config *slapt_read_rc_config(const char *file_name);"
+.sp
+.B "slapt_rc_config *slapt_init_config(void);"
 .sp
 .TP
 and is freed by a call to the \fIslapt_free_rc_config\fP() function.
@@ -92,7 +98,7 @@ and is freed by a call to the \fIslapt_free_rc_config\fP() function.
 The progress callback is a function that is called while data is being downloaded.  It is in the format of \fBint slapt_progress_callback(void *clientp, double dltotal, double dlnow, double ultotal, double ulnow);\fP
 .sp
 .TP
-The \fIstruct slapt_source_list\fP stores the package sources.  Sources can be added and removed with \fIslapt_add_source\fP() and \fIslapt_remove_source\fP().  Typically, \fIslapt_rc_config->sources\fP is passed as the first argument, but it could be any pointer to a \fIstruct slapt_source_list\fP.
+The \fIstruct slapt_source_list\fP stores the package sources.  Sources can be added and removed with \fIslapt_add_source\fP() and \fIslapt_remove_source\fP().  Typically, \fIslapt_rc_config->sources\fP is passed as the first argument, but it could be any pointer to a \fIstruct slapt_source_list\fP that is created by \fIslapt_init_source_list\fP().
 .sp
 .nf
   struct slapt_source_list {
@@ -100,12 +106,14 @@ The \fIstruct slapt_source_list\fP stores the package sources.  Sources can be a
     unsigned int count;
   };
 .sp
+.B "struct slapt_source_list *slapt_init_source_list(void);"
 .B "void slapt_add_source(struct slapt_source_list *list,const char *s);"
 .B "void slapt_remove_source (struct slapt_source_list *list, const char *s);"
+.B "void slapt_free_source_list(struct slapt_source_list *list);"
 .fi
 .sp
 .TP
-The \fIstruct slapt_exclude_list\fP stores the package excludes.  Excludes can be added and removed with \fIslapt_add_exclude\fP() and \fIslapt_remove_exclude\fP().  Typically, \fIslapt_rc_config->excludes\fP is passed as the first argument, but it could be any pointer to a \fIstruct slapt_exclude_list\fP.
+The \fIstruct slapt_exclude_list\fP stores the package excludes.  Excludes can be added and removed with \fIslapt_add_exclude\fP() and \fIslapt_remove_exclude\fP().  Typically, \fIslapt_rc_config->excludes\fP is passed as the first argument, but it could be any pointer to a \fIstruct slapt_exclude_list\fP that is created by \fIslapt_init_exclude_list\fP().
 .sp
 .nf
   struct slapt_exclude_list {
@@ -113,8 +121,10 @@ The \fIstruct slapt_exclude_list\fP stores the package excludes.  Excludes can b
     unsigned int count;
   };
 .sp
+.B "struct slapt_exclude_list *slapt_init_exclude_list(void);"
 .B "void slapt_add_exclude(struct slapt_exclude_list *list,const char *e);"
 .B "void slapt_remove_exclude(struct slapt_exclude_list *list,const char *e);"
+.B "void slapt_free_exclude_list(struct slapt_exclude_list *list);"
 .fi
 .sp
 .TP
@@ -161,11 +171,15 @@ Package lists are useful for grouping packages from the existing installed packa
     slapt_pkg_info_t **pkgs;
     unsigned int pkg_count;
     SLAPT_BOOL_T free_pkgs;
+    SLAPT_BOOL_T ordered;
   };
 .fi
 .sp
 .TP
 If \fIfree_pkgs\fP is set to TRUE, \fIslapt_free_pkg_list\fP will call \fIslapt_free_pkg\fP() for each \fIslapt_pkg_info_t\fP within the list.  Leave this to the default of FALSE if the list is populated with pointers to \fIslapt_pkg_info_t\fP objects that are freed elsewhere.
+.sp
+.TP
+If \fIordered\fP is is set to TRUE, the list has been sorted by \fIqsort\fP().
 .sp
 .TP
 \fIslapt_pkg_info_t\fP objects are created by \fIslapt_init_pkg_list\fP() and freed by \fIslapt_free_pkg_list\fP().  \fIslapt_add_pkg_to_pkg_list\fP() is used to add a package to a list.
@@ -266,7 +280,7 @@ The following functions deal with determining package dependencies and conflicts
 .sp
 .fi
 .TP
-\fIslapt_is_required_by\fP returns a \fIstruct slapt_pkg_list\fP of packages that require the package specified.
+\fIslapt_is_required_by\fP() returns a \fIstruct slapt_pkg_list\fP of packages that require the package specified.
 .sp
 .nf
 .B "struct slapt_pkg_list *"
@@ -276,10 +290,35 @@ The following functions deal with determining package dependencies and conflicts
 .sp
 .fi
 .TP
+\fIslapt_get_obsolete_pkgs\fP() returns a \fIstruct slapt_pkg_list\fP of packages that are no longer available from the current package sources.
+.sp
+.nf
+.B "struct slapt_pkg_list *"
+.B "  slapt_get_obsolete_pkgs ( const slapt_rc_config *global_config,"
+.B "                            struct slapt_pkg_list *avail_pkgs,"
+.B "                            struct slapt_pkg_list *installed_pkgs);"
+.B "
+.sp
+.fi
+.TP
 \fIslapt_is_excluded\fP() returns 1 if package is present in the exclude list, 0 if not.
 .sp
 .nf
 .B "int slapt_is_excluded(const slapt_rc_config *,slapt_pkg_info_t *);"
+.fi
+.sp
+.TP
+\fIslapt_get_pkg_changelog\fP() returns the package changelog entry, if any.  Otherwise returns NULL.  Assumes already chdir'd to the working directory.
+.sp
+.nf
+.B "char *slapt_get_pkg_changelog(const slapt_pkg_info_t *pkg);"
+.fi
+.sp
+.TP
+\fIslapt_stringify_pkg\fP() returns a string representation of the package.
+.sp
+.nf
+.B "char *slapt_stringify_pkg(const slapt_pkg_info_t *pkg);"
 .fi
 .sp
 .TP
@@ -301,16 +340,16 @@ The \fIslapt_clean_description\fP() function is used to clean the package name f
 .sp
 .IP \fBDOWNLOADING\fP
 .TP
-Downloading packages and the package data from various sources is handled with the following functions.  Functions with integer return types return non-zero on error.
+Downloading packages and the package data from various sources is handled with the following functions.  Functions with integer return types return non-zero on error.  \fIslapt_update_pkg_cache\fP() and \fIslapt_get_available_pkgs\fP() assume to be chdir'd to the working directory.
 .sp
 .nf
 .B "int slapt_update_pkg_cache(const slapt_rc_config *global_config);"
-.B "int slapt_download_pkg(const slapt_rc_config *global_config,"
+.B "const char *slapt_download_pkg(const slapt_rc_config *global_config,"
 .B "                       slapt_pkg_info_t *pkg);"
-.B "int slapt_verify_downloaded_pkg(const slapt_rc_config *global_config,"
+.B "slapt_code_t slapt_verify_downloaded_pkg(const slapt_rc_config *global_config,"
 .B "                                slapt_pkg_info_t *pkg);"
 .sp
-.B "int slapt_get_mirror_data_from_source(FILE *fh,"
+.B "const char *slapt_get_mirror_data_from_source(FILE *fh,"
 .B "                                      const slapt_rc_config *global_config,"
 .B "                                      const char *base_url,"
 .B "                                      const char *filename);"
@@ -322,18 +361,33 @@ Downloading packages and the package data from various sources is handled with t
 .fi
 .sp
 .TP
-The following three functions download the PACKAGES.TXT, the patches/PACKAGES.TXT, and CHECKSUMS.md5 and return a package list or the file of the CHECKSUMS.md5.
+The following functions download the PACKAGES.TXT, the patches/PACKAGES.TXT, CHECKSUMS.md5, and ChangeLog.txt.  Each sets the compressed option if a compressed version was available and retrieved.
 .sp
 .nf
 .B "struct slapt_pkg_list *"
 .B "slapt_get_pkg_source_packages (const slapt_rc_config *global_config,"
-.B "                               const char *url);"
+.B "                               const char *url, unsigned int *compressed);"
 .B "struct slapt_pkg_list *"
 .B "slapt_get_pkg_source_patches (const slapt_rc_config *global_config,"
-.B "                              const char *url);"
+.B "                              const char *url, unsigned int *compressed);"
 .B "FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,"
-.B "                                      const char *url);"
+.B "                                      const char *url, unsigned int *compressed);"
+.B "int slapt_get_pkg_source_changelog (const slapt_rc_config *global_config,"
+.B "                                      const char *url, unsigned int *compressed);"
 .fi
+.sp
+.TP
+Progress callbacks make use of \fIstruct slapt_progress_data\fP.
+.sp
+.nf
+  struct slapt_progress_data
+  {
+    size_t bytes;
+    time_t start;
+  };
+.sp
+.B "struct slapt_progress_data *slapt_init_progress_data(void);"
+.B "void slapt_free_progress_data(struct slapt_progress_data *d);"
 .sp
 .IP \fBTRANSACTIONS\fP
 .TP
@@ -422,6 +476,38 @@ Adding, removing, and upgrading packages can be wrapped in a \fIslapt_transactio
 .B "void slapt_generate_suggestions(slapt_transaction_t *tran);"
 .fi
 .sp
+.IP \fBGPG\fP
+.TP
+Functionality for GPG verification of package sources.
+.sp
+.TP
+Retrieve the signature file for CHECKSUMS.md5 (or the signature for CHECKSUMS.md5.gz).  Sets compressed depending on which was found.
+.nf
+.B "FILE *slapt_get_pkg_source_checksums_signature (const slapt_rc_config *global_config,"
+.B "                                                const char *url,"
+.B "                                                unsigned int *compressed);"
+.fi
+.sp
+.TP
+Retrieve the GPG-KEY file from the package source, if available.  Returns NULL if not found.
+.nf
+.B "FILE *slapt_get_pkg_source_gpg_key(const slapt_rc_config *global_config,"
+.B "                                   const char *url,"
+.B "                                   unsigned int *compressed);"
+.fi
+.sp
+.TP
+Add the GPG-Key to the local keyring. Returns one of the following: SLAPT_GPG_KEY_IMPORTED, SLAPT_GPG_KEY_NOT_IMPORTED, or SLAPT_GPG_KEY_UNCHANGED.
+.nf
+.B "slapt_code_t slapt_add_pkg_source_gpg_key (FILE *key);"
+.fi
+.sp
+.TP
+Verify the signature is valid for the compressed or uncompressed checksum.  Returns one of the following: SLAPT_CHECKSUMS_VERIFIED, SLAPT_CHECKSUMS_MISSING_KEY, or SLAPT_CHECKSUMS_NOT_VERIFIED.
+.nf
+.B "slapt_code_t slapt_gpg_verify_checksums(FILE *checksums, FILE *signature);"
+.sp
+.fi
 .IP \fBMISCELLANEOUS\fP
 .TP
 Miscellaneous functionality within libslapt.
@@ -447,8 +533,27 @@ Miscellaneous functionality within libslapt.
 .B "__inline void *slapt_calloc(size_t n,size_t s);"
 .fi
 .sp
+.nf
+  typedef enum {
+    SLAPT_OK = 0,
+    SLAPT_MD5_CHECKSUM_MISMATCH,
+    SLAPT_MD5_CHECKSUM_MISSING,
+    #ifdef SLAPT_HAS_GPGME
+    SLAPT_GPG_KEY_IMPORTED,
+    SLAPT_GPG_KEY_NOT_IMPORTED,
+    SLAPT_GPG_KEY_UNCHANGED,
+    SLAPT_CHECKSUMS_VERIFIED,
+    SLAPT_CHECKSUMS_MISSING_KEY,
+    SLAPT_CHECKSUMS_NOT_VERIFIED,
+    #endif
+    SLAPT_DOWNLOAD_INCOMPLETE
+  } slapt_code_t;
+.sp
+.B "const char *slapt_strerror(slapt_code_t code);"
+.fi
+.sp
 .SH LINKING WITH LIBSLAPT
-You must link with -lslapt and with libcurl through the curl-config script.  For example: `curl-config --libs` -lslapt
+You must link with -lslapt and with libcurl through the curl-config script.  For example: `curl-config --libs` -lslapt.  Optionally, gpgme may be linked into libslapt, which requires `gpgme-config --libs`.
 .SH SEE ALSO
 .BR libcurl(3)
 .BR zlib(3)

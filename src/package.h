@@ -276,8 +276,12 @@ int slapt_get_pkg_source_changelog (const slapt_rc_config *global_config,
 /* clean package name from package description */
 void slapt_clean_description (char *description, const char *name);
 
-/* retrieve the packages changelog entry, if any.  Returns NULL otherwise */
+/*
+  retrieve the packages changelog entry, if any.  Returns NULL otherwise
+  Must be chdir'd to working_dir.
+*/
 char *slapt_get_pkg_changelog(const slapt_pkg_info_t *pkg);
 
+/* returns a string representation of the package */
 char *slapt_stringify_pkg(const slapt_pkg_info_t *pkg);
 

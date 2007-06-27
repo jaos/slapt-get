@@ -1,5 +1,6 @@
 
-0.9.12 Jun 24, 2007
+0.9.12 Jun 26, 2007
+ * updated doc/libslapt.3 manpage
  * russian an ukrainian updates from sin
  * updated translations
  * rewind checksum file after verifying it
