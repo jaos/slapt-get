@@ -1,4 +1,8 @@
 
+0.9.12a Jul 25, 2007
+ * bug fix for segfault if gpg verification fails for an uncompressed
+   checksums file.  Thanks to QliXed.
+
 0.9.12 Jul 10, 2007
  * updated doc/libslapt.3 manpage
  * russian an ukrainian updates from sin
