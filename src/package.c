@@ -2049,7 +2049,7 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
     tmp_signature_f = slapt_get_pkg_source_checksums_signature (global_config,
                                                                 global_config->sources->url[i],
                                                                 &compressed);
-    /* if we downloaded the compressed checksums, open it raw (w/o gunzippign) */
+    /* if we downloaded the compressed checksums, open it raw (w/o gunzipping) */
     if (compressed == 1)
     {
       char *filename = slapt_gen_filename_from_url(global_config->sources->url[i],
