@@ -1,5 +1,6 @@
 
-0.9.12a Jul 25, 2007
+0.9.12a Jul 31, 2007
+ * debugging output for gpgme errors
  * bug fix for segfault if gpg verification fails for an uncompressed
    checksums file.  Thanks to QliXed.
 

@@ -1,6 +1,5 @@
 
 #include <gpgme.h>
-#include <assert.h>
 
 #define SLAPT_GPG_KEY "GPG-KEY"
 #define SLAPT_CHECKSUM_ASC_FILE "CHECKSUMS.md5.asc"

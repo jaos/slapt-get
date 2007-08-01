@@ -192,16 +192,38 @@ slapt_code_t slapt_add_pkg_source_gpg_key (FILE *key)
   slapt_code_t imported = SLAPT_GPG_KEY_NOT_IMPORTED;
 
   e = gpgme_new          (&ctx);
-  assert                 (e == GPG_ERR_NO_ERROR);
+  if (e != GPG_ERR_NO_ERROR)
+  {
+    fprintf (stderr, "GPGME error (%s): %s\n", gpgme_strsource (e), gpgme_strerror (e));
+    return imported;
+  }
+
   e = gpgme_set_protocol (ctx, GPGME_PROTOCOL_OpenPGP);
-  assert                 (e == GPG_ERR_NO_ERROR);
+  if (e != GPG_ERR_NO_ERROR)
+  {
+    fprintf (stderr, "GPGME error (%s): %s\n", gpgme_strsource (e), gpgme_strerror (e));
+    gpgme_release       (ctx);
+    return imported;
+  }
+
   gpgme_set_armor (ctx, 1);
   
   e = gpgme_data_new_from_stream (&key_data, key);
-  assert (e == GPG_ERR_NO_ERROR);
+  if (e != GPG_ERR_NO_ERROR)
+  {
+    fprintf (stderr, "GPGME error (%s): %s\n", gpgme_strsource (e), gpgme_strerror (e));
+    gpgme_release       (ctx);
+    return imported;
+  }
 
   e = gpgme_op_import(ctx, key_data);
-  assert (e == GPG_ERR_NO_ERROR);
+  if (e)
+  {
+    fprintf (stderr, "GPGME error (%s): %s\n", gpgme_strsource (e), gpgme_strerror (e));
+    gpgme_data_release  (key_data);
+    gpgme_release       (ctx);
+    return imported;
+  }
 
   import_result = gpgme_op_import_result(ctx);
   if (import_result != NULL)
@@ -226,18 +248,36 @@ slapt_code_t slapt_gpg_verify_checksums(FILE *checksums,
   slapt_code_t verified = SLAPT_CHECKSUMS_NOT_VERIFIED;
 
   e = gpgme_new          (&ctx);
-  assert                 (e == GPG_ERR_NO_ERROR);
+  if (e != GPG_ERR_NO_ERROR)
+  {
+    return verified;
+  }
+
   e = gpgme_set_protocol (ctx, GPGME_PROTOCOL_OpenPGP);
-  assert                 (e == GPG_ERR_NO_ERROR);
+  if (e != GPG_ERR_NO_ERROR)
+  {
+    gpgme_release       (ctx);
+    return verified;
+  }
+
   gpgme_set_armor (ctx, 1);
 
   e = gpgme_data_new_from_stream (&chk_data, checksums);
-  assert                         (e == GPG_ERR_NO_ERROR);
+  if (e != GPG_ERR_NO_ERROR)
+  {
+    gpgme_release       (ctx);
+    return verified;
+  }
+
   e = gpgme_data_new_from_stream (&asc_data, signature);
-  assert                         (e == GPG_ERR_NO_ERROR);
+  if (e != GPG_ERR_NO_ERROR)
+  {
+    gpgme_data_release  (chk_data);
+    gpgme_release       (ctx);
+    return verified;
+  }
 
   e = gpgme_op_verify (ctx, asc_data, chk_data, NULL);
-  /* assert              (e == GPG_ERR_NO_ERROR); */
   
   if (e == GPG_ERR_NO_ERROR)
   {
