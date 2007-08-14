@@ -24,10 +24,10 @@ ifeq ($(HAS_GPGME),1)
 	LIBHEADERS+=src/gpgme.h
 	LDFLAGS+=`gpgme-config --libs`
 endif
-CFLAGS=-W -Werror -Wall -g -ansi -pedantic $(DEFINES) -fpic
+CFLAGS=-W -Werror -Wall -O2 -ansi -pedantic $(DEFINES) -fpic
 ifeq ($(ARCH),x86_64)
 	LIBDIR=/usr/lib64
-	CFLAGS=-W -Werror -Wall -g -ansi -pedantic $(DEFINES) -fPIC
+	CFLAGS=-W -Werror -Wall -O2 -ansi -pedantic $(DEFINES) -fPIC
 endif
 
 default: $(PACKAGE)

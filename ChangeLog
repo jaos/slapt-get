@@ -1,6 +1,7 @@
 
-0.9.12a Jul 31, 2007
- * debugging output for gpgme errors
+0.9.12a Aug 14, 2007
+ * FAQ update mentioning GPGME troubleshooting.
+ * Improved handling of GPGME errors
  * bug fix for segfault if gpg verification fails for an uncompressed
    checksums file.  Thanks to QliXed.
 

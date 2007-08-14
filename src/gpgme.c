@@ -18,6 +18,39 @@
 
 #include "main.h"
 
+static gpgme_ctx_t *_slapt_init_gpgme_ctx(void)
+{
+  gpgme_error_t e;
+  gpgme_ctx_t *ctx = slapt_malloc(sizeof *ctx);
+
+  e = gpgme_new(ctx);
+  if (e != GPG_ERR_NO_ERROR)
+  {
+    fprintf (stderr, "GPGME: %s\n", gpgme_strerror (e));
+    free(ctx);
+    return NULL;
+  }
+
+  e = gpgme_set_protocol (*ctx, GPGME_PROTOCOL_OpenPGP);
+  if (e != GPG_ERR_NO_ERROR)
+  {
+    gpgme_release       (*ctx);
+    free(ctx);
+    return NULL;
+  }
+
+  gpgme_set_armor (*ctx, 1);
+
+  return ctx;
+}
+
+static void _slapt_free_gpgme_ctx(gpgme_ctx_t *ctx)
+{
+  gpgme_release(*ctx);
+  free(ctx);
+}
+
+
 FILE *slapt_get_pkg_source_checksums_signature (const slapt_rc_config *global_config,
                                                 const char *url,
                                                 unsigned int *compressed)
@@ -186,46 +219,29 @@ FILE *slapt_get_pkg_source_gpg_key(const slapt_rc_config *global_config,
 slapt_code_t slapt_add_pkg_source_gpg_key (FILE *key)
 {
   gpgme_error_t e;
-  gpgme_ctx_t ctx;
+  gpgme_ctx_t *ctx = _slapt_init_gpgme_ctx();
   gpgme_import_result_t import_result;
   gpgme_data_t key_data;
   slapt_code_t imported = SLAPT_GPG_KEY_NOT_IMPORTED;
 
-  e = gpgme_new          (&ctx);
-  if (e != GPG_ERR_NO_ERROR)
-  {
-    fprintf (stderr, "GPGME error (%s): %s\n", gpgme_strsource (e), gpgme_strerror (e));
-    return imported;
-  }
-
-  e = gpgme_set_protocol (ctx, GPGME_PROTOCOL_OpenPGP);
-  if (e != GPG_ERR_NO_ERROR)
-  {
-    fprintf (stderr, "GPGME error (%s): %s\n", gpgme_strsource (e), gpgme_strerror (e));
-    gpgme_release       (ctx);
-    return imported;
-  }
-
-  gpgme_set_armor (ctx, 1);
-  
   e = gpgme_data_new_from_stream (&key_data, key);
   if (e != GPG_ERR_NO_ERROR)
   {
-    fprintf (stderr, "GPGME error (%s): %s\n", gpgme_strsource (e), gpgme_strerror (e));
-    gpgme_release       (ctx);
+    fprintf (stderr, "GPGME: %s\n", gpgme_strerror (e));
+    _slapt_free_gpgme_ctx(ctx);
     return imported;
   }
 
-  e = gpgme_op_import(ctx, key_data);
+  e = gpgme_op_import(*ctx, key_data);
   if (e)
   {
-    fprintf (stderr, "GPGME error (%s): %s\n", gpgme_strsource (e), gpgme_strerror (e));
+    fprintf (stderr, "GPGME: %s\n", gpgme_strerror (e));
     gpgme_data_release  (key_data);
-    gpgme_release       (ctx);
+    _slapt_free_gpgme_ctx(ctx);
     return imported;
   }
 
-  import_result = gpgme_op_import_result(ctx);
+  import_result = gpgme_op_import_result(*ctx);
   if (import_result != NULL)
   {
     if (import_result->unchanged > 0)
@@ -235,7 +251,7 @@ slapt_code_t slapt_add_pkg_source_gpg_key (FILE *key)
   }
 
   gpgme_data_release  (key_data);
-  gpgme_release       (ctx);
+  _slapt_free_gpgme_ctx(ctx);
   return imported;
 }
 
@@ -243,29 +259,14 @@ slapt_code_t slapt_gpg_verify_checksums(FILE *checksums,
                                         FILE *signature)
 {
   gpgme_error_t e;
-  gpgme_ctx_t ctx;
+  gpgme_ctx_t *ctx = _slapt_init_gpgme_ctx();
   gpgme_data_t chk_data, asc_data;
   slapt_code_t verified = SLAPT_CHECKSUMS_NOT_VERIFIED;
-
-  e = gpgme_new          (&ctx);
-  if (e != GPG_ERR_NO_ERROR)
-  {
-    return verified;
-  }
-
-  e = gpgme_set_protocol (ctx, GPGME_PROTOCOL_OpenPGP);
-  if (e != GPG_ERR_NO_ERROR)
-  {
-    gpgme_release       (ctx);
-    return verified;
-  }
-
-  gpgme_set_armor (ctx, 1);
 
   e = gpgme_data_new_from_stream (&chk_data, checksums);
   if (e != GPG_ERR_NO_ERROR)
   {
-    gpgme_release       (ctx);
+    _slapt_free_gpgme_ctx(ctx);
     return verified;
   }
 
@@ -273,15 +274,15 @@ slapt_code_t slapt_gpg_verify_checksums(FILE *checksums,
   if (e != GPG_ERR_NO_ERROR)
   {
     gpgme_data_release  (chk_data);
-    gpgme_release       (ctx);
+    _slapt_free_gpgme_ctx(ctx);
     return verified;
   }
 
-  e = gpgme_op_verify (ctx, asc_data, chk_data, NULL);
+  e = gpgme_op_verify (*ctx, asc_data, chk_data, NULL);
   
   if (e == GPG_ERR_NO_ERROR)
   {
-    gpgme_verify_result_t verify_result = gpgme_op_verify_result (ctx);
+    gpgme_verify_result_t verify_result = gpgme_op_verify_result (*ctx);
     if (verify_result != NULL)
     {
       gpgme_signature_t sig = verify_result->signatures;
@@ -299,7 +300,7 @@ slapt_code_t slapt_gpg_verify_checksums(FILE *checksums,
 
   gpgme_data_release  (chk_data);
   gpgme_data_release  (asc_data);
-  gpgme_release       (ctx);
+  _slapt_free_gpgme_ctx(ctx);
 
   return verified;
 }

@@ -2001,12 +2001,13 @@ slapt_pkg_info_t *slapt_get_pkg_by_details(struct slapt_pkg_list *list,
 /* update package data from mirror url */
 int slapt_update_pkg_cache(const slapt_rc_config *global_config)
 {
-  unsigned int i,source_dl_failed = 0, compressed = 0;
+  unsigned int i,source_dl_failed = 0;
   struct slapt_pkg_list *new_pkgs = slapt_init_pkg_list();
   new_pkgs->free_pkgs = SLAPT_TRUE;
 
   /* go through each package source and download the meta data */
   for (i = 0; i < global_config->sources->count; i++) {
+    unsigned int compressed = 0;
     struct slapt_pkg_list *available_pkgs = NULL;
     struct slapt_pkg_list *patch_pkgs = NULL;
     FILE *tmp_checksum_f = NULL;
