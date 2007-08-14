@@ -34,6 +34,7 @@ static gpgme_ctx_t *_slapt_init_gpgme_ctx(void)
   e = gpgme_set_protocol (*ctx, GPGME_PROTOCOL_OpenPGP);
   if (e != GPG_ERR_NO_ERROR)
   {
+    fprintf (stderr, "GPGME: %s\n", gpgme_strerror (e));
     gpgme_release       (*ctx);
     free(ctx);
     return NULL;
@@ -224,6 +225,9 @@ slapt_code_t slapt_add_pkg_source_gpg_key (FILE *key)
   gpgme_data_t key_data;
   slapt_code_t imported = SLAPT_GPG_KEY_NOT_IMPORTED;
 
+  if (ctx == NULL)
+    return imported;
+
   e = gpgme_data_new_from_stream (&key_data, key);
   if (e != GPG_ERR_NO_ERROR)
   {
@@ -262,6 +266,9 @@ slapt_code_t slapt_gpg_verify_checksums(FILE *checksums,
   gpgme_ctx_t *ctx = _slapt_init_gpgme_ctx();
   gpgme_data_t chk_data, asc_data;
   slapt_code_t verified = SLAPT_CHECKSUMS_NOT_VERIFIED;
+
+  if (ctx == NULL)
+    return verified;
 
   e = gpgme_data_new_from_stream (&chk_data, checksums);
   if (e != GPG_ERR_NO_ERROR)
