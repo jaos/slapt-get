@@ -54,6 +54,7 @@ Frequently Asked Questions:
 51. How do I install a kernel rather than upgrade the existing kernel?
 52. What are the relationships of CHECKSUMS.md5, PACKAGES.TXT and package_data?
 53. Does slapt-get support the GPG/PGP signature verification? 
+54. Why am I getting "GPGME: Invalid crypto engine"?
 
 
 
@@ -1178,5 +1179,13 @@ Frequently Asked Questions:
  CHECKSUMS listing is downloaded and verification is attempted.  If the key
  is not present slapt-get mentions this and continues on.  slapt-get only halts
  if verification failed.
+
+
+54. Why am I getting "GPGME: Invalid crypto engine"?
+
+ Recent versions of slapt-get support GPG key verification via the GPGME
+ library.  GPGME requires gnupg to support the OpenPGP protocol.  At this
+ time gnupg2 is not compatible with GPGME and so gnupg must also be installed.
+ gnupg 1.x can be installed side by side with gnupg2.  
 
 
