@@ -112,6 +112,7 @@ SOURCE=http://software.jaos.org/slackpacks/12.0/
 #SOURCE=http://jinx.tp2.be/slackware/
 #SOURCE=http://download.zenwalk.org/i486/snapshot/
 #SOURCE=http://de.repos.slackware-current.net/
+#SOURCE=http://slackware.sukkology.net/repository/
 
 
 # pull from your cdrom

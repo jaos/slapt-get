@@ -1,5 +1,5 @@
 
-0.9.12a Aug 14, 2007
+0.9.12a Aug 18, 2007
  * added gnupg as explicit dependency
  * FAQ update mentioning GPGME troubleshooting.
  * Improved handling of GPGME errors
