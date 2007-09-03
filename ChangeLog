@@ -1,4 +1,7 @@
 
+0.9.12b Sep 02, 2007
+ * bug fix for detecting reverse dependencies when removing packages
+
 0.9.12a Aug 18, 2007
  * added gnupg as explicit dependency
  * FAQ update mentioning GPGME troubleshooting.

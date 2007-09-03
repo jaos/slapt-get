@@ -46,23 +46,24 @@ void slapt_pkg_action_install(const slapt_rc_config *global_config,
   }
 
   for (i = 0; i < action_args->count; ++i) {
+    char *arg = action_args->pkgs[i];
     slapt_pkg_info_t *pkg = NULL;
     slapt_pkg_info_t *installed_pkg = NULL;
 
     /* Use regex to see if they specified a particular version */
-    slapt_execute_regex(pkg_regex,action_args->pkgs[i]);
+    slapt_execute_regex(pkg_regex,arg);
 
     /* If so, parse it out and try to get that version only */
     if ( pkg_regex->reg_return == 0 ) {
       char *pkg_name,*pkg_version;
 
       pkg_name = strndup(
-        action_args->pkgs[i] + pkg_regex->pmatch[1].rm_so,
+        arg + pkg_regex->pmatch[1].rm_so,
         pkg_regex->pmatch[1].rm_eo - pkg_regex->pmatch[1].rm_so
       );
 
       pkg_version = strndup(
-        action_args->pkgs[i] + pkg_regex->pmatch[2].rm_so,
+        arg + pkg_regex->pmatch[2].rm_so,
         pkg_regex->pmatch[2].rm_eo - pkg_regex->pmatch[2].rm_so
       );
 
@@ -74,11 +75,11 @@ void slapt_pkg_action_install(const slapt_rc_config *global_config,
 
     /* If regex doesnt match */
     if ( pkg_regex->reg_return != 0 || pkg == NULL ) {
-      /* make sure there is a package called action_args->pkgs[i] */
-      pkg = slapt_get_newest_pkg(avail_pkgs,action_args->pkgs[i]);
+      /* make sure there is a package called arg */
+      pkg = slapt_get_newest_pkg(avail_pkgs,arg);
 
       if ( pkg == NULL ) {
-        fprintf(stderr,gettext("No such package: %s\n"),action_args->pkgs[i]);
+        fprintf(stderr,gettext("No such package: %s\n"),arg);
         continue;
       }
 
@@ -242,22 +243,23 @@ void slapt_pkg_action_remove(const slapt_rc_config *global_config,
   for (i = 0; i < action_args->count; ++i) {
     unsigned int c;
     struct slapt_pkg_list *deps = NULL;
+    char *arg = action_args->pkgs[i];
     slapt_pkg_info_t *pkg = NULL;
 
     /* Use regex to see if they specified a particular version */
-    slapt_execute_regex(pkg_regex,action_args->pkgs[i]);
+    slapt_execute_regex(pkg_regex,arg);
 
     /* If so, parse it out and try to get that version only */
     if ( pkg_regex->reg_return == 0 ) {
       char *pkg_name,*pkg_version;
 
       pkg_name = strndup(
-        action_args->pkgs[i] + pkg_regex->pmatch[1].rm_so,
+        arg + pkg_regex->pmatch[1].rm_so,
         pkg_regex->pmatch[1].rm_eo - pkg_regex->pmatch[1].rm_so
       );
 
       pkg_version = strndup(
-        action_args->pkgs[i] + pkg_regex->pmatch[2].rm_so,
+        arg + pkg_regex->pmatch[2].rm_so,
         pkg_regex->pmatch[2].rm_eo - pkg_regex->pmatch[2].rm_so
       );
 
@@ -269,11 +271,11 @@ void slapt_pkg_action_remove(const slapt_rc_config *global_config,
 
     /* If regex doesnt match */
     if ( pkg_regex->reg_return != 0 || pkg == NULL ) {
-      /* make sure there is a package called action_args->pkgs[i] */
-      pkg = slapt_get_newest_pkg(installed_pkgs,action_args->pkgs[i]);
+      /* make sure there is a package called arg */
+      pkg = slapt_get_newest_pkg(installed_pkgs,arg);
 
       if ( pkg == NULL ) {
-        printf(gettext("%s is not installed.\n"),action_args->pkgs[i]);
+        printf(gettext("%s is not installed.\n"),arg);
         continue;
       }
 
@@ -282,10 +284,10 @@ void slapt_pkg_action_remove(const slapt_rc_config *global_config,
     deps = slapt_is_required_by(global_config,avail_pkgs,pkg);
 
     for (c = 0; c < deps->pkg_count; ++c) {
+      slapt_pkg_info_t *dep = deps->pkgs[c];
 
-      if ( slapt_get_exact_pkg(installed_pkgs,deps->pkgs[c]->name,
-      deps->pkgs[c]->version) != NULL ) {
-        slapt_add_remove_to_transaction(tran,deps->pkgs[c]);
+      if ( slapt_get_exact_pkg(installed_pkgs,dep->name, dep->version) != NULL) {
+        slapt_add_remove_to_transaction(tran,dep);
       }
 
     }
