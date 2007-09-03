@@ -1890,16 +1890,17 @@ static void required_by(struct slapt_pkg_list *avail,
   unsigned int i;
   slapt_regex_t *required_by_reg = NULL;
   char *pkg_name  = escape_package_name(pkg);
-  int reg_str_len = strlen(pkg_name) + 2;
+  int reg_str_len = strlen(pkg_name) + 3;
   char *reg = slapt_malloc(sizeof *reg * reg_str_len);
   /* add word boundary to search */
-  int sprintf_r = sprintf(reg, "\\W%s\\W", pkg_name);
+  int sprintf_r = snprintf(reg, (size_t)reg_str_len, "\\W%s\\W", pkg_name);
 
   if (sprintf_r < reg_str_len) {
     fprintf(stderr,"sprintf error for %s: %d < %d\n", pkg_name, sprintf_r, reg_str_len);
     exit(EXIT_FAILURE);
   }
 
+  reg[reg_str_len-1] = '\0';
   if ((required_by_reg = slapt_init_regex(reg)) == NULL) {
     exit(EXIT_FAILURE);
   }
@@ -2120,38 +2121,38 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
       slapt_get_md5sums(available_pkgs, tmp_checksum_f);
 
       for (pkg_i = 0; pkg_i < available_pkgs->pkg_count; ++pkg_i) {
+        slapt_pkg_info_t *p = available_pkgs->pkgs[pkg_i];
         int mirror_len = -1;
 
         /* honor the mirror if it was set in the PACKAGES.TXT */
-        if (available_pkgs->pkgs[pkg_i]->mirror == NULL ||
-            (mirror_len = strlen(available_pkgs->pkgs[pkg_i]->mirror)) == 0) {
+        if (p->mirror == NULL || (mirror_len = strlen(p->mirror)) == 0) {
 
           if (mirror_len == 0)
-            free(available_pkgs->pkgs[pkg_i]->mirror);
+            free(p->mirror);
 
-          available_pkgs->pkgs[pkg_i]->mirror = strdup(global_config->sources->url[i]);
+          p->mirror = strdup(global_config->sources->url[i]);
         }
 
-        slapt_add_pkg_to_pkg_list(new_pkgs,available_pkgs->pkgs[pkg_i]);
+        slapt_add_pkg_to_pkg_list(new_pkgs,p);
       }
       available_pkgs->free_pkgs = SLAPT_FALSE;
 
       if (patch_pkgs) {
         slapt_get_md5sums(patch_pkgs, tmp_checksum_f);
         for (pkg_i = 0; pkg_i < patch_pkgs->pkg_count; ++pkg_i) {
+          slapt_pkg_info_t *p = patch_pkgs->pkgs[pkg_i];
           int mirror_len = -1;
 
           /* honor the mirror if it was set in the PACKAGES.TXT */
-          if (patch_pkgs->pkgs[pkg_i]->mirror == NULL ||
-              (mirror_len = strlen(patch_pkgs->pkgs[pkg_i]->mirror)) == 0) {
+          if (p->mirror == NULL || (mirror_len = strlen(p->mirror)) == 0) {
 
             if (mirror_len == 0)
-              free(patch_pkgs->pkgs[pkg_i]->mirror);
+              free(p->mirror);
 
-            patch_pkgs->pkgs[pkg_i]->mirror = strdup(global_config->sources->url[i]);
+            p->mirror = strdup(global_config->sources->url[i]);
           }
 
-          slapt_add_pkg_to_pkg_list(new_pkgs,patch_pkgs->pkgs[pkg_i]);
+          slapt_add_pkg_to_pkg_list(new_pkgs,p);
         }
         patch_pkgs->free_pkgs = SLAPT_FALSE;
       }
@@ -3470,12 +3471,13 @@ struct slapt_pkg_list *
   struct slapt_pkg_list *obsolete = slapt_init_pkg_list();
 
   for (r = 0; r < installed_pkgs->pkg_count; ++r) {
+    slapt_pkg_info_t *p = installed_pkgs->pkgs[r];
 
     /*
        * if we can't find the installed package in our available pkg list,
        * it must be obsolete
     */
-    if (slapt_get_newest_pkg(avail_pkgs, installed_pkgs->pkgs[r]->name) == NULL) {
+    if (slapt_get_newest_pkg(avail_pkgs, p->name) == NULL) {
         struct slapt_pkg_list *deps;
         unsigned int c;
 
@@ -3483,20 +3485,19 @@ struct slapt_pkg_list *
           any packages that require this package we are about to remove
           should be scheduled to remove as well
         */
-        deps = slapt_is_required_by(global_config,avail_pkgs,
-                                    installed_pkgs->pkgs[r]);
+        deps = slapt_is_required_by(global_config,avail_pkgs, p);
 
         for (c = 0; c < deps->pkg_count; ++c ) {
+          slapt_pkg_info_t *dep = deps->pkgs[c];
 
-          if ( slapt_get_exact_pkg(avail_pkgs,deps->pkgs[c]->name,
-                  deps->pkgs[c]->version) == NULL ) {
-              slapt_add_pkg_to_pkg_list(obsolete,deps->pkgs[c]);
+          if ( slapt_get_exact_pkg(avail_pkgs,dep->name, dep->version) == NULL ) {
+              slapt_add_pkg_to_pkg_list(obsolete,dep);
           }
         }
 
         slapt_free_pkg_list(deps);
 
-        slapt_add_pkg_to_pkg_list(obsolete, installed_pkgs->pkgs[r]);
+        slapt_add_pkg_to_pkg_list(obsolete, p);
 
     }
 
