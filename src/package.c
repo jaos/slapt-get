@@ -1890,13 +1890,13 @@ static void required_by(struct slapt_pkg_list *avail,
   unsigned int i;
   slapt_regex_t *required_by_reg = NULL;
   char *pkg_name  = escape_package_name(pkg);
-  int reg_str_len = strlen(pkg_name) + 3;
+  int reg_str_len = strlen(pkg_name) + 5;
   char *reg = slapt_malloc(sizeof *reg * reg_str_len);
   /* add word boundary to search */
   int sprintf_r = snprintf(reg, (size_t)reg_str_len, "\\W%s\\W", pkg_name);
 
-  if (sprintf_r < reg_str_len) {
-    fprintf(stderr,"sprintf error for %s: %d < %d\n", pkg_name, sprintf_r, reg_str_len);
+  if (sprintf_r < 0) {
+    fprintf(stderr,"sprintf error for %s\n", pkg_name);
     exit(EXIT_FAILURE);
   }
 
