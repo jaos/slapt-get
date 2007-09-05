@@ -36,6 +36,8 @@ typedef struct {
 FILE *slapt_open_file(const char *file_name,const char *mode);
 slapt_regex_t *slapt_init_regex(const char *regex_string);
 void slapt_execute_regex(slapt_regex_t *regex_t,const char *string);
+/* extract the string from the match, starts with 1 (not 0) */
+char *slapt_regex_extract_match(const slapt_regex_t *r, const char *src, const int i);
 void slapt_free_regex(slapt_regex_t *regex_t);
 void slapt_create_dir_structure(const char *dir_name);
 /* generate an md5sum of filehandle */

@@ -57,17 +57,10 @@ void slapt_pkg_action_install(const slapt_rc_config *global_config,
     if ( pkg_regex->reg_return == 0 ) {
       char *pkg_name,*pkg_version;
 
-      pkg_name = strndup(
-        arg + pkg_regex->pmatch[1].rm_so,
-        pkg_regex->pmatch[1].rm_eo - pkg_regex->pmatch[1].rm_so
-      );
+      pkg_name    = slapt_regex_extract_match(pkg_regex, arg, 1);
+      pkg_version = slapt_regex_extract_match(pkg_regex, arg, 2);
+      pkg         = slapt_get_exact_pkg(avail_pkgs, pkg_name, pkg_version);
 
-      pkg_version = strndup(
-        arg + pkg_regex->pmatch[2].rm_so,
-        pkg_regex->pmatch[2].rm_eo - pkg_regex->pmatch[2].rm_so
-      );
-
-      pkg = slapt_get_exact_pkg(avail_pkgs, pkg_name, pkg_version);
       free(pkg_name);
       free(pkg_version);
 
@@ -253,17 +246,10 @@ void slapt_pkg_action_remove(const slapt_rc_config *global_config,
     if ( pkg_regex->reg_return == 0 ) {
       char *pkg_name,*pkg_version;
 
-      pkg_name = strndup(
-        arg + pkg_regex->pmatch[1].rm_so,
-        pkg_regex->pmatch[1].rm_eo - pkg_regex->pmatch[1].rm_so
-      );
+      pkg_name    = slapt_regex_extract_match(pkg_regex, arg, 1);
+      pkg_version = slapt_regex_extract_match(pkg_regex, arg, 2);
+      pkg         = slapt_get_exact_pkg(installed_pkgs, pkg_name, pkg_version);
 
-      pkg_version = strndup(
-        arg + pkg_regex->pmatch[2].rm_so,
-        pkg_regex->pmatch[2].rm_eo - pkg_regex->pmatch[2].rm_so
-      );
-
-      pkg = slapt_get_exact_pkg(installed_pkgs, pkg_name, pkg_version);
       free(pkg_name);
       free(pkg_version);
 
@@ -407,15 +393,8 @@ void slapt_pkg_action_show(const char *pkg_name)
   if ( pkg_regex->reg_return == 0 ) {
     char *p_name,*p_version;
 
-    p_name = strndup(
-      pkg_name + pkg_regex->pmatch[1].rm_so,
-      pkg_regex->pmatch[1].rm_eo - pkg_regex->pmatch[1].rm_so
-    );
-
-    p_version = strndup(
-      pkg_name + pkg_regex->pmatch[2].rm_so,
-      pkg_regex->pmatch[2].rm_eo - pkg_regex->pmatch[2].rm_so
-    );
+    p_name    = slapt_regex_extract_match(pkg_regex, pkg_name, 1);
+    p_version = slapt_regex_extract_match(pkg_regex, pkg_name, 2);
 
     pkg = slapt_get_exact_pkg(avail_pkgs, p_name, p_version);
 
@@ -772,21 +751,8 @@ static int cmp_pkg_arch(const char *a,const char *b)
     return strcmp(a,b);
 
   } else {
-    char *a_arch = slapt_malloc(sizeof *a_arch * (a_arch_regex->pmatch[2].rm_eo -
-                                a_arch_regex->pmatch[2].rm_so +1));
-    char *b_arch = slapt_malloc(sizeof *b_arch * (b_arch_regex->pmatch[2].rm_eo -
-                                b_arch_regex->pmatch[2].rm_so +1));
-
-    strncpy(a_arch, 
-            a + a_arch_regex->pmatch[2].rm_so, 
-            (a_arch_regex->pmatch[2].rm_eo - a_arch_regex->pmatch[2].rm_so)
-    );
-    a_arch[a_arch_regex->pmatch[2].rm_eo - a_arch_regex->pmatch[2].rm_so] = '\0';
-    b_arch[b_arch_regex->pmatch[2].rm_eo - b_arch_regex->pmatch[2].rm_so] = '\0';
-    strncpy(b_arch,
-      b + b_arch_regex->pmatch[2].rm_so,
-      (b_arch_regex->pmatch[2].rm_eo - b_arch_regex->pmatch[2].rm_so)
-    );
+    char *a_arch = slapt_regex_extract_match(a_arch_regex, a, 2);
+    char *b_arch = slapt_regex_extract_match(a_arch_regex, b, 2);
 
     r = strcmp(a_arch,b_arch);
 

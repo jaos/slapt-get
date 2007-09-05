@@ -71,6 +71,25 @@ void slapt_execute_regex(slapt_regex_t *regex_t,const char *string)
                                 regex_t->nmatch,regex_t->pmatch,0);
 }
 
+char *slapt_regex_extract_match(const slapt_regex_t *r, const char *src, const int i)
+{
+  regmatch_t m  = r->pmatch[i];
+  char *str = NULL;
+
+  if (m.rm_so != -1)
+  {
+    unsigned int len = m.rm_eo - m.rm_so + 1;
+    str = malloc(sizeof *str * len);
+
+    str = strncpy(str, src + m.rm_so, len);
+    if (len > 0)
+      str[len - 1] = '\0';
+  }
+
+  return str;
+}
+
+
 void slapt_free_regex(slapt_regex_t *regex_t)
 {
   regfree(&regex_t->regex);

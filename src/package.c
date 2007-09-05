@@ -118,34 +118,11 @@ struct slapt_pkg_list *slapt_parse_packages_txt(FILE *pkg_list_fh)
     tmp_pkg = slapt_init_pkg();
 
     /* pkg name base */
-    tmp_pkg->name = slapt_malloc(sizeof *tmp_pkg->name * 
-      (name_regex->pmatch[1].rm_eo - name_regex->pmatch[1].rm_so + 1));
-
-    strncpy(tmp_pkg->name, getline_buffer + name_regex->pmatch[1].rm_so,
-      name_regex->pmatch[1].rm_eo - name_regex->pmatch[1].rm_so);
-
-    tmp_pkg->name[name_regex->pmatch[1].rm_eo -
-                  name_regex->pmatch[1].rm_so] = '\0';
-
+    tmp_pkg->name = slapt_regex_extract_match(name_regex, getline_buffer, 1);
     /* pkg version */
-    tmp_pkg->version = slapt_malloc(sizeof *tmp_pkg->version *
-      (name_regex->pmatch[2].rm_eo - name_regex->pmatch[2].rm_so + 1));
-
-    strncpy(tmp_pkg->version, getline_buffer + name_regex->pmatch[2].rm_so,
-      name_regex->pmatch[2].rm_eo - name_regex->pmatch[2].rm_so);
-
-    tmp_pkg->version[name_regex->pmatch[2].rm_eo -
-                     name_regex->pmatch[2].rm_so] = '\0';
-
+    tmp_pkg->version = slapt_regex_extract_match(name_regex, getline_buffer, 2);
     /* file extension */
-    tmp_pkg->file_ext = slapt_malloc(sizeof *tmp_pkg->file_ext *
-      (name_regex->pmatch[3].rm_eo - name_regex->pmatch[3].rm_so + 1));
-
-    strncpy(tmp_pkg->file_ext, getline_buffer + name_regex->pmatch[3].rm_so,
-      name_regex->pmatch[3].rm_eo - name_regex->pmatch[3].rm_so);
-
-    tmp_pkg->file_ext[name_regex->pmatch[3].rm_eo -
-                     name_regex->pmatch[3].rm_so] = '\0';
+    tmp_pkg->file_ext = slapt_regex_extract_match(name_regex, getline_buffer, 3);
 
     /* mirror */
     f_pos = ftell(pkg_list_fh);
@@ -154,20 +131,7 @@ struct slapt_pkg_list *slapt_parse_packages_txt(FILE *pkg_list_fh)
       slapt_execute_regex(mirror_regex,getline_buffer);
 
       if (mirror_regex->reg_return == 0) {
-
-        tmp_pkg->mirror = slapt_malloc(
-          sizeof *tmp_pkg->mirror *
-          (mirror_regex->pmatch[1].rm_eo - mirror_regex->pmatch[1].rm_so + 1)
-        );
-
-        strncpy(tmp_pkg->mirror,
-          getline_buffer + mirror_regex->pmatch[1].rm_so,
-          mirror_regex->pmatch[1].rm_eo - mirror_regex->pmatch[1].rm_so
-        );
-        tmp_pkg->mirror[
-          mirror_regex->pmatch[1].rm_eo - mirror_regex->pmatch[1].rm_so
-        ] = '\0';
-
+        tmp_pkg->mirror = slapt_regex_extract_match(mirror_regex, getline_buffer, 1);
       } else {
         /* mirror isn't provided... rewind one line */
         fseek(pkg_list_fh, (ftell(pkg_list_fh) - f_pos) * -1, SEEK_CUR);
@@ -181,18 +145,7 @@ struct slapt_pkg_list *slapt_parse_packages_txt(FILE *pkg_list_fh)
 
       if (location_regex->reg_return == 0) {
 
-        tmp_pkg->location = slapt_malloc(
-          sizeof *tmp_pkg->location *
-          (location_regex->pmatch[1].rm_eo - location_regex->pmatch[1].rm_so + 1)
-        );
-
-        strncpy(tmp_pkg->location,
-          getline_buffer + location_regex->pmatch[1].rm_so,
-          location_regex->pmatch[1].rm_eo - location_regex->pmatch[1].rm_so
-        );
-        tmp_pkg->location[
-          location_regex->pmatch[1].rm_eo - location_regex->pmatch[1].rm_so
-        ] = '\0';
+        tmp_pkg->location = slapt_regex_extract_match(location_regex, getline_buffer, 1);
 
         /*
           extra, testing, and pasture support
@@ -260,10 +213,7 @@ struct slapt_pkg_list *slapt_parse_packages_txt(FILE *pkg_list_fh)
       slapt_execute_regex(size_c_regex,getline_buffer);
 
       if (size_c_regex->reg_return == 0) {
-        size_c = strndup(
-          getline_buffer + size_c_regex->pmatch[1].rm_so,
-          (size_c_regex->pmatch[1].rm_eo - size_c_regex->pmatch[1].rm_so)
-        );
+        size_c = slapt_regex_extract_match(size_c_regex, getline_buffer, 1);
         tmp_pkg->size_c = strtol(size_c, (char **)NULL, 10);
         free(size_c);
       } else {
@@ -285,10 +235,7 @@ struct slapt_pkg_list *slapt_parse_packages_txt(FILE *pkg_list_fh)
       slapt_execute_regex(size_u_regex,getline_buffer);
 
       if (size_u_regex->reg_return == 0) {
-        size_u = strndup(
-          getline_buffer + size_u_regex->pmatch[1].rm_so,
-          (size_u_regex->pmatch[1].rm_eo - size_u_regex->pmatch[1].rm_so)
-        );
+        size_u = slapt_regex_extract_match(size_u_regex, getline_buffer, 1);
         tmp_pkg->size_u = strtol(size_u, (char **)NULL, 10);
         free(size_u);
       } else {
@@ -557,27 +504,8 @@ struct slapt_pkg_list *slapt_get_installed_pkgs(void)
 
     tmp_pkg = slapt_init_pkg();
 
-    tmp_pkg->name = slapt_malloc(
-      sizeof *tmp_pkg->name *
-      (ip_regex->pmatch[1].rm_eo - ip_regex->pmatch[1].rm_so + 1)
-    );
-    strncpy(
-      tmp_pkg->name,
-      file->d_name + ip_regex->pmatch[1].rm_so,
-      ip_regex->pmatch[1].rm_eo - ip_regex->pmatch[1].rm_so
-    );
-    tmp_pkg->name[ ip_regex->pmatch[1].rm_eo - ip_regex->pmatch[1].rm_so ] = '\0';
-
-    tmp_pkg->version = slapt_malloc(
-      sizeof *tmp_pkg->version *
-      (ip_regex->pmatch[2].rm_eo - ip_regex->pmatch[2].rm_so + 1)
-    );
-    strncpy(
-      tmp_pkg->version,
-      file->d_name + ip_regex->pmatch[2].rm_so,
-      ip_regex->pmatch[2].rm_eo - ip_regex->pmatch[2].rm_so
-    );
-    tmp_pkg->version[ ip_regex->pmatch[2].rm_eo - ip_regex->pmatch[2].rm_so ] = '\0';
+    tmp_pkg->name    = slapt_regex_extract_match(ip_regex, file->d_name, 1);
+    tmp_pkg->version = slapt_regex_extract_match(ip_regex, file->d_name, 2);
 
     tmp_pkg->file_ext = slapt_malloc(sizeof *tmp_pkg->file_ext * 1);
     tmp_pkg->file_ext[0] = '\0';
@@ -641,45 +569,23 @@ struct slapt_pkg_list *slapt_get_installed_pkgs(void)
     /* pull out compressed size */
     slapt_execute_regex(compressed_size_reg,pkg_data);
     if (compressed_size_reg->reg_return == 0) {
-
-      char *size_c = strndup(
-        pkg_data + compressed_size_reg->pmatch[1].rm_so,
-        (compressed_size_reg->pmatch[1].rm_eo - compressed_size_reg->pmatch[1].rm_so)
-      );
+      char *size_c = slapt_regex_extract_match(compressed_size_reg, pkg_data, 1);
       tmp_pkg->size_c = strtol(size_c,(char **)NULL,10);
       free(size_c);
-
     }
 
     /* pull out uncompressed size */
     slapt_execute_regex(uncompressed_size_reg,pkg_data);
     if (uncompressed_size_reg->reg_return == 0 ) {
-
-      char *size_u = strndup(
-        pkg_data + uncompressed_size_reg->pmatch[1].rm_so,
-        (uncompressed_size_reg->pmatch[1].rm_eo - uncompressed_size_reg->pmatch[1].rm_so)
-      );
+      char *size_u = slapt_regex_extract_match(uncompressed_size_reg, pkg_data, 1);
       tmp_pkg->size_u = strtol(size_u,(char **)NULL,10);
       free(size_u);
-
     }
 
     /* pull out location */
     slapt_execute_regex(location_regex,pkg_data);
     if (location_regex->reg_return == 0) {
-
-      tmp_pkg->location = slapt_malloc(
-        sizeof *tmp_pkg->location *
-        (location_regex->pmatch[1].rm_eo - location_regex->pmatch[1].rm_so + 1)
-      );
-      strncpy(tmp_pkg->location,
-        pkg_data + location_regex->pmatch[1].rm_so,
-        location_regex->pmatch[1].rm_eo - location_regex->pmatch[1].rm_so
-      );
-      tmp_pkg->location[
-        location_regex->pmatch[1].rm_eo - location_regex->pmatch[1].rm_so
-      ] = '\0';
-
+      tmp_pkg->location = slapt_regex_extract_match(location_regex, pkg_data, 1);
     }
 
     if (strstr(pkg_data,"PACKAGE DESCRIPTION") != NULL) {
@@ -1053,52 +959,16 @@ void slapt_get_md5sums(struct slapt_pkg_list *pkgs, FILE *checksum_file)
     slapt_execute_regex(md5sum_regex,getline_buffer);
 
     if (md5sum_regex->reg_return == 0) {
-      char sum[SLAPT_MD5_STR_LEN];
-      char *location, *name, *version;
+      char *sum, *location, *name, *version;
 
       /* md5 sum */
-      strncpy(
-        sum,
-        getline_buffer + md5sum_regex->pmatch[1].rm_so,
-        md5sum_regex->pmatch[1].rm_eo - md5sum_regex->pmatch[1].rm_so
-      );
-      sum[md5sum_regex->pmatch[1].rm_eo - md5sum_regex->pmatch[1].rm_so] = '\0';
-
+      sum = slapt_regex_extract_match(md5sum_regex, getline_buffer, 1);
       /* location/directory */
-      location = slapt_malloc(
-        sizeof *location *
-        (md5sum_regex->pmatch[2].rm_eo - md5sum_regex->pmatch[2].rm_so + 1)
-      );
-      strncpy(
-        location,
-        getline_buffer + md5sum_regex->pmatch[2].rm_so,
-        md5sum_regex->pmatch[2].rm_eo - md5sum_regex->pmatch[2].rm_so
-      );
-      location[md5sum_regex->pmatch[2].rm_eo - md5sum_regex->pmatch[2].rm_so] = '\0';
-
+      location = slapt_regex_extract_match(md5sum_regex, getline_buffer, 2);
       /* pkg name */
-      name = slapt_malloc(
-        sizeof *name *
-        (md5sum_regex->pmatch[3].rm_eo - md5sum_regex->pmatch[3].rm_so + 1)
-      );
-      strncpy(
-        name,
-        getline_buffer + md5sum_regex->pmatch[3].rm_so,
-        md5sum_regex->pmatch[3].rm_eo - md5sum_regex->pmatch[3].rm_so
-      );
-      name[md5sum_regex->pmatch[3].rm_eo - md5sum_regex->pmatch[3].rm_so] = '\0';
-
+      name = slapt_regex_extract_match(md5sum_regex, getline_buffer, 3);
       /* pkg version */
-      version = slapt_malloc(
-        sizeof *version *
-        (md5sum_regex->pmatch[4].rm_eo - md5sum_regex->pmatch[4].rm_so + 1)
-      );
-      strncpy(
-        version,
-        getline_buffer + md5sum_regex->pmatch[4].rm_so,
-        md5sum_regex->pmatch[4].rm_eo - md5sum_regex->pmatch[4].rm_so
-      );
-      version[md5sum_regex->pmatch[4].rm_eo - md5sum_regex->pmatch[4].rm_so] = '\0';
+      version = slapt_regex_extract_match(md5sum_regex, getline_buffer, 4);
 
       /* see if we can match up name, version, and location */
       for (a = 0;a < pkgs->pkg_count;a++) {
@@ -1107,13 +977,12 @@ void slapt_get_md5sums(struct slapt_pkg_list *pkgs, FILE *checksum_file)
           (slapt_cmp_pkg_versions(pkgs->pkgs[a]->version,version) == 0) &&
           (strcmp(pkgs->pkgs[a]->location,location) == 0)
         ) {
-          memcpy(pkgs->pkgs[a]->md5,
-            sum,md5sum_regex->pmatch[1].rm_eo - md5sum_regex->pmatch[1].rm_so + 1
-          );
+          memcpy(pkgs->pkgs[a]->md5, sum,SLAPT_MD5_STR_LEN);
           break;
         }
       }
 
+      free(sum);
       free(name);
       free(version);
       free(location);
@@ -1623,7 +1492,7 @@ static slapt_pkg_info_t *parse_meta_entry(struct slapt_pkg_list *avail_pkgs,
   char tmp_pkg_cond[3];
   slapt_pkg_info_t *newest_avail_pkg;
   slapt_pkg_info_t *newest_installed_pkg;
-  int tmp_name_len =0, tmp_ver_len = 0, tmp_cond_len = 0;
+  int tmp_cond_len = 0;
 
   if ((parse_dep_regex = slapt_init_regex(SLAPT_REQUIRED_REGEX)) == NULL) {
     exit(EXIT_FAILURE);
@@ -1638,19 +1507,9 @@ static slapt_pkg_info_t *parse_meta_entry(struct slapt_pkg_list *avail_pkgs,
     return NULL;
   }
 
-  tmp_name_len =
-    parse_dep_regex->pmatch[1].rm_eo - parse_dep_regex->pmatch[1].rm_so;
-  tmp_cond_len =
-    parse_dep_regex->pmatch[2].rm_eo - parse_dep_regex->pmatch[2].rm_so;
-  tmp_ver_len =
-    parse_dep_regex->pmatch[3].rm_eo - parse_dep_regex->pmatch[3].rm_so;
+  tmp_cond_len = parse_dep_regex->pmatch[2].rm_eo - parse_dep_regex->pmatch[2].rm_so;
 
-  tmp_pkg_name = slapt_malloc(sizeof *tmp_pkg_name * (tmp_name_len + 1));
-  strncpy(tmp_pkg_name,
-    dep_entry + parse_dep_regex->pmatch[1].rm_so,
-    tmp_name_len
-  );
-  tmp_pkg_name[ tmp_name_len ] = '\0';
+  tmp_pkg_name = slapt_regex_extract_match(parse_dep_regex, dep_entry, 1);
 
   newest_avail_pkg = slapt_get_newest_pkg(avail_pkgs,tmp_pkg_name);
   newest_installed_pkg = slapt_get_newest_pkg(installed_pkgs,tmp_pkg_name);
@@ -1682,12 +1541,7 @@ static slapt_pkg_info_t *parse_meta_entry(struct slapt_pkg_list *avail_pkgs,
   );
   tmp_pkg_cond[ tmp_cond_len ] = '\0';
 
-  tmp_pkg_ver = slapt_malloc(sizeof *tmp_pkg_ver * (tmp_ver_len + 1));
-  strncpy(tmp_pkg_ver,
-    dep_entry + parse_dep_regex->pmatch[3].rm_so,
-    tmp_ver_len
-  );
-  tmp_pkg_ver[ tmp_ver_len ] = '\0';
+  tmp_pkg_ver = slapt_regex_extract_match(parse_dep_regex, dep_entry, 3);
 
   slapt_free_regex(parse_dep_regex);
 
@@ -2464,16 +2318,10 @@ void slapt_purge_old_cached_pkgs(const slapt_rc_config *global_config,
         char *tmp_pkg_name,*tmp_pkg_version;
         slapt_pkg_info_t *tmp_pkg;
 
-        tmp_pkg_name = strndup(
-          file->d_name + cached_pkgs_regex->pmatch[1].rm_so,
-          cached_pkgs_regex->pmatch[1].rm_eo - cached_pkgs_regex->pmatch[1].rm_so
-        );
-        tmp_pkg_version = strndup(
-          file->d_name + cached_pkgs_regex->pmatch[2].rm_so,
-          cached_pkgs_regex->pmatch[2].rm_eo - cached_pkgs_regex->pmatch[2].rm_so
-        );
+        tmp_pkg_name    = slapt_regex_extract_match(cached_pkgs_regex, file->d_name, 1);
+        tmp_pkg_version = slapt_regex_extract_match(cached_pkgs_regex, file->d_name, 2);
+        tmp_pkg         = slapt_get_exact_pkg(avail_pkgs,tmp_pkg_name,tmp_pkg_version);
 
-        tmp_pkg = slapt_get_exact_pkg(avail_pkgs,tmp_pkg_name,tmp_pkg_version);
         free(tmp_pkg_name);
         free(tmp_pkg_version);
 

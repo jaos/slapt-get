@@ -1,5 +1,6 @@
 
-0.9.12b Sep 04, 2007
+0.9.12b Sep 05, 2007
+ * added slapt_regex_extract_match()
  * bug fix for detecting reverse dependencies when removing packages
 
 0.9.12a Aug 18, 2007
