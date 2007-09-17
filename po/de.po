@@ -6,9 +6,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.12\n"
+"Project-Id-Version: 0.9.12b\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2007-07-10 12:50+0500\n"
+"PO-Revision-Date: 2007-09-16 19:55+0500\n"
 "Last-Translator: Manfred Mueller <nekdesk@nekdesk.de>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -355,12 +355,12 @@ msgid "Need to get %.1d%s/%.1d%s of archives.\n"
 msgstr "Es muessen noch %.1d%s/%.1d%s aus Archiven geholt werden.\n"
 
 #, c-format
-msgid "After unpacking %.1d%s disk space will be freed.\n"
-msgstr "Nach dem Entpacken wird %.1d%s Plattenspeicher frei.\n"
+msgid "After unpacking %.1f%s disk space will be freed.\n"
+msgstr "Nach dem Entpacken wird %.1f%s Plattenspeicher frei.\n"
 
 #, c-format
-msgid "After unpacking %.1d%s of additional disk space will be used.\n"
-msgstr "Nach dem Entpacken wird %.1d%s zusaetzlicher Plattenspeicher verwendet.\n"
+msgid "After unpacking %.1f%s of additional disk space will be used.\n"
+msgstr "Nach dem Entpacken wird %.1f%s zusaetzlicher Plattenspeicher verwendet.\n"
 
 msgid "Do you want to continue? [y/N] "
 msgstr "Fortsetzen? [y/N] "

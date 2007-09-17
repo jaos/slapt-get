@@ -166,7 +166,7 @@ po_file:
 
 libs: $(OBJS)
 	touch libs
-	$(CC) -shared -o src/libslapt.so.$(VERSION) $(LIBOBJS)
+	$(CC) -shared -o src/libslapt.so.$(VERSION) $(LIBOBJS) #-Wl,-soname=libslapt-$(VERSION)
 	( cd src; if [ -f libslapt.so ]; then rm libslapt.so;fi; ln -s libslapt.so.$(VERSION) libslapt.so )
 	ar -r src/libslapt.a $(LIBOBJS)
 	-@echo "#ifndef LIB_SLAPT" > src/slapt.h

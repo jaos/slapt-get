@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.12\n"
+"Project-Id-Version: 0.9.12b\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2007-06-27 15:15+0500\n"
+"PO-Revision-Date: 2007-09-16 19:55+0500\n"
 "Last-Translator: Ruben Gutierrez <ruben@snpp.com.ar>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -341,12 +341,12 @@ msgid "Need to get %.1d%s/%.1d%s of archives.\n"
 msgstr "Se necesita obtener %.1d%s/%.1d%s de archivos.\n"
 
 #, c-format
-msgid "After unpacking %.1d%s disk space will be freed.\n"
-msgstr "Luego de 'desempacar', %.1d%s de espacio en disco serán liberados.\n"
+msgid "After unpacking %.1f%s disk space will be freed.\n"
+msgstr "Luego de 'desempacar', %.1f%s de espacio en disco serán liberados.\n"
 
 #, c-format
-msgid "After unpacking %.1d%s of additional disk space will be used.\n"
-msgstr "Luego de 'desempacar', %.1d%s de disco adicionales serán utilizados.\n"
+msgid "After unpacking %.1f%s of additional disk space will be used.\n"
+msgstr "Luego de 'desempacar', %.1f%s de disco adicionales serán utilizados.\n"
 
 msgid "Do you want to continue? [y/N] "
 msgstr "¿Desea continuar? [y/N] "
