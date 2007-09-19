@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.12b\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2007-09-16 19:55+0500\n"
+"PO-Revision-Date: 2007-09-18 20:51+0500\n"
 "Last-Translators: Sajmon <sajmon@tenboard.com>, Paul Blazejowski <paulb@blazebox.homeip.net>, nixon <nixon@klub.chip.pl> and simon <ssiimm@poczta.onet.pl>\n"
 "Language-Team: polish slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -346,12 +346,12 @@ msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
 msgstr "%d uaktualnione(ych), %d nowe zainstalowane, %d do usuniêcia i %d nieuaktualnione.\n"
 
 #, c-format
-msgid "Need to get %.1d%s of archives.\n"
-msgstr "Potrzeba ¶ci±gn±æ %.1d%s danych.\n"
+msgid "Need to get %.1f%s of archives.\n"
+msgstr "Potrzeba ¶ci±gn±æ %.1f%s danych.\n"
 
 #, c-format
-msgid "Need to get %.1d%s/%.1d%s of archives.\n"
-msgstr "Potrzeba ¶ci±gn±æ %.1d%s/%.1d%s danych.\n"
+msgid "Need to get %.1f%s/%.1f%s of archives.\n"
+msgstr "Potrzeba ¶ci±gn±æ %.1f%s/%.1f%s danych.\n"
 
 #, c-format
 msgid "After unpacking %.1f%s disk space will be freed.\n"

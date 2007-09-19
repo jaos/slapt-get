@@ -1,5 +1,6 @@
 
-0.9.12b Sep 16, 2007
+0.9.12b Sep 18, 2007
+ * Fixed message formatting for 'Need to get' translations.
  * Fixed message formatting of 'After unpacking' translations.
  * added slapt_regex_extract_match()
  * bug fix for detecting reverse dependencies when removing packages

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.12b\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2007-09-16 19:55+0500\n"
+"PO-Revision-Date: 2007-09-18 20:51+0500\n"
 "Last-Translator: Victor Keranov <victor_keranov@mail.bg>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -345,12 +345,12 @@ msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
 msgstr "%d обновени, %d инсталирани, %d за премахване и %d необновени.\n"
 
 #, c-format
-msgid "Need to get %.1d%s of archives.\n"
-msgstr "Необходимо е да се изтеглят %.1d%s архиви.\n"
+msgid "Need to get %.1f%s of archives.\n"
+msgstr "Необходимо е да се изтеглят %.1f%s архиви.\n"
 
 #, c-format
-msgid "Need to get %.1d%s/%.1d%s of archives.\n"
-msgstr "Необходимо е да се изтеглят %.1d%s/%.1d%s архиви.\n"
+msgid "Need to get %.1f%s/%.1f%s of archives.\n"
+msgstr "Необходимо е да се изтеглят %.1f%s/%.1f%s архиви.\n"
 
 #, c-format
 msgid "After unpacking %.1f%s disk space will be freed.\n"

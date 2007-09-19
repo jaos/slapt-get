@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.12b\n"
 "POT-Creation-Date: 2006-03-08 19:49+0900\n"
-"PO-Revision-Date: 2007-09-16 19:55+0500\n"
+"PO-Revision-Date: 2007-09-18 20:51+0500\n"
 "Last-Translator: JW <J_W@somewhere.c0.jp>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -347,12 +347,12 @@ msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
 msgstr "%d アップグレード, %d 新規インストール, %d 削除, %d 非アップグレード\n"
 
 #, c-format
-msgid "Need to get %.1d%s of archives.\n"
-msgstr " %.1d%s のアーカイブ取得が必要です\n"
+msgid "Need to get %.1f%s of archives.\n"
+msgstr " %.1f%s のアーカイブ取得が必要です\n"
 
 #, c-format
-msgid "Need to get %.1d%s/%.1d%s of archives.\n"
-msgstr " %.1d%s/%.1d%s のアーカイブ取得が必要です\n"
+msgid "Need to get %.1f%s/%.1f%s of archives.\n"
+msgstr " %.1f%s/%.1f%s のアーカイブ取得が必要です\n"
 
 #, c-format
 msgid "After unpacking %.1f%s disk space will be freed.\n"

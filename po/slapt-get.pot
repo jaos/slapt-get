@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.12b\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2007-09-16 19:55+0500\n"
+"PO-Revision-Date: 2007-09-18 20:51+0500\n"
 "Last-Translator: Jason Woodward <woodwardj@jaos.org>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -345,11 +345,11 @@ msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
 msgstr ""
 
 #, c-format
-msgid "Need to get %.1d%s of archives.\n"
+msgid "Need to get %.1f%s of archives.\n"
 msgstr ""
 
 #, c-format
-msgid "Need to get %.1d%s/%.1d%s of archives.\n"
+msgid "Need to get %.1f%s/%.1f%s of archives.\n"
 msgstr ""
 
 #, c-format

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.12b\n"
 "POT-Creation-Date: 2005-09-07 23:24 EEST\n"
-"PO-Revision-Date: 2007-09-16 19:55+0500\n"
+"PO-Revision-Date: 2007-09-18 20:51+0500\n"
 "Last-Translators: sin <digitalhunger@gmail.com>\n"
 "Language-Team: DeepStyle Team <hottab@deepstyle.org.ua>\n"
 "MIME-Version: 1.0\n"
@@ -346,12 +346,12 @@ msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
 msgstr "%d оновлено, %d встановлено, %d до видалення %d не оновлено.\n"
 
 #, c-format
-msgid "Need to get %.1d%s of archives.\n"
-msgstr "До одержання: %.1d%s з архив╕в.\n"
+msgid "Need to get %.1f%s of archives.\n"
+msgstr "До одержання: %.1f%s з архив╕в.\n"
 
 #, c-format
-msgid "Need to get %.1d%s/%.1d%s of archives.\n"
-msgstr "До одержання: %.1d%s/%.1d%s з архив╕в.\n"
+msgid "Need to get %.1f%s/%.1f%s of archives.\n"
+msgstr "До одержання: %.1f%s/%.1f%s з архив╕в.\n"
 
 #, c-format
 msgid "After unpacking %.1f%s disk space will be freed.\n"

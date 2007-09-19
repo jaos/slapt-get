@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.12b\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2007-09-16 19:55+0500\n"
+"PO-Revision-Date: 2007-09-18 20:51+0500\n"
 "Last-Translator: Francesco Gigli <jaramir@slack.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -333,12 +333,12 @@ msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
 msgstr "%d aggiornati, %d installati, %d da rimuovere e %d non aggiornati.\n"
 
 #, c-format
-msgid "Need to get %.1d%s of archives.\n"
-msgstr "Da scaricare %.1d%s di archivi.\n"
+msgid "Need to get %.1f%s of archives.\n"
+msgstr "Da scaricare %.1f%s di archivi.\n"
 
 #, c-format
-msgid "Need to get %.1d%s/%.1d%s of archives.\n"
-msgstr "Da scaricare %.1d%s/%.1d%s di archivi.\n"
+msgid "Need to get %.1f%s/%.1f%s of archives.\n"
+msgstr "Da scaricare %.1f%s/%.1f%s di archivi.\n"
 
 #, c-format
 msgid "After unpacking %.1f%s disk space will be freed.\n"
