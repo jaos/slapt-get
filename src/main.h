@@ -95,4 +95,5 @@ enum slapt_action {
 #endif
 
 #define SLAPT_DO_NOT_UNLINK_BAD_FILES 1
+#define SLACKWARE_EXTRA_TESTING_PASTURE_WORKAROUND 1
 

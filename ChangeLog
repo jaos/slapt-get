@@ -1,4 +1,8 @@
 
+0.9.12c Oct 03, 2007
+ * compile time definition for SLACKWARE_EXTRA_TESTING_PASTURE_WORKAROUND
+   (see package.c for comment)
+
 0.9.12b Sep 18, 2007
  * Fixed message formatting for 'Need to get' translations.
  * Fixed message formatting of 'After unpacking' translations.

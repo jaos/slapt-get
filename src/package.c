@@ -147,6 +147,7 @@ struct slapt_pkg_list *slapt_parse_packages_txt(FILE *pkg_list_fh)
 
         tmp_pkg->location = slapt_regex_extract_match(location_regex, getline_buffer, 1);
 
+#if SLACKWARE_EXTRA_TESTING_PASTURE_WORKAROUND == 1
         /*
           extra, testing, and pasture support
           they add in extraneous /extra/, /testing/, or /pasture/ in the
@@ -193,6 +194,7 @@ struct slapt_pkg_list *slapt_parse_packages_txt(FILE *pkg_list_fh)
           free(tmp_pkg->location);
           tmp_pkg->location = tmp_location;
         }
+#endif
 
       } else {
         fprintf(stderr,gettext("regexec failed to parse location\n"));
