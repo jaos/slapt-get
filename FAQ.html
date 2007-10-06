@@ -69,6 +69,7 @@
 <a href="#slgFAQ52">52. What are the relationships of CHECKSUMS.md5, PACKAGES.TXT and package_data?</a>
 <a href="#slgFAQ53">53. Does slapt-get support the GPG/PGP signature verification?</a>
 <a href="#slgFAQ54">54. Why am I getting "GPGME: Invalid crypto engine"?</a>
+<a href="#slgFAQ55">55. How do I support GPG signature verification in my package repository?</a>
 
 
 
@@ -1203,6 +1204,18 @@
  gnupg 1.x can be installed side by side with gnupg2.  
 
 
+<a name="slgFAQ55"><b>55. How do I support GPG signature verification in my package repository?</b></a>
+
+ Simply add your GPG key as GPG-KEY in the same directory as your PACKAGES.TXT
+ and CHECKSUMS.md5 files.  This is created with the following command template:
+
+  gpg --export --armor your_key_id > GPG-KEY
+
+ CHECKSUMS.md5.asc (or optionally CHECKSUMS.md5.gz.asc) are downloaded along
+ with the checksums file.  If the signature is verified, the package source is
+ downloaded.  The signature file is generated with the following command template:
+
+  gpg -bas CHECKSUMS.md5
 </pre>
 
 
