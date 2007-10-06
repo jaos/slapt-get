@@ -124,6 +124,7 @@ slapt_rc_config *slapt_read_rc_config(const char *file_name)
 void slapt_working_dir_init(const slapt_rc_config *global_config)
 {
   DIR *working_dir;
+  int mode = W_OK;
 
   if ( (working_dir = opendir(global_config->working_dir)) == NULL ) {
     if ( mkdir(global_config->working_dir,
@@ -140,7 +141,11 @@ void slapt_working_dir_init(const slapt_rc_config *global_config)
   }
   closedir(working_dir);
 
-  if ( access(global_config->working_dir,W_OK) == -1 ) {
+	/* allow read access if we are simulating */
+  if (global_config->simulate)
+  	mode = R_OK;
+
+  if ( access(global_config->working_dir,mode) == -1 ) {
 
     if ( errno )
       perror(global_config->working_dir);

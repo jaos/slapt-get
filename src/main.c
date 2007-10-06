@@ -253,6 +253,13 @@ int main( int argc, char *argv[] )
     exit(EXIT_FAILURE);
   }
 
+  if ( do_action == SHOWVERSION ) {
+    version_info();
+    slapt_free_rc_config(global_config);
+    curl_global_cleanup();
+    exit(EXIT_SUCCESS);
+  }
+
   /* create the working directory if needed */
   slapt_working_dir_init(global_config);
   chdir(global_config->working_dir);
@@ -346,9 +353,6 @@ int main( int argc, char *argv[] )
       /* clean out local cache */
       slapt_clean_pkg_dir(global_config->working_dir);
       chdir(global_config->working_dir);
-      break;
-    case SHOWVERSION:
-      version_info();
       break;
     case AUTOCLEAN:
       slapt_purge_old_cached_pkgs(global_config, NULL, NULL);

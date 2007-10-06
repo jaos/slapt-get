@@ -1,5 +1,9 @@
 
-0.9.12c Oct 03, 2007
+0.9.12c Oct 06, 2007
+ * allow any option with --simulate to be ran without write privileges
+   to the working directory
+ * allow --version to be ran without write privileges to the working
+   directory
  * compile time definition for SLACKWARE_EXTRA_TESTING_PASTURE_WORKAROUND
    (see package.c for comment)
 
