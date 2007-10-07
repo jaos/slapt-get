@@ -1,9 +1,8 @@
 
-0.9.12c Oct 06, 2007
- * allow any option with --simulate to be ran without write privileges
-   to the working directory (thanks Anders Bjorklund and John Babiak)
- * allow --version to be ran without write privileges to the working
-   directory (thanks Anders Bjorklund and John Babiak)
+0.9.12c Oct 07, 2007
+ * allow version, list, available, installed, show, and search options to be
+   ran without write priviledes to the working directory (thanks
+   Anders Bjorklund and John Babiak)
  * compile time definition for SLACKWARE_EXTRA_TESTING_PASTURE_WORKAROUND
    (see package.c for comment)
 

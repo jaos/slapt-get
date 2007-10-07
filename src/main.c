@@ -111,15 +111,19 @@ int main( int argc, char *argv[] )
         break;
       case SLAPT_SHOW_OPT: /* show */
         do_action = SHOW;
+        global_config->simulate = SLAPT_TRUE; /* allow read access */
         break;
       case SLAPT_SEARCH_OPT: /* search */
         do_action = SEARCH;
+        global_config->simulate = SLAPT_TRUE; /* allow read access */
         break;
       case SLAPT_LIST_OPT: /* list */
         do_action = LIST;
+        global_config->simulate = SLAPT_TRUE; /* allow read access */
         break;
       case SLAPT_INSTALLED_OPT: /* installed */
         do_action = INSTALLED;
+        global_config->simulate = SLAPT_TRUE; /* allow read access */
         break;
       case SLAPT_CLEAN_OPT: /* clean */
         do_action = CLEAN;
@@ -211,6 +215,7 @@ int main( int argc, char *argv[] )
         break;
       case SLAPT_AVAILABLE_OPT: /* show available packages */
         do_action = AVAILABLE;
+        global_config->simulate = SLAPT_TRUE; /* allow read access */
         break;
       case SLAPT_INSTALL_DISK_SET_OPT: /* install a disk set */
         do_action = INSTALL_DISK_SET;
@@ -230,16 +235,31 @@ int main( int argc, char *argv[] )
 
   /* Check optional arguments presence */
   switch(do_action) {
+
+    /* can't simulate update, clean, autoclean, or add keys */
+    case CLEAN:  
+    case AUTOCLEAN:  
+    #ifdef SLAPT_HAS_GPGME
+    case ADD_KEYS:  
+    #endif
+    case UPDATE:  
+      global_config->simulate = SLAPT_FALSE;
+      break;
+
+    /* remove obsolete can take the place of arguments */
     case INSTALL:
     case INSTALL_DISK_SET:
     case REMOVE:
         if (global_config->remove_obsolete == SLAPT_TRUE)
           break;
+
+    /* show and search must have arguments */
     case SHOW:
     case SEARCH:
       if ( optind >= argc )
         do_action = 0;
       break;
+
     default:
       if (optind < argc)
         do_action = USAGE;
