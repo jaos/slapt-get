@@ -1,22 +1,22 @@
 # translation of slapt-get to Russian
-# Copyright (C) 2005
+# Copyright (C) 2005, 2006, 2007
 # This file is distributed under the same license as the slapt-get package.
 # sin <digitalhunger@gmail.com>,  2005.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.12b\n"
+"Project-Id-Version: 0.9.12c\n"
 "POT-Creation-Date: 2005-09-07 23:24 EEST\n"
-"PO-Revision-Date: 2007-09-18 20:51+0500\n"
-"Last-Translators: sin <digitalhunger@gmail.com>\n"
-"Language-Team: DeepStyle Team <hottab@deepstyle.org.ua>\n"
+"PO-Revision-Date: 2007-10-27 22:02+0400\n"
+"Language-Team: DeepStyle Team <hottab@deepstyle.org.ua>, <ru@li.org>, sin <digitalhunger@gmail.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=koi8-r\n"
+"Content-Type: text/plain; charset=KOI8-R\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: mcedit :)\n"
+"X-Generator: KBabel 1.11.4\n"
+"Last-Translator: \n"
 
 msgid "Reading Package Lists... "
-msgstr "Чтение списка пакетов"
+msgstr "Чтение списка пакетов "
 
 msgid "Done\n"
 msgstr "Готово\n"
@@ -123,10 +123,10 @@ msgstr "Недостаточно прав доступа к %s \n"
 
 #, c-format
 msgid "Failed to open %s\n"
-msgstr "Не могу открыть %s.\n"
+msgstr "Не могу открыть %s\n"
 
 msgid "Perhaps you want to run --update?\n"
-msgstr "Возможно, вам нужна опция --update?\n"
+msgstr "Возможно вам нужна опция --update?\n"
 
 #, c-format
 msgid "Failed to opendir %s\n"
@@ -323,7 +323,7 @@ msgid "pkg conditional too long\n"
 msgstr "переменная пакета слишком длинная\n"
 
 msgid "The following packages have unmet dependencies:\n"
-msgstr "Неудовлетворенные зависимости в пакетах:\n"
+msgstr "Следующие пакеты имеют неудовлетворенные зависимости:\n"
 
 #, c-format
 msgid "  %s: Depends: %s\n"
@@ -359,7 +359,7 @@ msgstr "После распаковки будет освобождено %.1f%s дискового пространства.\n"
 
 #, c-format
 msgid "After unpacking %.1f%s of additional disk space will be used.\n"
-msgstr "После распаковки будет занято дополнительно %.1f%s на диске.\n"
+msgstr "После распаковки на диске будет занято дополнительно %.1f%s.\n"
 
 msgid "Do you want to continue? [y/N] "
 msgstr "Продолжить? [y/N] "
@@ -446,7 +446,7 @@ msgstr "всегда спрашивать при установке/обновлении"
 
 #, c-format
 msgid "Excluding %s, use --ignore-dep to override\n"
-msgstr "Пропуск %s, используйте --ignore-dep, чтобы установить %s \n"
+msgstr "Пропуск %s, чтобы проигнорировать зависимости используйте --ignore-dep\n"
 
 msgid "Package ChangeLog"
 msgstr "ChangeLog пакета"
@@ -498,12 +498,12 @@ msgid "retrieve GPG keys for sources"
 msgstr "получить ключи GPG для источников"
 
 msgid "Verifying checksum signature [%s]..."
-msgstr "Verifying checksum signature [%s]..."
+msgstr "Проверка контрольных сум сигнатур [%s]..."
 
 msgid "Unknown error"
-msgstr "Unknown error"
+msgstr "Неизвестная ошибка"
 
 #, c-format
 msgid "Not Found\n"
-msgstr "Not Found\n"
+msgstr "Не найден\n"
 

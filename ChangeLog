@@ -1,5 +1,6 @@
 
-0.9.12c Oct 07, 2007
+0.9.12c Oct 27, 2007
+ * updated russian translation from ru@li.org
  * allow version, list, available, installed, show, and search options to be
    ran without write priviledes to the working directory (thanks
    Anders Bjorklund and John Babiak)
