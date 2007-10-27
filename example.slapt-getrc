@@ -82,7 +82,7 @@ SOURCE=http://software.jaos.org/slackpacks/12.0/
 
 # other unofficial sources
 #SOURCE=http://www.tenboard.com/slackware/slackware-11.0/
-#SOURCE=http://www.slacky.it/download/
+#http://www.slacky.eu/repository/slackware-12.0
 #SOURCE=http://slackpacks.tchelinux.com.br/
 #SOURCE=http://shtrom.free.fr/slackware/slackware-10.1/
 #SOURCE=http://www.stabellini.net/repository/Stefano_Stabellini/
