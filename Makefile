@@ -176,6 +176,7 @@ libs: $(OBJS)
 
 test: libs
 	(if [ -d t ]; then cd t; make runtest;fi)
+check: test
 
 testclean:
 	-@(if [ -d t ]; then cd t; make clean;fi)
