@@ -14,7 +14,7 @@
 #define SLAPT_ROOT_ENV_LEN 255
 #define SLAPT_PKG_LOG_PATTERN "^(.*{1,})\\-(.*[\\-].*[\\-].*)"
 #define SLAPT_MD5SUM_REGEX "([a-zA-Z0-9]{1,})[ ]{1,}([a-zA-Z0-9\\/._\\-]{1,})\\/(.*{1,})\\-(.*[\\-].*[\\-].*).t[gbl]z$"
-#define SLAPT_REQUIRED_REGEX "^[ ]{0,}([a-zA-Z0-9\\+_\\-]+)[ ]{0,}([\\<\\=\\>]+){0,}[ ]{0,}([a-zA-Z0-9\\.\\_\\-]+){0,}[ ]{0,}$"
+#define SLAPT_REQUIRED_REGEX "^[ ]{0,}([^ ]{1,})[ ]{0,}([\\<\\=\\>]+){0,}[ ]{0,}([a-zA-Z0-9\\.\\_\\-]+){0,}[ ]{0,}$"
 #define SLAPT_MD5_STR_LEN 34
 #define SLAPT_PKG_LIST "PACKAGES.TXT"
 #define SLAPT_PKG_LIST_GZ "PACKAGES.TXT.gz"
