@@ -17,7 +17,7 @@ const char *slapt_get_mirror_data_from_source(FILE *fh,
   download pkg, calls download_data.  returns error on failure.
 */
 const char *slapt_download_pkg(const slapt_rc_config *global_config,
-                               slapt_pkg_info_t *pkg);
+                               slapt_pkg_info_t *pkg, const char *note);
 
 /*
   this is the default progress callback if global_config->progress_cb == NULL

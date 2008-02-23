@@ -1,5 +1,6 @@
 
-0.9.12d Dec 09, 2007
+0.9.12d Feb 22, 2008
+ * Added download count notification while downloading packages (Sergio)
  * Fix for parsing dependencies that have a dash in the package name
 
 0.9.12c Oct 27, 2007

@@ -187,7 +187,7 @@ const char *slapt_get_mirror_data_from_source(FILE *fh,
 }
 
 const char *slapt_download_pkg(const slapt_rc_config *global_config,
-                               slapt_pkg_info_t *pkg)
+                               slapt_pkg_info_t *pkg, const char *note)
 {
   FILE *fh = NULL;
   char *file_name = NULL;
@@ -235,6 +235,10 @@ const char *slapt_download_pkg(const slapt_rc_config *global_config,
   }
 
   if (global_config->progress_cb == NULL) {
+
+    if (note != NULL)
+      printf("%s ", note);
+
     printf(gettext("Get %s %s %s [%.1f%s]..."),
       pkg->mirror,pkg->name,pkg->version,
       ( dl_total_size > 1024 ) ? dl_total_size / 1024.0 : dl_total_size,
@@ -283,7 +287,7 @@ const char *slapt_download_pkg(const slapt_rc_config *global_config,
     if (global_config->retry > 1)
       return curl_easy_strerror(dl_return);
     else
-      return slapt_download_pkg(global_config,pkg);
+      return slapt_download_pkg(global_config,pkg, note);
 
   } else {
     fclose(fh);

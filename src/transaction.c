@@ -18,6 +18,8 @@
 
 #include "main.h"
 
+#define SLAPT_PKG_DL_NOTE_LEN 16
+
 static slapt_queue_t *slapt_queue_init(void);
 static void queue_add_install(slapt_queue_t *t, slapt_pkg_info_t *p);
 static void queue_add_upgrade(slapt_queue_t *t, slapt_pkg_upgrade_t *p);
@@ -59,10 +61,11 @@ slapt_transaction_t *slapt_init_transaction(void)
 int slapt_handle_transaction (const slapt_rc_config *global_config,
                               slapt_transaction_t *tran)
 {
-  unsigned int i;
+  unsigned int i, pkg_dl_count = 0, dl_counter = 0;
   double download_size = 0;
   double already_download_size = 0;
   double uncompressed_size = 0;
+  char dl_note[SLAPT_PKG_DL_NOTE_LEN];
 
   /* show unmet dependencies */
   if (tran->missing_err->err_count > 0) {
@@ -358,12 +361,17 @@ int slapt_handle_transaction (const slapt_rc_config *global_config,
     return 0;
   }
 
+  pkg_dl_count = tran->install_pkgs->pkg_count + tran->upgrade_pkgs->pkg_count;
+
   /* download pkgs */
   for (i = 0; i < tran->install_pkgs->pkg_count; ++i) {
     unsigned int retry_count, failed = 1;
 
+    ++dl_counter;
+    snprintf(dl_note, SLAPT_PKG_DL_NOTE_LEN, "%d/%d", dl_counter, pkg_dl_count);
+
     for (retry_count = 0; retry_count < global_config->retry; ++retry_count) {
-      const char *err = slapt_download_pkg(global_config,tran->install_pkgs->pkgs[i]);
+      const char *err = slapt_download_pkg(global_config,tran->install_pkgs->pkgs[i], dl_note);
       if (err) {
         fprintf(stderr,gettext("Failed to download: %s\n"),err);
         failed = 1;
@@ -379,8 +387,12 @@ int slapt_handle_transaction (const slapt_rc_config *global_config,
 
   for (i = 0; i < tran->upgrade_pkgs->pkg_count; ++i) {
     unsigned int retry_count, failed = 1;
+
+    ++dl_counter;
+    snprintf(dl_note, SLAPT_PKG_DL_NOTE_LEN, "%d/%d", dl_counter, pkg_dl_count);
+
     for (retry_count = 0; retry_count < global_config->retry; ++retry_count) {
-      const char *err = slapt_download_pkg(global_config,tran->upgrade_pkgs->pkgs[i]->upgrade);
+      const char *err = slapt_download_pkg(global_config,tran->upgrade_pkgs->pkgs[i]->upgrade, dl_note);
       if (err) {
         fprintf(stderr,gettext("Failed to download: %s\n"),err);
         failed = 1;
