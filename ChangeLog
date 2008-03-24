@@ -1,4 +1,7 @@
 
+0.9.12e Feb 22, 2008
+ * Romanian translation by Reteaua PTM.
+
 0.9.12d Feb 22, 2008
  * Added download count notification while downloading packages (Sergio)
  * Fix for parsing dependencies that have a dash in the package name
