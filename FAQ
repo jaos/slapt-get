@@ -56,6 +56,7 @@ Frequently Asked Questions:
 53. Does slapt-get support the GPG/PGP signature verification? 
 54. Why am I getting "GPGME: Invalid crypto engine"?
 55. How do I support GPG signature verification in my package repository?
+56. What does "GPGME: Bad file descriptor, GPG key could not be imported." mean?
 
 
 
@@ -1202,5 +1203,10 @@ Frequently Asked Questions:
  downloaded.  The signature file is generated with the following command template:
 
   gpg -bas CHECKSUMS.md5
+
+
+56. What does "GPGME: Bad file descriptor, GPG key could not be imported." mean?
+
+ Make sure the /proc file system is mounted.
 
 
