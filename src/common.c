@@ -36,39 +36,39 @@ FILE *slapt_open_file(const char *file_name,const char *mode)
 /* initialize regex structure and compile the regular expression */
 slapt_regex_t *slapt_init_regex(const char *regex_string)
 {
-  slapt_regex_t *regex_t = slapt_malloc(sizeof *regex_t);
+  slapt_regex_t *r = slapt_malloc(sizeof *r);
 
-  regex_t->nmatch = SLAPT_MAX_REGEX_PARTS;
-  regex_t->reg_return = -1;
+  r->nmatch = SLAPT_MAX_REGEX_PARTS;
+  r->reg_return = -1;
 
   /* compile our regex */
-  regex_t->reg_return = regcomp(&regex_t->regex, regex_string,
+  r->reg_return = regcomp(&r->regex, regex_string,
                                 REG_EXTENDED|REG_NEWLINE|REG_ICASE);
-  if ( regex_t->reg_return != 0 ) {
+  if ( r->reg_return != 0 ) {
     size_t regerror_size;
     char errbuf[1024];
     size_t errbuf_size = 1024;
     fprintf(stderr, gettext("Failed to compile regex\n"));
 
-    if ( (regerror_size = regerror(regex_t->reg_return,
-                                   &regex_t->regex,errbuf,errbuf_size)) != 0 ) {
+    if ( (regerror_size = regerror(r->reg_return,
+                                   &r->regex,errbuf,errbuf_size)) != 0 ) {
       printf(gettext("Regex Error: %s\n"),errbuf);
     }
-    free(regex_t);
+    free(r);
     return NULL;
   }
 
-  return regex_t;
+  return r;
 }
 
 /*
   execute the regular expression and set the return code
   in the passed in structure
  */
-void slapt_execute_regex(slapt_regex_t *regex_t,const char *string)
+void slapt_execute_regex(slapt_regex_t *r,const char *string)
 {
-  regex_t->reg_return = regexec(&regex_t->regex, string,
-                                regex_t->nmatch,regex_t->pmatch,0);
+  r->reg_return = regexec(&r->regex, string,
+                                r->nmatch,r->pmatch,0);
 }
 
 char *slapt_regex_extract_match(const slapt_regex_t *r, const char *src, const int i)
@@ -90,10 +90,10 @@ char *slapt_regex_extract_match(const slapt_regex_t *r, const char *src, const i
 }
 
 
-void slapt_free_regex(slapt_regex_t *regex_t)
+void slapt_free_regex(slapt_regex_t *r)
 {
-  regfree(&regex_t->regex);
-  free(regex_t);
+  regfree(&r->regex);
+  free(r);
 }
 
 void slapt_gen_md5_sum_of_file(FILE *f,char *result_sum)
