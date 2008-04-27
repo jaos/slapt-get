@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.9.12e\n"
 "POT-Creation-Date: 2008-03-22 02:10+0200\n"
-"PO-Revision-Date: 2008-03-22 02:11+0200\n"
+"PO-Revision-Date: 2008-04-27 18:16+0500\n"
 "Last-Translator: Zion <admin@ptm.ro>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgid "Reading Package Lists... "
 msgstr "Se citeste lista cu pachete..."
 
 msgid "Done\n"
-msgstr "Gata"
+msgstr "Gata\n"
 
 #, c-format
 msgid "%s is up to date.\n"
@@ -78,7 +78,7 @@ msgstr "Se primesc date despre pachet [%s]..."
 
 #, c-format
 msgid "Retrieving package data [%s]...\n"
-msgstr "Se primesc date despre pachet [%s]..."
+msgstr "Se primesc date despre pachet [%s]...\n"
 
 #, c-format
 msgid "Retrieving extras list [%s]..."
@@ -86,7 +86,7 @@ msgstr "Se primeste lista extra [%s]..."
 
 #, c-format
 msgid "Retrieving extras list [%s]...\n"
-msgstr "Se primeste lista extra [%s]..."
+msgstr "Se primeste lista extra [%s]...\n"
 
 #, c-format
 msgid "Retrieving patch list [%s]..."
@@ -94,7 +94,7 @@ msgstr "Se primeste lista completari [%s]..."
 
 #, c-format
 msgid "Retrieving patch list [%s]...\n"
-msgstr "Se primeste lista completari [%s]..."
+msgstr "Se primeste lista completari [%s]...\n"
 
 #, c-format
 msgid "Retrieving checksum list [%s]..."
@@ -444,7 +444,7 @@ msgstr "intreaba intotdeauna in timpul instalarii/actualizarii"
 
 #, c-format
 msgid "Excluding %s, use --ignore-dep to override\n"
-msgstr "Se exclude %s, foloseste --ignore-dep pentru a nu tine cont"
+msgstr "Se exclude %s, foloseste --ignore-dep pentru a nu tine cont\n"
 
 msgid "Package ChangeLog"
 msgstr "Jurnal schimbari pachet"
