@@ -62,7 +62,7 @@ START_TEST (test_slapt_download_pkg)
   rc->progress_cb       = _progress_cb; /* silence */
   slapt_working_dir_init(rc);
 
-  err = slapt_download_pkg(rc, &pkg);
+  err = slapt_download_pkg(rc, &pkg, NULL);
   fail_if (err);
 
   slapt_free_rc_config(rc);

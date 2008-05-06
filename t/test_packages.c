@@ -57,7 +57,7 @@ START_TEST (test_pkg_info)
   fail_if (slapt_is_excluded(rc,&pkg) == 0);
   slapt_remove_exclude(rc->exclude_list,"^gslapt$");
 
-  fail_unless (slapt_download_pkg(rc, &pkg) == 0);
+  fail_unless (slapt_download_pkg(rc, &pkg, NULL) == 0);
   fail_unless (slapt_verify_downloaded_pkg(rc,&pkg) == 0);
 
   i = slapt_get_pkg_file_size(rc, &pkg);
