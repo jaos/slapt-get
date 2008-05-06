@@ -90,7 +90,9 @@ void slapt_pkg_action_install(const slapt_rc_config *global_config,
         /* if there is a conflict, we schedule the conflict for removal */
         if ( (conflicted_pkg = slapt_is_conflicted(tran,avail_pkgs,
                                                    installed_pkgs,
-                                                   pkg)) != NULL ) {
+                                                   pkg)) != NULL
+            && global_config->ignore_dep != SLAPT_TRUE
+            ) {
           slapt_add_remove_to_transaction(tran,conflicted_pkg);
         }
         slapt_add_install_to_transaction(tran,pkg);
@@ -115,7 +117,9 @@ void slapt_pkg_action_install(const slapt_rc_config *global_config,
 
           if ( (conflicted_pkg = slapt_is_conflicted(tran,avail_pkgs,
                                                      installed_pkgs,
-                                                     pkg)) != NULL ) {
+                                                     pkg)) != NULL
+            && global_config->ignore_dep != SLAPT_TRUE
+            ) {
             slapt_add_remove_to_transaction(tran,conflicted_pkg);
           }
           slapt_add_upgrade_to_transaction(tran,installed_pkg,pkg);
@@ -541,7 +545,9 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
             (slapt_add_deps_to_trans(global_config,tran,avail_pkgs,
                                      installed_pkgs,slapt_upgrade_pkg) == 0)
             && ( slapt_is_conflicted(tran,avail_pkgs,installed_pkgs,
-                                     slapt_upgrade_pkg) == NULL )
+                                     slapt_upgrade_pkg) == NULL
+            && global_config->ignore_dep != SLAPT_TRUE
+            )
           ) {
             slapt_add_install_to_transaction(tran,slapt_upgrade_pkg);
           } else {
@@ -569,7 +575,8 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
             (slapt_add_deps_to_trans(global_config,tran,avail_pkgs,
                                      installed_pkgs,slapt_upgrade_pkg) == 0)
             && ( slapt_is_conflicted(tran,avail_pkgs,installed_pkgs,
-                                     slapt_upgrade_pkg) == NULL )
+                                     slapt_upgrade_pkg) == NULL
+            && global_config->ignore_dep != SLAPT_TRUE)
           ) {
             slapt_add_upgrade_to_transaction(tran,installed_pkg,
                                              slapt_upgrade_pkg);
@@ -665,8 +672,9 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
           if (
             (slapt_add_deps_to_trans(global_config,tran,avail_pkgs,
                                      installed_pkgs,update_pkg) == 0)
-            && ( slapt_is_conflicted(tran,avail_pkgs,installed_pkgs,
-                                     update_pkg) == NULL )
+            && ( global_config->ignore_dep == SLAPT_TRUE
+            || ( slapt_is_conflicted(tran,avail_pkgs,installed_pkgs,
+                                     update_pkg) == NULL ))
           ) {
             slapt_add_upgrade_to_transaction(tran,installed_pkgs->pkgs[i],
                                              update_pkg);

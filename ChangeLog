@@ -1,5 +1,6 @@
 
 0.9.12e May 05, 2008
+ * make --ignore-dep ignore conflicts on upgrade
  * test updates
  * Romanian translation by Reteaua PTM.
 
