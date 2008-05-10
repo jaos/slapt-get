@@ -469,7 +469,7 @@ char *slapt_head_mirror_data(const char *wurl,const char *file)
   if (request_header_ptr == NULL) {
     /* this is ftp, in which case the Content-Length will have to do */
     request_header_ptr = strstr(head_data,"Content-Length");
-    if (request_header_ptr == NULL) {
+    if (request_header_ptr == NULL || strstr(wurl,"ftp") == NULL) {
       free(head_data);
       return NULL;
     }/* give up finally */

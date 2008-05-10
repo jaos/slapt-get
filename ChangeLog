@@ -1,5 +1,8 @@
 
-0.9.12e May 05, 2008
+0.9.12e May 10, 2008
+ * only accept content length instead of last modified date if url is NOT ftp.
+   This enforces 404 errors for those sources that like to have custom 404
+   pages.
  * make --ignore-dep ignore conflicts on upgrade
  * test updates
  * Romanian translation by Reteaua PTM.
