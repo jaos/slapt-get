@@ -75,10 +75,10 @@ doinstall: libsinstall
 	if [ ! -d $(DESTDIR)/usr/man/man3 ]; then mkdir -p $(DESTDIR)/usr/man/man3;fi
 	if [ ! -d $(DESTDIR)/usr/man/ru/man8 ]; then mkdir -p $(DESTDIR)/usr/man/ru/man8;fi
 	if [ ! -d $(DESTDIR)/usr/man/uk/man8 ]; then mkdir -p $(DESTDIR)/usr/man/uk/man8;fi
-	install doc/$(PACKAGE).8 $(DESTDIR)/usr/man/man8/
-	install doc/libslapt.3 $(DESTDIR)/usr/man/man3/
-	install doc/$(PACKAGE).ru.8 $(DESTDIR)/usr/man/ru/man8/$(PACKAGE).8
-	install doc/$(PACKAGE).uk.8 $(DESTDIR)/usr/man/uk/man8/$(PACKAGE).8
+	install --mode=0644 doc/$(PACKAGE).8 $(DESTDIR)/usr/man/man8/
+	install --mode=0644 doc/libslapt.3 $(DESTDIR)/usr/man/man3/
+	install --mode=0644 doc/$(PACKAGE).ru.8 $(DESTDIR)/usr/man/ru/man8/$(PACKAGE).8
+	install --mode=0644 doc/$(PACKAGE).uk.8 $(DESTDIR)/usr/man/uk/man8/$(PACKAGE).8
 	gzip -f $(DESTDIR)/usr/man/man8/$(PACKAGE).8
 	gzip -f $(DESTDIR)/usr/man/man3/libslapt.3
 	gzip -f $(DESTDIR)/usr/man/ru/man8/$(PACKAGE).8
