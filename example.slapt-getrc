@@ -73,48 +73,33 @@ SOURCE=http://software.jaos.org/slackpacks/12.1/
 #SOURCE=http://www.software-mirror.com/linuxpackages/Slackware-12.1/
 # * no current with linuxpackages.net
 
-# audioslack sources
-#SOURCE=http://www.audioslack.com/packages/9.1
-#SOURCE=http://www.audioslack.com/packages/10.0
-
 # slackware testing, extra, and pasture
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-12.0/extra/
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-12.0/testing/
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-12.0/pasture/
+#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-12.1/extra/
+#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-12.1/testing/
+#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-12.1/pasture/
 
 # other unofficial sources
-#SOURCE=http://www.tenboard.com/slackware/slackware-11.0/
-#http://www.slacky.eu/repository/slackware-12.0
-#SOURCE=http://slackpacks.tchelinux.com.br/
-#SOURCE=http://shtrom.free.fr/slackware/slackware-10.1/
-#SOURCE=http://www.stabellini.net/repository/Stefano_Stabellini/
-#SOURCE=http://carroll.aset.psu.edu/pub/linux/distributions/collegelinux/current/
-#SOURCE=http://distro.ibiblio.org/pub/linux/distributions/vectorlinux/veclinux-5.0/packages/
-#SOURCE=http://distro.ibiblio.org/pub/linux/distributions/vectorlinux/veclinux-5.0/packages-new/
-#SOURCE=http://distro.ibiblio.org/pub/linux/distributions/vectorlinux/veclinux-5.0/packages-test/
-#SOURCE=http://mirror.datapipe.net/norlug/frg/frg-current/
-#SOURCE=http://mirror.datapipe.net/norlug/frg64/current/
-#SOURCE=ftp://ftp.gware.org/10.2/2.12.0/packages
-#SOURCE=ftp://ftp.gware.org/x86_64/2.10.2/packages/
-#SOURCE=http://www.kadu.net/download/binary/slackware/slackware-11.0/
+# Slacky.eu FAST
+#SOURCE=http://darkstar.ist.utl.pt/slackware/addon/slacky/slackware-12.1/
+# GSB
+#SOURCE=http://www.slackware.org.uk/gsb/gsb-current/
+# GSB64
+#SOURCE=http://www.slackware.org.uk/gsb64/gsb64-current/
+#SOURCE=ftp://ftp.gware.org/12.1/2.22.0/packages/
 #SOURCE=http://www.slackages.com/slapt-get/jlp/
 #SOURCE=http://www.slackages.com/slapt-get/jto/
-#SOURCE=http://mirror.on.net.mk/Damjan/slackware-10.2/
-#SOURCE=http://packages.slackforge.net/slackware-10.2/
-#SOURCE=http://harmon.droplinegnome.org/extra/
 #SOURCE=http://trovao.droplinegnome.org/extras/
 #SOURCE=http://mirror.datapipe.net/norlug/mutagenix/packages/
 #SOURCE=http://www2.linuxpackages.net/packages/SlackBuilds/
-#SOURCE=http://stx.mikeasoft.com/
-#SOURCE=http://slackpacks.rlworkman.net/10.2/
+#SOURCE=http://slackpacks.rlworkman.net/12.1/
 #SOURCE=http://slackpacks.rlworkman.net/current/
 #SOURCE=http://www.slackware.com/~alien/slackbuilds/
-#SOURCE=http://slack.sarava.org/packages/slackware/slackware-10.2/
-#SOURCE=http://www.robertjohnkaper.com/downloads/atlantik/slackware-10.2/
-#SOURCE=http://jinx.tp2.be/slackware/
 #SOURCE=http://download.zenwalk.org/i486/snapshot/
 #SOURCE=http://de.repos.slackware-current.net/
 #SOURCE=http://slackware.sukkology.net/repository/
+#SOURCE=http://www.tenboard.com/slackware/slackware-11.0/
+#SOURCE=http://shtrom.free.fr/slackware/slackware-10.1/
+#SOURCE=http://www.stabellini.net/filesystem/repository/Stefano_Stabellini  
 
 
 # pull from your cdrom
