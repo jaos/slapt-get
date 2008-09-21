@@ -1,4 +1,7 @@
 
+0.9.12f Sep 21, 2008
+ * Fix for MD5 string length (Thanks to Boris Popov)
+
 0.9.12e May 10, 2008
  * only accept content length instead of last modified date if url is NOT ftp.
    This enforces 404 errors for those sources that like to have custom 404

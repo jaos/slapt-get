@@ -342,7 +342,7 @@ struct slapt_pkg_list *slapt_parse_packages_txt(FILE *pkg_list_fh)
         }
 
         strncpy(tmp_pkg->md5,md5sum,SLAPT_MD5_STR_LEN);
-        tmp_pkg->md5[SLAPT_MD5_STR_LEN] = '\0';
+        tmp_pkg->md5[SLAPT_MD5_STR_LEN - 1] = '\0';
     } else {
       /* md5 sum isn't provided... rewind one line */
       fseek(pkg_list_fh, (ftell(pkg_list_fh) - f_pos) * -1, SEEK_CUR);
