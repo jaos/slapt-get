@@ -282,7 +282,10 @@ int main( int argc, char *argv[] )
 
   /* create the working directory if needed */
   slapt_working_dir_init(global_config);
-  chdir(global_config->working_dir);
+  if ((chdir(global_config->working_dir)) == -1) { 
+    fprintf(stderr,gettext("Failed to chdir: %s\n"),global_config->working_dir);
+    exit(EXIT_FAILURE);
+  }
 
   switch(do_action) {
     case UPDATE:
@@ -372,7 +375,10 @@ int main( int argc, char *argv[] )
     case CLEAN:
       /* clean out local cache */
       slapt_clean_pkg_dir(global_config->working_dir);
-      chdir(global_config->working_dir);
+      if ((chdir(global_config->working_dir)) == -1) {
+        fprintf(stderr,gettext("Failed to chdir: %s\n"),global_config->working_dir);
+        exit(EXIT_FAILURE);
+      }
       break;
     case AUTOCLEAN:
       slapt_purge_old_cached_pkgs(global_config, NULL, NULL);
