@@ -1,5 +1,6 @@
 
-0.9.12f Sep 21, 2008
+0.9.12f Nov 23, 2008
+ * Added support for ikg extension (requested by Miguel Reynosso)
  * Fix for MD5 string length (Thanks to Boris Popov)
 
 0.9.12e May 10, 2008
