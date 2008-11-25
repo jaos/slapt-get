@@ -13,28 +13,28 @@ EXCLUDE=^kernel-.*,^glibc.*,.*-[0-9]+dl$,^devs$,^udev$,aaa_elflibs,x86_64
 # base url to directory with a PACKAGES.TXT
 # can point to any release, ie: 9.0, 10.0, current, etc
 # you should really choose from an example mirror url below
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-8.1/
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-9.0/
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-9.1/
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-10.0/
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-10.1/
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-10.2/
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-11.0/
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-12.0/
-SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-12.1/
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-current/
+#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-8.1/:OFFICIAL
+#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-9.0/:OFFICIAL
+#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-9.1/:OFFICIAL
+#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-10.0/:OFFICIAL
+#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-10.1/:OFFICIAL
+#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-10.2/:OFFICIAL
+#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-11.0/:OFFICIAL
+#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-12.0/:OFFICIAL
+SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-12.1/:OFFICIAL
+#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-current/:OFFICIAL
 
 # slapt source
-#SOURCE=http://software.jaos.org/slackpacks/8.1/
-#SOURCE=http://software.jaos.org/slackpacks/9.0/
-#SOURCE=http://software.jaos.org/slackpacks/9.1/
-#SOURCE=http://software.jaos.org/slackpacks/10.0/
-#SOURCE=http://software.jaos.org/slackpacks/10.1/
-#SOURCE=http://software.jaos.org/slackpacks/10.2/
-#SOURCE=http://software.jaos.org/slackpacks/11.0/
-#SOURCE=http://software.jaos.org/slackpacks/12.0/
-SOURCE=http://software.jaos.org/slackpacks/12.1/
-#SOURCE=http://software.jaos.org/slackpacks/current/
+#SOURCE=http://software.jaos.org/slackpacks/8.1/:OFFICIAL
+#SOURCE=http://software.jaos.org/slackpacks/9.0/:OFFICIAL
+#SOURCE=http://software.jaos.org/slackpacks/9.1/:OFFICIAL
+#SOURCE=http://software.jaos.org/slackpacks/10.0/:OFFICIAL
+#SOURCE=http://software.jaos.org/slackpacks/10.1/:OFFICIAL
+#SOURCE=http://software.jaos.org/slackpacks/10.2/:OFFICIAL
+#SOURCE=http://software.jaos.org/slackpacks/11.0/:OFFICIAL
+#SOURCE=http://software.jaos.org/slackpacks/12.0/:OFFICIAL
+SOURCE=http://software.jaos.org/slackpacks/12.1/:OFFICIAL
+#SOURCE=http://software.jaos.org/slackpacks/current/:OFFICIAL
 
 # you can use multiple sources, such as linuxpackages.net
 # (not recommended on production servers, see README)
@@ -103,10 +103,11 @@ SOURCE=http://software.jaos.org/slackpacks/12.1/
 
 
 # pull from your cdrom
-#SOURCE=file:///mnt/cdrom/
+#SOURCE=file:///mnt/cdrom/:CUSTOM
 
 
 # slackware mirrors to choose from
+#SOURCE=http://slackware.oc9.org/slackware-12.1/
 #SOURCE=http://slackware.mirrors.pair.com/slackware-12.1/
 #SOURCE=http://carroll.cac.psu.edu/pub/linux/distributions/slackware/slackware-12.1/
 #SOURCE=http://darkstar.ist.utl.pt/slackware/slackware-12.1/

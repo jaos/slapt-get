@@ -429,6 +429,7 @@ void slapt_pkg_action_show(const char *pkg_name)
 
     printf(gettext("Package Name: %s\n"),pkg->name);
     printf(gettext("Package Mirror: %s\n"),pkg->mirror);
+    printf(gettext("Package Priority: %s\n"),slapt_priority_to_str(pkg->priority));
     printf(gettext("Package Location: %s\n"),pkg->location);
     printf(gettext("Package Version: %s\n"),pkg->version);
     printf(gettext("Package Size: %d K\n"),pkg->size_c);
@@ -781,10 +782,9 @@ void slapt_pkg_action_add_keys(const slapt_rc_config *global_config)
   for(s = 0; s < global_config->sources->count; s++)
   {
     FILE *gpg_key = NULL;
-    printf(gettext("Retrieving GPG key [%s]..."), global_config->sources->url[s]);
-    gpg_key = slapt_get_pkg_source_gpg_key (global_config,
-                                            global_config->sources->url[s],
-                                            &compressed);
+    const char *source_url = global_config->sources->src[s]->url;
+    printf(gettext("Retrieving GPG key [%s]..."), source_url);
+    gpg_key = slapt_get_pkg_source_gpg_key (global_config, source_url, &compressed);
     if (gpg_key != NULL)
     {
       slapt_code_t r = slapt_add_pkg_source_gpg_key(gpg_key);

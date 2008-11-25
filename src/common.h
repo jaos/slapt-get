@@ -26,6 +26,22 @@ typedef enum {
   SLAPT_DOWNLOAD_INCOMPLETE
 } slapt_code_t;
 
+typedef enum {
+    SLAPT_PRIORITY_DEFAULT = 0,
+    SLAPT_PRIORITY_DEFAULT_PATCH,
+    SLAPT_PRIORITY_PREFERRED,
+    SLAPT_PRIORITY_PREFERRED_PATCH,
+    SLAPT_PRIORITY_OFFICIAL,
+    SLAPT_PRIORITY_OFFICIAL_PATCH,
+    SLAPT_PRIORITY_CUSTOM,
+    SLAPT_PRIORITY_CUSTOM_PATCH
+} SLAPT_PRIORITY_T;
+
+#define SLAPT_PRIORITY_DEFAULT_TOKEN "DEFAULT"
+#define SLAPT_PRIORITY_PREFERRED_TOKEN "PREFERRED"
+#define SLAPT_PRIORITY_OFFICIAL_TOKEN "OFFICIAL"
+#define SLAPT_PRIORITY_CUSTOM_TOKEN "CUSTOM"
+
 typedef struct {
   regmatch_t pmatch[SLAPT_MAX_REGEX_PARTS];
   regex_t regex;
@@ -54,4 +70,5 @@ __inline void *slapt_calloc(size_t n,size_t s);
 
 /* return human readable error */
 const char *slapt_strerror(slapt_code_t code);
-
+/* return human readable priority */
+const char *slapt_priority_to_str(SLAPT_PRIORITY_T priority);

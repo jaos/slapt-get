@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.12b\n"
+"Project-Id-Version: 0.10.0\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2007-09-18 20:51+0500\n"
+"PO-Revision-Date: 2008-11-24 00:41+0500\n"
 "Last-Translator: Jason Woodward <woodwardj@jaos.org>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -504,5 +504,29 @@ msgstr ""
 
 #, c-format
 msgid "Not Found\n"
+msgstr ""
+
+msgid "Default"
+msgstr ""
+
+msgid "Default Patch"
+msgstr ""
+
+msgid "Preferred"
+msgstr ""
+
+msgid "Preferred Patch"
+msgstr ""
+
+msgid "Official"
+msgstr ""
+
+msgid "Official Patch"
+msgstr ""
+
+msgid "Custom"
+msgstr ""
+
+msgid "Custom Patch"
 msgstr ""
 

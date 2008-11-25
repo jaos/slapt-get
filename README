@@ -108,6 +108,17 @@ Table of Contents:
             official mirrors. Third party packages might not be
             as rigorously tested as official packages.
 
+    Every SOURCE mentioned in the slapt-getrc file is assigned a priority
+    number, which is a non-negative integer that defaults to 0.  Priority
+    is assigned by appending :{PRIORITY} to the source URI.  For example:
+
+      SOURCE={url}:DEFAULT    is the default, lowest priority
+      SOURCE={url}:PREFERRED  assigns more weight to this source
+      SOURCE={url}:OFFICIAL   even more weight, used to denote official sources
+      SOURCE={url}:CUSTOM     highest priority, for your custom package source
+
+    See the FAQ for more information.
+
     * WORKINGDIR will hold the package data and downloaded packages.
       This directory will be created automatically as permissions
       allow.
@@ -242,4 +253,7 @@ Table of Contents:
    Bekir SONAT <corlinux at gmail dot com> contributed the Turkish translation.
 
    Reteaua PTM <admin at ptm dot ro> contributed the Romanian translation.
+
+   Ken Milmore <ken dot milmore at googlemail dot com> contributed the initial
+   source priority support.
 

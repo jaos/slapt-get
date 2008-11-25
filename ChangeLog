@@ -1,5 +1,10 @@
 
-0.9.12f Nov 23, 2008
+0.10.0 Nov 25, 2008
+ * (libslapt) added slapt_write_rc_config (incorporating from gslapt)
+ * (libslapt) added parsing of disabled sources (instead of ignoring what
+    gslapt creates).
+ * test updates
+ * Added source priority support based on patch submitted by Ken Milmore
  * Added support for ikg extension (requested by Miguel Reynosso)
  * Fix for MD5 string length (Thanks to Boris Popov)
 

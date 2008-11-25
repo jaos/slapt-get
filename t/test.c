@@ -17,8 +17,22 @@ slapt_pkg_info_t pkg = {
                         "",
                         ".tgz",
                         115,
-                        440
+                        440,
+                        SLAPT_PRIORITY_DEFAULT,
+                        SLAPT_TRUE
 };
+
+int _progress_cb(void *clientp, double dltotal, double dlnow,
+                        double ultotal, double ulnow)
+{
+  (void) clientp;
+  (void) dltotal;
+  (void) dlnow;
+  (void) ultotal;
+  (void) ulnow;
+  return 0;
+}
+
 
 Suite *slapt_test_suite()
 {

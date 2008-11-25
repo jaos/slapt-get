@@ -36,7 +36,12 @@ FILE *slapt_open_file(const char *file_name,const char *mode)
 /* initialize regex structure and compile the regular expression */
 slapt_regex_t *slapt_init_regex(const char *regex_string)
 {
-  slapt_regex_t *r = slapt_malloc(sizeof *r);
+  slapt_regex_t *r;
+
+  if (regex_string == NULL)
+    return NULL;
+
+  r = slapt_malloc(sizeof *r);
 
   r->nmatch = SLAPT_MAX_REGEX_PARTS;
   r->reg_return = -1;
@@ -321,8 +326,33 @@ const char *slapt_strerror(slapt_code_t code)
     case SLAPT_CHECKSUMS_MISSING_KEY:
       return gettext("No key for verification");
     #endif
-  };
-
+    default:
   return gettext("Unknown error");
+  };
 }
 
+const char *slapt_priority_to_str(SLAPT_PRIORITY_T priority)
+{
+
+  switch(priority) {
+    case SLAPT_PRIORITY_DEFAULT:
+      return gettext("Default");
+    case SLAPT_PRIORITY_DEFAULT_PATCH:
+      return gettext("Default Patch");
+    case SLAPT_PRIORITY_PREFERRED:
+      return gettext("Preferred");
+    case SLAPT_PRIORITY_PREFERRED_PATCH:
+      return gettext("Preferred Patch");
+    case SLAPT_PRIORITY_OFFICIAL:
+      return gettext("Official");
+    case SLAPT_PRIORITY_OFFICIAL_PATCH:
+      return gettext("Official Patch");
+    case SLAPT_PRIORITY_CUSTOM:
+      return gettext("Custom");
+    case SLAPT_PRIORITY_CUSTOM_PATCH:
+      return gettext("Custom Patch");
+    default:
+      return NULL;
+  };
+
+}

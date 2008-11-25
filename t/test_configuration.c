@@ -68,11 +68,13 @@ END_TEST
 
 START_TEST (test_source_list)
 {
+  slapt_source_t *src = slapt_init_source("http://www.test.org/dist");
   struct slapt_source_list *s = slapt_init_source_list();
   fail_if (s == NULL);
   fail_if (s->count != 0);
 
-  slapt_add_source(s,"http://www.test.org/dist/");
+  fail_if (src == NULL);
+  slapt_add_source(s, src);
   fail_if (s->count != 1);
 
   slapt_remove_source (s,"http://www.test.org/dist/");

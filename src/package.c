@@ -66,6 +66,7 @@ struct slapt_pkg_list *slapt_parse_packages_txt(FILE *pkg_list_fh)
 {
   slapt_regex_t *name_regex = NULL,
               *mirror_regex = NULL,
+                *priority_regex = NULL,
               *location_regex = NULL,
               *size_c_regex = NULL,
               *size_u_regex = NULL;
@@ -83,6 +84,9 @@ struct slapt_pkg_list *slapt_parse_packages_txt(FILE *pkg_list_fh)
     exit(EXIT_FAILURE);
   }
   if ((mirror_regex = slapt_init_regex(SLAPT_PKG_MIRROR_PATTERN)) == NULL) {
+    exit(EXIT_FAILURE);
+  }
+  if ((priority_regex = slapt_init_regex(SLAPT_PKG_PRIORITY_PATTERN)) == NULL) {
     exit(EXIT_FAILURE);
   }
   if ((location_regex = slapt_init_regex(SLAPT_PKG_LOCATION_PATTERN)) == NULL) {
@@ -134,6 +138,20 @@ struct slapt_pkg_list *slapt_parse_packages_txt(FILE *pkg_list_fh)
         tmp_pkg->mirror = slapt_regex_extract_match(mirror_regex, getline_buffer, 1);
       } else {
         /* mirror isn't provided... rewind one line */
+        fseek(pkg_list_fh, (ftell(pkg_list_fh) - f_pos) * -1, SEEK_CUR);
+      }
+    }
+
+    /* priority */
+    f_pos = ftell(pkg_list_fh);
+    if (getline(&getline_buffer, &getline_len, pkg_list_fh) != EOF) {
+
+      slapt_execute_regex(priority_regex, getline_buffer);
+
+      if (priority_regex->reg_return == 0) {
+        tmp_pkg->priority = atoi(slapt_regex_extract_match(priority_regex, getline_buffer, 1));
+      } else {
+        /* priority isn't provided... rewind one line */
         fseek(pkg_list_fh, (ftell(pkg_list_fh) - f_pos) * -1, SEEK_CUR);
       }
     }
@@ -655,6 +673,9 @@ struct slapt_pkg_list *slapt_get_installed_pkgs(void)
       tmp_pkg->mirror[0] = '\0';
     }
 
+    /* mark as installed */
+    tmp_pkg->installed = SLAPT_TRUE;
+
     slapt_add_pkg_to_pkg_list(list,tmp_pkg);
     tmp_pkg = NULL;
 
@@ -1011,6 +1032,25 @@ static void slapt_free_pkg_version_parts(struct slapt_pkg_version_parts *parts)
   free(parts);
 }
 
+int slapt_cmp_pkgs(slapt_pkg_info_t *a, slapt_pkg_info_t *b)
+{
+  int greater = 1,lesser = -1,equal = 0;
+
+  /* if either of the two packages is installed, we look
+     for the same version to bail out early if possible */
+  if (a->installed == SLAPT_TRUE || b->installed == SLAPT_TRUE)
+    if (strcasecmp(a->version,b->version) == 0)
+      return equal;
+
+  /* check the priorities */
+  if(a->priority > b->priority)
+    return greater;
+  else if(a->priority < b->priority)
+    return lesser;
+
+  return slapt_cmp_pkg_versions(a->version, b->version);
+}
+
 int slapt_cmp_pkg_versions(const char *a, const char *b)
 {
   unsigned int position = 0;
@@ -1115,7 +1155,7 @@ int slapt_cmp_pkg_versions(const char *a, const char *b)
 
   /*
    * If both have the same # of version parts, non-standard version convention,
-   * then we fall back on strcmp.
+   * then we fall back on strverscmp.
   */
   if (strchr(a,'-') == NULL && strchr(b,'-') == NULL)
     return strverscmp(a,b);
@@ -1210,6 +1250,7 @@ void slapt_write_pkg_data(const char *source_url,FILE *d_file,
     } else {
       fprintf(d_file,"PACKAGE MIRROR:  %s\n",source_url);
     }
+    fprintf(d_file,"PACKAGE PRIORITY:  %d\n", pkgs->pkgs[i]->priority);
     fprintf(d_file,"PACKAGE LOCATION:  %s\n",pkgs->pkgs[i]->location);
     fprintf(d_file,"PACKAGE SIZE (compressed):  %d K\n",pkgs->pkgs[i]->size_c);
     fprintf(d_file,"PACKAGE SIZE (uncompressed):  %d K\n",pkgs->pkgs[i]->size_u);
@@ -1887,46 +1928,39 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
     FILE *tmp_signature_f = NULL;
     FILE *tmp_checksum_to_verify_f = NULL;
     #endif
+    const char *source_url = global_config->sources->src[i]->url;
+    SLAPT_PRIORITY_T source_priority = global_config->sources->src[i]->priority;
+
+    if (global_config->sources->src[i]->disabled == SLAPT_TRUE)
+      continue;
 
     /* download our SLAPT_PKG_LIST */
-    printf(gettext("Retrieving package data [%s]..."),
-                   global_config->sources->url[i]);
-    available_pkgs =
-      slapt_get_pkg_source_packages(global_config,
-                                    global_config->sources->url[i],
-                                    &compressed);
+    printf(gettext("Retrieving package data [%s]..."), source_url);
+
+    available_pkgs = slapt_get_pkg_source_packages(global_config, source_url, &compressed);
     if (available_pkgs == NULL) {
       source_dl_failed = 1;
       continue;
     }
 
     /* download SLAPT_PATCHES_LIST */
-    printf(gettext("Retrieving patch list [%s]..."),
-                    global_config->sources->url[i]);
-    patch_pkgs =
-      slapt_get_pkg_source_patches(global_config,
-                                   global_config->sources->url[i],
-                                   &compressed);
+    printf(gettext("Retrieving patch list [%s]..."), source_url);
+
+    patch_pkgs = slapt_get_pkg_source_patches(global_config, source_url, &compressed);
 
 
     /* download checksum file */
-    printf(gettext("Retrieving checksum list [%s]..."),
-                   global_config->sources->url[i]);
-    tmp_checksum_f =
-      slapt_get_pkg_source_checksums(global_config,
-                                     global_config->sources->url[i],
-                                     &compressed);
+    printf(gettext("Retrieving checksum list [%s]..."), source_url);
+    tmp_checksum_f = slapt_get_pkg_source_checksums(global_config, source_url, &compressed);
 
     #ifdef SLAPT_HAS_GPGME
-    printf(gettext("Retrieving checksum signature [%s]..."), global_config->sources->url[i]);
-    tmp_signature_f = slapt_get_pkg_source_checksums_signature (global_config,
-                                                                global_config->sources->url[i],
-                                                                &compressed);
+    printf(gettext("Retrieving checksum signature [%s]..."), source_url);
+    tmp_signature_f = slapt_get_pkg_source_checksums_signature (global_config,source_url, &compressed);
+
     /* if we downloaded the compressed checksums, open it raw (w/o gunzipping) */
     if (compressed == 1)
     {
-      char *filename = slapt_gen_filename_from_url(global_config->sources->url[i],
-                                                   SLAPT_CHECKSUM_FILE_GZ);
+      char *filename = slapt_gen_filename_from_url(source_url, SLAPT_CHECKSUM_FILE_GZ);
       tmp_checksum_to_verify_f = slapt_open_file(filename,"r");
       free(filename);
     } else {
@@ -1935,7 +1969,7 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
 
     if (tmp_signature_f != NULL && tmp_checksum_to_verify_f != NULL) {
       slapt_code_t verified = SLAPT_CHECKSUMS_NOT_VERIFIED;
-      printf(gettext("Verifying checksum signature [%s]..."), global_config->sources->url[i]);
+      printf(gettext("Verifying checksum signature [%s]..."), source_url);
       verified = slapt_gpg_verify_checksums(tmp_checksum_to_verify_f, tmp_signature_f);
       if (verified == SLAPT_CHECKSUMS_VERIFIED) {
         printf("%s\n",gettext("Verified"));
@@ -1962,11 +1996,8 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
     #endif
 
     if (source_dl_failed != 1) {
-      printf(gettext("Retrieving ChangeLog.txt [%s]..."),
-                     global_config->sources->url[i]);
-      slapt_get_pkg_source_changelog(global_config,
-                                     global_config->sources->url[i],
-                                     &compressed);
+      printf(gettext("Retrieving ChangeLog.txt [%s]..."), source_url);
+      slapt_get_pkg_source_changelog(global_config, source_url, &compressed);
     }
 
     if (tmp_checksum_f != NULL) {
@@ -1987,8 +2018,11 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
           if (mirror_len == 0)
             free(p->mirror);
 
-          p->mirror = strdup(global_config->sources->url[i]);
+          p->mirror = strdup(source_url);
         }
+
+        /* set the priority of the package based on the source */
+        p->priority = source_priority;
 
         slapt_add_pkg_to_pkg_list(new_pkgs,p);
       }
@@ -2006,8 +2040,11 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
             if (mirror_len == 0)
               free(p->mirror);
 
-            p->mirror = strdup(global_config->sources->url[i]);
+            p->mirror = strdup(source_url);
           }
+
+          /* set the priority of the package based on the source, plus 1 for the patch priority */
+          p->priority = source_priority + 1;
 
           slapt_add_pkg_to_pkg_list(new_pkgs,p);
         }
@@ -2112,8 +2149,11 @@ __inline slapt_pkg_info_t *slapt_init_pkg(void)
   pkg->suggests       = slapt_malloc(sizeof *pkg->suggests);
   pkg->suggests[0]    = '\0';
 
-
   pkg->md5[0] = '\0';
+
+  pkg->priority = SLAPT_PRIORITY_DEFAULT;
+
+  pkg->installed = SLAPT_FALSE;
 
   return pkg;
 }

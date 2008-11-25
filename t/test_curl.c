@@ -1,24 +1,15 @@
 #include "test_curl.h"
 extern slapt_pkg_info_t pkg;
 
-
-static int _progress_cb(void *clientp, double dltotal, double dlnow,
-                        double ultotal, double ulnow)
-{
-  (void) clientp;
-  (void) dltotal;
-  (void) dlnow;
-  (void) ultotal;
-  (void) ulnow;
-  return 0;
-}
+extern int _progress_cb(void *clientp, double dltotal, double dlnow,
+                        double ultotal, double ulnow);
 
 START_TEST (test_slapt_get_mirror_data_from_source)
 {
   FILE *f             = NULL;
   const char *err     = NULL;
   slapt_rc_config *rc = slapt_read_rc_config("./data/rc1");
-  const char *url     = "http://software.jaos.org/slackpacks/10.0/";
+  const char *url     = rc->sources->src[0]->url;
   char *packages      = "PACKAGES.TXT"; 
   char *packages_gz   = "PACKAGES.TXT.gz"; 
   char *checksums     = "CHECKSUMS.md5"; 

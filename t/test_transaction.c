@@ -74,6 +74,7 @@ START_TEST (test_transaction_dependencies)
     in the transaction
   void slapt_generate_suggestions(slapt_transaction_t *tran);
   */
+  slapt_generate_suggestions(t);
 
   slapt_free_transaction(t);
   slapt_free_rc_config(rc);

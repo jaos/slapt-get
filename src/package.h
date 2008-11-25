@@ -4,6 +4,7 @@
 #define SLAPT_PKG_VER "(.*)[\\-](.*)[\\-](.*)"
 #define SLAPT_PKG_NAME_PATTERN "^PACKAGE NAME:[ ]{1,}(.*{1,})\\-(.*[\\-].*[\\-].*)(\\.[tgblzik]+)[ ]{0,}$"
 #define SLAPT_PKG_MIRROR_PATTERN "^PACKAGE MIRROR:[ ]+(.*)$"
+#define SLAPT_PKG_PRIORITY_PATTERN "^PACKAGE PRIORITY:[ ]+([0-9]{1,})$"
 #define SLAPT_PKG_LOCATION_PATTERN "^PACKAGE LOCATION:[ ]+(.*)$"
 #define SLAPT_PKG_SIZEC_PATTERN "^PACKAGE SIZE [(]+compressed[)]{1,}:[ ]{1,}([0-9]{1,}) K$"
 #define SLAPT_PKG_SIZEU_PATTERN "^PACKAGE SIZE [(]+uncompressed[)]{1,}:[ ]{1,}([0-9]{1,}) K$"
@@ -46,6 +47,8 @@ typedef struct {
   char *file_ext;
   unsigned int size_c;
   unsigned int size_u;
+  unsigned int priority;
+  SLAPT_BOOL_T installed;
 } slapt_pkg_info_t;
 
 struct slapt_pkg_list {
@@ -206,7 +209,7 @@ size_t slapt_get_pkg_file_size(const slapt_rc_config *global_config,
     0 if a and b are equal
 */
 int slapt_cmp_pkg_versions(const char *a, const char *b);
-#define slapt_cmp_pkgs(x,y) slapt_cmp_pkg_versions(x->version,y->version)
+int slapt_cmp_pkgs(slapt_pkg_info_t *a, slapt_pkg_info_t *b);
 
 /*
   resolve dependencies

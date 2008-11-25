@@ -4,9 +4,9 @@
 # Bekir SONAT <bekirsonat@kde.org.tr>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.12b\n"
+"Project-Id-Version: 0.10.0\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2007-09-18 20:51+0500\n"
+"PO-Revision-Date: 2008-11-24 00:41+0500\n"
 "Last-Translator: Bekir SONAT <bekirsonat@kde.org.tr>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -505,4 +505,28 @@ msgstr "Unknown error"
 #, c-format
 msgid "Not Found\n"
 msgstr "Not Found\n"
+
+msgid "Default"
+msgstr "Default"
+
+msgid "Default Patch"
+msgstr "Default Patch"
+
+msgid "Preferred"
+msgstr "Preferred"
+
+msgid "Preferred Patch"
+msgstr "Preferred Patch"
+
+msgid "Official"
+msgstr "Official"
+
+msgid "Official Patch"
+msgstr "Official Patch"
+
+msgid "Custom"
+msgstr "Custom"
+
+msgid "Custom Patch"
+msgstr "Custom Patch"
 

@@ -1,6 +1,8 @@
 #include "test_packages.h"
 extern slapt_pkg_info_t pkg;
 
+extern int _progress_cb(void *clientp, double dltotal, double dlnow,
+                        double ultotal, double ulnow);
 
 START_TEST (test_struct_pkg)
 {
@@ -70,6 +72,9 @@ START_TEST (test_pkg_info)
 
   /* retrieve the packages changelog entry, if any.  Returns NULL otherwise */
   /* char *slapt_get_pkg_changelog(const slapt_pkg_info_t *pkg); */
+
+  fail_unless (pkg.priority == SLAPT_PRIORITY_DEFAULT);
+  fail_unless (strcmp(slapt_priority_to_str(pkg.priority),gettext("Default")) == 0);
 
   slapt_free_rc_config(rc);
 }
@@ -163,6 +168,98 @@ START_TEST (test_pkgtool)
 }
 END_TEST
 
+/* 
+http://software.jaos.org/pipermail/slapt-get-devel/2008-November/000762.html
+
+* When comparing two packages on mirrors:
+
+  - The package with the highest priority wins, but:
+  - If the priorities tie, then the package with the highest version 
+  number wins.
+
+  * When comparing an installed package with a mirror package:
+
+  - If the two packages have *exactly* the same version string, then they 
+  compare equal, regardless of priorities.
+  - Otherwise, the package with the highest priority wins. (Taking the 
+      priority of the installed package as zero). But:
+  - If the priorities tie, then the package with the highest version 
+  number wins.
+*/
+START_TEST (test_pkg_version)
+{
+  slapt_pkg_info_t mirror_pkg1 = {
+                        "8598a2a6d683d098b09cdc938de1e3c7",
+                        "gslapt",
+                        "0.3.15-i386-1",
+                        "http://software.jaos.org/slackpacks/11.0/",
+                        ".",
+                        "gslapt: gslapt (GTK slapt-get, an APT like system for Slackware)\n",
+                        "",
+                        "",
+                        "",
+                        ".tgz",
+                        115,
+                        440,
+                        SLAPT_PRIORITY_PREFERRED,
+                        SLAPT_FALSE
+  };
+  slapt_pkg_info_t mirror_pkg2 = {
+                        "8598a2a6d683d098b09cdc938de1e3c7",
+                        "gslapt",
+                        "0.3.15-i386-2",
+                        "http://software.jaos.org/slackpacks/11.0/",
+                        ".",
+                        "gslapt: gslapt (GTK slapt-get, an APT like system for Slackware)\n",
+                        "",
+                        "",
+                        "",
+                        ".tgz",
+                        115,
+                        440,
+                        SLAPT_PRIORITY_DEFAULT,
+                        SLAPT_FALSE
+  };
+  slapt_pkg_info_t installed_pkg = {
+                        "8598a2a6d683d098b09cdc938de1e3c7",
+                        "gslapt",
+                        "0.3.15-i386-1",
+                        "http://software.jaos.org/slackpacks/11.0/",
+                        ".",
+                        "gslapt: gslapt (GTK slapt-get, an APT like system for Slackware)\n",
+                        "",
+                        "",
+                        "",
+                        ".tgz",
+                        115,
+                        440,
+                        SLAPT_PRIORITY_DEFAULT,
+                        SLAPT_TRUE
+  };
+
+  /* mirror_pkg1 has a higher priority, and should win */
+  fail_unless (slapt_cmp_pkgs(&mirror_pkg1,&mirror_pkg2) == 1);
+
+  /* both have the same priority, mirror_pkg2 has a higher version and should win */
+  mirror_pkg1.priority = SLAPT_PRIORITY_DEFAULT;
+  fail_unless (slapt_cmp_pkgs(&mirror_pkg1,&mirror_pkg2) == -1);
+
+  /* installed_pkg and mirror_pkg1 have the exact same version and should be
+     equal regardless of priority */
+  fail_unless (slapt_cmp_pkgs(&installed_pkg,&mirror_pkg1) == 0);
+
+  /* installed_pkg has a higher priority and should win, regardless of the
+     fact that mirror_pkg2 has a higher version */
+  installed_pkg.priority = SLAPT_PRIORITY_PREFERRED;
+  fail_unless (slapt_cmp_pkgs(&installed_pkg,&mirror_pkg2) == 1);
+
+  /* when the priorities are the same, the package with the higher version
+     always wins */
+  installed_pkg.priority = SLAPT_PRIORITY_DEFAULT;
+  fail_unless (slapt_cmp_pkgs(&installed_pkg,&mirror_pkg2) == -1);
+
+}
+END_TEST
 
 START_TEST (test_version)
 {
@@ -256,10 +353,12 @@ END_TEST
 
 START_TEST (test_network)
 {
+  char *cwd                   = get_current_dir_name();
   slapt_rc_config *rc         = slapt_read_rc_config("./data/rc1");
+  rc->progress_cb             = _progress_cb; /* silence */
 
   /* must chdir to working dir */
-  /* fail_unless (slapt_update_pkg_cache(rc) == 0); */
+  chdir(rc->working_dir);
 
   /* write pkg data to disk
   void slapt_write_pkg_data(const char *source_url,FILE *d_file,
@@ -277,7 +376,11 @@ START_TEST (test_network)
                                         const char *url);
   */
 
+  fail_unless (slapt_update_pkg_cache(rc) == 0);
+
+  chdir(cwd);
   slapt_free_rc_config(rc);
+  free(cwd);
 }
 END_TEST
 
@@ -293,6 +396,7 @@ Suite *packages_test_suite()
   tcase_add_test (tc, test_pkg_list);
   tcase_add_test (tc, test_pkg_search);
   tcase_add_test (tc, test_pkgtool);
+  tcase_add_test (tc, test_pkg_version);
   tcase_add_test (tc, test_version);
   tcase_add_test (tc, test_dependency);
   tcase_add_test (tc, test_cache);

@@ -95,19 +95,38 @@ and is freed by a call to the \fIslapt_free_rc_config\fP() function.
 .B "void slapt_free_rc_config(slapt_rc_config *global_config);"
 .sp
 .TP
+The slapt-getrc configuration can be written back out with \fIslapt_write_rc_config\fP.
+.sp
+.B "int slapt_write_rc_config(const slapt_rc_config *global_config, const char *location);"
+.sp
+.TP
 The progress callback is a function that is called while data is being downloaded.  It is in the format of \fBint slapt_progress_callback(void *clientp, double dltotal, double dlnow, double ultotal, double ulnow);\fP
+.sp
+.TP
+Package sources are represented by the \fIslapt_source_t\fP type.  They are created, destroyed, and interacted with using the following functions:
+.sp
+.nf
+  typedef struct {
+    char *url;
+    SLAPT_PRIORITY_T priority;
+    SLAPT_BOOL_T disabled;
+  } slapt_source_t;
+.sp
+.B slapt_source_t *slapt_init_source(const char *s);
+.B void slapt_free_source(slapt_source_t *src);
+.fi
 .sp
 .TP
 The \fIstruct slapt_source_list\fP stores the package sources.  Sources can be added and removed with \fIslapt_add_source\fP() and \fIslapt_remove_source\fP().  Typically, \fIslapt_rc_config->sources\fP is passed as the first argument, but it could be any pointer to a \fIstruct slapt_source_list\fP that is created by \fIslapt_init_source_list\fP().
 .sp
 .nf
   struct slapt_source_list {
-    char **url;
+    slapt_source_t **src;
     unsigned int count;
   };
 .sp
 .B "struct slapt_source_list *slapt_init_source_list(void);"
-.B "void slapt_add_source(struct slapt_source_list *list,const char *s);"
+.B "void slapt_add_source(struct slapt_source_list *list, slapt_source_t *s);"
 .B "void slapt_remove_source (struct slapt_source_list *list, const char *s);"
 .B "void slapt_free_source_list(struct slapt_source_list *list);"
 .fi
@@ -150,6 +169,8 @@ slapt-get stores packages within \fIslapt_pkg_info_t\fP objects.
     char *file_ext;
     unsigned int size_c;
     unsigned int size_u;
+    unsigned int priority;
+    SLAPT_BOOL_T installed;
   } slapt_pkg_info_t;
 .fi
 .sp
@@ -227,11 +248,11 @@ Passing a package to \fIinstallpkg\fP, \fIupgradepkg\fP, and \fIremovepkg\fP is 
 .fi
 .sp
 .TP
-Comparing package versions is done with the \fIslapt_cmp_pkgs\fP macro.  It calls \fIslapt_cmp_pkg_versions\fP() which returns just like strcmp, greater than 0 if a is greater than b, less than 0 if a is less than b, or 0 if a and b are equal.
+Comparing package versions is done with the \fIslapt_cmp_pkgs\fP functions.  It calls \fIslapt_cmp_pkg_versions\fP() which returns just like strcmp, greater than 0 if a is greater than b, less than 0 if a is less than b, or 0 if a and b are equal.
 .sp
 .nf
 .B "int slapt_cmp_pkg_versions(const char *a, const char *b);"
-.B "#define slapt_cmp_pkgs(x,y) slapt_cmp_pkg_versions(x->version,y->version)"
+.B "int slapt_cmp_pkgs(slapt_pkg_info_t *a, slapt_pkg_info_t *b);"
 .fi
 .sp
 .TP
@@ -550,6 +571,26 @@ Miscellaneous functionality within libslapt.
   } slapt_code_t;
 .sp
 .B "const char *slapt_strerror(slapt_code_t code);"
+.sp
+.nf
+  typedef enum {
+      SLAPT_PRIORITY_DEFAULT = 0,
+      SLAPT_PRIORITY_DEFAULT_PATCH,
+      SLAPT_PRIORITY_PREFERRED,
+      SLAPT_PRIORITY_PREFERRED_PATCH,
+      SLAPT_PRIORITY_OFFICIAL,
+      SLAPT_PRIORITY_OFFICIAL_PATCH,
+      SLAPT_PRIORITY_CUSTOM,
+      SLAPT_PRIORITY_CUSTOM_PATCH
+  } SLAPT_PRIORITY_T;
+.sp
+.B #define SLAPT_PRIORITY_DEFAULT_TOKEN "DEFAULT"
+.B #define SLAPT_PRIORITY_PREFERRED_TOKEN "PREFERRED"
+.B #define SLAPT_PRIORITY_OFFICIAL_TOKEN "OFFICIAL"
+.B #define SLAPT_PRIORITY_CUSTOM_TOKEN "CUSTOM"
+.sp
+.B /* return human readable priority */
+.B const char *slapt_priority_to_str(SLAPT_PRIORITY_T priority);
 .fi
 .sp
 .SH LINKING WITH LIBSLAPT

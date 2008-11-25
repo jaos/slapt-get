@@ -69,33 +69,42 @@ slapt_rc_config *slapt_read_rc_config(const char *file_name)
     /* check to see if it has our key and value seperated by our token */
     /* and extract them */
 
-    if ( getline_buffer[0] == '#' ) {
-      continue;
-    }
-
-    if ( strstr(getline_buffer,SOURCE_TOKEN) != NULL ) {
+    if ( strstr(getline_buffer,SLAPT_SOURCE_TOKEN) != NULL ) {
       /* SOURCE URL */
 
-      if ( strlen(getline_buffer) > strlen(SOURCE_TOKEN) ) {
-        slapt_add_source(global_config->sources,getline_buffer +
-                   strlen(SOURCE_TOKEN));
+      if ( strlen(getline_buffer) > strlen(SLAPT_SOURCE_TOKEN) ) {
+        slapt_source_t *s = slapt_init_source(getline_buffer + strlen(SLAPT_SOURCE_TOKEN));
+        if (s != NULL) {
+          slapt_add_source(global_config->sources,s);
+        }
       }
 
-    } else if ( strstr(getline_buffer,WORKINGDIR_TOKEN) != NULL ) {
+    } else if ( strstr(getline_buffer,SLAPT_DISABLED_SOURCE_TOKEN) != NULL ) {
+      /* DISABLED SOURCE */
+
+      if (strlen(getline_buffer) > strlen(SLAPT_DISABLED_SOURCE_TOKEN) ) {
+        slapt_source_t *s = slapt_init_source(getline_buffer + strlen(SLAPT_DISABLED_SOURCE_TOKEN));
+        if (s != NULL) {
+          s->disabled = SLAPT_TRUE;
+          slapt_add_source(global_config->sources,s);
+        }
+      }
+
+    } else if ( strstr(getline_buffer,SLAPT_WORKINGDIR_TOKEN) != NULL ) {
       /* WORKING DIR */
 
-      if ( strlen(getline_buffer) > strlen(WORKINGDIR_TOKEN) ) {
+      if ( strlen(getline_buffer) > strlen(SLAPT_WORKINGDIR_TOKEN) ) {
         strncpy(
           global_config->working_dir,
-          getline_buffer + strlen(WORKINGDIR_TOKEN),
-          (strlen(getline_buffer) - strlen(WORKINGDIR_TOKEN))
+          getline_buffer + strlen(SLAPT_WORKINGDIR_TOKEN),
+          (strlen(getline_buffer) - strlen(SLAPT_WORKINGDIR_TOKEN))
         );
         global_config->working_dir[
-          (strlen(getline_buffer) - strlen(WORKINGDIR_TOKEN))
+          (strlen(getline_buffer) - strlen(SLAPT_WORKINGDIR_TOKEN))
         ] = '\0';
       }
 
-    } else if ( strstr(getline_buffer,EXCLUDE_TOKEN) != NULL ) {
+    } else if ( strstr(getline_buffer,SLAPT_EXCLUDE_TOKEN) != NULL ) {
        /* exclude list */
       slapt_free_exclude_list(global_config->exclude_list);
       global_config->exclude_list = parse_exclude(getline_buffer);
@@ -286,93 +295,58 @@ void slapt_free_exclude_list(struct slapt_exclude_list *list)
 struct slapt_source_list *slapt_init_source_list(void)
 {
   struct slapt_source_list *list = slapt_malloc(sizeof *list);
-  list->url = slapt_malloc(sizeof *list->url);
+  list->src = slapt_malloc(sizeof *list->src);
   list->count = 0;
 
   return list;
 }
 
-void slapt_add_source(struct slapt_source_list *list,const char *s)
+void slapt_add_source(struct slapt_source_list *list,slapt_source_t *s)
 {
-  char **realloc_tmp;
-  int source_len = 0;
+  slapt_source_t **realloc_tmp;
 
   if ( s == NULL )
     return;
 
-  source_len = strlen(s);
-
-  realloc_tmp = realloc(list->url,sizeof *list->url * (list->count + 1) );
+  realloc_tmp = realloc(list->src,sizeof *list->src * (list->count + 1) );
 
   if ( realloc_tmp == NULL )
     return;
 
-  list->url = realloc_tmp;
+  list->src = realloc_tmp;
 
-  if ( s[source_len - 1] == '/' ) {
-
-    list->url[ list->count ] = strndup(s,source_len);
-    list->url[ list->count ][source_len] = '\0';
-
-  } else {
-
-    list->url[ list->count ] = slapt_malloc(
-      sizeof *list->url[list->count] * (source_len + 2)
-    );
-    list->url[list->count][0] = '\0';
-
-    list->url[list->count] = strncat(
-      list->url[list->count],
-      s,
-      source_len
-    );
-
-    if (isblank(list->url[list->count][source_len - 1]) == 0) {
-      list->url[list->count] = strncat(list->url[list->count], "/", 1);
-    } else {
-      if (list->url[list->count][source_len - 2] == '/') {
-        list->url[list->count][source_len - 2] = '/';
-        list->url[list->count][source_len - 1] = '\0';
-      } else {
-        list->url[list->count][source_len - 1] = '/';
-      }
-    }
-
-    list->url[list->count][source_len + 1] = '\0';
-
-  }
-
+  list->src[list->count] = s;
   ++list->count;
 
 }
 
 void slapt_remove_source (struct slapt_source_list *list, const char *s)
 {
-  char *tmp = NULL;
+  slapt_source_t *src_to_discard = NULL;
   unsigned int i = 0;
 
   while ( i < list->count ) {
-    if ( strcmp(s,list->url[i]) == 0 && tmp == NULL ) {
-      tmp = list->url[i];
+    if ( strcmp(s,list->src[i]->url) == 0 && src_to_discard == NULL ) {
+      src_to_discard = list->src[i];
     }
-    if ( tmp != NULL && (i+1 < list->count) ) {
-      list->url[i] = list->url[i + 1];
+    if ( src_to_discard != NULL && (i+1 < list->count) ) {
+      list->src[i] = list->src[i + 1];
     }
     ++i;
   }
 
-  if ( tmp != NULL ) {
-    char **realloc_tmp;
+  if ( src_to_discard != NULL ) {
+    slapt_source_t **realloc_tmp;
     int count = list->count - 1;
 
     if ( count < 1 )
       count = 1;
 
-    free(tmp);
+    slapt_free_source(src_to_discard);
 
-    realloc_tmp = realloc(list->url,sizeof *list->url * count );
+    realloc_tmp = realloc(list->src,sizeof *list->src * count );
     if ( realloc_tmp != NULL ) {
-      list->url = realloc_tmp;
+      list->src = realloc_tmp;
       if (list->count > 0)
         --list->count;
     }
@@ -386,9 +360,9 @@ void slapt_free_source_list(struct slapt_source_list *list)
   unsigned int i;
 
   for (i = 0; i < list->count; ++i) {
-    free(list->url[i]);
+    slapt_free_source(list->src[i]);
   }
-  free(list->url);
+  free(list->src);
   free(list);
 }
 
@@ -399,5 +373,162 @@ SLAPT_BOOL_T slapt_is_interactive(const slapt_rc_config *global_config)
                             : SLAPT_FALSE;
 
   return interactive;
+}
+
+
+static void slapt_source_parse_attributes(slapt_source_t *s, const char *string)
+{
+  int offset = 0;
+  int len = strlen(string);
+
+  while (offset < len) {
+    char *token = NULL;
+
+    if (strchr(string + offset, ',') != NULL) {
+      size_t token_len = strcspn(string + offset, ",");
+      if (token_len > 0) {
+        token = strndup(string + offset, token_len);
+        offset += token_len + 1;
+      }
+    } else {
+      token = strdup(string + offset);
+      offset += len;
+    }
+
+    if (token != NULL) {
+
+      if (strcmp(token,SLAPT_PRIORITY_DEFAULT_TOKEN) == 0) {
+        s->priority = SLAPT_PRIORITY_DEFAULT;
+      } else if (strcmp(token,SLAPT_PRIORITY_PREFERRED_TOKEN) == 0) {
+        s->priority = SLAPT_PRIORITY_PREFERRED;
+      } else if (strcmp(token,SLAPT_PRIORITY_OFFICIAL_TOKEN) == 0) {
+        s->priority = SLAPT_PRIORITY_OFFICIAL;
+      } else if (strcmp(token,SLAPT_PRIORITY_CUSTOM_TOKEN) == 0) {
+        s->priority = SLAPT_PRIORITY_CUSTOM;
+      } else {
+        fprintf(stderr,"Unknown token: %s\n", token);
+      }
+    }
+
+  }
+
+}
+
+slapt_source_t *slapt_init_source(const char *s)
+{
+  slapt_source_t *src;
+  unsigned int source_len = 0;
+  unsigned int attribute_len = 0;
+  slapt_regex_t *attribute_regex = NULL;
+  char *source_string = NULL;
+  char *attribute_string = NULL;
+
+  if (s == NULL)
+    return NULL;
+
+  src           = slapt_malloc(sizeof *src);
+  src->priority = SLAPT_PRIORITY_DEFAULT;
+  src->disabled = SLAPT_FALSE;
+  source_len    = strlen(s);
+
+  /* parse for :[attr] in the source url */
+  if ((attribute_regex = slapt_init_regex(SLAPT_SOURCE_ATTRIBUTE_REGEX)) == NULL) {
+    exit(EXIT_FAILURE);
+  }
+  slapt_execute_regex(attribute_regex,s);
+  if (attribute_regex->reg_return == 0) {
+    /* if we find an attribute string, extract it */
+    attribute_string = slapt_regex_extract_match(attribute_regex, s, 1);
+    attribute_len = strlen(attribute_string);
+    source_string = strndup(s, source_len - attribute_len);
+  } else {
+    /* otherwise we just dup the const string */
+    source_string = strndup(s, source_len);
+  }
+  slapt_free_regex(attribute_regex);
+
+
+  /* now add a trailing / if not already there */
+  source_len = strlen(source_string);
+  if ( source_string[source_len - 1] == '/' ) {
+
+    src->url = strdup(source_string);
+
+  } else {
+
+    src->url = slapt_malloc(sizeof *src->url * (source_len + 2));
+    src->url[0] = '\0';
+
+    src->url = strncat(
+      src->url,
+      source_string,
+      source_len
+    );
+
+    if (isblank(src->url[source_len - 1]) == 0) {
+      src->url = strncat(src->url, "/", 1);
+    } else {
+      if (src->url[source_len - 2] == '/') {
+        src->url[source_len - 2] = '/';
+        src->url[source_len - 1] = '\0';
+      } else {
+        src->url[source_len - 1] = '/';
+      }
+    }
+
+    src->url[source_len + 1] = '\0';
+
+  }
+
+  free(source_string);
+
+  /* now parse the attribute string */
+  if (attribute_string != NULL) {
+    slapt_source_parse_attributes(src, attribute_string + 1);
+    free(attribute_string);
+  }
+
+  return src;
+}
+
+void slapt_free_source(slapt_source_t *src)
+{
+  free(src->url);
+  free(src);
+}
+
+int slapt_write_rc_config(const slapt_rc_config *global_config, const char *location)
+{
+  unsigned int i;
+  FILE *rc;
+
+  rc = slapt_open_file(location,"w+");
+  if (rc == NULL)
+    return -1;
+
+  fprintf(rc,"%s%s\n",SLAPT_WORKINGDIR_TOKEN,global_config->working_dir);
+
+  fprintf(rc,"%s",SLAPT_EXCLUDE_TOKEN);
+  for (i = 0;i < global_config->exclude_list->count;++i) {
+    if ( i+1 == global_config->exclude_list->count) {
+      fprintf(rc,"%s",global_config->exclude_list->excludes[i]);
+    }else{
+      fprintf(rc,"%s,",global_config->exclude_list->excludes[i]);
+    }
+  }
+  fprintf(rc,"\n");
+
+  for (i = 0; i < global_config->sources->count;++i) {
+    slapt_source_t *src = global_config->sources->src[i];
+
+    if (global_config->sources->src[i]->disabled == SLAPT_TRUE)
+      fprintf(rc,"%s%s\n",SLAPT_DISABLED_SOURCE_TOKEN, src->url);
+    else
+      fprintf(rc,"%s%s\n",SLAPT_SOURCE_TOKEN, src->url);
+  }
+
+  fclose(rc);
+
+  return 0;
 }
 

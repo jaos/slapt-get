@@ -4,9 +4,9 @@
 # Reteaua PTM <admin@ptm.ro>
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.12e\n"
+"Project-Id-Version: 0.10.0\n"
 "POT-Creation-Date: 2008-03-22 02:10+0200\n"
-"PO-Revision-Date: 2008-04-27 18:16+0500\n"
+"PO-Revision-Date: 2008-11-24 00:41+0500\n"
 "Last-Translator: Zion <admin@ptm.ro>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -504,4 +504,28 @@ msgstr "Eroare necunoscuta"
 #, c-format
 msgid "Not Found\n"
 msgstr "Nu a fost gasit\n"
+
+msgid "Default"
+msgstr "Default"
+
+msgid "Default Patch"
+msgstr "Default Patch"
+
+msgid "Preferred"
+msgstr "Preferred"
+
+msgid "Preferred Patch"
+msgstr "Preferred Patch"
+
+msgid "Official"
+msgstr "Official"
+
+msgid "Official Patch"
+msgstr "Official Patch"
+
+msgid "Custom"
+msgstr "Custom"
+
+msgid "Custom Patch"
+msgstr "Custom Patch"
 
