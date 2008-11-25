@@ -103,7 +103,9 @@ SOURCE=http://software.jaos.org/slackpacks/12.1/:OFFICIAL
 
 
 # pull from your cdrom
-#SOURCE=file:///mnt/cdrom/:CUSTOM
+#SOURCE=file:///mnt/cdrom/:OFFICIAL
+# your home made package source
+#SOURCE=file:///var/www/packages/:CUSTOM
 
 
 # slackware mirrors to choose from
