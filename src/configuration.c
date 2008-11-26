@@ -64,50 +64,54 @@ slapt_rc_config *slapt_read_rc_config(const char *file_name)
     exit(EXIT_FAILURE);
 
   while ( (g_size = getline(&getline_buffer,&gb_length,rc) ) != EOF ) {
+    char *token_ptr = NULL;
     getline_buffer[g_size - 1] = '\0';
 
     /* check to see if it has our key and value seperated by our token */
     /* and extract them */
+    if ( (strchr(getline_buffer,'#') != NULL) && (strstr(getline_buffer, SLAPT_DISABLED_SOURCE_TOKEN) == NULL) )
+      continue;
 
-    if ( strstr(getline_buffer,SLAPT_SOURCE_TOKEN) != NULL ) {
+
+    if ( (token_ptr = strstr(getline_buffer,SLAPT_SOURCE_TOKEN)) != NULL ) {
       /* SOURCE URL */
 
-      if ( strlen(getline_buffer) > strlen(SLAPT_SOURCE_TOKEN) ) {
-        slapt_source_t *s = slapt_init_source(getline_buffer + strlen(SLAPT_SOURCE_TOKEN));
+      if ( strlen(token_ptr) > strlen(SLAPT_SOURCE_TOKEN) ) {
+        slapt_source_t *s = slapt_init_source(token_ptr + strlen(SLAPT_SOURCE_TOKEN));
         if (s != NULL) {
           slapt_add_source(global_config->sources,s);
         }
       }
 
-    } else if ( strstr(getline_buffer,SLAPT_DISABLED_SOURCE_TOKEN) != NULL ) {
+    } else if ( (token_ptr = strstr(getline_buffer,SLAPT_DISABLED_SOURCE_TOKEN)) != NULL ) {
       /* DISABLED SOURCE */
 
-      if (strlen(getline_buffer) > strlen(SLAPT_DISABLED_SOURCE_TOKEN) ) {
-        slapt_source_t *s = slapt_init_source(getline_buffer + strlen(SLAPT_DISABLED_SOURCE_TOKEN));
+      if (strlen(token_ptr) > strlen(SLAPT_DISABLED_SOURCE_TOKEN) ) {
+        slapt_source_t *s = slapt_init_source(token_ptr + strlen(SLAPT_DISABLED_SOURCE_TOKEN));
         if (s != NULL) {
           s->disabled = SLAPT_TRUE;
           slapt_add_source(global_config->sources,s);
         }
       }
 
-    } else if ( strstr(getline_buffer,SLAPT_WORKINGDIR_TOKEN) != NULL ) {
+    } else if ( (token_ptr = strstr(getline_buffer,SLAPT_WORKINGDIR_TOKEN)) != NULL ) {
       /* WORKING DIR */
 
-      if ( strlen(getline_buffer) > strlen(SLAPT_WORKINGDIR_TOKEN) ) {
+      if ( strlen(token_ptr) > strlen(SLAPT_WORKINGDIR_TOKEN) ) {
         strncpy(
           global_config->working_dir,
-          getline_buffer + strlen(SLAPT_WORKINGDIR_TOKEN),
-          (strlen(getline_buffer) - strlen(SLAPT_WORKINGDIR_TOKEN))
+          token_ptr + strlen(SLAPT_WORKINGDIR_TOKEN),
+          (strlen(token_ptr) - strlen(SLAPT_WORKINGDIR_TOKEN))
         );
         global_config->working_dir[
-          (strlen(getline_buffer) - strlen(SLAPT_WORKINGDIR_TOKEN))
+          (strlen(token_ptr) - strlen(SLAPT_WORKINGDIR_TOKEN))
         ] = '\0';
       }
 
-    } else if ( strstr(getline_buffer,SLAPT_EXCLUDE_TOKEN) != NULL ) {
+    } else if ( (token_ptr = strstr(getline_buffer,SLAPT_EXCLUDE_TOKEN)) != NULL ) {
        /* exclude list */
       slapt_free_exclude_list(global_config->exclude_list);
-      global_config->exclude_list = parse_exclude(getline_buffer);
+      global_config->exclude_list = parse_exclude(token_ptr);
     }
 
   }
