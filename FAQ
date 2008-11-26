@@ -1254,4 +1254,7 @@ Frequently Asked Questions:
  The example slapt-getrc in the source tarball or in the slapt-get directory
  within /usr/doc/ provides example usage of package source priority assignment.
 
+ If you do not care for the priority assignment, you can remove the priority 
+ attributes from your sources (if present, or never add them if not).
+
 

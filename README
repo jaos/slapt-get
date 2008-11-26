@@ -32,7 +32,8 @@ Table of Contents:
     slapt-get tries to emulate Debian's apt-get as closely as possible.
 
     * uses native Slackware tools (installpkg, upgradepkg, and removepkg)
-    * supports multiple package sources (including linuxpackages.net)
+    * supports multiple package sources (including linuxpackages.net) with 
+      the ability to assign priorities to each source.
     * cache data concerning packages and updates from package sources
     * supports sources from ftp, ftps, http, https, file:/// and more (libcurl)
     * resumes broken downloads and will verify package integrity with MD5
@@ -58,7 +59,7 @@ Table of Contents:
     * Package data download robustness, only writing changes if all sources
       download successfully as well as only downloading those sources that
       have changed since the last download
-    * i18n support via GNU gettext with over 24 language translations
+    * i18n support via GNU gettext with 26 language translations
     * extremely fast and easy to script with
 
 
