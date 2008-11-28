@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.0\n"
 "POT-Creation-Date: 2006-03-08 19:49+0900\n"
-"PO-Revision-Date: 2008-11-24 00:41+0500\n"
+"PO-Revision-Date: 2008-11-27 21:18+0500\n"
 "Last-Translator: JW <J_W@somewhere.c0.jp>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -531,4 +531,8 @@ msgstr "Custom"
 
 msgid "Custom Patch"
 msgstr "Custom Patch"
+
+#, c-format
+msgid "Package Priority: %s\n"
+msgstr "Package Priority: %s\n"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.0\n"
 "POT-Creation-Date: 2005-09-07 23:24 EEST\n"
-"PO-Revision-Date: 2008-11-24 00:41+0500\n"
+"PO-Revision-Date: 2008-11-27 21:18+0500\n"
 "Language-Team: DeepStyle Team <hottab@deepstyle.org.ua>, <ru@li.org>, sin <digitalhunger@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=KOI8-R\n"
@@ -530,4 +530,8 @@ msgstr "Custom"
 
 msgid "Custom Patch"
 msgstr "Custom Patch"
+
+#, c-format
+msgid "Package Priority: %s\n"
+msgstr "Package Priority: %s\n"
 

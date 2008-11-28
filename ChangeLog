@@ -1,5 +1,6 @@
 
-0.10.0 Nov 25, 2008
+0.10.0 Nov 28, 2008
+ * translation updates
  * (libslapt) added slapt_write_rc_config (incorporating from gslapt)
  * (libslapt) added parsing of disabled sources (instead of ignoring what
     gslapt creates).
