@@ -524,11 +524,28 @@ int slapt_write_rc_config(const slapt_rc_config *global_config, const char *loca
 
   for (i = 0; i < global_config->sources->count;++i) {
     slapt_source_t *src = global_config->sources->src[i];
+    SLAPT_PRIORITY_T priority = src->priority;
+    const char *token = SLAPT_SOURCE_TOKEN;
 
     if (global_config->sources->src[i]->disabled == SLAPT_TRUE)
-      fprintf(rc,"%s%s\n",SLAPT_DISABLED_SOURCE_TOKEN, src->url);
-    else
-      fprintf(rc,"%s%s\n",SLAPT_SOURCE_TOKEN, src->url);
+      token = SLAPT_DISABLED_SOURCE_TOKEN;
+
+    if (priority > SLAPT_PRIORITY_DEFAULT) {
+      const char *priority_token;
+
+      if (priority == SLAPT_PRIORITY_PREFERRED)
+          priority_token = SLAPT_PRIORITY_PREFERRED_TOKEN;
+      else if (priority == SLAPT_PRIORITY_OFFICIAL)
+          priority_token = SLAPT_PRIORITY_OFFICIAL_TOKEN;
+      else if (priority == SLAPT_PRIORITY_CUSTOM)
+          priority_token = SLAPT_PRIORITY_CUSTOM_TOKEN;
+      else
+          priority_token = SLAPT_PRIORITY_DEFAULT_TOKEN;
+
+      fprintf(rc,"%s%s:%s\n",token, src->url, priority_token);
+    } else {
+      fprintf(rc,"%s%s\n",token, src->url);
+    }
   }
 
   fclose(rc);
