@@ -26,15 +26,7 @@ You will want to customize the values within /etc/slapt-get/slapt-getrc.
 See README for more details.
 
 
-- Using cvs: -----------------------------------------------
+- Using svn: -----------------------------------------------
 
- There are different ways to use cvs... you can setup your environment:
-
-	 export CVSROOT=:pserver:anonymous@jaos.org:/var/cvs && cvs login && cvs checkout slapt-get
-
- or just provide the CVSROOT to each call like so:
-
-  cvs -d :pserver:anonymous@jaos.org:/var/cvs login
-  #login with empty password
-  cvs -d :pserver:anonymous@jaos.org:/var/cvs checkout slapt-get
+ svn co http://software.jaos.org/svn/slapt-get/trunk ./slapt-get
 
