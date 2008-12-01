@@ -109,9 +109,8 @@ Table of Contents:
             official mirrors. Third party packages might not be
             as rigorously tested as official packages.
 
-    Every SOURCE mentioned in the slapt-getrc file is assigned a priority
-    number, which is a non-negative integer that defaults to 0.  Priority
-    is assigned by appending :{PRIORITY} to the source URI.  For example:
+    Each SOURCE can be a assigned a priority level, by appending :{PRIORITY} to
+    the source URI.  For example:
 
       SOURCE={url}:DEFAULT    is the default, lowest priority
       SOURCE={url}:PREFERRED  assigns more weight to this source
