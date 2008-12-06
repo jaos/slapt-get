@@ -3381,7 +3381,8 @@ struct slapt_pkg_list *
         for (c = 0; c < deps->pkg_count; ++c ) {
           slapt_pkg_info_t *dep = deps->pkgs[c];
 
-          if ( slapt_get_exact_pkg(avail_pkgs,dep->name, dep->version) == NULL ) {
+          /* if it is installed, we add it to the list */
+          if ( slapt_get_exact_pkg(installed_pkgs,dep->name, dep->version) == NULL ) {
               slapt_add_pkg_to_pkg_list(obsolete,dep);
           }
         }
