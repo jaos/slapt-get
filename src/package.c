@@ -3379,11 +3379,12 @@ struct slapt_pkg_list *
         deps = slapt_is_required_by(global_config,avail_pkgs, p);
 
         for (c = 0; c < deps->pkg_count; ++c ) {
-          slapt_pkg_info_t *dep = deps->pkgs[c];
+          slapt_pkg_info_t *dep           = deps->pkgs[c];
+          slapt_pkg_info_t *installed_dep = slapt_get_exact_pkg(installed_pkgs, dep->name, dep->version);
 
           /* if it is installed, we add it to the list */
-          if ( slapt_get_exact_pkg(installed_pkgs,dep->name, dep->version) != NULL ) {
-              slapt_add_pkg_to_pkg_list(obsolete,dep);
+          if (installed_dep != NULL) {
+              slapt_add_pkg_to_pkg_list(obsolete, installed_dep);
           }
         }
 
