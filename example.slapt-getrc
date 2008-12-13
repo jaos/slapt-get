@@ -40,7 +40,6 @@ SOURCE=http://software.jaos.org/slackpacks/12.2/:OFFICIAL
 
 # you can use multiple sources, such as linuxpackages.net
 # (not recommended on production servers, see README)
-# Supported version are 8.1 9.0 9.1 10.0 10.1
 # For the latest mirrors list please visit 
 # http://www.linuxpackages.net/mirrors.php
 # Naist / Japan
