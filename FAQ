@@ -1226,8 +1226,8 @@ Frequently Asked Questions:
  the source URI.  For example:
 
   SOURCE={url}:DEFAULT    is the default, lowest priority
-  SOURCE={url}:PREFERRED  assigns more weight to this source
-  SOURCE={url}:OFFICIAL   even more weight, used to denote official sources
+  SOURCE={url}:OFFICIAL   assigns more weight, used to denote official sources
+  SOURCE={url}:PREFERRED  assigns even more weight to this source
   SOURCE={url}:CUSTOM     highest priority, for your custom package source
 
  PRIORITY of DEFAULT gives the usual slapt-get behaviour, whereby packages are
@@ -1236,7 +1236,7 @@ Frequently Asked Questions:
  the source has a higher version number.  This is effectively never used but is
  included for completeness.
 
- The priorities of PREFERRED, OFFICIAL, and CUSTOM allow the packages from a
+ The priorities of OFFICIAL, PREFERRED, and CUSTOM allow the packages from a
  mirror to be tracked more closely.  A package from a source with a priority
  higher than DEFAULT will "upgrade" the installed package whenever the version
  strings differ, regardless of whether this is an upgrade or a downgrade in
@@ -1248,7 +1248,8 @@ Frequently Asked Questions:
 
  Packages within the patches sub directory always have a slightly increased
  priority of those within the rest of the package source.  This is particularly
- useful for tracking official Slackware patches.
+ useful for tracking official Slackware patches.  So any packages in /patches
+ are assigned +1 priority to the package sources priority.
 
  The example slapt-getrc in the source tarball or in the slapt-get directory
  within /usr/doc/ provides example usage of package source priority assignment.
