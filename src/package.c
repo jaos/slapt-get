@@ -1854,10 +1854,11 @@ slapt_pkg_info_t *slapt_get_pkg_by_details(struct slapt_pkg_list *list,
 
           int location_cmp = strcmp(list->pkgs[pivot]->location, location);
 
-          if ( location_cmp == 0 )
+          if ( location_cmp == 0 ) {
+
             return list->pkgs[pivot];
 
-          else {
+          } else {
 
             if (location_cmp < 0 )
               min = pivot + 1;
