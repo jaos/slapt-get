@@ -39,6 +39,7 @@ slapt_rc_config *slapt_init_config(void)
   global_config->re_install         = SLAPT_FALSE;
   global_config->remove_obsolete    = SLAPT_FALSE;
   global_config->no_upgrade         = SLAPT_FALSE;
+  global_config->use_priority       = SLAPT_FALSE;
   global_config->working_dir[0]     = '\0';
   global_config->progress_cb        = NULL;
 
@@ -80,6 +81,9 @@ slapt_rc_config *slapt_read_rc_config(const char *file_name)
         slapt_source_t *s = slapt_init_source(token_ptr + strlen(SLAPT_SOURCE_TOKEN));
         if (s != NULL) {
           slapt_add_source(global_config->sources,s);
+          if (s->priority != SLAPT_PRIORITY_DEFAULT) {
+            global_config->use_priority = SLAPT_TRUE;
+          }
         }
       }
 

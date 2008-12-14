@@ -42,6 +42,7 @@ typedef struct {
   SLAPT_BOOL_T remove_obsolete;
   SLAPT_BOOL_T no_upgrade;
   unsigned int retry;
+  SLAPT_BOOL_T use_priority;
 } slapt_rc_config;
 
 /* initialize slapt_rc_config */

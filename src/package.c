@@ -65,11 +65,11 @@ struct slapt_pkg_list *slapt_get_available_pkgs(void)
 struct slapt_pkg_list *slapt_parse_packages_txt(FILE *pkg_list_fh)
 {
   slapt_regex_t *name_regex = NULL,
-              *mirror_regex = NULL,
+                *mirror_regex = NULL,
                 *priority_regex = NULL,
-              *location_regex = NULL,
-              *size_c_regex = NULL,
-              *size_u_regex = NULL;
+                *location_regex = NULL,
+                *size_c_regex = NULL,
+                *size_u_regex = NULL;
   ssize_t bytes_read;
   struct slapt_pkg_list *list = NULL;
   long f_pos = 0;
@@ -1736,15 +1736,13 @@ struct slapt_pkg_list *slapt_is_required_by(const slapt_rc_config *global_config
                                             struct slapt_pkg_list *avail,
                                             slapt_pkg_info_t *pkg)
 {
-  struct slapt_pkg_list *required_by_list = NULL;
+  struct slapt_pkg_list *required_by_list = slapt_init_pkg_list();
 
   /*
    * don't go any further if disable_dep_check is set
   */
   if (global_config->disable_dep_check == SLAPT_TRUE)
     return required_by_list;
-
-  required_by_list = slapt_init_pkg_list();
 
   required_by(avail,pkg,required_by_list);
 
@@ -2045,7 +2043,10 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
           }
 
           /* set the priority of the package based on the source, plus 1 for the patch priority */
-          p->priority = source_priority + 1;
+          if (global_config->use_priority == SLAPT_TRUE)
+            p->priority = source_priority + 1;
+          else
+            p->priority = source_priority;
 
           slapt_add_pkg_to_pkg_list(new_pkgs,p);
         }
