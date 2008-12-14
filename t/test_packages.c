@@ -358,7 +358,7 @@ START_TEST (test_network)
   rc->progress_cb             = _progress_cb; /* silence */
 
   /* must chdir to working dir */
-  chdir(rc->working_dir);
+  fail_unless (chdir(rc->working_dir) == 0);
 
   /* write pkg data to disk
   void slapt_write_pkg_data(const char *source_url,FILE *d_file,
@@ -378,7 +378,7 @@ START_TEST (test_network)
 
   fail_unless (slapt_update_pkg_cache(rc) == 0);
 
-  chdir(cwd);
+  fail_unless (chdir(cwd) == 0);
   slapt_free_rc_config(rc);
   free(cwd);
 }
