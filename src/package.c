@@ -18,6 +18,11 @@
 
 #include "main.h"
 
+struct slapt_pkg_version_parts {
+  char **parts;
+  unsigned int count;
+};
+
 /* used by qsort */
 static int pkg_compare (const void *a, const void *b);
 /* analyze the pkg version hunk by hunk */

@@ -68,11 +68,6 @@ struct slapt_pkg_upgrade_list {
   unsigned int pkg_count;
 };
 
-struct slapt_pkg_version_parts {
-  char **parts;
-  unsigned int count;
-};
-
 typedef struct {
   char *pkg;
   char *error;

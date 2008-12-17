@@ -1,4 +1,8 @@
 
+0.10.1a Dec 16, 2008
+ * updated pt_BR translation from Sergio Surkamp
+ * moved slapt_pkg_version_parts out of public header
+
 0.10.1 Dec 12, 2008
  * fixed an initialization errror in slapt_is_required_by() that
    caused a segfault when removing with --no-deps.
