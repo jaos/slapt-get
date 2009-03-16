@@ -1,0 +1,111 @@
+# Working directory for local storage/cache.
+WORKINGDIR=/var/slapt-get
+
+# Exclude package names and expressions.
+# To exclude pre and beta packages, add this to the exclude: 
+#   [0-9\_\.\-]{1}pre[0-9\-\.\-]{1}
+EXCLUDE=^aaa_elflibs,^devs,^glibc-.*,^kernel-.*,^udev,.*-[0-9]+dl$,i[3456]86
+
+# Base url to directory with a PACKAGES.TXT.
+# This can point to any release, ie: 9.0, 10.0, current, etc.
+# You should really choose from an example mirror URI below.
+# SOURCE=ftp://anorien.warwick.ac.uk/slamd64/slamd64-12.2/:OFFICIAL
+# SOURCE=ftp://anorien.warwick.ac.uk/slamd64/slamd64-12.1/:OFFICIAL
+# SOURCE=ftp://anorien.warwick.ac.uk/slamd64/slamd64-12.0/:OFFICIAL
+# SOURCE=ftp://anorien.warwick.ac.uk/slamd64/slamd64-11.0/:OFFICIAL
+# SOURCE=ftp://anorien.warwick.ac.uk/slamd64/slamd64-current/:OFFICIAL
+
+# Sources for the testing, extra, and pasture areas - if you use them.
+# Edit the URI below for the Slamd64 version you're using.
+# SOURCE=ftp://anorien.warwick.ac.uk/slamd64/slamd64-12.2/extra/:PREFERRED
+# SOURCE=ftp://anorien.warwick.ac.uk/slamd64/slamd64-12.2/testing/
+# SOURCE=ftp://anorien.warwick.ac.uk/slamd64/slamd64-12.2/pasture/
+
+# Source for slapt-get.
+# SOURCE=http://software.jaos.org/slackpacks/12.2-x86_64/:OFFICIAL
+# SOURCE=http://software.jaos.org/slackpacks/12.1-x86_64/:OFFICIAL
+# SOURCE=http://software.jaos.org/slackpacks/12.0-x86_64/:OFFICIAL
+# SOURCE=http://software.jaos.org/slackpacks/11.0-x86_64/:OFFICIAL
+# SOURCE=http://software.jaos.org/slackpacks/10.2-x86_64/:OFFICIAL
+# SOURCE=http://software.jaos.org/slackpacks/10.1-x86_64/:OFFICIAL
+# SOURCE=http://software.jaos.org/slackpacks/current-x86_64/:OFFICIAL
+
+# Packages on a CD/DVD.
+# SOURCE=file:///mnt/cdrom/:OFFICIAL
+
+# Home made packages.
+# SOURCE=file:///var/www/packages/:CUSTOM
+
+# Slamd64 mirrors to choose from.
+# Please use one of these in preference to anorien.warwick.ac.uk!
+# SOURCE=http://www.slackware.org.uk/slamd64/slamd64-12.2/:OFFICIAL
+# SOURCE=http://mirrors-sanfrancisco.hostgis.com/slamd64/slamd64-12.2/:OFFICIAL
+# SOURCE=http://mirrors.vbi.vt.edu/mirrors/linux/slamd64/slamd64-12.2/:OFFICIAL
+# SOURCE=http://slamd64.he.net/slamd64-12.2/:OFFICIAL
+# SOURCE=http://mirror1.slackadelic.com/slamd64/slamd64-12.2/:OFFICIAL
+# SOURCE=http://slamd64.wahlfaelschung.de/slamd64-12.2/:OFFICIAL
+# SOURCE=http://ftp.heanet.ie/pub/slamd64/slamd64-12.2/:OFFICIAL
+# SOURCE=http://goudrenet.student.utwente.nl/slamd64/slamd64-12.2/:OFFICIAL
+# SOURCE=http://ftp.slackware.pl/pub/slamd64/slamd64-12.2/:OFFICIAL
+# SOURCE=http://cesium.di.uminho.pt/pub/slamd64/slamd64-12.2/:OFFICIAL
+# SOURCE=http://mirror.yandex.ru/slamd64/slamd64-12.2/:OFFICIAL
+# SOURCE=ftp://ftp.slackware.org.uk/slamd64/slamd64-12.2/:OFFICIAL
+# SOURCE=ftp://ftp.gtlib.gatech.edu/pub/slamd64/slamd64-12.2/:OFFICIAL
+# SOURCE=ftp://mirrors-sanfrancisco.hostgis.com/slamd64/slamd64-12.2/:OFFICIAL
+# SOURCE=ftp://mirrors.vbi.vt.edu/linux/slamd64/slamd64-12.2/:OFFICIAL
+# SOURCE=ftp://slamd64.wahlfaelschung.de/slamd64-12.2/:OFFICIAL
+# SOURCE=ftp://ftp.heanet.ie/pub/slamd64/slamd64-12.2/:OFFICIAL
+# SOURCE=ftp://goudrenet.student.utwente.nl/slamd64/slamd64-12.2/:OFFICIAL
+# SOURCE=ftp://ftp.slackware.pl/pub/slamd64/slamd64-12.2/:OFFICIAL
+# SOURCE=ftp://cesium.di.uminho.pt/pub/slamd64/slamd64-12.2/:OFFICIAL
+# SOURCE=ftp://mirror.yandex.ru/slamd64/slamd64-12.2/:OFFICIAL
+
+# 3rd party sources.
+# You can use multiple sources, such as linuxpackages.net, GSB or others; simply
+# list a SOURCE for each you want to use.  These are not recommended on
+# production servers, but often provide good packages for desktop users.
+# It is essential that you check the project websites for compatibility with
+# your Slackware version before enabling any of these SOURCEs.
+# See the README for more details.
+#
+# GNOME.SlackBuild (GSB) - http://gnomeslackbuild.org/
+# SOURCE=http://www.slackware.org.uk/gsb64/gsb64-current/:CUSTOM
+# SOURCE=ftp://ftp.slackware.org.uk/gsb64/gsb64-current/:CUSTOM
+# SOURCE=ftp://ftp.slackware.pl/pub/gnomeslackbuild/gsb64/gsb64-current/:CUSTOM
+# SOURCE=http://slackware.rol.ru/gsb/gsb64/gsb64-current/:CUSTOM
+# SOURCE=http://get.gnomeslackbuild.org/gsb64/gsb64-current/:CUSTOM
+#
+# LinuxPackages - http://www.linuxpackages.net/
+# WARNING: These are *not* slamd64 package sources.  Check the website for
+# information on packages for 64 bit platforms.
+# SOURCE=http://ftp.naist.jp/pub/Linux/linuxpackages/Slackware/Slackware-12.2/:CUSTOM
+# SOURCE=http://slackware.rol.ru/linuxpackages/Slackware/Slackware-12.2/:CUSTOM
+# SOURCE=http://ftp.de-mirror.org/linuxpackages/Slackware/Slackware-12.2/:CUSTOM
+# SOURCE=http://linuxpackages.telecoms.bg/Slackware/Slackware-12.2/:CUSTOM
+# SOURCE=http://mirrors.unixsol.org/linuxpackages/Slackware/Slackware-12.2/:CUSTOM
+# SOURCE=http://lp.slackwaresupport.com/Slackware/Slackware-12.2/:CUSTOM
+# SOURCE=http://mirror.slackwarebrasil.org/linuxpackages/Slackware/Slackware-12.2/:CUSTOM
+# SOURCE=http://linuxpackages.inode.at/Slackware/Slackware-12.2/:CUSTOM
+# SOURCE=http://www.software-mirror.com/linuxpackages/Slackware/Slackware-12.2/:CUSTOM
+# SOURCE=http://linuxpackages.cs.utah.edu/Slackware/Slackware-12.2/:CUSTOM
+# SOURCE=http://www2.linuxpackages.net/packages/Slackware/Slackware-12.2/:CUSTOM
+#
+# Other unofficial sources.
+# WARNING: These are *not* slamd64 package sources.  Check the websites for
+# information on packages for 64 bit platforms.
+# SOURCE=http://darkstar.ist.utl.pt/slackware/addon/slacky/slackware-12.2/:CUSTOM
+# SOURCE=ftp://ftp.gware.org/12.2/2.22.0/packages/:CUSTOM
+# SOURCE=http://www.slackages.com/slapt-get/jlp/:CUSTOM
+# SOURCE=http://www.slackages.com/slapt-get/jto/:CUSTOM
+# SOURCE=http://trovao.droplinegnome.org/extras/:CUSTOM
+# SOURCE=http://mirror.datapipe.net/norlug/mutagenix/packages/:CUSTOM
+# SOURCE=http://www2.linuxpackages.net/packages/SlackBuilds/:CUSTOM
+# SOURCE=http://slackpacks.rlworkman.net/12.2/:CUSTOM
+# SOURCE=http://slackpacks.rlworkman.net/current/:CUSTOM
+# SOURCE=http://www.slackware.com/~alien/slackbuilds/:CUSTOM
+# SOURCE=http://download.zenwalk.org/i486/snapshot/:CUSTOM
+# SOURCE=http://de.repos.slackware-current.net/:CUSTOM
+# SOURCE=http://slackware.sukkology.net/repository/:CUSTOM
+# SOURCE=http://www.tenboard.com/slackware/slackware-11.0/:CUSTOM
+# SOURCE=http://shtrom.free.fr/slackware/slackware-10.1/:CUSTOM
+# SOURCE=http://www.stabellini.net/filesystem/repository/Stefano_Stabellini:CUSTOM

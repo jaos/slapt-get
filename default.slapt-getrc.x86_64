@@ -1,0 +1,25 @@
+# Working directory for local storage/cache.
+WORKINGDIR=/var/slapt-get
+
+# Exclude package names and expressions.
+# To exclude pre and beta packages, add this to the exclude: 
+#   [0-9\_\.\-]{1}pre[0-9\-\.\-]{1}
+EXCLUDE=^aaa_elflibs,^devs,^glibc-.*,^kernel-.*,^udev,.*-[0-9]+dl$,i[3456]86
+
+# Base url to directory with a PACKAGES.TXT.
+# This can point to any release, ie: 9.0, 10.0, current, etc.
+SOURCE=ftp://anorien.warwick.ac.uk/slamd64/slamd64-12.2/:OFFICIAL
+
+# Sources for the testing, extra, and pasture areas - if you use them.
+# SOURCE=ftp://anorien.warwick.ac.uk/slamd64/slamd64-12.2/extra/:PREFERRED
+# SOURCE=ftp://anorien.warwick.ac.uk/slamd64/slamd64-12.2/testing/
+# SOURCE=ftp://anorien.warwick.ac.uk/slamd64/slamd64-12.2/pasture/
+
+# Source for slapt-get.
+SOURCE=http://software.jaos.org/slackpacks/12.2-x86_64/:OFFICIAL
+
+# Packages on a CD/DVD.
+# SOURCE=file:///mnt/cdrom/:OFFICIAL
+
+# Home made packages.
+# SOURCE=file:///var/www/packages/:CUSTOM
