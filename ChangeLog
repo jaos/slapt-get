@@ -1,5 +1,6 @@
 
-0.10.1a Dec 16, 2008
+0.10.1a Apr 14, 2009
+ * updated de translation from Manfred Mueller
  * updated pt_BR translation from Sergio Surkamp
  * moved slapt_pkg_version_parts out of public header
 

@@ -2,13 +2,13 @@
 # Copyright (C) 2004, 2005, 2006, 2007
 # This file is distributed under the same license as the slapt-get package.
 # Niklas Volbers <mithrandir42@web.de>, 2004, 2005
-# Manfred Mueller <linux@nass-ek.de>, 2006, 2007
+# Manfred Mueller <linux@nass-ek.de>, 2006-2009
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.0\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2008-11-27 21:18+0500\n"
+"PO-Revision-Date: 2009-04-15 00:16+0100\n"
 "Last-Translator: Manfred Mueller <nekdesk@nekdesk.de>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -427,7 +427,7 @@ msgstr "Paket im Konflikt mit: %s\n"
 
 #, c-format
 msgid "Package Suggests: %s\n"
-msgstr "Packet empfiehlt: %s\n"
+msgstr "Packet schlaegt vor: %s\n"
 
 #, c-format
 msgid "Failed to parse package data from %s\n"
@@ -499,40 +499,40 @@ msgid "retrieve GPG keys for sources"
 msgstr "Empfange GPG-Schluessel fuer Quellen"
 
 msgid "Verifying checksum signature [%s]..."
-msgstr "Verifying checksum signature [%s]..."
+msgstr "Ueberprufe Pruefsummen-Signatur [%s]..."
 
 msgid "Unknown error"
-msgstr "Unknown error"
+msgstr "Unbekannter Fehler"
 
 #, c-format
 msgid "Not Found\n"
-msgstr "Not Found\n"
+msgstr "Nicht gefunden\n"
 
 msgid "Default"
-msgstr "Default"
+msgstr "Standard"
 
 msgid "Default Patch"
-msgstr "Default Patch"
+msgstr "Standard Patch"
 
 msgid "Preferred"
-msgstr "Preferred"
+msgstr "Bevorzugt"
 
 msgid "Preferred Patch"
-msgstr "Preferred Patch"
+msgstr "Bevorzugtes Patch"
 
 msgid "Official"
-msgstr "Official"
+msgstr "Offiziell"
 
 msgid "Official Patch"
-msgstr "Official Patch"
+msgstr "Offizielles Patch"
 
 msgid "Custom"
-msgstr "Custom"
+msgstr "Inoffiziell"
 
 msgid "Custom Patch"
-msgstr "Custom Patch"
+msgstr "Inoffizielles Patch"
 
 #, c-format
 msgid "Package Priority: %s\n"
-msgstr "Package Priority: %s\n"
+msgstr "Paket-Prioritaet: %s\n"
 
