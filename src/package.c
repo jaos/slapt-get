@@ -978,6 +978,7 @@ void slapt_get_md5sums(struct slapt_pkg_list *pkgs, FILE *checksum_file)
     if (
       (strstr(getline_buffer,".tgz") == NULL) &&
       (strstr(getline_buffer,".tlz") == NULL) &&
+      (strstr(getline_buffer,".txz") == NULL) &&
       (strstr(getline_buffer,".ikg") == NULL) &&
       (strstr(getline_buffer,".tbz") == NULL)
     )

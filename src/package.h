@@ -1,8 +1,8 @@
 
-#define SLAPT_PKG_PARSE_REGEX "(.*{1,})\\-(.*[\\-].*[\\-].*)\\.[tgblzik]+[ ]{0,}$"
+#define SLAPT_PKG_PARSE_REGEX "(.*{1,})\\-(.*[\\-].*[\\-].*)\\.[tgblzikx]+[ ]{0,}$"
 #define SLAPT_PKG_NAMEVER "(.*{1,})\\-(.*[\\-].*[\\-].*)"
 #define SLAPT_PKG_VER "(.*)[\\-](.*)[\\-](.*)"
-#define SLAPT_PKG_NAME_PATTERN "^PACKAGE NAME:[ ]{1,}(.*{1,})\\-(.*[\\-].*[\\-].*)(\\.[tgblzik]+)[ ]{0,}$"
+#define SLAPT_PKG_NAME_PATTERN "^PACKAGE NAME:[ ]{1,}(.*{1,})\\-(.*[\\-].*[\\-].*)(\\.[tgblzikx]+)[ ]{0,}$"
 #define SLAPT_PKG_MIRROR_PATTERN "^PACKAGE MIRROR:[ ]+(.*)$"
 #define SLAPT_PKG_PRIORITY_PATTERN "^PACKAGE PRIORITY:[ ]+([0-9]{1,})$"
 #define SLAPT_PKG_LOCATION_PATTERN "^PACKAGE LOCATION:[ ]+(.*)$"
@@ -14,7 +14,7 @@
 #define SLAPT_ROOT_ENV_NAME "ROOT"
 #define SLAPT_ROOT_ENV_LEN 255
 #define SLAPT_PKG_LOG_PATTERN "^(.*{1,})\\-(.*[\\-].*[\\-].*)"
-#define SLAPT_MD5SUM_REGEX "([a-zA-Z0-9]{1,})[ ]{1,}([a-zA-Z0-9\\/._\\-]{1,})\\/(.*{1,})\\-(.*[\\-].*[\\-].*)\\.[tgblzik]+$"
+#define SLAPT_MD5SUM_REGEX "([a-zA-Z0-9]{1,})[ ]{1,}([a-zA-Z0-9\\/._\\-]{1,})\\/(.*{1,})\\-(.*[\\-].*[\\-].*)\\.[tgblzikx]+$"
 #define SLAPT_REQUIRED_REGEX "^[ ]{0,}([^ ]{1,})[ ]{0,}([\\<\\=\\>]+){0,}[ ]{0,}([a-zA-Z0-9\\.\\_\\-]+){0,}[ ]{0,}$"
 #define SLAPT_MD5_STR_LEN 33
 #define SLAPT_PKG_LIST "PACKAGES.TXT"
