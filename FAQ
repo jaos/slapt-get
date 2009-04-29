@@ -373,17 +373,25 @@ Frequently Asked Questions:
 		    echo "File not found: $1"
 		    exit 1;
 	    fi
-			if [ "`echo $1|grep -E '(.*{1,})\-(.*[\.\-].*[\.\-].*).tgz[ ]{0,}$'`" == "" ]; then
+			if [ "`echo $1|grep -E '(.*{1,})\-(.*[\.\-].*[\.\-].*).[tgblzikx]{2,}[ ]{0,}$'`" == "" ]; then
 				return;
 			fi
-	    NAME=$(echo $1|sed -re "s/(.*\/)(.*.tgz)$/\2/")
-	    LOCATION=$(echo $1|sed -re "s/(.*)\/(.*.tgz)$/\1/")
-	    SIZE=$( expr `gunzip -l $1 |tail -1|awk '{print $1}'` / 1024 )
-	    USIZE=$( expr `gunzip -l $1 |tail -1|awk '{print $2}'` / 1024 )
-	    REQUIRED=$(tar xzfO $1 install/slack-required 2>/dev/null|xargs -r -iZ echo -n "Z,"|sed -e "s/,$//")
-	    CONFLICTS=$(tar xzfO $1 install/slack-conflicts 2>/dev/null|xargs -r -iZ echo -n "Z,"|sed -e "s/,$//")
-	    SUGGESTS=$(tar xzfO $1 install/slack-suggests 2>/dev/null|xargs -r )
-	    METAFILE=${NAME%tgz}meta
+
+      PKGEXT=${1##*.}
+      case $PKGEXT in
+        tgz) DECOMPRESS=gzip ;;
+        tbz) DECOMPRESS=bzip2 ;;
+        tlz) DECOMPRESS=lzma ;;
+      esac
+
+	    NAME=$(echo $1|sed -re "s/(.*\/)(.*.$PKGEXT)$/\2/")
+	    LOCATION=$(echo $1|sed -re "s/(.*)\/(.*.$PKGEXT)$/\1/")
+	    SIZE=$(du -bk $1)
+	    USIZE=$(expr $(cat $1 | $DECOMPRESS -dc | wc -c) / 1024)
+	    REQUIRED=$($DECOMPRESS -dc $1 | tar -xO install/slack-required 2>/dev/null|xargs -r -iZ echo -n "Z,"|sed -e "s/,$//")
+	    CONFLICTS=$($DECOMPRESS -dc $1 | tar -xO install/slack-conflicts 2>/dev/null|xargs -r -iZ echo -n "Z,"|sed -e "s/,$//")
+	    SUGGESTS=$($DECOMPRESS -dc | tar -xO install/slack-suggests 2>/dev/null|xargs -r )
+	    METAFILE=${NAME%$PKGEXT}meta
 	    echo "PACKAGE NAME:  $NAME" > $LOCATION/$METAFILE
 	    if [ -n "$DL_URL" ]; then
 	    	echo "PACKAGE MIRROR:  $DL_URL" >> $LOCATION/$METAFILE
@@ -395,7 +403,7 @@ Frequently Asked Questions:
 	    echo "PACKAGE CONFLICTS:  $CONFLICTS" >> $LOCATION/$METAFILE
 	    echo "PACKAGE SUGGESTS:  $SUGGESTS" >> $LOCATION/$METAFILE
 	    echo "PACKAGE DESCRIPTION:" >> $LOCATION/$METAFILE
-	    tar xzfO $1 install/slack-desc |grep -E '\w+\:'|grep -v '^#' >> $LOCATION/$METAFILE
+	    $DECOMPRESS -dc | tar -xO install/slack-desc |grep -E '\w+\:'|grep -v '^#' >> $LOCATION/$METAFILE
 	    echo "" >> $LOCATION/$METAFILE
     }
 
@@ -408,7 +416,7 @@ Frequently Asked Questions:
 		    fi
 	    ;;
 	    all)
-		    for pkg in `find . -type f -name '*.tgz' -print`
+		    for pkg in `find . -type f -regex '.*\.[tgblzikx]+$' -print`
 		    do
 			    gen_meta $pkg
 		    done
@@ -416,9 +424,9 @@ Frequently Asked Questions:
 		    $0 MD5
 	    ;;
 	    new)
-		    for pkg in `find . -type f -name '*.tgz' -print`
+		    for pkg in `find . -type f -regex '.*\.[tgblzikx]+$' -print`
 		    do
-			    if [ ! -f ${pkg%tgz}meta ]; then
+			    if [ ! -f ${pkg%${pkg##*.}}meta ]; then
 				    gen_meta $pkg
 			    fi
 		    done
