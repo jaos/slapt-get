@@ -1,5 +1,6 @@
 
 0.10.1a Apr 27, 2009
+ * updated makefile for building the slapt-get package
  * updated MD5 parsing to accept new slackware MD5SUM metadata
    in /var/log/packages entries
  * disabled file size check since slack PACKAGES.TXT sizes

@@ -113,6 +113,7 @@ clean: testclean
 	-if [ -f libs ]; then rm -rf libs ;fi
 
 
+.PHONY: pkg dopkg
 pkg: $(PACKAGE) dopkg
 
 staticpkg: static dopkg
@@ -120,7 +121,7 @@ staticpkg: static dopkg
 withlibslaptpkg: withlibslapt dopkg
 
 dopkg:
-	mkdir pkg
+	mkdir -p pkg
 	mkdir -p pkg/$(SBINDIR)
 	mkdir -p pkg/etc/slapt-get
 	mkdir -p pkg/install
@@ -144,17 +145,17 @@ dopkg:
 	cp doc/libslapt.3 pkg/usr/man/man3/
 	cp doc/$(PACKAGE).ru.8 pkg/usr/man/ru/man8/$(PACKAGE).8
 	cp doc/$(PACKAGE).uk.8 pkg/usr/man/uk/man8/$(PACKAGE).8
-	gzip pkg/usr/man/man8/$(PACKAGE).8
-	gzip pkg/usr/man/man3/libslapt.3
-	gzip pkg/usr/man/ru/man8/$(PACKAGE).8
-	gzip pkg/usr/man/uk/man8/$(PACKAGE).8
+	gzip -f pkg/usr/man/man8/$(PACKAGE).8
+	gzip -f pkg/usr/man/man3/libslapt.3
+	gzip -f pkg/usr/man/ru/man8/$(PACKAGE).8
+	gzip -f pkg/usr/man/uk/man8/$(PACKAGE).8
 	mkdir -p pkg$(LIBDIR)
 	mkdir -p pkg/usr/include
 	cp src/slapt.h pkg/usr/include/
 	cp src/libslapt.a src/libslapt.so.$(VERSION) pkg$(LIBDIR)/
 	strip pkg$(LIBDIR)/libslapt.so.$(VERSION)
 	( cd pkg$(LIBDIR); ln -s libslapt.so.$(VERSION) libslapt.so )
-	-( cd pkg; /sbin/makepkg -l y -c n $(PACKAGE)-$(VERSION)-$(ARCH)-$(RELEASE).tgz )
+	-( cd pkg; /sbin/makepkg -l y -c n ../$(PACKAGE)-$(VERSION)-$(ARCH)-$(RELEASE).tgz )
 
 po_file:
 	-grep '_(' src/*.c |cut -f2-255 -d':'|sed -re "s/.*(_\(\".*\"\)).*/\1/" > po/gettext_strings
