@@ -352,11 +352,14 @@ struct slapt_pkg_list *slapt_parse_packages_txt(FILE *pkg_list_fh)
     if (
       ((bytes_read = getline(&getline_buffer,&getline_len,
                              pkg_list_fh)) != EOF) &&
-      (strstr(getline_buffer,"PACKAGE MD5 SUM") != NULL)
+      (strstr(getline_buffer,"PACKAGE MD5") != NULL)
     ) {
         char *md5sum;
         getline_buffer[bytes_read - 1] = '\0';
-        md5sum = (char *)strpbrk(getline_buffer,":") + 3;
+        md5sum = (char *)strpbrk(getline_buffer,":") + 1;
+        while (*md5sum != 0 && isspace(*md5sum)) {
+          md5sum++;
+        }
         /* don't overflow the buffer */
         if (strlen(md5sum) > SLAPT_MD5_STR_LEN) {
           fprintf(stderr, gettext("md5 sum too long\n"));
@@ -1263,7 +1266,7 @@ void slapt_write_pkg_data(const char *source_url,FILE *d_file,
     fprintf(d_file,"PACKAGE REQUIRED:  %s\n",pkgs->pkgs[i]->required);
     fprintf(d_file,"PACKAGE CONFLICTS:  %s\n",pkgs->pkgs[i]->conflicts);
     fprintf(d_file,"PACKAGE SUGGESTS:  %s\n",pkgs->pkgs[i]->suggests);
-    fprintf(d_file,"PACKAGE MD5 SUM:  %s\n",pkgs->pkgs[i]->md5);
+    fprintf(d_file,"PACKAGE MD5SUM:  %s\n",pkgs->pkgs[i]->md5);
     fprintf(d_file,"PACKAGE DESCRIPTION:\n");
     /* do we have to make up an empty description? */
     if (strlen(pkgs->pkgs[i]->description) < strlen(pkgs->pkgs[i]->name)) {
