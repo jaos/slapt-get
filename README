@@ -32,6 +32,7 @@ Table of Contents:
     slapt-get tries to emulate Debian's apt-get as closely as possible.
 
     * uses native Slackware tools (installpkg, upgradepkg, and removepkg)
+    * supports packages as tgz, tlz, tbz, and txz files
     * supports multiple package sources (including linuxpackages.net) with 
       the ability to assign priorities to each source.
     * cache data concerning packages and updates from package sources
