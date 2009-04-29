@@ -1,4 +1,7 @@
 
+0.10.1b Apr 28, 2009
+ * fixed small issues in FAQ#17 script
+
 0.10.1a Apr 28, 2009
  * modernized script in FAQ#17. How do I create my own package source?
  * updated makefile for building the slapt-get package

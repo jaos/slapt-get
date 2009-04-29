@@ -400,11 +400,11 @@
 
 	    NAME=$(echo $1|sed -re "s/(.*\/)(.*.$PKGEXT)$/\2/")
 	    LOCATION=$(echo $1|sed -re "s/(.*)\/(.*.$PKGEXT)$/\1/")
-	    SIZE=$(du -bk $1)
+      SIZE=$(du -bk $1 | awk '{print $1}')
 	    USIZE=$(expr $(cat $1 | $DECOMPRESS -dc | wc -c) / 1024)
 	    REQUIRED=$($DECOMPRESS -dc $1 | tar -xO install/slack-required 2>/dev/null|xargs -r -iZ echo -n "Z,"|sed -e "s/,$//")
 	    CONFLICTS=$($DECOMPRESS -dc $1 | tar -xO install/slack-conflicts 2>/dev/null|xargs -r -iZ echo -n "Z,"|sed -e "s/,$//")
-	    SUGGESTS=$($DECOMPRESS -dc | tar -xO install/slack-suggests 2>/dev/null|xargs -r )
+	    SUGGESTS=$($DECOMPRESS -dc $1 | tar -xO install/slack-suggests 2>/dev/null|xargs -r )
 	    METAFILE=${NAME%$PKGEXT}meta
 	    echo "PACKAGE NAME:  $NAME" &gt; $LOCATION/$METAFILE
 	    if [ -n "$DL_URL" ]; then
@@ -417,7 +417,7 @@
 	    echo "PACKAGE CONFLICTS:  $CONFLICTS" &gt;&gt; $LOCATION/$METAFILE
 	    echo "PACKAGE SUGGESTS:  $SUGGESTS" &gt;&gt; $LOCATION/$METAFILE
 	    echo "PACKAGE DESCRIPTION:" &gt;&gt; $LOCATION/$METAFILE
-	    $DECOMPRESS -dc | tar -xO install/slack-desc |grep -E '\w+\:'|grep -v '^#' &gt;&gt; $LOCATION/$METAFILE
+	    $DECOMPRESS -dc $1 | tar -xO install/slack-desc |grep -E '\w+\:'|grep -v '^#' &gt;&gt; $LOCATION/$METAFILE
 	    echo "" &gt;&gt; $LOCATION/$METAFILE
     }
 
