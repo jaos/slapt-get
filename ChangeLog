@@ -1,5 +1,7 @@
 
 0.10.1a Apr 27, 2009
+ * disabled file size check since slack PACKAGES.TXT sizes
+   are no longer accurate byte counts
  * added support for txz package extension
  * updated de translation from Manfred Mueller
  * updated pt_BR translation from Sergio Surkamp

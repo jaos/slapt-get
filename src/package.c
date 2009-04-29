@@ -2241,17 +2241,25 @@ slapt_code_t slapt_verify_downloaded_pkg(const slapt_rc_config *global_config,
 {
   char *file_name = NULL;
   FILE *fh_test = NULL;
-  size_t file_size = 0;
   char md5sum_f[SLAPT_MD5_STR_LEN];
 
   /*
+  size_t file_size = 0;
     check the file size first so we don't run an md5 checksum
     on an incomplete file
-  */
+
+    XXX 2009-04-27 XXX
+    This has become increasingly less reliable, especially with
+    recent changes in how the size is calculated when generating
+    the PACKAGES.TXT... we do not really lose a lot by not checking
+    since we are validating the checksum anyway.
+
   file_size = slapt_get_pkg_file_size(global_config,pkg);
   if ((unsigned int)(file_size/1024) != pkg->size_c) {
     return SLAPT_DOWNLOAD_INCOMPLETE;
   }
+  */
+
   /* if not checking the md5 checksum and the sizes match, assume its good */
   if (global_config->no_md5_check == SLAPT_TRUE)
     return SLAPT_OK;
