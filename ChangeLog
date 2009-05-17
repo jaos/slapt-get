@@ -1,5 +1,7 @@
 
-0.10.1b Apr 28, 2009
+0.10.1b May 17, 2009
+ * fixed handling of a plus sign in package location (path) in MD5
+   (Ondrej Zary)
  * fixed small issues in FAQ#17 script
 
 0.10.1a Apr 28, 2009
