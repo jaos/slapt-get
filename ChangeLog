@@ -1,5 +1,7 @@
 
-0.10.1b May 17, 2009
+0.10.1b May 23, 2009
+ * updated parsing of compressed and uncompressed sizes in
+   /var/log/packages entries 
  * fixed handling of a plus sign in package location (path) in MD5
    (Ondrej Zary)
  * fixed small issues in FAQ#17 script
