@@ -26,7 +26,7 @@ You will want to customize the values within /etc/slapt-get/slapt-getrc.
 See README for more details.
 
 
-- Using svn: -----------------------------------------------
+- Using git: -----------------------------------------------
 
- svn co http://software.jaos.org/svn/slapt-get/trunk ./slapt-get
+ git clone git://software.jaos.org/var/cache/git/slapt-get
 
