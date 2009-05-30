@@ -109,6 +109,7 @@ clean: testclean
 	-rm src/*.so
 	-rm src/libslapt.so*
 	-rm src/slapt.h
+	-rm slapt-get-*.tgz
 	-if [ -d pkg ]; then rm -rf pkg ;fi
 	-if [ -f libs ]; then rm -rf libs ;fi
 
