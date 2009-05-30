@@ -8,3 +8,5 @@ zlib
 gnupg
 gpgme
 libgpg-error
+cyrus-sasl
+openldap-client
