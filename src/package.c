@@ -307,16 +307,17 @@ struct slapt_pkg_list *slapt_parse_packages_txt(FILE *pkg_list_fh)
       ((char_pointer = strstr(getline_buffer,"PACKAGE CONFLICTS")) != NULL)
     ) {
         char *tmp_realloc = NULL;
-        char *conflicts = (char *)strpbrk(char_pointer,":") + 3;
+        size_t req_len = 19; /* "PACKAGE CONFLICTS" + 2 */
         getline_buffer[bytes_read - 1] = '\0';
 
         tmp_realloc = realloc(tmp_pkg->conflicts,
-          sizeof *tmp_pkg->conflicts * (strlen(conflicts) + 1)
+          sizeof *tmp_pkg->conflicts * (strlen(char_pointer + req_len) + 1)
         );
         if (tmp_realloc != NULL) {
           tmp_pkg->conflicts = tmp_realloc;
-          strncat(tmp_pkg->conflicts,conflicts,strlen(conflicts));
-          tmp_pkg->conflicts[ strlen(conflicts) ] = '\0';
+          strncpy(tmp_pkg->conflicts,char_pointer + req_len,
+                  strlen(char_pointer + req_len));
+          tmp_pkg->conflicts[ strlen(char_pointer + req_len) ] = '\0';
         }
     } else {
       /* conflicts isn't provided... rewind one line */
@@ -331,16 +332,17 @@ struct slapt_pkg_list *slapt_parse_packages_txt(FILE *pkg_list_fh)
       ((char_pointer = strstr(getline_buffer,"PACKAGE SUGGESTS")) != NULL)
     ) {
         char *tmp_realloc = NULL;
-        char *suggests = (char *)strpbrk(char_pointer,":") + 3;
+        size_t req_len = 18; /* "PACKAGE SUGGESTS" + 2 */
         getline_buffer[bytes_read - 1] = '\0';
 
         tmp_realloc = realloc(tmp_pkg->suggests,
-          sizeof *tmp_pkg->suggests * (strlen(suggests) + 1)
+          sizeof *tmp_pkg->suggests * (strlen(char_pointer + req_len) + 1)
         );
         if (tmp_realloc != NULL) {
           tmp_pkg->suggests = tmp_realloc;
-          strncat(tmp_pkg->suggests,suggests,strlen(suggests));
-          tmp_pkg->suggests[ strlen(suggests) ] = '\0';
+          strncpy(tmp_pkg->suggests,char_pointer + req_len,
+                  strlen(char_pointer + req_len));
+          tmp_pkg->suggests[ strlen(char_pointer + req_len) ] = '\0';
         }
     } else {
       /* suggests isn't provided... rewind one line */

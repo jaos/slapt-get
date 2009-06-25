@@ -1,5 +1,6 @@
 
 0.10.1c Jun 25, 2009
+ * updated conflicts and suggests parsing to fix certain PACKAGES.TXT formatting
 
 0.10.1b May 23, 2009
  * updated parsing of compressed and uncompressed sizes in
