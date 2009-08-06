@@ -1,4 +1,7 @@
 
+0.10.1d Aug 06, 2009
+ * updated Greek translation from George Vlahavas
+
 0.10.1c Jul 12, 2009
  * updated default and example rc settings for slackware64
  * updated conflicts and suggests parsing to fix certain PACKAGES.TXT formatting
