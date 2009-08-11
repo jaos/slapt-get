@@ -1,5 +1,7 @@
 
 0.10.1d Aug 11, 2009
+ * updated conflict detection so that multiple conflicts are handled
+   correctly (thanks Steve)
  * do not print empty strings as suggestions
  * free priority strings and resources when parsing is complete
  * updated Greek translation from George Vlahavas

@@ -83,7 +83,7 @@ int slapt_add_deps_to_trans(const slapt_rc_config *global_config,
   check to see if a package has a conflict already present in the transaction
   returns conflicted package or NULL if none
 */
-slapt_pkg_info_t *slapt_is_conflicted(slapt_transaction_t *tran,
+struct slapt_pkg_list *slapt_is_conflicted(slapt_transaction_t *tran,
                                       struct slapt_pkg_list *avail_pkgs,
                                       struct slapt_pkg_list *installed_pkgs,
                                       slapt_pkg_info_t *pkg);
