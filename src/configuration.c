@@ -416,6 +416,8 @@ static void slapt_source_parse_attributes(slapt_source_t *s, const char *string)
       } else {
         fprintf(stderr,"Unknown token: %s\n", token);
       }
+
+      free(token);
     }
 
   }
