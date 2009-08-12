@@ -1,5 +1,6 @@
 
-0.10.1d Aug 06, 2009
+0.10.1d Aug 11, 2009
+ * free priority strings and resources when parsing is complete
  * updated Greek translation from George Vlahavas
 
 0.10.1c Jul 12, 2009
