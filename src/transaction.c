@@ -875,6 +875,9 @@ static void add_suggestion(slapt_transaction_t *tran, slapt_pkg_info_t *pkg)
     return;
   }
 
+  while (isspace(pkg->suggests[position]) != 0)
+    ++position;
+
   while (position < len) {
     int total_len = 0,rest_len = 0;
     char *p = NULL,*si = NULL,*tmp_suggests = NULL;
