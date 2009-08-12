@@ -154,7 +154,11 @@ struct slapt_pkg_list *slapt_parse_packages_txt(FILE *pkg_list_fh)
       slapt_execute_regex(priority_regex, getline_buffer);
 
       if (priority_regex->reg_return == 0) {
-        tmp_pkg->priority = atoi(slapt_regex_extract_match(priority_regex, getline_buffer, 1));
+        char *priority_string = slapt_regex_extract_match(priority_regex, getline_buffer, 1);
+        if (priority_string != NULL) {
+          tmp_pkg->priority = atoi(priority_string);
+          free(priority_string);
+        }
       } else {
         /* priority isn't provided... rewind one line */
         fseek(pkg_list_fh, (ftell(pkg_list_fh) - f_pos) * -1, SEEK_CUR);
@@ -431,8 +435,10 @@ struct slapt_pkg_list *slapt_parse_packages_txt(FILE *pkg_list_fh)
 
   if (getline_buffer)
     free(getline_buffer);
+
   slapt_free_regex(name_regex);
   slapt_free_regex(mirror_regex);
+  slapt_free_regex(priority_regex);
   slapt_free_regex(location_regex);
   slapt_free_regex(size_c_regex);
   slapt_free_regex(size_u_regex);
