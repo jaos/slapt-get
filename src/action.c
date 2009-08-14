@@ -73,7 +73,7 @@ void slapt_pkg_action_install(const slapt_rc_config *global_config,
 
       if ( pkg == NULL ) {
         fprintf(stderr,gettext("No such package: %s\n"),arg);
-        continue;
+        exit(EXIT_FAILURE);
       }
 
     }
