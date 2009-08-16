@@ -54,15 +54,16 @@ slapt_rc_config *slapt_init_config(void)
 slapt_rc_config *slapt_read_rc_config(const char *file_name)
 {
   FILE *rc = NULL;
-  slapt_rc_config *global_config = slapt_init_config();
   char *getline_buffer = NULL;
   size_t gb_length = 0;
   ssize_t g_size;
+  slapt_rc_config *global_config = NULL;
 
   rc = slapt_open_file(file_name,"r");
-
   if ( rc == NULL )
-    exit(EXIT_FAILURE);
+    return NULL;
+
+  global_config = slapt_init_config();
 
   while ( (g_size = getline(&getline_buffer,&gb_length,rc) ) != EOF ) {
     char *token_ptr = NULL;

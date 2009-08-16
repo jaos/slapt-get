@@ -1,5 +1,7 @@
 
-0.10.1d Aug 14, 2009
+0.10.2 Aug 15, 2009
+ * do not exit immediately if we cannot open the default slapt-getrc, check
+   instead if --config was used, otherwise exit (thanks Vasileios Porpodas)
  * for consistency error out when --install is passed a package that
    does not exist (George)
  * updated conflict detection so that multiple conflicts are handled

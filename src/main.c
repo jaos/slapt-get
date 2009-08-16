@@ -25,7 +25,7 @@ extern int optind, opterr, optopt;
 
 int main( int argc, char *argv[] )
 {
-  slapt_rc_config *global_config; /* our config struct */
+  slapt_rc_config *global_config, *initial_config; /* our config struct */
   slapt_pkg_action_args_t *paa;
 
   int c = 0;
@@ -76,6 +76,7 @@ int main( int argc, char *argv[] )
     #endif
     {0, 0, 0, 0},
   };
+  char *custom_rc_location = NULL;
 
   setbuf(stdout,NULL);
 
@@ -90,11 +91,11 @@ int main( int argc, char *argv[] )
     exit(EXIT_FAILURE);
   }
 
-  /* load up the configuration file */
-  global_config = slapt_read_rc_config(RC_LOCATION);
-  if ( global_config == NULL ) {
+  initial_config = slapt_init_config();
+  if ( initial_config == NULL ) {
     exit(EXIT_FAILURE);
   }
+
   curl_global_init(CURL_GLOBAL_ALL);
 
   while ((c = getopt_long_only(argc,argv,"",long_options,
@@ -111,19 +112,19 @@ int main( int argc, char *argv[] )
         break;
       case SLAPT_SHOW_OPT: /* show */
         do_action = SHOW;
-        global_config->simulate = SLAPT_TRUE; /* allow read access */
+        initial_config->simulate = SLAPT_TRUE; /* allow read access */
         break;
       case SLAPT_SEARCH_OPT: /* search */
         do_action = SEARCH;
-        global_config->simulate = SLAPT_TRUE; /* allow read access */
+        initial_config->simulate = SLAPT_TRUE; /* allow read access */
         break;
       case SLAPT_LIST_OPT: /* list */
         do_action = LIST;
-        global_config->simulate = SLAPT_TRUE; /* allow read access */
+        initial_config->simulate = SLAPT_TRUE; /* allow read access */
         break;
       case SLAPT_INSTALLED_OPT: /* installed */
         do_action = INSTALLED;
-        global_config->simulate = SLAPT_TRUE; /* allow read access */
+        initial_config->simulate = SLAPT_TRUE; /* allow read access */
         break;
       case SLAPT_CLEAN_OPT: /* clean */
         do_action = CLEAN;
@@ -132,90 +133,68 @@ int main( int argc, char *argv[] )
         do_action = UPGRADE;
         break;
       case SLAPT_DOWNLOAD_ONLY_OPT: /* download only flag */
-        global_config->download_only = SLAPT_TRUE;
+        initial_config->download_only = SLAPT_TRUE;
         break;
       case SLAPT_SIMULATE_OPT: /* simulate */
-        global_config->simulate = SLAPT_TRUE;
+        initial_config->simulate = SLAPT_TRUE;
         break;
       case SLAPT_VERSION_OPT: /* version */
         do_action = SHOWVERSION;
         break;
       case SLAPT_NO_PROMPT_OPT: /* auto */
-        global_config->no_prompt = SLAPT_TRUE;
+        initial_config->no_prompt = SLAPT_TRUE;
         break;
       case SLAPT_PROMPT_OPT: /* always prompt */
-        global_config->prompt = SLAPT_TRUE;
+        initial_config->prompt = SLAPT_TRUE;
         break;
       case SLAPT_REINSTALL_OPT: /* reinstall */
-        global_config->re_install = SLAPT_TRUE;
+        initial_config->re_install = SLAPT_TRUE;
         break;
       case SLAPT_IGNORE_EXCLUDES_OPT: /* ignore-excludes */
-        global_config->ignore_excludes = SLAPT_TRUE;
+        initial_config->ignore_excludes = SLAPT_TRUE;
         break;
       case SLAPT_NO_MD5_OPT: /* no-md5 */
-        global_config->no_md5_check = SLAPT_TRUE;
+        initial_config->no_md5_check = SLAPT_TRUE;
         break;
       case SLAPT_DIST_UPGRADE_OPT: /* dist-upgrade */
-        global_config->dist_upgrade = SLAPT_TRUE;
+        initial_config->dist_upgrade = SLAPT_TRUE;
         do_action = UPGRADE;
         break;
       case SLAPT_HELP_OPT: /* help */
         usage();
-        slapt_free_rc_config(global_config);
+        slapt_free_rc_config(initial_config);
         curl_global_cleanup();
         exit(EXIT_FAILURE);
       case SLAPT_IGNORE_DEP_OPT: /* ignore-dep */
-        global_config->ignore_dep = SLAPT_TRUE;
+        initial_config->ignore_dep = SLAPT_TRUE;
         break;
       case SLAPT_NO_DEP_OPT: /* no-dep */
-        global_config->disable_dep_check = SLAPT_TRUE;
+        initial_config->disable_dep_check = SLAPT_TRUE;
         break;
       case SLAPT_PRINT_URIS_OPT: /* print-uris */
-        global_config->print_uris = SLAPT_TRUE;
+        initial_config->print_uris = SLAPT_TRUE;
         break;
       case SLAPT_SHOW_STATS_OPT: /* download-stats */
-        global_config->dl_stats = SLAPT_TRUE;
+        initial_config->dl_stats = SLAPT_TRUE;
         break;
       case SLAPT_CONFIG_OPT: /* override rc location */
-        {
-          slapt_rc_config *tmp_gc = global_config;
-          global_config = slapt_read_rc_config(optarg);
-          if ( global_config == NULL ) {
-            slapt_free_rc_config(tmp_gc);
-            curl_global_cleanup();
-            exit(EXIT_FAILURE);
-          }
-          /* preserve existing command line options */
-          global_config->download_only = tmp_gc->download_only;
-          global_config->dist_upgrade = tmp_gc->dist_upgrade;
-          global_config->simulate = tmp_gc->simulate;
-          global_config->no_prompt = tmp_gc->no_prompt;
-          global_config->prompt = tmp_gc->prompt;
-          global_config->re_install = tmp_gc->re_install;
-          global_config->ignore_excludes = tmp_gc->ignore_excludes;
-          global_config->no_md5_check = tmp_gc->no_md5_check;
-          global_config->ignore_dep = tmp_gc->ignore_dep;
-          global_config->disable_dep_check = tmp_gc->disable_dep_check;
-          global_config->print_uris = tmp_gc->print_uris;
-          global_config->dl_stats = tmp_gc->dl_stats;
-          slapt_free_rc_config(tmp_gc);
-        }
+        custom_rc_location = strdup(optarg);
         break;
       case SLAPT_RETRY_OPT: /* set number of retry attempts */
-        global_config->retry = (atoi(optarg) > 0) ? atoi(optarg) : 1;
+        initial_config->retry = (atoi(optarg) > 0) ? atoi(optarg) : 1;
         break;
       case SLAPT_NO_UPGRADE_OPT: /* do not attempt to upgrade */
-        global_config->no_upgrade = SLAPT_TRUE;
+        initial_config->no_upgrade = SLAPT_TRUE;
         break;
       case SLAPT_AUTOCLEAN_OPT: /* clean old old package versions */
         do_action = AUTOCLEAN;
         break;
       case SLAPT_OBSOLETE_OPT: /* remove obsolete packages */
-        global_config->remove_obsolete = SLAPT_TRUE;
+        initial_config->remove_obsolete = SLAPT_TRUE;
         break;
       case SLAPT_AVAILABLE_OPT: /* show available packages */
         do_action = AVAILABLE;
-        global_config->simulate = SLAPT_TRUE; /* allow read access */
+        initial_config->simulate = SLAPT_TRUE; /* allow read access */
         break;
       case SLAPT_INSTALL_DISK_SET_OPT: /* install a disk set */
         do_action = INSTALL_DISK_SET;
@@ -227,11 +206,39 @@ int main( int argc, char *argv[] )
       #endif
       default:
         usage();
-        slapt_free_rc_config(global_config);
+        slapt_free_rc_config(initial_config);
         curl_global_cleanup();
         exit(EXIT_FAILURE);
     }
   }
+
+  /* load up the configuration file */
+  if (custom_rc_location == NULL) {
+    global_config = slapt_read_rc_config(RC_LOCATION);
+  } else {
+    global_config = slapt_read_rc_config(custom_rc_location);
+    free(custom_rc_location);
+  }
+
+  if ( global_config == NULL ) {
+    exit(EXIT_FAILURE);
+  }
+
+  /* preserve existing command line options */
+  global_config->download_only      = initial_config->download_only;
+  global_config->dist_upgrade       = initial_config->dist_upgrade;
+  global_config->simulate           = initial_config->simulate;
+  global_config->no_prompt          = initial_config->no_prompt;
+  global_config->prompt             = initial_config->prompt;
+  global_config->re_install         = initial_config->re_install;
+  global_config->ignore_excludes    = initial_config->ignore_excludes;
+  global_config->no_md5_check       = initial_config->no_md5_check;
+  global_config->ignore_dep         = initial_config->ignore_dep;
+  global_config->disable_dep_check  = initial_config->disable_dep_check;
+  global_config->print_uris         = initial_config->print_uris;
+  global_config->dl_stats           = initial_config->dl_stats;
+
+  slapt_free_rc_config(initial_config);
 
   /* Check optional arguments presence */
   switch(do_action) {
