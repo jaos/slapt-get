@@ -364,7 +364,7 @@ Frequently Asked Questions:
 
     function gen_md5_checksums {
 	    echo '' > CHECKSUMS.md5
-	    find . -type f -name '*.tgz' -exec md5sum {} \; >> CHECKSUMS.md5
+	    find . -type f -regextype posix-egrep -regex '.*\.[tgblzikx]+$' -exec md5sum {} \; >> CHECKSUMS.md5
       cat CHECKSUMS.md5 | gzip -9 -c - > CHECKSUMS.md5.gz
     }
 
@@ -381,7 +381,7 @@ Frequently Asked Questions:
       case $PKGEXT in
         tgz) DECOMPRESS=gzip ;;
         tbz) DECOMPRESS=bzip2 ;;
-        tlz) DECOMPRESS=lzma ;;
+        tlz|txz) DECOMPRESS=lzma ;;
       esac
 
 	    NAME=$(echo $1|sed -re "s/(.*\/)(.*.$PKGEXT)$/\2/")
