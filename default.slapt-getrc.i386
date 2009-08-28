@@ -12,7 +12,7 @@ SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-13.0/:OFFICIAL
 
 # Sources for the testing, extra, and pasture areas - if you use them.
 # SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-13.0/extra/:PREFERRED
-# SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-123.0testing/
+# SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-13.0/testing/
 # SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-13.0/pasture/
 
 # Source for slapt-get.
