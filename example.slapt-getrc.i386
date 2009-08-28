@@ -9,6 +9,7 @@ EXCLUDE=^aaa_elflibs,^devs,^glibc-.*,^kernel-.*,^udev,.*-[0-9]+dl$,x86_64
 # Base url to directory with a PACKAGES.TXT.
 # This can point to any release, ie: 9.0, 10.0, current, etc.
 # You should really choose from an example mirror URI below.
+# SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-13.0/:OFFICIAL
 # SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-12.2/:OFFICIAL
 # SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-12.1/:OFFICIAL
 # SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-12.0/:OFFICIAL
@@ -23,11 +24,12 @@ EXCLUDE=^aaa_elflibs,^devs,^glibc-.*,^kernel-.*,^udev,.*-[0-9]+dl$,x86_64
 
 # Sources for the testing, extra, and pasture areas - if you use them.
 # Edit the URI below for the Slackware version you're using.
-# SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-12.2/extra/:PREFERRED
-# SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-12.2/testing/
-# SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-12.2/pasture/
+# SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-13.0/extra/:PREFERRED
+# SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-13.0/testing/
+# SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-13.0/pasture/
 
 # Source for slapt-get.
+# SOURCE=http://software.jaos.org/slackpacks/13.0/:OFFICIAL
 # SOURCE=http://software.jaos.org/slackpacks/12.2/:OFFICIAL
 # SOURCE=http://software.jaos.org/slackpacks/12.1/:OFFICIAL
 # SOURCE=http://software.jaos.org/slackpacks/12.0/:OFFICIAL
@@ -48,65 +50,65 @@ EXCLUDE=^aaa_elflibs,^devs,^glibc-.*,^kernel-.*,^udev,.*-[0-9]+dl$,x86_64
 
 # Slackware mirrors to choose from.
 # Please use one of these in preference to ftp.slackware.com!
-# SOURCE=http://slackware.oc9.org/slackware-12.2/:OFFICIAL
-# SOURCE=http://slackware.mirrors.pair.com/slackware-12.2/:OFFICIAL
-# SOURCE=http://carroll.cac.psu.edu/pub/linux/distributions/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=http://darkstar.ist.utl.pt/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=http://download.sourceforge.net/pub/mirrors/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=http://ftp.planetmirror.com/pub/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=http://gd.tuwien.ac.at/opsys/linux/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=http://mirror.switch.ch/ftp/mirror/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=http://ncart.scs.ryerson.ca/pub/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=http://slackware.oregonstate.edu/slackware-12.2/:OFFICIAL
-# SOURCE=http://sunsite.cnlab-switch.ch/ftp/mirror/slackware/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=http://www.slackware.at/data/slackware-12.2/:OFFICIAL
-# SOURCE=http://www.slackware.no/linux/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=http://slackware.itsoft.at/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=http://www.slackware.org.uk/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://carroll.cac.psu.edu/pub/linux/distributions/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://darkstar.ist.utl.pt/pub/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://distro.ibiblio.org/pub/linux/distributions/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://dl.xs4all.nl/pub/mirror/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://ftp-linux.cc.gatech.edu/pub/Linux/distributions/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://ftp.biochem.uthscsa.edu/pub/linux/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://ftp.cerias.purdue.edu/pub/os/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://ftp.cs.columbia.edu/archives/os/linux/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://ftp.edisontel.it/pub/Slackware_Mirror/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://ftp.etse.urv.es/pub/linux/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://ftp.heanet.ie/mirrors/ftp.slackware.com/pub/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://ftp.kreonet.re.kr/pub/Linux/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://ftp.linux.tucows.com/pub/distributions/Slackware/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://ftp.lip6.fr/pub/linux/distributions/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://ftp.loxinfo.co.th/linux/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://ftp.mirror.ac.uk/sites/ftp.slackware.com/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://ftp.nluug.nl/pub/os/Linux/distr/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://ftp.physics.upatras.gr/mirror/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://ftp.planetmirror.com/pub/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://ftp.rediris.es/mirror/linux/distributions/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://ftp.slackware-brasil.com.br/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://ftp.slackware.at/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://ftp.slackware.no/pub/linux/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://ftp.slackwarebrasil.org/pub/linux/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://ftp.sunet.se/pub/Linux/distributions/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://ftp.tau.ac.il/pub/OS/Slackware/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://ftp.ulatina.ac.cr/Unix/Linux/Slackware/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://ftp.unina.it/pub/linux/distributions/slackware/slackware-12.2/:OFFICIAL
+# SOURCE=http://slackware.oc9.org/slackware-13.0/:OFFICIAL
+# SOURCE=http://slackware.mirrors.pair.com/slackware-13.0/:OFFICIAL
+# SOURCE=http://carroll.cac.psu.edu/pub/linux/distributions/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=http://darkstar.ist.utl.pt/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=http://download.sourceforge.net/pub/mirrors/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=http://ftp.planetmirror.com/pub/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=http://gd.tuwien.ac.at/opsys/linux/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=http://mirror.switch.ch/ftp/mirror/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=http://ncart.scs.ryerson.ca/pub/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=http://slackware.oregonstate.edu/slackware-13.0/:OFFICIAL
+# SOURCE=http://sunsite.cnlab-switch.ch/ftp/mirror/slackware/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=http://www.slackware.at/data/slackware-13.0/:OFFICIAL
+# SOURCE=http://www.slackware.no/linux/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=http://slackware.itsoft.at/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=http://www.slackware.org.uk/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://carroll.cac.psu.edu/pub/linux/distributions/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://darkstar.ist.utl.pt/pub/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://distro.ibiblio.org/pub/linux/distributions/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://dl.xs4all.nl/pub/mirror/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://ftp-linux.cc.gatech.edu/pub/Linux/distributions/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://ftp.biochem.uthscsa.edu/pub/linux/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://ftp.cerias.purdue.edu/pub/os/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://ftp.cs.columbia.edu/archives/os/linux/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://ftp.edisontel.it/pub/Slackware_Mirror/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://ftp.etse.urv.es/pub/linux/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://ftp.heanet.ie/mirrors/ftp.slackware.com/pub/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://ftp.kreonet.re.kr/pub/Linux/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://ftp.linux.tucows.com/pub/distributions/Slackware/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://ftp.lip6.fr/pub/linux/distributions/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://ftp.loxinfo.co.th/linux/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://ftp.mirror.ac.uk/sites/ftp.slackware.com/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://ftp.nluug.nl/pub/os/Linux/distr/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://ftp.physics.upatras.gr/mirror/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://ftp.planetmirror.com/pub/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://ftp.rediris.es/mirror/linux/distributions/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://ftp.slackware-brasil.com.br/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://ftp.slackware.at/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://ftp.slackware.no/pub/linux/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://ftp.slackwarebrasil.org/pub/linux/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://ftp.sunet.se/pub/Linux/distributions/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://ftp.tau.ac.il/pub/OS/Slackware/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://ftp.ulatina.ac.cr/Unix/Linux/Slackware/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://ftp.unina.it/pub/linux/distributions/slackware/slackware-13.0/:OFFICIAL
 # SOURCE=ftp://ftp.uniovi.es/pub/slackware/:OFFICIAL
-# SOURCE=ftp://gd.tuwien.ac.at/opsys/linux/slackware/slackware-12.2/:OFFICIAL
+# SOURCE=ftp://gd.tuwien.ac.at/opsys/linux/slackware/slackware-13.0/:OFFICIAL
 # SOURCE=ftp://mirror.aarnet.edu.au/pub/slackware/slackware-current/:OFFICIAL
-# SOURCE=ftp://mirror.pudas.net/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://mirror.switch.ch/mirror/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://ncart.scs.ryerson.ca/pub/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://sharon.esrac.ele.tue.nl/pub/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://slackware.linux.no/pub/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://slackware.oregonstate.edu/pub/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://sunsite.cnlab-switch.ch/mirror/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://sunsite.cnlab-switch.ch/mirror/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://sunsite.icm.edu.pl/pub/Linux/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://sunsite.informatik.rwth-aachen.de/pub/Linux/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://sunsite.pub.ro/pub/Linux/distributions/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://slackware.itsoft.at/slackware/slackware-12.2/:OFFICIAL
-# SOURCE=ftp://ftp.slackware.org.uk/slackware/slackware-12.2/:OFFICIAL
+# SOURCE=ftp://mirror.pudas.net/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://mirror.switch.ch/mirror/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://ncart.scs.ryerson.ca/pub/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://sharon.esrac.ele.tue.nl/pub/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://slackware.linux.no/pub/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://slackware.oregonstate.edu/pub/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://sunsite.cnlab-switch.ch/mirror/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://sunsite.cnlab-switch.ch/mirror/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://sunsite.icm.edu.pl/pub/Linux/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://sunsite.informatik.rwth-aachen.de/pub/Linux/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://sunsite.pub.ro/pub/Linux/distributions/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://slackware.itsoft.at/slackware/slackware-13.0/:OFFICIAL
+# SOURCE=ftp://ftp.slackware.org.uk/slackware/slackware-13.0/:OFFICIAL
 
 # 3rd party sources.
 # You can use multiple sources, such as linuxpackages.net, GSB or others; simply

@@ -8,15 +8,15 @@ EXCLUDE=^aaa_elflibs,^devs,^glibc-.*,^kernel-.*,^udev,.*-[0-9]+dl$,x86_64
 
 # Base url to directory with a PACKAGES.TXT.
 # This can point to any release, ie: 9.0, 10.0, current, etc.
-SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-12.2/:OFFICIAL
+SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-13.0/:OFFICIAL
 
 # Sources for the testing, extra, and pasture areas - if you use them.
-# SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-12.2/extra/:PREFERRED
-# SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-12.2/testing/
-# SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-12.2/pasture/
+# SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-13.0/extra/:PREFERRED
+# SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-123.0testing/
+# SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-13.0/pasture/
 
 # Source for slapt-get.
-SOURCE=http://software.jaos.org/slackpacks/12.2/:OFFICIAL
+SOURCE=http://software.jaos.org/slackpacks/13.0/:OFFICIAL
 
 # Packages on a CD/DVD.
 # SOURCE=file:///mnt/cdrom/:OFFICIAL
