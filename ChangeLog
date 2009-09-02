@@ -1,4 +1,9 @@
 
+0.10.2a Sep 01, 2009
+ * normalize search routine when doing package lookups by details instead
+   of just name and version.  This fixes a bug in gslapt that causes the
+   package lookup to fail for two similar packages.
+
 0.10.2 Aug 15, 2009
  * do not exit immediately if we cannot open the default slapt-getrc, check
    instead if --config was used, otherwise exit (thanks Vasileios Porpodas)

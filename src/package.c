@@ -1863,7 +1863,7 @@ slapt_pkg_info_t *slapt_get_pkg_by_details(struct slapt_pkg_list *list,
 
       if ( name_cmp == 0 ) {
 
-        int version_cmp = slapt_cmp_pkg_versions(list->pkgs[pivot]->version, version);
+        int version_cmp = strverscmp(list->pkgs[pivot]->version, version);
 
         if ( version_cmp == 0 ) {
 
