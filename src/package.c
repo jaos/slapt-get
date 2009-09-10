@@ -3476,6 +3476,8 @@ char *slapt_get_pkg_filelist(const slapt_pkg_info_t *pkg)
   strncat(pkg_f_name,"/",1);
   strncat(pkg_f_name,pkg_name,strlen(pkg_name));
 
+  free(pkg_log_dirname);
+
   /*
      open the package log file so that we can mmap it and parse out the
      file list.
@@ -3571,7 +3573,6 @@ char *slapt_get_pkg_filelist(const slapt_pkg_info_t *pkg)
     exit(EXIT_FAILURE);
   }
   free(pkg_f_name);
-  free(pkg_log_dirname);
   free(pkg_name);
 
   return filelist;
