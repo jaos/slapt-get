@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.10.0\n"
+"Project-Id-Version: 0.10.2a\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2008-11-27 21:18+0500\n"
+"PO-Revision-Date: 2009-09-09 10:40+0500\n"
 "Last-Translators: Sajmon <sajmon@tenboard.com>, Paul Blazejowski <paulb@blazebox.homeip.net>, nixon <nixon@klub.chip.pl> and simon <ssiimm@poczta.onet.pl>\n"
 "Language-Team: polish slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -534,4 +534,7 @@ msgstr "Custom Patch"
 #, c-format
 msgid "Package Priority: %s\n"
 msgstr "Package Priority: %s\n"
+
+msgid "[pkg name] - show pkg installed files"
+msgstr "[pkg name] - show pkg installed files"
 

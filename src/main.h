@@ -57,7 +57,8 @@ enum slapt_action {
   #ifdef SLAPT_HAS_GPGME
   ADD_KEYS,
   #endif
-  INSTALL_DISK_SET
+  INSTALL_DISK_SET,
+  FILELIST
 };
 
 #define SLAPT_UPDATE_OPT 'u'
@@ -93,6 +94,7 @@ enum slapt_action {
 #ifdef SLAPT_HAS_GPGME
   #define SLAPT_ADD_KEYS_OPT 'k'
 #endif
+#define SLAPT_FILELIST 'f'
 
 #define SLAPT_DO_NOT_UNLINK_BAD_FILES 1
 #define SLACKWARE_EXTRA_TESTING_PASTURE_WORKAROUND 1

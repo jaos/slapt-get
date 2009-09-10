@@ -74,6 +74,7 @@ int main( int argc, char *argv[] )
     #ifdef SLAPT_HAS_GPGME
     {"add-keys", 0, 0, SLAPT_ADD_KEYS_OPT},
     #endif
+    {"filelist", 0, 0, SLAPT_FILELIST},
     {0, 0, 0, 0},
   };
   char *custom_rc_location = NULL;
@@ -204,6 +205,9 @@ int main( int argc, char *argv[] )
         do_action = ADD_KEYS;
         break;
       #endif
+      case SLAPT_FILELIST:
+        do_action = FILELIST;
+        break;
       default:
         usage();
         slapt_free_rc_config(initial_config);
@@ -260,9 +264,10 @@ int main( int argc, char *argv[] )
         if (global_config->remove_obsolete == SLAPT_TRUE)
           break;
 
-    /* show and search must have arguments */
+    /* show, search, filelist must have arguments */
     case SHOW:
     case SEARCH:
+    case FILELIST:
       if ( optind >= argc )
         do_action = 0;
       break;
@@ -398,6 +403,11 @@ int main( int argc, char *argv[] )
       slapt_pkg_action_add_keys(global_config);
       break;
     #endif
+    case FILELIST:
+      while (optind < argc) {
+        slapt_pkg_action_filelist( argv[optind++] );
+      }
+      break;
     case USAGE:
     default:
       printf("main.c(l.%d): This should never be reached\n", __LINE__);
@@ -424,6 +434,7 @@ void usage(void)
   printf("  --install-set  %s\n",gettext("[disk set(s)] - install specified disk set(s)"));
   printf("  --remove       %s\n",gettext("[pkg name(s)] - remove specified pkg(s)"));
   printf("  --show         %s\n",gettext("[pkg name] - show pkg description"));
+  printf("  --filelist     %s\n",gettext("[pkg name] - show pkg installed files"));
   printf("  --search       %s\n",gettext("[expression] - search available pkgs"));
   printf("  --list         - %s\n",gettext("list pkgs"));
   printf("  --available    - %s\n",gettext("list available pkgs"));

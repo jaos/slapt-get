@@ -21,3 +21,6 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config);
 #ifdef SLAPT_HAS_GPGME
 void slapt_pkg_action_add_keys(const slapt_rc_config *global_config);
 #endif
+
+void slapt_pkg_action_filelist( const char *pkg_name );
+

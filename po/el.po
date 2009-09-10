@@ -5,9 +5,9 @@
 # George Vlahavas, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.10.0\n"
+"Project-Id-Version: 0.10.2a\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2009-08-06 18:41+0200\n"
+"PO-Revision-Date: 2009-09-09 10:40+0500\n"
 "Last-Translator: George Vlahavas <vlahavas~at~gmail~dot~com>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -533,4 +533,7 @@ msgstr "Προσαρμοσμένη Διόρθωση"
 #, c-format
 msgid "Package Priority: %s\n"
 msgstr "Προτεραιότητα Πακέτων: %s\n"
+
+msgid "[pkg name] - show pkg installed files"
+msgstr "[pkg name] - show pkg installed files"
 

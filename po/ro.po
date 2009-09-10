@@ -4,9 +4,9 @@
 # Reteaua PTM <admin@ptm.ro>
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.10.0\n"
+"Project-Id-Version: 0.10.2a\n"
 "POT-Creation-Date: 2008-03-22 02:10+0200\n"
-"PO-Revision-Date: 2008-11-27 21:18+0500\n"
+"PO-Revision-Date: 2009-09-09 10:40+0500\n"
 "Last-Translator: Zion <admin@ptm.ro>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -532,4 +532,7 @@ msgstr "Custom Patch"
 #, c-format
 msgid "Package Priority: %s\n"
 msgstr "Package Priority: %s\n"
+
+msgid "[pkg name] - show pkg installed files"
+msgstr "[pkg name] - show pkg installed files"
 

@@ -6,9 +6,9 @@
 # JW <J_W@somewhere.c0.jp>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.10.0\n"
+"Project-Id-Version: 0.10.2a\n"
 "POT-Creation-Date: 2006-03-08 19:49+0900\n"
-"PO-Revision-Date: 2008-11-27 21:18+0500\n"
+"PO-Revision-Date: 2009-09-09 10:40+0500\n"
 "Last-Translator: JW <J_W@somewhere.c0.jp>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -535,4 +535,7 @@ msgstr "Custom Patch"
 #, c-format
 msgid "Package Priority: %s\n"
 msgstr "Package Priority: %s\n"
+
+msgid "[pkg name] - show pkg installed files"
+msgstr "[pkg name] - show pkg installed files"
 

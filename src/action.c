@@ -813,3 +813,48 @@ void slapt_pkg_action_add_keys(const slapt_rc_config *global_config)
 
 }
 #endif
+
+void slapt_pkg_action_filelist( const char *pkg_name )
+{
+  slapt_regex_t *pkg_regex = NULL;
+  struct slapt_pkg_list *installed_pkgs = NULL;
+  slapt_pkg_info_t *pkg = NULL;
+  char *filelist = NULL;
+
+  installed_pkgs = slapt_get_installed_pkgs();
+  if ( installed_pkgs == NULL )
+    exit(EXIT_FAILURE);
+
+  if ((pkg_regex = slapt_init_regex(SLAPT_PKG_LOG_PATTERN)) == NULL)
+    exit(EXIT_FAILURE);
+
+  /* Use regex to see if they specified a particular version */
+  slapt_execute_regex(pkg_regex,pkg_name);
+
+  /* If so, parse it out and try to get that version only */
+  if ( pkg_regex->reg_return == 0 ) {
+    char *p_name,*p_version;
+
+    p_name    = slapt_regex_extract_match(pkg_regex, pkg_name, 1);
+    p_version = slapt_regex_extract_match(pkg_regex, pkg_name, 2);
+
+    pkg = slapt_get_exact_pkg(installed_pkgs,p_name,p_version);
+
+    if ( pkg == NULL )
+      exit(EXIT_FAILURE);
+
+    free(p_name);
+    free(p_version);
+
+  } else {
+    pkg = slapt_get_newest_pkg(installed_pkgs,pkg_name);
+    if ( pkg == NULL )
+      exit(EXIT_FAILURE);
+  }
+
+  filelist = slapt_get_pkg_filelist(pkg);
+
+  printf("%s",filelist);
+
+  free(filelist);
+}
