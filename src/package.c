@@ -473,7 +473,6 @@ char *slapt_gen_short_pkg_description(slapt_pkg_info_t *pkg)
 struct slapt_pkg_list *slapt_get_installed_pkgs(void)
 {
   DIR *pkg_log_dir;
-  char *root_env_entry = NULL;
   char *pkg_log_dirname = NULL;
   struct dirent *file;
   slapt_regex_t *ip_regex = NULL,
@@ -498,23 +497,7 @@ struct slapt_pkg_list *slapt_get_installed_pkgs(void)
     exit(EXIT_FAILURE);
   }
 
-  /* Generate package log directory using ROOT env variable if set */
-  if (getenv(SLAPT_ROOT_ENV_NAME) &&
-      strlen(getenv(SLAPT_ROOT_ENV_NAME)) < SLAPT_ROOT_ENV_LEN) {
-    root_env_entry = getenv(SLAPT_ROOT_ENV_NAME);
-  }
-  pkg_log_dirname = slapt_calloc(
-    strlen(SLAPT_PKG_LOG_DIR)+
-    (root_env_entry ? strlen(root_env_entry) : 0) + 1 ,
-    sizeof *pkg_log_dirname
-  );
-  *pkg_log_dirname = '\0';
-  if (root_env_entry) {
-    strncpy(pkg_log_dirname, root_env_entry,strlen(root_env_entry));
-    strncat(pkg_log_dirname, SLAPT_PKG_LOG_DIR,strlen(SLAPT_PKG_LOG_DIR));
-  } else {
-    strncat(pkg_log_dirname, SLAPT_PKG_LOG_DIR,strlen(SLAPT_PKG_LOG_DIR));
-  }
+  pkg_log_dirname = slapt_gen_package_log_dir_name();
 
   if ((pkg_log_dir = opendir(pkg_log_dirname)) == NULL) {
 
@@ -3453,5 +3436,170 @@ static int pkg_compare (const void *a, const void *b)
 
   }
 
+}
+
+char *slapt_get_pkg_filelist(const slapt_pkg_info_t *pkg)
+{
+  FILE *pkg_f = NULL;
+  char *pkg_log_dirname = NULL;
+  char *pkg_f_name = NULL;
+  struct stat stat_buf;
+  char *pkg_data = NULL;
+  char *pkg_name;
+  int pkg_name_len;
+  char *filelist_p = NULL;
+  char *tmp_filelist = NULL;
+  size_t tmp_len = 0;
+  char *filelist = NULL;
+  size_t filelist_len = 0;
+  size_t pls = 1;
+
+  /* this only handles installed packages at the moment */
+  if (pkg->installed != SLAPT_TRUE)
+    return filelist;
+
+  pkg_log_dirname = slapt_gen_package_log_dir_name();
+
+  pkg_name_len = strlen(pkg->name) + strlen(pkg->version) + 2; /* for the - and \0 */
+  pkg_name = slapt_malloc(sizeof *pkg_name * pkg_name_len);
+  if (snprintf(pkg_name, pkg_name_len, "%s-%s",pkg->name,pkg->version) < 1) {
+    free(pkg_name);
+    return NULL;
+  }
+
+  /* build the package filename including the package directory */
+  pkg_f_name = slapt_malloc(
+    sizeof *pkg_f_name * (strlen(pkg_log_dirname) + strlen(pkg_name) + 2)
+  );
+  pkg_f_name[0] = '\0';
+  strncat(pkg_f_name,pkg_log_dirname,strlen(pkg_log_dirname));
+  strncat(pkg_f_name,"/",1);
+  strncat(pkg_f_name,pkg_name,strlen(pkg_name));
+
+  /*
+     open the package log file so that we can mmap it and parse out the
+     file list.
+  */
+  pkg_f = slapt_open_file(pkg_f_name,"r");
+  if (pkg_f == NULL)
+    exit(EXIT_FAILURE);
+
+  /* used with mmap */
+  if (stat(pkg_f_name,&stat_buf) == -1) {
+
+    if (errno)
+        perror(pkg_f_name);
+
+      fprintf(stderr,"stat failed: %s\n",pkg_f_name);
+      exit(EXIT_FAILURE);
+    }
+
+    /* don't mmap empty files */
+    if ((int)stat_buf.st_size < 1) {
+      free(pkg_f_name);
+      fclose(pkg_f);
+      return "";
+    }
+
+    pls = (size_t)stat_buf.st_size;
+
+    pkg_data = (char *)mmap(0,pls,
+                            PROT_READ|PROT_WRITE,MAP_PRIVATE,fileno(pkg_f),0);
+    if (pkg_data == (void *)-1) {
+
+      if (errno)
+        perror(pkg_f_name);
+
+      fprintf(stderr,"mmap failed: %s\n",pkg_f_name);
+      exit(EXIT_FAILURE);
+    }
+
+    fclose(pkg_f);
+
+    /* add \0 for strlen to work */
+    pkg_data[pls - 1] = '\0';
+
+    filelist_p = strstr(pkg_data,"FILE LIST");
+    if (filelist_p != NULL) {
+      char *nl = strchr(filelist_p,'\n');
+      int finished_parsing = 0;
+
+      if (nl != NULL)
+        filelist_p = ++nl;
+
+       while (!finished_parsing) {
+       
+         if ((nl = strchr(filelist_p,'\n')) != NULL) {
+            tmp_len = nl - filelist_p + 1;
+         } else {
+            tmp_len = strlen(filelist_p);
+            finished_parsing = 1;
+         }
+
+          /* files in install/ are package metadata */
+          if (strncmp(filelist_p, "./\n", 3) != 0 &&
+              strncmp(filelist_p, "install/", 8) != 0) { 
+           
+          tmp_len += 1; /* prefix '/' */
+
+          tmp_filelist = realloc(filelist,
+            sizeof *filelist *
+            (filelist_len + tmp_len + 1)
+          );
+     
+             if (tmp_filelist != NULL) {
+          filelist = tmp_filelist;
+          tmp_filelist = filelist + filelist_len;
+          tmp_filelist[0] = '/';
+          strncpy(tmp_filelist + 1,filelist_p,tmp_len - 1);
+          tmp_filelist[tmp_len] = '\0';
+          filelist_len += tmp_len;
+          }
+
+          }
+
+          filelist_p = nl + 1;
+       }
+    }
+
+  /* munmap now that we are done */
+  if (munmap(pkg_data,pls) == -1) {
+    if (errno)
+      perror(pkg_f_name);
+
+    fprintf(stderr,"munmap failed: %s\n",pkg_f_name);
+    exit(EXIT_FAILURE);
+  }
+  free(pkg_f_name);
+  free(pkg_log_dirname);
+  free(pkg_name);
+
+  return filelist;
+}
+
+char *slapt_gen_package_log_dir_name(void)
+{
+  char *root_env_entry = NULL;
+  char *pkg_log_dirname = NULL;
+
+  /* Generate package log directory using ROOT env variable if set */
+  if (getenv(SLAPT_ROOT_ENV_NAME) &&
+      strlen(getenv(SLAPT_ROOT_ENV_NAME)) < SLAPT_ROOT_ENV_LEN) {
+    root_env_entry = getenv(SLAPT_ROOT_ENV_NAME);
+  }
+  pkg_log_dirname = slapt_calloc(
+    strlen(SLAPT_PKG_LOG_DIR)+
+    (root_env_entry ? strlen(root_env_entry) : 0) + 1 ,
+    sizeof *pkg_log_dirname
+  );
+  *pkg_log_dirname = '\0';
+  if (root_env_entry) {
+    strncpy(pkg_log_dirname, root_env_entry,strlen(root_env_entry));
+    strncat(pkg_log_dirname, SLAPT_PKG_LOG_DIR,strlen(SLAPT_PKG_LOG_DIR));
+  } else {
+    strncat(pkg_log_dirname, SLAPT_PKG_LOG_DIR,strlen(SLAPT_PKG_LOG_DIR));
+  }
+
+  return pkg_log_dirname;
 }
 

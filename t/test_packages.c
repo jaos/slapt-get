@@ -73,6 +73,9 @@ START_TEST (test_pkg_info)
   /* retrieve the packages changelog entry, if any.  Returns NULL otherwise */
   /* char *slapt_get_pkg_changelog(const slapt_pkg_info_t *pkg); */
 
+  /* get the package filelist, returns (char *) on success or NULL on error */
+  /* char *slapt_get_pkg_filelist(const slapt_pkg_info_t *pkg); */
+
   fail_unless (pkg.priority == SLAPT_PRIORITY_DEFAULT);
   fail_unless (strcmp(slapt_priority_to_str(pkg.priority),gettext("Default")) == 0);
 

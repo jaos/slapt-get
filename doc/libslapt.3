@@ -336,10 +336,24 @@ The following functions deal with determining package dependencies and conflicts
 .fi
 .sp
 .TP
+\fIslapt_get_pkg_filelist\fP() returns a string representing all of the files installed by the package.  This list is read from the package log file.  
+.sp
+.nf
+.B "char *slapt_get_pkg_filelist(const slapt_pkg_info_t *pkg);"
+.fi
+.sp
+.TP
 \fIslapt_stringify_pkg\fP() returns a string representation of the package.
 .sp
 .nf
 .B "char *slapt_stringify_pkg(const slapt_pkg_info_t *pkg);"
+.fi
+.sp
+.TP
+\fIslapt_gen_package_log_dir_name\fP() returns a string location of the package log directory, accounting for the value of the ROOT environment variable, if set.  
+.sp
+.nf
+.B "char *slapt_gen_package_log_dir_name(void);"
 .fi
 .sp
 .TP

@@ -283,3 +283,15 @@ char *slapt_get_pkg_changelog(const slapt_pkg_info_t *pkg);
 /* returns a string representation of the package */
 char *slapt_stringify_pkg(const slapt_pkg_info_t *pkg);
 
+/*
+  get the package filelist, returns (char *) on success or NULL on error
+  caller responsible for freeing the returned data
+*/
+char *slapt_get_pkg_filelist(const slapt_pkg_info_t *pkg);
+
+/*
+  generate the directory name for the package log directory, 
+  considering the ROOT environment variable if set
+  caller responsible for freeing the returned data
+ */
+char *slapt_gen_package_log_dir_name(void);
