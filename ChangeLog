@@ -1,5 +1,6 @@
 
-0.10.2a Sep 13, 2009
+0.10.2a Sep 14, 2009
+ * updated el translation from George Vlahavas
  * updated es_ES translation from Angelos
  * added --filelist option using slapt_get_pkg_filelist
  * added slapt_get_pkg_filelist() from Anders F. Bjorklund

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.2a\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2009-09-09 10:40+0500\n"
+"PO-Revision-Date: 2009-09-14 21:24+0200\n"
 "Last-Translator: George Vlahavas <vlahavas~at~gmail~dot~com>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -25,14 +25,14 @@ msgid "%s is up to date.\n"
 msgstr "Η τελευταία έκδοση του πακέτου %s είναι ήδη εγκατεστημένη.\n"
 
 msgid "yes"
-msgstr "ναί"
+msgstr "ναι"
 
 msgid "no"
 msgstr "όχι"
 
 #, c-format
 msgid "%s is not installed.\n"
-msgstr "Το πακέτο %s δέν έχει εγκατασταθεί.\n"
+msgstr "Το πακέτο %s δεν έχει εγκατασταθεί.\n"
 
 #, c-format
 msgid "Package Name: %s\n"
@@ -56,7 +56,7 @@ msgstr "Μέγεθος Πακέτου: %d K\n"
 
 #, c-format
 msgid "Package Installed Size: %d K\n"
-msgstr "Εκγατεστημένο Μέγεθος Πακέτου: %d K\n"
+msgstr "Εγκατεστημένο Μέγεθος Πακέτου: %d K\n"
 
 #, c-format
 msgid "Package Required: %s\n"
@@ -71,19 +71,19 @@ msgstr "Εγκατεστημένο Πακέτο: %s\n"
 
 #, c-format
 msgid "No such package: %s\n"
-msgstr "Το πακέτο δέν βρέθηκε: %s\n"
+msgstr "Το πακέτο δεν βρέθηκε: %s\n"
 
 #, c-format
 msgid "Retrieving package data [%s]..."
-msgstr "Ανάκτηση δεδομένων πακέτου [%s]..."
+msgstr "Ανάκτηση δεδομένων πακέτων [%s]..."
 
 #, c-format
 msgid "Retrieving package data [%s]...\n"
-msgstr "Ανάκτηση δεδομένων πακέτου [%s]...\n"
+msgstr "Ανάκτηση δεδομένων πακέτων [%s]...\n"
 
 #, c-format
 msgid "Retrieving extras list [%s]..."
-msgstr "Ανάκτηση λίστας extras[%s]..."
+msgstr "Ανάκτηση λίστας extras [%s]..."
 
 #, c-format
 msgid "Retrieving extras list [%s]...\n"
@@ -91,7 +91,7 @@ msgstr "Ανάκτηση λίστας extras [%s]...\n"
 
 #, c-format
 msgid "Retrieving patch list [%s]..."
-msgstr "Ανάκτηση λίστας patch[%s]..."
+msgstr "Ανάκτηση λίστας patch [%s]..."
 
 #, c-format
 msgid "Retrieving patch list [%s]...\n"
@@ -106,11 +106,11 @@ msgstr "Αποτυχία malloc\n"
 
 #, c-format
 msgid "WORKINGDIR directive not set within %s.\n"
-msgstr "Το WORKINGDIR δέν έχει οριστεί στο %s.\n"
+msgstr "Το WORKINGDIR δεν έχει οριστεί στο %s.\n"
 
 #, c-format
 msgid "SOURCE directive not set within %s.\n"
-msgstr "Το SOURCE δέν έχει οριστεί στο %s.\n"
+msgstr "Το SOURCE δεν έχει οριστεί στο %s.\n"
 
 #, c-format
 msgid "Failed to build working directory [%s]\n"
@@ -122,10 +122,10 @@ msgstr "Παρακαλώ αναβαθμίστε τα δικαιώματα στο %s ή εκτελέστε με τα απαραίτητα δ
 
 #, c-format
 msgid "Failed to open %s\n"
-msgstr "Αποτυχία open %s\n"
+msgstr "Αποτυχία ανοίγματος του %s\n"
 
 msgid "Perhaps you want to run --update?\n"
-msgstr "Πιθανών να θέλετε να εκτελεσετε --update?\n"
+msgstr "Πιθανόν να θέλετε να εκτελέσετε --update?\n"
 
 #, c-format
 msgid "Failed to opendir %s\n"
@@ -152,14 +152,14 @@ msgstr "\tchdir πίσω στο %s\n"
 
 #, c-format
 msgid "Failed to download: %s\n"
-msgstr "Αποτυχία download: %s\n"
+msgstr "Αποτυχία λήψης: %s\n"
 
 msgid "Failed to calloc\n"
 msgstr "Αποτυχία calloc\n"
 
 #, c-format
 msgid "Get %s %s %s [%.1f%s]..."
-msgstr "Get %s %s %s [%.1f%s]..."
+msgstr "Λήψη %s %s %s [%.1f%s]..."
 
 #, c-format
 msgid "Failed to unlink %s\n"
@@ -191,7 +191,7 @@ msgid "Targets:\n"
 msgstr "Προορισμοί:\n"
 
 msgid "retrieves pkg data from MIRROR"
-msgstr "ανάκτηση δεδομένων πακέτου απο το MIRROR"
+msgstr "ανάκτηση δεδομένων πακέτων από το MIRROR"
 
 msgid "upgrade installed pkgs"
 msgstr "αναβάθμιση εγκατεστημένων πακέτων"
@@ -200,10 +200,10 @@ msgid "upgrade to newer release"
 msgstr "αναβάθμιση σε νεότερη έκδοση"
 
 msgid "[pkg name(s)] - install specified pkg(s)"
-msgstr "[όνομα(τα) πακέτου(ων)] - εκγατάσταση επιλεγμένου(νων) πακέτου(ων)"
+msgstr "[ονόματα πακέτων] - εγκατάσταση επιλεγμένων πακέτων"
 
 msgid "[pkg name(s)] - remove specified pkg(s)"
-msgstr "[όνομα(τα) πακέτου(ων)] - απεκγατάσταση επιλεγμένου(νων) πακέτου(ων)"
+msgstr "[ονόματα πακέτων] - απεγκατάσταση επιλεγμένων πακέτων"
 
 msgid "[pkg name] - show pkg description"
 msgstr "[όνομα πακέτου] - προβολή περιγραφής πακέτου"
@@ -236,7 +236,7 @@ msgid "show pkgs to be installed/upgraded"
 msgstr "προβολή πακέτων που πρόκειται να εγκατασταθούν"
 
 msgid "do not prompt during install/upgrade"
-msgstr "χωρίς προτροπή κατα την εγκατάσταση/αναβάθμιση"
+msgstr "χωρίς προτροπή κατά την εγκατάσταση/αναβάθμιση"
 
 msgid "re-install the pkg"
 msgstr "επανεγκατάσταση πακέτου"
@@ -245,7 +245,7 @@ msgid "install/upgrade excludes"
 msgstr "εξαιρέσεις εγκατάστασης/αναβάθμισης"
 
 msgid "do not perform md5 check sum"
-msgstr "να μήν γίνει έλεγχος md5"
+msgstr "να μη γίνει έλεγχος md5"
 
 msgid "ignore dependency failures"
 msgstr "παράβλεψη αποτυχιών απαιτούμενων πακέτων"
@@ -262,29 +262,29 @@ msgid "regexec failed to parse location\n"
 msgstr "αποτυχία regexec ανάλυσης τοποθεσίας\n"
 
 msgid "getline reached EOF attempting to read location\n"
-msgstr "το getline συνάντησε EOF κατα την ανάγνωση της τοποθεσίας\n"
+msgstr "το getline συνάντησε EOF κατά την ανάγνωση της τοποθεσίας\n"
 
 msgid "regexec failed to parse size_c\n"
 msgstr "αποτυχία regexec ανάλυσης size_c\n"
 
 msgid "getline reached EOF attempting to read size_c\n"
-msgstr "το getline συνάντησε EOF κατα την ανάγνωση του size_c\n"
+msgstr "το getline συνάντησε EOF κατά την ανάγνωση του size_c\n"
 
 msgid "regexec failed to parse size_u\n"
 msgstr "αποτυχία regexec ανάλυσης size_u\n"
 
 msgid "getline reached EOF attempting to read size_u\n"
-msgstr "το getline συνάντησε EOF κατα την ανάγνωση του size_u\n"
+msgstr "το getline συνάντησε EOF κατά την ανάγνωση του size_u\n"
 
 msgid "error attempting to read pkg description\n"
-msgstr "σφάλμα κατα την ανάγνωση της περιγραφής του πακέτου\n"
+msgstr "σφάλμα κατά την ανάγνωση της περιγραφής του πακέτου\n"
 
 #, c-format
 msgid "Failed to realloc %s\n"
 msgstr "Αποτυχία realloc %s\n"
 
 msgid "Failed to compile regex\n"
-msgstr "Αποτυχία κατα το compile του regex\n"
+msgstr "Αποτυχία κατά το compile του regex\n"
 
 #, c-format
 msgid "Regex Error: %s\n"
@@ -316,7 +316,7 @@ msgstr "Το %s-%s πρόκειται να απεγκατασταθεί\n"
 
 #, c-format
 msgid "Failed to compile regex [%s]\n"
-msgstr "Αποτυχία κατα το compile του regex [%s]\n"
+msgstr "Αποτυχία κατά το compile του regex [%s]\n"
 
 msgid "pkg conditional too long\n"
 msgstr "μεγάλο μήκος στοιχείων πακέτου\n"
@@ -329,7 +329,7 @@ msgid "  %s: Depends: %s\n"
 msgstr "  Το %s: απαιτεί το: %s\n"
 
 msgid "The following packages have been EXCLUDED:\n"
-msgstr "Τα παρακάτω πακέτα έχουν ΕΞΕΡΑΙΘΕΙ:\n"
+msgstr "Τα παρακάτω πακέτα έχουν ΕΞΑΙΡΕΘΕΙ:\n"
 
 msgid "The following NEW packages will be installed:\n"
 msgstr "Τα παρακάτω ΝΕΑ πακέτα πρόκειται να εγκατασταθούν:\n"
@@ -342,7 +342,7 @@ msgstr "Τα παρακάτω πακέτα πρόκειται να αναβαθμιστούν:\n"
 
 #, c-format
 msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
-msgstr "%d αναβαθμισμένα, %d νεοεγκαταστημένα, %d προς απεγκατάσταση και %d δέν αναβαθμίστηκαν.\n"
+msgstr "%d αναβαθμισμένα, %d νεοεγκαταστημένα, %d προς απεγκατάσταση και %d δεν αναβαθμίστηκαν.\n"
 
 #, c-format
 msgid "Need to get %.1f%s of archives.\n"
@@ -368,14 +368,14 @@ msgstr "Διακοπή.\n"
 
 #, c-format
 msgid "%s, which is to be installed, conflicts with %s\n"
-msgstr "To %s, το οποίο πρόκειται να εγκατασταθεί συγκρούεται με το %s\n"
+msgstr "Το %s, το οποίο πρόκειται να εγκατασταθεί συγκρούεται με το %s\n"
 
 #, c-format
 msgid "Installed %s conflicts with %s\n"
 msgstr "Το εγκατεστημένο %s συγκρούεται με το %s\n"
 
 msgid "print URIs only, do not download"
-msgstr "Εκτύπωση μόνο των URIs, χωρίς κατεύασμα"
+msgstr "Εκτύπωση μόνο των URIs, χωρίς λήψη αρχείων"
 
 #, c-format
 msgid "Package MD5 Sum:  %s\n"
@@ -389,19 +389,19 @@ msgstr "Ανάγνωση Λίστας Πακέτων..."
 
 #, c-format
 msgid "%s, which is required by %s, is excluded\n"
-msgstr "το %s, που απαιτείται απο το %s, έχει εξαιρεθεί\n"
+msgstr "το %s, που απαιτείται από το %s, έχει εξαιρεθεί\n"
 
 msgid "skip dependency check"
 msgstr "παράλειψη ελέγχου απαιτούμενων πακέτων"
 
 msgid "show download statistics"
-msgstr "προβολή στατιστικών download"
+msgstr "προβολή στατιστικών λήψης αρχείων"
 
 msgid "Cached\n"
 msgstr "Προσωρινά αποθηκευμένα\n"
 
 msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr "Αποτυχία πηγών για download, διορθώστε τις πηγές και επανεκτελέστε --update\n"
+msgstr "Αποτυχία πηγών για λήψη αρχείων, διορθώστε τις πηγές και επανεκτελέστε το --update\n"
 
 msgid "specify alternate slapt-getrc location"
 msgstr "προσδιορίστε εναλλακτική τοποθεσία slapt-getrc"
@@ -441,7 +441,7 @@ msgid "[disk set(s)] - install specified disk set(s)"
 msgstr "[ομάδα(ες) δίσκων] - εγκατάσταση των καθορισμένων ομάδων δίσκων"
 
 msgid "always prompt during install/upgrade"
-msgstr "πάντα να εμφανίζεται μύνημα κατά την εγκατάσταση/αναβάθμιση"
+msgstr "πάντα να εμφανίζεται μήνυμα κατά την εγκατάσταση/αναβάθμιση"
 
 #, c-format
 msgid "Excluding %s, use --ignore-dep to override\n"
@@ -494,7 +494,7 @@ msgid "No key for verification"
 msgstr "Δεν υπάρχει κλειδί για την πιστοποίηση"
 
 msgid "retrieve GPG keys for sources"
-msgstr "ανάκητησ των κλειδιών GPG για τις πηγές"
+msgstr "ανάκτηση των κλειδιών GPG για τις πηγές"
 
 msgid "Verifying checksum signature [%s]..."
 msgstr "Πιστοποίηση των υπογραφών αθροισμάτων [%s]..."
@@ -535,5 +535,5 @@ msgid "Package Priority: %s\n"
 msgstr "Προτεραιότητα Πακέτων: %s\n"
 
 msgid "[pkg name] - show pkg installed files"
-msgstr "[pkg name] - show pkg installed files"
+msgstr "[όνομα πακέτου] - προβολή αρχείων πακέτου"
 
