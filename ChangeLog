@@ -1,4 +1,10 @@
 
+0.10.2b Oct 17, 2009
+ * modified disk checking mechanism so that the working directory filesystem
+   is checked for downloads and then / is checked for the uncompressed size.
+   This is not 100% ideal since /usr may be on another filestem but it should
+   make Tadgy slightly happier.  Added slapt_disk_space_check to public API.
+
 0.10.2a Sep 14, 2009
  * updated el translation from George Vlahavas
  * updated es_ES translation from Angelos

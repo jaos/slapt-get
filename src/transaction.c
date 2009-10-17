@@ -26,7 +26,6 @@ static void queue_add_upgrade(slapt_queue_t *t, slapt_pkg_upgrade_t *p);
 static void queue_free(slapt_queue_t *t);
 
 static void add_suggestion(slapt_transaction_t *tran, slapt_pkg_info_t *pkg);
-static int disk_space(const slapt_rc_config *global_config,double space_needed);
 
 slapt_transaction_t *slapt_init_transaction(void)
 {
@@ -235,7 +234,6 @@ int slapt_handle_transaction (const slapt_rc_config *global_config,
 
   /* only show this if we are going to do download something */
   if (tran->upgrade_pkgs->pkg_count > 0 || tran->install_pkgs->pkg_count > 0) {
-    double space_needed          = 0;
 
     /* how much we need to download */
     double need_to_download_size = download_size - already_download_size;
@@ -243,13 +241,6 @@ int slapt_handle_transaction (const slapt_rc_config *global_config,
     /* make sure it's not negative due to changing pkg sizes on upgrades */
     if (need_to_download_size < 0)
       need_to_download_size = 0;
-
-    space_needed += need_to_download_size;
-
-    /* if we are not just downloading, consider the uncompressed size */
-    if (global_config->download_only == SLAPT_FALSE) {
-      space_needed += uncompressed_size;
-    }
 
     if (already_download_size > 0) {
       printf(gettext("Need to get %.1f%s/%.1f%s of archives.\n"),
@@ -266,12 +257,20 @@ int slapt_handle_transaction (const slapt_rc_config *global_config,
      );
     }
 
-    if (disk_space(global_config,space_needed) != 0) {
+    /* check we have enough space to download to our working dir */
+    if (slapt_disk_space_check (global_config->working_dir,need_to_download_size) == SLAPT_FALSE) {
       printf(
         gettext("You don't have enough free space in %s\n"),
         global_config->working_dir
      );
       exit(EXIT_FAILURE);
+    }
+    /* check that we have enough space in the root filesystem */
+    if (global_config->download_only == SLAPT_FALSE) {
+      if (slapt_disk_space_check ("/", uncompressed_size) == SLAPT_FALSE) {
+        printf(gettext("You don't have enough free space in %s\n"),"/");
+        exit(EXIT_FAILURE);
+      }
     }
 
   }
@@ -939,29 +938,6 @@ static void add_suggestion(slapt_transaction_t *tran, slapt_pkg_info_t *pkg)
     position += (total_len - rest_len);
   }
 
-}
-
-static int disk_space (const slapt_rc_config *global_config,double space_needed)
-{
-  struct statvfs statvfs_buf;
-
-  space_needed *= 1024;
-
-  if (space_needed < 0)
-    return 0;
-
-  if (statvfs(global_config->working_dir,&statvfs_buf) != 0) {
-
-    if (errno)
-      perror("statvfs");
-
-    return 1;
-  } else {
-    if (statvfs_buf.f_bfree < (space_needed / statvfs_buf.f_bsize))
-      return 1;
-  }
-
-  return 0;
 }
 
 int slapt_search_transaction_by_pkg(slapt_transaction_t *tran,

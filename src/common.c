@@ -356,3 +356,27 @@ const char *slapt_priority_to_str(SLAPT_PRIORITY_T priority)
   };
 
 }
+
+SLAPT_BOOL_T slapt_disk_space_check (const char *path,double space_needed)
+{
+  struct statvfs statvfs_buf;
+
+  if (space_needed < 0)
+    return SLAPT_TRUE;
+
+  space_needed *= 1024;
+
+  if (statvfs(path, &statvfs_buf) != 0) {
+
+    if (errno)
+      perror("statvfs");
+
+    return SLAPT_FALSE;
+  } else {
+    if (statvfs_buf.f_bavail < (space_needed / statvfs_buf.f_bsize))
+      return SLAPT_FALSE;
+  }
+
+  return SLAPT_TRUE;
+}
+

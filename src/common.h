@@ -72,3 +72,4 @@ __inline void *slapt_calloc(size_t n,size_t s);
 const char *slapt_strerror(slapt_code_t code);
 /* return human readable priority */
 const char *slapt_priority_to_str(SLAPT_PRIORITY_T priority);
+SLAPT_BOOL_T slapt_disk_space_check (const char *path,double space_needed);
