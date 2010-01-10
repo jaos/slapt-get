@@ -1,4 +1,9 @@
 
+0.10.2c Jan 10, 2010
+ * fixed missing configuration option copying from the initial config
+   to the final configuration.  --remove-obsolete and --retry were not
+   being honored.
+
 0.10.2b Oct 17, 2009
  * modified disk checking mechanism so that the working directory filesystem
    is checked for downloads and then / is checked for the uncompressed size.

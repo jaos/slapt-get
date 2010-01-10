@@ -229,18 +229,21 @@ int main( int argc, char *argv[] )
   }
 
   /* preserve existing command line options */
-  global_config->download_only      = initial_config->download_only;
+  global_config->disable_dep_check  = initial_config->disable_dep_check;
   global_config->dist_upgrade       = initial_config->dist_upgrade;
-  global_config->simulate           = initial_config->simulate;
-  global_config->no_prompt          = initial_config->no_prompt;
-  global_config->prompt             = initial_config->prompt;
-  global_config->re_install         = initial_config->re_install;
+  global_config->dl_stats           = initial_config->dl_stats;
+  global_config->download_only      = initial_config->download_only;
+  global_config->ignore_dep         = initial_config->ignore_dep;
   global_config->ignore_excludes    = initial_config->ignore_excludes;
   global_config->no_md5_check       = initial_config->no_md5_check;
-  global_config->ignore_dep         = initial_config->ignore_dep;
-  global_config->disable_dep_check  = initial_config->disable_dep_check;
+  global_config->no_prompt          = initial_config->no_prompt;
+  global_config->no_upgrade         = initial_config->no_upgrade;
   global_config->print_uris         = initial_config->print_uris;
-  global_config->dl_stats           = initial_config->dl_stats;
+  global_config->prompt             = initial_config->prompt;
+  global_config->re_install         = initial_config->re_install;
+  global_config->remove_obsolete    = initial_config->remove_obsolete;
+  global_config->retry              = initial_config->retry;
+  global_config->simulate           = initial_config->simulate;
 
   slapt_free_rc_config(initial_config);
 
