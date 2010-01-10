@@ -1,5 +1,7 @@
 
 0.10.2c Jan 10, 2010
+ * ignore the location for installed packages as they do not have any
+   real meaning and end up confusing the user.
  * fixed missing configuration option copying from the initial config
    to the final configuration.  --remove-obsolete and --retry were not
    being honored.

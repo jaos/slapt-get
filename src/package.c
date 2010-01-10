@@ -601,11 +601,7 @@ struct slapt_pkg_list *slapt_get_installed_pkgs(void)
       free(size_u);
     }
 
-    /* pull out location */
-    slapt_execute_regex(location_regex,pkg_data);
-    if (location_regex->reg_return == 0) {
-      tmp_pkg->location = slapt_regex_extract_match(location_regex, pkg_data, 1);
-    }
+    /* Ignore the location for installed packages */
 
     if (strstr(pkg_data,"PACKAGE DESCRIPTION") != NULL) {
       char *desc_p = strstr(pkg_data,"PACKAGE DESCRIPTION");
