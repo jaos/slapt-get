@@ -477,8 +477,7 @@ struct slapt_pkg_list *slapt_get_installed_pkgs(void)
   struct dirent *file;
   slapt_regex_t *ip_regex = NULL,
               *compressed_size_reg = NULL,
-              *uncompressed_size_reg = NULL,
-              *location_regex = NULL;
+              *uncompressed_size_reg = NULL;
   struct slapt_pkg_list *list = NULL;
   size_t pls = 1;
 
@@ -491,9 +490,6 @@ struct slapt_pkg_list *slapt_get_installed_pkgs(void)
     exit(EXIT_FAILURE);
   }
   if ((uncompressed_size_reg = slapt_init_regex(SLAPT_PKG_LOG_SIZEU_PATTERN)) == NULL) {
-    exit(EXIT_FAILURE);
-  }
-  if ((location_regex = slapt_init_regex(SLAPT_PKG_LOCATION_PATTERN)) == NULL) {
     exit(EXIT_FAILURE);
   }
 
@@ -680,7 +676,6 @@ struct slapt_pkg_list *slapt_get_installed_pkgs(void)
   free(pkg_log_dirname);
   slapt_free_regex(compressed_size_reg);
   slapt_free_regex(uncompressed_size_reg);
-  slapt_free_regex(location_regex);
 
   list->free_pkgs = SLAPT_TRUE;
 
