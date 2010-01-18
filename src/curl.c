@@ -451,10 +451,9 @@ char *slapt_head_mirror_data(const char *wurl,const char *file)
   char *url;
 
   /* build url */
-  url = slapt_calloc(strlen(wurl) + strlen(file) + 2, sizeof *url);
+  url = slapt_calloc(strlen(wurl) + strlen(file) + 1, sizeof *url);
   url[0] = '\0';
   strncat(url,wurl,strlen(wurl));
-  strncat(url,"/",1);
   strncat(url,file,strlen(file));
 
   /* retrieve the header info */

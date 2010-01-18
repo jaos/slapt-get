@@ -1,4 +1,7 @@
 
+0.10.2d Jan 18, 2010
+ * removed extraneous / when constructing package source url
+
 0.10.2c Jan 10, 2010
  * ignore the location for installed packages as they do not have any
    real meaning and end up confusing the user.
