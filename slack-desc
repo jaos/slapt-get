@@ -9,7 +9,7 @@
 slapt-get: slapt-get (an apt-like front-end to Slackware's pkgtools)
 slapt-get: slapt-get is an apt like system for Slackware package management.
 slapt-get: 
-slapt-get:  * See /usr/doc/slapt-get-0.10.2c/ for complete documentation. 
+slapt-get:  * See /usr/doc/slapt-get-0.10.2d/ for complete documentation. 
 slapt-get:  * You will also want to customize /etc/slapt-get/slapt-getrc,
 slapt-get:    using a local mirror.  www.slackware.com may be very busy.
 slapt-get:  * Support:
