@@ -2,14 +2,14 @@
 # Copyright (C) 2004, 2005, 2006, 2007
 # This file is distributed under the same license as the slapt-get package.
 # Niklas Volbers <mithrandir42@web.de>, 2004, 2005
-# Manfred Mueller <linux@nass-ek.de>, 2006-2009
+# Manfred Mueller <mmueller@live-modules.org>, 2006-2010
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.2a\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2009-09-09 10:40+0500\n"
-"Last-Translator: Manfred Mueller <nekdesk@nekdesk.de>\n"
+"PO-Revision-Date: 2010-02-13 17:50+0100\n"
+"Last-Translator: Manfred Mueller <mmueller@live-modules.org>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -537,5 +537,5 @@ msgid "Package Priority: %s\n"
 msgstr "Paket-Prioritaet: %s\n"
 
 msgid "[pkg name] - show pkg installed files"
-msgstr "[pkg name] - show pkg installed files"
+msgstr "[pkg name] - Durch Paket installierte Dateien anzeigen"
 
