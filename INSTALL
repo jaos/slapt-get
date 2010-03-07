@@ -30,3 +30,19 @@ See README for more details.
 
  git clone git://software.jaos.org/var/cache/git/slapt-get
 
+
+- Cross compiling the slapt-get source
+
+You should have the following variables in your environment or
+with the make invocation: CFLAGS, LDFLAGS, ARCH, CC, STRIP, AR, and RANLIB
+
+For example: 
+
+  CC=armv7l-unknown-linux-uclibcgnueabi-gcc \
+  AR=armv7l-unknown-linux-uclibcgnueabi-ar \
+  RANLIB=armv7l-unknown-linux-uclibcgnueabi-ranlib \
+  STRIP=armv7l-unknown-linux-uclibcgnueabi-strip \
+  CFLAGS=-Os -pipe \
+  LDFLAGS=-lintl \
+    make
+

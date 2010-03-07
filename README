@@ -261,3 +261,6 @@ Table of Contents:
    Anders F Bjorklund <afb at users dot sourceforge dot net> contributed the
    slapt_get_pkg_filelist() support.
 
+   Vitaly Chernookiy <vitaly.v.ch at gmail dot com> contributed the initial
+   cross compiling support
+

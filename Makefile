@@ -1,9 +1,12 @@
 PACKAGE=slapt-get
 VERSION=0.10.2d
-ARCH=$(shell uname -m | sed -e "s/i[3456]86/i386/")
+ARCH?=$(shell uname -m | sed -e "s/i[3456]86/i386/")
 LIBDIR=/usr/lib
 RELEASE=1
-CC=gcc
+CC?=gcc
+STRIP?=strip
+AR?=ar
+RANLIB?=ranlib
 CURLFLAGS=`curl-config --libs`
 OBJS=src/common.o src/configuration.o src/package.o src/curl.o src/transaction.o src/action.o src/main.o
 LIBOBJS=src/common.o src/configuration.o src/package.o src/curl.o src/transaction.o
@@ -15,7 +18,7 @@ PACKAGE_LOCALE_DIR=/usr/share/locale
 SBINDIR=/usr/sbin/
 GETTEXT_PACKAGE=$(PACKAGE)
 DEFINES=-DPACKAGE="\"$(PACKAGE)\"" -DVERSION="\"$(VERSION)\"" -DRC_LOCATION="\"$(RCDEST)\"" -DENABLE_NLS -DPACKAGE_LOCALE_DIR="\"$(PACKAGE_LOCALE_DIR)\"" -DGETTEXT_PACKAGE="\"$(GETTEXT_PACKAGE)\""
-LDFLAGS=$(CURLFLAGS) -lz
+LDFLAGS+=$(CURLFLAGS) -lz
 HAS_GPGME=$(shell gpgme-config --libs 2>&1 >/dev/null && echo 1)
 ifeq ($(HAS_GPGME),1)
 	DEFINES+=-DSLAPT_HAS_GPGME
@@ -24,10 +27,10 @@ ifeq ($(HAS_GPGME),1)
 	LIBHEADERS+=src/gpgme.h
 	LDFLAGS+=`gpgme-config --libs`
 endif
-CFLAGS=-W -Werror -Wall -O2 -ansi -pedantic $(DEFINES) -fpic
+CFLAGS?=-W -Werror -Wall -O2 -ansi -pedantic
+CFLAGS+=$(DEFINES) -fPIC
 ifeq ($(ARCH),x86_64)
 	LIBDIR=/usr/lib64
-	CFLAGS=-W -Werror -Wall -O2 -ansi -pedantic $(DEFINES) -fPIC
 endif
 
 default: $(PACKAGE)
@@ -61,7 +64,7 @@ libsinstall: libs
 	cd $(DESTDIR)$(LIBDIR); ln -s libslapt.so.$(VERSION) libslapt.so
 
 doinstall: libsinstall
-	strip --strip-unneeded $(PACKAGE)
+	$(STRIP) --strip-unneeded $(PACKAGE)
 	if [ ! -d $(DESTDIR)$(SBINDIR) ]; then mkdir -p $(DESTDIR)$(SBINDIR);fi
 	install $(PACKAGE) $(DESTDIR)$(SBINDIR)
 	-chown $$(stat --format "%u:%g" /usr/sbin) $(DESTDIR)$(SBINDIR)$(PACKAGE)
@@ -134,7 +137,7 @@ dopkg:
 	cp $(PACKAGE) ./pkg/$(SBINDIR)
 	-chown $$(stat --format "%u:%g" /usr/sbin) ./pkg/$(SBINDIR)
 	-chown $$(stat --format "%u:%g" /usr/sbin) ./pkg/$(SBINDIR)/$(PACKAGE)
-	strip ./pkg/$(SBINDIR)/$(PACKAGE)
+	$(STRIP) ./pkg/$(SBINDIR)/$(PACKAGE)
 	cp $(RCSOURCE) pkg/etc/slapt-get/slapt-getrc.new
 	mkdir -p ./pkg/usr/doc/$(PACKAGE)-$(VERSION)/
 	cp default.slapt-getrc.* example.slapt-getrc.* COPYING ChangeLog INSTALL README FAQ FAQ.html TODO ./pkg/usr/doc/$(PACKAGE)-$(VERSION)/
@@ -154,7 +157,7 @@ dopkg:
 	mkdir -p pkg/usr/include
 	cp src/slapt.h pkg/usr/include/
 	cp src/libslapt.a src/libslapt.so.$(VERSION) pkg$(LIBDIR)/
-	strip pkg$(LIBDIR)/libslapt.so.$(VERSION)
+	$(STRIP) pkg$(LIBDIR)/libslapt.so.$(VERSION)
 	( cd pkg$(LIBDIR); ln -s libslapt.so.$(VERSION) libslapt.so )
 	-( cd pkg; /sbin/makepkg -l y -c n ../$(PACKAGE)-$(VERSION)-$(ARCH)-$(RELEASE).tgz )
 
@@ -168,7 +171,8 @@ libs: $(OBJS)
 	touch libs
 	$(CC) -shared -o src/libslapt.so.$(VERSION) $(LIBOBJS) #-Wl,-soname=libslapt-$(VERSION)
 	( cd src; if [ -f libslapt.so ]; then rm libslapt.so;fi; ln -s libslapt.so.$(VERSION) libslapt.so )
-	ar -r src/libslapt.a $(LIBOBJS)
+	$(AR) -r src/libslapt.a $(LIBOBJS)
+	$(RANLIB) src/libslapt.a
 	-@echo "#ifndef LIB_SLAPT" > src/slapt.h
 	-@echo "#define LIB_SLAPT 1" >> src/slapt.h
 	-@cat $(LIBHEADERS) |grep -v '#include \"' >> src/slapt.h
