@@ -1,5 +1,6 @@
 
 0.10.2d Mar 07, 2010
+ * gpgme now requires gpgme_check_version () for initialization
  * define _FILE_OFFSET_BITS prior to including gpgme.h as required
    by gpgme in -current
  * incorporated a modified version of the patch submitted by
