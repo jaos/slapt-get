@@ -87,6 +87,13 @@ int main( int argc, char *argv[] )
   textdomain(GETTEXT_PACKAGE);
   #endif
 
+  #ifdef SLAPT_HAS_GPGME
+  gpgme_check_version (NULL);
+  #ifdef ENABLE_NLS
+  gpgme_set_locale (NULL, LC_CTYPE, setlocale (LC_CTYPE, NULL));
+  #endif
+  #endif
+
   if ( argc < 2 ) {
     usage();
     exit(EXIT_FAILURE);
