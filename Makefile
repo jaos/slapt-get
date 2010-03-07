@@ -37,7 +37,7 @@ default: $(PACKAGE)
 
 all: pkg
 
-$(OBJS): 
+$(OBJS): $(LIBHEADERS)
 
 $(PACKAGE): libs
 	$(CC) -o $(PACKAGE) $(OBJS) $(CFLAGS) $(LDFLAGS)
