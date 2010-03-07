@@ -1,5 +1,7 @@
 
-0.10.2d Mar 06, 2010
+0.10.2d Mar 07, 2010
+ * define _FILE_OFFSET_BITS prior to including gpgme.h as required
+   by gpgme in -current
  * incorporated a modified version of the patch submitted by
    Vitaly Chernookiy for making slapt-get cross compile friendly
  * removed extraneous / when constructing package source url

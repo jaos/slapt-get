@@ -1,4 +1,8 @@
 
+/* http://www.gnupg.org/documentation/manuals/gpgme/Largefile-Support-_0028LFS_0029.html#Largefile-Support-_0028LFS_0029
+   we now need to define _FILE_OFFSET_BITS prior to including gpgme.h
+   */
+#define _FILE_OFFSET_BITS 64
 #include <gpgme.h>
 
 #define SLAPT_GPG_KEY "GPG-KEY"
