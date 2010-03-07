@@ -56,12 +56,12 @@ withlibslaptinstall: withlibslapt doinstall
 
 libsinstall: libs
 	if [ ! -d $(DESTDIR)/usr/include ]; then mkdir -p $(DESTDIR)/usr/include;fi
-	cp src/slapt.h $(DESTDIR)/usr/include/
+	cp -f src/slapt.h $(DESTDIR)/usr/include/
 	if [ ! -d $(DESTDIR)$(LIBDIR) ]; then mkdir -p $(DESTDIR)$(LIBDIR);fi
 	if [ -L $(DESTDIR)$(LIBDIR)/libslapt.so ]; then rm $(DESTDIR)$(LIBDIR)/libslapt.so;fi
 	if [ -L $(DESTDIR)$(LIBDIR)/libslapt.a ]; then rm $(DESTDIR)$(LIBDIR)/libslapt.a;fi
-	cp src/libslapt.a src/libslapt.so.$(VERSION) $(DESTDIR)$(LIBDIR)/
-	cd $(DESTDIR)$(LIBDIR); ln -s libslapt.so.$(VERSION) libslapt.so
+	cp -f src/libslapt.a src/libslapt.so.$(VERSION) $(DESTDIR)$(LIBDIR)/
+	cd $(DESTDIR)$(LIBDIR); ln -sf libslapt.so.$(VERSION) libslapt.so
 
 doinstall: libsinstall
 	$(STRIP) --strip-unneeded $(PACKAGE)
@@ -69,7 +69,7 @@ doinstall: libsinstall
 	install $(PACKAGE) $(DESTDIR)$(SBINDIR)
 	-chown $$(stat --format "%u:%g" /usr/sbin) $(DESTDIR)$(SBINDIR)$(PACKAGE)
 	if [ ! -d $(DESTDIR)/etc/slapt-get ]; then mkdir -p $(DESTDIR)/etc/slapt-get;fi
-	if [ -f $(DESTDIR)/etc/slapt-getrc ]; then mv $(DESTDIR)/etc/slapt-getrc $(DESTDIR)$(RCDEST);fi
+	if [ -f $(DESTDIR)/etc/slapt-getrc ]; then mv -f $(DESTDIR)/etc/slapt-getrc $(DESTDIR)$(RCDEST);fi
 	if [ ! -f $(DESTDIR)$(RCDEST) ]; then install --mode=0644 -b $(RCSOURCE) $(DESTDIR)$(RCDEST); else install --mode=0644 -b $(RCSOURCE) $(DESTDIR)$(RCDEST).new;fi
 	if [ ! -d $(DESTDIR)/usr/man ]; then mkdir -p $(DESTDIR)/usr/man;fi
 	if [ ! -d $(DESTDIR)/usr/man/ru ]; then mkdir -p $(DESTDIR)/usr/man/ru;fi
@@ -89,7 +89,7 @@ doinstall: libsinstall
 	install -d $(DESTDIR)/var/$(PACKAGE)
 	for i in `ls po/ --ignore=slapt-get.pot --ignore=CVS |sed 's/.po//'` ;do if [ ! -d $(DESTDIR)$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES ]; then mkdir -p $(DESTDIR)$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES; fi; msgfmt -o $(DESTDIR)$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES/slapt-get.mo po/$$i.po;done
 	mkdir -p $(DESTDIR)/usr/doc/$(PACKAGE)-$(VERSION)/
-	cp default.slapt-getrc.* example.slapt-getrc.* COPYING ChangeLog INSTALL README FAQ FAQ.html TODO $(DESTDIR)/usr/doc/$(PACKAGE)-$(VERSION)/
+	cp -f default.slapt-getrc.* example.slapt-getrc.* COPYING ChangeLog INSTALL README FAQ FAQ.html TODO $(DESTDIR)/usr/doc/$(PACKAGE)-$(VERSION)/
 
 uninstall:
 	-rm /$(SBINDIR)/$(PACKAGE)
@@ -134,43 +134,43 @@ dopkg:
 	mkdir -p pkg/usr/man/ru/man8
 	mkdir -p pkg/usr/man/uk/man8
 	for i in `ls po/ --ignore=slapt-get.pot --ignore=CVS |sed 's/.po//'` ;do mkdir -p pkg$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES; msgfmt -o pkg$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES/slapt-get.mo po/$$i.po; done
-	cp $(PACKAGE) ./pkg/$(SBINDIR)
+	cp -f $(PACKAGE) ./pkg/$(SBINDIR)
 	-chown $$(stat --format "%u:%g" /usr/sbin) ./pkg/$(SBINDIR)
 	-chown $$(stat --format "%u:%g" /usr/sbin) ./pkg/$(SBINDIR)/$(PACKAGE)
 	$(STRIP) ./pkg/$(SBINDIR)/$(PACKAGE)
-	cp $(RCSOURCE) pkg/etc/slapt-get/slapt-getrc.new
+	cp -f $(RCSOURCE) pkg/etc/slapt-get/slapt-getrc.new
 	mkdir -p ./pkg/usr/doc/$(PACKAGE)-$(VERSION)/
-	cp default.slapt-getrc.* example.slapt-getrc.* COPYING ChangeLog INSTALL README FAQ FAQ.html TODO ./pkg/usr/doc/$(PACKAGE)-$(VERSION)/
-	echo "if [ ! -d etc/slapt-get ]; then mkdir -p etc/slapt-get; fi; if [ -f etc/slapt-getrc -a ! -f etc/slapt-get/slapt-getrc ]; then mv etc/slapt-getrc etc/slapt-get/slapt-getrc; fi; if [ ! -f etc/slapt-get/slapt-getrc ]; then mv etc/slapt-get/slapt-getrc.new etc/slapt-get/slapt-getrc; else sed -re 's/(See \/usr\/doc\/slapt\-get\-).*(\/example\.slapt\-getrc)/\1$(VERSION)\2/' /etc/slapt-get/slapt-getrc > /tmp/tmp_slapt-getrc_tmp; cat /tmp/tmp_slapt-getrc_tmp > /etc/slapt-get/slapt-getrc; rm /tmp/tmp_slapt-getrc_tmp; diff -q etc/slapt-get/slapt-getrc etc/slapt-get/slapt-getrc.new >/dev/null 2>&1 && rm etc/slapt-get/slapt-getrc.new; fi;" > pkg/install/doinst.sh
-	cp slack-desc pkg/install/
-	cp slack-required pkg/install/
-	cp slack-suggests pkg/install/
-	cp doc/$(PACKAGE).8 pkg/usr/man/man8/
-	cp doc/libslapt.3 pkg/usr/man/man3/
-	cp doc/$(PACKAGE).ru.8 pkg/usr/man/ru/man8/$(PACKAGE).8
-	cp doc/$(PACKAGE).uk.8 pkg/usr/man/uk/man8/$(PACKAGE).8
+	cp -f default.slapt-getrc.* example.slapt-getrc.* COPYING ChangeLog INSTALL README FAQ FAQ.html TODO ./pkg/usr/doc/$(PACKAGE)-$(VERSION)/
+	echo "if [ ! -d etc/slapt-get ]; then mkdir -p etc/slapt-get; fi; if [ -f etc/slapt-getrc -a ! -f etc/slapt-get/slapt-getrc ]; then mv -f etc/slapt-getrc etc/slapt-get/slapt-getrc; fi; if [ ! -f etc/slapt-get/slapt-getrc ]; then mv -f etc/slapt-get/slapt-getrc.new etc/slapt-get/slapt-getrc; else sed -re 's/(See \/usr\/doc\/slapt\-get\-).*(\/example\.slapt\-getrc)/\1$(VERSION)\2/' /etc/slapt-get/slapt-getrc > /tmp/tmp_slapt-getrc_tmp; cat /tmp/tmp_slapt-getrc_tmp > /etc/slapt-get/slapt-getrc; rm /tmp/tmp_slapt-getrc_tmp; diff -q etc/slapt-get/slapt-getrc etc/slapt-get/slapt-getrc.new >/dev/null 2>&1 && rm etc/slapt-get/slapt-getrc.new; fi;" > pkg/install/doinst.sh
+	cp -f slack-desc pkg/install/
+	cp -f slack-required pkg/install/
+	cp -f slack-suggests pkg/install/
+	cp -f doc/$(PACKAGE).8 pkg/usr/man/man8/
+	cp -f doc/libslapt.3 pkg/usr/man/man3/
+	cp -f doc/$(PACKAGE).ru.8 pkg/usr/man/ru/man8/$(PACKAGE).8
+	cp -f doc/$(PACKAGE).uk.8 pkg/usr/man/uk/man8/$(PACKAGE).8
 	gzip -f pkg/usr/man/man8/$(PACKAGE).8
 	gzip -f pkg/usr/man/man3/libslapt.3
 	gzip -f pkg/usr/man/ru/man8/$(PACKAGE).8
 	gzip -f pkg/usr/man/uk/man8/$(PACKAGE).8
 	mkdir -p pkg$(LIBDIR)
 	mkdir -p pkg/usr/include
-	cp src/slapt.h pkg/usr/include/
-	cp src/libslapt.a src/libslapt.so.$(VERSION) pkg$(LIBDIR)/
+	cp -f src/slapt.h pkg/usr/include/
+	cp -f src/libslapt.a src/libslapt.so.$(VERSION) pkg$(LIBDIR)/
 	$(STRIP) pkg$(LIBDIR)/libslapt.so.$(VERSION)
-	( cd pkg$(LIBDIR); ln -s libslapt.so.$(VERSION) libslapt.so )
+	( cd pkg$(LIBDIR); ln -sf libslapt.so.$(VERSION) libslapt.so )
 	-( cd pkg; /sbin/makepkg -l y -c n ../$(PACKAGE)-$(VERSION)-$(ARCH)-$(RELEASE).tgz )
 
 po_file:
 	-grep '_(' src/*.c |cut -f2-255 -d':'|sed -re "s/.*(_\(\".*\"\)).*/\1/" > po/gettext_strings
-	-mv po/slapt-get.pot po/slapt-get.pot~
+	-mv -f po/slapt-get.pot po/slapt-get.pot~
 	-xgettext -d slapt-get -o po/slapt-get.pot -a -C --no-location po/gettext_strings
 	-rm po/gettext_strings
 
 libs: $(OBJS)
 	touch libs
 	$(CC) -shared -o src/libslapt.so.$(VERSION) $(LIBOBJS) #-Wl,-soname=libslapt-$(VERSION)
-	( cd src; if [ -f libslapt.so ]; then rm libslapt.so;fi; ln -s libslapt.so.$(VERSION) libslapt.so )
+	( cd src; if [ -f libslapt.so ]; then rm libslapt.so;fi; ln -sf libslapt.so.$(VERSION) libslapt.so )
 	$(AR) -r src/libslapt.a $(LIBOBJS)
 	$(RANLIB) src/libslapt.a
 	-@echo "#ifndef LIB_SLAPT" > src/slapt.h
