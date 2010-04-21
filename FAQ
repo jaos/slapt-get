@@ -381,7 +381,8 @@ Frequently Asked Questions:
       case $PKGEXT in
         tgz) DECOMPRESS=gzip ;;
         tbz) DECOMPRESS=bzip2 ;;
-        tlz|txz) DECOMPRESS=lzma ;;
+        tlz) DECOMPRESS=lzma ;;
+        txz) DECOMPRESS=xz ;;
       esac
 
 	    NAME=$(echo $1|sed -re "s/(.*\/)(.*.$PKGEXT)$/\2/")
