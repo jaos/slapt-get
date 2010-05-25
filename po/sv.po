@@ -11,18 +11,20 @@ msgstr ""
 "Last-Translator: Joel Bjurman <ypolt@lediga.st>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#, c-format
 msgid "Reading Package Lists... "
-msgstr "Läser paketlista... "
+msgstr "LÃ¤ser paketlista... "
 
+#, c-format
 msgid "Done\n"
 msgstr "Klart\n"
 
 #, c-format
 msgid "%s is up to date.\n"
-msgstr "%s är uppdaterad.\n"
+msgstr "%s Ã¤r uppdaterad.\n"
 
 msgid "yes"
 msgstr "ja"
@@ -32,7 +34,7 @@ msgstr "nej"
 
 #, c-format
 msgid "%s is not installed.\n"
-msgstr "%s är inte installerat.\n"
+msgstr "%s Ã¤r inte installerat.\n"
 
 #, c-format
 msgid "Package Name: %s\n"
@@ -44,7 +46,7 @@ msgstr "Packetets spegel: %s\n"
 
 #, c-format
 msgid "Package Location: %s\n"
-msgstr "Paketets sökväg: %s\n"
+msgstr "Paketets sÃ¶kvÃ¤g: %s\n"
 
 #, c-format
 msgid "Package Version: %s\n"
@@ -60,8 +62,9 @@ msgstr "Paketets storlek efter installation: %d K\n"
 
 #, c-format
 msgid "Package Required: %s\n"
-msgstr "Paket som krävs: %s\n"
+msgstr "Paket som krÃ¤vs: %s\n"
 
+#, c-format
 msgid "Package Description:\n"
 msgstr "Paketets beskrivning:\n"
 
@@ -83,11 +86,11 @@ msgstr "Tar emot paketinformation [%s]...\n"
 
 #, c-format
 msgid "Retrieving extras list [%s]..."
-msgstr "Tar emot övrigt-lista [%s]..."
+msgstr "Tar emot Ã¶vrigt-lista [%s]..."
 
 #, c-format
 msgid "Retrieving extras list [%s]...\n"
-msgstr "Tar emot övrigt-lista [%s]...\n"
+msgstr "Tar emot Ã¶vrigt-lista [%s]...\n"
 
 #, c-format
 msgid "Retrieving patch list [%s]..."
@@ -99,8 +102,9 @@ msgstr "Tar emot patch-lista [%s]...\n"
 
 #, c-format
 msgid "Retrieving checksum list [%s]..."
-msgstr "Tar emot lista för checksums [%s]..."
+msgstr "Tar emot lista fÃ¶r checksums [%s]..."
 
+#, c-format
 msgid "Failed to malloc\n"
 msgstr "Misslyckades med minnesallokering malloc\n"
 
@@ -118,25 +122,27 @@ msgstr "Misslyckades att skapa katalog [%s]\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr "Var god ändra rättigheterna på %s eller byt till en användare som har rättigheter\n"
+msgstr "Var god Ã¤ndra rÃ¤ttigheterna pÃ¥ %s eller byt till en anvÃ¤ndare som har rÃ¤ttigheter\n"
 
 #, c-format
 msgid "Failed to open %s\n"
-msgstr "Misslyckades att öppna %s\n"
+msgstr "Misslyckades att Ã¶ppna %s\n"
 
+#, c-format
 msgid "Perhaps you want to run --update?\n"
-msgstr "Du kanske vill köra --update?\n"
+msgstr "Du kanske vill kÃ¶ra --update?\n"
 
 #, c-format
 msgid "Failed to opendir %s\n"
-msgstr "Misslyckades att öppna katalog %s\n"
+msgstr "Misslyckades att Ã¶ppna katalog %s\n"
 
 #, c-format
 msgid "Failed to chdir: %s\n"
 msgstr "Misslyckades att byta till katalog: %s\n"
 
+#, c-format
 msgid "Failed to get cwd\n"
-msgstr "Misslyckades att hämta nuvarande katalogsnamn\n"
+msgstr "Misslyckades att hÃ¤mta nuvarande katalogsnamn\n"
 
 #, c-format
 msgid "Failed to mkdir: %s\n"
@@ -154,16 +160,17 @@ msgstr "\tbyter katalog tillbaka till %s\n"
 msgid "Failed to download: %s\n"
 msgstr "Misslyckades att ladda hem: %s\n"
 
+#, c-format
 msgid "Failed to calloc\n"
 msgstr "Misslyckades med minnesallokering calloc\n"
 
 #, c-format
 msgid "Get %s %s %s [%.1f%s]..."
-msgstr "Läs: %s %s %s [%.1f%s]..."
+msgstr "LÃ¤s: %s %s %s [%.1f%s]..."
 
 #, c-format
 msgid "Failed to unlink %s\n"
-msgstr "Misslyckades att bryta länk %s\n"
+msgstr "Misslyckades att bryta lÃ¤nk %s\n"
 
 #, c-format
 msgid "MD5 found:    [%s]\n"
@@ -171,27 +178,30 @@ msgstr "MD5 funnen:    [%s]\n"
 
 #, c-format
 msgid "MD5 expected: [%s]\n"
-msgstr "MD5 förväntad: [%s]\n"
+msgstr "MD5 fÃ¶rvÃ¤ntad: [%s]\n"
 
 #, c-format
 msgid "File: %s/%s\n"
 msgstr "Fil: %s/%s\n"
 
+#, c-format
 msgid "An implementation of the Debian APT system to Slackware\n"
 msgstr "En implementation av Debian APT till Slackware\n"
 
+#, c-format
 msgid "Usage:\n"
-msgstr "Tillvägagångssätt:\n"
+msgstr "TillvÃ¤gagÃ¥ngssÃ¤tt:\n"
 
 #, c-format
 msgid "%s [option(s)] [target]\n"
-msgstr "%s [alternativ] [mål]\n"
+msgstr "%s [alternativ] [mÃ¥l]\n"
 
+#, c-format
 msgid "Targets:\n"
-msgstr "Mål:\n"
+msgstr "MÃ¥l:\n"
 
 msgid "retrieves pkg data from MIRROR"
-msgstr "tar emot pkg data från spegel"
+msgstr "tar emot pkg data frÃ¥n spegel"
 
 msgid "upgrade installed pkgs"
 msgstr "uppgradera installerade paket"
@@ -209,13 +219,13 @@ msgid "[pkg name] - show pkg description"
 msgstr "[paketnamn] - visa paketbeskrivning"
 
 msgid "[expression] - search available pkgs"
-msgstr "[sökord] - sök tillgängliga paket"
+msgstr "[sÃ¶kord] - sÃ¶k tillgÃ¤ngliga paket"
 
 msgid "list pkgs"
 msgstr "lista paket"
 
 msgid "list available pkgs"
-msgstr "lista tillgängliga paket"
+msgstr "lista tillgÃ¤ngliga paket"
 
 msgid "list installed pkgs"
 msgstr "lista installerade paket"
@@ -226,6 +236,7 @@ msgstr "ta bort cachade paket"
 msgid "print version and license info"
 msgstr "skriv versions och license information"
 
+#, c-format
 msgid "Options:\n"
 msgstr "Alternativ:\n"
 
@@ -236,7 +247,7 @@ msgid "show pkgs to be installed/upgraded"
 msgstr "visa paket att installera/uppgradera"
 
 msgid "do not prompt during install/upgrade"
-msgstr "fråga inget under installation/uppgradering"
+msgstr "frÃ¥ga inget under installation/uppgradering"
 
 msgid "re-install the pkg"
 msgstr "installera om paketet"
@@ -245,7 +256,7 @@ msgid "install/upgrade excludes"
 msgstr "installera/uppgradera exkluderingar"
 
 msgid "do not perform md5 check sum"
-msgstr "utför inte md5 check sum"
+msgstr "utfÃ¶r inte md5 check sum"
 
 msgid "ignore dependency failures"
 msgstr "ignorera beroendefel"
@@ -256,33 +267,41 @@ msgstr "%s version %s\n"
 
 #, c-format
 msgid "regex failed on [%s]\n"
-msgstr "regex misslyckades på [%s]\n"
+msgstr "regex misslyckades pÃ¥ [%s]\n"
 
+#, c-format
 msgid "regexec failed to parse location\n"
-msgstr "regexec misslyckade att tolka sökväg\n"
+msgstr "regexec misslyckade att tolka sÃ¶kvÃ¤g\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read location\n"
-msgstr "getline nådde EOF vid försök att läsa sökväg\n"
+msgstr "getline nÃ¥dde EOF vid fÃ¶rsÃ¶k att lÃ¤sa sÃ¶kvÃ¤g\n"
 
+#, c-format
 msgid "regexec failed to parse size_c\n"
 msgstr "regexec misslyckade att tolka size_c\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read size_c\n"
-msgstr "getline nådde EOF vid försök att läsa size_c\n"
+msgstr "getline nÃ¥dde EOF vid fÃ¶rsÃ¶k att lÃ¤sa size_c\n"
 
+#, c-format
 msgid "regexec failed to parse size_u\n"
 msgstr "regexec misslyckades att tolka size_u\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read size_u\n"
-msgstr "getline nådde EOF vid försök att läsa size_u\n"
+msgstr "getline nÃ¥dde EOF vid fÃ¶rsÃ¶k att lÃ¤sa size_u\n"
 
+#, c-format
 msgid "error attempting to read pkg description\n"
-msgstr "Fel vid försök att läsa paketbeskrivning\n"
+msgstr "Fel vid fÃ¶rsÃ¶k att lÃ¤sa paketbeskrivning\n"
 
 #, c-format
 msgid "Failed to realloc %s\n"
-msgstr "Misslyckades att återallokera minne %s\n"
+msgstr "Misslyckades att Ã¥terallokera minne %s\n"
 
+#, c-format
 msgid "Failed to compile regex\n"
 msgstr "Misslyckades att kompilera regex\n"
 
@@ -296,7 +315,7 @@ msgstr "%s-%s ska till att installeras\n"
 
 #, c-format
 msgid "Preparing to install %s-%s\n"
-msgstr "Förbereder installation av %s-%s\n"
+msgstr "FÃ¶rbereder installation av %s-%s\n"
 
 #, c-format
 msgid "Failed to execute command: [%s]\n"
@@ -308,7 +327,7 @@ msgstr "%s-%s ska till att uppgraderas till version %s\n"
 
 #, c-format
 msgid "Preparing to replace %s-%s with %s-%s\n"
-msgstr "Förbereder att ersätta %s-%s with %s-%s\n"
+msgstr "FÃ¶rbereder att ersÃ¤tta %s-%s with %s-%s\n"
 
 #, c-format
 msgid "%s-%s is to be removed\n"
@@ -318,27 +337,33 @@ msgstr "%s-%s ska tas bort\n"
 msgid "Failed to compile regex [%s]\n"
 msgstr "Misslyckades att kompilera regex [%s]\n"
 
+#, c-format
 msgid "pkg conditional too long\n"
-msgstr "paketvilkor för långt\n"
+msgstr "paketvilkor fÃ¶r lÃ¥ngt\n"
 
+#, c-format
 msgid "The following packages have unmet dependencies:\n"
-msgstr "Följande paket har icke bemötta krav på beroenden:\n"
+msgstr "FÃ¶ljande paket har icke bemÃ¶tta krav pÃ¥ beroenden:\n"
 
 #, c-format
 msgid "  %s: Depends: %s\n"
 msgstr "  %s: Beroende: %s\n"
 
+#, c-format
 msgid "The following packages have been EXCLUDED:\n"
-msgstr "Följande paket har blivit EXKLUDERADE:\n"
+msgstr "FÃ¶ljande paket har blivit EXKLUDERADE:\n"
 
+#, c-format
 msgid "The following NEW packages will be installed:\n"
-msgstr "Följande NYA paket kommer att bli installerade:\n"
+msgstr "FÃ¶ljande NYA paket kommer att bli installerade:\n"
 
+#, c-format
 msgid "The following packages will be REMOVED:\n"
-msgstr "Följande paket kommer att tas BORT:\n"
+msgstr "FÃ¶ljande paket kommer att tas BORT:\n"
 
+#, c-format
 msgid "The following packages will be upgraded:\n"
-msgstr "Följande paket kommer att uppgraderas:\n"
+msgstr "FÃ¶ljande paket kommer att uppgraderas:\n"
 
 #, c-format
 msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
@@ -346,11 +371,11 @@ msgstr "%d uppgraderade, %d nyinstallerade, %d att ta bort och %d icke uppgrader
 
 #, c-format
 msgid "Need to get %.1f%s of archives.\n"
-msgstr "Behöver få %.1f%s av arkiven.\n"
+msgstr "BehÃ¶ver fÃ¥ %.1f%s av arkiven.\n"
 
 #, c-format
 msgid "Need to get %.1f%s/%.1f%s of archives.\n"
-msgstr "Behöver få %.1f%s/%.1f%s av arkiven.\n"
+msgstr "BehÃ¶ver fÃ¥ %.1f%s/%.1f%s av arkiven.\n"
 
 #, c-format
 msgid "After unpacking %.1f%s disk space will be freed.\n"
@@ -358,11 +383,12 @@ msgstr "Efter uppackning kommer %.1f%s diskutrymme att bli fritt.\n"
 
 #, c-format
 msgid "After unpacking %.1f%s of additional disk space will be used.\n"
-msgstr "Efter uppackning kommer %.1f%s ytterligare diskutrymme att användas.\n"
+msgstr "Efter uppackning kommer %.1f%s ytterligare diskutrymme att anvÃ¤ndas.\n"
 
 msgid "Do you want to continue? [y/N] "
-msgstr "Vill du fortsätta? [y/N] "
+msgstr "Vill du fortsÃ¤tta? [y/N] "
 
+#, c-format
 msgid "Abort.\n"
 msgstr "Avbryt.\n"
 
@@ -381,15 +407,17 @@ msgstr "skriv enbart URIs, ladda ej hem"
 msgid "Package MD5 Sum:  %s\n"
 msgstr "Paketets MD5 Sum:  %s\n"
 
+#, c-format
 msgid "md5 sum too long\n"
-msgstr "md5 sum för långt\n"
+msgstr "md5 sum fÃ¶r lÃ¥ngt\n"
 
+#, c-format
 msgid "Reading Package Lists..."
-msgstr "Läser paketlista..."
+msgstr "LÃ¤ser paketlista..."
 
 #, c-format
 msgid "%s, which is required by %s, is excluded\n"
-msgstr "%s, som krävs av %s, är exkluderat\n"
+msgstr "%s, som krÃ¤vs av %s, Ã¤r exkluderat\n"
 
 msgid "skip dependency check"
 msgstr "skippa beroendekoll"
@@ -397,27 +425,30 @@ msgstr "skippa beroendekoll"
 msgid "show download statistics"
 msgstr "visa nedladdningsstatistik"
 
+#, c-format
 msgid "Cached\n"
 msgstr "Cachad\n"
 
+#, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr "Nedladdningen från källorna misslyckades, rätta till källorna och kör --update igen\n"
+msgstr "Nedladdningen frÃ¥n kÃ¤llorna misslyckades, rÃ¤tta till kÃ¤llorna och kÃ¶r --update igen\n"
 
 msgid "specify alternate slapt-getrc location"
-msgstr "specificera en alternativ slapt-getrc sökväg"
+msgstr "specificera en alternativ slapt-getrc sÃ¶kvÃ¤g"
 
+#, c-format
 msgid "Suggested packages:\n"
-msgstr "Föreslagna paket:\n"
+msgstr "FÃ¶reslagna paket:\n"
 
 msgid "only purge cache of older, unreacheable pkgs"
-msgstr "ta bara bort de temporära filerna av äldre, onåbara paket"
+msgstr "ta bara bort de temporÃ¤ra filerna av Ã¤ldre, onÃ¥bara paket"
 
 msgid "remove obsolete packages"
-msgstr "ta bort förlegade paket"
+msgstr "ta bort fÃ¶rlegade paket"
 
 #, c-format
 msgid "You don't have enough free space in %s\n"
-msgstr "Du har inte tillräckligt ledigt utrymme i %s\n"
+msgstr "Du har inte tillrÃ¤ckligt ledigt utrymme i %s\n"
 
 #, c-format
 msgid "Package Conflicts: %s\n"
@@ -484,9 +515,11 @@ msgstr "Verified"
 msgid "Not Verified"
 msgstr "Not Verified"
 
+#, c-format
 msgid "Retrieving GPG key [%s]..."
 msgstr "Retrieving GPG key [%s]..."
 
+#, c-format
 msgid "Retrieving checksum signature [%s]..."
 msgstr "Retrieving checksum signature [%s]..."
 
@@ -496,6 +529,7 @@ msgstr "No key for verification"
 msgid "retrieve GPG keys for sources"
 msgstr "retrieve GPG keys for sources"
 
+#, c-format
 msgid "Verifying checksum signature [%s]..."
 msgstr "Verifying checksum signature [%s]..."
 
@@ -537,3 +571,6 @@ msgstr "Package Priority: %s\n"
 msgid "[pkg name] - show pkg installed files"
 msgstr "[pkg name] - show pkg installed files"
 
+#, c-format
+msgid "Delete %s ? [y/N]"
+msgstr "Delete %s ? [y/N]"

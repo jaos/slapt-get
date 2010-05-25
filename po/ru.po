@@ -6,506 +6,540 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.2a\n"
-"POT-Creation-Date: 2005-09-07 23:24 EEST\n"
+"POT-Creation-Date: 2003-11-03 14:28+0000\n"
 "PO-Revision-Date: 2009-09-09 10:40+0500\n"
+"Last-Translator: \n"
 "Language-Team: DeepStyle Team <hottab@deepstyle.org.ua>, <ru@li.org>, sin <digitalhunger@gmail.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=KOI8-R\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Last-Translator: \n"
 
+#, c-format
 msgid "Reading Package Lists... "
-msgstr "Чтение списка пакетов "
+msgstr "п╖я┌п╣п╫п╦п╣ я│п©п╦я│п╨п╟ п©п╟п╨п╣я┌п╬п╡ "
 
+#, c-format
 msgid "Done\n"
-msgstr "Готово\n"
+msgstr "п⌠п╬я┌п╬п╡п╬\n"
 
 #, c-format
 msgid "%s is up to date.\n"
-msgstr "%s не требует обновления.\n"
+msgstr "%s п╫п╣ я┌я─п╣п╠я┐п╣я┌ п╬п╠п╫п╬п╡п╩п╣п╫п╦я▐.\n"
 
 msgid "yes"
-msgstr "да"
+msgstr "п╢п╟"
 
 msgid "no"
-msgstr "нет"
+msgstr "п╫п╣я┌"
 
 #, c-format
 msgid "%s is not installed.\n"
-msgstr "%s не установлен.\n"
+msgstr "%s п╫п╣ я┐я│я┌п╟п╫п╬п╡п╩п╣п╫.\n"
 
 #, c-format
 msgid "Package Name: %s\n"
-msgstr "Имя пакета: %s\n"
+msgstr "п≤п╪я▐ п©п╟п╨п╣я┌п╟: %s\n"
 
 #, c-format
 msgid "Package Mirror: %s\n"
-msgstr "Зеркало пакета: %s\n"
+msgstr "п≈п╣я─п╨п╟п╩п╬ п©п╟п╨п╣я┌п╟: %s\n"
 
 #, c-format
 msgid "Package Location: %s\n"
-msgstr "Расположение пакета: %s\n"
+msgstr "п═п╟я│п©п╬п╩п╬п╤п╣п╫п╦п╣ п©п╟п╨п╣я┌п╟: %s\n"
 
 #, c-format
 msgid "Package Version: %s\n"
-msgstr "Версия пакета: %s\n"
+msgstr "п▓п╣я─я│п╦я▐ п©п╟п╨п╣я┌п╟: %s\n"
 
 #, c-format
 msgid "Package Size: %d K\n"
-msgstr "Размер пакета: %d K\n"
+msgstr "п═п╟п╥п╪п╣я─ п©п╟п╨п╣я┌п╟: %d K\n"
 
 #, c-format
 msgid "Package Installed Size: %d K\n"
-msgstr "Размер установленного пакета: %d K\n"
+msgstr "п═п╟п╥п╪п╣я─ я┐я│я┌п╟п╫п╬п╡п╩п╣п╫п╫п╬пЁп╬ п©п╟п╨п╣я┌п╟: %d K\n"
 
 #, c-format
 msgid "Package Required: %s\n"
-msgstr "Требуются пакеты: %s\n"
+msgstr "п╒я─п╣п╠я┐я▌я┌я│я▐ п©п╟п╨п╣я┌я▀: %s\n"
 
+#, c-format
 msgid "Package Description:\n"
-msgstr "Описание пакета:\n"
+msgstr "п·п©п╦я│п╟п╫п╦п╣ п©п╟п╨п╣я┌п╟:\n"
 
 #, c-format
 msgid "Package Installed: %s\n"
-msgstr "Установленный пакет: %s\n"
+msgstr "пёя│я┌п╟п╫п╬п╡п╩п╣п╫п╫я▀п╧ п©п╟п╨п╣я┌: %s\n"
 
 #, c-format
 msgid "No such package: %s\n"
-msgstr "Нет такого пакета: %s\n"
+msgstr "п²п╣я┌ я┌п╟п╨п╬пЁп╬ п©п╟п╨п╣я┌п╟: %s\n"
 
 #, c-format
 msgid "Retrieving package data [%s]..."
-msgstr "Получение данных о пакете [%s]..."
+msgstr "п÷п╬п╩я┐я┤п╣п╫п╦п╣ п╢п╟п╫п╫я▀я┘ п╬ п©п╟п╨п╣я┌п╣ [%s]..."
 
 #, c-format
 msgid "Retrieving package data [%s]...\n"
-msgstr "Получение данных о пакете [%s]...\n"
+msgstr "п÷п╬п╩я┐я┤п╣п╫п╦п╣ п╢п╟п╫п╫я▀я┘ п╬ п©п╟п╨п╣я┌п╣ [%s]...\n"
 
 #, c-format
 msgid "Retrieving extras list [%s]..."
-msgstr "Получение списка дополнений [%s]..."
+msgstr "п÷п╬п╩я┐я┤п╣п╫п╦п╣ я│п©п╦я│п╨п╟ п╢п╬п©п╬п╩п╫п╣п╫п╦п╧ [%s]..."
 
 #, c-format
 msgid "Retrieving extras list [%s]...\n"
-msgstr "Получение списка дополнений [%s]...\n"
+msgstr "п÷п╬п╩я┐я┤п╣п╫п╦п╣ я│п©п╦я│п╨п╟ п╢п╬п©п╬п╩п╫п╣п╫п╦п╧ [%s]...\n"
 
 #, c-format
 msgid "Retrieving patch list [%s]..."
-msgstr "Получение списка патчей [%s]..."
+msgstr "п÷п╬п╩я┐я┤п╣п╫п╦п╣ я│п©п╦я│п╨п╟ п©п╟я┌я┤п╣п╧ [%s]..."
 
 #, c-format
 msgid "Retrieving patch list [%s]...\n"
-msgstr "Получение списка патчей [%s]...\n"
+msgstr "п÷п╬п╩я┐я┤п╣п╫п╦п╣ я│п©п╦я│п╨п╟ п©п╟я┌я┤п╣п╧ [%s]...\n"
 
 #, c-format
 msgid "Retrieving checksum list [%s]..."
-msgstr "Получение контрольной суммы [%s]..."
+msgstr "п÷п╬п╩я┐я┤п╣п╫п╦п╣ п╨п╬п╫я┌я─п╬п╩я▄п╫п╬п╧ я│я┐п╪п╪я▀ [%s]..."
 
+#, c-format
 msgid "Failed to malloc\n"
-msgstr "Не удалось выполнить malloc\n"
+msgstr "п²п╣ я┐п╢п╟п╩п╬я│я▄ п╡я▀п©п╬п╩п╫п╦я┌я▄ malloc\n"
 
 #, c-format
 msgid "WORKINGDIR directive not set within %s.\n"
-msgstr "Директива WORKINGDIR не установлена в %s.\n"
+msgstr "п■п╦я─п╣п╨я┌п╦п╡п╟ WORKINGDIR п╫п╣ я┐я│я┌п╟п╫п╬п╡п╩п╣п╫п╟ п╡ %s.\n"
 
 #, c-format
 msgid "SOURCE directive not set within %s.\n"
-msgstr "Директива SOURCE не установлена в %s.\n"
+msgstr "п■п╦я─п╣п╨я┌п╦п╡п╟ SOURCE п╫п╣ я┐я│я┌п╟п╫п╬п╡п╩п╣п╫п╟ п╡ %s.\n"
 
 #, c-format
 msgid "Failed to build working directory [%s]\n"
-msgstr "Не могу создать рабочий каталог [%s]\n"
+msgstr "п²п╣ п╪п╬пЁя┐ я│п╬п╥п╢п╟я┌я▄ я─п╟п╠п╬я┤п╦п╧ п╨п╟я┌п╟п╩п╬пЁ [%s]\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr "Недостаточно прав доступа к %s \n"
+msgstr "п²п╣п╢п╬я│я┌п╟я┌п╬я┤п╫п╬ п©я─п╟п╡ п╢п╬я│я┌я┐п©п╟ п╨ %s \n"
 
 #, c-format
 msgid "Failed to open %s\n"
-msgstr "Не могу открыть %s\n"
+msgstr "п²п╣ п╪п╬пЁя┐ п╬я┌п╨я─я▀я┌я▄ %s\n"
 
+#, c-format
 msgid "Perhaps you want to run --update?\n"
-msgstr "Возможно вам нужна опция --update?\n"
+msgstr "п▓п╬п╥п╪п╬п╤п╫п╬ п╡п╟п╪ п╫я┐п╤п╫п╟ п╬п©я├п╦я▐ --update?\n"
 
 #, c-format
 msgid "Failed to opendir %s\n"
-msgstr "Не могу открыть каталог %s\n"
+msgstr "п²п╣ п╪п╬пЁя┐ п╬я┌п╨я─я▀я┌я▄ п╨п╟я┌п╟п╩п╬пЁ %s\n"
 
 #, c-format
 msgid "Failed to chdir: %s\n"
-msgstr "Не могу перейти в каталог %s.\n"
+msgstr "п²п╣ п╪п╬пЁя┐ п©п╣я─п╣п╧я┌п╦ п╡ п╨п╟я┌п╟п╩п╬пЁ %s.\n"
 
+#, c-format
 msgid "Failed to get cwd\n"
-msgstr "Ошибка получения cwd\n"
+msgstr "п·я┬п╦п╠п╨п╟ п©п╬п╩я┐я┤п╣п╫п╦я▐ cwd\n"
 
 #, c-format
 msgid "Failed to mkdir: %s\n"
-msgstr "Не могу создать каталог: %s\n"
+msgstr "п²п╣ п╪п╬пЁя┐ я│п╬п╥п╢п╟я┌я▄ п╨п╟я┌п╟п╩п╬пЁ: %s\n"
 
 #, c-format
 msgid "Failed to chdir to %s\n"
-msgstr "Не могу перейти в каталог %s.\n"
+msgstr "п²п╣ п╪п╬пЁя┐ п©п╣я─п╣п╧я┌п╦ п╡ п╨п╟я┌п╟п╩п╬пЁ %s.\n"
 
 #, c-format
 msgid "\tchdir back into %s\n"
-msgstr "\tвозврат в каталог %s\n"
+msgstr "\tп╡п╬п╥п╡я─п╟я┌ п╡ п╨п╟я┌п╟п╩п╬пЁ %s\n"
 
 #, c-format
 msgid "Failed to download: %s\n"
-msgstr "Не могу загрузить: %s\n"
+msgstr "п²п╣ п╪п╬пЁя┐ п╥п╟пЁя─я┐п╥п╦я┌я▄: %s\n"
 
+#, c-format
 msgid "Failed to calloc\n"
-msgstr "Неудачный calloc\n"
+msgstr "п²п╣я┐п╢п╟я┤п╫я▀п╧ calloc\n"
 
 #, c-format
 msgid "Get %s %s %s [%.1f%s]..."
-msgstr "Получение %s %s %s [%.1f%s]..."
+msgstr "п÷п╬п╩я┐я┤п╣п╫п╦п╣ %s %s %s [%.1f%s]..."
 
 #, c-format
 msgid "Failed to unlink %s\n"
-msgstr "Не могу удалить ссылки %s\n"
+msgstr "п²п╣ п╪п╬пЁя┐ я┐п╢п╟п╩п╦я┌я▄ я│я│я▀п╩п╨п╦ %s\n"
 
 #, c-format
 msgid "MD5 found:    [%s]\n"
-msgstr "Найденная MD5: [%s]\n"
+msgstr "п²п╟п╧п╢п╣п╫п╫п╟я▐ MD5: [%s]\n"
 
 #, c-format
 msgid "MD5 expected: [%s]\n"
-msgstr "Ожидаемая MD5: [%s]\n"
+msgstr "п·п╤п╦п╢п╟п╣п╪п╟я▐ MD5: [%s]\n"
 
 #, c-format
 msgid "File: %s/%s\n"
-msgstr "Файл: %s/%s\n"
+msgstr "п╓п╟п╧п╩: %s/%s\n"
 
+#, c-format
 msgid "An implementation of the Debian APT system to Slackware\n"
-msgstr "Реализация системы APT из Debian для Slackware\n"
+msgstr "п═п╣п╟п╩п╦п╥п╟я├п╦я▐ я│п╦я│я┌п╣п╪я▀ APT п╦п╥ Debian п╢п╩я▐ Slackware\n"
 
+#, c-format
 msgid "Usage:\n"
-msgstr "Использование:\n"
+msgstr "п≤я│п©п╬п╩я▄п╥п╬п╡п╟п╫п╦п╣:\n"
 
 #, c-format
 msgid "%s [option(s)] [target]\n"
-msgstr "%s [опции] [цель]\n"
+msgstr "%s [п╬п©я├п╦п╦] [я├п╣п╩я▄]\n"
 
+#, c-format
 msgid "Targets:\n"
-msgstr "Цели:\n"
+msgstr "п╕п╣п╩п╦:\n"
 
 msgid "retrieves pkg data from MIRROR"
-msgstr "получает данные пакета с MIRROR"
+msgstr "п©п╬п╩я┐я┤п╟п╣я┌ п╢п╟п╫п╫я▀п╣ п©п╟п╨п╣я┌п╟ я│ MIRROR"
 
 msgid "upgrade installed pkgs"
-msgstr "обновить установленные пакеты"
+msgstr "п╬п╠п╫п╬п╡п╦я┌я▄ я┐я│я┌п╟п╫п╬п╡п╩п╣п╫п╫я▀п╣ п©п╟п╨п╣я┌я▀"
 
 msgid "upgrade to newer release"
-msgstr "обновить до более свежей версии"
+msgstr "п╬п╠п╫п╬п╡п╦я┌я▄ п╢п╬ п╠п╬п╩п╣п╣ я│п╡п╣п╤п╣п╧ п╡п╣я─я│п╦п╦"
 
 msgid "[pkg name(s)] - install specified pkg(s)"
-msgstr "[имя пакета] - установить указанные пакеты"
+msgstr "[п╦п╪я▐ п©п╟п╨п╣я┌п╟] - я┐я│я┌п╟п╫п╬п╡п╦я┌я▄ я┐п╨п╟п╥п╟п╫п╫я▀п╣ п©п╟п╨п╣я┌я▀"
 
 msgid "[pkg name(s)] - remove specified pkg(s)"
-msgstr "[имя пакета] - удалить указанные пакеты"
+msgstr "[п╦п╪я▐ п©п╟п╨п╣я┌п╟] - я┐п╢п╟п╩п╦я┌я▄ я┐п╨п╟п╥п╟п╫п╫я▀п╣ п©п╟п╨п╣я┌я▀"
 
 msgid "[pkg name] - show pkg description"
-msgstr "[имя пакета] - показать описание пакета"
+msgstr "[п╦п╪я▐ п©п╟п╨п╣я┌п╟] - п©п╬п╨п╟п╥п╟я┌я▄ п╬п©п╦я│п╟п╫п╦п╣ п©п╟п╨п╣я┌п╟"
 
 msgid "[expression] - search available pkgs"
-msgstr "[выражение] - искать доступные пакеты"
+msgstr "[п╡я▀я─п╟п╤п╣п╫п╦п╣] - п╦я│п╨п╟я┌я▄ п╢п╬я│я┌я┐п©п╫я▀п╣ п©п╟п╨п╣я┌я▀"
 
 msgid "list pkgs"
-msgstr "список пакетов"
+msgstr "я│п©п╦я│п╬п╨ п©п╟п╨п╣я┌п╬п╡"
 
 msgid "list available pkgs"
-msgstr "список доступных пакетов"
+msgstr "я│п©п╦я│п╬п╨ п╢п╬я│я┌я┐п©п╫я▀я┘ п©п╟п╨п╣я┌п╬п╡"
 
 msgid "list installed pkgs"
-msgstr "список установленных пакетов"
+msgstr "я│п©п╦я│п╬п╨ я┐я│я┌п╟п╫п╬п╡п╩п╣п╫п╫я▀я┘ п©п╟п╨п╣я┌п╬п╡"
 
 msgid "purge cached pkgs"
-msgstr "очистить кэш пакетов"
+msgstr "п╬я┤п╦я│я┌п╦я┌я▄ п╨я█я┬ п©п╟п╨п╣я┌п╬п╡"
 
 msgid "print version and license info"
-msgstr "показать версию и лицензию"
+msgstr "п©п╬п╨п╟п╥п╟я┌я▄ п╡п╣я─я│п╦я▌ п╦ п╩п╦я├п╣п╫п╥п╦я▌"
 
+#, c-format
 msgid "Options:\n"
-msgstr "Опции:\n"
+msgstr "п·п©я├п╦п╦:\n"
 
 msgid "only download pkg on install/upgrade"
-msgstr "только закачать пакеты для установки/обновления"
+msgstr "я┌п╬п╩я▄п╨п╬ п╥п╟п╨п╟я┤п╟я┌я▄ п©п╟п╨п╣я┌я▀ п╢п╩я▐ я┐я│я┌п╟п╫п╬п╡п╨п╦/п╬п╠п╫п╬п╡п╩п╣п╫п╦я▐"
 
 msgid "show pkgs to be installed/upgraded"
-msgstr "показать пакеты для установки/обновления"
+msgstr "п©п╬п╨п╟п╥п╟я┌я▄ п©п╟п╨п╣я┌я▀ п╢п╩я▐ я┐я│я┌п╟п╫п╬п╡п╨п╦/п╬п╠п╫п╬п╡п╩п╣п╫п╦я▐"
 
 msgid "do not prompt during install/upgrade"
-msgstr "не спрашивать во время установки/обновления"
+msgstr "п╫п╣ я│п©я─п╟я┬п╦п╡п╟я┌я▄ п╡п╬ п╡я─п╣п╪я▐ я┐я│я┌п╟п╫п╬п╡п╨п╦/п╬п╠п╫п╬п╡п╩п╣п╫п╦я▐"
 
 msgid "re-install the pkg"
-msgstr "переустановить пакет"
+msgstr "п©п╣я─п╣я┐я│я┌п╟п╫п╬п╡п╦я┌я▄ п©п╟п╨п╣я┌"
 
 msgid "install/upgrade excludes"
-msgstr "исключения установки/обновления"
+msgstr "п╦я│п╨п╩я▌я┤п╣п╫п╦я▐ я┐я│я┌п╟п╫п╬п╡п╨п╦/п╬п╠п╫п╬п╡п╩п╣п╫п╦я▐"
 
 msgid "do not perform md5 check sum"
-msgstr "не проверять контрольную сумму md5"
+msgstr "п╫п╣ п©я─п╬п╡п╣я─я▐я┌я▄ п╨п╬п╫я┌я─п╬п╩я▄п╫я┐я▌ я│я┐п╪п╪я┐ md5"
 
 msgid "ignore dependency failures"
-msgstr "игнорировать зависимости"
+msgstr "п╦пЁп╫п╬я─п╦я─п╬п╡п╟я┌я▄ п╥п╟п╡п╦я│п╦п╪п╬я│я┌п╦"
 
 #, c-format
 msgid "%s version %s\n"
-msgstr "%s версия %s\n"
+msgstr "%s п╡п╣я─я│п╦я▐ %s\n"
 
 #, c-format
 msgid "regex failed on [%s]\n"
-msgstr "ошибка regex на [%s]\n"
+msgstr "п╬я┬п╦п╠п╨п╟ regex п╫п╟ [%s]\n"
 
+#, c-format
 msgid "regexec failed to parse location\n"
-msgstr "regexec не может обработать адрес\n"
+msgstr "regexec п╫п╣ п╪п╬п╤п╣я┌ п╬п╠я─п╟п╠п╬я┌п╟я┌я▄ п╟п╢я─п╣я│\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read location\n"
-msgstr "getline достиг EOF при чтении адреса\n"
+msgstr "getline п╢п╬я│я┌п╦пЁ EOF п©я─п╦ я┤я┌п╣п╫п╦п╦ п╟п╢я─п╣я│п╟\n"
 
+#, c-format
 msgid "regexec failed to parse size_c\n"
-msgstr "regexec не может обработать size_c\n"
+msgstr "regexec п╫п╣ п╪п╬п╤п╣я┌ п╬п╠я─п╟п╠п╬я┌п╟я┌я▄ size_c\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read size_c\n"
-msgstr "getline достиг EOF при чтении size_c\n"
+msgstr "getline п╢п╬я│я┌п╦пЁ EOF п©я─п╦ я┤я┌п╣п╫п╦п╦ size_c\n"
 
+#, c-format
 msgid "regexec failed to parse size_u\n"
-msgstr "regexec не может обработать size_u\n"
+msgstr "regexec п╫п╣ п╪п╬п╤п╣я┌ п╬п╠я─п╟п╠п╬я┌п╟я┌я▄ size_u\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read size_u\n"
-msgstr "getline достиг EOF при чтении size_u\n"
+msgstr "getline п╢п╬я│я┌п╦пЁ EOF п©я─п╦ я┤я┌п╣п╫п╦п╦ size_u\n"
 
+#, c-format
 msgid "error attempting to read pkg description\n"
-msgstr "не могу прочесть описание пакета\n"
+msgstr "п╫п╣ п╪п╬пЁя┐ п©я─п╬я┤п╣я│я┌я▄ п╬п©п╦я│п╟п╫п╦п╣ п©п╟п╨п╣я┌п╟\n"
 
 #, c-format
 msgid "Failed to realloc %s\n"
-msgstr "Неудачный realloc %s\n"
+msgstr "п²п╣я┐п╢п╟я┤п╫я▀п╧ realloc %s\n"
 
+#, c-format
 msgid "Failed to compile regex\n"
-msgstr "Ошибка компиляции regex\n"
+msgstr "п·я┬п╦п╠п╨п╟ п╨п╬п╪п©п╦п╩я▐я├п╦п╦ regex\n"
 
 #, c-format
 msgid "Regex Error: %s\n"
-msgstr "Ошибка regex: %s\n"
+msgstr "п·я┬п╦п╠п╨п╟ regex: %s\n"
 
 #, c-format
 msgid "%s-%s is to be installed\n"
-msgstr "%s-%s будет установлен\n"
+msgstr "%s-%s п╠я┐п╢п╣я┌ я┐я│я┌п╟п╫п╬п╡п╩п╣п╫\n"
 
 #, c-format
 msgid "Preparing to install %s-%s\n"
-msgstr "Подготовка к установке %s-%s\n"
+msgstr "п÷п╬п╢пЁп╬я┌п╬п╡п╨п╟ п╨ я┐я│я┌п╟п╫п╬п╡п╨п╣ %s-%s\n"
 
 #, c-format
 msgid "Failed to execute command: [%s]\n"
-msgstr "Не могу выполнить команду: [%s]\n"
+msgstr "п²п╣ п╪п╬пЁя┐ п╡я▀п©п╬п╩п╫п╦я┌я▄ п╨п╬п╪п╟п╫п╢я┐: [%s]\n"
 
 #, c-format
 msgid "%s-%s is to be upgraded to version %s\n"
-msgstr "%s-%s будет обновлен до версии %s\n"
+msgstr "%s-%s п╠я┐п╢п╣я┌ п╬п╠п╫п╬п╡п╩п╣п╫ п╢п╬ п╡п╣я─я│п╦п╦ %s\n"
 
 #, c-format
 msgid "Preparing to replace %s-%s with %s-%s\n"
-msgstr "Подготовка к замене %s-%s на %s-%s\n"
+msgstr "п÷п╬п╢пЁп╬я┌п╬п╡п╨п╟ п╨ п╥п╟п╪п╣п╫п╣ %s-%s п╫п╟ %s-%s\n"
 
 #, c-format
 msgid "%s-%s is to be removed\n"
-msgstr "%s-%s будет удален.\n"
+msgstr "%s-%s п╠я┐п╢п╣я┌ я┐п╢п╟п╩п╣п╫.\n"
 
 #, c-format
 msgid "Failed to compile regex [%s]\n"
-msgstr "Ошибка компиляции regex [%s]\n"
+msgstr "п·я┬п╦п╠п╨п╟ п╨п╬п╪п©п╦п╩я▐я├п╦п╦ regex [%s]\n"
 
+#, c-format
 msgid "pkg conditional too long\n"
-msgstr "переменная пакета слишком длинная\n"
+msgstr "п©п╣я─п╣п╪п╣п╫п╫п╟я▐ п©п╟п╨п╣я┌п╟ я│п╩п╦я┬п╨п╬п╪ п╢п╩п╦п╫п╫п╟я▐\n"
 
+#, c-format
 msgid "The following packages have unmet dependencies:\n"
-msgstr "Следующие пакеты имеют неудовлетворенные зависимости:\n"
+msgstr "п║п╩п╣п╢я┐я▌я┴п╦п╣ п©п╟п╨п╣я┌я▀ п╦п╪п╣я▌я┌ п╫п╣я┐п╢п╬п╡п╩п╣я┌п╡п╬я─п╣п╫п╫я▀п╣ п╥п╟п╡п╦я│п╦п╪п╬я│я┌п╦:\n"
 
 #, c-format
 msgid "  %s: Depends: %s\n"
-msgstr " %s: Требует: %s\n"
+msgstr " %s: п╒я─п╣п╠я┐п╣я┌: %s\n"
 
+#, c-format
 msgid "The following packages have been EXCLUDED:\n"
-msgstr "Следующие пакеты ПРОПУЩЕНЫ:\n"
+msgstr "п║п╩п╣п╢я┐я▌я┴п╦п╣ п©п╟п╨п╣я┌я▀ п÷п═п·п÷пёп╘п∙п²п╚:\n"
 
+#, c-format
 msgid "The following NEW packages will be installed:\n"
-msgstr "Следующие НОВЫЕ пакеты будут установлены:\n"
+msgstr "п║п╩п╣п╢я┐я▌я┴п╦п╣ п²п·п▓п╚п∙ п©п╟п╨п╣я┌я▀ п╠я┐п╢я┐я┌ я┐я│я┌п╟п╫п╬п╡п╩п╣п╫я▀:\n"
 
+#, c-format
 msgid "The following packages will be REMOVED:\n"
-msgstr "Следующие пакеты будут УДАЛЕНЫ:\n"
+msgstr "п║п╩п╣п╢я┐я▌я┴п╦п╣ п©п╟п╨п╣я┌я▀ п╠я┐п╢я┐я┌ пёп■п░п⌡п∙п²п╚:\n"
 
+#, c-format
 msgid "The following packages will be upgraded:\n"
-msgstr "Следующие пакеты будут обновлены:\n"
+msgstr "п║п╩п╣п╢я┐я▌я┴п╦п╣ п©п╟п╨п╣я┌я▀ п╠я┐п╢я┐я┌ п╬п╠п╫п╬п╡п╩п╣п╫я▀:\n"
 
 #, c-format
 msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
-msgstr "%d обновлен(ы), %d установлен(ы), %d для удаления %d не обновлен(ы).\n"
+msgstr "%d п╬п╠п╫п╬п╡п╩п╣п╫(я▀), %d я┐я│я┌п╟п╫п╬п╡п╩п╣п╫(я▀), %d п╢п╩я▐ я┐п╢п╟п╩п╣п╫п╦я▐ %d п╫п╣ п╬п╠п╫п╬п╡п╩п╣п╫(я▀).\n"
 
 #, c-format
 msgid "Need to get %.1f%s of archives.\n"
-msgstr "К получению: %.1f%s из архивов.\n"
+msgstr "п  п©п╬п╩я┐я┤п╣п╫п╦я▌: %.1f%s п╦п╥ п╟я─я┘п╦п╡п╬п╡.\n"
 
 #, c-format
 msgid "Need to get %.1f%s/%.1f%s of archives.\n"
-msgstr "К получению: %.1f%s/%.1f%s из архивов.\n"
+msgstr "п  п©п╬п╩я┐я┤п╣п╫п╦я▌: %.1f%s/%.1f%s п╦п╥ п╟я─я┘п╦п╡п╬п╡.\n"
 
 #, c-format
 msgid "After unpacking %.1f%s disk space will be freed.\n"
-msgstr "После распаковки будет освобождено %.1f%s дискового пространства.\n"
+msgstr "п÷п╬я│п╩п╣ я─п╟я│п©п╟п╨п╬п╡п╨п╦ п╠я┐п╢п╣я┌ п╬я│п╡п╬п╠п╬п╤п╢п╣п╫п╬ %.1f%s п╢п╦я│п╨п╬п╡п╬пЁп╬ п©я─п╬я│я┌я─п╟п╫я│я┌п╡п╟.\n"
 
 #, c-format
 msgid "After unpacking %.1f%s of additional disk space will be used.\n"
-msgstr "После распаковки на диске будет занято дополнительно %.1f%s.\n"
+msgstr "п÷п╬я│п╩п╣ я─п╟я│п©п╟п╨п╬п╡п╨п╦ п╫п╟ п╢п╦я│п╨п╣ п╠я┐п╢п╣я┌ п╥п╟п╫я▐я┌п╬ п╢п╬п©п╬п╩п╫п╦я┌п╣п╩я▄п╫п╬ %.1f%s.\n"
 
 msgid "Do you want to continue? [y/N] "
-msgstr "Продолжить? [y/N] "
+msgstr "п÷я─п╬п╢п╬п╩п╤п╦я┌я▄? [y/N] "
 
+#, c-format
 msgid "Abort.\n"
-msgstr "Прервать.\n"
+msgstr "п÷я─п╣я─п╡п╟я┌я▄.\n"
 
 #, c-format
 msgid "%s, which is to be installed, conflicts with %s\n"
-msgstr "%s, назначенный для установки, конфликтует с %s\n"
+msgstr "%s, п╫п╟п╥п╫п╟я┤п╣п╫п╫я▀п╧ п╢п╩я▐ я┐я│я┌п╟п╫п╬п╡п╨п╦, п╨п╬п╫я└п╩п╦п╨я┌я┐п╣я┌ я│ %s\n"
 
 #, c-format
 msgid "Installed %s conflicts with %s\n"
-msgstr "Установленный %s конфликтует с %s\n"
+msgstr "пёя│я┌п╟п╫п╬п╡п╩п╣п╫п╫я▀п╧ %s п╨п╬п╫я└п╩п╦п╨я┌я┐п╣я┌ я│ %s\n"
 
 msgid "print URIs only, do not download"
-msgstr "Только показать URI, не загружать"
+msgstr "п╒п╬п╩я▄п╨п╬ п©п╬п╨п╟п╥п╟я┌я▄ URI, п╫п╣ п╥п╟пЁя─я┐п╤п╟я┌я▄"
 
 #, c-format
 msgid "Package MD5 Sum:  %s\n"
-msgstr "MD5-сумма пакета: %s\n"
+msgstr "MD5-я│я┐п╪п╪п╟ п©п╟п╨п╣я┌п╟: %s\n"
 
+#, c-format
 msgid "md5 sum too long\n"
-msgstr "Сумма md5 слишком велика\n"
+msgstr "п║я┐п╪п╪п╟ md5 я│п╩п╦я┬п╨п╬п╪ п╡п╣п╩п╦п╨п╟\n"
 
+#, c-format
 msgid "Reading Package Lists..."
-msgstr "Читаю списки пакетов..."
+msgstr "п╖п╦я┌п╟я▌ я│п©п╦я│п╨п╦ п©п╟п╨п╣я┌п╬п╡..."
 
 #, c-format
 msgid "%s, which is required by %s, is excluded\n"
-msgstr "%s, необходимый для %s, пропущен\n"
+msgstr "%s, п╫п╣п╬п╠я┘п╬п╢п╦п╪я▀п╧ п╢п╩я▐ %s, п©я─п╬п©я┐я┴п╣п╫\n"
 
 msgid "skip dependency check"
-msgstr "пропуск проверки зависимостей"
+msgstr "п©я─п╬п©я┐я│п╨ п©я─п╬п╡п╣я─п╨п╦ п╥п╟п╡п╦я│п╦п╪п╬я│я┌п╣п╧"
 
 msgid "show download statistics"
-msgstr "показать статистику загрузки"
+msgstr "п©п╬п╨п╟п╥п╟я┌я▄ я│я┌п╟я┌п╦я│я┌п╦п╨я┐ п╥п╟пЁя─я┐п╥п╨п╦"
 
+#, c-format
 msgid "Cached\n"
-msgstr "Сохранено\n"
+msgstr "п║п╬я┘я─п╟п╫п╣п╫п╬\n"
 
+#, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr "Ошибка загрузки с адреса, исправьте адрес и перезапустите --update\n"
+msgstr "п·я┬п╦п╠п╨п╟ п╥п╟пЁя─я┐п╥п╨п╦ я│ п╟п╢я─п╣я│п╟, п╦я│п©я─п╟п╡я▄я┌п╣ п╟п╢я─п╣я│ п╦ п©п╣я─п╣п╥п╟п©я┐я│я┌п╦я┌п╣ --update\n"
 
 msgid "specify alternate slapt-getrc location"
-msgstr "указать альтернативный slapt-getrc"
+msgstr "я┐п╨п╟п╥п╟я┌я▄ п╟п╩я▄я┌п╣я─п╫п╟я┌п╦п╡п╫я▀п╧ slapt-getrc"
 
+#, c-format
 msgid "Suggested packages:\n"
-msgstr "Предлагаемые пакеты:\n"
+msgstr "п÷я─п╣п╢п╩п╟пЁп╟п╣п╪я▀п╣ п©п╟п╨п╣я┌я▀:\n"
 
 msgid "only purge cache of older, unreacheable pkgs"
-msgstr "только очистка кэша старых, недосягаемых пакетов"
+msgstr "я┌п╬п╩я▄п╨п╬ п╬я┤п╦я│я┌п╨п╟ п╨я█я┬п╟ я│я┌п╟я─я▀я┘, п╫п╣п╢п╬я│я▐пЁп╟п╣п╪я▀я┘ п©п╟п╨п╣я┌п╬п╡"
 
 msgid "remove obsolete packages"
-msgstr "удалить устаревшие пакеты"
+msgstr "я┐п╢п╟п╩п╦я┌я▄ я┐я│я┌п╟я─п╣п╡я┬п╦п╣ п©п╟п╨п╣я┌я▀"
 
 #, c-format
 msgid "You don't have enough free space in %s\n"
-msgstr "Недостаточно места на %s\n"
+msgstr "п²п╣п╢п╬я│я┌п╟я┌п╬я┤п╫п╬ п╪п╣я│я┌п╟ п╫п╟ %s\n"
 
 #, c-format
 msgid "Package Conflicts: %s\n"
-msgstr "Конфликт пакета: %s\n"
+msgstr "п п╬п╫я└п╩п╦п╨я┌ п©п╟п╨п╣я┌п╟: %s\n"
 
 #, c-format
 msgid "Package Suggests: %s\n"
-msgstr "Пакет ожидает: %s\n"
+msgstr "п÷п╟п╨п╣я┌ п╬п╤п╦п╢п╟п╣я┌: %s\n"
 
 #, c-format
 msgid "Failed to parse package data from %s\n"
-msgstr "Не могу обработать данные пакета %s\n"
+msgstr "п²п╣ п╪п╬пЁя┐ п╬п╠я─п╟п╠п╬я┌п╟я┌я▄ п╢п╟п╫п╫я▀п╣ п©п╟п╨п╣я┌п╟ %s\n"
 
 msgid "specify number of download retry attempts"
-msgstr "укажите количество повторных попыток загрузки"
+msgstr "я┐п╨п╟п╤п╦я┌п╣ п╨п╬п╩п╦я┤п╣я│я┌п╡п╬ п©п╬п╡я┌п╬я─п╫я▀я┘ п©п╬п©я▀я┌п╬п╨ п╥п╟пЁя─я┐п╥п╨п╦"
 
 msgid "install package, do not attempt to upgrade"
-msgstr "установить пакет, не пытаться обновлять"
+msgstr "я┐я│я┌п╟п╫п╬п╡п╦я┌я▄ п©п╟п╨п╣я┌, п╫п╣ п©я▀я┌п╟я┌я▄я│я▐ п╬п╠п╫п╬п╡п╩я▐я┌я▄"
 
 msgid "[disk set(s)] - install specified disk set(s)"
-msgstr "[дисковый(е) набор(ы)] - установить указанный(е) дисковый(е) набор(ы)"
+msgstr "[п╢п╦я│п╨п╬п╡я▀п╧(п╣) п╫п╟п╠п╬я─(я▀)] - я┐я│я┌п╟п╫п╬п╡п╦я┌я▄ я┐п╨п╟п╥п╟п╫п╫я▀п╧(п╣) п╢п╦я│п╨п╬п╡я▀п╧(п╣) п╫п╟п╠п╬я─(я▀)"
 
 msgid "always prompt during install/upgrade"
-msgstr "всегда спрашивать при установке/обновлении"
+msgstr "п╡я│п╣пЁп╢п╟ я│п©я─п╟я┬п╦п╡п╟я┌я▄ п©я─п╦ я┐я│я┌п╟п╫п╬п╡п╨п╣/п╬п╠п╫п╬п╡п╩п╣п╫п╦п╦"
 
 #, c-format
 msgid "Excluding %s, use --ignore-dep to override\n"
-msgstr "Пропуск %s, чтобы проигнорировать зависимости используйте --ignore-dep\n"
+msgstr "п÷я─п╬п©я┐я│п╨ %s, я┤я┌п╬п╠я▀ п©я─п╬п╦пЁп╫п╬я─п╦я─п╬п╡п╟я┌я▄ п╥п╟п╡п╦я│п╦п╪п╬я│я┌п╦ п╦я│п©п╬п╩я▄п╥я┐п╧я┌п╣ --ignore-dep\n"
 
 msgid "Package ChangeLog"
-msgstr "ChangeLog пакета"
+msgstr "ChangeLog п©п╟п╨п╣я┌п╟"
 
 #, c-format
 msgid "Retrieving ChangeLog.txt [%s]..."
-msgstr "Получение ChangeLog.txt [%s]..."
+msgstr "п÷п╬п╩я┐я┤п╣п╫п╦п╣ ChangeLog.txt [%s]..."
 
 msgid "MD5 checksum mismatch, override with --no-md5"
-msgstr "Не совпадает контрольная сумма MD5, --no-md5 отключает проверку"
+msgstr "п²п╣ я│п╬п╡п©п╟п╢п╟п╣я┌ п╨п╬п╫я┌я─п╬п╩я▄п╫п╟я▐ я│я┐п╪п╪п╟ MD5, --no-md5 п╬я┌п╨п╩я▌я┤п╟п╣я┌ п©я─п╬п╡п╣я─п╨я┐"
 
 msgid "Missing MD5 checksum, override with --no-md5"
-msgstr "Отсутствует контрольная сумма MD5, --no-md5 отключает проверку"
+msgstr "п·я┌я│я┐я┌я│я┌п╡я┐п╣я┌ п╨п╬п╫я┌я─п╬п╩я▄п╫п╟я▐ я│я┐п╪п╪п╟ MD5, --no-md5 п╬я┌п╨п╩я▌я┤п╟п╣я┌ п©я─п╬п╡п╣я─п╨я┐"
 
 msgid "Incomplete download"
-msgstr "Загрузка была прервана"
+msgstr "п≈п╟пЁя─я┐п╥п╨п╟ п╠я▀п╩п╟ п©я─п╣я─п╡п╟п╫п╟"
 
 msgid "GPG key successfully imported"
-msgstr "Ключ GPG успешно импортирован"
+msgstr "п п╩я▌я┤ GPG я┐я│п©п╣я┬п╫п╬ п╦п╪п©п╬я─я┌п╦я─п╬п╡п╟п╫"
 
 msgid "GPG key could not be imported"
-msgstr "Не удалось импротировать ключ GPG"
+msgstr "п²п╣ я┐п╢п╟п╩п╬я│я▄ п╦п╪п©я─п╬я┌п╦я─п╬п╡п╟я┌я▄ п╨п╩я▌я┤ GPG"
 
 msgid "GPG key already present"
-msgstr "GPG уже присутствует"
+msgstr "GPG я┐п╤п╣ п©я─п╦я│я┐я┌я│я┌п╡я┐п╣я┌"
 
 msgid "Checksums signature successfully verified"
-msgstr "Контрольная сумма проверена успешно"
+msgstr "п п╬п╫я┌я─п╬п╩я▄п╫п╟я▐ я│я┐п╪п╪п╟ п©я─п╬п╡п╣я─п╣п╫п╟ я┐я│п©п╣я┬п╫п╬"
 
 msgid "Checksums signature could not be verified"
-msgstr "Не удалось проверить контрольную сумму"
+msgstr "п²п╣ я┐п╢п╟п╩п╬я│я▄ п©я─п╬п╡п╣я─п╦я┌я▄ п╨п╬п╫я┌я─п╬п╩я▄п╫я┐я▌ я│я┐п╪п╪я┐"
 
 msgid "Verified"
-msgstr "Проверено"
+msgstr "п÷я─п╬п╡п╣я─п╣п╫п╬"
 
 msgid "Not Verified"
-msgstr "Проверка не удалась"
+msgstr "п÷я─п╬п╡п╣я─п╨п╟ п╫п╣ я┐п╢п╟п╩п╟я│я▄"
 
+#, c-format
 msgid "Retrieving GPG key [%s]..."
-msgstr "Получение ключа GPG [%s]..."
+msgstr "п÷п╬п╩я┐я┤п╣п╫п╦п╣ п╨п╩я▌я┤п╟ GPG [%s]..."
 
+#, c-format
 msgid "Retrieving checksum signature [%s]..."
-msgstr "Получение контрольной суммы [%s]..."
+msgstr "п÷п╬п╩я┐я┤п╣п╫п╦п╣ п╨п╬п╫я┌я─п╬п╩я▄п╫п╬п╧ я│я┐п╪п╪я▀ [%s]..."
 
 msgid "No key for verification"
-msgstr "Отсутствует ключ для проверки"
+msgstr "п·я┌я│я┐я┌я│я┌п╡я┐п╣я┌ п╨п╩я▌я┤ п╢п╩я▐ п©я─п╬п╡п╣я─п╨п╦"
 
 msgid "retrieve GPG keys for sources"
-msgstr "получить ключи GPG для источников"
+msgstr "п©п╬п╩я┐я┤п╦я┌я▄ п╨п╩я▌я┤п╦ GPG п╢п╩я▐ п╦я│я┌п╬я┤п╫п╦п╨п╬п╡"
 
+#, c-format
 msgid "Verifying checksum signature [%s]..."
-msgstr "Проверка контрольных сум сигнатур [%s]..."
+msgstr "п÷я─п╬п╡п╣я─п╨п╟ п╨п╬п╫я┌я─п╬п╩я▄п╫я▀я┘ я│я┐п╪ я│п╦пЁп╫п╟я┌я┐я─ [%s]..."
 
 msgid "Unknown error"
-msgstr "Неизвестная ошибка"
+msgstr "п²п╣п╦п╥п╡п╣я│я┌п╫п╟я▐ п╬я┬п╦п╠п╨п╟"
 
 #, c-format
 msgid "Not Found\n"
-msgstr "Не найден\n"
+msgstr "п²п╣ п╫п╟п╧п╢п╣п╫\n"
 
 msgid "Default"
 msgstr "Default"
@@ -538,3 +572,6 @@ msgstr "Package Priority: %s\n"
 msgid "[pkg name] - show pkg installed files"
 msgstr "[pkg name] - show pkg installed files"
 
+#, c-format
+msgid "Delete %s ? [y/N]"
+msgstr "Delete %s ? [y/N]"

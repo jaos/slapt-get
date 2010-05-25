@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.2a\n"
-"POT-Creation-Date: 2006-03-08 19:49+0900\n"
+"POT-Creation-Date: 2003-11-03 14:28+0000\n"
 "PO-Revision-Date: 2009-09-09 10:40+0500\n"
 "Last-Translator: JW <J_W@somewhere.c0.jp>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
@@ -16,9 +16,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.2\n"
 
+#, c-format
 msgid "Reading Package Lists... "
 msgstr "パッケージリストを読み込み中... "
 
+#, c-format
 msgid "Done\n"
 msgstr "完了\n"
 
@@ -64,6 +66,7 @@ msgstr "サイズ（インストール後）: %d K\n"
 msgid "Package Required: %s\n"
 msgstr "要求されるパッケージ: %s\n"
 
+#, c-format
 msgid "Package Description:\n"
 msgstr "パッケージの説明:\n"
 
@@ -103,6 +106,7 @@ msgstr "patchリスト [%s]を取得中...\n"
 msgid "Retrieving checksum list [%s]..."
 msgstr "checksumリスト [%s]を取得中..."
 
+#, c-format
 msgid "Failed to malloc\n"
 msgstr "Failed to malloc\n"
 
@@ -126,6 +130,7 @@ msgstr "%s のパーミッションを更新するかもしくは適切な権限
 msgid "Failed to open %s\n"
 msgstr "%s を開くことができません\n"
 
+#, c-format
 msgid "Perhaps you want to run --update?\n"
 msgstr " --update を実行してみてください\n"
 
@@ -137,6 +142,7 @@ msgstr "ディレクトリ %sを開くことができませんでした\n"
 msgid "Failed to chdir: %s\n"
 msgstr "chdirに失敗しました: %s\n"
 
+#, c-format
 msgid "Failed to get cwd\n"
 msgstr "Failed to get cwd\n"
 
@@ -156,6 +162,7 @@ msgstr "\tchdir back into %s\n"
 msgid "Failed to download: %s\n"
 msgstr "ダウンロードに失敗: %s\n"
 
+#, c-format
 msgid "Failed to calloc\n"
 msgstr "Failed to calloc\n"
 
@@ -179,9 +186,11 @@ msgstr "MD5 expected: [%s]\n"
 msgid "File: %s/%s\n"
 msgstr "ファイル: %s/%s\n"
 
+#, c-format
 msgid "An implementation of the Debian APT system to Slackware\n"
 msgstr "An implementation of the Debian APT system to Slackware\n"
 
+#, c-format
 msgid "Usage:\n"
 msgstr "使用法:\n"
 
@@ -189,6 +198,7 @@ msgstr "使用法:\n"
 msgid "%s [option(s)] [target]\n"
 msgstr "%s [option(s)] [target]\n"
 
+#, c-format
 msgid "Targets:\n"
 msgstr "ターゲット:\n"
 
@@ -228,6 +238,7 @@ msgstr "パッケージ・キャッシュをクリア"
 msgid "print version and license info"
 msgstr "バージョンとライセンス情報を表示"
 
+#, c-format
 msgid "Options:\n"
 msgstr "オプション:\n"
 
@@ -260,24 +271,31 @@ msgstr "%s version %s\n"
 msgid "regex failed on [%s]\n"
 msgstr "regex failed on [%s]\n"
 
+#, c-format
 msgid "regexec failed to parse location\n"
 msgstr "regexec failed to parse location\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read location\n"
 msgstr "getline reached EOF attempting to read location\n"
 
+#, c-format
 msgid "regexec failed to parse size_c\n"
 msgstr "regexec failed to parse size_c\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read size_c\n"
 msgstr "getline reached EOF attempting to read size_c\n"
 
+#, c-format
 msgid "regexec failed to parse size_u\n"
 msgstr "regexec failed to parse size_u\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read size_u\n"
 msgstr "getline reached EOF attempting to read size_u\n"
 
+#, c-format
 msgid "error attempting to read pkg description\n"
 msgstr "パッケージ情報の読込み中にエラーが発生\n"
 
@@ -285,6 +303,7 @@ msgstr "パッケージ情報の読込み中にエラーが発生\n"
 msgid "Failed to realloc %s\n"
 msgstr "Failed to realloc %s\n"
 
+#, c-format
 msgid "Failed to compile regex\n"
 msgstr "Failed to compile regex\n"
 
@@ -320,9 +339,11 @@ msgstr "%s-%s が削除されます\n"
 msgid "Failed to compile regex [%s]\n"
 msgstr "Failed to compile regex [%s]\n"
 
+#, c-format
 msgid "pkg conditional too long\n"
 msgstr "pkg conditional too long\n"
 
+#, c-format
 msgid "The following packages have unmet dependencies:\n"
 msgstr "以下のパッケージは依存性を満たしていません:\n"
 
@@ -330,15 +351,19 @@ msgstr "以下のパッケージは依存性を満たしていません:\n"
 msgid "  %s: Depends: %s\n"
 msgstr "  %s: Depends: %s\n"
 
+#, c-format
 msgid "The following packages have been EXCLUDED:\n"
 msgstr "以下のパッケージは対象から除外:\n"
 
+#, c-format
 msgid "The following NEW packages will be installed:\n"
 msgstr "以下の新規パッケージがインストールされます:\n"
 
+#, c-format
 msgid "The following packages will be REMOVED:\n"
 msgstr "以下のパッケージが削除されます:\n"
 
+#, c-format
 msgid "The following packages will be upgraded:\n"
 msgstr "以下のパッケージがアップグレードされます:\n"
 
@@ -365,6 +390,7 @@ msgstr "展開後 %.1f%s のディスクスペースが消費されます\n"
 msgid "Do you want to continue? [y/N] "
 msgstr "このまま続けますか？ [y/N] "
 
+#, c-format
 msgid "Abort.\n"
 msgstr "中止\n"
 
@@ -383,9 +409,11 @@ msgstr "URIのみ表示する（ダウンロードしない）"
 msgid "Package MD5 Sum:  %s\n"
 msgstr "パッケージの MD5 Sum:  %s\n"
 
+#, c-format
 msgid "md5 sum too long\n"
 msgstr "md5 sum が長すぎます\n"
 
+#, c-format
 msgid "Reading Package Lists..."
 msgstr "パッケージリストを読込み中..."
 
@@ -399,15 +427,18 @@ msgstr "依存性検査をスキップ"
 msgid "show download statistics"
 msgstr "ダウンロード情報を表示"
 
+#, c-format
 msgid "Cached\n"
 msgstr "Cached\n"
 
+#, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
 msgstr "ソース・ダウンロードに失敗。ソースを修正し --update を再施行してください。\n"
 
 msgid "specify alternate slapt-getrc location"
 msgstr "別の slapt-getrc 場所を指定してください"
 
+#, c-format
 msgid "Suggested packages:\n"
 msgstr "推奨パッケージ:\n"
 
@@ -486,9 +517,11 @@ msgstr "Verified"
 msgid "Not Verified"
 msgstr "Not Verified"
 
+#, c-format
 msgid "Retrieving GPG key [%s]..."
 msgstr "Retrieving GPG key [%s]..."
 
+#, c-format
 msgid "Retrieving checksum signature [%s]..."
 msgstr "Retrieving checksum signature [%s]..."
 
@@ -498,6 +531,7 @@ msgstr "No key for verification"
 msgid "retrieve GPG keys for sources"
 msgstr "retrieve GPG keys for sources"
 
+#, c-format
 msgid "Verifying checksum signature [%s]..."
 msgstr "Verifying checksum signature [%s]..."
 
@@ -539,3 +573,6 @@ msgstr "Package Priority: %s\n"
 msgid "[pkg name] - show pkg installed files"
 msgstr "[pkg name] - show pkg installed files"
 
+#, c-format
+msgid "Delete %s ? [y/N]"
+msgstr "Delete %s ? [y/N]"

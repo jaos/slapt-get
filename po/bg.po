@@ -11,12 +11,14 @@ msgstr ""
 "Last-Translator: Victor Keranov <victor_keranov@mail.bg>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#, c-format
 msgid "Reading Package Lists... "
 msgstr "Четене на списъците с пакети... "
 
+#, c-format
 msgid "Done\n"
 msgstr "Готово\n"
 
@@ -62,6 +64,7 @@ msgstr "Обем на инсталиран пакет: %d K\n"
 msgid "Package Required: %s\n"
 msgstr "Package Required: %s\n"
 
+#, c-format
 msgid "Package Description:\n"
 msgstr "Описание на пакет:\n"
 
@@ -101,6 +104,7 @@ msgstr "Получаване на списък с ъпдейти [%s]...\n"
 msgid "Retrieving checksum list [%s]..."
 msgstr "Получаване на списък с MD5 суми [%s]..."
 
+#, c-format
 msgid "Failed to malloc\n"
 msgstr "Failed to malloc\n"
 
@@ -124,6 +128,7 @@ msgstr "Please update permissions on %s or run with appropriate privileges\n"
 msgid "Failed to open %s\n"
 msgstr "Неуспех при отваряне на %s\n"
 
+#, c-format
 msgid "Perhaps you want to run --update?\n"
 msgstr "Може би желаете да стартирате --update?\n"
 
@@ -135,6 +140,7 @@ msgstr "Failed to opendir %s\n"
 msgid "Failed to chdir: %s\n"
 msgstr "Failed to chdir: %s\n"
 
+#, c-format
 msgid "Failed to get cwd\n"
 msgstr "Failed to get cwd\n"
 
@@ -154,6 +160,7 @@ msgstr "\tchdir back into %s\n"
 msgid "Failed to download: %s\n"
 msgstr "Неуспех при изтегляне: %s\n"
 
+#, c-format
 msgid "Failed to calloc\n"
 msgstr "Failed to calloc\n"
 
@@ -177,9 +184,11 @@ msgstr "Очаквана MD5 сума: [%s]\n"
 msgid "File: %s/%s\n"
 msgstr "Файл: %s/%s\n"
 
+#, c-format
 msgid "An implementation of the Debian APT system to Slackware\n"
 msgstr "Подобна на Debian APT пакетна система за Slackware\n"
 
+#, c-format
 msgid "Usage:\n"
 msgstr "Употреба:\n"
 
@@ -187,6 +196,7 @@ msgstr "Употреба:\n"
 msgid "%s [option(s)] [target]\n"
 msgstr "%s [опция] [действие]\n"
 
+#, c-format
 msgid "Targets:\n"
 msgstr "Действия:\n"
 
@@ -226,6 +236,7 @@ msgstr "изчитване на кеширани пакети"
 msgid "print version and license info"
 msgstr "показване на версията и лицензната информация"
 
+#, c-format
 msgid "Options:\n"
 msgstr "Опции:\n"
 
@@ -258,24 +269,31 @@ msgstr "%s версия %s\n"
 msgid "regex failed on [%s]\n"
 msgstr "regex failed on [%s]\n"
 
+#, c-format
 msgid "regexec failed to parse location\n"
 msgstr "regexec failed to parse location\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read location\n"
 msgstr "getline reached EOF attempting to read location\n"
 
+#, c-format
 msgid "regexec failed to parse size_c\n"
 msgstr "regexec failed to parse size_c\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read size_c\n"
 msgstr "getline reached EOF attempting to read size_c\n"
 
+#, c-format
 msgid "regexec failed to parse size_u\n"
 msgstr "regexec failed to parse size_u\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read size_u\n"
 msgstr "getline reached EOF attempting to read size_u\n"
 
+#, c-format
 msgid "error attempting to read pkg description\n"
 msgstr "грешка при опит за прочитане на описанието на пакета\n"
 
@@ -283,6 +301,7 @@ msgstr "грешка при опит за прочитане на описани
 msgid "Failed to realloc %s\n"
 msgstr "Failed to realloc %s\n"
 
+#, c-format
 msgid "Failed to compile regex\n"
 msgstr "Failed to compile regex\n"
 
@@ -318,9 +337,11 @@ msgstr "%s-%s ще бъде премахнат\n"
 msgid "Failed to compile regex [%s]\n"
 msgstr "Failed to compile regex [%s]\n"
 
+#, c-format
 msgid "pkg conditional too long\n"
 msgstr "pkg conditional too long\n"
 
+#, c-format
 msgid "The following packages have unmet dependencies:\n"
 msgstr "Следните пакети имат неудовлетворени зависимости:\n"
 
@@ -328,15 +349,19 @@ msgstr "Следните пакети имат неудовлетворени з
 msgid "  %s: Depends: %s\n"
 msgstr "  %s: Зависимости: %s\n"
 
+#, c-format
 msgid "The following packages have been EXCLUDED:\n"
 msgstr "Следните пакети бяха ИЗКЛЮЧЕНИ:\n"
 
+#, c-format
 msgid "The following NEW packages will be installed:\n"
 msgstr "Следните НОВИ пакети ще бъдат инсталирани:\n"
 
+#, c-format
 msgid "The following packages will be REMOVED:\n"
 msgstr "Следните пакети ще бъдат ПРЕМАХНАТИ:\n"
 
+#, c-format
 msgid "The following packages will be upgraded:\n"
 msgstr "Следните пакети ще бъдат обновени:\n"
 
@@ -363,6 +388,7 @@ msgstr "След разархивиране %.1f%s от дисковото пр�
 msgid "Do you want to continue? [y/N] "
 msgstr "Желаете ли да продължите? [y(да)/N(НЕ)] "
 
+#, c-format
 msgid "Abort.\n"
 msgstr "Прекъсване.\n"
 
@@ -381,9 +407,11 @@ msgstr "показване само на линковете, без изтегл
 msgid "Package MD5 Sum:  %s\n"
 msgstr "MD5 сума на пакета:  %s\n"
 
+#, c-format
 msgid "md5 sum too long\n"
 msgstr "md5 сумата е твърде дълга\n"
 
+#, c-format
 msgid "Reading Package Lists..."
 msgstr "Прочитане на списъците с пакети..."
 
@@ -397,15 +425,18 @@ msgstr "без проверка за зависимости"
 msgid "show download statistics"
 msgstr "показване на статистиката на теглене"
 
+#, c-format
 msgid "Cached\n"
 msgstr "Кеширан\n"
 
+#, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
 msgstr "Неуспех при изтеглянето на източниците, поправете източниците и стартирайте отново --update\n"
 
 msgid "specify alternate slapt-getrc location"
 msgstr "посочване на алтернативен slapt-getrc файл"
 
+#, c-format
 msgid "Suggested packages:\n"
 msgstr "Предложени пакети:\n"
 
@@ -484,9 +515,11 @@ msgstr "Verified"
 msgid "Not Verified"
 msgstr "Not Verified"
 
+#, c-format
 msgid "Retrieving GPG key [%s]..."
 msgstr "Retrieving GPG key [%s]..."
 
+#, c-format
 msgid "Retrieving checksum signature [%s]..."
 msgstr "Retrieving checksum signature [%s]..."
 
@@ -496,6 +529,7 @@ msgstr "No key for verification"
 msgid "retrieve GPG keys for sources"
 msgstr "retrieve GPG keys for sources"
 
+#, c-format
 msgid "Verifying checksum signature [%s]..."
 msgstr "Verifying checksum signature [%s]..."
 
@@ -537,3 +571,6 @@ msgstr "Package Priority: %s\n"
 msgid "[pkg name] - show pkg installed files"
 msgstr "[pkg name] - show pkg installed files"
 
+#, c-format
+msgid "Delete %s ? [y/N]"
+msgstr "Delete %s ? [y/N]"

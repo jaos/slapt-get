@@ -14,9 +14,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#, c-format
 msgid "Reading Package Lists... "
 msgstr "A ler listas de Pacotes... "
 
+#, c-format
 msgid "Done\n"
 msgstr "Concluído\n"
 
@@ -62,6 +64,7 @@ msgstr "Tamanho do Pacote Instalado: %d K\n"
 msgid "Package Required: %s\n"
 msgstr "Pacote Necessário: %s\n"
 
+#, c-format
 msgid "Package Description:\n"
 msgstr "Descrição do Pacote:\n"
 
@@ -101,6 +104,7 @@ msgstr "A recuperar lista de patches [%s]...\n"
 msgid "Retrieving checksum list [%s]..."
 msgstr "A recuperar lista de checksum [%s]..."
 
+#, c-format
 msgid "Failed to malloc\n"
 msgstr "malloc falhou\n"
 
@@ -124,6 +128,7 @@ msgstr "Por favor actualize as permissões em %s ou execute com privilégio apro
 msgid "Failed to open %s\n"
 msgstr "Falha ao abrir %s\n"
 
+#, c-format
 msgid "Perhaps you want to run --update?\n"
 msgstr "Talvez queira executar --update?\n"
 
@@ -135,6 +140,7 @@ msgstr "opendir falhou %s\n"
 msgid "Failed to chdir: %s\n"
 msgstr "chdir falhou: %s\n"
 
+#, c-format
 msgid "Failed to get cwd\n"
 msgstr "Falha ao ler a pasta\n"
 
@@ -154,6 +160,7 @@ msgstr "\tvoltar à pasta %s\n"
 msgid "Failed to download: %s\n"
 msgstr "Falha na transferência de: %s\n"
 
+#, c-format
 msgid "Failed to calloc\n"
 msgstr "Falha ao alocar memória para\n"
 
@@ -177,9 +184,11 @@ msgstr "MD5 esperado: [%s]\n"
 msgid "File: %s/%s\n"
 msgstr "Ficheiro: %s/%s\n"
 
+#, c-format
 msgid "An implementation of the Debian APT system to Slackware\n"
 msgstr "Uma implementação do sistema APT do Debian para Slackware\n"
 
+#, c-format
 msgid "Usage:\n"
 msgstr "Uso:\n"
 
@@ -187,6 +196,7 @@ msgstr "Uso:\n"
 msgid "%s [option(s)] [target]\n"
 msgstr "%s [opção(es)] [destino]\n"
 
+#, c-format
 msgid "Targets:\n"
 msgstr "Destinos:\n"
 
@@ -226,6 +236,7 @@ msgstr "limpa pacotes em cache"
 msgid "print version and license info"
 msgstr "imprime versão e informações da licença"
 
+#, c-format
 msgid "Options:\n"
 msgstr "Opções:\n"
 
@@ -258,24 +269,31 @@ msgstr "%s versão %s\n"
 msgid "regex failed on [%s]\n"
 msgstr "regex falhou em [%s]\n"
 
+#, c-format
 msgid "regexec failed to parse location\n"
 msgstr "regexec falhou ao analisar localização\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read location\n"
 msgstr "getline chegou a EOF ao ler a localização\n"
 
+#, c-format
 msgid "regexec failed to parse size_c\n"
 msgstr "regexec falhou ao analisar size_c\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read size_c\n"
 msgstr "getline chegou a EOF ao ler size_c\n"
 
+#, c-format
 msgid "regexec failed to parse size_u\n"
 msgstr "regexec falhou ao analisar size_u\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read size_u\n"
 msgstr "getline chegou a EOF ao ler size_u\n"
 
+#, c-format
 msgid "error attempting to read pkg description\n"
 msgstr "erro ao ler descrição do pacote\n"
 
@@ -283,6 +301,7 @@ msgstr "erro ao ler descrição do pacote\n"
 msgid "Failed to realloc %s\n"
 msgstr "Falha para realloc\n"
 
+#, c-format
 msgid "Failed to compile regex\n"
 msgstr "Falha ao compilar regex\n"
 
@@ -318,9 +337,11 @@ msgstr "%s-%s vai ser removido\n"
 msgid "Failed to compile regex [%s]\n"
 msgstr "Falha ao compilar regex [%s]\n"
 
+#, c-format
 msgid "pkg conditional too long\n"
 msgstr "condicional do pacote muito longa\n"
 
+#, c-format
 msgid "The following packages have unmet dependencies:\n"
 msgstr "Os seguintes pacotes têm dependências não preenchidas:\n"
 
@@ -328,15 +349,19 @@ msgstr "Os seguintes pacotes têm dependências não preenchidas:\n"
 msgid "  %s: Depends: %s\n"
 msgstr "  %s: Depende: %s\n"
 
+#, c-format
 msgid "The following packages have been EXCLUDED:\n"
 msgstr "Os seguintes pacotes foram EXCLUÍDOS:\n"
 
+#, c-format
 msgid "The following NEW packages will be installed:\n"
 msgstr "Os seguintes NOVOS pacotes serão instalados:\n"
 
+#, c-format
 msgid "The following packages will be REMOVED:\n"
 msgstr "Os seguintes pacotes serão REMOVIDOS:\n"
 
+#, c-format
 msgid "The following packages will be upgraded:\n"
 msgstr "Os seguintes pacotes serão actualizados:\n"
 
@@ -363,6 +388,7 @@ msgstr "Depois de desempacotar serão utilizados %.1f%s de espaço adicional em 
 msgid "Do you want to continue? [y/N] "
 msgstr "Continuar? [y/N] "
 
+#, c-format
 msgid "Abort.\n"
 msgstr "Interromper.\n"
 
@@ -381,9 +407,11 @@ msgstr "apenas imprimir URIs, não fazer download"
 msgid "Package MD5 Sum:  %s\n"
 msgstr "MD5 Sum do pacote:  %s\n"
 
+#, c-format
 msgid "md5 sum too long\n"
 msgstr "md5 sum muito longo\n"
 
+#, c-format
 msgid "Reading Package Lists..."
 msgstr "A ler Listas de Pacotes..."
 
@@ -397,15 +425,18 @@ msgstr "não verificar dependências"
 msgid "show download statistics"
 msgstr "mostra estatísticas das transferências"
 
+#, c-format
 msgid "Cached\n"
 msgstr "Em cache\n"
 
+#, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
 msgstr "Falha na transferência a partir das fontes, corrija os mesmos e execute --update novamente\n"
 
 msgid "specify alternate slapt-getrc location"
 msgstr "especifique um caminho alternativo para o slapt-getrc"
 
+#, c-format
 msgid "Suggested packages:\n"
 msgstr "Pacotes sugeridos:\n"
 
@@ -484,9 +515,11 @@ msgstr "Verified"
 msgid "Not Verified"
 msgstr "Not Verified"
 
+#, c-format
 msgid "Retrieving GPG key [%s]..."
 msgstr "Retrieving GPG key [%s]..."
 
+#, c-format
 msgid "Retrieving checksum signature [%s]..."
 msgstr "Retrieving checksum signature [%s]..."
 
@@ -496,6 +529,7 @@ msgstr "No key for verification"
 msgid "retrieve GPG keys for sources"
 msgstr "retrieve GPG keys for sources"
 
+#, c-format
 msgid "Verifying checksum signature [%s]..."
 msgstr "Verifying checksum signature [%s]..."
 
@@ -537,3 +571,6 @@ msgstr "Package Priority: %s\n"
 msgid "[pkg name] - show pkg installed files"
 msgstr "[pkg name] - show pkg installed files"
 
+#, c-format
+msgid "Delete %s ? [y/N]"
+msgstr "Delete %s ? [y/N]"

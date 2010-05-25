@@ -14,9 +14,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
+#, c-format
 msgid "Reading Package Lists... "
 msgstr "Paket Listelerini okuyor..."
 
+#, c-format
 msgid "Done\n"
 msgstr "Bitti\n"
 
@@ -62,6 +64,7 @@ msgstr "Paketin Kurulum Büyüklüğü: %d K\n"
 msgid "Package Required: %s\n"
 msgstr "Paket Gereksinimi: %s\n"
 
+#, c-format
 msgid "Package Description:\n"
 msgstr "Paket Açıklaması:\n"
 
@@ -101,6 +104,7 @@ msgstr "Yamaların listesi alınıyor [%s]...\n"
 msgid "Retrieving checksum list [%s]..."
 msgstr "Sağlamaların listesi alınıyor [%s]..."
 
+#, c-format
 msgid "Failed to malloc\n"
 msgstr "Başarısız malloc\n"
 
@@ -124,6 +128,7 @@ msgstr "Lütfen %s üzerindeki izin ve ayrıcalıkları güncelleyin veya uygun 
 msgid "Failed to open %s\n"
 msgstr "%s dosyası açılamıyor\n"
 
+#, c-format
 msgid "Perhaps you want to run --update?\n"
 msgstr "Belki de --update seçeneği ile çalıştırmak istersiniz?\n"
 
@@ -135,6 +140,7 @@ msgstr "%s dizini açılamıyor\n"
 msgid "Failed to chdir: %s\n"
 msgstr "Başarısız chdir: %s\n"
 
+#, c-format
 msgid "Failed to get cwd\n"
 msgstr "Başarısız cwd\n"
 
@@ -154,6 +160,7 @@ msgstr "\tDönülen chdir %s\n"
 msgid "Failed to download: %s\n"
 msgstr "Başarısız indirme: %s\n"
 
+#, c-format
 msgid "Failed to calloc\n"
 msgstr "Başarısız calloc\n"
 
@@ -177,9 +184,11 @@ msgstr "Beklenen MD5 imzası: [%s]\n"
 msgid "File: %s/%s\n"
 msgstr "Dosya: %s/%s\n"
 
+#, c-format
 msgid "An implementation of the Debian APT system to Slackware\n"
 msgstr "Debian'ın APT sisteminin Slackware'e uygulanması\n"
 
+#, c-format
 msgid "Usage:\n"
 msgstr "Kullanım:\n"
 
@@ -187,6 +196,7 @@ msgstr "Kullanım:\n"
 msgid "%s [option(s)] [target]\n"
 msgstr "%s [seçenek(ler)] [hedef]\n"
 
+#, c-format
 msgid "Targets:\n"
 msgstr "Hedefler:\n"
 
@@ -226,6 +236,7 @@ msgstr "zuladaki paketleri yoket"
 msgid "print version and license info"
 msgstr "sürüm ve lisans bilgisi"
 
+#, c-format
 msgid "Options:\n"
 msgstr "Seçenekler:\n"
 
@@ -258,24 +269,31 @@ msgstr "%s sürüm %s\n"
 msgid "regex failed on [%s]\n"
 msgstr "Başarısız regex [%s]\n"
 
+#, c-format
 msgid "regexec failed to parse location\n"
 msgstr "regexec, konumu yorumlamada başarısız\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read location\n"
 msgstr "getline, konumu okumaya çalışırken EOF (dosya-sonu) algıladı\n"
 
+#, c-format
 msgid "regexec failed to parse size_c\n"
 msgstr "size_c yorumlanırken regexec başarısız oldu \n"
 
+#, c-format
 msgid "getline reached EOF attempting to read size_c\n"
 msgstr "getline, size_c okumaya çalışırken EOF (dosya-sonu) algıladı\n"
 
+#, c-format
 msgid "regexec failed to parse size_u\n"
 msgstr "size_u yorumlanırken regexec başarısız oldu \n"
 
+#, c-format
 msgid "getline reached EOF attempting to read size_u\n"
 msgstr "getline, size_u okumaya çalışırken EOF (dosya-sonu) algıladı\n"
 
+#, c-format
 msgid "error attempting to read pkg description\n"
 msgstr "paket açıklamasını okumaya çalışırken hata\n"
 
@@ -283,6 +301,7 @@ msgstr "paket açıklamasını okumaya çalışırken hata\n"
 msgid "Failed to realloc %s\n"
 msgstr "Başarısız realloc %s\n"
 
+#, c-format
 msgid "Failed to compile regex\n"
 msgstr "Başarısız derlenen regex\n"
 
@@ -318,9 +337,11 @@ msgstr "%s-%s kaldırılacak\n"
 msgid "Failed to compile regex [%s]\n"
 msgstr "Başarısız derlenen regex [%s]\n"
 
+#, c-format
 msgid "pkg conditional too long\n"
 msgstr "paket koşullandırması çok uzun\n"
 
+#, c-format
 msgid "The following packages have unmet dependencies:\n"
 msgstr "Aşağıdaki paketler karşılanmamış bağımlılıklar içeriyor:\n"
 
@@ -328,15 +349,19 @@ msgstr "Aşağıdaki paketler karşılanmamış bağımlılıklar içeriyor:\n"
 msgid "  %s: Depends: %s\n"
 msgstr "  %s: Bağımlılıklar: %s\n"
 
+#, c-format
 msgid "The following packages have been EXCLUDED:\n"
 msgstr "Aşağıdaki paketler DIŞLANMIŞ:\n"
 
+#, c-format
 msgid "The following NEW packages will be installed:\n"
 msgstr "Aşağıdaki YENİ paketler kurulacak:\n"
 
+#, c-format
 msgid "The following packages will be REMOVED:\n"
 msgstr "Aşağıdaki paketler KALDIRILACAK:\n"
 
+#, c-format
 msgid "The following packages will be upgraded:\n"
 msgstr "Aşağıdaki paketler YÜKSELTİLECEK:\n"
 
@@ -363,6 +388,7 @@ msgstr "Paketlerin açılmasından sonra %.1f%s ilave disk boşluğu kullanılac
 msgid "Do you want to continue? [y/N] "
 msgstr "Devam etmek ister misiniz? [y/N] "
 
+#, c-format
 msgid "Abort.\n"
 msgstr "İptal.\n"
 
@@ -381,9 +407,11 @@ msgstr "Adresi sadece yazdır,-yükleme"
 msgid "Package MD5 Sum:  %s\n"
 msgstr "Paketin MD5 Sağlama imzası:  %s\n"
 
+#, c-format
 msgid "md5 sum too long\n"
 msgstr "md5 sağlama imzası çok uzun\n"
 
+#, c-format
 msgid "Reading Package Lists..."
 msgstr "Paket Listelerini Okuyor..."
 
@@ -397,15 +425,18 @@ msgstr "bağımlılık denetimini atla"
 msgid "show download statistics"
 msgstr "indirme istatistiklerini göster"
 
+#, c-format
 msgid "Cached\n"
 msgstr "Zulalandı\n"
 
+#, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
 msgstr "Kaynaklar indirilemedi,-düzeltin ve --update seçeneği ile yeniden çalıştırın\n"
 
 msgid "specify alternate slapt-getrc location"
 msgstr "Bir başka slapt-getrc konumu tanımlayın"
 
+#, c-format
 msgid "Suggested packages:\n"
 msgstr "Önerilen paketler:\n"
 
@@ -484,9 +515,11 @@ msgstr "Verified"
 msgid "Not Verified"
 msgstr "Not Verified"
 
+#, c-format
 msgid "Retrieving GPG key [%s]..."
 msgstr "Retrieving GPG key [%s]..."
 
+#, c-format
 msgid "Retrieving checksum signature [%s]..."
 msgstr "Retrieving checksum signature [%s]..."
 
@@ -496,6 +529,7 @@ msgstr "No key for verification"
 msgid "retrieve GPG keys for sources"
 msgstr "retrieve GPG keys for sources"
 
+#, c-format
 msgid "Verifying checksum signature [%s]..."
 msgstr "Verifying checksum signature [%s]..."
 
@@ -537,3 +571,6 @@ msgstr "Package Priority: %s\n"
 msgid "[pkg name] - show pkg installed files"
 msgstr "[pkg name] - show pkg installed files"
 
+#, c-format
+msgid "Delete %s ? [y/N]"
+msgstr "Delete %s ? [y/N]"

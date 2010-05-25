@@ -5,18 +5,20 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.10.2a\n"
+"Project-Id-Version: 0.10.2e\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2009-09-09 10:40+0500\n"
+"PO-Revision-Date: 2010-05-24 00:14+0500\n"
 "Last-Translator: Jason Woodward <woodwardj@jaos.org>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#, c-format
 msgid "Reading Package Lists... "
 msgstr ""
 
+#, c-format
 msgid "Done\n"
 msgstr ""
 
@@ -62,6 +64,7 @@ msgstr ""
 msgid "Package Required: %s\n"
 msgstr ""
 
+#, c-format
 msgid "Package Description:\n"
 msgstr ""
 
@@ -101,6 +104,7 @@ msgstr ""
 msgid "Retrieving checksum list [%s]..."
 msgstr ""
 
+#, c-format
 msgid "Failed to malloc\n"
 msgstr ""
 
@@ -124,6 +128,7 @@ msgstr ""
 msgid "Failed to open %s\n"
 msgstr ""
 
+#, c-format
 msgid "Perhaps you want to run --update?\n"
 msgstr ""
 
@@ -135,6 +140,7 @@ msgstr ""
 msgid "Failed to chdir: %s\n"
 msgstr ""
 
+#, c-format
 msgid "Failed to get cwd\n"
 msgstr ""
 
@@ -154,6 +160,7 @@ msgstr ""
 msgid "Failed to download: %s\n"
 msgstr ""
 
+#, c-format
 msgid "Failed to calloc\n"
 msgstr ""
 
@@ -177,9 +184,11 @@ msgstr ""
 msgid "File: %s/%s\n"
 msgstr ""
 
+#, c-format
 msgid "An implementation of the Debian APT system to Slackware\n"
 msgstr ""
 
+#, c-format
 msgid "Usage:\n"
 msgstr ""
 
@@ -187,6 +196,7 @@ msgstr ""
 msgid "%s [option(s)] [target]\n"
 msgstr ""
 
+#, c-format
 msgid "Targets:\n"
 msgstr ""
 
@@ -226,6 +236,7 @@ msgstr ""
 msgid "print version and license info"
 msgstr ""
 
+#, c-format
 msgid "Options:\n"
 msgstr ""
 
@@ -258,24 +269,31 @@ msgstr ""
 msgid "regex failed on [%s]\n"
 msgstr ""
 
+#, c-format
 msgid "regexec failed to parse location\n"
 msgstr ""
 
+#, c-format
 msgid "getline reached EOF attempting to read location\n"
 msgstr ""
 
+#, c-format
 msgid "regexec failed to parse size_c\n"
 msgstr ""
 
+#, c-format
 msgid "getline reached EOF attempting to read size_c\n"
 msgstr ""
 
+#, c-format
 msgid "regexec failed to parse size_u\n"
 msgstr ""
 
+#, c-format
 msgid "getline reached EOF attempting to read size_u\n"
 msgstr ""
 
+#, c-format
 msgid "error attempting to read pkg description\n"
 msgstr ""
 
@@ -283,6 +301,7 @@ msgstr ""
 msgid "Failed to realloc %s\n"
 msgstr ""
 
+#, c-format
 msgid "Failed to compile regex\n"
 msgstr ""
 
@@ -318,9 +337,11 @@ msgstr ""
 msgid "Failed to compile regex [%s]\n"
 msgstr ""
 
+#, c-format
 msgid "pkg conditional too long\n"
 msgstr ""
 
+#, c-format
 msgid "The following packages have unmet dependencies:\n"
 msgstr ""
 
@@ -328,15 +349,19 @@ msgstr ""
 msgid "  %s: Depends: %s\n"
 msgstr ""
 
+#, c-format
 msgid "The following packages have been EXCLUDED:\n"
 msgstr ""
 
+#, c-format
 msgid "The following NEW packages will be installed:\n"
 msgstr ""
 
+#, c-format
 msgid "The following packages will be REMOVED:\n"
 msgstr ""
 
+#, c-format
 msgid "The following packages will be upgraded:\n"
 msgstr ""
 
@@ -363,6 +388,7 @@ msgstr ""
 msgid "Do you want to continue? [y/N] "
 msgstr ""
 
+#, c-format
 msgid "Abort.\n"
 msgstr ""
 
@@ -381,9 +407,11 @@ msgstr ""
 msgid "Package MD5 Sum:  %s\n"
 msgstr ""
 
+#, c-format
 msgid "md5 sum too long\n"
 msgstr ""
 
+#, c-format
 msgid "Reading Package Lists..."
 msgstr ""
 
@@ -397,15 +425,18 @@ msgstr ""
 msgid "show download statistics"
 msgstr ""
 
+#, c-format
 msgid "Cached\n"
 msgstr ""
 
+#, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
 msgstr ""
 
 msgid "specify alternate slapt-getrc location"
 msgstr ""
 
+#, c-format
 msgid "Suggested packages:\n"
 msgstr ""
 
@@ -484,9 +515,11 @@ msgstr ""
 msgid "Not Verified"
 msgstr ""
 
+#, c-format
 msgid "Retrieving GPG key [%s]..."
 msgstr ""
 
+#, c-format
 msgid "Retrieving checksum signature [%s]..."
 msgstr ""
 
@@ -496,6 +529,7 @@ msgstr ""
 msgid "retrieve GPG keys for sources"
 msgstr ""
 
+#, c-format
 msgid "Verifying checksum signature [%s]..."
 msgstr ""
 
@@ -537,3 +571,6 @@ msgstr ""
 msgid "[pkg name] - show pkg installed files"
 msgstr ""
 
+#, c-format
+msgid "Delete %s ? [y/N]"
+msgstr ""

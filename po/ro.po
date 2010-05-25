@@ -5,17 +5,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.2a\n"
-"POT-Creation-Date: 2008-03-22 02:10+0200\n"
+"POT-Creation-Date: 2003-11-03 14:28+0000\n"
 "PO-Revision-Date: 2009-09-09 10:40+0500\n"
 "Last-Translator: Zion <admin@ptm.ro>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-2\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#, c-format
 msgid "Reading Package Lists... "
 msgstr "Se citeste lista cu pachete..."
 
+#, c-format
 msgid "Done\n"
 msgstr "Gata\n"
 
@@ -61,6 +63,7 @@ msgstr "Dimensiune pachet instalat: %d K\n"
 msgid "Package Required: %s\n"
 msgstr "Pachet cerut: %s\n"
 
+#, c-format
 msgid "Package Description:\n"
 msgstr "Descriere pachet:\n"
 
@@ -100,6 +103,7 @@ msgstr "Se primeste lista completari [%s]...\n"
 msgid "Retrieving checksum list [%s]..."
 msgstr "Se primeste lista suma de control [%s]..."
 
+#, c-format
 msgid "Failed to malloc\n"
 msgstr "malloc Esuat\n"
 
@@ -123,6 +127,7 @@ msgstr "Actualizati permisiunile pentru %s sau executati cu privilegiile corecte
 msgid "Failed to open %s\n"
 msgstr "Nu am putut deschide %s\n"
 
+#, c-format
 msgid "Perhaps you want to run --update?\n"
 msgstr "Probabil ca vrei sa executi --update?\n"
 
@@ -134,6 +139,7 @@ msgstr "Nu am putut deschide directorul %s\n"
 msgid "Failed to chdir: %s\n"
 msgstr "Nu am putut schimba directorul: %s\n"
 
+#, c-format
 msgid "Failed to get cwd\n"
 msgstr "Nu am putut primi cwd\n"
 
@@ -153,6 +159,7 @@ msgstr "\tschimba directorul inapoi in %s\n"
 msgid "Failed to download: %s\n"
 msgstr "Descarcare esuata: %s\n"
 
+#, c-format
 msgid "Failed to calloc\n"
 msgstr "calloc esuat\n"
 
@@ -176,9 +183,11 @@ msgstr "MD5 asteptat: [%s]\n"
 msgid "File: %s/%s\n"
 msgstr "Fisier: %s/%s\n"
 
+#, c-format
 msgid "An implementation of the Debian APT system to Slackware\n"
 msgstr "O implementare a sistemului Debian APT pentru Slackware\n"
 
+#, c-format
 msgid "Usage:\n"
 msgstr "Mod de folosire:\n"
 
@@ -186,6 +195,7 @@ msgstr "Mod de folosire:\n"
 msgid "%s [option(s)] [target]\n"
 msgstr "%s [optiune(i)] [tinta]\n"
 
+#, c-format
 msgid "Targets:\n"
 msgstr "Tinte:\n"
 
@@ -225,6 +235,7 @@ msgstr "sterge pachetele memorate"
 msgid "print version and license info"
 msgstr "afisare versiune si info licenta"
 
+#, c-format
 msgid "Options:\n"
 msgstr "Optiuni:\n"
 
@@ -257,24 +268,31 @@ msgstr "%s versiune %s\n"
 msgid "regex failed on [%s]\n"
 msgstr "regex esuat in [%s]\n"
 
+#, c-format
 msgid "regexec failed to parse location\n"
 msgstr "regexec a esuat in parcurgerea locatiei\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read location\n"
 msgstr "getline a ajuns la sfarsitul fisierului incercand sa citeasca locatia\n"
 
+#, c-format
 msgid "regexec failed to parse size_c\n"
 msgstr "regexec esuat in parcurgerea size_c\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read size_c\n"
 msgstr "getline a ajuns la sfarsitul fisierului incercand sa citeasca size_c\n"
 
+#, c-format
 msgid "regexec failed to parse size_u\n"
 msgstr "regexec esuat in parcurgerea size_u\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read size_u\n"
 msgstr "getline a ajuns la sfarsitul fisierului incercand sa citeasca size_u\n"
 
+#, c-format
 msgid "error attempting to read pkg description\n"
 msgstr "eroare in timpul citirii descrierii pachetului\n"
 
@@ -282,6 +300,7 @@ msgstr "eroare in timpul citirii descrierii pachetului\n"
 msgid "Failed to realloc %s\n"
 msgstr "Esuare la realloc %s\n"
 
+#, c-format
 msgid "Failed to compile regex\n"
 msgstr "Esuare la compilarea regex\n"
 
@@ -317,9 +336,11 @@ msgstr "%s-%s va fi eliminat\n"
 msgid "Failed to compile regex [%s]\n"
 msgstr "Esuare in compilarea regex [%s]\n"
 
+#, c-format
 msgid "pkg conditional too long\n"
 msgstr "Conditie pachet prea lunga\n"
 
+#, c-format
 msgid "The following packages have unmet dependencies:\n"
 msgstr "Urmatoarele pachete au dependinte nesatisfacute:\n"
 
@@ -327,15 +348,19 @@ msgstr "Urmatoarele pachete au dependinte nesatisfacute:\n"
 msgid "  %s: Depends: %s\n"
 msgstr "  %s: Depinde de: %s\n"
 
+#, c-format
 msgid "The following packages have been EXCLUDED:\n"
 msgstr "Urmatoarele pachete au fost EXCLUSE:\n"
 
+#, c-format
 msgid "The following NEW packages will be installed:\n"
 msgstr "Urmatoarele pachete NOI vor fi instalate:\n"
 
+#, c-format
 msgid "The following packages will be REMOVED:\n"
 msgstr "Urmatoarele pachete vor fi ELIMINATE:\n"
 
+#, c-format
 msgid "The following packages will be upgraded:\n"
 msgstr "Urmatoarele pachete vor fi actualizate:\n"
 
@@ -362,6 +387,7 @@ msgstr "Dupa despachetare %.1f%s de spatiu suplimentar vor fi folositi.\n"
 msgid "Do you want to continue? [y/N] "
 msgstr "Vreti sa continuati? [d/N] "
 
+#, c-format
 msgid "Abort.\n"
 msgstr "Abandonare.\n"
 
@@ -380,9 +406,11 @@ msgstr "doar afiseaza URIuri, nu descarca"
 msgid "Package MD5 Sum:  %s\n"
 msgstr "Suma MD5 pachet: %s\n"
 
+#, c-format
 msgid "md5 sum too long\n"
 msgstr "suma md5 prea lunga\n"
 
+#, c-format
 msgid "Reading Package Lists..."
 msgstr "Se citesc listele cu pachete..."
 
@@ -396,15 +424,18 @@ msgstr "nu verifica dependinte"
 msgid "show download statistics"
 msgstr "afiseaza statistici descarcare"
 
+#, c-format
 msgid "Cached\n"
 msgstr "Memorat\n"
 
+#, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
 msgstr "Sursele au esuat la descarcare, corectati sursele si rulati --update\n"
 
 msgid "specify alternate slapt-getrc location"
 msgstr "specificati locatie alternativa in slapt-getrc"
 
+#, c-format
 msgid "Suggested packages:\n"
 msgstr "Pachete sugerate:\n"
 
@@ -483,9 +514,11 @@ msgstr "Verificat"
 msgid "Not Verified"
 msgstr "Neverificat"
 
+#, c-format
 msgid "Retrieving GPG key [%s]..."
 msgstr "Se descarca cheie GPG [%s]..."
 
+#, c-format
 msgid "Retrieving checksum signature [%s]..."
 msgstr "Se descarca semnatura sumei de control [%s]..."
 
@@ -495,6 +528,7 @@ msgstr "Nu exista cheie pentru verificare"
 msgid "retrieve GPG keys for sources"
 msgstr "descarca chei GPG pentru surse"
 
+#, c-format
 msgid "Verifying checksum signature [%s]..."
 msgstr "Verificare semnatura suma de control [%s]..."
 
@@ -536,3 +570,6 @@ msgstr "Package Priority: %s\n"
 msgid "[pkg name] - show pkg installed files"
 msgstr "[pkg name] - show pkg installed files"
 
+#, c-format
+msgid "Delete %s ? [y/N]"
+msgstr "Delete %s ? [y/N]"

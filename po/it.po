@@ -11,18 +11,20 @@ msgstr ""
 "Last-Translator: Francesco Gigli <jaramir@slack.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#, c-format
 msgid "Reading Package Lists... "
 msgstr "Lettura della lista dei pacchetti... "
 
+#, c-format
 msgid "Done\n"
 msgstr "Fatto\n"
 
 #, c-format
 msgid "%s is up to date.\n"
-msgstr "%s è aggiornato.\n"
+msgstr "%s Ã¨ aggiornato.\n"
 
 msgid "yes"
 msgstr "si"
@@ -32,7 +34,7 @@ msgstr "no"
 
 #, c-format
 msgid "%s is not installed.\n"
-msgstr "%s non è installato.\n"
+msgstr "%s non Ã¨ installato.\n"
 
 #, c-format
 msgid "Package Name: %s\n"
@@ -62,6 +64,7 @@ msgstr "Dimensione finale del pacchetto: %d K\n"
 msgid "Package Required: %s\n"
 msgstr "Pacchetti richiesti: %s\n"
 
+#, fuzzy, c-format
 msgid "Package Description:\n"
 msgstr "Descrizione del pacchetto: %s\n"
 
@@ -101,6 +104,7 @@ msgstr "Recupero la lista delle patch [%s]...\n"
 msgid "Retrieving checksum list [%s]..."
 msgstr "Recupero la lista dei checksum [%s]..."
 
+#, c-format
 msgid "Failed to malloc\n"
 msgstr "Errore in malloc\n"
 
@@ -124,6 +128,7 @@ msgstr "Aggiornare i permessi di %s o eseguire con privilegi appropriati\n"
 msgid "Failed to open %s\n"
 msgstr "Errore nell'apertura di %s\n"
 
+#, c-format
 msgid "Perhaps you want to run --update?\n"
 msgstr "Forse vuoi eseguire --update?\n"
 
@@ -135,6 +140,7 @@ msgstr "Errore in opendir %s\n"
 msgid "Failed to chdir: %s\n"
 msgstr "Errore in chdir: %s\n"
 
+#, c-format
 msgid "Failed to get cwd\n"
 msgstr "Errore nel trovare cwd\n"
 
@@ -154,6 +160,7 @@ msgstr "\tchdir nuovamente in %s\n"
 msgid "Failed to download: %s\n"
 msgstr "Errore nel download: %s\n"
 
+#, c-format
 msgid "Failed to calloc\n"
 msgstr "Errore in calloc\n"
 
@@ -177,9 +184,11 @@ msgstr "MD5 atteso:   [%s]\n"
 msgid "File: %s/%s\n"
 msgstr "File: %s/%s\n"
 
+#, c-format
 msgid "An implementation of the Debian APT system to Slackware\n"
 msgstr "Un'implementazione del sistema APT di Debian per Slackware\n"
 
+#, c-format
 msgid "Usage:\n"
 msgstr "Utilizzo:\n"
 
@@ -187,6 +196,7 @@ msgstr "Utilizzo:\n"
 msgid "%s [option(s)] [target]\n"
 msgstr "%s [opzione(i)] [obbiettivo]\n"
 
+#, c-format
 msgid "Targets:\n"
 msgstr "Obbiettivi:\n"
 
@@ -226,6 +236,7 @@ msgstr "elimina i pacchetti temporanei"
 msgid "print version and license info"
 msgstr "stampa informazioni su versione e licenza"
 
+#, c-format
 msgid "Options:\n"
 msgstr "Opzioni:\n"
 
@@ -258,24 +269,31 @@ msgstr "%s version %s\n"
 msgid "regex failed on [%s]\n"
 msgstr "regex fallita in [%s]\n"
 
+#, c-format
 msgid "regexec failed to parse location\n"
 msgstr "regexec non riesce ad analizzare la posizione\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read location\n"
 msgstr "getline ha raggiunto EOF metre leggeva la posizione\n"
 
+#, c-format
 msgid "regexec failed to parse size_c\n"
 msgstr "regexec non riesce ad analizzare size_c\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read size_c\n"
 msgstr "getline ha raggiunto EOF metre leggeva size_c\n"
 
+#, c-format
 msgid "regexec failed to parse size_u\n"
 msgstr "regexec non riesce ad analizzare size_u\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read size_u\n"
 msgstr "getline ha raggiunto EOF metre leggeva size_u\n"
 
+#, c-format
 msgid "error attempting to read pkg description\n"
 msgstr "errore nella lettura della descrizione del pacchetto\n"
 
@@ -283,12 +301,17 @@ msgstr "errore nella lettura della descrizione del pacchetto\n"
 msgid "Failed to realloc %s\n"
 msgstr "Errore in realloc %s\n"
 
+#, c-format
 msgid "Failed to compile regex\n"
 msgstr "Errore nella compilazione regex\n"
 
 #, c-format
 msgid "Regex Error: %s\n"
 msgstr "Errore regex: %s\n"
+
+#, c-format
+msgid "%s-%s is to be installed\n"
+msgstr "%s-%s Ã¨ da installare\n"
 
 #, c-format
 msgid "Preparing to install %s-%s\n"
@@ -299,16 +322,26 @@ msgid "Failed to execute command: [%s]\n"
 msgstr "Errore nell'esecuzione del comando: [%s]\n"
 
 #, c-format
+msgid "%s-%s is to be upgraded to version %s\n"
+msgstr "%s-%s Ã¨ da aggiornare alla version %s\n"
+
+#, c-format
 msgid "Preparing to replace %s-%s with %s-%s\n"
 msgstr "Preparazione alla sostituzionedi %s-%s con %s-%s\n"
+
+#, c-format
+msgid "%s-%s is to be removed\n"
+msgstr "%s-%s Ã¨ da rimuovere\n"
 
 #, c-format
 msgid "Failed to compile regex [%s]\n"
 msgstr "Errore nella compilazione della regex [%s]\n"
 
+#, c-format
 msgid "pkg conditional too long\n"
 msgstr "condizionale del pacchetto troppo lunga\n"
 
+#, c-format
 msgid "The following packages have unmet dependencies:\n"
 msgstr "The following packages have unmet dependencies:\n"
 
@@ -316,15 +349,19 @@ msgstr "The following packages have unmet dependencies:\n"
 msgid "  %s: Depends: %s\n"
 msgstr "  %s: Dipende da: %s\n"
 
+#, c-format
 msgid "The following packages have been EXCLUDED:\n"
 msgstr "I seguenti pacchetti sono stati ESCLUSI:\n"
 
+#, c-format
 msgid "The following NEW packages will be installed:\n"
 msgstr "I seguenti NUOVI pacchetti saranno installati:\n"
 
+#, c-format
 msgid "The following packages will be REMOVED:\n"
 msgstr "I seguenti pacchetti saranno RIMOSSI:\n"
 
+#, c-format
 msgid "The following packages will be upgraded:\n"
 msgstr "I seguenti pacchetti saranno aggiornati:\n"
 
@@ -351,28 +388,17 @@ msgstr "Dopo lo spacchettamento saranno utilizzati %.1f%s addizionali di spazio 
 msgid "Do you want to continue? [y/N] "
 msgstr "Vuoi continuare? [y/N] "
 
+#, c-format
 msgid "Abort.\n"
 msgstr "Annulla.\n"
 
 #, c-format
-msgid "%s-%s is to be installed\n"
-msgstr "%s-%s è da installare\n"
-
-#, c-format
-msgid "%s-%s is to be upgraded to version %s\n"
-msgstr "%s-%s è da aggiornare alla version %s\n"
-
-#, c-format
-msgid "%s-%s is to be removed\n"
-msgstr "%s-%s è da rimuovere\n"
-
-#, c-format
 msgid "%s, which is to be installed, conflicts with %s\n"
-msgstr "%s, il quale è da installare, è in conflitto con %s\n"
+msgstr "%s, il quale Ã¨ da installare, Ã¨ in conflitto con %s\n"
 
 #, c-format
 msgid "Installed %s conflicts with %s\n"
-msgstr "Il pacchetto installato %s è in conflitto con %s\n"
+msgstr "Il pacchetto installato %s Ã¨ in conflitto con %s\n"
 
 msgid "print URIs only, do not download"
 msgstr "stampa solo le URI, non recuperare"
@@ -381,15 +407,17 @@ msgstr "stampa solo le URI, non recuperare"
 msgid "Package MD5 Sum:  %s\n"
 msgstr "Somma MD5 del pacchetto:  %s\n"
 
+#, c-format
 msgid "md5 sum too long\n"
 msgstr "somma md5 troppo lunga\n"
 
+#, c-format
 msgid "Reading Package Lists..."
 msgstr "Lettura della lista dei pacchetti..."
 
 #, c-format
 msgid "%s, which is required by %s, is excluded\n"
-msgstr "%s, il quale è richiesto da %s, è escluso\n"
+msgstr "%s, il quale Ã¨ richiesto da %s, Ã¨ escluso\n"
 
 msgid "skip dependency check"
 msgstr "salta il controllo delle dipendenze"
@@ -397,15 +425,18 @@ msgstr "salta il controllo delle dipendenze"
 msgid "show download statistics"
 msgstr "show download statistics"
 
+#, c-format
 msgid "Cached\n"
 msgstr "Cached\n"
 
+#, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
 msgstr "Sources failed to download, correct sources and rerun --update\n"
 
 msgid "specify alternate slapt-getrc location"
 msgstr "specify alternate slapt-getrc location"
 
+#, c-format
 msgid "Suggested packages:\n"
 msgstr "Suggested packages:\n"
 
@@ -484,9 +515,11 @@ msgstr "Verified"
 msgid "Not Verified"
 msgstr "Not Verified"
 
+#, c-format
 msgid "Retrieving GPG key [%s]..."
 msgstr "Retrieving GPG key [%s]..."
 
+#, c-format
 msgid "Retrieving checksum signature [%s]..."
 msgstr "Retrieving checksum signature [%s]..."
 
@@ -496,6 +529,7 @@ msgstr "No key for verification"
 msgid "retrieve GPG keys for sources"
 msgstr "retrieve GPG keys for sources"
 
+#, c-format
 msgid "Verifying checksum signature [%s]..."
 msgstr "Verifying checksum signature [%s]..."
 
@@ -537,3 +571,6 @@ msgstr "Package Priority: %s\n"
 msgid "[pkg name] - show pkg installed files"
 msgstr "[pkg name] - show pkg installed files"
 
+#, c-format
+msgid "Delete %s ? [y/N]"
+msgstr "Delete %s ? [y/N]"

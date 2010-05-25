@@ -6,249 +6,260 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.2a\n"
-"POT-Creation-Date: 2005-06-23 21:28+0500\n"
+"POT-Creation-Date: 2003-11-03 14:28+0000\n"
 "PO-Revision-Date: 2009-09-09 10:40+0500\n"
 "Last-Translator: Erik Gyepes <depi@depi.sk>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-2\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#, c-format
 msgid "Reading Package Lists... "
-msgstr "Naèítavam zoznam balikov... "
+msgstr "NaÄÃ­tavam zoznam balikov... "
 
+#, c-format
 msgid "Done\n"
 msgstr "Hotovo\n"
 
 #, c-format
 msgid "%s is up to date.\n"
-msgstr "%s je aktuálny.\n"
+msgstr "%s je aktuÃ¡lny.\n"
 
 msgid "yes"
-msgstr "áno"
+msgstr "Ã¡no"
 
 msgid "no"
 msgstr "nie"
 
 #, c-format
 msgid "%s is not installed.\n"
-msgstr "%s nie je nain¹talovanı\n"
+msgstr "%s nie je nainÅ¡talovanÃ½\n"
 
 #, c-format
 msgid "Package Name: %s\n"
-msgstr "Názov balíka: %s\n"
+msgstr "NÃ¡zov balÃ­ka: %s\n"
 
 #, c-format
 msgid "Package Mirror: %s\n"
-msgstr "Zrkadlo balíka: %s\n"
+msgstr "Zrkadlo balÃ­ka: %s\n"
 
 #, c-format
 msgid "Package Location: %s\n"
-msgstr "Umiestnenie balíka: %s\n"
+msgstr "Umiestnenie balÃ­ka: %s\n"
 
 #, c-format
 msgid "Package Version: %s\n"
-msgstr "Verzia balíka: %s\n"
+msgstr "Verzia balÃ­ka: %s\n"
 
 #, c-format
 msgid "Package Size: %d K\n"
-msgstr "Veµkos» balíka: %d K\n"
+msgstr "VeÄ¾kosÅ¥ balÃ­ka: %d K\n"
 
 #, c-format
 msgid "Package Installed Size: %d K\n"
-msgstr "Veµkos» nain¹talovaného balíka: %d K\n"
+msgstr "VeÄ¾kosÅ¥ nainÅ¡talovanÃ©ho balÃ­ka: %d K\n"
 
 #, c-format
 msgid "Package Required: %s\n"
-msgstr "Potrebné balíky: %s\n"
+msgstr "PotrebnÃ© balÃ­ky: %s\n"
 
+#, c-format
 msgid "Package Description:\n"
-msgstr "Popis balíka:\n"
+msgstr "Popis balÃ­ka:\n"
 
 #, c-format
 msgid "Package Installed: %s\n"
-msgstr "Nain¹talované balíky: %s\n"
+msgstr "NainÅ¡talovanÃ© balÃ­ky: %s\n"
 
 #, c-format
 msgid "No such package: %s\n"
-msgstr "Nena¹iel sa hµadanı balík: %s\n"
+msgstr "NenaÅ¡iel sa hÄ¾adanÃ½ balÃ­k: %s\n"
 
 #, c-format
 msgid "Retrieving package data [%s]..."
-msgstr "S»ahujem popisy balíkov [%s]..."
+msgstr "SÅ¥ahujem popisy balÃ­kov [%s]..."
 
 #, c-format
 msgid "Retrieving package data [%s]...\n"
-msgstr "S»ahujem popisy balíkov [%s]...\n"
+msgstr "SÅ¥ahujem popisy balÃ­kov [%s]...\n"
 
 #, c-format
 msgid "Retrieving extras list [%s]..."
-msgstr "S»ahujem zoznam extras [%s]..."
+msgstr "SÅ¥ahujem zoznam extras [%s]..."
 
 #, c-format
 msgid "Retrieving extras list [%s]...\n"
-msgstr "S»ahujem zoznam extras [%s]...\n"
+msgstr "SÅ¥ahujem zoznam extras [%s]...\n"
 
 #, c-format
 msgid "Retrieving patch list [%s]..."
-msgstr "S»ahujem zoznam opráv [%s]..."
+msgstr "SÅ¥ahujem zoznam oprÃ¡v [%s]..."
 
 #, c-format
 msgid "Retrieving patch list [%s]...\n"
-msgstr "S»ahujem zoznam opráv [%s]...\n"
+msgstr "SÅ¥ahujem zoznam oprÃ¡v [%s]...\n"
 
 #, c-format
 msgid "Retrieving checksum list [%s]..."
-msgstr "S»ahujem zoznam kontrolnıch súètov [%s]..."
+msgstr "SÅ¥ahujem zoznam kontrolnÃ½ch sÃºÄtov [%s]..."
 
+#, c-format
 msgid "Failed to malloc\n"
-msgstr "Nepodarilo sa alokova»(malloc)\n"
+msgstr "Nepodarilo sa alokovaÅ¥(malloc)\n"
 
 #, c-format
 msgid "WORKINGDIR directive not set within %s.\n"
-msgstr "WORKINGDIR nie je vnútorne nastavenı %s.\n"
+msgstr "WORKINGDIR nie je vnÃºtorne nastavenÃ½ %s.\n"
 
 #, c-format
 msgid "SOURCE directive not set within %s.\n"
-msgstr "SOURCE nie je vnútorne nastavenı %s.\n"
+msgstr "SOURCE nie je vnÃºtorne nastavenÃ½ %s.\n"
 
 #, c-format
 msgid "Failed to build working directory [%s]\n"
-msgstr "Nepodarilo sa vytvori» pracovnı adresár [%s]\n"
+msgstr "Nepodarilo sa vytvoriÅ¥ pracovnÃ½ adresÃ¡r [%s]\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr "Prosím upravte práva k %s alebo spus»te s príslu¹nımi právami.\n"
+msgstr "ProsÃ­m upravte prÃ¡va k %s alebo spusÅ¥te s prÃ­sluÅ¡nÃ½mi prÃ¡vami.\n"
 
 #, c-format
 msgid "Failed to open %s\n"
-msgstr "Nepodarilo sa otvori» %s\n"
+msgstr "Nepodarilo sa otvoriÅ¥ %s\n"
 
+#, c-format
 msgid "Perhaps you want to run --update?\n"
-msgstr "Mo¾no chcete spusti» s --update?\n"
+msgstr "MoÅ¾no chcete spustiÅ¥ s --update?\n"
 
 #, c-format
 msgid "Failed to opendir %s\n"
-msgstr "Nepodarilo sa otvori» adresár %s\n"
+msgstr "Nepodarilo sa otvoriÅ¥ adresÃ¡r %s\n"
 
 #, c-format
 msgid "Failed to chdir: %s\n"
-msgstr "Nepodarilo sa zmeni» adresár: %s\n"
+msgstr "Nepodarilo sa zmeniÅ¥ adresÃ¡r: %s\n"
 
+#, c-format
 msgid "Failed to get cwd\n"
-msgstr "Nepodarilo sa získa» cwd\n"
+msgstr "Nepodarilo sa zÃ­skaÅ¥ cwd\n"
 
 #, c-format
 msgid "Failed to mkdir: %s\n"
-msgstr "Nepodarilo sa vytvori» adresár: %s\n"
+msgstr "Nepodarilo sa vytvoriÅ¥ adresÃ¡r: %s\n"
 
 #, c-format
 msgid "Failed to chdir to %s\n"
-msgstr "Nepodarilo sa zmeni» adresár na: %s\n"
+msgstr "Nepodarilo sa zmeniÅ¥ adresÃ¡r na: %s\n"
 
 #, c-format
 msgid "\tchdir back into %s\n"
-msgstr "\tadresár zmenenı spä» na %s\n"
+msgstr "\tadresÃ¡r zmenenÃ½ spÃ¤Å¥ na %s\n"
 
 #, c-format
 msgid "Failed to download: %s\n"
-msgstr "Nepodarilo sa stiahnu»: %s\n"
+msgstr "Nepodarilo sa stiahnuÅ¥: %s\n"
 
+#, c-format
 msgid "Failed to calloc\n"
-msgstr "Nepodarilo sa alokova»(calloc)\n"
+msgstr "Nepodarilo sa alokovaÅ¥(calloc)\n"
 
 #, c-format
 msgid "Get %s %s %s [%.1f%s]..."
-msgstr "Získava sa %s %s %s [%.1f%s]..."
+msgstr "ZÃ­skava sa %s %s %s [%.1f%s]..."
 
 #, c-format
 msgid "Failed to unlink %s\n"
-msgstr "Nepodarilo sa zmaza» %s\n"
+msgstr "Nepodarilo sa zmazaÅ¥ %s\n"
 
 #, c-format
 msgid "MD5 found:    [%s]\n"
-msgstr "MD5 nájdenı:    [%s]\n"
+msgstr "MD5 nÃ¡jdenÃ½:    [%s]\n"
 
 #, c-format
 msgid "MD5 expected: [%s]\n"
-msgstr "MD5 oèakávanı: [%s]\n"
+msgstr "MD5 oÄakÃ¡vanÃ½: [%s]\n"
 
 #, c-format
 msgid "File: %s/%s\n"
-msgstr "Súbor: %s/%s\n"
+msgstr "SÃºbor: %s/%s\n"
 
+#, c-format
 msgid "An implementation of the Debian APT system to Slackware\n"
-msgstr "Zavedenie Debian APT systému pre Slackware\n"
+msgstr "Zavedenie Debian APT systÃ©mu pre Slackware\n"
 
+#, c-format
 msgid "Usage:\n"
-msgstr "Pou¾itie:\n"
+msgstr "PouÅ¾itie:\n"
 
 #, c-format
 msgid "%s [option(s)] [target]\n"
-msgstr "%s [voµba(y)] [cieµ]\n"
+msgstr "%s [voÄ¾ba(y)] [cieÄ¾]\n"
 
+#, c-format
 msgid "Targets:\n"
 msgstr "Ciele:\n"
 
 msgid "retrieves pkg data from MIRROR"
-msgstr "získa data balíkov zo ZRKADLA"
+msgstr "zÃ­ska data balÃ­kov zo ZRKADLA"
 
 msgid "upgrade installed pkgs"
-msgstr "upgradne nain¹talované balíky"
+msgstr "upgradne nainÅ¡talovanÃ© balÃ­ky"
 
 msgid "upgrade to newer release"
-msgstr "upgradne na nov¹ie vydanie"
+msgstr "upgradne na novÅ¡ie vydanie"
 
 msgid "[pkg name(s)] - install specified pkg(s)"
-msgstr "[meno balíka(ov)] - in¹taluje zadanı balík(y)"
+msgstr "[meno balÃ­ka(ov)] - inÅ¡taluje zadanÃ½ balÃ­k(y)"
 
 msgid "[pkg name(s)] - remove specified pkg(s)"
-msgstr "[meno balíka(ov)] - odstráni zadanı balík(y)"
+msgstr "[meno balÃ­ka(ov)] - odstrÃ¡ni zadanÃ½ balÃ­k(y)"
 
 msgid "[pkg name] - show pkg description"
-msgstr "[meno balíka] - zobrazí popis balíka"
+msgstr "[meno balÃ­ka] - zobrazÃ­ popis balÃ­ka"
 
 msgid "[expression] - search available pkgs"
-msgstr "[vıraz] - prehµadá dostupné balíky"
+msgstr "[vÃ½raz] - prehÄ¾adÃ¡ dostupnÃ© balÃ­ky"
 
 msgid "list pkgs"
-msgstr "vypí¹e balíky"
+msgstr "vypÃ­Å¡e balÃ­ky"
 
 msgid "list available pkgs"
-msgstr "vypí¹e dostupné balíky"
+msgstr "vypÃ­Å¡e dostupnÃ© balÃ­ky"
 
 msgid "list installed pkgs"
-msgstr "vypí¹e nain¹talované balíky"
+msgstr "vypÃ­Å¡e nainÅ¡talovanÃ© balÃ­ky"
 
 msgid "purge cached pkgs"
-msgstr "vyèistí balíkovú cache"
+msgstr "vyÄistÃ­ balÃ­kovÃº cache"
 
 msgid "print version and license info"
-msgstr "zobrazí informácie o verzii a licencii"
+msgstr "zobrazÃ­ informÃ¡cie o verzii a licencii"
 
+#, c-format
 msgid "Options:\n"
-msgstr "Voµby:\n"
+msgstr "VoÄ¾by:\n"
 
 msgid "only download pkg on install/upgrade"
-msgstr "stiahne len balíky pre in¹taláciu/upgrade"
+msgstr "stiahne len balÃ­ky pre inÅ¡talÃ¡ciu/upgrade"
 
 msgid "show pkgs to be installed/upgraded"
-msgstr "zobrazí balíky k in¹talácii/upgradu"
+msgstr "zobrazÃ­ balÃ­ky k inÅ¡talÃ¡cii/upgradu"
 
 msgid "do not prompt during install/upgrade"
-msgstr "nepıta sa v priebehu in¹talácie/upgradu"
+msgstr "nepÃ½ta sa v priebehu inÅ¡talÃ¡cie/upgradu"
 
 msgid "re-install the pkg"
-msgstr "pre-in¹taluje balík"
+msgstr "pre-inÅ¡taluje balÃ­k"
 
 msgid "install/upgrade excludes"
-msgstr "in¹taláciu/upgrade vynechá"
+msgstr "inÅ¡talÃ¡ciu/upgrade vynechÃ¡"
 
 msgid "do not perform md5 check sum"
-msgstr "nevykonáva md5 kontrolnı súèet"
+msgstr "nevykonÃ¡va md5 kontrolnÃ½ sÃºÄet"
 
 msgid "ignore dependency failures"
-msgstr "ignoruje chyby závislostí"
+msgstr "ignoruje chyby zÃ¡vislostÃ­"
 
 #, c-format
 msgid "%s version %s\n"
@@ -258,33 +269,41 @@ msgstr "%s verzia %s\n"
 msgid "regex failed on [%s]\n"
 msgstr "regex neuspel na [%s]\n"
 
+#, c-format
 msgid "regexec failed to parse location\n"
-msgstr "regexec neuspel s analyzovaním umiestnenia\n"
+msgstr "regexec neuspel s analyzovanÃ­m umiestnenia\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read location\n"
-msgstr "getline dosiahol koniec súboru pri pokuse naèíta» umiestnenie\n"
+msgstr "getline dosiahol koniec sÃºboru pri pokuse naÄÃ­taÅ¥ umiestnenie\n"
 
+#, c-format
 msgid "regexec failed to parse size_c\n"
-msgstr "regexec neuspel s analyzovaním size_c\n"
+msgstr "regexec neuspel s analyzovanÃ­m size_c\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read size_c\n"
-msgstr "getline dosiahol koniec súboru pri pokuse naèíta» size_c\n"
+msgstr "getline dosiahol koniec sÃºboru pri pokuse naÄÃ­taÅ¥ size_c\n"
 
+#, c-format
 msgid "regexec failed to parse size_u\n"
-msgstr "regexec neuspel s analyzovaním size_u\n"
+msgstr "regexec neuspel s analyzovanÃ­m size_u\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read size_u\n"
-msgstr "getline dosiahol koniec súboru pri pokuse naèíta» size_u\n"
+msgstr "getline dosiahol koniec sÃºboru pri pokuse naÄÃ­taÅ¥ size_u\n"
 
+#, c-format
 msgid "error attempting to read pkg description\n"
-msgstr "chyba pri pokuse preèíta» popis balíka\n"
+msgstr "chyba pri pokuse preÄÃ­taÅ¥ popis balÃ­ka\n"
 
 #, c-format
 msgid "Failed to realloc %s\n"
-msgstr "Nepodarilo sa realokova» %s\n"
+msgstr "Nepodarilo sa realokovaÅ¥ %s\n"
 
+#, c-format
 msgid "Failed to compile regex\n"
-msgstr "Nepodarilo sa skompilova» regex\n"
+msgstr "Nepodarilo sa skompilovaÅ¥ regex\n"
 
 #, c-format
 msgid "Regex Error: %s\n"
@@ -292,19 +311,19 @@ msgstr "Chyba Regexu: %s\n"
 
 #, c-format
 msgid "%s-%s is to be installed\n"
-msgstr "%s-%s bude nain¹talovanı\n"
+msgstr "%s-%s bude nainÅ¡talovanÃ½\n"
 
 #, c-format
 msgid "Preparing to install %s-%s\n"
-msgstr "Pripravujem k in¹talácii %s-%s\n"
+msgstr "Pripravujem k inÅ¡talÃ¡cii %s-%s\n"
 
 #, c-format
 msgid "Failed to execute command: [%s]\n"
-msgstr "Nepodarilo sa spusti» príkaz: [%s]\n"
+msgstr "Nepodarilo sa spustiÅ¥ prÃ­kaz: [%s]\n"
 
 #, c-format
 msgid "%s-%s is to be upgraded to version %s\n"
-msgstr "%s-%s bude upgradnutı na verziu %s\n"
+msgstr "%s-%s bude upgradnutÃ½ na verziu %s\n"
 
 #, c-format
 msgid "Preparing to replace %s-%s with %s-%s\n"
@@ -312,124 +331,136 @@ msgstr "Pripravujem k nahradeniu %s-%s pomocou %s-%s\n"
 
 #, c-format
 msgid "%s-%s is to be removed\n"
-msgstr "%s-%s bude odstránenı\n"
+msgstr "%s-%s bude odstrÃ¡nenÃ½\n"
 
 #, c-format
 msgid "Failed to compile regex [%s]\n"
-msgstr "Nepodarilo sa skompilova» regex [%s]\n"
+msgstr "Nepodarilo sa skompilovaÅ¥ regex [%s]\n"
 
+#, c-format
 msgid "pkg conditional too long\n"
-msgstr "podmienka balika je príli¹ dlhá\n"
+msgstr "podmienka balika je prÃ­liÅ¡ dlhÃ¡\n"
 
+#, c-format
 msgid "The following packages have unmet dependencies:\n"
-msgstr "Nasledujúce balíky majú nesplnené závislosti:\n"
+msgstr "NasledujÃºce balÃ­ky majÃº nesplnenÃ© zÃ¡vislosti:\n"
 
 #, c-format
 msgid "  %s: Depends: %s\n"
-msgstr "  %s: Závisí: %s\n"
+msgstr "  %s: ZÃ¡visÃ­: %s\n"
 
+#, c-format
 msgid "The following packages have been EXCLUDED:\n"
-msgstr "Nasledujúce balíky boli VYLÚÈENÉ:\n"
+msgstr "NasledujÃºce balÃ­ky boli VYLÃšÄŒENÃ‰:\n"
 
+#, c-format
 msgid "The following NEW packages will be installed:\n"
-msgstr "Nasledujúce NOVÉ balíky budú nain¹talované:\n"
+msgstr "NasledujÃºce NOVÃ‰ balÃ­ky budÃº nainÅ¡talovanÃ©:\n"
 
+#, c-format
 msgid "The following packages will be REMOVED:\n"
-msgstr "Nasledujúce balíky budú ODSTRÁNENÉ:\n"
+msgstr "NasledujÃºce balÃ­ky budÃº ODSTRÃNENÃ‰:\n"
 
+#, c-format
 msgid "The following packages will be upgraded:\n"
-msgstr "Nasledujúce balíky budú upgradnuté:\n"
+msgstr "NasledujÃºce balÃ­ky budÃº upgradnutÃ©:\n"
 
 #, c-format
 msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
-msgstr "%d upgradnutıch, %d novo nain¹talovanıch, %d odstránenıch a %d neupgradnutıch.\n"
+msgstr "%d upgradnutÃ½ch, %d novo nainÅ¡talovanÃ½ch, %d odstrÃ¡nenÃ½ch a %d neupgradnutÃ½ch.\n"
 
 #, c-format
 msgid "Need to get %.1f%s of archives.\n"
-msgstr "Je treba získa» %.1f%s z archívov.\n"
+msgstr "Je treba zÃ­skaÅ¥ %.1f%s z archÃ­vov.\n"
 
 #, c-format
 msgid "Need to get %.1f%s/%.1f%s of archives.\n"
-msgstr "Je treba získa» %.1f%s/%.1f%s z archívov.\n"
+msgstr "Je treba zÃ­skaÅ¥ %.1f%s/%.1f%s z archÃ­vov.\n"
 
 #, c-format
 msgid "After unpacking %.1f%s disk space will be freed.\n"
-msgstr "Po rozbalení %.1f%s diskového priestoru bude uvoµnenıch.\n"
+msgstr "Po rozbalenÃ­ %.1f%s diskovÃ©ho priestoru bude uvoÄ¾nenÃ½ch.\n"
 
 #, c-format
 msgid "After unpacking %.1f%s of additional disk space will be used.\n"
-msgstr "Po rozbalení bude pou¾itıch daµ¹ích %.1f%s diskového priestoru.\n"
+msgstr "Po rozbalenÃ­ bude pouÅ¾itÃ½ch daÄ¾Å¡Ã­ch %.1f%s diskovÃ©ho priestoru.\n"
 
 msgid "Do you want to continue? [y/N] "
-msgstr "Chcete pokraèova»? [y/N] "
+msgstr "Chcete pokraÄovaÅ¥? [y/N] "
 
+#, c-format
 msgid "Abort.\n"
-msgstr "Zru¹i».\n"
+msgstr "ZruÅ¡iÅ¥.\n"
 
 #, c-format
 msgid "%s, which is to be installed, conflicts with %s\n"
-msgstr "%s, ktorı má by» nain¹talovanı, má konflikt s %s\n"
+msgstr "%s, ktorÃ½ mÃ¡ byÅ¥ nainÅ¡talovanÃ½, mÃ¡ konflikt s %s\n"
 
 #, c-format
 msgid "Installed %s conflicts with %s\n"
-msgstr "Nain¹talovanı %s má konflikt s %s\n"
+msgstr "NainÅ¡talovanÃ½ %s mÃ¡ konflikt s %s\n"
 
 msgid "print URIs only, do not download"
-msgstr "vypí¹e len URI, nes»ahuje"
+msgstr "vypÃ­Å¡e len URI, nesÅ¥ahuje"
 
 #, c-format
 msgid "Package MD5 Sum:  %s\n"
-msgstr "MD5 súèet balíkov:  %s\n"
+msgstr "MD5 sÃºÄet balÃ­kov:  %s\n"
 
+#, c-format
 msgid "md5 sum too long\n"
-msgstr "md5 súèet príli¹ dlhı\n"
+msgstr "md5 sÃºÄet prÃ­liÅ¡ dlhÃ½\n"
 
+#, c-format
 msgid "Reading Package Lists..."
-msgstr "Naèítavam zoznam balíkov..."
+msgstr "NaÄÃ­tavam zoznam balÃ­kov..."
 
 #, c-format
 msgid "%s, which is required by %s, is excluded\n"
-msgstr "%s, ktorı je potrebnı pre %s, je vylúèenı\n"
+msgstr "%s, ktorÃ½ je potrebnÃ½ pre %s, je vylÃºÄenÃ½\n"
 
 msgid "skip dependency check"
-msgstr "preskoèí kontrolu zavíslostí"
+msgstr "preskoÄÃ­ kontrolu zavÃ­slostÃ­"
 
 msgid "show download statistics"
-msgstr "zobrazí ¹tatistiku s»ahovania"
+msgstr "zobrazÃ­ Å¡tatistiku sÅ¥ahovania"
 
+#, c-format
 msgid "Cached\n"
-msgstr "Cacheovanı\n"
+msgstr "CacheovanÃ½\n"
 
+#, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr "Zdroje se nepodarilo stiahnu», opravte zdroje a spus»te s --update\n"
+msgstr "Zdroje se nepodarilo stiahnuÅ¥, opravte zdroje a spusÅ¥te s --update\n"
 
 msgid "specify alternate slapt-getrc location"
-msgstr "¹pecifikujte náhradné umiestnenie slapt-getrc"
+msgstr "Å¡pecifikujte nÃ¡hradnÃ© umiestnenie slapt-getrc"
 
+#, c-format
 msgid "Suggested packages:\n"
-msgstr "Navrhované balíky:\n"
+msgstr "NavrhovanÃ© balÃ­ky:\n"
 
 msgid "only purge cache of older, unreacheable pkgs"
-msgstr "vyèistí len cache starıch, nedostupnıch balíkov"
+msgstr "vyÄistÃ­ len cache starÃ½ch, nedostupnÃ½ch balÃ­kov"
 
 msgid "remove obsolete packages"
-msgstr "odstráni zastaralé balíky"
+msgstr "odstrÃ¡ni zastaralÃ© balÃ­ky"
 
 #, c-format
 msgid "You don't have enough free space in %s\n"
-msgstr "Na %s nie je dostatok voµného miesta\n"
+msgstr "Na %s nie je dostatok voÄ¾nÃ©ho miesta\n"
 
 #, c-format
 msgid "Package Conflicts: %s\n"
-msgstr "Balík má konflikt s: %s\n"
+msgstr "BalÃ­k mÃ¡ konflikt s: %s\n"
 
 #, c-format
 msgid "Package Suggests: %s\n"
-msgstr "Balík doporuèuje: %s\n"
+msgstr "BalÃ­k doporuÄuje: %s\n"
 
 #, c-format
 msgid "Failed to parse package data from %s\n"
-msgstr "Nepodarilo sa analyzova» dáta balíkov z %s\n"
+msgstr "Nepodarilo sa analyzovaÅ¥ dÃ¡ta balÃ­kov z %s\n"
 
 msgid "specify number of download retry attempts"
 msgstr "specify number of download retry attempts"
@@ -484,9 +515,11 @@ msgstr "Verified"
 msgid "Not Verified"
 msgstr "Not Verified"
 
+#, c-format
 msgid "Retrieving GPG key [%s]..."
 msgstr "Retrieving GPG key [%s]..."
 
+#, c-format
 msgid "Retrieving checksum signature [%s]..."
 msgstr "Retrieving checksum signature [%s]..."
 
@@ -496,6 +529,7 @@ msgstr "No key for verification"
 msgid "retrieve GPG keys for sources"
 msgstr "retrieve GPG keys for sources"
 
+#, c-format
 msgid "Verifying checksum signature [%s]..."
 msgstr "Verifying checksum signature [%s]..."
 
@@ -537,3 +571,6 @@ msgstr "Package Priority: %s\n"
 msgid "[pkg name] - show pkg installed files"
 msgstr "[pkg name] - show pkg installed files"
 
+#, c-format
+msgid "Delete %s ? [y/N]"
+msgstr "Delete %s ? [y/N]"

@@ -1,4 +1,4 @@
-# Αρχείο Ελληνικών για το Slapt-Get.
+# Ξ‘ΟΟ‡ΞµΞ―ΞΏ Ξ•Ξ»Ξ»Ξ·Ξ½ΞΉΞΊΟΞ½ Ξ³ΞΉΞ± Ο„ΞΏ Slapt-Get.
 # Copyright (C) 2004, 2005
 # This file is distributed under the same license as the slapt-get package.
 # Savvas Efstratiadis, 2004, 2005.
@@ -11,529 +11,566 @@ msgstr ""
 "Last-Translator: George Vlahavas <vlahavas~at~gmail~dot~com>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-7\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#, c-format
 msgid "Reading Package Lists... "
-msgstr "Ανάγνωση Λίστας Πακέτων... "
+msgstr "Ξ‘Ξ½Ξ¬Ξ³Ξ½Ο‰ΟƒΞ· Ξ›Ξ―ΟƒΟ„Ξ±Ο‚ Ξ Ξ±ΞΊΞ­Ο„Ο‰Ξ½... "
 
+#, c-format
 msgid "Done\n"
-msgstr "Ολοκληρώθηκε\n"
+msgstr "ΞΞ»ΞΏΞΊΞ»Ξ·ΟΟΞΈΞ·ΞΊΞµ\n"
 
 #, c-format
 msgid "%s is up to date.\n"
-msgstr "Η τελευταία έκδοση του πακέτου %s είναι ήδη εγκατεστημένη.\n"
+msgstr "Ξ— Ο„ΞµΞ»ΞµΟ…Ο„Ξ±Ξ―Ξ± Ξ­ΞΊΞ΄ΞΏΟƒΞ· Ο„ΞΏΟ… Ο€Ξ±ΞΊΞ­Ο„ΞΏΟ… %s ΞµΞ―Ξ½Ξ±ΞΉ Ξ®Ξ΄Ξ· ΞµΞ³ΞΊΞ±Ο„ΞµΟƒΟ„Ξ·ΞΌΞ­Ξ½Ξ·.\n"
 
 msgid "yes"
-msgstr "ναι"
+msgstr "Ξ½Ξ±ΞΉ"
 
 msgid "no"
-msgstr "όχι"
+msgstr "ΟΟ‡ΞΉ"
 
 #, c-format
 msgid "%s is not installed.\n"
-msgstr "Το πακέτο %s δεν έχει εγκατασταθεί.\n"
+msgstr "Ξ¤ΞΏ Ο€Ξ±ΞΊΞ­Ο„ΞΏ %s Ξ΄ΞµΞ½ Ξ­Ο‡ΞµΞΉ ΞµΞ³ΞΊΞ±Ο„Ξ±ΟƒΟ„Ξ±ΞΈΞµΞ―.\n"
 
 #, c-format
 msgid "Package Name: %s\n"
-msgstr "Όνομα Πακέτου: %s\n"
+msgstr "ΞΞ½ΞΏΞΌΞ± Ξ Ξ±ΞΊΞ­Ο„ΞΏΟ…: %s\n"
 
 #, c-format
 msgid "Package Mirror: %s\n"
-msgstr "Mirror Πακέτου: %s\n"
+msgstr "Mirror Ξ Ξ±ΞΊΞ­Ο„ΞΏΟ…: %s\n"
 
 #, c-format
 msgid "Package Location: %s\n"
-msgstr "Τοποθεσία Πακέτου: %s\n"
+msgstr "Ξ¤ΞΏΟ€ΞΏΞΈΞµΟƒΞ―Ξ± Ξ Ξ±ΞΊΞ­Ο„ΞΏΟ…: %s\n"
 
 #, c-format
 msgid "Package Version: %s\n"
-msgstr "Έκδοση Πακέτου: %s\n"
+msgstr "ΞΞΊΞ΄ΞΏΟƒΞ· Ξ Ξ±ΞΊΞ­Ο„ΞΏΟ…: %s\n"
 
 #, c-format
 msgid "Package Size: %d K\n"
-msgstr "Μέγεθος Πακέτου: %d K\n"
+msgstr "ΞΞ­Ξ³ΞµΞΈΞΏΟ‚ Ξ Ξ±ΞΊΞ­Ο„ΞΏΟ…: %d K\n"
 
 #, c-format
 msgid "Package Installed Size: %d K\n"
-msgstr "Εγκατεστημένο Μέγεθος Πακέτου: %d K\n"
+msgstr "Ξ•Ξ³ΞΊΞ±Ο„ΞµΟƒΟ„Ξ·ΞΌΞ­Ξ½ΞΏ ΞΞ­Ξ³ΞµΞΈΞΏΟ‚ Ξ Ξ±ΞΊΞ­Ο„ΞΏΟ…: %d K\n"
 
 #, c-format
 msgid "Package Required: %s\n"
-msgstr "Απαιτούμενο Πακέτο: %s\n"
+msgstr "Ξ‘Ο€Ξ±ΞΉΟ„ΞΏΟΞΌΞµΞ½ΞΏ Ξ Ξ±ΞΊΞ­Ο„ΞΏ: %s\n"
 
+#, c-format
 msgid "Package Description:\n"
-msgstr "Περιγραφή Πακέτου:\n"
+msgstr "Ξ ΞµΟΞΉΞ³ΟΞ±Ο†Ξ® Ξ Ξ±ΞΊΞ­Ο„ΞΏΟ…:\n"
 
 #, c-format
 msgid "Package Installed: %s\n"
-msgstr "Εγκατεστημένο Πακέτο: %s\n"
+msgstr "Ξ•Ξ³ΞΊΞ±Ο„ΞµΟƒΟ„Ξ·ΞΌΞ­Ξ½ΞΏ Ξ Ξ±ΞΊΞ­Ο„ΞΏ: %s\n"
 
 #, c-format
 msgid "No such package: %s\n"
-msgstr "Το πακέτο δεν βρέθηκε: %s\n"
+msgstr "Ξ¤ΞΏ Ο€Ξ±ΞΊΞ­Ο„ΞΏ Ξ΄ΞµΞ½ Ξ²ΟΞ­ΞΈΞ·ΞΊΞµ: %s\n"
 
 #, c-format
 msgid "Retrieving package data [%s]..."
-msgstr "Ανάκτηση δεδομένων πακέτων [%s]..."
+msgstr "Ξ‘Ξ½Ξ¬ΞΊΟ„Ξ·ΟƒΞ· Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½ Ο€Ξ±ΞΊΞ­Ο„Ο‰Ξ½ [%s]..."
 
 #, c-format
 msgid "Retrieving package data [%s]...\n"
-msgstr "Ανάκτηση δεδομένων πακέτων [%s]...\n"
+msgstr "Ξ‘Ξ½Ξ¬ΞΊΟ„Ξ·ΟƒΞ· Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½ Ο€Ξ±ΞΊΞ­Ο„Ο‰Ξ½ [%s]...\n"
 
 #, c-format
 msgid "Retrieving extras list [%s]..."
-msgstr "Ανάκτηση λίστας extras [%s]..."
+msgstr "Ξ‘Ξ½Ξ¬ΞΊΟ„Ξ·ΟƒΞ· Ξ»Ξ―ΟƒΟ„Ξ±Ο‚ extras [%s]..."
 
 #, c-format
 msgid "Retrieving extras list [%s]...\n"
-msgstr "Ανάκτηση λίστας extras [%s]...\n"
+msgstr "Ξ‘Ξ½Ξ¬ΞΊΟ„Ξ·ΟƒΞ· Ξ»Ξ―ΟƒΟ„Ξ±Ο‚ extras [%s]...\n"
 
 #, c-format
 msgid "Retrieving patch list [%s]..."
-msgstr "Ανάκτηση λίστας patch [%s]..."
+msgstr "Ξ‘Ξ½Ξ¬ΞΊΟ„Ξ·ΟƒΞ· Ξ»Ξ―ΟƒΟ„Ξ±Ο‚ patch [%s]..."
 
 #, c-format
 msgid "Retrieving patch list [%s]...\n"
-msgstr "Ανάκτηση λίστας patch [%s]...\n"
+msgstr "Ξ‘Ξ½Ξ¬ΞΊΟ„Ξ·ΟƒΞ· Ξ»Ξ―ΟƒΟ„Ξ±Ο‚ patch [%s]...\n"
 
 #, c-format
 msgid "Retrieving checksum list [%s]..."
-msgstr "Ανάκτηση λίστας checksum [%s]..."
+msgstr "Ξ‘Ξ½Ξ¬ΞΊΟ„Ξ·ΟƒΞ· Ξ»Ξ―ΟƒΟ„Ξ±Ο‚ checksum [%s]..."
 
+#, c-format
 msgid "Failed to malloc\n"
-msgstr "Αποτυχία malloc\n"
+msgstr "Ξ‘Ο€ΞΏΟ„Ο…Ο‡Ξ―Ξ± malloc\n"
 
 #, c-format
 msgid "WORKINGDIR directive not set within %s.\n"
-msgstr "Το WORKINGDIR δεν έχει οριστεί στο %s.\n"
+msgstr "Ξ¤ΞΏ WORKINGDIR Ξ΄ΞµΞ½ Ξ­Ο‡ΞµΞΉ ΞΏΟΞΉΟƒΟ„ΞµΞ― ΟƒΟ„ΞΏ %s.\n"
 
 #, c-format
 msgid "SOURCE directive not set within %s.\n"
-msgstr "Το SOURCE δεν έχει οριστεί στο %s.\n"
+msgstr "Ξ¤ΞΏ SOURCE Ξ΄ΞµΞ½ Ξ­Ο‡ΞµΞΉ ΞΏΟΞΉΟƒΟ„ΞµΞ― ΟƒΟ„ΞΏ %s.\n"
 
 #, c-format
 msgid "Failed to build working directory [%s]\n"
-msgstr "Αποτυχία δημιουργίας φακέλου εργασίας [%s]\n"
+msgstr "Ξ‘Ο€ΞΏΟ„Ο…Ο‡Ξ―Ξ± Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ±Ο‚ Ο†Ξ±ΞΊΞ­Ξ»ΞΏΟ… ΞµΟΞ³Ξ±ΟƒΞ―Ξ±Ο‚ [%s]\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr "Παρακαλώ αναβαθμίστε τα δικαιώματα στο %s ή εκτελέστε με τα απαραίτητα δικαιώματα\n"
+msgstr "Ξ Ξ±ΟΞ±ΞΊΞ±Ξ»Ο Ξ±Ξ½Ξ±Ξ²Ξ±ΞΈΞΌΞ―ΟƒΟ„Ξµ Ο„Ξ± Ξ΄ΞΉΞΊΞ±ΞΉΟΞΌΞ±Ο„Ξ± ΟƒΟ„ΞΏ %s Ξ® ΞµΞΊΟ„ΞµΞ»Ξ­ΟƒΟ„Ξµ ΞΌΞµ Ο„Ξ± Ξ±Ο€Ξ±ΟΞ±Ξ―Ο„Ξ·Ο„Ξ± Ξ΄ΞΉΞΊΞ±ΞΉΟΞΌΞ±Ο„Ξ±\n"
 
 #, c-format
 msgid "Failed to open %s\n"
-msgstr "Αποτυχία ανοίγματος του %s\n"
+msgstr "Ξ‘Ο€ΞΏΟ„Ο…Ο‡Ξ―Ξ± Ξ±Ξ½ΞΏΞ―Ξ³ΞΌΞ±Ο„ΞΏΟ‚ Ο„ΞΏΟ… %s\n"
 
+#, c-format
 msgid "Perhaps you want to run --update?\n"
-msgstr "Πιθανόν να θέλετε να εκτελέσετε --update?\n"
+msgstr "Ξ ΞΉΞΈΞ±Ξ½ΟΞ½ Ξ½Ξ± ΞΈΞ­Ξ»ΞµΟ„Ξµ Ξ½Ξ± ΞµΞΊΟ„ΞµΞ»Ξ­ΟƒΞµΟ„Ξµ --update?\n"
 
 #, c-format
 msgid "Failed to opendir %s\n"
-msgstr "Αποτυχία opendir %s\n"
+msgstr "Ξ‘Ο€ΞΏΟ„Ο…Ο‡Ξ―Ξ± opendir %s\n"
 
 #, c-format
 msgid "Failed to chdir: %s\n"
-msgstr "Αποτυχία chdir: %s\n"
+msgstr "Ξ‘Ο€ΞΏΟ„Ο…Ο‡Ξ―Ξ± chdir: %s\n"
 
+#, c-format
 msgid "Failed to get cwd\n"
-msgstr "Αποτυχία λήψης cwd\n"
+msgstr "Ξ‘Ο€ΞΏΟ„Ο…Ο‡Ξ―Ξ± Ξ»Ξ®ΟΞ·Ο‚ cwd\n"
 
 #, c-format
 msgid "Failed to mkdir: %s\n"
-msgstr "Αποτυχία mkdir: %s\n"
+msgstr "Ξ‘Ο€ΞΏΟ„Ο…Ο‡Ξ―Ξ± mkdir: %s\n"
 
 #, c-format
 msgid "Failed to chdir to %s\n"
-msgstr "Αποτυχία chdir στο %s\n"
+msgstr "Ξ‘Ο€ΞΏΟ„Ο…Ο‡Ξ―Ξ± chdir ΟƒΟ„ΞΏ %s\n"
 
 #, c-format
 msgid "\tchdir back into %s\n"
-msgstr "\tchdir πίσω στο %s\n"
+msgstr "\tchdir Ο€Ξ―ΟƒΟ‰ ΟƒΟ„ΞΏ %s\n"
 
 #, c-format
 msgid "Failed to download: %s\n"
-msgstr "Αποτυχία λήψης: %s\n"
+msgstr "Ξ‘Ο€ΞΏΟ„Ο…Ο‡Ξ―Ξ± Ξ»Ξ®ΟΞ·Ο‚: %s\n"
 
+#, c-format
 msgid "Failed to calloc\n"
-msgstr "Αποτυχία calloc\n"
+msgstr "Ξ‘Ο€ΞΏΟ„Ο…Ο‡Ξ―Ξ± calloc\n"
 
 #, c-format
 msgid "Get %s %s %s [%.1f%s]..."
-msgstr "Λήψη %s %s %s [%.1f%s]..."
+msgstr "Ξ›Ξ®ΟΞ· %s %s %s [%.1f%s]..."
 
 #, c-format
 msgid "Failed to unlink %s\n"
-msgstr "Αποτυχία unlink %s\n"
+msgstr "Ξ‘Ο€ΞΏΟ„Ο…Ο‡Ξ―Ξ± unlink %s\n"
 
 #, c-format
 msgid "MD5 found:    [%s]\n"
-msgstr "Βρέθηκε MD5:    [%s]\n"
+msgstr "Ξ’ΟΞ­ΞΈΞ·ΞΊΞµ MD5:    [%s]\n"
 
 #, c-format
 msgid "MD5 expected: [%s]\n"
-msgstr "Αναμενόμενο MD5: [%s]\n"
+msgstr "Ξ‘Ξ½Ξ±ΞΌΞµΞ½ΟΞΌΞµΞ½ΞΏ MD5: [%s]\n"
 
 #, c-format
 msgid "File: %s/%s\n"
-msgstr "Αρχείο: %s/%s\n"
+msgstr "Ξ‘ΟΟ‡ΞµΞ―ΞΏ: %s/%s\n"
 
+#, c-format
 msgid "An implementation of the Debian APT system to Slackware\n"
-msgstr "Μία υλοποίηση του συστήματος Debian APT στο Slackware\n"
+msgstr "ΞΞ―Ξ± Ο…Ξ»ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· Ο„ΞΏΟ… ΟƒΟ…ΟƒΟ„Ξ®ΞΌΞ±Ο„ΞΏΟ‚ Debian APT ΟƒΟ„ΞΏ Slackware\n"
 
+#, c-format
 msgid "Usage:\n"
-msgstr "Χρήση:\n"
+msgstr "Ξ§ΟΞ®ΟƒΞ·:\n"
 
 #, c-format
 msgid "%s [option(s)] [target]\n"
-msgstr "%s [επιλογή(ές)] [προορισμός]\n"
+msgstr "%s [ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ®(Ξ­Ο‚)] [Ο€ΟΞΏΞΏΟΞΉΟƒΞΌΟΟ‚]\n"
 
+#, c-format
 msgid "Targets:\n"
-msgstr "Προορισμοί:\n"
+msgstr "Ξ ΟΞΏΞΏΟΞΉΟƒΞΌΞΏΞ―:\n"
 
 msgid "retrieves pkg data from MIRROR"
-msgstr "ανάκτηση δεδομένων πακέτων από το MIRROR"
+msgstr "Ξ±Ξ½Ξ¬ΞΊΟ„Ξ·ΟƒΞ· Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½ Ο€Ξ±ΞΊΞ­Ο„Ο‰Ξ½ Ξ±Ο€Ο Ο„ΞΏ MIRROR"
 
 msgid "upgrade installed pkgs"
-msgstr "αναβάθμιση εγκατεστημένων πακέτων"
+msgstr "Ξ±Ξ½Ξ±Ξ²Ξ¬ΞΈΞΌΞΉΟƒΞ· ΞµΞ³ΞΊΞ±Ο„ΞµΟƒΟ„Ξ·ΞΌΞ­Ξ½Ο‰Ξ½ Ο€Ξ±ΞΊΞ­Ο„Ο‰Ξ½"
 
 msgid "upgrade to newer release"
-msgstr "αναβάθμιση σε νεότερη έκδοση"
+msgstr "Ξ±Ξ½Ξ±Ξ²Ξ¬ΞΈΞΌΞΉΟƒΞ· ΟƒΞµ Ξ½ΞµΟΟ„ΞµΟΞ· Ξ­ΞΊΞ΄ΞΏΟƒΞ·"
 
 msgid "[pkg name(s)] - install specified pkg(s)"
-msgstr "[ονόματα πακέτων] - εγκατάσταση επιλεγμένων πακέτων"
+msgstr "[ΞΏΞ½ΟΞΌΞ±Ο„Ξ± Ο€Ξ±ΞΊΞ­Ο„Ο‰Ξ½] - ΞµΞ³ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ· ΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½Ο‰Ξ½ Ο€Ξ±ΞΊΞ­Ο„Ο‰Ξ½"
 
 msgid "[pkg name(s)] - remove specified pkg(s)"
-msgstr "[ονόματα πακέτων] - απεγκατάσταση επιλεγμένων πακέτων"
+msgstr "[ΞΏΞ½ΟΞΌΞ±Ο„Ξ± Ο€Ξ±ΞΊΞ­Ο„Ο‰Ξ½] - Ξ±Ο€ΞµΞ³ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ· ΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½Ο‰Ξ½ Ο€Ξ±ΞΊΞ­Ο„Ο‰Ξ½"
 
 msgid "[pkg name] - show pkg description"
-msgstr "[όνομα πακέτου] - προβολή περιγραφής πακέτου"
+msgstr "[ΟΞ½ΞΏΞΌΞ± Ο€Ξ±ΞΊΞ­Ο„ΞΏΟ…] - Ο€ΟΞΏΞ²ΞΏΞ»Ξ® Ο€ΞµΟΞΉΞ³ΟΞ±Ο†Ξ®Ο‚ Ο€Ξ±ΞΊΞ­Ο„ΞΏΟ…"
 
 msgid "[expression] - search available pkgs"
-msgstr "[έκφραση] - αναζήτηση διαθέσιμων πακέτων"
+msgstr "[Ξ­ΞΊΟ†ΟΞ±ΟƒΞ·] - Ξ±Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ· Ξ΄ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΟ‰Ξ½ Ο€Ξ±ΞΊΞ­Ο„Ο‰Ξ½"
 
 msgid "list pkgs"
-msgstr "λίστα πακέτων"
+msgstr "Ξ»Ξ―ΟƒΟ„Ξ± Ο€Ξ±ΞΊΞ­Ο„Ο‰Ξ½"
 
 msgid "list available pkgs"
-msgstr "λίστα διαθέσιμων πακέτων"
+msgstr "Ξ»Ξ―ΟƒΟ„Ξ± Ξ΄ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΟ‰Ξ½ Ο€Ξ±ΞΊΞ­Ο„Ο‰Ξ½"
 
 msgid "list installed pkgs"
-msgstr "λίστα εγκατεστημένων πακέτων"
+msgstr "Ξ»Ξ―ΟƒΟ„Ξ± ΞµΞ³ΞΊΞ±Ο„ΞµΟƒΟ„Ξ·ΞΌΞ­Ξ½Ο‰Ξ½ Ο€Ξ±ΞΊΞ­Ο„Ο‰Ξ½"
 
 msgid "purge cached pkgs"
-msgstr "καθαρισμός προσωρινώς αποθηκευμένων πακέτων"
+msgstr "ΞΊΞ±ΞΈΞ±ΟΞΉΟƒΞΌΟΟ‚ Ο€ΟΞΏΟƒΟ‰ΟΞΉΞ½ΟΟ‚ Ξ±Ο€ΞΏΞΈΞ·ΞΊΞµΟ…ΞΌΞ­Ξ½Ο‰Ξ½ Ο€Ξ±ΞΊΞ­Ο„Ο‰Ξ½"
 
 msgid "print version and license info"
-msgstr "εκτύπωση έκδοσης και πληροφοριών άδειας χρήσης"
+msgstr "ΞµΞΊΟ„ΟΟ€Ο‰ΟƒΞ· Ξ­ΞΊΞ΄ΞΏΟƒΞ·Ο‚ ΞΊΞ±ΞΉ Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞΉΟΞ½ Ξ¬Ξ΄ΞµΞΉΞ±Ο‚ Ο‡ΟΞ®ΟƒΞ·Ο‚"
 
+#, c-format
 msgid "Options:\n"
-msgstr "Επιλογές:\n"
+msgstr "Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ­Ο‚:\n"
 
 msgid "only download pkg on install/upgrade"
-msgstr "κατέβασμα πακέτου μόνο για εγκατάσταση/αναβάθμιση"
+msgstr "ΞΊΞ±Ο„Ξ­Ξ²Ξ±ΟƒΞΌΞ± Ο€Ξ±ΞΊΞ­Ο„ΞΏΟ… ΞΌΟΞ½ΞΏ Ξ³ΞΉΞ± ΞµΞ³ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ·/Ξ±Ξ½Ξ±Ξ²Ξ¬ΞΈΞΌΞΉΟƒΞ·"
 
 msgid "show pkgs to be installed/upgraded"
-msgstr "προβολή πακέτων που πρόκειται να εγκατασταθούν"
+msgstr "Ο€ΟΞΏΞ²ΞΏΞ»Ξ® Ο€Ξ±ΞΊΞ­Ο„Ο‰Ξ½ Ο€ΞΏΟ… Ο€ΟΟΞΊΞµΞΉΟ„Ξ±ΞΉ Ξ½Ξ± ΞµΞ³ΞΊΞ±Ο„Ξ±ΟƒΟ„Ξ±ΞΈΞΏΟΞ½"
 
 msgid "do not prompt during install/upgrade"
-msgstr "χωρίς προτροπή κατά την εγκατάσταση/αναβάθμιση"
+msgstr "Ο‡Ο‰ΟΞ―Ο‚ Ο€ΟΞΏΟ„ΟΞΏΟ€Ξ® ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ ΞµΞ³ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ·/Ξ±Ξ½Ξ±Ξ²Ξ¬ΞΈΞΌΞΉΟƒΞ·"
 
 msgid "re-install the pkg"
-msgstr "επανεγκατάσταση πακέτου"
+msgstr "ΞµΟ€Ξ±Ξ½ΞµΞ³ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ· Ο€Ξ±ΞΊΞ­Ο„ΞΏΟ…"
 
 msgid "install/upgrade excludes"
-msgstr "εξαιρέσεις εγκατάστασης/αναβάθμισης"
+msgstr "ΞµΞΎΞ±ΞΉΟΞ­ΟƒΞµΞΉΟ‚ ΞµΞ³ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ·Ο‚/Ξ±Ξ½Ξ±Ξ²Ξ¬ΞΈΞΌΞΉΟƒΞ·Ο‚"
 
 msgid "do not perform md5 check sum"
-msgstr "να μη γίνει έλεγχος md5"
+msgstr "Ξ½Ξ± ΞΌΞ· Ξ³Ξ―Ξ½ΞµΞΉ Ξ­Ξ»ΞµΞ³Ο‡ΞΏΟ‚ md5"
 
 msgid "ignore dependency failures"
-msgstr "παράβλεψη αποτυχιών απαιτούμενων πακέτων"
+msgstr "Ο€Ξ±ΟΞ¬Ξ²Ξ»ΞµΟΞ· Ξ±Ο€ΞΏΟ„Ο…Ο‡ΞΉΟΞ½ Ξ±Ο€Ξ±ΞΉΟ„ΞΏΟΞΌΞµΞ½Ο‰Ξ½ Ο€Ξ±ΞΊΞ­Ο„Ο‰Ξ½"
 
 #, c-format
 msgid "%s version %s\n"
-msgstr "%s έκδοση %s\n"
+msgstr "%s Ξ­ΞΊΞ΄ΞΏΟƒΞ· %s\n"
 
 #, c-format
 msgid "regex failed on [%s]\n"
-msgstr "Αποτυχία regex στο [%s]\n"
+msgstr "Ξ‘Ο€ΞΏΟ„Ο…Ο‡Ξ―Ξ± regex ΟƒΟ„ΞΏ [%s]\n"
 
+#, c-format
 msgid "regexec failed to parse location\n"
-msgstr "αποτυχία regexec ανάλυσης τοποθεσίας\n"
+msgstr "Ξ±Ο€ΞΏΟ„Ο…Ο‡Ξ―Ξ± regexec Ξ±Ξ½Ξ¬Ξ»Ο…ΟƒΞ·Ο‚ Ο„ΞΏΟ€ΞΏΞΈΞµΟƒΞ―Ξ±Ο‚\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read location\n"
-msgstr "το getline συνάντησε EOF κατά την ανάγνωση της τοποθεσίας\n"
+msgstr "Ο„ΞΏ getline ΟƒΟ…Ξ½Ξ¬Ξ½Ο„Ξ·ΟƒΞµ EOF ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ Ξ±Ξ½Ξ¬Ξ³Ξ½Ο‰ΟƒΞ· Ο„Ξ·Ο‚ Ο„ΞΏΟ€ΞΏΞΈΞµΟƒΞ―Ξ±Ο‚\n"
 
+#, c-format
 msgid "regexec failed to parse size_c\n"
-msgstr "αποτυχία regexec ανάλυσης size_c\n"
+msgstr "Ξ±Ο€ΞΏΟ„Ο…Ο‡Ξ―Ξ± regexec Ξ±Ξ½Ξ¬Ξ»Ο…ΟƒΞ·Ο‚ size_c\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read size_c\n"
-msgstr "το getline συνάντησε EOF κατά την ανάγνωση του size_c\n"
+msgstr "Ο„ΞΏ getline ΟƒΟ…Ξ½Ξ¬Ξ½Ο„Ξ·ΟƒΞµ EOF ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ Ξ±Ξ½Ξ¬Ξ³Ξ½Ο‰ΟƒΞ· Ο„ΞΏΟ… size_c\n"
 
+#, c-format
 msgid "regexec failed to parse size_u\n"
-msgstr "αποτυχία regexec ανάλυσης size_u\n"
+msgstr "Ξ±Ο€ΞΏΟ„Ο…Ο‡Ξ―Ξ± regexec Ξ±Ξ½Ξ¬Ξ»Ο…ΟƒΞ·Ο‚ size_u\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read size_u\n"
-msgstr "το getline συνάντησε EOF κατά την ανάγνωση του size_u\n"
+msgstr "Ο„ΞΏ getline ΟƒΟ…Ξ½Ξ¬Ξ½Ο„Ξ·ΟƒΞµ EOF ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ Ξ±Ξ½Ξ¬Ξ³Ξ½Ο‰ΟƒΞ· Ο„ΞΏΟ… size_u\n"
 
+#, c-format
 msgid "error attempting to read pkg description\n"
-msgstr "σφάλμα κατά την ανάγνωση της περιγραφής του πακέτου\n"
+msgstr "ΟƒΟ†Ξ¬Ξ»ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ Ξ±Ξ½Ξ¬Ξ³Ξ½Ο‰ΟƒΞ· Ο„Ξ·Ο‚ Ο€ΞµΟΞΉΞ³ΟΞ±Ο†Ξ®Ο‚ Ο„ΞΏΟ… Ο€Ξ±ΞΊΞ­Ο„ΞΏΟ…\n"
 
 #, c-format
 msgid "Failed to realloc %s\n"
-msgstr "Αποτυχία realloc %s\n"
+msgstr "Ξ‘Ο€ΞΏΟ„Ο…Ο‡Ξ―Ξ± realloc %s\n"
 
+#, c-format
 msgid "Failed to compile regex\n"
-msgstr "Αποτυχία κατά το compile του regex\n"
+msgstr "Ξ‘Ο€ΞΏΟ„Ο…Ο‡Ξ―Ξ± ΞΊΞ±Ο„Ξ¬ Ο„ΞΏ compile Ο„ΞΏΟ… regex\n"
 
 #, c-format
 msgid "Regex Error: %s\n"
-msgstr "Σφάλμα Regex: %s\n"
+msgstr "Ξ£Ο†Ξ¬Ξ»ΞΌΞ± Regex: %s\n"
 
 #, c-format
 msgid "%s-%s is to be installed\n"
-msgstr "Το %s-%s πρόκειται να εγκατασταθεί\n"
+msgstr "Ξ¤ΞΏ %s-%s Ο€ΟΟΞΊΞµΞΉΟ„Ξ±ΞΉ Ξ½Ξ± ΞµΞ³ΞΊΞ±Ο„Ξ±ΟƒΟ„Ξ±ΞΈΞµΞ―\n"
 
 #, c-format
 msgid "Preparing to install %s-%s\n"
-msgstr "Προετοιμασία εγκατάστασης του %s-%s\n"
+msgstr "Ξ ΟΞΏΞµΟ„ΞΏΞΉΞΌΞ±ΟƒΞ―Ξ± ΞµΞ³ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ·Ο‚ Ο„ΞΏΟ… %s-%s\n"
 
 #, c-format
 msgid "Failed to execute command: [%s]\n"
-msgstr "Αποτυχία εκτέλεσης εντολής: [%s]\n"
+msgstr "Ξ‘Ο€ΞΏΟ„Ο…Ο‡Ξ―Ξ± ΞµΞΊΟ„Ξ­Ξ»ΞµΟƒΞ·Ο‚ ΞµΞ½Ο„ΞΏΞ»Ξ®Ο‚: [%s]\n"
 
 #, c-format
 msgid "%s-%s is to be upgraded to version %s\n"
-msgstr "Το %s-%s πρόκειται να αναβαθμιστεί στην έκδοση %s\n"
+msgstr "Ξ¤ΞΏ %s-%s Ο€ΟΟΞΊΞµΞΉΟ„Ξ±ΞΉ Ξ½Ξ± Ξ±Ξ½Ξ±Ξ²Ξ±ΞΈΞΌΞΉΟƒΟ„ΞµΞ― ΟƒΟ„Ξ·Ξ½ Ξ­ΞΊΞ΄ΞΏΟƒΞ· %s\n"
 
 #, c-format
 msgid "Preparing to replace %s-%s with %s-%s\n"
-msgstr "Προετοιμασία αντικατάστασης του %s-%s με το %s-%s\n"
+msgstr "Ξ ΟΞΏΞµΟ„ΞΏΞΉΞΌΞ±ΟƒΞ―Ξ± Ξ±Ξ½Ο„ΞΉΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ·Ο‚ Ο„ΞΏΟ… %s-%s ΞΌΞµ Ο„ΞΏ %s-%s\n"
 
 #, c-format
 msgid "%s-%s is to be removed\n"
-msgstr "Το %s-%s πρόκειται να απεγκατασταθεί\n"
+msgstr "Ξ¤ΞΏ %s-%s Ο€ΟΟΞΊΞµΞΉΟ„Ξ±ΞΉ Ξ½Ξ± Ξ±Ο€ΞµΞ³ΞΊΞ±Ο„Ξ±ΟƒΟ„Ξ±ΞΈΞµΞ―\n"
 
 #, c-format
 msgid "Failed to compile regex [%s]\n"
-msgstr "Αποτυχία κατά το compile του regex [%s]\n"
+msgstr "Ξ‘Ο€ΞΏΟ„Ο…Ο‡Ξ―Ξ± ΞΊΞ±Ο„Ξ¬ Ο„ΞΏ compile Ο„ΞΏΟ… regex [%s]\n"
 
+#, c-format
 msgid "pkg conditional too long\n"
-msgstr "μεγάλο μήκος στοιχείων πακέτου\n"
+msgstr "ΞΌΞµΞ³Ξ¬Ξ»ΞΏ ΞΌΞ®ΞΊΞΏΟ‚ ΟƒΟ„ΞΏΞΉΟ‡ΞµΞ―Ο‰Ξ½ Ο€Ξ±ΞΊΞ­Ο„ΞΏΟ…\n"
 
+#, c-format
 msgid "The following packages have unmet dependencies:\n"
-msgstr "Τα παρακάτω πακέτα έχουν ελλείψεις σε απαιτούμενα πακέτα:\n"
+msgstr "Ξ¤Ξ± Ο€Ξ±ΟΞ±ΞΊΞ¬Ο„Ο‰ Ο€Ξ±ΞΊΞ­Ο„Ξ± Ξ­Ο‡ΞΏΟ…Ξ½ ΞµΞ»Ξ»ΞµΞ―ΟΞµΞΉΟ‚ ΟƒΞµ Ξ±Ο€Ξ±ΞΉΟ„ΞΏΟΞΌΞµΞ½Ξ± Ο€Ξ±ΞΊΞ­Ο„Ξ±:\n"
 
 #, c-format
 msgid "  %s: Depends: %s\n"
-msgstr "  Το %s: απαιτεί το: %s\n"
+msgstr "  Ξ¤ΞΏ %s: Ξ±Ο€Ξ±ΞΉΟ„ΞµΞ― Ο„ΞΏ: %s\n"
 
+#, c-format
 msgid "The following packages have been EXCLUDED:\n"
-msgstr "Τα παρακάτω πακέτα έχουν ΕΞΑΙΡΕΘΕΙ:\n"
+msgstr "Ξ¤Ξ± Ο€Ξ±ΟΞ±ΞΊΞ¬Ο„Ο‰ Ο€Ξ±ΞΊΞ­Ο„Ξ± Ξ­Ο‡ΞΏΟ…Ξ½ Ξ•ΞΞ‘Ξ™Ξ΅Ξ•ΞΞ•Ξ™:\n"
 
+#, c-format
 msgid "The following NEW packages will be installed:\n"
-msgstr "Τα παρακάτω ΝΕΑ πακέτα πρόκειται να εγκατασταθούν:\n"
+msgstr "Ξ¤Ξ± Ο€Ξ±ΟΞ±ΞΊΞ¬Ο„Ο‰ ΞΞ•Ξ‘ Ο€Ξ±ΞΊΞ­Ο„Ξ± Ο€ΟΟΞΊΞµΞΉΟ„Ξ±ΞΉ Ξ½Ξ± ΞµΞ³ΞΊΞ±Ο„Ξ±ΟƒΟ„Ξ±ΞΈΞΏΟΞ½:\n"
 
+#, c-format
 msgid "The following packages will be REMOVED:\n"
-msgstr "Τα παρακάτω πακέτα πρόκειται να ΑΠΕΓΚΑΤΑΣΤΑΘΟΥΝ:\n"
+msgstr "Ξ¤Ξ± Ο€Ξ±ΟΞ±ΞΊΞ¬Ο„Ο‰ Ο€Ξ±ΞΊΞ­Ο„Ξ± Ο€ΟΟΞΊΞµΞΉΟ„Ξ±ΞΉ Ξ½Ξ± Ξ‘Ξ Ξ•Ξ“ΞΞ‘Ξ¤Ξ‘Ξ£Ξ¤Ξ‘ΞΞΞ¥Ξ:\n"
 
+#, c-format
 msgid "The following packages will be upgraded:\n"
-msgstr "Τα παρακάτω πακέτα πρόκειται να αναβαθμιστούν:\n"
+msgstr "Ξ¤Ξ± Ο€Ξ±ΟΞ±ΞΊΞ¬Ο„Ο‰ Ο€Ξ±ΞΊΞ­Ο„Ξ± Ο€ΟΟΞΊΞµΞΉΟ„Ξ±ΞΉ Ξ½Ξ± Ξ±Ξ½Ξ±Ξ²Ξ±ΞΈΞΌΞΉΟƒΟ„ΞΏΟΞ½:\n"
 
 #, c-format
 msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
-msgstr "%d αναβαθμισμένα, %d νεοεγκαταστημένα, %d προς απεγκατάσταση και %d δεν αναβαθμίστηκαν.\n"
+msgstr "%d Ξ±Ξ½Ξ±Ξ²Ξ±ΞΈΞΌΞΉΟƒΞΌΞ­Ξ½Ξ±, %d Ξ½ΞµΞΏΞµΞ³ΞΊΞ±Ο„Ξ±ΟƒΟ„Ξ·ΞΌΞ­Ξ½Ξ±, %d Ο€ΟΞΏΟ‚ Ξ±Ο€ΞµΞ³ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ· ΞΊΞ±ΞΉ %d Ξ΄ΞµΞ½ Ξ±Ξ½Ξ±Ξ²Ξ±ΞΈΞΌΞ―ΟƒΟ„Ξ·ΞΊΞ±Ξ½.\n"
 
 #, c-format
 msgid "Need to get %.1f%s of archives.\n"
-msgstr "Χρειάζεται να ανακτηθούν %.1f%s αρχείων.\n"
+msgstr "Ξ§ΟΞµΞΉΞ¬Ξ¶ΞµΟ„Ξ±ΞΉ Ξ½Ξ± Ξ±Ξ½Ξ±ΞΊΟ„Ξ·ΞΈΞΏΟΞ½ %.1f%s Ξ±ΟΟ‡ΞµΞ―Ο‰Ξ½.\n"
 
 #, c-format
 msgid "Need to get %.1f%s/%.1f%s of archives.\n"
-msgstr "Χρειάζεται να ανακτηθούν %.1f%s/%.1f%s αρχείων.\n"
+msgstr "Ξ§ΟΞµΞΉΞ¬Ξ¶ΞµΟ„Ξ±ΞΉ Ξ½Ξ± Ξ±Ξ½Ξ±ΞΊΟ„Ξ·ΞΈΞΏΟΞ½ %.1f%s/%.1f%s Ξ±ΟΟ‡ΞµΞ―Ο‰Ξ½.\n"
 
 #, c-format
 msgid "After unpacking %.1f%s disk space will be freed.\n"
-msgstr "Μετά το άνοιγμα του πακέτου θα ελευθερωθούν %.1f%s στο δίσκο.\n"
+msgstr "ΞΞµΟ„Ξ¬ Ο„ΞΏ Ξ¬Ξ½ΞΏΞΉΞ³ΞΌΞ± Ο„ΞΏΟ… Ο€Ξ±ΞΊΞ­Ο„ΞΏΟ… ΞΈΞ± ΞµΞ»ΞµΟ…ΞΈΞµΟΟ‰ΞΈΞΏΟΞ½ %.1f%s ΟƒΟ„ΞΏ Ξ΄Ξ―ΟƒΞΊΞΏ.\n"
 
 #, c-format
 msgid "After unpacking %.1f%s of additional disk space will be used.\n"
-msgstr "Μετά το άνοιγμα θα χρησιμοποιηθούν %.1f%s στο δίσκο.\n"
+msgstr "ΞΞµΟ„Ξ¬ Ο„ΞΏ Ξ¬Ξ½ΞΏΞΉΞ³ΞΌΞ± ΞΈΞ± Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞ·ΞΈΞΏΟΞ½ %.1f%s ΟƒΟ„ΞΏ Ξ΄Ξ―ΟƒΞΊΞΏ.\n"
 
 msgid "Do you want to continue? [y/N] "
-msgstr "Θέλεις να συνεχίσεις? [y/N] "
+msgstr "ΞΞ­Ξ»ΞµΞΉΟ‚ Ξ½Ξ± ΟƒΟ…Ξ½ΞµΟ‡Ξ―ΟƒΞµΞΉΟ‚? [y/N] "
 
+#, c-format
 msgid "Abort.\n"
-msgstr "Διακοπή.\n"
+msgstr "Ξ”ΞΉΞ±ΞΊΞΏΟ€Ξ®.\n"
 
 #, c-format
 msgid "%s, which is to be installed, conflicts with %s\n"
-msgstr "Το %s, το οποίο πρόκειται να εγκατασταθεί συγκρούεται με το %s\n"
+msgstr "Ξ¤ΞΏ %s, Ο„ΞΏ ΞΏΟ€ΞΏΞ―ΞΏ Ο€ΟΟΞΊΞµΞΉΟ„Ξ±ΞΉ Ξ½Ξ± ΞµΞ³ΞΊΞ±Ο„Ξ±ΟƒΟ„Ξ±ΞΈΞµΞ― ΟƒΟ…Ξ³ΞΊΟΞΏΟΞµΟ„Ξ±ΞΉ ΞΌΞµ Ο„ΞΏ %s\n"
 
 #, c-format
 msgid "Installed %s conflicts with %s\n"
-msgstr "Το εγκατεστημένο %s συγκρούεται με το %s\n"
+msgstr "Ξ¤ΞΏ ΞµΞ³ΞΊΞ±Ο„ΞµΟƒΟ„Ξ·ΞΌΞ­Ξ½ΞΏ %s ΟƒΟ…Ξ³ΞΊΟΞΏΟΞµΟ„Ξ±ΞΉ ΞΌΞµ Ο„ΞΏ %s\n"
 
 msgid "print URIs only, do not download"
-msgstr "Εκτύπωση μόνο των URIs, χωρίς λήψη αρχείων"
+msgstr "Ξ•ΞΊΟ„ΟΟ€Ο‰ΟƒΞ· ΞΌΟΞ½ΞΏ Ο„Ο‰Ξ½ URIs, Ο‡Ο‰ΟΞ―Ο‚ Ξ»Ξ®ΟΞ· Ξ±ΟΟ‡ΞµΞ―Ο‰Ξ½"
 
 #, c-format
 msgid "Package MD5 Sum:  %s\n"
-msgstr "Aθροισμα MD5 του πακέτου:  %s\n"
+msgstr "AΞΈΟΞΏΞΉΟƒΞΌΞ± MD5 Ο„ΞΏΟ… Ο€Ξ±ΞΊΞ­Ο„ΞΏΟ…:  %s\n"
 
+#, c-format
 msgid "md5 sum too long\n"
-msgstr "Μεγάλο μήκος αθροίσματος md5\n"
+msgstr "ΞΞµΞ³Ξ¬Ξ»ΞΏ ΞΌΞ®ΞΊΞΏΟ‚ Ξ±ΞΈΟΞΏΞ―ΟƒΞΌΞ±Ο„ΞΏΟ‚ md5\n"
 
+#, c-format
 msgid "Reading Package Lists..."
-msgstr "Ανάγνωση Λίστας Πακέτων..."
+msgstr "Ξ‘Ξ½Ξ¬Ξ³Ξ½Ο‰ΟƒΞ· Ξ›Ξ―ΟƒΟ„Ξ±Ο‚ Ξ Ξ±ΞΊΞ­Ο„Ο‰Ξ½..."
 
 #, c-format
 msgid "%s, which is required by %s, is excluded\n"
-msgstr "το %s, που απαιτείται από το %s, έχει εξαιρεθεί\n"
+msgstr "Ο„ΞΏ %s, Ο€ΞΏΟ… Ξ±Ο€Ξ±ΞΉΟ„ΞµΞ―Ο„Ξ±ΞΉ Ξ±Ο€Ο Ο„ΞΏ %s, Ξ­Ο‡ΞµΞΉ ΞµΞΎΞ±ΞΉΟΞµΞΈΞµΞ―\n"
 
 msgid "skip dependency check"
-msgstr "παράλειψη ελέγχου απαιτούμενων πακέτων"
+msgstr "Ο€Ξ±ΟΞ¬Ξ»ΞµΞΉΟΞ· ΞµΞ»Ξ­Ξ³Ο‡ΞΏΟ… Ξ±Ο€Ξ±ΞΉΟ„ΞΏΟΞΌΞµΞ½Ο‰Ξ½ Ο€Ξ±ΞΊΞ­Ο„Ο‰Ξ½"
 
 msgid "show download statistics"
-msgstr "προβολή στατιστικών λήψης αρχείων"
+msgstr "Ο€ΟΞΏΞ²ΞΏΞ»Ξ® ΟƒΟ„Ξ±Ο„ΞΉΟƒΟ„ΞΉΞΊΟΞ½ Ξ»Ξ®ΟΞ·Ο‚ Ξ±ΟΟ‡ΞµΞ―Ο‰Ξ½"
 
+#, c-format
 msgid "Cached\n"
-msgstr "Προσωρινά αποθηκευμένα\n"
+msgstr "Ξ ΟΞΏΟƒΟ‰ΟΞΉΞ½Ξ¬ Ξ±Ο€ΞΏΞΈΞ·ΞΊΞµΟ…ΞΌΞ­Ξ½Ξ±\n"
 
+#, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr "Αποτυχία πηγών για λήψη αρχείων, διορθώστε τις πηγές και επανεκτελέστε το --update\n"
+msgstr "Ξ‘Ο€ΞΏΟ„Ο…Ο‡Ξ―Ξ± Ο€Ξ·Ξ³ΟΞ½ Ξ³ΞΉΞ± Ξ»Ξ®ΟΞ· Ξ±ΟΟ‡ΞµΞ―Ο‰Ξ½, Ξ΄ΞΉΞΏΟΞΈΟΟƒΟ„Ξµ Ο„ΞΉΟ‚ Ο€Ξ·Ξ³Ξ­Ο‚ ΞΊΞ±ΞΉ ΞµΟ€Ξ±Ξ½ΞµΞΊΟ„ΞµΞ»Ξ­ΟƒΟ„Ξµ Ο„ΞΏ --update\n"
 
 msgid "specify alternate slapt-getrc location"
-msgstr "προσδιορίστε εναλλακτική τοποθεσία slapt-getrc"
+msgstr "Ο€ΟΞΏΟƒΞ΄ΞΉΞΏΟΞ―ΟƒΟ„Ξµ ΞµΞ½Ξ±Ξ»Ξ»Ξ±ΞΊΟ„ΞΉΞΊΞ® Ο„ΞΏΟ€ΞΏΞΈΞµΟƒΞ―Ξ± slapt-getrc"
 
+#, c-format
 msgid "Suggested packages:\n"
-msgstr "Προτεινόμενα πακέτα:\n"
+msgstr "Ξ ΟΞΏΟ„ΞµΞΉΞ½ΟΞΌΞµΞ½Ξ± Ο€Ξ±ΞΊΞ­Ο„Ξ±:\n"
 
 msgid "only purge cache of older, unreacheable pkgs"
-msgstr "διαγραφή μόνο των παλιών, μη υπάρχοντων πλέον, πακέτων"
+msgstr "Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® ΞΌΟΞ½ΞΏ Ο„Ο‰Ξ½ Ο€Ξ±Ξ»ΞΉΟΞ½, ΞΌΞ· Ο…Ο€Ξ¬ΟΟ‡ΞΏΞ½Ο„Ο‰Ξ½ Ο€Ξ»Ξ­ΞΏΞ½, Ο€Ξ±ΞΊΞ­Ο„Ο‰Ξ½"
 
 msgid "remove obsolete packages"
-msgstr "διαγραφή ξεπερασμένων πακέτων"
+msgstr "Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® ΞΎΞµΟ€ΞµΟΞ±ΟƒΞΌΞ­Ξ½Ο‰Ξ½ Ο€Ξ±ΞΊΞ­Ο„Ο‰Ξ½"
 
 #, c-format
 msgid "You don't have enough free space in %s\n"
-msgstr "Δεν υπάρχει αρκετός ελεύθερος χώρος στο %s\n"
+msgstr "Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ Ξ±ΟΞΊΞµΟ„ΟΟ‚ ΞµΞ»ΞµΟΞΈΞµΟΞΏΟ‚ Ο‡ΟΟΞΏΟ‚ ΟƒΟ„ΞΏ %s\n"
 
 #, c-format
 msgid "Package Conflicts: %s\n"
-msgstr "Συγκρούσεις πακέτων: %s\n"
+msgstr "Ξ£Ο…Ξ³ΞΊΟΞΏΟΟƒΞµΞΉΟ‚ Ο€Ξ±ΞΊΞ­Ο„Ο‰Ξ½: %s\n"
 
 #, c-format
 msgid "Package Suggests: %s\n"
-msgstr "Προτάσεις πακέτων: %s\n"
+msgstr "Ξ ΟΞΏΟ„Ξ¬ΟƒΞµΞΉΟ‚ Ο€Ξ±ΞΊΞ­Ο„Ο‰Ξ½: %s\n"
 
 #, c-format
 msgid "Failed to parse package data from %s\n"
-msgstr "Αδύνατη η λήψη των δεδομένων πακέτων από το %s\n"
+msgstr "Ξ‘Ξ΄ΟΞ½Ξ±Ο„Ξ· Ξ· Ξ»Ξ®ΟΞ· Ο„Ο‰Ξ½ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½ Ο€Ξ±ΞΊΞ­Ο„Ο‰Ξ½ Ξ±Ο€Ο Ο„ΞΏ %s\n"
 
 msgid "specify number of download retry attempts"
-msgstr "καθορίστε τον αριθμό των προσπαθειών επανάληψης για κατέβασμα"
+msgstr "ΞΊΞ±ΞΈΞΏΟΞ―ΟƒΟ„Ξµ Ο„ΞΏΞ½ Ξ±ΟΞΉΞΈΞΌΟ Ο„Ο‰Ξ½ Ο€ΟΞΏΟƒΟ€Ξ±ΞΈΞµΞΉΟΞ½ ΞµΟ€Ξ±Ξ½Ξ¬Ξ»Ξ·ΟΞ·Ο‚ Ξ³ΞΉΞ± ΞΊΞ±Ο„Ξ­Ξ²Ξ±ΟƒΞΌΞ±"
 
 msgid "install package, do not attempt to upgrade"
-msgstr "εγκατάσταση πακέτου, χωρίς προσπάθεια αναβάθμισης"
+msgstr "ΞµΞ³ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ· Ο€Ξ±ΞΊΞ­Ο„ΞΏΟ…, Ο‡Ο‰ΟΞ―Ο‚ Ο€ΟΞΏΟƒΟ€Ξ¬ΞΈΞµΞΉΞ± Ξ±Ξ½Ξ±Ξ²Ξ¬ΞΈΞΌΞΉΟƒΞ·Ο‚"
 
 msgid "[disk set(s)] - install specified disk set(s)"
-msgstr "[ομάδα(ες) δίσκων] - εγκατάσταση των καθορισμένων ομάδων δίσκων"
+msgstr "[ΞΏΞΌΞ¬Ξ΄Ξ±(ΞµΟ‚) Ξ΄Ξ―ΟƒΞΊΟ‰Ξ½] - ΞµΞ³ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ· Ο„Ο‰Ξ½ ΞΊΞ±ΞΈΞΏΟΞΉΟƒΞΌΞ­Ξ½Ο‰Ξ½ ΞΏΞΌΞ¬Ξ΄Ο‰Ξ½ Ξ΄Ξ―ΟƒΞΊΟ‰Ξ½"
 
 msgid "always prompt during install/upgrade"
-msgstr "πάντα να εμφανίζεται μήνυμα κατά την εγκατάσταση/αναβάθμιση"
+msgstr "Ο€Ξ¬Ξ½Ο„Ξ± Ξ½Ξ± ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞµΟ„Ξ±ΞΉ ΞΌΞ®Ξ½Ο…ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ ΞµΞ³ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ·/Ξ±Ξ½Ξ±Ξ²Ξ¬ΞΈΞΌΞΉΟƒΞ·"
 
 #, c-format
 msgid "Excluding %s, use --ignore-dep to override\n"
-msgstr "Εξαιρείται το %s, χρησιμοποιήστε το --ignore-dep για να το αγνοήσετε\n"
+msgstr "Ξ•ΞΎΞ±ΞΉΟΞµΞ―Ο„Ξ±ΞΉ Ο„ΞΏ %s, Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞ®ΟƒΟ„Ξµ Ο„ΞΏ --ignore-dep Ξ³ΞΉΞ± Ξ½Ξ± Ο„ΞΏ Ξ±Ξ³Ξ½ΞΏΞ®ΟƒΞµΟ„Ξµ\n"
 
 msgid "Package ChangeLog"
-msgstr "Τελευταίες αλλαγές πακέτου"
+msgstr "Ξ¤ΞµΞ»ΞµΟ…Ο„Ξ±Ξ―ΞµΟ‚ Ξ±Ξ»Ξ»Ξ±Ξ³Ξ­Ο‚ Ο€Ξ±ΞΊΞ­Ο„ΞΏΟ…"
 
 #, c-format
 msgid "Retrieving ChangeLog.txt [%s]..."
-msgstr "Ανάκτηση του ChangeLog.txt [%s]..."
+msgstr "Ξ‘Ξ½Ξ¬ΞΊΟ„Ξ·ΟƒΞ· Ο„ΞΏΟ… ChangeLog.txt [%s]..."
 
 msgid "MD5 checksum mismatch, override with --no-md5"
-msgstr "Το άθροισμα MD5 δεν ταιριάζει, αγνοήστε το με --no-md5"
+msgstr "Ξ¤ΞΏ Ξ¬ΞΈΟΞΏΞΉΟƒΞΌΞ± MD5 Ξ΄ΞµΞ½ Ο„Ξ±ΞΉΟΞΉΞ¬Ξ¶ΞµΞΉ, Ξ±Ξ³Ξ½ΞΏΞ®ΟƒΟ„Ξµ Ο„ΞΏ ΞΌΞµ --no-md5"
 
 msgid "Missing MD5 checksum, override with --no-md5"
-msgstr "Το άθροισμα MD5 λείπει, αγνοήστε το με --no-md5"
+msgstr "Ξ¤ΞΏ Ξ¬ΞΈΟΞΏΞΉΟƒΞΌΞ± MD5 Ξ»ΞµΞ―Ο€ΞµΞΉ, Ξ±Ξ³Ξ½ΞΏΞ®ΟƒΟ„Ξµ Ο„ΞΏ ΞΌΞµ --no-md5"
 
 msgid "Incomplete download"
-msgstr "Ημιτελές κατέβασμα αρχείου"
+msgstr "Ξ—ΞΌΞΉΟ„ΞµΞ»Ξ­Ο‚ ΞΊΞ±Ο„Ξ­Ξ²Ξ±ΟƒΞΌΞ± Ξ±ΟΟ‡ΞµΞ―ΞΏΟ…"
 
 msgid "GPG key successfully imported"
-msgstr "Το κλειδί GPG εισήχθη επιτυχώς"
+msgstr "Ξ¤ΞΏ ΞΊΞ»ΞµΞΉΞ΄Ξ― GPG ΞµΞΉΟƒΞ®Ο‡ΞΈΞ· ΞµΟ€ΞΉΟ„Ο…Ο‡ΟΟ‚"
 
 msgid "GPG key could not be imported"
-msgstr "Το κλειδί GPG δεν ήταν δυνατό να εισαχθεί"
+msgstr "Ξ¤ΞΏ ΞΊΞ»ΞµΞΉΞ΄Ξ― GPG Ξ΄ΞµΞ½ Ξ®Ο„Ξ±Ξ½ Ξ΄Ο…Ξ½Ξ±Ο„Ο Ξ½Ξ± ΞµΞΉΟƒΞ±Ο‡ΞΈΞµΞ―"
 
 msgid "GPG key already present"
-msgstr "Το κλειδί GPG είναι ήδη εισαγμένο"
+msgstr "Ξ¤ΞΏ ΞΊΞ»ΞµΞΉΞ΄Ξ― GPG ΞµΞ―Ξ½Ξ±ΞΉ Ξ®Ξ΄Ξ· ΞµΞΉΟƒΞ±Ξ³ΞΌΞ­Ξ½ΞΏ"
 
 msgid "Checksums signature successfully verified"
-msgstr "Η υπογραφή των αθροισμάτων πιστοποιήθηκε επιτυχώς"
+msgstr "Ξ— Ο…Ο€ΞΏΞ³ΟΞ±Ο†Ξ® Ο„Ο‰Ξ½ Ξ±ΞΈΟΞΏΞΉΟƒΞΌΞ¬Ο„Ο‰Ξ½ Ο€ΞΉΟƒΟ„ΞΏΟ€ΞΏΞΉΞ®ΞΈΞ·ΞΊΞµ ΞµΟ€ΞΉΟ„Ο…Ο‡ΟΟ‚"
 
 msgid "Checksums signature could not be verified"
-msgstr "Η υπογραφή των αθροισμάτων δεν ήταν δυνατό να πιστοποιηθεί"
+msgstr "Ξ— Ο…Ο€ΞΏΞ³ΟΞ±Ο†Ξ® Ο„Ο‰Ξ½ Ξ±ΞΈΟΞΏΞΉΟƒΞΌΞ¬Ο„Ο‰Ξ½ Ξ΄ΞµΞ½ Ξ®Ο„Ξ±Ξ½ Ξ΄Ο…Ξ½Ξ±Ο„Ο Ξ½Ξ± Ο€ΞΉΟƒΟ„ΞΏΟ€ΞΏΞΉΞ·ΞΈΞµΞ―"
 
 msgid "Verified"
-msgstr "Επιβεβαιώθηκε"
+msgstr "Ξ•Ο€ΞΉΞ²ΞµΞ²Ξ±ΞΉΟΞΈΞ·ΞΊΞµ"
 
 msgid "Not Verified"
-msgstr "Δεν επιβεβαιώθηκε"
+msgstr "Ξ”ΞµΞ½ ΞµΟ€ΞΉΞ²ΞµΞ²Ξ±ΞΉΟΞΈΞ·ΞΊΞµ"
 
+#, c-format
 msgid "Retrieving GPG key [%s]..."
-msgstr "Ανάκτηση του κλειδιού GPG [%s]..."
+msgstr "Ξ‘Ξ½Ξ¬ΞΊΟ„Ξ·ΟƒΞ· Ο„ΞΏΟ… ΞΊΞ»ΞµΞΉΞ΄ΞΉΞΏΟ GPG [%s]..."
 
+#, c-format
 msgid "Retrieving checksum signature [%s]..."
-msgstr "Ανάκτηση της υπογραφής αθροισμάτων [%s]..."
+msgstr "Ξ‘Ξ½Ξ¬ΞΊΟ„Ξ·ΟƒΞ· Ο„Ξ·Ο‚ Ο…Ο€ΞΏΞ³ΟΞ±Ο†Ξ®Ο‚ Ξ±ΞΈΟΞΏΞΉΟƒΞΌΞ¬Ο„Ο‰Ξ½ [%s]..."
 
 msgid "No key for verification"
-msgstr "Δεν υπάρχει κλειδί για την πιστοποίηση"
+msgstr "Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ ΞΊΞ»ΞµΞΉΞ΄Ξ― Ξ³ΞΉΞ± Ο„Ξ·Ξ½ Ο€ΞΉΟƒΟ„ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ·"
 
 msgid "retrieve GPG keys for sources"
-msgstr "ανάκτηση των κλειδιών GPG για τις πηγές"
+msgstr "Ξ±Ξ½Ξ¬ΞΊΟ„Ξ·ΟƒΞ· Ο„Ο‰Ξ½ ΞΊΞ»ΞµΞΉΞ΄ΞΉΟΞ½ GPG Ξ³ΞΉΞ± Ο„ΞΉΟ‚ Ο€Ξ·Ξ³Ξ­Ο‚"
 
+#, c-format
 msgid "Verifying checksum signature [%s]..."
-msgstr "Πιστοποίηση των υπογραφών αθροισμάτων [%s]..."
+msgstr "Ξ ΞΉΟƒΟ„ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· Ο„Ο‰Ξ½ Ο…Ο€ΞΏΞ³ΟΞ±Ο†ΟΞ½ Ξ±ΞΈΟΞΏΞΉΟƒΞΌΞ¬Ο„Ο‰Ξ½ [%s]..."
 
 msgid "Unknown error"
-msgstr "Αγνωστο σφάλμα"
+msgstr "Ξ‘Ξ³Ξ½Ο‰ΟƒΟ„ΞΏ ΟƒΟ†Ξ¬Ξ»ΞΌΞ±"
 
 #, c-format
 msgid "Not Found\n"
-msgstr "Δεν βρέθηκε\n"
+msgstr "Ξ”ΞµΞ½ Ξ²ΟΞ­ΞΈΞ·ΞΊΞµ\n"
 
 msgid "Default"
-msgstr "Εξ ορισμού"
+msgstr "Ξ•ΞΎ ΞΏΟΞΉΟƒΞΌΞΏΟ"
 
 msgid "Default Patch"
-msgstr "Εξ ορισμού Διόρθωση"
+msgstr "Ξ•ΞΎ ΞΏΟΞΉΟƒΞΌΞΏΟ Ξ”ΞΉΟΟΞΈΟ‰ΟƒΞ·"
 
 msgid "Preferred"
-msgstr "Προτιμώμενο"
+msgstr "Ξ ΟΞΏΟ„ΞΉΞΌΟΞΌΞµΞ½ΞΏ"
 
 msgid "Preferred Patch"
-msgstr "Προτιμώμενη Διόρθωση"
+msgstr "Ξ ΟΞΏΟ„ΞΉΞΌΟΞΌΞµΞ½Ξ· Ξ”ΞΉΟΟΞΈΟ‰ΟƒΞ·"
 
 msgid "Official"
-msgstr "Επίσημο"
+msgstr "Ξ•Ο€Ξ―ΟƒΞ·ΞΌΞΏ"
 
 msgid "Official Patch"
-msgstr "Επίσημη Διόρθωση"
+msgstr "Ξ•Ο€Ξ―ΟƒΞ·ΞΌΞ· Ξ”ΞΉΟΟΞΈΟ‰ΟƒΞ·"
 
 msgid "Custom"
-msgstr "Προσαρμοσμένο"
+msgstr "Ξ ΟΞΏΟƒΞ±ΟΞΌΞΏΟƒΞΌΞ­Ξ½ΞΏ"
 
 msgid "Custom Patch"
-msgstr "Προσαρμοσμένη Διόρθωση"
+msgstr "Ξ ΟΞΏΟƒΞ±ΟΞΌΞΏΟƒΞΌΞ­Ξ½Ξ· Ξ”ΞΉΟΟΞΈΟ‰ΟƒΞ·"
 
 #, c-format
 msgid "Package Priority: %s\n"
-msgstr "Προτεραιότητα Πακέτων: %s\n"
+msgstr "Ξ ΟΞΏΟ„ΞµΟΞ±ΞΉΟΟ„Ξ·Ο„Ξ± Ξ Ξ±ΞΊΞ­Ο„Ο‰Ξ½: %s\n"
 
 msgid "[pkg name] - show pkg installed files"
-msgstr "[όνομα πακέτου] - προβολή αρχείων πακέτου"
+msgstr "[ΟΞ½ΞΏΞΌΞ± Ο€Ξ±ΞΊΞ­Ο„ΞΏΟ…] - Ο€ΟΞΏΞ²ΞΏΞ»Ξ® Ξ±ΟΟ‡ΞµΞ―Ο‰Ξ½ Ο€Ξ±ΞΊΞ­Ο„ΞΏΟ…"
 
+#, c-format
+msgid "Delete %s ? [y/N]"
+msgstr "Delete %s ? [y/N]"

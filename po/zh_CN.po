@@ -14,9 +14,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#, c-format
 msgid "Reading Package Lists... "
 msgstr "读取软件包列表... "
 
+#, c-format
 msgid "Done\n"
 msgstr "完成\n"
 
@@ -62,6 +64,7 @@ msgstr "软件包安装后大小: %d K\n"
 msgid "Package Required: %s\n"
 msgstr "软件包需要: %s\n"
 
+#, c-format
 msgid "Package Description:\n"
 msgstr "软件包描述:\n"
 
@@ -101,6 +104,7 @@ msgstr "检索补丁包列表 [%s]...\n"
 msgid "Retrieving checksum list [%s]..."
 msgstr "检索校验码列表 [%s]..."
 
+#, c-format
 msgid "Failed to malloc\n"
 msgstr "malloc 失败\n"
 
@@ -124,6 +128,7 @@ msgstr "请更改 %s 的权限或以更高的权限运行\n"
 msgid "Failed to open %s\n"
 msgstr "打开 %s 失败\n"
 
+#, c-format
 msgid "Perhaps you want to run --update?\n"
 msgstr "可能你需要运行 --update?\n"
 
@@ -135,6 +140,7 @@ msgstr "打开目录 %s 失败\n"
 msgid "Failed to chdir: %s\n"
 msgstr "进入目录 %s 失败\n"
 
+#, c-format
 msgid "Failed to get cwd\n"
 msgstr "无法获得当前工作目录\n"
 
@@ -154,6 +160,7 @@ msgstr "\t回到目录 %s\n"
 msgid "Failed to download: %s\n"
 msgstr "下载 %s 失败\n"
 
+#, c-format
 msgid "Failed to calloc\n"
 msgstr "calloc 失败\n"
 
@@ -177,9 +184,11 @@ msgstr "期待的 MD5 校验值: [%s]\n"
 msgid "File: %s/%s\n"
 msgstr "文件: %s/%s\n"
 
+#, c-format
 msgid "An implementation of the Debian APT system to Slackware\n"
 msgstr "Debian APT 系统的 Slackware 实现\n"
 
+#, c-format
 msgid "Usage:\n"
 msgstr "用法:\n"
 
@@ -187,6 +196,7 @@ msgstr "用法:\n"
 msgid "%s [option(s)] [target]\n"
 msgstr "%s [选项(可多选)] [目的]\n"
 
+#, c-format
 msgid "Targets:\n"
 msgstr "目的:\n"
 
@@ -226,6 +236,7 @@ msgstr "清空缓存的软件包"
 msgid "print version and license info"
 msgstr "显示版本和版权信息"
 
+#, c-format
 msgid "Options:\n"
 msgstr "选项:\n"
 
@@ -258,24 +269,31 @@ msgstr "%s 版本 %s\n"
 msgid "regex failed on [%s]\n"
 msgstr "regex failed on [%s]\n"
 
+#, c-format
 msgid "regexec failed to parse location\n"
 msgstr "regexec failed to parse location\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read location\n"
 msgstr "getline reached EOF attempting to read location\n"
 
+#, c-format
 msgid "regexec failed to parse size_c\n"
 msgstr "regexec failed to parse size_c\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read size_c\n"
 msgstr "getline reached EOF attempting to read size_c\n"
 
+#, c-format
 msgid "regexec failed to parse size_u\n"
 msgstr "regexec failed to parse size_u\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read size_u\n"
 msgstr "getline reached EOF attempting to read size_u\n"
 
+#, c-format
 msgid "error attempting to read pkg description\n"
 msgstr "尝试读取软件包描述时发生错误\n"
 
@@ -283,6 +301,7 @@ msgstr "尝试读取软件包描述时发生错误\n"
 msgid "Failed to realloc %s\n"
 msgstr "Failed to realloc %s\n"
 
+#, c-format
 msgid "Failed to compile regex\n"
 msgstr "Failed to compile regex\n"
 
@@ -318,9 +337,11 @@ msgstr "%s-%s 将要被删除\n"
 msgid "Failed to compile regex [%s]\n"
 msgstr "Failed to compile regex [%s]\n"
 
+#, c-format
 msgid "pkg conditional too long\n"
 msgstr "pkg conditional too long\n"
 
+#, c-format
 msgid "The following packages have unmet dependencies:\n"
 msgstr "以下软件包没有满足依赖:\n"
 
@@ -328,15 +349,19 @@ msgstr "以下软件包没有满足依赖:\n"
 msgid "  %s: Depends: %s\n"
 msgstr "  %s: 依赖于: %s\n"
 
+#, c-format
 msgid "The following packages have been EXCLUDED:\n"
 msgstr "以下软件包已被设置为_排除_:\n"
 
+#, c-format
 msgid "The following NEW packages will be installed:\n"
 msgstr "以下_新_软件包将要被安装:\n"
 
+#, c-format
 msgid "The following packages will be REMOVED:\n"
 msgstr "以下软件包将要被_删除_:\n"
 
+#, c-format
 msgid "The following packages will be upgraded:\n"
 msgstr "以下软件包将要被升级:\n"
 
@@ -363,6 +388,7 @@ msgstr "完成后 %.1f%s 的附加磁盘空间将会被使用.\n"
 msgid "Do you want to continue? [y/N] "
 msgstr "继续吗? [y/N] "
 
+#, c-format
 msgid "Abort.\n"
 msgstr "中止.\n"
 
@@ -381,9 +407,11 @@ msgstr "只显示 URIs ，不下载"
 msgid "Package MD5 Sum:  %s\n"
 msgstr "软件包 MD5 校验值:  %s\n"
 
+#, c-format
 msgid "md5 sum too long\n"
 msgstr "MD5 校验值太长\n"
 
+#, c-format
 msgid "Reading Package Lists..."
 msgstr "读取软件包列表..."
 
@@ -397,15 +425,18 @@ msgstr "跳过依赖检查"
 msgid "show download statistics"
 msgstr "显示下载状况"
 
+#, c-format
 msgid "Cached\n"
 msgstr "已缓存\n"
 
+#, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
 msgstr "源下载失败, 请修正源并且执行 --update\n"
 
 msgid "specify alternate slapt-getrc location"
 msgstr "指定其他的 slapt-getrc 文件位置"
 
+#, c-format
 msgid "Suggested packages:\n"
 msgstr "建议安装的软件包:\n"
 
@@ -484,9 +515,11 @@ msgstr "Verified"
 msgid "Not Verified"
 msgstr "Not Verified"
 
+#, c-format
 msgid "Retrieving GPG key [%s]..."
 msgstr "Retrieving GPG key [%s]..."
 
+#, c-format
 msgid "Retrieving checksum signature [%s]..."
 msgstr "Retrieving checksum signature [%s]..."
 
@@ -496,6 +529,7 @@ msgstr "No key for verification"
 msgid "retrieve GPG keys for sources"
 msgstr "retrieve GPG keys for sources"
 
+#, c-format
 msgid "Verifying checksum signature [%s]..."
 msgstr "Verifying checksum signature [%s]..."
 
@@ -537,3 +571,6 @@ msgstr "Package Priority: %s\n"
 msgid "[pkg name] - show pkg installed files"
 msgstr "[pkg name] - show pkg installed files"
 
+#, c-format
+msgid "Delete %s ? [y/N]"
+msgstr "Delete %s ? [y/N]"

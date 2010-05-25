@@ -11,12 +11,14 @@ msgstr ""
 "Last-Translator: Stefan Koopmanschap <stefan@electronicmusicworld.com>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#, c-format
 msgid "Reading Package Lists... "
 msgstr "Ophalen lijst packages"
 
+#, c-format
 msgid "Done\n"
 msgstr "Klaar\n"
 
@@ -32,7 +34,7 @@ msgstr "nee"
 
 #, c-format
 msgid "%s is not installed.\n"
-msgstr "%s is niet geïnstalleerd.\n"
+msgstr "%s is niet geÃ¯nstalleerd.\n"
 
 #, c-format
 msgid "Package Name: %s\n"
@@ -42,7 +44,7 @@ msgstr "Naam package: %s\n"
 msgid "Package Mirror: %s\n"
 msgstr "Alternative bron: %s\n"
 
-#,c-format
+#, c-format
 msgid "Package Location: %s\n"
 msgstr "Bron: %s\n"
 
@@ -62,12 +64,13 @@ msgstr "Grootte na installatie: %d K\n"
 msgid "Package Required: %s\n"
 msgstr "Benodigd package: %s\n"
 
+#, c-format
 msgid "Package Description:\n"
 msgstr "Beschrijving:\n"
 
 #, c-format
 msgid "Package Installed: %s\n"
-msgstr "Package geïnstalleerd: %s\n"
+msgstr "Package geÃ¯nstalleerd: %s\n"
 
 #, c-format
 msgid "No such package: %s\n"
@@ -101,6 +104,7 @@ msgstr "Ophalen lijst patches [%s]...\n"
 msgid "Retrieving checksum list [%s]..."
 msgstr "Ophalen lijst checksums [%s]..."
 
+#, c-format
 msgid "Failed to malloc\n"
 msgstr "Kon niet malloc\n"
 
@@ -124,6 +128,7 @@ msgstr "Verander rechten op %s of start met voldoende rechten\n"
 msgid "Failed to open %s\n"
 msgstr "Kon %s niet openen\n"
 
+#, c-format
 msgid "Perhaps you want to run --update?\n"
 msgstr "Probeer --update anders eens?\n"
 
@@ -135,6 +140,7 @@ msgstr "Kon niet opendir %s\n"
 msgid "Failed to chdir: %s\n"
 msgstr "Kon niet chdir: %s\n"
 
+#, c-format
 msgid "Failed to get cwd\n"
 msgstr "Kon niet cwd\n"
 
@@ -154,6 +160,7 @@ msgstr "\tchdir terug naar %s\n"
 msgid "Failed to download: %s\n"
 msgstr "Kon niet downloaden: %s\n"
 
+#, c-format
 msgid "Failed to calloc\n"
 msgstr "Kon niet calloc\n"
 
@@ -167,7 +174,7 @@ msgstr "Kon koppeling niet vebreken %s\n"
 
 #, c-format
 msgid "MD5 found:    [%s]\n"
-msgstr "MD5 gevonden:	[%s]\n"
+msgstr "MD5 gevonden:\t[%s]\n"
 
 #, c-format
 msgid "MD5 expected: [%s]\n"
@@ -177,9 +184,11 @@ msgstr "MD5 verwacht: [%s]\n"
 msgid "File: %s/%s\n"
 msgstr "Bestand: %s/%s\n"
 
+#, c-format
 msgid "An implementation of the Debian APT system to Slackware\n"
 msgstr "Een implentatie van het Debian APT systeem op Slackware\n"
 
+#, c-format
 msgid "Usage:\n"
 msgstr "Syntax:\n"
 
@@ -187,6 +196,7 @@ msgstr "Syntax:\n"
 msgid "%s [option(s)] [target]\n"
 msgstr "%s [optie(s)] [doel]\n"
 
+#, c-format
 msgid "Targets:\n"
 msgstr "Doelen:\n"
 
@@ -194,7 +204,7 @@ msgid "retrieves pkg data from MIRROR"
 msgstr "haalt pkg data op van MIRROR"
 
 msgid "upgrade installed pkgs"
-msgstr "vernieuwt geïnstalleerde pkgs"
+msgstr "vernieuwt geÃ¯nstalleerde pkgs"
 
 msgid "upgrade to newer release"
 msgstr "vernieuwt naar nieuwere versie"
@@ -218,7 +228,7 @@ msgid "list available pkgs"
 msgstr "Toon beschikbare pkgs"
 
 msgid "list installed pkgs"
-msgstr "Toon geïnstalleerde pkgs"
+msgstr "Toon geÃ¯nstalleerde pkgs"
 
 msgid "purge cached pkgs"
 msgstr "laat opgeslagen pkgs verlopen"
@@ -226,6 +236,7 @@ msgstr "laat opgeslagen pkgs verlopen"
 msgid "print version and license info"
 msgstr "toon versie en licentieinformatie"
 
+#, c-format
 msgid "Options:\n"
 msgstr "Opties:\n"
 
@@ -258,24 +269,31 @@ msgstr "%s versie %s\n"
 msgid "regex failed on [%s]\n"
 msgstr "regex mislukt op [%s]\n"
 
+#, c-format
 msgid "regexec failed to parse location\n"
 msgstr "regexec kon locatie niet verwerken\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read location\n"
 msgstr "getline heeft EOF bereikt bij lezen locatie\n"
 
+#, c-format
 msgid "regexec failed to parse size_c\n"
 msgstr "regexec kon size_c niet verwerken\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read size_c\n"
 msgstr "getline heeft EOF bereikt bij lezen size_c\n"
 
+#, c-format
 msgid "regexec failed to parse size_u\n"
 msgstr "regexec kon size_u niet verwerken\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read size_u\n"
 msgstr "getline heeft EOF bereikt bij lezen size_u\n"
 
+#, c-format
 msgid "error attempting to read pkg description\n"
 msgstr "Fout bij lezen beschrijving\n"
 
@@ -283,12 +301,17 @@ msgstr "Fout bij lezen beschrijving\n"
 msgid "Failed to realloc %s\n"
 msgstr "Kon niet realloc %s\n"
 
+#, c-format
 msgid "Failed to compile regex\n"
 msgstr "Kon regex niet compileren\n"
 
 #, c-format
 msgid "Regex Error: %s\n"
 msgstr "Regex fout: %s\n"
+
+#, c-format
+msgid "%s-%s is to be installed\n"
+msgstr "%s-%s zal worden geÃ¯nstalleerd\n"
 
 #, c-format
 msgid "Preparing to install %s-%s\n"
@@ -299,16 +322,26 @@ msgid "Failed to execute command: [%s]\n"
 msgstr "Kon commando niet uitvoeren: [%s]\n"
 
 #, c-format
+msgid "%s-%s is to be upgraded to version %s\n"
+msgstr "%s-% zal worden geupgrade naar versie %s\n"
+
+#, c-format
 msgid "Preparing to replace %s-%s with %s-%s\n"
 msgstr "Voorbereiden vervangen van %s-%s met %s-%s\n"
+
+#, c-format
+msgid "%s-%s is to be removed\n"
+msgstr "%s-%s zal worden verwijderd\n"
 
 #, c-format
 msgid "Failed to compile regex [%s]\n"
 msgstr "Kon regex niet compileren [%s]\n"
 
+#, c-format
 msgid "pkg conditional too long\n"
 msgstr "pkg voorwaarde te lang\n"
 
+#, c-format
 msgid "The following packages have unmet dependencies:\n"
 msgstr "De volgende packages hebben ontbrekende vereisten:\n"
 
@@ -316,21 +349,25 @@ msgstr "De volgende packages hebben ontbrekende vereisten:\n"
 msgid "  %s: Depends: %s\n"
 msgstr " %s: vereist: %s\n"
 
+#, c-format
 msgid "The following packages have been EXCLUDED:\n"
 msgstr "De volgende packages zijn WEGGELATEN:\n"
 
+#, c-format
 msgid "The following NEW packages will be installed:\n"
-msgstr "De volgende NIEUWE packages zullen ge�nstalleerd worden:\n"
+msgstr "De volgende NIEUWE packages zullen geï¿½nstalleerd worden:\n"
 
+#, c-format
 msgid "The following packages will be REMOVED:\n"
 msgstr "De volgende packages zullen worden VERWIJDERD:\n"
 
+#, c-format
 msgid "The following packages will be upgraded:\n"
 msgstr "De volgende packages zullen worden geupgrade:\n"
 
 #, c-format
 msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
-msgstr "%d upgraded, %d nieuw ge�nstalleerd, %d te verwijderen en %d niet geupgrade.\n"
+msgstr "%d upgraded, %d nieuw geï¿½nstalleerd, %d te verwijderen en %d niet geupgrade.\n"
 
 #, c-format
 msgid "Need to get %.1f%s of archives.\n"
@@ -351,28 +388,17 @@ msgstr "Na uitpakken zal %.1f%s aan extra ruimte gebruikt worden.\n"
 msgid "Do you want to continue? [y/N] "
 msgstr "Wilt u doorgaan? [y/N]"
 
+#, c-format
 msgid "Abort.\n"
 msgstr "Afbreken.\n"
 
 #, c-format
-msgid "%s-%s is to be installed\n"
-msgstr "%s-%s zal worden geïnstalleerd\n"
-
-#, c-format
-msgid "%s-%s is to be upgraded to version %s\n"
-msgstr "%s-% zal worden geupgrade naar versie %s\n"
-
-#,c-format
-msgid "%s-%s is to be removed\n"
-msgstr "%s-%s zal worden verwijderd\n"
-
-#, c-format
 msgid "%s, which is to be installed, conflicts with %s\n"
-msgstr "%s, wat zal worden geïnstalleerd heeft een conflict met %s\n"
+msgstr "%s, wat zal worden geÃ¯nstalleerd heeft een conflict met %s\n"
 
 #, c-format
 msgid "Installed %s conflicts with %s\n"
-msgstr "Geïnstalleerd %s heeft een conflict met %s\n"
+msgstr "GeÃ¯nstalleerd %s heeft een conflict met %s\n"
 
 msgid "print URIs only, do not download"
 msgstr "toon alleen URI, niet downloaden"
@@ -381,9 +407,11 @@ msgstr "toon alleen URI, niet downloaden"
 msgid "Package MD5 Sum:  %s\n"
 msgstr "Package MD5 Sum:  %s\n"
 
+#, c-format
 msgid "md5 sum too long\n"
 msgstr "md5 te lang\n"
 
+#, c-format
 msgid "Reading Package Lists..."
 msgstr "Lezen package lijst..."
 
@@ -397,15 +425,18 @@ msgstr "sla controle vereisten over"
 msgid "show download statistics"
 msgstr "show download statistics"
 
+#, c-format
 msgid "Cached\n"
 msgstr "Gecached\n"
 
+#, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
 msgstr "Kon niet downloaden van bronnen, herstel bronnen en doe nogmaals --update\n"
 
 msgid "specify alternate slapt-getrc location"
 msgstr "Specificeer alternatieve slapt-getrc lokatie"
 
+#, c-format
 msgid "Suggested packages:\n"
 msgstr "Aanbevolen packages:\n"
 
@@ -484,9 +515,11 @@ msgstr "Verified"
 msgid "Not Verified"
 msgstr "Not Verified"
 
+#, c-format
 msgid "Retrieving GPG key [%s]..."
 msgstr "Retrieving GPG key [%s]..."
 
+#, c-format
 msgid "Retrieving checksum signature [%s]..."
 msgstr "Retrieving checksum signature [%s]..."
 
@@ -496,6 +529,7 @@ msgstr "No key for verification"
 msgid "retrieve GPG keys for sources"
 msgstr "retrieve GPG keys for sources"
 
+#, c-format
 msgid "Verifying checksum signature [%s]..."
 msgstr "Verifying checksum signature [%s]..."
 
@@ -537,3 +571,6 @@ msgstr "Package Priority: %s\n"
 msgid "[pkg name] - show pkg installed files"
 msgstr "[pkg name] - show pkg installed files"
 
+#, c-format
+msgid "Delete %s ? [y/N]"
+msgstr "Delete %s ? [y/N]"

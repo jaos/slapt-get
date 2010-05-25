@@ -12,13 +12,15 @@ msgstr ""
 "Last-Translator: Manfred Mueller <mmueller@live-modules.org>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.2\n"
 
+#, c-format
 msgid "Reading Package Lists... "
 msgstr "Lese Paket-Listen ein... "
 
+#, c-format
 msgid "Done\n"
 msgstr "Fertig\n"
 
@@ -64,6 +66,7 @@ msgstr "Paket-Groesse nach Installation: %d K\n"
 msgid "Package Required: %s\n"
 msgstr "Paket benoetigt: %s\n"
 
+#, c-format
 msgid "Package Description:\n"
 msgstr "Paket-Beschreibung:\n"
 
@@ -103,6 +106,7 @@ msgstr "Rufe Patch-Liste von [%s] ab... \n"
 msgid "Retrieving checksum list [%s]..."
 msgstr "Rufe Pruefsummen-Liste von [%s] ab... "
 
+#, c-format
 msgid "Failed to malloc\n"
 msgstr "Fehler bei malloc\n"
 
@@ -126,6 +130,7 @@ msgstr "Bitte aendern sie die Berechtigungen von %s oder starten sie slapt-get m
 msgid "Failed to open %s\n"
 msgstr "Konnte %s nicht oeffnen\n"
 
+#, c-format
 msgid "Perhaps you want to run --update?\n"
 msgstr "Moechten sie vielleicht --update aufrufen?\n"
 
@@ -137,6 +142,7 @@ msgstr "Konnte Verzeichnis %s nicht oeffnen\n"
 msgid "Failed to chdir: %s\n"
 msgstr "Konnte nicht in Verzeichnis %s wechseln\n"
 
+#, c-format
 msgid "Failed to get cwd\n"
 msgstr "Konnte aktuelles Arbeitsverzeichnis nicht bestimmen.\n"
 
@@ -156,6 +162,7 @@ msgstr "\tWechsel Verzeichnis zurueck nach %s\n"
 msgid "Failed to download: %s\n"
 msgstr "Download von %s gescheitert\n"
 
+#, c-format
 msgid "Failed to calloc\n"
 msgstr "Fehler bei calloc\n"
 
@@ -179,9 +186,11 @@ msgstr "MD5 erwartet: [ %s]\n"
 msgid "File: %s/%s\n"
 msgstr "Datei: %s/%s\n"
 
+#, c-format
 msgid "An implementation of the Debian APT system to Slackware\n"
 msgstr "Eine Implementierung des Debian APT Systems fuer Slackware\n"
 
+#, c-format
 msgid "Usage:\n"
 msgstr "Syntax:\n"
 
@@ -189,6 +198,7 @@ msgstr "Syntax:\n"
 msgid "%s [option(s)] [target]\n"
 msgstr "%s [ Option(en) ] [ Ziel]\n"
 
+#, c-format
 msgid "Targets:\n"
 msgstr "Ziele:\n"
 
@@ -228,6 +238,7 @@ msgstr "Pakete aus Zwischenspeicher entfernen"
 msgid "print version and license info"
 msgstr "Versions- und Lizenzinformationen anzeigen"
 
+#, c-format
 msgid "Options:\n"
 msgstr "Optionen:\n"
 
@@ -260,24 +271,31 @@ msgstr "%s Version %s\n"
 msgid "regex failed on [%s]\n"
 msgstr "Regulaerer Ausdruck scheiterte an [ %s]\n"
 
+#, c-format
 msgid "regexec failed to parse location\n"
 msgstr "regexec konnte Ortsangabe nicht bestimmen\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read location\n"
 msgstr "getline kam beim Versuch die Ortsangabe einzulesen an das Ende der Datei\n"
 
+#, c-format
 msgid "regexec failed to parse size_c\n"
 msgstr "regexec konnte size_c nicht bestimmen\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read size_c\n"
 msgstr "getline kam beim Versuch size_c einzulesen an das Ende der Datei\n"
 
+#, c-format
 msgid "regexec failed to parse size_u\n"
 msgstr "regexec konnte size_u nicht bestimmen\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read size_u\n"
 msgstr "getline kam beim Versuch size_u zu bestimmen an das Ende der Datei\n"
 
+#, c-format
 msgid "error attempting to read pkg description\n"
 msgstr "Fehler beim Lesen der Paketbeschreibung\n"
 
@@ -285,6 +303,7 @@ msgstr "Fehler beim Lesen der Paketbeschreibung\n"
 msgid "Failed to realloc %s\n"
 msgstr "Fehler bei realloc %s\n"
 
+#, c-format
 msgid "Failed to compile regex\n"
 msgstr "Konnte regulaeren Ausdruck nicht uebersetzen.\n"
 
@@ -318,11 +337,13 @@ msgstr "%s-%s soll entfernt werden\n"
 
 #, c-format
 msgid "Failed to compile regex [%s]\n"
-msgstr "Konnte regulaeren Ausdruck [%s] nicht übersetzen\n"
+msgstr "Konnte regulaeren Ausdruck [%s] nicht Ã¼bersetzen\n"
 
+#, c-format
 msgid "pkg conditional too long\n"
 msgstr "Paket-Bedingungen zu lang\n"
 
+#, c-format
 msgid "The following packages have unmet dependencies:\n"
 msgstr "Die folgenden Pakete haben nicht erfuellte Abhaengigkeiten.\n"
 
@@ -330,15 +351,19 @@ msgstr "Die folgenden Pakete haben nicht erfuellte Abhaengigkeiten.\n"
 msgid "  %s: Depends: %s\n"
 msgstr "%s: Abhaengigkeiten: %s\n"
 
+#, c-format
 msgid "The following packages have been EXCLUDED:\n"
 msgstr "Die folgenden Pakete wurden AUSGESCHLOSSEN:\n"
 
+#, c-format
 msgid "The following NEW packages will be installed:\n"
 msgstr "Die folgenden NEUEN Pakete werden installiert:\n"
 
+#, c-format
 msgid "The following packages will be REMOVED:\n"
 msgstr "Die folgenden Pakete werden ENTFERNT:\n"
 
+#, c-format
 msgid "The following packages will be upgraded:\n"
 msgstr "Die folgenden Pakete werden aktualisiert:\n"
 
@@ -365,6 +390,7 @@ msgstr "Nach dem Entpacken wird %.1f%s zusaetzlicher Plattenspeicher verwendet.\
 msgid "Do you want to continue? [y/N] "
 msgstr "Fortsetzen? [y/N] "
 
+#, c-format
 msgid "Abort.\n"
 msgstr "Abbruch.\n"
 
@@ -383,9 +409,11 @@ msgstr "URIs nur ausgeben, nicht herunterladen"
 msgid "Package MD5 Sum:  %s\n"
 msgstr "MD5-Pruefsumme des Paketes: %s\n"
 
+#, c-format
 msgid "md5 sum too long\n"
 msgstr "MD5-Pruefsumme zu lang\n"
 
+#, c-format
 msgid "Reading Package Lists..."
 msgstr "Lese Paket-Listen... "
 
@@ -399,15 +427,18 @@ msgstr "Abhaengigkeitspruefung ueberspringen"
 msgid "show download statistics"
 msgstr "Downloadstatistiken anzeigen"
 
+#, c-format
 msgid "Cached\n"
 msgstr "Im Zwischenspeicher\n"
 
+#, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
 msgstr "Von den Quellen konnte nichts heruntergeladen werden, Quellen korrigieren und slapt-get erneut mit --update starten\n"
 
 msgid "specify alternate slapt-getrc location"
-msgstr "Anderen Ort für die Konfigurationsdatei slapt-getrc angeben"
+msgstr "Anderen Ort fÃ¼r die Konfigurationsdatei slapt-getrc angeben"
 
+#, c-format
 msgid "Suggested packages:\n"
 msgstr "Vorgeschlagene Pakete:\n"
 
@@ -486,9 +517,11 @@ msgstr "Bestaetigt"
 msgid "Not Verified"
 msgstr "Nicht bestaetigt"
 
+#, c-format
 msgid "Retrieving GPG key [%s]..."
 msgstr "Empfange GPG-Schluessel [%s]..."
 
+#, c-format
 msgid "Retrieving checksum signature [%s]..."
 msgstr "Empfange Pruefsummen-Signatur [%s]..."
 
@@ -498,6 +531,7 @@ msgstr "Kein Schluessel zu bestaetigen"
 msgid "retrieve GPG keys for sources"
 msgstr "Empfange GPG-Schluessel fuer Quellen"
 
+#, c-format
 msgid "Verifying checksum signature [%s]..."
 msgstr "Ueberprufe Pruefsummen-Signatur [%s]..."
 
@@ -539,3 +573,6 @@ msgstr "Paket-Prioritaet: %s\n"
 msgid "[pkg name] - show pkg installed files"
 msgstr "[pkg name] - Durch Paket installierte Dateien anzeigen"
 
+#, c-format
+msgid "Delete %s ? [y/N]"
+msgstr "Delete %s ? [y/N]"

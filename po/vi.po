@@ -14,9 +14,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#, c-format
 msgid "Reading Package Lists... "
 msgstr "Cập nhật danh sách gói phần mềm... "
 
+#, c-format
 msgid "Done\n"
 msgstr "Xong\n"
 
@@ -62,6 +64,7 @@ msgstr "Kích thước gói phần mềm được cài đặt: %d K\n"
 msgid "Package Required: %s\n"
 msgstr "Gói phần mềm được yêu cầu: %s\n"
 
+#, c-format
 msgid "Package Description:\n"
 msgstr "Mô tả gói phần mềm:\n"
 
@@ -101,6 +104,7 @@ msgstr "Cập nhật danh sách bản sửa lỗi [%s]...\n"
 msgid "Retrieving checksum list [%s]..."
 msgstr "Cập nhật danh sách kiểm tổng (checksum) [%s]..."
 
+#, c-format
 msgid "Failed to malloc\n"
 msgstr "Bị lỗi khi cấp phát\n"
 
@@ -124,6 +128,7 @@ msgstr "Vui lòng cập nhật quyền truy cập trên %s hoặc thực thi v�
 msgid "Failed to open %s\n"
 msgstr "Bị lỗi khi mở %s\n"
 
+#, c-format
 msgid "Perhaps you want to run --update?\n"
 msgstr "Có lẽ bạn muốn thực thi với tuỳ chọn --update?\n"
 
@@ -135,6 +140,7 @@ msgstr "Bị lỗi khi mở thư mục %s\n"
 msgid "Failed to chdir: %s\n"
 msgstr "Bị lỗi khi chuyển vào thư mục: %s\n"
 
+#, c-format
 msgid "Failed to get cwd\n"
 msgstr "Bị lỗi khi xác định thư mục hiện hành\n"
 
@@ -154,6 +160,7 @@ msgstr "\tquay về thư mục %s\n"
 msgid "Failed to download: %s\n"
 msgstr "Bị lỗi trong khi lấy dữ liệu: %s\n"
 
+#, c-format
 msgid "Failed to calloc\n"
 msgstr "Bị lỗi khi cấp phát\n"
 
@@ -177,9 +184,11 @@ msgstr "MD5 mong đợi: [%s]\n"
 msgid "File: %s/%s\n"
 msgstr "Tập tin: %s/%s\n"
 
+#, c-format
 msgid "An implementation of the Debian APT system to Slackware\n"
 msgstr "Phiên bản cài đặt của hệ thống APT Debian cho Slackware\n"
 
+#, c-format
 msgid "Usage:\n"
 msgstr "Cách dùng:\n"
 
@@ -187,6 +196,7 @@ msgstr "Cách dùng:\n"
 msgid "%s [option(s)] [target]\n"
 msgstr "%s [tuỳ chọn] [hành động]\n"
 
+#, c-format
 msgid "Targets:\n"
 msgstr "Hành động:\n"
 
@@ -226,6 +236,7 @@ msgstr "xoá các gói phần mềm được bảo lưu"
 msgid "print version and license info"
 msgstr "hiển thị phiên bản và giấy phép sử dụng"
 
+#, c-format
 msgid "Options:\n"
 msgstr "Tuỳ chọn:\n"
 
@@ -258,24 +269,31 @@ msgstr "%s phiên bản %s\n"
 msgid "regex failed on [%s]\n"
 msgstr "regex bị lỗi [%s]\n"
 
+#, c-format
 msgid "regexec failed to parse location\n"
 msgstr "regexec bị lỗi khi phân tích vị trí\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read location\n"
 msgstr "getline đã đến EOF khi thử đọc vị trí\n"
 
+#, c-format
 msgid "regexec failed to parse size_c\n"
 msgstr "regexec bị lỗi khi phân tích size_c\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read size_c\n"
 msgstr "getline đã đến EOF khi thử đọc size_c\n"
 
+#, c-format
 msgid "regexec failed to parse size_u\n"
 msgstr "regexec bị lỗi khi phân tích size_u\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read size_u\n"
 msgstr "getline đã đến EOF khi thử đọc size_u\n"
 
+#, c-format
 msgid "error attempting to read pkg description\n"
 msgstr "lỗi khi thử đọc mô tả gói phần mềm\n"
 
@@ -283,6 +301,7 @@ msgstr "lỗi khi thử đọc mô tả gói phần mềm\n"
 msgid "Failed to realloc %s\n"
 msgstr "Bị lỗi khi cấp phát thêm vùng nhớ %s\n"
 
+#, c-format
 msgid "Failed to compile regex\n"
 msgstr "Bị lỗi khi biên dịch biểu thức\n"
 
@@ -318,9 +337,11 @@ msgstr "%s-%s đã được gỡ bỏ\n"
 msgid "Failed to compile regex [%s]\n"
 msgstr "Bị lỗi khi biên dịch biểu thức [%s]\n"
 
+#, c-format
 msgid "pkg conditional too long\n"
 msgstr "điều kiện gói phần mềm quá dài\n"
 
+#, c-format
 msgid "The following packages have unmet dependencies:\n"
 msgstr "Các gói phần mềm sau đây không thoả những phụ thuộc:\n"
 
@@ -328,15 +349,19 @@ msgstr "Các gói phần mềm sau đây không thoả những phụ thuộc:\n"
 msgid "  %s: Depends: %s\n"
 msgstr "  %s: Phụ thuộc: %s\n"
 
+#, c-format
 msgid "The following packages have been EXCLUDED:\n"
 msgstr "Bỏ qua những gói phần mềm sau:\n"
 
+#, c-format
 msgid "The following NEW packages will be installed:\n"
 msgstr "Cài đặt những gói phần mềm sau:\n"
 
+#, c-format
 msgid "The following packages will be REMOVED:\n"
 msgstr "Gỡ bỏ những gói phần mềm sau:\n"
 
+#, c-format
 msgid "The following packages will be upgraded:\n"
 msgstr "Nâng cấp những gói phần mềm sau:\n"
 
@@ -363,6 +388,7 @@ msgstr "Sau khi giải nén %.1f%s không gian đĩa sẽ được sử dụng.\
 msgid "Do you want to continue? [y/N] "
 msgstr "Bạn có muốn tiếp tục không? [y/N] "
 
+#, c-format
 msgid "Abort.\n"
 msgstr "Không.\n"
 
@@ -381,9 +407,11 @@ msgstr "chỉ hiển thị URI, không lấy dữ liệu"
 msgid "Package MD5 Sum:  %s\n"
 msgstr "Tổng MD5 của gói phần mềm:  %s\n"
 
+#, c-format
 msgid "md5 sum too long\n"
 msgstr "tổng md5 quá dài\n"
 
+#, c-format
 msgid "Reading Package Lists..."
 msgstr "Cập nhật danh sách gói phần mềm..."
 
@@ -397,17 +425,18 @@ msgstr "bỏ qua kiểm tra phụ thuộc"
 msgid "show download statistics"
 msgstr "thống kê quá trình lấy dữ liệu từ kho lưu trữ"
 
+#, c-format
 msgid "Cached\n"
 msgstr "Dự trữ\n"
 
+#, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr ""
-"Kho nguồn bị lỗi trong khi lấy dữ liệu, hãy sửa chữa và thực thi lại với tuỳ chọn "
-"--update\n"
+msgstr "Kho nguồn bị lỗi trong khi lấy dữ liệu, hãy sửa chữa và thực thi lại với tuỳ chọn --update\n"
 
 msgid "specify alternate slapt-getrc location"
 msgstr "chỉ định vị trí tập tin cấu hình slapt-getrc"
 
+#, c-format
 msgid "Suggested packages:\n"
 msgstr "Những gói phần mềm được đề nghị:\n"
 
@@ -486,9 +515,11 @@ msgstr "Verified"
 msgid "Not Verified"
 msgstr "Not Verified"
 
+#, c-format
 msgid "Retrieving GPG key [%s]..."
 msgstr "Retrieving GPG key [%s]..."
 
+#, c-format
 msgid "Retrieving checksum signature [%s]..."
 msgstr "Retrieving checksum signature [%s]..."
 
@@ -498,6 +529,7 @@ msgstr "No key for verification"
 msgid "retrieve GPG keys for sources"
 msgstr "retrieve GPG keys for sources"
 
+#, c-format
 msgid "Verifying checksum signature [%s]..."
 msgstr "Verifying checksum signature [%s]..."
 
@@ -539,3 +571,6 @@ msgstr "Package Priority: %s\n"
 msgid "[pkg name] - show pkg installed files"
 msgstr "[pkg name] - show pkg installed files"
 
+#, c-format
+msgid "Delete %s ? [y/N]"
+msgstr "Delete %s ? [y/N]"

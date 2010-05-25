@@ -11,12 +11,14 @@ msgstr ""
 "Last-Translator: Kemas Antonius <kyantonius@kyantonius.com>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#, c-format
 msgid "Reading Package Lists... "
 msgstr "Membaca daftar paket..."
 
+#, c-format
 msgid "Done\n"
 msgstr "Selesai\n"
 
@@ -62,6 +64,7 @@ msgstr "Besar paket terinstal: %d K\n"
 msgid "Package Required: %s\n"
 msgstr "Paket yang dibutuhkan: %s\n"
 
+#, c-format
 msgid "Package Description:\n"
 msgstr "Deskripsi paket:\n"
 
@@ -101,6 +104,7 @@ msgstr "Mengambil daftar tambalan [%s]...\n"
 msgid "Retrieving checksum list [%s]..."
 msgstr "Mengambil daftar checksum [%s]..."
 
+#, c-format
 msgid "Failed to malloc\n"
 msgstr "malloc gagal\n"
 
@@ -124,6 +128,7 @@ msgstr "Silakan memperbaiki hak akses %s atau jalankan dengan hak akses yang mem
 msgid "Failed to open %s\n"
 msgstr "Gagal membuka %s\n"
 
+#, c-format
 msgid "Perhaps you want to run --update?\n"
 msgstr "Mungkin anda ingin menjalankan --update?\n"
 
@@ -135,6 +140,7 @@ msgstr "Gagal membuka direktori %s\n"
 msgid "Failed to chdir: %s\n"
 msgstr "Gagal mengganti direktori: %s\n"
 
+#, c-format
 msgid "Failed to get cwd\n"
 msgstr "Gagal mendapatkan cwd\n"
 
@@ -154,6 +160,7 @@ msgstr "\tganti direktori kembali ke %s\n"
 msgid "Failed to download: %s\n"
 msgstr "Gagal men-download: %s\n"
 
+#, c-format
 msgid "Failed to calloc\n"
 msgstr "calloc gagal\n"
 
@@ -177,9 +184,11 @@ msgstr "MD5 diperkirakan: [%s]\n"
 msgid "File: %s/%s\n"
 msgstr "Berkas: %s/%s\n"
 
+#, c-format
 msgid "An implementation of the Debian APT system to Slackware\n"
 msgstr "Sebuah implementasi dari sistem APT Debian untuk Slackware\n"
 
+#, c-format
 msgid "Usage:\n"
 msgstr "Penggunaan:\n"
 
@@ -187,6 +196,7 @@ msgstr "Penggunaan:\n"
 msgid "%s [option(s)] [target]\n"
 msgstr "%s [opsi] [target]\n"
 
+#, c-format
 msgid "Targets:\n"
 msgstr "Target:\n"
 
@@ -226,6 +236,7 @@ msgstr "buang habis data sementara pkg"
 msgid "print version and license info"
 msgstr "cetak informasi versi dan lisensi"
 
+#, c-format
 msgid "Options:\n"
 msgstr "Opsi:\n"
 
@@ -258,24 +269,31 @@ msgstr "%s versi %s\n"
 msgid "regex failed on [%s]\n"
 msgstr "regex gagal pada [%s]\n"
 
+#, c-format
 msgid "regexec failed to parse location\n"
 msgstr "regexec gagal mengenal lokasi\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read location\n"
 msgstr "getline sudah mencapai EOF dalam usaha membaca lokasi\n"
 
+#, c-format
 msgid "regexec failed to parse size_c\n"
 msgstr "regexec gagal mengenal size_c\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read size_c\n"
 msgstr "getline sudah mencapau EOF dalam usaha membaca size_c\n"
 
+#, c-format
 msgid "regexec failed to parse size_u\n"
 msgstr "regexec gagal mengenal size_u\n"
 
+#, c-format
 msgid "getline reached EOF attempting to read size_u\n"
 msgstr "getline sudah mencapai EOF dalam usaha membaca size_u\n"
 
+#, c-format
 msgid "error attempting to read pkg description\n"
 msgstr "terjadi kesalahan dalam usaha membaca deskripsi pkg\n"
 
@@ -283,6 +301,7 @@ msgstr "terjadi kesalahan dalam usaha membaca deskripsi pkg\n"
 msgid "Failed to realloc %s\n"
 msgstr "realloc gagal pada %s\n"
 
+#, c-format
 msgid "Failed to compile regex\n"
 msgstr "Gagal mengkompilasi regex\n"
 
@@ -318,9 +337,11 @@ msgstr "%s-%s akan dihapus\n"
 msgid "Failed to compile regex [%s]\n"
 msgstr "Gagal mengkompilasi regex [%s]\n"
 
+#, c-format
 msgid "pkg conditional too long\n"
 msgstr "persyaratan pkg terlalu panjang\n"
 
+#, c-format
 msgid "The following packages have unmet dependencies:\n"
 msgstr "Paket-paket berikut tidak memenuhi dependensi:\n"
 
@@ -328,15 +349,19 @@ msgstr "Paket-paket berikut tidak memenuhi dependensi:\n"
 msgid "  %s: Depends: %s\n"
 msgstr "  %s: bergantung kepada: %s\n"
 
+#, c-format
 msgid "The following packages have been EXCLUDED:\n"
 msgstr "Paket-paket berikut tidak diikutsertakan:\n"
 
+#, c-format
 msgid "The following NEW packages will be installed:\n"
 msgstr "Paket-paket baru yang akan diinstal:\n"
 
+#, c-format
 msgid "The following packages will be REMOVED:\n"
 msgstr "Paket-paket berikut akan dihapus:\n"
 
+#, c-format
 msgid "The following packages will be upgraded:\n"
 msgstr "Paket-paket berikut akan diperbaharui:\n"
 
@@ -363,6 +388,7 @@ msgstr "Setelah dibuka %.1f%s tambahan ruang disket akan digunakan.\n"
 msgid "Do you want to continue? [y/N] "
 msgstr "Apakah anda ingin lanjut ke langkah berikutnya? [y/N] "
 
+#, c-format
 msgid "Abort.\n"
 msgstr "Batal.\n"
 
@@ -381,9 +407,11 @@ msgstr "cetak URI saja, jangan download"
 msgid "Package MD5 Sum:  %s\n"
 msgstr "MD5 sum paket:  %s\n"
 
+#, c-format
 msgid "md5 sum too long\n"
 msgstr "md5 sum terlalu panjang\n"
 
+#, c-format
 msgid "Reading Package Lists..."
 msgstr "Membaca daftar paket..."
 
@@ -397,15 +425,18 @@ msgstr "langkahi pemeriksaan dependensi"
 msgid "show download statistics"
 msgstr "tampilkan statistik download"
 
+#, c-format
 msgid "Cached\n"
 msgstr "Tersimpan sementara\n"
 
+#, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
 msgstr "Gagal men-download dari sumber yang ada, perbaiki sumber dan jalankan kembali --update\n"
 
 msgid "specify alternate slapt-getrc location"
 msgstr "tentukan alternatif lokasi slapt-getrc"
 
+#, c-format
 msgid "Suggested packages:\n"
 msgstr "Paket-paket yang disarankan:\n"
 
@@ -484,9 +515,11 @@ msgstr "Verified"
 msgid "Not Verified"
 msgstr "Not Verified"
 
+#, c-format
 msgid "Retrieving GPG key [%s]..."
 msgstr "Retrieving GPG key [%s]..."
 
+#, c-format
 msgid "Retrieving checksum signature [%s]..."
 msgstr "Retrieving checksum signature [%s]..."
 
@@ -496,6 +529,7 @@ msgstr "No key for verification"
 msgid "retrieve GPG keys for sources"
 msgstr "retrieve GPG keys for sources"
 
+#, c-format
 msgid "Verifying checksum signature [%s]..."
 msgstr "Verifying checksum signature [%s]..."
 
@@ -537,3 +571,6 @@ msgstr "Package Priority: %s\n"
 msgid "[pkg name] - show pkg installed files"
 msgstr "[pkg name] - show pkg installed files"
 
+#, c-format
+msgid "Delete %s ? [y/N]"
+msgstr "Delete %s ? [y/N]"
