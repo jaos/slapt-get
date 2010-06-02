@@ -487,7 +487,7 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
   tran = slapt_init_transaction();
 
   if ( global_config->dist_upgrade == SLAPT_TRUE ) {
-    char *essential[] = {"glibc-solibs","sed","pkgtools",NULL};
+    char *essential[] = {"pkgtools","xz","glibc-solibs","sed","tar","gzip",NULL};
     int epi = 0;
     slapt_pkg_info_t *newest_slaptget = NULL;
     struct slapt_pkg_list *matches =

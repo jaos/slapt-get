@@ -1,5 +1,6 @@
 
-0.10.2e May 25, 2010
+0.10.2e June 02, 2010
+ * updated essential packages for dist-upgrade
  * always reinstall slapt-get on dist-upgrade
  * translations cleanup
  * FAQ updates
