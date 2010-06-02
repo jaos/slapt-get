@@ -1,5 +1,6 @@
 
 0.10.2e May 25, 2010
+ * always reinstall slapt-get on dist-upgrade
  * translations cleanup
  * FAQ updates
 

@@ -489,6 +489,7 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
   if ( global_config->dist_upgrade == SLAPT_TRUE ) {
     char *essential[] = {"glibc-solibs","sed","pkgtools",NULL};
     int epi = 0;
+    slapt_pkg_info_t *newest_slaptget = NULL;
     struct slapt_pkg_list *matches =
       slapt_search_pkg_list(avail_pkgs,SLAPT_SLACK_BASE_SET_REGEX);
 
@@ -622,10 +623,13 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
     }/* end if remove_obsolete */
 
     /* insurance so that all of slapt-get's requirements are also installed */
-    slapt_add_deps_to_trans(
-      global_config,tran,avail_pkgs,installed_pkgs,
-      slapt_get_newest_pkg(avail_pkgs,"slapt-get")
-    );
+    newest_slaptget =  slapt_get_newest_pkg(avail_pkgs,"slapt-get");
+    if (newest_slaptget != NULL) {
+      slapt_pkg_info_t *installed_slaptget = slapt_get_newest_pkg(installed_pkgs, "slapt-get");
+      slapt_add_deps_to_trans(global_config, tran, avail_pkgs, installed_pkgs, newest_slaptget);
+      if (installed_slaptget != NULL)
+        slapt_add_upgrade_to_transaction(tran,installed_slaptget, newest_slaptget);
+    }
     
   }
 
