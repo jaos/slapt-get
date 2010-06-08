@@ -61,11 +61,13 @@ struct slapt_pkg_list {
 typedef struct {
   slapt_pkg_info_t *installed;
   slapt_pkg_info_t *upgrade;
+  SLAPT_BOOL_T reinstall;
 } slapt_pkg_upgrade_t;
 
 struct slapt_pkg_upgrade_list {
   slapt_pkg_upgrade_t **pkgs;
   unsigned int pkg_count;
+  unsigned int reinstall_count;
 };
 
 typedef struct {

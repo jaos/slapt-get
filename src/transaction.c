@@ -27,6 +27,12 @@ static void queue_free(slapt_queue_t *t);
 
 static void add_suggestion(slapt_transaction_t *tran, slapt_pkg_info_t *pkg);
 
+static void _slapt_add_upgrade_to_transaction(slapt_transaction_t *tran,
+                                      slapt_pkg_info_t *installed_pkg,
+                                      slapt_pkg_info_t *slapt_upgrade_pkg,
+                                      SLAPT_BOOL_T reinstall
+);
+
 slapt_transaction_t *slapt_init_transaction(void)
 {
   slapt_transaction_t *tran = slapt_malloc(sizeof *tran);
@@ -43,6 +49,7 @@ slapt_transaction_t *slapt_init_transaction(void)
   tran->upgrade_pkgs = slapt_malloc(sizeof *tran->upgrade_pkgs);
   tran->upgrade_pkgs->pkgs = slapt_malloc(sizeof *tran->upgrade_pkgs->pkgs);
   tran->upgrade_pkgs->pkg_count = 0;
+  tran->upgrade_pkgs->reinstall_count = 0;
 
 
   tran->suggests = slapt_malloc(sizeof *tran->suggests);
@@ -191,8 +198,11 @@ int slapt_handle_transaction (const slapt_rc_config *global_config,
   /* show pkgs to upgrade */
   if (tran->upgrade_pkgs->pkg_count > 0) {
     unsigned int len = 0;
-    printf(gettext("The following packages will be upgraded:\n"));
-    printf("  ");
+
+    if ((tran->upgrade_pkgs->pkg_count - tran->upgrade_pkgs->reinstall_count) > 0) {
+      printf(gettext("The following packages will be upgraded:\n"));
+      printf("  ");
+    }
 
     for (i = 0; i < tran->upgrade_pkgs->pkg_count; ++i) {
       slapt_pkg_info_t *u = tran->upgrade_pkgs->pkgs[i]->upgrade;
@@ -200,14 +210,6 @@ int slapt_handle_transaction (const slapt_rc_config *global_config,
 
       size_t existing_file_size = 0;
       int line_len = len + strlen(u->name) + 1;
-
-      if (line_len < MAX_LINE_LEN) {
-        printf("%s ",u->name);
-        len += strlen(u->name) + 1;
-      } else {
-        printf("\n  %s ",u->name);
-        len = strlen(u->name) + 3;
-      }
 
       existing_file_size = slapt_get_pkg_file_size(
         global_config,u) / 1024;
@@ -219,14 +221,52 @@ int slapt_handle_transaction (const slapt_rc_config *global_config,
 
       uncompressed_size += u->size_u;
       uncompressed_size -= p->size_u;
+
+      if (tran->upgrade_pkgs->pkgs[i]->reinstall == SLAPT_TRUE)
+        continue;
+
+      if (line_len < MAX_LINE_LEN) {
+        printf("%s ",u->name);
+        len += strlen(u->name) + 1;
+      } else {
+        printf("\n  %s ",u->name);
+        len = strlen(u->name) + 3;
+      }
+
     }
-    printf("\n");
+
+    if ((tran->upgrade_pkgs->pkg_count - tran->upgrade_pkgs->reinstall_count) > 0)
+      printf("\n");
+
+    if (tran->upgrade_pkgs->reinstall_count > 0) {
+      unsigned int len = 0;
+      printf(gettext("The following packages will be reinstalled:\n"));
+      printf("  ");
+
+      for (i = 0; i < tran->upgrade_pkgs->pkg_count; ++i) {
+        slapt_pkg_info_t *u = tran->upgrade_pkgs->pkgs[i]->upgrade;
+        int line_len = len + strlen(u->name) + 1;
+
+        if (tran->upgrade_pkgs->pkgs[i]->reinstall == SLAPT_FALSE)
+          continue;
+
+        if (line_len < MAX_LINE_LEN) {
+          printf("%s ",u->name);
+          len += strlen(u->name) + 1;
+        } else {
+          printf("\n  %s ",u->name);
+          len = strlen(u->name) + 3;
+        }
+      }
+      printf("\n");
+    }
   }
 
   /* print the summary */
   printf(
-    gettext("%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"),
-    tran->upgrade_pkgs->pkg_count,
+    gettext("%d upgraded, %d reinstalled, %d newly installed, %d to remove and %d not upgraded.\n"),
+    tran->upgrade_pkgs->pkg_count - tran->upgrade_pkgs->reinstall_count,
+    tran->upgrade_pkgs->reinstall_count,
     tran->install_pkgs->pkg_count,
     tran->remove_pkgs->pkg_count,
     tran->exclude_pkgs->pkg_count
@@ -536,9 +576,27 @@ void slapt_add_exclude_to_transaction(slapt_transaction_t *tran,
 
 }
 
+void slapt_add_reinstall_to_transaction(slapt_transaction_t *tran,
+                                      slapt_pkg_info_t *installed_pkg,
+                                      slapt_pkg_info_t *slapt_upgrade_pkg
+)
+{
+  _slapt_add_upgrade_to_transaction(tran, installed_pkg, slapt_upgrade_pkg, SLAPT_TRUE);
+}
+
 void slapt_add_upgrade_to_transaction(slapt_transaction_t *tran,
                                       slapt_pkg_info_t *installed_pkg,
                                       slapt_pkg_info_t *slapt_upgrade_pkg
+)
+{
+  _slapt_add_upgrade_to_transaction(tran, installed_pkg, slapt_upgrade_pkg, SLAPT_FALSE);
+}
+
+
+static void _slapt_add_upgrade_to_transaction(slapt_transaction_t *tran,
+                                      slapt_pkg_info_t *installed_pkg,
+                                      slapt_pkg_info_t *slapt_upgrade_pkg,
+                                      SLAPT_BOOL_T reinstall
 )
 {
   slapt_pkg_upgrade_t **tmp_list;
@@ -550,7 +608,8 @@ void slapt_add_upgrade_to_transaction(slapt_transaction_t *tran,
   tmp_list = realloc(
     tran->upgrade_pkgs->pkgs,
     sizeof *tran->upgrade_pkgs->pkgs * (tran->upgrade_pkgs->pkg_count + 1)
- );
+  );
+
   if (tmp_list != NULL) {
     tran->upgrade_pkgs->pkgs = tmp_list;
 
@@ -575,10 +634,15 @@ void slapt_add_upgrade_to_transaction(slapt_transaction_t *tran,
       tran->upgrade_pkgs->pkgs[tran->upgrade_pkgs->pkg_count]->upgrade,
       slapt_upgrade_pkg);
 
+    tran->upgrade_pkgs->pkgs[tran->upgrade_pkgs->pkg_count]->reinstall = reinstall;
+
     queue_add_upgrade(tran->queue,
       tran->upgrade_pkgs->pkgs[tran->upgrade_pkgs->pkg_count]);
 
     ++tran->upgrade_pkgs->pkg_count;
+
+    if (reinstall == SLAPT_TRUE)
+      ++tran->upgrade_pkgs->reinstall_count;
 
   }
 

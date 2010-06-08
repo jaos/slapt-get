@@ -123,7 +123,12 @@ void slapt_pkg_action_install(const slapt_rc_config *global_config,
               slapt_add_remove_to_transaction(tran,conflicts->pkgs[cindex]);
             }
           }
-          slapt_add_upgrade_to_transaction(tran,installed_pkg,pkg);
+
+          if (slapt_cmp_pkgs(installed_pkg,pkg) == 0)
+            slapt_add_reinstall_to_transaction(tran,installed_pkg,pkg);
+          else
+            slapt_add_upgrade_to_transaction(tran,installed_pkg,pkg);
+
           slapt_free_pkg_list(conflicts);
 
         } else {
@@ -627,8 +632,8 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
     if (newest_slaptget != NULL) {
       slapt_pkg_info_t *installed_slaptget = slapt_get_newest_pkg(installed_pkgs, "slapt-get");
       slapt_add_deps_to_trans(global_config, tran, avail_pkgs, installed_pkgs, newest_slaptget);
-      if (installed_slaptget != NULL)
-        slapt_add_upgrade_to_transaction(tran,installed_slaptget, newest_slaptget);
+      if (installed_slaptget != NULL) /* should never be null */
+        slapt_add_reinstall_to_transaction(tran,installed_slaptget, newest_slaptget);
     }
     
   }
@@ -689,8 +694,12 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
             && ( global_config->ignore_dep == SLAPT_TRUE
             || ( conflicts->pkg_count == 0 ) )
           ) {
-            slapt_add_upgrade_to_transaction(tran,installed_pkgs->pkgs[i],
-                                             update_pkg);
+
+            if (cmp_r == 0)
+              slapt_add_reinstall_to_transaction(tran,installed_pkgs->pkgs[i], update_pkg);
+            else
+              slapt_add_upgrade_to_transaction(tran,installed_pkgs->pkgs[i], update_pkg);
+
           } else {
             /* otherwise exclude */
             printf(gettext("Excluding %s, use --ignore-dep to override\n"),

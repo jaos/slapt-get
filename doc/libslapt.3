@@ -452,11 +452,13 @@ Adding, removing, and upgrading packages can be wrapped in a \fIslapt_transactio
   typedef struct {
     slapt_pkg_info_t *installed;
     slapt_pkg_info_t *upgrade;
+    SLAPT_BOOL_T reinstall;
   } slapt_pkg_upgrade_t;
 .sp
   struct slapt_pkg_upgrade_list {
     slapt_pkg_upgrade_t **pkgs;
     unsigned int pkg_count;
+    unsigned int reinstall_count;
   };
 .sp
   typedef struct {
@@ -481,6 +483,10 @@ Adding, removing, and upgrading packages can be wrapped in a \fIslapt_transactio
 .B "                                     slapt_pkg_info_t *pkg);"
 .sp
 .B "void slapt_add_upgrade_to_transaction(slapt_transaction_t *,"
+.B "                                      slapt_pkg_info_t *installed_pkg,"
+.B "                                      slapt_pkg_info_t *upgrade_pkg);"
+.sp
+.B "void slapt_add_reinstall_to_transaction(slapt_transaction_t *,"
 .B "                                      slapt_pkg_info_t *installed_pkg,"
 .B "                                      slapt_pkg_info_t *upgrade_pkg);"
 .sp

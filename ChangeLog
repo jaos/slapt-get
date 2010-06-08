@@ -1,4 +1,7 @@
 
+0.10.2f June 07, 2010
+ * added reinstall notification
+
 0.10.2e June 02, 2010
  * updated essential packages for dist-upgrade
  * always reinstall slapt-get on dist-upgrade

@@ -49,6 +49,10 @@ void slapt_add_remove_to_transaction(slapt_transaction_t *,
 void slapt_add_upgrade_to_transaction(slapt_transaction_t *,
                                       slapt_pkg_info_t *installed_pkg,
                                       slapt_pkg_info_t *upgrade_pkg);
+/* add package to reinstall to transaction */
+void slapt_add_reinstall_to_transaction(slapt_transaction_t *,
+                                      slapt_pkg_info_t *installed_pkg,
+                                      slapt_pkg_info_t *upgrade_pkg);
 /* add package to exclude to transaction */
 void slapt_add_exclude_to_transaction(slapt_transaction_t *,
                                       slapt_pkg_info_t *pkg);
