@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.10.2e\n"
+"Project-Id-Version: 0.10.2f\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2010-05-24 00:14+0500\n"
+"PO-Revision-Date: 2010-06-07 21:05+0500\n"
 "Last-Translator: Jason Woodward <woodwardj@jaos.org>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -366,7 +366,7 @@ msgid "The following packages will be upgraded:\n"
 msgstr ""
 
 #, c-format
-msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
+msgid "%d upgraded, %d reinstalled, %d newly installed, %d to remove and %d not upgraded.\n"
 msgstr ""
 
 #, c-format
@@ -573,4 +573,8 @@ msgstr ""
 
 #, c-format
 msgid "Delete %s ? [y/N]"
+msgstr ""
+
+#, c-format
+msgid "The following packages will be reinstalled:\n"
 msgstr ""

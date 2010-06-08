@@ -5,9 +5,9 @@
 # George Vlahavas, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.10.2a\n"
+"Project-Id-Version: 0.10.2f\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2009-09-14 21:24+0200\n"
+"PO-Revision-Date: 2010-06-07 21:05+0500\n"
 "Last-Translator: George Vlahavas <vlahavas~at~gmail~dot~com>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -366,8 +366,8 @@ msgid "The following packages will be upgraded:\n"
 msgstr "Τα παρακάτω πακέτα πρόκειται να αναβαθμιστούν:\n"
 
 #, c-format
-msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
-msgstr "%d αναβαθμισμένα, %d νεοεγκαταστημένα, %d προς απεγκατάσταση και %d δεν αναβαθμίστηκαν.\n"
+msgid "%d upgraded, %d reinstalled, %d newly installed, %d to remove and %d not upgraded.\n"
+msgstr "%d αναβαθμισμένα, %d reinstalled, %d νεοεγκαταστημένα, %d προς απεγκατάσταση και %d δεν αναβαθμίστηκαν.\n"
 
 #, c-format
 msgid "Need to get %.1f%s of archives.\n"
@@ -574,3 +574,7 @@ msgstr "[όνομα πακέτου] - προβολή αρχείων πακέτο
 #, c-format
 msgid "Delete %s ? [y/N]"
 msgstr "Delete %s ? [y/N]"
+
+#, c-format
+msgid "The following packages will be reinstalled:\n"
+msgstr "The following packages will be reinstalled:\n"

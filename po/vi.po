@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.10.2a\n"
+"Project-Id-Version: 0.10.2f\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2009-09-09 10:40+0500\n"
+"PO-Revision-Date: 2010-06-07 21:05+0500\n"
 "Last-Translator: Nguyễn Văn Vũ <vncasper@yahoo.com>\n"
 "Language-Team: gnome-vi <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -366,8 +366,8 @@ msgid "The following packages will be upgraded:\n"
 msgstr "Nâng cấp những gói phần mềm sau:\n"
 
 #, c-format
-msgid "%d upgraded, %d newly installed, %d to remove and %d not upgraded.\n"
-msgstr "%d gói được nâng cấp, %d gói được cài đặt mới, %d gói bị gỡ bỏ và %d gói được giữ nguyên.\n"
+msgid "%d upgraded, %d reinstalled, %d newly installed, %d to remove and %d not upgraded.\n"
+msgstr "%d gói được nâng cấp, %d reinstalled, %d gói được cài đặt mới, %d gói bị gỡ bỏ và %d gói được giữ nguyên.\n"
 
 #, c-format
 msgid "Need to get %.1f%s of archives.\n"
@@ -574,3 +574,7 @@ msgstr "[pkg name] - show pkg installed files"
 #, c-format
 msgid "Delete %s ? [y/N]"
 msgstr "Delete %s ? [y/N]"
+
+#, c-format
+msgid "The following packages will be reinstalled:\n"
+msgstr "The following packages will be reinstalled:\n"
