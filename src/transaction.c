@@ -530,7 +530,7 @@ void slapt_add_remove_to_transaction(slapt_transaction_t *tran,
   tmp_list = realloc(
     tran->remove_pkgs->pkgs,
     sizeof *tran->remove_pkgs->pkgs * (tran->remove_pkgs->pkg_count + 1)
- );
+  );
   if (tmp_list != NULL) {
     tran->remove_pkgs->pkgs = tmp_list;
 

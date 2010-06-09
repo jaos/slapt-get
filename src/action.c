@@ -278,7 +278,10 @@ void slapt_pkg_action_remove(const slapt_rc_config *global_config,
 
     }
 
-    deps = slapt_is_required_by(global_config,avail_pkgs,pkg);
+    deps = slapt_is_required_by(global_config,
+                                avail_pkgs, installed_pkgs,
+                                tran->install_pkgs, tran->remove_pkgs,
+                                pkg);
 
     for (c = 0; c < deps->pkg_count; ++c) {
       slapt_pkg_info_t *dep = deps->pkgs[c];

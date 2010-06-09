@@ -32,7 +32,11 @@ static slapt_pkg_info_t *parse_meta_entry(struct slapt_pkg_list *avail_pkgs,
                                           struct slapt_pkg_list *installed_pkgs,
                                           char *dep_entry);
 /* called by slapt_is_required_by */
-static void required_by(struct slapt_pkg_list *avail, slapt_pkg_info_t *pkg,
+static void required_by(struct slapt_pkg_list *avail,
+                        struct slapt_pkg_list *installed_pkgs,
+                        struct slapt_pkg_list *pkgs_to_install,
+                        struct slapt_pkg_list *pkgs_to_remove,
+                        slapt_pkg_info_t *pkg,
                         struct slapt_pkg_list *required_by_list);
 static char *escape_package_name(slapt_pkg_info_t *pkg);
 /* free pkg_version_parts struct */
@@ -1692,6 +1696,9 @@ static slapt_pkg_info_t *parse_meta_entry(struct slapt_pkg_list *avail_pkgs,
 
 struct slapt_pkg_list *slapt_is_required_by(const slapt_rc_config *global_config,
                                             struct slapt_pkg_list *avail,
+                                            struct slapt_pkg_list *installed_pkgs,
+                                            struct slapt_pkg_list *pkgs_to_install,
+                                            struct slapt_pkg_list *pkgs_to_remove,
                                             slapt_pkg_info_t *pkg)
 {
   struct slapt_pkg_list *required_by_list = slapt_init_pkg_list();
@@ -1702,7 +1709,7 @@ struct slapt_pkg_list *slapt_is_required_by(const slapt_rc_config *global_config
   if (global_config->disable_dep_check == SLAPT_TRUE)
     return required_by_list;
 
-  required_by(avail,pkg,required_by_list);
+  required_by(avail,installed_pkgs,pkgs_to_install,pkgs_to_remove,pkg,required_by_list);
 
   return required_by_list;
 }
@@ -1738,6 +1745,9 @@ static char *escape_package_name(slapt_pkg_info_t *pkg)
 }
 
 static void required_by(struct slapt_pkg_list *avail,
+                        struct slapt_pkg_list *installed_pkgs,
+                        struct slapt_pkg_list *pkgs_to_install,
+                        struct slapt_pkg_list *pkgs_to_remove,
                         slapt_pkg_info_t *pkg,
                         struct slapt_pkg_list *required_by_list)
 {
@@ -1764,6 +1774,8 @@ static void required_by(struct slapt_pkg_list *avail,
 
   for (i = 0; i < avail->pkg_count;i++) {
     slapt_pkg_info_t *pkg_ptr = avail->pkgs[i];
+    slapt_list_t *dep_list = NULL;
+    unsigned int d = 0;
 
     if (strcmp(pkg_ptr->required,"") == 0 )
       continue;
@@ -1778,10 +1790,59 @@ static void required_by(struct slapt_pkg_list *avail,
     if (required_by_reg->reg_return != 0 )
       continue;
 
-    if (slapt_get_exact_pkg(required_by_list, pkg_ptr->name, pkg_ptr->version) == NULL) {
-      slapt_add_pkg_to_pkg_list(required_by_list,pkg_ptr);
-      required_by(avail, pkg_ptr, required_by_list );
+    /* check for the offending dependency entry and see if we have an alternative */
+    dep_list = slapt_parse_delimited_list(pkg_ptr->required,',');
+    for (d = 0; d < dep_list->count; d++) {
+      slapt_list_t *satisfies = NULL;
+      unsigned int s = 0;
+      SLAPT_BOOL_T has_alternative = SLAPT_FALSE;
+
+      /* found our package in the list of dependencies */
+      if (strstr(dep_list->items[d], pkg->name) == NULL)
+        continue;
+
+      /* not an |or, just add it */
+      if (strchr(dep_list->items[d],'|') == NULL) {
+        if (slapt_get_exact_pkg(required_by_list, pkg_ptr->name, pkg_ptr->version) == NULL) {
+          slapt_add_pkg_to_pkg_list(required_by_list,pkg_ptr);
+          required_by(avail,installed_pkgs,pkgs_to_install,pkgs_to_remove, pkg_ptr, required_by_list );
+        }
+        break;
+      }
+
+      /* we need to find out if we have something else that satisfies the dependency  */
+      satisfies = slapt_parse_delimited_list(dep_list->items[d],'|');
+      for (s = 0; s < satisfies->count; s++) {
+        slapt_pkg_info_t *tmp_pkg = parse_meta_entry(avail,installed_pkgs,satisfies->items[s]);
+
+        if (tmp_pkg != NULL) {
+          if (strcmp(tmp_pkg->name,pkg->name) == 0)
+            continue;
+
+          if (slapt_get_exact_pkg(installed_pkgs,tmp_pkg->name, tmp_pkg->version) != NULL) {
+            if (slapt_get_exact_pkg(pkgs_to_remove,tmp_pkg->name, tmp_pkg->version) == NULL) {
+              has_alternative = SLAPT_TRUE;
+              break;
+            }
+          } else if (slapt_get_exact_pkg(pkgs_to_install, tmp_pkg->name, tmp_pkg->version) != NULL) {
+            has_alternative = SLAPT_TRUE;
+            break;
+          }
+        }
+      }
+      slapt_free_list(satisfies);
+
+      /* we couldn't find an installed pkg that satisfies the |or */
+      if (has_alternative == SLAPT_FALSE) {
+        if (slapt_get_exact_pkg(required_by_list, pkg_ptr->name, pkg_ptr->version) == NULL) {
+          slapt_add_pkg_to_pkg_list(required_by_list,pkg_ptr);
+          required_by(avail,installed_pkgs,pkgs_to_install,pkgs_to_remove, pkg_ptr, required_by_list );
+        }
+      }
+
     }
+    slapt_free_list(dep_list);
+
 
   }
 
@@ -3282,6 +3343,8 @@ struct slapt_pkg_list *
 {
   unsigned int r;
   struct slapt_pkg_list *obsolete = slapt_init_pkg_list();
+  struct slapt_pkg_list *to_install = slapt_init_pkg_list();
+  struct slapt_pkg_list *to_remove = slapt_init_pkg_list();
 
   for (r = 0; r < installed_pkgs->pkg_count; ++r) {
     slapt_pkg_info_t *p = installed_pkgs->pkgs[r];
@@ -3298,7 +3361,7 @@ struct slapt_pkg_list *
           any packages that require this package we are about to remove
           should be scheduled to remove as well
         */
-        deps = slapt_is_required_by(global_config,avail_pkgs, p);
+        deps = slapt_is_required_by(global_config,avail_pkgs,installed_pkgs,to_install,to_remove,p);
 
         for (c = 0; c < deps->pkg_count; ++c ) {
           slapt_pkg_info_t *dep           = deps->pkgs[c];
@@ -3318,6 +3381,8 @@ struct slapt_pkg_list *
 
   }
 
+  slapt_free_pkg_list(to_install);
+  slapt_free_pkg_list(to_remove);
   return obsolete;
 }
 

@@ -231,6 +231,9 @@ struct slapt_pkg_list *slapt_get_pkg_conflicts(struct slapt_pkg_list *avail_pkgs
 */
 struct slapt_pkg_list *slapt_is_required_by(const slapt_rc_config *global_config,
                                             struct slapt_pkg_list *avail,
+                                            struct slapt_pkg_list *installed_pkgs,
+                                            struct slapt_pkg_list *pkgs_to_install,
+                                            struct slapt_pkg_list *pkgs_to_remove,
                                             slapt_pkg_info_t *pkg);
 
 /*
@@ -297,3 +300,4 @@ char *slapt_get_pkg_filelist(const slapt_pkg_info_t *pkg);
   caller responsible for freeing the returned data
  */
 char *slapt_gen_package_log_dir_name(void);
+

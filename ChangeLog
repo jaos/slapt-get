@@ -1,5 +1,7 @@
 
 0.10.2f June 09, 2010
+ * make slapt_is_required_by properly account for alternative/conditional
+   dependencies as well as be aware of what is to be installed and removed. 
  * Updated API, generalizing several types into slapt_list_t
  * added reinstall notification
 
