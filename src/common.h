@@ -49,6 +49,11 @@ typedef struct {
   int reg_return;
 } slapt_regex_t;
 
+typedef struct {
+  char **items;
+  unsigned int count;
+} slapt_list_t;
+
 FILE *slapt_open_file(const char *file_name,const char *mode);
 slapt_regex_t *slapt_init_regex(const char *regex_string);
 void slapt_execute_regex(slapt_regex_t *regex_t,const char *string);
@@ -73,3 +78,10 @@ const char *slapt_strerror(slapt_code_t code);
 /* return human readable priority */
 const char *slapt_priority_to_str(SLAPT_PRIORITY_T priority);
 SLAPT_BOOL_T slapt_disk_space_check (const char *path,double space_needed);
+
+/* general list management */
+slapt_list_t *slapt_parse_delimited_list(char *line, char delim);
+slapt_list_t *slapt_init_list(void);
+void slapt_add_list_item(slapt_list_t *list,const char *item);
+void slapt_remove_list_item(slapt_list_t *list,const char *item);
+void slapt_free_list(slapt_list_t *list);

@@ -18,7 +18,7 @@
 
 #include "main.h"
 /* parse the exclude list */
-static struct slapt_exclude_list *parse_exclude(char *line);
+static slapt_list_t *parse_exclude(char *line);
 
 
 slapt_rc_config *slapt_init_config(void)
@@ -44,7 +44,7 @@ slapt_rc_config *slapt_init_config(void)
   global_config->progress_cb        = NULL;
 
   global_config->sources      = slapt_init_source_list();
-  global_config->exclude_list = slapt_init_exclude_list();
+  global_config->exclude_list = slapt_init_list();
 
   global_config->retry = 1;
 
@@ -115,7 +115,7 @@ slapt_rc_config *slapt_read_rc_config(const char *file_name)
 
     } else if ( (token_ptr = strstr(getline_buffer,SLAPT_EXCLUDE_TOKEN)) != NULL ) {
        /* exclude list */
-      slapt_free_exclude_list(global_config->exclude_list);
+      slapt_free_list(global_config->exclude_list);
       global_config->exclude_list = parse_exclude(token_ptr);
     }
 
@@ -179,126 +179,17 @@ void slapt_working_dir_init(const slapt_rc_config *global_config)
 
 void slapt_free_rc_config(slapt_rc_config *global_config)
 {
-  slapt_free_exclude_list(global_config->exclude_list);
+  slapt_free_list(global_config->exclude_list);
   slapt_free_source_list(global_config->sources);
   free(global_config);
 }
 
-static struct slapt_exclude_list *parse_exclude(char *line)
+static slapt_list_t *parse_exclude(char *line)
 {
-  struct slapt_exclude_list *list;
-  unsigned int position = 0, len = 0;
-
-  list = slapt_malloc( sizeof *list );
-  list->excludes = slapt_malloc( sizeof *list->excludes );
-  list->count = 0;
-
   /* skip ahead past the = */
   line = strchr(line,'=') + 1;
 
-  len = strlen(line);
-  while ( position < len ) {
-
-    if ( strstr(line + position,",") == NULL ) {
-      char *pointer = NULL;
-
-      pointer = line + position;
-
-      slapt_add_exclude(list,pointer);
-
-      break;
-    } else {
-
-      if ( line[position] == ',' ) {
-        ++position;
-        continue;
-      } else {
-        char *buffer = NULL,*pointer = NULL;
-
-        pointer = strchr(line + position,',');
-        buffer = strndup(
-          line + position,
-          strlen(line + position) - strlen(pointer)
-        );
-
-        slapt_add_exclude(list,buffer);
-        free(buffer);
-        position += (strlen(line + position) - strlen(pointer) );
-      }
-      continue;
-    }
-  }
-  
-  return list;
-}
-
-struct slapt_exclude_list *slapt_init_exclude_list(void)
-{
-  struct slapt_exclude_list *list = slapt_malloc(sizeof *list);
-  list->excludes = slapt_malloc(sizeof *list->excludes);
-  list->count = 0;
-
-  return list;
-}
-
-void slapt_add_exclude(struct slapt_exclude_list *list,const char *e)
-{
-  char **realloc_tmp;
-
-  realloc_tmp =
-    realloc( list->excludes, sizeof *list->excludes * (list->count + 1) );
-
-  if ( realloc_tmp == NULL )
-    return;
-
-  list->excludes = realloc_tmp;
-  list->excludes[ list->count ] = strndup(e, strlen(e));
-  list->excludes[ list->count ][strlen(e)] = '\0';
-  ++list->count;
-
-}
-
-void slapt_remove_exclude(struct slapt_exclude_list *list,const char *e)
-{
-  unsigned int i = 0;
-  char *tmp = NULL;
-
-  while (i < list->count) {
-    if ( strcmp(e,list->excludes[i]) == 0 && tmp == NULL ) {
-      tmp = list->excludes[i];
-    }
-    if ( tmp != NULL && (i+1 < list->count) ) {
-      list->excludes[i] = list->excludes[i + 1];
-    }
-    ++i;
-  }
-  if ( tmp != NULL ) {
-    char **realloc_tmp;
-    int count = list->count - 1;
-    if ( count < 1 )
-      count = 1;
-
-    free(tmp);
-
-    realloc_tmp = realloc(list->excludes, sizeof *list->excludes * count);
-    if ( realloc_tmp != NULL ) {
-      list->excludes = realloc_tmp;
-      if (list->count > 0)
-        --list->count;
-    }
-
-  }
-}
-
-void slapt_free_exclude_list(struct slapt_exclude_list *list)
-{
-  unsigned int i;
-  
-  for (i = 0; i < list->count; ++i) {
-    free(list->excludes[i]);
-  }
-  free(list->excludes);
-  free(list);
+  return slapt_parse_delimited_list(line, ',');
 }
 
 struct slapt_source_list *slapt_init_source_list(void)
@@ -522,9 +413,9 @@ int slapt_write_rc_config(const slapt_rc_config *global_config, const char *loca
   fprintf(rc,"%s",SLAPT_EXCLUDE_TOKEN);
   for (i = 0;i < global_config->exclude_list->count;++i) {
     if ( i+1 == global_config->exclude_list->count) {
-      fprintf(rc,"%s",global_config->exclude_list->excludes[i]);
+      fprintf(rc,"%s",global_config->exclude_list->items[i]);
     }else{
-      fprintf(rc,"%s,",global_config->exclude_list->excludes[i]);
+      fprintf(rc,"%s,",global_config->exclude_list->items[i]);
     }
   }
   fprintf(rc,"\n");

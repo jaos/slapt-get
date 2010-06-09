@@ -1,5 +1,6 @@
 
-0.10.2f June 07, 2010
+0.10.2f June 09, 2010
+ * Updated API, generalizing several types into slapt_list_t
  * added reinstall notification
 
 0.10.2e June 02, 2010

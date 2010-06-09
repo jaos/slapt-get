@@ -5,11 +5,6 @@
 */
 #define MAX_LINE_LEN 80
 
-struct slapt_suggests {
-  char **pkgs;
-  unsigned int count;
-};
-
 typedef struct {
   union { slapt_pkg_info_t *i; slapt_pkg_upgrade_t *u; } pkg;
   unsigned int type; /* this is enum slapt_action defined in main.h */
@@ -25,7 +20,7 @@ typedef struct {
   struct slapt_pkg_upgrade_list *upgrade_pkgs;
   struct slapt_pkg_list *remove_pkgs;
   struct slapt_pkg_list *exclude_pkgs;
-  struct slapt_suggests *suggests;
+  slapt_list_t *suggests;
   struct slapt_pkg_err_list *conflict_err;
   struct slapt_pkg_err_list *missing_err;
   slapt_queue_t *queue;

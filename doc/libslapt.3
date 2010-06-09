@@ -63,7 +63,7 @@ slapt-get stores the configuration information in a \fIslapt_rc_config\fP object
   typedef struct {
     char working_dir[WORKINGDIR_TOKEN_LEN];
     struct slapt_source_list *sources;
-    struct slapt_exclude_list *exclude_list;
+    slapt_list_t *exclude_list;
     int (*progress_cb) (void *,double,double,double,double);
     SLAPT_BOOL_T download_only;
     SLAPT_BOOL_T dist_upgrade;
@@ -129,21 +129,6 @@ The \fIstruct slapt_source_list\fP stores the package sources.  Sources can be a
 .B "void slapt_add_source(struct slapt_source_list *list, slapt_source_t *s);"
 .B "void slapt_remove_source (struct slapt_source_list *list, const char *s);"
 .B "void slapt_free_source_list(struct slapt_source_list *list);"
-.fi
-.sp
-.TP
-The \fIstruct slapt_exclude_list\fP stores the package excludes.  Excludes can be added and removed with \fIslapt_add_exclude\fP() and \fIslapt_remove_exclude\fP().  Typically, \fIslapt_rc_config->excludes\fP is passed as the first argument, but it could be any pointer to a \fIstruct slapt_exclude_list\fP that is created by \fIslapt_init_exclude_list\fP().
-.sp
-.nf
-  struct slapt_exclude_list {
-    char **excludes;
-    unsigned int count;
-  };
-.sp
-.B "struct slapt_exclude_list *slapt_init_exclude_list(void);"
-.B "void slapt_add_exclude(struct slapt_exclude_list *list,const char *e);"
-.B "void slapt_remove_exclude(struct slapt_exclude_list *list,const char *e);"
-.B "void slapt_free_exclude_list(struct slapt_exclude_list *list);"
 .fi
 .sp
 .TP
@@ -429,11 +414,6 @@ Progress callbacks make use of \fIstruct slapt_progress_data\fP.
 Adding, removing, and upgrading packages can be wrapped in a \fIslapt_transaction_t\fP object.  This structure will make sure that all packages are worked on in the specific order, downloaded, and handed off to the appropriate pkgtools command via the \fIslapt_handle_transaction\fP() function.
 .sp
 .nf
-  struct slapt_suggests {
-    char **pkgs;
-    unsigned int count;
-  };
-.sp
   enum slapt_action {
     USAGE = 0, UPDATE, INSTALL, REMOVE, SHOW, SEARCH, UPGRADE,
     LIST, INSTALLED, CLEAN, SHOWVERSION, AUTOCLEAN, AVAILABLE
@@ -466,7 +446,7 @@ Adding, removing, and upgrading packages can be wrapped in a \fIslapt_transactio
     struct slapt_pkg_upgrade_list *upgrade_pkgs;
     struct slapt_pkg_list *remove_pkgs;
     struct slapt_pkg_list *exclude_pkgs;
-    struct slapt_suggests *suggests;
+    slapt_list_t *suggests;
     struct slapt_pkg_err_list *conflict_err;
     struct slapt_pkg_err_list *missing_err;
     slapt_queue_t *queue;
@@ -613,6 +593,18 @@ Miscellaneous functionality within libslapt.
 .B const char *slapt_priority_to_str(SLAPT_PRIORITY_T priority);
 .sp
 .B SLAPT_BOOL_T slapt_disk_space_check (const char *path,double space_needed);
+.sp
+  typedef struct {
+    char **items;
+    unsigned int count;
+  } slapt_list_t;
+.sp
+.B /* general list management */
+.B slapt_list_t *slapt_parse_delimited_list(char *line, char delim);
+.B slapt_list_t *slapt_init_list(void);
+.B void slapt_add_list_item(slapt_list_t *list,const char *item);
+.B void slapt_remove_list_item(slapt_list_t *list,const char *item);
+.B void slapt_free_list(slapt_list_t *list);
 .fi
 .sp
 .SH LINKING WITH LIBSLAPT

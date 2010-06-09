@@ -26,7 +26,7 @@ extern int optind, opterr, optopt;
 int main( int argc, char *argv[] )
 {
   slapt_rc_config *global_config, *initial_config; /* our config struct */
-  slapt_pkg_action_args_t *paa;
+  slapt_list_t *paa;
 
   int c = 0;
   enum slapt_action do_action = 0;
@@ -318,13 +318,13 @@ int main( int argc, char *argv[] )
       }
       break;
     case INSTALL:
-      paa = slapt_init_pkg_action_args((argc - optind));
+      paa = slapt_init_list();
       while (optind < argc) {
-        slapt_add_pkg_action_args(paa,argv[optind]);
+        slapt_add_list_item(paa,argv[optind]);
         ++optind;
       }
       slapt_pkg_action_install( global_config, paa );
-      slapt_free_pkg_action_args(paa);
+      slapt_free_list(paa);
       break;
     case INSTALL_DISK_SET:
       {
@@ -352,28 +352,28 @@ int main( int argc, char *argv[] )
 
         }
 
-        paa = slapt_init_pkg_action_args(set_pkgs->pkg_count);
+        paa = slapt_init_list();
 
         for (set_i = 0; set_i < set_pkgs->pkg_count; ++set_i) {
-          slapt_add_pkg_action_args(paa,set_pkgs->pkgs[set_i]->name);
+          slapt_add_list_item(paa,set_pkgs->pkgs[set_i]->name);
         }
 
         slapt_free_pkg_list(set_pkgs);
         slapt_free_pkg_list(avail_pkgs);
 
         slapt_pkg_action_install( global_config, paa );
-        slapt_free_pkg_action_args(paa);
+        slapt_free_list(paa);
 
       }
       break;
     case REMOVE:
-      paa = slapt_init_pkg_action_args((argc - optind));
+      paa = slapt_init_list();
       while (optind < argc) {
-        slapt_add_pkg_action_args(paa,argv[optind]);
+        slapt_add_list_item(paa,argv[optind]);
         ++optind;
       }
       slapt_pkg_action_remove( global_config, paa );
-      slapt_free_pkg_action_args(paa);
+      slapt_free_list(paa);
       break;
     case SHOW:
       while (optind < argc) {

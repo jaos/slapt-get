@@ -52,9 +52,7 @@ slapt_transaction_t *slapt_init_transaction(void)
   tran->upgrade_pkgs->reinstall_count = 0;
 
 
-  tran->suggests = slapt_malloc(sizeof *tran->suggests);
-  tran->suggests->pkgs = slapt_malloc(sizeof *tran->suggests->pkgs);
-  tran->suggests->count = 0;
+  tran->suggests = slapt_init_list();
 
   tran->queue = slapt_queue_init();
 
@@ -121,7 +119,7 @@ int slapt_handle_transaction (const slapt_rc_config *global_config,
     printf("  ");
 
     for (i = 0; i < tran->suggests->count; ++i) {
-      char *s = tran->suggests->pkgs[i];
+      char *s = tran->suggests->items[i];
 
       /* don't show suggestion for something we already have
          in the transaction */
@@ -736,11 +734,7 @@ void slapt_free_transaction(slapt_transaction_t *tran)
   free(tran->exclude_pkgs->pkgs);
   free(tran->exclude_pkgs);
 
-  for (i = 0; i < tran->suggests->count; ++i) {
-    free(tran->suggests->pkgs[i]);
-  }
-  free(tran->suggests->pkgs);
-  free(tran->suggests);
+  slapt_free_list(tran->suggests);
 
   queue_free(tran->queue);
 
@@ -936,72 +930,26 @@ struct slapt_pkg_list *slapt_is_conflicted(slapt_transaction_t *tran,
 
 static void add_suggestion(slapt_transaction_t *tran, slapt_pkg_info_t *pkg)
 {
-  unsigned int position = 0,len = 0;
+  slapt_list_t *suggests = NULL;
+  unsigned int i = 0;
 
-  if (pkg->suggests == NULL || (len = strlen(pkg->suggests)) == 0) {
+  if (pkg->suggests == NULL || strlen(pkg->suggests) == 0) {
     return;
   }
 
-  while (isspace(pkg->suggests[position]) != 0)
-      ++position;
+  suggests = slapt_parse_delimited_list(pkg->suggests, ',');
 
-  while (position < len) {
-    int total_len = 0,rest_len = 0;
-    char *p = NULL,*si = NULL,*tmp_suggests = NULL;
-    char **tmp_realloc;
-
-    p = pkg->suggests + position;
-    if (p == NULL)
-      break;
-
-    si = strpbrk(p," ,");
-    if (si == NULL || strlen(si) <= 2) {
-      total_len = strlen(p);
-      rest_len = 0;
-      tmp_suggests = strndup(p,strlen(p));
-    } else {
-      si = si + 1;
-
-      total_len = strlen(p);
-      rest_len = strlen(si);
-
-      /* this will always encompass ending space, so we dont + 1 */
-      tmp_suggests = slapt_malloc(sizeof *tmp_suggests * (total_len - rest_len));
-      tmp_suggests = strncpy(tmp_suggests,p,(total_len - rest_len));
-      tmp_suggests[total_len - rest_len - 1] = '\0';
-    }
+  for (i = 0; i < suggests->count; i++) {
 
     /* no need to add it if we already have it */
-    if (slapt_search_transaction(tran,tmp_suggests) == 1) {
-      free(tmp_suggests);
-      position += (total_len - rest_len);
+    if (slapt_search_transaction(tran,suggests->items[i]) == 1)
       continue;
-    }
 
-    tmp_realloc =
-      realloc(tran->suggests->pkgs,
-        sizeof *tran->suggests->pkgs * (tran->suggests->count + 1)
-     );
+    slapt_add_list_item(tran->suggests, suggests->items[i]);
 
-    if (tmp_realloc != NULL) {
-      tran->suggests->pkgs = tmp_realloc;
-
-      tran->suggests->pkgs[tran->suggests->count] = slapt_malloc(
-        sizeof *tran->suggests->pkgs[tran->suggests->count]
-        * (strlen(tmp_suggests) + 1));
-
-      tran->suggests->pkgs[tran->suggests->count] = strncpy(
-        tran->suggests->pkgs[tran->suggests->count],
-        tmp_suggests,strlen(tmp_suggests));
-
-      tran->suggests->pkgs[tran->suggests->count][strlen(tmp_suggests)] = '\0';
-      ++tran->suggests->count;
-    }
-    free(tmp_suggests);
-
-    position += (total_len - rest_len);
   }
 
+  slapt_free_list(suggests);
 }
 
 int slapt_search_transaction_by_pkg(slapt_transaction_t *tran,

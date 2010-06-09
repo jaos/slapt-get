@@ -22,7 +22,7 @@ static int cmp_pkg_arch(const char *a,const char *b);
 
 /* install pkg */
 void slapt_pkg_action_install(const slapt_rc_config *global_config,
-                              const slapt_pkg_action_args_t *action_args)
+                              const slapt_list_t *action_args)
 {
   unsigned int i;
   slapt_transaction_t *tran = NULL;
@@ -46,7 +46,7 @@ void slapt_pkg_action_install(const slapt_rc_config *global_config,
   }
 
   for (i = 0; i < action_args->count; ++i) {
-    char *arg = action_args->pkgs[i];
+    char *arg = action_args->items[i];
     slapt_pkg_info_t *pkg = NULL;
     slapt_pkg_info_t *installed_pkg = NULL;
 
@@ -226,7 +226,7 @@ void slapt_pkg_action_list(const int show)
 
 /* remove/uninstall pkg */
 void slapt_pkg_action_remove(const slapt_rc_config *global_config,
-                             const slapt_pkg_action_args_t *action_args)
+                             const slapt_list_t *action_args)
 {
   unsigned int i;
   struct slapt_pkg_list *installed_pkgs = NULL;
@@ -247,7 +247,7 @@ void slapt_pkg_action_remove(const slapt_rc_config *global_config,
   for (i = 0; i < action_args->count; ++i) {
     unsigned int c;
     struct slapt_pkg_list *deps = NULL;
-    char *arg = action_args->pkgs[i];
+    char *arg = action_args->items[i];
     slapt_pkg_info_t *pkg = NULL;
 
     /* Use regex to see if they specified a particular version */
@@ -724,40 +724,6 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
   }
 
   slapt_free_transaction(tran);
-}
-
-slapt_pkg_action_args_t *slapt_init_pkg_action_args(int arg_count)
-{
-  slapt_pkg_action_args_t *paa;
-
-  paa = slapt_malloc( sizeof *paa );
-  paa->pkgs = slapt_malloc( sizeof *paa->pkgs * arg_count );
-  paa->count = 0;
-
-  return paa;
-}
-
-slapt_pkg_action_args_t *slapt_add_pkg_action_args(slapt_pkg_action_args_t *p,
-                                                   const char *arg)
-{
-  p->pkgs[p->count] = slapt_malloc(
-    ( strlen(arg) + 1 ) * sizeof *p->pkgs[p->count]
-  );
-  memcpy(p->pkgs[p->count],arg,strlen(arg) + 1);
-  ++p->count;
-  return p;
-}
-
-void slapt_free_pkg_action_args(slapt_pkg_action_args_t *paa)
-{
-  unsigned int i;
-
-  for (i = 0; i < paa->count; ++i) {
-    free(paa->pkgs[i]);
-  }
-
-  free(paa->pkgs);
-  free(paa);
 }
 
 static int cmp_pkg_arch(const char *a,const char *b)
