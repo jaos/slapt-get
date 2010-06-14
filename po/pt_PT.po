@@ -1,13 +1,13 @@
 # translation of slapt-get to pt_PT.po
 # Copyright (C) 2004, 2005, 2006
 # This file is distributed under the same license as the slapt-get package.
-# Miquel Santinho <msantinho@simplicidade.com>, 2004, 2005.
+# Miquel Santinho <msantinho@simplicidade.com>, 2004, 2005, 2010
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.2f\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2010-06-07 21:05+0500\n"
+"PO-Revision-Date: 2010-06-14 17:32+0000\n"
 "Last-Translator: Miguel Santinho <msantinho@simplicidade.com>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -367,7 +367,7 @@ msgstr "Os seguintes pacotes serão actualizados:\n"
 
 #, c-format
 msgid "%d upgraded, %d reinstalled, %d newly installed, %d to remove and %d not upgraded.\n"
-msgstr "%d actualizados, %d reinstalled, %d para instalar, %d para remover e %d não actualizados.\n"
+msgstr "%d actualizados, %d reinstalados, %d para instalar, %d para remover e %d não actualizados.\n"
 
 #, c-format
 msgid "Need to get %.1f%s of archives.\n"
@@ -405,11 +405,11 @@ msgstr "apenas imprimir URIs, não fazer download"
 
 #, c-format
 msgid "Package MD5 Sum:  %s\n"
-msgstr "MD5 Sum do pacote:  %s\n"
+msgstr "Soma MD5 do pacote:  %s\n"
 
 #, c-format
 msgid "md5 sum too long\n"
-msgstr "md5 sum muito longo\n"
+msgstr " soma md5 muito longo\n"
 
 #, c-format
 msgid "Reading Package Lists..."
@@ -486,95 +486,95 @@ msgid "Retrieving ChangeLog.txt [%s]..."
 msgstr "A obter o ficheiro ChangeLog.txt [%s]..."
 
 msgid "MD5 checksum mismatch, override with --no-md5"
-msgstr "MD5 checksum mismatch, override with --no-md5"
+msgstr "Soma MD5 diferente, utilize --no-md5 para ignorar"
 
 msgid "Missing MD5 checksum, override with --no-md5"
-msgstr "Missing MD5 checksum, override with --no-md5"
+msgstr "Soma MD5 inexistente, utilize --no-md5 para ignorar"
 
 msgid "Incomplete download"
-msgstr "Incomplete download"
+msgstr "Download incompleto"
 
 msgid "GPG key successfully imported"
-msgstr "GPG key successfully imported"
+msgstr "Chave GPG importada com sucesso"
 
 msgid "GPG key could not be imported"
-msgstr "GPG key could not be imported"
+msgstr "Chave GPG não pode ser importada"
 
 msgid "GPG key already present"
-msgstr "GPG key already present"
+msgstr "Chave GPG já existe"
 
 msgid "Checksums signature successfully verified"
-msgstr "Checksums signature successfully verified"
+msgstr "ssinaturas por soma verificadas com sucesso"
 
 msgid "Checksums signature could not be verified"
-msgstr "Checksums signature could not be verified"
+msgstr "Assinaturas por soma não puderam ser verificada"
 
 msgid "Verified"
-msgstr "Verified"
+msgstr "Verificado"
 
 msgid "Not Verified"
-msgstr "Not Verified"
+msgstr "Não Verificado"
 
 #, c-format
 msgid "Retrieving GPG key [%s]..."
-msgstr "Retrieving GPG key [%s]..."
+msgstr "A recuperar chave GPG [%s]..."
 
 #, c-format
 msgid "Retrieving checksum signature [%s]..."
-msgstr "Retrieving checksum signature [%s]..."
+msgstr "A recuperar assinaturas por soma [%s]..."
 
 msgid "No key for verification"
-msgstr "No key for verification"
+msgstr "Sem chave para verificação"
 
 msgid "retrieve GPG keys for sources"
-msgstr "retrieve GPG keys for sources"
+msgstr "recuperar chaves GPG para fontes"
 
 #, c-format
 msgid "Verifying checksum signature [%s]..."
-msgstr "Verifying checksum signature [%s]..."
+msgstr "A verificar assinatura por soma [%s]..."
 
 msgid "Unknown error"
-msgstr "Unknown error"
+msgstr "Erro desconhecido"
 
 #, c-format
 msgid "Not Found\n"
-msgstr "Not Found\n"
+msgstr "Não encontrado\n"
 
 msgid "Default"
-msgstr "Default"
+msgstr "Padrão"
 
 msgid "Default Patch"
-msgstr "Default Patch"
+msgstr "Patch Padrão"
 
 msgid "Preferred"
-msgstr "Preferred"
+msgstr "Preferido"
 
 msgid "Preferred Patch"
-msgstr "Preferred Patch"
+msgstr "Patch Preferido"
 
 msgid "Official"
-msgstr "Official"
+msgstr "Oficial"
 
 msgid "Official Patch"
-msgstr "Official Patch"
+msgstr "Patch Oficial"
 
 msgid "Custom"
-msgstr "Custom"
+msgstr "Personalizado"
 
 msgid "Custom Patch"
-msgstr "Custom Patch"
+msgstr "Patch Personalizado"
 
 #, c-format
 msgid "Package Priority: %s\n"
-msgstr "Package Priority: %s\n"
+msgstr "Priority de Pacote: %s\n"
 
 msgid "[pkg name] - show pkg installed files"
-msgstr "[pkg name] - show pkg installed files"
+msgstr "[pkg name] - mostrar ficheiros instalados do pacote"
 
 #, c-format
 msgid "Delete %s ? [y/N]"
-msgstr "Delete %s ? [y/N]"
+msgstr "Eliminar %s ? [y/N]"
 
 #, c-format
 msgid "The following packages will be reinstalled:\n"
-msgstr "The following packages will be reinstalled:\n"
+msgstr "Os seguintes pacotes serão reinstalados:\n"
