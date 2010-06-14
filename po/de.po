@@ -1,4 +1,3 @@
-# german slapt-get translation
 # Copyright (C) 2004, 2005, 2006, 2007
 # This file is distributed under the same license as the slapt-get package.
 # Niklas Volbers <mithrandir42@web.de>, 2004, 2005
@@ -8,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.2f\n"
 "POT-Creation-Date: 2003-11-03 14:28+0000\n"
-"PO-Revision-Date: 2010-06-07 21:05+0500\n"
+"PO-Revision-Date: 2010-06-14 18:54+0100\n"
 "Last-Translator: Manfred Mueller <mmueller@live-modules.org>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -396,7 +395,7 @@ msgstr "Abbruch.\n"
 
 #, c-format
 msgid "%s, which is to be installed, conflicts with %s\n"
-msgstr "Paket %s, welches installiert werden soll, steht im Konflikt mit %s\n"
+msgstr "Zu installierendes Paket %s steht im Konflikt mit %s\n"
 
 #, c-format
 msgid "Installed %s conflicts with %s\n"
@@ -433,7 +432,7 @@ msgstr "Im Zwischenspeicher\n"
 
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr "Von den Quellen konnte nichts heruntergeladen werden, Quellen korrigieren und slapt-get erneut mit --update starten\n"
+msgstr "Zugriff auf die Quelle(n) fehlgeschlagen, Quelle(n) korrigieren und slapt-get erneut mit --update starten\n"
 
 msgid "specify alternate slapt-getrc location"
 msgstr "Anderen Ort für die Konfigurationsdatei slapt-getrc angeben"
@@ -575,8 +574,9 @@ msgstr "[pkg name] - Durch Paket installierte Dateien anzeigen"
 
 #, c-format
 msgid "Delete %s ? [y/N]"
-msgstr "Delete %s ? [y/N]"
+msgstr "%s löschen ? [y/N]"
 
 #, c-format
 msgid "The following packages will be reinstalled:\n"
-msgstr "The following packages will be reinstalled:\n"
+msgstr "Folgende Pakete werden erneut installiert:\n"
+

@@ -1,5 +1,6 @@
 
 0.10.2f June 14, 2010
+ * updated de translation from Manfred Mueller
  * updated pt_PT translation from Miquel Santinho
  * make slapt_is_required_by properly account for alternative/conditional
    dependencies as well as be aware of what is to be installed and removed. 
