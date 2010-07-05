@@ -172,7 +172,7 @@ int main( int argc, char *argv[] )
         usage();
         slapt_free_rc_config(initial_config);
         curl_global_cleanup();
-        exit(EXIT_FAILURE);
+        exit(EXIT_SUCCESS);
       case SLAPT_IGNORE_DEP_OPT: /* ignore-dep */
         initial_config->ignore_dep = SLAPT_TRUE;
         break;
@@ -443,8 +443,8 @@ void usage(void)
   printf("  --install|-i   %s\n",gettext("[pkg name(s)] - install specified pkg(s)"));
   printf("  --install-set  %s\n",gettext("[disk set(s)] - install specified disk set(s)"));
   printf("  --remove       %s\n",gettext("[pkg name(s)] - remove specified pkg(s)"));
-  printf("  --show         %s\n",gettext("[pkg name] - show pkg description"));
-  printf("  --filelist     %s\n",gettext("[pkg name] - show pkg installed files"));
+  printf("  --show         %s\n",gettext("[pkg name(s)] - show pkg description"));
+  printf("  --filelist     %s\n",gettext("[pkg name(s)] - show pkg installed files"));
   printf("  --search       %s\n",gettext("[expression] - search available pkgs"));
   printf("  --list         - %s\n",gettext("list pkgs"));
   printf("  --available    - %s\n",gettext("list available pkgs"));
@@ -454,6 +454,7 @@ void usage(void)
   #ifdef SLAPT_HAS_GPGME
   printf("  --add-keys     - %s\n",gettext("retrieve GPG keys for sources"));
   #endif
+  printf("  --help|-h      - %s\n",gettext("display this help and exit"));
   printf("  --version      - %s\n",gettext("print version and license info"));
   printf("\n");
   printf(gettext("Options:\n"));
