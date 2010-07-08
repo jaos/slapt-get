@@ -162,10 +162,10 @@ dopkg:
 	-( cd pkg; /sbin/makepkg -l y -c n ../$(PACKAGE)-$(VERSION)-$(ARCH)-$(RELEASE).tgz )
 
 po_file:
-	-grep '_(' src/*.c |cut -f2-255 -d':'|sed -re "s/.*(_\(\".*\"\)).*/\1/" > po/gettext_strings
-	-mv -f po/slapt-get.pot po/slapt-get.pot~
-	-xgettext -d slapt-get -o po/slapt-get.pot -a -C --no-location po/gettext_strings
-	-rm po/gettext_strings
+	-xgettext -o po/slapt-get.pot.new -sC --no-location src/*
+	-if [ ! -f po/slapt-get.pot ]; then mv po/slapt-get.pot.new po/slapt-get.pot; else msgmerge -Us --backup=simple po/slapt-get.pot po/slapt-get.pot.new ; fi
+	-rm po/slapt-get.pot.new
+	-for i in `ls po/ --ignore=slapt-get.pot* --ignore=CVS`; do msgmerge -Us --backup=simple po/$$i po/slapt-get.pot; done
 
 libs: $(OBJS)
 	touch libs
