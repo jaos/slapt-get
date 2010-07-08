@@ -261,14 +261,11 @@ int slapt_handle_transaction (const slapt_rc_config *global_config,
   }
 
   /* print the summary */
-  printf(
-    gettext("%d upgraded, %d reinstalled, %d newly installed, %d to remove and %d not upgraded.\n"),
-    tran->upgrade_pkgs->pkg_count - tran->upgrade_pkgs->reinstall_count,
-    tran->upgrade_pkgs->reinstall_count,
-    tran->install_pkgs->pkg_count,
-    tran->remove_pkgs->pkg_count,
-    tran->exclude_pkgs->pkg_count
- );
+  printf(gettext("%d upgraded, "), tran->upgrade_pkgs->pkg_count - tran->upgrade_pkgs->reinstall_count);
+  printf(gettext("%d reinstalled, "), tran->upgrade_pkgs->reinstall_count);
+  printf(gettext("%d newly installed, "), tran->install_pkgs->pkg_count);
+  printf(gettext("%d to remove, "), tran->remove_pkgs->pkg_count);
+  printf(gettext("%d not upgraded.\n"), tran->exclude_pkgs->pkg_count);
 
   /* only show this if we are going to do download something */
   if (tran->upgrade_pkgs->pkg_count > 0 || tran->install_pkgs->pkg_count > 0) {
