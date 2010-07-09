@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.2f\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-09 17:01+0400\n"
+"POT-Creation-Date: 2010-07-09 20:54+0400\n"
 "PO-Revision-Date: 2010-06-07 21:05+0500\n"
 "Last-Translator: Igor Murzov <igor@gplsoft.org>\n"
 "Language-Team: DeepStyle Team <hottab@deepstyle.org.ua>, <ru@li.org>, sin "
@@ -348,10 +348,6 @@ msgid "Reading Package Lists..."
 msgstr "Чтение списка пакетов..."
 
 #, c-format
-msgid "Reading Package Lists... "
-msgstr "Чтение списка пакетов... "
-
-#, c-format
 msgid "Regex Error: %s\n"
 msgstr "Ошибка regex: %s\n"
 
@@ -453,10 +449,10 @@ msgstr "[имя пакета] - установить указанные паке
 msgid "[pkg name(s)] - remove specified pkg(s)"
 msgstr "[имя пакета] - удалить указанные пакеты"
 
-msgid "[pkg name(s)] - show pkg description"
+msgid "[pkg name(s)] - show pkg(s) description"
 msgstr "[pkg name(s)] - показать описания пакетов"
 
-msgid "[pkg name(s)] - show pkg installed files"
+msgid "[pkg name(s)] - show pkg(s) installed files"
 msgstr "[pkg name(s)] - показать файлы установленные пакетом"
 
 msgid "always prompt during install/upgrade"
@@ -531,9 +527,6 @@ msgstr "показать версию и лицензию"
 msgid "purge cached pkgs"
 msgstr "очистить кэш пакетов"
 
-msgid "re-install the pkg"
-msgstr "переустановить пакет"
-
 #, c-format
 msgid "regex failed on [%s]\n"
 msgstr "ошибка regex на [%s]\n"
@@ -550,13 +543,16 @@ msgstr "regexec не может обработать size_c\n"
 msgid "regexec failed to parse size_u\n"
 msgstr "regexec не может обработать size_u\n"
 
+msgid "reinstall the pkg"
+msgstr "переустановить пакет"
+
 msgid "remove obsolete packages"
 msgstr "удалить устаревшие пакеты"
 
 msgid "retrieve GPG keys for sources"
 msgstr "получить GPG-ключи для источников"
 
-msgid "retrieves pkg data from MIRROR"
+msgid "retrieve pkg data from MIRROR"
 msgstr "получить сведения о пакетах с MIRROR"
 
 msgid "show download statistics"
@@ -604,21 +600,3 @@ msgstr "да"
 
 #~ msgid "MD5 found:    [%s]\n"
 #~ msgstr "Найденная MD5: [%s]\n"
-
-#~ msgid "Retrieving extras list [%s]..."
-#~ msgstr "Получение списка дополнений [%s]..."
-
-#~ msgid "Retrieving extras list [%s]...\n"
-#~ msgstr "Получение списка дополнений [%s]...\n"
-
-#~ msgid "Retrieving package data [%s]...\n"
-#~ msgstr "Получение данных о пакете [%s]...\n"
-
-#~ msgid "Retrieving patch list [%s]...\n"
-#~ msgstr "Получение списка патчей [%s]...\n"
-
-#~ msgid "[pkg name] - show pkg description"
-#~ msgstr "[имя пакета] - показать описание пакета"
-
-#~ msgid "[pkg name] - show pkg installed files"
-#~ msgstr "[pkg name] - show pkg installed files"

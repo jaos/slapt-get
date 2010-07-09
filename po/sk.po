@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.2f\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-09 17:01+0400\n"
+"POT-Creation-Date: 2010-07-09 20:54+0400\n"
 "PO-Revision-Date: 2010-06-07 21:05+0500\n"
 "Last-Translator: Erik Gyepes <depi@depi.sk>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
@@ -344,10 +344,6 @@ msgid "Reading Package Lists..."
 msgstr "Načítavam zoznam balíkov..."
 
 #, c-format
-msgid "Reading Package Lists... "
-msgstr "Načítavam zoznam balikov... "
-
-#, c-format
 msgid "Regex Error: %s\n"
 msgstr "Chyba Regexu: %s\n"
 
@@ -449,10 +445,10 @@ msgstr "[meno balíka(ov)] - inštaluje zadaný balík(y)"
 msgid "[pkg name(s)] - remove specified pkg(s)"
 msgstr "[meno balíka(ov)] - odstráni zadaný balík(y)"
 
-msgid "[pkg name(s)] - show pkg description"
+msgid "[pkg name(s)] - show pkg(s) description"
 msgstr ""
 
-msgid "[pkg name(s)] - show pkg installed files"
+msgid "[pkg name(s)] - show pkg(s) installed files"
 msgstr ""
 
 msgid "always prompt during install/upgrade"
@@ -527,9 +523,6 @@ msgstr "zobrazí informácie o verzii a licencii"
 msgid "purge cached pkgs"
 msgstr "vyčistí balíkovú cache"
 
-msgid "re-install the pkg"
-msgstr "pre-inštaluje balík"
-
 #, c-format
 msgid "regex failed on [%s]\n"
 msgstr "regex neuspel na [%s]\n"
@@ -546,14 +539,17 @@ msgstr "regexec neuspel s analyzovaním size_c\n"
 msgid "regexec failed to parse size_u\n"
 msgstr "regexec neuspel s analyzovaním size_u\n"
 
+msgid "reinstall the pkg"
+msgstr ""
+
 msgid "remove obsolete packages"
 msgstr "odstráni zastaralé balíky"
 
 msgid "retrieve GPG keys for sources"
 msgstr "retrieve GPG keys for sources"
 
-msgid "retrieves pkg data from MIRROR"
-msgstr "získa data balíkov zo ZRKADLA"
+msgid "retrieve pkg data from MIRROR"
+msgstr ""
 
 msgid "show download statistics"
 msgstr "zobrazí štatistiku sťahovania"
@@ -601,6 +597,9 @@ msgstr "áno"
 #~ msgid "MD5 found:    [%s]\n"
 #~ msgstr "MD5 nájdený:    [%s]\n"
 
+#~ msgid "Reading Package Lists... "
+#~ msgstr "Načítavam zoznam balikov... "
+
 #~ msgid "Retrieving extras list [%s]..."
 #~ msgstr "Sťahujem zoznam extras [%s]..."
 
@@ -618,3 +617,9 @@ msgstr "áno"
 
 #~ msgid "[pkg name] - show pkg installed files"
 #~ msgstr "[pkg name] - show pkg installed files"
+
+#~ msgid "re-install the pkg"
+#~ msgstr "pre-inštaluje balík"
+
+#~ msgid "retrieves pkg data from MIRROR"
+#~ msgstr "získa data balíkov zo ZRKADLA"

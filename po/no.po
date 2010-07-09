@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.2f\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-09 17:01+0400\n"
+"POT-Creation-Date: 2010-07-09 20:54+0400\n"
 "PO-Revision-Date: 2010-06-07 21:05+0500\n"
 "Last-Translator: Joran Kvalvaag <jk@nerdworks.org>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
@@ -341,10 +341,6 @@ msgid "Reading Package Lists..."
 msgstr "Leser pakkelister..."
 
 #, c-format
-msgid "Reading Package Lists... "
-msgstr "Leser pakkelister..."
-
-#, c-format
 msgid "Regex Error: %s\n"
 msgstr "Regex feil: %s\n"
 
@@ -447,10 +443,10 @@ msgstr "[pakkenavn] - installer spesifisert(e) pakke(r)"
 msgid "[pkg name(s)] - remove specified pkg(s)"
 msgstr "[pakkenavn] - fjern spesifisert(e) pakke(r)"
 
-msgid "[pkg name(s)] - show pkg description"
+msgid "[pkg name(s)] - show pkg(s) description"
 msgstr ""
 
-msgid "[pkg name(s)] - show pkg installed files"
+msgid "[pkg name(s)] - show pkg(s) installed files"
 msgstr ""
 
 msgid "always prompt during install/upgrade"
@@ -525,9 +521,6 @@ msgstr "vis versjon- og lisensinfo"
 msgid "purge cached pkgs"
 msgstr "fjern lagrede pakker"
 
-msgid "re-install the pkg"
-msgstr "reinstaller pakken"
-
 #, c-format
 msgid "regex failed on [%s]\n"
 msgstr "regex feilet på [%s]\n"
@@ -544,14 +537,17 @@ msgstr "regexec feilet ved tyding av size_c\n"
 msgid "regexec failed to parse size_u\n"
 msgstr "regexec feilet ved tyding av size_u\n"
 
+msgid "reinstall the pkg"
+msgstr ""
+
 msgid "remove obsolete packages"
 msgstr "fjern gamle pakker"
 
 msgid "retrieve GPG keys for sources"
 msgstr "retrieve GPG keys for sources"
 
-msgid "retrieves pkg data from MIRROR"
-msgstr "mottar pakkedata fra SPEIL"
+msgid "retrieve pkg data from MIRROR"
+msgstr ""
 
 msgid "show download statistics"
 msgstr "vis nedlastingsstatistikk"
@@ -599,6 +595,9 @@ msgstr "ja"
 #~ msgid "MD5 found:    [%s]\n"
 #~ msgstr "MD5 funnet:    [%s]\n"
 
+#~ msgid "Reading Package Lists... "
+#~ msgstr "Leser pakkelister..."
+
 #~ msgid "Retrieving extras list [%s]..."
 #~ msgstr "Mottar liste med tillegg [%s]..."
 
@@ -616,3 +615,9 @@ msgstr "ja"
 
 #~ msgid "[pkg name] - show pkg installed files"
 #~ msgstr "[pkg name] - show pkg installed files"
+
+#~ msgid "re-install the pkg"
+#~ msgstr "reinstaller pakken"
+
+#~ msgid "retrieves pkg data from MIRROR"
+#~ msgstr "mottar pakkedata fra SPEIL"

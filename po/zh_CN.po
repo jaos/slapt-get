@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.2f\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-09 17:01+0400\n"
+"POT-Creation-Date: 2010-07-09 20:54+0400\n"
 "PO-Revision-Date: 2010-06-07 21:05+0500\n"
 "Last-Translator: Yang Jinsong <shannleon@gmail.com>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
@@ -334,10 +334,6 @@ msgid "Reading Package Lists..."
 msgstr "读取软件包列表..."
 
 #, c-format
-msgid "Reading Package Lists... "
-msgstr "读取软件包列表... "
-
-#, c-format
 msgid "Regex Error: %s\n"
 msgstr "正则表达式错误: %s\n"
 
@@ -439,10 +435,10 @@ msgstr "[软件包名称(可多选)] - 安装软件包"
 msgid "[pkg name(s)] - remove specified pkg(s)"
 msgstr "[软件包名称(可多选)] - 删除软件包"
 
-msgid "[pkg name(s)] - show pkg description"
+msgid "[pkg name(s)] - show pkg(s) description"
 msgstr ""
 
-msgid "[pkg name(s)] - show pkg installed files"
+msgid "[pkg name(s)] - show pkg(s) installed files"
 msgstr ""
 
 msgid "always prompt during install/upgrade"
@@ -517,9 +513,6 @@ msgstr "显示版本和版权信息"
 msgid "purge cached pkgs"
 msgstr "清空缓存的软件包"
 
-msgid "re-install the pkg"
-msgstr "重新安装软件包"
-
 #, c-format
 msgid "regex failed on [%s]\n"
 msgstr "regex failed on [%s]\n"
@@ -536,14 +529,17 @@ msgstr "regexec failed to parse size_c\n"
 msgid "regexec failed to parse size_u\n"
 msgstr "regexec failed to parse size_u\n"
 
+msgid "reinstall the pkg"
+msgstr ""
+
 msgid "remove obsolete packages"
 msgstr "删除老旧的软"
 
 msgid "retrieve GPG keys for sources"
 msgstr "retrieve GPG keys for sources"
 
-msgid "retrieves pkg data from MIRROR"
-msgstr "从镜像上检索软件包数据"
+msgid "retrieve pkg data from MIRROR"
+msgstr ""
 
 msgid "show download statistics"
 msgstr "显示下载状况"
@@ -589,6 +585,9 @@ msgstr "是"
 #~ msgid "MD5 found:    [%s]\n"
 #~ msgstr "发现的 MD5 校验值:    [%s]\n"
 
+#~ msgid "Reading Package Lists... "
+#~ msgstr "读取软件包列表... "
+
 #~ msgid "Retrieving extras list [%s]..."
 #~ msgstr "检索附加软件包列表 [%s]..."
 
@@ -606,3 +605,9 @@ msgstr "是"
 
 #~ msgid "[pkg name] - show pkg installed files"
 #~ msgstr "[pkg name] - show pkg installed files"
+
+#~ msgid "re-install the pkg"
+#~ msgstr "重新安装软件包"
+
+#~ msgid "retrieves pkg data from MIRROR"
+#~ msgstr "从镜像上检索软件包数据"

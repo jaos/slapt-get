@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.2f\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-09 17:01+0400\n"
+"POT-Creation-Date: 2010-07-09 20:54+0400\n"
 "PO-Revision-Date: 2010-06-20 19:30-0300\n"
 "Last-Translator: seacat <seacat.lang@gmail.com>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
@@ -346,10 +346,6 @@ msgid "Reading Package Lists..."
 msgstr "Leyendo listas de paquetes..."
 
 #, c-format
-msgid "Reading Package Lists... "
-msgstr "Leyendo la lista de paquetes..."
-
-#, c-format
 msgid "Regex Error: %s\n"
 msgstr "Error de regex: %s\n"
 
@@ -454,10 +450,10 @@ msgstr "[nombre(s) de paquete(s)] - instalar el/los paquete(s) especificado(s)"
 msgid "[pkg name(s)] - remove specified pkg(s)"
 msgstr "[nombre(s) de paquete(s)] - eliminar el/los paquete(s) especificado(s)"
 
-msgid "[pkg name(s)] - show pkg description"
+msgid "[pkg name(s)] - show pkg(s) description"
 msgstr ""
 
-msgid "[pkg name(s)] - show pkg installed files"
+msgid "[pkg name(s)] - show pkg(s) installed files"
 msgstr ""
 
 msgid "always prompt during install/upgrade"
@@ -533,9 +529,6 @@ msgstr "imprimir versión e información de licencia"
 msgid "purge cached pkgs"
 msgstr "limpiar los paquetes en caché"
 
-msgid "re-install the pkg"
-msgstr "reinstalar el paquete"
-
 #, c-format
 msgid "regex failed on [%s]\n"
 msgstr "falló la regex en [%s]\n"
@@ -552,14 +545,17 @@ msgstr "regexec no pudo procesar size_c\n"
 msgid "regexec failed to parse size_u\n"
 msgstr "regexec no pudo procesar size_u\n"
 
+msgid "reinstall the pkg"
+msgstr ""
+
 msgid "remove obsolete packages"
 msgstr "eliminando paquetes obsoletos"
 
 msgid "retrieve GPG keys for sources"
 msgstr "recuperando las claves GPG para las fuentes"
 
-msgid "retrieves pkg data from MIRROR"
-msgstr "recupera los datos del paquete desde el MIRROR"
+msgid "retrieve pkg data from MIRROR"
+msgstr ""
 
 msgid "show download statistics"
 msgstr "mostrar estadísticas de decarga"
@@ -607,6 +603,9 @@ msgstr "sí"
 #~ msgid "MD5 found:    [%s]\n"
 #~ msgstr "MD5 encontrado:    [%s]\n"
 
+#~ msgid "Reading Package Lists... "
+#~ msgstr "Leyendo la lista de paquetes..."
+
 #~ msgid "Retrieving extras list [%s]..."
 #~ msgstr "Recuperando la lista de extras [%s]..."
 
@@ -624,3 +623,9 @@ msgstr "sí"
 
 #~ msgid "[pkg name] - show pkg installed files"
 #~ msgstr "[nombre de paquete] - mostrar los archivos instalados de paquete"
+
+#~ msgid "re-install the pkg"
+#~ msgstr "reinstalar el paquete"
+
+#~ msgid "retrieves pkg data from MIRROR"
+#~ msgstr "recupera los datos del paquete desde el MIRROR"

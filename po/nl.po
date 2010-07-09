@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.2f\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-09 17:01+0400\n"
+"POT-Creation-Date: 2010-07-09 20:54+0400\n"
 "PO-Revision-Date: 2010-06-07 21:05+0500\n"
 "Last-Translator: Stefan Koopmanschap <stefan@electronicmusicworld.com>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
@@ -339,10 +339,6 @@ msgid "Reading Package Lists..."
 msgstr "Lezen package lijst..."
 
 #, c-format
-msgid "Reading Package Lists... "
-msgstr "Ophalen lijst packages"
-
-#, c-format
 msgid "Regex Error: %s\n"
 msgstr "Regex fout: %s\n"
 
@@ -445,10 +441,10 @@ msgstr "[pkg naam/namen] - installeer gegeven pkg(s)"
 msgid "[pkg name(s)] - remove specified pkg(s)"
 msgstr "[pkg naam/namen] - verwijder gegeven pkg(s)"
 
-msgid "[pkg name(s)] - show pkg description"
+msgid "[pkg name(s)] - show pkg(s) description"
 msgstr ""
 
-msgid "[pkg name(s)] - show pkg installed files"
+msgid "[pkg name(s)] - show pkg(s) installed files"
 msgstr ""
 
 msgid "always prompt during install/upgrade"
@@ -523,9 +519,6 @@ msgstr "toon versie en licentieinformatie"
 msgid "purge cached pkgs"
 msgstr "laat opgeslagen pkgs verlopen"
 
-msgid "re-install the pkg"
-msgstr "installeer pkg opnieuw"
-
 #, c-format
 msgid "regex failed on [%s]\n"
 msgstr "regex mislukt op [%s]\n"
@@ -542,14 +535,17 @@ msgstr "regexec kon size_c niet verwerken\n"
 msgid "regexec failed to parse size_u\n"
 msgstr "regexec kon size_u niet verwerken\n"
 
+msgid "reinstall the pkg"
+msgstr ""
+
 msgid "remove obsolete packages"
 msgstr "verwijder niet meer gebruikte packages"
 
 msgid "retrieve GPG keys for sources"
 msgstr "retrieve GPG keys for sources"
 
-msgid "retrieves pkg data from MIRROR"
-msgstr "haalt pkg data op van MIRROR"
+msgid "retrieve pkg data from MIRROR"
+msgstr ""
 
 msgid "show download statistics"
 msgstr "show download statistics"
@@ -597,6 +593,9 @@ msgstr "ja"
 #~ msgid "MD5 found:    [%s]\n"
 #~ msgstr "MD5 gevonden:\t[%s]\n"
 
+#~ msgid "Reading Package Lists... "
+#~ msgstr "Ophalen lijst packages"
+
 #~ msgid "Retrieving extras list [%s]..."
 #~ msgstr "Ophalen lijst extras [%s]..."
 
@@ -614,3 +613,9 @@ msgstr "ja"
 
 #~ msgid "[pkg name] - show pkg installed files"
 #~ msgstr "[pkg name] - show pkg installed files"
+
+#~ msgid "re-install the pkg"
+#~ msgstr "installeer pkg opnieuw"
+
+#~ msgid "retrieves pkg data from MIRROR"
+#~ msgstr "haalt pkg data op van MIRROR"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.2f\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-09 17:01+0400\n"
+"POT-Creation-Date: 2010-07-09 20:54+0400\n"
 "PO-Revision-Date: 2010-06-07 21:05+0500\n"
 "Last-Translator: Nguyễn Văn Vũ <vncasper@yahoo.com>\n"
 "Language-Team: gnome-vi <gnomevi-list@lists.sourceforge.net>\n"
@@ -335,10 +335,6 @@ msgid "Reading Package Lists..."
 msgstr "Cập nhật danh sách gói phần mềm..."
 
 #, c-format
-msgid "Reading Package Lists... "
-msgstr "Cập nhật danh sách gói phần mềm... "
-
-#, c-format
 msgid "Regex Error: %s\n"
 msgstr "Lỗi biểu thức: %s\n"
 
@@ -442,10 +438,10 @@ msgstr "[tên các gói phần mềm] - cài đặt những gói phần mềm đ
 msgid "[pkg name(s)] - remove specified pkg(s)"
 msgstr "[tên các gói phần mềm] - gỡ bỏ những gói phần mềm được chỉ định"
 
-msgid "[pkg name(s)] - show pkg description"
+msgid "[pkg name(s)] - show pkg(s) description"
 msgstr ""
 
-msgid "[pkg name(s)] - show pkg installed files"
+msgid "[pkg name(s)] - show pkg(s) installed files"
 msgstr ""
 
 msgid "always prompt during install/upgrade"
@@ -520,9 +516,6 @@ msgstr "hiển thị phiên bản và giấy phép sử dụng"
 msgid "purge cached pkgs"
 msgstr "xoá các gói phần mềm được bảo lưu"
 
-msgid "re-install the pkg"
-msgstr "cài đặt lại gói phần mềm được chỉ định"
-
 #, c-format
 msgid "regex failed on [%s]\n"
 msgstr "regex bị lỗi [%s]\n"
@@ -539,14 +532,17 @@ msgstr "regexec bị lỗi khi phân tích size_c\n"
 msgid "regexec failed to parse size_u\n"
 msgstr "regexec bị lỗi khi phân tích size_u\n"
 
+msgid "reinstall the pkg"
+msgstr ""
+
 msgid "remove obsolete packages"
 msgstr "gỡ bỏ những gói phầ"
 
 msgid "retrieve GPG keys for sources"
 msgstr "retrieve GPG keys for sources"
 
-msgid "retrieves pkg data from MIRROR"
-msgstr "cập nhật danh sách gói phần mềm từ kho lưu trữ"
+msgid "retrieve pkg data from MIRROR"
+msgstr ""
 
 msgid "show download statistics"
 msgstr "thống kê quá trình lấy dữ liệu từ kho lưu trữ"
@@ -594,6 +590,9 @@ msgstr "yes"
 #~ msgid "MD5 found:    [%s]\n"
 #~ msgstr "MD5 tìm thấy:    [%s]\n"
 
+#~ msgid "Reading Package Lists... "
+#~ msgstr "Cập nhật danh sách gói phần mềm... "
+
 #~ msgid "Retrieving extras list [%s]..."
 #~ msgstr "Cập nhật danh sách mở rộng [%s]..."
 
@@ -611,3 +610,9 @@ msgstr "yes"
 
 #~ msgid "[pkg name] - show pkg installed files"
 #~ msgstr "[pkg name] - show pkg installed files"
+
+#~ msgid "re-install the pkg"
+#~ msgstr "cài đặt lại gói phần mềm được chỉ định"
+
+#~ msgid "retrieves pkg data from MIRROR"
+#~ msgstr "cập nhật danh sách gói phần mềm từ kho lưu trữ"

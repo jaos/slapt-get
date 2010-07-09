@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.2f\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-09 17:01+0400\n"
+"POT-Creation-Date: 2010-07-09 20:54+0400\n"
 "PO-Revision-Date: 2010-06-07 21:05+0500\n"
 "Last-Translator: Joel Bjurman <ypolt@lediga.st>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
@@ -341,10 +341,6 @@ msgid "Reading Package Lists..."
 msgstr "Läser paketlista..."
 
 #, c-format
-msgid "Reading Package Lists... "
-msgstr "Läser paketlista... "
-
-#, c-format
 msgid "Regex Error: %s\n"
 msgstr "Regex Fel: %s\n"
 
@@ -448,10 +444,10 @@ msgstr "[paketnamn] - installera specificerade paket"
 msgid "[pkg name(s)] - remove specified pkg(s)"
 msgstr "[paketnamn] - ta bort specificerade paket"
 
-msgid "[pkg name(s)] - show pkg description"
+msgid "[pkg name(s)] - show pkg(s) description"
 msgstr ""
 
-msgid "[pkg name(s)] - show pkg installed files"
+msgid "[pkg name(s)] - show pkg(s) installed files"
 msgstr ""
 
 msgid "always prompt during install/upgrade"
@@ -526,9 +522,6 @@ msgstr "skriv versions och license information"
 msgid "purge cached pkgs"
 msgstr "ta bort cachade paket"
 
-msgid "re-install the pkg"
-msgstr "installera om paketet"
-
 #, c-format
 msgid "regex failed on [%s]\n"
 msgstr "regex misslyckades på [%s]\n"
@@ -545,14 +538,17 @@ msgstr "regexec misslyckade att tolka size_c\n"
 msgid "regexec failed to parse size_u\n"
 msgstr "regexec misslyckades att tolka size_u\n"
 
+msgid "reinstall the pkg"
+msgstr ""
+
 msgid "remove obsolete packages"
 msgstr "ta bort förlegade paket"
 
 msgid "retrieve GPG keys for sources"
 msgstr "retrieve GPG keys for sources"
 
-msgid "retrieves pkg data from MIRROR"
-msgstr "tar emot pkg data från spegel"
+msgid "retrieve pkg data from MIRROR"
+msgstr ""
 
 msgid "show download statistics"
 msgstr "visa nedladdningsstatistik"
@@ -600,6 +596,9 @@ msgstr "ja"
 #~ msgid "MD5 found:    [%s]\n"
 #~ msgstr "MD5 funnen:    [%s]\n"
 
+#~ msgid "Reading Package Lists... "
+#~ msgstr "Läser paketlista... "
+
 #~ msgid "Retrieving extras list [%s]..."
 #~ msgstr "Tar emot övrigt-lista [%s]..."
 
@@ -617,3 +616,9 @@ msgstr "ja"
 
 #~ msgid "[pkg name] - show pkg installed files"
 #~ msgstr "[pkg name] - show pkg installed files"
+
+#~ msgid "re-install the pkg"
+#~ msgstr "installera om paketet"
+
+#~ msgid "retrieves pkg data from MIRROR"
+#~ msgstr "tar emot pkg data från spegel"

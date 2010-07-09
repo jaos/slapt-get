@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.2f\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-09 17:01+0400\n"
+"POT-Creation-Date: 2010-07-09 20:54+0400\n"
 "PO-Revision-Date: 2010-06-07 21:05+0500\n"
 "Language-Team: DeepStyle Team <hottab@deepstyle.org.ua>\n"
 "MIME-Version: 1.0\n"
@@ -351,10 +351,6 @@ msgid "Reading Package Lists..."
 msgstr "Читаю переліки пакунків..."
 
 #, c-format
-msgid "Reading Package Lists... "
-msgstr "Читання переліку пакунків... "
-
-#, c-format
 msgid "Regex Error: %s\n"
 msgstr "Помилка regex: %s\n"
 
@@ -457,10 +453,10 @@ msgstr "[ім'я пакунку] - встановити вказані паку�
 msgid "[pkg name(s)] - remove specified pkg(s)"
 msgstr "[ім'я пакунку] - видалити вказані пакунки"
 
-msgid "[pkg name(s)] - show pkg description"
+msgid "[pkg name(s)] - show pkg(s) description"
 msgstr ""
 
-msgid "[pkg name(s)] - show pkg installed files"
+msgid "[pkg name(s)] - show pkg(s) installed files"
 msgstr ""
 
 msgid "always prompt during install/upgrade"
@@ -535,9 +531,6 @@ msgstr "показати версію та ліцензію"
 msgid "purge cached pkgs"
 msgstr "очистити кеш пакунків"
 
-msgid "re-install the pkg"
-msgstr "перевстановити пакунок"
-
 #, c-format
 msgid "regex failed on [%s]\n"
 msgstr "помилка regex на [%s]\n"
@@ -554,14 +547,17 @@ msgstr "regexec не може обробити size_c\n"
 msgid "regexec failed to parse size_u\n"
 msgstr "regexec не може обробити size_u\n"
 
+msgid "reinstall the pkg"
+msgstr ""
+
 msgid "remove obsolete packages"
 msgstr "видалити застарілі пакун"
 
 msgid "retrieve GPG keys for sources"
 msgstr "отримати ключі GPG для джерел"
 
-msgid "retrieves pkg data from MIRROR"
-msgstr "одержує дані пакунку з MIRROR"
+msgid "retrieve pkg data from MIRROR"
+msgstr ""
 
 msgid "show download statistics"
 msgstr "показати статистику завантаження"
@@ -609,6 +605,9 @@ msgstr "так"
 #~ msgid "MD5 found:    [%s]\n"
 #~ msgstr "Знайдена MD5: [%s]\n"
 
+#~ msgid "Reading Package Lists... "
+#~ msgstr "Читання переліку пакунків... "
+
 #~ msgid "Retrieving extras list [%s]..."
 #~ msgstr "Одержання переліку додатків [%s]..."
 
@@ -626,3 +625,9 @@ msgstr "так"
 
 #~ msgid "[pkg name] - show pkg installed files"
 #~ msgstr "[pkg name] - show pkg installed files"
+
+#~ msgid "re-install the pkg"
+#~ msgstr "перевстановити пакунок"
+
+#~ msgid "retrieves pkg data from MIRROR"
+#~ msgstr "одержує дані пакунку з MIRROR"

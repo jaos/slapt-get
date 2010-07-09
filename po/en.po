@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.2f\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-09 17:01+0400\n"
+"POT-Creation-Date: 2010-07-09 20:54+0400\n"
 "PO-Revision-Date: 2010-06-07 21:05+0500\n"
 "Last-Translator: Jason Woodward <woodwardj@jaos.org>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
@@ -339,10 +339,6 @@ msgid "Reading Package Lists..."
 msgstr "Reading Package Lists..."
 
 #, c-format
-msgid "Reading Package Lists... "
-msgstr "Reading Package Lists... "
-
-#, c-format
 msgid "Regex Error: %s\n"
 msgstr "Regex Error: %s\n"
 
@@ -444,10 +440,10 @@ msgstr "[pkg name(s)] - install specified pkg(s)"
 msgid "[pkg name(s)] - remove specified pkg(s)"
 msgstr "[pkg name(s)] - remove specified pkg(s)"
 
-msgid "[pkg name(s)] - show pkg description"
+msgid "[pkg name(s)] - show pkg(s) description"
 msgstr ""
 
-msgid "[pkg name(s)] - show pkg installed files"
+msgid "[pkg name(s)] - show pkg(s) installed files"
 msgstr ""
 
 msgid "always prompt during install/upgrade"
@@ -522,9 +518,6 @@ msgstr "print version and license info"
 msgid "purge cached pkgs"
 msgstr "purge cached pkgs"
 
-msgid "re-install the pkg"
-msgstr "re-install the pkg"
-
 #, c-format
 msgid "regex failed on [%s]\n"
 msgstr "regex failed on [%s]\n"
@@ -541,14 +534,17 @@ msgstr "regexec failed to parse size_c\n"
 msgid "regexec failed to parse size_u\n"
 msgstr "regexec failed to parse size_u\n"
 
+msgid "reinstall the pkg"
+msgstr ""
+
 msgid "remove obsolete packages"
 msgstr "remove obsolete packages"
 
 msgid "retrieve GPG keys for sources"
 msgstr "retrieve GPG keys for sources"
 
-msgid "retrieves pkg data from MIRROR"
-msgstr "retrieves pkg data from MIRROR"
+msgid "retrieve pkg data from MIRROR"
+msgstr ""
 
 msgid "show download statistics"
 msgstr "show download statistics"
@@ -596,6 +592,9 @@ msgstr "yes"
 #~ msgid "MD5 found:    [%s]\n"
 #~ msgstr "MD5 found:    [%s]\n"
 
+#~ msgid "Reading Package Lists... "
+#~ msgstr "Reading Package Lists... "
+
 #~ msgid "Retrieving extras list [%s]..."
 #~ msgstr "Retrieving extras list [%s]..."
 
@@ -607,9 +606,3 @@ msgstr "yes"
 
 #~ msgid "Retrieving patch list [%s]...\n"
 #~ msgstr "Retrieving patch list [%s]...\n"
-
-#~ msgid "[pkg name] - show pkg description"
-#~ msgstr "[pkg name] - show pkg description"
-
-#~ msgid "[pkg name] - show pkg installed files"
-#~ msgstr "[pkg name] - show pkg installed files"

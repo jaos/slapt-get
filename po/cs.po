@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.2f\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-09 17:01+0400\n"
+"POT-Creation-Date: 2010-07-09 20:54+0400\n"
 "PO-Revision-Date: 2010-06-07 21:05+0500\n"
 "Last-Translator: Oto Petrik <oto.petrik@centrum.cz>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
@@ -344,10 +344,6 @@ msgid "Reading Package Lists..."
 msgstr "Načítám seznam balíků..."
 
 #, c-format
-msgid "Reading Package Lists... "
-msgstr "Načítám seznam balíků... "
-
-#, c-format
 msgid "Regex Error: %s\n"
 msgstr "Chyba Regexu: %s\n"
 
@@ -449,10 +445,10 @@ msgstr "[jméno balíku(ů)] - instaluje zadaný balík(y)"
 msgid "[pkg name(s)] - remove specified pkg(s)"
 msgstr "[jméno balíku(ů)] - odstraní zadaný balík(y)"
 
-msgid "[pkg name(s)] - show pkg description"
+msgid "[pkg name(s)] - show pkg(s) description"
 msgstr ""
 
-msgid "[pkg name(s)] - show pkg installed files"
+msgid "[pkg name(s)] - show pkg(s) installed files"
 msgstr ""
 
 msgid "always prompt during install/upgrade"
@@ -527,9 +523,6 @@ msgstr "zobrazí informace o verzi a licenci"
 msgid "purge cached pkgs"
 msgstr "vyčistí balíkovou cache"
 
-msgid "re-install the pkg"
-msgstr "přeinstaluje balík"
-
 #, c-format
 msgid "regex failed on [%s]\n"
 msgstr "regex neuspěl na [%s]\n"
@@ -546,14 +539,17 @@ msgstr "regexec neuspěl s analyzováním size_c\n"
 msgid "regexec failed to parse size_u\n"
 msgstr "regexec neuspěl s analyzováním size_u\n"
 
+msgid "reinstall the pkg"
+msgstr ""
+
 msgid "remove obsolete packages"
 msgstr "odstraní zastaralé balíky"
 
 msgid "retrieve GPG keys for sources"
 msgstr "retrieve GPG keys for sources"
 
-msgid "retrieves pkg data from MIRROR"
-msgstr "získá data balíků ze ZRCADLA"
+msgid "retrieve pkg data from MIRROR"
+msgstr ""
 
 msgid "show download statistics"
 msgstr "zobrazí statistiku stahování"
@@ -601,6 +597,9 @@ msgstr "ano"
 #~ msgid "MD5 found:    [%s]\n"
 #~ msgstr "MD5 nalezen:    [%s]\n"
 
+#~ msgid "Reading Package Lists... "
+#~ msgstr "Načítám seznam balíků... "
+
 #~ msgid "Retrieving extras list [%s]..."
 #~ msgstr "Stahuji seznam extras [%s]..."
 
@@ -618,3 +617,9 @@ msgstr "ano"
 
 #~ msgid "[pkg name] - show pkg installed files"
 #~ msgstr "[pkg name] - show pkg installed files"
+
+#~ msgid "re-install the pkg"
+#~ msgstr "přeinstaluje balík"
+
+#~ msgid "retrieves pkg data from MIRROR"
+#~ msgstr "získá data balíků ze ZRCADLA"
