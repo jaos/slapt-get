@@ -6,7 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.2f\n"
-"POT-Creation-Date: 2003-11-03 14:28+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-07-09 17:01+0400\n"
 "PO-Revision-Date: 2010-06-14 17:32+0000\n"
 "Last-Translator: Miguel Santinho <msantinho@simplicidade.com>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
@@ -16,199 +17,432 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, c-format
-msgid "Reading Package Lists... "
-msgstr "A ler listas de Pacotes... "
+msgid "  %s: Depends: %s\n"
+msgstr "  %s: Depende: %s\n"
 
 #, c-format
-msgid "Done\n"
-msgstr "Concluído\n"
+msgid "%d newly installed, "
+msgid_plural "%d newly installed, "
+msgstr[0] ""
+msgstr[1] ""
 
 #, c-format
-msgid "%s is up to date.\n"
-msgstr "%s está actualizado.\n"
-
-msgid "yes"
-msgstr "sim"
-
-msgid "no"
-msgstr "não"
+msgid "%d not upgraded.\n"
+msgid_plural "%d not upgraded.\n"
+msgstr[0] ""
+msgstr[1] ""
 
 #, c-format
-msgid "%s is not installed.\n"
-msgstr "%s não está instalado.\n"
+msgid "%d reinstalled, "
+msgid_plural "%d reinstalled, "
+msgstr[0] ""
+msgstr[1] ""
 
 #, c-format
-msgid "Package Name: %s\n"
-msgstr "Nome do Pacote: %s\n"
+msgid "%d to remove, "
+msgid_plural "%d to remove, "
+msgstr[0] ""
+msgstr[1] ""
 
 #, c-format
-msgid "Package Mirror: %s\n"
-msgstr "Mirror do Pacote: %s\n"
-
-#, c-format
-msgid "Package Location: %s\n"
-msgstr "Localização do Pacote: %s\n"
-
-#, c-format
-msgid "Package Version: %s\n"
-msgstr "Versão do Pacote: %s\n"
-
-#, c-format
-msgid "Package Size: %d K\n"
-msgstr "Tamanho do Pacote: %d K\n"
-
-#, c-format
-msgid "Package Installed Size: %d K\n"
-msgstr "Tamanho do Pacote Instalado: %d K\n"
-
-#, c-format
-msgid "Package Required: %s\n"
-msgstr "Pacote Necessário: %s\n"
-
-#, c-format
-msgid "Package Description:\n"
-msgstr "Descrição do Pacote:\n"
-
-#, c-format
-msgid "Package Installed: %s\n"
-msgstr "Pacote Instalado: %s\n"
-
-#, c-format
-msgid "No such package: %s\n"
-msgstr "Pacote não existente: %s\n"
-
-#, c-format
-msgid "Retrieving package data [%s]..."
-msgstr "A recuperar dados de pacotes [%s]..."
-
-#, c-format
-msgid "Retrieving package data [%s]...\n"
-msgstr "A recuperar dados de pacotes [%s]...\n"
-
-#, c-format
-msgid "Retrieving extras list [%s]..."
-msgstr "A recuperar lista de extras [%s]..."
-
-#, c-format
-msgid "Retrieving extras list [%s]...\n"
-msgstr "A recuperar lista de extras [%s]...\n"
-
-#, c-format
-msgid "Retrieving patch list [%s]..."
-msgstr "A recuperar lista de patches [%s]..."
-
-#, c-format
-msgid "Retrieving patch list [%s]...\n"
-msgstr "A recuperar lista de patches [%s]...\n"
-
-#, c-format
-msgid "Retrieving checksum list [%s]..."
-msgstr "A recuperar lista de checksum [%s]..."
-
-#, c-format
-msgid "Failed to malloc\n"
-msgstr "malloc falhou\n"
-
-#, c-format
-msgid "WORKINGDIR directive not set within %s.\n"
-msgstr "Directiva WORKINGDIR não configurada em %s.\n"
-
-#, c-format
-msgid "SOURCE directive not set within %s.\n"
-msgstr "Directiva SOURCE não configurada em %s.\n"
-
-#, c-format
-msgid "Failed to build working directory [%s]\n"
-msgstr "Falha ao criar pasta de trabalho [%s]\n"
-
-#, c-format
-msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr "Por favor actualize as permissões em %s ou execute com privilégio apropriado\n"
-
-#, c-format
-msgid "Failed to open %s\n"
-msgstr "Falha ao abrir %s\n"
-
-#, c-format
-msgid "Perhaps you want to run --update?\n"
-msgstr "Talvez queira executar --update?\n"
-
-#, c-format
-msgid "Failed to opendir %s\n"
-msgstr "opendir falhou %s\n"
-
-#, c-format
-msgid "Failed to chdir: %s\n"
-msgstr "chdir falhou: %s\n"
-
-#, c-format
-msgid "Failed to get cwd\n"
-msgstr "Falha ao ler a pasta\n"
-
-#, c-format
-msgid "Failed to mkdir: %s\n"
-msgstr "Falha ao remover a pasta: %s\n"
-
-#, c-format
-msgid "Failed to chdir to %s\n"
-msgstr "Falha ao entrar na pasta %s\n"
-
-#, c-format
-msgid "\tchdir back into %s\n"
-msgstr "\tvoltar à pasta %s\n"
-
-#, c-format
-msgid "Failed to download: %s\n"
-msgstr "Falha na transferência de: %s\n"
-
-#, c-format
-msgid "Failed to calloc\n"
-msgstr "Falha ao alocar memória para\n"
-
-#, c-format
-msgid "Get %s %s %s [%.1f%s]..."
-msgstr "Obter %s %s %s [%.1f%s]..."
-
-#, c-format
-msgid "Failed to unlink %s\n"
-msgstr "Falha ao remover %s\n"
-
-#, c-format
-msgid "MD5 found:    [%s]\n"
-msgstr "MD5 encontrado:    [%s]\n"
-
-#, c-format
-msgid "MD5 expected: [%s]\n"
-msgstr "MD5 esperado: [%s]\n"
-
-#, c-format
-msgid "File: %s/%s\n"
-msgstr "Ficheiro: %s/%s\n"
-
-#, c-format
-msgid "An implementation of the Debian APT system to Slackware\n"
-msgstr "Uma implementação do sistema APT do Debian para Slackware\n"
-
-#, c-format
-msgid "Usage:\n"
-msgstr "Uso:\n"
+msgid "%d upgraded, "
+msgid_plural "%d upgraded, "
+msgstr[0] ""
+msgstr[1] ""
 
 #, c-format
 msgid "%s [option(s)] [target]\n"
 msgstr "%s [opção(es)] [destino]\n"
 
 #, c-format
+msgid "%s is not installed.\n"
+msgstr "%s não está instalado.\n"
+
+#, c-format
+msgid "%s is up to date.\n"
+msgstr "%s está actualizado.\n"
+
+#, c-format
+msgid "%s version %s\n"
+msgstr "%s versão %s\n"
+
+#, c-format
+msgid "%s, which is required by %s, is excluded\n"
+msgstr "%s, que é requerido por %s, está excluído\n"
+
+#, c-format
+msgid "%s, which is to be installed, conflicts with %s\n"
+msgstr "o pacote %s, que está para ser instalado, entra em conflito com %s\n"
+
+#, c-format
+msgid "%s-%s is to be installed\n"
+msgstr "%s-%s será instalado\n"
+
+#, c-format
+msgid "%s-%s is to be removed\n"
+msgstr "%s-%s vai ser removido\n"
+
+#, c-format
+msgid "%s-%s is to be upgraded to version %s\n"
+msgstr "%s-%s vai ser actualizado para a versão %s\n"
+
+#, c-format
+msgid "Abort.\n"
+msgstr "Interromper.\n"
+
+#, c-format
+msgid "After unpacking %.1f%s disk space will be freed.\n"
+msgstr "Depois de desempacotar serão libertados %.1f%s de espaço em disco.\n"
+
+#, c-format
+msgid "After unpacking %.1f%s of additional disk space will be used.\n"
+msgstr ""
+"Depois de desempacotar serão utilizados %.1f%s de espaço adicional em "
+"disco.\n"
+
+#, c-format
+msgid "An implementation of the Debian APT system to Slackware\n"
+msgstr "Uma implementação do sistema APT do Debian para Slackware\n"
+
+#, c-format
+msgid "Cached\n"
+msgstr "Em cache\n"
+
+msgid "Checksums signature could not be verified"
+msgstr "Assinaturas por soma não puderam ser verificada"
+
+msgid "Checksums signature successfully verified"
+msgstr "ssinaturas por soma verificadas com sucesso"
+
+msgid "Custom"
+msgstr "Personalizado"
+
+msgid "Custom Patch"
+msgstr "Patch Personalizado"
+
+msgid "Default"
+msgstr "Padrão"
+
+msgid "Default Patch"
+msgstr "Patch Padrão"
+
+#, c-format
+msgid "Delete %s ? [y/N]"
+msgstr "Eliminar %s ? [y/N]"
+
+msgid "Do you want to continue? [y/N] "
+msgstr "Continuar? [y/N] "
+
+#, c-format
+msgid "Done\n"
+msgstr "Concluído\n"
+
+#, c-format
+msgid "Excluding %s, use --ignore-dep to override\n"
+msgstr "A excluir %s, utilize --ignore-dep para reescrever\n"
+
+#, c-format
+msgid "Failed to build working directory [%s]\n"
+msgstr "Falha ao criar pasta de trabalho [%s]\n"
+
+#, c-format
+msgid "Failed to calloc\n"
+msgstr "Falha ao alocar memória para\n"
+
+#, c-format
+msgid "Failed to chdir to %s\n"
+msgstr "Falha ao entrar na pasta %s\n"
+
+#, c-format
+msgid "Failed to chdir: %s\n"
+msgstr "chdir falhou: %s\n"
+
+#, c-format
+msgid "Failed to compile regex\n"
+msgstr "Falha ao compilar regex\n"
+
+#, c-format
+msgid "Failed to download: %s\n"
+msgstr "Falha na transferência de: %s\n"
+
+#, c-format
+msgid "Failed to execute command: [%s]\n"
+msgstr "Falha ao executar o comando: [%s]\n"
+
+#, c-format
+msgid "Failed to get cwd\n"
+msgstr "Falha ao ler a pasta\n"
+
+#, c-format
+msgid "Failed to malloc\n"
+msgstr "malloc falhou\n"
+
+#, c-format
+msgid "Failed to mkdir: %s\n"
+msgstr "Falha ao remover a pasta: %s\n"
+
+#, c-format
+msgid "Failed to open %s\n"
+msgstr "Falha ao abrir %s\n"
+
+#, c-format
+msgid "Failed to opendir %s\n"
+msgstr "opendir falhou %s\n"
+
+#, c-format
+msgid "Failed to parse package data from %s\n"
+msgstr "Falha ao analisar dados do pacote %s\n"
+
+#, c-format
+msgid "Failed to realloc %s\n"
+msgstr "Falha para realloc\n"
+
+#, c-format
+msgid "Failed to unlink %s\n"
+msgstr "Falha ao remover %s\n"
+
+msgid "GPG key already present"
+msgstr "Chave GPG já existe"
+
+msgid "GPG key could not be imported"
+msgstr "Chave GPG não pode ser importada"
+
+msgid "GPG key successfully imported"
+msgstr "Chave GPG importada com sucesso"
+
+#, c-format
+msgid "Get %s %s %s [%.1f%s]..."
+msgstr "Obter %s %s %s [%.1f%s]..."
+
+msgid "Incomplete download"
+msgstr "Download incompleto"
+
+#, c-format
+msgid "Installed %s conflicts with %s\n"
+msgstr "O pacote instalado %s entra em conflito com %s\n"
+
+msgid "MD5 checksum mismatch, override with --no-md5"
+msgstr "Soma MD5 diferente, utilize --no-md5 para ignorar"
+
+msgid "Missing MD5 checksum, override with --no-md5"
+msgstr "Soma MD5 inexistente, utilize --no-md5 para ignorar"
+
+#, c-format
+msgid "Need to get %.1f%s of archives.\n"
+msgstr "É necessário fazer o download de %.1f%s.\n"
+
+#, c-format
+msgid "Need to get %.1f%s/%.1f%s of archives.\n"
+msgstr "É necessário fazer o download de %.1f%s/%.1f%s.\n"
+
+msgid "No key for verification"
+msgstr "Sem chave para verificação"
+
+#, c-format
+msgid "No such package: %s\n"
+msgstr "Pacote não existente: %s\n"
+
+#, c-format
+msgid "Not Found\n"
+msgstr "Não encontrado\n"
+
+msgid "Not Verified"
+msgstr "Não Verificado"
+
+msgid "Official"
+msgstr "Oficial"
+
+msgid "Official Patch"
+msgstr "Patch Oficial"
+
+#, c-format
+msgid "Options:\n"
+msgstr "Opções:\n"
+
+msgid "Package ChangeLog"
+msgstr "Registo de alterações do Pacote"
+
+#, c-format
+msgid "Package Conflicts: %s\n"
+msgstr "Conflitos do Pacote: %s\n"
+
+#, c-format
+msgid "Package Description:\n"
+msgstr "Descrição do Pacote:\n"
+
+#, c-format
+msgid "Package Installed Size: %d K\n"
+msgstr "Tamanho do Pacote Instalado: %d K\n"
+
+#, c-format
+msgid "Package Installed: %s\n"
+msgstr "Pacote Instalado: %s\n"
+
+#, c-format
+msgid "Package Location: %s\n"
+msgstr "Localização do Pacote: %s\n"
+
+#, c-format
+msgid "Package MD5 Sum:  %s\n"
+msgstr "Soma MD5 do pacote:  %s\n"
+
+#, c-format
+msgid "Package Mirror: %s\n"
+msgstr "Mirror do Pacote: %s\n"
+
+#, c-format
+msgid "Package Name: %s\n"
+msgstr "Nome do Pacote: %s\n"
+
+#, c-format
+msgid "Package Priority: %s\n"
+msgstr "Priority de Pacote: %s\n"
+
+#, c-format
+msgid "Package Required: %s\n"
+msgstr "Pacote Necessário: %s\n"
+
+#, c-format
+msgid "Package Size: %d K\n"
+msgstr "Tamanho do Pacote: %d K\n"
+
+#, c-format
+msgid "Package Suggests: %s\n"
+msgstr "Sugestões do Pacote: %s\n"
+
+#, c-format
+msgid "Package Version: %s\n"
+msgstr "Versão do Pacote: %s\n"
+
+#, c-format
+msgid "Perhaps you want to run --update?\n"
+msgstr "Talvez queira executar --update?\n"
+
+#, c-format
+msgid "Please update permissions on %s or run with appropriate privileges\n"
+msgstr ""
+"Por favor actualize as permissões em %s ou execute com privilégio "
+"apropriado\n"
+
+msgid "Preferred"
+msgstr "Preferido"
+
+msgid "Preferred Patch"
+msgstr "Patch Preferido"
+
+#, c-format
+msgid "Preparing to install %s-%s\n"
+msgstr "A preparar para instalar %s-%s\n"
+
+#, c-format
+msgid "Preparing to replace %s-%s with %s-%s\n"
+msgstr "Preparando para substituir %s-%s por %s-%s\n"
+
+#, c-format
+msgid "Reading Package Lists..."
+msgstr "A ler Listas de Pacotes..."
+
+#, c-format
+msgid "Reading Package Lists... "
+msgstr "A ler listas de Pacotes... "
+
+#, c-format
+msgid "Regex Error: %s\n"
+msgstr "Erro de regex: %s\n"
+
+#, c-format
+msgid "Retrieving ChangeLog.txt [%s]..."
+msgstr "A obter o ficheiro ChangeLog.txt [%s]..."
+
+#, c-format
+msgid "Retrieving GPG key [%s]..."
+msgstr "A recuperar chave GPG [%s]..."
+
+#, c-format
+msgid "Retrieving checksum list [%s]..."
+msgstr "A recuperar lista de checksum [%s]..."
+
+#, c-format
+msgid "Retrieving checksum signature [%s]..."
+msgstr "A recuperar assinaturas por soma [%s]..."
+
+#, c-format
+msgid "Retrieving package data [%s]..."
+msgstr "A recuperar dados de pacotes [%s]..."
+
+#, c-format
+msgid "Retrieving patch list [%s]..."
+msgstr "A recuperar lista de patches [%s]..."
+
+#, c-format
+msgid "SOURCE directive not set within %s.\n"
+msgstr "Directiva SOURCE não configurada em %s.\n"
+
+#, c-format
+msgid "Sources failed to download, correct sources and rerun --update\n"
+msgstr ""
+"Falha na transferência a partir das fontes, corrija os mesmos e execute --"
+"update novamente\n"
+
+#, c-format
+msgid "Suggested packages:\n"
+msgstr "Pacotes sugeridos:\n"
+
+#, c-format
 msgid "Targets:\n"
 msgstr "Destinos:\n"
 
-msgid "retrieves pkg data from MIRROR"
-msgstr "transfere os dados do pacote a partir do MIRROR"
+#, c-format
+msgid "The following NEW packages will be installed:\n"
+msgstr "Os seguintes NOVOS pacotes serão instalados:\n"
 
-msgid "upgrade installed pkgs"
-msgstr "actualiza os pacotes instalados"
+#, c-format
+msgid "The following packages have been EXCLUDED:\n"
+msgstr "Os seguintes pacotes foram EXCLUÍDOS:\n"
 
-msgid "upgrade to newer release"
-msgstr "actualiza para uma nova versão"
+#, c-format
+msgid "The following packages have unmet dependencies:\n"
+msgstr "Os seguintes pacotes têm dependências não preenchidas:\n"
+
+#, c-format
+msgid "The following packages will be REMOVED:\n"
+msgstr "Os seguintes pacotes serão REMOVIDOS:\n"
+
+#, c-format
+msgid "The following packages will be reinstalled:\n"
+msgstr "Os seguintes pacotes serão reinstalados:\n"
+
+#, c-format
+msgid "The following packages will be upgraded:\n"
+msgstr "Os seguintes pacotes serão actualizados:\n"
+
+msgid "Unknown error"
+msgstr "Erro desconhecido"
+
+#, c-format
+msgid "Usage:\n"
+msgstr "Uso:\n"
+
+msgid "Verified"
+msgstr "Verificado"
+
+#, c-format
+msgid "Verifying checksum signature [%s]..."
+msgstr "A verificar assinatura por soma [%s]..."
+
+#, c-format
+msgid "WORKINGDIR directive not set within %s.\n"
+msgstr "Directiva WORKINGDIR não configurada em %s.\n"
+
+#, c-format
+msgid "You don't have enough free space in %s\n"
+msgstr "Não existe espaço livre suficiente em %s\n"
+
+msgid "[disk set(s)] - install specified disk set(s)"
+msgstr "[disk set(s)] - instalar 'disk set(s)' especificados"
+
+msgid "[expression] - search available pkgs"
+msgstr "[expressão] - pesquisa por pacotes disponíveis"
 
 msgid "[pkg name(s)] - install specified pkg(s)"
 msgstr "[nome do(s) pacote(s)] - instala pacote(s) especificado(s)"
@@ -216,14 +450,48 @@ msgstr "[nome do(s) pacote(s)] - instala pacote(s) especificado(s)"
 msgid "[pkg name(s)] - remove specified pkg(s)"
 msgstr "[nome do(s) pacote(s)] - remove pacote(s) especificado(s)"
 
-msgid "[pkg name] - show pkg description"
-msgstr "[nome do pacote] - mostra descrição do pacote"
+msgid "[pkg name(s)] - show pkg description"
+msgstr ""
 
-msgid "[expression] - search available pkgs"
-msgstr "[expressão] - pesquisa por pacotes disponíveis"
+msgid "[pkg name(s)] - show pkg installed files"
+msgstr ""
 
-msgid "list pkgs"
-msgstr "lista pacotes"
+msgid "always prompt during install/upgrade"
+msgstr "perguntar sempre durante a instalação/actualização"
+
+msgid "display this help and exit"
+msgstr ""
+
+msgid "do not perform md5 check sum"
+msgstr "não verificar md5"
+
+msgid "do not prompt during install/upgrade"
+msgstr "saída suprimida enquanto instala/actualiza"
+
+#, c-format
+msgid "error attempting to read pkg description\n"
+msgstr "erro ao ler descrição do pacote\n"
+
+#, c-format
+msgid "getline reached EOF attempting to read location\n"
+msgstr "getline chegou a EOF ao ler a localização\n"
+
+#, c-format
+msgid "getline reached EOF attempting to read size_c\n"
+msgstr "getline chegou a EOF ao ler size_c\n"
+
+#, c-format
+msgid "getline reached EOF attempting to read size_u\n"
+msgstr "getline chegou a EOF ao ler size_u\n"
+
+msgid "ignore dependency failures"
+msgstr "ignora falhas de dependência"
+
+msgid "install package, do not attempt to upgrade"
+msgstr "instale o pacote, não tente actualizá-lo"
+
+msgid "install/upgrade excludes"
+msgstr "instalar/actualizar pacotes excluídos"
 
 msgid "list available pkgs"
 msgstr "lista pacotes disponíveis"
@@ -231,40 +499,37 @@ msgstr "lista pacotes disponíveis"
 msgid "list installed pkgs"
 msgstr "lista pacotes instalados"
 
-msgid "purge cached pkgs"
-msgstr "limpa pacotes em cache"
-
-msgid "print version and license info"
-msgstr "imprime versão e informações da licença"
+msgid "list pkgs"
+msgstr "lista pacotes"
 
 #, c-format
-msgid "Options:\n"
-msgstr "Opções:\n"
+msgid "md5 sum too long\n"
+msgstr " soma md5 muito longo\n"
+
+msgid "no"
+msgstr "não"
 
 msgid "only download pkg on install/upgrade"
 msgstr "transferir apenas o pacote em install/upgrade"
 
-msgid "show pkgs to be installed/upgraded"
-msgstr "mostra pacotes a instalar/actualizar"
+msgid "only purge cache of older, unreacheable pkgs"
+msgstr "eliminar da cache apenas os pacotes antigos, desactualizados"
 
-msgid "do not prompt during install/upgrade"
-msgstr "saída suprimida enquanto instala/actualiza"
+#, c-format
+msgid "pkg conditional too long\n"
+msgstr "condicional do pacote muito longa\n"
+
+msgid "print URIs only, do not download"
+msgstr "apenas imprimir URIs, não fazer download"
+
+msgid "print version and license info"
+msgstr "imprime versão e informações da licença"
+
+msgid "purge cached pkgs"
+msgstr "limpa pacotes em cache"
 
 msgid "re-install the pkg"
 msgstr "re-instala o pacote"
-
-msgid "install/upgrade excludes"
-msgstr "instalar/actualizar pacotes excluídos"
-
-msgid "do not perform md5 check sum"
-msgstr "não verificar md5"
-
-msgid "ignore dependency failures"
-msgstr "ignora falhas de dependência"
-
-#, c-format
-msgid "%s version %s\n"
-msgstr "%s versão %s\n"
 
 #, c-format
 msgid "regex failed on [%s]\n"
@@ -275,307 +540,82 @@ msgid "regexec failed to parse location\n"
 msgstr "regexec falhou ao analisar localização\n"
 
 #, c-format
-msgid "getline reached EOF attempting to read location\n"
-msgstr "getline chegou a EOF ao ler a localização\n"
-
-#, c-format
 msgid "regexec failed to parse size_c\n"
 msgstr "regexec falhou ao analisar size_c\n"
-
-#, c-format
-msgid "getline reached EOF attempting to read size_c\n"
-msgstr "getline chegou a EOF ao ler size_c\n"
 
 #, c-format
 msgid "regexec failed to parse size_u\n"
 msgstr "regexec falhou ao analisar size_u\n"
 
-#, c-format
-msgid "getline reached EOF attempting to read size_u\n"
-msgstr "getline chegou a EOF ao ler size_u\n"
-
-#, c-format
-msgid "error attempting to read pkg description\n"
-msgstr "erro ao ler descrição do pacote\n"
-
-#, c-format
-msgid "Failed to realloc %s\n"
-msgstr "Falha para realloc\n"
-
-#, c-format
-msgid "Failed to compile regex\n"
-msgstr "Falha ao compilar regex\n"
-
-#, c-format
-msgid "Regex Error: %s\n"
-msgstr "Erro de regex: %s\n"
-
-#, c-format
-msgid "%s-%s is to be installed\n"
-msgstr "%s-%s será instalado\n"
-
-#, c-format
-msgid "Preparing to install %s-%s\n"
-msgstr "A preparar para instalar %s-%s\n"
-
-#, c-format
-msgid "Failed to execute command: [%s]\n"
-msgstr "Falha ao executar o comando: [%s]\n"
-
-#, c-format
-msgid "%s-%s is to be upgraded to version %s\n"
-msgstr "%s-%s vai ser actualizado para a versão %s\n"
-
-#, c-format
-msgid "Preparing to replace %s-%s with %s-%s\n"
-msgstr "Preparando para substituir %s-%s por %s-%s\n"
-
-#, c-format
-msgid "%s-%s is to be removed\n"
-msgstr "%s-%s vai ser removido\n"
-
-#, c-format
-msgid "Failed to compile regex [%s]\n"
-msgstr "Falha ao compilar regex [%s]\n"
-
-#, c-format
-msgid "pkg conditional too long\n"
-msgstr "condicional do pacote muito longa\n"
-
-#, c-format
-msgid "The following packages have unmet dependencies:\n"
-msgstr "Os seguintes pacotes têm dependências não preenchidas:\n"
-
-#, c-format
-msgid "  %s: Depends: %s\n"
-msgstr "  %s: Depende: %s\n"
-
-#, c-format
-msgid "The following packages have been EXCLUDED:\n"
-msgstr "Os seguintes pacotes foram EXCLUÍDOS:\n"
-
-#, c-format
-msgid "The following NEW packages will be installed:\n"
-msgstr "Os seguintes NOVOS pacotes serão instalados:\n"
-
-#, c-format
-msgid "The following packages will be REMOVED:\n"
-msgstr "Os seguintes pacotes serão REMOVIDOS:\n"
-
-#, c-format
-msgid "The following packages will be upgraded:\n"
-msgstr "Os seguintes pacotes serão actualizados:\n"
-
-#, c-format
-msgid "%d upgraded, %d reinstalled, %d newly installed, %d to remove and %d not upgraded.\n"
-msgstr "%d actualizados, %d reinstalados, %d para instalar, %d para remover e %d não actualizados.\n"
-
-#, c-format
-msgid "Need to get %.1f%s of archives.\n"
-msgstr "É necessário fazer o download de %.1f%s.\n"
-
-#, c-format
-msgid "Need to get %.1f%s/%.1f%s of archives.\n"
-msgstr "É necessário fazer o download de %.1f%s/%.1f%s.\n"
-
-#, c-format
-msgid "After unpacking %.1f%s disk space will be freed.\n"
-msgstr "Depois de desempacotar serão libertados %.1f%s de espaço em disco.\n"
-
-#, c-format
-msgid "After unpacking %.1f%s of additional disk space will be used.\n"
-msgstr "Depois de desempacotar serão utilizados %.1f%s de espaço adicional em disco.\n"
-
-msgid "Do you want to continue? [y/N] "
-msgstr "Continuar? [y/N] "
-
-#, c-format
-msgid "Abort.\n"
-msgstr "Interromper.\n"
-
-#, c-format
-msgid "%s, which is to be installed, conflicts with %s\n"
-msgstr "o pacote %s, que está para ser instalado, entra em conflito com %s\n"
-
-#, c-format
-msgid "Installed %s conflicts with %s\n"
-msgstr "O pacote instalado %s entra em conflito com %s\n"
-
-msgid "print URIs only, do not download"
-msgstr "apenas imprimir URIs, não fazer download"
-
-#, c-format
-msgid "Package MD5 Sum:  %s\n"
-msgstr "Soma MD5 do pacote:  %s\n"
-
-#, c-format
-msgid "md5 sum too long\n"
-msgstr " soma md5 muito longo\n"
-
-#, c-format
-msgid "Reading Package Lists..."
-msgstr "A ler Listas de Pacotes..."
-
-#, c-format
-msgid "%s, which is required by %s, is excluded\n"
-msgstr "%s, que é requerido por %s, está excluído\n"
-
-msgid "skip dependency check"
-msgstr "não verificar dependências"
-
-msgid "show download statistics"
-msgstr "mostra estatísticas das transferências"
-
-#, c-format
-msgid "Cached\n"
-msgstr "Em cache\n"
-
-#, c-format
-msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr "Falha na transferência a partir das fontes, corrija os mesmos e execute --update novamente\n"
-
-msgid "specify alternate slapt-getrc location"
-msgstr "especifique um caminho alternativo para o slapt-getrc"
-
-#, c-format
-msgid "Suggested packages:\n"
-msgstr "Pacotes sugeridos:\n"
-
-msgid "only purge cache of older, unreacheable pkgs"
-msgstr "eliminar da cache apenas os pacotes antigos, desactualizados"
-
 msgid "remove obsolete packages"
 msgstr "remover pacotes obsoletos"
-
-#, c-format
-msgid "You don't have enough free space in %s\n"
-msgstr "Não existe espaço livre suficiente em %s\n"
-
-#, c-format
-msgid "Package Conflicts: %s\n"
-msgstr "Conflitos do Pacote: %s\n"
-
-#, c-format
-msgid "Package Suggests: %s\n"
-msgstr "Sugestões do Pacote: %s\n"
-
-#, c-format
-msgid "Failed to parse package data from %s\n"
-msgstr "Falha ao analisar dados do pacote %s\n"
-
-msgid "specify number of download retry attempts"
-msgstr "especifique o número de tentativas para download"
-
-msgid "install package, do not attempt to upgrade"
-msgstr "instale o pacote, não tente actualizá-lo"
-
-msgid "[disk set(s)] - install specified disk set(s)"
-msgstr "[disk set(s)] - instalar 'disk set(s)' especificados"
-
-msgid "always prompt during install/upgrade"
-msgstr "perguntar sempre durante a instalação/actualização"
-
-#, c-format
-msgid "Excluding %s, use --ignore-dep to override\n"
-msgstr "A excluir %s, utilize --ignore-dep para reescrever\n"
-
-msgid "Package ChangeLog"
-msgstr "Registo de alterações do Pacote"
-
-#, c-format
-msgid "Retrieving ChangeLog.txt [%s]..."
-msgstr "A obter o ficheiro ChangeLog.txt [%s]..."
-
-msgid "MD5 checksum mismatch, override with --no-md5"
-msgstr "Soma MD5 diferente, utilize --no-md5 para ignorar"
-
-msgid "Missing MD5 checksum, override with --no-md5"
-msgstr "Soma MD5 inexistente, utilize --no-md5 para ignorar"
-
-msgid "Incomplete download"
-msgstr "Download incompleto"
-
-msgid "GPG key successfully imported"
-msgstr "Chave GPG importada com sucesso"
-
-msgid "GPG key could not be imported"
-msgstr "Chave GPG não pode ser importada"
-
-msgid "GPG key already present"
-msgstr "Chave GPG já existe"
-
-msgid "Checksums signature successfully verified"
-msgstr "ssinaturas por soma verificadas com sucesso"
-
-msgid "Checksums signature could not be verified"
-msgstr "Assinaturas por soma não puderam ser verificada"
-
-msgid "Verified"
-msgstr "Verificado"
-
-msgid "Not Verified"
-msgstr "Não Verificado"
-
-#, c-format
-msgid "Retrieving GPG key [%s]..."
-msgstr "A recuperar chave GPG [%s]..."
-
-#, c-format
-msgid "Retrieving checksum signature [%s]..."
-msgstr "A recuperar assinaturas por soma [%s]..."
-
-msgid "No key for verification"
-msgstr "Sem chave para verificação"
 
 msgid "retrieve GPG keys for sources"
 msgstr "recuperar chaves GPG para fontes"
 
-#, c-format
-msgid "Verifying checksum signature [%s]..."
-msgstr "A verificar assinatura por soma [%s]..."
+msgid "retrieves pkg data from MIRROR"
+msgstr "transfere os dados do pacote a partir do MIRROR"
 
-msgid "Unknown error"
-msgstr "Erro desconhecido"
+msgid "show download statistics"
+msgstr "mostra estatísticas das transferências"
 
-#, c-format
-msgid "Not Found\n"
-msgstr "Não encontrado\n"
+msgid "show pkgs to be installed/upgraded"
+msgstr "mostra pacotes a instalar/actualizar"
 
-msgid "Default"
-msgstr "Padrão"
+msgid "skip dependency check"
+msgstr "não verificar dependências"
 
-msgid "Default Patch"
-msgstr "Patch Padrão"
+msgid "specify alternate slapt-getrc location"
+msgstr "especifique um caminho alternativo para o slapt-getrc"
 
-msgid "Preferred"
-msgstr "Preferido"
+msgid "specify number of download retry attempts"
+msgstr "especifique o número de tentativas para download"
 
-msgid "Preferred Patch"
-msgstr "Patch Preferido"
+msgid "upgrade installed pkgs"
+msgstr "actualiza os pacotes instalados"
 
-msgid "Official"
-msgstr "Oficial"
+msgid "upgrade to newer release"
+msgstr "actualiza para uma nova versão"
 
-msgid "Official Patch"
-msgstr "Patch Oficial"
+msgid "yes"
+msgstr "sim"
 
-msgid "Custom"
-msgstr "Personalizado"
+#~ msgid "\tchdir back into %s\n"
+#~ msgstr "\tvoltar à pasta %s\n"
 
-msgid "Custom Patch"
-msgstr "Patch Personalizado"
+#~ msgid ""
+#~ "%d upgraded, %d reinstalled, %d newly installed, %d to remove and %d not "
+#~ "upgraded.\n"
+#~ msgstr ""
+#~ "%d actualizados, %d reinstalados, %d para instalar, %d para remover e %d "
+#~ "não actualizados.\n"
 
-#, c-format
-msgid "Package Priority: %s\n"
-msgstr "Priority de Pacote: %s\n"
+#~ msgid "Failed to compile regex [%s]\n"
+#~ msgstr "Falha ao compilar regex [%s]\n"
 
-msgid "[pkg name] - show pkg installed files"
-msgstr "[pkg name] - mostrar ficheiros instalados do pacote"
+#~ msgid "File: %s/%s\n"
+#~ msgstr "Ficheiro: %s/%s\n"
 
-#, c-format
-msgid "Delete %s ? [y/N]"
-msgstr "Eliminar %s ? [y/N]"
+#~ msgid "MD5 expected: [%s]\n"
+#~ msgstr "MD5 esperado: [%s]\n"
 
-#, c-format
-msgid "The following packages will be reinstalled:\n"
-msgstr "Os seguintes pacotes serão reinstalados:\n"
+#~ msgid "MD5 found:    [%s]\n"
+#~ msgstr "MD5 encontrado:    [%s]\n"
+
+#~ msgid "Retrieving extras list [%s]..."
+#~ msgstr "A recuperar lista de extras [%s]..."
+
+#~ msgid "Retrieving extras list [%s]...\n"
+#~ msgstr "A recuperar lista de extras [%s]...\n"
+
+#~ msgid "Retrieving package data [%s]...\n"
+#~ msgstr "A recuperar dados de pacotes [%s]...\n"
+
+#~ msgid "Retrieving patch list [%s]...\n"
+#~ msgstr "A recuperar lista de patches [%s]...\n"
+
+#~ msgid "[pkg name] - show pkg description"
+#~ msgstr "[nome do pacote] - mostra descrição do pacote"
+
+#~ msgid "[pkg name] - show pkg installed files"
+#~ msgstr "[pkg name] - mostrar ficheiros instalados do pacote"

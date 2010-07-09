@@ -6,7 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.2f\n"
-"POT-Creation-Date: 2003-11-03 14:28+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-07-09 17:01+0400\n"
 "PO-Revision-Date: 2010-06-07 21:05+0500\n"
 "Last-Translator: Joran Kvalvaag <jk@nerdworks.org>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
@@ -16,199 +17,429 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, c-format
-msgid "Reading Package Lists... "
-msgstr "Leser pakkelister..."
+msgid "  %s: Depends: %s\n"
+msgstr "  %s: Avhenger: %s\n"
 
 #, c-format
-msgid "Done\n"
-msgstr "Ferdig\n"
+msgid "%d newly installed, "
+msgid_plural "%d newly installed, "
+msgstr[0] ""
+msgstr[1] ""
 
 #, c-format
-msgid "%s is up to date.\n"
-msgstr "%s er oppdatert.\n"
-
-msgid "yes"
-msgstr "ja"
-
-msgid "no"
-msgstr "nei"
+msgid "%d not upgraded.\n"
+msgid_plural "%d not upgraded.\n"
+msgstr[0] ""
+msgstr[1] ""
 
 #, c-format
-msgid "%s is not installed.\n"
-msgstr "%s er ikke installert.\n"
+msgid "%d reinstalled, "
+msgid_plural "%d reinstalled, "
+msgstr[0] ""
+msgstr[1] ""
 
 #, c-format
-msgid "Package Name: %s\n"
-msgstr "Pakkenavn: %s\n"
+msgid "%d to remove, "
+msgid_plural "%d to remove, "
+msgstr[0] ""
+msgstr[1] ""
 
 #, c-format
-msgid "Package Mirror: %s\n"
-msgstr "Pakkespeil: %s\n"
-
-#, c-format
-msgid "Package Location: %s\n"
-msgstr "Pakkelokasjon: %s\n"
-
-#, c-format
-msgid "Package Version: %s\n"
-msgstr "Pakkeversjon: %s\n"
-
-#, c-format
-msgid "Package Size: %d K\n"
-msgstr "Pakkestørrelse: %d K\n"
-
-#, c-format
-msgid "Package Installed Size: %d K\n"
-msgstr "Pakkestørrelse, installert: %d K\n"
-
-#, c-format
-msgid "Package Required: %s\n"
-msgstr "Påkrevd pakke: %s\n"
-
-#, c-format
-msgid "Package Description:\n"
-msgstr "Pakkebeskrivelse:\n"
-
-#, c-format
-msgid "Package Installed: %s\n"
-msgstr "Pakke installert: %s\n"
-
-#, c-format
-msgid "No such package: %s\n"
-msgstr "Pakken finnes ikke: %s\n"
-
-#, c-format
-msgid "Retrieving package data [%s]..."
-msgstr "Mottar pakkedata [%s]..."
-
-#, c-format
-msgid "Retrieving package data [%s]...\n"
-msgstr "Mottar pakkedata [%s]...\n"
-
-#, c-format
-msgid "Retrieving extras list [%s]..."
-msgstr "Mottar liste med tillegg [%s]..."
-
-#, c-format
-msgid "Retrieving extras list [%s]...\n"
-msgstr "Mottar liste med tillegg [%s]...\n"
-
-#, c-format
-msgid "Retrieving patch list [%s]..."
-msgstr "Mottar liste over patcher [%s]..."
-
-#, c-format
-msgid "Retrieving patch list [%s]...\n"
-msgstr "Mottar liste over patcher [%s]...\n"
-
-#, c-format
-msgid "Retrieving checksum list [%s]..."
-msgstr "Mottar checksumliste [%s]..."
-
-#, c-format
-msgid "Failed to malloc\n"
-msgstr "Feilet ved malloc\n"
-
-#, c-format
-msgid "WORKINGDIR directive not set within %s.\n"
-msgstr "WORKINGDIR direktiv ikke satt i %s.\n"
-
-#, c-format
-msgid "SOURCE directive not set within %s.\n"
-msgstr "SOURCE direktiv ikke satt i %s.\n"
-
-#, c-format
-msgid "Failed to build working directory [%s]\n"
-msgstr "Klarte ikke å lage arbeidsfolder [%s]\n"
-
-#, c-format
-msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr "Vennligst oppdater tilgang på %s eller bruk programmet med tilstrekkelige privilegier\n"
-
-#, c-format
-msgid "Failed to open %s\n"
-msgstr "Klarte ikke å åpne %s\n"
-
-#, c-format
-msgid "Perhaps you want to run --update?\n"
-msgstr "Kanskje du vil kjøre --update?\n"
-
-#, c-format
-msgid "Failed to opendir %s\n"
-msgstr "Klarte ikke å opendir %s\n"
-
-#, c-format
-msgid "Failed to chdir: %s\n"
-msgstr "Klarte ikke å chdir: %s\n"
-
-#, c-format
-msgid "Failed to get cwd\n"
-msgstr "Klarte ikke å finne cwd\n"
-
-#, c-format
-msgid "Failed to mkdir: %s\n"
-msgstr "Klarte ikke å mkdir: %s\n"
-
-#, c-format
-msgid "Failed to chdir to %s\n"
-msgstr "Klarte ikke å chdir til %s\n"
-
-#, c-format
-msgid "\tchdir back into %s\n"
-msgstr "\tchdir tilbake til %s\n"
-
-#, c-format
-msgid "Failed to download: %s\n"
-msgstr "Nedlasting feilet : %s\n"
-
-#, c-format
-msgid "Failed to calloc\n"
-msgstr "Klarte ikke å calloc\n"
-
-#, c-format
-msgid "Get %s %s %s [%.1f%s]..."
-msgstr "Get %s %s %s [%.1f%s]..."
-
-#, c-format
-msgid "Failed to unlink %s\n"
-msgstr "Klarte ikke å unlinke %s\n"
-
-#, c-format
-msgid "MD5 found:    [%s]\n"
-msgstr "MD5 funnet:    [%s]\n"
-
-#, c-format
-msgid "MD5 expected: [%s]\n"
-msgstr "MD5 forventet: [%s]\n"
-
-#, c-format
-msgid "File: %s/%s\n"
-msgstr "Fil: %s/%s\n"
-
-#, c-format
-msgid "An implementation of the Debian APT system to Slackware\n"
-msgstr "En implementasjon av Debians APT sytem for Slackware\n"
-
-#, c-format
-msgid "Usage:\n"
-msgstr "Bruk:\n"
+msgid "%d upgraded, "
+msgid_plural "%d upgraded, "
+msgstr[0] ""
+msgstr[1] ""
 
 #, c-format
 msgid "%s [option(s)] [target]\n"
 msgstr "%s [opsjon(er)] [bryter]\n"
 
 #, c-format
+msgid "%s is not installed.\n"
+msgstr "%s er ikke installert.\n"
+
+#, c-format
+msgid "%s is up to date.\n"
+msgstr "%s er oppdatert.\n"
+
+#, c-format
+msgid "%s version %s\n"
+msgstr "%s versjon %s\n"
+
+#, c-format
+msgid "%s, which is required by %s, is excluded\n"
+msgstr "%s, som kreves av %s er ekskludert\n"
+
+#, c-format
+msgid "%s, which is to be installed, conflicts with %s\n"
+msgstr "%s, som skal installeres, er i konflikt med %s\n"
+
+#, c-format
+msgid "%s-%s is to be installed\n"
+msgstr "%s-%s vil bli installert\n"
+
+#, c-format
+msgid "%s-%s is to be removed\n"
+msgstr "%s-%s vil bli fjernet\n"
+
+#, c-format
+msgid "%s-%s is to be upgraded to version %s\n"
+msgstr "%s-%s vil bli oppgradert til versjon %s\n"
+
+#, c-format
+msgid "Abort.\n"
+msgstr "Avslutt.\n"
+
+#, c-format
+msgid "After unpacking %.1f%s disk space will be freed.\n"
+msgstr "Etter utpakking vil %.1f%s diskplass bli frigjort.\n"
+
+#, c-format
+msgid "After unpacking %.1f%s of additional disk space will be used.\n"
+msgstr "Etter utpakking vil %.1f%s ekstra diskplass bli brukt.\n"
+
+#, c-format
+msgid "An implementation of the Debian APT system to Slackware\n"
+msgstr "En implementasjon av Debians APT sytem for Slackware\n"
+
+#, c-format
+msgid "Cached\n"
+msgstr "Cached\n"
+
+msgid "Checksums signature could not be verified"
+msgstr "Checksums signature could not be verified"
+
+msgid "Checksums signature successfully verified"
+msgstr "Checksums signature successfully verified"
+
+msgid "Custom"
+msgstr "Custom"
+
+msgid "Custom Patch"
+msgstr "Custom Patch"
+
+msgid "Default"
+msgstr "Default"
+
+msgid "Default Patch"
+msgstr "Default Patch"
+
+#, c-format
+msgid "Delete %s ? [y/N]"
+msgstr "Delete %s ? [y/N]"
+
+msgid "Do you want to continue? [y/N] "
+msgstr "Vil du fortsette? [y/N] "
+
+#, c-format
+msgid "Done\n"
+msgstr "Ferdig\n"
+
+#, c-format
+msgid "Excluding %s, use --ignore-dep to override\n"
+msgstr "Excluding %s, use --ignore-dep to override\n"
+
+#, c-format
+msgid "Failed to build working directory [%s]\n"
+msgstr "Klarte ikke å lage arbeidsfolder [%s]\n"
+
+#, c-format
+msgid "Failed to calloc\n"
+msgstr "Klarte ikke å calloc\n"
+
+#, c-format
+msgid "Failed to chdir to %s\n"
+msgstr "Klarte ikke å chdir til %s\n"
+
+#, c-format
+msgid "Failed to chdir: %s\n"
+msgstr "Klarte ikke å chdir: %s\n"
+
+#, c-format
+msgid "Failed to compile regex\n"
+msgstr "Feil ved kompilering av regex\n"
+
+#, c-format
+msgid "Failed to download: %s\n"
+msgstr "Nedlasting feilet : %s\n"
+
+#, c-format
+msgid "Failed to execute command: [%s]\n"
+msgstr "Feil ved ekskevering av kommando: [%s]\n"
+
+#, c-format
+msgid "Failed to get cwd\n"
+msgstr "Klarte ikke å finne cwd\n"
+
+#, c-format
+msgid "Failed to malloc\n"
+msgstr "Feilet ved malloc\n"
+
+#, c-format
+msgid "Failed to mkdir: %s\n"
+msgstr "Klarte ikke å mkdir: %s\n"
+
+#, c-format
+msgid "Failed to open %s\n"
+msgstr "Klarte ikke å åpne %s\n"
+
+#, c-format
+msgid "Failed to opendir %s\n"
+msgstr "Klarte ikke å opendir %s\n"
+
+#, c-format
+msgid "Failed to parse package data from %s\n"
+msgstr "Kunne ikke analysere pakkedata fra %s\n"
+
+#, c-format
+msgid "Failed to realloc %s\n"
+msgstr "realloc feil %s\n"
+
+#, c-format
+msgid "Failed to unlink %s\n"
+msgstr "Klarte ikke å unlinke %s\n"
+
+msgid "GPG key already present"
+msgstr "GPG key already present"
+
+msgid "GPG key could not be imported"
+msgstr "GPG key could not be imported"
+
+msgid "GPG key successfully imported"
+msgstr "GPG key successfully imported"
+
+#, c-format
+msgid "Get %s %s %s [%.1f%s]..."
+msgstr "Get %s %s %s [%.1f%s]..."
+
+msgid "Incomplete download"
+msgstr "Incomplete download"
+
+#, c-format
+msgid "Installed %s conflicts with %s\n"
+msgstr "Installert %s er i konflikt med %s\n"
+
+msgid "MD5 checksum mismatch, override with --no-md5"
+msgstr "MD5 checksum mismatch, override with --no-md5"
+
+msgid "Missing MD5 checksum, override with --no-md5"
+msgstr "Missing MD5 checksum, override with --no-md5"
+
+#, c-format
+msgid "Need to get %.1f%s of archives.\n"
+msgstr "Trenger %.1f%s med pakker.\n"
+
+#, c-format
+msgid "Need to get %.1f%s/%.1f%s of archives.\n"
+msgstr "Trenger %.1f%s/%.1f%s med pakker.\n"
+
+msgid "No key for verification"
+msgstr "No key for verification"
+
+#, c-format
+msgid "No such package: %s\n"
+msgstr "Pakken finnes ikke: %s\n"
+
+#, c-format
+msgid "Not Found\n"
+msgstr "Not Found\n"
+
+msgid "Not Verified"
+msgstr "Not Verified"
+
+msgid "Official"
+msgstr "Official"
+
+msgid "Official Patch"
+msgstr "Official Patch"
+
+#, c-format
+msgid "Options:\n"
+msgstr "Opsjoner:\n"
+
+msgid "Package ChangeLog"
+msgstr "Package ChangeLog"
+
+#, c-format
+msgid "Package Conflicts: %s\n"
+msgstr "Pakkekonflikter: %s\n"
+
+#, c-format
+msgid "Package Description:\n"
+msgstr "Pakkebeskrivelse:\n"
+
+#, c-format
+msgid "Package Installed Size: %d K\n"
+msgstr "Pakkestørrelse, installert: %d K\n"
+
+#, c-format
+msgid "Package Installed: %s\n"
+msgstr "Pakke installert: %s\n"
+
+#, c-format
+msgid "Package Location: %s\n"
+msgstr "Pakkelokasjon: %s\n"
+
+#, c-format
+msgid "Package MD5 Sum:  %s\n"
+msgstr "MD5 Sum for pakke:  %s\n"
+
+#, c-format
+msgid "Package Mirror: %s\n"
+msgstr "Pakkespeil: %s\n"
+
+#, c-format
+msgid "Package Name: %s\n"
+msgstr "Pakkenavn: %s\n"
+
+#, c-format
+msgid "Package Priority: %s\n"
+msgstr "Package Priority: %s\n"
+
+#, c-format
+msgid "Package Required: %s\n"
+msgstr "Påkrevd pakke: %s\n"
+
+#, c-format
+msgid "Package Size: %d K\n"
+msgstr "Pakkestørrelse: %d K\n"
+
+#, c-format
+msgid "Package Suggests: %s\n"
+msgstr "Pakkeforslag: %s\n"
+
+#, c-format
+msgid "Package Version: %s\n"
+msgstr "Pakkeversjon: %s\n"
+
+#, c-format
+msgid "Perhaps you want to run --update?\n"
+msgstr "Kanskje du vil kjøre --update?\n"
+
+#, c-format
+msgid "Please update permissions on %s or run with appropriate privileges\n"
+msgstr ""
+"Vennligst oppdater tilgang på %s eller bruk programmet med tilstrekkelige "
+"privilegier\n"
+
+msgid "Preferred"
+msgstr "Preferred"
+
+msgid "Preferred Patch"
+msgstr "Preferred Patch"
+
+#, c-format
+msgid "Preparing to install %s-%s\n"
+msgstr "Forbereder installasjon av %s-%s\n"
+
+#, c-format
+msgid "Preparing to replace %s-%s with %s-%s\n"
+msgstr "Forbereder utbytting av %s-%s med %s-%s\n"
+
+#, c-format
+msgid "Reading Package Lists..."
+msgstr "Leser pakkelister..."
+
+#, c-format
+msgid "Reading Package Lists... "
+msgstr "Leser pakkelister..."
+
+#, c-format
+msgid "Regex Error: %s\n"
+msgstr "Regex feil: %s\n"
+
+#, c-format
+msgid "Retrieving ChangeLog.txt [%s]..."
+msgstr "Retrieving ChangeLog.txt [%s]..."
+
+#, c-format
+msgid "Retrieving GPG key [%s]..."
+msgstr "Retrieving GPG key [%s]..."
+
+#, c-format
+msgid "Retrieving checksum list [%s]..."
+msgstr "Mottar checksumliste [%s]..."
+
+#, c-format
+msgid "Retrieving checksum signature [%s]..."
+msgstr "Retrieving checksum signature [%s]..."
+
+#, c-format
+msgid "Retrieving package data [%s]..."
+msgstr "Mottar pakkedata [%s]..."
+
+#, c-format
+msgid "Retrieving patch list [%s]..."
+msgstr "Mottar liste over patcher [%s]..."
+
+#, c-format
+msgid "SOURCE directive not set within %s.\n"
+msgstr "SOURCE direktiv ikke satt i %s.\n"
+
+#, c-format
+msgid "Sources failed to download, correct sources and rerun --update\n"
+msgstr ""
+"Feil ved nedlasting fra kilde, korriger kilde og kjør --oppdater igjen\n"
+
+#, c-format
+msgid "Suggested packages:\n"
+msgstr "Anbefalte pakker:\n"
+
+#, c-format
 msgid "Targets:\n"
 msgstr "Brytere:\n"
 
-msgid "retrieves pkg data from MIRROR"
-msgstr "mottar pakkedata fra SPEIL"
+#, c-format
+msgid "The following NEW packages will be installed:\n"
+msgstr "Disse NYE pakkene vil bli installert:\n"
 
-msgid "upgrade installed pkgs"
-msgstr "oppgrader installerte pakker"
+#, c-format
+msgid "The following packages have been EXCLUDED:\n"
+msgstr "Disse pakkene har blitt EKSKLUDERT:\n"
 
-msgid "upgrade to newer release"
-msgstr "oppgrader til nyere versjon"
+#, c-format
+msgid "The following packages have unmet dependencies:\n"
+msgstr "Pakker med uoppfylte avhengigheter:\n"
+
+#, c-format
+msgid "The following packages will be REMOVED:\n"
+msgstr "Pakker som vil bli FJERNET:\n"
+
+#, c-format
+msgid "The following packages will be reinstalled:\n"
+msgstr "The following packages will be reinstalled:\n"
+
+#, c-format
+msgid "The following packages will be upgraded:\n"
+msgstr "Pakker som vil bli oppgradert:\n"
+
+msgid "Unknown error"
+msgstr "Unknown error"
+
+#, c-format
+msgid "Usage:\n"
+msgstr "Bruk:\n"
+
+msgid "Verified"
+msgstr "Verified"
+
+#, c-format
+msgid "Verifying checksum signature [%s]..."
+msgstr "Verifying checksum signature [%s]..."
+
+#, c-format
+msgid "WORKINGDIR directive not set within %s.\n"
+msgstr "WORKINGDIR direktiv ikke satt i %s.\n"
+
+#, c-format
+msgid "You don't have enough free space in %s\n"
+msgstr "Du har ikke nok ledig plass i %s\n"
+
+msgid "[disk set(s)] - install specified disk set(s)"
+msgstr "[disk set(s)] - install specified disk set(s)"
+
+msgid "[expression] - search available pkgs"
+msgstr "[uttrykk] - finn tilgjengelige pakker"
 
 msgid "[pkg name(s)] - install specified pkg(s)"
 msgstr "[pakkenavn] - installer spesifisert(e) pakke(r)"
@@ -216,14 +447,48 @@ msgstr "[pakkenavn] - installer spesifisert(e) pakke(r)"
 msgid "[pkg name(s)] - remove specified pkg(s)"
 msgstr "[pakkenavn] - fjern spesifisert(e) pakke(r)"
 
-msgid "[pkg name] - show pkg description"
-msgstr "[pakkenavn] - vis pakkebeskrivelse"
+msgid "[pkg name(s)] - show pkg description"
+msgstr ""
 
-msgid "[expression] - search available pkgs"
-msgstr "[uttrykk] - finn tilgjengelige pakker"
+msgid "[pkg name(s)] - show pkg installed files"
+msgstr ""
 
-msgid "list pkgs"
-msgstr "vis pakker"
+msgid "always prompt during install/upgrade"
+msgstr "always prompt during install/upgrade"
+
+msgid "display this help and exit"
+msgstr ""
+
+msgid "do not perform md5 check sum"
+msgstr "ikke bruk md5 checksumkontroll"
+
+msgid "do not prompt during install/upgrade"
+msgstr "ikke forlang bekreftelse under installasjon/oppgradering"
+
+#, c-format
+msgid "error attempting to read pkg description\n"
+msgstr "feil ved lesing av pakkebeskrivelse\n"
+
+#, c-format
+msgid "getline reached EOF attempting to read location\n"
+msgstr "getline traff EOF ved lesing av lokasjon\n"
+
+#, c-format
+msgid "getline reached EOF attempting to read size_c\n"
+msgstr "getline traff EOF ved lesing av size_c\n"
+
+#, c-format
+msgid "getline reached EOF attempting to read size_u\n"
+msgstr "getline traff EOF ved lesing av size_u\n"
+
+msgid "ignore dependency failures"
+msgstr "ignorer avhengighetsfeil"
+
+msgid "install package, do not attempt to upgrade"
+msgstr "install package, do not attempt to upgrade"
+
+msgid "install/upgrade excludes"
+msgstr "installer/oppgrader excludes"
 
 msgid "list available pkgs"
 msgstr "vis tilgjengelige pakker"
@@ -231,40 +496,37 @@ msgstr "vis tilgjengelige pakker"
 msgid "list installed pkgs"
 msgstr "vis installerte pakker"
 
-msgid "purge cached pkgs"
-msgstr "fjern lagrede pakker"
-
-msgid "print version and license info"
-msgstr "vis versjon- og lisensinfo"
+msgid "list pkgs"
+msgstr "vis pakker"
 
 #, c-format
-msgid "Options:\n"
-msgstr "Opsjoner:\n"
+msgid "md5 sum too long\n"
+msgstr "for lang md5sum\n"
+
+msgid "no"
+msgstr "nei"
 
 msgid "only download pkg on install/upgrade"
 msgstr "last bare ned pakker ved installer/oppgrader"
 
-msgid "show pkgs to be installed/upgraded"
-msgstr "vis pakker som kan installeres/oppgraderes"
+msgid "only purge cache of older, unreacheable pkgs"
+msgstr "slett bare mellomlager av eldre utilgjengelige pakker"
 
-msgid "do not prompt during install/upgrade"
-msgstr "ikke forlang bekreftelse under installasjon/oppgradering"
+#, c-format
+msgid "pkg conditional too long\n"
+msgstr "for lang pakkebetingelse\n"
+
+msgid "print URIs only, do not download"
+msgstr "skriv bare URIs, ikke last ned"
+
+msgid "print version and license info"
+msgstr "vis versjon- og lisensinfo"
+
+msgid "purge cached pkgs"
+msgstr "fjern lagrede pakker"
 
 msgid "re-install the pkg"
 msgstr "reinstaller pakken"
-
-msgid "install/upgrade excludes"
-msgstr "installer/oppgrader excludes"
-
-msgid "do not perform md5 check sum"
-msgstr "ikke bruk md5 checksumkontroll"
-
-msgid "ignore dependency failures"
-msgstr "ignorer avhengighetsfeil"
-
-#, c-format
-msgid "%s version %s\n"
-msgstr "%s versjon %s\n"
 
 #, c-format
 msgid "regex failed on [%s]\n"
@@ -275,307 +537,82 @@ msgid "regexec failed to parse location\n"
 msgstr "regexec klarte ikke å tyde lokasjon\n"
 
 #, c-format
-msgid "getline reached EOF attempting to read location\n"
-msgstr "getline traff EOF ved lesing av lokasjon\n"
-
-#, c-format
 msgid "regexec failed to parse size_c\n"
 msgstr "regexec feilet ved tyding av size_c\n"
-
-#, c-format
-msgid "getline reached EOF attempting to read size_c\n"
-msgstr "getline traff EOF ved lesing av size_c\n"
 
 #, c-format
 msgid "regexec failed to parse size_u\n"
 msgstr "regexec feilet ved tyding av size_u\n"
 
-#, c-format
-msgid "getline reached EOF attempting to read size_u\n"
-msgstr "getline traff EOF ved lesing av size_u\n"
-
-#, c-format
-msgid "error attempting to read pkg description\n"
-msgstr "feil ved lesing av pakkebeskrivelse\n"
-
-#, c-format
-msgid "Failed to realloc %s\n"
-msgstr "realloc feil %s\n"
-
-#, c-format
-msgid "Failed to compile regex\n"
-msgstr "Feil ved kompilering av regex\n"
-
-#, c-format
-msgid "Regex Error: %s\n"
-msgstr "Regex feil: %s\n"
-
-#, c-format
-msgid "%s-%s is to be installed\n"
-msgstr "%s-%s vil bli installert\n"
-
-#, c-format
-msgid "Preparing to install %s-%s\n"
-msgstr "Forbereder installasjon av %s-%s\n"
-
-#, c-format
-msgid "Failed to execute command: [%s]\n"
-msgstr "Feil ved ekskevering av kommando: [%s]\n"
-
-#, c-format
-msgid "%s-%s is to be upgraded to version %s\n"
-msgstr "%s-%s vil bli oppgradert til versjon %s\n"
-
-#, c-format
-msgid "Preparing to replace %s-%s with %s-%s\n"
-msgstr "Forbereder utbytting av %s-%s med %s-%s\n"
-
-#, c-format
-msgid "%s-%s is to be removed\n"
-msgstr "%s-%s vil bli fjernet\n"
-
-#, c-format
-msgid "Failed to compile regex [%s]\n"
-msgstr "Feil ved kompilering av regex [%s]\n"
-
-#, c-format
-msgid "pkg conditional too long\n"
-msgstr "for lang pakkebetingelse\n"
-
-#, c-format
-msgid "The following packages have unmet dependencies:\n"
-msgstr "Pakker med uoppfylte avhengigheter:\n"
-
-#, c-format
-msgid "  %s: Depends: %s\n"
-msgstr "  %s: Avhenger: %s\n"
-
-#, c-format
-msgid "The following packages have been EXCLUDED:\n"
-msgstr "Disse pakkene har blitt EKSKLUDERT:\n"
-
-#, c-format
-msgid "The following NEW packages will be installed:\n"
-msgstr "Disse NYE pakkene vil bli installert:\n"
-
-#, c-format
-msgid "The following packages will be REMOVED:\n"
-msgstr "Pakker som vil bli FJERNET:\n"
-
-#, c-format
-msgid "The following packages will be upgraded:\n"
-msgstr "Pakker som vil bli oppgradert:\n"
-
-#, c-format
-msgid "%d upgraded, %d reinstalled, %d newly installed, %d to remove and %d not upgraded.\n"
-msgstr "%d oppgradert, %d reinstalled, %d nylig installert, %d fjernes %d ikke oppgradert.\n"
-
-#, c-format
-msgid "Need to get %.1f%s of archives.\n"
-msgstr "Trenger %.1f%s med pakker.\n"
-
-#, c-format
-msgid "Need to get %.1f%s/%.1f%s of archives.\n"
-msgstr "Trenger %.1f%s/%.1f%s med pakker.\n"
-
-#, c-format
-msgid "After unpacking %.1f%s disk space will be freed.\n"
-msgstr "Etter utpakking vil %.1f%s diskplass bli frigjort.\n"
-
-#, c-format
-msgid "After unpacking %.1f%s of additional disk space will be used.\n"
-msgstr "Etter utpakking vil %.1f%s ekstra diskplass bli brukt.\n"
-
-msgid "Do you want to continue? [y/N] "
-msgstr "Vil du fortsette? [y/N] "
-
-#, c-format
-msgid "Abort.\n"
-msgstr "Avslutt.\n"
-
-#, c-format
-msgid "%s, which is to be installed, conflicts with %s\n"
-msgstr "%s, som skal installeres, er i konflikt med %s\n"
-
-#, c-format
-msgid "Installed %s conflicts with %s\n"
-msgstr "Installert %s er i konflikt med %s\n"
-
-msgid "print URIs only, do not download"
-msgstr "skriv bare URIs, ikke last ned"
-
-#, c-format
-msgid "Package MD5 Sum:  %s\n"
-msgstr "MD5 Sum for pakke:  %s\n"
-
-#, c-format
-msgid "md5 sum too long\n"
-msgstr "for lang md5sum\n"
-
-#, c-format
-msgid "Reading Package Lists..."
-msgstr "Leser pakkelister..."
-
-#, c-format
-msgid "%s, which is required by %s, is excluded\n"
-msgstr "%s, som kreves av %s er ekskludert\n"
-
-msgid "skip dependency check"
-msgstr "ikke utfør avhengighetssjekk"
-
-msgid "show download statistics"
-msgstr "vis nedlastingsstatistikk"
-
-#, c-format
-msgid "Cached\n"
-msgstr "Cached\n"
-
-#, c-format
-msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr "Feil ved nedlasting fra kilde, korriger kilde og kjør --oppdater igjen\n"
-
-msgid "specify alternate slapt-getrc location"
-msgstr "spesifiser alternativ lokasjon for slapt-getrc"
-
-#, c-format
-msgid "Suggested packages:\n"
-msgstr "Anbefalte pakker:\n"
-
-msgid "only purge cache of older, unreacheable pkgs"
-msgstr "slett bare mellomlager av eldre utilgjengelige pakker"
-
 msgid "remove obsolete packages"
 msgstr "fjern gamle pakker"
-
-#, c-format
-msgid "You don't have enough free space in %s\n"
-msgstr "Du har ikke nok ledig plass i %s\n"
-
-#, c-format
-msgid "Package Conflicts: %s\n"
-msgstr "Pakkekonflikter: %s\n"
-
-#, c-format
-msgid "Package Suggests: %s\n"
-msgstr "Pakkeforslag: %s\n"
-
-#, c-format
-msgid "Failed to parse package data from %s\n"
-msgstr "Kunne ikke analysere pakkedata fra %s\n"
-
-msgid "specify number of download retry attempts"
-msgstr "specify number of download retry attempts"
-
-msgid "install package, do not attempt to upgrade"
-msgstr "install package, do not attempt to upgrade"
-
-msgid "[disk set(s)] - install specified disk set(s)"
-msgstr "[disk set(s)] - install specified disk set(s)"
-
-msgid "always prompt during install/upgrade"
-msgstr "always prompt during install/upgrade"
-
-#, c-format
-msgid "Excluding %s, use --ignore-dep to override\n"
-msgstr "Excluding %s, use --ignore-dep to override\n"
-
-msgid "Package ChangeLog"
-msgstr "Package ChangeLog"
-
-#, c-format
-msgid "Retrieving ChangeLog.txt [%s]..."
-msgstr "Retrieving ChangeLog.txt [%s]..."
-
-msgid "MD5 checksum mismatch, override with --no-md5"
-msgstr "MD5 checksum mismatch, override with --no-md5"
-
-msgid "Missing MD5 checksum, override with --no-md5"
-msgstr "Missing MD5 checksum, override with --no-md5"
-
-msgid "Incomplete download"
-msgstr "Incomplete download"
-
-msgid "GPG key successfully imported"
-msgstr "GPG key successfully imported"
-
-msgid "GPG key could not be imported"
-msgstr "GPG key could not be imported"
-
-msgid "GPG key already present"
-msgstr "GPG key already present"
-
-msgid "Checksums signature successfully verified"
-msgstr "Checksums signature successfully verified"
-
-msgid "Checksums signature could not be verified"
-msgstr "Checksums signature could not be verified"
-
-msgid "Verified"
-msgstr "Verified"
-
-msgid "Not Verified"
-msgstr "Not Verified"
-
-#, c-format
-msgid "Retrieving GPG key [%s]..."
-msgstr "Retrieving GPG key [%s]..."
-
-#, c-format
-msgid "Retrieving checksum signature [%s]..."
-msgstr "Retrieving checksum signature [%s]..."
-
-msgid "No key for verification"
-msgstr "No key for verification"
 
 msgid "retrieve GPG keys for sources"
 msgstr "retrieve GPG keys for sources"
 
-#, c-format
-msgid "Verifying checksum signature [%s]..."
-msgstr "Verifying checksum signature [%s]..."
+msgid "retrieves pkg data from MIRROR"
+msgstr "mottar pakkedata fra SPEIL"
 
-msgid "Unknown error"
-msgstr "Unknown error"
+msgid "show download statistics"
+msgstr "vis nedlastingsstatistikk"
 
-#, c-format
-msgid "Not Found\n"
-msgstr "Not Found\n"
+msgid "show pkgs to be installed/upgraded"
+msgstr "vis pakker som kan installeres/oppgraderes"
 
-msgid "Default"
-msgstr "Default"
+msgid "skip dependency check"
+msgstr "ikke utfør avhengighetssjekk"
 
-msgid "Default Patch"
-msgstr "Default Patch"
+msgid "specify alternate slapt-getrc location"
+msgstr "spesifiser alternativ lokasjon for slapt-getrc"
 
-msgid "Preferred"
-msgstr "Preferred"
+msgid "specify number of download retry attempts"
+msgstr "specify number of download retry attempts"
 
-msgid "Preferred Patch"
-msgstr "Preferred Patch"
+msgid "upgrade installed pkgs"
+msgstr "oppgrader installerte pakker"
 
-msgid "Official"
-msgstr "Official"
+msgid "upgrade to newer release"
+msgstr "oppgrader til nyere versjon"
 
-msgid "Official Patch"
-msgstr "Official Patch"
+msgid "yes"
+msgstr "ja"
 
-msgid "Custom"
-msgstr "Custom"
+#~ msgid "\tchdir back into %s\n"
+#~ msgstr "\tchdir tilbake til %s\n"
 
-msgid "Custom Patch"
-msgstr "Custom Patch"
+#~ msgid ""
+#~ "%d upgraded, %d reinstalled, %d newly installed, %d to remove and %d not "
+#~ "upgraded.\n"
+#~ msgstr ""
+#~ "%d oppgradert, %d reinstalled, %d nylig installert, %d fjernes %d ikke "
+#~ "oppgradert.\n"
 
-#, c-format
-msgid "Package Priority: %s\n"
-msgstr "Package Priority: %s\n"
+#~ msgid "Failed to compile regex [%s]\n"
+#~ msgstr "Feil ved kompilering av regex [%s]\n"
 
-msgid "[pkg name] - show pkg installed files"
-msgstr "[pkg name] - show pkg installed files"
+#~ msgid "File: %s/%s\n"
+#~ msgstr "Fil: %s/%s\n"
 
-#, c-format
-msgid "Delete %s ? [y/N]"
-msgstr "Delete %s ? [y/N]"
+#~ msgid "MD5 expected: [%s]\n"
+#~ msgstr "MD5 forventet: [%s]\n"
 
-#, c-format
-msgid "The following packages will be reinstalled:\n"
-msgstr "The following packages will be reinstalled:\n"
+#~ msgid "MD5 found:    [%s]\n"
+#~ msgstr "MD5 funnet:    [%s]\n"
+
+#~ msgid "Retrieving extras list [%s]..."
+#~ msgstr "Mottar liste med tillegg [%s]..."
+
+#~ msgid "Retrieving extras list [%s]...\n"
+#~ msgstr "Mottar liste med tillegg [%s]...\n"
+
+#~ msgid "Retrieving package data [%s]...\n"
+#~ msgstr "Mottar pakkedata [%s]...\n"
+
+#~ msgid "Retrieving patch list [%s]...\n"
+#~ msgstr "Mottar liste over patcher [%s]...\n"
+
+#~ msgid "[pkg name] - show pkg description"
+#~ msgstr "[pakkenavn] - vis pakkebeskrivelse"
+
+#~ msgid "[pkg name] - show pkg installed files"
+#~ msgstr "[pkg name] - show pkg installed files"

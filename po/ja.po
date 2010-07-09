@@ -7,7 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.2f\n"
-"POT-Creation-Date: 2003-11-03 14:28+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-07-09 17:01+0400\n"
 "PO-Revision-Date: 2010-06-07 21:05+0500\n"
 "Last-Translator: JW <J_W@somewhere.c0.jp>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
@@ -18,199 +19,428 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, c-format
-msgid "Reading Package Lists... "
-msgstr "パッケージリストを読み込み中... "
+msgid "  %s: Depends: %s\n"
+msgstr "  %s: Depends: %s\n"
 
 #, c-format
-msgid "Done\n"
-msgstr "完了\n"
+msgid "%d newly installed, "
+msgid_plural "%d newly installed, "
+msgstr[0] ""
+msgstr[1] ""
 
 #, c-format
-msgid "%s is up to date.\n"
-msgstr "%s が更新されます\n"
-
-msgid "yes"
-msgstr "はい"
-
-msgid "no"
-msgstr "いいえ"
+msgid "%d not upgraded.\n"
+msgid_plural "%d not upgraded.\n"
+msgstr[0] ""
+msgstr[1] ""
 
 #, c-format
-msgid "%s is not installed.\n"
-msgstr "%s はインストールされません\n"
+msgid "%d reinstalled, "
+msgid_plural "%d reinstalled, "
+msgstr[0] ""
+msgstr[1] ""
 
 #, c-format
-msgid "Package Name: %s\n"
-msgstr "パッケージ名: %s\n"
+msgid "%d to remove, "
+msgid_plural "%d to remove, "
+msgstr[0] ""
+msgstr[1] ""
 
 #, c-format
-msgid "Package Mirror: %s\n"
-msgstr "ミラー: %s\n"
-
-#, c-format
-msgid "Package Location: %s\n"
-msgstr "場所: %s\n"
-
-#, c-format
-msgid "Package Version: %s\n"
-msgstr "バージョン: %s\n"
-
-#, c-format
-msgid "Package Size: %d K\n"
-msgstr "サイズ: %d K\n"
-
-#, c-format
-msgid "Package Installed Size: %d K\n"
-msgstr "サイズ（インストール後）: %d K\n"
-
-#, c-format
-msgid "Package Required: %s\n"
-msgstr "要求されるパッケージ: %s\n"
-
-#, c-format
-msgid "Package Description:\n"
-msgstr "パッケージの説明:\n"
-
-#, c-format
-msgid "Package Installed: %s\n"
-msgstr "Package Installed: %s\n"
-
-#, c-format
-msgid "No such package: %s\n"
-msgstr "そのようなパッケージはありません: %s\n"
-
-#, c-format
-msgid "Retrieving package data [%s]..."
-msgstr "パッケージデータ [%s]を取得中..."
-
-#, c-format
-msgid "Retrieving package data [%s]...\n"
-msgstr "パッケージデータ [%s]を取得中...\n"
-
-#, c-format
-msgid "Retrieving extras list [%s]..."
-msgstr "extraリスト [%s]を取得中..."
-
-#, c-format
-msgid "Retrieving extras list [%s]...\n"
-msgstr "extraリスト [%s]を取得中...\n"
-
-#, c-format
-msgid "Retrieving patch list [%s]..."
-msgstr "patchリスト [%s]を取得中..."
-
-#, c-format
-msgid "Retrieving patch list [%s]...\n"
-msgstr "patchリスト [%s]を取得中...\n"
-
-#, c-format
-msgid "Retrieving checksum list [%s]..."
-msgstr "checksumリスト [%s]を取得中..."
-
-#, c-format
-msgid "Failed to malloc\n"
-msgstr "Failed to malloc\n"
-
-#, c-format
-msgid "WORKINGDIR directive not set within %s.\n"
-msgstr "%s にWORKINGDIRが指定されていません\n"
-
-#, c-format
-msgid "SOURCE directive not set within %s.\n"
-msgstr "%s にSOURCEが指定されていません\n"
-
-#, c-format
-msgid "Failed to build working directory [%s]\n"
-msgstr "作業ディレクトリ [%s]のビルドに失敗しました\n"
-
-#, c-format
-msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr "%s のパーミッションを更新するかもしくは適切な権限を与えて実行してください\n"
-
-#, c-format
-msgid "Failed to open %s\n"
-msgstr "%s を開くことができません\n"
-
-#, c-format
-msgid "Perhaps you want to run --update?\n"
-msgstr " --update を実行してみてください\n"
-
-#, c-format
-msgid "Failed to opendir %s\n"
-msgstr "ディレクトリ %sを開くことができませんでした\n"
-
-#, c-format
-msgid "Failed to chdir: %s\n"
-msgstr "chdirに失敗しました: %s\n"
-
-#, c-format
-msgid "Failed to get cwd\n"
-msgstr "Failed to get cwd\n"
-
-#, c-format
-msgid "Failed to mkdir: %s\n"
-msgstr "ディレクトリ作成に失敗: %s\n"
-
-#, c-format
-msgid "Failed to chdir to %s\n"
-msgstr "Failed to chdir to %s\n"
-
-#, c-format
-msgid "\tchdir back into %s\n"
-msgstr "\tchdir back into %s\n"
-
-#, c-format
-msgid "Failed to download: %s\n"
-msgstr "ダウンロードに失敗: %s\n"
-
-#, c-format
-msgid "Failed to calloc\n"
-msgstr "Failed to calloc\n"
-
-#, c-format
-msgid "Get %s %s %s [%.1f%s]..."
-msgstr "Get %s %s %s [%.1f%s]..."
-
-#, c-format
-msgid "Failed to unlink %s\n"
-msgstr "Failed to unlink %s\n"
-
-#, c-format
-msgid "MD5 found:    [%s]\n"
-msgstr "MD5 found:    [%s]\n"
-
-#, c-format
-msgid "MD5 expected: [%s]\n"
-msgstr "MD5 expected: [%s]\n"
-
-#, c-format
-msgid "File: %s/%s\n"
-msgstr "ファイル: %s/%s\n"
-
-#, c-format
-msgid "An implementation of the Debian APT system to Slackware\n"
-msgstr "An implementation of the Debian APT system to Slackware\n"
-
-#, c-format
-msgid "Usage:\n"
-msgstr "使用法:\n"
+msgid "%d upgraded, "
+msgid_plural "%d upgraded, "
+msgstr[0] ""
+msgstr[1] ""
 
 #, c-format
 msgid "%s [option(s)] [target]\n"
 msgstr "%s [option(s)] [target]\n"
 
 #, c-format
+msgid "%s is not installed.\n"
+msgstr "%s はインストールされません\n"
+
+#, c-format
+msgid "%s is up to date.\n"
+msgstr "%s が更新されます\n"
+
+#, c-format
+msgid "%s version %s\n"
+msgstr "%s version %s\n"
+
+#, c-format
+msgid "%s, which is required by %s, is excluded\n"
+msgstr "%s（ %s に必要とされる）は除外されます\n"
+
+#, c-format
+msgid "%s, which is to be installed, conflicts with %s\n"
+msgstr "インストールしようとしている %s は %s と衝突します\n"
+
+#, c-format
+msgid "%s-%s is to be installed\n"
+msgstr "%s-%s がインストールされます\n"
+
+#, c-format
+msgid "%s-%s is to be removed\n"
+msgstr "%s-%s が削除されます\n"
+
+#, c-format
+msgid "%s-%s is to be upgraded to version %s\n"
+msgstr "%s-%s はバージョン %s にアップグレードされます\n"
+
+#, c-format
+msgid "Abort.\n"
+msgstr "中止\n"
+
+#, c-format
+msgid "After unpacking %.1f%s disk space will be freed.\n"
+msgstr "展開後 %.1f%s のディスクスペースが解放されます\n"
+
+#, c-format
+msgid "After unpacking %.1f%s of additional disk space will be used.\n"
+msgstr "展開後 %.1f%s のディスクスペースが消費されます\n"
+
+#, c-format
+msgid "An implementation of the Debian APT system to Slackware\n"
+msgstr "An implementation of the Debian APT system to Slackware\n"
+
+#, c-format
+msgid "Cached\n"
+msgstr "Cached\n"
+
+msgid "Checksums signature could not be verified"
+msgstr "Checksums signature could not be verified"
+
+msgid "Checksums signature successfully verified"
+msgstr "Checksums signature successfully verified"
+
+msgid "Custom"
+msgstr "Custom"
+
+msgid "Custom Patch"
+msgstr "Custom Patch"
+
+msgid "Default"
+msgstr "Default"
+
+msgid "Default Patch"
+msgstr "Default Patch"
+
+#, c-format
+msgid "Delete %s ? [y/N]"
+msgstr "Delete %s ? [y/N]"
+
+msgid "Do you want to continue? [y/N] "
+msgstr "このまま続けますか？ [y/N] "
+
+#, c-format
+msgid "Done\n"
+msgstr "完了\n"
+
+#, c-format
+msgid "Excluding %s, use --ignore-dep to override\n"
+msgstr "Excluding %s, use --ignore-dep to override\n"
+
+#, c-format
+msgid "Failed to build working directory [%s]\n"
+msgstr "作業ディレクトリ [%s]のビルドに失敗しました\n"
+
+#, c-format
+msgid "Failed to calloc\n"
+msgstr "Failed to calloc\n"
+
+#, c-format
+msgid "Failed to chdir to %s\n"
+msgstr "Failed to chdir to %s\n"
+
+#, c-format
+msgid "Failed to chdir: %s\n"
+msgstr "chdirに失敗しました: %s\n"
+
+#, c-format
+msgid "Failed to compile regex\n"
+msgstr "Failed to compile regex\n"
+
+#, c-format
+msgid "Failed to download: %s\n"
+msgstr "ダウンロードに失敗: %s\n"
+
+#, c-format
+msgid "Failed to execute command: [%s]\n"
+msgstr "コマンド実行に失敗: [%s]\n"
+
+#, c-format
+msgid "Failed to get cwd\n"
+msgstr "Failed to get cwd\n"
+
+#, c-format
+msgid "Failed to malloc\n"
+msgstr "Failed to malloc\n"
+
+#, c-format
+msgid "Failed to mkdir: %s\n"
+msgstr "ディレクトリ作成に失敗: %s\n"
+
+#, c-format
+msgid "Failed to open %s\n"
+msgstr "%s を開くことができません\n"
+
+#, c-format
+msgid "Failed to opendir %s\n"
+msgstr "ディレクトリ %sを開くことができませんでした\n"
+
+#, c-format
+msgid "Failed to parse package data from %s\n"
+msgstr "%s からのパッケージ・データ分析に失敗\n"
+
+#, c-format
+msgid "Failed to realloc %s\n"
+msgstr "Failed to realloc %s\n"
+
+#, c-format
+msgid "Failed to unlink %s\n"
+msgstr "Failed to unlink %s\n"
+
+msgid "GPG key already present"
+msgstr "GPG key already present"
+
+msgid "GPG key could not be imported"
+msgstr "GPG key could not be imported"
+
+msgid "GPG key successfully imported"
+msgstr "GPG key successfully imported"
+
+#, c-format
+msgid "Get %s %s %s [%.1f%s]..."
+msgstr "Get %s %s %s [%.1f%s]..."
+
+msgid "Incomplete download"
+msgstr "Incomplete download"
+
+#, c-format
+msgid "Installed %s conflicts with %s\n"
+msgstr "インストールされた %s は %s と衝突します\n"
+
+msgid "MD5 checksum mismatch, override with --no-md5"
+msgstr "MD5 checksum mismatch, override with --no-md5"
+
+msgid "Missing MD5 checksum, override with --no-md5"
+msgstr "Missing MD5 checksum, override with --no-md5"
+
+#, c-format
+msgid "Need to get %.1f%s of archives.\n"
+msgstr " %.1f%s のアーカイブ取得が必要です\n"
+
+#, c-format
+msgid "Need to get %.1f%s/%.1f%s of archives.\n"
+msgstr " %.1f%s/%.1f%s のアーカイブ取得が必要です\n"
+
+msgid "No key for verification"
+msgstr "No key for verification"
+
+#, c-format
+msgid "No such package: %s\n"
+msgstr "そのようなパッケージはありません: %s\n"
+
+#, c-format
+msgid "Not Found\n"
+msgstr "Not Found\n"
+
+msgid "Not Verified"
+msgstr "Not Verified"
+
+msgid "Official"
+msgstr "Official"
+
+msgid "Official Patch"
+msgstr "Official Patch"
+
+#, c-format
+msgid "Options:\n"
+msgstr "オプション:\n"
+
+msgid "Package ChangeLog"
+msgstr "パッケージ更新履歴 (ChangeLog)"
+
+#, c-format
+msgid "Package Conflicts: %s\n"
+msgstr "衝突パッケージ: %s\n"
+
+#, c-format
+msgid "Package Description:\n"
+msgstr "パッケージの説明:\n"
+
+#, c-format
+msgid "Package Installed Size: %d K\n"
+msgstr "サイズ（インストール後）: %d K\n"
+
+#, c-format
+msgid "Package Installed: %s\n"
+msgstr "Package Installed: %s\n"
+
+#, c-format
+msgid "Package Location: %s\n"
+msgstr "場所: %s\n"
+
+#, c-format
+msgid "Package MD5 Sum:  %s\n"
+msgstr "パッケージの MD5 Sum:  %s\n"
+
+#, c-format
+msgid "Package Mirror: %s\n"
+msgstr "ミラー: %s\n"
+
+#, c-format
+msgid "Package Name: %s\n"
+msgstr "パッケージ名: %s\n"
+
+#, c-format
+msgid "Package Priority: %s\n"
+msgstr "Package Priority: %s\n"
+
+#, c-format
+msgid "Package Required: %s\n"
+msgstr "要求されるパッケージ: %s\n"
+
+#, c-format
+msgid "Package Size: %d K\n"
+msgstr "サイズ: %d K\n"
+
+#, c-format
+msgid "Package Suggests: %s\n"
+msgstr "推奨パッケージ: %s\n"
+
+#, c-format
+msgid "Package Version: %s\n"
+msgstr "バージョン: %s\n"
+
+#, c-format
+msgid "Perhaps you want to run --update?\n"
+msgstr " --update を実行してみてください\n"
+
+#, c-format
+msgid "Please update permissions on %s or run with appropriate privileges\n"
+msgstr ""
+"%s のパーミッションを更新するかもしくは適切な権限を与えて実行してください\n"
+
+msgid "Preferred"
+msgstr "Preferred"
+
+msgid "Preferred Patch"
+msgstr "Preferred Patch"
+
+#, c-format
+msgid "Preparing to install %s-%s\n"
+msgstr "%s-%s のインストール準備中\n"
+
+#, c-format
+msgid "Preparing to replace %s-%s with %s-%s\n"
+msgstr "%s-%s を %s-%s に置き換える準備中\n"
+
+#, c-format
+msgid "Reading Package Lists..."
+msgstr "パッケージリストを読込み中..."
+
+#, c-format
+msgid "Reading Package Lists... "
+msgstr "パッケージリストを読み込み中... "
+
+#, c-format
+msgid "Regex Error: %s\n"
+msgstr "Regex Error: %s\n"
+
+#, c-format
+msgid "Retrieving ChangeLog.txt [%s]..."
+msgstr "ChangeLog.txt [%s] を取得中..."
+
+#, c-format
+msgid "Retrieving GPG key [%s]..."
+msgstr "Retrieving GPG key [%s]..."
+
+#, c-format
+msgid "Retrieving checksum list [%s]..."
+msgstr "checksumリスト [%s]を取得中..."
+
+#, c-format
+msgid "Retrieving checksum signature [%s]..."
+msgstr "Retrieving checksum signature [%s]..."
+
+#, c-format
+msgid "Retrieving package data [%s]..."
+msgstr "パッケージデータ [%s]を取得中..."
+
+#, c-format
+msgid "Retrieving patch list [%s]..."
+msgstr "patchリスト [%s]を取得中..."
+
+#, c-format
+msgid "SOURCE directive not set within %s.\n"
+msgstr "%s にSOURCEが指定されていません\n"
+
+#, c-format
+msgid "Sources failed to download, correct sources and rerun --update\n"
+msgstr ""
+"ソース・ダウンロードに失敗。ソースを修正し --update を再施行してください。\n"
+
+#, c-format
+msgid "Suggested packages:\n"
+msgstr "推奨パッケージ:\n"
+
+#, c-format
 msgid "Targets:\n"
 msgstr "ターゲット:\n"
 
-msgid "retrieves pkg data from MIRROR"
-msgstr "ミラーからパッケージデータを取得"
+#, c-format
+msgid "The following NEW packages will be installed:\n"
+msgstr "以下の新規パッケージがインストールされます:\n"
 
-msgid "upgrade installed pkgs"
-msgstr "インストール済みパッケージをアップグレード"
+#, c-format
+msgid "The following packages have been EXCLUDED:\n"
+msgstr "以下のパッケージは対象から除外:\n"
 
-msgid "upgrade to newer release"
-msgstr "新しいリリースにアップグレード"
+#, c-format
+msgid "The following packages have unmet dependencies:\n"
+msgstr "以下のパッケージは依存性を満たしていません:\n"
+
+#, c-format
+msgid "The following packages will be REMOVED:\n"
+msgstr "以下のパッケージが削除されます:\n"
+
+#, c-format
+msgid "The following packages will be reinstalled:\n"
+msgstr "The following packages will be reinstalled:\n"
+
+#, c-format
+msgid "The following packages will be upgraded:\n"
+msgstr "以下のパッケージがアップグレードされます:\n"
+
+msgid "Unknown error"
+msgstr "Unknown error"
+
+#, c-format
+msgid "Usage:\n"
+msgstr "使用法:\n"
+
+msgid "Verified"
+msgstr "Verified"
+
+#, c-format
+msgid "Verifying checksum signature [%s]..."
+msgstr "Verifying checksum signature [%s]..."
+
+#, c-format
+msgid "WORKINGDIR directive not set within %s.\n"
+msgstr "%s にWORKINGDIRが指定されていません\n"
+
+#, c-format
+msgid "You don't have enough free space in %s\n"
+msgstr "十分な空きスペースがありません %s\n"
+
+msgid "[disk set(s)] - install specified disk set(s)"
+msgstr "[disk set(s)] - 指定したディスクセットをインストール"
+
+msgid "[expression] - search available pkgs"
+msgstr "[expression] - 利用可能なパッケージを検索"
 
 msgid "[pkg name(s)] - install specified pkg(s)"
 msgstr "[pkg name(s)] - 指定したパッケージをインストール"
@@ -218,14 +448,48 @@ msgstr "[pkg name(s)] - 指定したパッケージをインストール"
 msgid "[pkg name(s)] - remove specified pkg(s)"
 msgstr "[pkg name(s)] - 指定したパッケージを削除"
 
-msgid "[pkg name] - show pkg description"
-msgstr "[pkg name] - パッケージ情報を表示"
+msgid "[pkg name(s)] - show pkg description"
+msgstr ""
 
-msgid "[expression] - search available pkgs"
-msgstr "[expression] - 利用可能なパッケージを検索"
+msgid "[pkg name(s)] - show pkg installed files"
+msgstr ""
 
-msgid "list pkgs"
-msgstr "パッケージ・リスト"
+msgid "always prompt during install/upgrade"
+msgstr "インストール/アップグレード時に常にプロンプトを表示"
+
+msgid "display this help and exit"
+msgstr ""
+
+msgid "do not perform md5 check sum"
+msgstr "md5 チェックをしない"
+
+msgid "do not prompt during install/upgrade"
+msgstr "インストール/アップグレードでプロンプト表示しない"
+
+#, c-format
+msgid "error attempting to read pkg description\n"
+msgstr "パッケージ情報の読込み中にエラーが発生\n"
+
+#, c-format
+msgid "getline reached EOF attempting to read location\n"
+msgstr "getline reached EOF attempting to read location\n"
+
+#, c-format
+msgid "getline reached EOF attempting to read size_c\n"
+msgstr "getline reached EOF attempting to read size_c\n"
+
+#, c-format
+msgid "getline reached EOF attempting to read size_u\n"
+msgstr "getline reached EOF attempting to read size_u\n"
+
+msgid "ignore dependency failures"
+msgstr "依存性の不整合を無視"
+
+msgid "install package, do not attempt to upgrade"
+msgstr "パッケージをインストール,（アップグレードは行なわない）"
+
+msgid "install/upgrade excludes"
+msgstr "インストール/アップグレード 除外"
 
 msgid "list available pkgs"
 msgstr "利用可能なパッケージ・リスト"
@@ -233,40 +497,37 @@ msgstr "利用可能なパッケージ・リスト"
 msgid "list installed pkgs"
 msgstr "インストールされたパッケージ・リスト"
 
-msgid "purge cached pkgs"
-msgstr "パッケージ・キャッシュをクリア"
-
-msgid "print version and license info"
-msgstr "バージョンとライセンス情報を表示"
+msgid "list pkgs"
+msgstr "パッケージ・リスト"
 
 #, c-format
-msgid "Options:\n"
-msgstr "オプション:\n"
+msgid "md5 sum too long\n"
+msgstr "md5 sum が長すぎます\n"
+
+msgid "no"
+msgstr "いいえ"
 
 msgid "only download pkg on install/upgrade"
 msgstr "インストール/アップグレード パッケージのダウンロードのみ"
 
-msgid "show pkgs to be installed/upgraded"
-msgstr "インストール/アップグレード パッケージを表示"
+msgid "only purge cache of older, unreacheable pkgs"
+msgstr "only purge cache of older, unreacheable pkgs"
 
-msgid "do not prompt during install/upgrade"
-msgstr "インストール/アップグレードでプロンプト表示しない"
+#, c-format
+msgid "pkg conditional too long\n"
+msgstr "pkg conditional too long\n"
+
+msgid "print URIs only, do not download"
+msgstr "URIのみ表示する（ダウンロードしない）"
+
+msgid "print version and license info"
+msgstr "バージョンとライセンス情報を表示"
+
+msgid "purge cached pkgs"
+msgstr "パッケージ・キャッシュをクリア"
 
 msgid "re-install the pkg"
 msgstr "パッケージの再インストール"
-
-msgid "install/upgrade excludes"
-msgstr "インストール/アップグレード 除外"
-
-msgid "do not perform md5 check sum"
-msgstr "md5 チェックをしない"
-
-msgid "ignore dependency failures"
-msgstr "依存性の不整合を無視"
-
-#, c-format
-msgid "%s version %s\n"
-msgstr "%s version %s\n"
 
 #, c-format
 msgid "regex failed on [%s]\n"
@@ -277,307 +538,82 @@ msgid "regexec failed to parse location\n"
 msgstr "regexec failed to parse location\n"
 
 #, c-format
-msgid "getline reached EOF attempting to read location\n"
-msgstr "getline reached EOF attempting to read location\n"
-
-#, c-format
 msgid "regexec failed to parse size_c\n"
 msgstr "regexec failed to parse size_c\n"
-
-#, c-format
-msgid "getline reached EOF attempting to read size_c\n"
-msgstr "getline reached EOF attempting to read size_c\n"
 
 #, c-format
 msgid "regexec failed to parse size_u\n"
 msgstr "regexec failed to parse size_u\n"
 
-#, c-format
-msgid "getline reached EOF attempting to read size_u\n"
-msgstr "getline reached EOF attempting to read size_u\n"
-
-#, c-format
-msgid "error attempting to read pkg description\n"
-msgstr "パッケージ情報の読込み中にエラーが発生\n"
-
-#, c-format
-msgid "Failed to realloc %s\n"
-msgstr "Failed to realloc %s\n"
-
-#, c-format
-msgid "Failed to compile regex\n"
-msgstr "Failed to compile regex\n"
-
-#, c-format
-msgid "Regex Error: %s\n"
-msgstr "Regex Error: %s\n"
-
-#, c-format
-msgid "%s-%s is to be installed\n"
-msgstr "%s-%s がインストールされます\n"
-
-#, c-format
-msgid "Preparing to install %s-%s\n"
-msgstr "%s-%s のインストール準備中\n"
-
-#, c-format
-msgid "Failed to execute command: [%s]\n"
-msgstr "コマンド実行に失敗: [%s]\n"
-
-#, c-format
-msgid "%s-%s is to be upgraded to version %s\n"
-msgstr "%s-%s はバージョン %s にアップグレードされます\n"
-
-#, c-format
-msgid "Preparing to replace %s-%s with %s-%s\n"
-msgstr "%s-%s を %s-%s に置き換える準備中\n"
-
-#, c-format
-msgid "%s-%s is to be removed\n"
-msgstr "%s-%s が削除されます\n"
-
-#, c-format
-msgid "Failed to compile regex [%s]\n"
-msgstr "Failed to compile regex [%s]\n"
-
-#, c-format
-msgid "pkg conditional too long\n"
-msgstr "pkg conditional too long\n"
-
-#, c-format
-msgid "The following packages have unmet dependencies:\n"
-msgstr "以下のパッケージは依存性を満たしていません:\n"
-
-#, c-format
-msgid "  %s: Depends: %s\n"
-msgstr "  %s: Depends: %s\n"
-
-#, c-format
-msgid "The following packages have been EXCLUDED:\n"
-msgstr "以下のパッケージは対象から除外:\n"
-
-#, c-format
-msgid "The following NEW packages will be installed:\n"
-msgstr "以下の新規パッケージがインストールされます:\n"
-
-#, c-format
-msgid "The following packages will be REMOVED:\n"
-msgstr "以下のパッケージが削除されます:\n"
-
-#, c-format
-msgid "The following packages will be upgraded:\n"
-msgstr "以下のパッケージがアップグレードされます:\n"
-
-#, c-format
-msgid "%d upgraded, %d reinstalled, %d newly installed, %d to remove and %d not upgraded.\n"
-msgstr "%d アップグレード, %d reinstalled, %d 新規インストール, %d 削除, %d 非アップグレード\n"
-
-#, c-format
-msgid "Need to get %.1f%s of archives.\n"
-msgstr " %.1f%s のアーカイブ取得が必要です\n"
-
-#, c-format
-msgid "Need to get %.1f%s/%.1f%s of archives.\n"
-msgstr " %.1f%s/%.1f%s のアーカイブ取得が必要です\n"
-
-#, c-format
-msgid "After unpacking %.1f%s disk space will be freed.\n"
-msgstr "展開後 %.1f%s のディスクスペースが解放されます\n"
-
-#, c-format
-msgid "After unpacking %.1f%s of additional disk space will be used.\n"
-msgstr "展開後 %.1f%s のディスクスペースが消費されます\n"
-
-msgid "Do you want to continue? [y/N] "
-msgstr "このまま続けますか？ [y/N] "
-
-#, c-format
-msgid "Abort.\n"
-msgstr "中止\n"
-
-#, c-format
-msgid "%s, which is to be installed, conflicts with %s\n"
-msgstr "インストールしようとしている %s は %s と衝突します\n"
-
-#, c-format
-msgid "Installed %s conflicts with %s\n"
-msgstr "インストールされた %s は %s と衝突します\n"
-
-msgid "print URIs only, do not download"
-msgstr "URIのみ表示する（ダウンロードしない）"
-
-#, c-format
-msgid "Package MD5 Sum:  %s\n"
-msgstr "パッケージの MD5 Sum:  %s\n"
-
-#, c-format
-msgid "md5 sum too long\n"
-msgstr "md5 sum が長すぎます\n"
-
-#, c-format
-msgid "Reading Package Lists..."
-msgstr "パッケージリストを読込み中..."
-
-#, c-format
-msgid "%s, which is required by %s, is excluded\n"
-msgstr "%s（ %s に必要とされる）は除外されます\n"
-
-msgid "skip dependency check"
-msgstr "依存性検査をスキップ"
-
-msgid "show download statistics"
-msgstr "ダウンロード情報を表示"
-
-#, c-format
-msgid "Cached\n"
-msgstr "Cached\n"
-
-#, c-format
-msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr "ソース・ダウンロードに失敗。ソースを修正し --update を再施行してください。\n"
-
-msgid "specify alternate slapt-getrc location"
-msgstr "別の slapt-getrc 場所を指定してください"
-
-#, c-format
-msgid "Suggested packages:\n"
-msgstr "推奨パッケージ:\n"
-
-msgid "only purge cache of older, unreacheable pkgs"
-msgstr "only purge cache of older, unreacheable pkgs"
-
 msgid "remove obsolete packages"
 msgstr "obsolete対象パッケージを削除"
-
-#, c-format
-msgid "You don't have enough free space in %s\n"
-msgstr "十分な空きスペースがありません %s\n"
-
-#, c-format
-msgid "Package Conflicts: %s\n"
-msgstr "衝突パッケージ: %s\n"
-
-#, c-format
-msgid "Package Suggests: %s\n"
-msgstr "推奨パッケージ: %s\n"
-
-#, c-format
-msgid "Failed to parse package data from %s\n"
-msgstr "%s からのパッケージ・データ分析に失敗\n"
-
-msgid "specify number of download retry attempts"
-msgstr "ダウンロードのやり直し回数を指定"
-
-msgid "install package, do not attempt to upgrade"
-msgstr "パッケージをインストール,（アップグレードは行なわない）"
-
-msgid "[disk set(s)] - install specified disk set(s)"
-msgstr "[disk set(s)] - 指定したディスクセットをインストール"
-
-msgid "always prompt during install/upgrade"
-msgstr "インストール/アップグレード時に常にプロンプトを表示"
-
-#, c-format
-msgid "Excluding %s, use --ignore-dep to override\n"
-msgstr "Excluding %s, use --ignore-dep to override\n"
-
-msgid "Package ChangeLog"
-msgstr "パッケージ更新履歴 (ChangeLog)"
-
-#, c-format
-msgid "Retrieving ChangeLog.txt [%s]..."
-msgstr "ChangeLog.txt [%s] を取得中..."
-
-msgid "MD5 checksum mismatch, override with --no-md5"
-msgstr "MD5 checksum mismatch, override with --no-md5"
-
-msgid "Missing MD5 checksum, override with --no-md5"
-msgstr "Missing MD5 checksum, override with --no-md5"
-
-msgid "Incomplete download"
-msgstr "Incomplete download"
-
-msgid "GPG key successfully imported"
-msgstr "GPG key successfully imported"
-
-msgid "GPG key could not be imported"
-msgstr "GPG key could not be imported"
-
-msgid "GPG key already present"
-msgstr "GPG key already present"
-
-msgid "Checksums signature successfully verified"
-msgstr "Checksums signature successfully verified"
-
-msgid "Checksums signature could not be verified"
-msgstr "Checksums signature could not be verified"
-
-msgid "Verified"
-msgstr "Verified"
-
-msgid "Not Verified"
-msgstr "Not Verified"
-
-#, c-format
-msgid "Retrieving GPG key [%s]..."
-msgstr "Retrieving GPG key [%s]..."
-
-#, c-format
-msgid "Retrieving checksum signature [%s]..."
-msgstr "Retrieving checksum signature [%s]..."
-
-msgid "No key for verification"
-msgstr "No key for verification"
 
 msgid "retrieve GPG keys for sources"
 msgstr "retrieve GPG keys for sources"
 
-#, c-format
-msgid "Verifying checksum signature [%s]..."
-msgstr "Verifying checksum signature [%s]..."
+msgid "retrieves pkg data from MIRROR"
+msgstr "ミラーからパッケージデータを取得"
 
-msgid "Unknown error"
-msgstr "Unknown error"
+msgid "show download statistics"
+msgstr "ダウンロード情報を表示"
 
-#, c-format
-msgid "Not Found\n"
-msgstr "Not Found\n"
+msgid "show pkgs to be installed/upgraded"
+msgstr "インストール/アップグレード パッケージを表示"
 
-msgid "Default"
-msgstr "Default"
+msgid "skip dependency check"
+msgstr "依存性検査をスキップ"
 
-msgid "Default Patch"
-msgstr "Default Patch"
+msgid "specify alternate slapt-getrc location"
+msgstr "別の slapt-getrc 場所を指定してください"
 
-msgid "Preferred"
-msgstr "Preferred"
+msgid "specify number of download retry attempts"
+msgstr "ダウンロードのやり直し回数を指定"
 
-msgid "Preferred Patch"
-msgstr "Preferred Patch"
+msgid "upgrade installed pkgs"
+msgstr "インストール済みパッケージをアップグレード"
 
-msgid "Official"
-msgstr "Official"
+msgid "upgrade to newer release"
+msgstr "新しいリリースにアップグレード"
 
-msgid "Official Patch"
-msgstr "Official Patch"
+msgid "yes"
+msgstr "はい"
 
-msgid "Custom"
-msgstr "Custom"
+#~ msgid "\tchdir back into %s\n"
+#~ msgstr "\tchdir back into %s\n"
 
-msgid "Custom Patch"
-msgstr "Custom Patch"
+#~ msgid ""
+#~ "%d upgraded, %d reinstalled, %d newly installed, %d to remove and %d not "
+#~ "upgraded.\n"
+#~ msgstr ""
+#~ "%d アップグレード, %d reinstalled, %d 新規インストール, %d 削除, %d 非アッ"
+#~ "プグレード\n"
 
-#, c-format
-msgid "Package Priority: %s\n"
-msgstr "Package Priority: %s\n"
+#~ msgid "Failed to compile regex [%s]\n"
+#~ msgstr "Failed to compile regex [%s]\n"
 
-msgid "[pkg name] - show pkg installed files"
-msgstr "[pkg name] - show pkg installed files"
+#~ msgid "File: %s/%s\n"
+#~ msgstr "ファイル: %s/%s\n"
 
-#, c-format
-msgid "Delete %s ? [y/N]"
-msgstr "Delete %s ? [y/N]"
+#~ msgid "MD5 expected: [%s]\n"
+#~ msgstr "MD5 expected: [%s]\n"
 
-#, c-format
-msgid "The following packages will be reinstalled:\n"
-msgstr "The following packages will be reinstalled:\n"
+#~ msgid "MD5 found:    [%s]\n"
+#~ msgstr "MD5 found:    [%s]\n"
+
+#~ msgid "Retrieving extras list [%s]..."
+#~ msgstr "extraリスト [%s]を取得中..."
+
+#~ msgid "Retrieving extras list [%s]...\n"
+#~ msgstr "extraリスト [%s]を取得中...\n"
+
+#~ msgid "Retrieving package data [%s]...\n"
+#~ msgstr "パッケージデータ [%s]を取得中...\n"
+
+#~ msgid "Retrieving patch list [%s]...\n"
+#~ msgstr "patchリスト [%s]を取得中...\n"
+
+#~ msgid "[pkg name] - show pkg description"
+#~ msgstr "[pkg name] - パッケージ情報を表示"
+
+#~ msgid "[pkg name] - show pkg installed files"
+#~ msgstr "[pkg name] - show pkg installed files"
