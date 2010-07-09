@@ -30,7 +30,7 @@ void slapt_pkg_action_install(const slapt_rc_config *global_config,
   struct slapt_pkg_list *avail_pkgs = NULL;
   slapt_regex_t *pkg_regex = NULL;
 
-  printf( gettext("Reading Package Lists... ") );
+  printf( gettext("Reading Package Lists...") );
   installed_pkgs = slapt_get_installed_pkgs();
   avail_pkgs = slapt_get_available_pkgs();
 
@@ -234,7 +234,7 @@ void slapt_pkg_action_remove(const slapt_rc_config *global_config,
   slapt_regex_t *pkg_regex = NULL;
   slapt_transaction_t *tran = NULL;
 
-  printf(gettext("Reading Package Lists... "));
+  printf(gettext("Reading Package Lists..."));
   installed_pkgs = slapt_get_installed_pkgs();
   avail_pkgs = slapt_get_available_pkgs();
   printf(gettext("Done\n"));
@@ -481,7 +481,7 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
   struct slapt_pkg_list *avail_pkgs = NULL;
   slapt_transaction_t *tran = NULL;
 
-  printf(gettext("Reading Package Lists... "));
+  printf(gettext("Reading Package Lists..."));
   installed_pkgs = slapt_get_installed_pkgs();
   avail_pkgs = slapt_get_available_pkgs();
 

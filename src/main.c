@@ -437,14 +437,14 @@ void usage(void)
   printf(gettext("%s [option(s)] [target]\n"),PACKAGE);
   printf("\n");
   printf(gettext("Targets:\n"));
-  printf("  --update|-u    - %s\n",gettext("retrieves pkg data from MIRROR"));
+  printf("  --update|-u    - %s\n",gettext("retrieve pkg data from MIRROR"));
   printf("  --upgrade      - %s\n",gettext("upgrade installed pkgs"));
   printf("  --dist-upgrade - %s\n",gettext("upgrade to newer release"));
   printf("  --install|-i   %s\n",gettext("[pkg name(s)] - install specified pkg(s)"));
   printf("  --install-set  %s\n",gettext("[disk set(s)] - install specified disk set(s)"));
   printf("  --remove       %s\n",gettext("[pkg name(s)] - remove specified pkg(s)"));
-  printf("  --show         %s\n",gettext("[pkg name(s)] - show pkg description"));
-  printf("  --filelist     %s\n",gettext("[pkg name(s)] - show pkg installed files"));
+  printf("  --show         %s\n",gettext("[pkg name(s)] - show pkg(s) description"));
+  printf("  --filelist     %s\n",gettext("[pkg name(s)] - show pkg(s) installed files"));
   printf("  --search       %s\n",gettext("[expression] - search available pkgs"));
   printf("  --list         - %s\n",gettext("list pkgs"));
   printf("  --available    - %s\n",gettext("list available pkgs"));
@@ -462,7 +462,7 @@ void usage(void)
   printf("  --simulate|-s       - %s\n",gettext("show pkgs to be installed/upgraded"));
   printf("  --no-prompt|-y      - %s\n",gettext("do not prompt during install/upgrade"));
   printf("  --prompt|-p         - %s\n",gettext("always prompt during install/upgrade"));
-  printf("  --reinstall         - %s\n",gettext("re-install the pkg"));
+  printf("  --reinstall         - %s\n",gettext("reinstall the pkg"));
   printf("  --ignore-excludes   - %s\n",gettext("install/upgrade excludes"));
   printf("  --no-md5            - %s\n",gettext("do not perform md5 check sum"));
   printf("  --no-dep            - %s\n",gettext("skip dependency check"));
