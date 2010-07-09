@@ -13,6 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Last-Translators: Verachten Bruno <gounthar@gmail.com>, solsTiCe d'Hiver <solstice.dhiver@laposte.net>\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #, c-format
 msgid "Reading Package Lists... "
