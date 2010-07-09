@@ -87,7 +87,7 @@ doinstall: libsinstall
 	gzip -f $(DESTDIR)/usr/man/ru/man8/$(PACKAGE).8
 	gzip -f $(DESTDIR)/usr/man/uk/man8/$(PACKAGE).8
 	install -d $(DESTDIR)/var/$(PACKAGE)
-	for i in `ls po/ --ignore=slapt-get.pot --ignore=CVS |sed 's/.po//'` ;do if [ ! -d $(DESTDIR)$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES ]; then mkdir -p $(DESTDIR)$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES; fi; msgfmt -o $(DESTDIR)$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES/slapt-get.mo po/$$i.po;done
+	for i in `ls po/*.po | sed 's/.po//' | xargs -n1 basename` ;do if [ ! -d $(DESTDIR)$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES ]; then mkdir -p $(DESTDIR)$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES; fi; msgfmt -o $(DESTDIR)$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES/slapt-get.mo po/$$i.po;done
 	mkdir -p $(DESTDIR)/usr/doc/$(PACKAGE)-$(VERSION)/
 	cp -f default.slapt-getrc.* example.slapt-getrc.* COPYING ChangeLog INSTALL README FAQ FAQ.html TODO $(DESTDIR)/usr/doc/$(PACKAGE)-$(VERSION)/
 
@@ -162,10 +162,10 @@ dopkg:
 	-( cd pkg; /sbin/makepkg -l y -c n ../$(PACKAGE)-$(VERSION)-$(ARCH)-$(RELEASE).tgz )
 
 po_file:
-	-xgettext -o po/slapt-get.pot.new -sC --no-location src/*
-	-if [ ! -f po/slapt-get.pot ]; then mv po/slapt-get.pot.new po/slapt-get.pot; else msgmerge -Us --backup=simple po/slapt-get.pot po/slapt-get.pot.new ; fi
+	-xgettext -o po/slapt-get.pot.new -sC --no-location src/*.c src/*.h
+	-if [ ! -f po/slapt-get.pot ]; then mv po/slapt-get.pot.new po/slapt-get.pot; else msgmerge -Us po/slapt-get.pot po/slapt-get.pot.new ; fi
 	-rm po/slapt-get.pot.new
-	-for i in `ls po/ --ignore=slapt-get.pot* --ignore=CVS`; do msgmerge -UNs --backup=simple po/$$i po/slapt-get.pot; done
+	-for i in `ls po/*.po | sed -re 's/\.po//' | xargs -n1 basename`; do msgmerge -UNs po/$$i po/slapt-get.pot; done
 
 libs: $(OBJS)
 	touch libs
