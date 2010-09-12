@@ -1,5 +1,6 @@
 
 0.10.2g Sept 12, 2010
+ * added slapt_download_data to public API
  * translation changes by Igor Murzov
 
 0.10.2f June 21, 2010

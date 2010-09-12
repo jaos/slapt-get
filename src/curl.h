@@ -1,5 +1,11 @@
 
 /*
+  download data to file
+  returns curl code
+*/
+int slapt_download_data(FILE *, const char *, size_t, long *, const slapt_rc_config *);
+
+/*
   retrieves the head data for the url, returns (char *) or NULL on error
 */
 char *slapt_head_request(const char *url);

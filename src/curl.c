@@ -25,7 +25,7 @@ struct head_data_t {
   size_t size;
 };
 
-static int slapt_download_data(FILE *fh,const char *url,size_t bytes,long *filetime,
+int slapt_download_data(FILE *fh,const char *url,size_t bytes,long *filetime,
                   const slapt_rc_config *global_config)
 {
   CURL *ch = NULL;
