@@ -48,8 +48,8 @@ msgstr[1] "%d para quitar, "
 #, c-format
 msgid "%d upgraded, "
 msgid_plural "%d upgraded, "
-msgstr[0] "%d actualizado.\n"
-msgstr[1] "%d actualizados.\n"
+msgstr[0] "%d actualizado, "
+msgstr[1] "%d actualizados, "
 
 #, c-format
 msgid "%s [option(s)] [target]\n"
