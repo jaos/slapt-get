@@ -57,7 +57,7 @@ int slapt_download_data(FILE *fh,const char *url,size_t bytes,long *filetime,
 
   headers = curl_slist_append(headers, "Pragma: "); /* override no-cache */
 
-  if (global_config->dl_stats != 1) {
+  if (global_config->dl_stats != SLAPT_TRUE) {
     if (global_config->progress_cb == NULL) {
       curl_easy_setopt(ch, CURLOPT_PROGRESSFUNCTION, slapt_progress_callback );
     } else {
