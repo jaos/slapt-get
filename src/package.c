@@ -64,6 +64,9 @@ struct slapt_pkg_list *slapt_get_available_pkgs(void)
   list = slapt_parse_packages_txt(pkg_list_fh);
   fclose(pkg_list_fh);
 
+  /* this is pointless to do if we wrote the data sorted, but this 
+     ensures upgrades from older, presorting slapt-gets still work 
+     as expected. */
   qsort( list->pkgs, list->pkg_count, sizeof(list->pkgs[0]), pkg_compare );
 
   list->ordered = SLAPT_TRUE;
