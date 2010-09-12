@@ -6,10 +6,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.10.2f\n"
+"Project-Id-Version: 0.10.2g\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-07-09 20:54+0400\n"
-"PO-Revision-Date: 2010-06-20 19:30-0300\n"
+"PO-Revision-Date: 2010-09-12 15:45-0300\n"
 "Last-Translator: seacat <seacat.lang@gmail.com>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -24,32 +24,32 @@ msgstr "  %s: Depende de: %s\n"
 #, c-format
 msgid "%d newly installed, "
 msgid_plural "%d newly installed, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d recién instalado, "
+msgstr[1] "%d recién instalados, "
 
 #, c-format
 msgid "%d not upgraded.\n"
 msgid_plural "%d not upgraded.\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d no actualizado.\n"
+msgstr[1] "%d no actualizados.\n"
 
 #, c-format
 msgid "%d reinstalled, "
 msgid_plural "%d reinstalled, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d reinstalado, "
+msgstr[1] "%d reinstalados, "
 
 #, c-format
 msgid "%d to remove, "
 msgid_plural "%d to remove, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d para quitar, "
+msgstr[1] "%d para quitar, "
 
 #, c-format
 msgid "%d upgraded, "
 msgid_plural "%d upgraded, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d actualizado.\n"
+msgstr[1] "%d actualizados.\n"
 
 #, c-format
 msgid "%s [option(s)] [target]\n"
@@ -97,9 +97,7 @@ msgstr "Después de descomprimir, se liberarán %.1f%s de espacio en disco.\n"
 
 #, c-format
 msgid "After unpacking %.1f%s of additional disk space will be used.\n"
-msgstr ""
-"Después de descomprimir, se usará un adicional de %.1f%s de espacio en "
-"disco.\n"
+msgstr "Después de descomprimir, se usará un adicional de %.1f%s de espacio en disco.\n"
 
 #, c-format
 msgid "An implementation of the Debian APT system to Slackware\n"
@@ -223,8 +221,7 @@ msgid "Installed %s conflicts with %s\n"
 msgstr "%s que se instalaló, crea conflictos con %s\n"
 
 msgid "MD5 checksum mismatch, override with --no-md5"
-msgstr ""
-"No hay coincidencia de sumas de verificación MD5, invalidar con --no-md5"
+msgstr "No hay coincidencia de sumas de verificación MD5, invalidar con --no-md5"
 
 msgid "Missing MD5 checksum, override with --no-md5"
 msgstr "Falta la suma de verificación MD5, invalidar con --no-md5"
@@ -322,9 +319,7 @@ msgstr "¿Tal vez quiera ejecutar --update?\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr ""
-"Por favor, actualice los permisos de %s o ejecútelo con los privilegios "
-"adecuados\n"
+msgstr "Por favor, actualice los permisos de %s o ejecútelo con los privilegios adecuados\n"
 
 msgid "Preferred"
 msgstr "Preferido"
@@ -378,9 +373,7 @@ msgstr "La directiva SOURCE no está definida dentro de %s.\n"
 
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr ""
-"Las fuentes fallaron al descargar, corregir las fuentes y ejecutar "
-"nuevamente --update\n"
+msgstr "Las fuentes fallaron al descargar, corregir las fuentes y ejecutar nuevamente --update\n"
 
 #, c-format
 msgid "Suggested packages:\n"
@@ -437,8 +430,7 @@ msgid "You don't have enough free space in %s\n"
 msgstr "No tiene suficiente espacio libre en %s\n"
 
 msgid "[disk set(s)] - install specified disk set(s)"
-msgstr ""
-"[juego(s) de disco(s)] - instalar el/los joego(s) de disco(s) especificado(s)"
+msgstr "[juego(s) de disco(s)] - instalar el/los joego(s) de disco(s) especificado(s)"
 
 msgid "[expression] - search available pkgs"
 msgstr "[expresión] - buscar paquetes disponibles"
@@ -450,16 +442,16 @@ msgid "[pkg name(s)] - remove specified pkg(s)"
 msgstr "[nombre(s) de paquete(s)] - eliminar el/los paquete(s) especificado(s)"
 
 msgid "[pkg name(s)] - show pkg(s) description"
-msgstr ""
+msgstr "[nombre(s) de paquete(s)] - mostrar la descripción del / de los paquete(s)"
 
 msgid "[pkg name(s)] - show pkg(s) installed files"
-msgstr ""
+msgstr "[nombre(s) de paquete(s)] - mostrar el/los paquete(s) instalado(s)"
 
 msgid "always prompt during install/upgrade"
 msgstr "siempre preguntar durante la instalación/actualización"
 
 msgid "display this help and exit"
-msgstr ""
+msgstr "mostrar esta ayuda y salir"
 
 msgid "do not perform md5 check sum"
 msgstr "no ejecutar la suma de verificación md5"
@@ -473,8 +465,7 @@ msgstr "error al intentar leer la descripción del paquete\n"
 
 #, c-format
 msgid "getline reached EOF attempting to read location\n"
-msgstr ""
-"getline encontró el final de archivo (EOF) al tratar de leer la ubicación\n"
+msgstr "getline encontró el final de archivo (EOF) al tratar de leer la ubicación\n"
 
 #, c-format
 msgid "getline reached EOF attempting to read size_c\n"
@@ -545,7 +536,7 @@ msgid "regexec failed to parse size_u\n"
 msgstr "regexec no pudo procesar size_u\n"
 
 msgid "reinstall the pkg"
-msgstr ""
+msgstr "reinstalar el paquete"
 
 msgid "remove obsolete packages"
 msgstr "eliminando paquetes obsoletos"
@@ -554,7 +545,7 @@ msgid "retrieve GPG keys for sources"
 msgstr "recuperando las claves GPG para las fuentes"
 
 msgid "retrieve pkg data from MIRROR"
-msgstr ""
+msgstr "recuperar los datos del paquete desde el MIRROR"
 
 msgid "show download statistics"
 msgstr "mostrar estadísticas de decarga"
@@ -628,3 +619,4 @@ msgstr "sí"
 
 #~ msgid "retrieves pkg data from MIRROR"
 #~ msgstr "recupera los datos del paquete desde el MIRROR"
+
