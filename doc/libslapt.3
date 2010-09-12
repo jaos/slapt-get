@@ -366,6 +366,8 @@ The \fIslapt_clean_description\fP() function is used to clean the package name f
 Downloading packages and the package data from various sources is handled with the following functions.  Functions with integer return types return non-zero on error.  \fIslapt_update_pkg_cache\fP() and \fIslapt_get_available_pkgs\fP() assume to be chdir'd to the working directory.
 .sp
 .nf
+.B "int slapt_download_data(FILE *fh, const char *url, size_t bytes, long *filetime,"
+.B "                  const slapt_rc_config *global_config);"
 .B "int slapt_update_pkg_cache(const slapt_rc_config *global_config);"
 .B "const char *slapt_download_pkg(const slapt_rc_config *global_config,"
 .B "                       slapt_pkg_info_t *pkg);"

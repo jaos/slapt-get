@@ -1,9 +1,10 @@
 
 /*
-  download data to file
+  download data to file, resuming from bytes and preserving filetime.
   returns curl code
 */
-int slapt_download_data(FILE *, const char *, size_t, long *, const slapt_rc_config *);
+int slapt_download_data(FILE *fh, const char *url, size_t bytes, long *filetime,
+                  const slapt_rc_config *global_config);
 
 /*
   retrieves the head data for the url, returns (char *) or NULL on error
