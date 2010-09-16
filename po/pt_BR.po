@@ -7,9 +7,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.2f\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: Sérgio Surkamp <surkamp@gmail.com>\n"
 "POT-Creation-Date: 2010-07-09 20:54+0400\n"
-"PO-Revision-Date: 2010-06-07 21:05+0500\n"
+"PO-Revision-Date: 2010-09-16 12:04-0300\n"
 "Last-Translator: Sérgio Surkamp <surkamp@gmail.com>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -24,32 +24,32 @@ msgstr "  %s: Depende: %s\n"
 #, c-format
 msgid "%d newly installed, "
 msgid_plural "%d newly installed, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d será instalado, "
+msgstr[1] "%d serão instalados, "
 
 #, c-format
 msgid "%d not upgraded.\n"
 msgid_plural "%d not upgraded.\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d não será atualizado.\n"
+msgstr[1] "%d não serão atualizados.\n"
 
 #, c-format
 msgid "%d reinstalled, "
 msgid_plural "%d reinstalled, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d será reinstalado, "
+msgstr[1] "%d serão reinstalados, "
 
 #, c-format
 msgid "%d to remove, "
 msgid_plural "%d to remove, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d será removido, "
+msgstr[1] "%d serão removidos, "
 
 #, c-format
 msgid "%d upgraded, "
 msgid_plural "%d upgraded, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d será atualizado, "
+msgstr[1] "%d serão atualizados, "
 
 #, c-format
 msgid "%s [option(s)] [target]\n"
@@ -134,7 +134,7 @@ msgstr "Você deseja continuar? [y/N] "
 
 #, c-format
 msgid "Done\n"
-msgstr "Pronto\n"
+msgstr "Concluído\n"
 
 #, c-format
 msgid "Excluding %s, use --ignore-dep to override\n"
@@ -211,7 +211,7 @@ msgstr "Chave GPG importada com sucesso"
 
 #, c-format
 msgid "Get %s %s %s [%.1f%s]..."
-msgstr "Obtendo %s %s %s [%.1f%s]..."
+msgstr "Descarregando %s %s %s [%.1f%s]..."
 
 msgid "Incomplete download"
 msgstr "Descarregamento incompleto"
@@ -266,7 +266,7 @@ msgstr "ChangeLog do Pacote"
 
 #, c-format
 msgid "Package Conflicts: %s\n"
-msgstr "Conflitos de Pacotes: %s\n"
+msgstr "Pacote(s) conflitante(s): %s\n"
 
 #, c-format
 msgid "Package Description:\n"
@@ -349,27 +349,27 @@ msgstr "Erro de regex: %s\n"
 
 #, c-format
 msgid "Retrieving ChangeLog.txt [%s]..."
-msgstr "Recebendo o ChangeLog.txt [%s]..."
+msgstr "Descarregando o ChangeLog.txt [%s]..."
 
 #, c-format
 msgid "Retrieving GPG key [%s]..."
-msgstr "Recebendo a chave GPG [%s]..."
+msgstr "Descarregando a chave GPG [%s]..."
 
 #, c-format
 msgid "Retrieving checksum list [%s]..."
-msgstr "Recebendo a lista de checksum [%s]..."
+msgstr "Descarregando a lista de assinaturas por soma [%s]..."
 
 #, c-format
 msgid "Retrieving checksum signature [%s]..."
-msgstr "Recebendo assinaturas por checksum [%s]..."
+msgstr "Descarregando assinaturas por checksum [%s]..."
 
 #, c-format
 msgid "Retrieving package data [%s]..."
-msgstr "Recebendo as informações de pacotes [%s]..."
+msgstr "Descarregando as informações de pacotes [%s]..."
 
 #, c-format
 msgid "Retrieving patch list [%s]..."
-msgstr "Recebendo a lista de correções [%s]..."
+msgstr "Descarregando a lista de correções [%s]..."
 
 #, c-format
 msgid "SOURCE directive not set within %s.\n"
@@ -377,7 +377,8 @@ msgstr "Diretiva SOURCE não configurada em %s.\n"
 
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr "Falha na obtenção, corrija os fontes e rode novamente o --update\n"
+msgstr ""
+"Falha no descarregamento, corrija os fontes e rode novamente o --update\n"
 
 #, c-format
 msgid "Suggested packages:\n"
@@ -397,7 +398,7 @@ msgstr "Os seguintes pacotes foram EXCLUÍDOS:\n"
 
 #, c-format
 msgid "The following packages have unmet dependencies:\n"
-msgstr "Os seguintes pacotes tem as dependencias não preenchidas:\n"
+msgstr "Os seguintes pacotes tem as dependencias não resolvidas:\n"
 
 #, c-format
 msgid "The following packages will be REMOVED:\n"
@@ -416,7 +417,7 @@ msgstr "Erro desconhecido"
 
 #, c-format
 msgid "Usage:\n"
-msgstr "Uso:\n"
+msgstr "Utilização:\n"
 
 msgid "Verified"
 msgstr "Verificado"
@@ -436,7 +437,7 @@ msgstr "Você não possui espaço livre suficiente em %s\n"
 msgid "[disk set(s)] - install specified disk set(s)"
 msgstr ""
 "[conjunto(s) de disco(s)] - instalar o(s) conjunto(s) de disco(s) "
-"especificado(s)"
+"especificado"
 
 msgid "[expression] - search available pkgs"
 msgstr "[expressão] - busca por pacotes disponíveis"
@@ -448,22 +449,24 @@ msgid "[pkg name(s)] - remove specified pkg(s)"
 msgstr "[nome do(s) pacote(s)] - remove pacote(s) especificado(s)"
 
 msgid "[pkg name(s)] - show pkg(s) description"
-msgstr ""
+msgstr "[nome(s) do(s) pacote(s)] - apresenta a descrição do(s) pacote(s)"
 
 msgid "[pkg name(s)] - show pkg(s) installed files"
 msgstr ""
+"[nome(s) do(s) pacote(s)] - apresenta os arquivos instalados pelo(s) pacote"
+"(s)"
 
 msgid "always prompt during install/upgrade"
-msgstr "sempre confirmar durante um alvo install/upgrade"
+msgstr "sempre confirmar durante instalar/atualizar"
 
 msgid "display this help and exit"
-msgstr ""
+msgstr "apresenta esta ajuda"
 
 msgid "do not perform md5 check sum"
 msgstr "não validar soma md5"
 
 msgid "do not prompt during install/upgrade"
-msgstr "saída suprimida enquanto instalar/atualizar"
+msgstr "não confirmar durante instalar/atualizar"
 
 #, c-format
 msgid "error attempting to read pkg description\n"
@@ -507,10 +510,10 @@ msgid "no"
 msgstr "não"
 
 msgid "only download pkg on install/upgrade"
-msgstr "apenas obter o(s) pacote(s) para os alvos install/upgrade"
+msgstr "apenas descarregar o(s) pacote(s) durante instalar/atualizar"
 
 msgid "only purge cache of older, unreacheable pkgs"
-msgstr "remove do cache apenas os pacotes antigos"
+msgstr "remove da cache apenas os pacotes antigos"
 
 #, c-format
 msgid "pkg conditional too long\n"
@@ -523,7 +526,7 @@ msgid "print version and license info"
 msgstr "mostra versão e informações da licensa"
 
 msgid "purge cached pkgs"
-msgstr "limpa cache de pacotes"
+msgstr "remove cache de pacotes"
 
 #, c-format
 msgid "regex failed on [%s]\n"
@@ -542,19 +545,19 @@ msgid "regexec failed to parse size_u\n"
 msgstr "regexec falhou ao realizar parse de size_u\n"
 
 msgid "reinstall the pkg"
-msgstr ""
+msgstr "reinstala o(s) pacote(s)"
 
 msgid "remove obsolete packages"
 msgstr "remove pacotes obsoletos"
 
 msgid "retrieve GPG keys for sources"
-msgstr "obtendo chave GPG keys para fontes"
+msgstr "descarrega chave GPG para fontes"
 
 msgid "retrieve pkg data from MIRROR"
-msgstr ""
+msgstr "descarrega o(s) pacote(s) do MIRROR"
 
 msgid "show download statistics"
-msgstr "mostra estatísticas de obtenção"
+msgstr "mostra estatísticas de descarregamento"
 
 msgid "show pkgs to be installed/upgraded"
 msgstr "apresenta pacotes a serem instalados/atualizados"
@@ -563,7 +566,7 @@ msgid "skip dependency check"
 msgstr "ignorando verificação de dependência"
 
 msgid "specify alternate slapt-getrc location"
-msgstr "especifica outro caminho para o slapt-getrc"
+msgstr "especifica caminho alternativo para o slapt-getrc"
 
 msgid "specify number of download retry attempts"
 msgstr "especifica o número máximo de tentativas de descarregamento"
