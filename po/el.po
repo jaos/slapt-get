@@ -2,13 +2,13 @@
 # Copyright (C) 2004, 2005
 # This file is distributed under the same license as the slapt-get package.
 # Savvas Efstratiadis, 2004, 2005.
-# George Vlahavas, 2009.
+# George Vlahavas, 2009, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.2f\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-07-09 20:54+0400\n"
-"PO-Revision-Date: 2010-06-15 10:52+0200\n"
+"PO-Revision-Date: 2010-09-18 00:49+0200\n"
 "Last-Translator: George Vlahavas <vlahavas~at~gmail~dot~com>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -23,32 +23,32 @@ msgstr "  Το %s: απαιτεί το: %s\n"
 #, c-format
 msgid "%d newly installed, "
 msgid_plural "%d newly installed, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "το %d μόλις εγκαταστάθηκε,"
+msgstr[1] "τα %d μόλις εγκαταστάθηκαν,"
 
 #, c-format
 msgid "%d not upgraded.\n"
 msgid_plural "%d not upgraded.\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "το %d δεν αναβαθμίστηκε.\n"
+msgstr[1] "τα %d δεν αναβαθμίστηκαν.\n"
 
 #, c-format
 msgid "%d reinstalled, "
 msgid_plural "%d reinstalled, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "το %d επανεγκαταστάθηκε,"
+msgstr[1] "τα %d επανεγκαταστάθηκαν,"
 
 #, c-format
 msgid "%d to remove, "
 msgid_plural "%d to remove, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "το %d είναι προς απομάκρυνση,"
+msgstr[1] "τα %d είναι προς απομάκρυνση,"
 
 #, c-format
 msgid "%d upgraded, "
 msgid_plural "%d upgraded, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "το %d αναβαθμίστηκε, "
+msgstr[1] "τα %d αναβαθμίστηκαν, "
 
 #, c-format
 msgid "%s [option(s)] [target]\n"
@@ -318,9 +318,7 @@ msgstr "Πιθανόν να θέλετε να εκτελέσετε --update?\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr ""
-"Παρακαλώ αναβαθμίστε τα δικαιώματα στο %s ή εκτελέστε με τα απαραίτητα "
-"δικαιώματα\n"
+msgstr "Παρακαλώ αναβαθμίστε τα δικαιώματα στο %s ή εκτελέστε με τα απαραίτητα δικαιώματα\n"
 
 msgid "Preferred"
 msgstr "Προτιμώμενο"
@@ -374,9 +372,7 @@ msgstr "Το SOURCE δεν έχει οριστεί στο %s.\n"
 
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr ""
-"Αποτυχία πηγών για λήψη αρχείων, διορθώστε τις πηγές και επανεκτελέστε το --"
-"update\n"
+msgstr "Αποτυχία πηγών για λήψη αρχείων, διορθώστε τις πηγές και επανεκτελέστε το --update\n"
 
 #, c-format
 msgid "Suggested packages:\n"
@@ -445,16 +441,16 @@ msgid "[pkg name(s)] - remove specified pkg(s)"
 msgstr "[ονόματα πακέτων] - απεγκατάσταση επιλεγμένων πακέτων"
 
 msgid "[pkg name(s)] - show pkg(s) description"
-msgstr ""
+msgstr "[όνομα πακέτου(ων)] - εμφάνιση της περιγραφής των πακέτων"
 
 msgid "[pkg name(s)] - show pkg(s) installed files"
-msgstr ""
+msgstr "[όνομα πακέτου(ων)] - εμφάνιση των εγκατεστημένων αρχείων των πακέτων"
 
 msgid "always prompt during install/upgrade"
 msgstr "πάντα να εμφανίζεται μήνυμα κατά την εγκατάσταση/αναβάθμιση"
 
 msgid "display this help and exit"
-msgstr ""
+msgstr "εμφάνιση του παρόντος μηνύματος βοήθειας και έξοδος"
 
 msgid "do not perform md5 check sum"
 msgstr "να μη γίνει έλεγχος md5"
@@ -539,7 +535,7 @@ msgid "regexec failed to parse size_u\n"
 msgstr "αποτυχία regexec ανάλυσης size_u\n"
 
 msgid "reinstall the pkg"
-msgstr ""
+msgstr "επανεγκατάσταση του πακέτου"
 
 msgid "remove obsolete packages"
 msgstr "διαγραφή ξεπερασμένων πακέτων"
@@ -548,7 +544,7 @@ msgid "retrieve GPG keys for sources"
 msgstr "ανάκτηση των κλειδιών GPG για τις πηγές"
 
 msgid "retrieve pkg data from MIRROR"
-msgstr ""
+msgstr "ανάκτηση δεδομένων πακέτου από το MIRROR"
 
 msgid "show download statistics"
 msgstr "προβολή στατιστικών λήψης αρχείων"
