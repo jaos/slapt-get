@@ -438,6 +438,18 @@ void slapt_remove_list_item(slapt_list_t *list, const char *item)
   }
 }
 
+const char *slapt_search_list(slapt_list_t *list, const char *needle)
+{
+  unsigned int i;
+
+  for (i = 0; i < list->count; i++) {
+    if (strcmp (list->items[i], needle) == 0)
+      return list->items[i];
+  }
+
+  return NULL;
+}
+
 void slapt_free_list(slapt_list_t *list)
 {
   unsigned int i;
