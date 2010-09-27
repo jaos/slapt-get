@@ -329,12 +329,12 @@ int main( int argc, char *argv[] )
     case INSTALL_DISK_SET:
       {
         unsigned int set_i;
-        struct slapt_pkg_list *set_pkgs = slapt_init_pkg_list();
-        struct slapt_pkg_list *avail_pkgs = slapt_get_available_pkgs();
+        slapt_pkg_list_t *set_pkgs = slapt_init_pkg_list();
+        slapt_pkg_list_t *avail_pkgs = slapt_get_available_pkgs();
 
         while (optind < argc) {
           unsigned int search_i;
-          struct slapt_pkg_list *matches = NULL;
+          slapt_pkg_list_t *matches = NULL;
           char *search = slapt_malloc(sizeof *search * (strlen(argv[optind]) + 3));
 
           snprintf(search,strlen(argv[optind]) + 3,"/%s$",argv[optind]);

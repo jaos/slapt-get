@@ -26,8 +26,8 @@ void slapt_pkg_action_install(const slapt_rc_config *global_config,
 {
   unsigned int i;
   slapt_transaction_t *tran = NULL;
-  struct slapt_pkg_list *installed_pkgs = NULL;
-  struct slapt_pkg_list *avail_pkgs = NULL;
+  slapt_pkg_list_t *installed_pkgs = NULL;
+  slapt_pkg_list_t *avail_pkgs = NULL;
   slapt_regex_t *pkg_regex = NULL;
 
   printf( gettext("Reading Package Lists...") );
@@ -86,7 +86,7 @@ void slapt_pkg_action_install(const slapt_rc_config *global_config,
       if ( slapt_add_deps_to_trans(global_config,tran,avail_pkgs,
                                    installed_pkgs,pkg) == 0 ) {
 
-        struct slapt_pkg_list *conflicts = slapt_is_conflicted(tran,avail_pkgs, installed_pkgs, pkg);
+        slapt_pkg_list_t *conflicts = slapt_is_conflicted(tran,avail_pkgs, installed_pkgs, pkg);
 
         /* if there are conflicts, we schedule the conflicts for removal */
         if (conflicts->pkg_count > 0 && global_config->ignore_dep != SLAPT_TRUE) {
@@ -115,7 +115,7 @@ void slapt_pkg_action_install(const slapt_rc_config *global_config,
         if ( slapt_add_deps_to_trans(global_config,tran,avail_pkgs,
                                      installed_pkgs,pkg) == 0 ) {
 
-          struct slapt_pkg_list *conflicts = slapt_is_conflicted(tran,avail_pkgs,
+          slapt_pkg_list_t *conflicts = slapt_is_conflicted(tran,avail_pkgs,
                                                      installed_pkgs, pkg);
           if (conflicts->pkg_count > 0 && global_config->ignore_dep != SLAPT_TRUE) {
             unsigned int cindex = 0;
@@ -161,8 +161,8 @@ void slapt_pkg_action_install(const slapt_rc_config *global_config,
 /* list pkgs */
 void slapt_pkg_action_list(const int show)
 {
-  struct slapt_pkg_list *pkgs = NULL;
-  struct slapt_pkg_list *installed_pkgs = NULL;
+  slapt_pkg_list_t *pkgs = NULL;
+  slapt_pkg_list_t *installed_pkgs = NULL;
   unsigned int i;
 
   pkgs = slapt_get_available_pkgs();
@@ -229,8 +229,8 @@ void slapt_pkg_action_remove(const slapt_rc_config *global_config,
                              const slapt_list_t *action_args)
 {
   unsigned int i;
-  struct slapt_pkg_list *installed_pkgs = NULL;
-  struct slapt_pkg_list *avail_pkgs = NULL;
+  slapt_pkg_list_t *installed_pkgs = NULL;
+  slapt_pkg_list_t *avail_pkgs = NULL;
   slapt_regex_t *pkg_regex = NULL;
   slapt_transaction_t *tran = NULL;
 
@@ -246,7 +246,7 @@ void slapt_pkg_action_remove(const slapt_rc_config *global_config,
 
   for (i = 0; i < action_args->count; ++i) {
     unsigned int c;
-    struct slapt_pkg_list *deps = NULL;
+    slapt_pkg_list_t *deps = NULL;
     char *arg = action_args->items[i];
     slapt_pkg_info_t *pkg = NULL;
 
@@ -299,7 +299,7 @@ void slapt_pkg_action_remove(const slapt_rc_config *global_config,
   }
 
   if (global_config->remove_obsolete == SLAPT_TRUE) {
-    struct slapt_pkg_list *obsolete = slapt_get_obsolete_pkgs(
+    slapt_pkg_list_t *obsolete = slapt_get_obsolete_pkgs(
       global_config, avail_pkgs, installed_pkgs);
 
     for (i = 0; i < obsolete->pkg_count; ++i) {
@@ -328,9 +328,9 @@ void slapt_pkg_action_remove(const slapt_rc_config *global_config,
 void slapt_pkg_action_search(const char *pattern)
 {
   unsigned int i;
-  struct slapt_pkg_list *pkgs = NULL;
-  struct slapt_pkg_list *installed_pkgs = NULL;
-  struct slapt_pkg_list *matches = NULL,*i_matches = NULL;
+  slapt_pkg_list_t *pkgs = NULL;
+  slapt_pkg_list_t *installed_pkgs = NULL;
+  slapt_pkg_list_t *matches = NULL,*i_matches = NULL;
 
   /* read in pkg data */
   pkgs = slapt_get_available_pkgs();
@@ -385,8 +385,8 @@ void slapt_pkg_action_search(const char *pattern)
 /* show the details for a specific package */
 void slapt_pkg_action_show(const char *pkg_name)
 {
-  struct slapt_pkg_list *avail_pkgs = NULL;
-  struct slapt_pkg_list *installed_pkgs = NULL;
+  slapt_pkg_list_t *avail_pkgs = NULL;
+  slapt_pkg_list_t *installed_pkgs = NULL;
   slapt_regex_t *pkg_regex = NULL;
   unsigned int bool_installed = 0;
   slapt_pkg_info_t *pkg = NULL;
@@ -477,8 +477,8 @@ void slapt_pkg_action_show(const char *pkg_name)
 void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
 {
   unsigned int i;
-  struct slapt_pkg_list *installed_pkgs = NULL;
-  struct slapt_pkg_list *avail_pkgs = NULL;
+  slapt_pkg_list_t *installed_pkgs = NULL;
+  slapt_pkg_list_t *avail_pkgs = NULL;
   slapt_transaction_t *tran = NULL;
 
   printf(gettext("Reading Package Lists..."));
@@ -498,7 +498,7 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
     char *essential[] = {"pkgtools","xz","glibc-solibs","sed","tar","gzip",NULL};
     int epi = 0;
     slapt_pkg_info_t *newest_slaptget = NULL;
-    struct slapt_pkg_list *matches =
+    slapt_pkg_list_t *matches =
       slapt_search_pkg_list(avail_pkgs,SLAPT_SLACK_BASE_SET_REGEX);
 
     /* make sure the essential packages are installed/upgraded first */
@@ -551,7 +551,7 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
         if ( slapt_is_excluded(global_config,slapt_upgrade_pkg) == 1 ) {
           slapt_add_exclude_to_transaction(tran,slapt_upgrade_pkg);
         } else {
-          struct slapt_pkg_list *conflicts = slapt_is_conflicted(tran,avail_pkgs,installed_pkgs,
+          slapt_pkg_list_t *conflicts = slapt_is_conflicted(tran,avail_pkgs,installed_pkgs,
                                      slapt_upgrade_pkg);
 
           /* add install if all deps are good and it doesn't have conflicts */
@@ -583,7 +583,7 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
             || slapt_is_excluded(global_config,slapt_upgrade_pkg) == 1 ) {
           slapt_add_exclude_to_transaction(tran,slapt_upgrade_pkg);
         } else {
-          struct slapt_pkg_list *conflicts = slapt_is_conflicted(tran,avail_pkgs,installed_pkgs,
+          slapt_pkg_list_t *conflicts = slapt_is_conflicted(tran,avail_pkgs,installed_pkgs,
                                      slapt_upgrade_pkg);
 
           /* if all deps are added and there is no conflicts, add on */
@@ -613,7 +613,7 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
     /* remove obsolete packages if prompted to */
     if ( global_config->remove_obsolete == SLAPT_TRUE ) {
       unsigned int r;
-      struct slapt_pkg_list *obsolete = slapt_get_obsolete_pkgs(
+      slapt_pkg_list_t *obsolete = slapt_get_obsolete_pkgs(
         global_config, avail_pkgs, installed_pkgs);
 
       for (r = 0; r < obsolete->pkg_count; ++r) {
@@ -687,7 +687,7 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
         ) {
           slapt_add_exclude_to_transaction(tran,update_pkg);
         } else {
-          struct slapt_pkg_list *conflicts = slapt_is_conflicted(tran,
+          slapt_pkg_list_t *conflicts = slapt_is_conflicted(tran,
                                     avail_pkgs,installed_pkgs, update_pkg);
 
           /* if all deps are added and there is no conflicts, add on */
@@ -799,7 +799,7 @@ void slapt_pkg_action_add_keys(const slapt_rc_config *global_config)
 void slapt_pkg_action_filelist( const char *pkg_name )
 {
   slapt_regex_t *pkg_regex = NULL;
-  struct slapt_pkg_list *installed_pkgs = NULL;
+  slapt_pkg_list_t *installed_pkgs = NULL;
   slapt_pkg_info_t *pkg = NULL;
   char *filelist = NULL;
 

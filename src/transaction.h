@@ -16,13 +16,13 @@ typedef struct {
 } slapt_queue_t;
 
 typedef struct {
-  struct slapt_pkg_list *install_pkgs;
-  struct slapt_pkg_upgrade_list *upgrade_pkgs;
-  struct slapt_pkg_list *remove_pkgs;
-  struct slapt_pkg_list *exclude_pkgs;
+  slapt_pkg_list_t *install_pkgs;
+  slapt_pkg_upgrade_list_t *upgrade_pkgs;
+  slapt_pkg_list_t *remove_pkgs;
+  slapt_pkg_list_t *exclude_pkgs;
   slapt_list_t *suggests;
-  struct slapt_pkg_err_list *conflict_err;
-  struct slapt_pkg_err_list *missing_err;
+  slapt_pkg_err_list_t *conflict_err;
+  slapt_pkg_err_list_t *missing_err;
   slapt_queue_t *queue;
 } slapt_transaction_t;
 
@@ -75,16 +75,16 @@ int slapt_search_upgrade_transaction(slapt_transaction_t *tran,
 */
 int slapt_add_deps_to_trans(const slapt_rc_config *global_config,
                             slapt_transaction_t *tran,
-                            struct slapt_pkg_list *avail_pkgs,
-                            struct slapt_pkg_list *installed_pkgs, slapt_pkg_info_t *pkg);
+                            slapt_pkg_list_t *avail_pkgs,
+                            slapt_pkg_list_t *installed_pkgs, slapt_pkg_info_t *pkg);
 
 /*
   check to see if a package has a conflict already present in the transaction
   returns conflicted package or NULL if none
 */
-struct slapt_pkg_list *slapt_is_conflicted(slapt_transaction_t *tran,
-                                      struct slapt_pkg_list *avail_pkgs,
-                                      struct slapt_pkg_list *installed_pkgs,
+slapt_pkg_list_t *slapt_is_conflicted(slapt_transaction_t *tran,
+                                      slapt_pkg_list_t *avail_pkgs,
+                                      slapt_pkg_list_t *installed_pkgs,
                                       slapt_pkg_info_t *pkg);
 
 /*

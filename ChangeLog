@@ -1,5 +1,6 @@
 
-0.10.2g Sept 18, 2010
+0.10.2g Sept 27, 2010
+ * api cleanup, typedef'd old structs
  * updated el translation from George Vlahavas
  * updated pt_TR translation from Sérgio Surkam
  * updated fr translation from Verachten Bruno

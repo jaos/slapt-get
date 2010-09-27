@@ -192,16 +192,16 @@ static slapt_list_t *parse_exclude(char *line)
   return slapt_parse_delimited_list(line, ',');
 }
 
-struct slapt_source_list *slapt_init_source_list(void)
+slapt_source_list_t *slapt_init_source_list(void)
 {
-  struct slapt_source_list *list = slapt_malloc(sizeof *list);
+  slapt_source_list_t *list = slapt_malloc(sizeof *list);
   list->src = slapt_malloc(sizeof *list->src);
   list->count = 0;
 
   return list;
 }
 
-void slapt_add_source(struct slapt_source_list *list,slapt_source_t *s)
+void slapt_add_source(slapt_source_list_t *list,slapt_source_t *s)
 {
   slapt_source_t **realloc_tmp;
 
@@ -220,7 +220,7 @@ void slapt_add_source(struct slapt_source_list *list,slapt_source_t *s)
 
 }
 
-void slapt_remove_source (struct slapt_source_list *list, const char *s)
+void slapt_remove_source (slapt_source_list_t *list, const char *s)
 {
   slapt_source_t *src_to_discard = NULL;
   unsigned int i = 0;
@@ -255,7 +255,7 @@ void slapt_remove_source (struct slapt_source_list *list, const char *s)
 
 }
 
-void slapt_free_source_list(struct slapt_source_list *list)
+void slapt_free_source_list(slapt_source_list_t *list)
 {
   unsigned int i;
 

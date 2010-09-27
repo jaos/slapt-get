@@ -28,31 +28,31 @@ static int pkg_compare (const void *a, const void *b);
 /* analyze the pkg version hunk by hunk */
 static struct slapt_pkg_version_parts *break_down_pkg_version(const char *version);
 /* parse the meta lines */
-static slapt_pkg_info_t *parse_meta_entry(struct slapt_pkg_list *avail_pkgs,
-                                          struct slapt_pkg_list *installed_pkgs,
+static slapt_pkg_info_t *parse_meta_entry(slapt_pkg_list_t *avail_pkgs,
+                                          slapt_pkg_list_t *installed_pkgs,
                                           char *dep_entry);
 /* called by slapt_is_required_by */
-static void required_by(struct slapt_pkg_list *avail,
-                        struct slapt_pkg_list *installed_pkgs,
-                        struct slapt_pkg_list *pkgs_to_install,
-                        struct slapt_pkg_list *pkgs_to_remove,
+static void required_by(slapt_pkg_list_t *avail,
+                        slapt_pkg_list_t *installed_pkgs,
+                        slapt_pkg_list_t *pkgs_to_install,
+                        slapt_pkg_list_t *pkgs_to_remove,
                         slapt_pkg_info_t *pkg,
-                        struct slapt_pkg_list *required_by_list);
+                        slapt_pkg_list_t *required_by_list);
 static char *escape_package_name(slapt_pkg_info_t *pkg);
 /* free pkg_version_parts struct */
 static void slapt_free_pkg_version_parts(struct slapt_pkg_version_parts *parts);
 /* find dependency from "or" requirement */
-static slapt_pkg_info_t *find_or_requirement(struct slapt_pkg_list *avail_pkgs,
-                                             struct slapt_pkg_list *installed_pkgs,
+static slapt_pkg_info_t *find_or_requirement(slapt_pkg_list_t *avail_pkgs,
+                                             slapt_pkg_list_t *installed_pkgs,
                                              char *required_str);
 /* uncompress compressed package data */
 static FILE *slapt_gunzip_file (const char *file_name,FILE *dest_file);
 
 /* parse the PACKAGES.TXT file */
-struct slapt_pkg_list *slapt_get_available_pkgs(void)
+slapt_pkg_list_t *slapt_get_available_pkgs(void)
 {
   FILE *pkg_list_fh;
-  struct slapt_pkg_list *list = NULL;
+  slapt_pkg_list_t *list = NULL;
 
   /* open pkg list */
   pkg_list_fh = slapt_open_file(SLAPT_PKG_LIST_L,"r");
@@ -74,7 +74,7 @@ struct slapt_pkg_list *slapt_get_available_pkgs(void)
   return list;
 }
 
-struct slapt_pkg_list *slapt_parse_packages_txt(FILE *pkg_list_fh)
+slapt_pkg_list_t *slapt_parse_packages_txt(FILE *pkg_list_fh)
 {
   slapt_regex_t *name_regex = NULL,
                 *mirror_regex = NULL,
@@ -83,7 +83,7 @@ struct slapt_pkg_list *slapt_parse_packages_txt(FILE *pkg_list_fh)
                 *size_c_regex = NULL,
                 *size_u_regex = NULL;
   ssize_t bytes_read;
-  struct slapt_pkg_list *list = NULL;
+  slapt_pkg_list_t *list = NULL;
   long f_pos = 0;
   size_t getline_len = 0;
   char *getline_buffer = NULL;
@@ -477,7 +477,7 @@ char *slapt_gen_short_pkg_description(slapt_pkg_info_t *pkg)
 }
 
 
-struct slapt_pkg_list *slapt_get_installed_pkgs(void)
+slapt_pkg_list_t *slapt_get_installed_pkgs(void)
 {
   DIR *pkg_log_dir;
   char *pkg_log_dirname = NULL;
@@ -485,7 +485,7 @@ struct slapt_pkg_list *slapt_get_installed_pkgs(void)
   slapt_regex_t *ip_regex = NULL,
               *compressed_size_reg = NULL,
               *uncompressed_size_reg = NULL;
-  struct slapt_pkg_list *list = NULL;
+  slapt_pkg_list_t *list = NULL;
   size_t pls = 1;
 
   list = slapt_init_pkg_list();
@@ -694,7 +694,7 @@ struct slapt_pkg_list *slapt_get_installed_pkgs(void)
 }
 
 /* lookup newest package from pkg_list */
-slapt_pkg_info_t *slapt_get_newest_pkg(struct slapt_pkg_list *pkg_list,
+slapt_pkg_info_t *slapt_get_newest_pkg(slapt_pkg_list_t *pkg_list,
                                        const char *pkg_name)
 {
   unsigned int i;
@@ -714,7 +714,7 @@ slapt_pkg_info_t *slapt_get_newest_pkg(struct slapt_pkg_list *pkg_list,
   return pkg;
 }
 
-slapt_pkg_info_t *slapt_get_exact_pkg(struct slapt_pkg_list *list,
+slapt_pkg_info_t *slapt_get_exact_pkg(slapt_pkg_list_t *list,
                                       const char *name,
                                       const char *version)
 {
@@ -889,7 +889,7 @@ void slapt_free_pkg(slapt_pkg_info_t *pkg)
   free(pkg);
 }
 
-void slapt_free_pkg_list(struct slapt_pkg_list *list)
+void slapt_free_pkg_list(slapt_pkg_list_t *list)
 {
   unsigned int i;
   if (list->free_pkgs == SLAPT_TRUE) {
@@ -952,7 +952,7 @@ int slapt_is_excluded(const slapt_rc_config *global_config,
   return pkg_not_excluded;
 }
 
-void slapt_get_md5sums(struct slapt_pkg_list *pkgs, FILE *checksum_file)
+void slapt_get_md5sums(slapt_pkg_list_t *pkgs, FILE *checksum_file)
 {
   slapt_regex_t *md5sum_regex = NULL;
   ssize_t getline_read;
@@ -1235,7 +1235,7 @@ static struct slapt_pkg_version_parts *break_down_pkg_version(const char *versio
 }
 
 void slapt_write_pkg_data(const char *source_url,FILE *d_file,
-                          struct slapt_pkg_list *pkgs)
+                          slapt_pkg_list_t *pkgs)
 {
   unsigned int i;
 
@@ -1278,13 +1278,13 @@ void slapt_write_pkg_data(const char *source_url,FILE *d_file,
   }
 }
 
-struct slapt_pkg_list *slapt_search_pkg_list(struct slapt_pkg_list *list,
+slapt_pkg_list_t *slapt_search_pkg_list(slapt_pkg_list_t *list,
                                              const char *pattern)
 {
   unsigned int i;
   int name_r = -1,desc_r = -1,loc_r = -1,version_r = -1;
   slapt_regex_t *search_regex = NULL;
-  struct slapt_pkg_list *matches = NULL;
+  slapt_pkg_list_t *matches = NULL;
 
   matches = slapt_init_pkg_list();
 
@@ -1321,11 +1321,11 @@ struct slapt_pkg_list *slapt_search_pkg_list(struct slapt_pkg_list *list,
 
 /* lookup dependencies for pkg */
 int slapt_get_pkg_dependencies(const slapt_rc_config *global_config,
-                         struct slapt_pkg_list *avail_pkgs,
-                         struct slapt_pkg_list *installed_pkgs,slapt_pkg_info_t *pkg,
-                         struct slapt_pkg_list *deps,
-                         struct slapt_pkg_err_list *conflict_err,
-                         struct slapt_pkg_err_list *missing_err)
+                         slapt_pkg_list_t *avail_pkgs,
+                         slapt_pkg_list_t *installed_pkgs,slapt_pkg_info_t *pkg,
+                         slapt_pkg_list_t *deps,
+                         slapt_pkg_err_list_t *conflict_err,
+                         slapt_pkg_err_list_t *missing_err)
 {
   unsigned int i = 0;
   slapt_list_t *dep_parts = NULL;
@@ -1427,11 +1427,11 @@ int slapt_get_pkg_dependencies(const slapt_rc_config *global_config,
 }
 
 /* lookup conflicts for package */
-struct slapt_pkg_list *slapt_get_pkg_conflicts(struct slapt_pkg_list *avail_pkgs,
-                                               struct slapt_pkg_list *installed_pkgs,
+slapt_pkg_list_t *slapt_get_pkg_conflicts(slapt_pkg_list_t *avail_pkgs,
+                                               slapt_pkg_list_t *installed_pkgs,
                                                slapt_pkg_info_t *pkg)
 {
-  struct slapt_pkg_list *conflicts = NULL;
+  slapt_pkg_list_t *conflicts = NULL;
   int position = 0,len = 0;
   char *pointer = NULL;
   char *buffer = NULL;
@@ -1491,8 +1491,8 @@ struct slapt_pkg_list *slapt_get_pkg_conflicts(struct slapt_pkg_list *avail_pkgs
   return conflicts;
 }
 
-static slapt_pkg_info_t *parse_meta_entry(struct slapt_pkg_list *avail_pkgs,
-                                          struct slapt_pkg_list *installed_pkgs,
+static slapt_pkg_info_t *parse_meta_entry(slapt_pkg_list_t *avail_pkgs,
+                                          slapt_pkg_list_t *installed_pkgs,
                                           char *dep_entry)
 {
   unsigned int i;
@@ -1697,14 +1697,14 @@ static slapt_pkg_info_t *parse_meta_entry(struct slapt_pkg_list *avail_pkgs,
   return NULL;
 }
 
-struct slapt_pkg_list *slapt_is_required_by(const slapt_rc_config *global_config,
-                                            struct slapt_pkg_list *avail,
-                                            struct slapt_pkg_list *installed_pkgs,
-                                            struct slapt_pkg_list *pkgs_to_install,
-                                            struct slapt_pkg_list *pkgs_to_remove,
+slapt_pkg_list_t *slapt_is_required_by(const slapt_rc_config *global_config,
+                                            slapt_pkg_list_t *avail,
+                                            slapt_pkg_list_t *installed_pkgs,
+                                            slapt_pkg_list_t *pkgs_to_install,
+                                            slapt_pkg_list_t *pkgs_to_remove,
                                             slapt_pkg_info_t *pkg)
 {
-  struct slapt_pkg_list *required_by_list = slapt_init_pkg_list();
+  slapt_pkg_list_t *required_by_list = slapt_init_pkg_list();
 
   /*
    * don't go any further if disable_dep_check is set
@@ -1747,12 +1747,12 @@ static char *escape_package_name(slapt_pkg_info_t *pkg)
   return escaped_name;
 }
 
-static void required_by(struct slapt_pkg_list *avail,
-                        struct slapt_pkg_list *installed_pkgs,
-                        struct slapt_pkg_list *pkgs_to_install,
-                        struct slapt_pkg_list *pkgs_to_remove,
+static void required_by(slapt_pkg_list_t *avail,
+                        slapt_pkg_list_t *installed_pkgs,
+                        slapt_pkg_list_t *pkgs_to_install,
+                        slapt_pkg_list_t *pkgs_to_remove,
                         slapt_pkg_info_t *pkg,
-                        struct slapt_pkg_list *required_by_list)
+                        slapt_pkg_list_t *required_by_list)
 {
   unsigned int i;
   slapt_regex_t *required_by_reg = NULL;
@@ -1852,7 +1852,7 @@ static void required_by(struct slapt_pkg_list *avail,
   slapt_free_regex(required_by_reg);
 }
 
-slapt_pkg_info_t *slapt_get_pkg_by_details(struct slapt_pkg_list *list,
+slapt_pkg_info_t *slapt_get_pkg_by_details(slapt_pkg_list_t *list,
                                            const char *name,
                                            const char *version,
                                            const char *location)
@@ -1936,14 +1936,14 @@ slapt_pkg_info_t *slapt_get_pkg_by_details(struct slapt_pkg_list *list,
 int slapt_update_pkg_cache(const slapt_rc_config *global_config)
 {
   unsigned int i,source_dl_failed = 0;
-  struct slapt_pkg_list *new_pkgs = slapt_init_pkg_list();
+  slapt_pkg_list_t *new_pkgs = slapt_init_pkg_list();
   new_pkgs->free_pkgs = SLAPT_TRUE;
 
   /* go through each package source and download the meta data */
   for (i = 0; i < global_config->sources->count; i++) {
     unsigned int compressed = 0;
-    struct slapt_pkg_list *available_pkgs = NULL;
-    struct slapt_pkg_list *patch_pkgs = NULL;
+    slapt_pkg_list_t *available_pkgs = NULL;
+    slapt_pkg_list_t *patch_pkgs = NULL;
     FILE *tmp_checksum_f = NULL;
     #ifdef SLAPT_HAS_GPGME
     FILE *tmp_signature_f = NULL;
@@ -2113,9 +2113,9 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
   return source_dl_failed;
 }
 
-struct slapt_pkg_list *slapt_init_pkg_list(void)
+slapt_pkg_list_t *slapt_init_pkg_list(void)
 {
-  struct slapt_pkg_list *list = NULL;
+  slapt_pkg_list_t *list = NULL;
 
   list            = slapt_malloc(sizeof *list);
   list->pkgs      = slapt_malloc(sizeof *list->pkgs);
@@ -2126,7 +2126,7 @@ struct slapt_pkg_list *slapt_init_pkg_list(void)
   return list;
 }
 
-void slapt_add_pkg_to_pkg_list(struct slapt_pkg_list *list,
+void slapt_add_pkg_to_pkg_list(slapt_pkg_list_t *list,
                                slapt_pkg_info_t *pkg)
 {
   slapt_pkg_info_t **realloc_tmp;
@@ -2325,7 +2325,7 @@ char *slapt_gen_filename_from_url(const char *url,const char *file)
 
 void slapt_purge_old_cached_pkgs(const slapt_rc_config *global_config,
                                  const char *dir_name,
-                                 struct slapt_pkg_list *avail_pkgs)
+                                 slapt_pkg_list_t *avail_pkgs)
 {
   DIR *dir;
   struct dirent *file;
@@ -2481,8 +2481,8 @@ void slapt_clean_pkg_dir(const char *dir_name)
 }
 
 /* find dependency from "or" requirement */
-static slapt_pkg_info_t *find_or_requirement(struct slapt_pkg_list *avail_pkgs,
-                                             struct slapt_pkg_list *installed_pkgs,
+static slapt_pkg_info_t *find_or_requirement(slapt_pkg_list_t *avail_pkgs,
+                                             slapt_pkg_list_t *installed_pkgs,
                                              char *required_str)
 {
   slapt_pkg_info_t *pkg = NULL;
@@ -2545,16 +2545,16 @@ slapt_pkg_info_t *slapt_copy_pkg(slapt_pkg_info_t *dst,slapt_pkg_info_t *src)
   return dst;
 }
 
-struct slapt_pkg_err_list *slapt_init_pkg_err_list(void)
+slapt_pkg_err_list_t *slapt_init_pkg_err_list(void)
 {
-  struct slapt_pkg_err_list *l = slapt_malloc(sizeof *l);
+  slapt_pkg_err_list_t *l = slapt_malloc(sizeof *l);
   l->errs = slapt_malloc(sizeof *l->errs);
   l->err_count = 0;
 
   return l;
 }
 
-void slapt_add_pkg_err_to_list(struct slapt_pkg_err_list *l,
+void slapt_add_pkg_err_to_list(slapt_pkg_err_list_t *l,
                          const char *pkg,const char *err)
 {
   slapt_pkg_err_t **tmp;
@@ -2576,7 +2576,7 @@ void slapt_add_pkg_err_to_list(struct slapt_pkg_err_list *l,
 
 }
 
-int slapt_search_pkg_err_list(struct slapt_pkg_err_list *l,
+int slapt_search_pkg_err_list(slapt_pkg_err_list_t *l,
                         const char *pkg, const char *err)
 {
   unsigned int i,found = 1, not_found = 0;
@@ -2590,7 +2590,7 @@ int slapt_search_pkg_err_list(struct slapt_pkg_err_list *l,
   return not_found;
 }
 
-void slapt_free_pkg_err_list(struct slapt_pkg_err_list *l)
+void slapt_free_pkg_err_list(slapt_pkg_err_list_t *l)
 {
   unsigned int i;
 
@@ -2625,10 +2625,10 @@ static FILE *slapt_gunzip_file (const char *file_name,FILE *dest_file)
   return dest_file;
 }
 
-struct slapt_pkg_list *slapt_get_pkg_source_packages (const slapt_rc_config *global_config,
+slapt_pkg_list_t *slapt_get_pkg_source_packages (const slapt_rc_config *global_config,
                                                       const char *url, unsigned int *compressed)
 {
-  struct slapt_pkg_list *available_pkgs = NULL;
+  slapt_pkg_list_t *available_pkgs = NULL;
   char *pkg_head = NULL;
   SLAPT_BOOL_T is_interactive = slapt_is_interactive(global_config);
 
@@ -2821,10 +2821,10 @@ struct slapt_pkg_list *slapt_get_pkg_source_packages (const slapt_rc_config *glo
   return available_pkgs;
 }
 
-struct slapt_pkg_list *slapt_get_pkg_source_patches (const slapt_rc_config *global_config,
+slapt_pkg_list_t *slapt_get_pkg_source_patches (const slapt_rc_config *global_config,
                                                      const char *url, unsigned int *compressed)
 {
-  struct slapt_pkg_list *patch_pkgs = NULL;
+  slapt_pkg_list_t *patch_pkgs = NULL;
   char *patch_head = NULL;
   SLAPT_BOOL_T is_interactive = slapt_is_interactive(global_config);
   *compressed = 0;
@@ -3339,15 +3339,15 @@ char *slapt_stringify_pkg(const slapt_pkg_info_t *pkg)
   return pkg_str;
 }
 
-struct slapt_pkg_list *
+slapt_pkg_list_t *
   slapt_get_obsolete_pkgs ( const slapt_rc_config *global_config,
-                            struct slapt_pkg_list *avail_pkgs,
-                            struct slapt_pkg_list *installed_pkgs)
+                            slapt_pkg_list_t *avail_pkgs,
+                            slapt_pkg_list_t *installed_pkgs)
 {
   unsigned int r;
-  struct slapt_pkg_list *obsolete = slapt_init_pkg_list();
-  struct slapt_pkg_list *to_install = slapt_init_pkg_list();
-  struct slapt_pkg_list *to_remove = slapt_init_pkg_list();
+  slapt_pkg_list_t *obsolete = slapt_init_pkg_list();
+  slapt_pkg_list_t *to_install = slapt_init_pkg_list();
+  slapt_pkg_list_t *to_remove = slapt_init_pkg_list();
 
   for (r = 0; r < installed_pkgs->pkg_count; ++r) {
     slapt_pkg_info_t *p = installed_pkgs->pkgs[r];
@@ -3357,7 +3357,7 @@ struct slapt_pkg_list *
        * it must be obsolete
     */
     if (slapt_get_newest_pkg(avail_pkgs, p->name) == NULL) {
-        struct slapt_pkg_list *deps;
+        slapt_pkg_list_t *deps;
         unsigned int c;
 
         /*

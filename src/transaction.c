@@ -828,13 +828,13 @@ slapt_transaction_t *slapt_remove_from_transaction(slapt_transaction_t *tran,
 /* needed check to see if a package is conflicted */
 int slapt_add_deps_to_trans(const slapt_rc_config *global_config,
                             slapt_transaction_t *tran,
-                            struct slapt_pkg_list *avail_pkgs,
-                            struct slapt_pkg_list *installed_pkgs,
+                            slapt_pkg_list_t *avail_pkgs,
+                            slapt_pkg_list_t *installed_pkgs,
                             slapt_pkg_info_t *pkg)
 {
   unsigned int c;
   int dep_return = -1;
-  struct slapt_pkg_list *deps = NULL;
+  slapt_pkg_list_t *deps = NULL;
 
   if (global_config->disable_dep_check == SLAPT_TRUE)
     return 0;
@@ -863,7 +863,7 @@ int slapt_add_deps_to_trans(const slapt_rc_config *global_config,
     unsigned int cindex = 0;
     slapt_pkg_info_t *dep = deps->pkgs[c];
     slapt_pkg_info_t *dep_installed  = NULL;
-    struct slapt_pkg_list *conflicts = NULL;
+    slapt_pkg_list_t *conflicts = NULL;
 
     /*
      * the dep wouldn't get this far if it where excluded,
@@ -896,14 +896,14 @@ int slapt_add_deps_to_trans(const slapt_rc_config *global_config,
 }
 
 /* make sure pkg isn't conflicted with what's already in the transaction */
-struct slapt_pkg_list *slapt_is_conflicted(slapt_transaction_t *tran,
-                                      struct slapt_pkg_list *avail_pkgs,
-                                      struct slapt_pkg_list *installed_pkgs,
+slapt_pkg_list_t *slapt_is_conflicted(slapt_transaction_t *tran,
+                                      slapt_pkg_list_t *avail_pkgs,
+                                      slapt_pkg_list_t *installed_pkgs,
                                       slapt_pkg_info_t *pkg)
 {
   unsigned int i;
-  struct slapt_pkg_list *conflicts = NULL;
-  struct slapt_pkg_list *conflicts_in_transaction = slapt_init_pkg_list();
+  slapt_pkg_list_t *conflicts = NULL;
+  slapt_pkg_list_t *conflicts_in_transaction = slapt_init_pkg_list();
 
   /* if conflicts exist, check to see if they are installed
      or in the current transaction
