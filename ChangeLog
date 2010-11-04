@@ -1,4 +1,7 @@
 
+0.10.2h Nov  04, 2010
+ * updated ru translation from Igor Murzov
+
 0.10.2g Sept 27, 2010
  * api cleanup, typedef'd old structs
  * updated el translation from George Vlahavas

@@ -96,7 +96,7 @@ msgstr "%s-%s будет обновлён до версии %s\n"
 
 #, c-format
 msgid "Abort.\n"
-msgstr "Прервать.\n"
+msgstr "Отмена.\n"
 
 #, c-format
 msgid "After unpacking %.1f%s disk space will be freed.\n"
