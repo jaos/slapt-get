@@ -1,0 +1,560 @@
+# hu slapt-src translation
+# Copyright (C) 2010 Jason Woodward
+# This file is distributed under the same license as the slapt-get package.
+# Jason Woodward <woodwardj@jaos.org>
+# Peter Polonkai <polesz at nedudu dot hu>, 2010
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.10.2f\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-07-09 20:54+0400\n"
+"PO-Revision-Date: 2010-11-11 18:02+0100\n"
+"Last-Translator: Peter Polonkai <polesz@nedudu.hu>\n"
+"Language-Team: Nedudu Team <polesz@nedudu.hu>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Hungarian\n"
+"X-Poedit-Country: HUNGARY\n"
+
+#, c-format
+msgid "  %s: Depends: %s\n"
+msgstr "%s: Függőségei: %s\n"
+
+#, c-format
+msgid "%d not upgraded.\n"
+msgstr "%d nem frissített.\n"
+
+#, c-format
+msgid "%d reinstalled, "
+msgstr "%d újratelepítendő, "
+
+#, c-format
+msgid "%d to remove, "
+msgstr "%d törlendő, "
+
+#, c-format
+msgid "%d upgraded, "
+msgstr "%d frissítendő, "
+
+#, c-format
+msgid "%s [option(s)] [target]\n"
+msgstr "%s [opció(k)] [cél]\n"
+
+#, c-format
+msgid "%s is not installed.\n"
+msgstr "%s nem telepített.\n"
+
+#, c-format
+msgid "%s is up to date.\n"
+msgstr "%s naprakész.\n"
+
+#, c-format
+msgid "%s version %s\n"
+msgstr "%s verzió %s\n"
+
+#, c-format
+msgid "%s, which is required by %s, is excluded\n"
+msgstr "%s, szükséges ehhez: %s, de zárolt\n"
+
+#, c-format
+msgid "%s, which is to be installed, conflicts with %s\n"
+msgstr "%s telepítésre jelölve, de konfliktusban van ezzel %s\n"
+
+#, c-format
+msgid "%s-%s is to be installed\n"
+msgstr "%s-%s telepítendő\n"
+
+#, c-format
+msgid "%s-%s is to be removed\n"
+msgstr "%s-%s eltávolítandó\n"
+
+#, c-format
+msgid "%s-%s is to be upgraded to version %s\n"
+msgstr "%s-%s frissítendő erre a verzióra: %s\n"
+
+#, c-format
+msgid "Abort.\n"
+msgstr "Megszakítva.\n"
+
+#, c-format
+msgid "After unpacking %.1f%s disk space will be freed.\n"
+msgstr "Kicsomagolás után %.1f%s lemezterület fog felszabadulni.\n"
+
+#, c-format
+msgid "After unpacking %.1f%s of additional disk space will be used.\n"
+msgstr "Kicsomagolás után %.1f%s lemezterületet használok fel.\n"
+
+#, c-format
+msgid "An implementation of the Debian APT system to Slackware\n"
+msgstr "Debian APT rendszer implementáció Slackware Linuxhoz\n"
+
+#, c-format
+msgid "Cached\n"
+msgstr "Tárolt\n"
+
+msgid "Checksums signature could not be verified"
+msgstr "Ellenőrző összegek aláírását nem lehet ellenőrizni"
+
+msgid "Checksums signature successfully verified"
+msgstr "Ellenőrző összegek aláírásának ellenőrzése sikeres"
+
+msgid "Custom"
+msgstr "Egyéb"
+
+msgid "Custom Patch"
+msgstr "Egyéb javítások"
+
+msgid "Default"
+msgstr "Alapértelmezett"
+
+msgid "Default Patch"
+msgstr "Alapértelmezett javítás"
+
+#, c-format
+msgid "Delete %s ? [y/N]"
+msgstr "Törli: %s ? [y/N]"
+
+msgid "Do you want to continue? [y/N] "
+msgstr "Valóban folytatja? [y/N]"
+
+#, c-format
+msgid "Done\n"
+msgstr "Kész\n"
+
+#, c-format
+msgid "Excluding %s, use --ignore-dep to override\n"
+msgstr "Kizárva %s, használlja az --ignore-dep opciót a felülbíráláshoz\n"
+
+#, c-format
+msgid "Failed to build working directory [%s]\n"
+msgstr "Érvénytelen a munka könyvtár [%s]\n"
+
+#, c-format
+msgid "Failed to calloc\n"
+msgstr "Sikertelen calloc hívás\n"
+
+#, c-format
+msgid "Failed to chdir to %s\n"
+msgstr "A chdir sikertelen ide %s\n"
+
+#, c-format
+msgid "Failed to chdir: %s\n"
+msgstr "Sikertelen chdir ide: %s\n"
+
+#, c-format
+msgid "Failed to compile regex\n"
+msgstr "Hibás fordítási kifejezés\n"
+
+#, c-format
+msgid "Failed to download: %s\n"
+msgstr "Sikertelen letöltés: %s\n"
+
+#, c-format
+msgid "Failed to execute command: [%s]\n"
+msgstr "Sikertelen parancs futtatás: [%s]\n"
+
+#, c-format
+msgid "Failed to get cwd\n"
+msgstr "Hiba a cwd kérésekor\n"
+
+#, c-format
+msgid "Failed to malloc\n"
+msgstr "Sikertelen malloc hívás\n"
+
+#, c-format
+msgid "Failed to mkdir: %s\n"
+msgstr "Sikertelen mkdir: %s\n"
+
+#, c-format
+msgid "Failed to open %s\n"
+msgstr "Nem sikerült megnyitni: %s\n"
+
+#, c-format
+msgid "Failed to opendir %s\n"
+msgstr "Nem sikerült a könyvtárat megnyitni %s\n"
+
+#, c-format
+msgid "Failed to parse package data from %s\n"
+msgstr "Nem sikerült feldolgozni a csomag adatát: %s\n"
+
+#, c-format
+msgid "Failed to realloc %s\n"
+msgstr "Sikertelen realloc hívás: %s\n"
+
+#, c-format
+msgid "Failed to unlink %s\n"
+msgstr "Sikertelen unlink: %s\n"
+
+msgid "GPG key already present"
+msgstr "GPG kulcs már létezik"
+
+msgid "GPG key could not be imported"
+msgstr "GPG kulcs nem lett importálva"
+
+msgid "GPG key successfully imported"
+msgstr "GPG kulcs sikeresen importálva"
+
+#, c-format
+msgid "Get %s %s %s [%.1f%s]..."
+msgstr "Letöltés %s %s %s [%.1f%s]..."
+
+msgid "Incomplete download"
+msgstr "Sikertelen letöltés"
+
+#, c-format
+msgid "Installed %s conflicts with %s\n"
+msgstr "Telepített %s konfliktusban ezzel: %s\n"
+
+msgid "MD5 checksum mismatch, override with --no-md5"
+msgstr "MD5 ellenőrző összeg eltér, felülbírálás --no-md5"
+
+msgid "Missing MD5 checksum, override with --no-md5"
+msgstr "MD5 ellenőrző összeg nem található, felülbírálás --no-md5"
+
+#, c-format
+msgid "Need to get %.1f%s of archives.\n"
+msgstr "Szükséges %.1f%s az archívumokból.\n"
+
+#, c-format
+msgid "Need to get %.1f%s/%.1f%s of archives.\n"
+msgstr "Szükséges %.1f%s/%.1f%s az archívumokból.\n"
+
+msgid "No key for verification"
+msgstr "Nincs kulcs az ellenőrzéshez"
+
+#, c-format
+msgid "No such package: %s\n"
+msgstr "Nem található a csomag: %s\n"
+
+#, c-format
+msgid "Not Found\n"
+msgstr "Nem található\n"
+
+msgid "Not Verified"
+msgstr "Nem ellenőrzött"
+
+msgid "Official"
+msgstr "Hivatalos"
+
+msgid "Official Patch"
+msgstr "Hivatalos javítás"
+
+#, c-format
+msgid "Options:\n"
+msgstr "Opciók:\n"
+
+msgid "Package ChangeLog"
+msgstr "Csomag változás napló"
+
+#, c-format
+msgid "Package Conflicts: %s\n"
+msgstr "Csomag ütközések: %s\n"
+
+#, c-format
+msgid "Package Description:\n"
+msgstr "Csomag leírás:\n"
+
+#, c-format
+msgid "Package Installed Size: %d K\n"
+msgstr "Csomag telepített mérete: %d K\n"
+
+#, c-format
+msgid "Package Installed: %s\n"
+msgstr "Csomag telepítve: %s\n"
+
+#, c-format
+msgid "Package Location: %s\n"
+msgstr "Csomag hely: %s\n"
+
+#, c-format
+msgid "Package MD5 Sum:  %s\n"
+msgstr "Csomag MD5 ellenőrző összeg: %s\n"
+
+#, c-format
+msgid "Package Mirror: %s\n"
+msgstr "Csomag tároló: %s\n"
+
+#, c-format
+msgid "Package Name: %s\n"
+msgstr "Csomag neve: %s\n"
+
+#, c-format
+msgid "Package Priority: %s\n"
+msgstr "Csomag prioritás: %s\n"
+
+#, c-format
+msgid "Package Required: %s\n"
+msgstr "Csomag szükséges: %s\n"
+
+#, c-format
+msgid "Package Size: %d K\n"
+msgstr "Csomag mérete: %d K\n"
+
+#, c-format
+msgid "Package Suggests: %s\n"
+msgstr "Csomag javaslatok: %s\n"
+
+#, c-format
+msgid "Package Version: %s\n"
+msgstr "Csomag verzió: %s\n"
+
+#, c-format
+msgid "Perhaps you want to run --update?\n"
+msgstr "Futtatni kívánja az --update-t?\n"
+
+#, c-format
+msgid "Please update permissions on %s or run with appropriate privileges\n"
+msgstr "Kérem frissítse a(z) %s engedélyeit vagy futtassa a megfelelő jogosultságokkal\n"
+
+msgid "Preferred"
+msgstr "Előnyben részesített"
+
+msgid "Preferred Patch"
+msgstr "Előnyben részesített javítás"
+
+#, c-format
+msgid "Preparing to install %s-%s\n"
+msgstr "Előkészítés telepítéshez %s-%s\n"
+
+#, c-format
+msgid "Preparing to replace %s-%s with %s-%s\n"
+msgstr "Előkészítés cseréhez %s-%s erre %s-%s\n"
+
+#, c-format
+msgid "Reading Package Lists..."
+msgstr "Csomag listák keresése..."
+
+#, c-format
+msgid "Regex Error: %s\n"
+msgstr "Regex Hiba: %s\n"
+
+#, c-format
+msgid "Retrieving ChangeLog.txt [%s]..."
+msgstr "ChangeLog.txt [%s] keresése..."
+
+#, c-format
+msgid "Retrieving GPG key [%s]..."
+msgstr "GPG kulcs [%s] keresése..."
+
+#, c-format
+msgid "Retrieving checksum list [%s]..."
+msgstr "Ellenőrző összeg lista [%s] keresése..."
+
+#, c-format
+msgid "Retrieving checksum signature [%s]..."
+msgstr "Ellenőrző összeg aláírás [%s] keresése..."
+
+#, c-format
+msgid "Retrieving package data [%s]..."
+msgstr "Csomag adat [%s] keresése..."
+
+#, c-format
+msgid "Retrieving patch list [%s]..."
+msgstr "Javítás lista [%s] keresése..."
+
+#, c-format
+msgid "SOURCE directive not set within %s.\n"
+msgstr "SOURCE változó nem lett beállítva: %s\n"
+
+#, c-format
+msgid "Sources failed to download, correct sources and rerun --update\n"
+msgstr "Források letöltése sikertelen, javítsa a forrásokat és futtassa újra az --update parancsot\n"
+
+#, c-format
+msgid "Suggested packages:\n"
+msgstr "Javasolt csomagok:\n"
+
+#, c-format
+msgid "Targets:\n"
+msgstr "Célhelyek:\n"
+
+#, c-format
+msgid "The following NEW packages will be installed:\n"
+msgstr "Az alábbi ÚJ csomagok lesznek telepítve:\n"
+
+#, c-format
+msgid "The following packages have been EXCLUDED:\n"
+msgstr "Az alábbi csomagok ZÁROLTAK:\n"
+
+#, c-format
+msgid "The following packages have unmet dependencies:\n"
+msgstr "Az alábbi csomagoknak teljesítetlen függőségei vannak:\n"
+
+#, c-format
+msgid "The following packages will be REMOVED:\n"
+msgstr "Az alábbi csomagok lesznek TÖRÖLVE:\n"
+
+#, c-format
+msgid "The following packages will be reinstalled:\n"
+msgstr "Az alábbi csomagok lesznek újratelepítve:\n"
+
+#, c-format
+msgid "The following packages will be upgraded:\n"
+msgstr "Az alábbi csomagok lesznek frissítve:\n"
+
+msgid "Unknown error"
+msgstr "Ismeretlen hiba"
+
+#, c-format
+msgid "Usage:\n"
+msgstr "Használat:\n"
+
+msgid "Verified"
+msgstr "Ellenőrzött"
+
+#, c-format
+msgid "Verifying checksum signature [%s]..."
+msgstr "Ellenőrző összeg aláírás [%s] ellenőrzése..."
+
+#, c-format
+msgid "WORKINGDIR directive not set within %s.\n"
+msgstr "WORKINGDIR változó nem lett beállítva: %s\n"
+
+#, c-format
+msgid "You don't have enough free space in %s\n"
+msgstr "Nincs elég hely a következő a %s helyen\n"
+
+msgid "[disk set(s)] - install specified disk set(s)"
+msgstr "[lemez készlet(ek)] - a megadott lemez készlet(ek) telepítése"
+
+msgid "[expression] - search available pkgs"
+msgstr "[kifejezés] - keresés az elérhető csomagok között"
+
+msgid "[pkg name(s)] - install specified pkg(s)"
+msgstr "[csomag(ok) neve] - telepíti a megadott csomago(ka)t"
+
+msgid "[pkg name(s)] - remove specified pkg(s)"
+msgstr "[csomag(ok) neve] - eltávolítja a megadott csomago(ka)t"
+
+msgid "[pkg name(s)] - show pkg(s) description"
+msgstr "[csomag(ok) neve] - mutatja a megadott csomag(ok) információit"
+
+msgid "[pkg name(s)] - show pkg(s) installed files"
+msgstr "[csomag(ok) neve] - mutatja a megadott csomago(ka)t telepített fájljait"
+
+msgid "always prompt during install/upgrade"
+msgstr "mindig kérjen megerősítést telepítés/frissítéskor"
+
+msgid "display this help and exit"
+msgstr "megjeleníti ezt a súgót és kilép"
+
+msgid "do not perform md5 check sum"
+msgstr "ne ellenőrizze az md5 ellenőrző összeget"
+
+msgid "do not prompt during install/upgrade"
+msgstr "ne kérjen megerősítést telepítés/frissítéskor"
+
+#, c-format
+msgid "error attempting to read pkg description\n"
+msgstr "hiba történt a csomag leírás olvasásakor\n"
+
+#, c-format
+msgid "getline reached EOF attempting to read location\n"
+msgstr "hely olvasásakor EOF jelet érzékeltem\n"
+
+#, c-format
+msgid "getline reached EOF attempting to read size_c\n"
+msgstr "size_c olvasásakor EOF jelet érzékeltem\n"
+
+#, c-format
+msgid "getline reached EOF attempting to read size_u\n"
+msgstr "size_u olvasásakor EOF jelet érzékeltem\n"
+
+msgid "ignore dependency failures"
+msgstr "függőségi hibák figyelmen kívül hagyása"
+
+msgid "install package, do not attempt to upgrade"
+msgstr "csomag telepítése, frissítés nélkül"
+
+msgid "install/upgrade excludes"
+msgstr "zárolt csomagok telepítése/frissítése"
+
+msgid "list available pkgs"
+msgstr "elérhető csomagok listája"
+
+msgid "list installed pkgs"
+msgstr "telepített csomagok listája"
+
+msgid "list pkgs"
+msgstr "csomagok listája"
+
+#, c-format
+msgid "md5 sum too long\n"
+msgstr "md5 ellenőrző összeg túl hosszú\n"
+
+msgid "no"
+msgstr "nem"
+
+msgid "only download pkg on install/upgrade"
+msgstr "csak letölti a telepítendő/frissítendő csomagokat"
+
+msgid "only purge cache of older, unreacheable pkgs"
+msgstr "csak a régi, elérhetetlen csomagok törlése"
+
+#, c-format
+msgid "pkg conditional too long\n"
+msgstr "csomag feltétel túl hosszú\n"
+
+msgid "print URIs only, do not download"
+msgstr "csak az URI kiírása, nincs letöltés"
+
+msgid "print version and license info"
+msgstr "verziószám és licenc információ kiírása"
+
+msgid "purge cached pkgs"
+msgstr "tárolt csomagok törlése"
+
+#, c-format
+msgid "regex failed on [%s]\n"
+msgstr "kifejezés sikertelen itt [%s]\n"
+
+#, c-format
+msgid "regexec failed to parse location\n"
+msgstr "regexec sikertelen a hely elemzésekor\n"
+
+#, c-format
+msgid "regexec failed to parse size_c\n"
+msgstr "regexec sikertelen a size_c elemzésekor\n"
+
+#, c-format
+msgid "regexec failed to parse size_u\n"
+msgstr "regexec sikertelen a size_u elemzésekor\n"
+
+msgid "reinstall the pkg"
+msgstr "csomag újratelepítése"
+
+msgid "remove obsolete packages"
+msgstr "elavult csomagok törlése"
+
+msgid "retrieve GPG keys for sources"
+msgstr "GPG kulcsok letöltése a forrásokhoz"
+
+msgid "retrieve pkg data from MIRROR"
+msgstr "csomag adatok letöltése a MIRROR helyről"
+
+msgid "show download statistics"
+msgstr "letöltési statisztikák mutatása"
+
+msgid "show pkgs to be installed/upgraded"
+msgstr "mutatja a telepítendő/frissítendő csomagokat"
+
+msgid "skip dependency check"
+msgstr "függőségek ellenőrzésének kihagyása"
+
+msgid "specify alternate slapt-getrc location"
+msgstr "az alternatív slapt-getrc helyének megadása"
+
+msgid "specify number of download retry attempts"
+msgstr "a letöltési próbálkozások számának megadása"
+
+msgid "upgrade installed pkgs"
+msgstr "telepített csomagok frissítése"
+
+msgid "upgrade to newer release"
+msgstr "frissítés az újabb kiadásra"
+
+msgid "yes"
+msgstr "igen"
+
