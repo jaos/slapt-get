@@ -1,7 +1,8 @@
 
-0.10.2h Nov  11, 2010
+0.10.2h Jan  01, 2011
  * hungarian translation by Peter Polonkai
  * updated ru translation from Igor Murzov
+ * updated es_ES translation from Angelos
 
 0.10.2g Sept 27, 2010
  * api cleanup, typedef'd old structs
