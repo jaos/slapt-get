@@ -1,123 +1,48 @@
-.\" -*- nroff -*-
-.ds g \" empty
-.ds G \" empty
-.\" Like TP, but if specified indent is more than half
-.\" the current line-length - indent, use the default indent.
-.de Tp
-.ie \\n(.$=0:((0\\$1)*2u>(\\n(.lu-\\n(.iu)) .TP
-.el .TP "\\$1"
-..
-.TH slapt-get 8 
+.TH slapt-get 8 2011-01-04
+
 .SH NAME
 slapt-get \- frontend to pkgtools
+
 .SH SYNOPSIS
 .B slapt-get
-[
-.B option(s)
-]
-[
-.BI target
-]
+[\fIOPTION\fR]... [\fITARGET\fR]
 .LP
 .B options:
-[
-.B --download-only|-d
-]
-[
-.B --simulate|-s
-]
-[
-.B --no-prompt|-y
-]
-[
-.B --prompt|-p
-]
-[
-.B --reinstall
-]
-[
-.B --ignore-excludes
-]
-[
-.B --no-md5
-]
-[
-.B --ignore-dep
-]
-[
-.B --no-dep
-]
-[
-.B --print-uris
-]
-[
-.B --show-stats|-S
-]
-[
-.B --config|-c []
-]
-[
-.B --remove-obsolete
-]
-[
-.B --retry []
-]
-[
-.B --no-upgrade
-]
+\fB--download-only\fR|\fB-d\fR,
+\fB--simulate\fR|\fB-s\fR,
+\fB--no-prompt\fR|\fB-y\fR,
+\fB--prompt\fR|\fB-p\fR,
+\fB--reinstall\fR,
+\fB--ignore-excludes\fR,
+\fB--no-md5\fR,
+\fB--ignore-dep\fR,
+\fB--no-dep\fR,
+\fB--print-uris\fR,
+\fB--show-stats\fR|\fB-S\fR,
+\fB--config\fR|\fB-c\fR \fIFILE\fR,
+\fB--remove-obsolete\fR,
+\fB--retry\fR \fIN\fR,
+\fB--no-upgrade\fR
 .LP
 .B targets:
-[
-.B --update|-u
-]
-[
-.B --upgrade
-]
-[
-.B --dist-upgrade
-]
-[
-.B --install|-i
-]
-[
-.B --install-set
-]
-[
-.B --remove
-]
-[
-.B --show
-]
-[
-.B --filelist
-]
-[
-.B --search
-]
-[
-.B --list
-]
-[
-.B --available
-]
-[
-.B --installed
-]
-[
-.B --clean
-]
-[
-.B --autoclean
-]
-[
-.B --add-keys
-]
-[
-.B --help|-h
-]
-[
-.B --version
-]
+\fB--update\fR|\fB-u\fR,
+\fB--upgrade\fR,
+\fB--dist-upgrade\fR,
+\fB--install\fR|\fB-i\fR,
+\fB--install-set\fR,
+\fB--remove\fR,
+\fB--show\fR,
+\fB--filelist\fR,
+\fB--search\fR,
+\fB--list\fR,
+\fB--available\fR,
+\fB--installed\fR,
+\fB--clean\fR,
+\fB--autoclean\fR,
+\fB--add-keys\fR,
+\fB--help\fR|\fB-h\fR,
+\fB--version\fR
+
 .SH DESCRIPTION
 .B slapt-get
 is an APT like system for Slackware package management.  It
@@ -127,118 +52,151 @@ features include listing all available packages, listing all
 installed packages, and removing installed packages.
 .B slapt-get
 tries to emulate Debian's apt-get as closely as possible.
+
 .SH OPTIONS
 .TP
-.B --download-only|-d
-Download the package only.  Do not install/upgrade.  Packages are downloaded to /var/slapt-get/.
+\fB\-\-download\-only\fR, \fB\-d\fR
+Download the package only.  Do not install/upgrade.  Packages are downloaded to
+.IR /var/slapt-get/ .
 .TP
-.B --simulate|-s
+\fB\-\-simulate\fR, \fB\-s\fR
 Will not install or download packages.
 .TP
-.B --no-prompt|-y
+\fB\-\-no\-prompt\fR, \fB\-y\fR
 Do not prompt for package upgrade/remove confirmation.
 .TP
-.B --prompt|-p
+\fB\-\-prompt\fR, \fB\-p\fR
 Always prompt for package install confirmation.
 .TP
-.B --reinstall
+\fB\-\-reinstall\fR
 Install the package even if it is already installed.
 .TP
-.B --ignore-excludes
+\fB\-\-ignore\-excludes\fR
 Ignore exclude list and install excluded packages anyway.
 .TP
-.B --no-md5
+\fB\-\-no\-md5\fR
 Do not perform MD5 check sum on package.  This is dangerous!
 .TP
-.B --ignore-dep
-Ignore dependency failures on --install, --upgrade, or --dist-upgrade
+\fB\-\-ignore\-dep\fR
+Ignore dependency failures on \fB\-\-install\fR, \fB\-\-upgrade\fR, or
+\fB\-\-dist\-upgrade\fR.
 .TP
-.B --no-dep
+\fB\-\-no\-dep\fR
 Skip the dependency check.
 .TP
-.B --print-uris
+\fB\-\-print\-uris\fR
 Print URIs of packages to be downloaded to stdout, but do not download.
 .TP
-.B --show-stats|-S
+\fB\-\-show\-stats\fR, \fB\-S\fR
 Show the download statistics
 .TP
-.B --config|-c []
-Specify file location of slapt-get configuration.  This overrides the default location, /etc/slapt-get/slapt-getrc.
+\fB\-\-config\fR, \fB\-c\fR \fIFILE\fR
+Specify file location of slapt-get configuration.
+This overrides the default location, \fI/etc/slapt-get/slapt-getrc\fR.
 .TP
-.B --remove-obsolete
-Remove installed packages that are no longer available.  This works for --dist-upgrade and --remove only.  This removes packages that are no longer available from any current package sources, but are currently installed.  Be careful as this will also remove custom built packages.  
+\fB\-\-remove\-obsolete\fR
+Remove installed packages that are no longer available.  This works for
+\fB\-\-dist\-upgrade\fR and \fB\-\-remove\fR only.  This removes packages
+that are no longer available from any current package sources, but are
+currently installed.  Be careful as this will also remove custom built packages.
 .TP
-.B --retry []
+\fB\-\-retry\fR \fIN\fR
 Specify the number of retries to attempt if the package download fails.
 .TP
-.B --no-upgrade
-Install the package rather than attempting to detect if a previous version is installed and upgrading it.  This is useful for installing kernel packages.  This option is only valid for --install targets.
+\fB\-\-no\-upgrade\fR
+Install the package rather than attempting to detect if a previous version is
+installed and upgrading it.  This is useful for installing kernel packages.
+This option is only valid for \fB\-\-install\fR targets.
+
 .SH TARGETS
 .TP
-.B --update|-u
+\fB\-\-update\fR, \fB\-u\fR
 Retrieves package data from MIRROR location.
 .TP
-.B --upgrade
+\fB\-\-upgrade\fR
 Upgrade installed packages if newer versions are available.
 .TP
-.B --dist-upgrade
-Upgrade to newer Slackware release.  This is the same as --upgrade, with the addition of checking to make sure that all the base packages, from the base disk set, are also installed.  Prior to running dist-upgrade, make sure that the package cache is updated and the crucial packages (glibc-solibs, sed, and pkgtools) are upgraded.  See UPGRADE.TXT on your local Slackware mirror.
+\fB\-\-dist\-upgrade\fR
+Upgrade to newer Slackware release.  This is the same as \fB\-\-upgrade\fR,
+with the addition of checking to make sure that all the base packages,
+from the base disk set, are also installed.  Prior to running dist-upgrade,
+make sure that the package cache is updated and the crucial packages
+(glibc-solibs, sed, and pkgtools) are upgraded.  See \fIUPGRADE.TXT\fR
+on your local Slackware mirror.
 .TP
-.B --install|-i [package(s)]
-Install specified package(s).  Packages can be package names or package names with version (example: pkg-1.0-i386-1).
+\fB\-\-install\fR, \fB\-i\fR \fIpackage\fR...
+Install specified packages.  Packages can be package names or package names
+with version, e.g., \fIpkg\-1.0\-i386\-1\fR.
 .TP
-.B --install-set [disk set(s)]
-Install specified disk set(s).  example: --install-set xap n l
+\fB\-\-install\-set \fIdisk\_set\fR...
+Install specified disk sets, e.g., \fB\-\-install\-set\fR \fIxap n l\fR.
 .TP
-.B --remove [package(s)]
-Remove specified package(s).  Packages can be package names or package names with version (example: pkg-1.0-i386-1).
+\fB\-\-remove\fR \fIpackage\fR...
+Remove specified packages.  Packages can be package names or package names
+with version, e.g., \fIpkg\-1.0\-i386\-1\fR.
 .TP
-.B --show [package(s)]
-Show package description.  Package can be a package name or package name with version (example: pkg-1.0-i386-1).
+\fB\-\-show\fR \fIpackage\fR...
+Show packages description.  Packages can be a package names or package names
+with version, e.g., \fIpkg\-1.0\-i386\-1\fR.
 .TP
-.B --filelist [package(s)]
-Show package installed files.  Package can be a package name or package name with version (example: pkg-1.0-i386-1).
+\fB\-\-filelist\fR \fIpackage\fR...
+Show packages installed files.  Packages can be a package names or package names
+with version, e.g., \fIpkg\-1.0\-i386\-1\fR.
 .TP
-.B --search [expression]
+\fB\-\-search\fR \fIexpression\fR
 Search available packages. Applies POSIX and extended regular expression
 to the names, versions, locations, and descriptions of packages.
 .TP
-.B --list
+\fB\-\-list\fR
 List all packages, installed and available.
 .TP
-.B --available
-List available packages only.  This will show you the packages present on your current sources.
+\fB\-\-available\fR
+List available packages only.  This will show you the packages present on your
+current sources.
 .TP
-.B --installed
+\fB\-\-installed\fR
 List installed packages only.
 .TP
-.B --clean
-Purge cached/downloaded packages from WORKINGDIR (/var/slapt-get/ by default).
+\fB\-\-clean\fR
+Purge cached/downloaded packages from WORKINGDIR (\fI/var/slapt-get/\fR
+by default).
 .TP
-.B --autoclean
-Like clean, autoclean clears out the local repository of retrieved package files. The difference is that it only removes package files that can no longer be downloaded, and are largely useless. This allows a cache to be maintained over a long period without it growing out of control.
+\fB\-\-autoclean\fR
+Like clean, autoclean clears out the local repository of retrieved package files.
+The difference is that it only removes package files that can no longer be
+downloaded, and are largely useless. This allows a cache to be maintained over
+a long period without it growing out of control.
 .TP
-.B --add-keys
-Check each package source for a GPG-KEY file.  Download and import into the local keychain.
+\fB\-\-add\-keys\fR
+Check each package source for a \fIGPG\-KEY\fR file.  Download and import into
+the local keychain.
 .TP
-.B --help|-h
+\fB\-\-help\fR, \fB\-h\fR
 Display help and exit.
 .TP
-.B --version
+\fB\-\-version\fR
 Print version and license info.
+
 .SH NOTES
-.TP
-slapt-get uses pkgtools for installing, upgrading, and removing.
-.TP
-slapt-get will not make assumptions or do things without you telling it to.
-.TP
-slapt-get can only attempt to resolve dependencies and conflicts for those packages that were built with this information.  Vanilla Slackware packages (ie official Slackware packages) do not contain this data, thus slapt-get performs with --no-dep on by default.
-.TP
+.PP
+\fBslapt-get\fR uses \fBpkgtools\fR for installing, upgrading, and removing.
+.PP
+\fBslapt-get\fR will not make assumptions or do things without you telling it to.
+.PP
+\fBslapt-get\fR can only attempt to resolve dependencies and conflicts for those
+packages that were built with this information.  Vanilla Slackware packages
+(i.e. official Slackware packages) do not contain this data, thus \fBslapt-get\fR
+performs with \fB\-\-no\-dep\fR on by default.
+.PP
 Untested updates are risky, whether using official packages or third party packages.
-.TP
-slapt-get will not change your system such that you can only use slapt-get or are somehow locked into using slapt-get.  The only additions to your system are /etc/slapt-get and /var/slapt-get.  You are free to try another solution or go back to manual upgradepkg.
-.TP
-UPGRADE.TXT and ChangeLog.txt is still required reading, the latter is especially true when running -current.
+.PP
+\fBslapt-get\fR will not change your system such that you can only use
+\fBslapt-get\fR or are somehow locked into using \fBslapt-get\fR.  The only
+additions to your system are \fI/etc/slapt-get\fR and \fI/var/slapt-get\fR.
+You are free to try another solution or go back to manual \fBupgradepkg\fR(8).
+.PP
+\fIUPGRADE.TXT\fR and \fIChangeLog.txt\fR is still required reading, the latter
+is especially true when running -current.
 
 .SH FILES
 /etc/slapt-get/slapt-getrc
@@ -246,10 +204,10 @@ UPGRADE.TXT and ChangeLog.txt is still required reading, the latter is especiall
 .SH AUTHOR
 Jason Woodward <woodwardj@jaos.org>
 .SH "SEE ALSO"
-.BR installpkg(8),
-.BR makepkg(8),
-.BR removepkg(8),
-.BR explodepkg(8),
-.BR pkgtool(8), 
-.BR upgradepkg(8),
-.BR netrc(5)
+.BR installpkg (8),
+.BR makepkg (8),
+.BR removepkg (8),
+.BR explodepkg (8),
+.BR pkgtool (8),
+.BR upgradepkg (8),
+.BR netrc (5)
