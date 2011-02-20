@@ -1,5 +1,6 @@
 
-0.10.2h Jan  01, 2011
+0.10.2h Feb  15, 2011
+ * fix parse_meta_tag() to match '+' in package name
  * hungarian translation by Peter Polonkai
  * updated ru translation from Igor Murzov
  * updated es_ES translation from Angelos
