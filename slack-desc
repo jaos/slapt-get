@@ -15,5 +15,5 @@ slapt-get:    using a local mirror.  www.slackware.com may be very busy.
 slapt-get:  * Support:
 slapt-get:    http://software.jaos.org/cgi-bin/mailman/listinfo/slapt-get-user
 slapt-get:  * Please translate
-slapt-get:    http://software.jaos.org/BUILD/slapt-get/po/slapt-get.pot
+slapt-get:    http://software.jaos.org/git/slapt-get/plain/po/slapt-get.pot
 slapt-get:    then send to slapt-get-devel@software.jaos.org
