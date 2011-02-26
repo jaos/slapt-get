@@ -1,4 +1,7 @@
 
+0.10.2i Feb  26, 2011
+ * updated it translation from Stefano Ansaloni
+
 0.10.2h Feb  15, 2011
  * fix parse_meta_tag() to match '+' in package name
  * hungarian translation by Peter Polonkai
