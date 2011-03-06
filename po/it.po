@@ -7,6 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.2f\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-07-09 20:54+0400\n"
 "PO-Revision-Date: 2010-06-07 21:05+0500\n"
 "Last-Translator: Francesco Gigli <jaramir@slack.it>\n"
@@ -97,7 +98,7 @@ msgstr "Dopo l'installazione %.1f%s di sazio sul disco saranno liberati.\n"
 #, c-format
 msgid "After unpacking %.1f%s of additional disk space will be used.\n"
 msgstr ""
-"Dopo l'installazione saranno utilizzati %.1f%s addizionali di spazio sul "
+"Dopo l\'installazione saranno utilizzati %.1f%s addizionali di spazio sul "
 "disco.\n"
 
 #, c-format
@@ -466,15 +467,15 @@ msgstr "errore nella lettura della descrizione del pacchetto\n"
 
 #, c-format
 msgid "getline reached EOF attempting to read location\n"
-msgstr "getline ha raggiunto EOF metre cercava di leggere la posizione\n"
+msgstr "getline ha raggiunto EOF mentre cercava di leggere la posizione\n"
 
 #, c-format
 msgid "getline reached EOF attempting to read size_c\n"
-msgstr "getline ha raggiunto EOF metre provava a leggere size_c\n"
+msgstr "getline ha raggiunto EOF mentre provava a leggere size_c\n"
 
 #, c-format
 msgid "getline reached EOF attempting to read size_u\n"
-msgstr "getline ha raggiunto EOF metre provava a leggere size_u\n"
+msgstr "getline ha raggiunto EOF mentre provava a leggere size_u\n"
 
 msgid "ignore dependency failures"
 msgstr "ignorare gli errori nelle dipendenze"
