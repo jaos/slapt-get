@@ -10,3 +10,4 @@ gpgme
 libgpg-error
 cyrus-sasl
 openldap-client
+libassuan
