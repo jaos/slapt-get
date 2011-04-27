@@ -143,21 +143,24 @@ void slapt_working_dir_init(const slapt_rc_config *global_config)
 {
   DIR *working_dir;
   int mode = W_OK;
+  char *cwd = NULL;
 
   if ( (working_dir = opendir(global_config->working_dir)) == NULL ) {
-    if ( mkdir(global_config->working_dir,
-        S_IRUSR|S_IWUSR|S_IXUSR|S_IRGRP|S_IXGRP|S_IROTH|S_IXOTH) == -1
-    ) {
-      printf(gettext("Failed to build working directory [%s]\n"),
-        global_config->working_dir);
+    cwd = getcwd (NULL, 0);
+    if (cwd != NULL) {
+      chdir ("/");
+      slapt_create_dir_structure (global_config->working_dir);
+      chdir (cwd);
+      free (cwd);
+    } else {
+      printf (gettext ("Failed to build working directory [%s]\n"),
+               global_config->working_dir);
+      exit (EXIT_FAILURE);
 
-      if ( errno )
-        perror(global_config->working_dir);
-
-      exit(EXIT_FAILURE);
     }
   }
-  closedir(working_dir);
+  if (working_dir != NULL)
+    closedir(working_dir);
 
 	/* allow read access if we are simulating */
   if (global_config->simulate)
