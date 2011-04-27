@@ -1,5 +1,7 @@
 
-0.10.2i Apr  18, 2011
+0.10.2i Apr  27, 2011
+ * set default example sources to 13.37
+ * update working direction creation to account for N path depth
  * libassuan is now required via libgpgme
  * updated it translation from Stefano Ansaloni
 
