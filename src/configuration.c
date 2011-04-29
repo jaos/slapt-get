@@ -142,15 +142,15 @@ slapt_rc_config *slapt_read_rc_config(const char *file_name)
 void slapt_working_dir_init(const slapt_rc_config *global_config)
 {
   DIR *working_dir;
-  int mode = W_OK;
+  int mode = W_OK, r;
   char *cwd = NULL;
 
   if ( (working_dir = opendir(global_config->working_dir)) == NULL ) {
     cwd = getcwd (NULL, 0);
     if (cwd != NULL) {
-      chdir ("/");
+      r = chdir ("/");
       slapt_create_dir_structure (global_config->working_dir);
-      chdir (cwd);
+      r = chdir (cwd);
       free (cwd);
     } else {
       printf (gettext ("Failed to build working directory [%s]\n"),
