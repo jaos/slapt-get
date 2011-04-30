@@ -147,8 +147,10 @@ int main( int argc, char *argv[] )
         initial_config->simulate = SLAPT_TRUE;
         break;
       case SLAPT_VERSION_OPT: /* version */
-        do_action = SHOWVERSION;
-        break;
+        version_info();
+        slapt_free_rc_config(initial_config);
+        curl_global_cleanup();
+        exit(EXIT_SUCCESS);
       case SLAPT_NO_PROMPT_OPT: /* auto */
         initial_config->no_prompt = SLAPT_TRUE;
         break;
@@ -293,13 +295,6 @@ int main( int argc, char *argv[] )
     slapt_free_rc_config(global_config);
     curl_global_cleanup();
     exit(EXIT_FAILURE);
-  }
-
-  if ( do_action == SHOWVERSION ) {
-    version_info();
-    slapt_free_rc_config(global_config);
-    curl_global_cleanup();
-    exit(EXIT_SUCCESS);
   }
 
   /* create the working directory if needed */
