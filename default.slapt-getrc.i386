@@ -11,9 +11,9 @@ EXCLUDE=^aaa_elflibs,^devs,^glibc-.*,^kernel-.*,^udev,.*-[0-9]+dl$,x86_64
 SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-13.37/:OFFICIAL
 
 # Sources for the testing, extra, and pasture areas - if you use them.
-# SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-13.0/extra/:PREFERRED
-# SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-13.0/testing/
-# SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-13.0/pasture/
+# SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-13.37/extra/:PREFERRED
+# SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-13.37/testing/
+# SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-13.37/pasture/
 
 # Source for slapt-get.
 SOURCE=http://software.jaos.org/slackpacks/13.37/:OFFICIAL
