@@ -55,9 +55,9 @@ START_TEST (test_pkg_info)
   fail_unless (strcmp(string,"http://software.jaos.org/slackpacks/11.0/./gslapt-0.3.15-i386-1.tgz") == 0);
   free(string); string = NULL;
 
-  slapt_add_exclude(rc->exclude_list,"^gslapt$");
+  slapt_add_list_item(rc->exclude_list,"^gslapt$");
   fail_if (slapt_is_excluded(rc,&pkg) == 0);
-  slapt_remove_exclude(rc->exclude_list,"^gslapt$");
+  slapt_remove_list_item(rc->exclude_list,"^gslapt$");
 
   fail_unless (slapt_download_pkg(rc, &pkg, NULL) == 0);
   fail_unless (slapt_verify_downloaded_pkg(rc,&pkg) == 0);
@@ -86,7 +86,7 @@ END_TEST
 
 START_TEST (test_pkg_list)
 {
-  struct slapt_pkg_list *list = slapt_init_pkg_list();
+  slapt_pkg_list_t *list = slapt_init_pkg_list();
   fail_if (list == NULL);
   fail_unless (list->pkg_count == 0);
 
@@ -104,26 +104,26 @@ START_TEST (test_pkg_list)
 
 
   /* parse the PACKAGES.TXT file
-  struct slapt_pkg_list *slapt_parse_packages_txt(FILE *);
+  slapt_pkg_list_t *slapt_parse_packages_txt(FILE *);
   */
 
   /*
     return a list of available packages must be already chdir'd to
     rc_config->working_dir.  Otherwise, open a filehandle to the package data
     and pass it to slapt_parse_packages_txt();
-  struct slapt_pkg_list *slapt_get_available_pkgs(void);
+  slapt_pkg_list_t *slapt_get_available_pkgs(void);
   */
 
   /* get a list of obsolete packages
-  struct slapt_pkg_list *
+  slapt_pkg_list_t *
     slapt_get_obsolete_pkgs ( const slapt_rc_config *global_config,
-                              struct slapt_pkg_list *avail_pkgs,
-                              struct slapt_pkg_list *installed_pkgs);
+                              slapt_pkg_list_t *avail_pkgs,
+                              slapt_pkg_list_t *installed_pkgs);
   */
 
   /*
     fill in the md5sum of the package
-  void slapt_get_md5sums(struct slapt_pkg_list *pkgs, FILE *checksum_file);
+  void slapt_get_md5sums(slapt_pkg_list_t *pkgs, FILE *checksum_file);
   */
 
 }
@@ -133,8 +133,8 @@ END_TEST
 START_TEST (test_pkg_search)
 {
   slapt_pkg_info_t *p         = NULL;
-  struct slapt_pkg_list *l    = NULL;
-  struct slapt_pkg_list *list = slapt_init_pkg_list();
+  slapt_pkg_list_t *l    = NULL;
+  slapt_pkg_list_t *list = slapt_init_pkg_list();
   slapt_add_pkg_to_pkg_list(list, &pkg);
 
   p = slapt_get_newest_pkg(list, "gslapt");
@@ -300,25 +300,25 @@ START_TEST (test_dependency)
     returns 0 on success, -1 on error setting conflict_err and missing_err
     (usually called with transaction->conflict_err and transaction->missing_err)
   int slapt_get_pkg_dependencies(const slapt_rc_config *global_config,
-                           struct slapt_pkg_list *avail_pkgs,
-                           struct slapt_pkg_list *installed_pkgs,
+                           slapt_pkg_list_t *avail_pkgs,
+                           slapt_pkg_list_t *installed_pkgs,
                            slapt_pkg_info_t *pkg,
-                           struct slapt_pkg_list *deps,
-                           struct slapt_pkg_err_list *conflict_err,
-                           struct slapt_pkg_err_list *missing_err);
+                           slapt_pkg_list_t *deps,
+                           slapt_pkg_err_list_t *conflict_err,
+                           slapt_pkg_err_list_t *missing_err);
   */
 
   /*
     return list of package conflicts
-  struct slapt_pkg_list *slapt_get_pkg_conflicts(struct slapt_pkg_list *avail_pkgs,
-                                                 struct slapt_pkg_list *installed_pkgs,
+  slapt_pkg_list_t *slapt_get_pkg_conflicts(slapt_pkg_list_t *avail_pkgs,
+                                                 slapt_pkg_list_t *installed_pkgs,
                                                  slapt_pkg_info_t *pkg);
   */
 
   /*
     return list of packages required by
-  struct slapt_pkg_list *slapt_is_required_by(const slapt_rc_config *global_config,
-                                              struct slapt_pkg_list *avail,
+  slapt_pkg_list_t *slapt_is_required_by(const slapt_rc_config *global_config,
+                                              slapt_pkg_list_t *avail,
                                               slapt_pkg_info_t *pkg);
   */
 }
@@ -332,7 +332,7 @@ START_TEST (test_cache)
   slapt_clean_pkg_dir(rc->working_dir);
 
   /* not easily testable due to timeout
-  struct slapt_pkg_list *list = slapt_init_pkg_list();
+  slapt_pkg_list_t *list = slapt_init_pkg_list();
   slapt_purge_old_cached_pkgs(rc, NULL, list);
   */
 
@@ -343,7 +343,7 @@ END_TEST
 
 START_TEST (test_error)
 {
-  struct slapt_pkg_err_list *list = slapt_init_pkg_err_list();
+  slapt_pkg_err_list_t *list = slapt_init_pkg_err_list();
 
   slapt_add_pkg_err_to_list(list, "gslapt", "Server returned 404");
 
@@ -365,13 +365,13 @@ START_TEST (test_network)
 
   /* write pkg data to disk
   void slapt_write_pkg_data(const char *source_url,FILE *d_file,
-                            struct slapt_pkg_list *pkgs);
+                            slapt_pkg_list_t *pkgs);
   */
 
   /* download the PACKAGES.TXT and CHECKSUMS.md5 files
-  struct slapt_pkg_list *slapt_get_pkg_source_packages (const slapt_rc_config *global_config,
+  slapt_pkg_list_t *slapt_get_pkg_source_packages (const slapt_rc_config *global_config,
                                                         const char *url);
-  struct slapt_pkg_list *slapt_get_pkg_source_patches (const slapt_rc_config *global_config,
+  slapt_pkg_list_t *slapt_get_pkg_source_patches (const slapt_rc_config *global_config,
                                                        const char *url);
   FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,
                                         const char *url);

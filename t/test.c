@@ -55,6 +55,10 @@ int main(void)
   Suite *s    = slapt_test_suite();
   SRunner *sr = srunner_create (s);
 
+#ifdef SLAPT_HAS_GPGME
+  gpgme_check_version (NULL);
+#endif
+
   srunner_add_suite(sr, common_test_suite());
   srunner_add_suite(sr, configuration_test_suite());
   srunner_add_suite(sr, curl_test_suite());

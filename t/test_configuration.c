@@ -13,8 +13,8 @@ START_TEST (test_struct_config)
   rc = slapt_read_rc_config("./data/rc1");
   fail_if (rc == NULL);
   {
-    struct slapt_source_list *s = rc->sources;
-    struct slapt_exclude_list *e = rc->exclude_list;
+    slapt_source_list_t *s = rc->sources;
+    slapt_list_t *e = rc->exclude_list;
 
     fail_if (s->count < 1);
     fail_if (e->count != 8);
@@ -47,21 +47,21 @@ END_TEST
 
 START_TEST (test_exclude_list)
 {
-  struct slapt_exclude_list *e = slapt_init_exclude_list();
+  slapt_list_t *e = slapt_init_list();
 
   fail_if (e == NULL);
   fail_if (e->count != 0);
 
-  slapt_add_exclude(e,"^foo$");
+  slapt_add_list_item(e,"^foo$");
   fail_if (e->count != 1);
 
-  slapt_remove_exclude(e,"^foo$");
+  slapt_remove_list_item(e,"^foo$");
   fail_if (e->count != 0);
 
-  slapt_remove_exclude(e,"no_such_exclude");
+  slapt_remove_list_item(e,"no_such_exclude");
   fail_if (e->count != 0);
 
-  slapt_free_exclude_list(e);
+  slapt_free_list(e);
 }
 END_TEST
 
@@ -69,7 +69,7 @@ END_TEST
 START_TEST (test_source_list)
 {
   slapt_source_t *src = slapt_init_source("http://www.test.org/dist");
-  struct slapt_source_list *s = slapt_init_source_list();
+  slapt_source_list_t *s = slapt_init_source_list();
   fail_if (s == NULL);
   fail_if (s->count != 0);
 
