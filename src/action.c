@@ -839,4 +839,6 @@ void slapt_pkg_action_filelist( const char *pkg_name )
   printf("%s",filelist);
 
   free(filelist);
+  slapt_free_regex(pkg_regex);
+  slapt_free_pkg_list(installed_pkgs);
 }
