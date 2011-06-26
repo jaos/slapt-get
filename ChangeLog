@@ -1,4 +1,14 @@
 
+0.10.2j Jun  26, 2011
+ * Updated regex for reading /var/log/packages compressed and uncompressed sizes
+ * free regex and installed package list in slapt_pkg_action_filelist
+ * updating unit tests
+ * updated italian translation from Stefano Ansaloni
+ * moved --version logout prior to reading config file
+ * fixed commented out extra etc examples for 13.37
+ * remove specific version in slack-desc
+ * silence chdir return warning
+
 0.10.2i Apr  27, 2011
  * set default example sources to 13.37
  * update working direction creation to account for N path depth
