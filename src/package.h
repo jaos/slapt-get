@@ -8,8 +8,8 @@
 #define SLAPT_PKG_LOCATION_PATTERN "^PACKAGE LOCATION:[ ]+(.*)$"
 #define SLAPT_PKG_SIZEC_PATTERN "^PACKAGE SIZE [(]+compressed[)]{1,}:[ ]{1,}([0-9]{1,}) K$"
 #define SLAPT_PKG_SIZEU_PATTERN "^PACKAGE SIZE [(]+uncompressed[)]{1,}:[ ]{1,}([0-9]{1,}) K$"
-#define SLAPT_PKG_LOG_SIZEC_PATTERN "^COMPRESSED PACKAGE SIZE:[ ]{1,}([0-9]{1,})[ ]{0,}K$"
-#define SLAPT_PKG_LOG_SIZEU_PATTERN "^UNCOMPRESSED PACKAGE SIZE:[ ]{1,}([0-9]{1,})[ ]{0,}K$"
+#define SLAPT_PKG_LOG_SIZEC_PATTERN "^COMPRESSED PACKAGE SIZE:[ ]{1,}([0-9]{1,})[ ]{0,}([MK])$"
+#define SLAPT_PKG_LOG_SIZEU_PATTERN "^UNCOMPRESSED PACKAGE SIZE:[ ]{1,}([0-9]{1,})[ ]{0,}([MK])$"
 #define SLAPT_PKG_LOG_DIR "/var/log/packages"
 #define SLAPT_ROOT_ENV_NAME "ROOT"
 #define SLAPT_ROOT_ENV_LEN 255
