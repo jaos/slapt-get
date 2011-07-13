@@ -239,19 +239,19 @@ Frequently Asked Questions:
    PACKAGE LOCATION:  ./slackware/ap
    PACKAGE SIZE (compressed):  166 K
    PACKAGE SIZE (uncompressed):  390 K
-   PACKAGE REQUIRES: groff >= 1.56-noarch-1,man-pages | man-pages-de
+   PACKAGE REQUIRED: groff >= 1.56-noarch-1,man-pages | man-pages-de
    PACKAGE CONFLICTS:  
    PACKAGE SUGGESTS:  
    PACKAGE DESCRIPTION:
    man: man (format and display the on-line manual pages)
 
- The REQUIRES line is an addition supported by slapt-get, along with CONFLICTS
+ The REQUIRED line is an addition supported by slapt-get, along with CONFLICTS
  and SUGGESTS.  The meta files supporting dependencies, conflicts, and
  suggestions are within the packages inside the ./install/ directory.  The
- REQUIRES information is stored in the slack-required file.  The CONFLICTS
+ REQUIRED information is stored in the slack-required file.  The CONFLICTS
  information is stored within the slack-conflicts file.  The SUGGESTS
  information is stored in the slack-suggests file.  See FAQ #19 for a breakdown
- of the structure of REQUIRES, FAQ #31 for CONFLICTS, and FAQ #44 for SUGGESTS.
+ of the structure of REQUIRED, FAQ #31 for CONFLICTS, and FAQ #44 for SUGGESTS.
  MIRROR is an optional location so that the packages can be hosted elsewhere
  (this is the internal representation slapt-get uses after caching the package
  date from the remote package source).
