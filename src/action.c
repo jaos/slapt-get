@@ -92,6 +92,20 @@ void slapt_pkg_action_install(const slapt_rc_config *global_config,
         if (conflicts->pkg_count > 0 && global_config->ignore_dep != SLAPT_TRUE) {
           unsigned int cindex = 0;
           for (cindex = 0; cindex < conflicts->pkg_count;cindex++) {
+            /* make sure to remove the conflict's dependencies as well */
+            unsigned int cdindex = 0;
+            slapt_pkg_list_t *conflict_deps = slapt_is_required_by(global_config,
+                                              avail_pkgs, installed_pkgs,
+                                              tran->install_pkgs, tran->remove_pkgs,
+                                              conflicts->pkgs[cindex]);
+            for (cdindex = 0; cdindex < conflict_deps->pkg_count; ++cdindex) {
+              slapt_pkg_info_t *dep = conflict_deps->pkgs[cdindex];
+              if ( slapt_get_exact_pkg(installed_pkgs,dep->name, dep->version) != NULL) {
+                slapt_add_remove_to_transaction(tran,dep);
+              }
+            }
+            slapt_free_pkg_list(conflict_deps);
+
             slapt_add_remove_to_transaction(tran,conflicts->pkgs[cindex]);
           }
         }
@@ -120,6 +134,20 @@ void slapt_pkg_action_install(const slapt_rc_config *global_config,
           if (conflicts->pkg_count > 0 && global_config->ignore_dep != SLAPT_TRUE) {
             unsigned int cindex = 0;
             for (cindex = 0;cindex < conflicts->pkg_count;cindex++) {
+              /* make sure to remove the conflict's dependencies as well */
+              unsigned int cdindex = 0;
+              slapt_pkg_list_t *conflict_deps = slapt_is_required_by(global_config,
+                                                avail_pkgs, installed_pkgs,
+                                                tran->install_pkgs, tran->remove_pkgs,
+                                                conflicts->pkgs[cindex]);
+              for (cdindex = 0; cdindex < conflict_deps->pkg_count; ++cdindex) {
+                slapt_pkg_info_t *dep = conflict_deps->pkgs[cdindex];
+                if ( slapt_get_exact_pkg(installed_pkgs,dep->name, dep->version) != NULL) {
+                  slapt_add_remove_to_transaction(tran,dep);
+                }
+              }
+              slapt_free_pkg_list(conflict_deps);
+
               slapt_add_remove_to_transaction(tran,conflicts->pkgs[cindex]);
             }
           }
