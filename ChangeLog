@@ -1,5 +1,6 @@
 
 0.10.2j Jul  15, 2011
+ * updated --help output (inspired by Igor's slapt-src suggestions)
  * make sure to remove the conflict's dependencies as well as the conflict
  * Updated regex for reading /var/log/packages compressed and uncompressed sizes
  * free regex and installed package list in slapt_pkg_action_filelist
