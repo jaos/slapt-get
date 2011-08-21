@@ -5,11 +5,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.10.2f\n"
+"Project-Id-Version: 0.10.2j\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-07-09 20:54+0400\n"
-"PO-Revision-Date: 2010-06-07 21:05+0500\n"
-"Last-Translator: Igor Murzov <igor@gplsoft.org>\n"
+"PO-Revision-Date: 2011-08-21 21:05+0500\n"
+"Last-Translator: Igor Murzov <e-mail@date.by>\n"
 "Language-Team: DeepStyle Team <hottab@deepstyle.org.ua>, <ru@li.org>, sin "
 "<digitalhunger@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -222,14 +222,14 @@ msgid "Get %s %s %s [%.1f%s]..."
 msgstr "Получение %s %s %s [%.1f%s]..."
 
 msgid "Incomplete download"
-msgstr "Загрузка незавершена"
+msgstr "Загрузка не завершена"
 
 #, c-format
 msgid "Installed %s conflicts with %s\n"
-msgstr "Установленный %s конфликтует с %s\n"
+msgstr "Установленный пакет %s конфликтует с %s\n"
 
 msgid "MD5 checksum mismatch, override with --no-md5"
-msgstr "Не совпадает контрольная сумма MD5, --no-md5 отключает проверку"
+msgstr "MD5-суммы не совпадают, --no-md5 отключает проверку"
 
 msgid "Missing MD5 checksum, override with --no-md5"
 msgstr "Отсутствует контрольная сумма MD5, --no-md5 отключает проверку"
@@ -323,7 +323,7 @@ msgstr "Версия пакета: %s\n"
 
 #, c-format
 msgid "Perhaps you want to run --update?\n"
-msgstr "Возможно вам нужна опция --update?\n"
+msgstr "Возможно, вам нужна опция --update?\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
@@ -438,22 +438,22 @@ msgid "You don't have enough free space in %s\n"
 msgstr "Недостаточно свободного места в %s\n"
 
 msgid "[disk set(s)] - install specified disk set(s)"
-msgstr "[дисковый(е) набор(ы)] - установить указанные дисковые наборы"
+msgstr "[дисковые наборы] - установить указанные дисковые наборы"
 
 msgid "[expression] - search available pkgs"
-msgstr "[выражение] - найти доступные пакеты"
+msgstr "[выражение] - поиск по доступным пакетам"
 
 msgid "[pkg name(s)] - install specified pkg(s)"
-msgstr "[имя пакета] - установить указанные пакеты"
+msgstr "[имена пакетов] - установить указанные пакеты"
 
 msgid "[pkg name(s)] - remove specified pkg(s)"
-msgstr "[имя пакета] - удалить указанные пакеты"
+msgstr "[имена пакетов] - удалить указанные пакеты"
 
 msgid "[pkg name(s)] - show pkg(s) description"
-msgstr "[pkg name(s)] - показать описания пакетов"
+msgstr "[имена пакетов] - показать описания пакетов"
 
 msgid "[pkg name(s)] - show pkg(s) installed files"
-msgstr "[pkg name(s)] - показать файлы установленные пакетом"
+msgstr "[имена пакетов] - показать файлы установленные пакетами"
 
 msgid "always prompt during install/upgrade"
 msgstr "всегда спрашивать при установке/обновлении"
@@ -490,16 +490,16 @@ msgid "install package, do not attempt to upgrade"
 msgstr "установить пакет, не пытаться обновлять"
 
 msgid "install/upgrade excludes"
-msgstr "исключения установки/обновления"
+msgstr "устанавливать/обновлять пакеты из списка исключений"
 
 msgid "list available pkgs"
-msgstr "список доступных пакетов"
+msgstr "вывести список доступных пакетов"
 
 msgid "list installed pkgs"
-msgstr "список установленных пакетов"
+msgstr "вывести список установленных пакетов"
 
 msgid "list pkgs"
-msgstr "список пакетов"
+msgstr "вывести список пакетов"
 
 #, c-format
 msgid "md5 sum too long\n"
@@ -512,7 +512,7 @@ msgid "only download pkg on install/upgrade"
 msgstr "только скачать пакеты для установки/обновления"
 
 msgid "only purge cache of older, unreacheable pkgs"
-msgstr "только очистка кэша старых, недосягаемых пакетов"
+msgstr "удалить из кэша устаревшие недоступные пакеты"
 
 #, c-format
 msgid "pkg conditional too long\n"
