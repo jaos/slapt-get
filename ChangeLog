@@ -1,4 +1,8 @@
 
+0.10.2k Sep  04, 2011
+ * tighten up the package name regexen
+ * updated translation building, russian translation from Igor
+
 0.10.2j Jul  15, 2011
  * updated --help output (inspired by Igor's slapt-src suggestions)
  * make sure to remove the conflict's dependencies as well as the conflict
