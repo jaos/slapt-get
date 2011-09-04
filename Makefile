@@ -1,5 +1,5 @@
 PACKAGE=slapt-get
-VERSION=0.10.2j
+VERSION=0.10.2k
 ARCH?=$(shell uname -m | sed -e "s/i[3456]86/i386/")
 LIBDIR=/usr/lib
 RELEASE=1
