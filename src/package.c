@@ -2368,6 +2368,7 @@ void slapt_purge_old_cached_pkgs(const slapt_rc_config *global_config,
       perror(dir_name);
 
     fprintf(stderr,gettext("Failed to chdir: %s\n"),dir_name);
+    closedir(dir);
     return;
   }
 
@@ -2448,6 +2449,7 @@ void slapt_clean_pkg_dir(const char *dir_name)
 
   if (chdir(dir_name) == -1 ) {
     fprintf(stderr,gettext("Failed to chdir: %s\n"),dir_name);
+    closedir(dir);
     return;
   }
 
