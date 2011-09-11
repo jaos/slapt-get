@@ -69,7 +69,7 @@ slapt_rc_config *slapt_read_rc_config(const char *file_name)
     char *token_ptr = NULL;
     getline_buffer[g_size - 1] = '\0';
 
-    /* check to see if it has our key and value seperated by our token */
+    /* check to see if it has our key and value separated by our token */
     /* and extract them */
     if ( (strchr(getline_buffer,'#') != NULL) && (strstr(getline_buffer, SLAPT_DISABLED_SOURCE_TOKEN) == NULL) )
       continue;

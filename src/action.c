@@ -772,7 +772,7 @@ static int cmp_pkg_arch(const char *a,const char *b)
   slapt_execute_regex(a_arch_regex,a);
   slapt_execute_regex(b_arch_regex,b);
 
-  if (a_arch_regex->reg_return != 0 || a_arch_regex->reg_return != 0) {
+  if (a_arch_regex->reg_return != 0 || b_arch_regex->reg_return != 0) {
 
     slapt_free_regex(a_arch_regex);
     slapt_free_regex(b_arch_regex);
