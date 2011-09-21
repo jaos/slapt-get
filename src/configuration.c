@@ -149,7 +149,8 @@ void slapt_working_dir_init(const slapt_rc_config *global_config)
     cwd = getcwd (NULL, 0);
     if (cwd != NULL) {
       r = chdir ("/");
-      slapt_create_dir_structure (global_config->working_dir);
+      if (r == 0)
+        slapt_create_dir_structure (global_config->working_dir);
       r = chdir (cwd);
       free (cwd);
     } else {
