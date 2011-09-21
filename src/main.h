@@ -25,7 +25,6 @@
 #include <unistd.h>
 #include <getopt.h>
 #include <curl/curl.h>
-#include <curl/types.h>
 #include <curl/easy.h>
 #include <regex.h>
 #include <errno.h>
