@@ -1,4 +1,12 @@
 
+0.10.2l Sep  20, 2011
+ * only create directory structure if chdir succeeded
+ * remove inclusion of deprecated curl/types.h
+ * explicitly link in libcrypto
+ * bumped version to 0.10.2l
+ * Fix resource leaks on error paths
+ * Fix typo
+
 0.10.2k Sep  04, 2011
  * tighten up the package name regexen
  * updated translation building, russian translation from Igor
