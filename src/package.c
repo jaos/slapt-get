@@ -1765,10 +1765,10 @@ static void required_by(slapt_pkg_list_t *avail,
   unsigned int i;
   slapt_regex_t *required_by_reg = NULL;
   char *pkg_name  = escape_package_name(pkg);
-  int reg_str_len = strlen(pkg_name) + 5;
+  int reg_str_len = strlen(pkg_name) + 29;
   char *reg = slapt_malloc(sizeof *reg * reg_str_len);
   /* add word boundary to search */
-  int sprintf_r = snprintf(reg, (size_t)reg_str_len, "\\W%s\\W", pkg_name);
+  int sprintf_r = snprintf(reg, (size_t)reg_str_len, "[^a-zA-Z0-9\\-]%s[^a-zA-Z0-9\\-]", pkg_name);
 
   if (sprintf_r < 0) {
     fprintf(stderr,"sprintf error for %s\n", pkg_name);
@@ -1806,7 +1806,7 @@ static void required_by(slapt_pkg_list_t *avail,
     for (d = 0; d < dep_list->count; d++) {
       slapt_list_t *satisfies = NULL;
       unsigned int s = 0;
-      SLAPT_BOOL_T has_alternative = SLAPT_FALSE;
+      SLAPT_BOOL_T has_alternative = SLAPT_FALSE, found = SLAPT_FALSE;
 
       /* found our package in the list of dependencies */
       if (strstr(dep_list->items[d], pkg->name) == NULL)
@@ -1814,6 +1814,8 @@ static void required_by(slapt_pkg_list_t *avail,
 
       /* not an |or, just add it */
       if (strchr(dep_list->items[d],'|') == NULL) {
+        if (strcmp(dep_list->items[d], pkg->name) != 0)
+          continue;
         if (slapt_get_exact_pkg(required_by_list, pkg_ptr->name, pkg_ptr->version) == NULL) {
           slapt_add_pkg_to_pkg_list(required_by_list,pkg_ptr);
           required_by(avail,installed_pkgs,pkgs_to_install,pkgs_to_remove, pkg_ptr, required_by_list );
@@ -1825,26 +1827,29 @@ static void required_by(slapt_pkg_list_t *avail,
       satisfies = slapt_parse_delimited_list(dep_list->items[d],'|');
       for (s = 0; s < satisfies->count; s++) {
         slapt_pkg_info_t *tmp_pkg = parse_meta_entry(avail,installed_pkgs,satisfies->items[s]);
+        if (tmp_pkg != NULL) 
+          continue;
 
-        if (tmp_pkg != NULL) {
-          if (strcmp(tmp_pkg->name,pkg->name) == 0)
-            continue;
+        if (strcmp(tmp_pkg->name,pkg->name) == 0) {
+          found = SLAPT_TRUE;
+          continue;
+        }
 
-          if (slapt_get_exact_pkg(installed_pkgs,tmp_pkg->name, tmp_pkg->version) != NULL) {
-            if (slapt_get_exact_pkg(pkgs_to_remove,tmp_pkg->name, tmp_pkg->version) == NULL) {
-              has_alternative = SLAPT_TRUE;
-              break;
-            }
-          } else if (slapt_get_exact_pkg(pkgs_to_install, tmp_pkg->name, tmp_pkg->version) != NULL) {
+        if (slapt_get_exact_pkg(installed_pkgs,tmp_pkg->name, tmp_pkg->version) != NULL) {
+          if (slapt_get_exact_pkg(pkgs_to_remove,tmp_pkg->name, tmp_pkg->version) == NULL) {
             has_alternative = SLAPT_TRUE;
             break;
           }
+        } else if (slapt_get_exact_pkg(pkgs_to_install, tmp_pkg->name, tmp_pkg->version) != NULL) {
+          has_alternative = SLAPT_TRUE;
+          break;
         }
+
       }
       slapt_free_list(satisfies);
 
       /* we couldn't find an installed pkg that satisfies the |or */
-      if (has_alternative == SLAPT_FALSE) {
+      if (has_alternative == SLAPT_FALSE && found == SLAPT_TRUE) {
         if (slapt_get_exact_pkg(required_by_list, pkg_ptr->name, pkg_ptr->version) == NULL) {
           slapt_add_pkg_to_pkg_list(required_by_list,pkg_ptr);
           required_by(avail,installed_pkgs,pkgs_to_install,pkgs_to_remove, pkg_ptr, required_by_list );

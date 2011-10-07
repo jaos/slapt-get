@@ -1,5 +1,6 @@
 
-0.10.2l Sep  20, 2011
+0.10.2l Oct  07, 2011
+ * fixed reverse dep lookup to make sure the match is exact
  * only create directory structure if chdir succeeded
  * remove inclusion of deprecated curl/types.h
  * explicitly link in libcrypto
