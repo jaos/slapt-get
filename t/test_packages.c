@@ -319,22 +319,8 @@ START_TEST (test_dependency)
   installed = slapt_parse_packages_txt (fh);
   fclose (fh);
 
-  (void)i;
-  (void)deps;
-  (void)missing;
-  (void)conflict;
-
   /*
-    resolve dependencies
-    returns 0 on success, -1 on error setting conflict_err and missing_err
-    (usually called with transaction->conflict_err and transaction->missing_err)
-  int slapt_get_pkg_dependencies(const slapt_rc_config *global_config,
-                           slapt_pkg_list_t *avail_pkgs,
-                           slapt_pkg_list_t *installed_pkgs,
-                           slapt_pkg_info_t *pkg,
-                           slapt_pkg_list_t *deps,
-                           slapt_pkg_err_list_t *conflict_err,
-                           slapt_pkg_err_list_t *missing_err);
+     dependency tests
   */
   p = slapt_get_newest_pkg(avail, "slapt-src");
   fail_unless (p != NULL);
