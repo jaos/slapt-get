@@ -1765,10 +1765,10 @@ static void required_by(slapt_pkg_list_t *avail,
   unsigned int i;
   slapt_regex_t *required_by_reg = NULL;
   char *pkg_name  = escape_package_name(pkg);
-  int reg_str_len = strlen(pkg_name) + 29;
+  int reg_str_len = strlen(pkg_name) + 31;
   char *reg = slapt_malloc(sizeof *reg * reg_str_len);
   /* add word boundary to search */
-  int sprintf_r = snprintf(reg, (size_t)reg_str_len, "[^a-zA-Z0-9\\-]%s[^a-zA-Z0-9\\-]", pkg_name);
+  int sprintf_r = snprintf(reg, (size_t)reg_str_len, "[^a-zA-Z0-9\\-]*%s[^a-zA-Z0-9\\-]*", pkg_name);
 
   if (sprintf_r < 0) {
     fprintf(stderr,"sprintf error for %s\n", pkg_name);
