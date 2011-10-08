@@ -1347,7 +1347,7 @@ int slapt_get_pkg_dependencies(const slapt_rc_config *global_config,
     strcmp(pkg->required," ") == 0 ||
     strcmp(pkg->required,"  ") == 0
   )
-    return 1;
+    return 0;
 
   if (deps == NULL)
     deps = slapt_init_pkg_list();
