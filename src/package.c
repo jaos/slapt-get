@@ -1827,7 +1827,7 @@ static void required_by(slapt_pkg_list_t *avail,
       satisfies = slapt_parse_delimited_list(dep_list->items[d],'|');
       for (s = 0; s < satisfies->count; s++) {
         slapt_pkg_info_t *tmp_pkg = parse_meta_entry(avail,installed_pkgs,satisfies->items[s]);
-        if (tmp_pkg != NULL) 
+        if (tmp_pkg == NULL) 
           continue;
 
         if (strcmp(tmp_pkg->name,pkg->name) == 0) {
