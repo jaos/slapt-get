@@ -1,0 +1,13 @@
+PACKAGE NAME:  ibus-1.2.11-x86_64-4.txz
+PACKAGE MIRROR:  http://ftp.gwdg.de/pub/linux/slackware/slackware64-13.37/
+PACKAGE PRIORITY:  2
+PACKAGE LOCATION:  ./slackware64/xap
+PACKAGE SIZE (compressed):  1132 K
+PACKAGE SIZE (uncompressed):  5830 K
+PACKAGE REQUIRED:   
+PACKAGE CONFLICTS:   
+PACKAGE SUGGESTS:   
+PACKAGE MD5SUM:  184a7bc6a0ecf707391b7e49ff93b74c
+PACKAGE DESCRIPTION:
+ibus: ibus (ibus conflict test)
+

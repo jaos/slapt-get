@@ -1,0 +1,708 @@
+PACKAGE NAME:  xmms-1.2.11-x86_64-4.txz
+PACKAGE MIRROR:  http://ftp.gwdg.de/pub/linux/slackware/slackware64-13.37/
+PACKAGE PRIORITY:  2
+PACKAGE LOCATION:  ./slackware64/xap
+PACKAGE SIZE (compressed):  1132 K
+PACKAGE SIZE (uncompressed):  5830 K
+PACKAGE REQUIRED:   alsa-lib,audiofile,esound,gcc,cxxlibs|gcc-g++,glib,gtk+,libICE,libSM,libX11,libXau,libXdamage,libXdmcp,libXext,libXfixes,libXxf86vm,libdrm,libogg,libvorbis,libxcb,mesa,util-linux,zlib
+PACKAGE CONFLICTS:   
+PACKAGE SUGGESTS:   
+PACKAGE MD5SUM:  184a7bc6a0ecf707391b7e49ff93b74c
+PACKAGE DESCRIPTION:
+xmms: xmms (X Multimedia System)
+xmms:
+xmms: XMMS is the X Multimedia System.  It is used to play audio and other
+xmms: kinds of media files.  By default XMMS can play MPEG audio, Ogg
+xmms: Vorbis, RIFF wav, most module formats, and a few other formats.  XMMS
+xmms: can be extended through plugins to play a number of other audio and
+xmms: video formats.
+xmms:
+
+PACKAGE NAME:  glib-1.2.10-x86_64-3.txz
+PACKAGE MIRROR:  http://ftp.gwdg.de/pub/linux/slackware/slackware64-13.37/
+PACKAGE PRIORITY:  2
+PACKAGE LOCATION:  ./slackware64/l
+PACKAGE SIZE (compressed):  148 K
+PACKAGE SIZE (uncompressed):  750 K
+PACKAGE REQUIRED:   
+PACKAGE CONFLICTS:   
+PACKAGE SUGGESTS:   
+PACKAGE MD5SUM:  0dd854ed29490a5f3e4ba143f9807e8a
+PACKAGE DESCRIPTION:
+glib: glib (library of C routines, version 1.x)
+glib:
+glib: GLib is a library which includes support routines for C such as lists,
+glib: trees, hashes, memory allocation, and many other things.
+glib:
+glib: GLib is required by nearly everything that uses GTK+ version 1.x.
+glib:
+
+PACKAGE NAME:  ConsoleKit-0.4.3-x86_64-1.txz
+PACKAGE MIRROR:  http://ftp.gwdg.de/pub/linux/slackware/slackware64-13.37/
+PACKAGE PRIORITY:  2
+PACKAGE LOCATION:  ./slackware64/l
+PACKAGE SIZE (compressed):  136 K
+PACKAGE SIZE (uncompressed):  660 K
+PACKAGE REQUIRED:   dbus,dbus-glib,glib2,libX11,libXau,libXdmcp,libxcb,polkit,zlib
+PACKAGE CONFLICTS:   
+PACKAGE SUGGESTS:   
+PACKAGE MD5SUM:  14bc5b406b502eb25ff8dacef66464d7
+PACKAGE DESCRIPTION:
+ConsoleKit: ConsoleKit (user, login, and seat tracking framework)
+ConsoleKit:
+ConsoleKit: ConsoleKit is a framework for defining and tracking users, login
+ConsoleKit: sessions, and seats.
+ConsoleKit:
+ConsoleKit: Homepage: http://freedesktop.org/wiki/Software/ConsoleKit
+ConsoleKit:
+
+PACKAGE NAME:  dbus-glib-0.88-x86_64-1.txz
+PACKAGE MIRROR:  http://ftp.gwdg.de/pub/linux/slackware/slackware64-13.37/
+PACKAGE PRIORITY:  2
+PACKAGE LOCATION:  ./slackware64/l
+PACKAGE SIZE (compressed):  128 K
+PACKAGE SIZE (uncompressed):  740 K
+PACKAGE REQUIRED:   dbus,expat,glib2
+PACKAGE CONFLICTS:   
+PACKAGE SUGGESTS:   
+PACKAGE MD5SUM:  5c546c92573cccc39618d5c5f69c8903
+PACKAGE DESCRIPTION:
+dbus-glib: dbus-glib (Glib bindings for dbus)
+dbus-glib:
+dbus-glib: This package includes the glib bindings for the dbus IPC library.
+dbus-glib:
+
+PACKAGE NAME:  slapt-src-0.3.2-x86_64-1.tgz
+PACKAGE LOCATION:  ./slapt-src
+PACKAGE SIZE (compressed):  33 K
+PACKAGE SIZE (uncompressed):  120 K
+PACKAGE REQUIRED:  slapt-get
+PACKAGE CONFLICTS:  
+PACKAGE SUGGESTS:  
+PACKAGE DESCRIPTION:
+slapt-src: slapt-src (slapt slackbuild utility)
+slapt-src: slapt-src is a utility to make querying, retrieving, and building
+slapt-src: slackbuilds as easy as working with binary packages with slapt-get.
+slapt-src: 
+slapt-src:
+slapt-src:
+slapt-src:
+slapt-src:
+slapt-src:
+slapt-src:
+slapt-src:
+slapt-src:
+
+PACKAGE NAME:  slapt-get-0.10.2i-x86_64-1.tgz
+PACKAGE LOCATION:  ./slapt-get
+PACKAGE SIZE (compressed):  275 K
+PACKAGE SIZE (uncompressed):  1000 K
+PACKAGE REQUIRED:  curl,libidn,glibc-solibs | glibc,binutils,openssl-solibs | openssl,pkgtools,zlib,gnupg,gpgme,libgpg-error,cyrus-sasl,openldap-client,libassuan
+PACKAGE CONFLICTS:  
+PACKAGE SUGGESTS:  gslapt
+PACKAGE DESCRIPTION:
+slapt-get: slapt-get (an apt-like front-end to Slackware's pkgtools)
+slapt-get: 
+slapt-get: slapt-get is an apt like system for Slackware package management.
+slapt-get:  * See /usr/doc/slapt-get-0.10.2g/ for complete documentation. 
+slapt-get:  * You will also want to customize /etc/slapt-get/slapt-getrc,
+slapt-get:    using a local mirror.  www.slackware.com may be very busy.
+slapt-get:  * Support:
+slapt-get:    http://software.jaos.org/cgi-bin/mailman/listinfo/slapt-get-user
+slapt-get:  * Please translate
+slapt-get:    http://software.jaos.org/git/slapt-get/plain/po/slapt-get.pot
+slapt-get:    then send to slapt-get-devel@software.jaos.org
+
+PACKAGE NAME:  gslapt-0.5.3f-x86_64-2.tgz
+PACKAGE LOCATION:  ./gslapt
+PACKAGE SIZE (compressed):  167 K
+PACKAGE SIZE (uncompressed):  700 K
+PACKAGE REQUIRED:  atk,cairo,fontconfig,freetype,glib2,gtk+2,gdk-pixbuf2,libX11,libXau,libXcomposite,libXcursor,libXdamage,libXdmcp,libXext,libXfixes,libXi,libXinerama,libXrandr,libXrender,libidn,libpng,libxcb,openssl-solibs | openssl,pango,pixman,slapt-get,zlib
+PACKAGE CONFLICTS:  
+PACKAGE SUGGESTS:  
+PACKAGE DESCRIPTION:
+gslapt: gslapt (GTK slapt-get, an APT like system for Slackware)
+gslapt: gslapt is an APT like system for Slackware package management.
+gslapt: 
+gslapt: 
+gslapt:  * See /usr/doc/gslapt/ for complete documentation. 
+gslapt:  * Support:
+gslapt:    http://software.jaos.org/cgi-bin/mailman/listinfo/slapt-get-user
+gslapt:  * Please translate
+gslapt:    http://software.jaos.org/git/gslapt/plain/po/gslapt.pot
+gslapt:    then send to slapt-get-devel@software.jaos.org
+gslapt: 
+gslapt: 
+
+PACKAGE NAME:  gettext-0.18.1.1-x86_64-1.txz
+PACKAGE MIRROR:  http://ftp.gwdg.de/pub/linux/slackware/slackware64-13.37/
+PACKAGE PRIORITY:  2
+PACKAGE LOCATION:  ./slackware64/a
+PACKAGE SIZE (compressed):  116 K
+PACKAGE SIZE (uncompressed):  800 K
+PACKAGE REQUIRED:   gcc,cxxlibs|gcc-g++
+PACKAGE CONFLICTS:   
+PACKAGE SUGGESTS:   
+PACKAGE MD5SUM:  b73ed7fb95350445470d39330fafa7b5
+PACKAGE DESCRIPTION:
+gettext: gettext (internationalization framework)
+gettext:
+gettext: The GNU gettext package contains "gettext" and "ngettext", programs
+gettext: that are used to internationalize the messages given by shell scripts.
+gettext:
+
+PACKAGE NAME:  gcc-4.5.2-x86_64-2.txz
+PACKAGE MIRROR:  http://ftp.gwdg.de/pub/linux/slackware/slackware64-13.37/
+PACKAGE PRIORITY:  2
+PACKAGE LOCATION:  ./slackware64/d
+PACKAGE SIZE (compressed):  11124 K
+PACKAGE SIZE (uncompressed):  38050 K
+PACKAGE REQUIRED:   gmp,libelf,libmpc,mpfr,zlib
+PACKAGE CONFLICTS:   
+PACKAGE SUGGESTS:   
+PACKAGE MD5SUM:  f86f25c9fdbec992bd7b96814e259598
+PACKAGE DESCRIPTION:
+gcc: gcc (Base GCC package with C support)
+gcc:
+gcc: GCC is the GNU Compiler Collection.
+gcc:
+gcc: This package contains those parts of the compiler collection needed to
+gcc: compile C code.  Other packages add C++, Fortran, Objective-C, and
+gcc: Java support to the compiler core.
+gcc:
+
+PACKAGE NAME:  cxxlibs-6.0.14-x86_64-1.txz
+PACKAGE MIRROR:  http://ftp.gwdg.de/pub/linux/slackware/slackware64-13.37/
+PACKAGE PRIORITY:  2
+PACKAGE LOCATION:  ./slackware64/a
+PACKAGE SIZE (compressed):  860 K
+PACKAGE SIZE (uncompressed):  5380 K
+PACKAGE REQUIRED:   gcc
+PACKAGE CONFLICTS:   
+PACKAGE SUGGESTS:   
+PACKAGE MD5SUM:  17d0f3fa36bfb4df489f1c535f4d69f1
+PACKAGE DESCRIPTION:
+cxxlibs: cxxlibs (C++ shared library compatibility package)
+cxxlibs:
+cxxlibs: This package contains the shared libraries needed to run dynamically
+cxxlibs: linked C++ binaries linked with older versions of libstdc++.
+cxxlibs:
+
+PACKAGE NAME:  gcc-g++-4.5.2-x86_64-2.txz
+PACKAGE MIRROR:  http://ftp.gwdg.de/pub/linux/slackware/slackware64-13.37/
+PACKAGE PRIORITY:  2
+PACKAGE LOCATION:  ./slackware64/d
+PACKAGE SIZE (compressed):  4956 K
+PACKAGE SIZE (uncompressed):  22920 K
+PACKAGE REQUIRED:   gcc,gmp,libelf,libmpc,mpfr,zlib
+PACKAGE CONFLICTS:   
+PACKAGE SUGGESTS:   
+PACKAGE MD5SUM:  3df30d471d88220b4739d1bba80dd28d
+PACKAGE DESCRIPTION:
+gcc-g++: gcc-g++ (C++ for GCC)
+gcc-g++:
+gcc-g++: C++ support for the GNU Compiler Collection.
+gcc-g++:
+gcc-g++: This package contains those parts of the compiler collection needed to
+gcc-g++: compile C++ code.  The base gcc package is also required.
+gcc-g++:
+
+PACKAGE NAME:  gtk+-1.2.10-x86_64-5.txz
+PACKAGE MIRROR:  http://ftp.gwdg.de/pub/linux/slackware/slackware64-13.37/
+PACKAGE PRIORITY:  2
+PACKAGE LOCATION:  ./slackware64/l
+PACKAGE SIZE (compressed):  1028 K
+PACKAGE SIZE (uncompressed):  6250 K
+PACKAGE REQUIRED:   glib,libX11,libXau,libXdmcp,libXext,libxcb
+PACKAGE CONFLICTS:   
+PACKAGE SUGGESTS:   
+PACKAGE MD5SUM:  b934df4581c760b92565068951f81e95
+PACKAGE DESCRIPTION:
+gtk+: gtk+ (graphical user interface toolkit, version 1.x)
+gtk+:
+gtk+: GTK+, which stands for the Gimp ToolKit, is a library for creating
+gtk+: graphical user interfaces for the X Window System.
+gtk+:
+gtk+: This library has been largely replaced by GTK+ version 2, but there
+gtk+: are still some good programs that require it.
+gtk+:
+
+PACKAGE NAME:  foo-0.3.2-x86_64-1.tgz
+PACKAGE LOCATION:  ./foo
+PACKAGE SIZE (compressed):  33 K
+PACKAGE SIZE (uncompressed):  120 K
+PACKAGE REQUIRED:  bar,slapt-get
+PACKAGE CONFLICTS:  
+PACKAGE SUGGESTS:  
+PACKAGE DESCRIPTION:
+foo: foo (foo)
+
+PACKAGE NAME:  bar-0.3.2-x86_64-1.tgz
+PACKAGE LOCATION:  ./bar
+PACKAGE SIZE (compressed):  33 K
+PACKAGE SIZE (uncompressed):  120 K
+PACKAGE REQUIRED:  slapt-get,boz
+PACKAGE CONFLICTS:  
+PACKAGE SUGGESTS:  
+PACKAGE DESCRIPTION:
+bar: bar (bar)
+
+PACKAGE NAME:  boz-0.3.2-x86_64-1.tgz
+PACKAGE LOCATION:  ./boz
+PACKAGE SIZE (compressed):  33 K
+PACKAGE SIZE (uncompressed):  120 K
+PACKAGE REQUIRED:  foo,slapt-get,bar
+PACKAGE CONFLICTS:  
+PACKAGE SUGGESTS:  
+PACKAGE DESCRIPTION:
+boz: boz (boz)
+
+PACKAGE NAME:  glib2-2.28.6-x86_64-1.txz
+PACKAGE MIRROR:  http://ftp.gwdg.de/pub/linux/slackware/slackware64-13.37/
+PACKAGE PRIORITY:  2
+PACKAGE LOCATION:  ./slackware64/l
+PACKAGE SIZE (compressed):  2796 K
+PACKAGE SIZE (uncompressed):  26770 K
+PACKAGE REQUIRED:   gamin,zlib
+PACKAGE CONFLICTS:   
+PACKAGE SUGGESTS:   
+PACKAGE MD5SUM:  6363e1a6395733402d8f052e80b81422
+PACKAGE DESCRIPTION:
+glib2: glib2 (library of C routines)
+glib2:
+glib2: GLib is a library which includes support routines for C such as lists,
+glib2: trees, hashes, memory allocation, and many other things.
+glib2:
+
+PACKAGE NAME:  scim-1.4.9-x86_64-5.txz
+PACKAGE MIRROR:  http://ftp.gwdg.de/pub/linux/slackware/slackware64-13.37/
+PACKAGE PRIORITY:  2
+PACKAGE LOCATION:  ./slackware64/x
+PACKAGE SIZE (compressed):  1064 K
+PACKAGE SIZE (uncompressed):  4270 K
+PACKAGE REQUIRED:   atk,cairo,expat,fontconfig,freetype,gcc,cxxlibs|gcc-g++,gdk-pixbuf2,glib2,gtk+2,libX11,libXau,libXcomposite,libXcursor,libXdamage,libXdmcp,libXext,libXfixes,libXi,libXinerama,libXrandr,libXrender,libpng,libxcb,pango,pixman,zlib
+PACKAGE CONFLICTS:   ibus
+PACKAGE SUGGESTS:   
+PACKAGE MD5SUM:  c9f2419aa440b79fdb40b106e588b99a
+PACKAGE DESCRIPTION:
+scim: scim (Smart Common Input Method platform)
+scim:
+scim: SCIM is an input platform for CJK and other languages.
+scim: It aims to significantly reduce the difficulty of input method
+scim: development.
+scim:
+scim: See the scim scripts in /etc/profile.d/ for setup info.
+scim:
+scim: scim home: http://www.scim-im.org/
+scim:
+
+PACKAGE NAME:  curl-7.21.4-x86_64-1.txz
+PACKAGE MIRROR:  http://ftp.gwdg.de/pub/linux/slackware/slackware64-13.37/
+PACKAGE PRIORITY:  2
+PACKAGE LOCATION:  ./slackware64/n
+PACKAGE SIZE (compressed):  684 K
+PACKAGE SIZE (uncompressed):  2360 K
+PACKAGE REQUIRED:   cyrus-sasl,libidn,openldap-client,openssl-solibs|openssl,zlib
+PACKAGE CONFLICTS:   
+PACKAGE SUGGESTS:   
+PACKAGE MD5SUM:  63cfc61534d4b61e25c08484f3313028
+PACKAGE DESCRIPTION:
+curl: curl (command line URL data transfer tool)
+curl:
+curl: Curl is a command line tool for transferring data specified with URL
+curl: syntax.  The command is designed to work without user interaction or
+curl: any kind of interactivity.   Curl offers a busload of useful tricks
+curl: like proxy support, user authentication, ftp upload, HTTP post,  SSL
+curl: (https:) connections, cookies, file transfer resume and more.
+curl:
+curl: libcurl is a library that Curl uses to do its job. It is readily
+curl: available to be used by your software, too.
+curl:
+
+PACKAGE NAME:  cyrus-sasl-2.1.23-x86_64-1.txz
+PACKAGE MIRROR:  http://ftp.gwdg.de/pub/linux/slackware/slackware64-13.37/
+PACKAGE PRIORITY:  2
+PACKAGE LOCATION:  ./slackware64/n
+PACKAGE SIZE (compressed):  408 K
+PACKAGE SIZE (uncompressed):  1700 K
+PACKAGE REQUIRED:   gdbm,openssl-solibs|openssl
+PACKAGE CONFLICTS:   
+PACKAGE SUGGESTS:   
+PACKAGE MD5SUM:  10a9b2cac67335aaa9619e42f54c2037
+PACKAGE DESCRIPTION:
+cyrus-sasl: cyrus-sasl (Simple Authentication and Security Layer)
+cyrus-sasl:
+cyrus-sasl: This is the Cyrus SASL library.  Cyrus SASL is used by mail programs 
+cyrus-sasl: on the client or server side to provide authentication and
+cyrus-sasl: authorization services.  See RFC 2222 for more information.
+cyrus-sasl:
+
+PACKAGE NAME:  gdbm-1.8.3-x86_64-4.txz
+PACKAGE MIRROR:  http://ftp.gwdg.de/pub/linux/slackware/slackware64-13.37/
+PACKAGE PRIORITY:  2
+PACKAGE LOCATION:  ./slackware64/l
+PACKAGE SIZE (compressed):  44 K
+PACKAGE SIZE (uncompressed):  150 K
+PACKAGE REQUIRED:   
+PACKAGE CONFLICTS:   
+PACKAGE SUGGESTS:   
+PACKAGE MD5SUM:  1b65ab153d3fafb458879b77b55162c3
+PACKAGE DESCRIPTION:
+gdbm: gdbm (GNU database routines)
+gdbm:
+gdbm: GNU dbm is a set of database routines that work similar to the
+gdbm: standard UNIX dbm routines.
+gdbm:
+
+PACKAGE NAME:  openssl-0.9.8r-x86_64-3.txz
+PACKAGE MIRROR:  http://ftp.gwdg.de/pub/linux/slackware/slackware64-13.37/
+PACKAGE PRIORITY:  2
+PACKAGE LOCATION:  ./slackware64/n
+PACKAGE SIZE (compressed):  2364 K
+PACKAGE SIZE (uncompressed):  10550 K
+PACKAGE REQUIRED:   
+PACKAGE CONFLICTS:   
+PACKAGE SUGGESTS:   
+PACKAGE MD5SUM:  b5ff53347d55443cbd2c1c79f38caeb7
+PACKAGE DESCRIPTION:
+openssl: openssl (Secure Sockets Layer toolkit)
+openssl:
+openssl: The OpenSSL certificate management tool and the shared libraries that
+openssl: provide various encryption and decryption algorithms and protocols.
+openssl:
+openssl: This product includes software developed by the OpenSSL Project for
+openssl: use in the OpenSSL Toolkit (http://www.openssl.org).  This product
+openssl: includes cryptographic software written by Eric Young
+openssl: (eay@cryptsoft.com).  This product includes software written by Tim
+openssl: Hudson (tjh@cryptsoft.com).
+openssl:
+
+PACKAGE NAME:  libidn-1.19-x86_64-1.txz
+PACKAGE MIRROR:  http://ftp.gwdg.de/pub/linux/slackware/slackware64-13.37/
+PACKAGE PRIORITY:  2
+PACKAGE LOCATION:  ./slackware64/l
+PACKAGE SIZE (compressed):  288 K
+PACKAGE SIZE (uncompressed):  1330 K
+PACKAGE REQUIRED:   
+PACKAGE CONFLICTS:   
+PACKAGE SUGGESTS:   
+PACKAGE MD5SUM:  069fd26a3a94b73c195d3b0a1781fb86
+PACKAGE DESCRIPTION:
+libidn: libidn (GNU Internationalized Domain Name library)
+libidn:
+libidn: GNU Libidn is an implementation of the Stringprep, Punycode and IDNA
+libidn: specifications defined by the IETF Internationalized Domain Names
+libidn: (IDN) working group, used for internationalized domain names.
+libidn:
+
+PACKAGE NAME:  openldap-client-2.4.23-x86_64-1.txz
+PACKAGE MIRROR:  http://ftp.gwdg.de/pub/linux/slackware/slackware64-13.37/
+PACKAGE PRIORITY:  2
+PACKAGE LOCATION:  ./slackware64/n
+PACKAGE SIZE (compressed):  388 K
+PACKAGE SIZE (uncompressed):  1580 K
+PACKAGE REQUIRED:   cyrus-sasl,openssl-solibs|openssl
+PACKAGE CONFLICTS:   
+PACKAGE SUGGESTS:   
+PACKAGE MD5SUM:  e0e61150a6d4f1d491620c2f629f3d88
+PACKAGE DESCRIPTION:
+openldap-client: openldap-client (OpenLDAP client programs)
+openldap-client:
+openldap-client: OpenLDAP is an open source implementation of the Lightweight
+openldap-client: Directory Access Protocol.  LDAP is a alternative to the X.500
+openldap-client: Directory Access Protocol (DAP). It uses the TCP/IP stack versus
+openldap-client: the overly complex OSI stack.
+openldap-client:
+openldap-client: LDAP is often used to provide authentication (such as for email).
+openldap-client:
+openldap-client: The OpenLDAP homepage is http://www.openldap.org/
+openldap-client:
+
+PACKAGE NAME:  zlib-1.2.5-x86_64-4.txz
+PACKAGE MIRROR:  http://ftp.gwdg.de/pub/linux/slackware/slackware64-13.37/
+PACKAGE PRIORITY:  2
+PACKAGE LOCATION:  ./slackware64/l
+PACKAGE SIZE (compressed):  100 K
+PACKAGE SIZE (uncompressed):  400 K
+PACKAGE REQUIRED:   
+PACKAGE CONFLICTS:   
+PACKAGE SUGGESTS:   
+PACKAGE MD5SUM:  00b55a49e8d6fe7ab575286f04fe215e
+PACKAGE DESCRIPTION:
+zlib: zlib (compression library)
+zlib:
+zlib: zlib is a general purpose thread safe data compression library.  The
+zlib: data format used by the zlib library is described by RFCs 1950 to 
+zlib: 1952 in the files ftp://ds.internic.net/rfc/rfc1950.txt (zlib format)
+zlib: rfc1951.txt (deflate format) and rfc1952.txt (gzip format).
+zlib:
+
+PACKAGE NAME:  glibc-2.13-x86_64-4.txz
+PACKAGE MIRROR:  http://ftp.gwdg.de/pub/linux/slackware/slackware64-13.37/
+PACKAGE PRIORITY:  2
+PACKAGE LOCATION:  ./slackware64/l
+PACKAGE SIZE (compressed):  11496 K
+PACKAGE SIZE (uncompressed):  138180 K
+PACKAGE REQUIRED:   
+PACKAGE CONFLICTS:   
+PACKAGE SUGGESTS:   
+PACKAGE MD5SUM:  30740c01b810e44523069248e283d01e
+PACKAGE DESCRIPTION:
+glibc: glibc (GNU C libraries)
+glibc:
+glibc: This package contains the GNU C libraries and header files.  The GNU
+glibc: C library was written originally by Roland McGrath, and is currently
+glibc: maintained by Ulrich Drepper.  Some parts of the library were
+glibc: contributed or worked on by other people.
+glibc:
+glibc: You'll need this package to compile programs.
+glibc:
+
+PACKAGE NAME:  binutils-2.21.51.0.6-x86_64-1.txz
+PACKAGE MIRROR:  http://ftp.gwdg.de/pub/linux/slackware/slackware64-13.37/
+PACKAGE PRIORITY:  2
+PACKAGE LOCATION:  ./slackware64/d
+PACKAGE SIZE (compressed):  3204 K
+PACKAGE SIZE (uncompressed):  16370 K
+PACKAGE REQUIRED:   zlib
+PACKAGE CONFLICTS:   
+PACKAGE SUGGESTS:   
+PACKAGE MD5SUM:  8ccd8f14eb278213f3db51b7ab85d881
+PACKAGE DESCRIPTION:
+binutils: binutils (GNU binary development tools)
+binutils:
+binutils: Binutils is a collection of binary utilities.  It includes "as" (the 
+binutils: portable GNU assembler), "ld" (the GNU linker), and other utilities
+binutils: for creating and working with binary programs.
+binutils:
+binutils: These utilities are REQUIRED to compile C, C++, Objective-C, Fortran,
+binutils: and most other programming languages.
+binutils:
+
+PACKAGE NAME:  pkgtools-13.37-noarch-9.tgz
+PACKAGE MIRROR:  http://ftp.gwdg.de/pub/linux/slackware/slackware64-13.37/
+PACKAGE PRIORITY:  2
+PACKAGE LOCATION:  ./slackware64/a
+PACKAGE SIZE (compressed):  40 K
+PACKAGE SIZE (uncompressed):  140 K
+PACKAGE REQUIRED:   
+PACKAGE CONFLICTS:   
+PACKAGE SUGGESTS:   
+PACKAGE MD5SUM:  59d069edcac0cde820354a46cd399e00
+PACKAGE DESCRIPTION:
+pkgtools: pkgtools (The Slackware package maintenance system)
+pkgtools:
+pkgtools: This package contains utilities for handling Slackware packages.
+pkgtools: Included are the command line utilities 'installpkg', 'removepkg',
+pkgtools: 'makepkg', 'explodepkg', and 'upgradepkg' that install, remove,
+pkgtools: build, examine, and upgrade software packages.  Also included are 
+pkgtools: 'pkgtool', a menu based program for installing packages, removing
+pkgtools: packages, or viewing the packages that are installed on the system,
+pkgtools: documentation (man pages), and a few other system admin scripts.
+pkgtools:
+
+PACKAGE NAME:  gnupg-1.4.11-x86_64-1.txz
+PACKAGE MIRROR:  http://ftp.gwdg.de/pub/linux/slackware/slackware64-13.37/
+PACKAGE PRIORITY:  2
+PACKAGE LOCATION:  ./slackware64/n
+PACKAGE SIZE (compressed):  1092 K
+PACKAGE SIZE (uncompressed):  4910 K
+PACKAGE REQUIRED:   bzip2,curl,cyrus-sasl,libidn,libtermcap,libusb,openldap-client,openssl-solibs|openssl,readline,zlib
+PACKAGE CONFLICTS:   
+PACKAGE SUGGESTS:   
+PACKAGE MD5SUM:  04b4c97ba223034974c0758973cecc95
+PACKAGE DESCRIPTION:
+gnupg: gnupg (The GNU Privacy Guard)
+gnupg:
+gnupg: GnuPG is GNU's tool for secure communication and data storage.  It can
+gnupg: be used to encrypt data and to create digital signatures.  It includes
+gnupg: an advanced key management facility and is compliant with the proposed
+gnupg: OpenPGP Internet standard as described in RFC2440.
+gnupg:
+
+PACKAGE NAME:  bzip2-1.0.6-x86_64-1.txz
+PACKAGE MIRROR:  http://ftp.gwdg.de/pub/linux/slackware/slackware64-13.37/
+PACKAGE PRIORITY:  2
+PACKAGE LOCATION:  ./slackware64/a
+PACKAGE SIZE (compressed):  132 K
+PACKAGE SIZE (uncompressed):  560 K
+PACKAGE REQUIRED:   
+PACKAGE CONFLICTS:   
+PACKAGE SUGGESTS:   
+PACKAGE MD5SUM:  46f4b8736e811c7d5274a3ceda03af5b
+PACKAGE DESCRIPTION:
+bzip2: bzip2 (a block-sorting file compressor)
+bzip2:
+bzip2: Bzip2 compresses files using the Burrows-Wheeler block sorting text
+bzip2: compression algorithm, and Huffman coding.  Compression is generally
+bzip2: considerably better than that achieved by more conventional LZ77/LZ78-
+bzip2: based compressors, and approaches the performance of the PPM family of
+bzip2: statistical compressors. 
+bzip2:
+bzip2: Julian Seward <jseward@acm.org> is the author of bzip2.
+bzip2:
+
+PACKAGE NAME:  curl-7.21.4-x86_64-1.txz
+PACKAGE MIRROR:  http://ftp.gwdg.de/pub/linux/slackware/slackware64-13.37/
+PACKAGE PRIORITY:  2
+PACKAGE LOCATION:  ./slackware64/n
+PACKAGE SIZE (compressed):  684 K
+PACKAGE SIZE (uncompressed):  2360 K
+PACKAGE REQUIRED:   cyrus-sasl,libidn,openldap-client,openssl-solibs|openssl,zlib
+PACKAGE CONFLICTS:   
+PACKAGE SUGGESTS:   
+PACKAGE MD5SUM:  63cfc61534d4b61e25c08484f3313028
+PACKAGE DESCRIPTION:
+curl: curl (command line URL data transfer tool)
+curl:
+curl: Curl is a command line tool for transferring data specified with URL
+curl: syntax.  The command is designed to work without user interaction or
+curl: any kind of interactivity.   Curl offers a busload of useful tricks
+curl: like proxy support, user authentication, ftp upload, HTTP post,  SSL
+curl: (https:) connections, cookies, file transfer resume and more.
+curl:
+curl: libcurl is a library that Curl uses to do its job. It is readily
+curl: available to be used by your software, too.
+curl:
+
+PACKAGE NAME:  libtermcap-1.2.3-x86_64-7.txz
+PACKAGE MIRROR:  http://ftp.gwdg.de/pub/linux/slackware/slackware64-13.37/
+PACKAGE PRIORITY:  2
+PACKAGE LOCATION:  ./slackware64/l
+PACKAGE SIZE (compressed):  64 K
+PACKAGE SIZE (uncompressed):  110 K
+PACKAGE REQUIRED:   
+PACKAGE CONFLICTS:   
+PACKAGE SUGGESTS:   
+PACKAGE MD5SUM:  c588f6d4c59b5e169d064625ddac3785
+PACKAGE DESCRIPTION:
+libtermcap: libtermcap (GNU termcap library)
+libtermcap:
+libtermcap: This is the GNU termcap library -- a library of C functions that
+libtermcap: enable programs to send control strings to terminals in a way
+libtermcap: independent of the terminal type.  Most of this package is also
+libtermcap: distributed with GNU Emacs, but it is available in this separate
+libtermcap: distribution to make it easier to install as -ltermcap.
+libtermcap:
+
+PACKAGE NAME:  libusb-1.0.8-x86_64-2.txz
+PACKAGE MIRROR:  http://ftp.gwdg.de/pub/linux/slackware/slackware64-13.37/
+PACKAGE PRIORITY:  2
+PACKAGE LOCATION:  ./slackware64/l
+PACKAGE SIZE (compressed):  68 K
+PACKAGE SIZE (uncompressed):  270 K
+PACKAGE REQUIRED:   
+PACKAGE CONFLICTS:   
+PACKAGE SUGGESTS:   
+PACKAGE MD5SUM:  a3c1c1691582d42084b571643da36166
+PACKAGE DESCRIPTION:
+libusb: libusb (USB library)
+libusb:
+libusb: This is libusb, a library which allows userspace application access
+libusb: to USB devices.  It is used to connect to USB devices like scanners.
+libusb: http://libusb.org/wiki/Libusb1.0
+libusb:
+libusb: This package also contains libusb-compat for the "old" libusb users.
+libusb: http://libusb.org/wiki/LibusbCompat0.1
+libusb:
+
+PACKAGE NAME:  readline-5.2-x86_64-4.txz
+PACKAGE MIRROR:  http://ftp.gwdg.de/pub/linux/slackware/slackware64-13.37/
+PACKAGE PRIORITY:  2
+PACKAGE LOCATION:  ./slackware64/l
+PACKAGE SIZE (compressed):  280 K
+PACKAGE SIZE (uncompressed):  1080 K
+PACKAGE REQUIRED:   
+PACKAGE CONFLICTS:   
+PACKAGE SUGGESTS:   
+PACKAGE MD5SUM:  d10f569d9468608bd4b7ac7e1d665d28
+PACKAGE DESCRIPTION:
+readline: readline (line input library with editing features)
+readline:
+readline: The GNU Readline library provides a set of functions for use by
+readline: applications that allow users to edit command lines as they are typed
+readline: in.  Both Emacs and vi editing modes are available.  The Readline
+readline: library includes additional functions to maintain a list of previously
+readline: entered command lines, to recall and perhaps edit those lines, and
+readline: perform csh-like history expansion on previous commands.  
+readline:
+
+PACKAGE NAME:  gpgme-1.3.0-x86_64-1.txz
+PACKAGE MIRROR:  http://ftp.gwdg.de/pub/linux/slackware/slackware64-13.37/
+PACKAGE PRIORITY:  2
+PACKAGE LOCATION:  ./slackware64/n
+PACKAGE SIZE (compressed):  244 K
+PACKAGE SIZE (uncompressed):  1000 K
+PACKAGE REQUIRED:   libgpg-error,pth,libassuan
+PACKAGE CONFLICTS:   
+PACKAGE SUGGESTS:   
+PACKAGE MD5SUM:  8ccb6084607507b35c195fb2a55cbff3
+PACKAGE DESCRIPTION:
+gpgme: gpgme (GnuPG Made Easy)
+gpgme:
+gpgme: GPGME (GnuPG Made Easy) is a C language library that allows to add
+gpgme: support for cryptography to a program.  It is designed to make access
+gpgme: to public key crypto engines like GnuPG or GpgSM easier for
+gpgme: applications.  GPGME provides a high-level crypto API for encryption,
+gpgme: decryption, signing, signature verification and key management.
+gpgme:
+gpgme: GPGME uses GnuPG and GpgSM as its backends to support OpenPGP and the 
+gpgme: Cryptographic Message Syntax (CMS).
+gpgme:
+
+PACKAGE NAME:  libgpg-error-1.9-x86_64-1.txz
+PACKAGE MIRROR:  http://ftp.gwdg.de/pub/linux/slackware/slackware64-13.37/
+PACKAGE PRIORITY:  2
+PACKAGE LOCATION:  ./slackware64/n
+PACKAGE SIZE (compressed):  88 K
+PACKAGE SIZE (uncompressed):  480 K
+PACKAGE REQUIRED:   
+PACKAGE CONFLICTS:   
+PACKAGE SUGGESTS:   
+PACKAGE MD5SUM:  dc3f822562709eed67c7e415e22d2e9e
+PACKAGE DESCRIPTION:
+libgpg-error: libgpg-error (GnuPG Error Definitions Library)
+libgpg-error:
+libgpg-error: This is a library that defines common error values for all GnuPG
+libgpg-error: components.  Among these are GPG, GPGSM, GPGME, GPG-Agent, 
+libgpg-error: libgcrypt, Libksba, DirMngr, Pinentry, SmartCard Daemon, and more.
+libgpg-error:
+
+PACKAGE NAME:  pth-2.0.7-x86_64-1.txz
+PACKAGE MIRROR:  http://ftp.gwdg.de/pub/linux/slackware/slackware64-13.37/
+PACKAGE PRIORITY:  2
+PACKAGE LOCATION:  ./slackware64/n
+PACKAGE SIZE (compressed):  104 K
+PACKAGE SIZE (uncompressed):  280 K
+PACKAGE REQUIRED:   
+PACKAGE CONFLICTS:   
+PACKAGE SUGGESTS:   
+PACKAGE MD5SUM:  5bdc03e290f01b4b202ae1f8a259dcf3
+PACKAGE DESCRIPTION:
+pth: pth (GNU Portable Threads)
+pth:
+pth: Pth is a very portable POSIX/ANSI-C based library for Unix platforms
+pth: which provides non-preemptive priority-based scheduling for multiple
+pth: threads of execution (aka `multithreading') inside event-driven
+pth: applications.  All threads run in the same address space of the
+pth: server application, but each thread has its own individual
+pth: program-counter, run-time stack, signal mask and errno variable.
+pth:
+
+PACKAGE NAME:  libassuan-2.0.1-x86_64-1.txz
+PACKAGE MIRROR:  http://ftp.gwdg.de/pub/linux/slackware/slackware64-13.37/
+PACKAGE PRIORITY:  2
+PACKAGE LOCATION:  ./slackware64/n
+PACKAGE SIZE (compressed):  108 K
+PACKAGE SIZE (uncompressed):  250 K
+PACKAGE REQUIRED:   libgpg-error
+PACKAGE CONFLICTS:   
+PACKAGE SUGGESTS:   
+PACKAGE MD5SUM:  cc5b59067113596f529bf9f6b8144b07
+PACKAGE DESCRIPTION:
+libassuan: libassuan (Interprocess Communication Library for GPG)
+libassuan:
+libassuan: This is the IPC library used by GnuPG 2.x, GPGME and a few other
+libassuan: packages. 
+libassuan:
+

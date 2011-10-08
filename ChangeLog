@@ -1,5 +1,6 @@
 
 0.10.2l Oct  08, 2011
+ * added dep, conflicts, and reverse dep unit tests
  * Do not return 1 from slapt_get_pkg_dependencies if no dependency information
  * fixed reverse dep lookup to make sure the match is exact
  * only create directory structure if chdir succeeded

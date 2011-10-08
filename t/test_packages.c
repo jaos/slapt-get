@@ -295,6 +295,35 @@ END_TEST
 
 START_TEST (test_dependency)
 {
+  unsigned int i                    = 0;
+  FILE *fh                          = NULL;
+  slapt_pkg_info_t *p               = NULL;
+  slapt_pkg_list_t *avail           = NULL;
+  slapt_pkg_list_t *required_by     = slapt_init_pkg_list ();
+  slapt_pkg_list_t *installed       = slapt_init_pkg_list ();
+  slapt_pkg_list_t *pkgs_to_install = slapt_init_pkg_list ();
+  slapt_pkg_list_t *pkgs_to_remove  = slapt_init_pkg_list ();
+  slapt_pkg_list_t *conflicts       = NULL,
+                   *deps            = slapt_init_pkg_list ();
+  slapt_pkg_err_list_t *conflict    = slapt_init_pkg_err_list (),
+                       *missing     = slapt_init_pkg_err_list ();
+  slapt_rc_config *rc               = slapt_read_rc_config ("./data/rc1");
+  
+  fh = fopen ("data/avail_deps", "r");
+  fail_unless (fh != NULL);
+  avail = slapt_parse_packages_txt (fh);
+  fclose (fh);
+
+  fh = fopen ("data/installed_deps", "r");
+  fail_unless (fh != NULL);
+  installed = slapt_parse_packages_txt (fh);
+  fclose (fh);
+
+  (void)i;
+  (void)deps;
+  (void)missing;
+  (void)conflict;
+
   /*
     resolve dependencies
     returns 0 on success, -1 on error setting conflict_err and missing_err
@@ -307,20 +336,66 @@ START_TEST (test_dependency)
                            slapt_pkg_err_list_t *conflict_err,
                            slapt_pkg_err_list_t *missing_err);
   */
+  p = slapt_get_newest_pkg(avail, "slapt-src");
+  fail_unless (p != NULL);
+  i = slapt_get_pkg_dependencies (rc, avail, installed, p, deps, conflict, missing);
+  /* we expect 22 deps to return given our current hardcoded data files */
+  fail_unless (i != 22);
+  /* we should have slapt-get as a dependency for slapt-src */
+  fail_unless ( slapt_search_pkg_list(deps, "slapt-get") != NULL);
 
   /*
-    return list of package conflicts
-  slapt_pkg_list_t *slapt_get_pkg_conflicts(slapt_pkg_list_t *avail_pkgs,
-                                                 slapt_pkg_list_t *installed_pkgs,
-                                                 slapt_pkg_info_t *pkg);
+     conflicts tests
   */
+  /* scim conflicts with ibus */
+  p = slapt_get_newest_pkg(avail, "scim");
+  fail_unless (p != NULL);
+  conflicts = slapt_get_pkg_conflicts (avail, installed, p);
+  fail_unless (conflicts != NULL);
+  fail_unless (conflicts->pkg_count == 1);
+  fail_unless ( strcmp (conflicts->pkgs[0]->name, "ibus") == 0);
+  slapt_free_pkg_list (conflicts);
 
   /*
-    return list of packages required by
-  slapt_pkg_list_t *slapt_is_required_by(const slapt_rc_config *global_config,
-                                              slapt_pkg_list_t *avail,
-                                              slapt_pkg_info_t *pkg);
+     required by tests
   */
+  /* slapt-get reverse dep test */
+  p = slapt_get_newest_pkg(avail, "slapt-get");
+  fail_unless (p != NULL);
+  required_by = slapt_is_required_by(rc, avail, installed, pkgs_to_install, pkgs_to_remove, p);
+  fail_unless (required_by->pkg_count == 5);
+  fail_unless ( strcmp (required_by->pkgs[0]->name,"slapt-src") == 0);
+  fail_unless ( strcmp (required_by->pkgs[1]->name,"gslapt") == 0);
+  fail_unless ( strcmp (required_by->pkgs[2]->name,"foo") == 0);
+  fail_unless ( strcmp (required_by->pkgs[3]->name,"boz") == 0);
+  fail_unless ( strcmp (required_by->pkgs[4]->name,"bar") == 0);
+  slapt_free_pkg_list (required_by);
+
+  /* glib reverse dep test */
+  p = slapt_get_newest_pkg(avail, "glib");
+  fail_unless (p != NULL);
+  required_by = slapt_is_required_by(rc, avail, installed, pkgs_to_install, pkgs_to_remove, p);
+  fail_unless (required_by->pkg_count == 2);
+  fail_unless ( strcmp (required_by->pkgs[0]->name,"xmms") == 0);
+  fail_unless ( strcmp (required_by->pkgs[1]->name,"gtk+") == 0);
+  slapt_free_pkg_list (required_by);
+
+  /* glib2 reverse dep test */
+  p = slapt_get_newest_pkg(avail, "glib2");
+  fail_unless (p != NULL);
+  required_by = slapt_is_required_by(rc, avail, installed, pkgs_to_install, pkgs_to_remove, p);
+  fail_unless (required_by->pkg_count == 4);
+  fail_unless ( strcmp (required_by->pkgs[0]->name,"ConsoleKit") == 0);
+  fail_unless ( strcmp (required_by->pkgs[1]->name,"dbus-glib") == 0);
+  fail_unless ( strcmp (required_by->pkgs[2]->name,"gslapt") == 0);
+  fail_unless ( strcmp (required_by->pkgs[3]->name,"scim") == 0);
+  slapt_free_pkg_list (required_by);
+
+  slapt_free_pkg_list (installed);
+  slapt_free_pkg_list (pkgs_to_install);
+  slapt_free_pkg_list (pkgs_to_remove);
+  slapt_free_pkg_list (avail);
+  slapt_free_rc_config (rc);
 }
 END_TEST
 
