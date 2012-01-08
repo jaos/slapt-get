@@ -497,3 +497,11 @@ slapt_list_t *slapt_parse_delimited_list(char *line, char delim)
   return list;
 }
 
+char *slapt_strip_whitespace (const char * s)
+{
+  int len = strlen (s);
+  while (isspace(s[len - 1])) --len;
+  while (*s && isspace(* s)) ++s, --len;
+  return strndup (s, len);
+}
+

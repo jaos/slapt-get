@@ -86,3 +86,5 @@ void slapt_add_list_item(slapt_list_t *list,const char *item);
 void slapt_remove_list_item(slapt_list_t *list,const char *item);
 const char *slapt_search_list(slapt_list_t *list, const char *needle);
 void slapt_free_list(slapt_list_t *list);
+
+char *slapt_strip_whitespace (const char * s);
