@@ -1,4 +1,7 @@
 
+0.10.2m Jan  08, 2012
+ * strip whitespace from url before parsing from slapt-getrc
+
 0.10.2l Oct  08, 2011
  * added dep, conflicts, and reverse dep unit tests
  * Do not return 1 from slapt_get_pkg_dependencies if no dependency information

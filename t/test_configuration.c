@@ -84,6 +84,18 @@ START_TEST (test_source_list)
 }
 END_TEST
 
+START_TEST (test_source_trimming)
+{
+  slapt_source_t *src1 = slapt_init_source("http://www.test.org/dist ");
+  slapt_source_t *src2 = slapt_init_source("http://www.test.org/dist:PREFERRED ");
+
+  fail_if ( strcmp (src1->url,"http://www.test.org/dist/") != 0);
+  fail_if ( strcmp (src2->url,"http://www.test.org/dist/") != 0);
+
+  slapt_free_source(src1);
+  slapt_free_source(src2);
+}
+END_TEST
 
 
 
@@ -96,6 +108,7 @@ Suite *configuration_test_suite()
   tcase_add_test (tc, test_working_dir);
   tcase_add_test (tc, test_exclude_list);
   tcase_add_test (tc, test_source_list);
+  tcase_add_test (tc, test_source_trimming);
 
   suite_add_tcase (s, tc);
   return s;

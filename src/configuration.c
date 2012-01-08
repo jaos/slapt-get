@@ -335,33 +335,27 @@ slapt_source_t *slapt_init_source(const char *s)
   src           = slapt_malloc(sizeof *src);
   src->priority = SLAPT_PRIORITY_DEFAULT;
   src->disabled = SLAPT_FALSE;
-  source_len    = strlen(s);
+  source_string = slapt_strip_whitespace (s);
+  source_len    = strlen (source_string);
 
   /* parse for :[attr] in the source url */
   if ((attribute_regex = slapt_init_regex(SLAPT_SOURCE_ATTRIBUTE_REGEX)) == NULL) {
     exit(EXIT_FAILURE);
   }
-  slapt_execute_regex(attribute_regex,s);
+  slapt_execute_regex(attribute_regex,source_string);
   if (attribute_regex->reg_return == 0) {
     /* if we find an attribute string, extract it */
-    attribute_string = slapt_regex_extract_match(attribute_regex, s, 1);
+    attribute_string = slapt_regex_extract_match(attribute_regex, source_string, 1);
     attribute_len = strlen(attribute_string);
-    source_string = strndup(s, source_len - attribute_len);
-  } else {
-    /* otherwise we just dup the const string */
-    source_string = strndup(s, source_len);
+    source_len -= attribute_len;
   }
   slapt_free_regex(attribute_regex);
 
 
   /* now add a trailing / if not already there */
-  source_len = strlen(source_string);
   if ( source_string[source_len - 1] == '/' ) {
-
-    src->url = strdup(source_string);
-
+    src->url = strndup(source_string, source_len);
   } else {
-
     src->url = slapt_malloc(sizeof *src->url * (source_len + 2));
     src->url[0] = '\0';
 
@@ -383,7 +377,6 @@ slapt_source_t *slapt_init_source(const char *s)
     }
 
     src->url[source_len + 1] = '\0';
-
   }
 
   free(source_string);
