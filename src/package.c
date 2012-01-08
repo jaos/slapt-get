@@ -1146,8 +1146,21 @@ int slapt_cmp_pkg_versions(const char *a, const char *b)
     if (a_build != NULL && b_build != NULL) {
       /* they are equal if the integer values are equal */
       /* for instance, "1rob" and "1" will be equal */
-      if (atoi(a_build) == atoi(b_build))
+      if (atoi(a_build) == atoi(b_build)) {
+/* prefer our architecture in x86/x86_64 multilib settings */
+#if defined(__x86_64__)
+        if ((strcmp(a_build,b_build) == 0) && (strcmp(a,b) != 0) && (strstr(a,"-x86_64") != NULL && (strstr(b,"-x86_64-") == NULL)))
+          return greater;
+        if ((strcmp(a_build,b_build) == 0) && (strcmp(a,b) != 0) && (strstr(a,"-x86_64") == NULL && (strstr(b,"-x86_64-") != NULL)))
+          return lesser;
+#elif defined(__i386__)
+        if ((strcmp(a_build,b_build) == 0) && (strcmp(a,b) != 0) && (strstr(a,"-x86_64") == NULL && (strstr(b,"-x86_64-") != NULL)))
+          return greater;
+        if ((strcmp(a_build,b_build) == 0) && (strcmp(a,b) != 0) && (strstr(a,"-x86_64") != NULL && (strstr(b,"-x86_64-") == NULL)))
+          return lesser;
+#endif
         return equal;
+      }
 
       if (atoi(a_build) < atoi(b_build))
         return greater;

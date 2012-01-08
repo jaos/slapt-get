@@ -1,5 +1,6 @@
 
 0.10.2m Jan  08, 2012
+ * prefer our architecture in x86/x86_64 multilib package comparison
  * strip whitespace from url before parsing from slapt-getrc
 
 0.10.2l Oct  08, 2011

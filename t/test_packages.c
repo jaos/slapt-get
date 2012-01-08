@@ -289,6 +289,14 @@ START_TEST (test_version)
   fail_unless (slapt_cmp_pkg_versions("1.4rc5-i486-2","1.4rc4-i486-2") > 0);
 
   fail_unless (slapt_cmp_pkg_versions("1.3.35-i486-2_slack10.2","1.3.35-i486-1") > 0);
+
+#if defined(__x86_64__)
+  fail_unless (slapt_cmp_pkg_versions("4.1-x86_64-1","4.1-i486-1") > 0);
+  fail_unless (slapt_cmp_pkg_versions("4.1-i486-1","4.1-x86_64-1") < 0);
+#elif defined(__i386__)
+  fail_unless (slapt_cmp_pkg_versions("4.1-i486-1","4.1-x86_64-1") > 0);
+  fail_unless (slapt_cmp_pkg_versions("4.1-x86_64-1","4.1-486-1") < 0);
+#endif
 }
 END_TEST
 
