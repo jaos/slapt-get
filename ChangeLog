@@ -1,4 +1,8 @@
 
+0.10.2n Apr  18, 2012
+ * updated zlib usage to fix "expected 'gzFile' but argument is of type
+   'struct gzFile_s **'".  Thanks Igor.
+
 0.10.2m Jan  08, 2012
  * prefer our architecture in x86/x86_64 multilib package comparison
  * strip whitespace from url before parsing from slapt-getrc

@@ -2634,7 +2634,7 @@ void slapt_free_pkg_err_list(slapt_pkg_err_list_t *l)
 /* FIXME this sucks... it needs to check file headers and more */
 static FILE *slapt_gunzip_file (const char *file_name,FILE *dest_file)
 {
-  gzFile *data = NULL;
+  gzFile data = NULL;
   char buffer[SLAPT_MAX_ZLIB_BUFFER];
 
   if (dest_file == NULL)
