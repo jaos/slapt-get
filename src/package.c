@@ -214,7 +214,7 @@ slapt_pkg_list_t *slapt_parse_packages_txt(FILE *pkg_list_fh)
           );
           free(tmp_pkg->location);
           tmp_pkg->location = tmp_location;
-        } else if (strstr(tmp_pkg->location,"./pasture/") != NULL) {
+        } else if (strstr(tmp_pkg->location,"./pasture") != NULL) {
           char *tmp_location = slapt_malloc(
             sizeof *tmp_location *
             (strlen(tmp_pkg->location) - 7) /* ./pasture - 2 */
