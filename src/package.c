@@ -2172,7 +2172,7 @@ void slapt_add_pkg_to_pkg_list(slapt_pkg_list_t *list,
 
 }
 
-__inline slapt_pkg_info_t *slapt_init_pkg(void)
+slapt_pkg_info_t *slapt_init_pkg(void)
 {
   slapt_pkg_info_t *pkg;
 

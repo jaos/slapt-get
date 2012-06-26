@@ -273,7 +273,7 @@ char *slapt_str_replace_chr(const char *string,const char find,
   return clean;
 }
 
-__inline void *slapt_malloc(size_t s)
+void *slapt_malloc(size_t s)
 {
   void *p;
   if ( ! (p = malloc(s)) ) {
@@ -287,7 +287,7 @@ __inline void *slapt_malloc(size_t s)
   return p;
 }
 
-__inline void *slapt_calloc(size_t n,size_t s)
+void *slapt_calloc(size_t n,size_t s)
 {
   void *p;
   if ( ! (p = calloc(n,s)) ) {

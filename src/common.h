@@ -70,8 +70,8 @@ void slapt_gen_md5_sum_of_file(FILE *f,char *result_sum);
 int slapt_ask_yes_no(const char *format, ...);
 char *slapt_str_replace_chr(const char *string,const char find,
                             const char replace);
-__inline void *slapt_malloc(size_t s);
-__inline void *slapt_calloc(size_t n,size_t s);
+void *slapt_malloc(size_t s);
+void *slapt_calloc(size_t n,size_t s);
 
 /* return human readable error */
 const char *slapt_strerror(slapt_code_t code);

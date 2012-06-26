@@ -1,5 +1,6 @@
 
-0.10.2n May  20, 2012
+0.10.2n June  25, 2012
+ * remove __inline attributes for various functions as they clash with c99
  * Update pasture URL fixup for no sub directory packages
  * updated zlib usage to fix "expected 'gzFile' but argument is of type
    'struct gzFile_s **'".  Thanks Igor.

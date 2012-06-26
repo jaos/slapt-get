@@ -81,7 +81,7 @@ typedef struct {
 } slapt_pkg_err_list_t;
 
 /* returns an empty package structure */
-__inline slapt_pkg_info_t *slapt_init_pkg(void);
+slapt_pkg_info_t *slapt_init_pkg(void);
 /* frees the package structure */
 void slapt_free_pkg(slapt_pkg_info_t *pkg);
 
