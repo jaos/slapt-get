@@ -92,6 +92,7 @@ enum slapt_action {
 #define SLAPT_NO_UPGRADE_OPT 'N'
 #ifdef SLAPT_HAS_GPGME
   #define SLAPT_ADD_KEYS_OPT 'k'
+  #define SLAPT_ALLOW_UNAUTH 'U'
 #endif
 #define SLAPT_FILELIST 'f'
 

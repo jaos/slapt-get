@@ -48,6 +48,11 @@ static slapt_pkg_info_t *find_or_requirement(slapt_pkg_list_t *avail_pkgs,
 /* uncompress compressed package data */
 static FILE *slapt_gunzip_file (const char *file_name,FILE *dest_file);
 
+#ifdef SLAPT_HAS_GPGME
+/* check if signature is unauthenticated by "acceptable" reasons */
+SLAPT_BOOL_T slapt_pkg_sign_is_unauthenticated(slapt_code_t code);
+#endif
+
 /* parse the PACKAGES.TXT file */
 slapt_pkg_list_t *slapt_get_available_pkgs(void)
 {
@@ -2022,6 +2027,8 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
         printf("%s\n",gettext("Verified"));
       } else if (verified == SLAPT_CHECKSUMS_MISSING_KEY) {
         printf("%s\n",gettext("No key for verification"));
+      } else if ((global_config->gpgme_allow_unauth == SLAPT_TRUE) && (slapt_pkg_sign_is_unauthenticated(verified) == SLAPT_TRUE)) {
+        printf("%s%s\n", slapt_strerror(verified), gettext(", but accepted as an exception"));
       } else {
         printf("%s\n",gettext(slapt_strerror(verified)));
         source_dl_failed = 1;
@@ -2138,6 +2145,26 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
 
   return source_dl_failed;
 }
+
+#ifdef SLAPT_HAS_GPGME
+SLAPT_BOOL_T slapt_pkg_sign_is_unauthenticated(slapt_code_t code)
+{
+  switch (code)
+  {
+    case SLAPT_CHECKSUMS_NOT_VERIFIED_GPGME_KEY_REVOKED:
+    case SLAPT_CHECKSUMS_NOT_VERIFIED_GPGME_KEY_EXPIRED:
+    case SLAPT_CHECKSUMS_NOT_VERIFIED_GPGME_SIG_EXPIRED:
+    case SLAPT_CHECKSUMS_NOT_VERIFIED_GPGME_CRL_MISSING:
+    case SLAPT_CHECKSUMS_NOT_VERIFIED_GPGME_CRL_TOO_OLD:
+    case SLAPT_CHECKSUMS_NOT_VERIFIED_GPGME_BAD_POLICY:
+      return SLAPT_TRUE;
+    default:
+      break;
+  }
+
+  return SLAPT_FALSE;
+}
+#endif
 
 slapt_pkg_list_t *slapt_init_pkg_list(void)
 {

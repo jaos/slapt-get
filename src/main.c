@@ -73,6 +73,7 @@ int main( int argc, char *argv[] )
     {"install-set", 0, 0, SLAPT_INSTALL_DISK_SET_OPT},
     #ifdef SLAPT_HAS_GPGME
     {"add-keys", 0, 0, SLAPT_ADD_KEYS_OPT},
+    {"allow-unauthenticated", 0, 0, SLAPT_ALLOW_UNAUTH},
     #endif
     {"filelist", 0, 0, SLAPT_FILELIST},
     {0, 0, 0, 0},
@@ -213,6 +214,9 @@ int main( int argc, char *argv[] )
       case SLAPT_ADD_KEYS_OPT: /* retrieve GPG keys for sources */
         do_action = ADD_KEYS;
         break;
+      case SLAPT_ALLOW_UNAUTH: /* allow unauthenticated key */
+        initial_config->gpgme_allow_unauth = SLAPT_TRUE;
+        break;
       #endif
       case SLAPT_FILELIST:
         do_action = FILELIST;
@@ -253,6 +257,7 @@ int main( int argc, char *argv[] )
   global_config->remove_obsolete    = initial_config->remove_obsolete;
   global_config->retry              = initial_config->retry;
   global_config->simulate           = initial_config->simulate;
+  global_config->gpgme_allow_unauth = initial_config->gpgme_allow_unauth;
 
   slapt_free_rc_config(initial_config);
 
@@ -453,21 +458,24 @@ void usage(void)
   printf("  --version      %s\n",gettext("print version and license info"));
   printf("\n");
   printf(gettext("Options:\n"));
-  printf("  -d, --download-only %s\n",gettext("only download pkg on install/upgrade"));
-  printf("  -s, --simulate      %s\n",gettext("show pkgs to be installed/upgraded"));
-  printf("  -y, --no-prompt     %s\n",gettext("do not prompt during install/upgrade"));
-  printf("  -p, --prompt        %s\n",gettext("always prompt during install/upgrade"));
-  printf("  --reinstall         %s\n",gettext("reinstall the pkg"));
-  printf("  --ignore-excludes   %s\n",gettext("install/upgrade excludes"));
-  printf("  --no-md5            %s\n",gettext("do not perform md5 check sum"));
-  printf("  --no-dep            %s\n",gettext("skip dependency check"));
-  printf("  --ignore-dep        %s\n",gettext("ignore dependency failures"));
-  printf("  --print-uris        %s\n",gettext("print URIs only, do not download"));
-  printf("  -S, --show-stats    %s\n",gettext("show download statistics"));
-  printf("  -c, --config []     %s\n",gettext("specify alternate slapt-getrc location"));
-  printf("  --remove-obsolete   %s\n",gettext("remove obsolete packages"));
-  printf("  --retry []          %s\n",gettext("specify number of download retry attempts"));
-  printf("  --no-upgrade        %s\n",gettext("install package, do not attempt to upgrade"));
+  printf("  -d, --download-only     %s\n",gettext("only download pkg on install/upgrade"));
+  printf("  -s, --simulate          %s\n",gettext("show pkgs to be installed/upgraded"));
+  printf("  -y, --no-prompt         %s\n",gettext("do not prompt during install/upgrade"));
+  printf("  -p, --prompt            %s\n",gettext("always prompt during install/upgrade"));
+  printf("  --reinstall             %s\n",gettext("reinstall the pkg"));
+  printf("  --ignore-excludes       %s\n",gettext("install/upgrade excludes"));
+  printf("  --no-md5                %s\n",gettext("do not perform md5 check sum"));
+  printf("  --no-dep                %s\n",gettext("skip dependency check"));
+  printf("  --ignore-dep            %s\n",gettext("ignore dependency failures"));
+  printf("  --print-uris            %s\n",gettext("print URIs only, do not download"));
+  printf("  -S, --show-stats        %s\n",gettext("show download statistics"));
+  printf("  -c, --config []         %s\n",gettext("specify alternate slapt-getrc location"));
+  printf("  --remove-obsolete       %s\n",gettext("remove obsolete packages"));
+  printf("  --retry []              %s\n",gettext("specify number of download retry attempts"));
+  printf("  --no-upgrade            %s\n",gettext("install package, do not attempt to upgrade"));
+  #ifdef SLAPT_HAS_GPGME
+  printf("  --allow-unauthenticated %s\n",gettext("allow unauthenticated packages"));
+  #endif
 }
 
 void version_info(void)

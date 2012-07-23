@@ -38,6 +38,7 @@ typedef struct {
   SLAPT_BOOL_T no_upgrade;
   unsigned int retry;
   SLAPT_BOOL_T use_priority;
+  SLAPT_BOOL_T gpgme_allow_unauth;
 } slapt_rc_config;
 
 /* initialize slapt_rc_config */

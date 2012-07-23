@@ -42,6 +42,7 @@ slapt_rc_config *slapt_init_config(void)
   global_config->use_priority       = SLAPT_FALSE;
   global_config->working_dir[0]     = '\0';
   global_config->progress_cb        = NULL;
+  global_config->gpgme_allow_unauth = SLAPT_FALSE; /* even without GPGME */
 
   global_config->sources      = slapt_init_source_list();
   global_config->exclude_list = slapt_init_list();
