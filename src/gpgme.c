@@ -259,22 +259,24 @@ slapt_code_t slapt_add_pkg_source_gpg_key (FILE *key)
   return imported;
 }
 
+static slapt_code_t _slapt_gpg_get_gpgme_error(gpgme_sigsum_t sum);
+
 slapt_code_t slapt_gpg_verify_checksums(FILE *checksums,
                                         FILE *signature)
 {
   gpgme_error_t e;
   gpgme_ctx_t *ctx = _slapt_init_gpgme_ctx();
   gpgme_data_t chk_data, asc_data;
-  slapt_code_t verified = SLAPT_CHECKSUMS_NOT_VERIFIED;
+  slapt_code_t verified = SLAPT_CHECKSUMS_NOT_VERIFIED_UNKNOWN;
 
   if (ctx == NULL)
-    return verified;
+    return SLAPT_CHECKSUMS_NOT_VERIFIED_NULL_CONTEXT;
 
   e = gpgme_data_new_from_stream (&chk_data, checksums);
   if (e != GPG_ERR_NO_ERROR)
   {
     _slapt_free_gpgme_ctx(ctx);
-    return verified;
+    return SLAPT_CHECKSUMS_NOT_VERIFIED_READ_CHECKSUMS;
   }
 
   e = gpgme_data_new_from_stream (&asc_data, signature);
@@ -282,7 +284,7 @@ slapt_code_t slapt_gpg_verify_checksums(FILE *checksums,
   {
     gpgme_data_release  (chk_data);
     _slapt_free_gpgme_ctx(ctx);
-    return verified;
+    return SLAPT_CHECKSUMS_NOT_VERIFIED_READ_SIGNATURE;
   }
 
   e = gpgme_op_verify (*ctx, asc_data, chk_data, NULL);
@@ -300,6 +302,8 @@ slapt_code_t slapt_gpg_verify_checksums(FILE *checksums,
         verified = SLAPT_CHECKSUMS_VERIFIED;
       } else if (sum & GPGME_SIGSUM_KEY_MISSING) {
         verified = SLAPT_CHECKSUMS_MISSING_KEY;
+      } else {
+        verified = _slapt_gpg_get_gpgme_error(sum);
       }
 
     }
@@ -310,5 +314,22 @@ slapt_code_t slapt_gpg_verify_checksums(FILE *checksums,
   _slapt_free_gpgme_ctx(ctx);
 
   return verified;
+}
+
+slapt_code_t _slapt_gpg_get_gpgme_error(gpgme_sigsum_t sum)
+{
+  switch (sum)
+  {
+    case GPGME_SIGSUM_KEY_REVOKED: return SLAPT_CHECKSUMS_NOT_VERIFIED_GPGME_KEY_REVOKED;
+    case GPGME_SIGSUM_KEY_EXPIRED: return SLAPT_CHECKSUMS_NOT_VERIFIED_GPGME_KEY_EXPIRED;
+    case GPGME_SIGSUM_SIG_EXPIRED: return SLAPT_CHECKSUMS_NOT_VERIFIED_GPGME_SIG_EXPIRED;
+    case GPGME_SIGSUM_CRL_MISSING: return SLAPT_CHECKSUMS_NOT_VERIFIED_GPGME_CRL_MISSING;
+    case GPGME_SIGSUM_CRL_TOO_OLD: return SLAPT_CHECKSUMS_NOT_VERIFIED_GPGME_CRL_TOO_OLD;
+    case GPGME_SIGSUM_BAD_POLICY:  return SLAPT_CHECKSUMS_NOT_VERIFIED_GPGME_BAD_POLICY;
+    case GPGME_SIGSUM_SYS_ERROR:   return SLAPT_CHECKSUMS_NOT_VERIFIED_GPGME_SYS_ERROR;
+    default:                       break;
+  }
+
+  return SLAPT_CHECKSUMS_NOT_VERIFIED_UNKNOWN;
 }
 

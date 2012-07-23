@@ -2015,7 +2015,7 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
     }
 
     if (tmp_signature_f != NULL && tmp_checksum_to_verify_f != NULL) {
-      slapt_code_t verified = SLAPT_CHECKSUMS_NOT_VERIFIED;
+      slapt_code_t verified = SLAPT_CHECKSUMS_NOT_VERIFIED_UNKNOWN;
       printf(gettext("Verifying checksum signature [%s]..."), source_url);
       verified = slapt_gpg_verify_checksums(tmp_checksum_to_verify_f, tmp_signature_f);
       if (verified == SLAPT_CHECKSUMS_VERIFIED) {
@@ -2023,7 +2023,7 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
       } else if (verified == SLAPT_CHECKSUMS_MISSING_KEY) {
         printf("%s\n",gettext("No key for verification"));
       } else {
-        printf("%s\n",gettext("Not Verified"));
+        printf("%s\n",gettext(slapt_strerror(verified)));
         source_dl_failed = 1;
         fclose(tmp_checksum_f);
         tmp_checksum_f = NULL;

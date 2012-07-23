@@ -321,8 +321,28 @@ const char *slapt_strerror(slapt_code_t code)
       return gettext("GPG key already present");
     case SLAPT_CHECKSUMS_VERIFIED:
       return gettext("Checksums signature successfully verified");
-    case SLAPT_CHECKSUMS_NOT_VERIFIED:
-      return gettext("Checksums signature could not be verified");
+    case SLAPT_CHECKSUMS_NOT_VERIFIED_NULL_CONTEXT:
+      return gettext("Not verified: null context");
+    case SLAPT_CHECKSUMS_NOT_VERIFIED_READ_CHECKSUMS:
+      return gettext("Checksums not read");
+    case SLAPT_CHECKSUMS_NOT_VERIFIED_READ_SIGNATURE:
+      return gettext("Signature not read");
+    case SLAPT_CHECKSUMS_NOT_VERIFIED_GPGME_KEY_REVOKED:
+      return gettext("Not Verified: key revoked");
+    case SLAPT_CHECKSUMS_NOT_VERIFIED_GPGME_KEY_EXPIRED:
+      return gettext("Not Verified: key expired");
+    case SLAPT_CHECKSUMS_NOT_VERIFIED_GPGME_SIG_EXPIRED:
+      return gettext("Not Verified: signature expired");
+    case SLAPT_CHECKSUMS_NOT_VERIFIED_GPGME_CRL_MISSING:
+      return gettext("Not Verified: missing CRL");
+    case SLAPT_CHECKSUMS_NOT_VERIFIED_GPGME_CRL_TOO_OLD:
+      return gettext("Not Verified: CRL too old");
+    case SLAPT_CHECKSUMS_NOT_VERIFIED_GPGME_BAD_POLICY:
+      return gettext("Not Verified: bad policy");
+    case SLAPT_CHECKSUMS_NOT_VERIFIED_GPGME_SYS_ERROR:
+      return gettext("Not Verified: system error");
+    case SLAPT_CHECKSUMS_NOT_VERIFIED_UNKNOWN:
+      return gettext("Not Verified: unknown error");
     case SLAPT_CHECKSUMS_MISSING_KEY:
       return gettext("No key for verification");
     #endif
