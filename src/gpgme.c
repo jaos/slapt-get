@@ -267,7 +267,7 @@ slapt_code_t slapt_gpg_verify_checksums(FILE *checksums,
   gpgme_error_t e;
   gpgme_ctx_t *ctx = _slapt_init_gpgme_ctx();
   gpgme_data_t chk_data, asc_data;
-  slapt_code_t verified = SLAPT_CHECKSUMS_NOT_VERIFIED_UNKNOWN;
+  slapt_code_t verified = SLAPT_CHECKSUMS_NOT_VERIFIED;
 
   if (ctx == NULL)
     return SLAPT_CHECKSUMS_NOT_VERIFIED_NULL_CONTEXT;

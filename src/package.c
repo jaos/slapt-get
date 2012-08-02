@@ -2020,7 +2020,7 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
     }
 
     if (tmp_signature_f != NULL && tmp_checksum_to_verify_f != NULL) {
-      slapt_code_t verified = SLAPT_CHECKSUMS_NOT_VERIFIED_UNKNOWN;
+      slapt_code_t verified = SLAPT_CHECKSUMS_NOT_VERIFIED;
       printf(gettext("Verifying checksum signature [%s]..."), source_url);
       verified = slapt_gpg_verify_checksums(tmp_checksum_to_verify_f, tmp_signature_f);
       if (verified == SLAPT_CHECKSUMS_VERIFIED) {

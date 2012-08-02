@@ -341,8 +341,8 @@ const char *slapt_strerror(slapt_code_t code)
       return gettext("Not Verified: bad policy");
     case SLAPT_CHECKSUMS_NOT_VERIFIED_GPGME_SYS_ERROR:
       return gettext("Not Verified: system error");
-    case SLAPT_CHECKSUMS_NOT_VERIFIED_UNKNOWN:
-      return gettext("Not Verified: unknown error");
+    case SLAPT_CHECKSUMS_NOT_VERIFIED:
+      return gettext("Checksums signature could not be verified");
     case SLAPT_CHECKSUMS_MISSING_KEY:
       return gettext("No key for verification");
     #endif
