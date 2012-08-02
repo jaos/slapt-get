@@ -7,9 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.2f\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-09 20:54+0400\n"
+"POT-Creation-Date: 2012-08-02 14:14+0000\n"
 "PO-Revision-Date: 2010-06-07 21:05+0500\n"
 "Language-Team: polish slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -95,6 +96,9 @@ msgstr "%s-%s trzeba usunąć.\n"
 msgid "%s-%s is to be upgraded to version %s\n"
 msgstr "%s-%s trzeba aktualizować do wersji %s\n"
 
+msgid ", but accepted as an exception"
+msgstr ""
+
 #, c-format
 msgid "Abort.\n"
 msgstr "Koniec.\n"
@@ -114,6 +118,9 @@ msgstr "Implementacja systemu APT z Debiana dla Slackware'a\n"
 #, c-format
 msgid "Cached\n"
 msgstr "Zachowane\n"
+
+msgid "Checksums not read"
+msgstr ""
 
 msgid "Checksums signature could not be verified"
 msgstr "Nie mogę potwiedzić sumy kontrolnej podpisu"
@@ -253,8 +260,29 @@ msgstr "Nie ma takiego pakietu: %s\n"
 msgid "Not Found\n"
 msgstr "Nie znaleziono\n"
 
-msgid "Not Verified"
-msgstr "Nie potwierdzone"
+msgid "Not Verified: CRL too old"
+msgstr ""
+
+msgid "Not Verified: bad policy"
+msgstr ""
+
+msgid "Not Verified: key expired"
+msgstr ""
+
+msgid "Not Verified: key revoked"
+msgstr ""
+
+msgid "Not Verified: missing CRL"
+msgstr ""
+
+msgid "Not Verified: signature expired"
+msgstr ""
+
+msgid "Not Verified: system error"
+msgstr ""
+
+msgid "Not verified: null context"
+msgstr ""
 
 msgid "Official"
 msgstr "Official"
@@ -381,6 +409,9 @@ msgstr "Pobieram listę patchy [%s]..."
 msgid "SOURCE directive not set within %s.\n"
 msgstr "dyrektywa SOURCE nie jest ustawiona wewnątrz %s.\n"
 
+msgid "Signature not read"
+msgstr ""
+
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
 msgstr "Pobranie źródeł nie powiodło się, skoryguj źródła i powtórz --update\n"
@@ -455,6 +486,9 @@ msgid "[pkg name(s)] - show pkg(s) description"
 msgstr ""
 
 msgid "[pkg name(s)] - show pkg(s) installed files"
+msgstr ""
+
+msgid "allow unauthenticated packages"
 msgstr ""
 
 msgid "always prompt during install/upgrade"
@@ -602,6 +636,9 @@ msgstr "tak"
 
 #~ msgid "MD5 found:    [%s]\n"
 #~ msgstr "MD5 uzyskane: [%s]\n"
+
+#~ msgid "Not Verified"
+#~ msgstr "Nie potwierdzone"
 
 #~ msgid "Reading Package Lists... "
 #~ msgstr "Wczytuję Listę Pakietów..."

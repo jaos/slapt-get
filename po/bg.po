@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.2f\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-09 20:54+0400\n"
+"POT-Creation-Date: 2012-08-02 14:14+0000\n"
 "PO-Revision-Date: 2010-06-07 21:05+0500\n"
 "Last-Translator: Victor Keranov <victor_keranov@mail.bg>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -86,6 +87,9 @@ msgstr "%s-%s ще бъде премахнат\n"
 msgid "%s-%s is to be upgraded to version %s\n"
 msgstr "%s-%s ще бъде обновен до версия %s\n"
 
+msgid ", but accepted as an exception"
+msgstr ""
+
 #, c-format
 msgid "Abort.\n"
 msgstr "Прекъсване.\n"
@@ -107,6 +111,9 @@ msgstr "Подобна на Debian APT пакетна система за Slackw
 #, c-format
 msgid "Cached\n"
 msgstr "Кеширан\n"
+
+msgid "Checksums not read"
+msgstr ""
 
 msgid "Checksums signature could not be verified"
 msgstr "Checksums signature could not be verified"
@@ -246,8 +253,29 @@ msgstr "Няма такъв пакет: %s\n"
 msgid "Not Found\n"
 msgstr "Not Found\n"
 
-msgid "Not Verified"
-msgstr "Not Verified"
+msgid "Not Verified: CRL too old"
+msgstr ""
+
+msgid "Not Verified: bad policy"
+msgstr ""
+
+msgid "Not Verified: key expired"
+msgstr ""
+
+msgid "Not Verified: key revoked"
+msgstr ""
+
+msgid "Not Verified: missing CRL"
+msgstr ""
+
+msgid "Not Verified: signature expired"
+msgstr ""
+
+msgid "Not Verified: system error"
+msgstr ""
+
+msgid "Not verified: null context"
+msgstr ""
 
 msgid "Official"
 msgstr "Official"
@@ -372,6 +400,9 @@ msgstr "Получаване на списък с ъпдейти [%s]..."
 msgid "SOURCE directive not set within %s.\n"
 msgstr "SOURCE directive not set within %s.\n"
 
+msgid "Signature not read"
+msgstr ""
+
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
 msgstr ""
@@ -448,6 +479,9 @@ msgid "[pkg name(s)] - show pkg(s) description"
 msgstr ""
 
 msgid "[pkg name(s)] - show pkg(s) installed files"
+msgstr ""
+
+msgid "allow unauthenticated packages"
 msgstr ""
 
 msgid "always prompt during install/upgrade"
@@ -595,6 +629,9 @@ msgstr "да"
 
 #~ msgid "MD5 found:    [%s]\n"
 #~ msgstr "Намерена MD5 сума:    [%s]\n"
+
+#~ msgid "Not Verified"
+#~ msgstr "Not Verified"
 
 #~ msgid "Reading Package Lists... "
 #~ msgstr "Четене на списъците с пакети... "

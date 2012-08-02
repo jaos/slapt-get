@@ -8,10 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.2f\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-09 20:54+0400\n"
+"POT-Creation-Date: 2012-08-02 14:14+0000\n"
 "PO-Revision-Date: 2010-06-07 21:05+0500\n"
 "Last-Translator: Angelos <angel.microchip@gmail.com>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -87,6 +88,9 @@ msgstr "%s-%s será eliminado\n"
 msgid "%s-%s is to be upgraded to version %s\n"
 msgstr "%s-%s será actualizado a la versión %s\n"
 
+msgid ", but accepted as an exception"
+msgstr ""
+
 #, c-format
 msgid "Abort.\n"
 msgstr "Abortar.\n"
@@ -107,6 +111,9 @@ msgstr "Una implementación del sistema APT de Debian para Slackware\n"
 #, c-format
 msgid "Cached\n"
 msgstr "Chacheado\n"
+
+msgid "Checksums not read"
+msgstr ""
 
 msgid "Checksums signature could not be verified"
 msgstr "la firma Checksums no puede verificarse"
@@ -246,8 +253,29 @@ msgstr "No existe el paquete: %s\n"
 msgid "Not Found\n"
 msgstr "No Encontrado\n"
 
-msgid "Not Verified"
-msgstr "No verificado"
+msgid "Not Verified: CRL too old"
+msgstr ""
+
+msgid "Not Verified: bad policy"
+msgstr ""
+
+msgid "Not Verified: key expired"
+msgstr ""
+
+msgid "Not Verified: key revoked"
+msgstr ""
+
+msgid "Not Verified: missing CRL"
+msgstr ""
+
+msgid "Not Verified: signature expired"
+msgstr ""
+
+msgid "Not Verified: system error"
+msgstr ""
+
+msgid "Not verified: null context"
+msgstr ""
 
 msgid "Official"
 msgstr "Oficial"
@@ -320,7 +348,9 @@ msgstr "¿Tal vez necesite ejecutar --update?\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr "Por favor, actualice los permisos de %s o ejecútelo con los privilegios adecuados\n"
+msgstr ""
+"Por favor, actualice los permisos de %s o ejecútelo con los privilegios "
+"adecuados\n"
 
 msgid "Preferred"
 msgstr "Principal"
@@ -372,9 +402,14 @@ msgstr "Obteniendo el listado de parches [%s]..."
 msgid "SOURCE directive not set within %s.\n"
 msgstr "La directiva SOURCE no está definida dentro de %s.\n"
 
+msgid "Signature not read"
+msgstr ""
+
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr "Fallaron los fuentes para descargar, corrija las fuentes (sources) y corra de nuevo --update\n"
+msgstr ""
+"Fallaron los fuentes para descargar, corrija las fuentes (sources) y corra "
+"de nuevo --update\n"
 
 #, c-format
 msgid "Suggested packages:\n"
@@ -443,10 +478,16 @@ msgid "[pkg name(s)] - remove specified pkg(s)"
 msgstr "[nombre(s) del paqute] - desinstala el/los paquete(s) especificados"
 
 msgid "[pkg name(s)] - show pkg(s) description"
-msgstr "[Nombre(s) del/los paquete(s)] - muestra la(s) descripcion(es) del/los paquetes(s)"
+msgstr ""
+"[Nombre(s) del/los paquete(s)] - muestra la(s) descripcion(es) del/los "
+"paquetes(s)"
 
 msgid "[pkg name(s)] - show pkg(s) installed files"
-msgstr "[Nombre(s) del/los paquete(s)] - muestra los archivos del/los paquete(s)"
+msgstr ""
+"[Nombre(s) del/los paquete(s)] - muestra los archivos del/los paquete(s)"
+
+msgid "allow unauthenticated packages"
+msgstr ""
 
 msgid "always prompt during install/upgrade"
 msgstr "Siempre preguntar durante la instalación/actualización"
@@ -466,7 +507,8 @@ msgstr "error al intentar leer la descripción del paquete\n"
 
 #, c-format
 msgid "getline reached EOF attempting to read location\n"
-msgstr "getline encontró el final de fichero (EOF) al tratar de leer la ubicación\n"
+msgstr ""
+"getline encontró el final de fichero (EOF) al tratar de leer la ubicación\n"
 
 #, c-format
 msgid "getline reached EOF attempting to read size_c\n"
@@ -593,6 +635,9 @@ msgstr "sí­"
 
 #~ msgid "MD5 found:    [%s]\n"
 #~ msgstr "MD5 hayado:  [%s]\n"
+
+#~ msgid "Not Verified"
+#~ msgstr "No verificado"
 
 #~ msgid "Reading Package Lists... "
 #~ msgstr "Leyendo el listado de paquetes..."

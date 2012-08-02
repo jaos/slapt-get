@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.2f\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-09 20:54+0400\n"
+"POT-Creation-Date: 2012-08-02 14:14+0000\n"
 "PO-Revision-Date: 2010-06-07 21:05+0500\n"
 "Last-Translator: Jason Woodward <woodwardj@jaos.org>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -86,6 +87,9 @@ msgstr "%s-%s is to be removed\n"
 msgid "%s-%s is to be upgraded to version %s\n"
 msgstr "%s-%s is to be upgraded to version %s\n"
 
+msgid ", but accepted as an exception"
+msgstr ", but accepted as an exception"
+
 #, c-format
 msgid "Abort.\n"
 msgstr "Abort.\n"
@@ -105,6 +109,9 @@ msgstr "An implementation of the Debian APT system to Slackware\n"
 #, c-format
 msgid "Cached\n"
 msgstr "Cached\n"
+
+msgid "Checksums not read"
+msgstr "Checksums not read"
 
 msgid "Checksums signature could not be verified"
 msgstr "Checksums signature could not be verified"
@@ -244,8 +251,29 @@ msgstr "No such package: %s\n"
 msgid "Not Found\n"
 msgstr "Not Found\n"
 
-msgid "Not Verified"
-msgstr "Not Verified"
+msgid "Not Verified: CRL too old"
+msgstr "Not Verified: CRL too old"
+
+msgid "Not Verified: bad policy"
+msgstr "Not Verified: bad policy"
+
+msgid "Not Verified: key expired"
+msgstr "Not Verified: key expired"
+
+msgid "Not Verified: key revoked"
+msgstr "Not Verified: key revoked"
+
+msgid "Not Verified: missing CRL"
+msgstr "Not Verified: missing CRL"
+
+msgid "Not Verified: signature expired"
+msgstr "Not Verified: signature expired"
+
+msgid "Not Verified: system error"
+msgstr "Not Verified: system error"
+
+msgid "Not verified: null context"
+msgstr "Not verified: null context"
 
 msgid "Official"
 msgstr "Official"
@@ -370,6 +398,9 @@ msgstr "Retrieving patch list [%s]..."
 msgid "SOURCE directive not set within %s.\n"
 msgstr "SOURCE directive not set within %s.\n"
 
+msgid "Signature not read"
+msgstr "Signature not read"
+
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
 msgstr "Sources failed to download, correct sources and rerun --update\n"
@@ -441,16 +472,19 @@ msgid "[pkg name(s)] - remove specified pkg(s)"
 msgstr "[pkg name(s)] - remove specified pkg(s)"
 
 msgid "[pkg name(s)] - show pkg(s) description"
-msgstr ""
+msgstr "[pkg name(s)] - show pkg(s) description"
 
 msgid "[pkg name(s)] - show pkg(s) installed files"
-msgstr ""
+msgstr "[pkg name(s)] - show pkg(s) installed files"
+
+msgid "allow unauthenticated packages"
+msgstr "allow unauthenticated packages"
 
 msgid "always prompt during install/upgrade"
 msgstr "always prompt during install/upgrade"
 
 msgid "display this help and exit"
-msgstr ""
+msgstr "display this help and exit"
 
 msgid "do not perform md5 check sum"
 msgstr "do not perform md5 check sum"
@@ -535,7 +569,7 @@ msgid "regexec failed to parse size_u\n"
 msgstr "regexec failed to parse size_u\n"
 
 msgid "reinstall the pkg"
-msgstr ""
+msgstr "reinstall the pkg"
 
 msgid "remove obsolete packages"
 msgstr "remove obsolete packages"
@@ -544,7 +578,7 @@ msgid "retrieve GPG keys for sources"
 msgstr "retrieve GPG keys for sources"
 
 msgid "retrieve pkg data from MIRROR"
-msgstr ""
+msgstr "retrieve pkg data from MIRROR"
 
 msgid "show download statistics"
 msgstr "show download statistics"
@@ -591,6 +625,9 @@ msgstr "yes"
 
 #~ msgid "MD5 found:    [%s]\n"
 #~ msgstr "MD5 found:    [%s]\n"
+
+#~ msgid "Not Verified"
+#~ msgstr "Not Verified"
 
 #~ msgid "Reading Package Lists... "
 #~ msgstr "Reading Package Lists... "

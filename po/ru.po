@@ -7,17 +7,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.2j\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-09 20:54+0400\n"
+"POT-Creation-Date: 2012-08-02 14:14+0000\n"
 "PO-Revision-Date: 2011-08-21 21:05+0500\n"
 "Last-Translator: Igor Murzov <e-mail@date.by>\n"
 "Language-Team: DeepStyle Team <hottab@deepstyle.org.ua>, <ru@li.org>, sin "
 "<digitalhunger@gmail.com>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #, c-format
 msgid "  %s: Depends: %s\n"
@@ -94,6 +95,9 @@ msgstr "%s-%s будет удалён.\n"
 msgid "%s-%s is to be upgraded to version %s\n"
 msgstr "%s-%s будет обновлён до версии %s\n"
 
+msgid ", but accepted as an exception"
+msgstr ""
+
 #, c-format
 msgid "Abort.\n"
 msgstr "Отмена.\n"
@@ -113,6 +117,9 @@ msgstr "Реализация системы APT из Debian для Slackware\n"
 #, c-format
 msgid "Cached\n"
 msgstr "Сохранено\n"
+
+msgid "Checksums not read"
+msgstr ""
 
 msgid "Checksums signature could not be verified"
 msgstr "Не удалось проверить подпись контрольных сумм"
@@ -253,8 +260,29 @@ msgstr "Нет такого пакета: %s\n"
 msgid "Not Found\n"
 msgstr "Не найден\n"
 
-msgid "Not Verified"
-msgstr "Проверка не удалась"
+msgid "Not Verified: CRL too old"
+msgstr ""
+
+msgid "Not Verified: bad policy"
+msgstr ""
+
+msgid "Not Verified: key expired"
+msgstr ""
+
+msgid "Not Verified: key revoked"
+msgstr ""
+
+msgid "Not Verified: missing CRL"
+msgstr ""
+
+msgid "Not Verified: signature expired"
+msgstr ""
+
+msgid "Not Verified: system error"
+msgstr ""
+
+msgid "Not verified: null context"
+msgstr ""
 
 msgid "Official"
 msgstr "Official"
@@ -379,6 +407,9 @@ msgstr "Получение списка патчей [%s]..."
 msgid "SOURCE directive not set within %s.\n"
 msgstr "Директива SOURCE не установлена в %s.\n"
 
+msgid "Signature not read"
+msgstr ""
+
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
 msgstr "Ошибка при загрузке, исправьте адреса и перезапустите --update\n"
@@ -454,6 +485,9 @@ msgstr "[имена пакетов] - показать описания паке
 
 msgid "[pkg name(s)] - show pkg(s) installed files"
 msgstr "[имена пакетов] - показать файлы установленные пакетами"
+
+msgid "allow unauthenticated packages"
+msgstr ""
 
 msgid "always prompt during install/upgrade"
 msgstr "всегда спрашивать при установке/обновлении"
@@ -600,3 +634,6 @@ msgstr "да"
 
 #~ msgid "MD5 found:    [%s]\n"
 #~ msgstr "Найденная MD5: [%s]\n"
+
+#~ msgid "Not Verified"
+#~ msgstr "Проверка не удалась"

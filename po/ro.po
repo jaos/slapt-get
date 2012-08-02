@@ -6,10 +6,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.2f\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-09 20:54+0400\n"
+"POT-Creation-Date: 2012-08-02 14:14+0000\n"
 "PO-Revision-Date: 2010-06-07 21:05+0500\n"
 "Last-Translator: Zion <admin@ptm.ro>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -91,6 +92,9 @@ msgstr "%s-%s va fi eliminat\n"
 msgid "%s-%s is to be upgraded to version %s\n"
 msgstr "%s-%s va fi actualizat la versiunea %s\n"
 
+msgid ", but accepted as an exception"
+msgstr ""
+
 #, c-format
 msgid "Abort.\n"
 msgstr "Abandonare.\n"
@@ -110,6 +114,9 @@ msgstr "O implementare a sistemului Debian APT pentru Slackware\n"
 #, c-format
 msgid "Cached\n"
 msgstr "Memorat\n"
+
+msgid "Checksums not read"
+msgstr ""
 
 msgid "Checksums signature could not be verified"
 msgstr "Semnatura sumelor de control nu a putut fi verificata"
@@ -249,8 +256,29 @@ msgstr "Nu exista pachetul: %s\n"
 msgid "Not Found\n"
 msgstr "Nu a fost gasit\n"
 
-msgid "Not Verified"
-msgstr "Neverificat"
+msgid "Not Verified: CRL too old"
+msgstr ""
+
+msgid "Not Verified: bad policy"
+msgstr ""
+
+msgid "Not Verified: key expired"
+msgstr ""
+
+msgid "Not Verified: key revoked"
+msgstr ""
+
+msgid "Not Verified: missing CRL"
+msgstr ""
+
+msgid "Not Verified: signature expired"
+msgstr ""
+
+msgid "Not Verified: system error"
+msgstr ""
+
+msgid "Not verified: null context"
+msgstr ""
 
 msgid "Official"
 msgstr "Official"
@@ -376,6 +404,9 @@ msgstr "Se primeste lista completari [%s]..."
 msgid "SOURCE directive not set within %s.\n"
 msgstr "Directiva SOURCE nu este setata in %s.\n"
 
+msgid "Signature not read"
+msgstr ""
+
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
 msgstr "Sursele au esuat la descarcare, corectati sursele si rulati --update\n"
@@ -450,6 +481,9 @@ msgid "[pkg name(s)] - show pkg(s) description"
 msgstr ""
 
 msgid "[pkg name(s)] - show pkg(s) installed files"
+msgstr ""
+
+msgid "allow unauthenticated packages"
 msgstr ""
 
 msgid "always prompt during install/upgrade"
@@ -598,6 +632,9 @@ msgstr "da"
 
 #~ msgid "MD5 found:    [%s]\n"
 #~ msgstr "MD5 gasit:    [%s]\n"
+
+#~ msgid "Not Verified"
+#~ msgstr "Neverificat"
 
 #~ msgid "Reading Package Lists... "
 #~ msgstr "Se citeste lista cu pachete..."

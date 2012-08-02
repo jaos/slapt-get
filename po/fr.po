@@ -7,9 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.2f\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-09 20:54+0400\n"
+"POT-Creation-Date: 2012-08-02 14:14+0000\n"
 "PO-Revision-Date: 2010-06-07 21:05+0500\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -87,6 +88,9 @@ msgstr "%s-%s doit tre supprimé\n"
 msgid "%s-%s is to be upgraded to version %s\n"
 msgstr "%s-%s va être mis à jour vers la version %s\n"
 
+msgid ", but accepted as an exception"
+msgstr ""
+
 #, c-format
 msgid "Abort.\n"
 msgstr "Abandonner.\n"
@@ -97,7 +101,8 @@ msgstr "Après décompression, %.1f%s d'espace disque sera libéré.\n"
 
 #, c-format
 msgid "After unpacking %.1f%s of additional disk space will be used.\n"
-msgstr "Après décompression %.1f%s de place disque supplémentaire sera utilisée.\n"
+msgstr ""
+"Après décompression %.1f%s de place disque supplémentaire sera utilisée.\n"
 
 #, c-format
 msgid "An implementation of the Debian APT system to Slackware\n"
@@ -106,6 +111,9 @@ msgstr "Une implémentation du système APT Debian sous Slackware\n"
 #, c-format
 msgid "Cached\n"
 msgstr "Caché\n"
+
+msgid "Checksums not read"
+msgstr ""
 
 msgid "Checksums signature could not be verified"
 msgstr "La signature des sommes de contrôle n'a pas pu être vérifiée"
@@ -245,8 +253,29 @@ msgstr "Aucun paquet de la sorte: %s\n"
 msgid "Not Found\n"
 msgstr "Non trouvé\n"
 
-msgid "Not Verified"
-msgstr "Non vérifié"
+msgid "Not Verified: CRL too old"
+msgstr ""
+
+msgid "Not Verified: bad policy"
+msgstr ""
+
+msgid "Not Verified: key expired"
+msgstr ""
+
+msgid "Not Verified: key revoked"
+msgstr ""
+
+msgid "Not Verified: missing CRL"
+msgstr ""
+
+msgid "Not Verified: signature expired"
+msgstr ""
+
+msgid "Not Verified: system error"
+msgstr ""
+
+msgid "Not verified: null context"
+msgstr ""
 
 msgid "Official"
 msgstr "Officiel"
@@ -319,7 +348,9 @@ msgstr "Peut-être vouliez-vous lancer --update?\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr "Merci de mettre à jour les permissions sur %s, ou de le lancer avec les privilèges adéquats\n"
+msgstr ""
+"Merci de mettre à jour les permissions sur %s, ou de le lancer avec les "
+"privilèges adéquats\n"
 
 msgid "Preferred"
 msgstr "Privilégié"
@@ -371,10 +402,14 @@ msgstr "Récupération de la liste des patches [%s]..."
 msgid "SOURCE directive not set within %s.\n"
 msgstr "La directive SOURCE n'a pas été valuée dans %s.\n"
 
+msgid "Signature not read"
+msgstr ""
+
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr "Certaines sources n'ont pu être téléchargées. Corrigez les sources, et lancez "
-"de nouveau --update\n"
+msgstr ""
+"Certaines sources n'ont pu être téléchargées. Corrigez les sources, et "
+"lancez de nouveau --update\n"
 
 #, c-format
 msgid "Suggested packages:\n"
@@ -420,7 +455,8 @@ msgstr "Vérifié"
 
 #, c-format
 msgid "Verifying checksum signature [%s]..."
-msgstr "En cours de vérification de la signature de la somme de contrôle [%s]..."
+msgstr ""
+"En cours de vérification de la signature de la somme de contrôle [%s]..."
 
 #, c-format
 msgid "WORKINGDIR directive not set within %s.\n"
@@ -448,6 +484,9 @@ msgstr "[pkg name(s)] - affiche la description des paquets"
 msgid "[pkg name(s)] - show pkg(s) installed files"
 msgstr "[pkg name(s)] - affiche les fichiers des paquets installés"
 
+msgid "allow unauthenticated packages"
+msgstr ""
+
 msgid "always prompt during install/upgrade"
 msgstr "demande toujours pendant l'installation ou la mise à jour"
 
@@ -466,7 +505,8 @@ msgstr "erreur dans la tentative de lecture de la description du paquet\n"
 
 #, c-format
 msgid "getline reached EOF attempting to read location\n"
-msgstr "getline a atteint la fin du fichier en essayant de lire l'emplacement\n"
+msgstr ""
+"getline a atteint la fin du fichier en essayant de lire l'emplacement\n"
 
 #, c-format
 msgid "getline reached EOF attempting to read size_c\n"
@@ -502,7 +542,8 @@ msgid "no"
 msgstr "non"
 
 msgid "only download pkg on install/upgrade"
-msgstr "ne fait que télécharger les paquets lors d'une installation/mise à jour"
+msgstr ""
+"ne fait que télécharger les paquets lors d'une installation/mise à jour"
 
 msgid "only purge cache of older, unreacheable pkgs"
 msgstr "purge uniquement le cache des anciens paquets non atteignables"
@@ -594,6 +635,9 @@ msgstr "oui"
 #~ msgid "MD5 found:    [%s]\n"
 #~ msgstr "MD5 trouvé : [ %s]\n"
 
+#~ msgid "Not Verified"
+#~ msgstr "Non vérifié"
+
 #~ msgid "Reading Package Lists... "
 #~ msgstr "Listes de paquet de lecture..."
 
@@ -620,4 +664,3 @@ msgstr "oui"
 
 #~ msgid "retrieves pkg data from MIRROR"
 #~ msgstr "récupère les données du paquet du MIRROR"
-

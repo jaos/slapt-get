@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.2f\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-09 20:54+0400\n"
+"POT-Creation-Date: 2012-08-02 14:14+0000\n"
 "PO-Revision-Date: 2010-06-07 21:05+0500\n"
 "Last-Translator: Yang Jinsong <shannleon@gmail.com>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -81,6 +82,9 @@ msgstr "%s-%s 将要被删除\n"
 msgid "%s-%s is to be upgraded to version %s\n"
 msgstr "%s-%s 将要被升级为版本 %s\n"
 
+msgid ", but accepted as an exception"
+msgstr ""
+
 #, c-format
 msgid "Abort.\n"
 msgstr "中止.\n"
@@ -100,6 +104,9 @@ msgstr "Debian APT 系统的 Slackware 实现\n"
 #, c-format
 msgid "Cached\n"
 msgstr "已缓存\n"
+
+msgid "Checksums not read"
+msgstr ""
 
 msgid "Checksums signature could not be verified"
 msgstr "Checksums signature could not be verified"
@@ -239,8 +246,29 @@ msgstr "没有此软件包: %s\n"
 msgid "Not Found\n"
 msgstr "Not Found\n"
 
-msgid "Not Verified"
-msgstr "Not Verified"
+msgid "Not Verified: CRL too old"
+msgstr ""
+
+msgid "Not Verified: bad policy"
+msgstr ""
+
+msgid "Not Verified: key expired"
+msgstr ""
+
+msgid "Not Verified: key revoked"
+msgstr ""
+
+msgid "Not Verified: missing CRL"
+msgstr ""
+
+msgid "Not Verified: signature expired"
+msgstr ""
+
+msgid "Not Verified: system error"
+msgstr ""
+
+msgid "Not verified: null context"
+msgstr ""
 
 msgid "Official"
 msgstr "Official"
@@ -365,6 +393,9 @@ msgstr "检索补丁包列表 [%s]..."
 msgid "SOURCE directive not set within %s.\n"
 msgstr "%s 中没有设置 SOURCE 关键字.\n"
 
+msgid "Signature not read"
+msgstr ""
+
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
 msgstr "源下载失败, 请修正源并且执行 --update\n"
@@ -439,6 +470,9 @@ msgid "[pkg name(s)] - show pkg(s) description"
 msgstr ""
 
 msgid "[pkg name(s)] - show pkg(s) installed files"
+msgstr ""
+
+msgid "allow unauthenticated packages"
 msgstr ""
 
 msgid "always prompt during install/upgrade"
@@ -584,6 +618,9 @@ msgstr "是"
 
 #~ msgid "MD5 found:    [%s]\n"
 #~ msgstr "发现的 MD5 校验值:    [%s]\n"
+
+#~ msgid "Not Verified"
+#~ msgstr "Not Verified"
 
 #~ msgid "Reading Package Lists... "
 #~ msgstr "读取软件包列表... "

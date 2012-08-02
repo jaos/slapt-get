@@ -8,10 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.2f\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-09 20:54+0400\n"
+"POT-Creation-Date: 2012-08-02 14:14+0000\n"
 "PO-Revision-Date: 2010-11-11 18:02+0100\n"
 "Last-Translator: Peter Polonkai <polesz@nedudu.hu>\n"
 "Language-Team: Nedudu Team <polesz@nedudu.hu>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -23,20 +24,34 @@ msgid "  %s: Depends: %s\n"
 msgstr "%s: Függőségei: %s\n"
 
 #, c-format
+msgid "%d newly installed, "
+msgid_plural "%d newly installed, "
+msgstr[0] ""
+msgstr[1] ""
+
+#, fuzzy, c-format
 msgid "%d not upgraded.\n"
-msgstr "%d nem frissített.\n"
+msgid_plural "%d not upgraded.\n"
+msgstr[0] "%d nem frissített.\n"
+msgstr[1] "%d nem frissített.\n"
 
-#, c-format
+#, fuzzy, c-format
 msgid "%d reinstalled, "
-msgstr "%d újratelepítendő, "
+msgid_plural "%d reinstalled, "
+msgstr[0] "%d újratelepítendő, "
+msgstr[1] "%d újratelepítendő, "
 
-#, c-format
+#, fuzzy, c-format
 msgid "%d to remove, "
-msgstr "%d törlendő, "
+msgid_plural "%d to remove, "
+msgstr[0] "%d törlendő, "
+msgstr[1] "%d törlendő, "
 
-#, c-format
+#, fuzzy, c-format
 msgid "%d upgraded, "
-msgstr "%d frissítendő, "
+msgid_plural "%d upgraded, "
+msgstr[0] "%d frissítendő, "
+msgstr[1] "%d frissítendő, "
 
 #, c-format
 msgid "%s [option(s)] [target]\n"
@@ -74,6 +89,9 @@ msgstr "%s-%s eltávolítandó\n"
 msgid "%s-%s is to be upgraded to version %s\n"
 msgstr "%s-%s frissítendő erre a verzióra: %s\n"
 
+msgid ", but accepted as an exception"
+msgstr ""
+
 #, c-format
 msgid "Abort.\n"
 msgstr "Megszakítva.\n"
@@ -93,6 +111,9 @@ msgstr "Debian APT rendszer implementáció Slackware Linuxhoz\n"
 #, c-format
 msgid "Cached\n"
 msgstr "Tárolt\n"
+
+msgid "Checksums not read"
+msgstr ""
 
 msgid "Checksums signature could not be verified"
 msgstr "Ellenőrző összegek aláírását nem lehet ellenőrizni"
@@ -232,8 +253,29 @@ msgstr "Nem található a csomag: %s\n"
 msgid "Not Found\n"
 msgstr "Nem található\n"
 
-msgid "Not Verified"
-msgstr "Nem ellenőrzött"
+msgid "Not Verified: CRL too old"
+msgstr ""
+
+msgid "Not Verified: bad policy"
+msgstr ""
+
+msgid "Not Verified: key expired"
+msgstr ""
+
+msgid "Not Verified: key revoked"
+msgstr ""
+
+msgid "Not Verified: missing CRL"
+msgstr ""
+
+msgid "Not Verified: signature expired"
+msgstr ""
+
+msgid "Not Verified: system error"
+msgstr ""
+
+msgid "Not verified: null context"
+msgstr ""
 
 msgid "Official"
 msgstr "Hivatalos"
@@ -306,7 +348,9 @@ msgstr "Futtatni kívánja az --update-t?\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr "Kérem frissítse a(z) %s engedélyeit vagy futtassa a megfelelő jogosultságokkal\n"
+msgstr ""
+"Kérem frissítse a(z) %s engedélyeit vagy futtassa a megfelelő "
+"jogosultságokkal\n"
 
 msgid "Preferred"
 msgstr "Előnyben részesített"
@@ -358,9 +402,14 @@ msgstr "Javítás lista [%s] keresése..."
 msgid "SOURCE directive not set within %s.\n"
 msgstr "SOURCE változó nem lett beállítva: %s\n"
 
+msgid "Signature not read"
+msgstr ""
+
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr "Források letöltése sikertelen, javítsa a forrásokat és futtassa újra az --update parancsot\n"
+msgstr ""
+"Források letöltése sikertelen, javítsa a forrásokat és futtassa újra az --"
+"update parancsot\n"
 
 #, c-format
 msgid "Suggested packages:\n"
@@ -432,7 +481,11 @@ msgid "[pkg name(s)] - show pkg(s) description"
 msgstr "[csomag(ok) neve] - mutatja a megadott csomag(ok) információit"
 
 msgid "[pkg name(s)] - show pkg(s) installed files"
-msgstr "[csomag(ok) neve] - mutatja a megadott csomago(ka)t telepített fájljait"
+msgstr ""
+"[csomag(ok) neve] - mutatja a megadott csomago(ka)t telepített fájljait"
+
+msgid "allow unauthenticated packages"
+msgstr ""
 
 msgid "always prompt during install/upgrade"
 msgstr "mindig kérjen megerősítést telepítés/frissítéskor"
@@ -558,3 +611,5 @@ msgstr "frissítés az újabb kiadásra"
 msgid "yes"
 msgstr "igen"
 
+#~ msgid "Not Verified"
+#~ msgstr "Nem ellenőrzött"
