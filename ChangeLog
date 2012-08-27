@@ -1,6 +1,7 @@
 
-0.10.2o Aug  25, 2012
+0.10.2o Aug  27, 2012
  * upgrade glibc-solibs before xz with --dist-upgrade
+ * updated es_AR and es_ES translations from Fernando
 
 0.10.2n June  25, 2012
  * remove __inline attributes for various functions as they clash with c99

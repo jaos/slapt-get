@@ -1,23 +1,22 @@
 # es_AR slapt-get translation
-# Copyright (C) 2003-2010
+# Copyright (C) 2003-2012
 # This file is distributed under the same license as the slapt-get package.
-# Fernando Velo <seacat.lang@gmail.com>, 2010
+# Fernando Velo <seacat.linux@gmail.com>, 2012
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.2g\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2010-09-12 15:51-0300\n"
-"Last-Translator: seacat <seacat.lang@gmail.com>\n"
+"PO-Revision-Date: 2012-08-26 18:59-0300\n"
+"Last-Translator: Fernando Velo <seacat.linux@gmail.com>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
-"Language: \n"
+"Language: es_AR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: Spanish\n"
-"X-Poedit-Country: ARGENTINA\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 
 #, c-format
 msgid "  %s: Depends: %s\n"
@@ -90,7 +89,7 @@ msgid "%s-%s is to be upgraded to version %s\n"
 msgstr "%s-%s se actualizará a la versión %s\n"
 
 msgid ", but accepted as an exception"
-msgstr ""
+msgstr ", pero aceptado como una excepción"
 
 #, c-format
 msgid "Abort.\n"
@@ -115,7 +114,7 @@ msgid "Cached\n"
 msgstr "Cacheado\n"
 
 msgid "Checksums not read"
-msgstr ""
+msgstr "Sumas de comprobación no leidas"
 
 msgid "Checksums signature could not be verified"
 msgstr "No se pudo verificar las firmas de checksums"
@@ -257,28 +256,28 @@ msgid "Not Found\n"
 msgstr "No se encontró\n"
 
 msgid "Not Verified: CRL too old"
-msgstr ""
+msgstr "No verificado: CRL demasiado viejo"
 
 msgid "Not Verified: bad policy"
-msgstr ""
+msgstr "No verificado: política errónea"
 
 msgid "Not Verified: key expired"
-msgstr ""
+msgstr "No verificado: expiró la clave"
 
 msgid "Not Verified: key revoked"
-msgstr ""
+msgstr "No verificado: clave revocada"
 
 msgid "Not Verified: missing CRL"
-msgstr ""
+msgstr "No verificado: falta el CRL"
 
 msgid "Not Verified: signature expired"
-msgstr ""
+msgstr "No verificado: expiró la firma"
 
 msgid "Not Verified: system error"
-msgstr ""
+msgstr "No verificado: error del sistema"
 
 msgid "Not verified: null context"
-msgstr ""
+msgstr "No verificado: contexto nulo"
 
 msgid "Official"
 msgstr "Oficial"
@@ -406,7 +405,7 @@ msgid "SOURCE directive not set within %s.\n"
 msgstr "La directiva SOURCE no está definida dentro de %s.\n"
 
 msgid "Signature not read"
-msgstr ""
+msgstr "Firma no leida"
 
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
@@ -489,7 +488,7 @@ msgid "[pkg name(s)] - show pkg(s) installed files"
 msgstr "[nombre(s) de paquete(s)] - mostrar el/los paquete(s) instalado(s)"
 
 msgid "allow unauthenticated packages"
-msgstr ""
+msgstr "permitir paquetes no autenticados"
 
 msgid "always prompt during install/upgrade"
 msgstr "siempre preguntar durante la instalación/actualización"
