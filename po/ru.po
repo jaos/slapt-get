@@ -96,7 +96,7 @@ msgid "%s-%s is to be upgraded to version %s\n"
 msgstr "%s-%s будет обновлён до версии %s\n"
 
 msgid ", but accepted as an exception"
-msgstr ""
+msgstr ", но принят в качестве исключения"
 
 #, c-format
 msgid "Abort.\n"
@@ -119,7 +119,7 @@ msgid "Cached\n"
 msgstr "Сохранено\n"
 
 msgid "Checksums not read"
-msgstr ""
+msgstr "Ошибка чтения контрольных сумм"
 
 msgid "Checksums signature could not be verified"
 msgstr "Не удалось проверить подпись контрольных сумм"
@@ -261,28 +261,28 @@ msgid "Not Found\n"
 msgstr "Не найден\n"
 
 msgid "Not Verified: CRL too old"
-msgstr ""
+msgstr "Проверка не удалась: CRL устарел"
 
 msgid "Not Verified: bad policy"
-msgstr ""
+msgstr "Проверка не удалась: неверная политика"
 
 msgid "Not Verified: key expired"
-msgstr ""
+msgstr "Проверка не удалась: время действия ключа истекло"
 
 msgid "Not Verified: key revoked"
-msgstr ""
+msgstr "Проверка не удалась: ключ был отозван"
 
 msgid "Not Verified: missing CRL"
-msgstr ""
+msgstr "Проверка не удалась: отсутствует CRL"
 
 msgid "Not Verified: signature expired"
-msgstr ""
+msgstr "Проверка не удалась: время действия подписи истекло"
 
 msgid "Not Verified: system error"
-msgstr ""
+msgstr "Проверка не удалась: системная ошибка"
 
 msgid "Not verified: null context"
-msgstr ""
+msgstr "Проверка не удалась: нулевой контекст"
 
 msgid "Official"
 msgstr "Official"
@@ -408,7 +408,7 @@ msgid "SOURCE directive not set within %s.\n"
 msgstr "Директива SOURCE не установлена в %s.\n"
 
 msgid "Signature not read"
-msgstr ""
+msgstr "Ошибка чтения подписей"
 
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
@@ -487,7 +487,7 @@ msgid "[pkg name(s)] - show pkg(s) installed files"
 msgstr "[имена пакетов] - показать файлы установленные пакетами"
 
 msgid "allow unauthenticated packages"
-msgstr ""
+msgstr "разрешить пакеты не прошедшие проверку подлинности"
 
 msgid "always prompt during install/upgrade"
 msgstr "всегда спрашивать при установке/обновлении"

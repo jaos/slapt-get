@@ -22,7 +22,8 @@ slapt-get \- фронт-энд для pkgtools
 \fB--config\fR|\fB-c\fR \fIФАЙЛ\fR,
 \fB--remove-obsolete\fR,
 \fB--retry\fR \fIN\fR,
-\fB--no-upgrade\fR
+\fB--no-upgrade\fR,
+\fB--allow-unauthenticated\fR
 .LP
 .B цели:
 \fB--update\fR|\fB-u\fR,
@@ -107,6 +108,9 @@ slapt-get \- фронт-энд для pkgtools
 \fB\-\-no\-upgrade\fR
 Установить пакет, не пытаясь обнаружить и обновить предыдущую версию пакета.
 Полезно для пакетов ядра. Работает только вместе с целью \fB\-\-install\fR.
+.TP
+\fB\-\-allow\-unauthenticated\fR
+Разрешить пакеты не прошедшие проверку подлинности.
 
 .SH ЦЕЛИ
 .TP
