@@ -22,7 +22,8 @@ slapt-get \- frontend to pkgtools
 \fB--config\fR|\fB-c\fR \fIFILE\fR,
 \fB--remove-obsolete\fR,
 \fB--retry\fR \fIN\fR,
-\fB--no-upgrade\fR
+\fB--no-upgrade\fR,
+\fB--allow-unauthenticated\fR
 .LP
 .B targets:
 \fB--update\fR|\fB-u\fR,
@@ -88,7 +89,7 @@ Skip the dependency check.
 Print URIs of packages to be downloaded to stdout, but do not download.
 .TP
 \fB\-\-show\-stats\fR, \fB\-S\fR
-Show the download statistics
+Show the download statistics.
 .TP
 \fB\-\-config\fR, \fB\-c\fR \fIFILE\fR
 Specify file location of slapt-get configuration.
@@ -107,6 +108,9 @@ Specify the number of retries to attempt if the package download fails.
 Install the package rather than attempting to detect if a previous version is
 installed and upgrading it.  This is useful for installing kernel packages.
 This option is only valid for \fB\-\-install\fR targets.
+.TP
+\fB\-\-allow\-unauthenticated\fR
+Allow unauthenticated packages.
 
 .SH TARGETS
 .TP
