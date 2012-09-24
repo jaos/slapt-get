@@ -1,22 +1,24 @@
-# translation of slapt-get to pt_BR.po
-# Copyright (C) 2004
+# slapt-get translation template
+# Copyright (C) 2003-2009
 # This file is distributed under the same license as the slapt-get package.
+# Jason Woodward <woodwardj@jaos.org>
+# 
+# Translators:
 # Henrique Pinto <henrique.pinto@kdemail.net>, 2004.
-# Sérgio Surkamp <surkamp@gmail.com>, 2008, 2010.
-#
+# Sérgio Surkamp <surkamp@gmail.com>, 2008,2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.10.2f\n"
+"Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2010-09-16 12:04-0300\n"
-"Last-Translator: Sérgio Surkamp <surkamp@gmail.com>\n"
-"Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2012-09-17 21:54+0000\n"
+"Last-Translator: gapan <vlahavas@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/slapt-get/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #, c-format
 msgid "  %s: Depends: %s\n"
@@ -235,14 +237,11 @@ msgstr "Soma MD5 inexistente, utilize --no-md5 para ignorar"
 
 #, c-format
 msgid "Need to get %.1f%s of archives.\n"
-msgstr ""
-"É necessário fazer o descarregamento de %.1f%s de arquivos comprimidos.\n"
+msgstr "É necessário fazer o descarregamento de %.1f%s de arquivos comprimidos.\n"
 
 #, c-format
 msgid "Need to get %.1f%s/%.1f%s of archives.\n"
-msgstr ""
-"É necessário fazer o descarregamento de %.1f%s/%.1f%s de arquivos "
-"comprimidos.\n"
+msgstr "É necessário fazer o descarregamento de %.1f%s/%.1f%s de arquivos comprimidos.\n"
 
 msgid "No key for verification"
 msgstr "Sem chave para verificação"
@@ -350,8 +349,7 @@ msgstr "Talvez você queira rodar --update?\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr ""
-"Por favor atualize as permissões em %s ou rode com privilégio apropriado\n"
+msgstr "Por favor atualize as permissões em %s ou rode com privilégio apropriado\n"
 
 msgid "Preferred"
 msgstr "Preferencial"
@@ -408,8 +406,7 @@ msgstr ""
 
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr ""
-"Falha no descarregamento, corrija os fontes e rode novamente o --update\n"
+msgstr "Falha no descarregamento, corrija os fontes e rode novamente o --update\n"
 
 #, c-format
 msgid "Suggested packages:\n"
@@ -466,9 +463,7 @@ msgid "You don't have enough free space in %s\n"
 msgstr "Você não possui espaço livre suficiente em %s\n"
 
 msgid "[disk set(s)] - install specified disk set(s)"
-msgstr ""
-"[conjunto(s) de disco(s)] - instalar o(s) conjunto(s) de disco(s) "
-"especificado"
+msgstr "[conjunto(s) de disco(s)] - instalar o(s) conjunto(s) de disco(s) especificado"
 
 msgid "[expression] - search available pkgs"
 msgstr "[expressão] - busca por pacotes disponíveis"
@@ -483,9 +478,7 @@ msgid "[pkg name(s)] - show pkg(s) description"
 msgstr "[nome(s) do(s) pacote(s)] - apresenta a descrição do(s) pacote(s)"
 
 msgid "[pkg name(s)] - show pkg(s) installed files"
-msgstr ""
-"[nome(s) do(s) pacote(s)] - apresenta os arquivos instalados pelo(s) pacote"
-"(s)"
+msgstr "[nome(s) do(s) pacote(s)] - apresenta os arquivos instalados pelo(s) pacote(s)"
 
 msgid "allow unauthenticated packages"
 msgstr ""
@@ -613,55 +606,3 @@ msgstr "atualiza para uma nova versão do SO"
 
 msgid "yes"
 msgstr "sim"
-
-#~ msgid "\tchdir back into %s\n"
-#~ msgstr "\tvoltando ao diretório %s\n"
-
-#~ msgid ""
-#~ "%d upgraded, %d reinstalled, %d newly installed, %d to remove and %d not "
-#~ "upgraded.\n"
-#~ msgstr ""
-#~ "%d atualizados, %d reinstalados, %d para instalar, %d para remover e %d "
-#~ "não atualizados.\n"
-
-#~ msgid "Failed to compile regex [%s]\n"
-#~ msgstr "Falha ao compilar regex [%s]\n"
-
-#~ msgid "File: %s/%s\n"
-#~ msgstr "Arquivo: %s/%s\n"
-
-#~ msgid "MD5 expected: [%s]\n"
-#~ msgstr "MD5 esperado:   [%s]\n"
-
-#~ msgid "MD5 found:    [%s]\n"
-#~ msgstr "MD5 encontrado: [%s]\n"
-
-#~ msgid "Not Verified"
-#~ msgstr "Não Verificado"
-
-#~ msgid "Reading Package Lists... "
-#~ msgstr "Lendo Listas de Pacotes... "
-
-#~ msgid "Retrieving extras list [%s]..."
-#~ msgstr "Recebendo a lista de extras [%s]..."
-
-#~ msgid "Retrieving extras list [%s]...\n"
-#~ msgstr "Recebendo a lista de extras [%s]...\n"
-
-#~ msgid "Retrieving package data [%s]...\n"
-#~ msgstr "Recebendo as informações de pacotes [%s]...\n"
-
-#~ msgid "Retrieving patch list [%s]...\n"
-#~ msgstr "Recebendo a lista de correções [%s]...\n"
-
-#~ msgid "[pkg name] - show pkg description"
-#~ msgstr "[nome do pacote] - mostra descrição do pacote"
-
-#~ msgid "[pkg name] - show pkg installed files"
-#~ msgstr "[nome do pacote] - apresenta arquivos instalados pelo pacote"
-
-#~ msgid "re-install the pkg"
-#~ msgstr "re-instalar o pacote"
-
-#~ msgid "retrieves pkg data from MIRROR"
-#~ msgstr "faz descarregamento das informações de pacote a partir do MIRROR"

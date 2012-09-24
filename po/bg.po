@@ -1,20 +1,22 @@
-# slapt-get Bulgarian translation
-# Copyright (C) 2006 Victor Keranov
+# slapt-get translation template
+# Copyright (C) 2003-2009
 # This file is distributed under the same license as the slapt-get package.
+# Jason Woodward <woodwardj@jaos.org>
+# 
+# Translators:
 # Victor Keranov <victor_keranov@mail.bg>, 2006.
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.10.2f\n"
+"Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2010-06-07 21:05+0500\n"
-"Last-Translator: Victor Keranov <victor_keranov@mail.bg>\n"
+"PO-Revision-Date: 2012-09-17 21:54+0000\n"
+"Last-Translator: gapan <vlahavas@gmail.com>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: bg\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, c-format
@@ -96,13 +98,11 @@ msgstr "Прекъсване.\n"
 
 #, c-format
 msgid "After unpacking %.1f%s disk space will be freed.\n"
-msgstr ""
-"След разархивиране %.1f%s от дисковото пространство ще бъде освободено.\n"
+msgstr "След разархивиране %.1f%s от дисковото пространство ще бъде освободено.\n"
 
 #, c-format
 msgid "After unpacking %.1f%s of additional disk space will be used.\n"
-msgstr ""
-"След разархивиране %.1f%s от дисковото пространство ще бъде използвано.\n"
+msgstr "След разархивиране %.1f%s от дисковото пространство ще бъде използвано.\n"
 
 #, c-format
 msgid "An implementation of the Debian APT system to Slackware\n"
@@ -405,9 +405,7 @@ msgstr ""
 
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr ""
-"Неуспех при изтеглянето на източниците, поправете източниците и стартирайте "
-"отново --update\n"
+msgstr "Неуспех при изтеглянето на източниците, поправете източниците и стартирайте отново --update\n"
 
 #, c-format
 msgid "Suggested packages:\n"
@@ -607,55 +605,3 @@ msgstr "обновяване до по-нова версия на дистриб
 
 msgid "yes"
 msgstr "да"
-
-#~ msgid "\tchdir back into %s\n"
-#~ msgstr "\tchdir back into %s\n"
-
-#~ msgid ""
-#~ "%d upgraded, %d reinstalled, %d newly installed, %d to remove and %d not "
-#~ "upgraded.\n"
-#~ msgstr ""
-#~ "%d обновени, %d reinstalled, %d инсталирани, %d за премахване и %d "
-#~ "необновени.\n"
-
-#~ msgid "Failed to compile regex [%s]\n"
-#~ msgstr "Failed to compile regex [%s]\n"
-
-#~ msgid "File: %s/%s\n"
-#~ msgstr "Файл: %s/%s\n"
-
-#~ msgid "MD5 expected: [%s]\n"
-#~ msgstr "Очаквана MD5 сума: [%s]\n"
-
-#~ msgid "MD5 found:    [%s]\n"
-#~ msgstr "Намерена MD5 сума:    [%s]\n"
-
-#~ msgid "Not Verified"
-#~ msgstr "Not Verified"
-
-#~ msgid "Reading Package Lists... "
-#~ msgstr "Четене на списъците с пакети... "
-
-#~ msgid "Retrieving extras list [%s]..."
-#~ msgstr "Retrieving extras list [%s]..."
-
-#~ msgid "Retrieving extras list [%s]...\n"
-#~ msgstr "Retrieving extras list [%s]...\n"
-
-#~ msgid "Retrieving package data [%s]...\n"
-#~ msgstr "Получаване на информация за пакетите [%s]...\n"
-
-#~ msgid "Retrieving patch list [%s]...\n"
-#~ msgstr "Получаване на списък с ъпдейти [%s]...\n"
-
-#~ msgid "[pkg name] - show pkg description"
-#~ msgstr "[име на пакет] - показване на описанието на пакета"
-
-#~ msgid "[pkg name] - show pkg installed files"
-#~ msgstr "[pkg name] - show pkg installed files"
-
-#~ msgid "re-install the pkg"
-#~ msgstr "преинсталиране на пакет"
-
-#~ msgid "retrieves pkg data from MIRROR"
-#~ msgstr "получаване на информация за пакетите от сървър"

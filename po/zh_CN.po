@@ -1,20 +1,22 @@
-# Simplified Chinese slapt-get translation
-# Copyright (C) 2004
+# slapt-get translation template
+# Copyright (C) 2003-2009
 # This file is distributed under the same license as the slapt-get package.
+# Jason Woodward <woodwardj@jaos.org>
+# 
+# Translators:
 # Yang Jinsong <shannleon@gmail.com>, 2006.
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.10.2f\n"
+"Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2010-06-07 21:05+0500\n"
-"Last-Translator: Yang Jinsong <shannleon@gmail.com>\n"
+"PO-Revision-Date: 2012-09-17 21:54+0000\n"
+"Last-Translator: gapan <vlahavas@gmail.com>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #, c-format
@@ -598,53 +600,3 @@ msgstr "升级至更新的 release 版本"
 
 msgid "yes"
 msgstr "是"
-
-#~ msgid "\tchdir back into %s\n"
-#~ msgstr "\t回到目录 %s\n"
-
-#~ msgid ""
-#~ "%d upgraded, %d reinstalled, %d newly installed, %d to remove and %d not "
-#~ "upgraded.\n"
-#~ msgstr "%d 升级, %d reinstalled, %d 安装, %d 删除, %d 不升级.\n"
-
-#~ msgid "Failed to compile regex [%s]\n"
-#~ msgstr "Failed to compile regex [%s]\n"
-
-#~ msgid "File: %s/%s\n"
-#~ msgstr "文件: %s/%s\n"
-
-#~ msgid "MD5 expected: [%s]\n"
-#~ msgstr "期待的 MD5 校验值: [%s]\n"
-
-#~ msgid "MD5 found:    [%s]\n"
-#~ msgstr "发现的 MD5 校验值:    [%s]\n"
-
-#~ msgid "Not Verified"
-#~ msgstr "Not Verified"
-
-#~ msgid "Reading Package Lists... "
-#~ msgstr "读取软件包列表... "
-
-#~ msgid "Retrieving extras list [%s]..."
-#~ msgstr "检索附加软件包列表 [%s]..."
-
-#~ msgid "Retrieving extras list [%s]...\n"
-#~ msgstr "检索附加软件包列表 [%s]...\n"
-
-#~ msgid "Retrieving package data [%s]...\n"
-#~ msgstr "检索软件包数据 [%s]...\n"
-
-#~ msgid "Retrieving patch list [%s]...\n"
-#~ msgstr "检索补丁包列表 [%s]...\n"
-
-#~ msgid "[pkg name] - show pkg description"
-#~ msgstr "[软件包名称] - 显示软件包描述"
-
-#~ msgid "[pkg name] - show pkg installed files"
-#~ msgstr "[pkg name] - show pkg installed files"
-
-#~ msgid "re-install the pkg"
-#~ msgstr "重新安装软件包"
-
-#~ msgid "retrieves pkg data from MIRROR"
-#~ msgstr "从镜像上检索软件包数据"

@@ -1,23 +1,22 @@
-# translation of slapt-get to Russian
-# Copyright (C) 2005
+# slapt-get translation template
+# Copyright (C) 2003-2009
 # This file is distributed under the same license as the slapt-get package.
-# sin <digitalhunger@gmail.com>,  2005.
-#
+# Jason Woodward <woodwardj@jaos.org>
+# 
+# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.10.2f\n"
+"Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2010-06-07 21:05+0500\n"
-"Language-Team: DeepStyle Team <hottab@deepstyle.org.ua>\n"
-"Language: \n"
+"PO-Revision-Date: 2012-09-17 21:54+0000\n"
+"Last-Translator: gapan <vlahavas@gmail.com>\n"
+"Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Last-Translators: sin <digitalhunger@gmail.com>\n"
-"X-Generator: mcedit :)\n"
-"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
-"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #, c-format
 msgid "  %s: Depends: %s\n"
@@ -29,7 +28,6 @@ msgid_plural "%d newly installed, "
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
-msgstr[3] ""
 
 #, c-format
 msgid "%d not upgraded.\n"
@@ -37,7 +35,6 @@ msgid_plural "%d not upgraded.\n"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
-msgstr[3] ""
 
 #, c-format
 msgid "%d reinstalled, "
@@ -45,7 +42,6 @@ msgid_plural "%d reinstalled, "
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
-msgstr[3] ""
 
 #, c-format
 msgid "%d to remove, "
@@ -53,7 +49,6 @@ msgid_plural "%d to remove, "
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
-msgstr[3] ""
 
 #, c-format
 msgid "%d upgraded, "
@@ -61,7 +56,6 @@ msgid_plural "%d upgraded, "
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
-msgstr[3] ""
 
 #, c-format
 msgid "%s [option(s)] [target]\n"
@@ -156,7 +150,7 @@ msgstr "Готово\n"
 
 #, c-format
 msgid "Excluding %s, use --ignore-dep to override\n"
-msgstr "Виключено %s, вкажiть --ignore-dep, щоб встановлювався %s \n"
+msgstr "Виключено %s, вкажiть --ignore-dep, щоб встановлювався\n"
 
 #, c-format
 msgid "Failed to build working directory [%s]\n"
@@ -415,8 +409,7 @@ msgstr ""
 
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr ""
-"Помилка завантаження з адреси, виправте адресу та перезапустіть --update\n"
+msgstr "Помилка завантаження з адреси, виправте адресу та перезапустіть --update\n"
 
 #, c-format
 msgid "Suggested packages:\n"
@@ -616,55 +609,3 @@ msgstr "оновити до більш свіжої версії"
 
 msgid "yes"
 msgstr "так"
-
-#~ msgid "\tchdir back into %s\n"
-#~ msgstr "\tвертаємось в каталог %s\n"
-
-#~ msgid ""
-#~ "%d upgraded, %d reinstalled, %d newly installed, %d to remove and %d not "
-#~ "upgraded.\n"
-#~ msgstr ""
-#~ "%d оновлено, %d reinstalled, %d встановлено, %d до видалення %d не "
-#~ "оновлено.\n"
-
-#~ msgid "Failed to compile regex [%s]\n"
-#~ msgstr "Помилка компіляції regex [%s]\n"
-
-#~ msgid "File: %s/%s\n"
-#~ msgstr "Файл: %s/%s\n"
-
-#~ msgid "MD5 expected: [%s]\n"
-#~ msgstr "Очікувана MD5: [%s]\n"
-
-#~ msgid "MD5 found:    [%s]\n"
-#~ msgstr "Знайдена MD5: [%s]\n"
-
-#~ msgid "Not Verified"
-#~ msgstr "Не перевірено"
-
-#~ msgid "Reading Package Lists... "
-#~ msgstr "Читання переліку пакунків... "
-
-#~ msgid "Retrieving extras list [%s]..."
-#~ msgstr "Одержання переліку додатків [%s]..."
-
-#~ msgid "Retrieving extras list [%s]...\n"
-#~ msgstr "Одержання переліку додатків [%s]...\n"
-
-#~ msgid "Retrieving package data [%s]...\n"
-#~ msgstr "Одержання даних пакунку [%s]...\n"
-
-#~ msgid "Retrieving patch list [%s]...\n"
-#~ msgstr "Одержання переліку патчів [%s]...\n"
-
-#~ msgid "[pkg name] - show pkg description"
-#~ msgstr "[ім'я пакунку] - показати опис пакунку"
-
-#~ msgid "[pkg name] - show pkg installed files"
-#~ msgstr "[pkg name] - show pkg installed files"
-
-#~ msgid "re-install the pkg"
-#~ msgstr "перевстановити пакунок"
-
-#~ msgid "retrieves pkg data from MIRROR"
-#~ msgstr "одержує дані пакунку з MIRROR"

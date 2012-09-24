@@ -1,20 +1,23 @@
-# Norwegian language file for slapt-get.
-# Copyright (C) 2004, 2005
+# slapt-get translation template
+# Copyright (C) 2003-2009
 # This file is distributed under the same license as the slapt-get package.
-# Joran Kvalvaag <jk@nerdworks.org>, 2004, 2005.
-#
+# Jason Woodward <woodwardj@jaos.org>
+# 
+# Translators:
+# Copyright (C) 2004, 2005.
+# Joran Kvalvaag <jk@nerdworks.org>, 2004-2005.
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.10.2f\n"
+"Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2010-06-07 21:05+0500\n"
-"Last-Translator: Joran Kvalvaag <jk@nerdworks.org>\n"
+"PO-Revision-Date: 2012-09-17 21:54+0000\n"
+"Last-Translator: gapan <vlahavas@gmail.com>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: no\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, c-format
@@ -346,9 +349,7 @@ msgstr "Kanskje du vil kjøre --update?\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr ""
-"Vennligst oppdater tilgang på %s eller bruk programmet med tilstrekkelige "
-"privilegier\n"
+msgstr "Vennligst oppdater tilgang på %s eller bruk programmet med tilstrekkelige privilegier\n"
 
 msgid "Preferred"
 msgstr "Preferred"
@@ -405,8 +406,7 @@ msgstr ""
 
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr ""
-"Feil ved nedlasting fra kilde, korriger kilde og kjør --oppdater igjen\n"
+msgstr "Feil ved nedlasting fra kilde, korriger kilde og kjør --oppdater igjen\n"
 
 #, c-format
 msgid "Suggested packages:\n"
@@ -606,55 +606,3 @@ msgstr "oppgrader til nyere versjon"
 
 msgid "yes"
 msgstr "ja"
-
-#~ msgid "\tchdir back into %s\n"
-#~ msgstr "\tchdir tilbake til %s\n"
-
-#~ msgid ""
-#~ "%d upgraded, %d reinstalled, %d newly installed, %d to remove and %d not "
-#~ "upgraded.\n"
-#~ msgstr ""
-#~ "%d oppgradert, %d reinstalled, %d nylig installert, %d fjernes %d ikke "
-#~ "oppgradert.\n"
-
-#~ msgid "Failed to compile regex [%s]\n"
-#~ msgstr "Feil ved kompilering av regex [%s]\n"
-
-#~ msgid "File: %s/%s\n"
-#~ msgstr "Fil: %s/%s\n"
-
-#~ msgid "MD5 expected: [%s]\n"
-#~ msgstr "MD5 forventet: [%s]\n"
-
-#~ msgid "MD5 found:    [%s]\n"
-#~ msgstr "MD5 funnet:    [%s]\n"
-
-#~ msgid "Not Verified"
-#~ msgstr "Not Verified"
-
-#~ msgid "Reading Package Lists... "
-#~ msgstr "Leser pakkelister..."
-
-#~ msgid "Retrieving extras list [%s]..."
-#~ msgstr "Mottar liste med tillegg [%s]..."
-
-#~ msgid "Retrieving extras list [%s]...\n"
-#~ msgstr "Mottar liste med tillegg [%s]...\n"
-
-#~ msgid "Retrieving package data [%s]...\n"
-#~ msgstr "Mottar pakkedata [%s]...\n"
-
-#~ msgid "Retrieving patch list [%s]...\n"
-#~ msgstr "Mottar liste over patcher [%s]...\n"
-
-#~ msgid "[pkg name] - show pkg description"
-#~ msgstr "[pakkenavn] - vis pakkebeskrivelse"
-
-#~ msgid "[pkg name] - show pkg installed files"
-#~ msgstr "[pkg name] - show pkg installed files"
-
-#~ msgid "re-install the pkg"
-#~ msgstr "reinstaller pakken"
-
-#~ msgid "retrieves pkg data from MIRROR"
-#~ msgstr "mottar pakkedata fra SPEIL"

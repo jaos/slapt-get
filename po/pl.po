@@ -1,25 +1,24 @@
-# translation of slapt-get to pl.po
-# Copyright (C) 2004, 2005, 2006, 2007
+# slapt-get translation template
+# Copyright (C) 2003-2009
 # This file is distributed under the same license as the slapt-get package.
-# Sajmon <sajmon@tenboard.com>, 2004, 2005, 2006, 2007
-#
+# Jason Woodward <woodwardj@jaos.org>
+# 
+# Translators:
+# Copyright (C) 2004, 2005-2007.
+# Sajmon <sajmon@tenboard.com>, 2004-2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.10.2f\n"
+"Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2010-06-07 21:05+0500\n"
-"Language-Team: polish slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2012-09-17 21:54+0000\n"
+"Last-Translator: gapan <vlahavas@gmail.com>\n"
+"Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Last-Translators: Sajmon <sajmon@tenboard.com>, Paul Blazejowski "
-"<paulb@blazebox.homeip.net>, nixon <nixon@klub.chip.pl> and simon "
-"<ssiimm@poczta.onet.pl>\n"
-"X-Generator: KBabel 1.11.1\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2);\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #, c-format
 msgid "  %s: Depends: %s\n"
@@ -355,9 +354,7 @@ msgstr "Prawdopodobie chcesz użyć --update?\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr ""
-"Proszę uaktualnić prawa dostępu do %s lub uruchomić z odpowiednimi "
-"przywilejami\n"
+msgstr "Proszę uaktualnić prawa dostępu do %s lub uruchomić z odpowiednimi przywilejami\n"
 
 msgid "Preferred"
 msgstr "Preferred"
@@ -614,55 +611,3 @@ msgstr "aktualizuj do nowszej wersji"
 
 msgid "yes"
 msgstr "tak"
-
-#~ msgid "\tchdir back into %s\n"
-#~ msgstr "\tchdir z powrotem do %s\n"
-
-#~ msgid ""
-#~ "%d upgraded, %d reinstalled, %d newly installed, %d to remove and %d not "
-#~ "upgraded.\n"
-#~ msgstr ""
-#~ "%d uaktualnione(ych), %d reinstalled, %d nowe zainstalowane, %d do "
-#~ "usunięcia i %d nieuaktualnione.\n"
-
-#~ msgid "Failed to compile regex [%s]\n"
-#~ msgstr "Nie powiodła się kompilacja regex [%s]\n"
-
-#~ msgid "File: %s/%s\n"
-#~ msgstr "Plik: %s/%s\n"
-
-#~ msgid "MD5 expected: [%s]\n"
-#~ msgstr "MD5 oczekuje: [%s]\n"
-
-#~ msgid "MD5 found:    [%s]\n"
-#~ msgstr "MD5 uzyskane: [%s]\n"
-
-#~ msgid "Not Verified"
-#~ msgstr "Nie potwierdzone"
-
-#~ msgid "Reading Package Lists... "
-#~ msgstr "Wczytuję Listę Pakietów..."
-
-#~ msgid "Retrieving extras list [%s]..."
-#~ msgstr "Pobieram listę dodatków [%s]..."
-
-#~ msgid "Retrieving extras list [%s]...\n"
-#~ msgstr "Pobieram listę dodatków [%s]...\n"
-
-#~ msgid "Retrieving package data [%s]...\n"
-#~ msgstr "Pobieram dane pakietu [%s]...\n"
-
-#~ msgid "Retrieving patch list [%s]...\n"
-#~ msgstr "Pobieram listę patchy [%s]...\n"
-
-#~ msgid "[pkg name] - show pkg description"
-#~ msgstr "[nazwa pkg] - pokaż opis pkg"
-
-#~ msgid "[pkg name] - show pkg installed files"
-#~ msgstr "[pkg name] - show pkg installed files"
-
-#~ msgid "re-install the pkg"
-#~ msgstr "re-instaluj pkg"
-
-#~ msgid "retrieves pkg data from MIRROR"
-#~ msgstr "pobierz pkg z MIRRORa"

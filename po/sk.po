@@ -1,20 +1,23 @@
-# sk slapt-get translation
-# Copyright (C) 2004, 2005
+# slapt-get translation template
+# Copyright (C) 2003-2009
 # This file is distributed under the same license as the slapt-get package.
-# Erik Gyepes <depi@depi.sk>, 2005
-#
+# Jason Woodward <woodwardj@jaos.org>
+# 
+# Translators:
+# Copyright (C) 2004, 2005.
+# Erik Gyepes <depi@depi.sk>, 2005.
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.10.2f\n"
+"Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2010-06-07 21:05+0500\n"
-"Last-Translator: Erik Gyepes <depi@depi.sk>\n"
+"PO-Revision-Date: 2012-09-17 21:54+0000\n"
+"Last-Translator: gapan <vlahavas@gmail.com>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: sk\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #, c-format
@@ -608,55 +611,3 @@ msgstr "upgradne na novšie vydanie"
 
 msgid "yes"
 msgstr "áno"
-
-#~ msgid "\tchdir back into %s\n"
-#~ msgstr "\tadresár zmenený späť na %s\n"
-
-#~ msgid ""
-#~ "%d upgraded, %d reinstalled, %d newly installed, %d to remove and %d not "
-#~ "upgraded.\n"
-#~ msgstr ""
-#~ "%d upgradnutých, %d reinstalled, %d novo nainštalovaných, %d odstránených "
-#~ "a %d neupgradnutých.\n"
-
-#~ msgid "Failed to compile regex [%s]\n"
-#~ msgstr "Nepodarilo sa skompilovať regex [%s]\n"
-
-#~ msgid "File: %s/%s\n"
-#~ msgstr "Súbor: %s/%s\n"
-
-#~ msgid "MD5 expected: [%s]\n"
-#~ msgstr "MD5 očakávaný: [%s]\n"
-
-#~ msgid "MD5 found:    [%s]\n"
-#~ msgstr "MD5 nájdený:    [%s]\n"
-
-#~ msgid "Not Verified"
-#~ msgstr "Not Verified"
-
-#~ msgid "Reading Package Lists... "
-#~ msgstr "Načítavam zoznam balikov... "
-
-#~ msgid "Retrieving extras list [%s]..."
-#~ msgstr "Sťahujem zoznam extras [%s]..."
-
-#~ msgid "Retrieving extras list [%s]...\n"
-#~ msgstr "Sťahujem zoznam extras [%s]...\n"
-
-#~ msgid "Retrieving package data [%s]...\n"
-#~ msgstr "Sťahujem popisy balíkov [%s]...\n"
-
-#~ msgid "Retrieving patch list [%s]...\n"
-#~ msgstr "Sťahujem zoznam opráv [%s]...\n"
-
-#~ msgid "[pkg name] - show pkg description"
-#~ msgstr "[meno balíka] - zobrazí popis balíka"
-
-#~ msgid "[pkg name] - show pkg installed files"
-#~ msgstr "[pkg name] - show pkg installed files"
-
-#~ msgid "re-install the pkg"
-#~ msgstr "pre-inštaluje balík"
-
-#~ msgid "retrieves pkg data from MIRROR"
-#~ msgstr "získa data balíkov zo ZRKADLA"

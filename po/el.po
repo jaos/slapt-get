@@ -1,20 +1,25 @@
-# Αρχείο Ελληνικών για το Slapt-Get.
-# Copyright (C) 2004, 2005
+# slapt-get translation template
+# Copyright (C) 2003-2009
 # This file is distributed under the same license as the slapt-get package.
-# Savvas Efstratiadis, 2004, 2005.
-# George Vlahavas, 2009, 2010.
+# Jason Woodward <woodwardj@jaos.org>
+# 
+# Translators:
+# Copyright (C) 2004, 2005.
+# George Vlahavas, 2009-2010.
+# Savvas Efstratiadis, 2004-2005.
+#   <vlahavas@gmail.com>, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.10.2f\n"
+"Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2010-09-18 00:49+0200\n"
-"Last-Translator: George Vlahavas <vlahavas~at~gmail~dot~com>\n"
+"PO-Revision-Date: 2012-09-17 21:54+0000\n"
+"Last-Translator: gapan <vlahavas@gmail.com>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, c-format
@@ -88,7 +93,7 @@ msgid "%s-%s is to be upgraded to version %s\n"
 msgstr "Το %s-%s πρόκειται να αναβαθμιστεί στην έκδοση %s\n"
 
 msgid ", but accepted as an exception"
-msgstr ""
+msgstr ", αλλά γίνεται αποδεκτό ως εξαίρεση"
 
 #, c-format
 msgid "Abort.\n"
@@ -111,7 +116,7 @@ msgid "Cached\n"
 msgstr "Προσωρινά αποθηκευμένα\n"
 
 msgid "Checksums not read"
-msgstr ""
+msgstr "Δεν έγινε ανάγνωση των αθροισμάτων"
 
 msgid "Checksums signature could not be verified"
 msgstr "Η υπογραφή των αθροισμάτων δεν ήταν δυνατό να πιστοποιηθεί"
@@ -346,9 +351,7 @@ msgstr "Πιθανόν να θέλετε να εκτελέσετε --update?\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr ""
-"Παρακαλώ αναβαθμίστε τα δικαιώματα στο %s ή εκτελέστε με τα απαραίτητα "
-"δικαιώματα\n"
+msgstr "Παρακαλώ αναβαθμίστε τα δικαιώματα στο %s ή εκτελέστε με τα απαραίτητα δικαιώματα\n"
 
 msgid "Preferred"
 msgstr "Προτιμώμενο"
@@ -401,13 +404,11 @@ msgid "SOURCE directive not set within %s.\n"
 msgstr "Το SOURCE δεν έχει οριστεί στο %s.\n"
 
 msgid "Signature not read"
-msgstr ""
+msgstr "Δεν έγινε ανάγνωση της υπογραφής"
 
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr ""
-"Αποτυχία πηγών για λήψη αρχείων, διορθώστε τις πηγές και επανεκτελέστε το --"
-"update\n"
+msgstr "Αποτυχία πηγών για λήψη αρχείων, διορθώστε τις πηγές και επανεκτελέστε το --update\n"
 
 #, c-format
 msgid "Suggested packages:\n"
@@ -482,7 +483,7 @@ msgid "[pkg name(s)] - show pkg(s) installed files"
 msgstr "[όνομα πακέτου(ων)] - εμφάνιση των εγκατεστημένων αρχείων των πακέτων"
 
 msgid "allow unauthenticated packages"
-msgstr ""
+msgstr "να επιτρέπονται μη πιστοποιημένα πακέτα"
 
 msgid "always prompt during install/upgrade"
 msgstr "πάντα να εμφανίζεται μήνυμα κατά την εγκατάσταση/αναβάθμιση"
@@ -607,55 +608,3 @@ msgstr "αναβάθμιση σε νεότερη έκδοση"
 
 msgid "yes"
 msgstr "ναι"
-
-#~ msgid "\tchdir back into %s\n"
-#~ msgstr "\tchdir πίσω στο %s\n"
-
-#~ msgid ""
-#~ "%d upgraded, %d reinstalled, %d newly installed, %d to remove and %d not "
-#~ "upgraded.\n"
-#~ msgstr ""
-#~ "%d αναβαθμισμένα, %d reinstalled, %d νεοεγκαταστημένα, %d προς "
-#~ "απεγκατάσταση και %d δεν αναβαθμίστηκαν.\n"
-
-#~ msgid "Failed to compile regex [%s]\n"
-#~ msgstr "Αποτυχία κατά το compile του regex [%s]\n"
-
-#~ msgid "File: %s/%s\n"
-#~ msgstr "Αρχείο: %s/%s\n"
-
-#~ msgid "MD5 expected: [%s]\n"
-#~ msgstr "Αναμενόμενο MD5: [%s]\n"
-
-#~ msgid "MD5 found:    [%s]\n"
-#~ msgstr "Βρέθηκε MD5:    [%s]\n"
-
-#~ msgid "Not Verified"
-#~ msgstr "Δεν επιβεβαιώθηκε"
-
-#~ msgid "Reading Package Lists... "
-#~ msgstr "Ανάγνωση Λίστας Πακέτων... "
-
-#~ msgid "Retrieving extras list [%s]..."
-#~ msgstr "Ανάκτηση λίστας extras [%s]..."
-
-#~ msgid "Retrieving extras list [%s]...\n"
-#~ msgstr "Ανάκτηση λίστας extras [%s]...\n"
-
-#~ msgid "Retrieving package data [%s]...\n"
-#~ msgstr "Ανάκτηση δεδομένων πακέτων [%s]...\n"
-
-#~ msgid "Retrieving patch list [%s]...\n"
-#~ msgstr "Ανάκτηση λίστας patch [%s]...\n"
-
-#~ msgid "[pkg name] - show pkg description"
-#~ msgstr "[όνομα πακέτου] - προβολή περιγραφής πακέτου"
-
-#~ msgid "[pkg name] - show pkg installed files"
-#~ msgstr "[όνομα πακέτου] - προβολή αρχείων πακέτου"
-
-#~ msgid "re-install the pkg"
-#~ msgstr "επανεγκατάσταση πακέτου"
-
-#~ msgid "retrieves pkg data from MIRROR"
-#~ msgstr "ανάκτηση δεδομένων πακέτων από το MIRROR"

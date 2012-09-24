@@ -1,20 +1,23 @@
-# translation of slapt-get to pt_PT.po
-# Copyright (C) 2004, 2005, 2006
+# slapt-get translation template
+# Copyright (C) 2003-2009
 # This file is distributed under the same license as the slapt-get package.
-# Miquel Santinho <msantinho@simplicidade.com>, 2004, 2005, 2010
-#
+# Jason Woodward <woodwardj@jaos.org>
+# 
+# Translators:
+# Copyright (C) 2004, 2005-2006.
+# Miquel Santinho <msantinho@simplicidade.com>, 2004-2005,2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.10.2f\n"
+"Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2010-06-14 17:32+0000\n"
-"Last-Translator: Miguel Santinho <msantinho@simplicidade.com>\n"
+"PO-Revision-Date: 2012-09-17 21:54+0000\n"
+"Last-Translator: gapan <vlahavas@gmail.com>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: pt_PT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, c-format
@@ -100,9 +103,7 @@ msgstr "Depois de desempacotar serão libertados %.1f%s de espaço em disco.\n"
 
 #, c-format
 msgid "After unpacking %.1f%s of additional disk space will be used.\n"
-msgstr ""
-"Depois de desempacotar serão utilizados %.1f%s de espaço adicional em "
-"disco.\n"
+msgstr "Depois de desempacotar serão utilizados %.1f%s de espaço adicional em disco.\n"
 
 #, c-format
 msgid "An implementation of the Debian APT system to Slackware\n"
@@ -202,7 +203,7 @@ msgstr "Falha ao analisar dados do pacote %s\n"
 
 #, c-format
 msgid "Failed to realloc %s\n"
-msgstr "Falha para realloc\n"
+msgstr "Falha para realloc %s\n"
 
 #, c-format
 msgid "Failed to unlink %s\n"
@@ -348,9 +349,7 @@ msgstr "Talvez queira executar --update?\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr ""
-"Por favor actualize as permissões em %s ou execute com privilégio "
-"apropriado\n"
+msgstr "Por favor actualize as permissões em %s ou execute com privilégio apropriado\n"
 
 msgid "Preferred"
 msgstr "Preferido"
@@ -407,9 +406,7 @@ msgstr ""
 
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr ""
-"Falha na transferência a partir das fontes, corrija os mesmos e execute --"
-"update novamente\n"
+msgstr "Falha na transferência a partir das fontes, corrija os mesmos e execute --update novamente\n"
 
 #, c-format
 msgid "Suggested packages:\n"
@@ -609,55 +606,3 @@ msgstr "actualiza para uma nova versão"
 
 msgid "yes"
 msgstr "sim"
-
-#~ msgid "\tchdir back into %s\n"
-#~ msgstr "\tvoltar à pasta %s\n"
-
-#~ msgid ""
-#~ "%d upgraded, %d reinstalled, %d newly installed, %d to remove and %d not "
-#~ "upgraded.\n"
-#~ msgstr ""
-#~ "%d actualizados, %d reinstalados, %d para instalar, %d para remover e %d "
-#~ "não actualizados.\n"
-
-#~ msgid "Failed to compile regex [%s]\n"
-#~ msgstr "Falha ao compilar regex [%s]\n"
-
-#~ msgid "File: %s/%s\n"
-#~ msgstr "Ficheiro: %s/%s\n"
-
-#~ msgid "MD5 expected: [%s]\n"
-#~ msgstr "MD5 esperado: [%s]\n"
-
-#~ msgid "MD5 found:    [%s]\n"
-#~ msgstr "MD5 encontrado:    [%s]\n"
-
-#~ msgid "Not Verified"
-#~ msgstr "Não Verificado"
-
-#~ msgid "Reading Package Lists... "
-#~ msgstr "A ler listas de Pacotes... "
-
-#~ msgid "Retrieving extras list [%s]..."
-#~ msgstr "A recuperar lista de extras [%s]..."
-
-#~ msgid "Retrieving extras list [%s]...\n"
-#~ msgstr "A recuperar lista de extras [%s]...\n"
-
-#~ msgid "Retrieving package data [%s]...\n"
-#~ msgstr "A recuperar dados de pacotes [%s]...\n"
-
-#~ msgid "Retrieving patch list [%s]...\n"
-#~ msgstr "A recuperar lista de patches [%s]...\n"
-
-#~ msgid "[pkg name] - show pkg description"
-#~ msgstr "[nome do pacote] - mostra descrição do pacote"
-
-#~ msgid "[pkg name] - show pkg installed files"
-#~ msgstr "[pkg name] - mostrar ficheiros instalados do pacote"
-
-#~ msgid "re-install the pkg"
-#~ msgstr "re-instala o pacote"
-
-#~ msgid "retrieves pkg data from MIRROR"
-#~ msgstr "transfere os dados do pacote a partir do MIRROR"

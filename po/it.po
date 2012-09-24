@@ -1,21 +1,23 @@
-# Italian translation of slapt-get
-# Copyright Jason Woodward <woodwardj@jaos.org> (C) 2004
+# slapt-get translation template
+# Copyright (C) 2003-2009
 # This file is distributed under the same license as the slapt-get package.
+# Jason Woodward <woodwardj@jaos.org>
+# 
+# Translators:
 # Francesco Gigli <jaramir@slack.it>, 2004.
 # Updated by Stefano Ansaloni <ansalonistefano@gmail.com>, 2011.
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.10.2f\n"
+"Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2010-06-07 21:05+0500\n"
-"Last-Translator: Francesco Gigli <jaramir@slack.it>\n"
-"Language-Team: Italian <tp@lists.linux.it>\n"
-"Language: it\n"
+"PO-Revision-Date: 2012-09-17 21:54+0000\n"
+"Last-Translator: gapan <vlahavas@gmail.com>\n"
+"Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, c-format
@@ -101,9 +103,7 @@ msgstr "Dopo l'installazione %.1f%s di sazio sul disco saranno liberati.\n"
 
 #, c-format
 msgid "After unpacking %.1f%s of additional disk space will be used.\n"
-msgstr ""
-"Dopo l'installazione saranno utilizzati %.1f%s addizionali di spazio sul "
-"disco.\n"
+msgstr "Dopo l'installazione saranno utilizzati %.1f%s addizionali di spazio sul disco.\n"
 
 #, c-format
 msgid "An implementation of the Debian APT system to Slackware\n"
@@ -295,9 +295,9 @@ msgstr "ChangeLog del pacchetto"
 msgid "Package Conflicts: %s\n"
 msgstr "Conflitti: %s\n"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Package Description:\n"
-msgstr "Descrizione del pacchetto: %s\n"
+msgstr ""
 
 #, c-format
 msgid "Package Installed Size: %d K\n"
@@ -606,55 +606,3 @@ msgstr "aggiorna ad una nuova release"
 
 msgid "yes"
 msgstr "si"
-
-#~ msgid "\tchdir back into %s\n"
-#~ msgstr "\tchdir nuovamente in %s\n"
-
-#~ msgid ""
-#~ "%d upgraded, %d reinstalled, %d newly installed, %d to remove and %d not "
-#~ "upgraded.\n"
-#~ msgstr ""
-#~ "%d aggiornati, %d reinstalled, %d installati, %d da rimuovere e %d non "
-#~ "aggiornati.\n"
-
-#~ msgid "Failed to compile regex [%s]\n"
-#~ msgstr "Errore nella compilazione della regex [%s]\n"
-
-#~ msgid "File: %s/%s\n"
-#~ msgstr "File: %s/%s\n"
-
-#~ msgid "MD5 expected: [%s]\n"
-#~ msgstr "MD5 atteso:   [%s]\n"
-
-#~ msgid "MD5 found:    [%s]\n"
-#~ msgstr "MD5 trovato:  [%s]\n"
-
-#~ msgid "Not Verified"
-#~ msgstr "Non verificato"
-
-#~ msgid "Reading Package Lists... "
-#~ msgstr "Lettura della lista dei pacchetti... "
-
-#~ msgid "Retrieving extras list [%s]..."
-#~ msgstr "Recupero la lista extra [%s]..."
-
-#~ msgid "Retrieving extras list [%s]...\n"
-#~ msgstr "Recupero la lista extra [%s]...\n"
-
-#~ msgid "Retrieving package data [%s]...\n"
-#~ msgstr "Recupero i dati del pacchetto [%s]...\n"
-
-#~ msgid "Retrieving patch list [%s]...\n"
-#~ msgstr "Recupero la lista delle patch [%s]...\n"
-
-#~ msgid "[pkg name] - show pkg description"
-#~ msgstr "[nome pacchetto/i] - visualizza descrizione pacchetto/i specificato"
-
-#~ msgid "[pkg name] - show pkg installed files"
-#~ msgstr "[nome pacchetto/i] - visualizza i file installati dal pacchetto/i"
-
-#~ msgid "re-install the pkg"
-#~ msgstr "re-installa il pacchetto"
-
-#~ msgid "retrieves pkg data from MIRROR"
-#~ msgstr "recupera dati del pacchetto da MIRROR"

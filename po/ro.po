@@ -1,21 +1,22 @@
-# slapt-get Romanian translation
-# Copyright (C) 2003-2008
+# slapt-get translation template
+# Copyright (C) 2003-2009
 # This file is distributed under the same license as the slapt-get package.
-# Reteaua PTM <admin@ptm.ro>
+# Jason Woodward <woodwardj@jaos.org>
+# 
+# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.10.2f\n"
+"Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2010-06-07 21:05+0500\n"
-"Last-Translator: Zion <admin@ptm.ro>\n"
+"PO-Revision-Date: 2012-09-17 21:54+0000\n"
+"Last-Translator: gapan <vlahavas@gmail.com>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > "
-"0 && n%100 < 20)) ? 1 : 2;\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
 
 #, c-format
 msgid "  %s: Depends: %s\n"
@@ -351,8 +352,7 @@ msgstr "Probabil ca vrei sa executi --update?\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr ""
-"Actualizati permisiunile pentru %s sau executati cu privilegiile corecte\n"
+msgstr "Actualizati permisiunile pentru %s sau executati cu privilegiile corecte\n"
 
 msgid "Preferred"
 msgstr "Preferred"
@@ -504,8 +504,7 @@ msgstr "eroare in timpul citirii descrierii pachetului\n"
 
 #, c-format
 msgid "getline reached EOF attempting to read location\n"
-msgstr ""
-"getline a ajuns la sfarsitul fisierului incercand sa citeasca locatia\n"
+msgstr "getline a ajuns la sfarsitul fisierului incercand sa citeasca locatia\n"
 
 #, c-format
 msgid "getline reached EOF attempting to read size_c\n"
@@ -610,55 +609,3 @@ msgstr "actualizare la ultima varianta"
 
 msgid "yes"
 msgstr "da"
-
-#~ msgid "\tchdir back into %s\n"
-#~ msgstr "\tschimba directorul inapoi in %s\n"
-
-#~ msgid ""
-#~ "%d upgraded, %d reinstalled, %d newly installed, %d to remove and %d not "
-#~ "upgraded.\n"
-#~ msgstr ""
-#~ "%d actualizat, %d reinstalled, %d nou instalat, %d va fi eliminat si %d "
-#~ "neactualizat.\n"
-
-#~ msgid "Failed to compile regex [%s]\n"
-#~ msgstr "Esuare in compilarea regex [%s]\n"
-
-#~ msgid "File: %s/%s\n"
-#~ msgstr "Fisier: %s/%s\n"
-
-#~ msgid "MD5 expected: [%s]\n"
-#~ msgstr "MD5 asteptat: [%s]\n"
-
-#~ msgid "MD5 found:    [%s]\n"
-#~ msgstr "MD5 gasit:    [%s]\n"
-
-#~ msgid "Not Verified"
-#~ msgstr "Neverificat"
-
-#~ msgid "Reading Package Lists... "
-#~ msgstr "Se citeste lista cu pachete..."
-
-#~ msgid "Retrieving extras list [%s]..."
-#~ msgstr "Se primeste lista extra [%s]..."
-
-#~ msgid "Retrieving extras list [%s]...\n"
-#~ msgstr "Se primeste lista extra [%s]...\n"
-
-#~ msgid "Retrieving package data [%s]...\n"
-#~ msgstr "Se primesc date despre pachet [%s]...\n"
-
-#~ msgid "Retrieving patch list [%s]...\n"
-#~ msgstr "Se primeste lista completari [%s]...\n"
-
-#~ msgid "[pkg name] - show pkg description"
-#~ msgstr "[nume pachet] - arata descriere pachet"
-
-#~ msgid "[pkg name] - show pkg installed files"
-#~ msgstr "[pkg name] - show pkg installed files"
-
-#~ msgid "re-install the pkg"
-#~ msgstr "reinstaleaza pachetul"
-
-#~ msgid "retrieves pkg data from MIRROR"
-#~ msgstr "primeste date pkg de la SURSA ALTERNATIVA"

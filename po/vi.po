@@ -1,20 +1,23 @@
-# vi slapt-get translation
-# Copyright (C) 2004, 2005
+# slapt-get translation template
+# Copyright (C) 2003-2009
 # This file is distributed under the same license as the slapt-get package.
-# Nguyễn Văn Vũ <vncasper@yahoo.com>, 2004, 2005
-#
+# Jason Woodward <woodwardj@jaos.org>
+# 
+# Translators:
+# Copyright (C) 2004, 2005.
+# Nguyễn Văn Vũ <vncasper@yahoo.com>, 2004-2005.
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.10.2f\n"
+"Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2010-06-07 21:05+0500\n"
-"Last-Translator: Nguyễn Văn Vũ <vncasper@yahoo.com>\n"
-"Language-Team: gnome-vi <gnomevi-list@lists.sourceforge.net>\n"
-"Language: \n"
+"PO-Revision-Date: 2012-09-17 21:54+0000\n"
+"Last-Translator: gapan <vlahavas@gmail.com>\n"
+"Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: vi\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #, c-format
@@ -341,8 +344,7 @@ msgstr "Có lẽ bạn muốn thực thi với tuỳ chọn --update?\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr ""
-"Vui lòng cập nhật quyền truy cập trên %s hoặc thực thi với quyền hợp lệ\n"
+msgstr "Vui lòng cập nhật quyền truy cập trên %s hoặc thực thi với quyền hợp lệ\n"
 
 msgid "Preferred"
 msgstr "Preferred"
@@ -399,9 +401,7 @@ msgstr ""
 
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr ""
-"Kho nguồn bị lỗi trong khi lấy dữ liệu, hãy sửa chữa và thực thi lại với tuỳ "
-"chọn --update\n"
+msgstr "Kho nguồn bị lỗi trong khi lấy dữ liệu, hãy sửa chữa và thực thi lại với tuỳ chọn --update\n"
 
 #, c-format
 msgid "Suggested packages:\n"
@@ -601,55 +601,3 @@ msgstr "nâng cấp hệ thống lên phiên bản mới hơn"
 
 msgid "yes"
 msgstr "yes"
-
-#~ msgid "\tchdir back into %s\n"
-#~ msgstr "\tquay về thư mục %s\n"
-
-#~ msgid ""
-#~ "%d upgraded, %d reinstalled, %d newly installed, %d to remove and %d not "
-#~ "upgraded.\n"
-#~ msgstr ""
-#~ "%d gói được nâng cấp, %d reinstalled, %d gói được cài đặt mới, %d gói bị "
-#~ "gỡ bỏ và %d gói được giữ nguyên.\n"
-
-#~ msgid "Failed to compile regex [%s]\n"
-#~ msgstr "Bị lỗi khi biên dịch biểu thức [%s]\n"
-
-#~ msgid "File: %s/%s\n"
-#~ msgstr "Tập tin: %s/%s\n"
-
-#~ msgid "MD5 expected: [%s]\n"
-#~ msgstr "MD5 mong đợi: [%s]\n"
-
-#~ msgid "MD5 found:    [%s]\n"
-#~ msgstr "MD5 tìm thấy:    [%s]\n"
-
-#~ msgid "Not Verified"
-#~ msgstr "Not Verified"
-
-#~ msgid "Reading Package Lists... "
-#~ msgstr "Cập nhật danh sách gói phần mềm... "
-
-#~ msgid "Retrieving extras list [%s]..."
-#~ msgstr "Cập nhật danh sách mở rộng [%s]..."
-
-#~ msgid "Retrieving extras list [%s]...\n"
-#~ msgstr "Cập nhật danh sách mở rộng [%s]...\n"
-
-#~ msgid "Retrieving package data [%s]...\n"
-#~ msgstr "Cập nhật danh sách gói phần mềm [%s]...\n"
-
-#~ msgid "Retrieving patch list [%s]...\n"
-#~ msgstr "Cập nhật danh sách bản sửa lỗi [%s]...\n"
-
-#~ msgid "[pkg name] - show pkg description"
-#~ msgstr "[tên gói phần mềm] - mô tả gói phần mềm được chỉ định"
-
-#~ msgid "[pkg name] - show pkg installed files"
-#~ msgstr "[pkg name] - show pkg installed files"
-
-#~ msgid "re-install the pkg"
-#~ msgstr "cài đặt lại gói phần mềm được chỉ định"
-
-#~ msgid "retrieves pkg data from MIRROR"
-#~ msgstr "cập nhật danh sách gói phần mềm từ kho lưu trữ"
