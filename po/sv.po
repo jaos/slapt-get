@@ -5,15 +5,16 @@
 # 
 # Translators:
 # Copyright (C) 2004, 2005.
+# Ingemar Karlsson <ingemar@ingk.se>, 2012.
 # Joel Bjurman <ypolt@lediga.st>, 2004-2005.
 msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2012-09-17 21:54+0000\n"
-"Last-Translator: gapan <vlahavas@gmail.com>\n"
-"Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
+"PO-Revision-Date: 2012-09-29 12:59+0000\n"
+"Last-Translator: Ingemar Karlsson <ingemar@ingk.se>\n"
+"Language-Team: Swedish (http://www.transifex.com/projects/p/slapt-get/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -27,32 +28,32 @@ msgstr "  %s: Beroende: %s\n"
 #, c-format
 msgid "%d newly installed, "
 msgid_plural "%d newly installed, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d nyinstallerade, "
+msgstr[1] "%d nyinstallerade, "
 
 #, c-format
 msgid "%d not upgraded.\n"
 msgid_plural "%d not upgraded.\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d uppgraderades inte.\n"
+msgstr[1] "%d uppgraderades inte.\n"
 
 #, c-format
 msgid "%d reinstalled, "
 msgid_plural "%d reinstalled, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d återinstallerad, "
+msgstr[1] "%d återinstallerad, "
 
 #, c-format
 msgid "%d to remove, "
 msgid_plural "%d to remove, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d att ta bort, "
+msgstr[1] "%d att ta bort, "
 
 #, c-format
 msgid "%d upgraded, "
 msgid_plural "%d upgraded, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d uppgraderades, "
+msgstr[1] "%d uppgraderades, "
 
 #, c-format
 msgid "%s [option(s)] [target]\n"
@@ -91,7 +92,7 @@ msgid "%s-%s is to be upgraded to version %s\n"
 msgstr "%s-%s ska till att uppgraderas till version %s\n"
 
 msgid ", but accepted as an exception"
-msgstr ""
+msgstr ", men accepteras som ett undantag"
 
 #, c-format
 msgid "Abort.\n"
@@ -114,7 +115,7 @@ msgid "Cached\n"
 msgstr "Cachad\n"
 
 msgid "Checksums not read"
-msgstr ""
+msgstr "Kontrollsummor inte lästa"
 
 msgid "Checksums signature could not be verified"
 msgstr "Checksums signature could not be verified"
@@ -255,28 +256,28 @@ msgid "Not Found\n"
 msgstr "Not Found\n"
 
 msgid "Not Verified: CRL too old"
-msgstr ""
+msgstr "Inte Verifierad: CRL för gammal"
 
 msgid "Not Verified: bad policy"
-msgstr ""
+msgstr "Inte Verifierad: bad plicy"
 
 msgid "Not Verified: key expired"
-msgstr ""
+msgstr "Inte Verifierad: nyckel gått ut"
 
 msgid "Not Verified: key revoked"
-msgstr ""
+msgstr "Inte Verifierad: nyckel återkallad"
 
 msgid "Not Verified: missing CRL"
-msgstr ""
+msgstr "Inte Verifierad: saknar CRL"
 
 msgid "Not Verified: signature expired"
-msgstr ""
+msgstr "Inte Verifierad: signatur har utgått"
 
 msgid "Not Verified: system error"
-msgstr ""
+msgstr "Inte Verifierad: systemfel"
 
 msgid "Not verified: null context"
-msgstr ""
+msgstr "Inte Verifierad: null context"
 
 msgid "Official"
 msgstr "Official"
@@ -402,7 +403,7 @@ msgid "SOURCE directive not set within %s.\n"
 msgstr "SOURCE direktivet ej satt inom %s.\n"
 
 msgid "Signature not read"
-msgstr ""
+msgstr "Signatur inte läst"
 
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
@@ -475,19 +476,19 @@ msgid "[pkg name(s)] - remove specified pkg(s)"
 msgstr "[paketnamn] - ta bort specificerade paket"
 
 msgid "[pkg name(s)] - show pkg(s) description"
-msgstr ""
+msgstr "[pkg name(s)] - visa pkg(s) beskrivning"
 
 msgid "[pkg name(s)] - show pkg(s) installed files"
-msgstr ""
+msgstr "[pkg name(s)] - visa pkg(s) installerade filer"
 
 msgid "allow unauthenticated packages"
-msgstr ""
+msgstr "tillåt icke autentiserade paket"
 
 msgid "always prompt during install/upgrade"
 msgstr "always prompt during install/upgrade"
 
 msgid "display this help and exit"
-msgstr ""
+msgstr "visa denna hjälp och avsluta"
 
 msgid "do not perform md5 check sum"
 msgstr "utför inte md5 check sum"
@@ -572,7 +573,7 @@ msgid "regexec failed to parse size_u\n"
 msgstr "regexec misslyckades att tolka size_u\n"
 
 msgid "reinstall the pkg"
-msgstr ""
+msgstr "ominstallera pkg"
 
 msgid "remove obsolete packages"
 msgstr "ta bort förlegade paket"
@@ -581,7 +582,7 @@ msgid "retrieve GPG keys for sources"
 msgstr "retrieve GPG keys for sources"
 
 msgid "retrieve pkg data from MIRROR"
-msgstr ""
+msgstr "hämta pkg data från MIRROR"
 
 msgid "show download statistics"
 msgstr "visa nedladdningsstatistik"

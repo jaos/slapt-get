@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2012-09-17 21:54+0000\n"
+"PO-Revision-Date: 2012-09-24 08:51+0000\n"
 "Last-Translator: gapan <vlahavas@gmail.com>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
@@ -257,28 +257,28 @@ msgid "Not Found\n"
 msgstr "Δεν βρέθηκε\n"
 
 msgid "Not Verified: CRL too old"
-msgstr ""
+msgstr "Δεν πιστοποιήθηκε: η λίστα ανακληθέντων πιστοποιητικών (CRL) είναι πολύ παλιά"
 
 msgid "Not Verified: bad policy"
-msgstr ""
+msgstr "Δεν πιστοποιήθηκε: κακή πολιτική"
 
 msgid "Not Verified: key expired"
-msgstr ""
+msgstr "Δεν πιστοποιήθηκε: το κλειδί έχει λήξει"
 
 msgid "Not Verified: key revoked"
-msgstr ""
+msgstr "Δεν πιστοποιήθηκε: το κλειδί έχει ανακληθεί"
 
 msgid "Not Verified: missing CRL"
-msgstr ""
+msgstr "Δεν πιστοποιήθηκε: δεν βρέθηκε λίστα αναλκηθέντων πιστοποιητικών (CRL)"
 
 msgid "Not Verified: signature expired"
-msgstr ""
+msgstr "Δεν πιστοποιήθηκε: η υπογραφή έχει λήξει"
 
 msgid "Not Verified: system error"
-msgstr ""
+msgstr "Δεν πιστοποιήθηκε: σφάλμα συστήματος"
 
 msgid "Not verified: null context"
-msgstr ""
+msgstr "Δεν πιστοποιήθηκε: κενό περιεχόμενο"
 
 msgid "Official"
 msgstr "Επίσημο"
