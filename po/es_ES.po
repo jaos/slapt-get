@@ -2,9 +2,9 @@
 # Copyright (C) 2003-2009
 # This file is distributed under the same license as the slapt-get package.
 # Jason Woodward <woodwardj@jaos.org>
-# 
+#
 # Translators:
-# Angelinux <angel.microchip@gmail.com>, 2009-2011.
+# Angelinux <angel.microchip@gmail.com>, 2009-2012.
 # Fernando Velo <seacat.linux@gmail.com>, 2012.
 # Ruben Gutierrez <ruben@snpp.com.ar>, 2004-2005.
 msgid ""
@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2012-09-17 21:54+0000\n"
-"Last-Translator: gapan <vlahavas@gmail.com>\n"
+"PO-Revision-Date: 2012-12-11 23:39-0600\n"
+"Last-Translator: Horacio R. Méndez <angel.microchip@gmail.com>\n"
 "Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -439,7 +439,7 @@ msgstr "Se reinstalarán los siguientes paquetes:\n"
 
 #, c-format
 msgid "The following packages will be upgraded:\n"
-msgstr "Se actualizarán los siguiente paquetes:\n"
+msgstr "Se actualizarán los siguientes paquetes:\n"
 
 msgid "Unknown error"
 msgstr "Error desconocido"
@@ -464,7 +464,7 @@ msgid "You don't have enough free space in %s\n"
 msgstr "No tiene suficiente espacio libre en %s\n"
 
 msgid "[disk set(s)] - install specified disk set(s)"
-msgstr "[juego(s) de disco(s)] - instalar el/los joego(s) de disco(s) especificado(s)"
+msgstr "[juego(s) de disco(s)] - instalar el/los juego(s) de disco(s) especificado(s)"
 
 msgid "[expression] - search available pkgs"
 msgstr "[expresión] - buscar paquetes disponibles"
@@ -476,7 +476,7 @@ msgid "[pkg name(s)] - remove specified pkg(s)"
 msgstr "[nombre(s) de paquete(s)] - eliminar el/los paquete(s) especificado(s)"
 
 msgid "[pkg name(s)] - show pkg(s) description"
-msgstr "[nombre(s) de paquete(s)] - mostrar la descripción del / de los paquete(s)"
+msgstr "[nombre(s) de paquete(s)] - mostrar la descripción de l/  de los  paquete(s)"
 
 msgid "[pkg name(s)] - show pkg(s) installed files"
 msgstr "[nombre(s) de paquete(s)] - mostrar el/los paquete(s) instalado(s)"
@@ -541,7 +541,7 @@ msgid "only download pkg on install/upgrade"
 msgstr "solamente descargar el paquete al instalar/actualizar"
 
 msgid "only purge cache of older, unreacheable pkgs"
-msgstr "limpiar solamente el caché de los paquetes más viejos e inalcanzables"
+msgstr "limpiar solamente el cache de los paquetes más viejos e inalcanzables"
 
 #, c-format
 msgid "pkg conditional too long\n"
@@ -554,7 +554,7 @@ msgid "print version and license info"
 msgstr "imprimir versión e información de licencia"
 
 msgid "purge cached pkgs"
-msgstr "limpiar los paquetes en caché"
+msgstr "limpiar los paquetes en cache"
 
 #, c-format
 msgid "regex failed on [%s]\n"
@@ -585,7 +585,7 @@ msgid "retrieve pkg data from MIRROR"
 msgstr "recuperar los datos del paquete desde el MIRROR"
 
 msgid "show download statistics"
-msgstr "mostrar estadísticas de decarga"
+msgstr "mostrar estadísticas de descarga"
 
 msgid "show pkgs to be installed/upgraded"
 msgstr "mostrar los paquetes a instalarse/actualizarse"
@@ -607,3 +607,4 @@ msgstr "actualizar a la versión más reciente"
 
 msgid "yes"
 msgstr "sí"
+
