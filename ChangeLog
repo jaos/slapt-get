@@ -1,5 +1,6 @@
 
 0.10.2p Apr  29, 2013
+ * do not require root privs for filelist option (thanks David Unric)
  * Added he and pt translations from transifex
  * updated es_ES translation from Angelos
 

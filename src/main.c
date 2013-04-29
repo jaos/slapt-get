@@ -220,6 +220,7 @@ int main( int argc, char *argv[] )
       #endif
       case SLAPT_FILELIST:
         do_action = FILELIST;
+        initial_config->simulate = SLAPT_TRUE; /* allow read access */
         break;
       default:
         usage();
