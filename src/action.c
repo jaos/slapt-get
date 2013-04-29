@@ -864,7 +864,7 @@ void slapt_pkg_action_filelist( const char *pkg_name )
 
   filelist = slapt_get_pkg_filelist(pkg);
 
-  printf("%s",filelist);
+  printf("%s\n",filelist);
 
   free(filelist);
   slapt_free_regex(pkg_regex);
