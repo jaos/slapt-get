@@ -1315,7 +1315,7 @@ slapt_pkg_list_t *slapt_search_pkg_list(slapt_pkg_list_t *list,
   matches = slapt_init_pkg_list();
 
   if ((search_regex = slapt_init_regex(pattern)) == NULL)
-    exit(EXIT_FAILURE);
+    return matches;
 
   for (i = 0; i < list->pkg_count; i++ ) {
 
