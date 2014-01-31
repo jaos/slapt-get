@@ -4,20 +4,20 @@
 # Jason Woodward <woodwardj@jaos.org>
 # 
 # Translators:
-# Bekir SONAT <bekirsonat@kde.org.tr>, 2006.
+# Bekir SONAT <bekirsonat@kde.org.tr>, 2006
 msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2012-09-17 21:54+0000\n"
-"Last-Translator: gapan <vlahavas@gmail.com>\n"
-"Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
+"PO-Revision-Date: 2013-11-20 10:39+0000\n"
+"Last-Translator: Jason Woodward <woodwardj@jaos.org>\n"
+"Language-Team: Turkish (http://www.transifex.com/projects/p/slapt-get/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: tr\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #, c-format
 msgid "  %s: Depends: %s\n"
@@ -27,26 +27,31 @@ msgstr "  %s: Bağımlılıklar: %s\n"
 msgid "%d newly installed, "
 msgid_plural "%d newly installed, "
 msgstr[0] ""
+msgstr[1] ""
 
 #, c-format
 msgid "%d not upgraded.\n"
 msgid_plural "%d not upgraded.\n"
 msgstr[0] ""
+msgstr[1] ""
 
 #, c-format
 msgid "%d reinstalled, "
 msgid_plural "%d reinstalled, "
 msgstr[0] ""
+msgstr[1] ""
 
 #, c-format
 msgid "%d to remove, "
 msgid_plural "%d to remove, "
 msgstr[0] ""
+msgstr[1] ""
 
 #, c-format
 msgid "%d upgraded, "
 msgid_plural "%d upgraded, "
 msgstr[0] ""
+msgstr[1] ""
 
 #, c-format
 msgid "%s [option(s)] [target]\n"

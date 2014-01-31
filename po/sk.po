@@ -4,16 +4,16 @@
 # Jason Woodward <woodwardj@jaos.org>
 # 
 # Translators:
-# Copyright (C) 2004, 2005.
-# Erik Gyepes <depi@depi.sk>, 2005.
+# Copyright (C) 2004, 2005
+# Erik Gyepes <depi@depi.sk>, 2005
 msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2012-09-17 21:54+0000\n"
-"Last-Translator: gapan <vlahavas@gmail.com>\n"
-"Language-Team: slapt-get-devel <slapt-get-devel@software.jaos.org>\n"
+"PO-Revision-Date: 2013-11-20 10:39+0000\n"
+"Last-Translator: Jason Woodward <woodwardj@jaos.org>\n"
+"Language-Team: Slovak (http://www.transifex.com/projects/p/slapt-get/language/sk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"

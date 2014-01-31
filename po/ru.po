@@ -153,8 +153,7 @@ msgstr "Готово\n"
 
 #, c-format
 msgid "Excluding %s, use --ignore-dep to override\n"
-msgstr ""
-"Пропуск %s, чтобы проигнорировать зависимости используйте --ignore-dep\n"
+msgstr "Пропуск %s, чтобы проигнорировать зависимости используйте --ignore-dep\n"
 
 #, c-format
 msgid "Failed to build working directory [%s]\n"
