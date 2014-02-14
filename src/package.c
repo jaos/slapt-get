@@ -1318,6 +1318,10 @@ slapt_pkg_list_t *slapt_search_pkg_list(slapt_pkg_list_t *list,
     return matches;
 
   for (i = 0; i < list->pkg_count; i++ ) {
+    if (strcmp(list->pkgs[i]->name, pattern) == 0) {
+      slapt_add_pkg_to_pkg_list(matches,list->pkgs[i]);
+      continue;
+    }
 
     slapt_execute_regex(search_regex,list->pkgs[i]->name);
     name_r = search_regex->reg_return;

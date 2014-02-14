@@ -1,4 +1,7 @@
 
+0.10.2q Feb  13, 2014
+ * tweak search to return exact name matches in case of regex characters
+
 0.10.2p Apr  29, 2013
  * Add newline to the end of filelist output
  * do not require root privs for filelist option (thanks David Unric)
