@@ -1,5 +1,6 @@
 
 0.10.2q Feb  13, 2014
+ * --show now returns non-zero if nothing found
  * tweak search to return exact name matches in case of regex characters
 
 0.10.2p Apr  29, 2013

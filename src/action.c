@@ -494,6 +494,7 @@ void slapt_pkg_action_show(const char *pkg_name)
     free(description);
   } else {
     printf(gettext("No such package: %s\n"),pkg_name);
+    exit(EXIT_FAILURE);
   }
 
   slapt_free_pkg_list(avail_pkgs);
