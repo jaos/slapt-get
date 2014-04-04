@@ -1,0 +1,9 @@
+.gitignore
+
+libs
+pkg
+slapt-get
+src/*.o
+src/libslapt.*
+src/slapt.h
+
