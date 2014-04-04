@@ -598,7 +598,8 @@ slapt_pkg_list_t *slapt_get_installed_pkgs(void)
     if (compressed_size_reg->reg_return == 0) {
       char *size_c = slapt_regex_extract_match(compressed_size_reg, pkg_data, 1);
       char *unit   = slapt_regex_extract_match(compressed_size_reg, pkg_data, 2);
-      tmp_pkg->size_c = strtol(size_c,(char **)NULL,10);
+      double c     = strtof(size_c, (char **)NULL);
+      tmp_pkg->size_c = round(c);
       if ( strcmp(unit, "M") == 0 )
         tmp_pkg->size_c *= 1024;
       free(size_c);
@@ -610,7 +611,8 @@ slapt_pkg_list_t *slapt_get_installed_pkgs(void)
     if (uncompressed_size_reg->reg_return == 0 ) {
       char *size_u = slapt_regex_extract_match(uncompressed_size_reg, pkg_data, 1);
       char *unit   = slapt_regex_extract_match(uncompressed_size_reg, pkg_data, 2);
-      tmp_pkg->size_u = strtol(size_u,(char **)NULL,10);
+      double u     = strtof(size_u, (char **)NULL);
+      tmp_pkg->size_u = round(u);
       if ( strcmp(unit, "M") == 0 )
         tmp_pkg->size_u *= 1024;
       free(size_u);

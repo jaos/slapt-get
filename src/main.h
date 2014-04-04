@@ -39,6 +39,7 @@
 #include <sys/mman.h>
 #include <zlib.h>
 #include <utime.h>
+#include <math.h>
 
 #include "common.h"
 #include "configuration.h"
