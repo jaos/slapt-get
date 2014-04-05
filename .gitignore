@@ -1,4 +1,5 @@
 .gitignore
+.tx
 
 libs
 pkg
