@@ -185,3 +185,6 @@ check: test
 testclean:
 	-@(if [ -d t ]; then cd t; make clean;fi)
 
+dist:
+	git archive --format=tar --prefix=slapt-get-$(VERSION)/ HEAD | gzip -9 > slapt-get-$(VERSION).tar.gz
+	md5sum slapt-get-$(VERSION).tar.gz > slapt-get-$(VERSION).md5sum
