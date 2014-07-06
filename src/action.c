@@ -88,6 +88,10 @@ void slapt_pkg_action_install(const slapt_rc_config *global_config,
 
         slapt_pkg_list_t *conflicts = slapt_is_conflicted(tran,avail_pkgs, installed_pkgs, pkg);
 
+	      /* this comes first so we can pick up that we are installed the package when
+	      * checking conflicts */
+        slapt_add_install_to_transaction(tran,pkg);
+
         /* if there are conflicts, we schedule the conflicts for removal */
         if (conflicts->pkg_count > 0 && global_config->ignore_dep != SLAPT_TRUE) {
           unsigned int cindex = 0;
@@ -110,7 +114,6 @@ void slapt_pkg_action_install(const slapt_rc_config *global_config,
           }
         }
         slapt_free_pkg_list(conflicts);
-        slapt_add_install_to_transaction(tran,pkg);
 
       } else {
         printf(gettext("Excluding %s, use --ignore-dep to override\n"),

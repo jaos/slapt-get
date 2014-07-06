@@ -1,4 +1,7 @@
 
+0.10.2r Jul  05, 2014
+ * fix conflict/reverse dep resolution when installing an alternative
+
 0.10.2q Apr  05, 2014
  * translation updates
  * support fractional installed size from /var/log/packages files
