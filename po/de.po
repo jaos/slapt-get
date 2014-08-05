@@ -6,13 +6,14 @@
 # Translators:
 # Copyright (C) 2004, 2005-2007
 # Niklas Volbers <mithrandir42@web.de>, 2004-2005
+# Thorsten <thenktor@posteo.de>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2013-11-20 10:39+0000\n"
-"Last-Translator: Jason Woodward <woodwardj@jaos.org>\n"
+"PO-Revision-Date: 2014-07-24 11:00+0000\n"
+"Last-Translator: Thorsten <thenktor@posteo.de>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/slapt-get/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -114,7 +115,7 @@ msgid "Cached\n"
 msgstr "Im Zwischenspeicher\n"
 
 msgid "Checksums not read"
-msgstr ""
+msgstr "Prüfsumme nicht gelesen"
 
 msgid "Checksums signature could not be verified"
 msgstr "Pruefsummen-Signatur nicht bestaetigt"
@@ -402,7 +403,7 @@ msgid "SOURCE directive not set within %s.\n"
 msgstr "SOURCE Anweisung (Quelle) ist in %s nicht angegeben.\n"
 
 msgid "Signature not read"
-msgstr ""
+msgstr "Signatur nicht gelesen"
 
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
@@ -487,7 +488,7 @@ msgid "always prompt during install/upgrade"
 msgstr "Bei Installation/Aktualisierung immer nachfragen"
 
 msgid "display this help and exit"
-msgstr ""
+msgstr "diese Hilfe anzeigen und beenden"
 
 msgid "do not perform md5 check sum"
 msgstr "Keine MD5-Pruefsummen verwenden"

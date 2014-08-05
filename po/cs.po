@@ -4,8 +4,9 @@
 # Jason Woodward <woodwardj@jaos.org>
 # 
 # Translators:
-# jui <appukonrad@gmail.com>, 2013
+# Jiří Vírava <appukonrad@gmail.com>, 2013
 # Copyright (C) 2004, 2005
+# Jiří Vírava <appukonrad@gmail.com>, 2013
 # Oto Petrik <oto.petrik@centrum.cz>, 2004-2005
 msgid ""
 msgstr ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-02 14:14+0000\n"
 "PO-Revision-Date: 2013-12-09 13:50+0000\n"
-"Last-Translator: jui <appukonrad@gmail.com>\n"
+"Last-Translator: Jiří Vírava <appukonrad@gmail.com>\n"
 "Language-Team: Czech (http://www.transifex.com/projects/p/slapt-get/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
