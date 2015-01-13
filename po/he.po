@@ -5,12 +5,13 @@
 # 
 # Translators:
 # GenghisKhan <genghiskhan@gmx.ca>, 2013
+# GenghisKhan <genghiskhan@gmx.ca>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2013-11-20 10:39+0000\n"
+"PO-Revision-Date: 2014-08-07 05:50+0000\n"
 "Last-Translator: Jason Woodward <woodwardj@jaos.org>\n"
 "Language-Team: Hebrew (http://www.transifex.com/projects/p/slapt-get/language/he/)\n"
 "MIME-Version: 1.0\n"
@@ -27,7 +28,7 @@ msgstr ""
 msgid "%d newly installed, "
 msgid_plural "%d newly installed, "
 msgstr[0] ""
-msgstr[1] ""
+msgstr[1] "%d התקנות חדשות, "
 
 #, c-format
 msgid "%d not upgraded.\n"
@@ -39,7 +40,7 @@ msgstr[1] ""
 msgid "%d reinstalled, "
 msgid_plural "%d reinstalled, "
 msgstr[0] ""
-msgstr[1] ""
+msgstr[1] "%d להתקנה חוזרת, "
 
 #, c-format
 msgid "%d to remove, "
@@ -51,7 +52,7 @@ msgstr[1] ""
 msgid "%d upgraded, "
 msgid_plural "%d upgraded, "
 msgstr[0] ""
-msgstr[1] ""
+msgstr[1] "%d לשדרוג, "
 
 #, c-format
 msgid "%s [option(s)] [target]\n"
@@ -128,7 +129,7 @@ msgid "Custom Patch"
 msgstr ""
 
 msgid "Default"
-msgstr ""
+msgstr "שגרתית"
 
 msgid "Default Patch"
 msgstr ""
@@ -366,7 +367,7 @@ msgstr ""
 
 #, c-format
 msgid "Reading Package Lists..."
-msgstr ""
+msgstr "כעת קורא רשימות חבילה..."
 
 #, c-format
 msgid "Regex Error: %s\n"
