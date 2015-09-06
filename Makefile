@@ -1,7 +1,7 @@
 PACKAGE=slapt-get
 VERSION=0.10.2r
 ARCH?=$(shell gcc -dumpmachine | cut -f1 -d- | sed -e "s/i[3456]86/i386/")
-LIBDIR=/usr/lib
+LIBDIR=$(shell dirname $$(gcc -print-file-name=libcrypto.so))
 RELEASE=1
 CC?=gcc
 STRIP?=strip
@@ -29,9 +29,6 @@ ifeq ($(HAS_GPGME),1)
 endif
 CFLAGS?=-W -Werror -Wall -O2 -ansi -pedantic
 CFLAGS+=$(DEFINES) -fPIC
-ifeq ($(ARCH),x86_64)
-	LIBDIR=/usr/lib64
-endif
 
 default: $(PACKAGE)
 
