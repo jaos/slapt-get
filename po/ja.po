@@ -4,6 +4,7 @@
 # Jason Woodward <woodwardj@jaos.org>
 # 
 # Translators:
+# tsuren <hydrangea_and_snail@hotmail.com>, 2015
 # JW <J_W@somewhere.c0.jp>, 2006
 # S_A <shin1.abe@nifty.com>, 2006
 msgid ""
@@ -11,9 +12,9 @@ msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2013-11-20 10:39+0000\n"
-"Last-Translator: Jason Woodward <woodwardj@jaos.org>\n"
-"Language-Team: Japanese (http://www.transifex.com/projects/p/slapt-get/language/ja/)\n"
+"PO-Revision-Date: 2015-08-20 05:53+0000\n"
+"Last-Translator: tsuren <hydrangea_and_snail@hotmail.com>\n"
+"Language-Team: Japanese (http://www.transifex.com/jaos/slapt-get/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -27,27 +28,27 @@ msgstr "  %s: Depends: %s\n"
 #, c-format
 msgid "%d newly installed, "
 msgid_plural "%d newly installed, "
-msgstr[0] ""
+msgstr[0] "%d 新しくインストールされました。"
 
 #, c-format
 msgid "%d not upgraded.\n"
 msgid_plural "%d not upgraded.\n"
-msgstr[0] ""
+msgstr[0] "%d アップグレードされませんでした。\n"
 
 #, c-format
 msgid "%d reinstalled, "
 msgid_plural "%d reinstalled, "
-msgstr[0] ""
+msgstr[0] "%d 再インストールされました。"
 
 #, c-format
 msgid "%d to remove, "
 msgid_plural "%d to remove, "
-msgstr[0] ""
+msgstr[0] "%d 除去します。"
 
 #, c-format
 msgid "%d upgraded, "
 msgid_plural "%d upgraded, "
-msgstr[0] ""
+msgstr[0] "%d アップグレードされました。 "
 
 #, c-format
 msgid "%s [option(s)] [target]\n"
@@ -86,7 +87,7 @@ msgid "%s-%s is to be upgraded to version %s\n"
 msgstr "%s-%s はバージョン %s にアップグレードされます\n"
 
 msgid ", but accepted as an exception"
-msgstr ""
+msgstr "、しかし例外として認められました"
 
 #, c-format
 msgid "Abort.\n"
@@ -109,7 +110,7 @@ msgid "Cached\n"
 msgstr "Cached\n"
 
 msgid "Checksums not read"
-msgstr ""
+msgstr "チェックサムが読み取れません"
 
 msgid "Checksums signature could not be verified"
 msgstr "Checksums signature could not be verified"
@@ -250,28 +251,28 @@ msgid "Not Found\n"
 msgstr "Not Found\n"
 
 msgid "Not Verified: CRL too old"
-msgstr ""
+msgstr "検証できません：CRLが古すぎます"
 
 msgid "Not Verified: bad policy"
-msgstr ""
+msgstr "検証できません：ポリシーを確認してください。"
 
 msgid "Not Verified: key expired"
-msgstr ""
+msgstr "検証できません：キーが期限切れです"
 
 msgid "Not Verified: key revoked"
-msgstr ""
+msgstr "検証できません：キーが取り消されました"
 
 msgid "Not Verified: missing CRL"
-msgstr ""
+msgstr "検証できません：CRLが存在しません"
 
 msgid "Not Verified: signature expired"
-msgstr ""
+msgstr "検証できません：署名が有効期限が切れです"
 
 msgid "Not Verified: system error"
-msgstr ""
+msgstr "検証できません：システム·エラーです"
 
 msgid "Not verified: null context"
-msgstr ""
+msgstr "検証できません：ヌル·コンテキスト"
 
 msgid "Official"
 msgstr "Official"
@@ -397,7 +398,7 @@ msgid "SOURCE directive not set within %s.\n"
 msgstr "%s にSOURCEが指定されていません\n"
 
 msgid "Signature not read"
-msgstr ""
+msgstr "署名が読み取れません"
 
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
@@ -470,19 +471,19 @@ msgid "[pkg name(s)] - remove specified pkg(s)"
 msgstr "[pkg name(s)] - 指定したパッケージを削除"
 
 msgid "[pkg name(s)] - show pkg(s) description"
-msgstr ""
+msgstr "[パッケージ名] - パッケージの説明を表示"
 
 msgid "[pkg name(s)] - show pkg(s) installed files"
-msgstr ""
+msgstr "[パッケージ名] - インストールされたファイルを表示"
 
 msgid "allow unauthenticated packages"
-msgstr ""
+msgstr "認証されていないパッケージを許可する"
 
 msgid "always prompt during install/upgrade"
 msgstr "インストール/アップグレード時に常にプロンプトを表示"
 
 msgid "display this help and exit"
-msgstr ""
+msgstr "このヘルプを表示して終了"
 
 msgid "do not perform md5 check sum"
 msgstr "md5 チェックをしない"
@@ -567,7 +568,7 @@ msgid "regexec failed to parse size_u\n"
 msgstr "regexec failed to parse size_u\n"
 
 msgid "reinstall the pkg"
-msgstr ""
+msgstr "パッケージを再インストール"
 
 msgid "remove obsolete packages"
 msgstr "obsolete対象パッケージを削除"
@@ -576,7 +577,7 @@ msgid "retrieve GPG keys for sources"
 msgstr "retrieve GPG keys for sources"
 
 msgid "retrieve pkg data from MIRROR"
-msgstr ""
+msgstr "ミラーからパッケージのデータを取得"
 
 msgid "show download statistics"
 msgstr "ダウンロード情報を表示"

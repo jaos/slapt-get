@@ -6,6 +6,7 @@
 # Translators:
 # Jiří Vírava <appukonrad@gmail.com>, 2013
 # Copyright (C) 2004, 2005
+# Jiří Vírava <appukonrad@gmail.com>, 2013-2014
 # Jiří Vírava <appukonrad@gmail.com>, 2013
 # Oto Petrik <oto.petrik@centrum.cz>, 2004-2005
 msgid ""
@@ -13,9 +14,9 @@ msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2013-12-09 13:50+0000\n"
-"Last-Translator: Jiří Vírava <appukonrad@gmail.com>\n"
-"Language-Team: Czech (http://www.transifex.com/projects/p/slapt-get/language/cs/)\n"
+"PO-Revision-Date: 2015-01-13 01:50+0000\n"
+"Last-Translator: Jason Woodward <woodwardj@jaos.org>\n"
+"Language-Team: Czech (http://www.transifex.com/jaos/slapt-get/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -29,9 +30,9 @@ msgstr "  %s: Závisí: %s\n"
 #, c-format
 msgid "%d newly installed, "
 msgid_plural "%d newly installed, "
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d nově instalován, "
+msgstr[1] "%d nově instalováno, "
+msgstr[2] "%d nově instalováno, "
 
 #, c-format
 msgid "%d not upgraded.\n"
@@ -121,7 +122,7 @@ msgid "Cached\n"
 msgstr "Cacheovaný\n"
 
 msgid "Checksums not read"
-msgstr ""
+msgstr "Nelze přečíst kontrolní součty"
 
 msgid "Checksums signature could not be verified"
 msgstr "Checksums signature could not be verified"
@@ -268,22 +269,22 @@ msgid "Not Verified: bad policy"
 msgstr ""
 
 msgid "Not Verified: key expired"
-msgstr ""
+msgstr "Nelze ověřit: klíč vypršel"
 
 msgid "Not Verified: key revoked"
-msgstr ""
+msgstr "Nelze ověřit: klíč zrušen"
 
 msgid "Not Verified: missing CRL"
-msgstr ""
+msgstr "Nelze ověřit: chybějící CRL"
 
 msgid "Not Verified: signature expired"
-msgstr ""
+msgstr "Nelze ověřit: podpis vypršel"
 
 msgid "Not Verified: system error"
-msgstr ""
+msgstr "Nelze ověřit: systémová chyba"
 
 msgid "Not verified: null context"
-msgstr ""
+msgstr "Nelze ověřit: prázdný obsah"
 
 msgid "Official"
 msgstr "Official"
@@ -579,7 +580,7 @@ msgid "regexec failed to parse size_u\n"
 msgstr "regexec neuspěl s analyzováním size_u\n"
 
 msgid "reinstall the pkg"
-msgstr ""
+msgstr "přeinstalovat pkg"
 
 msgid "remove obsolete packages"
 msgstr "odstraní zastaralé balíky"
