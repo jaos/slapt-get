@@ -323,6 +323,9 @@ slapt_code_t slapt_gpg_verify_checksums(FILE *checksums,
       }
 
     }
+  } else {
+    /* if gnupg|gnupg2 is missing: "GPGME: Invalid crypto engine" */
+    fprintf (stderr, "GPGME: %s\n", gpgme_strerror (e));
   }
 
   gpgme_data_release  (chk_data);

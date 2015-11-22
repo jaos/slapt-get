@@ -5,7 +5,7 @@ binutils
 openssl-solibs | openssl
 pkgtools
 zlib
-gnupg
+gnupg2
 gpgme
 libgpg-error
 cyrus-sasl
