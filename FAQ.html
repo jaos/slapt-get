@@ -72,6 +72,7 @@
 <a href="#slgFAQ55">55. How do I support GPG signature verification in my package repository?</a>
 <a href="#slgFAQ56">56. What does "GPGME: Bad file descriptor, GPG key could not be imported." mean?</a>
 <a href="#slgFAQ57">57. How do I assign priorities to my package sources?</a>
+<a href="#slgFAQ58">58. How do I get around "Peer certificate cannot be authenticated with given CA certificates."?</a>
 
 
 
@@ -1279,6 +1280,14 @@
 
  If you do not care for the priority assignment, you can remove the priority 
  attributes from your sources (if present, or never add them if not).
+
+<a name="slgFAQ58"><b>58. How do I get around "Peer certificate cannot be authenticated with given CA certificates."?</b></a>
+
+ Self signed certificates that cannot be verified cause libcurl to fail the connection.
+
+ To disable this, set the SLAPT_NO_SSL_VERIFYPERR environment variable.
+
+ See also http://curl.haxx.se/libcurl/c/CURLOPT_SSL_VERIFYPEER.html
 
 
 </pre>

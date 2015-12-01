@@ -55,6 +55,10 @@ int slapt_download_data(FILE *fh,const char *url,size_t bytes,long *filetime,
   curl_easy_setopt(ch, CURLOPT_FILETIME, 1);
   curl_easy_setopt(ch, CURLOPT_FOLLOWLOCATION, 1);
 
+  /* ugh, if someone wants to do this */
+  if (getenv(SLAPT_NO_SSL_VERIFYPEER))
+    curl_easy_setopt(ch, CURLOPT_SSL_VERIFYPEER, 0);
+
   headers = curl_slist_append(headers, "Pragma: "); /* override no-cache */
 
   if (global_config->dl_stats != SLAPT_TRUE) {
@@ -73,8 +77,10 @@ int slapt_download_data(FILE *fh,const char *url,size_t bytes,long *filetime,
     curl_easy_setopt(ch, CURLOPT_RESUME_FROM, bytes);
   }
 
-  if ((response = curl_easy_perform(ch)) != CURLE_OK)
+  if ((response = curl_easy_perform(ch)) != CURLE_OK) {
+    fprintf(stderr, "%s... ", curl_easy_strerror(response));
     return_code = response;
+  }
 
   if ( filetime != NULL )
     curl_easy_getinfo(ch, CURLINFO_FILETIME, filetime);
