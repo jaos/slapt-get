@@ -8,14 +8,15 @@
 # Copyright (C) 2004, 2005
 # Jiří Vírava <appukonrad@gmail.com>, 2013-2014
 # Jiří Vírava <appukonrad@gmail.com>, 2013
+# Michal Várady <miko.vaji@gmail.com>, 2015
 # Oto Petrik <oto.petrik@centrum.cz>, 2004-2005
 msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2015-01-13 01:50+0000\n"
-"Last-Translator: Jason Woodward <woodwardj@jaos.org>\n"
+"PO-Revision-Date: 2015-11-28 22:28+0000\n"
+"Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
 "Language-Team: Czech (http://www.transifex.com/jaos/slapt-get/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,42 +26,42 @@ msgstr ""
 
 #, c-format
 msgid "  %s: Depends: %s\n"
-msgstr "  %s: Závisí: %s\n"
+msgstr "  %s: Závisí na: %s\n"
 
 #, c-format
 msgid "%d newly installed, "
 msgid_plural "%d newly installed, "
-msgstr[0] "%d nově instalován, "
-msgstr[1] "%d nově instalováno, "
-msgstr[2] "%d nově instalováno, "
+msgstr[0] "%d nově nainstalovaný, "
+msgstr[1] "%d nově nainstalované, "
+msgstr[2] "%d nově nainstalovaných, "
 
 #, c-format
 msgid "%d not upgraded.\n"
 msgid_plural "%d not upgraded.\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d neupgradovaný.\n"
+msgstr[1] "%d neupgradované.\n"
+msgstr[2] "%d neupgradovaných.\n"
 
 #, c-format
 msgid "%d reinstalled, "
 msgid_plural "%d reinstalled, "
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d přeinstalovaný, "
+msgstr[1] "%d přeinstalované, "
+msgstr[2] "%d přeinstalovaných, "
 
 #, c-format
 msgid "%d to remove, "
 msgid_plural "%d to remove, "
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d k odebrání, "
+msgstr[1] "%d k odebrání, "
+msgstr[2] "%d k odebrání, "
 
 #, c-format
 msgid "%d upgraded, "
 msgid_plural "%d upgraded, "
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d upgradovaný."
+msgstr[1] "%d upgradované."
+msgstr[2] "%d upgradovaných."
 
 #, c-format
 msgid "%s [option(s)] [target]\n"
@@ -80,7 +81,7 @@ msgstr "%s verze %s\n"
 
 #, c-format
 msgid "%s, which is required by %s, is excluded\n"
-msgstr "%s, který je potřebný pro %s, je vyloučen\n"
+msgstr "%s, který je vyžadován pro %s, je vyloučen\n"
 
 #, c-format
 msgid "%s, which is to be installed, conflicts with %s\n"
@@ -96,10 +97,10 @@ msgstr "%s-%s bude odstraněn\n"
 
 #, c-format
 msgid "%s-%s is to be upgraded to version %s\n"
-msgstr "%s-%s bude povýšen na verzi %s\n"
+msgstr "%s-%s bude upgradován na verzi %s\n"
 
 msgid ", but accepted as an exception"
-msgstr ""
+msgstr ", ale přijatý jako výjimka"
 
 #, c-format
 msgid "Abort.\n"
@@ -115,36 +116,36 @@ msgstr "Po rozbalení bude použito dalších %.1f%s diskového prostoru.\n"
 
 #, c-format
 msgid "An implementation of the Debian APT system to Slackware\n"
-msgstr "Implementace Debian APT systému pro Slackware\n"
+msgstr "Implementace systému Debian APT pro Slackware\n"
 
 #, c-format
 msgid "Cached\n"
-msgstr "Cacheovaný\n"
+msgstr "V mezipaměti\n\n"
 
 msgid "Checksums not read"
-msgstr "Nelze přečíst kontrolní součty"
+msgstr "Kontrolní součty nepřečteny"
 
 msgid "Checksums signature could not be verified"
-msgstr "Checksums signature could not be verified"
+msgstr "Nelze ověřit podpisy kontrolních součtů"
 
 msgid "Checksums signature successfully verified"
-msgstr "Checksums signature successfully verified"
+msgstr "Podpisy kontrolních součtů byly úspěšně ověřeny"
 
 msgid "Custom"
-msgstr "Custom"
+msgstr "Vlastní"
 
 msgid "Custom Patch"
-msgstr "Custom Patch"
+msgstr "Vlastní patch"
 
 msgid "Default"
-msgstr "Default"
+msgstr "Výchozí"
 
 msgid "Default Patch"
-msgstr "Default Patch"
+msgstr "Výchozí patch"
 
 #, c-format
 msgid "Delete %s ? [y/N]"
-msgstr "Delete %s ? [y/N]"
+msgstr "Odstranit %s ? [y/N]"
 
 msgid "Do you want to continue? [y/N] "
 msgstr "Chcete pokračovat? [y/N] "
@@ -155,7 +156,7 @@ msgstr "Hotovo\n"
 
 #, c-format
 msgid "Excluding %s, use --ignore-dep to override\n"
-msgstr "Excluding %s, use --ignore-dep to override\n"
+msgstr "Vylučuje se %s, pro potlačení použijte přepínač --ignore-dep\n"
 
 #, c-format
 msgid "Failed to build working directory [%s]\n"
@@ -163,7 +164,7 @@ msgstr "Nepodařilo se vytvořit pracovní adresář [%s]\n"
 
 #, c-format
 msgid "Failed to calloc\n"
-msgstr "Nepodařilo se alokovat(calloc)\n"
+msgstr "Přidělení funkcí calloc se nezdařilo\n"
 
 #, c-format
 msgid "Failed to chdir to %s\n"
@@ -175,7 +176,7 @@ msgstr "Nepodařilo se změnit adresář: %s\n"
 
 #, c-format
 msgid "Failed to compile regex\n"
-msgstr "Nepodařilo se zkompilovat regex\n"
+msgstr "Nepodařilo se zkompilovat regulární výraz\n\n"
 
 #, c-format
 msgid "Failed to download: %s\n"
@@ -187,15 +188,15 @@ msgstr "Nepodařilo se spustit příkaz: [%s]\n"
 
 #, c-format
 msgid "Failed to get cwd\n"
-msgstr "Nepodařilo se získat cwd\n"
+msgstr "Nepodařilo se získat současný pracovní adresář\n\n"
 
 #, c-format
 msgid "Failed to malloc\n"
-msgstr "Nepodařilo se alokovat(malloc)\n"
+msgstr "Přidělení funkcí malloc se nezdařilo\n"
 
 #, c-format
 msgid "Failed to mkdir: %s\n"
-msgstr "Nepodařilo se vyrobit adresář: %s\n"
+msgstr "Nepodařilo se vytvořit adresář: %s\n"
 
 #, c-format
 msgid "Failed to open %s\n"
@@ -207,41 +208,41 @@ msgstr "Nepodařilo se otevřít adresář %s\n"
 
 #, c-format
 msgid "Failed to parse package data from %s\n"
-msgstr "Nepodačilo se analyzovat popisy balíků z %s\n"
+msgstr "Nepodařilo se analyzovat popisy balíčků z %s\n"
 
 #, c-format
 msgid "Failed to realloc %s\n"
-msgstr "Nepodařilo se realokovat %s\n"
+msgstr "Nepodařilo se opakovaně přidělit %s\n"
 
 #, c-format
 msgid "Failed to unlink %s\n"
-msgstr "Nepodařilo se smazat %s\n"
+msgstr "Nepodařilo se rozpojit %s\n"
 
 msgid "GPG key already present"
-msgstr "GPG key already present"
+msgstr "GPG klíč již existuje"
 
 msgid "GPG key could not be imported"
-msgstr "GPG key could not be imported"
+msgstr "GPG klíč nelze importovat"
 
 msgid "GPG key successfully imported"
-msgstr "GPG key successfully imported"
+msgstr "GPG klíč úspěšně importován"
 
 #, c-format
 msgid "Get %s %s %s [%.1f%s]..."
-msgstr "Mám %s %s %s [%.1f%s]..."
+msgstr "Získat %s %s %s [%.1f%s]..."
 
 msgid "Incomplete download"
-msgstr "Incomplete download"
+msgstr "Neúplné stažení"
 
 #, c-format
 msgid "Installed %s conflicts with %s\n"
 msgstr "Nainstalovaný %s koliduje s %s\n"
 
 msgid "MD5 checksum mismatch, override with --no-md5"
-msgstr "MD5 checksum mismatch, override with --no-md5"
+msgstr "Kontrolní součet MD5 se neshoduje, pro potlačení použijte přepínač --no-md5"
 
 msgid "Missing MD5 checksum, override with --no-md5"
-msgstr "Missing MD5 checksum, override with --no-md5"
+msgstr "Kontrolní součet MD5 chybí, pro potlačení použijte přepínač --no-md5"
 
 #, c-format
 msgid "Need to get %.1f%s of archives.\n"
@@ -252,173 +253,173 @@ msgid "Need to get %.1f%s/%.1f%s of archives.\n"
 msgstr "Je třeba získat %.1f%s/%.1f%s of archivů.\n"
 
 msgid "No key for verification"
-msgstr "No key for verification"
+msgstr "Žádný klíč k ověření"
 
 #, c-format
 msgid "No such package: %s\n"
-msgstr "Neznám takový balík: %s\n"
+msgstr "Balíček s názvem %s je neznámý\n"
 
 #, c-format
 msgid "Not Found\n"
-msgstr "Not Found\n"
+msgstr "Nenalezeno\n"
 
 msgid "Not Verified: CRL too old"
-msgstr ""
+msgstr "Neověřeno: seznam CRL je příliš starý"
 
 msgid "Not Verified: bad policy"
-msgstr ""
+msgstr "Neověřeno: špatné zásady"
 
 msgid "Not Verified: key expired"
-msgstr "Nelze ověřit: klíč vypršel"
+msgstr "Neověřeno: klíč vypršel"
 
 msgid "Not Verified: key revoked"
-msgstr "Nelze ověřit: klíč zrušen"
+msgstr "Neověřeno: klíč zrušen"
 
 msgid "Not Verified: missing CRL"
-msgstr "Nelze ověřit: chybějící CRL"
+msgstr "Neověřeno: chybějící seznam CRL"
 
 msgid "Not Verified: signature expired"
-msgstr "Nelze ověřit: podpis vypršel"
+msgstr "Neověřeno: podpis vypršel"
 
 msgid "Not Verified: system error"
-msgstr "Nelze ověřit: systémová chyba"
+msgstr "Neověřeno: systémová chyba"
 
 msgid "Not verified: null context"
-msgstr "Nelze ověřit: prázdný obsah"
+msgstr "Neověřeno: prázdný obsah"
 
 msgid "Official"
-msgstr "Official"
+msgstr "Oficiální"
 
 msgid "Official Patch"
-msgstr "Official Patch"
+msgstr "Oficiální patch"
 
 #, c-format
 msgid "Options:\n"
 msgstr "Přepínače:\n"
 
 msgid "Package ChangeLog"
-msgstr "Package ChangeLog"
+msgstr "Protokol o změnách balíčku"
 
 #, c-format
 msgid "Package Conflicts: %s\n"
-msgstr "Balík koliduje s: %s\n"
+msgstr "Balíček koliduje s: %s\n"
 
 #, c-format
 msgid "Package Description:\n"
-msgstr "Popis balíku:\n"
+msgstr "Popis balíčku:\n"
 
 #, c-format
 msgid "Package Installed Size: %d K\n"
-msgstr "Velikost nainstalovaného balíku: %d K\n"
+msgstr "Velikost nainstalovaného balíčku: %d K\n"
 
 #, c-format
 msgid "Package Installed: %s\n"
-msgstr "Nainstalované balíky: %s\n"
+msgstr "Nainstalované balíčky: %s\n"
 
 #, c-format
 msgid "Package Location: %s\n"
-msgstr "Umístění balíku: %s\n"
+msgstr "Umístění balíčku: %s\n"
 
 #, c-format
 msgid "Package MD5 Sum:  %s\n"
-msgstr "MD5 součet balíku:  %s\n"
+msgstr "MD5 součet balíčku:  %s\n"
 
 #, c-format
 msgid "Package Mirror: %s\n"
-msgstr "Zrcadlo balíku: %s\n"
+msgstr "Zrcadlo balíčku: %s\n"
 
 #, c-format
 msgid "Package Name: %s\n"
-msgstr "Jméno balíku: %s\n"
+msgstr "Název balíčku: %s\n"
 
 #, c-format
 msgid "Package Priority: %s\n"
-msgstr "Package Priority: %s\n"
+msgstr "Priorita balíčku: %s\n"
 
 #, c-format
 msgid "Package Required: %s\n"
-msgstr "Potřebné balíky: %s\n"
+msgstr "Vyžadované balíčky: %s\n"
 
 #, c-format
 msgid "Package Size: %d K\n"
-msgstr "Velikost balíku: %d K\n"
+msgstr "Velikost balíčku: %d K\n"
 
 #, c-format
 msgid "Package Suggests: %s\n"
-msgstr "Balík navrhuje: %s\n"
+msgstr "Balíček navrhuje: %s\n"
 
 #, c-format
 msgid "Package Version: %s\n"
-msgstr "Verze balíku: %s\n"
+msgstr "Verze balíčku: %s\n"
 
 #, c-format
 msgid "Perhaps you want to run --update?\n"
-msgstr "Možná chcete spustit s --update?\n"
+msgstr "Možná chcete spustit s přepínačem --update?\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr "Prosím upravte práva k %s nebo spusťte s příslušnými právy.\n"
+msgstr "Upravte práva k položce %s nebo spusťte s příslušnými právy.\n"
 
 msgid "Preferred"
-msgstr "Preferred"
+msgstr "Preferovaný"
 
 msgid "Preferred Patch"
-msgstr "Preferred Patch"
+msgstr "Preferovaný patch"
 
 #, c-format
 msgid "Preparing to install %s-%s\n"
-msgstr "Připravuji k instalaci %s-%s\n"
+msgstr "Příprava k instalaci %s-%s\n"
 
 #, c-format
 msgid "Preparing to replace %s-%s with %s-%s\n"
-msgstr "Připravuji k nahrazení %s-%s pomocí %s-%s\n"
+msgstr "Příprava k nahrazení %s-%s balíčkem %s-%s\n"
 
 #, c-format
 msgid "Reading Package Lists..."
-msgstr "Načítám seznam balíků..."
+msgstr "Načítání seznam balíčků..."
 
 #, c-format
 msgid "Regex Error: %s\n"
-msgstr "Chyba Regexu: %s\n"
+msgstr "Chyba v regulárním výrazu: %s\n"
 
 #, c-format
 msgid "Retrieving ChangeLog.txt [%s]..."
-msgstr "Retrieving ChangeLog.txt [%s]..."
+msgstr "Získávání souboru ChangeLog.txt [%s]..."
 
 #, c-format
 msgid "Retrieving GPG key [%s]..."
-msgstr "Retrieving GPG key [%s]..."
+msgstr "Získávání klíče GPG [%s]..."
 
 #, c-format
 msgid "Retrieving checksum list [%s]..."
-msgstr "Stahuji seznam kontrolních součtů [%s]..."
+msgstr "Získávání seznamu kontrolních součtů [%s]..."
 
 #, c-format
 msgid "Retrieving checksum signature [%s]..."
-msgstr "Retrieving checksum signature [%s]..."
+msgstr "Získávání podpisu kontrolních součtů [%s]..."
 
 #, c-format
 msgid "Retrieving package data [%s]..."
-msgstr "Stahuji popisy balíků [%s]..."
+msgstr "Získávání dat balíčků [%s]..."
 
 #, c-format
 msgid "Retrieving patch list [%s]..."
-msgstr "Stahuji seznam oprav [%s]..."
+msgstr "Získávání seznamu patchů [%s]..."
 
 #, c-format
 msgid "SOURCE directive not set within %s.\n"
-msgstr "SOURCE není nastaven uvnitř %s.\n"
+msgstr "Direktiva SOURCE není nastavena v %s.\n"
 
 msgid "Signature not read"
-msgstr "Podpis nelze přečíst"
+msgstr "Podpis nebyl přečten"
 
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr "Zdroje se nepodařilo stáhnout, opravte zdroje a spusťte s --update\n"
+msgstr "Zdroje se nepodařilo stáhnout, opravte zdroje a spusťte s přepínačem --update\n"
 
 #, c-format
 msgid "Suggested packages:\n"
-msgstr "Navrhované balíky:\n"
+msgstr "Navrhované balíčky:\n"
 
 #, c-format
 msgid "Targets:\n"
@@ -426,86 +427,86 @@ msgstr "Cíle:\n"
 
 #, c-format
 msgid "The following NEW packages will be installed:\n"
-msgstr "Následující NOVÉ balíky budou nainstalovány:\n"
+msgstr "Nainstalovány budou tyto NOVÉ balíčky:\n"
 
 #, c-format
 msgid "The following packages have been EXCLUDED:\n"
-msgstr "Následující balíky byly VYLOUČENY:\n"
+msgstr "Tyto balíčky byly VYLOUČENY:\n\n"
 
 #, c-format
 msgid "The following packages have unmet dependencies:\n"
-msgstr "Následující balíky mají nesplněné závislosti:\n"
+msgstr "Tyto balíčky nesplnily závislosti:\n\n"
 
 #, c-format
 msgid "The following packages will be REMOVED:\n"
-msgstr "Následující balíky budou ODSTRAŇENY:\n"
+msgstr "Tyto balíčky budou ODSTRANĚNY:\n\n"
 
 #, c-format
 msgid "The following packages will be reinstalled:\n"
-msgstr "The following packages will be reinstalled:\n"
+msgstr "Tyto balíčky budou přeinstalovány:\n\n"
 
 #, c-format
 msgid "The following packages will be upgraded:\n"
-msgstr "Následující balíky budou POVÝŠENY:\n"
+msgstr "Tyto balíčky budou UPGRADOVÁNY:\n\n"
 
 msgid "Unknown error"
-msgstr "Unknown error"
+msgstr "Neznámá chyba"
 
 #, c-format
 msgid "Usage:\n"
 msgstr "Použití:\n"
 
 msgid "Verified"
-msgstr "Verified"
+msgstr "Ověřený"
 
 #, c-format
 msgid "Verifying checksum signature [%s]..."
-msgstr "Verifying checksum signature [%s]..."
+msgstr "Ověřování podpisu kontrolních součtů [%s]..."
 
 #, c-format
 msgid "WORKINGDIR directive not set within %s.\n"
-msgstr "WORKINGDIR není nastaven uvnitř %s.\n"
+msgstr "Direktiva WORKINGDIR není nastavena v %s.\n\n"
 
 #, c-format
 msgid "You don't have enough free space in %s\n"
-msgstr "Na %s není dostatek volného místa\n"
+msgstr "Na disku %s není dostatek volného místa\n"
 
 msgid "[disk set(s)] - install specified disk set(s)"
-msgstr "[disk set(s)] - install specified disk set(s)"
+msgstr "[sady disků] - nainstaluje zadané sady disků"
 
 msgid "[expression] - search available pkgs"
-msgstr "[výraz] - prohledá dostupné balíky"
+msgstr "[výraz] - prohledá dostupné balíčky"
 
 msgid "[pkg name(s)] - install specified pkg(s)"
-msgstr "[jméno balíku(ů)] - instaluje zadaný balík(y)"
+msgstr "[názvy balíčků] - nainstaluje zadané balíčky"
 
 msgid "[pkg name(s)] - remove specified pkg(s)"
-msgstr "[jméno balíku(ů)] - odstraní zadaný balík(y)"
+msgstr "[názvy balíčků] - odstraní zadané balíčky"
 
 msgid "[pkg name(s)] - show pkg(s) description"
-msgstr ""
+msgstr "[názvy balíčků] - zobrazí popis zadaných balíčků"
 
 msgid "[pkg name(s)] - show pkg(s) installed files"
-msgstr ""
+msgstr "[názvy balíčků] - zobrazí soubory nainstalovaných balíčků"
 
 msgid "allow unauthenticated packages"
-msgstr ""
+msgstr "povolit neautentizované balíčky"
 
 msgid "always prompt during install/upgrade"
-msgstr "always prompt during install/upgrade"
+msgstr "vždy se dotazovat v průběhu instalace/upgradu"
 
 msgid "display this help and exit"
-msgstr ""
+msgstr "zobrazí tuto nápovědu a ukončí se"
 
 msgid "do not perform md5 check sum"
-msgstr "neprovádí md5 kontrolní součet"
+msgstr "neprovádět kontrolní součet md5"
 
 msgid "do not prompt during install/upgrade"
-msgstr "nedotazuje se v průběhu instalace/povýšení"
+msgstr "nedotazovat se v průběhu instalace/upgradu"
 
 #, c-format
 msgid "error attempting to read pkg description\n"
-msgstr "chyba při pokusu přečíst popis balíku\n"
+msgstr "chyba při pokusu o přečtení popisu balíčku\n"
 
 #, c-format
 msgid "getline reached EOF attempting to read location\n"
@@ -520,22 +521,22 @@ msgid "getline reached EOF attempting to read size_u\n"
 msgstr "getline dosáhl konce souboru pri pokusu načíst size_u\n"
 
 msgid "ignore dependency failures"
-msgstr "ignoruje chyby závislostí"
+msgstr "ignorovat chyby závislostí"
 
 msgid "install package, do not attempt to upgrade"
-msgstr "install package, do not attempt to upgrade"
+msgstr "nainstalovat balíček, nepokoušet se o upgrade"
 
 msgid "install/upgrade excludes"
-msgstr "instalace/povýšení vynechá"
+msgstr "instalace/upgrade vyloučí"
 
 msgid "list available pkgs"
-msgstr "vypíše dostupné balíky"
+msgstr "vypsat dostupné balíčky"
 
 msgid "list installed pkgs"
-msgstr "vypíše nainstalované balíky"
+msgstr "vypsat nainstalované balíčky"
 
 msgid "list pkgs"
-msgstr "vypíše balíky"
+msgstr "vypsat balíčky"
 
 #, c-format
 msgid "md5 sum too long\n"
@@ -545,27 +546,27 @@ msgid "no"
 msgstr "ne"
 
 msgid "only download pkg on install/upgrade"
-msgstr "pouze stáhne balíky pro instalaci/povýšení"
+msgstr "pouze stáhnout balíčky pro instalaci/upgrade"
 
 msgid "only purge cache of older, unreacheable pkgs"
-msgstr "vyčistí pouze cache starých, nedostupnách balíků"
+msgstr "vyčistit pouze mezipaměť starých, nedostupných balíčků"
 
 #, c-format
 msgid "pkg conditional too long\n"
-msgstr "podmínka balíku příliš dlouhá\n"
+msgstr "podmínka balíčku je příliš dlouhá\n"
 
 msgid "print URIs only, do not download"
-msgstr "pouze vypíše URI, nestahuje"
+msgstr "pouze vypsat identifikátor URI, nestahovat"
 
 msgid "print version and license info"
-msgstr "zobrazí informace o verzi a licenci"
+msgstr "zobrazit informace o verzi a licenci"
 
 msgid "purge cached pkgs"
-msgstr "vyčistí balíkovou cache"
+msgstr "vyčistit mezipaměť balíčků"
 
 #, c-format
 msgid "regex failed on [%s]\n"
-msgstr "regex neuspěl na [%s]\n"
+msgstr "chyba v regulárním výrazu na [%s]\n"
 
 #, c-format
 msgid "regexec failed to parse location\n"
@@ -580,37 +581,37 @@ msgid "regexec failed to parse size_u\n"
 msgstr "regexec neuspěl s analyzováním size_u\n"
 
 msgid "reinstall the pkg"
-msgstr "přeinstalovat pkg"
+msgstr "přeinstalovat balíček"
 
 msgid "remove obsolete packages"
-msgstr "odstraní zastaralé balíky"
+msgstr "odstranit zastaralé balíčky"
 
 msgid "retrieve GPG keys for sources"
-msgstr "retrieve GPG keys for sources"
+msgstr "získat klíče GPG pro zdrojové kódy"
 
 msgid "retrieve pkg data from MIRROR"
-msgstr ""
+msgstr "získat data balíčku za ZRCADLA"
 
 msgid "show download statistics"
-msgstr "zobrazí statistiku stahování"
+msgstr "zobrazit statistiku stahování"
 
 msgid "show pkgs to be installed/upgraded"
-msgstr "zobrazí balíky k instalaci/povýšení"
+msgstr "zobrazit balíčky k instalaci/upgradu"
 
 msgid "skip dependency check"
-msgstr "přeskočí kontrolu závislostí"
+msgstr "přeskočit kontrolu závislostí"
 
 msgid "specify alternate slapt-getrc location"
-msgstr "specifikujte náhradní umístění slapt-getrc"
+msgstr "zadejte náhradní umístění slapt-getrc"
 
 msgid "specify number of download retry attempts"
-msgstr "specify number of download retry attempts"
+msgstr "zadejte počet pokusů o opakování stažení"
 
 msgid "upgrade installed pkgs"
-msgstr "povýší nainstalované balíky"
+msgstr "upgradovat nainstalované balíčky"
 
 msgid "upgrade to newer release"
-msgstr "povýší na novější vydání"
+msgstr "upgradovat na novější vydání"
 
 msgid "yes"
 msgstr "ano"
