@@ -1,5 +1,6 @@
 
-0.10.2s Nov  30, 2015
+0.10.2s Dec  20, 2015
+ * update essential package list for dist-upgrade
  * add SLAPT_NO_SSL_VERIFYPERR environment check
 
 0.10.2r Jul  05, 2014
