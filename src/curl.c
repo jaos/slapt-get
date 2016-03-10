@@ -78,7 +78,6 @@ int slapt_download_data(FILE *fh,const char *url,size_t bytes,long *filetime,
   }
 
   if ((response = curl_easy_perform(ch)) != CURLE_OK) {
-    fprintf(stderr, "%s... ", curl_easy_strerror(response));
     return_code = response;
   }
 
