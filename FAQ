@@ -1271,7 +1271,7 @@ Frequently Asked Questions:
 
  Self signed certificates that cannot be verified cause libcurl to fail the connection.
 
- To disable this, set the SLAPT_NO_SSL_VERIFYPERR environment variable.
+ To disable this, set the SLAPT_NO_SSL_VERIFYPEER environment variable.
 
  See also http://curl.haxx.se/libcurl/c/CURLOPT_SSL_VERIFYPEER.html
 

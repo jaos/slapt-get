@@ -1,4 +1,7 @@
 
+0.10.2t Mar  09, 2016
+ * fix typo s/SLAPT_NO_SSL_VERIFYPERR/SLAPT_NO_SSL_VERIFYPEER/
+
 0.10.2s Dec  20, 2015
  * update essential package list for dist-upgrade
  * add SLAPT_NO_SSL_VERIFYPERR environment check

@@ -1,5 +1,5 @@
 PACKAGE=slapt-get
-VERSION=0.10.2s
+VERSION=0.10.2t
 ARCH?=$(shell gcc -dumpmachine | cut -f1 -d- | sed -e "s/i[3456]86/i386/")
 LIBDIR=$(shell dirname $$(gcc -print-file-name=libcrypto.so))
 RELEASE=1

@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#define SLAPT_NO_SSL_VERIFYPEER "SLAPT_NO_SSL_VERIFYPERR"
+#define SLAPT_NO_SSL_VERIFYPEER "SLAPT_NO_SSL_VERIFYPEER"
 
 /*
   download data to file, resuming from bytes and preserving filetime.
