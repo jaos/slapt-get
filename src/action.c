@@ -449,7 +449,9 @@ void slapt_pkg_action_show(const char *pkg_name)
     free(p_name);
     free(p_version);
 
-  } else {
+  }
+
+  if ( pkg == NULL ) {
     slapt_pkg_info_t *installed_pkg = slapt_get_newest_pkg(installed_pkgs,pkg_name);
     pkg = slapt_get_newest_pkg(avail_pkgs,pkg_name);
     if ( pkg == NULL )

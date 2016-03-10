@@ -1,5 +1,6 @@
 
 0.10.2t Mar  09, 2016
+ * fall back to provided name if parsing version out fails to find a match with show package
  * fix typo s/SLAPT_NO_SSL_VERIFYPERR/SLAPT_NO_SSL_VERIFYPEER/
 
 0.10.2s Dec  20, 2015
