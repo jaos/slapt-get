@@ -4,14 +4,14 @@
 # Jason Woodward <woodwardj@jaos.org>
 # 
 # Translators:
-# Georgi Georgiev <georgiev_1994@abv.bg>, 2015
+# Georgi Georgiev <georgiev_1994@abv.bg>, 2015-2016
 # Victor Keranov <victor_keranov@mail.bg>, 2006
 msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2015-10-25 12:41+0000\n"
+"PO-Revision-Date: 2016-04-09 14:42+0000\n"
 "Last-Translator: Georgi Georgiev <georgiev_1994@abv.bg>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/jaos/slapt-get/language/bg/)\n"
 "MIME-Version: 1.0\n"
@@ -255,28 +255,28 @@ msgid "Not Found\n"
 msgstr "Not Found\n"
 
 msgid "Not Verified: CRL too old"
-msgstr ""
+msgstr "Не е проверено: CRL е твърде стар"
 
 msgid "Not Verified: bad policy"
-msgstr ""
+msgstr "Не е проверено: лоша политика"
 
 msgid "Not Verified: key expired"
-msgstr ""
+msgstr "Не е проверено: ключа е остарял"
 
 msgid "Not Verified: key revoked"
-msgstr ""
+msgstr "Не е проверено: ключа е отменен"
 
 msgid "Not Verified: missing CRL"
-msgstr ""
+msgstr "Не е проверено: липсва CRL"
 
 msgid "Not Verified: signature expired"
-msgstr ""
+msgstr "Не е проверено: подписа е остарял"
 
 msgid "Not Verified: system error"
-msgstr ""
+msgstr "Не е проверено: системна грешка"
 
 msgid "Not verified: null context"
-msgstr ""
+msgstr "Не е проверено: невалиден контекст"
 
 msgid "Official"
 msgstr "Official"
@@ -402,7 +402,7 @@ msgid "SOURCE directive not set within %s.\n"
 msgstr "SOURCE directive not set within %s.\n"
 
 msgid "Signature not read"
-msgstr ""
+msgstr "Подписа не се чете"
 
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
@@ -475,19 +475,19 @@ msgid "[pkg name(s)] - remove specified pkg(s)"
 msgstr "[име на пакет] - премахване на избран пакет"
 
 msgid "[pkg name(s)] - show pkg(s) description"
-msgstr ""
+msgstr "[име на пакет(и)] - покажи описанието на пакет(и)"
 
 msgid "[pkg name(s)] - show pkg(s) installed files"
-msgstr ""
+msgstr "[име на пакет(и)] - покажи инсталираните файлове на пакет(и)"
 
 msgid "allow unauthenticated packages"
-msgstr ""
+msgstr "разреши неудостоверени пакети"
 
 msgid "always prompt during install/upgrade"
 msgstr "искане на потвърждение при инсталиране/обновяване"
 
 msgid "display this help and exit"
-msgstr ""
+msgstr "покажи помощта и излез"
 
 msgid "do not perform md5 check sum"
 msgstr "без проверка на md5 сумите"
@@ -572,7 +572,7 @@ msgid "regexec failed to parse size_u\n"
 msgstr "regexec failed to parse size_u\n"
 
 msgid "reinstall the pkg"
-msgstr ""
+msgstr "преинсталирай пакета"
 
 msgid "remove obsolete packages"
 msgstr "премахване на остарели пакети (само при dist-upgrade)"
@@ -581,7 +581,7 @@ msgid "retrieve GPG keys for sources"
 msgstr "retrieve GPG keys for sources"
 
 msgid "retrieve pkg data from MIRROR"
-msgstr ""
+msgstr "изтегли данни за пакета от ОГЛЕДАЛОТО"
 
 msgid "show download statistics"
 msgstr "показване на статистиката на теглене"
