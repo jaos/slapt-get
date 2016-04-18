@@ -13,6 +13,9 @@ SOURCE=ftp://ftp.arm.slackware.com/slackwarearm/slackwarearm-14.2/:OFFICIAL
 #SOURCE=ftp://ftp.arm.slackware.com/slackwarearm/slackwarearm-14.1/:OFFICIAL
 #SOURCE=ftp://ftp.arm.slackware.com/slackwarearm/slackwarearm-14.0/:OFFICIAL
 
+# Source for slapt-get.
+SOURCE=http://software.jaos.org/slackpacks/14.2-arm/:OFFICIAL
+
 # Packages on a CD/DVD.
 # SOURCE=file:///mnt/cdrom/:OFFICIAL
 
