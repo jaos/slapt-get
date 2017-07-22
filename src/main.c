@@ -266,12 +266,12 @@ int main( int argc, char *argv[] )
   switch(do_action) {
 
     /* can't simulate update, clean, autoclean, or add keys */
-    case CLEAN:  
-    case AUTOCLEAN:  
+    case CLEAN:
+    case AUTOCLEAN:
     #ifdef SLAPT_HAS_GPGME
-    case ADD_KEYS:  
+    case ADD_KEYS:
     #endif
-    case UPDATE:  
+    case UPDATE:
       global_config->simulate = SLAPT_FALSE;
       break;
 
@@ -281,6 +281,7 @@ int main( int argc, char *argv[] )
     case REMOVE:
         if (global_config->remove_obsolete == SLAPT_TRUE)
           break;
+        /* fall through */
 
     /* show, search, filelist must have arguments */
     case SHOW:
@@ -305,7 +306,7 @@ int main( int argc, char *argv[] )
 
   /* create the working directory if needed */
   slapt_working_dir_init(global_config);
-  if ((chdir(global_config->working_dir)) == -1) { 
+  if ((chdir(global_config->working_dir)) == -1) {
     fprintf(stderr,gettext("Failed to chdir: %s\n"),global_config->working_dir);
     exit(EXIT_FAILURE);
   }
