@@ -130,7 +130,7 @@ dopkg:
 	mkdir -p pkg/usr/man/man3
 	mkdir -p pkg/usr/man/ru/man8
 	mkdir -p pkg/usr/man/uk/man8
-	for i in `ls po/ --ignore=slapt-get.pot --ignore=CVS |sed 's/.po//'` ;do mkdir -p pkg$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES; msgfmt -o pkg$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES/slapt-get.mo po/$$i.po; done
+	for i in `ls po/ --ignore=slapt-get.pot --ignore='*~*' |sed 's/.po//'` ;do mkdir -p pkg$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES; msgfmt -o pkg$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES/slapt-get.mo po/$$i.po; done
 	cp -f $(PACKAGE) ./pkg/$(SBINDIR)
 	-chown $$(stat --format "%u:%g" /usr/sbin) ./pkg/$(SBINDIR)
 	-chown $$(stat --format "%u:%g" /usr/sbin) ./pkg/$(SBINDIR)/$(PACKAGE)
