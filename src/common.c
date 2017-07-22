@@ -103,7 +103,7 @@ void slapt_free_regex(slapt_regex_t *r)
 
 void slapt_gen_md5_sum_of_file(FILE *f,char *result_sum)
 {
-  EVP_MD_CTX mdctx;
+  EVP_MD_CTX *mdctx = NULL;
   const EVP_MD *md;
   unsigned char md_value[EVP_MAX_MD_SIZE];
   unsigned int md_len = 0, i;
@@ -114,18 +114,27 @@ void slapt_gen_md5_sum_of_file(FILE *f,char *result_sum)
 
   md = EVP_md5();
 
-  EVP_MD_CTX_init(&mdctx);
-  EVP_DigestInit_ex(&mdctx, md, NULL);
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+  mdctx = EVP_MD_CTX_new();
+#else
+  mdctx = slapt_malloc(sizeof *mdctx);
+  EVP_MD_CTX_init(mdctx);
+#endif
+  EVP_DigestInit_ex(mdctx, md, NULL);
 
   rewind(f);
 
   while ( (getline_read = getline(&getline_buffer, &getline_size, f)) != EOF )
-    EVP_DigestUpdate(&mdctx, getline_buffer, getline_read);
+    EVP_DigestUpdate(mdctx, getline_buffer, getline_read);
 
   free(getline_buffer);
 
-  EVP_DigestFinal_ex(&mdctx, md_value, &md_len);
-  EVP_MD_CTX_cleanup(&mdctx);
+  EVP_DigestFinal_ex(mdctx, md_value, &md_len);
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+  EVP_MD_CTX_free(mdctx);
+#else
+  free(mdctx);
+#endif
 
   result_sum[0] = '\0';
 
@@ -473,7 +482,7 @@ const char *slapt_search_list(slapt_list_t *list, const char *needle)
 void slapt_free_list(slapt_list_t *list)
 {
   unsigned int i;
-  
+
   for (i = 0; i < list->count; ++i) {
     free(list->items[i]);
   }
@@ -498,7 +507,7 @@ slapt_list_t *slapt_parse_delimited_list(char *line, char delim)
       if (line[position] == delim || isspace(line[position]) != 0) {
         ++position;
         continue;
-      } 
+      }
       end = strchr(start,delim);
     }
 
