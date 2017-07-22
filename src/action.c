@@ -804,6 +804,7 @@ static int cmp_pkg_arch(const char *a,const char *b)
 #ifdef SLAPT_HAS_GPGME
 void slapt_pkg_action_add_keys(const slapt_rc_config *global_config)
 {
+  int rc = 0;
   unsigned int s = 0, compressed = 0;
   for(s = 0; s < global_config->sources->count; s++)
   {
@@ -820,11 +821,16 @@ void slapt_pkg_action_add_keys(const slapt_rc_config *global_config)
         printf("%s.\n",gettext("GPG key successfully imported"));
       } else {
         printf("%s.\n",gettext("GPG key could not be imported"));
+        rc = 1;
       }
       
       fclose(gpg_key);
     }
 
+  }
+
+  if (rc) {
+    exit(EXIT_FAILURE);
   }
 
 }
