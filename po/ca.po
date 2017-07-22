@@ -1,0 +1,607 @@
+# slapt-get translation template
+# Copyright (C) 2003-2009
+# This file is distributed under the same license as the slapt-get package.
+# Jason Woodward <woodwardj@jaos.org>
+# 
+# Translators:
+# Davidmp <medipas@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: slapt-get\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-08-02 14:14+0000\n"
+"PO-Revision-Date: 2016-09-27 15:22+0000\n"
+"Last-Translator: Davidmp <medipas@gmail.com>\n"
+"Language-Team: Catalan (http://www.transifex.com/jaos/slapt-get/language/ca/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ca\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#, c-format
+msgid "  %s: Depends: %s\n"
+msgstr "  %s: Depèn: %s\n"
+
+#, c-format
+msgid "%d newly installed, "
+msgid_plural "%d newly installed, "
+msgstr[0] "%d d'instal·lat de nou, "
+msgstr[1] "%d d'instal·lats de nou, "
+
+#, c-format
+msgid "%d not upgraded.\n"
+msgid_plural "%d not upgraded.\n"
+msgstr[0] "i %d de no actualitzat.\n"
+msgstr[1] "i %d de no actualitzats.\n"
+
+#, c-format
+msgid "%d reinstalled, "
+msgid_plural "%d reinstalled, "
+msgstr[0] "%d de reinstal·lat, "
+msgstr[1] "%d de reinstal·lats, "
+
+#, c-format
+msgid "%d to remove, "
+msgid_plural "%d to remove, "
+msgstr[0] "%d per eliminar"
+msgstr[1] "%d per eliminar"
+
+#, c-format
+msgid "%d upgraded, "
+msgid_plural "%d upgraded, "
+msgstr[0] "%d d'actualitzat, "
+msgstr[1] "%d d'actualitzats, "
+
+#, c-format
+msgid "%s [option(s)] [target]\n"
+msgstr "%s [opcions] [objectiu]\n"
+
+#, c-format
+msgid "%s is not installed.\n"
+msgstr "%s no està instal·lat.\n"
+
+#, c-format
+msgid "%s is up to date.\n"
+msgstr "%s està actualitzat.\n"
+
+#, c-format
+msgid "%s version %s\n"
+msgstr "%s versió %s\n"
+
+#, c-format
+msgid "%s, which is required by %s, is excluded\n"
+msgstr "%s, que és requerit per %s, s'exclou\n"
+
+#, c-format
+msgid "%s, which is to be installed, conflicts with %s\n"
+msgstr "%s, que s'ha d'instal·lar, té conflicte amb %s\n"
+
+#, c-format
+msgid "%s-%s is to be installed\n"
+msgstr "%s-%s s'ha d'instal·lar\n"
+
+#, c-format
+msgid "%s-%s is to be removed\n"
+msgstr "%s-%s s'ha d'eliminar\n"
+
+#, c-format
+msgid "%s-%s is to be upgraded to version %s\n"
+msgstr "%s-%s s'ha d'actualitzar a la versió %s\n"
+
+msgid ", but accepted as an exception"
+msgstr ", però s'accepta com a excepció"
+
+#, c-format
+msgid "Abort.\n"
+msgstr "Avorta.\n"
+
+#, c-format
+msgid "After unpacking %.1f%s disk space will be freed.\n"
+msgstr "Després de desempaquetar-ho, s'alliberaran %.1f%s d'espai de disc.\n"
+
+#, c-format
+msgid "After unpacking %.1f%s of additional disk space will be used.\n"
+msgstr "Després de desempaquetar-ho, s'usaran %.1f%s d'espai de disc addicional.\n"
+
+#, c-format
+msgid "An implementation of the Debian APT system to Slackware\n"
+msgstr "Una implementació del sistema APT de Debian a Slackware\n"
+
+#, c-format
+msgid "Cached\n"
+msgstr "A la cau\n"
+
+msgid "Checksums not read"
+msgstr "No s'han llegit les sumes de verificació"
+
+msgid "Checksums signature could not be verified"
+msgstr "No s'han pogut verificar les sumes de comprovació de signatura."
+
+msgid "Checksums signature successfully verified"
+msgstr "Les sumes de comprovació de signatura s'han verificat correctament."
+
+msgid "Custom"
+msgstr "Personalitzat"
+
+msgid "Custom Patch"
+msgstr "Pedaç personalitzat"
+
+msgid "Default"
+msgstr "Per defecte"
+
+msgid "Default Patch"
+msgstr "Pedaç per defecte"
+
+#, c-format
+msgid "Delete %s ? [y/N]"
+msgstr "S'elimina %s ? [s/N]"
+
+msgid "Do you want to continue? [y/N] "
+msgstr "Voleu continuar? [s/N]"
+
+#, c-format
+msgid "Done\n"
+msgstr "Fet.\n"
+
+#, c-format
+msgid "Excluding %s, use --ignore-dep to override\n"
+msgstr "S'exclou %s, useu \"--ignore-dep\" per passar-ho per alt.\n"
+
+#, c-format
+msgid "Failed to build working directory [%s]\n"
+msgstr "Ha fallat construir el directori de treball [%s]\n"
+
+#, c-format
+msgid "Failed to calloc\n"
+msgstr "Ha fallat fer calloc\n"
+
+#, c-format
+msgid "Failed to chdir to %s\n"
+msgstr "Ha fallat fer chdir a %s\n"
+
+#, c-format
+msgid "Failed to chdir: %s\n"
+msgstr "Ha fallat fer chdir: %s\n"
+
+#, c-format
+msgid "Failed to compile regex\n"
+msgstr "Ha fallat compilar regex.\n"
+
+#, c-format
+msgid "Failed to download: %s\n"
+msgstr "Ha fallat la baixada: %s\n"
+
+#, c-format
+msgid "Failed to execute command: [%s]\n"
+msgstr "Ha fallat executar l'ordre: [%s]\n"
+
+#, c-format
+msgid "Failed to get cwd\n"
+msgstr "Ha fallat obtenir cwd\n"
+
+#, c-format
+msgid "Failed to malloc\n"
+msgstr "Ha fallat fer malloc\n"
+
+#, c-format
+msgid "Failed to mkdir: %s\n"
+msgstr "Ha fallat fer mkdir: %s\n"
+
+#, c-format
+msgid "Failed to open %s\n"
+msgstr "Ha fallat obrir %s\n"
+
+#, c-format
+msgid "Failed to opendir %s\n"
+msgstr "Ha fallat fer opendir %s\n"
+
+#, c-format
+msgid "Failed to parse package data from %s\n"
+msgstr "Ha fallat analitzar les dades del paquet de %s\n"
+
+#, c-format
+msgid "Failed to realloc %s\n"
+msgstr "Ha fallat fer realloc %s\n"
+
+#, c-format
+msgid "Failed to unlink %s\n"
+msgstr "Ha fallat desenllaçar %s\n"
+
+msgid "GPG key already present"
+msgstr "Clau GPG ja present"
+
+msgid "GPG key could not be imported"
+msgstr "No s'ha pogut importar la clau GPG."
+
+msgid "GPG key successfully imported"
+msgstr "S'ha importat la clau GPG correctament."
+
+#, c-format
+msgid "Get %s %s %s [%.1f%s]..."
+msgstr "S'obté %s %s %s [%.1f%s]..."
+
+msgid "Incomplete download"
+msgstr "Baixada incompleta"
+
+#, c-format
+msgid "Installed %s conflicts with %s\n"
+msgstr "L'instal·lat %s té conflicte amb %s\n"
+
+msgid "MD5 checksum mismatch, override with --no-md5"
+msgstr "No hi ha coincidència de sumes MD5, es passa per alt amb \"--no-md5\"."
+
+msgid "Missing MD5 checksum, override with --no-md5"
+msgstr "Falta la suma MD5, es passa per alt amb \"--no-md5\"."
+
+#, c-format
+msgid "Need to get %.1f%s of archives.\n"
+msgstr "Cal obtenir %.1f%s d'arxius.\n"
+
+#, c-format
+msgid "Need to get %.1f%s/%.1f%s of archives.\n"
+msgstr "Cal obtenir %.1f%s/%.1f%s d'arxius.\n"
+
+msgid "No key for verification"
+msgstr "No hi ha clau per a la verificació."
+
+#, c-format
+msgid "No such package: %s\n"
+msgstr "No hi ha tal paquet: %s\n"
+
+#, c-format
+msgid "Not Found\n"
+msgstr "No s'ha trobat.\n"
+
+msgid "Not Verified: CRL too old"
+msgstr "No verificat: CRL massa antiga."
+
+msgid "Not Verified: bad policy"
+msgstr "No verificat: mala política."
+
+msgid "Not Verified: key expired"
+msgstr "No verificat: clau caducada."
+
+msgid "Not Verified: key revoked"
+msgstr "No verificat: clau revocada."
+
+msgid "Not Verified: missing CRL"
+msgstr "No verificat: falta la CRL."
+
+msgid "Not Verified: signature expired"
+msgstr "No verificat: signatura caducada."
+
+msgid "Not Verified: system error"
+msgstr "No verificat: error del sistema."
+
+msgid "Not verified: null context"
+msgstr "No verificat: context nul."
+
+msgid "Official"
+msgstr "Oficial"
+
+msgid "Official Patch"
+msgstr "Pedaç oficial"
+
+#, c-format
+msgid "Options:\n"
+msgstr "Opcions:\n"
+
+msgid "Package ChangeLog"
+msgstr "Registre de canvis del paquet"
+
+#, c-format
+msgid "Package Conflicts: %s\n"
+msgstr "Conflictes del paquet: %s\n"
+
+#, c-format
+msgid "Package Description:\n"
+msgstr "Descripció del paquet:\n"
+
+#, c-format
+msgid "Package Installed Size: %d K\n"
+msgstr "Mida del paquet un cop instal·lat: %d K\n"
+
+#, c-format
+msgid "Package Installed: %s\n"
+msgstr "Paquet instal·lat: %s\n"
+
+#, c-format
+msgid "Package Location: %s\n"
+msgstr "Ubicació del paquet: %s\n"
+
+#, c-format
+msgid "Package MD5 Sum:  %s\n"
+msgstr "Suma MD5 del paquet: %s\n"
+
+#, c-format
+msgid "Package Mirror: %s\n"
+msgstr "Rèplica del paquet: %s\n"
+
+#, c-format
+msgid "Package Name: %s\n"
+msgstr "Nom del paquet: %s\n"
+
+#, c-format
+msgid "Package Priority: %s\n"
+msgstr "Prioritat del paquet: %s\n"
+
+#, c-format
+msgid "Package Required: %s\n"
+msgstr "Paquet requerit: %s\n"
+
+#, c-format
+msgid "Package Size: %d K\n"
+msgstr "Mida del paquet: %d K\n"
+
+#, c-format
+msgid "Package Suggests: %s\n"
+msgstr "El paquet suggereix...: %s\n"
+
+#, c-format
+msgid "Package Version: %s\n"
+msgstr "Versió del paquet: %s\n"
+
+#, c-format
+msgid "Perhaps you want to run --update?\n"
+msgstr "Potser voleu executar \"--update\"?\n"
+
+#, c-format
+msgid "Please update permissions on %s or run with appropriate privileges\n"
+msgstr "Si us plau, actualitzeu els permisos a %s o executeu-ho amb els privilegis apropiats.\n"
+
+msgid "Preferred"
+msgstr "Preferit"
+
+msgid "Preferred Patch"
+msgstr "Pedaç preferit"
+
+#, c-format
+msgid "Preparing to install %s-%s\n"
+msgstr "Preparant per instal·lar %s-%s\n"
+
+#, c-format
+msgid "Preparing to replace %s-%s with %s-%s\n"
+msgstr "Preparant per reemplaçar %s-%s per %s-%s\n"
+
+#, c-format
+msgid "Reading Package Lists..."
+msgstr "Es llegeixen les llistes de paquets..."
+
+#, c-format
+msgid "Regex Error: %s\n"
+msgstr "Error de regex: %s\n"
+
+#, c-format
+msgid "Retrieving ChangeLog.txt [%s]..."
+msgstr "Es recupera ChangeLog.txt [%s]..."
+
+#, c-format
+msgid "Retrieving GPG key [%s]..."
+msgstr "Es recupera la clau GPG [%s]..."
+
+#, c-format
+msgid "Retrieving checksum list [%s]..."
+msgstr "Es recupera la llista de sumes de verificació [%s]..."
+
+#, c-format
+msgid "Retrieving checksum signature [%s]..."
+msgstr "Es recupera la signatura de la suma de verificació [%s]..."
+
+#, c-format
+msgid "Retrieving package data [%s]..."
+msgstr "Es recuperen dades de paquets [%s]..."
+
+#, c-format
+msgid "Retrieving patch list [%s]..."
+msgstr "Es recupera la llista de pedaços [%s]..."
+
+#, c-format
+msgid "SOURCE directive not set within %s.\n"
+msgstr "Directiva de la FONT no establerta dins %s.\n"
+
+msgid "Signature not read"
+msgstr "Signatura no llegida"
+
+#, c-format
+msgid "Sources failed to download, correct sources and rerun --update\n"
+msgstr "Ha fallat baixar les fonts, corregiu-les i torneu a executar \"--update\".\n"
+
+#, c-format
+msgid "Suggested packages:\n"
+msgstr "Paquets suggerits:\n"
+
+#, c-format
+msgid "Targets:\n"
+msgstr "Objectius:\n"
+
+#, c-format
+msgid "The following NEW packages will be installed:\n"
+msgstr "S'instal·laran els paquets NOUS següents:\n"
+
+#, c-format
+msgid "The following packages have been EXCLUDED:\n"
+msgstr "Els paquets següents s'han EXCLÒS:\n"
+
+#, c-format
+msgid "The following packages have unmet dependencies:\n"
+msgstr "Els paquets següents tenen dependències no resoltes:\n"
+
+#, c-format
+msgid "The following packages will be REMOVED:\n"
+msgstr "Els paquets següents S'ELIMINARAN:\n"
+
+#, c-format
+msgid "The following packages will be reinstalled:\n"
+msgstr "Els paquets següents es reinstal·laran:\n"
+
+#, c-format
+msgid "The following packages will be upgraded:\n"
+msgstr "Els paquets següents s'actualitzaran:\n"
+
+msgid "Unknown error"
+msgstr "Error desconegut"
+
+#, c-format
+msgid "Usage:\n"
+msgstr "Ús:\n"
+
+msgid "Verified"
+msgstr "Verificat"
+
+#, c-format
+msgid "Verifying checksum signature [%s]..."
+msgstr "Es verifica la signatura de la suma de verificació [%s]..."
+
+#, c-format
+msgid "WORKINGDIR directive not set within %s.\n"
+msgstr "Directiva WORKINGDIR no establerta dins %s.\n"
+
+#, c-format
+msgid "You don't have enough free space in %s\n"
+msgstr "No teniu prou espai lliure a %s\n"
+
+msgid "[disk set(s)] - install specified disk set(s)"
+msgstr "[conjunt(s) de disc] - instal·la conjunts de disc especificats"
+
+msgid "[expression] - search available pkgs"
+msgstr "[expressió] - cerca els paquets disponibles"
+
+msgid "[pkg name(s)] - install specified pkg(s)"
+msgstr "[nom(s) de paquet] - instal·la els paquets especificats"
+
+msgid "[pkg name(s)] - remove specified pkg(s)"
+msgstr "[nom(s) de paquet] - elimina els paquets especificats"
+
+msgid "[pkg name(s)] - show pkg(s) description"
+msgstr "[nom(s) de paquet] - visualitza la descripció dels paquets"
+
+msgid "[pkg name(s)] - show pkg(s) installed files"
+msgstr "[nom(s) de paquet] - visualitza els fitxers dels paquets instal·lats"
+
+msgid "allow unauthenticated packages"
+msgstr "permet paquets no autenticats"
+
+msgid "always prompt during install/upgrade"
+msgstr "pregunta sempre durant la instal·lació / actualització"
+
+msgid "display this help and exit"
+msgstr "visualitza aquesta ajuda i surt"
+
+msgid "do not perform md5 check sum"
+msgstr "no comprovis la suma de verificació md5"
+
+msgid "do not prompt during install/upgrade"
+msgstr "no preguntis durant la instal·lació / actualització"
+
+#, c-format
+msgid "error attempting to read pkg description\n"
+msgstr "error intentant llegir la descripció del paquet\n"
+
+#, c-format
+msgid "getline reached EOF attempting to read location\n"
+msgstr "getline ha arribat al final del fitxer (EOF) intentant llegir la ubicació\n"
+
+#, c-format
+msgid "getline reached EOF attempting to read size_c\n"
+msgstr "getline ha arribat al final del fitxer (EOF) intentant llegir la mida_c\n"
+
+#, c-format
+msgid "getline reached EOF attempting to read size_u\n"
+msgstr "getline ha arribat al final del fitxer (EOF) intentant llegir la mida_u\n"
+
+msgid "ignore dependency failures"
+msgstr "ignora les fallades de dependència"
+
+msgid "install package, do not attempt to upgrade"
+msgstr "instal·la el paquet, no n'intentis l'actualització"
+
+msgid "install/upgrade excludes"
+msgstr "instal·lar / actualitzar exclou"
+
+msgid "list available pkgs"
+msgstr "llista els paquets disponibles"
+
+msgid "list installed pkgs"
+msgstr "llista els paquets instal·lats"
+
+msgid "list pkgs"
+msgstr "llista els paquets"
+
+#, c-format
+msgid "md5 sum too long\n"
+msgstr "suma md5 massa llarga\n"
+
+msgid "no"
+msgstr "no"
+
+msgid "only download pkg on install/upgrade"
+msgstr "baixa només els paquets en instal·lar / actualitzar"
+
+msgid "only purge cache of older, unreacheable pkgs"
+msgstr "purga només la cau dels paquets més antics, inabastables"
+
+#, c-format
+msgid "pkg conditional too long\n"
+msgstr "condicional del paquet massa llarg\n"
+
+msgid "print URIs only, do not download"
+msgstr "imprimeix només URIs, no baixis res"
+
+msgid "print version and license info"
+msgstr "imprimeix la versió i la informació de la llicència"
+
+msgid "purge cached pkgs"
+msgstr "purga els paquets de la cau"
+
+#, c-format
+msgid "regex failed on [%s]\n"
+msgstr "regex ha fallat a [%s]\n"
+
+#, c-format
+msgid "regexec failed to parse location\n"
+msgstr "regexec no ha pogut analitzar la ubicació\n"
+
+#, c-format
+msgid "regexec failed to parse size_c\n"
+msgstr "regexec no ha pogut analitzar la mida_c\n"
+
+#, c-format
+msgid "regexec failed to parse size_u\n"
+msgstr "regexec no ha pogut analitzar la mida d'_u\n"
+
+msgid "reinstall the pkg"
+msgstr "reinstal·la el paquet"
+
+msgid "remove obsolete packages"
+msgstr "elimina els paquets obsolets"
+
+msgid "retrieve GPG keys for sources"
+msgstr "recupera claus GPG per a les fonts"
+
+msgid "retrieve pkg data from MIRROR"
+msgstr "recupera dades de paquet de la RÈPLICA"
+
+msgid "show download statistics"
+msgstr "visualitza les estadístiques de baixada"
+
+msgid "show pkgs to be installed/upgraded"
+msgstr "visualitza els paquets per instal·lar / actualitzar"
+
+msgid "skip dependency check"
+msgstr "omet la comprovació de dependències"
+
+msgid "specify alternate slapt-getrc location"
+msgstr "especifica una ubicació alternativa d'slapt-getrc"
+
+msgid "specify number of download retry attempts"
+msgstr "especifica el nombre de reintents de baixada"
+
+msgid "upgrade installed pkgs"
+msgstr "actualitza els paquets instal·lats"
+
+msgid "upgrade to newer release"
+msgstr "actualitza a una versió nova"
+
+msgid "yes"
+msgstr "sí"
