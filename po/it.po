@@ -4,16 +4,17 @@
 # Jason Woodward <woodwardj@jaos.org>
 # 
 # Translators:
+# Antonio Sardei <laplume@libero.it>, 2016
 # Francesco Gigli <jaramir@slack.it>, 2004
-# Updated by Stefano Ansaloni <ansalonistefano@gmail.com>, 2011
+# Ansa89, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2013-11-20 10:39+0000\n"
-"Last-Translator: Jason Woodward <woodwardj@jaos.org>\n"
-"Language-Team: Italian (http://www.transifex.com/projects/p/slapt-get/language/it/)\n"
+"PO-Revision-Date: 2017-09-19 14:08+0000\n"
+"Last-Translator: Antonio Sardei <laplume@libero.it>\n"
+"Language-Team: Italian (http://www.transifex.com/jaos/slapt-get/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -28,7 +29,7 @@ msgstr "  %s: Dipende da: %s\n"
 msgid "%d newly installed, "
 msgid_plural "%d newly installed, "
 msgstr[0] "%d nuovo pacchetto da installare, "
-msgstr[1] "%d nuovi pacchetti da installare, "
+msgstr[1] "%d nuovi pacchetti installati, "
 
 #, c-format
 msgid "%d not upgraded.\n"
@@ -91,7 +92,7 @@ msgid "%s-%s is to be upgraded to version %s\n"
 msgstr "%s-%s è da aggiornare alla versione %s\n"
 
 msgid ", but accepted as an exception"
-msgstr ""
+msgstr ", ma accettato come eccezione"
 
 #, c-format
 msgid "Abort.\n"
@@ -99,7 +100,7 @@ msgstr "Annulla.\n"
 
 #, c-format
 msgid "After unpacking %.1f%s disk space will be freed.\n"
-msgstr "Dopo l'installazione %.1f%s di sazio sul disco saranno liberati.\n"
+msgstr "Dopo l'installazione %.1f%s di spazio sul disco saranno liberati.\n"
 
 #, c-format
 msgid "After unpacking %.1f%s of additional disk space will be used.\n"
@@ -111,16 +112,16 @@ msgstr "Un'implementazione del sistema APT di Debian per Slackware\n"
 
 #, c-format
 msgid "Cached\n"
-msgstr "Cached\n"
+msgstr "In cache\n"
 
 msgid "Checksums not read"
-msgstr ""
+msgstr "Checksum non lette"
 
 msgid "Checksums signature could not be verified"
-msgstr "Impossibile verificare il checksum"
+msgstr "Impossibile verificare la firma del checksum"
 
 msgid "Checksums signature successfully verified"
-msgstr "Checksum verificato"
+msgstr "Firma del checksum verificata con successo"
 
 msgid "Custom"
 msgstr "Personalizzato"
@@ -132,7 +133,7 @@ msgid "Default"
 msgstr "Default"
 
 msgid "Default Patch"
-msgstr "Default Patch"
+msgstr "Patch predefinita"
 
 #, c-format
 msgid "Delete %s ? [y/N]"
@@ -171,7 +172,7 @@ msgstr "Errore nella compilazione regex\n"
 
 #, c-format
 msgid "Failed to download: %s\n"
-msgstr "Errore nel download: %s\n"
+msgstr "Errore nello scaricamento: %s\n"
 
 #, c-format
 msgid "Failed to execute command: [%s]\n"
@@ -220,7 +221,7 @@ msgstr "Chiave GPG importata con successo"
 
 #, c-format
 msgid "Get %s %s %s [%.1f%s]..."
-msgstr "Get %s %s %s [%.1f%s]..."
+msgstr "Recupera %s %s %s [%.1f%s]..."
 
 msgid "Incomplete download"
 msgstr "Download incompleto"
@@ -255,28 +256,28 @@ msgid "Not Found\n"
 msgstr "Non trovato\n"
 
 msgid "Not Verified: CRL too old"
-msgstr ""
+msgstr "Non Verificato: CRL troppo vecchio"
 
 msgid "Not Verified: bad policy"
-msgstr ""
+msgstr "Non Verificato: policy errata"
 
 msgid "Not Verified: key expired"
-msgstr ""
+msgstr "Non Verificata: chiave scaduta"
 
 msgid "Not Verified: key revoked"
-msgstr ""
+msgstr "Non Verificato: chiave revocata"
 
 msgid "Not Verified: missing CRL"
-msgstr ""
+msgstr "Non Verificato: CRL mancante"
 
 msgid "Not Verified: signature expired"
-msgstr ""
+msgstr "Non Verificato: firma scaduta"
 
 msgid "Not Verified: system error"
-msgstr ""
+msgstr "Non Verificato: errore di sistema"
 
 msgid "Not verified: null context"
-msgstr ""
+msgstr "Non Verificato: contesto inesistente"
 
 msgid "Official"
 msgstr "Ufficiale"
@@ -297,7 +298,7 @@ msgstr "Conflitti: %s\n"
 
 #, c-format
 msgid "Package Description:\n"
-msgstr ""
+msgstr "Descrizione\n"
 
 #, c-format
 msgid "Package Installed Size: %d K\n"
@@ -349,7 +350,7 @@ msgstr "Forse vuoi eseguire --update?\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr "Aggiornare i permessi di %s o eseguire con privilegi appropriati\n"
+msgstr "Aggiorna i permessi di %s o esegui con privilegi appropriati\n"
 
 msgid "Preferred"
 msgstr "Preferito"
@@ -359,11 +360,11 @@ msgstr "Patch Preferita"
 
 #, c-format
 msgid "Preparing to install %s-%s\n"
-msgstr "Preparazione dell'installazione %s-%s\n"
+msgstr "Preparo l'installazione di %s-%s\n"
 
 #, c-format
 msgid "Preparing to replace %s-%s with %s-%s\n"
-msgstr "Preparazione alla sostituzione di %s-%s con %s-%s\n"
+msgstr "Preparo la sostituzione di %s-%s con %s-%s\n"
 
 #, c-format
 msgid "Reading Package Lists..."
@@ -402,23 +403,23 @@ msgid "SOURCE directive not set within %s.\n"
 msgstr "Direttiva SOURCE non impostata in %s.\n"
 
 msgid "Signature not read"
-msgstr ""
+msgstr "Firma non letta"
 
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr "Errore nel download, correggi le sorgenti e riesegui --update\n"
+msgstr "Errore nello scaricamento, correggi le fonti e riesegui --update\n"
 
 #, c-format
 msgid "Suggested packages:\n"
-msgstr "Pacchetti suggeriri:\n"
+msgstr "Pacchetti suggeriti:\n"
 
 #, c-format
 msgid "Targets:\n"
-msgstr "Obbiettivi:\n"
+msgstr "Obiettivi:\n"
 
 #, c-format
 msgid "The following NEW packages will be installed:\n"
-msgstr "I seguenti NUOVI pacchetti saranno installati:\n"
+msgstr "I seguenti pacchetti NUOVI saranno installati:\n"
 
 #, c-format
 msgid "The following packages have been EXCLUDED:\n"
@@ -460,10 +461,10 @@ msgstr "Direttiva WORKINGDIR non impostata in %s.\n"
 
 #, c-format
 msgid "You don't have enough free space in %s\n"
-msgstr "Lo spazio libero in %s non e' sufficente\n"
+msgstr "Lo spazio libero in %s non e' sufficiente\n"
 
 msgid "[disk set(s)] - install specified disk set(s)"
-msgstr "[disk set(s)] - installa la serie specificata (es: a ap ...)"
+msgstr "[disk set(s)] - installa la serie specificata (es: a; ap ...)"
 
 msgid "[expression] - search available pkgs"
 msgstr "[espressione] - cerca i pacchetti disponibili"
@@ -481,7 +482,7 @@ msgid "[pkg name(s)] - show pkg(s) installed files"
 msgstr "[nome pacchetto/i] - visualizza i file installati dal pacchetto/i"
 
 msgid "allow unauthenticated packages"
-msgstr ""
+msgstr "consenti pacchetti non verificati"
 
 msgid "always prompt during install/upgrade"
 msgstr "chiedi sempre cosa fare durante l'installazione/aggiornamento"
@@ -501,7 +502,7 @@ msgstr "errore nella lettura della descrizione del pacchetto\n"
 
 #, c-format
 msgid "getline reached EOF attempting to read location\n"
-msgstr "getline ha raggiunto EOF mentre cercava di leggere la posizione\n"
+msgstr "getline ha raggiunto EOF mentre provava a  leggere la posizione\n"
 
 #, c-format
 msgid "getline reached EOF attempting to read size_c\n"
@@ -578,7 +579,7 @@ msgid "remove obsolete packages"
 msgstr "rimuovi i pacchetti obsoleti"
 
 msgid "retrieve GPG keys for sources"
-msgstr "recupera le chiavi GPG per ongi sorgente"
+msgstr "recupera le chiavi GPG per le fonti"
 
 msgid "retrieve pkg data from MIRROR"
 msgstr "recupera i dati dei pacchetti dal MIRROR"
@@ -602,7 +603,7 @@ msgid "upgrade installed pkgs"
 msgstr "aggiorna i pacchetti installati"
 
 msgid "upgrade to newer release"
-msgstr "aggiorna ad una nuova release"
+msgstr "aggiorna ad una nuova versione"
 
 msgid "yes"
-msgstr "si"
+msgstr "sì"

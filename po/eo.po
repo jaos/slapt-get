@@ -5,13 +5,14 @@
 # 
 # Translators:
 # Reedych <reedych@reedych.pw>, 2017
+# ridiĉ <reedych@ya.ru>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2017-02-24 14:24+0000\n"
-"Last-Translator: Reedych <reedych@reedych.pw>\n"
+"PO-Revision-Date: 2017-09-23 13:22+0000\n"
+"Last-Translator: ridiĉ <reedych@ya.ru>\n"
 "Language-Team: Esperanto (http://www.transifex.com/jaos/slapt-get/language/eo/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -55,7 +56,7 @@ msgstr[1] "%d renovigitas,"
 
 #, c-format
 msgid "%s [option(s)] [target]\n"
-msgstr ""
+msgstr "%s [opcio(j)] [celo]\n"
 
 #, c-format
 msgid "%s is not installed.\n"
@@ -94,7 +95,7 @@ msgstr ", sed estas akceptita kiel escepto"
 
 #, c-format
 msgid "Abort.\n"
-msgstr ""
+msgstr "Ĉesi.\n"
 
 #, c-format
 msgid "After unpacking %.1f%s disk space will be freed.\n"
@@ -113,84 +114,84 @@ msgid "Cached\n"
 msgstr "Kaŝmemorita\n"
 
 msgid "Checksums not read"
-msgstr ""
+msgstr "Kontrolsumo ne legita"
 
 msgid "Checksums signature could not be verified"
-msgstr ""
+msgstr "Ne eblas verigi kontrolsumsignaturon"
 
 msgid "Checksums signature successfully verified"
-msgstr ""
+msgstr "Kontrolsumsignaturo sukcese verigita"
 
 msgid "Custom"
-msgstr ""
+msgstr "Kutima"
 
 msgid "Custom Patch"
-msgstr ""
+msgstr "Kutima flikaĵo"
 
 msgid "Default"
-msgstr ""
+msgstr "Defaŭlta"
 
 msgid "Default Patch"
-msgstr ""
+msgstr "Defaŭlta flikaĵo"
 
 #, c-format
 msgid "Delete %s ? [y/N]"
 msgstr "Malinstali %s ? [y/N]"
 
 msgid "Do you want to continue? [y/N] "
-msgstr ""
+msgstr "Ĉu vi volas daŭrigi? [j/N] "
 
 #, c-format
 msgid "Done\n"
-msgstr ""
+msgstr "Preta\n"
 
 #, c-format
 msgid "Excluding %s, use --ignore-dep to override\n"
-msgstr ""
+msgstr "Esceptas %s, uzu --ignore-dep por nuligi\n"
 
 #, c-format
 msgid "Failed to build working directory [%s]\n"
-msgstr ""
+msgstr "Malsukcesis fari labordosierujon [%s]\n"
 
 #, c-format
 msgid "Failed to calloc\n"
-msgstr ""
+msgstr "Malsukcesis calloc\n"
 
 #, c-format
 msgid "Failed to chdir to %s\n"
-msgstr ""
+msgstr "Malsukcesis chdir al %s\n"
 
 #, c-format
 msgid "Failed to chdir: %s\n"
-msgstr ""
+msgstr "Malsukcesis chdir: %s\n"
 
 #, c-format
 msgid "Failed to compile regex\n"
-msgstr ""
+msgstr "Malsukcesis kompili na regex\n"
 
 #, c-format
 msgid "Failed to download: %s\n"
-msgstr ""
+msgstr "Malsukcesis elŝuti: %s\n"
 
 #, c-format
 msgid "Failed to execute command: [%s]\n"
-msgstr ""
+msgstr "Malsukcesis plenumigi komandon: [%s]\n"
 
 #, c-format
 msgid "Failed to get cwd\n"
-msgstr ""
+msgstr "Malsukcesis preni nunan labordosierujon\n"
 
 #, c-format
 msgid "Failed to malloc\n"
-msgstr ""
+msgstr "Malsukcesis malloc\n"
 
 #, c-format
 msgid "Failed to mkdir: %s\n"
-msgstr ""
+msgstr "Malsukcesis mkdir: %s\n"
 
 #, c-format
 msgid "Failed to open %s\n"
-msgstr ""
+msgstr "Malsukcesis malfermi %s\n"
 
 #, c-format
 msgid "Failed to opendir %s\n"
@@ -222,7 +223,7 @@ msgid "Get %s %s %s [%.1f%s]..."
 msgstr ""
 
 msgid "Incomplete download"
-msgstr ""
+msgstr "Malplena elŝuto"
 
 #, c-format
 msgid "Installed %s conflicts with %s\n"
@@ -251,7 +252,7 @@ msgstr ""
 
 #, c-format
 msgid "Not Found\n"
-msgstr ""
+msgstr "Ne trovita\n"
 
 msgid "Not Verified: CRL too old"
 msgstr ""
@@ -278,10 +279,10 @@ msgid "Not verified: null context"
 msgstr ""
 
 msgid "Official"
-msgstr ""
+msgstr "Oficiala"
 
 msgid "Official Patch"
-msgstr ""
+msgstr "Oficiala flikaĵo"
 
 #, c-format
 msgid "Options:\n"
@@ -340,7 +341,7 @@ msgstr ""
 
 #, c-format
 msgid "Package Version: %s\n"
-msgstr ""
+msgstr "Pakaĵversio: %s\n"
 
 #, c-format
 msgid "Perhaps you want to run --update?\n"
@@ -533,7 +534,7 @@ msgid "md5 sum too long\n"
 msgstr ""
 
 msgid "no"
-msgstr ""
+msgstr "ne"
 
 msgid "only download pkg on install/upgrade"
 msgstr ""
@@ -598,7 +599,7 @@ msgid "specify number of download retry attempts"
 msgstr ""
 
 msgid "upgrade installed pkgs"
-msgstr ""
+msgstr "renovigi instalitajn pakaĵojn"
 
 msgid "upgrade to newer release"
 msgstr ""
