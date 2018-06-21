@@ -36,7 +36,7 @@ Frequently Asked Questions:
 33. How do I specify the exact version of a package to install?
 34. Why is upgradepkg complaining it cannot find installpkg or removepkg, with sudo?
 35. How can I specify a username/password for the connection to the package source?
-36. /var/slapt-get is growing large, how can I safely free up space?
+36. /var/cache/slapt-get is growing large, how can I safely free up space?
 37. What about extra, testing, or pasture packages?
 38. Can I use slapt-get to mirror packages?
 39. Is there a way to use tab completion for the package names in Bash?
@@ -854,10 +854,10 @@ Frequently Asked Questions:
   SOURCE=ftp://user:pass@host.org/pub/packages/
 
 
-36. /var/slapt-get is growing large, how can I safely free up space?
+36. /var/cache/slapt-get is growing large, how can I safely free up space?
 
  Use the --clean option to remove all the cached packages from the tree within
- /var/slapt-get.
+ /var/cache/slapt-get.
 
  Or use --autoclean, which is like clean but clears out the local repository of
  retrieved package files that can no longer be downloaded, and are largely
@@ -878,7 +878,7 @@ Frequently Asked Questions:
   slapt-get --available|awk '{print $1}'|xargs -r slapt-get --download-only \
 		--reinstall --install
 
- The packages will then be mirrored under ${ROOT}/var/slapt-get in the
+ The packages will then be mirrored under ${ROOT}/var/cache/slapt-get in the
  directory structure they where found in.  You can then generate the 
  PACKAGES.TXT and CHECKSUMS.md5 files using the script in FAQ #17 which would
  allow you to use this mirror as a slapt-get source.
@@ -982,7 +982,7 @@ Frequently Asked Questions:
    packages.
  * slapt-get will not change your system such that you can only use slapt-get
    or are somehow locked into using slapt-get.  The only additions to your
-   system are /etc/slapt-get and /var/slapt-get.  You are free to try another
+   system are /etc/slapt-get and /var/cache/slapt-get.  You are free to try another
    solution or go back to manual upgradepkg.
  * UPGRADE.TXT and ChangeLog.txt are still required reading for upgrades or
    running -current.

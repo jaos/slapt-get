@@ -58,7 +58,7 @@ tries to emulate Debian's apt-get as closely as possible.
 .TP
 \fB\-\-download\-only\fR, \fB\-d\fR
 Download the package only.  Do not install/upgrade.  Packages are downloaded to
-.IR /var/slapt-get/ .
+.IR /var/cache/slapt-get/ .
 .TP
 \fB\-\-simulate\fR, \fB\-s\fR
 Will not install or download packages.
@@ -162,7 +162,7 @@ current sources.
 List installed packages only.
 .TP
 \fB\-\-clean\fR
-Purge cached/downloaded packages from WORKINGDIR (\fI/var/slapt-get/\fR
+Purge cached/downloaded packages from WORKINGDIR (\fI/var/cache/slapt-get/\fR
 by default).
 .TP
 \fB\-\-autoclean\fR
@@ -196,7 +196,7 @@ Untested updates are risky, whether using official packages or third party packa
 .PP
 \fBslapt-get\fR will not change your system such that you can only use
 \fBslapt-get\fR or are somehow locked into using \fBslapt-get\fR.  The only
-additions to your system are \fI/etc/slapt-get\fR and \fI/var/slapt-get\fR.
+additions to your system are \fI/etc/slapt-get\fR and \fI/var/cache/slapt-get\fR.
 You are free to try another solution or go back to manual \fBupgradepkg\fR(8).
 .PP
 \fIUPGRADE.TXT\fR and \fIChangeLog.txt\fR is still required reading, the latter

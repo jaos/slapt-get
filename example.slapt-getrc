@@ -1,5 +1,5 @@
 # working directory, local storage/cache
-WORKINGDIR=/var/slapt-get
+WORKINGDIR=/var/cache/slapt-get
 
 
 # exclude package names and expressions

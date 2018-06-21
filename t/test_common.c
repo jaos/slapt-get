@@ -35,10 +35,10 @@ END_TEST
 
 START_TEST (test_slapt_create_dir_structure)
 {
-  const char *dir_name = "var/slapt-get";
+  const char *dir_name = "var/cache/slapt-get";
   DIR *d = NULL;
 
-  slapt_create_dir_structure("var/slapt-get");
+  slapt_create_dir_structure("var/cache/slapt-get");
 
   d = opendir(dir_name);
 

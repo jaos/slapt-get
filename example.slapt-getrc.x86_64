@@ -1,5 +1,5 @@
 # Working directory for local storage/cache.
-WORKINGDIR=/var/slapt-get
+WORKINGDIR=/var/cache/slapt-get
 
 # Exclude package names and expressions.
 # To exclude pre and beta packages, add this to the exclude: 

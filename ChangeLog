@@ -1,4 +1,7 @@
 
+0.11.0 Jun 21, 2018
+ * move default cache directory to /var/cache/slapt-get
+
 0.10.2t Jul 04, 2016
  * add jaos.org slackwarearm source
  * 14.2 support

@@ -13,7 +13,7 @@ slapt_rc_config *config = slapt_read_rc_config("/etc/slapt-get/slapt-getrc");
 /* get a list of installed packages */
 slapt_pkg_list_t *installed = slapt_get_installed_pkgs();
 /* parse the package data, normally using config->working_dir */
-FILE *data_f = fopen("/var/slapt-get/package_data","r");
+FILE *data_f = fopen("/var/cache/slapt-get/package_data","r");
 slapt_pkg_list_t *available = slapt_parse_packages_txt(data_f);
 
 /* search for a package in a list via regex */
