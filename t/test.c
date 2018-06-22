@@ -19,7 +19,7 @@ slapt_pkg_info_t pkg = {
                         115,
                         440,
                         SLAPT_PRIORITY_DEFAULT,
-                        SLAPT_TRUE
+                        true
 };
 
 int _progress_cb(void *clientp, double dltotal, double dlnow,

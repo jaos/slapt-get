@@ -65,19 +65,19 @@ slapt-get stores the configuration information in a \fIslapt_rc_config\fP object
     slapt_source_list_t *sources;
     slapt_list_t *exclude_list;
     int (*progress_cb) (void *,double,double,double,double);
-    SLAPT_BOOL_T download_only;
-    SLAPT_BOOL_T dist_upgrade;
-    SLAPT_BOOL_T simulate;
-    SLAPT_BOOL_T no_prompt;
-    SLAPT_BOOL_T re_install;
-    SLAPT_BOOL_T ignore_excludes;
-    SLAPT_BOOL_T no_md5_check;
-    SLAPT_BOOL_T ignore_dep;
-    SLAPT_BOOL_T disable_dep_check;
-    SLAPT_BOOL_T print_uris;
-    SLAPT_BOOL_T dl_stats;
-    SLAPT_BOOL_T remove_obsolete;
-    SLAPT_BOOL_T no_upgrade;
+    bool download_only;
+    bool dist_upgrade;
+    bool simulate;
+    bool no_prompt;
+    bool re_install;
+    bool ignore_excludes;
+    bool no_md5_check;
+    bool ignore_dep;
+    bool disable_dep_check;
+    bool print_uris;
+    bool dl_stats;
+    bool remove_obsolete;
+    bool no_upgrade;
     unsigned int retry;
   } slapt_rc_config;
 .fi
@@ -109,7 +109,7 @@ Package sources are represented by the \fIslapt_source_t\fP type.  They are crea
   typedef struct {
     char *url;
     SLAPT_PRIORITY_T priority;
-    SLAPT_BOOL_T disabled;
+    bool disabled;
   } slapt_source_t;
 .sp
 .B slapt_source_t *slapt_init_source(const char *s);
@@ -155,7 +155,7 @@ slapt-get stores packages within \fIslapt_pkg_info_t\fP objects.
     unsigned int size_c;
     unsigned int size_u;
     unsigned int priority;
-    SLAPT_BOOL_T installed;
+    bool installed;
   } slapt_pkg_info_t;
 .fi
 .sp
@@ -176,8 +176,8 @@ Package lists are useful for grouping packages from the existing installed packa
   typedef struct {
     slapt_pkg_info_t **pkgs;
     unsigned int pkg_count;
-    SLAPT_BOOL_T free_pkgs;
-    SLAPT_BOOL_T ordered;
+    bool free_pkgs;
+    bool ordered;
   } slapt_pkg_list_t;
 .fi
 .sp
@@ -437,7 +437,7 @@ Adding, removing, and upgrading packages can be wrapped in a \fIslapt_transactio
   typedef struct {
     slapt_pkg_info_t *installed;
     slapt_pkg_info_t *upgrade;
-    SLAPT_BOOL_T reinstall;
+    bool reinstall;
   } slapt_pkg_upgrade_t;
 .sp
   typedef struct {
@@ -597,7 +597,7 @@ Miscellaneous functionality within libslapt.
 .B /* return human readable priority */
 .B const char *slapt_priority_to_str(SLAPT_PRIORITY_T priority);
 .sp
-.B SLAPT_BOOL_T slapt_disk_space_check (const char *path,double space_needed);
+.B bool slapt_disk_space_check (const char *path,double space_needed);
 .sp
   typedef struct {
     char **items;

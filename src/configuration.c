@@ -25,24 +25,24 @@ slapt_rc_config *slapt_init_config(void)
 {
   slapt_rc_config *global_config = slapt_malloc( sizeof *global_config );
 
-  global_config->download_only      = SLAPT_FALSE;
-  global_config->simulate           = SLAPT_FALSE;
-  global_config->ignore_excludes    = SLAPT_FALSE;
-  global_config->no_md5_check       = SLAPT_FALSE;
-  global_config->dist_upgrade       = SLAPT_FALSE;
-  global_config->ignore_dep         = SLAPT_FALSE;
-  global_config->disable_dep_check  = SLAPT_FALSE;
-  global_config->print_uris         = SLAPT_FALSE;
-  global_config->dl_stats           = SLAPT_FALSE;
-  global_config->no_prompt          = SLAPT_FALSE;
-  global_config->prompt             = SLAPT_FALSE;
-  global_config->re_install         = SLAPT_FALSE;
-  global_config->remove_obsolete    = SLAPT_FALSE;
-  global_config->no_upgrade         = SLAPT_FALSE;
-  global_config->use_priority       = SLAPT_FALSE;
+  global_config->download_only      = false;
+  global_config->simulate           = false;
+  global_config->ignore_excludes    = false;
+  global_config->no_md5_check       = false;
+  global_config->dist_upgrade       = false;
+  global_config->ignore_dep         = false;
+  global_config->disable_dep_check  = false;
+  global_config->print_uris         = false;
+  global_config->dl_stats           = false;
+  global_config->no_prompt          = false;
+  global_config->prompt             = false;
+  global_config->re_install         = false;
+  global_config->remove_obsolete    = false;
+  global_config->no_upgrade         = false;
+  global_config->use_priority       = false;
   global_config->working_dir[0]     = '\0';
   global_config->progress_cb        = NULL;
-  global_config->gpgme_allow_unauth = SLAPT_FALSE; /* even without GPGME */
+  global_config->gpgme_allow_unauth = false; /* even without GPGME */
 
   global_config->sources      = slapt_init_source_list();
   global_config->exclude_list = slapt_init_list();
@@ -84,7 +84,7 @@ slapt_rc_config *slapt_read_rc_config(const char *file_name)
         if (s != NULL) {
           slapt_add_source(global_config->sources,s);
           if (s->priority != SLAPT_PRIORITY_DEFAULT) {
-            global_config->use_priority = SLAPT_TRUE;
+            global_config->use_priority = true;
           }
         }
       }
@@ -95,7 +95,7 @@ slapt_rc_config *slapt_read_rc_config(const char *file_name)
       if (strlen(token_ptr) > strlen(SLAPT_DISABLED_SOURCE_TOKEN) ) {
         slapt_source_t *s = slapt_init_source(token_ptr + strlen(SLAPT_DISABLED_SOURCE_TOKEN));
         if (s != NULL) {
-          s->disabled = SLAPT_TRUE;
+          s->disabled = true;
           slapt_add_source(global_config->sources,s);
         }
       }
@@ -271,11 +271,11 @@ void slapt_free_source_list(slapt_source_list_t *list)
   free(list);
 }
 
-SLAPT_BOOL_T slapt_is_interactive(const slapt_rc_config *global_config)
+bool slapt_is_interactive(const slapt_rc_config *global_config)
 {
-  SLAPT_BOOL_T interactive  = global_config->progress_cb == NULL 
-                            ? SLAPT_TRUE
-                            : SLAPT_FALSE;
+  bool interactive  = global_config->progress_cb == NULL 
+                            ? true
+                            : false;
 
   return interactive;
 }
@@ -335,7 +335,7 @@ slapt_source_t *slapt_init_source(const char *s)
 
   src           = slapt_malloc(sizeof *src);
   src->priority = SLAPT_PRIORITY_DEFAULT;
-  src->disabled = SLAPT_FALSE;
+  src->disabled = false;
   source_string = slapt_strip_whitespace (s);
   source_len    = strlen (source_string);
 
@@ -423,7 +423,7 @@ int slapt_write_rc_config(const slapt_rc_config *global_config, const char *loca
     SLAPT_PRIORITY_T priority = src->priority;
     const char *token = SLAPT_SOURCE_TOKEN;
 
-    if (global_config->sources->src[i]->disabled == SLAPT_TRUE)
+    if (global_config->sources->src[i]->disabled == true)
       token = SLAPT_DISABLED_SOURCE_TOKEN;
 
     if (priority > SLAPT_PRIORITY_DEFAULT) {

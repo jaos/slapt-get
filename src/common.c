@@ -386,12 +386,12 @@ const char *slapt_priority_to_str(SLAPT_PRIORITY_T priority)
 
 }
 
-SLAPT_BOOL_T slapt_disk_space_check (const char *path,double space_needed)
+bool slapt_disk_space_check (const char *path,double space_needed)
 {
   struct statvfs statvfs_buf;
 
   if (space_needed < 0)
-    return SLAPT_TRUE;
+    return true;
 
   space_needed *= 1024;
 
@@ -400,13 +400,13 @@ SLAPT_BOOL_T slapt_disk_space_check (const char *path,double space_needed)
     if (errno)
       perror("statvfs");
 
-    return SLAPT_FALSE;
+    return false;
   } else {
     if (statvfs_buf.f_bavail < (space_needed / statvfs_buf.f_bsize))
-      return SLAPT_FALSE;
+      return false;
   }
 
-  return SLAPT_TRUE;
+  return true;
 }
 
 slapt_list_t *slapt_init_list(void)

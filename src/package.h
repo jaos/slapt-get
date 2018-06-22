@@ -66,20 +66,20 @@ typedef struct {
   unsigned int size_c;
   unsigned int size_u;
   unsigned int priority;
-  SLAPT_BOOL_T installed;
+  bool installed;
 } slapt_pkg_info_t;
 
 typedef struct {
   slapt_pkg_info_t **pkgs;
   unsigned int pkg_count;
-  SLAPT_BOOL_T free_pkgs;
-  SLAPT_BOOL_T ordered;
+  bool free_pkgs;
+  bool ordered;
 } slapt_pkg_list_t;
 
 typedef struct {
   slapt_pkg_info_t *installed;
   slapt_pkg_info_t *upgrade;
-  SLAPT_BOOL_T reinstall;
+  bool reinstall;
 } slapt_pkg_upgrade_t;
 
 typedef struct {

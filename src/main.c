@@ -121,19 +121,19 @@ int main( int argc, char *argv[] )
         break;
       case SLAPT_SHOW_OPT: /* show */
         do_action = SHOW;
-        initial_config->simulate = SLAPT_TRUE; /* allow read access */
+        initial_config->simulate = true; /* allow read access */
         break;
       case SLAPT_SEARCH_OPT: /* search */
         do_action = SEARCH;
-        initial_config->simulate = SLAPT_TRUE; /* allow read access */
+        initial_config->simulate = true; /* allow read access */
         break;
       case SLAPT_LIST_OPT: /* list */
         do_action = LIST;
-        initial_config->simulate = SLAPT_TRUE; /* allow read access */
+        initial_config->simulate = true; /* allow read access */
         break;
       case SLAPT_INSTALLED_OPT: /* installed */
         do_action = INSTALLED;
-        initial_config->simulate = SLAPT_TRUE; /* allow read access */
+        initial_config->simulate = true; /* allow read access */
         break;
       case SLAPT_CLEAN_OPT: /* clean */
         do_action = CLEAN;
@@ -142,10 +142,10 @@ int main( int argc, char *argv[] )
         do_action = UPGRADE;
         break;
       case SLAPT_DOWNLOAD_ONLY_OPT: /* download only flag */
-        initial_config->download_only = SLAPT_TRUE;
+        initial_config->download_only = true;
         break;
       case SLAPT_SIMULATE_OPT: /* simulate */
-        initial_config->simulate = SLAPT_TRUE;
+        initial_config->simulate = true;
         break;
       case SLAPT_VERSION_OPT: /* version */
         version_info();
@@ -153,22 +153,22 @@ int main( int argc, char *argv[] )
         curl_global_cleanup();
         exit(EXIT_SUCCESS);
       case SLAPT_NO_PROMPT_OPT: /* auto */
-        initial_config->no_prompt = SLAPT_TRUE;
+        initial_config->no_prompt = true;
         break;
       case SLAPT_PROMPT_OPT: /* always prompt */
-        initial_config->prompt = SLAPT_TRUE;
+        initial_config->prompt = true;
         break;
       case SLAPT_REINSTALL_OPT: /* reinstall */
-        initial_config->re_install = SLAPT_TRUE;
+        initial_config->re_install = true;
         break;
       case SLAPT_IGNORE_EXCLUDES_OPT: /* ignore-excludes */
-        initial_config->ignore_excludes = SLAPT_TRUE;
+        initial_config->ignore_excludes = true;
         break;
       case SLAPT_NO_MD5_OPT: /* no-md5 */
-        initial_config->no_md5_check = SLAPT_TRUE;
+        initial_config->no_md5_check = true;
         break;
       case SLAPT_DIST_UPGRADE_OPT: /* dist-upgrade */
-        initial_config->dist_upgrade = SLAPT_TRUE;
+        initial_config->dist_upgrade = true;
         do_action = UPGRADE;
         break;
       case SLAPT_HELP_OPT: /* help */
@@ -177,16 +177,16 @@ int main( int argc, char *argv[] )
         curl_global_cleanup();
         exit(EXIT_SUCCESS);
       case SLAPT_IGNORE_DEP_OPT: /* ignore-dep */
-        initial_config->ignore_dep = SLAPT_TRUE;
+        initial_config->ignore_dep = true;
         break;
       case SLAPT_NO_DEP_OPT: /* no-dep */
-        initial_config->disable_dep_check = SLAPT_TRUE;
+        initial_config->disable_dep_check = true;
         break;
       case SLAPT_PRINT_URIS_OPT: /* print-uris */
-        initial_config->print_uris = SLAPT_TRUE;
+        initial_config->print_uris = true;
         break;
       case SLAPT_SHOW_STATS_OPT: /* download-stats */
-        initial_config->dl_stats = SLAPT_TRUE;
+        initial_config->dl_stats = true;
         break;
       case SLAPT_CONFIG_OPT: /* override rc location */
         custom_rc_location = strdup(optarg);
@@ -195,17 +195,17 @@ int main( int argc, char *argv[] )
         initial_config->retry = (atoi(optarg) > 0) ? atoi(optarg) : 1;
         break;
       case SLAPT_NO_UPGRADE_OPT: /* do not attempt to upgrade */
-        initial_config->no_upgrade = SLAPT_TRUE;
+        initial_config->no_upgrade = true;
         break;
       case SLAPT_AUTOCLEAN_OPT: /* clean old old package versions */
         do_action = AUTOCLEAN;
         break;
       case SLAPT_OBSOLETE_OPT: /* remove obsolete packages */
-        initial_config->remove_obsolete = SLAPT_TRUE;
+        initial_config->remove_obsolete = true;
         break;
       case SLAPT_AVAILABLE_OPT: /* show available packages */
         do_action = AVAILABLE;
-        initial_config->simulate = SLAPT_TRUE; /* allow read access */
+        initial_config->simulate = true; /* allow read access */
         break;
       case SLAPT_INSTALL_DISK_SET_OPT: /* install a disk set */
         do_action = INSTALL_DISK_SET;
@@ -215,12 +215,12 @@ int main( int argc, char *argv[] )
         do_action = ADD_KEYS;
         break;
       case SLAPT_ALLOW_UNAUTH: /* allow unauthenticated key */
-        initial_config->gpgme_allow_unauth = SLAPT_TRUE;
+        initial_config->gpgme_allow_unauth = true;
         break;
       #endif
       case SLAPT_FILELIST:
         do_action = FILELIST;
-        initial_config->simulate = SLAPT_TRUE; /* allow read access */
+        initial_config->simulate = true; /* allow read access */
         break;
       default:
         usage();
@@ -272,14 +272,14 @@ int main( int argc, char *argv[] )
     case ADD_KEYS:
     #endif
     case UPDATE:
-      global_config->simulate = SLAPT_FALSE;
+      global_config->simulate = false;
       break;
 
     /* remove obsolete can take the place of arguments */
     case INSTALL:
     case INSTALL_DISK_SET:
     case REMOVE:
-        if (global_config->remove_obsolete == SLAPT_TRUE)
+        if (global_config->remove_obsolete == true)
           break;
         /* fall through */
 

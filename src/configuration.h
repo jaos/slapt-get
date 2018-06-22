@@ -26,7 +26,7 @@
 typedef struct {
   char *url;
   SLAPT_PRIORITY_T priority;
-  SLAPT_BOOL_T disabled;
+  bool disabled;
 } slapt_source_t;
 
 typedef struct {
@@ -39,23 +39,23 @@ typedef struct {
   slapt_source_list_t *sources;
   slapt_list_t *exclude_list;
   int(*progress_cb)(void *,double,double,double,double);
-  SLAPT_BOOL_T download_only;
-  SLAPT_BOOL_T dist_upgrade;
-  SLAPT_BOOL_T simulate;
-  SLAPT_BOOL_T no_prompt;
-  SLAPT_BOOL_T prompt;
-  SLAPT_BOOL_T re_install;
-  SLAPT_BOOL_T ignore_excludes;
-  SLAPT_BOOL_T no_md5_check;
-  SLAPT_BOOL_T ignore_dep;
-  SLAPT_BOOL_T disable_dep_check;
-  SLAPT_BOOL_T print_uris;
-  SLAPT_BOOL_T dl_stats;
-  SLAPT_BOOL_T remove_obsolete;
-  SLAPT_BOOL_T no_upgrade;
+  bool download_only;
+  bool dist_upgrade;
+  bool simulate;
+  bool no_prompt;
+  bool prompt;
+  bool re_install;
+  bool ignore_excludes;
+  bool no_md5_check;
+  bool ignore_dep;
+  bool disable_dep_check;
+  bool print_uris;
+  bool dl_stats;
+  bool remove_obsolete;
+  bool no_upgrade;
   unsigned int retry;
-  SLAPT_BOOL_T use_priority;
-  SLAPT_BOOL_T gpgme_allow_unauth;
+  bool use_priority;
+  bool gpgme_allow_unauth;
 } slapt_rc_config;
 
 /* initialize slapt_rc_config */
@@ -81,6 +81,6 @@ void slapt_add_source(slapt_source_list_t *list, slapt_source_t *s);
 void slapt_remove_source (slapt_source_list_t *list, const char *s);
 void slapt_free_source_list(slapt_source_list_t *list);
 
-SLAPT_BOOL_T slapt_is_interactive(const slapt_rc_config *);
+bool slapt_is_interactive(const slapt_rc_config *);
 
 int slapt_write_rc_config(const slapt_rc_config *global_config, const char *location);

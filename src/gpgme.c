@@ -58,7 +58,7 @@ FILE *slapt_get_pkg_source_checksums_signature (const slapt_rc_config *global_co
 {
   FILE *tmp_checksum_f = NULL;
   char *checksum_head = NULL;
-  SLAPT_BOOL_T interactive  = slapt_is_interactive(global_config);
+  bool interactive  = slapt_is_interactive(global_config);
   char *location_uncompressed = SLAPT_CHECKSUM_ASC_FILE;
   char *location_compressed = SLAPT_CHECKSUM_ASC_FILE_GZ;
   char *filename = NULL;
@@ -80,7 +80,7 @@ FILE *slapt_get_pkg_source_checksums_signature (const slapt_rc_config *global_co
 
   if (checksum_head == NULL)
   {
-      if (interactive == SLAPT_TRUE)
+      if (interactive == true)
         printf(gettext("Not Found\n"));
       free(filename);
       free(local_head);
@@ -100,7 +100,7 @@ FILE *slapt_get_pkg_source_checksums_signature (const slapt_rc_config *global_co
   } else {
     const char *err = NULL;
 
-    if (global_config->dl_stats == SLAPT_TRUE)
+    if (global_config->dl_stats == true)
       printf("\n");
 
     if ((tmp_checksum_f = slapt_open_file(filename,"w+b")) == NULL)
@@ -111,7 +111,7 @@ FILE *slapt_get_pkg_source_checksums_signature (const slapt_rc_config *global_co
                                             location);
     if (!err) {
 
-      if (interactive == SLAPT_TRUE)
+      if (interactive == true)
         printf(gettext("Done\n"));
 
     } else {
@@ -150,15 +150,15 @@ FILE *slapt_get_pkg_source_gpg_key(const slapt_rc_config *global_config,
   char *key_head = NULL;
   char *filename = slapt_gen_filename_from_url(url,SLAPT_GPG_KEY);
   char *local_head = slapt_read_head_cache(filename);
-  SLAPT_BOOL_T interactive  = global_config->progress_cb == NULL && global_config->dl_stats == SLAPT_FALSE
-                            ? SLAPT_TRUE
-                            : SLAPT_FALSE;
+  bool interactive  = global_config->progress_cb == NULL && global_config->dl_stats == false
+                            ? true
+                            : false;
 
   *compressed = 0;
   key_head = slapt_head_mirror_data(url,SLAPT_GPG_KEY);
 
   if (key_head == NULL) {
-      if (interactive == SLAPT_TRUE)
+      if (interactive == true)
         printf(gettext("Not Found\n"));
       free(filename);
       free(local_head);
@@ -187,7 +187,7 @@ FILE *slapt_get_pkg_source_gpg_key(const slapt_rc_config *global_config,
                                             SLAPT_GPG_KEY);
 
     if (!err) {
-      if (interactive == SLAPT_TRUE)
+      if (interactive == true)
         printf(gettext("Done\n"));
     } else{
       fprintf(stderr,gettext("Failed to download: %s\n"),err);

@@ -21,14 +21,6 @@
 #define SLAPT_SLACK_BASE_SET_REGEX "^./slackware/a$"
 
 typedef enum {
-#if !defined(FALSE) && !defined(TRUE)
-SLAPT_FALSE = 0, SLAPT_TRUE
-#else
-SLAPT_FALSE = FALSE, SLAPT_TRUE = TRUE
-#endif
-} SLAPT_BOOL_T;
-
-typedef enum {
   SLAPT_OK = 0,
   SLAPT_MD5_CHECKSUM_MISMATCH,
   SLAPT_MD5_CHECKSUM_MISSING,
@@ -104,7 +96,7 @@ void *slapt_calloc(size_t n,size_t s);
 const char *slapt_strerror(slapt_code_t code);
 /* return human readable priority */
 const char *slapt_priority_to_str(SLAPT_PRIORITY_T priority);
-SLAPT_BOOL_T slapt_disk_space_check (const char *path,double space_needed);
+bool slapt_disk_space_check (const char *path,double space_needed);
 
 /* general list management */
 slapt_list_t *slapt_parse_delimited_list(char *line, char delim);

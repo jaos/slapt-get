@@ -61,7 +61,7 @@ int slapt_download_data(FILE *fh,const char *url,size_t bytes,long *filetime,
 
   headers = curl_slist_append(headers, "Pragma: "); /* override no-cache */
 
-  if (global_config->dl_stats != SLAPT_TRUE) {
+  if (global_config->dl_stats != true) {
     if (global_config->progress_cb == NULL) {
       curl_easy_setopt(ch, CURLOPT_PROGRESSFUNCTION, slapt_progress_callback );
     } else {
@@ -200,7 +200,7 @@ const char *slapt_download_pkg(const slapt_rc_config *global_config,
   size_t f_size = 0;
   slapt_code_t verify = SLAPT_OK;
   int dl_return = -1, dl_total_size = 0;
-  SLAPT_BOOL_T is_interactive = slapt_is_interactive(global_config);
+  bool is_interactive = slapt_is_interactive(global_config);
   long filetime = 0;
 
   if (pkg == NULL) {
@@ -249,7 +249,7 @@ const char *slapt_download_pkg(const slapt_rc_config *global_config,
       ( dl_total_size > 1024 ) ? dl_total_size / 1024.0 : dl_total_size,
       ( dl_total_size > 1024 ) ? "MB" : "kB"
     );
-    if (global_config->dl_stats == SLAPT_TRUE)
+    if (global_config->dl_stats == true)
       printf("\n");
   }
 

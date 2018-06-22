@@ -205,7 +205,7 @@ START_TEST (test_pkg_version)
                         115,
                         440,
                         SLAPT_PRIORITY_PREFERRED,
-                        SLAPT_FALSE
+                        false
   };
   slapt_pkg_info_t mirror_pkg2 = {
                         "8598a2a6d683d098b09cdc938de1e3c7",
@@ -221,7 +221,7 @@ START_TEST (test_pkg_version)
                         115,
                         440,
                         SLAPT_PRIORITY_DEFAULT,
-                        SLAPT_FALSE
+                        false
   };
   slapt_pkg_info_t installed_pkg = {
                         "8598a2a6d683d098b09cdc938de1e3c7",
@@ -237,7 +237,7 @@ START_TEST (test_pkg_version)
                         115,
                         440,
                         SLAPT_PRIORITY_DEFAULT,
-                        SLAPT_TRUE
+                        true
   };
 
   /* mirror_pkg1 has a higher priority, and should win */
