@@ -529,7 +529,7 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
   tran = slapt_init_transaction();
 
   if ( global_config->dist_upgrade == SLAPT_TRUE ) {
-    char *essential[] = {"pkgtools","glibc-solibs","aaa_elflibs","xz","sed","tar","gzip",NULL};
+    char *essential[] = {"pkgtools", "glibc-solibs", "glibc", "aaa_elflibs", "xz", "sed", "tar", "gzip", NULL};
     int epi = 0;
     slapt_pkg_info_t *newest_slaptget = NULL;
     slapt_pkg_list_t *matches =
@@ -548,8 +548,8 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
         if (slapt_cmp_pkgs(inst_pkg,avail_pkg) < 0 ) {
           slapt_add_upgrade_to_transaction(tran,inst_pkg,avail_pkg);
         }
-      /* if not try to install */
-      } else if ( avail_pkg != NULL ) {
+      /* if not try to install (unless glibc, then that is upgrade only) */
+      } else if ( strcmp(essential[epi], "glibc") != 0 && avail_pkg != NULL ) {
         slapt_add_install_to_transaction(tran,avail_pkg);
       }
 
