@@ -1371,8 +1371,8 @@ int slapt_get_pkg_dependencies(const slapt_rc_config *global_config,
             } else {
                 /* now move the package to the end after it's dependencies */
                 slapt_pkg_info_t *tmp = NULL;
-                unsigned int i = 0;
 
+                i = 0;
                 while (i < deps->pkg_count) {
                     if (strcmp(deps->pkgs[i]->name, tmp_pkg->name) == 0 && tmp == NULL)
                         tmp = deps->pkgs[i];

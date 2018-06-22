@@ -63,7 +63,7 @@ slapt_transaction_t *slapt_init_transaction(void)
 int slapt_handle_transaction(const slapt_rc_config *global_config,
                              slapt_transaction_t *tran)
 {
-    unsigned int i, pkg_dl_count = 0, dl_counter = 0;
+    unsigned int i, pkg_dl_count = 0, dl_counter = 0, len = 0;
     double download_size = 0;
     double already_download_size = 0;
     double uncompressed_size = 0;
@@ -88,10 +88,10 @@ int slapt_handle_transaction(const slapt_rc_config *global_config,
 
     /* show pkgs to exclude */
     if (tran->exclude_pkgs->pkg_count > 0) {
-        unsigned int len = 0;
         printf(gettext("The following packages have been EXCLUDED:\n"));
         printf("  ");
 
+        len = 0;
         for (i = 0; i < tran->exclude_pkgs->pkg_count; ++i) {
             const slapt_pkg_info_t *e = tran->exclude_pkgs->pkgs[i];
 
@@ -110,11 +110,11 @@ int slapt_handle_transaction(const slapt_rc_config *global_config,
     /* show suggested pkgs */
     slapt_generate_suggestions(tran);
     if (tran->suggests->count > 0) {
-        unsigned int len = 0;
 
         printf(gettext("Suggested packages:\n"));
         printf("  ");
 
+        len = 0;
         for (i = 0; i < tran->suggests->count; ++i) {
             char *s = tran->suggests->items[i];
 
@@ -136,10 +136,10 @@ int slapt_handle_transaction(const slapt_rc_config *global_config,
 
     /* show pkgs to install */
     if (tran->install_pkgs->pkg_count > 0) {
-        unsigned int len = 0;
         printf(gettext("The following NEW packages will be installed:\n"));
         printf("  ");
 
+        len = 0;
         for (i = 0; i < tran->install_pkgs->pkg_count; ++i) {
             slapt_pkg_info_t *p = tran->install_pkgs->pkgs[i];
             size_t existing_file_size = 0;
@@ -166,10 +166,10 @@ int slapt_handle_transaction(const slapt_rc_config *global_config,
 
     /* show pkgs to remove */
     if (tran->remove_pkgs->pkg_count > 0) {
-        unsigned int len = 0;
         printf(gettext("The following packages will be REMOVED:\n"));
         printf("  ");
 
+        len = 0;
         for (i = 0; i < tran->remove_pkgs->pkg_count; ++i) {
             const slapt_pkg_info_t *r = tran->remove_pkgs->pkgs[i];
 
@@ -189,13 +189,13 @@ int slapt_handle_transaction(const slapt_rc_config *global_config,
 
     /* show pkgs to upgrade */
     if (tran->upgrade_pkgs->pkg_count > 0) {
-        unsigned int len = 0;
 
         if ((tran->upgrade_pkgs->pkg_count - tran->upgrade_pkgs->reinstall_count) > 0) {
             printf(gettext("The following packages will be upgraded:\n"));
             printf("  ");
         }
 
+        len = 0;
         for (i = 0; i < tran->upgrade_pkgs->pkg_count; ++i) {
             slapt_pkg_info_t *u = tran->upgrade_pkgs->pkgs[i]->upgrade;
             slapt_pkg_info_t *p = tran->upgrade_pkgs->pkgs[i]->installed;
@@ -231,10 +231,10 @@ int slapt_handle_transaction(const slapt_rc_config *global_config,
             printf("\n");
 
         if (tran->upgrade_pkgs->reinstall_count > 0) {
-            unsigned int len = 0;
             printf(gettext("The following packages will be reinstalled:\n"));
             printf("  ");
 
+            len = 0;
             for (i = 0; i < tran->upgrade_pkgs->pkg_count; ++i) {
                 slapt_pkg_info_t *u = tran->upgrade_pkgs->pkgs[i]->upgrade;
                 int line_len = len + strlen(u->name) + 1;
