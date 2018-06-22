@@ -3623,10 +3623,11 @@ char *slapt_gen_package_log_dir_name(void)
 {
   char *root_env_entry = NULL;
   char *pkg_log_dirname = NULL;
+  char *path = NULL;
+  struct stat stat_buf;
 
   /* Generate package log directory using ROOT env variable if set */
-  if (getenv(SLAPT_ROOT_ENV_NAME) &&
-      strlen(getenv(SLAPT_ROOT_ENV_NAME)) < SLAPT_ROOT_ENV_LEN) {
+  if (getenv(SLAPT_ROOT_ENV_NAME) && strlen(getenv(SLAPT_ROOT_ENV_NAME)) < SLAPT_ROOT_ENV_LEN) {
     root_env_entry = getenv(SLAPT_ROOT_ENV_NAME);
   }
   pkg_log_dirname = slapt_calloc(
@@ -3634,12 +3635,19 @@ char *slapt_gen_package_log_dir_name(void)
     (root_env_entry ? strlen(root_env_entry) : 0) + 1 ,
     sizeof *pkg_log_dirname
   );
+
+  if (stat(SLAPT_PKG_LOG_DIR, &stat_buf) == 0) {
+    path = SLAPT_PKG_LOG_DIR;
+  } else if (stat(SLAPT_OLD_PKG_LOG_DIR, &stat_buf) == 0) {
+    path = SLAPT_OLD_PKG_LOG_DIR;
+  }
+
   *pkg_log_dirname = '\0';
   if (root_env_entry) {
-    strncpy(pkg_log_dirname, root_env_entry,strlen(root_env_entry));
-    strncat(pkg_log_dirname, SLAPT_PKG_LOG_DIR,strlen(SLAPT_PKG_LOG_DIR));
+    strncpy(pkg_log_dirname, root_env_entry, strlen(root_env_entry));
+    strncat(pkg_log_dirname, path, strlen(path));
   } else {
-    strncat(pkg_log_dirname, SLAPT_PKG_LOG_DIR,strlen(SLAPT_PKG_LOG_DIR));
+    strncat(pkg_log_dirname, path, strlen(path));
   }
 
   return pkg_log_dirname;

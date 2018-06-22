@@ -1,5 +1,6 @@
 
 0.11.0 Jun 21, 2018
+ * support package data in /var/lib/pkgtools
  * move default cache directory to /var/cache/slapt-get
 
 0.10.2t Jul 04, 2016
