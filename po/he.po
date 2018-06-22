@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: he\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
 
 #, c-format
 msgid "  %s: Depends: %s\n"
@@ -29,30 +29,40 @@ msgid "%d newly installed, "
 msgid_plural "%d newly installed, "
 msgstr[0] ""
 msgstr[1] "%d התקנות חדשות, "
+msgstr[2] "%d התקנות חדשות, "
+msgstr[3] "%d התקנות חדשות, "
 
 #, c-format
 msgid "%d not upgraded.\n"
 msgid_plural "%d not upgraded.\n"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
 
 #, c-format
 msgid "%d reinstalled, "
 msgid_plural "%d reinstalled, "
 msgstr[0] ""
 msgstr[1] "%d להתקנה חוזרת, "
+msgstr[2] "%d להתקנה חוזרת, "
+msgstr[3] "%d להתקנה חוזרת, "
 
 #, c-format
 msgid "%d to remove, "
 msgid_plural "%d to remove, "
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
 
 #, c-format
 msgid "%d upgraded, "
 msgid_plural "%d upgraded, "
 msgstr[0] ""
 msgstr[1] "%d לשדרוג, "
+msgstr[2] "%d לשדרוג, "
+msgstr[3] "%d לשדרוג, "
 
 #, c-format
 msgid "%s [option(s)] [target]\n"

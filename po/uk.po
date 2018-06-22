@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: uk\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
 #, c-format
 msgid "  %s: Depends: %s\n"
@@ -29,6 +29,7 @@ msgid_plural "%d newly installed, "
 msgstr[0] "%d щойно встановлений, "
 msgstr[1] "%d щойно встановлено,"
 msgstr[2] "%d щойно встановлено,"
+msgstr[3] "%d щойно встановлено,"
 
 #, c-format
 msgid "%d not upgraded.\n"
@@ -36,6 +37,7 @@ msgid_plural "%d not upgraded.\n"
 msgstr[0] "%d не оновлено.\n"
 msgstr[1] "%d не оновлено.\n"
 msgstr[2] "%d не оновлено.\n"
+msgstr[3] "%d не оновлено.\n"
 
 #, c-format
 msgid "%d reinstalled, "
@@ -43,6 +45,7 @@ msgid_plural "%d reinstalled, "
 msgstr[0] "%d перевстановлено, "
 msgstr[1] "%d перевстановлено,"
 msgstr[2] "%d перевстановлено,"
+msgstr[3] "%d перевстановлено,"
 
 #, c-format
 msgid "%d to remove, "
@@ -50,6 +53,7 @@ msgid_plural "%d to remove, "
 msgstr[0] "%d для видалення, "
 msgstr[1] "%d для видалення,"
 msgstr[2] "%d для видалення,"
+msgstr[3] "%d для видалення,"
 
 #, c-format
 msgid "%d upgraded, "
@@ -57,6 +61,7 @@ msgid_plural "%d upgraded, "
 msgstr[0] "%d оновлено, "
 msgstr[1] "%d оновлено,"
 msgstr[2] "%d оновлено,"
+msgstr[3] "%d оновлено,"
 
 #, c-format
 msgid "%s [option(s)] [target]\n"

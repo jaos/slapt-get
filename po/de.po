@@ -5,6 +5,7 @@
 # 
 # Translators:
 # Copyright (C) 2004, 2005-2007
+# Manfred Mueller <manfred.mueller@fluxflux.net>, 2018
 # Niklas Volbers <mithrandir42@web.de>, 2004-2005
 # Thorsten, 2014
 msgid ""
@@ -12,7 +13,7 @@ msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2017-09-19 14:08+0000\n"
+"PO-Revision-Date: 2018-02-28 14:22+0000\n"
 "Last-Translator: Manfred Mueller <manfred.mueller@fluxflux.net>\n"
 "Language-Team: German (http://www.transifex.com/jaos/slapt-get/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -338,7 +339,7 @@ msgstr "Paket-Groesse: %d K\n"
 
 #, c-format
 msgid "Package Suggests: %s\n"
-msgstr "Packet schlaegt vor: %s\n"
+msgstr "Paket schlaegt vor: %s\n"
 
 #, c-format
 msgid "Package Version: %s\n"

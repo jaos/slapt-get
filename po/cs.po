@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: cs\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
 #, c-format
 msgid "  %s: Depends: %s\n"
@@ -34,6 +34,7 @@ msgid_plural "%d newly installed, "
 msgstr[0] "%d nově nainstalovaný, "
 msgstr[1] "%d nově nainstalované, "
 msgstr[2] "%d nově nainstalovaných, "
+msgstr[3] "%d nově nainstalovaných, "
 
 #, c-format
 msgid "%d not upgraded.\n"
@@ -41,6 +42,7 @@ msgid_plural "%d not upgraded.\n"
 msgstr[0] "%d neupgradovaný.\n"
 msgstr[1] "%d neupgradované.\n"
 msgstr[2] "%d neupgradovaných.\n"
+msgstr[3] "%d neupgradovaných.\n"
 
 #, c-format
 msgid "%d reinstalled, "
@@ -48,6 +50,7 @@ msgid_plural "%d reinstalled, "
 msgstr[0] "%d přeinstalovaný, "
 msgstr[1] "%d přeinstalované, "
 msgstr[2] "%d přeinstalovaných, "
+msgstr[3] "%d přeinstalovaných, "
 
 #, c-format
 msgid "%d to remove, "
@@ -55,6 +58,7 @@ msgid_plural "%d to remove, "
 msgstr[0] "%d k odebrání, "
 msgstr[1] "%d k odebrání, "
 msgstr[2] "%d k odebrání, "
+msgstr[3] "%d k odebrání, "
 
 #, c-format
 msgid "%d upgraded, "
@@ -62,6 +66,7 @@ msgid_plural "%d upgraded, "
 msgstr[0] "%d upgradovaný."
 msgstr[1] "%d upgradované."
 msgstr[2] "%d upgradovaných."
+msgstr[3] "%d upgradovaných."
 
 #, c-format
 msgid "%s [option(s)] [target]\n"
