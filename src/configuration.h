@@ -24,38 +24,38 @@
 #define SLAPT_SOURCE_ATTRIBUTE_REGEX "(:[A-Z_,]+)$"
 
 typedef struct {
-  char *url;
-  SLAPT_PRIORITY_T priority;
-  bool disabled;
+    char *url;
+    SLAPT_PRIORITY_T priority;
+    bool disabled;
 } slapt_source_t;
 
 typedef struct {
-  slapt_source_t **src;
-  unsigned int count;
+    slapt_source_t **src;
+    unsigned int count;
 } slapt_source_list_t;
 
 typedef struct {
-  char working_dir[SLAPT_WORKINGDIR_TOKEN_LEN];
-  slapt_source_list_t *sources;
-  slapt_list_t *exclude_list;
-  int(*progress_cb)(void *,double,double,double,double);
-  bool download_only;
-  bool dist_upgrade;
-  bool simulate;
-  bool no_prompt;
-  bool prompt;
-  bool re_install;
-  bool ignore_excludes;
-  bool no_md5_check;
-  bool ignore_dep;
-  bool disable_dep_check;
-  bool print_uris;
-  bool dl_stats;
-  bool remove_obsolete;
-  bool no_upgrade;
-  unsigned int retry;
-  bool use_priority;
-  bool gpgme_allow_unauth;
+    char working_dir[SLAPT_WORKINGDIR_TOKEN_LEN];
+    slapt_source_list_t *sources;
+    slapt_list_t *exclude_list;
+    int (*progress_cb)(void *, double, double, double, double);
+    bool download_only;
+    bool dist_upgrade;
+    bool simulate;
+    bool no_prompt;
+    bool prompt;
+    bool re_install;
+    bool ignore_excludes;
+    bool no_md5_check;
+    bool ignore_dep;
+    bool disable_dep_check;
+    bool print_uris;
+    bool dl_stats;
+    bool remove_obsolete;
+    bool no_upgrade;
+    unsigned int retry;
+    bool use_priority;
+    bool gpgme_allow_unauth;
 } slapt_rc_config;
 
 /* initialize slapt_rc_config */
@@ -78,7 +78,7 @@ void slapt_free_source(slapt_source_t *src);
 */
 slapt_source_list_t *slapt_init_source_list(void);
 void slapt_add_source(slapt_source_list_t *list, slapt_source_t *s);
-void slapt_remove_source (slapt_source_list_t *list, const char *s);
+void slapt_remove_source(slapt_source_list_t *list, const char *s);
 void slapt_free_source_list(slapt_source_list_t *list);
 
 bool slapt_is_interactive(const slapt_rc_config *);

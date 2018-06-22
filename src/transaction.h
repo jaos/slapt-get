@@ -23,24 +23,27 @@
 #define MAX_LINE_LEN 80
 
 typedef struct {
-  union { slapt_pkg_info_t *i; slapt_pkg_upgrade_t *u; } pkg;
-  unsigned int type; /* this is enum slapt_action defined in main.h */
+    union {
+        slapt_pkg_info_t *i;
+        slapt_pkg_upgrade_t *u;
+    } pkg;
+    unsigned int type; /* this is enum slapt_action defined in main.h */
 } slapt_queue_i;
 
 typedef struct {
-  slapt_queue_i **pkgs;
-  unsigned int count;
+    slapt_queue_i **pkgs;
+    unsigned int count;
 } slapt_queue_t;
 
 typedef struct {
-  slapt_pkg_list_t *install_pkgs;
-  slapt_pkg_upgrade_list_t *upgrade_pkgs;
-  slapt_pkg_list_t *remove_pkgs;
-  slapt_pkg_list_t *exclude_pkgs;
-  slapt_list_t *suggests;
-  slapt_pkg_err_list_t *conflict_err;
-  slapt_pkg_err_list_t *missing_err;
-  slapt_queue_t *queue;
+    slapt_pkg_list_t *install_pkgs;
+    slapt_pkg_upgrade_list_t *upgrade_pkgs;
+    slapt_pkg_list_t *remove_pkgs;
+    slapt_pkg_list_t *exclude_pkgs;
+    slapt_list_t *suggests;
+    slapt_pkg_err_list_t *conflict_err;
+    slapt_pkg_err_list_t *missing_err;
+    slapt_queue_t *queue;
 } slapt_transaction_t;
 
 /* fill in transaction structure with defaults */
@@ -49,7 +52,7 @@ slapt_transaction_t *slapt_init_transaction(void);
   download and install/remove/upgrade packages as defined in the transaction
   returns 0 on success
 */
-int slapt_handle_transaction(const slapt_rc_config *,slapt_transaction_t *);
+int slapt_handle_transaction(const slapt_rc_config *, slapt_transaction_t *);
 
 /* add package for installation to transaction */
 void slapt_add_install_to_transaction(slapt_transaction_t *,
@@ -63,8 +66,8 @@ void slapt_add_upgrade_to_transaction(slapt_transaction_t *,
                                       slapt_pkg_info_t *upgrade_pkg);
 /* add package to reinstall to transaction */
 void slapt_add_reinstall_to_transaction(slapt_transaction_t *,
-                                      slapt_pkg_info_t *installed_pkg,
-                                      slapt_pkg_info_t *upgrade_pkg);
+                                        slapt_pkg_info_t *installed_pkg,
+                                        slapt_pkg_info_t *upgrade_pkg);
 /* add package to exclude to transaction */
 void slapt_add_exclude_to_transaction(slapt_transaction_t *,
                                       slapt_pkg_info_t *pkg);
@@ -73,7 +76,7 @@ slapt_transaction_t *slapt_remove_from_transaction(slapt_transaction_t *tran,
                                                    slapt_pkg_info_t *pkg);
 
 /* search transaction by package name.  returns 1 if found, 0 otherwise */
-int slapt_search_transaction(slapt_transaction_t *,char *pkg_name);
+int slapt_search_transaction(slapt_transaction_t *, char *pkg_name);
 /*
   search transaction by package attributes
   returns 1 if found, 0 otherwise

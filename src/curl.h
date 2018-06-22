@@ -23,7 +23,7 @@
   returns curl code
 */
 int slapt_download_data(FILE *fh, const char *url, size_t bytes, long *filetime,
-                  const slapt_rc_config *global_config);
+                        const slapt_rc_config *global_config);
 
 /*
   retrieves the head data for the url, returns (char *) or NULL on error
@@ -49,13 +49,13 @@ const char *slapt_download_pkg(const slapt_rc_config *global_config,
   this is the default progress callback if global_config->progress_cb == NULL
 */
 int slapt_progress_callback(void *clientp, double dltotal, double dlnow,
-                      double ultotal, double ulnow);
+                            double ultotal, double ulnow);
 
 /*
   do a head request on the mirror data to find out if it's new
   returns (char *) or NULL
 */
-char *slapt_head_mirror_data(const char *wurl,const char *file);
+char *slapt_head_mirror_data(const char *wurl, const char *file);
 /*
   clear head cache storage file
 */
@@ -70,12 +70,10 @@ void slapt_write_head_cache(const char *cache, const char *cache_filename);
 */
 char *slapt_read_head_cache(const char *cache_filename);
 
-struct slapt_progress_data
-{
-  size_t bytes;
-  time_t start;
+struct slapt_progress_data {
+    size_t bytes;
+    time_t start;
 };
 
 struct slapt_progress_data *slapt_init_progress_data(void);
 void slapt_free_progress_data(struct slapt_progress_data *d);
-

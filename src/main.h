@@ -17,7 +17,7 @@
  */
 
 #ifndef _GNU_SOURCE
-  #define _GNU_SOURCE
+#define _GNU_SOURCE
 #endif
 #include <stdio.h>
 #include <stdlib.h>
@@ -49,17 +49,28 @@
 #include "transaction.h"
 #include "action.h"
 #ifdef SLAPT_HAS_GPGME
-  #include "gpgme.h"
+#include "gpgme.h"
 #endif
 
 enum slapt_action {
-  USAGE = 0, UPDATE, INSTALL, REMOVE, SHOW, SEARCH, UPGRADE,
-  LIST, INSTALLED, CLEAN, SHOWVERSION, AUTOCLEAN, AVAILABLE,
-  #ifdef SLAPT_HAS_GPGME
-  ADD_KEYS,
-  #endif
-  INSTALL_DISK_SET,
-  FILELIST
+    USAGE = 0,
+    UPDATE,
+    INSTALL,
+    REMOVE,
+    SHOW,
+    SEARCH,
+    UPGRADE,
+    LIST,
+    INSTALLED,
+    CLEAN,
+    SHOWVERSION,
+    AUTOCLEAN,
+    AVAILABLE,
+#ifdef SLAPT_HAS_GPGME
+    ADD_KEYS,
+#endif
+    INSTALL_DISK_SET,
+    FILELIST
 };
 
 #define SLAPT_UPDATE_OPT 'u'
@@ -93,11 +104,10 @@ enum slapt_action {
 #define SLAPT_RETRY_OPT 'R'
 #define SLAPT_NO_UPGRADE_OPT 'N'
 #ifdef SLAPT_HAS_GPGME
-  #define SLAPT_ADD_KEYS_OPT 'k'
-  #define SLAPT_ALLOW_UNAUTH 'U'
+#define SLAPT_ADD_KEYS_OPT 'k'
+#define SLAPT_ALLOW_UNAUTH 'U'
 #endif
 #define SLAPT_FILELIST 'f'
 
 #define SLAPT_DO_NOT_UNLINK_BAD_FILES 1
 #define SLACKWARE_EXTRA_TESTING_PASTURE_WORKAROUND 1
-

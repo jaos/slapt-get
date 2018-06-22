@@ -29,5 +29,4 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config);
 void slapt_pkg_action_add_keys(const slapt_rc_config *global_config);
 #endif
 
-void slapt_pkg_action_filelist( const char *pkg_name );
-
+void slapt_pkg_action_filelist(const char *pkg_name);
