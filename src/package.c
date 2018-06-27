@@ -3483,16 +3483,14 @@ char *slapt_gen_package_log_dir_name(void)
     if (getenv(SLAPT_ROOT_ENV_NAME) && strlen(getenv(SLAPT_ROOT_ENV_NAME)) < SLAPT_ROOT_ENV_LEN) {
         root_env_entry = getenv(SLAPT_ROOT_ENV_NAME);
     }
-    pkg_log_dirname = slapt_calloc(
-        strlen(SLAPT_PKG_LOG_DIR) +
-            (root_env_entry ? strlen(root_env_entry) : 0) + 1,
-        sizeof *pkg_log_dirname);
 
     if (stat(SLAPT_PKG_LOG_DIR, &stat_buf) == 0) {
         path = SLAPT_PKG_LOG_DIR;
     } else if (stat(SLAPT_OLD_PKG_LOG_DIR, &stat_buf) == 0) {
         path = SLAPT_OLD_PKG_LOG_DIR;
     }
+
+    pkg_log_dirname = slapt_calloc(strlen(path) + (root_env_entry ? strlen(root_env_entry) : 0) + 1, sizeof *pkg_log_dirname);
 
     *pkg_log_dirname = '\0';
     if (root_env_entry) {
