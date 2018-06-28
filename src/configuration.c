@@ -350,7 +350,7 @@ slapt_source_t *slapt_init_source(const char *s)
             source_len);
 
         if (isblank(src->url[source_len - 1]) == 0) {
-            src->url = strncat(src->url, "/", 1);
+            src->url = strcat(src->url, "/");
         } else {
             if (src->url[source_len - 2] == '/') {
                 src->url[source_len - 2] = '/';

@@ -171,12 +171,11 @@ const char *slapt_get_mirror_data_from_source(FILE *fh,
     int return_code = 0;
     char *url = NULL;
 
-    url = slapt_calloc(
-        strlen(base_url) + strlen(filename) + 1, sizeof *url);
+    url = slapt_calloc(strlen(base_url) + strlen(filename) + 1, sizeof *url);
 
-    strncpy(url, base_url, strlen(base_url));
+    strcpy(url, base_url);
     url[strlen(base_url)] = '\0';
-    strncat(url, filename, strlen(filename));
+    strcat(url, filename);
 
     return_code = slapt_download_data(fh, url, 0, NULL, global_config);
 
@@ -406,11 +405,9 @@ char *slapt_gen_head_cache_filename(const char *filename_from_url)
 {
     char *head_filename;
 
-    head_filename = slapt_calloc(
-        strlen(filename_from_url) + strlen(SLAPT_HEAD_FILE_EXT) + 1,
-        sizeof *head_filename);
-    strncat(head_filename, filename_from_url, strlen(filename_from_url));
-    strncat(head_filename, SLAPT_HEAD_FILE_EXT, strlen(SLAPT_HEAD_FILE_EXT));
+    head_filename = slapt_calloc(strlen(filename_from_url) + strlen(SLAPT_HEAD_FILE_EXT) + 1, sizeof *head_filename);
+    strcpy(head_filename, filename_from_url);
+    strcat(head_filename, SLAPT_HEAD_FILE_EXT);
 
     return head_filename;
 }
@@ -443,9 +440,8 @@ char *slapt_head_mirror_data(const char *wurl, const char *file)
 
     /* build url */
     url = slapt_calloc(strlen(wurl) + strlen(file) + 1, sizeof *url);
-    url[0] = '\0';
-    strncat(url, wurl, strlen(wurl));
-    strncat(url, file, strlen(file));
+    strcpy(url, wurl);
+    strcat(url, file);
 
     /* retrieve the header info */
     head_data = slapt_head_request(url);
