@@ -81,6 +81,7 @@ int slapt_download_data(FILE *fh, const char *url, size_t bytes, long *filetime,
         return_code = response;
     }
 
+    /* XXX Use CURLINFO_FILETIME_T with 7.59+ */
     if (filetime != NULL)
         curl_easy_getinfo(ch, CURLINFO_FILETIME, filetime);
 
