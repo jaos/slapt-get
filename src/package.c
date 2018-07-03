@@ -3481,6 +3481,9 @@ char *slapt_gen_package_log_dir_name(void)
         path = SLAPT_PKG_LIB_DIR;
     } else if (stat(SLAPT_PKG_LOG_DIR, &stat_buf) == 0) {
         path = SLAPT_PKG_LOG_DIR;
+    } else {
+        /* this should never happen */
+        exit(EXIT_FAILURE);
     }
 
     pkg_log_dirname = slapt_calloc(strlen(path) + (root_env_entry ? strlen(root_env_entry) : 0) + 1, sizeof *pkg_log_dirname);
