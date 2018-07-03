@@ -69,7 +69,7 @@ typedef struct {
 
 typedef struct {
     char **items;
-    unsigned int count;
+    uint32_t count;
 } slapt_list_t;
 
 FILE *slapt_open_file(const char *file_name, const char *mode);

@@ -78,7 +78,7 @@ slapt-get stores the configuration information in a \fIslapt_rc_config\fP object
     bool dl_stats;
     bool remove_obsolete;
     bool no_upgrade;
-    unsigned int retry;
+    uint32_t retry;
   } slapt_rc_config;
 .fi
 
@@ -122,7 +122,7 @@ The \fIslapt_source_list_t\fP stores the package sources.  Sources can be added 
 .nf
   typedef struct {
     slapt_source_t **src;
-    unsigned int count;
+    uint32_t count;
   } slapt_source_list_t;
 .sp
 .B "slapt_source_list_t *slapt_init_source_list(void);"
@@ -152,9 +152,9 @@ slapt-get stores packages within \fIslapt_pkg_info_t\fP objects.
     char *conflicts;
     char *suggests;
     char *file_ext;
-    unsigned int size_c;
-    unsigned int size_u;
-    unsigned int priority;
+    uint32_t size_c;
+    uint32_t size_u;
+    uint32_t priority;
     bool installed;
   } slapt_pkg_info_t;
 .fi
@@ -175,7 +175,7 @@ Package lists are useful for grouping packages from the existing installed packa
 .nf
   typedef struct {
     slapt_pkg_info_t **pkgs;
-    unsigned int pkg_count;
+    uint32_t pkg_count;
     bool free_pkgs;
     bool ordered;
   } slapt_pkg_list_t;
@@ -251,7 +251,7 @@ The following functions deal with determining package dependencies and conflicts
 .sp
   typedef struct {
     slapt_pkg_err_t **errs;
-    unsigned int err_count;
+    uint32_t err_count;
   } slapt_pkg_err_list_t;
 .sp
 .B "slapt_pkg_err_list_t *slapt_init_pkg_err_list(void);"
@@ -426,12 +426,12 @@ Adding, removing, and upgrading packages can be wrapped in a \fIslapt_transactio
 .sp
   typedef struct {
     union { slapt_pkg_info_t *i; slapt_pkg_upgrade_t *u; } pkg;
-    unsigned int type; /* this is enum slapt_action */
+    uint32_t type; /* this is enum slapt_action */
   } slapt_queue_i;
 .sp
   typedef struct {
     slapt_queue_i **pkgs;
-    unsigned int count;
+    uint32_t count;
   } slapt_queue_t;
 .sp
   typedef struct {
@@ -442,8 +442,8 @@ Adding, removing, and upgrading packages can be wrapped in a \fIslapt_transactio
 .sp
   typedef struct {
     slapt_pkg_upgrade_t **pkgs;
-    unsigned int pkg_count;
-    unsigned int reinstall_count;
+    uint32_t pkg_count;
+    uint32_t reinstall_count;
   } slapt_pkg_upgrade_list_t;
 .sp
   typedef struct {
@@ -601,7 +601,7 @@ Miscellaneous functionality within libslapt.
 .sp
   typedef struct {
     char **items;
-    unsigned int count;
+    uint32_t count;
   } slapt_list_t;
 .sp
 .B /* general list management */

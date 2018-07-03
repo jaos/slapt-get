@@ -20,7 +20,7 @@
 
 struct slapt_pkg_version_parts {
     char **parts;
-    unsigned int count;
+    uint32_t count;
 };
 
 /* used by qsort */
@@ -986,8 +986,7 @@ void slapt_get_md5sums(slapt_pkg_list_t *pkgs, FILE *checksum_file)
 
 static void slapt_free_pkg_version_parts(struct slapt_pkg_version_parts *parts)
 {
-    unsigned int i;
-    for (i = 0; i < parts->count; i++) {
+    for (uint32_t i = 0; i < parts->count; i++) {
         free(parts->parts[i]);
     }
     free(parts->parts);
@@ -1015,7 +1014,7 @@ int slapt_cmp_pkgs(slapt_pkg_info_t *a, slapt_pkg_info_t *b)
 
 int slapt_cmp_pkg_versions(const char *a, const char *b)
 {
-    unsigned int position = 0;
+    uint32_t position = 0;
     int greater = 1, lesser = -1, equal = 0;
     struct slapt_pkg_version_parts *a_parts;
     struct slapt_pkg_version_parts *b_parts;
@@ -1300,7 +1299,7 @@ int slapt_get_pkg_dependencies(const slapt_rc_config *global_config,
                                slapt_pkg_err_list_t *conflict_err,
                                slapt_pkg_err_list_t *missing_err)
 {
-    unsigned int i = 0;
+    uint32_t i = 0;
     slapt_list_t *dep_parts = NULL;
 
     /*
@@ -1674,7 +1673,7 @@ slapt_pkg_list_t *slapt_is_required_by(const slapt_rc_config *global_config,
 
 static char *escape_package_name(slapt_pkg_info_t *pkg)
 {
-    unsigned int name_len = 0, escape_count = 0, i;
+    uint32_t name_len = 0, escape_count = 0, i;
     char *escaped_name = NULL, *escaped_ptr;
     char p;
 
@@ -2224,7 +2223,7 @@ slapt_code_t slapt_verify_downloaded_pkg(const slapt_rc_config *global_config,
     since we are validating the checksum anyway.
 
   file_size = slapt_get_pkg_file_size(global_config,pkg);
-  if ((unsigned int)(file_size/1024) != pkg->size_c) {
+  if ((uint32_t)(file_size/1024) != pkg->size_c) {
     return SLAPT_DOWNLOAD_INCOMPLETE;
   }
   */

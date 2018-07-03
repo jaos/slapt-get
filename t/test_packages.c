@@ -296,7 +296,7 @@ END_TEST
 
 START_TEST(test_dependency)
 {
-    unsigned int i = 0;
+    uint32_t i = 0;
     FILE *fh = NULL;
     slapt_pkg_info_t *p = NULL;
     slapt_pkg_list_t *avail = NULL;

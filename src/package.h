@@ -63,15 +63,15 @@ typedef struct {
     char *conflicts;
     char *suggests;
     char *file_ext;
-    unsigned int size_c;
-    unsigned int size_u;
-    unsigned int priority;
+    uint32_t size_c;
+    uint32_t size_u;
+    uint32_t priority;
     bool installed;
 } slapt_pkg_info_t;
 
 typedef struct {
     slapt_pkg_info_t **pkgs;
-    unsigned int pkg_count;
+    uint32_t pkg_count;
     bool free_pkgs;
     bool ordered;
 } slapt_pkg_list_t;
@@ -84,8 +84,8 @@ typedef struct {
 
 typedef struct {
     slapt_pkg_upgrade_t **pkgs;
-    unsigned int pkg_count;
-    unsigned int reinstall_count;
+    uint32_t pkg_count;
+    uint32_t reinstall_count;
 } slapt_pkg_upgrade_list_t;
 
 typedef struct {
@@ -95,7 +95,7 @@ typedef struct {
 
 typedef struct {
     slapt_pkg_err_t **errs;
-    unsigned int err_count;
+    uint32_t err_count;
 } slapt_pkg_err_list_t;
 
 /* returns an empty package structure */

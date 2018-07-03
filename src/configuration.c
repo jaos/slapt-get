@@ -219,7 +219,7 @@ void slapt_add_source(slapt_source_list_t *list, slapt_source_t *s)
 void slapt_remove_source(slapt_source_list_t *list, const char *s)
 {
     slapt_source_t *src_to_discard = NULL;
-    unsigned int i = 0;
+    uint32_t i = 0;
 
     while (i < list->count) {
         if (strcmp(s, list->src[i]->url) == 0 && src_to_discard == NULL) {
@@ -309,8 +309,8 @@ static void slapt_source_parse_attributes(slapt_source_t *s, const char *string)
 slapt_source_t *slapt_init_source(const char *s)
 {
     slapt_source_t *src;
-    unsigned int source_len = 0;
-    unsigned int attribute_len = 0;
+    uint32_t source_len = 0;
+    uint32_t attribute_len = 0;
     slapt_regex_t *attribute_regex = NULL;
     char *source_string = NULL;
     char *attribute_string = NULL;
@@ -382,7 +382,7 @@ void slapt_free_source(slapt_source_t *src)
 
 int slapt_write_rc_config(const slapt_rc_config *global_config, const char *location)
 {
-    unsigned int i;
+    uint32_t i = 0;
     FILE *rc;
 
     rc = slapt_open_file(location, "w+");

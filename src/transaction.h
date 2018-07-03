@@ -27,12 +27,12 @@ typedef struct {
         slapt_pkg_info_t *i;
         slapt_pkg_upgrade_t *u;
     } pkg;
-    unsigned int type; /* this is enum slapt_action defined in main.h */
+    uint32_t type; /* this is enum slapt_action defined in main.h */
 } slapt_queue_i;
 
 typedef struct {
     slapt_queue_i **pkgs;
-    unsigned int count;
+    uint32_t count;
 } slapt_queue_t;
 
 typedef struct {

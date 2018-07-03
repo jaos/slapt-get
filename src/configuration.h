@@ -31,7 +31,7 @@ typedef struct {
 
 typedef struct {
     slapt_source_t **src;
-    unsigned int count;
+    uint32_t count;
 } slapt_source_list_t;
 
 typedef struct {
@@ -53,7 +53,7 @@ typedef struct {
     bool dl_stats;
     bool remove_obsolete;
     bool no_upgrade;
-    unsigned int retry;
+    uint32_t retry;
     bool use_priority;
     bool gpgme_allow_unauth;
 } slapt_rc_config;
