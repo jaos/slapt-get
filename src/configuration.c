@@ -251,10 +251,8 @@ void slapt_remove_source(slapt_source_list_t *list, const char *s)
 
 void slapt_free_source_list(slapt_source_list_t *list)
 {
-    unsigned int i;
-
-    for (i = 0; i < list->count; ++i) {
-        slapt_free_source(list->src[i]);
+    slapt_source_list_t_foreach(source, list) {
+        slapt_free_source(source);
     }
     free(list->src);
     free(list);
@@ -392,21 +390,21 @@ int slapt_write_rc_config(const slapt_rc_config *global_config, const char *loca
     fprintf(rc, "%s%s\n", SLAPT_WORKINGDIR_TOKEN, global_config->working_dir);
 
     fprintf(rc, "%s", SLAPT_EXCLUDE_TOKEN);
-    for (i = 0; i < global_config->exclude_list->count; ++i) {
+    slapt_list_t_foreach(exclude, global_config->exclude_list) {
         if (i + 1 == global_config->exclude_list->count) {
-            fprintf(rc, "%s", global_config->exclude_list->items[i]);
+            fprintf(rc, "%s", exclude);
         } else {
-            fprintf(rc, "%s,", global_config->exclude_list->items[i]);
+            fprintf(rc, "%s,", exclude);
         }
+        i++;
     }
     fprintf(rc, "\n");
 
-    for (i = 0; i < global_config->sources->count; ++i) {
-        slapt_source_t *src = global_config->sources->src[i];
+    slapt_source_list_t_foreach(src, global_config->sources) {
         SLAPT_PRIORITY_T priority = src->priority;
         const char *token = SLAPT_SOURCE_TOKEN;
 
-        if (global_config->sources->src[i]->disabled == true)
+        if (src->disabled == true)
             token = SLAPT_DISABLED_SOURCE_TOKEN;
 
         if (priority > SLAPT_PRIORITY_DEFAULT) {

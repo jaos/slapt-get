@@ -33,6 +33,7 @@ typedef struct {
     slapt_source_t **src;
     uint32_t count;
 } slapt_source_list_t;
+#define slapt_source_list_t_foreach(item, list) slapt_source_t *item; for (uint32_t item##_counter = 0; item = list->src[item##_counter], item##_counter < list->count; item##_counter++)
 
 typedef struct {
     char working_dir[SLAPT_WORKINGDIR_TOKEN_LEN];

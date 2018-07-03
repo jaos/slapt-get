@@ -328,12 +328,10 @@ int main(int argc, char *argv[])
         slapt_free_list(paa);
         break;
     case INSTALL_DISK_SET: {
-        unsigned int set_i;
         slapt_pkg_list_t *set_pkgs = slapt_init_pkg_list();
         slapt_pkg_list_t *avail_pkgs = slapt_get_available_pkgs();
 
         while (optind < argc) {
-            unsigned int search_i;
             slapt_pkg_list_t *matches = NULL;
             char *search = slapt_malloc(sizeof *search * (strlen(argv[optind]) + 3));
 
@@ -341,9 +339,9 @@ int main(int argc, char *argv[])
             matches = slapt_search_pkg_list(avail_pkgs, search);
             free(search);
 
-            for (search_i = 0; search_i < matches->pkg_count; ++search_i) {
-                if (slapt_is_excluded(global_config, matches->pkgs[search_i]) == 0) {
-                    slapt_add_pkg_to_pkg_list(set_pkgs, matches->pkgs[search_i]);
+            slapt_pkg_list_t_foreach(match, matches) {
+                if (!slapt_is_excluded(global_config, match)) {
+                    slapt_add_pkg_to_pkg_list(set_pkgs, match);
                 }
             }
 
@@ -353,8 +351,8 @@ int main(int argc, char *argv[])
 
         paa = slapt_init_list();
 
-        for (set_i = 0; set_i < set_pkgs->pkg_count; ++set_i) {
-            slapt_add_list_item(paa, set_pkgs->pkgs[set_i]->name);
+        slapt_pkg_list_t_foreach(set_pkg, set_pkgs) {
+            slapt_add_list_item(paa, set_pkg->name);
         }
 
         slapt_free_pkg_list(set_pkgs);
