@@ -869,26 +869,25 @@ void slapt_free_pkg_list(slapt_pkg_list_t *list)
     free(list);
 }
 
-int slapt_is_excluded(const slapt_rc_config *global_config,
+bool slapt_is_excluded(const slapt_rc_config *global_config,
                       slapt_pkg_info_t *pkg)
 {
     unsigned int i, pkg_not_excluded = 0, pkg_slapt_is_excluded = 1;
     int name_reg_ret = -1, version_reg_ret = -1, location_reg_ret = -1;
 
     if (global_config->ignore_excludes == true)
-        return pkg_not_excluded;
+        return false;
 
     /* maybe EXCLUDE= isn't defined in our rc? */
     if (global_config->exclude_list->count == 0)
-        return pkg_not_excluded;
+        return false;
 
     for (i = 0; i < global_config->exclude_list->count; i++) {
         slapt_regex_t *exclude_reg = NULL;
 
         /* return if its an exact match */
-        if ((strncmp(global_config->exclude_list->items[i],
-                     pkg->name, strlen(pkg->name)) == 0))
-            return pkg_slapt_is_excluded;
+        if ((strncmp(exclude, pkg->name, strlen(pkg->name)) == 0))
+            return true;
 
         /*
       this regex has to be init'd and free'd within the loop b/c the regex is pulled 
@@ -912,11 +911,11 @@ int slapt_is_excluded(const slapt_rc_config *global_config,
         slapt_free_regex(exclude_reg);
 
         if (name_reg_ret == 0 || version_reg_ret == 0 || location_reg_ret == 0) {
-            return pkg_slapt_is_excluded;
+            return true;
         }
     }
 
-    return pkg_not_excluded;
+    return false;
 }
 
 void slapt_get_md5sums(slapt_pkg_list_t *pkgs, FILE *checksum_file)
@@ -1918,7 +1917,7 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
         tmp_signature_f = slapt_get_pkg_source_checksums_signature(global_config, source_url, &compressed);
 
         /* if we downloaded the compressed checksums, open it raw (w/o gunzipping) */
-        if (compressed == 1) {
+        if (compressed) {
             char *filename = slapt_gen_filename_from_url(source_url, SLAPT_CHECKSUM_FILE_GZ);
             tmp_checksum_to_verify_f = slapt_open_file(filename, "r");
             free(filename);
@@ -1948,7 +1947,7 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
             fclose(tmp_signature_f);
 
         /* if we opened the raw gzipped checksums, close it here */
-        if (compressed == 1) {
+        if (compressed) {
             fclose(tmp_checksum_to_verify_f);
         } else {
             if (tmp_checksum_f)
@@ -2564,7 +2563,7 @@ static FILE *slapt_gunzip_file(const char *file_name, FILE *dest_file)
 }
 
 slapt_pkg_list_t *slapt_get_pkg_source_packages(const slapt_rc_config *global_config,
-                                                const char *url, unsigned int *compressed)
+                                                const char *url, bool *compressed)
 {
     slapt_pkg_list_t *available_pkgs = NULL;
     char *pkg_head = NULL;
@@ -2757,7 +2756,7 @@ slapt_pkg_list_t *slapt_get_pkg_source_packages(const slapt_rc_config *global_co
 }
 
 slapt_pkg_list_t *slapt_get_pkg_source_patches(const slapt_rc_config *global_config,
-                                               const char *url, unsigned int *compressed)
+                                               const char *url, bool *compressed)
 {
     slapt_pkg_list_t *patch_pkgs = NULL;
     char *patch_head = NULL;
@@ -2901,7 +2900,7 @@ slapt_pkg_list_t *slapt_get_pkg_source_patches(const slapt_rc_config *global_con
 }
 
 FILE *slapt_get_pkg_source_checksums(const slapt_rc_config *global_config,
-                                     const char *url, unsigned int *compressed)
+                                     const char *url, bool *compressed)
 {
     FILE *tmp_checksum_f = NULL;
     char *checksum_head = NULL;
@@ -3036,7 +3035,7 @@ FILE *slapt_get_pkg_source_checksums(const slapt_rc_config *global_config,
 }
 
 int slapt_get_pkg_source_changelog(const slapt_rc_config *global_config,
-                                   const char *url, unsigned int *compressed)
+                                   const char *url, bool *compressed)
 {
     char *changelog_head = NULL;
     char *filename = NULL;

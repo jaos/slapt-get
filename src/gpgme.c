@@ -51,7 +51,7 @@ static void _slapt_free_gpgme_ctx(gpgme_ctx_t *ctx)
 
 FILE *slapt_get_pkg_source_checksums_signature(const slapt_rc_config *global_config,
                                                const char *url,
-                                               unsigned int *compressed)
+                                               bool *compressed)
 {
     FILE *tmp_checksum_f = NULL;
     char *checksum_head = NULL;
@@ -61,14 +61,13 @@ FILE *slapt_get_pkg_source_checksums_signature(const slapt_rc_config *global_con
     char *filename = NULL;
     char *local_head = NULL;
     char *location;
-    int checksums_compressed = *compressed;
 
-    if (checksums_compressed == 1) {
+    if (*compressed) {
         location = location_compressed;
-        *compressed = 1;
+        *compressed = true;
     } else {
         location = location_uncompressed;
-        *compressed = 0;
+        *compressed = false;
     }
 
     filename = slapt_gen_filename_from_url(url, location);
@@ -138,7 +137,7 @@ FILE *slapt_get_pkg_source_checksums_signature(const slapt_rc_config *global_con
 
 FILE *slapt_get_pkg_source_gpg_key(const slapt_rc_config *global_config,
                                    const char *url,
-                                   unsigned int *compressed)
+                                   bool *compressed)
 {
     FILE *tmp_key_f = NULL;
     char *key_head = NULL;
@@ -148,7 +147,7 @@ FILE *slapt_get_pkg_source_gpg_key(const slapt_rc_config *global_config,
                            ? true
                            : false;
 
-    *compressed = 0;
+    *compressed = false;
     key_head = slapt_head_mirror_data(url, SLAPT_GPG_KEY);
 
     if (key_head == NULL) {

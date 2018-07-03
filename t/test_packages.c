@@ -59,7 +59,7 @@ START_TEST(test_pkg_info)
     string = NULL;
 
     slapt_add_list_item(rc->exclude_list, "^gslapt$");
-    fail_if(slapt_is_excluded(rc, &pkg) == 0);
+    fail_if(!slapt_is_excluded(rc, &pkg));
     slapt_remove_list_item(rc->exclude_list, "^gslapt$");
 
     fail_unless(slapt_download_pkg(rc, &pkg, NULL) == 0);

@@ -197,7 +197,7 @@ char *slapt_gen_pkg_url(slapt_pkg_info_t *pkg);
   exclude pkg based on pkg name
   returns 1 if package is present in the exclude list, 0 if not present
 */
-int slapt_is_excluded(const slapt_rc_config *, slapt_pkg_info_t *);
+bool slapt_is_excluded(const slapt_rc_config *, slapt_pkg_info_t *);
 /*
   package is already downloaded and cached, md5sum if applicable is ok
   returns slapt_code_t.
@@ -275,22 +275,22 @@ slapt_pkg_info_t *slapt_copy_pkg(slapt_pkg_info_t *dst, slapt_pkg_info_t *src);
 slapt_pkg_err_list_t *slapt_init_pkg_err_list(void);
 void slapt_add_pkg_err_to_list(slapt_pkg_err_list_t *l,
                                const char *pkg, const char *err);
-int slapt_search_pkg_err_list(slapt_pkg_err_list_t *l,
+bool slapt_search_pkg_err_list(slapt_pkg_err_list_t *l,
                               const char *pkg, const char *err);
 void slapt_free_pkg_err_list(slapt_pkg_err_list_t *l);
 
 /*
   download the PACKAGES.TXT and CHECKSUMS.md5 files
-  compressed is set to 1 if the compressed version was downloaded.
+  compressed is set if the compressed version was downloaded.
 */
 slapt_pkg_list_t *slapt_get_pkg_source_packages(const slapt_rc_config *global_config,
-                                                const char *url, unsigned int *compressed);
+                                                const char *url, bool *compressed);
 slapt_pkg_list_t *slapt_get_pkg_source_patches(const slapt_rc_config *global_config,
-                                               const char *url, unsigned int *compressed);
+                                               const char *url, bool *compressed);
 FILE *slapt_get_pkg_source_checksums(const slapt_rc_config *global_config,
-                                     const char *url, unsigned int *compressed);
+                                     const char *url, bool *compressed);
 int slapt_get_pkg_source_changelog(const slapt_rc_config *global_config,
-                                   const char *url, unsigned int *compressed);
+                                   const char *url, bool *compressed);
 
 /* clean package name from package description */
 void slapt_clean_description(char *description, const char *name);

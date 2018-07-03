@@ -394,7 +394,7 @@ void slapt_pkg_action_show(const char *pkg_name)
     slapt_pkg_list_t *avail_pkgs = NULL;
     slapt_pkg_list_t *installed_pkgs = NULL;
     slapt_regex_t *pkg_regex = NULL;
-    unsigned int bool_installed = 0;
+    bool installed = false;
     slapt_pkg_info_t *pkg = NULL;
 
     avail_pkgs = slapt_get_available_pkgs();
@@ -442,7 +442,7 @@ void slapt_pkg_action_show(const char *pkg_name)
         slapt_clean_description(description, pkg->name);
 
         if (slapt_get_exact_pkg(installed_pkgs, pkg->name, pkg->version) != NULL)
-            bool_installed = 1;
+            installed = true;
 
         printf(gettext("Package Name: %s\n"), pkg->name);
         printf(gettext("Package Mirror: %s\n"), pkg->mirror);
@@ -465,7 +465,7 @@ void slapt_pkg_action_show(const char *pkg_name)
         }
 
         printf(gettext("Package Installed: %s\n"),
-               bool_installed == 1
+               installed
                    ? gettext("yes")
                    : gettext("no"));
 

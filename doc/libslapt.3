@@ -391,14 +391,14 @@ The following functions download the PACKAGES.TXT, the patches/PACKAGES.TXT, CHE
 .nf
 .B "slapt_pkg_list_t *"
 .B "slapt_get_pkg_source_packages (const slapt_rc_config *global_config,"
-.B "                               const char *url, unsigned int *compressed);"
+.B "                               const char *url, bool *compressed);"
 .B "slapt_pkg_list_t *"
 .B "slapt_get_pkg_source_patches (const slapt_rc_config *global_config,"
-.B "                              const char *url, unsigned int *compressed);"
+.B "                              const char *url, bool *compressed);"
 .B "FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,"
-.B "                                      const char *url, unsigned int *compressed);"
+.B "                                      const char *url, bool *compressed);"
 .B "int slapt_get_pkg_source_changelog (const slapt_rc_config *global_config,"
-.B "                                      const char *url, unsigned int *compressed);"
+.B "                                      const char *url, bool *compressed);"
 .fi
 .sp
 .TP
@@ -511,7 +511,7 @@ Retrieve the signature file for CHECKSUMS.md5 (or the signature for CHECKSUMS.md
 .nf
 .B "FILE *slapt_get_pkg_source_checksums_signature (const slapt_rc_config *global_config,"
 .B "                                                const char *url,"
-.B "                                                unsigned int *compressed);"
+.B "                                                bool *compressed);"
 .fi
 .sp
 .TP
@@ -519,7 +519,7 @@ Retrieve the GPG-KEY file from the package source, if available.  Returns NULL i
 .nf
 .B "FILE *slapt_get_pkg_source_gpg_key(const slapt_rc_config *global_config,"
 .B "                                   const char *url,"
-.B "                                   unsigned int *compressed);"
+.B "                                   bool *compressed);"
 .fi
 .sp
 .TP
