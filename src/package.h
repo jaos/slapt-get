@@ -292,7 +292,7 @@ slapt_pkg_list_t *slapt_get_pkg_source_patches(const slapt_rc_config *global_con
                                                const char *url, bool *compressed);
 FILE *slapt_get_pkg_source_checksums(const slapt_rc_config *global_config,
                                      const char *url, bool *compressed);
-int slapt_get_pkg_source_changelog(const slapt_rc_config *global_config,
+bool slapt_get_pkg_source_changelog(const slapt_rc_config *global_config,
                                    const char *url, bool *compressed);
 
 /* clean package name from package description */

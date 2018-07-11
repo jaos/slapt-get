@@ -8,21 +8,21 @@ START_TEST(test_transaction)
 
     slapt_add_install_to_transaction(t, &pkg);
     fail_unless(t->install_pkgs->pkg_count == 1);
-    fail_unless(slapt_search_transaction(t, "gslapt") == 1);
-    fail_unless(slapt_search_transaction_by_pkg(t, &pkg) == 1);
+    fail_unless(slapt_search_transaction(t, "gslapt"));
+    fail_unless(slapt_search_transaction_by_pkg(t, &pkg));
     t = slapt_remove_from_transaction(t, &pkg);
 
     slapt_add_remove_to_transaction(t, &pkg);
     fail_unless(t->remove_pkgs->pkg_count == 1);
-    fail_unless(slapt_search_transaction(t, "gslapt") == 1);
-    fail_unless(slapt_search_transaction_by_pkg(t, &pkg) == 1);
+    fail_unless(slapt_search_transaction(t, "gslapt"));
+    fail_unless(slapt_search_transaction_by_pkg(t, &pkg));
     t = slapt_remove_from_transaction(t, &pkg);
 
     slapt_add_exclude_to_transaction(t, &pkg);
     fail_unless(t->exclude_pkgs->pkg_count == 1);
 
     slapt_add_upgrade_to_transaction(t, &pkg, &pkg);
-    /* fail_unless (slapt_search_upgrade_transaction(t, &pkg) == 1); */
+    /* fail_unless (slapt_search_upgrade_transaction(t, &pkg)); */
 
     slapt_free_transaction(t);
 }

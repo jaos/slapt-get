@@ -76,19 +76,19 @@ void slapt_add_exclude_to_transaction(slapt_transaction_t *,
 slapt_transaction_t *slapt_remove_from_transaction(slapt_transaction_t *tran,
                                                    slapt_pkg_info_t *pkg);
 
-/* search transaction by package name.  returns 1 if found, 0 otherwise */
-int slapt_search_transaction(slapt_transaction_t *, char *pkg_name);
+/* search transaction by package name.  returns true if found, false otherwise */
+bool slapt_search_transaction(slapt_transaction_t *, char *pkg_name);
 /*
   search transaction by package attributes
-  returns 1 if found, 0 otherwise
+  returns true if found, false otherwise
 */
-int slapt_search_transaction_by_pkg(slapt_transaction_t *tran,
+bool slapt_search_transaction_by_pkg(slapt_transaction_t *tran,
                                     slapt_pkg_info_t *pkg);
 /*
   searches the upgrade list of the transaction for the present of the package
-  returns 1 if found, 0 if not found
+  returns true if found, false if not found
 */
-int slapt_search_upgrade_transaction(slapt_transaction_t *tran,
+bool slapt_search_upgrade_transaction(slapt_transaction_t *tran,
                                      slapt_pkg_info_t *pkg);
 
 /*

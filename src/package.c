@@ -1848,7 +1848,7 @@ slapt_pkg_info_t *slapt_get_pkg_by_details(slapt_pkg_list_t *list,
 /* update package data from mirror url */
 int slapt_update_pkg_cache(const slapt_rc_config *global_config)
 {
-    uint32_t source_dl_failed = 0;
+    bool source_dl_failed = false;
     slapt_pkg_list_t *new_pkgs = slapt_init_pkg_list();
     new_pkgs->free_pkgs = true;
 
@@ -1873,7 +1873,7 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
 
         available_pkgs = slapt_get_pkg_source_packages(global_config, source_url, &compressed);
         if (available_pkgs == NULL) {
-            source_dl_failed = 1;
+            source_dl_failed = true;
             continue;
         }
 
@@ -1911,7 +1911,7 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
                 printf("%s%s\n", slapt_strerror(verified), gettext(", but accepted as an exception"));
             } else {
                 printf("%s\n", gettext(slapt_strerror(verified)));
-                source_dl_failed = 1;
+                source_dl_failed = true;
                 fclose(tmp_checksum_f);
                 tmp_checksum_f = NULL;
             }
@@ -1929,7 +1929,7 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
         }
 #endif
 
-        if (source_dl_failed != 1) {
+        if (!source_dl_failed) {
             printf(gettext("Retrieving ChangeLog.txt [%s]..."), source_url);
             slapt_get_pkg_source_changelog(global_config, source_url, &compressed);
         }
@@ -1986,7 +1986,7 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
 
             fclose(tmp_checksum_f);
         } else {
-            source_dl_failed = 1;
+            source_dl_failed = true;
         }
 
         if (available_pkgs)
@@ -1998,7 +1998,7 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
     } /* end for loop */
 
     /* if all our downloads where a success, write to SLAPT_PKG_LIST_L */
-    if (source_dl_failed != 1) {
+    if (!source_dl_failed) {
         FILE *pkg_list_fh;
 
         if ((pkg_list_fh = slapt_open_file(SLAPT_PKG_LIST_L, "w+")) == NULL)
@@ -2783,7 +2783,7 @@ slapt_pkg_list_t *slapt_get_pkg_source_patches(const slapt_rc_config *global_con
                 fprintf(stderr, gettext("Failed to download: %s\n"), err);
                 fclose(tmp_patch_f);
                 /* we don't care if the patch fails, for example current
-          doesn't have patches source_dl_failed = 1; */
+          doesn't have patches source_dl_failed = true; */
                 slapt_clear_head_cache(patch_filename);
             }
 
@@ -2843,7 +2843,7 @@ slapt_pkg_list_t *slapt_get_pkg_source_patches(const slapt_rc_config *global_con
 
             } else {
                 /* we don't care if the patch fails, for example current
-           doesn't have patches source_dl_failed = 1; */
+                  doesn't have patches source_dl_failed = true; */
                 slapt_clear_head_cache(patch_filename);
 
                 if (is_interactive)
@@ -3000,7 +3000,7 @@ FILE *slapt_get_pkg_source_checksums(const slapt_rc_config *global_config,
     return tmp_checksum_f;
 }
 
-int slapt_get_pkg_source_changelog(const slapt_rc_config *global_config,
+bool slapt_get_pkg_source_changelog(const slapt_rc_config *global_config,
                                    const char *url, bool *compressed)
 {
     char *changelog_head = NULL;
@@ -3009,7 +3009,6 @@ int slapt_get_pkg_source_changelog(const slapt_rc_config *global_config,
     char *location_gz = SLAPT_CHANGELOG_FILE_GZ;
     char *location_uncomp = SLAPT_CHANGELOG_FILE;
     char *location = location_gz;
-    int success = 0, failure = -1;
     bool is_interactive = slapt_is_interactive(global_config);
     *compressed = 0;
 
@@ -3025,7 +3024,7 @@ int slapt_get_pkg_source_changelog(const slapt_rc_config *global_config,
     if (changelog_head == NULL) {
         if (is_interactive)
             printf(gettext("Done\n"));
-        return success;
+        return true;
     }
 
     filename = slapt_gen_filename_from_url(url, location);
@@ -3076,7 +3075,7 @@ int slapt_get_pkg_source_changelog(const slapt_rc_config *global_config,
             free(local_head);
             if (changelog_head != NULL)
                 free(changelog_head);
-            return failure;
+            return false;
         }
     }
     free(filename);
@@ -3085,7 +3084,7 @@ int slapt_get_pkg_source_changelog(const slapt_rc_config *global_config,
     if (changelog_head != NULL)
         free(changelog_head);
 
-    return success;
+    return true;
 }
 
 void slapt_clean_description(char *description, const char *name)

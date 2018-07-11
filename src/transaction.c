@@ -114,7 +114,7 @@ int slapt_handle_transaction(const slapt_rc_config *global_config,
         len = 0;
         slapt_list_t_foreach(s, tran->suggests) {
             /* don't show suggestion for something we already have in the transaction */
-            if (slapt_search_transaction(tran, s) == 1)
+            if (slapt_search_transaction(tran, s))
                 continue;
 
             if (len + strlen(s) + 1 < MAX_LINE_LEN) {
@@ -378,7 +378,7 @@ int slapt_handle_transaction(const slapt_rc_config *global_config,
 
     /* download pkgs */
     slapt_pkg_list_t_foreach(pkg, tran->install_pkgs) {
-        uint32_t failed = 1;
+        bool failed = true;
 
         ++dl_counter;
         snprintf(dl_note, SLAPT_PKG_DL_NOTE_LEN, "%d/%d", dl_counter, pkg_dl_count);
@@ -387,19 +387,19 @@ int slapt_handle_transaction(const slapt_rc_config *global_config,
             const char *err = slapt_download_pkg(global_config, pkg, dl_note);
             if (err) {
                 fprintf(stderr, gettext("Failed to download: %s\n"), err);
-                failed = 1;
+                failed = true;
             } else {
-                failed = 0;
+                failed = false;
                 break;
             }
         }
 
-        if (failed == 1)
+        if (failed)
             exit(EXIT_FAILURE);
     }
 
     slapt_pkg_upgrade_list_t_foreach(upgrade, tran->upgrade_pkgs) {
-        uint32_t failed = 1;
+        bool failed = true;
 
         ++dl_counter;
         snprintf(dl_note, SLAPT_PKG_DL_NOTE_LEN, "%d/%d", dl_counter, pkg_dl_count);
@@ -408,13 +408,13 @@ int slapt_handle_transaction(const slapt_rc_config *global_config,
             const char *err = slapt_download_pkg(global_config, upgrade->upgrade, dl_note);
             if (err) {
                 fprintf(stderr, gettext("Failed to download: %s\n"), err);
-                failed = 1;
+                failed = true;
             } else {
-                failed = 0;
+                failed = false;
                 break;
             }
         }
-        if (failed == 1)
+        if (failed)
             exit(EXIT_FAILURE);
     }
 
@@ -462,7 +462,7 @@ void slapt_add_install_to_transaction(slapt_transaction_t *tran,
     slapt_pkg_info_t **tmp_list;
 
     /* don't add if already present in the transaction */
-    if (slapt_search_transaction_by_pkg(tran, pkg) == 1)
+    if (slapt_search_transaction_by_pkg(tran, pkg))
         return;
 
     tmp_list = realloc(
@@ -491,7 +491,7 @@ void slapt_add_remove_to_transaction(slapt_transaction_t *tran,
     slapt_pkg_info_t **tmp_list;
 
     /* don't add if already present in the transaction */
-    if (slapt_search_transaction_by_pkg(tran, pkg) == 1)
+    if (slapt_search_transaction_by_pkg(tran, pkg))
         return;
 
     tmp_list = realloc(
@@ -515,7 +515,7 @@ void slapt_add_exclude_to_transaction(slapt_transaction_t *tran,
     slapt_pkg_info_t **tmp_list;
 
     /* don't add if already present in the transaction */
-    if (slapt_search_transaction_by_pkg(tran, pkg) == 1)
+    if (slapt_search_transaction_by_pkg(tran, pkg))
         return;
 
     tmp_list = realloc(
@@ -555,7 +555,7 @@ static void _slapt_add_upgrade_to_transaction(slapt_transaction_t *tran,
     slapt_pkg_upgrade_t **tmp_list;
 
     /* don't add if already present in the transaction */
-    if (slapt_search_transaction_by_pkg(tran, slapt_upgrade_pkg) == 1)
+    if (slapt_search_transaction_by_pkg(tran, slapt_upgrade_pkg))
         return;
 
     tmp_list = realloc(
@@ -596,44 +596,40 @@ static void _slapt_add_upgrade_to_transaction(slapt_transaction_t *tran,
     }
 }
 
-int slapt_search_transaction(slapt_transaction_t *tran, char *pkg_name)
+bool slapt_search_transaction(slapt_transaction_t *tran, char *pkg_name)
 {
-    uint32_t found = 1, not_found = 0;
-
     slapt_pkg_list_t_foreach(pkg, tran->install_pkgs) {
         if (strcmp(pkg_name, pkg->name) == 0)
-            return found;
+            return true;
     }
 
     slapt_pkg_upgrade_list_t_foreach(upgrade, tran->upgrade_pkgs) {
         if (strcmp(pkg_name, upgrade->upgrade->name) == 0)
-            return found;
+            return true;
     }
 
     slapt_pkg_list_t_foreach(remove_pkg, tran->remove_pkgs) {
         if (strcmp(pkg_name, remove_pkg->name) == 0)
-            return found;
+            return true;
     }
 
     slapt_pkg_list_t_foreach(exclude_pkg, tran->exclude_pkgs) {
         if (strcmp(pkg_name, exclude_pkg->name) == 0)
-            return found;
+            return true;
     }
 
-    return not_found;
+    return false;
 }
 
-int slapt_search_upgrade_transaction(slapt_transaction_t *tran,
+bool slapt_search_upgrade_transaction(slapt_transaction_t *tran,
                                      slapt_pkg_info_t *pkg)
 {
-    uint32_t found = 1, not_found = 0;
-
     slapt_pkg_upgrade_list_t_foreach(upgrade, tran->upgrade_pkgs) {
         if (strcmp(pkg->name, upgrade->upgrade->name) == 0)
-            return found;
+            return true;
     }
 
-    return not_found;
+    return false;
 }
 
 void slapt_free_transaction(slapt_transaction_t *tran)
@@ -685,7 +681,7 @@ slapt_transaction_t *slapt_remove_from_transaction(slapt_transaction_t *tran,
 {
     slapt_transaction_t *new_tran = NULL;
 
-    if (slapt_search_transaction_by_pkg(tran, pkg) == 0)
+    if (!slapt_search_transaction_by_pkg(tran, pkg))
         return tran;
 
     /* since this is a pointer, slapt_malloc before calling init */
@@ -853,7 +849,7 @@ static void add_suggestion(slapt_transaction_t *tran, slapt_pkg_info_t *pkg)
 
     slapt_list_t_foreach(s, suggests) {
         /* no need to add it if we already have it */
-        if (slapt_search_transaction(tran, s) == 1)
+        if (slapt_search_transaction(tran, s))
             continue;
 
         slapt_add_list_item(tran->suggests, s);
@@ -862,34 +858,32 @@ static void add_suggestion(slapt_transaction_t *tran, slapt_pkg_info_t *pkg)
     slapt_free_list(suggests);
 }
 
-int slapt_search_transaction_by_pkg(slapt_transaction_t *tran,
+bool slapt_search_transaction_by_pkg(slapt_transaction_t *tran,
                                     slapt_pkg_info_t *pkg)
 {
-    uint32_t found = 1, not_found = 0;
-
     slapt_pkg_list_t_foreach(install_pkg, tran->install_pkgs) {
         if ((strcmp(pkg->name, install_pkg->name) == 0) && (strcmp(pkg->version, install_pkg->version) == 0))
-            return found;
+            return true;
     }
 
     slapt_pkg_upgrade_list_t_foreach(upgrade, tran->upgrade_pkgs) {
         slapt_pkg_info_t *p = upgrade->upgrade;
 
         if ((strcmp(pkg->name, p->name) == 0) && (strcmp(pkg->version, p->version) == 0))
-            return found;
+            return true;
     }
 
     slapt_pkg_list_t_foreach(remove_pkg, tran->remove_pkgs) {
         if ((strcmp(pkg->name, remove_pkg->name) == 0) && (strcmp(pkg->version, remove_pkg->version) == 0))
-            return found;
+            return true;
     }
 
     slapt_pkg_list_t_foreach(exclude_pkg, tran->exclude_pkgs) {
         if ((strcmp(pkg->name, exclude_pkg->name) == 0) && (strcmp(pkg->version, exclude_pkg->version) == 0))
-            return found;
+            return true;
     }
 
-    return not_found;
+    return false;
 }
 
 static slapt_queue_t *slapt_queue_init(void)
