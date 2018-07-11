@@ -292,14 +292,13 @@ void slapt_pkg_action_remove(const slapt_rc_config *global_config,
     }
 
     if (global_config->remove_obsolete == true) {
-        slapt_pkg_list_t *obsolete = slapt_get_obsolete_pkgs(
-            global_config, avail_pkgs, installed_pkgs);
+        slapt_pkg_list_t *obsolete = slapt_get_obsolete_pkgs(global_config, avail_pkgs, installed_pkgs);
 
         slapt_pkg_list_t_foreach(pkg, obsolete) {
             if (slapt_is_excluded(global_config, pkg)) {
-                slapt_add_remove_to_transaction(tran, pkg);
-            } else {
                 slapt_add_exclude_to_transaction(tran, pkg);
+            } else {
+                slapt_add_remove_to_transaction(tran, pkg);
             }
         }
 
@@ -579,15 +578,14 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
         slapt_free_pkg_list(matches);
 
         /* remove obsolete packages if prompted to */
-        if (global_config->remove_obsolete == true) {
-            slapt_pkg_list_t *obsolete = slapt_get_obsolete_pkgs(
-                global_config, avail_pkgs, installed_pkgs);
+        if (global_config->remove_obsolete) {
+            slapt_pkg_list_t *obsolete = slapt_get_obsolete_pkgs(global_config, avail_pkgs, installed_pkgs);
 
             slapt_pkg_list_t_foreach(obsolete_pkg, obsolete) {
-                if (!slapt_is_excluded(global_config, obsolete_pkg)) {
-                    slapt_add_remove_to_transaction(tran, obsolete_pkg);
-                } else {
+                if (slapt_is_excluded(global_config, obsolete_pkg)) {
                     slapt_add_exclude_to_transaction(tran, obsolete_pkg);
+                } else {
+                    slapt_add_remove_to_transaction(tran, obsolete_pkg);
                 }
             }
 
