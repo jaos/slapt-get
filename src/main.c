@@ -278,7 +278,7 @@ int main(int argc, char *argv[])
     case INSTALL:
     case INSTALL_DISK_SET:
     case REMOVE:
-        if (global_config->remove_obsolete == true)
+        if (global_config->remove_obsolete)
             break;
         /* fall through */
 

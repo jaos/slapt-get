@@ -206,7 +206,7 @@ int slapt_handle_transaction(const slapt_rc_config *global_config,
             uncompressed_size += u->size_u;
             uncompressed_size -= p->size_u;
 
-            if (upgrade->reinstall == true)
+            if (upgrade->reinstall)
                 continue;
 
             if (line_len < MAX_LINE_LEN) {
@@ -230,7 +230,7 @@ int slapt_handle_transaction(const slapt_rc_config *global_config,
                 slapt_pkg_info_t *u = reinstall_upgrade->upgrade;
                 int line_len = len + strlen(u->name) + 1;
 
-                if (reinstall_upgrade->reinstall == false)
+                if (!reinstall_upgrade->reinstall)
                     continue;
 
                 if (line_len < MAX_LINE_LEN) {
@@ -285,15 +285,15 @@ int slapt_handle_transaction(const slapt_rc_config *global_config,
         }
 
         /* check we have enough space to download to our working dir */
-        if (slapt_disk_space_check(global_config->working_dir, need_to_download_size) == false) {
+        if (!slapt_disk_space_check(global_config->working_dir, need_to_download_size)) {
             printf(
                 gettext("You don't have enough free space in %s\n"),
                 global_config->working_dir);
             exit(EXIT_FAILURE);
         }
         /* check that we have enough space in the root filesystem */
-        if (global_config->download_only == false) {
-            if (slapt_disk_space_check("/", uncompressed_size) == false) {
+        if (!global_config->download_only) {
+            if (!slapt_disk_space_check("/", uncompressed_size)) {
                 printf(gettext("You don't have enough free space in %s\n"), "/");
                 exit(EXIT_FAILURE);
             }
@@ -320,10 +320,10 @@ int slapt_handle_transaction(const slapt_rc_config *global_config,
     }
 
     /* prompt */
-    if ((global_config->prompt == true) ||
+    if ((global_config->prompt) ||
         ((tran->upgrade_pkgs->pkg_count > 0 || tran->remove_pkgs->pkg_count > 0 ||
           (tran->install_pkgs->pkg_count > 0 &&
-           global_config->dist_upgrade == true)) &&
+           global_config->dist_upgrade)) &&
          (global_config->no_prompt == false &&
           global_config->download_only == false &&
           global_config->simulate == false &&
@@ -334,7 +334,7 @@ int slapt_handle_transaction(const slapt_rc_config *global_config,
         }
     }
 
-    if (global_config->print_uris == true) {
+    if (global_config->print_uris) {
         slapt_pkg_list_t_foreach(info, tran->install_pkgs) {
             const char *location = info->location + strspn(info->location, "./");
             printf("%s%s/%s-%s%s\n",
@@ -352,7 +352,7 @@ int slapt_handle_transaction(const slapt_rc_config *global_config,
     }
 
     /* if simulate is requested, just show what could happen and return */
-    if (global_config->simulate == true) {
+    if (global_config->simulate) {
         slapt_pkg_list_t_foreach(r, tran->remove_pkgs) {
             printf(gettext("%s-%s is to be removed\n"), r->name, r->version);
         }
@@ -591,7 +591,7 @@ static void _slapt_add_upgrade_to_transaction(slapt_transaction_t *tran,
 
         ++tran->upgrade_pkgs->pkg_count;
 
-        if (reinstall == true)
+        if (reinstall)
             ++tran->upgrade_pkgs->reinstall_count;
     }
 }
@@ -638,7 +638,7 @@ int slapt_search_upgrade_transaction(slapt_transaction_t *tran,
 
 void slapt_free_transaction(slapt_transaction_t *tran)
 {
-    if (tran->install_pkgs->free_pkgs == true) {
+    if (tran->install_pkgs->free_pkgs) {
         slapt_pkg_list_t_foreach(pkg, tran->install_pkgs) {
             slapt_free_pkg(pkg);
         }
@@ -646,7 +646,7 @@ void slapt_free_transaction(slapt_transaction_t *tran)
     free(tran->install_pkgs->pkgs);
     free(tran->install_pkgs);
 
-    if (tran->remove_pkgs->free_pkgs == true) {
+    if (tran->remove_pkgs->free_pkgs) {
         slapt_pkg_list_t_foreach(remove_pkg, tran->remove_pkgs) {
             slapt_free_pkg(remove_pkg);
         }
@@ -662,7 +662,7 @@ void slapt_free_transaction(slapt_transaction_t *tran)
     free(tran->upgrade_pkgs->pkgs);
     free(tran->upgrade_pkgs);
 
-    if (tran->exclude_pkgs->free_pkgs == true) {
+    if (tran->exclude_pkgs->free_pkgs) {
         slapt_pkg_list_t_foreach(exclude_pkg, tran->exclude_pkgs) {
             slapt_free_pkg(exclude_pkg);
         }
@@ -757,7 +757,7 @@ int slapt_add_deps_to_trans(const slapt_rc_config *global_config,
     int dep_return = -1;
     slapt_pkg_list_t *deps = NULL;
 
-    if (global_config->disable_dep_check == true)
+    if (global_config->disable_dep_check)
         return 0;
 
     if (pkg == NULL)

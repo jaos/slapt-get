@@ -851,7 +851,7 @@ void slapt_free_pkg(slapt_pkg_info_t *pkg)
 
 void slapt_free_pkg_list(slapt_pkg_list_t *list)
 {
-    if (list->free_pkgs == true) {
+    if (list->free_pkgs) {
         slapt_pkg_list_t_foreach(pkg, list) {
             slapt_free_pkg(pkg);
         }
@@ -865,7 +865,7 @@ bool slapt_is_excluded(const slapt_rc_config *global_config,
 {
     int name_reg_ret = -1, version_reg_ret = -1, location_reg_ret = -1;
 
-    if (global_config->ignore_excludes == true)
+    if (global_config->ignore_excludes)
         return false;
 
     /* maybe EXCLUDE= isn't defined in our rc? */
@@ -985,7 +985,7 @@ int slapt_cmp_pkgs(slapt_pkg_info_t *a, slapt_pkg_info_t *b)
 
     /* if either of the two packages is installed, we look
      for the same version to bail out early if possible */
-    if (a->installed == true || b->installed == true)
+    if (a->installed || b->installed)
         if (strcasecmp(a->version, b->version) == 0)
             return equal;
 
@@ -1288,7 +1288,7 @@ int slapt_get_pkg_dependencies(const slapt_rc_config *global_config,
    * don't go any further if the required member is empty
    * or disable_dep_check is set
   */
-    if (global_config->disable_dep_check == true ||
+    if (global_config->disable_dep_check ||
         strcmp(pkg->required, "") == 0 ||
         strcmp(pkg->required, " ") == 0 ||
         strcmp(pkg->required, "  ") == 0)
@@ -1322,7 +1322,7 @@ int slapt_get_pkg_dependencies(const slapt_rc_config *global_config,
         }
 
         /* if this pkg is excluded */
-        if ((slapt_is_excluded(global_config, tmp_pkg)) && (global_config->ignore_dep == false)) {
+        if ((slapt_is_excluded(global_config, tmp_pkg)) && !global_config->ignore_dep) {
             if (slapt_get_exact_pkg(installed_pkgs, tmp_pkg->name, tmp_pkg->version) == NULL) {
                 slapt_add_pkg_err_to_list(conflict_err, pkg->name, tmp_pkg->name);
                 slapt_free_list(dep_parts);
@@ -1342,7 +1342,7 @@ int slapt_get_pkg_dependencies(const slapt_rc_config *global_config,
                 global_config, avail_pkgs, installed_pkgs, tmp_pkg,
                 deps, conflict_err, missing_err);
 
-            if (dep_check_return == -1 && global_config->ignore_dep == false) {
+            if (dep_check_return == -1 && !global_config->ignore_dep) {
                 slapt_free_list(dep_parts);
                 return -1;
             } else {
@@ -1642,7 +1642,7 @@ slapt_pkg_list_t *slapt_is_required_by(const slapt_rc_config *global_config,
     /*
    * don't go any further if disable_dep_check is set
   */
-    if (global_config->disable_dep_check == true)
+    if (global_config->disable_dep_check)
         return required_by_list;
 
     required_by(avail, installed_pkgs, pkgs_to_install, pkgs_to_remove, pkg, required_by_list);
@@ -1768,7 +1768,7 @@ static void required_by(slapt_pkg_list_t *avail,
             slapt_free_list(satisfies);
 
             /* we couldn't find an installed pkg that satisfies the |or */
-            if (has_alternative == false && found == true) {
+            if (!has_alternative && found) {
                 if (slapt_get_exact_pkg(required_by_list, avail_pkg->name, avail_pkg->version) == NULL) {
                     slapt_add_pkg_to_pkg_list(required_by_list, avail_pkg);
                     required_by(avail, installed_pkgs, pkgs_to_install, pkgs_to_remove, avail_pkg, required_by_list);
@@ -1865,7 +1865,7 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
         const char *source_url = source->url;
         SLAPT_PRIORITY_T source_priority = source->priority;
 
-        if (source->disabled == true)
+        if (source->disabled)
             continue;
 
         /* download our SLAPT_PKG_LIST */
@@ -1907,7 +1907,7 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
                 printf("%s\n", gettext("Verified"));
             } else if (verified == SLAPT_CHECKSUMS_MISSING_KEY) {
                 printf("%s\n", gettext("No key for verification"));
-            } else if ((global_config->gpgme_allow_unauth == true) && (slapt_pkg_sign_is_unauthenticated(verified) == true)) {
+            } else if ((global_config->gpgme_allow_unauth) && (slapt_pkg_sign_is_unauthenticated(verified))) {
                 printf("%s%s\n", slapt_strerror(verified), gettext(", but accepted as an exception"));
             } else {
                 printf("%s\n", gettext(slapt_strerror(verified)));
@@ -1972,7 +1972,7 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
                     }
 
                     /* set the priority of the package based on the source, plus 1 for the patch priority */
-                    if (global_config->use_priority == true)
+                    if (global_config->use_priority)
                         patch_pkg->priority = source_priority + 1;
                     else
                         patch_pkg->priority = source_priority;
@@ -2198,7 +2198,7 @@ slapt_code_t slapt_verify_downloaded_pkg(const slapt_rc_config *global_config,
   */
 
     /* if not checking the md5 checksum and the sizes match, assume its good */
-    if (global_config->no_md5_check == true)
+    if (global_config->no_md5_check)
         return SLAPT_OK;
 
     /* check to see that we actually have an md5 checksum */
@@ -2318,7 +2318,7 @@ void slapt_purge_old_cached_pkgs(const slapt_rc_config *global_config,
                 free(tmp_pkg_version);
 
                 if (tmp_pkg == NULL) {
-                    if (global_config->no_prompt == true) {
+                    if (global_config->no_prompt) {
                         unlink(file->d_name);
                     } else {
                         if (slapt_ask_yes_no(gettext("Delete %s ? [y/N]"), file->d_name) == 1)
@@ -2574,7 +2574,7 @@ slapt_pkg_list_t *slapt_get_pkg_source_packages(const slapt_rc_config *global_co
             FILE *tmp_pkg_f = NULL;
             const char *err = NULL;
 
-            if (global_config->dl_stats == true)
+            if (global_config->dl_stats)
                 printf("\n");
 
             if ((tmp_pkg_f = slapt_open_file(pkg_filename, "w+b")) == NULL)
@@ -2661,7 +2661,7 @@ slapt_pkg_list_t *slapt_get_pkg_source_packages(const slapt_rc_config *global_co
             FILE *tmp_pkg_f = NULL;
             const char *err = NULL;
 
-            if (global_config->dl_stats == true)
+            if (global_config->dl_stats)
                 printf("\n");
 
             if ((tmp_pkg_f = slapt_open_file(pkg_filename, "w+b")) == NULL)
@@ -2751,7 +2751,7 @@ slapt_pkg_list_t *slapt_get_pkg_source_patches(const slapt_rc_config *global_con
             FILE *tmp_patch_f = NULL;
             const char *err = NULL;
 
-            if (global_config->dl_stats == true)
+            if (global_config->dl_stats)
                 printf("\n");
 
             if ((tmp_patch_f = slapt_open_file(patch_filename, "w+b")) == NULL)
@@ -2787,7 +2787,7 @@ slapt_pkg_list_t *slapt_get_pkg_source_patches(const slapt_rc_config *global_con
                 slapt_clear_head_cache(patch_filename);
             }
 
-            if (global_config->dl_stats == true)
+            if (global_config->dl_stats)
                 printf("\n");
         }
 
@@ -2822,7 +2822,7 @@ slapt_pkg_list_t *slapt_get_pkg_source_patches(const slapt_rc_config *global_con
             FILE *tmp_patch_f = NULL;
             const char *err = NULL;
 
-            if (global_config->dl_stats == true)
+            if (global_config->dl_stats)
                 printf("\n");
 
             if ((tmp_patch_f = slapt_open_file(patch_filename, "w+b")) == NULL)
@@ -2850,7 +2850,7 @@ slapt_pkg_list_t *slapt_get_pkg_source_patches(const slapt_rc_config *global_con
                     printf(gettext("Done\n"));
             }
 
-            if (global_config->dl_stats == true)
+            if (global_config->dl_stats)
                 printf("\n");
 
             fclose(tmp_patch_f);
@@ -2890,7 +2890,7 @@ FILE *slapt_get_pkg_source_checksums(const slapt_rc_config *global_config,
             FILE *working_checksum_f = NULL;
             const char *err = NULL;
 
-            if (global_config->dl_stats == true)
+            if (global_config->dl_stats)
                 printf("\n");
 
             if ((working_checksum_f = slapt_open_file(filename, "w+b")) == NULL)
@@ -2900,7 +2900,7 @@ FILE *slapt_get_pkg_source_checksums(const slapt_rc_config *global_config,
                                                     global_config, url,
                                                     SLAPT_CHECKSUM_FILE_GZ);
             if (!err) {
-                if (global_config->dl_stats == true)
+                if (global_config->dl_stats)
                     printf("\n");
                 if (is_interactive)
                     printf(gettext("Done\n"));
@@ -2960,7 +2960,7 @@ FILE *slapt_get_pkg_source_checksums(const slapt_rc_config *global_config,
             if ((tmp_checksum_f = slapt_open_file(filename, "w+b")) == NULL)
                 exit(EXIT_FAILURE);
 
-            if (global_config->dl_stats == true)
+            if (global_config->dl_stats)
                 printf("\n");
 
             err = slapt_get_mirror_data_from_source(tmp_checksum_f,
@@ -2987,7 +2987,7 @@ FILE *slapt_get_pkg_source_checksums(const slapt_rc_config *global_config,
             if (checksum_head != NULL)
                 slapt_write_head_cache(checksum_head, filename);
 
-            if (global_config->dl_stats == true)
+            if (global_config->dl_stats)
                 printf("\n");
         }
 
@@ -3039,7 +3039,7 @@ int slapt_get_pkg_source_changelog(const slapt_rc_config *global_config,
         FILE *working_changelog_f = NULL;
         const char *err = NULL;
 
-        if (global_config->dl_stats == true)
+        if (global_config->dl_stats)
             printf("\n");
 
         if ((working_changelog_f = slapt_open_file(filename, "w+b")) == NULL)
@@ -3049,7 +3049,7 @@ int slapt_get_pkg_source_changelog(const slapt_rc_config *global_config,
                                                 global_config, url,
                                                 location);
         if (!err) {
-            if (global_config->dl_stats == true)
+            if (global_config->dl_stats)
                 printf("\n");
             if (is_interactive)
                 printf(gettext("Done\n"));

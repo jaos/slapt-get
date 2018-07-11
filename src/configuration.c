@@ -404,7 +404,7 @@ int slapt_write_rc_config(const slapt_rc_config *global_config, const char *loca
         SLAPT_PRIORITY_T priority = src->priority;
         const char *token = SLAPT_SOURCE_TOKEN;
 
-        if (src->disabled == true)
+        if (src->disabled)
             token = SLAPT_DISABLED_SOURCE_TOKEN;
 
         if (priority > SLAPT_PRIORITY_DEFAULT) {

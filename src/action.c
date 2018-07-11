@@ -77,7 +77,7 @@ void slapt_pkg_action_install(const slapt_rc_config *global_config,
         installed_pkg = slapt_get_newest_pkg(installed_pkgs, pkg->name);
 
         /* if it is not already installed, install it */
-        if (installed_pkg == NULL || global_config->no_upgrade == true) {
+        if (installed_pkg == NULL || global_config->no_upgrade) {
             if (slapt_add_deps_to_trans(global_config, tran, avail_pkgs,
                                         installed_pkgs, pkg) == 0) {
                 slapt_pkg_list_t *conflicts = slapt_is_conflicted(tran, avail_pkgs, installed_pkgs, pkg);
@@ -117,7 +117,7 @@ void slapt_pkg_action_install(const slapt_rc_config *global_config,
             /* it is already installed, attempt an upgrade */
             if (
                 ((slapt_cmp_pkgs(installed_pkg, pkg)) < 0) ||
-                (global_config->re_install == true)) {
+                (global_config->re_install)) {
                 if (slapt_add_deps_to_trans(global_config, tran, avail_pkgs,
                                             installed_pkgs, pkg) == 0) {
                     slapt_pkg_list_t *conflicts = slapt_is_conflicted(tran, avail_pkgs,
@@ -291,7 +291,7 @@ void slapt_pkg_action_remove(const slapt_rc_config *global_config,
         slapt_add_remove_to_transaction(tran, pkg);
     }
 
-    if (global_config->remove_obsolete == true) {
+    if (global_config->remove_obsolete) {
         slapt_pkg_list_t *obsolete = slapt_get_obsolete_pkgs(global_config, avail_pkgs, installed_pkgs);
 
         slapt_pkg_list_t_foreach(pkg, obsolete) {
@@ -478,7 +478,7 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
     printf(gettext("Done\n"));
     tran = slapt_init_transaction();
 
-    if (global_config->dist_upgrade == true) {
+    if (global_config->dist_upgrade) {
         char *essential[] = {"pkgtools", "glibc-solibs", "glibc", "aaa_elflibs", "xz", "sed", "tar", "gzip", NULL};
         int epi = 0;
         slapt_pkg_info_t *newest_slaptget = NULL;
@@ -627,13 +627,13 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
             cmp_r = slapt_cmp_pkgs(installed_pkg, update_pkg);
             if (
                 /* either it's greater, or we want to reinstall */
-                cmp_r < 0 || (global_config->re_install == true) ||
+                cmp_r < 0 || (global_config->re_install) ||
                 /* 
                 * or this is a dist upgrade and the versions are the save
                 * except for the arch
                 */
                 (
-                    global_config->dist_upgrade == true &&
+                    global_config->dist_upgrade &&
                     cmp_r == 0 &&
                     cmp_pkg_arch(installed_pkg->version,
                                  update_pkg->version) != 0)) {
@@ -646,7 +646,7 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
                     if (
                         (slapt_add_deps_to_trans(global_config, tran, avail_pkgs,
                                                  installed_pkgs, update_pkg) == 0) &&
-                        (global_config->ignore_dep == true || (conflicts->pkg_count == 0))) {
+                        (global_config->ignore_dep || (conflicts->pkg_count == 0))) {
                         if (cmp_r == 0)
                             slapt_add_reinstall_to_transaction(tran, installed_pkg, update_pkg);
                         else

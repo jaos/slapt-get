@@ -245,7 +245,7 @@ const char *slapt_download_pkg(const slapt_rc_config *global_config,
                pkg->mirror, pkg->name, pkg->version,
                (dl_total_size > 1024) ? dl_total_size / 1024.0 : dl_total_size,
                (dl_total_size > 1024) ? "MB" : "kB");
-        if (global_config->dl_stats == true)
+        if (global_config->dl_stats)
             printf("\n");
     }
 

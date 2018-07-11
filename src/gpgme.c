@@ -75,7 +75,7 @@ FILE *slapt_get_pkg_source_checksums_signature(const slapt_rc_config *global_con
     checksum_head = slapt_head_mirror_data(url, location);
 
     if (checksum_head == NULL) {
-        if (interactive == true)
+        if (interactive)
             printf(gettext("Not Found\n"));
         free(filename);
         free(local_head);
@@ -95,7 +95,7 @@ FILE *slapt_get_pkg_source_checksums_signature(const slapt_rc_config *global_con
     } else {
         const char *err = NULL;
 
-        if (global_config->dl_stats == true)
+        if (global_config->dl_stats)
             printf("\n");
 
         if ((tmp_checksum_f = slapt_open_file(filename, "w+b")) == NULL)
@@ -105,7 +105,7 @@ FILE *slapt_get_pkg_source_checksums_signature(const slapt_rc_config *global_con
                                                 global_config, url,
                                                 location);
         if (!err) {
-            if (interactive == true)
+            if (interactive)
                 printf(gettext("Done\n"));
 
         } else {
@@ -143,7 +143,7 @@ FILE *slapt_get_pkg_source_gpg_key(const slapt_rc_config *global_config,
     char *key_head = NULL;
     char *filename = slapt_gen_filename_from_url(url, SLAPT_GPG_KEY);
     char *local_head = slapt_read_head_cache(filename);
-    bool interactive = global_config->progress_cb == NULL && global_config->dl_stats == false
+    bool interactive = global_config->progress_cb == NULL && !global_config->dl_stats
                            ? true
                            : false;
 
@@ -151,7 +151,7 @@ FILE *slapt_get_pkg_source_gpg_key(const slapt_rc_config *global_config,
     key_head = slapt_head_mirror_data(url, SLAPT_GPG_KEY);
 
     if (key_head == NULL) {
-        if (interactive == true)
+        if (interactive)
             printf(gettext("Not Found\n"));
         free(filename);
         free(local_head);
@@ -179,7 +179,7 @@ FILE *slapt_get_pkg_source_gpg_key(const slapt_rc_config *global_config,
                                                 SLAPT_GPG_KEY);
 
         if (!err) {
-            if (interactive == true)
+            if (interactive)
                 printf(gettext("Done\n"));
         } else {
             fprintf(stderr, gettext("Failed to download: %s\n"), err);
