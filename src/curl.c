@@ -86,10 +86,10 @@ int slapt_download_data(FILE *fh, const char *url, size_t bytes, long *filetime,
         curl_easy_getinfo(ch, CURLINFO_FILETIME, filetime);
 
     /*
-   * need to use curl_easy_cleanup() so that we don't 
-    * have tons of open connections, getting rejected
-   * by ftp servers for being naughty.
-  */
+    need to use curl_easy_cleanup() so that we don't
+    have tons of open connections, getting rejected
+    by ftp servers for being naughty.
+    */
     curl_easy_cleanup(ch);
     /* can't do a curl_free() after curl_easy_cleanup() */
     /* curl_free(ch); */
@@ -264,10 +264,7 @@ const char *slapt_download_pkg(const slapt_rc_config *global_config,
     } else if (dl_return == CURLE_HTTP_RANGE_ERROR ||
                dl_return == CURLE_FTP_BAD_DOWNLOAD_RESUME ||
                dl_return == CURLE_PARTIAL_FILE) {
-        /*
-      * this is for errors trying to resume.  unlink the file and
-      * try again.
-    */
+        /* this is for errors trying to resume.  unlink the file and try again. */
         printf("\r");
         fclose(fh);
 

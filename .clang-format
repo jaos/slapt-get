@@ -1,0 +1,42 @@
+﻿Language:        Cpp
+IndentWidth: 4
+AllowShortFunctionsOnASingleLine: None
+KeepEmptyLinesAtTheStartOfBlocks: false
+ColumnLimit: 0
+UseTab: Never
+TabWidth: 4
+# BreakBeforeBraces: Linux
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterClass: true
+  AfterControlStatement: false
+  AfterEnum: false
+  AfterFunction: true
+  AfterNamespace: false
+  AfterObjCDeclaration: true
+  AfterStruct: false
+  AfterUnion: false
+  AfterExternBlock: true
+  BeforeCatch: true
+  BeforeElse: false
+  IndentBraces: false
+  SplitEmptyFunction: false
+  SplitEmptyRecord: false
+  SplitEmptyNamespace: false
+PointerBindsToType: false
+SortIncludes: false
+ForEachMacros: [
+'slapt_list_t_foreach',
+'slapt_source_list_t_foreach',
+'slapt_pkg_list_t_foreach',
+'slapt_pkg_upgrade_list_t_foreach',
+'slapt_pkg_err_list_t_foreach',
+'slapt_queue_t_foreach'
+]
+SpaceBeforeParens: ControlStatements
+SpaceBeforeAssignmentOperators: true
+AlignAfterOpenBracket: true
+AlignConsecutiveAssignments: false
+SpaceBeforeRangeBasedForLoopColon: true
+# SpacesBeforeTrailingComments: true
+SpacesInParentheses: false

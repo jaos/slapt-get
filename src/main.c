@@ -339,7 +339,7 @@ int main(int argc, char *argv[])
             matches = slapt_search_pkg_list(avail_pkgs, search);
             free(search);
 
-            slapt_pkg_list_t_foreach(match, matches) {
+            slapt_pkg_list_t_foreach (match, matches) {
                 if (!slapt_is_excluded(global_config, match)) {
                     slapt_add_pkg_to_pkg_list(set_pkgs, match);
                 }
@@ -351,7 +351,7 @@ int main(int argc, char *argv[])
 
         paa = slapt_init_list();
 
-        slapt_pkg_list_t_foreach(set_pkg, set_pkgs) {
+        slapt_pkg_list_t_foreach (set_pkg, set_pkgs) {
             slapt_add_list_item(paa, set_pkg->name);
         }
 

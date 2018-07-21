@@ -44,7 +44,7 @@ void slapt_pkg_action_install(const slapt_rc_config *global_config,
         exit(EXIT_FAILURE);
     }
 
-    slapt_list_t_foreach(arg, action_args) {
+    slapt_list_t_foreach (arg, action_args) {
         slapt_pkg_info_t *pkg = NULL;
         slapt_pkg_info_t *installed_pkg = NULL;
 
@@ -82,19 +82,18 @@ void slapt_pkg_action_install(const slapt_rc_config *global_config,
                                         installed_pkgs, pkg) == 0) {
                 slapt_pkg_list_t *conflicts = slapt_is_conflicted(tran, avail_pkgs, installed_pkgs, pkg);
 
-                /* this comes first so we can pick up that we are installed the package when
-	      * checking conflicts */
+                /* this comes first so we can pick up that we are installed the package when checking conflicts */
                 slapt_add_install_to_transaction(tran, pkg);
 
                 /* if there are conflicts, we schedule the conflicts for removal */
                 if (conflicts->pkg_count > 0 && global_config->ignore_dep != true) {
-                    slapt_pkg_list_t_foreach(conflict, conflicts) {
+                    slapt_pkg_list_t_foreach (conflict, conflicts) {
                         /* make sure to remove the conflict's dependencies as well */
                         slapt_pkg_list_t *conflict_deps = slapt_is_required_by(global_config,
                                                                                avail_pkgs, installed_pkgs,
                                                                                tran->install_pkgs, tran->remove_pkgs,
                                                                                conflict);
-                        slapt_pkg_list_t_foreach(conflict_dep, conflict_deps) {
+                        slapt_pkg_list_t_foreach (conflict_dep, conflict_deps) {
                             if (slapt_get_exact_pkg(installed_pkgs, conflict_dep->name, conflict_dep->version) != NULL) {
                                 slapt_add_remove_to_transaction(tran, conflict_dep);
                             }
@@ -123,13 +122,13 @@ void slapt_pkg_action_install(const slapt_rc_config *global_config,
                     slapt_pkg_list_t *conflicts = slapt_is_conflicted(tran, avail_pkgs,
                                                                       installed_pkgs, pkg);
                     if (conflicts->pkg_count > 0 && global_config->ignore_dep != true) {
-                        slapt_pkg_list_t_foreach(conflict, conflicts) {
+                        slapt_pkg_list_t_foreach (conflict, conflicts) {
                             /* make sure to remove the conflict's dependencies as well */
                             slapt_pkg_list_t *conflict_deps = slapt_is_required_by(global_config,
                                                                                    avail_pkgs, installed_pkgs,
                                                                                    tran->install_pkgs, tran->remove_pkgs,
                                                                                    conflict);
-                            slapt_pkg_list_t_foreach(conflict_dep, conflict_deps) {
+                            slapt_pkg_list_t_foreach (conflict_dep, conflict_deps) {
                                 if (slapt_get_exact_pkg(installed_pkgs, conflict_dep->name, conflict_dep->version) != NULL) {
                                     slapt_add_remove_to_transaction(tran, conflict_dep);
                                 }
@@ -182,7 +181,7 @@ void slapt_pkg_action_list(const int show)
     installed_pkgs = slapt_get_installed_pkgs();
 
     if (show == LIST || show == AVAILABLE) {
-        slapt_pkg_list_t_foreach(pkg, pkgs) {
+        slapt_pkg_list_t_foreach (pkg, pkgs) {
             bool installed = false;
             char *short_description = slapt_gen_short_pkg_description(pkg);
 
@@ -202,7 +201,7 @@ void slapt_pkg_action_list(const int show)
         }
     }
     if (show == LIST || show == INSTALLED) {
-        slapt_pkg_list_t_foreach(pkg, installed_pkgs) {
+        slapt_pkg_list_t_foreach (pkg, installed_pkgs) {
             char *short_description = NULL;
 
             if (show == LIST) {
@@ -245,7 +244,7 @@ void slapt_pkg_action_remove(const slapt_rc_config *global_config,
         exit(EXIT_FAILURE);
     }
 
-    slapt_list_t_foreach(arg, action_args) {
+    slapt_list_t_foreach (arg, action_args) {
         slapt_pkg_list_t *deps = NULL;
         slapt_pkg_info_t *pkg = NULL;
 
@@ -280,7 +279,7 @@ void slapt_pkg_action_remove(const slapt_rc_config *global_config,
                                     tran->install_pkgs, tran->remove_pkgs,
                                     pkg);
 
-        slapt_pkg_list_t_foreach(dep, deps) {
+        slapt_pkg_list_t_foreach (dep, deps) {
             if (slapt_get_exact_pkg(installed_pkgs, dep->name, dep->version) != NULL) {
                 slapt_add_remove_to_transaction(tran, dep);
             }
@@ -294,7 +293,7 @@ void slapt_pkg_action_remove(const slapt_rc_config *global_config,
     if (global_config->remove_obsolete) {
         slapt_pkg_list_t *obsolete = slapt_get_obsolete_pkgs(global_config, avail_pkgs, installed_pkgs);
 
-        slapt_pkg_list_t_foreach(pkg, obsolete) {
+        slapt_pkg_list_t_foreach (pkg, obsolete) {
             if (slapt_is_excluded(global_config, pkg)) {
                 slapt_add_exclude_to_transaction(tran, pkg);
             } else {
@@ -330,7 +329,7 @@ void slapt_pkg_action_search(const char *pattern)
     matches = slapt_search_pkg_list(pkgs, pattern);
     i_matches = slapt_search_pkg_list(installed_pkgs, pattern);
 
-    slapt_pkg_list_t_foreach(pkg, matches) {
+    slapt_pkg_list_t_foreach (pkg, matches) {
         char *short_description = slapt_gen_short_pkg_description(pkg);
 
         printf("%s-%s [inst=%s]: %s\n",
@@ -343,7 +342,7 @@ void slapt_pkg_action_search(const char *pattern)
         free(short_description);
     }
 
-    slapt_pkg_list_t_foreach(installed_pkg, i_matches) {
+    slapt_pkg_list_t_foreach (installed_pkg, i_matches) {
         char *short_description = NULL;
 
         if (slapt_get_exact_pkg(matches, installed_pkg->name, installed_pkg->version) != NULL) {
@@ -507,7 +506,7 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
         }
 
         /* loop through SLAPT_SLACK_BASE_SET_REGEX packages */
-        slapt_pkg_list_t_foreach(pkg, matches) {
+        slapt_pkg_list_t_foreach (pkg, matches) {
             slapt_pkg_info_t *installed_pkg = NULL;
             slapt_pkg_info_t *newer_avail_pkg = NULL;
             slapt_pkg_info_t *slapt_upgrade_pkg = NULL;
@@ -581,7 +580,7 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
         if (global_config->remove_obsolete) {
             slapt_pkg_list_t *obsolete = slapt_get_obsolete_pkgs(global_config, avail_pkgs, installed_pkgs);
 
-            slapt_pkg_list_t_foreach(obsolete_pkg, obsolete) {
+            slapt_pkg_list_t_foreach (obsolete_pkg, obsolete) {
                 if (slapt_is_excluded(global_config, obsolete_pkg)) {
                     slapt_add_exclude_to_transaction(tran, obsolete_pkg);
                 } else {
@@ -603,7 +602,7 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
         }
     }
 
-    slapt_pkg_list_t_foreach(installed_pkg, installed_pkgs) {
+    slapt_pkg_list_t_foreach (installed_pkg, installed_pkgs) {
         slapt_pkg_info_t *update_pkg = NULL;
         slapt_pkg_info_t *newer_installed_pkg = NULL;
 
@@ -628,7 +627,7 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
             if (
                 /* either it's greater, or we want to reinstall */
                 cmp_r < 0 || (global_config->re_install) ||
-                /* 
+                /*
                 * or this is a dist upgrade and the versions are the save
                 * except for the arch
                 */
@@ -719,7 +718,7 @@ void slapt_pkg_action_add_keys(const slapt_rc_config *global_config)
 {
     int rc = 0;
     bool compressed = false;
-    slapt_source_list_t_foreach(source, global_config->sources) {
+    slapt_source_list_t_foreach (source, global_config->sources) {
         FILE *gpg_key = NULL;
         const char *source_url = source->url;
         printf(gettext("Retrieving GPG key [%s]..."), source_url);
