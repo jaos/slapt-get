@@ -33,7 +33,7 @@ void slapt_pkg_action_install(const slapt_rc_config *global_config,
     installed_pkgs = slapt_get_installed_pkgs();
     avail_pkgs = slapt_get_available_pkgs();
 
-    if (avail_pkgs == NULL || avail_pkgs->pkg_count == 0)
+    if (avail_pkgs == NULL || !avail_pkgs->pkg_count)
         exit(EXIT_FAILURE);
 
     printf(gettext("Done\n"));
@@ -86,7 +86,7 @@ void slapt_pkg_action_install(const slapt_rc_config *global_config,
                 slapt_add_install_to_transaction(tran, pkg);
 
                 /* if there are conflicts, we schedule the conflicts for removal */
-                if (conflicts->pkg_count > 0 && global_config->ignore_dep != true) {
+                if (conflicts->pkg_count && !global_config->ignore_dep) {
                     slapt_pkg_list_t_foreach (conflict, conflicts) {
                         /* make sure to remove the conflict's dependencies as well */
                         slapt_pkg_list_t *conflict_deps = slapt_is_required_by(global_config,
@@ -121,7 +121,7 @@ void slapt_pkg_action_install(const slapt_rc_config *global_config,
                                             installed_pkgs, pkg) == 0) {
                     slapt_pkg_list_t *conflicts = slapt_is_conflicted(tran, avail_pkgs,
                                                                       installed_pkgs, pkg);
-                    if (conflicts->pkg_count > 0 && global_config->ignore_dep != true) {
+                    if (conflicts->pkg_count && !global_config->ignore_dep) {
                         slapt_pkg_list_t_foreach (conflict, conflicts) {
                             /* make sure to remove the conflict's dependencies as well */
                             slapt_pkg_list_t *conflict_deps = slapt_is_required_by(global_config,
@@ -471,7 +471,7 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
     if (avail_pkgs == NULL || installed_pkgs == NULL)
         exit(EXIT_FAILURE);
 
-    if (avail_pkgs->pkg_count == 0)
+    if (!avail_pkgs->pkg_count)
         exit(EXIT_FAILURE);
 
     printf(gettext("Done\n"));
@@ -531,8 +531,8 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
                     slapt_pkg_list_t *conflicts = slapt_is_conflicted(tran, avail_pkgs, installed_pkgs, slapt_upgrade_pkg);
 
                     /* add install if all deps are good and it doesn't have conflicts */
-                    if (
-                        (slapt_add_deps_to_trans(global_config, tran, avail_pkgs, installed_pkgs, slapt_upgrade_pkg) == 0) && (conflicts->pkg_count == 0 && global_config->ignore_dep != true)) {
+                    int rc = slapt_add_deps_to_trans(global_config, tran, avail_pkgs, installed_pkgs, slapt_upgrade_pkg);
+                    if (!rc && !conflicts->pkg_count && !global_config->ignore_dep) {
                         slapt_add_install_to_transaction(tran, slapt_upgrade_pkg);
                     } else {
                         /* otherwise exclude */
@@ -559,7 +559,7 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
                     if (
                         (slapt_add_deps_to_trans(global_config, tran, avail_pkgs,
                                                  installed_pkgs, slapt_upgrade_pkg) == 0) &&
-                        (conflicts->pkg_count == 0 && global_config->ignore_dep != true)) {
+                        (!conflicts->pkg_count && !global_config->ignore_dep)) {
                         slapt_add_upgrade_to_transaction(tran, installed_pkg,
                                                          slapt_upgrade_pkg);
                     } else {
@@ -645,7 +645,7 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
                     if (
                         (slapt_add_deps_to_trans(global_config, tran, avail_pkgs,
                                                  installed_pkgs, update_pkg) == 0) &&
-                        (global_config->ignore_dep || (conflicts->pkg_count == 0))) {
+                        (global_config->ignore_dep || !conflicts->pkg_count)) {
                         if (cmp_r == 0)
                             slapt_add_reinstall_to_transaction(tran, installed_pkg, update_pkg);
                         else

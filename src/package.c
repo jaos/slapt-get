@@ -867,7 +867,7 @@ bool slapt_is_excluded(const slapt_rc_config *global_config,
         return false;
 
     /* maybe EXCLUDE= isn't defined in our rc? */
-    if (global_config->exclude_list->count == 0)
+    if (!global_config->exclude_list->count)
         return false;
 
     slapt_list_t_foreach (exclude, global_config->exclude_list) {
@@ -3297,7 +3297,7 @@ char *slapt_get_pkg_filelist(const slapt_pkg_info_t *pkg)
     size_t pls = 1;
 
     /* this only handles installed packages at the moment */
-    if (pkg->installed != true)
+    if (!pkg->installed)
         return filelist;
 
     pkg_log_dirname = slapt_gen_package_log_dir_name();

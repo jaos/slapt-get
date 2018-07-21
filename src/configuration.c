@@ -126,7 +126,7 @@ slapt_rc_config *slapt_read_rc_config(const char *file_name)
                 file_name);
         return NULL;
     }
-    if (global_config->sources->count == 0) {
+    if (!global_config->sources->count) {
         fprintf(stderr, gettext("SOURCE directive not set within %s.\n"), file_name);
         return NULL;
     }
