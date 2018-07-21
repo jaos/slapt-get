@@ -182,12 +182,11 @@ slapt_pkg_list_t *slapt_parse_packages_txt(FILE *pkg_list_fh)
                 tmp_pkg->location = slapt_regex_extract_match(location_regex, getline_buffer, 1);
 
 #if SLACKWARE_EXTRA_TESTING_PASTURE_WORKAROUND == 1
-                /*
-          extra, testing, and pasture support
-          they add in extraneous /extra/, /testing/, or /pasture/ in the
-          PACKAGES.TXT location. this fixes the downloads and md5 checksum
-          matching
-        */
+                /* extra, testing, and pasture support
+                  they add in extraneous /extra/, /testing/, or /pasture/ in the
+                  PACKAGES.TXT location. this fixes the downloads and md5 checksum
+                  matching
+                */
                 if (strstr(tmp_pkg->location, "./testing/") != NULL) {
                     char *tmp_location = slapt_malloc(
                         sizeof *tmp_location *
@@ -2637,11 +2636,10 @@ slapt_pkg_list_t *slapt_get_pkg_source_packages(const slapt_rc_config *global_co
     } else { /* fall back to uncompressed package list */
         char *pkg_filename = slapt_gen_filename_from_url(url, SLAPT_PKG_LIST);
         char *pkg_local_head = slapt_read_head_cache(pkg_filename);
-        /*
-      we go ahead and run the head request, not caring if it failed.
-      If the subsequent download fails as well, it will give a nice
-      error message of why.
-    */
+        /* we go ahead and run the head request, not caring if it failed.
+          If the subsequent download fails as well, it will give a nice
+          error message of why.
+        */
         pkg_head = slapt_head_mirror_data(url, SLAPT_PKG_LIST);
 
         /* is it cached ? */
