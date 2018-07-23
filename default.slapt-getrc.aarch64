@@ -1,0 +1,20 @@
+# Working directory for local storage/cache.
+WORKINGDIR=/var/cache/slapt-get
+
+# Exclude package names and expressions.
+# To exclude pre and beta packages, add this to the exclude: 
+#   [0-9\_\.\-]{1}pre[0-9\-\.\-]{1}
+EXCLUDE=^aaa_elflibs,^devs,^glibc-.*,^kernel-.*,^udev,.*-[0-9]+dl$,x86_64,i[3456]86,arm
+
+# Base url to directory with a PACKAGES.TXT.
+# This can point to any release, ie: 9.0, 10.0, current, etc.
+SOURCE=http://dl.fail.pp.ua/slackware/slarm64-current/:OFFICIAL
+
+# Source for slapt-get.
+SOURCE=http://software.jaos.org/slackpacks/14.2-arm64/:OFFICIAL
+
+# Packages on a CD/DVD.
+# SOURCE=file:///mnt/cdrom/:OFFICIAL
+
+# Home made packages.
+# SOURCE=file:///var/www/packages/:CUSTOM
