@@ -1279,7 +1279,6 @@ int slapt_get_pkg_dependencies(const slapt_rc_config *global_config,
                                slapt_pkg_err_list_t *conflict_err,
                                slapt_pkg_err_list_t *missing_err)
 {
-    uint32_t i = 0;
     slapt_list_t *dep_parts = NULL;
 
     /* don't go any further if the required member is empty or disable_dep_check is set */
@@ -1343,17 +1342,17 @@ int slapt_get_pkg_dependencies(const slapt_rc_config *global_config,
             } else {
                 /* now move the package to the end after it's dependencies */
                 slapt_pkg_info_t *tmp = NULL;
+                uint32_t dep_idx = 0;
 
-                i = 0;
-                while (i < deps->pkg_count) {
-                    if (strcmp(deps->pkgs[i]->name, tmp_pkg->name) == 0 && tmp == NULL)
-                        tmp = deps->pkgs[i];
+                while (dep_idx < deps->pkg_count) {
+                    if (strcmp(deps->pkgs[dep_idx]->name, tmp_pkg->name) == 0 && tmp == NULL)
+                        tmp = deps->pkgs[dep_idx];
 
                     /* move all subsequent packages up */
-                    if (tmp != NULL && (i + 1 < deps->pkg_count))
-                        deps->pkgs[i] = deps->pkgs[i + 1];
+                    if (tmp != NULL && (dep_idx + 1 < deps->pkg_count))
+                        deps->pkgs[dep_idx] = deps->pkgs[dep_idx + 1];
 
-                    ++i;
+                    ++dep_idx;
                 }
 
                 /*
