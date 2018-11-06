@@ -1482,8 +1482,10 @@ static slapt_pkg_info_t *parse_meta_entry(slapt_pkg_list_t *avail_pkgs,
         return NULL;
     }
 
-    strcpy(tmp_pkg_cond, dep_entry + parse_dep_regex->pmatch[2].rm_so);
-    tmp_pkg_cond[tmp_cond_len] = '\0';
+    if (tmp_cond_len != 0) {
+      strcpy(tmp_pkg_cond, dep_entry + parse_dep_regex->pmatch[2].rm_so);
+      tmp_pkg_cond[tmp_cond_len] = '\0';
+    }
 
     tmp_pkg_ver = slapt_regex_extract_match(parse_dep_regex, dep_entry, 3);
 
