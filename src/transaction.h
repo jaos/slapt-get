@@ -34,7 +34,7 @@ typedef struct {
     slapt_queue_i **pkgs;
     uint32_t count;
 } slapt_queue_t;
-#define slapt_queue_t_foreach(item, list) slapt_queue_i *item; for (uint32_t item##_counter = 0; item = list->pkgs[item##_counter], item##_counter < list->count; item##_counter++)
+#define slapt_queue_t_foreach(item, list) slapt_queue_i *item; for (uint32_t item##_counter = 0; (item##_counter < list->count) && (item = list->pkgs[item##_counter]); item##_counter++)
 
 typedef struct {
     slapt_pkg_list_t *install_pkgs;

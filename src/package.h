@@ -75,7 +75,7 @@ typedef struct {
     bool free_pkgs;
     bool ordered;
 } slapt_pkg_list_t;
-#define slapt_pkg_list_t_foreach(item, list) slapt_pkg_info_t *item; for (uint32_t item##_counter = 0; item = list->pkgs[item##_counter], item##_counter < list->pkg_count; item##_counter++)
+#define slapt_pkg_list_t_foreach(item, list) slapt_pkg_info_t *item; for (uint32_t item##_counter = 0; (item##_counter < list->pkg_count) && (item = list->pkgs[item##_counter]); item##_counter++)
 
 typedef struct {
     slapt_pkg_info_t *installed;
@@ -88,7 +88,7 @@ typedef struct {
     uint32_t pkg_count;
     uint32_t reinstall_count;
 } slapt_pkg_upgrade_list_t;
-#define slapt_pkg_upgrade_list_t_foreach(item, list) slapt_pkg_upgrade_t *item; for (uint32_t item##_counter = 0; item = list->pkgs[item##_counter], item##_counter < list->pkg_count; item##_counter++)
+#define slapt_pkg_upgrade_list_t_foreach(item, list) slapt_pkg_upgrade_t *item; for (uint32_t item##_counter = 0; (item##_counter < list->pkg_count) && (item = list->pkgs[item##_counter]); item##_counter++)
 
 typedef struct {
     char *pkg;
@@ -99,7 +99,7 @@ typedef struct {
     slapt_pkg_err_t **errs;
     uint32_t err_count;
 } slapt_pkg_err_list_t;
-#define slapt_pkg_err_list_t_foreach(item, list) slapt_pkg_err_t *item; for (uint32_t item##_counter = 0; item = list->errs[item##_counter], item##_counter < list->err_count; item##_counter++)
+#define slapt_pkg_err_list_t_foreach(item, list) slapt_pkg_err_t *item; for (uint32_t item##_counter = 0; (item##_counter < list->err_count) && (item = list->errs[item##_counter]); item##_counter++)
 
 /* returns an empty package structure */
 slapt_pkg_info_t *slapt_init_pkg(void);

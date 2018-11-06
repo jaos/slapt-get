@@ -71,7 +71,7 @@ typedef struct {
     char **items;
     uint32_t count;
 } slapt_list_t;
-#define slapt_list_t_foreach(item, list) char *item; for (uint32_t item##_counter = 0; item = list->items[item##_counter], item##_counter < list->count; item##_counter++)
+#define slapt_list_t_foreach(item, list) char *item; for (uint32_t item##_counter = 0; (item##_counter < list->count) && (item = list->items[item##_counter]); item##_counter++)
 
 
 FILE *slapt_open_file(const char *file_name, const char *mode);
