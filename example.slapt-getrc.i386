@@ -4,7 +4,7 @@ WORKINGDIR=/var/cache/slapt-get
 # Exclude package names and expressions.
 # To exclude pre and beta packages, add this to the exclude: 
 #   [0-9\_\.\-]{1}pre[0-9\-\.\-]{1}
-EXCLUDE=^aaa_elflibs,^devs,^glibc-.*,^kernel-.*,^udev,.*-[0-9]+dl$,x86_64
+EXCLUDE=^devs,^glibc-.*,^kernel-.*,^udev,.*-[0-9]+dl$,x86_64
 
 # Slackware64 mirrors to choose from.
 # Please use one of these in preference to ftp.slackware.com
