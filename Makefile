@@ -86,7 +86,7 @@ doinstall: libsinstall
 	install -d $(DESTDIR)/var/$(PACKAGE)
 	for i in `ls po/*.po | sed 's/.po//' | xargs -n1 basename` ;do if [ ! -d $(DESTDIR)$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES ]; then mkdir -p $(DESTDIR)$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES; fi; msgfmt -o $(DESTDIR)$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES/slapt-get.mo po/$$i.po;done
 	mkdir -p $(DESTDIR)/usr/doc/$(PACKAGE)-$(VERSION)/
-	cp -f default.slapt-getrc.* example.slapt-getrc COPYING ChangeLog INSTALL README FAQ FAQ.html TODO $(DESTDIR)/usr/doc/$(PACKAGE)-$(VERSION)/
+	cp -f default.slapt-getrc.* example.slapt-getrc COPYING ChangeLog INSTALL README FAQ TODO $(DESTDIR)/usr/doc/$(PACKAGE)-$(VERSION)/
 
 uninstall:
 	-rm /$(SBINDIR)/$(PACKAGE)
@@ -137,7 +137,7 @@ dopkg:
 	$(STRIP) ./pkg/$(SBINDIR)/$(PACKAGE)
 	cp -f $(RCSOURCE) pkg/etc/slapt-get/slapt-getrc.new
 	mkdir -p ./pkg/usr/doc/$(PACKAGE)-$(VERSION)/
-	cp -f default.slapt-getrc.* example.slapt-getrc COPYING ChangeLog INSTALL README FAQ FAQ.html TODO ./pkg/usr/doc/$(PACKAGE)-$(VERSION)/
+	cp -f default.slapt-getrc.* example.slapt-getrc COPYING ChangeLog INSTALL README FAQ TODO ./pkg/usr/doc/$(PACKAGE)-$(VERSION)/
 	echo "if [ ! -d etc/slapt-get ]; then mkdir -p etc/slapt-get; fi; if [ -f etc/slapt-getrc -a ! -f etc/slapt-get/slapt-getrc ]; then mv -f etc/slapt-getrc etc/slapt-get/slapt-getrc; fi; if [ ! -f etc/slapt-get/slapt-getrc ]; then mv -f etc/slapt-get/slapt-getrc.new etc/slapt-get/slapt-getrc; else cmp etc/slapt-get/slapt-getrc etc/slapt-get/slapt-getrc.new >/dev/null 2>&1 && rm etc/slapt-get/slapt-getrc.new; fi;" > pkg/install/doinst.sh
 	cp -f slack-desc pkg/install/
 	cp -f slack-required pkg/install/
