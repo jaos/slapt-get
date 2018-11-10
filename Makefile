@@ -121,7 +121,7 @@ staticpkg: static dopkg
 
 withlibslaptpkg: withlibslapt dopkg
 
-dopkg:
+dopkg: $(PACKAGE)
 	mkdir -p pkg
 	mkdir -p pkg/$(SBINDIR)
 	mkdir -p pkg/etc/slapt-get
