@@ -86,7 +86,7 @@ doinstall: libsinstall
 	install -d $(DESTDIR)/var/$(PACKAGE)
 	for i in `ls po/*.po | sed 's/.po//' | xargs -n1 basename` ;do if [ ! -d $(DESTDIR)$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES ]; then mkdir -p $(DESTDIR)$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES; fi; msgfmt -o $(DESTDIR)$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES/slapt-get.mo po/$$i.po;done
 	mkdir -p $(DESTDIR)/usr/doc/$(PACKAGE)-$(VERSION)/
-	cp -f default.slapt-getrc.* example.slapt-getrc.* COPYING ChangeLog INSTALL README FAQ FAQ.html TODO $(DESTDIR)/usr/doc/$(PACKAGE)-$(VERSION)/
+	cp -f default.slapt-getrc.* example.slapt-getrc COPYING ChangeLog INSTALL README FAQ FAQ.html TODO $(DESTDIR)/usr/doc/$(PACKAGE)-$(VERSION)/
 
 uninstall:
 	-rm /$(SBINDIR)/$(PACKAGE)
