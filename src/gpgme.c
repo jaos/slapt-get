@@ -301,6 +301,9 @@ slapt_code_t slapt_gpg_verify_checksums(FILE *checksums,
         gpgme_verify_result_t verify_result = gpgme_op_verify_result(*ctx);
         if (verify_result != NULL) {
             gpgme_signature_t sig = verify_result->signatures;
+            if (sig == NULL) {
+                return verified;
+            }
             gpgme_sigsum_t sum = sig->summary;
             gpgme_error_t status = sig->status;
 
