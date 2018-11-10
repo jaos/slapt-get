@@ -33,12 +33,10 @@ Table of Contents:
 
     * uses native Slackware tools (installpkg, upgradepkg, and removepkg)
     * supports packages as tgz, tlz, tbz, and txz files
-    * supports multiple package sources (including linuxpackages.net) with 
-      the ability to assign priorities to each source.
+    * supports multiple package sources with the ability to assign priorities to each source.
     * cache data concerning packages and updates from package sources
     * supports sources from ftp, ftps, http, https, file:/// and more (libcurl)
-    * resumes broken downloads and will verify package integrity with MD5
-      checksum
+    * resumes broken downloads and will verify package integrity with MD5 checksum
     * show packages that are available (from cached data) and installed
     * search package listing using POSIX and extended regular expressions
       by package name, location, and description
@@ -60,7 +58,7 @@ Table of Contents:
     * Package data download robustness, only writing changes if all sources
       download successfully as well as only downloading those sources that
       have changed since the last download
-    * i18n support via GNU gettext with 26 language translations
+    * i18n support via GNU gettext with over 30 language translations
     * extremely fast and easy to script with
 
 
@@ -100,7 +98,7 @@ Table of Contents:
     http://www.slackware.com/getslack/
 
     * SOURCE must be a path to a valid Slackware release directory,
-    or a source such as linuxpackages.net (see example within rc).
+    or a third party source (see example within rc).
     All that is required is the PACKAGES.TXT (see FAQ entry #17)
     and CHECKSUMS.md5.  Multiple sources can be defined.
 
@@ -165,9 +163,7 @@ Table of Contents:
    Probably some bugs.  Email bug reports to me:
     Jason Woodward <woodwardj at jaos dot org>
 
-   or directly to the mailing lists:
-    slapt-get-user at software dot jaos dot org
-    slapt-get-devel at software dot jaos dot org
+   or file a github issue: https://github.com/jaos/slapt-get/issues
 
    Make sure --update is ran once initially and the data file (package_data)
    is good.
@@ -184,7 +180,7 @@ Table of Contents:
    DEBUG define in src/main.h to 1, and rebuild ( make clean && make ).  Run
    in gdb and let me know via email where the fault happens.
 
-   Run the test suite and report any failing tests to the mailing list.
+   Run the test suite and report any failing tests to github issues.
 
    See the FAQ for more info.
 
@@ -264,3 +260,4 @@ Table of Contents:
    Vitaly Chernookiy <vitaly.v.ch at gmail dot com> contributed the initial
    cross compiling support
 
+   Other translators credited within the translation source files.

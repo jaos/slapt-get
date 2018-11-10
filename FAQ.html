@@ -25,7 +25,7 @@
 <a href="#slgFAQ8">8.  How can I re-install an existing package?</a>
 <a href="#slgFAQ9">9.  Can I "dist-upgrade" to a newer Slackware release?</a>
 <a href="#slgFAQ10">10. What about package dependencies?</a>
-<a href="#slgFAQ11">11. What about multiple package sources, ala linuxpackages.net?</a>
+<a href="#slgFAQ11">11. What about multiple package sources?</a>
 <a href="#slgFAQ12">12. How can I get more detailed statistics for downloads?</a>
 <a href="#slgFAQ13">13. How can I install every available package?</a>
 <a href="#slgFAQ14">14. What if I only want to upgrade one package?</a>
@@ -271,30 +271,17 @@
  (this is the internal representation slapt-get uses after caching the package
  date from the remote package source).
 
- This information is added to the PACKAGES.TXT file by extracting it from the
- meta files within the package.  This is normally done by the provider of the
- packages when they generate the PACKAGES.TXT support file for their package
- source.  See <a href="#slgFAQ17">FAQ #17</a> for an example script to generate an extended PACKAGES.TXT
- file.
+ This information is added to the PACKAGES.TXT file within the package repository
+ by the provider of the packages.
 
  The inclusion of this information within the Slackware package format does not
  inhibit the ability for Slackware pkgtools to install these packages.  This
  information is silently ignored and discarded after the package is installed.
 
- Packages supporting this framework can be found at linuxpackages.net, along
- with several Slackware derived distributions such as CollegeLinux (starting
- with 2.5) and VectorLinux (starting with 5.0).
+<a name="slgFAQ11"><b>11. What about multiple package sources?</b></a>
 
- Also, Stefano Stabellini has created a PACKAGES.TXT that contains the
- dependency information for Slackware packages without modifying the actual
- packages themselves.  This can be used as a slapt-get source to pull the 
- packages from official slackware.com mirrors.  Read more about it at
- Stefano's page: <a href="http://www.stabellini.net/depslack.html">http://www.stabellini.net/depslack.html</a>
+ You can use multiple sources with slapt-get.
 
-
-<a name="slgFAQ11"><b>11. What about multiple package sources, ala linuxpackages.net?</b></a>
-
- You can use multiple sources with slapt-get (including linuxpackages.net).
  See the example slapt-getrc in the source tarball or look in the
  slapt-get directory within /usr/doc/ if you installed a binary package.
  See the README for further details.
@@ -553,9 +540,7 @@
  Edit that file.  For every msgid, translate that into the msgstr "".  Leave the
  formatting the same.
 
- More translations are needed. Email in your translation to the slapt-get-devel
- mailing list (slapt-get-devel at software dot jaos dot org).  Your
- contributions are greatly appreciated.
+ See also https://www.transifex.com/jaos/slapt-get/
 
 
 <a name="slgFAQ23"><b>23. How do I set the output language?</b></a>
@@ -903,8 +888,9 @@
 
 <a name="slgFAQ39"><b>39. Is there a way to use tab completion for the package names in Bash?</b></a>
 
- Yes, this completion was contributed by Alec Thomas on the slapt-get-devel
- mailing list.  This goes in your ~/.bashrc file (or in /etc/bash_completion,
+ Yes, this completion was contributed by Alec Thomas.
+
+ This goes in your ~/.bashrc file (or in /etc/bash_completion,
  /etc/bash_completion.d/, /etc/profile, or /etc/profile.d/):
 
   complete_slaptget()
@@ -1118,33 +1104,7 @@
 
 <a name="slgFAQ49"><b>49. Will slapt-get support a --compile like option for slackbuilds?</b></a>
 
- Not directly.  Piotr Simon, however, has contributed a script along the same
- lines:
-
-   # added to .bashrc)
-   alias slapt-get-compile="compile_slaptget"
-
-   compile_slaptget() {
-   grep "^WORKINGDIR" /etc/slapt-getrc &gt; /tmp/slapt-get.compile || exit
-   echo "SOURCE=http://www1.linuxpackages.net/packages/SlackBuilds/" &gt;&gt; /tmp/slapt-get.compile
-   slapt-get --config /tmp/slapt-get.compile --update 
-   if [ "$1" = "" ];then
-   slapt-get --available
-   echo ""
-   echo "#################################################################################"
-   echo "slapt-get-compile: install/upgrade/compile src-pkgs from Build Script Archive on linuxpackages.net"
-   echo "Use: slapt-get-compile &lt;string&gt;"
-   echo "#################################################################################"
-   echo ""
-   else
-   PROG=`echo $1 | sed 's/-src//'`
-   slapt-get --install $1
-   ( cd /usr/src/slackbuilds/$PROG
-   ./$PROG.[sS]lack[bB]uild )
-   fi
-
- For a more advanced version of this, check out Piotrs site:
- <a href="http://www.tenboard.com/slackware/index.php?path=SlackBuilds/">http://www.tenboard.com/slackware/index.php?path=SlackBuilds/</a>
+ No, this is handled by slapt-src.
 
 
 <a name="slgFAQ50"><b>50. What about mirror fall back / fail-over ?</b></a>
@@ -1211,9 +1171,9 @@
 <a name="slgFAQ54"><b>54. Why am I getting "GPGME: Invalid crypto engine"?</b></a>
 
  Recent versions of slapt-get support GPG key verification via the GPGME
- library.  GPGME requires gnupg to support the OpenPGP protocol.  At this
- time gnupg2 is not compatible with GPGME and so gnupg must also be installed.
- gnupg 1.x can be installed side by side with gnupg2.  
+ library.  GPGME requires gnupg to support the OpenPGP protocol.
+
+ Make sure gnupg and gnupg2 are both installed.
 
 
 <a name="slgFAQ55"><b>55. How do I support GPG signature verification in my package repository?</b></a>

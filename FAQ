@@ -11,7 +11,7 @@ Frequently Asked Questions:
 8.  How can I re-install an existing package?
 9.  Can I "dist-upgrade" to a newer Slackware release?
 10. What about package dependencies?
-11. What about multiple package sources, ala linuxpackages.net?
+11. What about multiple package sources?
 12. How can I get more detailed statistics for downloads?
 13. How can I install every available package?
 14. What if I only want to upgrade one package?
@@ -257,30 +257,18 @@ Frequently Asked Questions:
  (this is the internal representation slapt-get uses after caching the package
  date from the remote package source).
 
- This information is added to the PACKAGES.TXT file by extracting it from the
- meta files within the package.  This is normally done by the provider of the
- packages when they generate the PACKAGES.TXT support file for their package
- source.  See FAQ #17 for an example script to generate an extended PACKAGES.TXT
- file.
+ This information is added to the PACKAGES.TXT file within the package repository
+ by the provider of the packages.
 
  The inclusion of this information within the Slackware package format does not
  inhibit the ability for Slackware pkgtools to install these packages.  This
  information is silently ignored and discarded after the package is installed.
 
- Packages supporting this framework can be found at linuxpackages.net, along
- with several Slackware derived distributions such as CollegeLinux (starting
- with 2.5) and VectorLinux (starting with 5.0).
 
- Also, Stefano Stabellini has created a PACKAGES.TXT that contains the
- dependency information for Slackware packages without modifying the actual
- packages themselves.  This can be used as a slapt-get source to pull the 
- packages from official slackware.com mirrors.  Read more about it at
- Stefano's page: http://www.stabellini.net/depslack.html
+11. What about multiple package sources?
 
+ You can use multiple package sources with slapt-get.
 
-11. What about multiple package sources, ala linuxpackages.net?
-
- You can use multiple sources with slapt-get (including linuxpackages.net).
  See the example slapt-getrc in the source tarball or look in the
  slapt-get directory within /usr/doc/ if you installed a binary package.
  See the README for further details.
@@ -539,9 +527,7 @@ Frequently Asked Questions:
  Edit that file.  For every msgid, translate that into the msgstr "".  Leave the
  formatting the same.
 
- More translations are needed. Email in your translation to the slapt-get-devel
- mailing list (slapt-get-devel at software dot jaos dot org).  Your
- contributions are greatly appreciated.
+ See also https://www.transifex.com/jaos/slapt-get/
 
 
 23. How do I set the output language?
@@ -889,8 +875,9 @@ Frequently Asked Questions:
 
 39. Is there a way to use tab completion for the package names in Bash?
 
- Yes, this completion was contributed by Alec Thomas on the slapt-get-devel
- mailing list.  This goes in your ~/.bashrc file (or in /etc/bash_completion,
+ Yes, this completion was contributed by Alec Thomas.
+
+ This goes in your ~/.bashrc file (or in /etc/bash_completion,
  /etc/bash_completion.d/, /etc/profile, or /etc/profile.d/):
 
   complete_slaptget()
@@ -1104,33 +1091,7 @@ Frequently Asked Questions:
 
 49. Will slapt-get support a --compile like option for slackbuilds?
 
- Not directly.  Piotr Simon, however, has contributed a script along the same
- lines:
-
-   # added to .bashrc)
-   alias slapt-get-compile="compile_slaptget"
-
-   compile_slaptget() {
-   grep "^WORKINGDIR" /etc/slapt-get/slapt-getrc > /tmp/slapt-get.compile || exit
-   echo "SOURCE=http://www1.linuxpackages.net/packages/SlackBuilds/" >> /tmp/slapt-get.compile
-   slapt-get --config /tmp/slapt-get.compile --update 
-   if [ "$1" = "" ];then
-   slapt-get --available
-   echo ""
-   echo "#################################################################################"
-   echo "slapt-get-compile: install/upgrade/compile src-pkgs from Build Script Archive on linuxpackages.net"
-   echo "Use: slapt-get-compile <string>"
-   echo "#################################################################################"
-   echo ""
-   else
-   PROG=`echo $1 | sed 's/-src//'`
-   slapt-get --install $1
-   ( cd /usr/src/slackbuilds/$PROG
-   ./$PROG.[sS]lack[bB]uild )
-   fi
-
- For a more advanced version of this, check out Piotrs site:
- http://www.tenboard.com/slackware/index.php?path=SlackBuilds/
+ No, this is handled by slapt-src.
 
 
 50. What about mirror fall back / fail-over ?
@@ -1197,9 +1158,9 @@ Frequently Asked Questions:
 54. Why am I getting "GPGME: Invalid crypto engine"?
 
  Recent versions of slapt-get support GPG key verification via the GPGME
- library.  GPGME requires gnupg to support the OpenPGP protocol.  At this
- time gnupg2 is not compatible with GPGME and so gnupg must also be installed.
- gnupg 1.x can be installed side by side with gnupg2.  
+ library.  GPGME requires gnupg to support the OpenPGP protocol.
+
+ Make sure gnupg and gnupg2 are both installed.
 
 
 55. How do I support GPG signature verification in my package repository?
@@ -1224,12 +1185,12 @@ Frequently Asked Questions:
 57. How do I assign priorities to my package sources?
 
  The source priority feature is intended for keeping installed packages closely
- synchronised with a trusted repository, rather than upgrading based on package
+ synchronized with a trusted repository, rather than upgrading based on package
  version numbers.  This can be useful for tracking the patches which are
  applied to official Slackware releases, or for following Slackware-current,
  where package version numbers are occasionally regressed due to stability
  issues or for other reasons.  Another use for this feature is where the user
- maintains a local repository of customised packages which are to be used in
+ maintains a local repository of customized packages which are to be used in
  preference to those on the public mirrors.
 
  Each SOURCE can be a assigned a priority level, by appending :{PRIORITY} to
@@ -1240,7 +1201,7 @@ Frequently Asked Questions:
   SOURCE={url}:PREFERRED  assigns even more weight to this source
   SOURCE={url}:CUSTOM     highest priority, for your custom package source
 
- PRIORITY of DEFAULT gives the usual slapt-get behaviour, whereby packages are
+ PRIORITY of DEFAULT gives the usual slapt-get behavior, whereby packages are
  upgraded based on their version numbers.  A package from a source with the
  default priority will upgrade the installed package only if the package from
  the source has a higher version number.  This is effectively never used but is
