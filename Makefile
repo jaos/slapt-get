@@ -157,7 +157,6 @@ dopkg:
 	$(STRIP) pkg$(LIBDIR)/libslapt.so.$(VERSION)
 	( cd pkg$(LIBDIR); ln -sf libslapt.so.$(VERSION) libslapt.so )
 	-( cd pkg; /sbin/makepkg -l y -c n ../$(PACKAGE)-$(VERSION)-$(ARCH)-$(RELEASE).tgz )
-	rmdir -rf pkg
 
 po_file:
 	-xgettext -o po/slapt-get.pot.new -sC --no-location src/*.c src/*.h
