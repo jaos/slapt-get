@@ -126,7 +126,7 @@ slapt_rc_config *slapt_read_rc_config(const char *file_name)
                 file_name);
         return NULL;
     }
-    if (global_config->sources->count == 0) {
+    if (!global_config->sources->count) {
         fprintf(stderr, gettext("SOURCE directive not set within %s.\n"), file_name);
         return NULL;
     }
@@ -219,7 +219,7 @@ void slapt_add_source(slapt_source_list_t *list, slapt_source_t *s)
 void slapt_remove_source(slapt_source_list_t *list, const char *s)
 {
     slapt_source_t *src_to_discard = NULL;
-    unsigned int i = 0;
+    uint32_t i = 0;
 
     while (i < list->count) {
         if (strcmp(s, list->src[i]->url) == 0 && src_to_discard == NULL) {
@@ -251,10 +251,8 @@ void slapt_remove_source(slapt_source_list_t *list, const char *s)
 
 void slapt_free_source_list(slapt_source_list_t *list)
 {
-    unsigned int i;
-
-    for (i = 0; i < list->count; ++i) {
-        slapt_free_source(list->src[i]);
+    slapt_source_list_t_foreach (source, list) {
+        slapt_free_source(source);
     }
     free(list->src);
     free(list);
@@ -309,8 +307,8 @@ static void slapt_source_parse_attributes(slapt_source_t *s, const char *string)
 slapt_source_t *slapt_init_source(const char *s)
 {
     slapt_source_t *src;
-    unsigned int source_len = 0;
-    unsigned int attribute_len = 0;
+    uint32_t source_len = 0;
+    uint32_t attribute_len = 0;
     slapt_regex_t *attribute_regex = NULL;
     char *source_string = NULL;
     char *attribute_string = NULL;
@@ -382,7 +380,7 @@ void slapt_free_source(slapt_source_t *src)
 
 int slapt_write_rc_config(const slapt_rc_config *global_config, const char *location)
 {
-    unsigned int i;
+    uint32_t i = 0;
     FILE *rc;
 
     rc = slapt_open_file(location, "w+");
@@ -392,21 +390,21 @@ int slapt_write_rc_config(const slapt_rc_config *global_config, const char *loca
     fprintf(rc, "%s%s\n", SLAPT_WORKINGDIR_TOKEN, global_config->working_dir);
 
     fprintf(rc, "%s", SLAPT_EXCLUDE_TOKEN);
-    for (i = 0; i < global_config->exclude_list->count; ++i) {
+    slapt_list_t_foreach (exclude, global_config->exclude_list) {
         if (i + 1 == global_config->exclude_list->count) {
-            fprintf(rc, "%s", global_config->exclude_list->items[i]);
+            fprintf(rc, "%s", exclude);
         } else {
-            fprintf(rc, "%s,", global_config->exclude_list->items[i]);
+            fprintf(rc, "%s,", exclude);
         }
+        i++;
     }
     fprintf(rc, "\n");
 
-    for (i = 0; i < global_config->sources->count; ++i) {
-        slapt_source_t *src = global_config->sources->src[i];
+    slapt_source_list_t_foreach (src, global_config->sources) {
         SLAPT_PRIORITY_T priority = src->priority;
         const char *token = SLAPT_SOURCE_TOKEN;
 
-        if (global_config->sources->src[i]->disabled == true)
+        if (src->disabled)
             token = SLAPT_DISABLED_SOURCE_TOKEN;
 
         if (priority > SLAPT_PRIORITY_DEFAULT) {

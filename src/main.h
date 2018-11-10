@@ -23,6 +23,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <stdint.h>
 #include <unistd.h>
 #include <getopt.h>
 #include <curl/curl.h>

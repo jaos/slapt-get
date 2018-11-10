@@ -81,7 +81,7 @@ char *slapt_regex_extract_match(const slapt_regex_t *r, const char *src, const i
     char *str = NULL;
 
     if (m.rm_so != -1) {
-        unsigned int len = m.rm_eo - m.rm_so + 1;
+        uint32_t len = m.rm_eo - m.rm_so + 1;
         str = malloc(sizeof *str * len);
 
         str = strncpy(str, src + m.rm_so, len);
@@ -103,7 +103,7 @@ void slapt_gen_md5_sum_of_file(FILE *f, char *result_sum)
     EVP_MD_CTX *mdctx = NULL;
     const EVP_MD *md;
     unsigned char md_value[EVP_MAX_MD_SIZE];
-    unsigned int md_len = 0, i;
+    uint32_t md_len = 0;
     ssize_t getline_read;
     size_t getline_size;
     char *result_sum_tmp = NULL;
@@ -135,7 +135,7 @@ void slapt_gen_md5_sum_of_file(FILE *f, char *result_sum)
 
     result_sum[0] = '\0';
 
-    for (i = 0; i < md_len; ++i) {
+    for (uint32_t i = 0; i < md_len; ++i) {
         char *p = slapt_malloc(sizeof *p * 3);
 
         if (snprintf(p, 3, "%02x", md_value[i]) > 0) {
@@ -254,12 +254,12 @@ int slapt_ask_yes_no(const char *format, ...)
 char *slapt_str_replace_chr(const char *string, const char find,
                             const char replace)
 {
-    unsigned int i, len = 0;
+    uint32_t len = 0;
     char *clean = slapt_calloc(strlen(string) + 1, sizeof *clean);
     ;
 
     len = strlen(string);
-    for (i = 0; i < len; ++i) {
+    for (uint32_t i = 0; i < len; ++i) {
         if (string[i] == find) {
             clean[i] = replace;
         } else {
@@ -422,7 +422,7 @@ void slapt_add_list_item(slapt_list_t *list, const char *item)
 
 void slapt_remove_list_item(slapt_list_t *list, const char *item)
 {
-    unsigned int i = 0;
+    uint32_t i = 0;
     char *tmp = NULL;
 
     while (i < list->count) {
@@ -453,11 +453,9 @@ void slapt_remove_list_item(slapt_list_t *list, const char *item)
 
 const char *slapt_search_list(slapt_list_t *list, const char *needle)
 {
-    unsigned int i;
-
-    for (i = 0; i < list->count; i++) {
-        if (strcmp(list->items[i], needle) == 0)
-            return list->items[i];
+    slapt_list_t_foreach (i, list) {
+        if (strcmp(i, needle) == 0)
+            return i;
     }
 
     return NULL;
@@ -465,10 +463,8 @@ const char *slapt_search_list(slapt_list_t *list, const char *needle)
 
 void slapt_free_list(slapt_list_t *list)
 {
-    unsigned int i;
-
-    for (i = 0; i < list->count; ++i) {
-        free(list->items[i]);
+    slapt_list_t_foreach (i, list) {
+        free(i);
     }
     free(list->items);
     free(list);

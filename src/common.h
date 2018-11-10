@@ -69,8 +69,10 @@ typedef struct {
 
 typedef struct {
     char **items;
-    unsigned int count;
+    uint32_t count;
 } slapt_list_t;
+#define slapt_list_t_foreach(item, list) char *item; for (uint32_t item##_counter = 0; (item##_counter < list->count) && (item = list->items[item##_counter]); item##_counter++)
+
 
 FILE *slapt_open_file(const char *file_name, const char *mode);
 slapt_regex_t *slapt_init_regex(const char *regex_string);

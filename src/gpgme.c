@@ -51,7 +51,7 @@ static void _slapt_free_gpgme_ctx(gpgme_ctx_t *ctx)
 
 FILE *slapt_get_pkg_source_checksums_signature(const slapt_rc_config *global_config,
                                                const char *url,
-                                               unsigned int *compressed)
+                                               bool *compressed)
 {
     FILE *tmp_checksum_f = NULL;
     char *checksum_head = NULL;
@@ -61,14 +61,13 @@ FILE *slapt_get_pkg_source_checksums_signature(const slapt_rc_config *global_con
     char *filename = NULL;
     char *local_head = NULL;
     char *location;
-    int checksums_compressed = *compressed;
 
-    if (checksums_compressed == 1) {
+    if (*compressed) {
         location = location_compressed;
-        *compressed = 1;
+        *compressed = true;
     } else {
         location = location_uncompressed;
-        *compressed = 0;
+        *compressed = false;
     }
 
     filename = slapt_gen_filename_from_url(url, location);
@@ -76,7 +75,7 @@ FILE *slapt_get_pkg_source_checksums_signature(const slapt_rc_config *global_con
     checksum_head = slapt_head_mirror_data(url, location);
 
     if (checksum_head == NULL) {
-        if (interactive == true)
+        if (interactive)
             printf(gettext("Not Found\n"));
         free(filename);
         free(local_head);
@@ -96,7 +95,7 @@ FILE *slapt_get_pkg_source_checksums_signature(const slapt_rc_config *global_con
     } else {
         const char *err = NULL;
 
-        if (global_config->dl_stats == true)
+        if (global_config->dl_stats)
             printf("\n");
 
         if ((tmp_checksum_f = slapt_open_file(filename, "w+b")) == NULL)
@@ -106,7 +105,7 @@ FILE *slapt_get_pkg_source_checksums_signature(const slapt_rc_config *global_con
                                                 global_config, url,
                                                 location);
         if (!err) {
-            if (interactive == true)
+            if (interactive)
                 printf(gettext("Done\n"));
 
         } else {
@@ -138,21 +137,21 @@ FILE *slapt_get_pkg_source_checksums_signature(const slapt_rc_config *global_con
 
 FILE *slapt_get_pkg_source_gpg_key(const slapt_rc_config *global_config,
                                    const char *url,
-                                   unsigned int *compressed)
+                                   bool *compressed)
 {
     FILE *tmp_key_f = NULL;
     char *key_head = NULL;
     char *filename = slapt_gen_filename_from_url(url, SLAPT_GPG_KEY);
     char *local_head = slapt_read_head_cache(filename);
-    bool interactive = global_config->progress_cb == NULL && global_config->dl_stats == false
+    bool interactive = global_config->progress_cb == NULL && !global_config->dl_stats
                            ? true
                            : false;
 
-    *compressed = 0;
+    *compressed = false;
     key_head = slapt_head_mirror_data(url, SLAPT_GPG_KEY);
 
     if (key_head == NULL) {
-        if (interactive == true)
+        if (interactive)
             printf(gettext("Not Found\n"));
         free(filename);
         free(local_head);
@@ -180,7 +179,7 @@ FILE *slapt_get_pkg_source_gpg_key(const slapt_rc_config *global_config,
                                                 SLAPT_GPG_KEY);
 
         if (!err) {
-            if (interactive == true)
+            if (interactive)
                 printf(gettext("Done\n"));
         } else {
             fprintf(stderr, gettext("Failed to download: %s\n"), err);
@@ -302,6 +301,9 @@ slapt_code_t slapt_gpg_verify_checksums(FILE *checksums,
         gpgme_verify_result_t verify_result = gpgme_op_verify_result(*ctx);
         if (verify_result != NULL) {
             gpgme_signature_t sig = verify_result->signatures;
+            if (sig == NULL) {
+                return verified;
+            }
             gpgme_sigsum_t sum = sig->summary;
             gpgme_error_t status = sig->status;
 

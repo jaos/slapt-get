@@ -59,7 +59,7 @@ START_TEST(test_pkg_info)
     string = NULL;
 
     slapt_add_list_item(rc->exclude_list, "^gslapt$");
-    fail_if(slapt_is_excluded(rc, &pkg) == 0);
+    fail_if(!slapt_is_excluded(rc, &pkg));
     slapt_remove_list_item(rc->exclude_list, "^gslapt$");
 
     fail_unless(slapt_download_pkg(rc, &pkg, NULL) == 0);
@@ -296,7 +296,7 @@ END_TEST
 
 START_TEST(test_dependency)
 {
-    unsigned int i = 0;
+    uint32_t i = 0;
     FILE *fh = NULL;
     slapt_pkg_info_t *p = NULL;
     slapt_pkg_list_t *avail = NULL;

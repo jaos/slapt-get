@@ -63,18 +63,19 @@ typedef struct {
     char *conflicts;
     char *suggests;
     char *file_ext;
-    unsigned int size_c;
-    unsigned int size_u;
-    unsigned int priority;
+    uint32_t size_c;
+    uint32_t size_u;
+    uint32_t priority;
     bool installed;
 } slapt_pkg_info_t;
 
 typedef struct {
     slapt_pkg_info_t **pkgs;
-    unsigned int pkg_count;
+    uint32_t pkg_count;
     bool free_pkgs;
     bool ordered;
 } slapt_pkg_list_t;
+#define slapt_pkg_list_t_foreach(item, list) slapt_pkg_info_t *item; for (uint32_t item##_counter = 0; (item##_counter < list->pkg_count) && (item = list->pkgs[item##_counter]); item##_counter++)
 
 typedef struct {
     slapt_pkg_info_t *installed;
@@ -84,9 +85,10 @@ typedef struct {
 
 typedef struct {
     slapt_pkg_upgrade_t **pkgs;
-    unsigned int pkg_count;
-    unsigned int reinstall_count;
+    uint32_t pkg_count;
+    uint32_t reinstall_count;
 } slapt_pkg_upgrade_list_t;
+#define slapt_pkg_upgrade_list_t_foreach(item, list) slapt_pkg_upgrade_t *item; for (uint32_t item##_counter = 0; (item##_counter < list->pkg_count) && (item = list->pkgs[item##_counter]); item##_counter++)
 
 typedef struct {
     char *pkg;
@@ -95,8 +97,9 @@ typedef struct {
 
 typedef struct {
     slapt_pkg_err_t **errs;
-    unsigned int err_count;
+    uint32_t err_count;
 } slapt_pkg_err_list_t;
+#define slapt_pkg_err_list_t_foreach(item, list) slapt_pkg_err_t *item; for (uint32_t item##_counter = 0; (item##_counter < list->err_count) && (item = list->errs[item##_counter]); item##_counter++)
 
 /* returns an empty package structure */
 slapt_pkg_info_t *slapt_init_pkg(void);
@@ -197,7 +200,7 @@ char *slapt_gen_pkg_url(slapt_pkg_info_t *pkg);
   exclude pkg based on pkg name
   returns 1 if package is present in the exclude list, 0 if not present
 */
-int slapt_is_excluded(const slapt_rc_config *, slapt_pkg_info_t *);
+bool slapt_is_excluded(const slapt_rc_config *, slapt_pkg_info_t *);
 /*
   package is already downloaded and cached, md5sum if applicable is ok
   returns slapt_code_t.
@@ -275,22 +278,22 @@ slapt_pkg_info_t *slapt_copy_pkg(slapt_pkg_info_t *dst, slapt_pkg_info_t *src);
 slapt_pkg_err_list_t *slapt_init_pkg_err_list(void);
 void slapt_add_pkg_err_to_list(slapt_pkg_err_list_t *l,
                                const char *pkg, const char *err);
-int slapt_search_pkg_err_list(slapt_pkg_err_list_t *l,
+bool slapt_search_pkg_err_list(slapt_pkg_err_list_t *l,
                               const char *pkg, const char *err);
 void slapt_free_pkg_err_list(slapt_pkg_err_list_t *l);
 
 /*
   download the PACKAGES.TXT and CHECKSUMS.md5 files
-  compressed is set to 1 if the compressed version was downloaded.
+  compressed is set if the compressed version was downloaded.
 */
 slapt_pkg_list_t *slapt_get_pkg_source_packages(const slapt_rc_config *global_config,
-                                                const char *url, unsigned int *compressed);
+                                                const char *url, bool *compressed);
 slapt_pkg_list_t *slapt_get_pkg_source_patches(const slapt_rc_config *global_config,
-                                               const char *url, unsigned int *compressed);
+                                               const char *url, bool *compressed);
 FILE *slapt_get_pkg_source_checksums(const slapt_rc_config *global_config,
-                                     const char *url, unsigned int *compressed);
-int slapt_get_pkg_source_changelog(const slapt_rc_config *global_config,
-                                   const char *url, unsigned int *compressed);
+                                     const char *url, bool *compressed);
+bool slapt_get_pkg_source_changelog(const slapt_rc_config *global_config,
+                                   const char *url, bool *compressed);
 
 /* clean package name from package description */
 void slapt_clean_description(char *description, const char *name);
@@ -311,7 +314,7 @@ char *slapt_stringify_pkg(const slapt_pkg_info_t *pkg);
 char *slapt_get_pkg_filelist(const slapt_pkg_info_t *pkg);
 
 /*
-  generate the directory name for the package log directory, 
+  generate the directory name for the package log directory,
   considering the ROOT environment variable if set
   caller responsible for freeing the returned data
  */

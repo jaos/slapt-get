@@ -31,8 +31,9 @@ typedef struct {
 
 typedef struct {
     slapt_source_t **src;
-    unsigned int count;
+    uint32_t count;
 } slapt_source_list_t;
+#define slapt_source_list_t_foreach(item, list) slapt_source_t *item; for (uint32_t item##_counter = 0; (item##_counter < list->count) && (item = list->src[item##_counter]); item##_counter++)
 
 typedef struct {
     char working_dir[SLAPT_WORKINGDIR_TOKEN_LEN];
@@ -53,7 +54,7 @@ typedef struct {
     bool dl_stats;
     bool remove_obsolete;
     bool no_upgrade;
-    unsigned int retry;
+    uint32_t retry;
     bool use_priority;
     bool gpgme_allow_unauth;
 } slapt_rc_config;

@@ -61,7 +61,7 @@ int slapt_download_data(FILE *fh, const char *url, size_t bytes, long *filetime,
 
     headers = curl_slist_append(headers, "Pragma: "); /* override no-cache */
 
-    if (global_config->dl_stats != true) {
+    if (!global_config->dl_stats) {
         if (global_config->progress_cb == NULL) {
             curl_easy_setopt(ch, CURLOPT_PROGRESSFUNCTION, slapt_progress_callback);
         } else {
@@ -81,14 +81,15 @@ int slapt_download_data(FILE *fh, const char *url, size_t bytes, long *filetime,
         return_code = response;
     }
 
+    /* XXX Use CURLINFO_FILETIME_T with 7.59+ */
     if (filetime != NULL)
         curl_easy_getinfo(ch, CURLINFO_FILETIME, filetime);
 
     /*
-   * need to use curl_easy_cleanup() so that we don't 
-    * have tons of open connections, getting rejected
-   * by ftp servers for being naughty.
-  */
+    need to use curl_easy_cleanup() so that we don't
+    have tons of open connections, getting rejected
+    by ftp servers for being naughty.
+    */
     curl_easy_cleanup(ch);
     /* can't do a curl_free() after curl_easy_cleanup() */
     /* curl_free(ch); */
@@ -244,7 +245,7 @@ const char *slapt_download_pkg(const slapt_rc_config *global_config,
                pkg->mirror, pkg->name, pkg->version,
                (dl_total_size > 1024) ? dl_total_size / 1024.0 : dl_total_size,
                (dl_total_size > 1024) ? "MB" : "kB");
-        if (global_config->dl_stats == true)
+        if (global_config->dl_stats)
             printf("\n");
     }
 
@@ -263,10 +264,7 @@ const char *slapt_download_pkg(const slapt_rc_config *global_config,
     } else if (dl_return == CURLE_HTTP_RANGE_ERROR ||
                dl_return == CURLE_FTP_BAD_DOWNLOAD_RESUME ||
                dl_return == CURLE_PARTIAL_FILE) {
-        /*
-      * this is for errors trying to resume.  unlink the file and
-      * try again.
-    */
+        /* this is for errors trying to resume.  unlink the file and try again. */
         printf("\r");
         fclose(fh);
 
