@@ -1,86 +1,46 @@
 # working directory, local storage/cache
 WORKINGDIR=/var/cache/slapt-get
 
-
 # exclude package names and expressions
-EXCLUDE=^kernel-.*,^glibc.*,.*-[0-9]+dl$,^devs$,^udev$,x86_64
-# * to exclude pre and beta packages, add this as an exclude: 
+EXCLUDE=^kernel-.*,^glibc.*,.*-[0-9]+dl$,^devs$,^udev$
+# Architecture specific excludes might include: x86_64, i[3456]86, arm, aarch64
+# To exclude pre and beta packages, add this as an exclude: 
 # [0-9\_\.\-]{1}pre[0-9\-\.\-]{1}
-# To exclude architectures such as i686, use the following:
-# [\_\-]+i686
 
-# Slackware64 mirrors to choose from.
-# Please use one of these in preference to ftp.slackware.com
+# Please use a Slackware mirror in preference to ftp.slackware.com
 # http://mirrors.slackware.com/mirrorlist/
 
-# base url to directory with a PACKAGES.TXT
-# can point to any release, ie: 9.0, 10.0, current, etc
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-8.1/:OFFICIAL
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-9.0/:OFFICIAL
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-9.1/:OFFICIAL
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-10.0/:OFFICIAL
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-10.1/:OFFICIAL
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-10.2/:OFFICIAL
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-11.0/:OFFICIAL
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-12.0/:OFFICIAL
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-12.1/:OFFICIAL
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-12.2/:OFFICIAL
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-13.0/:OFFICIAL
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-13.1/:OFFICIAL
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-13.37/:OFFICIAL
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-14.0/:OFFICIAL
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-14.1/:OFFICIAL
-SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-14.2/:OFFICIAL
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-current/:OFFICIAL
+# Slackware release base URL (path containing a PACKAGES.TXT)
+# SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware64-14.0/:OFFICIAL
+# SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware64-14.1/:OFFICIAL
+SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware64-14.2/:OFFICIAL
+# SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware64-current/:OFFICIAL
+
+# Other architecture examples
+# 32bit x86
+# SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-14.2/:OFFICIAL
+# 32bit Arm
+# SOURCE=ftp://ftp.arm.slackware.com/slackwarearm/slackwarearm-14.2/:OFFICIAL
+# 64bit Arm
+# SOURCE=http://dl.fail.pp.ua/slackware/slarm64-current/:OFFICIAL
 
 # slapt source
-#SOURCE=http://software.jaos.org/slackpacks/8.1/:OFFICIAL
-#SOURCE=http://software.jaos.org/slackpacks/9.0/:OFFICIAL
-#SOURCE=http://software.jaos.org/slackpacks/9.1/:OFFICIAL
-#SOURCE=http://software.jaos.org/slackpacks/10.0/:OFFICIAL
-#SOURCE=http://software.jaos.org/slackpacks/10.1/:OFFICIAL
-#SOURCE=http://software.jaos.org/slackpacks/10.2/:OFFICIAL
-#SOURCE=http://software.jaos.org/slackpacks/11.0/:OFFICIAL
-#SOURCE=http://software.jaos.org/slackpacks/12.0/:OFFICIAL
-#SOURCE=http://software.jaos.org/slackpacks/12.1/:OFFICIAL
-#SOURCE=http://software.jaos.org/slackpacks/12.2/:OFFICIAL
-#SOURCE=http://software.jaos.org/slackpacks/13.0/:OFFICIAL
-#SOURCE=http://software.jaos.org/slackpacks/13.1/:OFFICIAL
-#SOURCE=http://software.jaos.org/slackpacks/13.37/:OFFICIAL
-#SOURCE=http://software.jaos.org/slackpacks/14.0/:OFFICIAL
-#SOURCE=http://software.jaos.org/slackpacks/14.1/:OFFICIAL
-SOURCE=http://software.jaos.org/slackpacks/14.2/:OFFICIAL
-#SOURCE=http://software.jaos.org/slackpacks/current/:OFFICIAL
+# SOURCE=http://software.jaos.org/slackpacks/14.0-x86_64/:OFFICIAL
+# SOURCE=http://software.jaos.org/slackpacks/14.1-x86_64/:OFFICIAL
+SOURCE=http://software.jaos.org/slackpacks/14.2-x86_64/:OFFICIAL
 
-# slackware testing, extra, and pasture
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-14.2/extra/:PREFERRED
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-14.2/testing/
-#SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-14.2/pasture/
+# Sources for the testing, extra, and pasture areas - if you use them.
+# SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware64-14.1/extra/:PREFERRED
+# SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware64-14.1/testing/
+# SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware64-14.1/pasture/
 
-# other unofficial sources
-# Slacky.eu FAST
-#SOURCE=http://darkstar.ist.utl.pt/slackware/addon/slacky/slackware-12.2/:PREFERRED
-# GSB
-#SOURCE=http://www.slackware.org.uk/gsb/gsb-current/:CUSTOM
-# GSB64
-#SOURCE=http://www.slackware.org.uk/gsb64/gsb64-current/:CUSTOM
-#SOURCE=ftp://ftp.gware.org/12.2/2.22.0/packages/
-#SOURCE=http://www.slackages.com/slapt-get/jlp/
-#SOURCE=http://www.slackages.com/slapt-get/jto/
-#SOURCE=http://trovao.droplinegnome.org/extras/
-#SOURCE=http://mirror.datapipe.net/norlug/mutagenix/packages/
-#SOURCE=http://www2.linuxpackages.net/packages/SlackBuilds/
-#SOURCE=http://www.slackware.com/~alien/slackbuilds/
-#SOURCE=http://download.zenwalk.org/i486/snapshot/
-#SOURCE=http://de.repos.slackware-current.net/
-#SOURCE=http://slackware.sukkology.net/repository/
-#SOURCE=http://www.tenboard.com/slackware/slackware-11.0/
-#SOURCE=http://shtrom.free.fr/slackware/slackware-10.1/
-#SOURCE=http://www.stabellini.net/filesystem/repository/Stefano_Stabellini  
+# Other unofficial sources using the :PREFERRED and/or :CUSTOM attribute
+# can be defined here
+# SOURCE=http://somecommunity/slackware/:PREFERRED
+# SOURCE=http://someothercommunity/slackware/:CUSTOM
 
+# Packages on a CD/DVD.
+# SOURCE=file:///mnt/cdrom/:OFFICIAL
 
-# pull from your cdrom
-#SOURCE=file:///mnt/cdrom/:OFFICIAL
-# your home made package source
-#SOURCE=file:///var/www/packages/:CUSTOM
-
+# Home made packages.
+# SOURCE=file:///var/www/packages/:CUSTOM
