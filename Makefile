@@ -109,7 +109,7 @@ clean: testclean
 	-rm src/*.so
 	-rm src/libslapt.so*
 	-rm src/slapt.h
-	-rm slapt-get-*.tgz
+	-rm slapt-get-*.txz
 	-if [ -d pkg ]; then rm -rf pkg ;fi
 	-if [ -f libs ]; then rm -rf libs ;fi
 
@@ -156,7 +156,7 @@ dopkg:
 	cp -f src/libslapt.a src/libslapt.so.$(VERSION) pkg$(LIBDIR)/
 	$(STRIP) pkg$(LIBDIR)/libslapt.so.$(VERSION)
 	( cd pkg$(LIBDIR); ln -sf libslapt.so.$(VERSION) libslapt.so )
-	-( cd pkg; /sbin/makepkg -l y -c n ../$(PACKAGE)-$(VERSION)-$(ARCH)-$(RELEASE).tgz )
+	-( cd pkg; /sbin/makepkg -l y -c n ../$(PACKAGE)-$(VERSION)-$(ARCH)-$(RELEASE).txz )
 
 po_file:
 	-xgettext -o po/slapt-get.pot.new -sC --no-location src/*.c src/*.h
