@@ -16,7 +16,7 @@ SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-14.2/:OFFICIAL
 # SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-14.2/pasture/
 
 # Source for slapt-get.
-SOURCE=http://software.jaos.org/slackpacks/14.2/:OFFICIAL
+SOURCE=http://software.jaos.org/slackpacks/slackware-14.2/:OFFICIAL
 
 # Packages on a CD/DVD.
 # SOURCE=file:///mnt/cdrom/:OFFICIAL

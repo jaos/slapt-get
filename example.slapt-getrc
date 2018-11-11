@@ -27,7 +27,11 @@ SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware64-14.2/:OFFICIAL
 # slapt source
 # SOURCE=http://software.jaos.org/slackpacks/14.0-x86_64/:OFFICIAL
 # SOURCE=http://software.jaos.org/slackpacks/14.1-x86_64/:OFFICIAL
-SOURCE=http://software.jaos.org/slackpacks/14.2-x86_64/:OFFICIAL
+SOURCE=http://software.jaos.org/slackpacks/slackware64-14.2/:OFFICIAL
+# Other architectures
+# SOURCE=http://software.jaos.org/slackpacks/slackware-14.2/:OFFICIAL
+# SOURCE=http://software.jaos.org/slackpacks/slackwarearm-14.2/:OFFICIAL
+# SOURCE=http://software.jaos.org/slackpacks/slarm64-14.2/:OFFICIAL
 
 # Sources for the testing, extra, and pasture areas - if you use them.
 # SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware64-14.1/extra/:PREFERRED
