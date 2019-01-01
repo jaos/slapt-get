@@ -11,10 +11,4 @@ EXCLUDE=^devs,^glibc-.*,^kernel-.*,^udev,.*-[0-9]+dl$,x86_64,i[3456]86,arm
 SOURCE=http://dl.fail.pp.ua/slackware/slarm64-current/:OFFICIAL
 
 # Source for slapt-get.
-SOURCE=http://software.jaos.org/slackpacks/slarm64-14.2/:OFFICIAL
-
-# Packages on a CD/DVD.
-# SOURCE=file:///mnt/cdrom/:OFFICIAL
-
-# Home made packages.
-# SOURCE=file:///var/www/packages/:CUSTOM
+SOURCE=https://storage.googleapis.com/slackpacks.jaos.org/slarm64-15.0/:OFFICIAL
