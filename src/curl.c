@@ -449,10 +449,10 @@ char *slapt_head_mirror_data(const char *wurl, const char *file)
     }
 
     /* extract the last modified date for storage and later comparison */
-    request_header_ptr = strstr(head_data, "Last-Modified");
+    request_header_ptr = strcasestr(head_data, "Last-Modified");
     if (request_header_ptr == NULL) {
         /* this is ftp, in which case the Content-Length will have to do */
-        request_header_ptr = strstr(head_data, "Content-Length");
+        request_header_ptr = strcasestr(head_data, "Content-Length");
         if (request_header_ptr == NULL || strstr(wurl, "ftp") == NULL) {
             free(head_data);
             return NULL;
