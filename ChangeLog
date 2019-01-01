@@ -1,5 +1,16 @@
 
-0.11.0 Jun 21, 2018
+0.11.0 Jan 01, 2019
+ * update software.jaos.org source locations (moving package hosting to google storage)
+ * updated copyright date
+ * some webservers return lowercase headers, update slapt_head_mirror_data accordingly
+ * remove aaa_elflibs from exclude list, add aaa_base to dist upgrade required packages
+ * check if no signatures returned from gpgme_op_verify_result
+ * add slarm64 support
+ * fix slapt_is_excluded check
+ * refactoring, reformating, documentation updates
+ * translation updates
+ * openssl 1.1.x compat
+ * return non-zero if --add-keys fails
  * use c99 stdbool
  * support package data in /var/lib/pkgtools
  * move default cache directory to /var/cache/slapt-get
