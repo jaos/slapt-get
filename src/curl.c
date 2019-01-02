@@ -25,7 +25,7 @@ struct head_data_t {
     size_t size;
 };
 
-int slapt_download_data(FILE *fh, const char *url, size_t bytes, long *filetime,
+int slapt_download_data(FILE *fh, const char *url, size_t bytes, SLAPT_DOWNLOAD_FILE_TIME_T *filetime,
                         const slapt_rc_config *global_config)
 {
     CURL *ch = NULL;
@@ -83,7 +83,11 @@ int slapt_download_data(FILE *fh, const char *url, size_t bytes, long *filetime,
 
     /* XXX Use CURLINFO_FILETIME_T with 7.59+ */
     if (filetime != NULL)
+#ifdef CURLINFO_FILETIME_T
+        curl_easy_getinfo(ch, CURLINFO_FILETIME_T, filetime);
+#else
         curl_easy_getinfo(ch, CURLINFO_FILETIME, filetime);
+#endif
 
     /*
     need to use curl_easy_cleanup() so that we don't
@@ -199,7 +203,7 @@ const char *slapt_download_pkg(const slapt_rc_config *global_config,
     slapt_code_t verify = SLAPT_OK;
     int dl_return = -1, dl_total_size = 0;
     bool is_interactive = slapt_is_interactive(global_config);
-    long filetime = 0;
+    SLAPT_DOWNLOAD_FILE_TIME_T filetime = 0;
 
     if (pkg == NULL) {
         fprintf(stderr, "slapt_download_pkg() called without a package!\n");

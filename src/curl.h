@@ -18,11 +18,18 @@
 
 #define SLAPT_NO_SSL_VERIFYPEER "SLAPT_NO_SSL_VERIFYPEER"
 
+#include <curl/curl.h>
+#ifdef CURLINFO_FILETIME_T
+  typedef curl_off_t SLAPT_DOWNLOAD_FILE_TIME_T;
+#else
+  typedef long SLAPT_DOWNLOAD_FILE_TIME_T;
+#endif
+
 /*
   download data to file, resuming from bytes and preserving filetime.
   returns curl code
 */
-int slapt_download_data(FILE *fh, const char *url, size_t bytes, long *filetime,
+int slapt_download_data(FILE *fh, const char *url, size_t bytes, SLAPT_DOWNLOAD_FILE_TIME_T *filetime,
                         const slapt_rc_config *global_config);
 
 /*
