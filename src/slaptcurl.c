@@ -24,7 +24,7 @@ struct head_data_t {
     size_t size;
 };
 
-int slapt_download_data(FILE *fh, const char *url, size_t bytes, long *filetime, const slapt_config_t *global_config)
+int slapt_download_data(FILE *fh, const char *url, size_t bytes, SLAPT_DOWNLOAD_FILE_TIME_T *filetime, const slapt_config_t *global_config)
 {
     struct slapt_progress_data *cb_data = slapt_init_progress_data();
     cb_data->bytes = bytes;
@@ -79,9 +79,12 @@ int slapt_download_data(FILE *fh, const char *url, size_t bytes, long *filetime,
         return_code = response;
     }
 
-    /* XXX Use CURLINFO_FILETIME_T with 7.59+ */
     if (filetime != NULL)
+#ifdef CURLINFO_FILETIME_T
+        curl_easy_getinfo(ch, CURLINFO_FILETIME_T, filetime);
+#else
         curl_easy_getinfo(ch, CURLINFO_FILETIME, filetime);
+#endif
 
     /* need to use curl_easy_cleanup() so that we don't have tons of open connections, getting rejected by ftp servers for being naughty. */
     curl_easy_cleanup(ch);
@@ -235,7 +238,7 @@ const char *slapt_download_pkg(const slapt_config_t *global_config, const slapt_
     }
 
     /* download the file to our file handle */
-    long filetime = 0;
+    SLAPT_DOWNLOAD_FILE_TIME_T filetime = 0;
     const int dl_return = slapt_download_data(fh, url, f_size, &filetime, global_config);
     if (dl_return == 0) {
         if (is_interactive)
