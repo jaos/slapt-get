@@ -1,5 +1,6 @@
 
-0.11.0 Jan 01, 2019
+0.11.0 Mar 03, 2019
+ * simplify default exclude lists
  * update software.jaos.org source locations (moving package hosting to google storage)
  * updated copyright date
  * some webservers return lowercase headers, update slapt_head_mirror_data accordingly
