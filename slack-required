@@ -1,7 +1,6 @@
 curl
 libidn
 glibc-solibs | glibc
-binutils
 openssl-solibs | openssl
 pkgtools
 zlib
