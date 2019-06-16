@@ -56,8 +56,7 @@ libsinstall: libs
 	cp -f src/slapt.h $(DESTDIR)/usr/include/
 	if [ ! -d $(DESTDIR)$(LIBDIR) ]; then mkdir -p $(DESTDIR)$(LIBDIR);fi
 	if [ -L $(DESTDIR)$(LIBDIR)/libslapt.so ]; then rm $(DESTDIR)$(LIBDIR)/libslapt.so;fi
-	if [ -L $(DESTDIR)$(LIBDIR)/libslapt.a ]; then rm $(DESTDIR)$(LIBDIR)/libslapt.a;fi
-	cp -f src/libslapt.a src/libslapt.so.$(VERSION) $(DESTDIR)$(LIBDIR)/
+	cp -f src/libslapt.so.$(VERSION) $(DESTDIR)$(LIBDIR)/
 	cd $(DESTDIR)$(LIBDIR); ln -sf libslapt.so.$(VERSION) libslapt.so
 
 doinstall: libsinstall
@@ -153,7 +152,7 @@ dopkg: $(PACKAGE)
 	mkdir -p pkg$(LIBDIR)
 	mkdir -p pkg/usr/include
 	cp -f src/slapt.h pkg/usr/include/
-	cp -f src/libslapt.a src/libslapt.so.$(VERSION) pkg$(LIBDIR)/
+	cp -f src/libslapt.so.$(VERSION) pkg$(LIBDIR)/
 	$(STRIP) pkg$(LIBDIR)/libslapt.so.$(VERSION)
 	( cd pkg$(LIBDIR); ln -sf libslapt.so.$(VERSION) libslapt.so )
 	-( cd pkg; /sbin/makepkg -l y -c n ../$(PACKAGE)-$(VERSION)-$(ARCH)-$(RELEASE).txz )
