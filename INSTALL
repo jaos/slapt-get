@@ -16,7 +16,7 @@
  To install:
 
   $ make pkg
-  $ installpkg ./pkg/slapt-get-${VERSION}-${ARCH}-${RELEASE}.tgz
+  $ installpkg ./pkg/slapt-get-${VERSION}-${ARCH}-${RELEASE}.txz
 
  To uninstall:
   $ removepkg slapt-get-${VERSION}-${ARCH}-${RELEASE}
@@ -28,7 +28,7 @@ See README for more details.
 
 - Using git: -----------------------------------------------
 
- git clone git://software.jaos.org/var/cache/git/slapt-get
+ git clone git://software.jaos.org/git/slapt-get
 
 
 - Cross compiling the slapt-get source
