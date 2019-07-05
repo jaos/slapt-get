@@ -72,6 +72,38 @@ START_TEST(test_slapt_str_replace_chr)
 }
 END_TEST
 
+int test_cmp_via_strcmp(const void *a, const void *b) {
+    char *sa = *(char **)a;
+    char *sb = *(char **)b;
+    return strcmp(sa, sb);
+}
+START_TEST(test_slapt_vector_t)
+{
+    slapt_vector_t *v = slapt_vector_t_init(NULL);
+    slapt_vector_t_add(v, "one");
+    slapt_vector_t_add(v, "two");
+    slapt_vector_t_add(v, "three");
+    slapt_vector_t_add(v, "four");
+
+    fail_unless(v->size == 4);
+    fail_unless(v->capacity >= v->size);
+
+    int idx = slapt_vector_t_index_of(v, (slapt_vector_t_cmp)strcmp, "three");
+    fail_unless(idx == 2);
+
+    slapt_vector_t_remove(v, v->items[idx]);
+    fail_unless(v->size == 3);
+    fail_unless(-1 == slapt_vector_t_index_of(v, (slapt_vector_t_cmp)strcmp, "three"));
+
+    slapt_vector_t_sort(v, test_cmp_via_strcmp);
+    fail_unless(0 == slapt_vector_t_index_of(v, (slapt_vector_t_cmp)strcmp, "four"));
+    fail_unless(1 == slapt_vector_t_index_of(v, (slapt_vector_t_cmp)strcmp, "one"));
+    fail_unless(2 == slapt_vector_t_index_of(v, (slapt_vector_t_cmp)strcmp, "two"));
+
+    slapt_vector_t_free(v);
+}
+END_TEST
+
 Suite *common_test_suite()
 {
     Suite *s = suite_create("Common");
@@ -82,6 +114,7 @@ Suite *common_test_suite()
     tcase_add_test(tc, test_slapt_create_dir_structure);
     tcase_add_test(tc, test_slapt_gen_md5_sum_of_file);
     tcase_add_test(tc, test_slapt_str_replace_chr);
+    tcase_add_test(tc, test_slapt_vector_t);
 
     suite_add_tcase(s, tc);
     return s;

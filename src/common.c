@@ -82,7 +82,7 @@ char *slapt_regex_extract_match(const slapt_regex_t *r, const char *src, const i
 
     if (m.rm_so != -1) {
         uint32_t len = m.rm_eo - m.rm_so + 1;
-        str = malloc(sizeof *str * len);
+        str = slapt_malloc(sizeof *str * len);
 
         str = strncpy(str, src + m.rm_so, len);
         if (len > 0)
@@ -514,4 +514,138 @@ char *slapt_strip_whitespace(const char *s)
     while (*s && isspace(*s))
         ++s, --len;
     return strndup(s, len);
+}
+
+
+slapt_vector_t *slapt_vector_t_init(slapt_vector_t_free_function f) {
+    slapt_vector_t *v = NULL;
+    v = slapt_malloc(sizeof *v);
+    v->size = 0;
+    v->capacity = 0;
+    v->items = slapt_malloc(sizeof *v->items);
+    v->free_function = f;
+    v->sorted = false;
+    return v;
+}
+
+void slapt_vector_t_free(slapt_vector_t *v) {
+    if (v->free_function) {
+        for (uint32_t i = 0; i < v->size; i++ ) {
+            v->free_function(v->items[i]);
+        }
+    }
+    free(v->items);
+    free(v);
+}
+
+void slapt_vector_t_add(slapt_vector_t *v, void *a) {
+    if (v->capacity == v->size) {
+        uint32_t new_capacity = (v->capacity+1) * 2;
+        v->items = realloc(v->items, sizeof *v->items * new_capacity);
+        if (v->items == NULL) {
+            exit(EXIT_FAILURE);
+        }
+        v->capacity = new_capacity;
+    }
+    v->items[v->size++] = a;
+    v->sorted = false;
+}
+
+void slapt_vector_t_remove(slapt_vector_t *v, void *j) {
+    bool found = false;
+    for (uint32_t i = 0; i < v->size; i++) {
+        if (j == v->items[i]) {
+            if (v->free_function) {
+                v->free_function(v->items[i]);
+            }
+            found = true;
+        }
+        if (found && ((i+1) < v->size)) {
+            v->items[i] = v->items[i + 1];
+        }
+    }
+    if (found) {
+        v->size--;
+    }
+}
+
+void slapt_vector_t_sort(slapt_vector_t *v, slapt_vector_t_qsort_cmp cmp) {
+    if (v->size > 0) {
+        qsort(v->items, v->size, sizeof(v->items[0]), cmp);
+        v->sorted = true;
+    }
+}
+
+int slapt_vector_t_index_of(slapt_vector_t *v, slapt_vector_t_cmp cmp, void *opt) {
+    if (v->sorted) {
+        int min = 0, max = v->size - 1;
+
+        while (max >= min) {
+            int pivot = (min + max) / 2;
+            int cmpv = cmp(v->items[pivot], opt);
+            if (cmpv == 0) {
+                return pivot;
+            } else {
+                if (cmpv < 0)
+                    min = pivot + 1;
+                else
+                    max = pivot - 1;
+            }
+        }
+    } else {
+        for (uint32_t i = 0; i < v->size; i++) {
+            if (cmp(v->items[i], opt) == 0) {
+                return i;
+            }
+        }
+    }
+    return -1;
+}
+
+slapt_vector_t *slapt_vector_t_search(slapt_vector_t *v, slapt_vector_t_cmp cmp, void *opt) {
+    slapt_vector_t *matches = slapt_vector_t_init(NULL);
+
+    if (v->sorted) {
+        uint32_t min = 0, max = v->size - 1;
+        int idx = slapt_vector_t_index_of(v, cmp, opt);
+        if (idx < 0) {
+            slapt_vector_t_free(matches);
+            return NULL;
+        }
+
+        uint32_t start = idx, end = idx;
+
+        while (start > min) {
+            if (cmp(v->items[start - 1], opt) == 0) {
+                start -= 1;
+            } else {
+                break;
+            }
+        }
+
+        while (end < max) {
+            if (cmp(v->items[end + 1], opt) == 0) {
+                end += 1;
+            } else {
+                break;
+            }
+        }
+
+        for (uint32_t i = start; i <= end; i++) {
+            slapt_vector_t_add(matches, v->items[i]);
+        }
+
+    } else {
+        for (uint32_t i = 0; i < v->size; i++) {
+            if (cmp(v->items[i], opt) == 0) {
+                slapt_vector_t_add(matches, v->items[i]);
+            }
+        }
+    }
+
+    if (!matches->size) {
+        slapt_vector_t_free(matches);
+        return NULL;
+    }
+    return matches;
 }

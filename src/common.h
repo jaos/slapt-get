@@ -74,6 +74,26 @@ typedef struct {
 #define slapt_list_t_foreach(item, list) char *item; for (uint32_t item##_counter = 0; (item##_counter < list->count) && (item = list->items[item##_counter]); item##_counter++)
 
 
+typedef int (*slapt_vector_t_cmp)(const void *, const void *);
+typedef int (*slapt_vector_t_qsort_cmp)(const void *, const void *);
+typedef void (*slapt_vector_t_free_function)(void*);
+typedef struct slapt_vector_t {
+    uint32_t size;
+    uint32_t capacity;
+    slapt_vector_t_free_function free_function;
+    bool sorted;
+    void **items;
+} slapt_vector_t;
+slapt_vector_t *slapt_vector_t_init(slapt_vector_t_free_function);
+void slapt_vector_t_free(slapt_vector_t *);
+void slapt_vector_t_add(slapt_vector_t *, void *);
+void slapt_vector_t_remove(slapt_vector_t *v, void *);
+void slapt_vector_t_sort(slapt_vector_t *, slapt_vector_t_qsort_cmp);
+int slapt_vector_t_index_of(slapt_vector_t *, slapt_vector_t_cmp, void *);
+slapt_vector_t *slapt_vector_t_search(slapt_vector_t *, slapt_vector_t_cmp, void *);
+#define slapt_vector_t_foreach(type, item, list) type item; for (uint32_t item##_counter = 0; (item##_counter < list->size) && (item = list->items[item##_counter]); item##_counter++)
+
+
 FILE *slapt_open_file(const char *file_name, const char *mode);
 slapt_regex_t *slapt_init_regex(const char *regex_string);
 void slapt_execute_regex(slapt_regex_t *regex_t, const char *string);
