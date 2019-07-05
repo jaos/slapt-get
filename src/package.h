@@ -319,3 +319,6 @@ char *slapt_get_pkg_filelist(const slapt_pkg_info_t *pkg);
   caller responsible for freeing the returned data
  */
 char *slapt_gen_package_log_dir_name(void);
+
+/* used by qsort */
+int slapt_pkg_info_t_qsort_cmp(const void *a, const void *b);

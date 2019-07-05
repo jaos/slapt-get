@@ -23,8 +23,6 @@ struct slapt_pkg_version_parts {
     uint32_t count;
 };
 
-/* used by qsort */
-static int pkg_compare(const void *a, const void *b);
 /* analyze the pkg version hunk by hunk */
 static struct slapt_pkg_version_parts *break_down_pkg_version(const char *version);
 /* parse the meta lines */
@@ -72,7 +70,7 @@ slapt_pkg_list_t *slapt_get_available_pkgs(void)
     /* this is pointless to do if we wrote the data sorted, but this
      ensures upgrades from older, presorting slapt-gets still work
      as expected. */
-    qsort(list->pkgs, list->pkg_count, sizeof(list->pkgs[0]), pkg_compare);
+    qsort(list->pkgs, list->pkg_count, sizeof(list->pkgs[0]), slapt_pkg_info_t_qsort_cmp);
 
     list->ordered = true;
 
@@ -667,7 +665,7 @@ slapt_pkg_list_t *slapt_get_installed_pkgs(void)
 
     list->free_pkgs = true;
 
-    qsort(list->pkgs, list->pkg_count, sizeof(list->pkgs[0]), pkg_compare);
+    qsort(list->pkgs, list->pkg_count, sizeof(list->pkgs[0]), slapt_pkg_info_t_qsort_cmp);
 
     list->ordered = true;
 
@@ -1996,7 +1994,7 @@ int slapt_update_pkg_cache(const slapt_rc_config *global_config)
         if ((pkg_list_fh = slapt_open_file(SLAPT_PKG_LIST_L, "w+")) == NULL)
             exit(EXIT_FAILURE);
 
-        qsort(new_pkgs->pkgs, new_pkgs->pkg_count, sizeof(new_pkgs->pkgs[0]), pkg_compare);
+        qsort(new_pkgs->pkgs, new_pkgs->pkg_count, sizeof(new_pkgs->pkgs[0]), slapt_pkg_info_t_qsort_cmp);
 
         slapt_write_pkg_data(NULL, pkg_list_fh, new_pkgs);
 
@@ -3259,7 +3257,7 @@ slapt_get_obsolete_pkgs(const slapt_rc_config *global_config,
     return obsolete;
 }
 
-static int pkg_compare(const void *a, const void *b)
+int slapt_pkg_info_t_qsort_cmp(const void *a, const void *b)
 {
     int cmp = 0;
 
@@ -3271,11 +3269,9 @@ static int pkg_compare(const void *a, const void *b)
     if (cmp == 0) {
         if ((cmp = strverscmp(pkg_a->version, pkg_b->version)) == 0) {
             return strcmp(pkg_a->location, pkg_b->location);
-
         } else {
             return cmp;
         }
-
     } else {
         return cmp;
     }
