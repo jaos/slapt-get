@@ -3,7 +3,7 @@ CC=gcc
 CURLFLAGS=`curl-config --libs`
 GPGMEFLAGS=`gpgme-config --libs`
 DEFINES=-DSLAPTTESTDIR=$(shell pwd) -DSLAPT_HAS_GPGME
-CFLAGS=-W -Werror -Wall -O2 -ansi -pedantic $(DEFINES)
+CFLAGS=-W -Werror -Wall -O2 -pedantic $(DEFINES)
 LDFLAGS=$(CURLFLAGS) $(GPGMEFLAGS) -lz -lm
 CHECKFLAGS=`pkg-config --libs check`
 
