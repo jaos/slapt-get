@@ -16,7 +16,7 @@ START_TEST(test_struct_config)
         slapt_list_t *e = rc->exclude_list;
 
         fail_if(s->count < 1);
-        fail_if(e->count != 6);
+        fail_if(e->count != 5);
     }
     slapt_free_rc_config(rc);
     rc = NULL;
