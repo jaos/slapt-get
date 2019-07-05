@@ -29,22 +29,19 @@ typedef struct {
     } pkg;
     uint32_t type; /* this is enum slapt_action defined in main.h */
 } slapt_queue_i;
+slapt_queue_i *slapt_queue_i_init(slapt_pkg_info_t *, slapt_pkg_upgrade_t *);
+void slapt_queue_i_free(slapt_queue_i *);
 
 typedef struct {
-    slapt_queue_i **pkgs;
-    uint32_t count;
-} slapt_queue_t;
-#define slapt_queue_t_foreach(item, list) slapt_queue_i *item; for (uint32_t item##_counter = 0; (item##_counter < list->count) && (item = list->pkgs[item##_counter]); item##_counter++)
-
-typedef struct {
-    slapt_pkg_list_t *install_pkgs;
-    slapt_pkg_upgrade_list_t *upgrade_pkgs;
-    slapt_pkg_list_t *remove_pkgs;
-    slapt_pkg_list_t *exclude_pkgs;
-    slapt_list_t *suggests;
-    slapt_pkg_err_list_t *conflict_err;
-    slapt_pkg_err_list_t *missing_err;
-    slapt_queue_t *queue;
+    slapt_vector_t *install_pkgs;
+    slapt_vector_t *upgrade_pkgs;
+    slapt_vector_t *reinstall_pkgs;
+    slapt_vector_t *remove_pkgs;
+    slapt_vector_t *exclude_pkgs;
+    slapt_vector_t *suggests;
+    slapt_vector_t *conflict_err;
+    slapt_vector_t *missing_err;
+    slapt_vector_t *queue;
 } slapt_transaction_t;
 
 /* fill in transaction structure with defaults */
@@ -96,16 +93,16 @@ bool slapt_search_upgrade_transaction(slapt_transaction_t *tran,
 */
 int slapt_add_deps_to_trans(const slapt_rc_config *global_config,
                             slapt_transaction_t *tran,
-                            slapt_pkg_list_t *avail_pkgs,
-                            slapt_pkg_list_t *installed_pkgs, slapt_pkg_info_t *pkg);
+                            slapt_vector_t *avail_pkgs,
+                            slapt_vector_t *installed_pkgs, slapt_pkg_info_t *pkg);
 
 /*
   check to see if a package has a conflict already present in the transaction
   returns conflicted package or NULL if none
 */
-slapt_pkg_list_t *slapt_is_conflicted(slapt_transaction_t *tran,
-                                      slapt_pkg_list_t *avail_pkgs,
-                                      slapt_pkg_list_t *installed_pkgs,
+slapt_vector_t *slapt_is_conflicted(slapt_transaction_t *tran,
+                                      slapt_vector_t *avail_pkgs,
+                                      slapt_vector_t *installed_pkgs,
                                       slapt_pkg_info_t *pkg);
 
 /*

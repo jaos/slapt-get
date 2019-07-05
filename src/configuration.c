@@ -18,7 +18,7 @@
 
 #include "main.h"
 /* parse the exclude list */
-static slapt_list_t *parse_exclude(char *line);
+static slapt_vector_t *parse_exclude(char *line);
 
 slapt_rc_config *slapt_init_config(void)
 {
@@ -43,8 +43,8 @@ slapt_rc_config *slapt_init_config(void)
     global_config->progress_cb = NULL;
     global_config->gpgme_allow_unauth = false; /* even without GPGME */
 
-    global_config->sources = slapt_init_source_list();
-    global_config->exclude_list = slapt_init_list();
+    global_config->sources = slapt_vector_t_init((slapt_vector_t_free_function)slapt_free_source);
+    global_config->exclude_list = slapt_vector_t_init(free);
 
     global_config->retry = 1;
 
@@ -80,7 +80,7 @@ slapt_rc_config *slapt_read_rc_config(const char *file_name)
             if (strlen(token_ptr) > strlen(SLAPT_SOURCE_TOKEN)) {
                 slapt_source_t *s = slapt_init_source(token_ptr + strlen(SLAPT_SOURCE_TOKEN));
                 if (s != NULL) {
-                    slapt_add_source(global_config->sources, s);
+                    slapt_vector_t_add(global_config->sources, s);
                     if (s->priority != SLAPT_PRIORITY_DEFAULT) {
                         global_config->use_priority = true;
                     }
@@ -94,7 +94,7 @@ slapt_rc_config *slapt_read_rc_config(const char *file_name)
                 slapt_source_t *s = slapt_init_source(token_ptr + strlen(SLAPT_DISABLED_SOURCE_TOKEN));
                 if (s != NULL) {
                     s->disabled = true;
-                    slapt_add_source(global_config->sources, s);
+                    slapt_vector_t_add(global_config->sources, s);
                 }
             }
 
@@ -111,7 +111,7 @@ slapt_rc_config *slapt_read_rc_config(const char *file_name)
 
         } else if ((token_ptr = strstr(getline_buffer, SLAPT_EXCLUDE_TOKEN)) != NULL) {
             /* exclude list */
-            slapt_free_list(global_config->exclude_list);
+            slapt_vector_t_free(global_config->exclude_list);
             global_config->exclude_list = parse_exclude(token_ptr);
         }
     }
@@ -126,7 +126,7 @@ slapt_rc_config *slapt_read_rc_config(const char *file_name)
                 file_name);
         return NULL;
     }
-    if (!global_config->sources->count) {
+    if (!global_config->sources->size) {
         fprintf(stderr, gettext("SOURCE directive not set within %s.\n"), file_name);
         return NULL;
     }
@@ -176,86 +176,17 @@ void slapt_working_dir_init(const slapt_rc_config *global_config)
 
 void slapt_free_rc_config(slapt_rc_config *global_config)
 {
-    slapt_free_list(global_config->exclude_list);
-    slapt_free_source_list(global_config->sources);
+    slapt_vector_t_free(global_config->exclude_list);
+    slapt_vector_t_free(global_config->sources);
     free(global_config);
 }
 
-static slapt_list_t *parse_exclude(char *line)
+static slapt_vector_t *parse_exclude(char *line)
 {
     /* skip ahead past the = */
     line = strchr(line, '=') + 1;
 
     return slapt_parse_delimited_list(line, ',');
-}
-
-slapt_source_list_t *slapt_init_source_list(void)
-{
-    slapt_source_list_t *list = slapt_malloc(sizeof *list);
-    list->src = slapt_malloc(sizeof *list->src);
-    list->count = 0;
-
-    return list;
-}
-
-void slapt_add_source(slapt_source_list_t *list, slapt_source_t *s)
-{
-    slapt_source_t **realloc_tmp;
-
-    if (s == NULL)
-        return;
-
-    realloc_tmp = realloc(list->src, sizeof *list->src * (list->count + 1));
-
-    if (realloc_tmp == NULL)
-        return;
-
-    list->src = realloc_tmp;
-
-    list->src[list->count] = s;
-    ++list->count;
-}
-
-void slapt_remove_source(slapt_source_list_t *list, const char *s)
-{
-    slapt_source_t *src_to_discard = NULL;
-    uint32_t i = 0;
-
-    while (i < list->count) {
-        if (strcmp(s, list->src[i]->url) == 0 && src_to_discard == NULL) {
-            src_to_discard = list->src[i];
-        }
-        if (src_to_discard != NULL && (i + 1 < list->count)) {
-            list->src[i] = list->src[i + 1];
-        }
-        ++i;
-    }
-
-    if (src_to_discard != NULL) {
-        slapt_source_t **realloc_tmp;
-        int count = list->count - 1;
-
-        if (count < 1)
-            count = 1;
-
-        slapt_free_source(src_to_discard);
-
-        realloc_tmp = realloc(list->src, sizeof *list->src * count);
-        if (realloc_tmp != NULL) {
-            list->src = realloc_tmp;
-            if (list->count > 0)
-                --list->count;
-        }
-    }
-}
-
-void slapt_free_source_list(slapt_source_list_t *list)
-{
-    slapt_source_list_t_foreach (source, list) {
-        slapt_free_source(source);
-    }
-    free(list->src);
-    free(list);
 }
 
 bool slapt_is_interactive(const slapt_rc_config *global_config)
@@ -390,8 +321,8 @@ int slapt_write_rc_config(const slapt_rc_config *global_config, const char *loca
     fprintf(rc, "%s%s\n", SLAPT_WORKINGDIR_TOKEN, global_config->working_dir);
 
     fprintf(rc, "%s", SLAPT_EXCLUDE_TOKEN);
-    slapt_list_t_foreach (exclude, global_config->exclude_list) {
-        if (i + 1 == global_config->exclude_list->count) {
+    slapt_vector_t_foreach (char *, exclude, global_config->exclude_list) {
+        if (i + 1 == global_config->exclude_list->size) {
             fprintf(rc, "%s", exclude);
         } else {
             fprintf(rc, "%s,", exclude);
@@ -400,7 +331,7 @@ int slapt_write_rc_config(const slapt_rc_config *global_config, const char *loca
     }
     fprintf(rc, "\n");
 
-    slapt_source_list_t_foreach (src, global_config->sources) {
+    slapt_vector_t_foreach (slapt_source_t *, src, global_config->sources) {
         SLAPT_PRIORITY_T priority = src->priority;
         const char *token = SLAPT_SOURCE_TOKEN;
 

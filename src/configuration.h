@@ -30,15 +30,9 @@ typedef struct {
 } slapt_source_t;
 
 typedef struct {
-    slapt_source_t **src;
-    uint32_t count;
-} slapt_source_list_t;
-#define slapt_source_list_t_foreach(item, list) slapt_source_t *item; for (uint32_t item##_counter = 0; (item##_counter < list->count) && (item = list->src[item##_counter]); item##_counter++)
-
-typedef struct {
     char working_dir[SLAPT_WORKINGDIR_TOKEN_LEN];
-    slapt_source_list_t *sources;
-    slapt_list_t *exclude_list;
+    slapt_vector_t *sources;
+    slapt_vector_t *exclude_list;
     int (*progress_cb)(void *, double, double, double, double);
     bool download_only;
     bool dist_upgrade;
@@ -72,15 +66,6 @@ void slapt_working_dir_init(const slapt_rc_config *global_config);
 /* create, destroy the source struct */
 slapt_source_t *slapt_init_source(const char *s);
 void slapt_free_source(slapt_source_t *src);
-
-/*
-  add or remove a package source url to the source list.
-  commonly called with global_config->source_list
-*/
-slapt_source_list_t *slapt_init_source_list(void);
-void slapt_add_source(slapt_source_list_t *list, slapt_source_t *s);
-void slapt_remove_source(slapt_source_list_t *list, const char *s);
-void slapt_free_source_list(slapt_source_list_t *list);
 
 bool slapt_is_interactive(const slapt_rc_config *);
 

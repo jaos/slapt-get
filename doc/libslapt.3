@@ -11,13 +11,13 @@ slapt_rc_config *slapt_init_config(void);
 /* parse config file for sources, excludes, and working_dir*/
 slapt_rc_config *config = slapt_read_rc_config("/etc/slapt-get/slapt-getrc");
 /* get a list of installed packages */
-slapt_pkg_list_t *installed = slapt_get_installed_pkgs();
+slapt_vector_t *installed = slapt_get_installed_pkgs();
 /* parse the package data, normally using config->working_dir */
 FILE *data_f = fopen("/var/cache/slapt-get/package_data","r");
-slapt_pkg_list_t *available = slapt_parse_packages_txt(data_f);
+slapt_vector_t *available = slapt_parse_packages_txt(data_f);
 
 /* search for a package in a list via regex */
-slapt_pkg_list_t *results = slapt_search_pkg_list(installed,"[0-9]frg");
+slapt_vector_t *results = slapt_search_pkg_list(installed,"[0-9]frg");
 slapt_free_pkg_list(results);
 
 /* look for a specific package */
@@ -62,8 +62,8 @@ slapt-get stores the configuration information in a \fIslapt_rc_config\fP object
 .nf
   typedef struct {
     char working_dir[WORKINGDIR_TOKEN_LEN];
-    slapt_source_list_t *sources;
-    slapt_list_t *exclude_list;
+    slapt_vector_t *sources;
+    slapt_vector_t *exclude_list;
     int (*progress_cb) (void *,double,double,double,double);
     bool download_only;
     bool dist_upgrade;
@@ -117,21 +117,6 @@ Package sources are represented by the \fIslapt_source_t\fP type.  They are crea
 .fi
 .sp
 .TP
-The \fIslapt_source_list_t\fP stores the package sources.  Sources can be added and removed with \fIslapt_add_source\fP() and \fIslapt_remove_source\fP().  Typically, \fIslapt_rc_config->sources\fP is passed as the first argument, but it could be any pointer to a \fIslapt_source_list_t\fP that is created by \fIslapt_init_source_list\fP().
-.sp
-.nf
-  typedef struct {
-    slapt_source_t **src;
-    uint32_t count;
-  } slapt_source_list_t;
-.sp
-.B "slapt_source_list_t *slapt_init_source_list(void);"
-.B "void slapt_add_source(slapt_source_list_t *list, slapt_source_t *s);"
-.B "void slapt_remove_source (slapt_source_list_t *list, const char *s);"
-.B "void slapt_free_source_list(slapt_source_list_t *list);"
-.fi
-.sp
-.TP
 In order to initialize the slapt_rc_config->working_dir directory, \fIslapt_working_dir_init\fP() must be called.  It is a fatal error to call \fIslapt_working_dir_init\fP() with a directory that the current process does not have privileges to read, write, and execute.
 .sp
 .B "void slapt_working_dir_init(const slapt_rc_config *global_config);"
@@ -170,55 +155,31 @@ The \fIslapt_pkg_info_t\fP object is created and freed with \fIslapt_init_pkg\fP
 .fi
 .sp
 .TP
-Package lists are useful for grouping packages from the existing installed packages, packages available from external sources, a list of dependencies, and more.  Package lists are stored within a \fIslapt_pkg_list_t\fP.
-.sp
-.nf
-  typedef struct {
-    slapt_pkg_info_t **pkgs;
-    uint32_t pkg_count;
-    bool free_pkgs;
-    bool ordered;
-  } slapt_pkg_list_t;
-.fi
-.sp
-.TP
-If \fIfree_pkgs\fP is set to TRUE, \fIslapt_free_pkg_list\fP will call \fIslapt_free_pkg\fP() for each \fIslapt_pkg_info_t\fP within the list.  Leave this to the default of FALSE if the list is populated with pointers to \fIslapt_pkg_info_t\fP objects that are freed elsewhere.
-.sp
-.TP
-If \fIordered\fP is is set to TRUE, the list has been sorted by \fIqsort\fP().
-.sp
-.TP
-\fIslapt_pkg_info_t\fP objects are created by \fIslapt_init_pkg_list\fP() and freed by \fIslapt_free_pkg_list\fP().  \fIslapt_add_pkg_to_pkg_list\fP() is used to add a package to a list.
-.sp
-.nf
-.B "slapt_pkg_list_t *slapt_init_pkg_list(void);"
-.B "void slapt_free_pkg_list(slapt_pkg_list_t *);"
-.B "void slapt_add_pkg_to_pkg_list(slapt_pkg_list_t *list, slapt_pkg_info_t *pkg);"
-.fi
+Package lists are useful for grouping packages from the existing installed packages, packages available from external sources, a list of dependencies, and more.  Package lists are stored within a \fIslapt_vector_t\fP.
 .sp
 .TP
 Package lists can be parsed from PACKAGES.TXT or similar formated files (such as the working_dir/package_data file used by slapt-get) with \fIslapt_parse_packages_txt\fP().  A package list of the currently installed packages is returned by \fIslapt_get_installed_pkgs\fP().  \fIslapt_get_available_pkgs\fP() is a frontend to \fIslapt_parse_packages_txt\fP() looking for a package_data file in the current directory.  All three of the following set \fIfree_pkgs\fP to TRUE.
 .sp
 .nf
-.B "slapt_pkg_list_t *slapt_parse_packages_txt(FILE *);"
-.B "slapt_pkg_list_t *slapt_get_available_pkgs(void);"
-.B "slapt_pkg_list_t *slapt_get_installed_pkgs(void);"
+.B "slapt_vector_t *slapt_parse_packages_txt(FILE *);"
+.B "slapt_vector_t *slapt_get_available_pkgs(void);"
+.B "slapt_vector_t *slapt_get_installed_pkgs(void);"
 .fi
 .sp
 .TP
-Finding a specific package in a package list is done through one of the following functions.  All return \fIslapt_pkg_info_t\fP, or NULL on error, except for \fIslapt_search_pkg_list\fP() which returns a list of packages as \fIslapt_pkg_list_t\fP.
+Finding a specific package in a package list is done through one of the following functions.  All return \fIslapt_pkg_info_t\fP, or NULL on error, except for \fIslapt_search_pkg_list\fP() which returns a list of packages as \fIslapt_vector_t\fP.
 .sp
 .nf
-.B "slapt_pkg_info_t *slapt_get_newest_pkg(slapt_pkg_list_t *,"
+.B "slapt_pkg_info_t *slapt_get_newest_pkg(slapt_vector_t *,"
 .B "                                       const char *);"
-.B "slapt_pkg_info_t *slapt_get_exact_pkg(slapt_pkg_list_t *list,"
+.B "slapt_pkg_info_t *slapt_get_exact_pkg(slapt_vector_t *list,"
 .B "                                      const char *name,"
 .B "                                      const char *version);"
-.B "slapt_pkg_info_t *slapt_get_pkg_by_details(slapt_pkg_list_t *list,"
+.B "slapt_pkg_info_t *slapt_get_pkg_by_details(slapt_vector_t *list,"
 .B "                                           const char *name,"
 .B "                                           const char *version,"
 .B "                                           const char *location);"
-.B "slapt_pkg_list_t *slapt_search_pkg_list(slapt_pkg_list_t *list,"
+.B "slapt_vector_t *slapt_search_pkg_list(slapt_vector_t *list,"
 .B "                                             const char *pattern);"
 .fi
 .sp
@@ -241,7 +202,7 @@ Comparing package versions is done with the \fIslapt_cmp_pkgs\fP functions.  It 
 .fi
 .sp
 .TP
-The following functions deal with determining package dependencies and conflicts and returning them within a package list.  Some require the use of a \fIslapt_pkg_err_list_t\fP of \fIslapt_pkg_err_t\fP objects for reporting errors on which packages failed or were missing.  \fIslapt_search_pkg_err_list\fP() returns 0 if the package and error string combination does not already exist in the \fIslapt_pkg_err_list_t\fP, or 1 if found.
+The following functions deal with determining package dependencies and conflicts and returning them within a package list.  Some require the use of a \fIslapt_vector_t\fP of \fIslapt_pkg_err_t\fP objects for reporting errors on which packages failed or were missing.  \fIslapt_search_pkg_err_list\fP() returns 0 if the package and error string combination does not already exist in the \fIslapt_vector_t\fP, or 1 if found.
 .sp
 .nf
   typedef struct {
@@ -249,63 +210,51 @@ The following functions deal with determining package dependencies and conflicts
     char *error;
   } slapt_pkg_err_t;
 .sp
-  typedef struct {
-    slapt_pkg_err_t **errs;
-    uint32_t err_count;
-  } slapt_pkg_err_list_t;
-.sp
-.B "slapt_pkg_err_list_t *slapt_init_pkg_err_list(void);"
-.B "void slapt_add_pkg_err_to_list(slapt_pkg_err_list_t *l,"
-.B "                               const char *pkg,const char *err);"
-.B "int slapt_search_pkg_err_list(slapt_pkg_err_list_t *l, const char *pkg,"
-.B "                              const char *err);"
-.B "void slapt_free_pkg_err_list(slapt_pkg_err_list_t *l);"
-.sp
 .fi
 .TP
-\fIslapt_get_pkg_dependencies\fP() fills a \fIslapt_pkg_list_t\fP of dependencies for the specified package.  These dependencies are pulled from the available package list and the installed package lists.  Missing and conflict errors are placed in \fIslapt_pkg_err_list_t\fP.  \fIdeps\fP, \fIconflict_err\fP, and \fImissing_err\fP are initialized if NULL.  \fIslapt_get_pkg_dependencies\fP() returns 0 on success, or -1 on error.
+\fIslapt_get_pkg_dependencies\fP() fills a \fIslapt_vector_t\fP of dependencies for the specified package.  These dependencies are pulled from the available package list and the installed package lists.  Missing and conflict errors are placed in \fIslapt_vector_t\fP.  \fIdeps\fP, \fIconflict_err\fP, and \fImissing_err\fP are initialized if NULL.  \fIslapt_get_pkg_dependencies\fP() returns 0 on success, or -1 on error.
 .sp
 .nf
 .B "int slapt_get_pkg_dependencies(const slapt_rc_config *global_config,
-.B "                               slapt_pkg_list_t *avail_pkgs,
-.B "                               slapt_pkg_list_t *installed_pkgs,
+.B "                               slapt_vector_t *avail_pkgs,
+.B "                               slapt_vector_t *installed_pkgs,
 .B "                               slapt_pkg_info_t *pkg,
-.B "                               slapt_pkg_list_t *deps,
-.B "                               slapt_pkg_err_list_t *conflict_err,
-.B "                               slapt_pkg_err_list_t *missing_err);"
+.B "                               slapt_vector_t *deps,
+.B "                               slapt_vector_t *conflict_err,
+.B "                               slapt_vector_t *missing_err);"
 .sp
 .fi
 .TP
-\fIslapt_get_pkg_conflicts\fP() returns a \fIslapt_pkg_list_t\fP of packages that conflict with the specified package.
+\fIslapt_get_pkg_conflicts\fP() returns a \fIslapt_vector_t\fP of packages that conflict with the specified package.
 .sp
 .nf
-.B "slapt_pkg_list_t *"
-.B "slapt_get_pkg_conflicts(slapt_pkg_list_t *avail_pkgs,
-.B "                        slapt_pkg_list_t *installed_pkgs,
+.B "slapt_vector_t *"
+.B "slapt_get_pkg_conflicts(slapt_vector_t *avail_pkgs,
+.B "                        slapt_vector_t *installed_pkgs,
 .B "                        slapt_pkg_info_t *pkg);"
 .sp
 .fi
 .TP
-\fIslapt_is_required_by\fP() returns a \fIslapt_pkg_list_t\fP of packages that require the package specified.
+\fIslapt_is_required_by\fP() returns a \fIslapt_vector_t\fP of packages that require the package specified.
 .sp
 .nf
-.B "slapt_pkg_list_t *"
+.B "slapt_vector_t *"
 .B "slapt_is_required_by(const slapt_rc_config *global_config,
-.B "                     slapt_pkg_list_t *avail,
-.B "                     slapt_pkg_list_t *installed_pkgs,
-.B "                     slapt_pkg_list_t *pkgs_to_install,
-.B "                     slapt_pkg_list_t *pkgs_to_remove,
+.B "                     slapt_vector_t *avail,
+.B "                     slapt_vector_t *installed_pkgs,
+.B "                     slapt_vector_t *pkgs_to_install,
+.B "                     slapt_vector_t *pkgs_to_remove,
 .B "                     slapt_pkg_info_t *pkg);"
 .sp
 .fi
 .TP
-\fIslapt_get_obsolete_pkgs\fP() returns a \fIslapt_pkg_list_t\fP of packages that are no longer available from the current package sources.
+\fIslapt_get_obsolete_pkgs\fP() returns a \fIslapt_vector_t\fP of packages that are no longer available from the current package sources.
 .sp
 .nf
-.B "slapt_pkg_list_t *"
+.B "slapt_vector_t *"
 .B "  slapt_get_obsolete_pkgs ( const slapt_rc_config *global_config,"
-.B "                            slapt_pkg_list_t *avail_pkgs,"
-.B "                            slapt_pkg_list_t *installed_pkgs);"
+.B "                            slapt_vector_t *avail_pkgs,"
+.B "                            slapt_vector_t *installed_pkgs);"
 .B "
 .sp
 .fi
@@ -351,7 +300,7 @@ The \fIworking_dir\fP, defined within the \fIslapt_rc_config\fP object, caches t
 .B "void slapt_clean_pkg_dir(const char *dir_name);"
 .B "void slapt_purge_old_cached_pkgs(const slapt_rc_config *global_config,"
 .B "                                 const char *dir_name,"
-.B "                                 slapt_pkg_list_t *avail_pkgs);"
+.B "                                 slapt_vector_t *avail_pkgs);"
 .fi
 .sp
 .TP
@@ -389,10 +338,10 @@ Downloading packages and the package data from various sources is handled with t
 The following functions download the PACKAGES.TXT, the patches/PACKAGES.TXT, CHECKSUMS.md5, and ChangeLog.txt.  Each sets the compressed option if a compressed version was available and retrieved.
 .sp
 .nf
-.B "slapt_pkg_list_t *"
+.B "slapt_vector_t *"
 .B "slapt_get_pkg_source_packages (const slapt_rc_config *global_config,"
 .B "                               const char *url, bool *compressed);"
-.B "slapt_pkg_list_t *"
+.B "slapt_vector_t *"
 .B "slapt_get_pkg_source_patches (const slapt_rc_config *global_config,"
 .B "                              const char *url, bool *compressed);"
 .B "FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,"
@@ -430,31 +379,20 @@ Adding, removing, and upgrading packages can be wrapped in a \fIslapt_transactio
   } slapt_queue_i;
 .sp
   typedef struct {
-    slapt_queue_i **pkgs;
-    uint32_t count;
-  } slapt_queue_t;
-.sp
-  typedef struct {
     slapt_pkg_info_t *installed;
     slapt_pkg_info_t *upgrade;
     bool reinstall;
   } slapt_pkg_upgrade_t;
 .sp
   typedef struct {
-    slapt_pkg_upgrade_t **pkgs;
-    uint32_t pkg_count;
-    uint32_t reinstall_count;
-  } slapt_pkg_upgrade_list_t;
-.sp
-  typedef struct {
-    slapt_pkg_list_t *install_pkgs;
-    slapt_pkg_upgrade_list_t *upgrade_pkgs;
-    slapt_pkg_list_t *remove_pkgs;
-    slapt_pkg_list_t *exclude_pkgs;
-    slapt_list_t *suggests;
-    slapt_pkg_err_list_t *conflict_err;
-    slapt_pkg_err_list_t *missing_err;
-    slapt_queue_t *queue;
+    slapt_vector_t *install_pkgs;
+    slapt_vector_t *upgrade_pkgs;
+    slapt_vector_t *remove_pkgs;
+    slapt_vector_t *exclude_pkgs;
+    slapt_vector_t *suggests;
+    slapt_vector_t *conflict_err;
+    slapt_vector_t *missing_err;
+    slapt_vector_t *queue;
   } slapt_transaction_t;
 .sp
 .B "slapt_transaction_t *slapt_init_transaction(void);"
@@ -490,13 +428,13 @@ Adding, removing, and upgrading packages can be wrapped in a \fIslapt_transactio
 .sp
 .B "int slapt_add_deps_to_trans(const slapt_rc_config *global_config,"
 .B "                            slapt_transaction_t *tran,"
-.B "                            slapt_pkg_list_t *avail_pkgs,"
-.B "                            slapt_pkg_list_t *installed_pkgs,"
+.B "                            slapt_vector_t *avail_pkgs,"
+.B "                            slapt_vector_t *installed_pkgs,"
 .B "                            slapt_pkg_info_t *pkg);"
 .sp
 .B "slapt_pkg_info_t *slapt_is_conflicted(slapt_transaction_t *tran,"
-.B "                                      slapt_pkg_list_t *avail_pkgs,"
-.B "                                      slapt_pkg_list_t *installed_pkgs,"
+.B "                                      slapt_vector_t *avail_pkgs,"
+.B "                                      slapt_vector_t *installed_pkgs,"
 .B "                                      slapt_pkg_info_t *pkg);"
 .sp
 .B "void slapt_generate_suggestions(slapt_transaction_t *tran);"
@@ -599,18 +537,6 @@ Miscellaneous functionality within libslapt.
 .sp
 .B bool slapt_disk_space_check (const char *path,double space_needed);
 .sp
-  typedef struct {
-    char **items;
-    uint32_t count;
-  } slapt_list_t;
-.sp
-.B /* general list management */
-.B slapt_list_t *slapt_parse_delimited_list(char *line, char delim);
-.B slapt_list_t *slapt_init_list(void);
-.B void slapt_add_list_item(slapt_list_t *list,const char *item);
-.B void slapt_remove_list_item(slapt_list_t *list,const char *item);
-.B const char *slapt_search_list(slapt_list_t *list, const char *needle);
-.B void slapt_free_list(slapt_list_t *list);
 .fi
 .sp
 .SH LINKING WITH LIBSLAPT

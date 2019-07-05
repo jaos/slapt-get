@@ -67,12 +67,6 @@ typedef struct {
     int reg_return;
 } slapt_regex_t;
 
-typedef struct {
-    char **items;
-    uint32_t count;
-} slapt_list_t;
-#define slapt_list_t_foreach(item, list) char *item; for (uint32_t item##_counter = 0; (item##_counter < list->count) && (item = list->items[item##_counter]); item##_counter++)
-
 
 typedef int (*slapt_vector_t_cmp)(const void *, const void *);
 typedef int (*slapt_vector_t_qsort_cmp)(const void *, const void *);
@@ -119,12 +113,6 @@ const char *slapt_strerror(slapt_code_t code);
 const char *slapt_priority_to_str(SLAPT_PRIORITY_T priority);
 bool slapt_disk_space_check(const char *path, double space_needed);
 
-/* general list management */
-slapt_list_t *slapt_parse_delimited_list(char *line, char delim);
-slapt_list_t *slapt_init_list(void);
-void slapt_add_list_item(slapt_list_t *list, const char *item);
-void slapt_remove_list_item(slapt_list_t *list, const char *item);
-const char *slapt_search_list(slapt_list_t *list, const char *needle);
-void slapt_free_list(slapt_list_t *list);
-
+/* utils */
+slapt_vector_t *slapt_parse_delimited_list(char *line, char delim);
 char *slapt_strip_whitespace(const char *s);

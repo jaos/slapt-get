@@ -26,7 +26,7 @@ extern int optind, opterr, optopt;
 int main(int argc, char *argv[])
 {
     slapt_rc_config *global_config, *initial_config; /* our config struct */
-    slapt_list_t *paa;
+    slapt_vector_t *paa = NULL;
 
     int c = 0;
     enum slapt_action do_action = 0;
@@ -319,57 +319,47 @@ int main(int argc, char *argv[])
         }
         break;
     case INSTALL:
-        paa = slapt_init_list();
+        paa = slapt_vector_t_init(free);
         while (optind < argc) {
-            slapt_add_list_item(paa, argv[optind]);
+            slapt_vector_t_add(paa, strdup(argv[optind]));
             ++optind;
         }
         slapt_pkg_action_install(global_config, paa);
-        slapt_free_list(paa);
+        slapt_vector_t_free(paa);
         break;
     case INSTALL_DISK_SET: {
-        slapt_pkg_list_t *set_pkgs = slapt_init_pkg_list();
-        slapt_pkg_list_t *avail_pkgs = slapt_get_available_pkgs();
+        paa = slapt_vector_t_init(NULL);
+        slapt_vector_t *avail_pkgs = slapt_get_available_pkgs();
 
         while (optind < argc) {
-            slapt_pkg_list_t *matches = NULL;
             char *search = slapt_malloc(sizeof *search * (strlen(argv[optind]) + 3));
-
             snprintf(search, strlen(argv[optind]) + 3, "/%s$", argv[optind]);
-            matches = slapt_search_pkg_list(avail_pkgs, search);
+            slapt_vector_t *matches = slapt_search_pkg_list(avail_pkgs, search);
             free(search);
 
-            slapt_pkg_list_t_foreach (match, matches) {
+            slapt_vector_t_foreach (slapt_pkg_info_t *, match, matches) {
                 if (!slapt_is_excluded(global_config, match)) {
-                    slapt_add_pkg_to_pkg_list(set_pkgs, match);
+                    slapt_vector_t_add(paa, match->name);
                 }
             }
 
-            slapt_free_pkg_list(matches);
+            slapt_vector_t_free(matches);
             ++optind;
         }
 
-        paa = slapt_init_list();
-
-        slapt_pkg_list_t_foreach (set_pkg, set_pkgs) {
-            slapt_add_list_item(paa, set_pkg->name);
-        }
-
-        slapt_free_pkg_list(set_pkgs);
-        slapt_free_pkg_list(avail_pkgs);
-
         slapt_pkg_action_install(global_config, paa);
-        slapt_free_list(paa);
+        slapt_vector_t_free(paa);
+        slapt_vector_t_free(avail_pkgs);
 
     } break;
     case REMOVE:
-        paa = slapt_init_list();
+        paa = slapt_vector_t_init(free);
         while (optind < argc) {
-            slapt_add_list_item(paa, argv[optind]);
+            slapt_vector_t_add(paa, strdup(argv[optind]));
             ++optind;
         }
         slapt_pkg_action_remove(global_config, paa);
-        slapt_free_list(paa);
+        slapt_vector_t_free(paa);
         break;
     case SHOW:
         while (optind < argc) {

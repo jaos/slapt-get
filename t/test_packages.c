@@ -58,9 +58,9 @@ START_TEST(test_pkg_info)
     free(string);
     string = NULL;
 
-    slapt_add_list_item(rc->exclude_list, "^gslapt$");
+    slapt_vector_t_add(rc->exclude_list, strdup("^gslapt$"));
     fail_if(!slapt_is_excluded(rc, &pkg));
-    slapt_remove_list_item(rc->exclude_list, "^gslapt$");
+    slapt_vector_t_remove(rc->exclude_list, "^gslapt$");
 
     fail_unless(slapt_download_pkg(rc, &pkg, NULL) == 0);
     fail_unless(slapt_verify_downloaded_pkg(rc, &pkg) == 0);
@@ -87,55 +87,12 @@ START_TEST(test_pkg_info)
 }
 END_TEST
 
-START_TEST(test_pkg_list)
-{
-    slapt_pkg_list_t *list = slapt_init_pkg_list();
-    fail_if(list == NULL);
-    fail_unless(list->pkg_count == 0);
-
-    slapt_add_pkg_to_pkg_list(list, &pkg);
-    fail_unless(list->pkg_count == 1);
-
-    slapt_free_pkg_list(list);
-    list = NULL;
-
-    list = slapt_get_installed_pkgs();
-    fail_if(list == NULL);
-    /* fail_unless (list->pkg_count == 0); could be anything */
-    slapt_free_pkg_list(list);
-    list = NULL;
-
-    /* parse the PACKAGES.TXT file
-  slapt_pkg_list_t *slapt_parse_packages_txt(FILE *);
-  */
-
-    /*
-    return a list of available packages must be already chdir'd to
-    rc_config->working_dir.  Otherwise, open a filehandle to the package data
-    and pass it to slapt_parse_packages_txt();
-  slapt_pkg_list_t *slapt_get_available_pkgs(void);
-  */
-
-    /* get a list of obsolete packages
-  slapt_pkg_list_t *
-    slapt_get_obsolete_pkgs ( const slapt_rc_config *global_config,
-                              slapt_pkg_list_t *avail_pkgs,
-                              slapt_pkg_list_t *installed_pkgs);
-  */
-
-    /*
-    fill in the md5sum of the package
-  void slapt_get_md5sums(slapt_pkg_list_t *pkgs, FILE *checksum_file);
-  */
-}
-END_TEST
-
 START_TEST(test_pkg_search)
 {
     slapt_pkg_info_t *p = NULL;
-    slapt_pkg_list_t *l = NULL;
-    slapt_pkg_list_t *list = slapt_init_pkg_list();
-    slapt_add_pkg_to_pkg_list(list, &pkg);
+    slapt_vector_t *l = NULL;
+    slapt_vector_t *list = slapt_vector_t_init(NULL);
+    slapt_vector_t_add(list, &pkg);
 
     p = slapt_get_newest_pkg(list, "gslapt");
     fail_if(p == NULL);
@@ -148,9 +105,9 @@ START_TEST(test_pkg_search)
 
     l = slapt_search_pkg_list(list, "^gslapt$");
     fail_if(l == NULL);
-    fail_unless(l->pkg_count == 1);
+    fail_unless(l->size == 1);
 
-    slapt_free_pkg_list(list);
+    slapt_vector_t_free(list);
 }
 END_TEST
 
@@ -299,25 +256,22 @@ START_TEST(test_dependency)
     uint32_t i = 0;
     FILE *fh = NULL;
     slapt_pkg_info_t *p = NULL;
-    slapt_pkg_list_t *avail = NULL;
-    slapt_pkg_list_t *required_by = slapt_init_pkg_list();
-    slapt_pkg_list_t *installed = slapt_init_pkg_list();
-    slapt_pkg_list_t *pkgs_to_install = slapt_init_pkg_list();
-    slapt_pkg_list_t *pkgs_to_remove = slapt_init_pkg_list();
-    slapt_pkg_list_t *conflicts = NULL,
-                     *deps = slapt_init_pkg_list();
-    slapt_pkg_err_list_t *conflict = slapt_init_pkg_err_list(),
-                         *missing = slapt_init_pkg_err_list();
+    slapt_vector_t *required_by = slapt_vector_t_init(NULL);
+    slapt_vector_t *pkgs_to_install = slapt_vector_t_init(NULL);
+    slapt_vector_t *pkgs_to_remove = slapt_vector_t_init(NULL);
+    slapt_vector_t *conflicts = NULL, *deps = slapt_vector_t_init(NULL);
+    slapt_vector_t *conflict = slapt_vector_t_init((slapt_vector_t_free_function)slapt_pkg_err_t_free),
+                         *missing = slapt_vector_t_init((slapt_vector_t_free_function)slapt_pkg_err_t_free);
     slapt_rc_config *rc = slapt_read_rc_config("./data/rc1");
 
     fh = fopen("data/avail_deps", "r");
     fail_unless(fh != NULL);
-    avail = slapt_parse_packages_txt(fh);
+    slapt_vector_t *avail = slapt_parse_packages_txt(fh);
     fclose(fh);
 
     fh = fopen("data/installed_deps", "r");
     fail_unless(fh != NULL);
-    installed = slapt_parse_packages_txt(fh);
+    slapt_vector_t *installed = slapt_parse_packages_txt(fh);
     fclose(fh);
 
     /*
@@ -339,9 +293,9 @@ START_TEST(test_dependency)
     fail_unless(p != NULL);
     conflicts = slapt_get_pkg_conflicts(avail, installed, p);
     fail_unless(conflicts != NULL);
-    fail_unless(conflicts->pkg_count == 1);
-    fail_unless(strcmp(conflicts->pkgs[0]->name, "ibus") == 0);
-    slapt_free_pkg_list(conflicts);
+    fail_unless(conflicts->size == 1);
+    fail_unless(strcmp(((slapt_pkg_info_t *)conflicts->items[0])->name, "ibus") == 0);
+    slapt_vector_t_free(conflicts);
 
     /*
      required by tests
@@ -350,38 +304,38 @@ START_TEST(test_dependency)
     p = slapt_get_newest_pkg(avail, "slapt-get");
     fail_unless(p != NULL);
     required_by = slapt_is_required_by(rc, avail, installed, pkgs_to_install, pkgs_to_remove, p);
-    fail_unless(required_by->pkg_count == 5);
-    fail_unless(strcmp(required_by->pkgs[0]->name, "slapt-src") == 0);
-    fail_unless(strcmp(required_by->pkgs[1]->name, "gslapt") == 0);
-    fail_unless(strcmp(required_by->pkgs[2]->name, "foo") == 0);
-    fail_unless(strcmp(required_by->pkgs[3]->name, "boz") == 0);
-    fail_unless(strcmp(required_by->pkgs[4]->name, "bar") == 0);
-    slapt_free_pkg_list(required_by);
+    fail_unless(required_by->size == 5);
+    fail_unless(strcmp(((slapt_pkg_info_t *)(required_by->items[0]))->name, "slapt-src") == 0);
+    fail_unless(strcmp(((slapt_pkg_info_t *)(required_by->items[1]))->name, "gslapt") == 0);
+    fail_unless(strcmp(((slapt_pkg_info_t *)(required_by->items[2]))->name, "foo") == 0);
+    fail_unless(strcmp(((slapt_pkg_info_t *)(required_by->items[3]))->name, "boz") == 0);
+    fail_unless(strcmp(((slapt_pkg_info_t *)(required_by->items[4]))->name, "bar") == 0);
+    slapt_vector_t_free(required_by);
 
     /* glib reverse dep test */
     p = slapt_get_newest_pkg(avail, "glib");
     fail_unless(p != NULL);
     required_by = slapt_is_required_by(rc, avail, installed, pkgs_to_install, pkgs_to_remove, p);
-    fail_unless(required_by->pkg_count == 2);
-    fail_unless(strcmp(required_by->pkgs[0]->name, "xmms") == 0);
-    fail_unless(strcmp(required_by->pkgs[1]->name, "gtk+") == 0);
-    slapt_free_pkg_list(required_by);
+    fail_unless(required_by->size == 2);
+    fail_unless(strcmp(((slapt_pkg_info_t *)(required_by->items[0]))->name, "xmms") == 0);
+    fail_unless(strcmp(((slapt_pkg_info_t *)(required_by->items[1]))->name, "gtk+") == 0);
+    slapt_vector_t_free(required_by);
 
     /* glib2 reverse dep test */
     p = slapt_get_newest_pkg(avail, "glib2");
     fail_unless(p != NULL);
     required_by = slapt_is_required_by(rc, avail, installed, pkgs_to_install, pkgs_to_remove, p);
-    fail_unless(required_by->pkg_count == 4);
-    fail_unless(strcmp(required_by->pkgs[0]->name, "ConsoleKit") == 0);
-    fail_unless(strcmp(required_by->pkgs[1]->name, "dbus-glib") == 0);
-    fail_unless(strcmp(required_by->pkgs[2]->name, "gslapt") == 0);
-    fail_unless(strcmp(required_by->pkgs[3]->name, "scim") == 0);
-    slapt_free_pkg_list(required_by);
+    fail_unless(required_by->size == 4);
+    fail_unless(strcmp(((slapt_pkg_info_t *)(required_by->items[0]))->name, "ConsoleKit") == 0);
+    fail_unless(strcmp(((slapt_pkg_info_t *)(required_by->items[1]))->name, "dbus-glib") == 0);
+    fail_unless(strcmp(((slapt_pkg_info_t *)(required_by->items[2]))->name, "gslapt") == 0);
+    fail_unless(strcmp(((slapt_pkg_info_t *)(required_by->items[3]))->name, "scim") == 0);
+    slapt_vector_t_free(required_by);
 
-    slapt_free_pkg_list(installed);
-    slapt_free_pkg_list(pkgs_to_install);
-    slapt_free_pkg_list(pkgs_to_remove);
-    slapt_free_pkg_list(avail);
+    slapt_vector_t_free(installed);
+    slapt_vector_t_free(pkgs_to_install);
+    slapt_vector_t_free(pkgs_to_remove);
+    slapt_vector_t_free(avail);
     slapt_free_rc_config(rc);
 }
 END_TEST
@@ -393,23 +347,11 @@ START_TEST(test_cache)
     slapt_clean_pkg_dir(rc->working_dir);
 
     /* not easily testable due to timeout
-  slapt_pkg_list_t *list = slapt_init_pkg_list();
+  slapt_vector_t *list = slapt_vector_t_init();
   slapt_purge_old_cached_pkgs(rc, NULL, list);
   */
 
     slapt_free_rc_config(rc);
-}
-END_TEST
-
-START_TEST(test_error)
-{
-    slapt_pkg_err_list_t *list = slapt_init_pkg_err_list();
-
-    slapt_add_pkg_err_to_list(list, "gslapt", "Server returned 404");
-
-    fail_unless(slapt_search_pkg_err_list(list, "gslapt", "Server returned 404") == 1);
-
-    slapt_free_pkg_err_list(list);
 }
 END_TEST
 
@@ -424,13 +366,13 @@ START_TEST(test_network)
 
     /* write pkg data to disk
   void slapt_write_pkg_data(const char *source_url,FILE *d_file,
-                            slapt_pkg_list_t *pkgs);
+                            slapt_vector_t *pkgs);
   */
 
     /* download the PACKAGES.TXT and CHECKSUMS.md5 files
-  slapt_pkg_list_t *slapt_get_pkg_source_packages (const slapt_rc_config *global_config,
+  slapt_vector_t *slapt_get_pkg_source_packages (const slapt_rc_config *global_config,
                                                         const char *url);
-  slapt_pkg_list_t *slapt_get_pkg_source_patches (const slapt_rc_config *global_config,
+  slapt_vector_t *slapt_get_pkg_source_patches (const slapt_rc_config *global_config,
                                                        const char *url);
   FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,
                                         const char *url);
@@ -453,14 +395,12 @@ Suite *packages_test_suite()
 
     tcase_add_test(tc, test_struct_pkg);
     tcase_add_test(tc, test_pkg_info);
-    tcase_add_test(tc, test_pkg_list);
     tcase_add_test(tc, test_pkg_search);
     tcase_add_test(tc, test_pkgtool);
     tcase_add_test(tc, test_pkg_version);
     tcase_add_test(tc, test_version);
     tcase_add_test(tc, test_dependency);
     tcase_add_test(tc, test_cache);
-    tcase_add_test(tc, test_error);
     tcase_add_test(tc, test_network);
 
     suite_add_tcase(s, tc);

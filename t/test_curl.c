@@ -9,7 +9,8 @@ START_TEST(test_slapt_get_mirror_data_from_source)
     FILE *f = NULL;
     const char *err = NULL;
     slapt_rc_config *rc = slapt_read_rc_config("./data/rc1");
-    const char *url = rc->sources->src[0]->url;
+    slapt_source_t *src = rc->sources->items[0];
+    const char *url = src->url;
     char *packages = "PACKAGES.TXT";
     char *packages_gz = "PACKAGES.TXT.gz";
     char *checksums = "CHECKSUMS.md5";

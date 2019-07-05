@@ -395,84 +395,9 @@ bool slapt_disk_space_check(const char *path, double space_needed)
     return true;
 }
 
-slapt_list_t *slapt_init_list(void)
+slapt_vector_t *slapt_parse_delimited_list(char *line, char delim)
 {
-    slapt_list_t *list = slapt_malloc(sizeof *list);
-    list->items = slapt_malloc(sizeof *list->items);
-    list->count = 0;
-
-    return list;
-}
-
-void slapt_add_list_item(slapt_list_t *list, const char *item)
-{
-    char **realloc_tmp;
-
-    realloc_tmp =
-        realloc(list->items, sizeof *list->items * (list->count + 1));
-
-    if (realloc_tmp == NULL)
-        return;
-
-    list->items = realloc_tmp;
-    list->items[list->count] = strndup(item, strlen(item));
-    list->items[list->count][strlen(item)] = '\0';
-    ++list->count;
-}
-
-void slapt_remove_list_item(slapt_list_t *list, const char *item)
-{
-    uint32_t i = 0;
-    char *tmp = NULL;
-
-    while (i < list->count) {
-        if (strcmp(item, list->items[i]) == 0 && tmp == NULL) {
-            tmp = list->items[i];
-        }
-        if (tmp != NULL && (i + 1 < list->count)) {
-            list->items[i] = list->items[i + 1];
-        }
-        ++i;
-    }
-    if (tmp != NULL) {
-        char **realloc_tmp;
-        int count = list->count - 1;
-        if (count < 1)
-            count = 1;
-
-        free(tmp);
-
-        realloc_tmp = realloc(list->items, sizeof *list->items * count);
-        if (realloc_tmp != NULL) {
-            list->items = realloc_tmp;
-            if (list->count > 0)
-                --list->count;
-        }
-    }
-}
-
-const char *slapt_search_list(slapt_list_t *list, const char *needle)
-{
-    slapt_list_t_foreach (i, list) {
-        if (strcmp(i, needle) == 0)
-            return i;
-    }
-
-    return NULL;
-}
-
-void slapt_free_list(slapt_list_t *list)
-{
-    slapt_list_t_foreach (i, list) {
-        free(i);
-    }
-    free(list->items);
-    free(list);
-}
-
-slapt_list_t *slapt_parse_delimited_list(char *line, char delim)
-{
-    slapt_list_t *list = slapt_init_list();
+    slapt_vector_t *list = slapt_vector_t_init(free);
     int count = 0, position = 0, len = strlen(line);
 
     while (isspace(line[position]) != 0)
@@ -496,8 +421,7 @@ slapt_list_t *slapt_parse_delimited_list(char *line, char delim)
 
         ptr = strndup(start, start_len - end_len);
 
-        slapt_add_list_item(list, ptr);
-        free(ptr);
+        slapt_vector_t_add(list, ptr);
         ++count;
 
         position += start_len - end_len;

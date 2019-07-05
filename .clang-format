@@ -26,12 +26,7 @@ BraceWrapping:
 PointerBindsToType: false
 SortIncludes: false
 ForEachMacros: [
-'slapt_list_t_foreach',
-'slapt_source_list_t_foreach',
-'slapt_pkg_list_t_foreach',
-'slapt_pkg_upgrade_list_t_foreach',
-'slapt_pkg_err_list_t_foreach',
-'slapt_queue_t_foreach'
+'slapt_vector_t_foreach',
 ]
 SpaceBeforeParens: ControlStatements
 SpaceBeforeAssignmentOperators: true

@@ -12,11 +12,11 @@ START_TEST(test_struct_config)
     rc = slapt_read_rc_config("./data/rc1");
     fail_if(rc == NULL);
     {
-        slapt_source_list_t *s = rc->sources;
-        slapt_list_t *e = rc->exclude_list;
+        slapt_vector_t *s = rc->sources;
+        slapt_vector_t *e = rc->exclude_list;
 
-        fail_if(s->count < 1);
-        fail_if(e->count != 5);
+        fail_if(s->size < 1);
+        fail_if(e->size != 5);
     }
     slapt_free_rc_config(rc);
     rc = NULL;
@@ -40,44 +40,6 @@ START_TEST(test_working_dir)
 }
 END_TEST
 
-START_TEST(test_exclude_list)
-{
-    slapt_list_t *e = slapt_init_list();
-
-    fail_if(e == NULL);
-    fail_if(e->count != 0);
-
-    slapt_add_list_item(e, "^foo$");
-    fail_if(e->count != 1);
-
-    slapt_remove_list_item(e, "^foo$");
-    fail_if(e->count != 0);
-
-    slapt_remove_list_item(e, "no_such_exclude");
-    fail_if(e->count != 0);
-
-    slapt_free_list(e);
-}
-END_TEST
-
-START_TEST(test_source_list)
-{
-    slapt_source_t *src = slapt_init_source("http://www.test.org/dist");
-    slapt_source_list_t *s = slapt_init_source_list();
-    fail_if(s == NULL);
-    fail_if(s->count != 0);
-
-    fail_if(src == NULL);
-    slapt_add_source(s, src);
-    fail_if(s->count != 1);
-
-    slapt_remove_source(s, "http://www.test.org/dist/");
-    fail_if(s->count != 0);
-
-    slapt_free_source_list(s);
-}
-END_TEST
-
 START_TEST(test_source_trimming)
 {
     slapt_source_t *src1 = slapt_init_source("http://www.test.org/dist ");
@@ -98,8 +60,6 @@ Suite *configuration_test_suite()
 
     tcase_add_test(tc, test_struct_config);
     tcase_add_test(tc, test_working_dir);
-    tcase_add_test(tc, test_exclude_list);
-    tcase_add_test(tc, test_source_list);
     tcase_add_test(tc, test_source_trimming);
 
     suite_add_tcase(s, tc);
