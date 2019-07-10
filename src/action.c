@@ -21,8 +21,7 @@
 static int cmp_pkg_arch(const char *a, const char *b);
 
 /* install pkg */
-void slapt_pkg_action_install(const slapt_rc_config *global_config,
-                              const slapt_vector_t *action_args)
+void slapt_pkg_action_install(const slapt_rc_config *global_config, const slapt_vector_t *action_args)
 {
     slapt_transaction_t *tran = NULL;
     slapt_vector_t *installed_pkgs = NULL;
@@ -78,8 +77,7 @@ void slapt_pkg_action_install(const slapt_rc_config *global_config,
 
         /* if it is not already installed, install it */
         if (installed_pkg == NULL || global_config->no_upgrade) {
-            if (slapt_add_deps_to_trans(global_config, tran, avail_pkgs,
-                                        installed_pkgs, pkg) == 0) {
+            if (slapt_add_deps_to_trans(global_config, tran, avail_pkgs, installed_pkgs, pkg) == 0) {
                 slapt_vector_t *conflicts = slapt_is_conflicted(tran, avail_pkgs, installed_pkgs, pkg);
 
                 /* this comes first so we can pick up that we are installed the package when checking conflicts */
@@ -89,10 +87,7 @@ void slapt_pkg_action_install(const slapt_rc_config *global_config,
                 if (conflicts->size && !global_config->ignore_dep) {
                     slapt_vector_t_foreach (slapt_pkg_info_t *, conflict, conflicts) {
                         /* make sure to remove the conflict's dependencies as well */
-                        slapt_vector_t *conflict_deps = slapt_is_required_by(global_config,
-                                                                               avail_pkgs, installed_pkgs,
-                                                                               tran->install_pkgs, tran->remove_pkgs,
-                                                                               conflict);
+                        slapt_vector_t *conflict_deps = slapt_is_required_by(global_config, avail_pkgs, installed_pkgs, tran->install_pkgs, tran->remove_pkgs, conflict);
                         slapt_vector_t_foreach (slapt_pkg_info_t *, conflict_dep, conflict_deps) {
                             if (slapt_get_exact_pkg(installed_pkgs, conflict_dep->name, conflict_dep->version) != NULL) {
                                 slapt_add_remove_to_transaction(tran, conflict_dep);
@@ -106,28 +101,20 @@ void slapt_pkg_action_install(const slapt_rc_config *global_config,
                 slapt_vector_t_free(conflicts);
 
             } else {
-                printf(gettext("Excluding %s, use --ignore-dep to override\n"),
-                       pkg->name);
+                printf(gettext("Excluding %s, use --ignore-dep to override\n"), pkg->name);
                 slapt_add_exclude_to_transaction(tran, pkg);
             }
 
         } else { /* else we upgrade or reinstall */
 
             /* it is already installed, attempt an upgrade */
-            if (
-                ((slapt_cmp_pkgs(installed_pkg, pkg)) < 0) ||
-                (global_config->re_install)) {
-                if (slapt_add_deps_to_trans(global_config, tran, avail_pkgs,
-                                            installed_pkgs, pkg) == 0) {
-                    slapt_vector_t *conflicts = slapt_is_conflicted(tran, avail_pkgs,
-                                                                      installed_pkgs, pkg);
+            if (((slapt_cmp_pkgs(installed_pkg, pkg)) < 0) || (global_config->re_install)) {
+                if (slapt_add_deps_to_trans(global_config, tran, avail_pkgs, installed_pkgs, pkg) == 0) {
+                    slapt_vector_t *conflicts = slapt_is_conflicted(tran, avail_pkgs, installed_pkgs, pkg);
                     if (conflicts->size && !global_config->ignore_dep) {
                         slapt_vector_t_foreach (slapt_pkg_info_t *, conflict, conflicts) {
                             /* make sure to remove the conflict's dependencies as well */
-                            slapt_vector_t *conflict_deps = slapt_is_required_by(global_config,
-                                                                                   avail_pkgs, installed_pkgs,
-                                                                                   tran->install_pkgs, tran->remove_pkgs,
-                                                                                   conflict);
+                            slapt_vector_t *conflict_deps = slapt_is_required_by(global_config, avail_pkgs, installed_pkgs, tran->install_pkgs, tran->remove_pkgs, conflict);
                             slapt_vector_t_foreach (slapt_pkg_info_t *, conflict_dep, conflict_deps) {
                                 if (slapt_get_exact_pkg(installed_pkgs, conflict_dep->name, conflict_dep->version) != NULL) {
                                     slapt_add_remove_to_transaction(tran, conflict_dep);
@@ -147,8 +134,7 @@ void slapt_pkg_action_install(const slapt_rc_config *global_config,
                     slapt_vector_t_free(conflicts);
 
                 } else {
-                    printf(gettext("Excluding %s, use --ignore-dep to override\n"),
-                           pkg->name);
+                    printf(gettext("Excluding %s, use --ignore-dep to override\n"), pkg->name);
                     slapt_add_exclude_to_transaction(tran, pkg);
                 }
 
@@ -186,8 +172,7 @@ void slapt_pkg_action_list(const int show)
             char *short_description = slapt_gen_short_pkg_description(pkg);
 
             /* is it installed? */
-            if (slapt_get_exact_pkg(installed_pkgs, pkg->name,
-                                    pkg->version) != NULL)
+            if (slapt_get_exact_pkg(installed_pkgs, pkg->name, pkg->version) != NULL)
                 installed = true;
 
             printf("%s-%s [inst=%s]: %s\n",
@@ -226,8 +211,7 @@ void slapt_pkg_action_list(const int show)
 }
 
 /* remove/uninstall pkg */
-void slapt_pkg_action_remove(const slapt_rc_config *global_config,
-                             const slapt_vector_t *action_args)
+void slapt_pkg_action_remove(const slapt_rc_config *global_config, const slapt_vector_t *action_args)
 {
     slapt_vector_t *installed_pkgs = NULL;
     slapt_vector_t *avail_pkgs = NULL;
@@ -274,10 +258,7 @@ void slapt_pkg_action_remove(const slapt_rc_config *global_config,
             }
         }
 
-        deps = slapt_is_required_by(global_config,
-                                    avail_pkgs, installed_pkgs,
-                                    tran->install_pkgs, tran->remove_pkgs,
-                                    pkg);
+        deps = slapt_is_required_by(global_config, avail_pkgs, installed_pkgs, tran->install_pkgs, tran->remove_pkgs, pkg);
 
         slapt_vector_t_foreach (slapt_pkg_info_t *, dep, deps) {
             if (slapt_get_exact_pkg(installed_pkgs, dep->name, dep->version) != NULL) {
@@ -441,10 +422,7 @@ void slapt_pkg_action_show(const char *pkg_name)
             free(changelog);
         }
 
-        printf(gettext("Package Installed: %s\n"),
-               installed
-                   ? gettext("yes")
-                   : gettext("no"));
+        printf(gettext("Package Installed: %s\n"), installed ? gettext("yes") : gettext("no"));
 
         free(description);
     } else {
@@ -481,8 +459,7 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
         char *essential[] = {"aaa_base", "pkgtools", "glibc-solibs", "glibc", "aaa_elflibs", "xz", "sed", "tar", "gzip", NULL};
         int epi = 0;
         slapt_pkg_info_t *newest_slaptget = NULL;
-        slapt_vector_t *matches =
-            slapt_search_pkg_list(avail_pkgs, SLAPT_SLACK_BASE_SET_REGEX);
+        slapt_vector_t *matches = slapt_search_pkg_list(avail_pkgs, SLAPT_SLACK_BASE_SET_REGEX);
 
         /* make sure the essential packages are installed/upgraded first */
         while (essential[epi] != NULL) {
@@ -513,10 +490,7 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
 
             installed_pkg = slapt_get_newest_pkg(installed_pkgs, pkg->name);
             newer_avail_pkg = slapt_get_newest_pkg(avail_pkgs, pkg->name);
-            /*
-             * if there is a newer available version (such as from patches/)
-             * use it instead
-            */
+            /* if there is a newer available version (such as from patches/) use it instead */
             if (slapt_cmp_pkgs(pkg, newer_avail_pkg) < 0) {
                 slapt_upgrade_pkg = newer_avail_pkg;
             } else {
@@ -536,8 +510,7 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
                         slapt_add_install_to_transaction(tran, slapt_upgrade_pkg);
                     } else {
                         /* otherwise exclude */
-                        printf(gettext("Excluding %s, use --ignore-dep to override\n"),
-                               slapt_upgrade_pkg->name);
+                        printf(gettext("Excluding %s, use --ignore-dep to override\n"), slapt_upgrade_pkg->name);
                         slapt_add_exclude_to_transaction(tran, slapt_upgrade_pkg);
                     }
 
@@ -546,26 +519,18 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
                 /* even if it's installed, check to see that the packages are different */
                 /* simply running a version comparison won't do it since sometimes the */
                 /* arch is the only thing that changes */
-            } else if (
-                (slapt_cmp_pkgs(installed_pkg, slapt_upgrade_pkg) <= 0) &&
-                strcmp(installed_pkg->version, slapt_upgrade_pkg->version) != 0) {
+            } else if ((slapt_cmp_pkgs(installed_pkg, slapt_upgrade_pkg) <= 0) && strcmp(installed_pkg->version, slapt_upgrade_pkg->version) != 0) {
                 if (slapt_is_excluded(global_config, installed_pkg) || slapt_is_excluded(global_config, slapt_upgrade_pkg)) {
                     slapt_add_exclude_to_transaction(tran, slapt_upgrade_pkg);
                 } else {
-                    slapt_vector_t *conflicts = slapt_is_conflicted(tran, avail_pkgs, installed_pkgs,
-                                                                      slapt_upgrade_pkg);
+                    slapt_vector_t *conflicts = slapt_is_conflicted(tran, avail_pkgs, installed_pkgs, slapt_upgrade_pkg);
 
                     /* if all deps are added and there is no conflicts, add on */
-                    if (
-                        (slapt_add_deps_to_trans(global_config, tran, avail_pkgs,
-                                                 installed_pkgs, slapt_upgrade_pkg) == 0) &&
-                        (!conflicts->size && !global_config->ignore_dep)) {
-                        slapt_add_upgrade_to_transaction(tran, installed_pkg,
-                                                         slapt_upgrade_pkg);
+                    if ((slapt_add_deps_to_trans(global_config, tran, avail_pkgs, installed_pkgs, slapt_upgrade_pkg) == 0) && (!conflicts->size && !global_config->ignore_dep)) {
+                        slapt_add_upgrade_to_transaction(tran, installed_pkg, slapt_upgrade_pkg);
                     } else {
                         /* otherwise exclude */
-                        printf(gettext("Excluding %s, use --ignore-dep to override\n"),
-                               slapt_upgrade_pkg->name);
+                        printf(gettext("Excluding %s, use --ignore-dep to override\n"), slapt_upgrade_pkg->name);
                         slapt_add_exclude_to_transaction(tran, slapt_upgrade_pkg);
                     }
 
@@ -606,12 +571,8 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
         slapt_pkg_info_t *update_pkg = NULL;
         slapt_pkg_info_t *newer_installed_pkg = NULL;
 
-        /*
-          we need to see if there is another installed
-          package that is newer than this one
-        */
-        if ((newer_installed_pkg =
-                 slapt_get_newest_pkg(installed_pkgs, installed_pkg->name)) != NULL) {
+        /* we need to see if there is another installed package that is newer than this one */
+        if ((newer_installed_pkg = slapt_get_newest_pkg(installed_pkgs, installed_pkg->name)) != NULL) {
             if (slapt_cmp_pkgs(installed_pkg, newer_installed_pkg) < 0) {
                 continue;
             }
@@ -627,25 +588,15 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
             if (
                 /* either it's greater, or we want to reinstall */
                 cmp_r < 0 || (global_config->re_install) ||
-                /*
-                * or this is a dist upgrade and the versions are the save
-                * except for the arch
-                */
-                (
-                    global_config->dist_upgrade &&
-                    cmp_r == 0 &&
-                    cmp_pkg_arch(installed_pkg->version,
-                                 update_pkg->version) != 0)) {
+                /* or this is a dist upgrade and the versions are the save except for the arch */
+                (global_config->dist_upgrade && cmp_r == 0 && cmp_pkg_arch(installed_pkg->version, update_pkg->version) != 0)) {
                 if ((slapt_is_excluded(global_config, update_pkg)) || (slapt_is_excluded(global_config, installed_pkg))) {
                     slapt_add_exclude_to_transaction(tran, update_pkg);
                 } else {
                     slapt_vector_t *conflicts = slapt_is_conflicted(tran, avail_pkgs, installed_pkgs, update_pkg);
 
                     /* if all deps are added and there is no conflicts, add on */
-                    if (
-                        (slapt_add_deps_to_trans(global_config, tran, avail_pkgs,
-                                                 installed_pkgs, update_pkg) == 0) &&
-                        (global_config->ignore_dep || !conflicts->size)) {
+                    if ((slapt_add_deps_to_trans(global_config, tran, avail_pkgs, installed_pkgs, update_pkg) == 0) && (global_config->ignore_dep || !conflicts->size)) {
                         if (cmp_r == 0)
                             slapt_add_reinstall_to_transaction(tran, installed_pkg, update_pkg);
                         else
@@ -653,8 +604,7 @@ void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config)
 
                     } else {
                         /* otherwise exclude */
-                        printf(gettext("Excluding %s, use --ignore-dep to override\n"),
-                               update_pkg->name);
+                        printf(gettext("Excluding %s, use --ignore-dep to override\n"), update_pkg->name);
                         slapt_add_exclude_to_transaction(tran, update_pkg);
                     }
 

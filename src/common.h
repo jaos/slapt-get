@@ -67,10 +67,9 @@ typedef struct {
     int reg_return;
 } slapt_regex_t;
 
-
 typedef int (*slapt_vector_t_cmp)(const void *, const void *);
 typedef int (*slapt_vector_t_qsort_cmp)(const void *, const void *);
-typedef void (*slapt_vector_t_free_function)(void*);
+typedef void (*slapt_vector_t_free_function)(void *);
 typedef struct slapt_vector_t {
     uint32_t size;
     uint32_t capacity;
@@ -85,8 +84,9 @@ void slapt_vector_t_remove(slapt_vector_t *v, void *);
 void slapt_vector_t_sort(slapt_vector_t *, slapt_vector_t_qsort_cmp);
 int slapt_vector_t_index_of(slapt_vector_t *, slapt_vector_t_cmp, void *);
 slapt_vector_t *slapt_vector_t_search(slapt_vector_t *, slapt_vector_t_cmp, void *);
-#define slapt_vector_t_foreach(type, item, list) type item; for (uint32_t item##_counter = 0; (item##_counter < list->size) && (item = list->items[item##_counter]); item##_counter++)
-
+#define slapt_vector_t_foreach(type, item, list) \
+    type item;                                   \
+    for (uint32_t item##_counter = 0; (item##_counter < list->size) && (item = list->items[item##_counter]); item##_counter++)
 
 FILE *slapt_open_file(const char *file_name, const char *mode);
 slapt_regex_t *slapt_init_regex(const char *regex_string);
@@ -102,8 +102,7 @@ void slapt_gen_md5_sum_of_file(FILE *f, char *result_sum);
  * return 1 on yes, 0 on no, else -1.
  */
 int slapt_ask_yes_no(const char *format, ...);
-char *slapt_str_replace_chr(const char *string, const char find,
-                            const char replace);
+char *slapt_str_replace_chr(const char *string, const char find, const char replace);
 void *slapt_malloc(size_t s);
 void *slapt_calloc(size_t n, size_t s);
 

@@ -102,10 +102,7 @@ slapt_rc_config *slapt_read_rc_config(const char *file_name)
             /* WORKING DIR */
 
             if (strlen(token_ptr) > strlen(SLAPT_WORKINGDIR_TOKEN)) {
-                strncpy(
-                    global_config->working_dir,
-                    token_ptr + strlen(SLAPT_WORKINGDIR_TOKEN),
-                    (strlen(token_ptr) - strlen(SLAPT_WORKINGDIR_TOKEN)));
+                strncpy(global_config->working_dir, token_ptr + strlen(SLAPT_WORKINGDIR_TOKEN), (strlen(token_ptr) - strlen(SLAPT_WORKINGDIR_TOKEN)));
                 global_config->working_dir[(strlen(token_ptr) - strlen(SLAPT_WORKINGDIR_TOKEN))] = '\0';
             }
 
@@ -122,8 +119,7 @@ slapt_rc_config *slapt_read_rc_config(const char *file_name)
         free(getline_buffer);
 
     if (strcmp(global_config->working_dir, "") == 0) {
-        fprintf(stderr, gettext("WORKINGDIR directive not set within %s.\n"),
-                file_name);
+        fprintf(stderr, gettext("WORKINGDIR directive not set within %s.\n"), file_name);
         return NULL;
     }
     if (!global_config->sources->size) {
@@ -149,8 +145,7 @@ void slapt_working_dir_init(const slapt_rc_config *global_config)
             r = chdir(cwd);
             free(cwd);
         } else {
-            printf(gettext("Failed to build working directory [%s]\n"),
-                   global_config->working_dir);
+            printf(gettext("Failed to build working directory [%s]\n"), global_config->working_dir);
             exit(EXIT_FAILURE);
         }
     }
@@ -165,9 +160,7 @@ void slapt_working_dir_init(const slapt_rc_config *global_config)
         if (errno)
             perror(global_config->working_dir);
 
-        fprintf(stderr,
-                gettext("Please update permissions on %s or run with appropriate privileges\n"),
-                global_config->working_dir);
+        fprintf(stderr, gettext("Please update permissions on %s or run with appropriate privileges\n"), global_config->working_dir);
         exit(EXIT_FAILURE);
     }
 
@@ -191,10 +184,7 @@ static slapt_vector_t *parse_exclude(char *line)
 
 bool slapt_is_interactive(const slapt_rc_config *global_config)
 {
-    bool interactive = global_config->progress_cb == NULL
-                           ? true
-                           : false;
-
+    bool interactive = global_config->progress_cb == NULL ? true : false;
     return interactive;
 }
 
@@ -273,10 +263,7 @@ slapt_source_t *slapt_init_source(const char *s)
         src->url = slapt_malloc(sizeof *src->url * (source_len + 2));
         src->url[0] = '\0';
 
-        src->url = strncat(
-            src->url,
-            source_string,
-            source_len);
+        src->url = strncat(src->url, source_string, source_len);
 
         if (isblank(src->url[source_len - 1]) == 0) {
             src->url = strcat(src->url, "/");

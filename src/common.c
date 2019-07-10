@@ -46,16 +46,14 @@ slapt_regex_t *slapt_init_regex(const char *regex_string)
     r->reg_return = -1;
 
     /* compile our regex */
-    r->reg_return = regcomp(&r->regex, regex_string,
-                            REG_EXTENDED | REG_NEWLINE | REG_ICASE);
+    r->reg_return = regcomp(&r->regex, regex_string, REG_EXTENDED | REG_NEWLINE | REG_ICASE);
     if (r->reg_return != 0) {
         size_t regerror_size;
         char errbuf[1024];
         size_t errbuf_size = 1024;
         fprintf(stderr, gettext("Failed to compile regex\n"));
 
-        if ((regerror_size = regerror(r->reg_return,
-                                      &r->regex, errbuf, errbuf_size)) != 0) {
+        if ((regerror_size = regerror(r->reg_return, &r->regex, errbuf, errbuf_size)) != 0) {
             printf(gettext("Regex Error: %s\n"), errbuf);
         }
         free(r);
@@ -65,14 +63,10 @@ slapt_regex_t *slapt_init_regex(const char *regex_string)
     return r;
 }
 
-/*
-  execute the regular expression and set the return code
-  in the passed in structure
- */
+/* execute the regular expression and set the return code in the passed in structure */
 void slapt_execute_regex(slapt_regex_t *r, const char *string)
 {
-    r->reg_return = regexec(&r->regex, string,
-                            r->nmatch, r->pmatch, 0);
+    r->reg_return = regexec(&r->regex, string, r->nmatch, r->pmatch, 0);
 }
 
 char *slapt_regex_extract_match(const slapt_regex_t *r, const char *src, const int i)
@@ -166,9 +160,7 @@ void slapt_create_dir_structure(const char *dir_name)
 
         /* if no more directory delim, then this must be last dir */
         if (strstr(dir_name + position, "/") == NULL) {
-            dir_name_buffer = strndup(
-                dir_name + position,
-                strlen(dir_name + position));
+            dir_name_buffer = strndup(dir_name + position, strlen(dir_name + position));
 
             if (strcmp(dir_name_buffer, ".") != 0) {
                 if ((mkdir(dir_name_buffer, 0755)) == -1) {
@@ -192,9 +184,7 @@ void slapt_create_dir_structure(const char *dir_name)
             } else {
                 /* figure our dir name and mk it */
                 pointer = strchr(dir_name + position, '/');
-                dir_name_buffer = strndup(
-                    dir_name + position,
-                    strlen(dir_name + position) - strlen(pointer));
+                dir_name_buffer = strndup(dir_name + position, strlen(dir_name + position) - strlen(pointer));
 
                 if (strcmp(dir_name_buffer, ".") != 0) {
                     if ((mkdir(dir_name_buffer, 0755)) == -1) {
@@ -236,9 +226,7 @@ int slapt_ask_yes_no(const char *format, ...)
         if (answer == '\n')
             break;
 
-        if (((tolower(answer) == 'y') ||
-             (tolower(answer) == 'n')) &&
-            parsed_answer == 0)
+        if (((tolower(answer) == 'y') || (tolower(answer) == 'n')) && parsed_answer == 0)
             parsed_answer = tolower(answer);
     }
 
@@ -251,8 +239,7 @@ int slapt_ask_yes_no(const char *format, ...)
     return -1;
 }
 
-char *slapt_str_replace_chr(const char *string, const char find,
-                            const char replace)
+char *slapt_str_replace_chr(const char *string, const char find, const char replace)
 {
     uint32_t len = 0;
     char *clean = slapt_calloc(strlen(string) + 1, sizeof *clean);
@@ -440,8 +427,8 @@ char *slapt_strip_whitespace(const char *s)
     return strndup(s, len);
 }
 
-
-slapt_vector_t *slapt_vector_t_init(slapt_vector_t_free_function f) {
+slapt_vector_t *slapt_vector_t_init(slapt_vector_t_free_function f)
+{
     slapt_vector_t *v = NULL;
     v = slapt_malloc(sizeof *v);
     v->size = 0;
@@ -452,9 +439,10 @@ slapt_vector_t *slapt_vector_t_init(slapt_vector_t_free_function f) {
     return v;
 }
 
-void slapt_vector_t_free(slapt_vector_t *v) {
+void slapt_vector_t_free(slapt_vector_t *v)
+{
     if (v->free_function) {
-        for (uint32_t i = 0; i < v->size; i++ ) {
+        for (uint32_t i = 0; i < v->size; i++) {
             v->free_function(v->items[i]);
         }
     }
@@ -462,9 +450,10 @@ void slapt_vector_t_free(slapt_vector_t *v) {
     free(v);
 }
 
-void slapt_vector_t_add(slapt_vector_t *v, void *a) {
+void slapt_vector_t_add(slapt_vector_t *v, void *a)
+{
     if (v->capacity == v->size) {
-        uint32_t new_capacity = (v->capacity+1) * 2;
+        uint32_t new_capacity = (v->capacity + 1) * 2;
         v->items = realloc(v->items, sizeof *v->items * new_capacity);
         if (v->items == NULL) {
             exit(EXIT_FAILURE);
@@ -475,7 +464,8 @@ void slapt_vector_t_add(slapt_vector_t *v, void *a) {
     v->sorted = false;
 }
 
-void slapt_vector_t_remove(slapt_vector_t *v, void *j) {
+void slapt_vector_t_remove(slapt_vector_t *v, void *j)
+{
     bool found = false;
     for (uint32_t i = 0; i < v->size; i++) {
         if (j == v->items[i]) {
@@ -484,7 +474,7 @@ void slapt_vector_t_remove(slapt_vector_t *v, void *j) {
             }
             found = true;
         }
-        if (found && ((i+1) < v->size)) {
+        if (found && ((i + 1) < v->size)) {
             v->items[i] = v->items[i + 1];
         }
     }
@@ -493,14 +483,16 @@ void slapt_vector_t_remove(slapt_vector_t *v, void *j) {
     }
 }
 
-void slapt_vector_t_sort(slapt_vector_t *v, slapt_vector_t_qsort_cmp cmp) {
+void slapt_vector_t_sort(slapt_vector_t *v, slapt_vector_t_qsort_cmp cmp)
+{
     if (v->size > 0) {
         qsort(v->items, v->size, sizeof(v->items[0]), cmp);
         v->sorted = true;
     }
 }
 
-int slapt_vector_t_index_of(slapt_vector_t *v, slapt_vector_t_cmp cmp, void *opt) {
+int slapt_vector_t_index_of(slapt_vector_t *v, slapt_vector_t_cmp cmp, void *opt)
+{
     if (v->sorted) {
         int min = 0, max = v->size - 1;
 
@@ -526,7 +518,8 @@ int slapt_vector_t_index_of(slapt_vector_t *v, slapt_vector_t_cmp cmp, void *opt
     return -1;
 }
 
-slapt_vector_t *slapt_vector_t_search(slapt_vector_t *v, slapt_vector_t_cmp cmp, void *opt) {
+slapt_vector_t *slapt_vector_t_search(slapt_vector_t *v, slapt_vector_t_cmp cmp, void *opt)
+{
     slapt_vector_t *matches = slapt_vector_t_init(NULL);
 
     if (v->sorted) {

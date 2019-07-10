@@ -16,11 +16,9 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-void slapt_pkg_action_install(const slapt_rc_config *global_config,
-                              const slapt_vector_t *action_args);
+void slapt_pkg_action_install(const slapt_rc_config *global_config, const slapt_vector_t *action_args);
 void slapt_pkg_action_list(const int show);
-void slapt_pkg_action_remove(const slapt_rc_config *global_config,
-                             const slapt_vector_t *action_args);
+void slapt_pkg_action_remove(const slapt_rc_config *global_config, const slapt_vector_t *action_args);
 void slapt_pkg_action_search(const char *pattern);
 void slapt_pkg_action_show(const char *pkg_name);
 void slapt_pkg_action_upgrade_all(const slapt_rc_config *global_config);

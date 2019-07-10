@@ -17,16 +17,14 @@
  */
 
 #include "main.h"
-static size_t write_header_callback(void *buffer,
-                                    size_t size, size_t nmemb, void *userp);
+static size_t write_header_callback(void *buffer, size_t size, size_t nmemb, void *userp);
 
 struct head_data_t {
     char *data;
     size_t size;
 };
 
-int slapt_download_data(FILE *fh, const char *url, size_t bytes, long *filetime,
-                        const slapt_rc_config *global_config)
+int slapt_download_data(FILE *fh, const char *url, size_t bytes, long *filetime, const slapt_rc_config *global_config)
 {
     CURL *ch = NULL;
     CURLcode response;
@@ -65,8 +63,7 @@ int slapt_download_data(FILE *fh, const char *url, size_t bytes, long *filetime,
         if (global_config->progress_cb == NULL) {
             curl_easy_setopt(ch, CURLOPT_PROGRESSFUNCTION, slapt_progress_callback);
         } else {
-            curl_easy_setopt(ch, CURLOPT_PROGRESSFUNCTION,
-                             global_config->progress_cb);
+            curl_easy_setopt(ch, CURLOPT_PROGRESSFUNCTION, global_config->progress_cb);
         }
         curl_easy_setopt(ch, CURLOPT_PROGRESSDATA, cb_data);
     }
@@ -85,11 +82,7 @@ int slapt_download_data(FILE *fh, const char *url, size_t bytes, long *filetime,
     if (filetime != NULL)
         curl_easy_getinfo(ch, CURLINFO_FILETIME, filetime);
 
-    /*
-    need to use curl_easy_cleanup() so that we don't
-    have tons of open connections, getting rejected
-    by ftp servers for being naughty.
-    */
+    /* need to use curl_easy_cleanup() so that we don't have tons of open connections, getting rejected by ftp servers for being naughty. */
     curl_easy_cleanup(ch);
     /* can't do a curl_free() after curl_easy_cleanup() */
     /* curl_free(ch); */
@@ -99,8 +92,7 @@ int slapt_download_data(FILE *fh, const char *url, size_t bytes, long *filetime,
     return return_code;
 }
 
-static size_t write_header_callback(void *buffer, size_t size,
-                                    size_t nmemb, void *userp)
+static size_t write_header_callback(void *buffer, size_t size, size_t nmemb, void *userp)
 {
     char *tmp;
     register int a_size = size * nmemb;
@@ -164,10 +156,7 @@ char *slapt_head_request(const char *url)
     return head_t.data;
 }
 
-const char *slapt_get_mirror_data_from_source(FILE *fh,
-                                              const slapt_rc_config *global_config,
-                                              const char *base_url,
-                                              const char *filename)
+const char *slapt_get_mirror_data_from_source(FILE *fh, const slapt_rc_config *global_config, const char *base_url, const char *filename)
 {
     int return_code = 0;
     char *url = NULL;
@@ -184,13 +173,10 @@ const char *slapt_get_mirror_data_from_source(FILE *fh,
     /* make sure we are back at the front of the file */
     /* DISABLED */
     /* rewind(fh); */
-    return return_code != 0
-               ? curl_easy_strerror(return_code)
-               : NULL;
+    return return_code != 0 ? curl_easy_strerror(return_code) : NULL;
 }
 
-const char *slapt_download_pkg(const slapt_rc_config *global_config,
-                               slapt_pkg_info_t *pkg, const char *note)
+const char *slapt_download_pkg(const slapt_rc_config *global_config, slapt_pkg_info_t *pkg, const char *note)
 {
     FILE *fh = NULL;
     char *file_name = NULL;
@@ -336,8 +322,7 @@ const char *slapt_download_pkg(const slapt_rc_config *global_config,
     }
 }
 
-int slapt_progress_callback(void *clientp, double dltotal, double dlnow,
-                            double ultotal, double ulnow)
+int slapt_progress_callback(void *clientp, double dltotal, double dlnow, double ultotal, double ulnow)
 {
     size_t percent = 0;
     struct slapt_progress_data *cb_data = (struct slapt_progress_data *)clientp;

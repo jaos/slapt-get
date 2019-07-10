@@ -45,10 +45,11 @@ slapt_transaction_t *slapt_init_transaction(void)
     return tran;
 }
 
-slapt_queue_i *slapt_queue_i_init(slapt_pkg_info_t *i, slapt_pkg_upgrade_t *u) {
+slapt_queue_i *slapt_queue_i_init(slapt_pkg_info_t *i, slapt_pkg_upgrade_t *u)
+{
     slapt_queue_i *qi = NULL;
     qi = slapt_malloc(sizeof *qi);
-    if ((i && u ) || (!i && !u)){
+    if ((i && u) || (!i && !u)) {
         exit(EXIT_FAILURE);
     }
     if (i) {
@@ -61,12 +62,12 @@ slapt_queue_i *slapt_queue_i_init(slapt_pkg_info_t *i, slapt_pkg_upgrade_t *u) {
     return qi;
 }
 
-void slapt_queue_i_free(slapt_queue_i *qi) {
+void slapt_queue_i_free(slapt_queue_i *qi)
+{
     free(qi);
 }
 
-int slapt_handle_transaction(const slapt_rc_config *global_config,
-                             slapt_transaction_t *tran)
+int slapt_handle_transaction(const slapt_rc_config *global_config, slapt_transaction_t *tran)
 {
     uint32_t pkg_dl_count = 0, dl_counter = 0, len = 0;
     double download_size = 0;
@@ -85,8 +86,7 @@ int slapt_handle_transaction(const slapt_rc_config *global_config,
     /* show conflicts */
     if (tran->conflict_err->size > 0) {
         slapt_vector_t_foreach (slapt_pkg_err_t *, conflict_error, tran->conflict_err) {
-            fprintf(stderr, gettext("%s, which is required by %s, is excluded\n"),
-                    conflict_error->error, conflict_error->pkg);
+            fprintf(stderr, gettext("%s, which is required by %s, is excluded\n"), conflict_error->error, conflict_error->pkg);
         }
     }
 
@@ -270,9 +270,7 @@ int slapt_handle_transaction(const slapt_rc_config *global_config,
 
         /* check we have enough space to download to our working dir */
         if (!slapt_disk_space_check(global_config->working_dir, need_to_download_size)) {
-            printf(
-                gettext("You don't have enough free space in %s\n"),
-                global_config->working_dir);
+            printf(gettext("You don't have enough free space in %s\n"), global_config->working_dir);
             exit(EXIT_FAILURE);
         }
         /* check that we have enough space in the root filesystem */
@@ -284,8 +282,7 @@ int slapt_handle_transaction(const slapt_rc_config *global_config,
         }
     }
 
-    if (tran->upgrade_pkgs->size > 0 || tran->remove_pkgs->size > 0 ||
-        tran->install_pkgs->size > 0 || tran->reinstall_pkgs->size > 0) {
+    if (tran->upgrade_pkgs->size > 0 || tran->remove_pkgs->size > 0 || tran->install_pkgs->size > 0 || tran->reinstall_pkgs->size > 0) {
         if (global_config->download_only == false) {
             if ((int)uncompressed_size < 0) {
                 uncompressed_size *= -1;
@@ -443,11 +440,8 @@ int slapt_handle_transaction(const slapt_rc_config *global_config,
 
         slapt_vector_t_foreach (slapt_queue_i *, q, tran->queue) {
             if (q->type == INSTALL) {
-                printf(gettext("Preparing to install %s-%s\n"),
-                       q->pkg.i->name,
-                       q->pkg.i->version);
-                if (slapt_install_pkg(global_config,
-                                      q->pkg.i) == -1) {
+                printf(gettext("Preparing to install %s-%s\n"), q->pkg.i->name, q->pkg.i->version);
+                if (slapt_install_pkg(global_config, q->pkg.i) == -1) {
                     exit(EXIT_FAILURE);
                 }
             } else if (q->type == UPGRADE) {
@@ -456,8 +450,7 @@ int slapt_handle_transaction(const slapt_rc_config *global_config,
                        q->pkg.u->installed->version,
                        q->pkg.u->upgrade->name,
                        q->pkg.u->upgrade->version);
-                if (slapt_upgrade_pkg(global_config,
-                                      q->pkg.u->upgrade) == -1) {
+                if (slapt_upgrade_pkg(global_config, q->pkg.u->upgrade) == -1) {
                     exit(EXIT_FAILURE);
                 }
             }
@@ -469,8 +462,7 @@ int slapt_handle_transaction(const slapt_rc_config *global_config,
     return 0;
 }
 
-void slapt_add_install_to_transaction(slapt_transaction_t *tran,
-                                      slapt_pkg_info_t *pkg)
+void slapt_add_install_to_transaction(slapt_transaction_t *tran, slapt_pkg_info_t *pkg)
 {
     /* don't add if already present in the transaction */
     if (slapt_search_transaction_by_pkg(tran, pkg))
@@ -481,8 +473,7 @@ void slapt_add_install_to_transaction(slapt_transaction_t *tran,
     slapt_vector_t_add(tran->queue, slapt_queue_i_init(tran->install_pkgs->items[tran->install_pkgs->size - 1], NULL));
 }
 
-void slapt_add_remove_to_transaction(slapt_transaction_t *tran,
-                                     slapt_pkg_info_t *pkg)
+void slapt_add_remove_to_transaction(slapt_transaction_t *tran, slapt_pkg_info_t *pkg)
 {
     /* don't add if already present in the transaction */
     if (slapt_search_transaction_by_pkg(tran, pkg))
@@ -492,8 +483,7 @@ void slapt_add_remove_to_transaction(slapt_transaction_t *tran,
     slapt_vector_t_add(tran->remove_pkgs, r);
 }
 
-void slapt_add_exclude_to_transaction(slapt_transaction_t *tran,
-                                      slapt_pkg_info_t *pkg)
+void slapt_add_exclude_to_transaction(slapt_transaction_t *tran, slapt_pkg_info_t *pkg)
 {
     /* don't add if already present in the transaction */
     if (slapt_search_transaction_by_pkg(tran, pkg))
@@ -503,9 +493,7 @@ void slapt_add_exclude_to_transaction(slapt_transaction_t *tran,
     slapt_vector_t_add(tran->exclude_pkgs, e);
 }
 
-void slapt_add_reinstall_to_transaction(slapt_transaction_t *tran,
-                                        slapt_pkg_info_t *installed_pkg,
-                                        slapt_pkg_info_t *slapt_upgrade_pkg)
+void slapt_add_reinstall_to_transaction(slapt_transaction_t *tran, slapt_pkg_info_t *installed_pkg, slapt_pkg_info_t *slapt_upgrade_pkg)
 {
     /* don't add if already present in the transaction */
     if (slapt_search_transaction_by_pkg(tran, slapt_upgrade_pkg))
@@ -515,12 +503,10 @@ void slapt_add_reinstall_to_transaction(slapt_transaction_t *tran,
     slapt_pkg_info_t *u = slapt_copy_pkg(NULL, slapt_upgrade_pkg);
 
     slapt_vector_t_add(tran->reinstall_pkgs, slapt_pkg_upgrade_t_init(i, u));
-    slapt_vector_t_add(tran->queue, slapt_queue_i_init(NULL, tran->reinstall_pkgs->items[tran->reinstall_pkgs->size -1]));
+    slapt_vector_t_add(tran->queue, slapt_queue_i_init(NULL, tran->reinstall_pkgs->items[tran->reinstall_pkgs->size - 1]));
 }
 
-void slapt_add_upgrade_to_transaction(slapt_transaction_t *tran,
-                                      slapt_pkg_info_t *installed_pkg,
-                                      slapt_pkg_info_t *slapt_upgrade_pkg)
+void slapt_add_upgrade_to_transaction(slapt_transaction_t *tran, slapt_pkg_info_t *installed_pkg, slapt_pkg_info_t *slapt_upgrade_pkg)
 {
     /* don't add if already present in the transaction */
     if (slapt_search_transaction_by_pkg(tran, slapt_upgrade_pkg))
@@ -563,8 +549,7 @@ bool slapt_search_transaction(slapt_transaction_t *tran, char *pkg_name)
     return false;
 }
 
-bool slapt_search_upgrade_transaction(slapt_transaction_t *tran,
-                                      slapt_pkg_info_t *pkg)
+bool slapt_search_upgrade_transaction(slapt_transaction_t *tran, slapt_pkg_info_t *pkg)
 {
     slapt_vector_t_foreach (slapt_pkg_upgrade_t *, upgrade, tran->upgrade_pkgs) {
         if (strcmp(pkg->name, upgrade->upgrade->name) == 0)
@@ -589,8 +574,7 @@ void slapt_free_transaction(slapt_transaction_t *tran)
     free(tran);
 }
 
-slapt_transaction_t *slapt_remove_from_transaction(slapt_transaction_t *tran,
-                                                   slapt_pkg_info_t *pkg)
+slapt_transaction_t *slapt_remove_from_transaction(slapt_transaction_t *tran, slapt_pkg_info_t *pkg)
 {
     slapt_transaction_t *new_tran = NULL;
 
@@ -606,8 +590,7 @@ slapt_transaction_t *slapt_remove_from_transaction(slapt_transaction_t *tran,
     new_tran = slapt_init_transaction();
 
     slapt_vector_t_foreach (slapt_pkg_info_t *, installed_pkg, tran->install_pkgs) {
-        if (
-            strcmp(pkg->name, installed_pkg->name) == 0 &&
+        if (strcmp(pkg->name, installed_pkg->name) == 0 &&
             strcmp(pkg->version, installed_pkg->version) == 0 &&
             strcmp(pkg->location, installed_pkg->location) == 0) {
             continue;
@@ -617,8 +600,7 @@ slapt_transaction_t *slapt_remove_from_transaction(slapt_transaction_t *tran,
     }
 
     slapt_vector_t_foreach (slapt_pkg_info_t *, remove_pkg, tran->remove_pkgs) {
-        if (
-            strcmp(pkg->name, remove_pkg->name) == 0 &&
+        if (strcmp(pkg->name, remove_pkg->name) == 0 &&
             strcmp(pkg->version, remove_pkg->version) == 0 &&
             strcmp(pkg->location, remove_pkg->location) == 0) {
             continue;
@@ -631,8 +613,7 @@ slapt_transaction_t *slapt_remove_from_transaction(slapt_transaction_t *tran,
         slapt_pkg_info_t *u = upgrade->upgrade;
         slapt_pkg_info_t *p = upgrade->installed;
 
-        if (
-            strcmp(pkg->name, u->name) == 0 &&
+        if (strcmp(pkg->name, u->name) == 0 &&
             strcmp(pkg->version, u->version) == 0 &&
             strcmp(pkg->location, u->location) == 0) {
             continue;
@@ -642,8 +623,7 @@ slapt_transaction_t *slapt_remove_from_transaction(slapt_transaction_t *tran,
     }
 
     slapt_vector_t_foreach (slapt_pkg_info_t *, exclude_pkg, tran->exclude_pkgs) {
-        if (
-            strcmp(pkg->name, exclude_pkg->name) == 0 &&
+        if (strcmp(pkg->name, exclude_pkg->name) == 0 &&
             strcmp(pkg->version, exclude_pkg->version) == 0 &&
             strcmp(pkg->location, exclude_pkg->location) == 0) {
             continue;
@@ -673,14 +653,11 @@ int slapt_add_deps_to_trans(const slapt_rc_config *global_config,
 
     slapt_vector_t *deps = slapt_vector_t_init(NULL);
 
-    dep_return = slapt_get_pkg_dependencies(
-        global_config, avail_pkgs, installed_pkgs, pkg,
-        deps, tran->conflict_err, tran->missing_err);
+    dep_return = slapt_get_pkg_dependencies(global_config, avail_pkgs, installed_pkgs, pkg, deps, tran->conflict_err, tran->missing_err);
 
     /* check to see if there where issues with dep checking */
     /* exclude the package if dep check barfed */
-    if ((dep_return == -1) && (global_config->ignore_dep == false) &&
-        (slapt_get_exact_pkg(tran->exclude_pkgs, pkg->name, pkg->version) == NULL)) {
+    if ((dep_return == -1) && (global_config->ignore_dep == false) && (slapt_get_exact_pkg(tran->exclude_pkgs, pkg->name, pkg->version) == NULL)) {
         slapt_vector_t_free(deps);
         return -1;
     }
@@ -715,9 +692,9 @@ int slapt_add_deps_to_trans(const slapt_rc_config *global_config,
 
 /* make sure pkg isn't conflicted with what's already in the transaction */
 slapt_vector_t *slapt_is_conflicted(slapt_transaction_t *tran,
-                                      slapt_vector_t *avail_pkgs,
-                                      slapt_vector_t *installed_pkgs,
-                                      slapt_pkg_info_t *pkg)
+                                    slapt_vector_t *avail_pkgs,
+                                    slapt_vector_t *installed_pkgs,
+                                    slapt_pkg_info_t *pkg)
 {
     slapt_vector_t *conflicts = NULL;
     slapt_vector_t *conflicts_in_transaction = slapt_vector_t_init(NULL);
@@ -763,8 +740,7 @@ static void add_suggestion(slapt_transaction_t *tran, slapt_pkg_info_t *pkg)
     slapt_vector_t_free(suggests);
 }
 
-bool slapt_search_transaction_by_pkg(slapt_transaction_t *tran,
-                                     slapt_pkg_info_t *pkg)
+bool slapt_search_transaction_by_pkg(slapt_transaction_t *tran, slapt_pkg_info_t *pkg)
 {
     slapt_vector_t_foreach (slapt_pkg_info_t *, install_pkg, tran->install_pkgs) {
         if ((strcmp(pkg->name, install_pkg->name) == 0) && (strcmp(pkg->version, install_pkg->version) == 0))
