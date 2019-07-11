@@ -22,9 +22,9 @@ LDFLAGS+=$(CURLFLAGS) -lz -lm
 HAS_GPGME=$(shell gpgme-config --libs 2>&1 >/dev/null && echo 1)
 ifeq ($(HAS_GPGME),1)
 	DEFINES+=-DSLAPT_HAS_GPGME
-	OBJS+=src/gpgme.o
-	LIBOBJS+=src/gpgme.o
-	LIBHEADERS+=src/gpgme.h
+	OBJS+=src/slaptgpgme.o
+	LIBOBJS+=src/slaptgpgme.o
+	LIBHEADERS+=src/slaptgpgme.h
 	LDFLAGS+=`gpgme-config --libs`
 endif
 CFLAGS?=-W -Werror -Wall -Wextra -O2 -pedantic -Wshadow -Wstrict-overflow -fno-strict-aliasing -g

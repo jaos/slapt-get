@@ -50,7 +50,7 @@
 #include "transaction.h"
 #include "action.h"
 #ifdef SLAPT_HAS_GPGME
-#include "gpgme.h"
+#include "slaptgpgme.h"
 #endif
 
 enum slapt_action {
