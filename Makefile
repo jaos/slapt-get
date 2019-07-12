@@ -27,7 +27,7 @@ ifeq ($(HAS_GPGME),1)
 	LIBHEADERS+=src/gpgme.h
 	LDFLAGS+=`gpgme-config --libs`
 endif
-CFLAGS?=-W -Werror -Wall -Wextra -O2 -pedantic -Wshadow -Wstrict-overflow -fno-strict-aliasing
+CFLAGS?=-W -Werror -Wall -Wextra -O2 -pedantic -Wshadow -Wstrict-overflow -fno-strict-aliasing -g
 CFLAGS+=$(DEFINES) -fPIC
 
 default: $(PACKAGE)
