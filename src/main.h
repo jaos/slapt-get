@@ -46,7 +46,7 @@
 #include "common.h"
 #include "configuration.h"
 #include "package.h"
-#include "curl.h"
+#include "slaptcurl.h"
 #include "transaction.h"
 #include "action.h"
 #ifdef SLAPT_HAS_GPGME
