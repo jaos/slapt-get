@@ -2275,6 +2275,7 @@ slapt_vector_t *slapt_get_pkg_source_packages(const slapt_rc_config *global_conf
 
                 free(pkg_filename);
                 free(pkg_local_head);
+                free(pkg_head);
                 return NULL;
             }
 
@@ -2319,12 +2320,12 @@ slapt_vector_t *slapt_get_pkg_source_packages(const slapt_rc_config *global_conf
 
                     free(pkg_filename);
                     free(pkg_local_head);
+                    free(pkg_head);
                     return NULL;
                 }
 
                 /* commit the head data for later comparisons */
-                if (pkg_head != NULL)
-                    slapt_write_head_cache(pkg_head, pkg_filename);
+                slapt_write_head_cache(pkg_head, pkg_filename);
 
                 if (is_interactive)
                     printf(gettext("Done\n"));
@@ -2335,12 +2336,14 @@ slapt_vector_t *slapt_get_pkg_source_packages(const slapt_rc_config *global_conf
                 slapt_clear_head_cache(pkg_filename);
                 free(pkg_filename);
                 free(pkg_local_head);
+                free(pkg_head);
                 return NULL;
             }
         }
 
         free(pkg_filename);
         free(pkg_local_head);
+        free(pkg_head);
         *compressed = 1;
 
     } else { /* fall back to uncompressed package list */
@@ -2394,6 +2397,8 @@ slapt_vector_t *slapt_get_pkg_source_packages(const slapt_rc_config *global_conf
                     fclose(tmp_pkg_f);
                     free(pkg_filename);
                     free(pkg_local_head);
+                    if (pkg_head != NULL)
+                        free(pkg_head);
                     return NULL;
                 }
 
@@ -2410,6 +2415,8 @@ slapt_vector_t *slapt_get_pkg_source_packages(const slapt_rc_config *global_conf
                 free(pkg_filename);
                 free(pkg_local_head);
                 fclose(tmp_pkg_f);
+                if (pkg_head != NULL)
+                    free(pkg_head);
                 return NULL;
             }
 
@@ -2418,9 +2425,9 @@ slapt_vector_t *slapt_get_pkg_source_packages(const slapt_rc_config *global_conf
 
         free(pkg_filename);
         free(pkg_local_head);
+        if (pkg_head != NULL)
+            free(pkg_head);
     }
-    if (pkg_head != NULL)
-        free(pkg_head);
 
     return available_pkgs;
 }
@@ -2494,6 +2501,7 @@ slapt_vector_t *slapt_get_pkg_source_patches(const slapt_rc_config *global_confi
 
         free(patch_local_head);
         free(patch_filename);
+        free(patch_head);
         *compressed = 1;
 
     } else {
@@ -2553,12 +2561,12 @@ slapt_vector_t *slapt_get_pkg_source_patches(const slapt_rc_config *global_confi
 
             fclose(tmp_patch_f);
         }
+        if (patch_head != NULL)
+            free(patch_head);
 
         free(patch_local_head);
         free(patch_filename);
     }
-    if (patch_head != NULL)
-        free(patch_head);
 
     return patch_pkgs;
 }
@@ -2619,8 +2627,7 @@ FILE *slapt_get_pkg_source_checksums(const slapt_rc_config *global_config, const
                 free(filename);
                 free(local_head);
                 fclose(tmp_checksum_f);
-                if (checksum_head != NULL)
-                    free(checksum_head);
+                free(checksum_head);
                 return NULL;
             }
             /* make sure we are back at the front of the file */
@@ -2629,6 +2636,7 @@ FILE *slapt_get_pkg_source_checksums(const slapt_rc_config *global_config, const
 
         free(filename);
         free(local_head);
+        free(checksum_head);
         *compressed = 1;
 
     } else {
@@ -2685,9 +2693,9 @@ FILE *slapt_get_pkg_source_checksums(const slapt_rc_config *global_config, const
 
         free(filename);
         free(local_head);
+        if (checksum_head != NULL)
+            free(checksum_head);
     }
-    if (checksum_head != NULL)
-        free(checksum_head);
 
     return tmp_checksum_f;
 }
@@ -2762,16 +2770,13 @@ bool slapt_get_pkg_source_changelog(const slapt_rc_config *global_config, const 
             slapt_clear_head_cache(filename);
             free(filename);
             free(local_head);
-            if (changelog_head != NULL)
-                free(changelog_head);
+            free(changelog_head);
             return false;
         }
     }
     free(filename);
     free(local_head);
-
-    if (changelog_head != NULL)
-        free(changelog_head);
+    free(changelog_head);
 
     return true;
 }
@@ -2805,8 +2810,10 @@ char *slapt_get_pkg_changelog(const slapt_pkg_info_t *pkg)
     size_t pls = 1;
     int changelog_len = 0;
 
-    if ((working_changelog_f = fopen(filename, "rb")) == NULL)
+    if ((working_changelog_f = fopen(filename, "rb")) == NULL) {
+        free(filename);
         return NULL;
+    }
 
     /* used with mmap */
     if (stat(filename, &stat_buf) == -1) {

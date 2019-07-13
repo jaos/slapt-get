@@ -459,7 +459,7 @@ char *slapt_head_mirror_data(const char *wurl, const char *file)
 
 struct slapt_progress_data *slapt_init_progress_data(void)
 {
-    struct slapt_progress_data *d = malloc(sizeof *d);
+    struct slapt_progress_data *d = slapt_malloc(sizeof *d);
     d->bytes = 0;
     d->start = time(NULL);
     return d;

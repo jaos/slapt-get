@@ -82,7 +82,7 @@ FILE *slapt_get_pkg_source_checksums_signature(const slapt_rc_config *global_con
         return NULL;
     }
 
-    if (checksum_head != NULL && local_head != NULL && strcmp(checksum_head, local_head) == 0) {
+    if (local_head != NULL && strcmp(checksum_head, local_head) == 0) {
         if ((tmp_checksum_f = slapt_open_file(filename, "r")) == NULL)
             exit(EXIT_FAILURE);
 
@@ -109,23 +109,20 @@ FILE *slapt_get_pkg_source_checksums_signature(const slapt_rc_config *global_con
             fclose(tmp_checksum_f);
             free(filename);
             free(local_head);
-            if (checksum_head != NULL)
-                free(checksum_head);
+            free(checksum_head);
             return NULL;
         }
         /* make sure we are back at the front of the file */
         rewind(tmp_checksum_f);
 
         /* if all is good, write it */
-        if (checksum_head != NULL)
-            slapt_write_head_cache(checksum_head, filename);
+        slapt_write_head_cache(checksum_head, filename);
     }
 
     free(filename);
     free(local_head);
 
-    if (checksum_head != NULL)
-        free(checksum_head);
+    free(checksum_head);
 
     return tmp_checksum_f;
 }
@@ -151,7 +148,7 @@ FILE *slapt_get_pkg_source_gpg_key(const slapt_rc_config *global_config, const c
         return NULL;
     }
 
-    if (key_head != NULL && local_head != NULL && strcmp(key_head, local_head) == 0) {
+    if (local_head != NULL && strcmp(key_head, local_head) == 0) {
         if ((tmp_key_f = slapt_open_file(filename, "r")) == NULL)
             exit(EXIT_FAILURE);
 
@@ -175,23 +172,20 @@ FILE *slapt_get_pkg_source_gpg_key(const slapt_rc_config *global_config, const c
             fclose(tmp_key_f);
             free(filename);
             free(local_head);
-            if (key_head != NULL)
-                free(key_head);
+            free(key_head);
             return NULL;
         }
 
         rewind(tmp_key_f);
 
         /* if all is good, write it */
-        if (key_head != NULL)
-            slapt_write_head_cache(key_head, filename);
+        slapt_write_head_cache(key_head, filename);
     }
 
     free(filename);
     free(local_head);
 
-    if (key_head != NULL)
-        free(key_head);
+    free(key_head);
 
     return tmp_key_f;
 }

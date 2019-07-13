@@ -132,8 +132,6 @@ char *slapt_gen_short_pkg_description(slapt_pkg_info_t *);
 char *slapt_gen_filename_from_url(const char *url, const char *file);
 /* generate the package file name, caller responsible for freeing the returned data */
 char *slapt_gen_pkg_file_name(const slapt_rc_config *global_config, slapt_pkg_info_t *pkg);
-/* generate the head cache filename, caller responsible for freeing the returned data */
-char *slapt_gen_head_cache_filename(const char *filename_from_url);
 /* generate the download url for a package, caller responsible for freeing the returned data */
 char *slapt_gen_pkg_url(slapt_pkg_info_t *pkg);
 /* exclude pkg based on pkg name, returns 1 if package is present in the exclude list, 0 if not present */
