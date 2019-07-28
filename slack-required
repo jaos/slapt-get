@@ -1,15 +1,13 @@
-aaa_elflibs|curl
-aaa_elflibs|libidn2
-aaa_elflibs|libssh2
-aaa_elflibs|openldap-client
-aaa_elflibs|zlib
-cyrus-sasl
+curl
+libidn
+glibc-solibs | glibc
+openssl-solibs | openssl
+pkgtools
+zlib
 gnupg2
 gpgme
-libassuan
 libgpg-error
-libpsl
-libunistring
-nghttp2
-openssl|openssl-solibs
-pkgtools
+cyrus-sasl
+openldap-client
+libassuan
+libssh2
