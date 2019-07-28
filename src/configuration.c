@@ -20,9 +20,9 @@
 /* parse the exclude list */
 static slapt_vector_t *parse_exclude(char *line);
 
-slapt_rc_config *slapt_init_config(void)
+slapt_config_t *slapt_config_t_init(void)
 {
-    slapt_rc_config *global_config = slapt_malloc(sizeof *global_config);
+    slapt_config_t *global_config = slapt_malloc(sizeof *global_config);
 
     global_config->download_only = false;
     global_config->simulate = false;
@@ -43,7 +43,7 @@ slapt_rc_config *slapt_init_config(void)
     global_config->progress_cb = NULL;
     global_config->gpgme_allow_unauth = false; /* even without GPGME */
 
-    global_config->sources = slapt_vector_t_init((slapt_vector_t_free_function)slapt_free_source);
+    global_config->sources = slapt_vector_t_init((slapt_vector_t_free_function)slapt_source_t_free);
     global_config->exclude_list = slapt_vector_t_init(free);
 
     global_config->retry = 1;
@@ -51,19 +51,19 @@ slapt_rc_config *slapt_init_config(void)
     return global_config;
 }
 
-slapt_rc_config *slapt_read_rc_config(const char *file_name)
+slapt_config_t *slapt_config_t_read(const char *file_name)
 {
     FILE *rc = NULL;
     char *getline_buffer = NULL;
     size_t gb_length = 0;
     ssize_t g_size;
-    slapt_rc_config *global_config = NULL;
+    slapt_config_t *global_config = NULL;
 
     rc = slapt_open_file(file_name, "r");
     if (rc == NULL)
         return NULL;
 
-    global_config = slapt_init_config();
+    global_config = slapt_config_t_init();
 
     while ((g_size = getline(&getline_buffer, &gb_length, rc)) != EOF) {
         char *token_ptr = NULL;
@@ -78,7 +78,7 @@ slapt_rc_config *slapt_read_rc_config(const char *file_name)
             /* SOURCE URL */
 
             if (strlen(token_ptr) > strlen(SLAPT_SOURCE_TOKEN)) {
-                slapt_source_t *s = slapt_init_source(token_ptr + strlen(SLAPT_SOURCE_TOKEN));
+                slapt_source_t *s = slapt_source_t_init(token_ptr + strlen(SLAPT_SOURCE_TOKEN));
                 if (s != NULL) {
                     slapt_vector_t_add(global_config->sources, s);
                     if (s->priority != SLAPT_PRIORITY_DEFAULT) {
@@ -91,7 +91,7 @@ slapt_rc_config *slapt_read_rc_config(const char *file_name)
             /* DISABLED SOURCE */
 
             if (strlen(token_ptr) > strlen(SLAPT_DISABLED_SOURCE_TOKEN)) {
-                slapt_source_t *s = slapt_init_source(token_ptr + strlen(SLAPT_DISABLED_SOURCE_TOKEN));
+                slapt_source_t *s = slapt_source_t_init(token_ptr + strlen(SLAPT_DISABLED_SOURCE_TOKEN));
                 if (s != NULL) {
                     s->disabled = true;
                     slapt_vector_t_add(global_config->sources, s);
@@ -130,7 +130,7 @@ slapt_rc_config *slapt_read_rc_config(const char *file_name)
     return global_config;
 }
 
-void slapt_working_dir_init(const slapt_rc_config *global_config)
+void slapt_working_dir_init(const slapt_config_t *global_config)
 {
     DIR *working_dir;
     int mode = W_OK, r;
@@ -167,7 +167,7 @@ void slapt_working_dir_init(const slapt_rc_config *global_config)
     return;
 }
 
-void slapt_free_rc_config(slapt_rc_config *global_config)
+void slapt_config_t_free(slapt_config_t *global_config)
 {
     slapt_vector_t_free(global_config->exclude_list);
     slapt_vector_t_free(global_config->sources);
@@ -182,7 +182,7 @@ static slapt_vector_t *parse_exclude(char *line)
     return slapt_parse_delimited_list(line, ',');
 }
 
-bool slapt_is_interactive(const slapt_rc_config *global_config)
+bool slapt_is_interactive(const slapt_config_t *global_config)
 {
     bool interactive = global_config->progress_cb == NULL ? true : false;
     return interactive;
@@ -225,7 +225,7 @@ static void slapt_source_parse_attributes(slapt_source_t *s, const char *string)
     }
 }
 
-slapt_source_t *slapt_init_source(const char *s)
+slapt_source_t *slapt_source_t_init(const char *s)
 {
     slapt_source_t *src;
     uint32_t source_len = 0;
@@ -244,17 +244,17 @@ slapt_source_t *slapt_init_source(const char *s)
     source_len = strlen(source_string);
 
     /* parse for :[attr] in the source url */
-    if ((attribute_regex = slapt_init_regex(SLAPT_SOURCE_ATTRIBUTE_REGEX)) == NULL) {
+    if ((attribute_regex = slapt_regex_t_init(SLAPT_SOURCE_ATTRIBUTE_REGEX)) == NULL) {
         exit(EXIT_FAILURE);
     }
-    slapt_execute_regex(attribute_regex, source_string);
+    slapt_regex_t_execute(attribute_regex, source_string);
     if (attribute_regex->reg_return == 0) {
         /* if we find an attribute string, extract it */
-        attribute_string = slapt_regex_extract_match(attribute_regex, source_string, 1);
+        attribute_string = slapt_regex_t_extract_match(attribute_regex, source_string, 1);
         attribute_len = strlen(attribute_string);
         source_len -= attribute_len;
     }
-    slapt_free_regex(attribute_regex);
+    slapt_regex_t_free(attribute_regex);
 
     /* now add a trailing / if not already there */
     if (source_string[source_len - 1] == '/') {
@@ -290,13 +290,13 @@ slapt_source_t *slapt_init_source(const char *s)
     return src;
 }
 
-void slapt_free_source(slapt_source_t *src)
+void slapt_source_t_free(slapt_source_t *src)
 {
     free(src->url);
     free(src);
 }
 
-int slapt_write_rc_config(const slapt_rc_config *global_config, const char *location)
+int slapt_config_t_write(const slapt_config_t *global_config, const char *location)
 {
     uint32_t i = 0;
     FILE *rc;

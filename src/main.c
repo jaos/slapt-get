@@ -25,11 +25,11 @@ extern int optind, opterr, optopt;
 
 int main(int argc, char *argv[])
 {
-    slapt_rc_config *global_config, *initial_config; /* our config struct */
+    slapt_config_t *global_config, *initial_config; /* our config struct */
     slapt_vector_t *paa = NULL;
 
     int c = 0;
-    enum slapt_action do_action = 0;
+    enum slapt_action do_action = SLAPT_ACTION_USAGE;
     int option_index = 0;
     static struct option long_options[] = {
         {"update", 0, 0, SLAPT_UPDATE_OPT},
@@ -100,7 +100,7 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
-    initial_config = slapt_init_config();
+    initial_config = slapt_config_t_init();
     if (initial_config == NULL) {
         exit(EXIT_FAILURE);
     }
@@ -110,35 +110,35 @@ int main(int argc, char *argv[])
     while ((c = getopt_long_only(argc, argv, "", long_options, &option_index)) != -1) {
         switch (c) {
         case SLAPT_UPDATE_OPT: /* update */
-            do_action = UPDATE;
+            do_action = SLAPT_ACTION_UPDATE;
             break;
         case SLAPT_INSTALL_OPT: /* install */
-            do_action = INSTALL;
+            do_action = SLAPT_ACTION_INSTALL;
             break;
         case SLAPT_REMOVE_OPT: /* remove */
-            do_action = REMOVE;
+            do_action = SLAPT_ACTION_REMOVE;
             break;
         case SLAPT_SHOW_OPT: /* show */
-            do_action = SHOW;
+            do_action = SLAPT_ACTION_SHOW;
             initial_config->simulate = true; /* allow read access */
             break;
         case SLAPT_SEARCH_OPT: /* search */
-            do_action = SEARCH;
+            do_action = SLAPT_ACTION_SEARCH;
             initial_config->simulate = true; /* allow read access */
             break;
         case SLAPT_LIST_OPT: /* list */
-            do_action = LIST;
+            do_action = SLAPT_ACTION_LIST;
             initial_config->simulate = true; /* allow read access */
             break;
         case SLAPT_INSTALLED_OPT: /* installed */
-            do_action = INSTALLED;
+            do_action = SLAPT_ACTION_INSTALLED;
             initial_config->simulate = true; /* allow read access */
             break;
         case SLAPT_CLEAN_OPT: /* clean */
-            do_action = CLEAN;
+            do_action = SLAPT_ACTION_CLEAN;
             break;
         case SLAPT_UPGRADE_OPT: /* upgrade */
-            do_action = UPGRADE;
+            do_action = SLAPT_ACTION_UPGRADE;
             break;
         case SLAPT_DOWNLOAD_ONLY_OPT: /* download only flag */
             initial_config->download_only = true;
@@ -148,7 +148,7 @@ int main(int argc, char *argv[])
             break;
         case SLAPT_VERSION_OPT: /* version */
             version_info();
-            slapt_free_rc_config(initial_config);
+            slapt_config_t_free(initial_config);
             curl_global_cleanup();
             exit(EXIT_SUCCESS);
         case SLAPT_NO_PROMPT_OPT: /* auto */
@@ -168,11 +168,11 @@ int main(int argc, char *argv[])
             break;
         case SLAPT_DIST_UPGRADE_OPT: /* dist-upgrade */
             initial_config->dist_upgrade = true;
-            do_action = UPGRADE;
+            do_action = SLAPT_ACTION_UPGRADE;
             break;
         case SLAPT_HELP_OPT: /* help */
             usage();
-            slapt_free_rc_config(initial_config);
+            slapt_config_t_free(initial_config);
             curl_global_cleanup();
             exit(EXIT_SUCCESS);
         case SLAPT_IGNORE_DEP_OPT: /* ignore-dep */
@@ -197,33 +197,33 @@ int main(int argc, char *argv[])
             initial_config->no_upgrade = true;
             break;
         case SLAPT_AUTOCLEAN_OPT: /* clean old old package versions */
-            do_action = AUTOCLEAN;
+            do_action = SLAPT_ACTION_AUTOCLEAN;
             break;
         case SLAPT_OBSOLETE_OPT: /* remove obsolete packages */
             initial_config->remove_obsolete = true;
             break;
         case SLAPT_AVAILABLE_OPT: /* show available packages */
-            do_action = AVAILABLE;
+            do_action = SLAPT_ACTION_AVAILABLE;
             initial_config->simulate = true; /* allow read access */
             break;
         case SLAPT_INSTALL_DISK_SET_OPT: /* install a disk set */
-            do_action = INSTALL_DISK_SET;
+            do_action = SLAPT_ACTION_INSTALL_DISK_SET;
             break;
 #ifdef SLAPT_HAS_GPGME
         case SLAPT_ADD_KEYS_OPT: /* retrieve GPG keys for sources */
-            do_action = ADD_KEYS;
+            do_action = SLAPT_ACTION_ADD_KEYS;
             break;
         case SLAPT_ALLOW_UNAUTH: /* allow unauthenticated key */
             initial_config->gpgme_allow_unauth = true;
             break;
 #endif
         case SLAPT_FILELIST:
-            do_action = FILELIST;
+            do_action = SLAPT_ACTION_FILELIST;
             initial_config->simulate = true; /* allow read access */
             break;
         default:
             usage();
-            slapt_free_rc_config(initial_config);
+            slapt_config_t_free(initial_config);
             curl_global_cleanup();
             exit(EXIT_FAILURE);
         }
@@ -231,9 +231,9 @@ int main(int argc, char *argv[])
 
     /* load up the configuration file */
     if (custom_rc_location == NULL) {
-        global_config = slapt_read_rc_config(RC_LOCATION);
+        global_config = slapt_config_t_read(RC_LOCATION);
     } else {
-        global_config = slapt_read_rc_config(custom_rc_location);
+        global_config = slapt_config_t_read(custom_rc_location);
         free(custom_rc_location);
     }
 
@@ -259,45 +259,45 @@ int main(int argc, char *argv[])
     global_config->simulate = initial_config->simulate;
     global_config->gpgme_allow_unauth = initial_config->gpgme_allow_unauth;
 
-    slapt_free_rc_config(initial_config);
+    slapt_config_t_free(initial_config);
 
     /* Check optional arguments presence */
     switch (do_action) {
     /* can't simulate update, clean, autoclean, or add keys */
-    case CLEAN:
-    case AUTOCLEAN:
+    case SLAPT_ACTION_CLEAN:
+    case SLAPT_ACTION_AUTOCLEAN:
 #ifdef SLAPT_HAS_GPGME
-    case ADD_KEYS:
+    case SLAPT_ACTION_ADD_KEYS:
 #endif
-    case UPDATE:
+    case SLAPT_ACTION_UPDATE:
         global_config->simulate = false;
         break;
 
     /* remove obsolete can take the place of arguments */
-    case INSTALL:
-    case INSTALL_DISK_SET:
-    case REMOVE:
+    case SLAPT_ACTION_INSTALL:
+    case SLAPT_ACTION_INSTALL_DISK_SET:
+    case SLAPT_ACTION_REMOVE:
         if (global_config->remove_obsolete)
             break;
         /* fall through */
 
     /* show, search, filelist must have arguments */
-    case SHOW:
-    case SEARCH:
-    case FILELIST:
+    case SLAPT_ACTION_SHOW:
+    case SLAPT_ACTION_SEARCH:
+    case SLAPT_ACTION_FILELIST:
         if (optind >= argc)
-            do_action = 0;
+            do_action = SLAPT_ACTION_USAGE;
         break;
 
     default:
         if (optind < argc)
-            do_action = USAGE;
+            do_action = SLAPT_ACTION_USAGE;
         break;
     }
 
-    if (do_action == USAGE) {
+    if (do_action == SLAPT_ACTION_USAGE) {
         usage();
-        slapt_free_rc_config(global_config);
+        slapt_config_t_free(global_config);
         curl_global_cleanup();
         exit(EXIT_FAILURE);
     }
@@ -310,14 +310,14 @@ int main(int argc, char *argv[])
     }
 
     switch (do_action) {
-    case UPDATE:
+    case SLAPT_ACTION_UPDATE:
         if (slapt_update_pkg_cache(global_config) == 1) {
-            slapt_free_rc_config(global_config);
+            slapt_config_t_free(global_config);
             curl_global_cleanup();
             exit(EXIT_FAILURE);
         }
         break;
-    case INSTALL:
+    case SLAPT_ACTION_INSTALL:
         paa = slapt_vector_t_init(free);
         while (optind < argc) {
             slapt_vector_t_add(paa, strdup(argv[optind]));
@@ -326,7 +326,7 @@ int main(int argc, char *argv[])
         slapt_pkg_action_install(global_config, paa);
         slapt_vector_t_free(paa);
         break;
-    case INSTALL_DISK_SET: {
+    case SLAPT_ACTION_INSTALL_DISK_SET: {
         paa = slapt_vector_t_init(NULL);
         slapt_vector_t *avail_pkgs = slapt_get_available_pkgs();
 
@@ -336,7 +336,7 @@ int main(int argc, char *argv[])
             slapt_vector_t *matches = slapt_search_pkg_list(avail_pkgs, search);
             free(search);
 
-            slapt_vector_t_foreach (slapt_pkg_info_t *, match, matches) {
+            slapt_vector_t_foreach (slapt_pkg_t *, match, matches) {
                 if (!slapt_is_excluded(global_config, match)) {
                     slapt_vector_t_add(paa, match->name);
                 }
@@ -351,7 +351,7 @@ int main(int argc, char *argv[])
         slapt_vector_t_free(avail_pkgs);
 
     } break;
-    case REMOVE:
+    case SLAPT_ACTION_REMOVE:
         paa = slapt_vector_t_init(free);
         while (optind < argc) {
             slapt_vector_t_add(paa, strdup(argv[optind]));
@@ -360,26 +360,26 @@ int main(int argc, char *argv[])
         slapt_pkg_action_remove(global_config, paa);
         slapt_vector_t_free(paa);
         break;
-    case SHOW:
+    case SLAPT_ACTION_SHOW:
         while (optind < argc) {
             slapt_pkg_action_show(argv[optind++]);
         }
         break;
-    case SEARCH:
+    case SLAPT_ACTION_SEARCH:
         while (optind < argc) {
             slapt_pkg_action_search(argv[optind++]);
         }
         break;
-    case UPGRADE:
+    case SLAPT_ACTION_UPGRADE:
         slapt_pkg_action_upgrade_all(global_config);
         break;
-    case LIST:
-        slapt_pkg_action_list(LIST);
+    case SLAPT_ACTION_LIST:
+        slapt_pkg_action_list(SLAPT_ACTION_LIST);
         break;
-    case INSTALLED:
-        slapt_pkg_action_list(INSTALLED);
+    case SLAPT_ACTION_INSTALLED:
+        slapt_pkg_action_list(SLAPT_ACTION_INSTALLED);
         break;
-    case CLEAN:
+    case SLAPT_ACTION_CLEAN:
         /* clean out local cache */
         slapt_clean_pkg_dir(global_config->working_dir);
         if ((chdir(global_config->working_dir)) == -1) {
@@ -387,29 +387,29 @@ int main(int argc, char *argv[])
             exit(EXIT_FAILURE);
         }
         break;
-    case AUTOCLEAN:
+    case SLAPT_ACTION_AUTOCLEAN:
         slapt_purge_old_cached_pkgs(global_config, NULL, NULL);
         break;
-    case AVAILABLE:
-        slapt_pkg_action_list(AVAILABLE);
+    case SLAPT_ACTION_AVAILABLE:
+        slapt_pkg_action_list(SLAPT_ACTION_AVAILABLE);
         break;
 #ifdef SLAPT_HAS_GPGME
-    case ADD_KEYS:
+    case SLAPT_ACTION_ADD_KEYS:
         slapt_pkg_action_add_keys(global_config);
         break;
 #endif
-    case FILELIST:
+    case SLAPT_ACTION_FILELIST:
         while (optind < argc) {
             slapt_pkg_action_filelist(argv[optind++]);
         }
         break;
-    case USAGE:
+    case SLAPT_ACTION_USAGE:
     default:
         printf("main.c(l.%d): This should never be reached\n", __LINE__);
         exit(255);
     }
 
-    slapt_free_rc_config(global_config);
+    slapt_config_t_free(global_config);
     curl_global_cleanup();
     return EXIT_SUCCESS;
 }

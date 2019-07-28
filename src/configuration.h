@@ -51,22 +51,22 @@ typedef struct {
     uint32_t retry;
     bool use_priority;
     bool gpgme_allow_unauth;
-} slapt_rc_config;
+} slapt_config_t;
 
-/* initialize slapt_rc_config */
-slapt_rc_config *slapt_init_config(void);
+/* initialize slapt_config_t */
+slapt_config_t *slapt_config_t_init(void);
 /* read the configuration from file_name.  Returns (rc_config *) or NULL */
-slapt_rc_config *slapt_read_rc_config(const char *file_name);
+slapt_config_t *slapt_config_t_read(const char *file_name);
 /* free rc_config structure */
-void slapt_free_rc_config(slapt_rc_config *global_config);
+void slapt_config_t_free(slapt_config_t *global_config);
 
 /* check that working_dir exists or make it if permissions allow */
-void slapt_working_dir_init(const slapt_rc_config *global_config);
+void slapt_working_dir_init(const slapt_config_t *global_config);
 
 /* create, destroy the source struct */
-slapt_source_t *slapt_init_source(const char *s);
-void slapt_free_source(slapt_source_t *src);
+slapt_source_t *slapt_source_t_init(const char *s);
+void slapt_source_t_free(slapt_source_t *src);
 
-bool slapt_is_interactive(const slapt_rc_config *);
+bool slapt_is_interactive(const slapt_config_t *);
 
-int slapt_write_rc_config(const slapt_rc_config *global_config, const char *location);
+int slapt_config_t_write(const slapt_config_t *global_config, const char *location);

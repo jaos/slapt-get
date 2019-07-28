@@ -5,7 +5,7 @@
 #include "test_packages.h"
 #include "test_transaction.h"
 
-slapt_pkg_info_t pkg = {
+slapt_pkg_t pkg = {
     "8598a2a6d683d098b09cdc938de1e3c7",
     "gslapt",
     "0.3.15-i386-1",

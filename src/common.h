@@ -89,11 +89,11 @@ slapt_vector_t *slapt_vector_t_search(slapt_vector_t *, slapt_vector_t_cmp, void
     for (uint32_t item##_counter = 0; (item##_counter < list->size) && (item = list->items[item##_counter]); item##_counter++)
 
 FILE *slapt_open_file(const char *file_name, const char *mode);
-slapt_regex_t *slapt_init_regex(const char *regex_string);
-void slapt_execute_regex(slapt_regex_t *regex_t, const char *string);
+slapt_regex_t *slapt_regex_t_init(const char *regex_string);
+void slapt_regex_t_execute(slapt_regex_t *regex_t, const char *string);
 /* extract the string from the match, starts with 1 (not 0) */
-char *slapt_regex_extract_match(const slapt_regex_t *r, const char *src, const int i);
-void slapt_free_regex(slapt_regex_t *regex_t);
+char *slapt_regex_t_extract_match(const slapt_regex_t *r, const char *src, const int i);
+void slapt_regex_t_free(slapt_regex_t *regex_t);
 void slapt_create_dir_structure(const char *dir_name);
 /* generate an md5sum of filehandle */
 void slapt_gen_md5_sum_of_file(FILE *f, char *result_sum);

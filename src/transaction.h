@@ -22,14 +22,36 @@
 */
 #define MAX_LINE_LEN 80
 
+enum slapt_action {
+    SLAPT_ACTION_USAGE = 0,
+    SLAPT_ACTION_UPDATE,
+    SLAPT_ACTION_INSTALL,
+    SLAPT_ACTION_REMOVE,
+    SLAPT_ACTION_SHOW,
+    SLAPT_ACTION_SEARCH,
+    SLAPT_ACTION_UPGRADE,
+    SLAPT_ACTION_LIST,
+    SLAPT_ACTION_INSTALLED,
+    SLAPT_ACTION_CLEAN,
+    SLAPT_ACTION_SHOWVERSION,
+    SLAPT_ACTION_AUTOCLEAN,
+    SLAPT_ACTION_AVAILABLE,
+    SLAPT_ACTION_INSTALL_DISK_SET,
+    SLAPT_ACTION_FILELIST,
+#ifdef SLAPT_HAS_GPGME
+    SLAPT_ACTION_ADD_KEYS,
+#endif
+    SLAPT_ACTION_END
+};
+
 typedef struct {
     union {
-        slapt_pkg_info_t *i;
+        slapt_pkg_t *i;
         slapt_pkg_upgrade_t *u;
     } pkg;
-    uint32_t type; /* this is enum slapt_action defined in main.h */
+    enum slapt_action type;
 } slapt_queue_i;
-slapt_queue_i *slapt_queue_i_init(slapt_pkg_info_t *, slapt_pkg_upgrade_t *);
+slapt_queue_i *slapt_queue_i_init(slapt_pkg_t *, slapt_pkg_upgrade_t *);
 void slapt_queue_i_free(slapt_queue_i *);
 
 typedef struct {
@@ -47,39 +69,39 @@ typedef struct {
 /* fill in transaction structure with defaults */
 slapt_transaction_t *slapt_init_transaction(void);
 /* download and install/remove/upgrade packages as defined in the transaction, returns 0 on success */
-int slapt_handle_transaction(const slapt_rc_config *, slapt_transaction_t *);
+int slapt_handle_transaction(const slapt_config_t *, slapt_transaction_t *);
 
 /* add package for installation to transaction */
-void slapt_add_install_to_transaction(slapt_transaction_t *, slapt_pkg_info_t *pkg);
+void slapt_add_install_to_transaction(slapt_transaction_t *, slapt_pkg_t *pkg);
 /* add package for removal to transaction */
-void slapt_add_remove_to_transaction(slapt_transaction_t *, slapt_pkg_info_t *pkg);
+void slapt_add_remove_to_transaction(slapt_transaction_t *, slapt_pkg_t *pkg);
 /* add package to upgrade to transaction */
-void slapt_add_upgrade_to_transaction(slapt_transaction_t *, slapt_pkg_info_t *installed_pkg, slapt_pkg_info_t *upgrade_pkg);
+void slapt_add_upgrade_to_transaction(slapt_transaction_t *, slapt_pkg_t *installed_pkg, slapt_pkg_t *upgrade_pkg);
 /* add package to reinstall to transaction */
-void slapt_add_reinstall_to_transaction(slapt_transaction_t *, slapt_pkg_info_t *installed_pkg, slapt_pkg_info_t *upgrade_pkg);
+void slapt_add_reinstall_to_transaction(slapt_transaction_t *, slapt_pkg_t *installed_pkg, slapt_pkg_t *upgrade_pkg);
 /* add package to exclude to transaction */
-void slapt_add_exclude_to_transaction(slapt_transaction_t *, slapt_pkg_info_t *pkg);
+void slapt_add_exclude_to_transaction(slapt_transaction_t *, slapt_pkg_t *pkg);
 /* remove package from transaction, returns modified transaction */
-slapt_transaction_t *slapt_remove_from_transaction(slapt_transaction_t *tran, slapt_pkg_info_t *pkg);
+slapt_transaction_t *slapt_remove_from_transaction(slapt_transaction_t *tran, slapt_pkg_t *pkg);
 
 /* search transaction by package name.  returns true if found, false otherwise */
 bool slapt_search_transaction(slapt_transaction_t *, char *pkg_name);
 /* search transaction by package attributes, returns true if found, false otherwise */
-bool slapt_search_transaction_by_pkg(slapt_transaction_t *tran, slapt_pkg_info_t *pkg);
+bool slapt_search_transaction_by_pkg(slapt_transaction_t *tran, slapt_pkg_t *pkg);
 /* searches the upgrade list of the transaction for the present of the package, returns true if found, false if not found */
-bool slapt_search_upgrade_transaction(slapt_transaction_t *tran, slapt_pkg_info_t *pkg);
+bool slapt_search_upgrade_transaction(slapt_transaction_t *tran, slapt_pkg_t *pkg);
 
 /* add dependencies for package to transaction, returns -1 on error, 0 otherwise */
-int slapt_add_deps_to_trans(const slapt_rc_config *global_config,
+int slapt_add_deps_to_trans(const slapt_config_t *global_config,
                             slapt_transaction_t *tran,
                             slapt_vector_t *avail_pkgs,
-                            slapt_vector_t *installed_pkgs, slapt_pkg_info_t *pkg);
+                            slapt_vector_t *installed_pkgs, slapt_pkg_t *pkg);
 
 /* check to see if a package has a conflict already present in the transaction, returns conflicted package or NULL if none */
 slapt_vector_t *slapt_is_conflicted(slapt_transaction_t *tran,
                                     slapt_vector_t *avail_pkgs,
                                     slapt_vector_t *installed_pkgs,
-                                    slapt_pkg_info_t *pkg);
+                                    slapt_pkg_t *pkg);
 
 /* generate a list of suggestions based on the current packages in the transaction */
 void slapt_generate_suggestions(slapt_transaction_t *tran);

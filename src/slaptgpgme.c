@@ -49,7 +49,7 @@ static void _slapt_free_gpgme_ctx(gpgme_ctx_t *ctx)
     free(ctx);
 }
 
-FILE *slapt_get_pkg_source_checksums_signature(const slapt_rc_config *global_config, const char *url, bool *compressed)
+FILE *slapt_get_pkg_source_checksums_signature(const slapt_config_t *global_config, const char *url, bool *compressed)
 {
     FILE *tmp_checksum_f = NULL;
     char *checksum_head = NULL;
@@ -127,7 +127,7 @@ FILE *slapt_get_pkg_source_checksums_signature(const slapt_rc_config *global_con
     return tmp_checksum_f;
 }
 
-FILE *slapt_get_pkg_source_gpg_key(const slapt_rc_config *global_config, const char *url, bool *compressed)
+FILE *slapt_get_pkg_source_gpg_key(const slapt_config_t *global_config, const char *url, bool *compressed)
 {
     FILE *tmp_key_f = NULL;
     char *key_head = NULL;

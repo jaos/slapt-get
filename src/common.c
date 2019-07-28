@@ -33,7 +33,7 @@ FILE *slapt_open_file(const char *file_name, const char *mode)
 }
 
 /* initialize regex structure and compile the regular expression */
-slapt_regex_t *slapt_init_regex(const char *regex_string)
+slapt_regex_t *slapt_regex_t_init(const char *regex_string)
 {
     slapt_regex_t *r;
 
@@ -64,12 +64,12 @@ slapt_regex_t *slapt_init_regex(const char *regex_string)
 }
 
 /* execute the regular expression and set the return code in the passed in structure */
-void slapt_execute_regex(slapt_regex_t *r, const char *string)
+void slapt_regex_t_execute(slapt_regex_t *r, const char *string)
 {
     r->reg_return = regexec(&r->regex, string, r->nmatch, r->pmatch, 0);
 }
 
-char *slapt_regex_extract_match(const slapt_regex_t *r, const char *src, const int i)
+char *slapt_regex_t_extract_match(const slapt_regex_t *r, const char *src, const int i)
 {
     regmatch_t m = r->pmatch[i];
     char *str = NULL;
@@ -86,7 +86,7 @@ char *slapt_regex_extract_match(const slapt_regex_t *r, const char *src, const i
     return str;
 }
 
-void slapt_free_regex(slapt_regex_t *r)
+void slapt_regex_t_free(slapt_regex_t *r)
 {
     regfree(&r->regex);
     free(r);

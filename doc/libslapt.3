@@ -6,10 +6,10 @@ libslapt \- slapt-get library
 #define _GNU_SOURCE
 #include <slapt.h>
 
-/* initialize slapt_rc_config */
-slapt_rc_config *slapt_init_config(void);
+/* initialize slapt_config_t */
+slapt_config_t *slapt_config_t_init(void);
 /* parse config file for sources, excludes, and working_dir*/
-slapt_rc_config *config = slapt_read_rc_config("/etc/slapt-get/slapt-getrc");
+slapt_config_t *config = slapt_config_t_read("/etc/slapt-get/slapt-getrc");
 /* get a list of installed packages */
 slapt_vector_t *installed = slapt_get_installed_pkgs();
 /* parse the package data, normally using config->working_dir */
@@ -18,10 +18,10 @@ slapt_vector_t *available = slapt_parse_packages_txt(data_f);
 
 /* search for a package in a list via regex */
 slapt_vector_t *results = slapt_search_pkg_list(installed,"[0-9]frg");
-slapt_free_pkg_list(results);
+slapt_pkg_t_free_list(results);
 
 /* look for a specific package */
-slapt_pkg_info_t *pkg = slapt_get_exact_pkg(available,
+slapt_pkg_t *pkg = slapt_get_exact_pkg(available,
                                             "slapt-get",
                                             "0.9.10c-i386-1");
 if (!slapt_is_excluded(config,pkg)) {
@@ -39,7 +39,7 @@ if (!slapt_is_excluded(config,pkg)) {
     }
   }
 }
-slapt_free_pkg(pkg);
+slapt_pkg_t_free(pkg);
 
 if (slapt_cmp_pkgs(pkg_a,pkg_b) = 0) {
   fprintf(stderr,"%s is equal to %s\\n",pkg_a->version,pkg_b->version);
@@ -49,15 +49,15 @@ if (slapt_cmp_pkgs(pkg_a,pkg_b) = 0) {
   fprintf(stderr,"%s is greater than %s\\n",pkg_a->version,pkg_b->version);
 }
 
-slapt_free_pkg_list(available);
-slapt_free_pkg_list(installed);
-slapt_free_rc_config(config);
+slapt_pkg_t_free_list(available);
+slapt_pkg_t_free_list(installed);
+slapt_config_t_free(config);
 .fi
 .SH DESCRIPTION
-This is a short overview on how to use libslapt with your C programs.  
+This is a short overview on how to use libslapt with your C programs.
 .IP \fBCONFIGURATION\fP
 .TP
-slapt-get stores the configuration information in a \fIslapt_rc_config\fP object.  The configuration is parsed from the \fIslapt-getrc\fP which includes \fISOURCE\fP, \fIEXCLUDE\fP, and \fIWORKINGDIR\fP directives.  Various runtime configuration options are also stored within the \fIslapt_rc_config\fP object. 
+slapt-get stores the configuration information in a \fIslapt_config_t\fP object.  The configuration is parsed from the \fIslapt-getrc\fP which includes \fISOURCE\fP, \fIEXCLUDE\fP, and \fIWORKINGDIR\fP directives.  Various runtime configuration options are also stored within the \fIslapt_rc_config\fP object.
 
 .nf
   typedef struct {
@@ -79,25 +79,25 @@ slapt-get stores the configuration information in a \fIslapt_rc_config\fP object
     bool remove_obsolete;
     bool no_upgrade;
     uint32_t retry;
-  } slapt_rc_config;
+  } slapt_config_t;
 .fi
 
 .TP
-The \fIslapt_rc_config\fP is created with the \fIslapt_read_rc_config\fP() function by passing in the file location of the configuration to parse, or by calling \fIslapt_init_config\fP() to return an empty, initialized \fIslapt_rc_config\fP.
+The \fIslapt_config_t\fP is created with the \fIslapt_config_t_read\fP() function by passing in the file location of the configuration to parse, or by calling \fIslapt_config_t_init\fP() to return an empty, initialized \fIslapt_rc_config\fP.
 .sp
-.B "slapt_rc_config *slapt_read_rc_config(const char *file_name);"
+.B "slapt_config_t *slapt_config_t_read(const char *file_name);"
 .sp
-.B "slapt_rc_config *slapt_init_config(void);"
-.sp
-.TP
-and is freed by a call to the \fIslapt_free_rc_config\fP() function.
-.sp
-.B "void slapt_free_rc_config(slapt_rc_config *global_config);"
+.B "slapt_config_t *slapt_config_t_init(void);"
 .sp
 .TP
-The slapt-getrc configuration can be written back out with \fIslapt_write_rc_config\fP.
+and is freed by a call to the \fIslapt_config_t_free\fP() function.
 .sp
-.B "int slapt_write_rc_config(const slapt_rc_config *global_config, const char *location);"
+.B "void slapt_config_t_free(slapt_config_t *global_config);"
+.sp
+.TP
+The slapt-getrc configuration can be written back out with \fIslapt_config_t_write\fP.
+.sp
+.B "int slapt_config_t_write(const slapt_config_t *global_config, const char *location);"
 .sp
 .TP
 The progress callback is a function that is called while data is being downloaded.  It is in the format of \fBint slapt_progress_callback(void *clientp, double dltotal, double dlnow, double ultotal, double ulnow);\fP
@@ -112,18 +112,18 @@ Package sources are represented by the \fIslapt_source_t\fP type.  They are crea
     bool disabled;
   } slapt_source_t;
 .sp
-.B slapt_source_t *slapt_init_source(const char *s);
-.B void slapt_free_source(slapt_source_t *src);
+.B slapt_source_t *slapt_source_t_init(const char *s);
+.B void slapt_source_t_free(slapt_source_t *src);
 .fi
 .sp
 .TP
-In order to initialize the slapt_rc_config->working_dir directory, \fIslapt_working_dir_init\fP() must be called.  It is a fatal error to call \fIslapt_working_dir_init\fP() with a directory that the current process does not have privileges to read, write, and execute.
+In order to initialize the slapt_config_t->working_dir directory, \fIslapt_working_dir_init\fP() must be called.  It is a fatal error to call \fIslapt_working_dir_init\fP() with a directory that the current process does not have privileges to read, write, and execute.
 .sp
-.B "void slapt_working_dir_init(const slapt_rc_config *global_config);"
+.B "void slapt_working_dir_init(const slapt_config_t *global_config);"
 .sp
 .IP \fBPACKAGES\fP
 .TP
-slapt-get stores packages within \fIslapt_pkg_info_t\fP objects.
+slapt-get stores packages within \fIslapt_pkg_t\fP objects.
 .sp
 .nf
   typedef struct {
@@ -141,17 +141,17 @@ slapt-get stores packages within \fIslapt_pkg_info_t\fP objects.
     uint32_t size_u;
     uint32_t priority;
     bool installed;
-  } slapt_pkg_info_t;
+  } slapt_pkg_t;
 .fi
 .sp
 .TP
-The \fIslapt_pkg_info_t\fP object is created and freed with \fIslapt_init_pkg\fP() and \fIslapt_free_pkg\fP().  A \fIslapt_pkg_info_t\fP can also be copied with \fIslapt_copy_pkg\fP().
+The \fIslapt_pkg_t\fP object is created and freed with \fIslapt_pkg_t_init\fP() and \fIslapt_pkg_t_free\fP().  A \fIslapt_pkg_t\fP can also be copied with \fIslapt_copy_pkg\fP().
 .sp
 .nf
-.B "__inline slapt_pkg_info_t *slapt_init_pkg(void);"
-.B "void slapt_free_pkg(slapt_pkg_info_t *pkg);"
-.B "slapt_pkg_info_t *slapt_copy_pkg(slapt_pkg_info_t *dst,"
-.B "                                 slapt_pkg_info_t *src);"
+.B "slapt_pkg_t *slapt_pkg_t_init(void);"
+.B "void slapt_pkg_t_free(slapt_pkg_t *pkg);"
+.B "slapt_pkg_t *slapt_copy_pkg(slapt_pkg_t *dst,"
+.B "                                 slapt_pkg_t *src);"
 .fi
 .sp
 .TP
@@ -167,15 +167,15 @@ Package lists can be parsed from PACKAGES.TXT or similar formated files (such as
 .fi
 .sp
 .TP
-Finding a specific package in a package list is done through one of the following functions.  All return \fIslapt_pkg_info_t\fP, or NULL on error, except for \fIslapt_search_pkg_list\fP() which returns a list of packages as \fIslapt_vector_t\fP.
+Finding a specific package in a package list is done through one of the following functions.  All return \fIslapt_pkg_t\fP, or NULL on error, except for \fIslapt_search_pkg_list\fP() which returns a list of packages as \fIslapt_vector_t\fP.
 .sp
 .nf
-.B "slapt_pkg_info_t *slapt_get_newest_pkg(slapt_vector_t *,"
+.B "slapt_pkg_t *slapt_get_newest_pkg(slapt_vector_t *,"
 .B "                                       const char *);"
-.B "slapt_pkg_info_t *slapt_get_exact_pkg(slapt_vector_t *list,"
+.B "slapt_pkg_t *slapt_get_exact_pkg(slapt_vector_t *list,"
 .B "                                      const char *name,"
 .B "                                      const char *version);"
-.B "slapt_pkg_info_t *slapt_get_pkg_by_details(slapt_vector_t *list,"
+.B "slapt_pkg_t *slapt_get_pkg_by_details(slapt_vector_t *list,"
 .B "                                           const char *name,"
 .B "                                           const char *version,"
 .B "                                           const char *location);"
@@ -187,10 +187,10 @@ Finding a specific package in a package list is done through one of the followin
 Passing a package to \fIinstallpkg\fP, \fIupgradepkg\fP, and \fIremovepkg\fP is done through the following functions.  All return 0 upon success, or non-zero on error.
 .sp
 .nf
-.B "int slapt_install_pkg(const slapt_rc_config *,slapt_pkg_info_t *);"
-.B "int slapt_upgrade_pkg(const slapt_rc_config *global_config,"
-.B "                      slapt_pkg_info_t *pkg);"
-.B "int slapt_remove_pkg(const slapt_rc_config *,slapt_pkg_info_t *);"
+.B "int slapt_install_pkg(const slapt_config_t *,slapt_pkg_t *);"
+.B "int slapt_upgrade_pkg(const slapt_config_t *global_config,"
+.B "                      slapt_pkg_t *pkg);"
+.B "int slapt_remove_pkg(const slapt_config_t *,slapt_pkg_t *);"
 .fi
 .sp
 .TP
@@ -198,7 +198,7 @@ Comparing package versions is done with the \fIslapt_cmp_pkgs\fP functions.  It 
 .sp
 .nf
 .B "int slapt_cmp_pkg_versions(const char *a, const char *b);"
-.B "int slapt_cmp_pkgs(slapt_pkg_info_t *a, slapt_pkg_info_t *b);"
+.B "int slapt_cmp_pkgs(slapt_pkg_t *a, slapt_pkg_t *b);"
 .fi
 .sp
 .TP
@@ -215,10 +215,10 @@ The following functions deal with determining package dependencies and conflicts
 \fIslapt_get_pkg_dependencies\fP() fills a \fIslapt_vector_t\fP of dependencies for the specified package.  These dependencies are pulled from the available package list and the installed package lists.  Missing and conflict errors are placed in \fIslapt_vector_t\fP.  \fIdeps\fP, \fIconflict_err\fP, and \fImissing_err\fP are initialized if NULL.  \fIslapt_get_pkg_dependencies\fP() returns 0 on success, or -1 on error.
 .sp
 .nf
-.B "int slapt_get_pkg_dependencies(const slapt_rc_config *global_config,
+.B "int slapt_get_pkg_dependencies(const slapt_config_t *global_config,
 .B "                               slapt_vector_t *avail_pkgs,
 .B "                               slapt_vector_t *installed_pkgs,
-.B "                               slapt_pkg_info_t *pkg,
+.B "                               slapt_pkg_t *pkg,
 .B "                               slapt_vector_t *deps,
 .B "                               slapt_vector_t *conflict_err,
 .B "                               slapt_vector_t *missing_err);"
@@ -231,7 +231,7 @@ The following functions deal with determining package dependencies and conflicts
 .B "slapt_vector_t *"
 .B "slapt_get_pkg_conflicts(slapt_vector_t *avail_pkgs,
 .B "                        slapt_vector_t *installed_pkgs,
-.B "                        slapt_pkg_info_t *pkg);"
+.B "                        slapt_pkg_t *pkg);"
 .sp
 .fi
 .TP
@@ -239,12 +239,12 @@ The following functions deal with determining package dependencies and conflicts
 .sp
 .nf
 .B "slapt_vector_t *"
-.B "slapt_is_required_by(const slapt_rc_config *global_config,
+.B "slapt_is_required_by(const slapt_config_t *global_config,
 .B "                     slapt_vector_t *avail,
 .B "                     slapt_vector_t *installed_pkgs,
 .B "                     slapt_vector_t *pkgs_to_install,
 .B "                     slapt_vector_t *pkgs_to_remove,
-.B "                     slapt_pkg_info_t *pkg);"
+.B "                     slapt_pkg_t *pkg);"
 .sp
 .fi
 .TP
@@ -252,7 +252,7 @@ The following functions deal with determining package dependencies and conflicts
 .sp
 .nf
 .B "slapt_vector_t *"
-.B "  slapt_get_obsolete_pkgs ( const slapt_rc_config *global_config,"
+.B "  slapt_get_obsolete_pkgs ( const slapt_config_t *global_config,"
 .B "                            slapt_vector_t *avail_pkgs,"
 .B "                            slapt_vector_t *installed_pkgs);"
 .B "
@@ -262,43 +262,43 @@ The following functions deal with determining package dependencies and conflicts
 \fIslapt_is_excluded\fP() returns 1 if package is present in the exclude list, 0 if not.
 .sp
 .nf
-.B "int slapt_is_excluded(const slapt_rc_config *,slapt_pkg_info_t *);"
+.B "int slapt_is_excluded(const slapt_config_t *,slapt_pkg_t *);"
 .fi
 .sp
 .TP
 \fIslapt_get_pkg_changelog\fP() returns the package changelog entry, if any.  Otherwise returns NULL.  Assumes already chdir'd to the working directory.
 .sp
 .nf
-.B "char *slapt_get_pkg_changelog(const slapt_pkg_info_t *pkg);"
+.B "char *slapt_get_pkg_changelog(const slapt_pkg_t *pkg);"
 .fi
 .sp
 .TP
-\fIslapt_get_pkg_filelist\fP() returns a string representing all of the files installed by the package.  This list is read from the package log file.  
+\fIslapt_get_pkg_filelist\fP() returns a string representing all of the files installed by the package.  This list is read from the package log file.
 .sp
 .nf
-.B "char *slapt_get_pkg_filelist(const slapt_pkg_info_t *pkg);"
+.B "char *slapt_get_pkg_filelist(const slapt_pkg_t *pkg);"
 .fi
 .sp
 .TP
 \fIslapt_stringify_pkg\fP() returns a string representation of the package.
 .sp
 .nf
-.B "char *slapt_stringify_pkg(const slapt_pkg_info_t *pkg);"
+.B "char *slapt_stringify_pkg(const slapt_pkg_t *pkg);"
 .fi
 .sp
 .TP
-\fIslapt_gen_package_log_dir_name\fP() returns a string location of the package log directory, accounting for the value of the ROOT environment variable, if set.  
+\fIslapt_gen_package_log_dir_name\fP() returns a string location of the package log directory, accounting for the value of the ROOT environment variable, if set.
 .sp
 .nf
 .B "char *slapt_gen_package_log_dir_name(void);"
 .fi
 .sp
 .TP
-The \fIworking_dir\fP, defined within the \fIslapt_rc_config\fP object, caches the downloaded packages.  At various times it becomes necessary to purge the package cache.  \fIslapt_clean_pkg_dir\fP() unlinks all packages within the specified directory location.  \fIslapt_purge_old_cached_pkgs\fP() unlinks only packages that are not present in the current sources and thus are no longer downloadable.
+The \fIworking_dir\fP, defined within the \fIslapt_config_t\fP object, caches the downloaded packages.  At various times it becomes necessary to purge the package cache.  \fIslapt_clean_pkg_dir\fP() unlinks all packages within the specified directory location.  \fIslapt_purge_old_cached_pkgs\fP() unlinks only packages that are not present in the current sources and thus are no longer downloadable.
 .sp
 .nf
 .B "void slapt_clean_pkg_dir(const char *dir_name);"
-.B "void slapt_purge_old_cached_pkgs(const slapt_rc_config *global_config,"
+.B "void slapt_purge_old_cached_pkgs(const slapt_config_t *global_config,"
 .B "                                 const char *dir_name,"
 .B "                                 slapt_vector_t *avail_pkgs);"
 .fi
@@ -316,15 +316,15 @@ Downloading packages and the package data from various sources is handled with t
 .sp
 .nf
 .B "int slapt_download_data(FILE *fh, const char *url, size_t bytes, long *filetime,"
-.B "                  const slapt_rc_config *global_config);"
-.B "int slapt_update_pkg_cache(const slapt_rc_config *global_config);"
-.B "const char *slapt_download_pkg(const slapt_rc_config *global_config,"
-.B "                       slapt_pkg_info_t *pkg);"
-.B "slapt_code_t slapt_verify_downloaded_pkg(const slapt_rc_config *global_config,"
-.B "                                slapt_pkg_info_t *pkg);"
+.B "                  const slapt_config_t *global_config);"
+.B "int slapt_update_pkg_cache(const slapt_config_t *global_config);"
+.B "const char *slapt_download_pkg(const slapt_config_t *global_config,"
+.B "                       slapt_pkg_t *pkg);"
+.B "slapt_code_t slapt_verify_downloaded_pkg(const slapt_config_t *global_config,"
+.B "                                slapt_pkg_t *pkg);"
 .sp
 .B "const char *slapt_get_mirror_data_from_source(FILE *fh,"
-.B "                                      const slapt_rc_config *global_config,"
+.B "                                      const slapt_config_t *global_config,"
 .B "                                      const char *base_url,"
 .B "                                      const char *filename);"
 .B "char *slapt_head_request(const char *url);"
@@ -339,14 +339,14 @@ The following functions download the PACKAGES.TXT, the patches/PACKAGES.TXT, CHE
 .sp
 .nf
 .B "slapt_vector_t *"
-.B "slapt_get_pkg_source_packages (const slapt_rc_config *global_config,"
+.B "slapt_get_pkg_source_packages (const slapt_config_t *global_config,"
 .B "                               const char *url, bool *compressed);"
 .B "slapt_vector_t *"
-.B "slapt_get_pkg_source_patches (const slapt_rc_config *global_config,"
+.B "slapt_get_pkg_source_patches (const slapt_config_t *global_config,"
 .B "                              const char *url, bool *compressed);"
-.B "FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,"
+.B "FILE *slapt_get_pkg_source_checksums (const slapt_config_t *global_config,"
 .B "                                      const char *url, bool *compressed);"
-.B "int slapt_get_pkg_source_changelog (const slapt_rc_config *global_config,"
+.B "int slapt_get_pkg_source_changelog (const slapt_config_t *global_config,"
 .B "                                      const char *url, bool *compressed);"
 .fi
 .sp
@@ -374,13 +374,13 @@ Adding, removing, and upgrading packages can be wrapped in a \fIslapt_transactio
   };
 .sp
   typedef struct {
-    union { slapt_pkg_info_t *i; slapt_pkg_upgrade_t *u; } pkg;
-    uint32_t type; /* this is enum slapt_action */
+    union { slapt_pkg_t *i; slapt_pkg_upgrade_t *u; } pkg;
+    enum slapt_action type;
   } slapt_queue_i;
 .sp
   typedef struct {
-    slapt_pkg_info_t *installed;
-    slapt_pkg_info_t *upgrade;
+    slapt_pkg_t *installed;
+    slapt_pkg_t *upgrade;
     bool reinstall;
   } slapt_pkg_upgrade_t;
 .sp
@@ -397,45 +397,45 @@ Adding, removing, and upgrading packages can be wrapped in a \fIslapt_transactio
 .sp
 .B "slapt_transaction_t *slapt_init_transaction(void);"
 .B "void slapt_free_transaction(slapt_transaction_t *);"
-.B "int slapt_handle_transaction(const slapt_rc_config *,slapt_transaction_t *);"
+.B "int slapt_handle_transaction(const slapt_config_t *,slapt_transaction_t *);"
 .sp
 .B "void slapt_add_install_to_transaction(slapt_transaction_t *,"
-.B "                                      slapt_pkg_info_t *pkg);"
+.B "                                      slapt_pkg_t *pkg);"
 .sp
 .B "void slapt_add_remove_to_transaction(slapt_transaction_t *,"
-.B "                                     slapt_pkg_info_t *pkg);"
+.B "                                     slapt_pkg_t *pkg);"
 .sp
 .B "void slapt_add_upgrade_to_transaction(slapt_transaction_t *,"
-.B "                                      slapt_pkg_info_t *installed_pkg,"
-.B "                                      slapt_pkg_info_t *upgrade_pkg);"
+.B "                                      slapt_pkg_t *installed_pkg,"
+.B "                                      slapt_pkg_t *upgrade_pkg);"
 .sp
 .B "void slapt_add_reinstall_to_transaction(slapt_transaction_t *,"
-.B "                                      slapt_pkg_info_t *installed_pkg,"
-.B "                                      slapt_pkg_info_t *upgrade_pkg);"
+.B "                                      slapt_pkg_t *installed_pkg,"
+.B "                                      slapt_pkg_t *upgrade_pkg);"
 .sp
 .B "void slapt_add_exclude_to_transaction(slapt_transaction_t *,"
-.B "                                      slapt_pkg_info_t *pkg);"
+.B "                                      slapt_pkg_t *pkg);"
 .sp
 .B "slapt_transaction_t *slapt_remove_from_transaction(slapt_transaction_t *tran,"
-.B "                                                   slapt_pkg_info_t *pkg);"
+.B "                                                   slapt_pkg_t *pkg);"
 .sp
 .B "int slapt_search_transaction(slapt_transaction_t *,char *pkg_name);"
 .B "int slapt_search_transaction_by_pkg(slapt_transaction_t *tran,"
-.B "                                    slapt_pkg_info_t *pkg);"
+.B "                                    slapt_pkg_t *pkg);"
 .sp
 .B "int slapt_search_upgrade_transaction(slapt_transaction_t *tran,"
-.B "                                     slapt_pkg_info_t *pkg);"
+.B "                                     slapt_pkg_t *pkg);"
 .sp
-.B "int slapt_add_deps_to_trans(const slapt_rc_config *global_config,"
+.B "int slapt_add_deps_to_trans(const slapt_config_t *global_config,"
 .B "                            slapt_transaction_t *tran,"
 .B "                            slapt_vector_t *avail_pkgs,"
 .B "                            slapt_vector_t *installed_pkgs,"
-.B "                            slapt_pkg_info_t *pkg);"
+.B "                            slapt_pkg_t *pkg);"
 .sp
-.B "slapt_pkg_info_t *slapt_is_conflicted(slapt_transaction_t *tran,"
+.B "slapt_pkg_t *slapt_is_conflicted(slapt_transaction_t *tran,"
 .B "                                      slapt_vector_t *avail_pkgs,"
 .B "                                      slapt_vector_t *installed_pkgs,"
-.B "                                      slapt_pkg_info_t *pkg);"
+.B "                                      slapt_pkg_t *pkg);"
 .sp
 .B "void slapt_generate_suggestions(slapt_transaction_t *tran);"
 .fi
@@ -447,7 +447,7 @@ Functionality for GPG verification of package sources.
 .TP
 Retrieve the signature file for CHECKSUMS.md5 (or the signature for CHECKSUMS.md5.gz).  Sets compressed depending on which was found.
 .nf
-.B "FILE *slapt_get_pkg_source_checksums_signature (const slapt_rc_config *global_config,"
+.B "FILE *slapt_get_pkg_source_checksums_signature (const slapt_config_t *global_config,"
 .B "                                                const char *url,"
 .B "                                                bool *compressed);"
 .fi
@@ -455,7 +455,7 @@ Retrieve the signature file for CHECKSUMS.md5 (or the signature for CHECKSUMS.md
 .TP
 Retrieve the GPG-KEY file from the package source, if available.  Returns NULL if not found.
 .nf
-.B "FILE *slapt_get_pkg_source_gpg_key(const slapt_rc_config *global_config,"
+.B "FILE *slapt_get_pkg_source_gpg_key(const slapt_config_t *global_config,"
 .B "                                   const char *url,"
 .B "                                   bool *compressed);"
 .fi
@@ -485,16 +485,16 @@ Miscellaneous functionality within libslapt.
   } slapt_regex_t;
 .sp
 .B "FILE *slapt_open_file(const char *file_name,const char *mode);"
-.B "slapt_regex_t *slapt_init_regex(const char *regex_string);"
-.B "void slapt_execute_regex(slapt_regex_t *regex_t,const char *string);"
-.B "void slapt_free_regex(slapt_regex_t *regex_t);"
+.B "slapt_regex_t *slapt_regex_t_init(const char *regex_string);"
+.B "void slapt_regex_t_execute(slapt_regex_t *regex_t,const char *string);"
+.B "void slapt_regex_t_free(slapt_regex_t *regex_t);"
 .B "void slapt_create_dir_structure(const char *dir_name);"
 .B "void slapt_gen_md5_sum_of_file(FILE *f,char *result_sum);"
 .B "int slapt_ask_yes_no(const char *format, ...);"
 .B "char *slapt_str_replace_chr(const char *string,const char find,"
 .B "                            const char replace);"
-.B "__inline void *slapt_malloc(size_t s);"
-.B "__inline void *slapt_calloc(size_t n,size_t s);"
+.B "void *slapt_malloc(size_t s);"
+.B "void *slapt_calloc(size_t n,size_t s);"
 .fi
 .sp
 .nf

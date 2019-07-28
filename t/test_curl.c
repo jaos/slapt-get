@@ -1,5 +1,5 @@
 #include "test_curl.h"
-extern slapt_pkg_info_t pkg;
+extern slapt_pkg_t pkg;
 
 extern int _progress_cb(void *clientp, double dltotal, double dlnow,
                         double ultotal, double ulnow);
@@ -8,7 +8,7 @@ START_TEST(test_slapt_get_mirror_data_from_source)
 {
     FILE *f = NULL;
     const char *err = NULL;
-    slapt_rc_config *rc = slapt_read_rc_config("./data/rc1");
+    slapt_config_t *rc = slapt_config_t_read("./data/rc1");
     slapt_source_t *src = rc->sources->items[0];
     const char *url = src->url;
     char *packages = "PACKAGES.TXT";
@@ -42,21 +42,21 @@ START_TEST(test_slapt_get_mirror_data_from_source)
     unlink("data/CHECKSUMS.md5");
     unlink("data/CHECKSUMS.md5.gz");
 
-    slapt_free_rc_config(rc);
+    slapt_config_t_free(rc);
 }
 END_TEST
 
 START_TEST(test_slapt_download_pkg)
 {
     const char *err = NULL;
-    slapt_rc_config *rc = slapt_read_rc_config("./data/rc1");
+    slapt_config_t *rc = slapt_config_t_read("./data/rc1");
     rc->progress_cb = _progress_cb; /* silence */
     slapt_working_dir_init(rc);
 
     err = slapt_download_pkg(rc, &pkg, NULL);
     fail_if(err);
 
-    slapt_free_rc_config(rc);
+    slapt_config_t_free(rc);
 }
 END_TEST
 

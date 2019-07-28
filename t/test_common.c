@@ -14,19 +14,19 @@ END_TEST
 
 START_TEST(test_regex)
 {
-    slapt_regex_t *regex = slapt_init_regex("^[a-z]+$");
-    slapt_regex_t *invalid_regex = slapt_init_regex("^[-");
+    slapt_regex_t *regex = slapt_regex_t_init("^[a-z]+$");
+    slapt_regex_t *invalid_regex = slapt_regex_t_init("^[-");
 
     fail_if(regex == NULL);
     fail_unless(invalid_regex == NULL);
 
-    slapt_execute_regex(regex, "abc");
+    slapt_regex_t_execute(regex, "abc");
     fail_if(regex->reg_return == REG_NOMATCH);
 
-    slapt_execute_regex(regex, "123");
+    slapt_regex_t_execute(regex, "123");
     fail_unless(regex->reg_return == REG_NOMATCH);
 
-    slapt_free_regex(regex);
+    slapt_regex_t_free(regex);
 }
 END_TEST
 

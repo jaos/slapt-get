@@ -53,27 +53,6 @@
 #include "slaptgpgme.h"
 #endif
 
-enum slapt_action {
-    USAGE = 0,
-    UPDATE,
-    INSTALL,
-    REMOVE,
-    SHOW,
-    SEARCH,
-    UPGRADE,
-    LIST,
-    INSTALLED,
-    CLEAN,
-    SHOWVERSION,
-    AUTOCLEAN,
-    AVAILABLE,
-#ifdef SLAPT_HAS_GPGME
-    ADD_KEYS,
-#endif
-    INSTALL_DISK_SET,
-    FILELIST
-};
-
 #define SLAPT_UPDATE_OPT 'u'
 #define SLAPT_UPGRADE_OPT 'g'
 #define SLAPT_INSTALL_OPT 'i'

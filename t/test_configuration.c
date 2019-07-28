@@ -2,14 +2,14 @@
 
 START_TEST(test_struct_config)
 {
-    slapt_rc_config *rc = NULL;
+    slapt_config_t *rc = NULL;
 
-    rc = slapt_init_config();
+    rc = slapt_config_t_init();
     fail_if(rc == NULL);
-    slapt_free_rc_config(rc);
+    slapt_config_t_free(rc);
     rc = NULL;
 
-    rc = slapt_read_rc_config("./data/rc1");
+    rc = slapt_config_t_read("./data/rc1");
     fail_if(rc == NULL);
     {
         slapt_vector_t *s = rc->sources;
@@ -18,7 +18,7 @@ START_TEST(test_struct_config)
         fail_if(s->size < 1);
         fail_if(e->size != 5);
     }
-    slapt_free_rc_config(rc);
+    slapt_config_t_free(rc);
     rc = NULL;
 }
 END_TEST
@@ -26,10 +26,10 @@ END_TEST
 START_TEST(test_working_dir)
 {
     DIR *d = NULL;
-    slapt_rc_config *rc = slapt_read_rc_config("data/rc1");
+    slapt_config_t *rc = slapt_config_t_read("data/rc1");
 
     /* check that working_dir exists or make it if permissions allow */
-    /* void slapt_working_dir_init(const slapt_rc_config *global_config); */
+    /* void slapt_working_dir_init(const slapt_config_t *global_config); */
 
     slapt_working_dir_init(rc);
 
@@ -42,14 +42,14 @@ END_TEST
 
 START_TEST(test_source_trimming)
 {
-    slapt_source_t *src1 = slapt_init_source("http://www.test.org/dist ");
-    slapt_source_t *src2 = slapt_init_source("http://www.test.org/dist:PREFERRED ");
+    slapt_source_t *src1 = slapt_source_t_init("http://www.test.org/dist ");
+    slapt_source_t *src2 = slapt_source_t_init("http://www.test.org/dist:PREFERRED ");
 
     fail_if(strcmp(src1->url, "http://www.test.org/dist/") != 0);
     fail_if(strcmp(src2->url, "http://www.test.org/dist/") != 0);
 
-    slapt_free_source(src1);
-    slapt_free_source(src2);
+    slapt_source_t_free(src1);
+    slapt_source_t_free(src2);
 }
 END_TEST
 

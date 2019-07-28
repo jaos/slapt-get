@@ -205,7 +205,7 @@
    packages and their dependencies so as to not try and remove uninstalled
    packages
  * translation updates
- * (libslapt) added slapt_write_rc_config (incorporating from gslapt)
+ * (libslapt) added slapt_config_t_write (incorporating from gslapt)
  * (libslapt) added parsing of disabled sources (instead of ignoring what
     gslapt creates).
  * test updates

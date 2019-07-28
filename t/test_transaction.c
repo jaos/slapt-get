@@ -1,5 +1,5 @@
 #include "test_transaction.h"
-extern slapt_pkg_info_t pkg;
+extern slapt_pkg_t pkg;
 
 START_TEST(test_transaction)
 {
@@ -31,22 +31,22 @@ END_TEST
 START_TEST(test_handle_transaction)
 {
     slapt_transaction_t *t = slapt_init_transaction();
-    slapt_rc_config *rc = slapt_read_rc_config("./data/rc1");
+    slapt_config_t *rc = slapt_config_t_read("./data/rc1");
 
     /*
     download and install/remove/upgrade packages as defined in the transaction
     returns 0 on success
-  int slapt_handle_transaction(const slapt_rc_config *,slapt_transaction_t *);
+  int slapt_handle_transaction(const slapt_config_t *,slapt_transaction_t *);
   */
 
     slapt_free_transaction(t);
-    slapt_free_rc_config(rc);
+    slapt_config_t_free(rc);
 }
 END_TEST
 
 START_TEST(test_transaction_dependencies)
 {
-    slapt_rc_config *rc = slapt_read_rc_config("./data/rc1");
+    slapt_config_t *rc = slapt_config_t_read("./data/rc1");
 
     FILE *fh = fopen("data/avail_deps", "r");
     fail_unless(fh != NULL);
@@ -62,19 +62,19 @@ START_TEST(test_transaction_dependencies)
 
     /*
     add dependencies for package to transaction, returns -1 on error, 0 otherwise
-  int slapt_add_deps_to_trans(const slapt_rc_config *global_config,
+  int slapt_add_deps_to_trans(const slapt_config_t *global_config,
                               slapt_transaction_t *tran,
                               struct slapt_pkg_list *avail_pkgs,
-                              struct slapt_pkg_list *installed_pkgs, slapt_pkg_info_t *pkg);
+                              struct slapt_pkg_list *installed_pkgs, slapt_pkg_t *pkg);
   */
 
     /*
     check to see if a package has a conflict already present in the transaction
     returns conflicted package or NULL if none
-  slapt_pkg_info_t *slapt_is_conflicted(slapt_transaction_t *tran,
+  slapt_pkg_t *slapt_is_conflicted(slapt_transaction_t *tran,
                                         struct slapt_pkg_list *avail_pkgs,
                                         struct slapt_pkg_list *installed_pkgs,
-                                        slapt_pkg_info_t *pkg);
+                                        slapt_pkg_t *pkg);
   */
 
     /*
@@ -82,8 +82,8 @@ START_TEST(test_transaction_dependencies)
     in the transaction
   void slapt_generate_suggestions(slapt_transaction_t *tran);
   */
-    slapt_pkg_info_t *p = slapt_get_newest_pkg(avail, "scim");
-    slapt_pkg_info_t *installed_p = slapt_get_newest_pkg(installed, "scim");
+    slapt_pkg_t *p = slapt_get_newest_pkg(avail, "scim");
+    slapt_pkg_t *installed_p = slapt_get_newest_pkg(installed, "scim");
     (void)installed_p;
 
     slapt_vector_t *conflicts = slapt_is_conflicted(t, avail, installed, p);
@@ -98,7 +98,7 @@ START_TEST(test_transaction_dependencies)
     slapt_generate_suggestions(t);
 
     slapt_free_transaction(t);
-    slapt_free_rc_config(rc);
+    slapt_config_t_free(rc);
 }
 END_TEST
 

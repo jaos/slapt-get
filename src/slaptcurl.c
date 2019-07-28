@@ -24,7 +24,7 @@ struct head_data_t {
     size_t size;
 };
 
-int slapt_download_data(FILE *fh, const char *url, size_t bytes, long *filetime, const slapt_rc_config *global_config)
+int slapt_download_data(FILE *fh, const char *url, size_t bytes, long *filetime, const slapt_config_t *global_config)
 {
     CURL *ch = NULL;
     CURLcode response;
@@ -156,7 +156,7 @@ char *slapt_head_request(const char *url)
     return head_t.data;
 }
 
-const char *slapt_get_mirror_data_from_source(FILE *fh, const slapt_rc_config *global_config, const char *base_url, const char *filename)
+const char *slapt_get_mirror_data_from_source(FILE *fh, const slapt_config_t *global_config, const char *base_url, const char *filename)
 {
     int return_code = 0;
     char *url = NULL;
@@ -176,7 +176,7 @@ const char *slapt_get_mirror_data_from_source(FILE *fh, const slapt_rc_config *g
     return return_code != 0 ? curl_easy_strerror(return_code) : NULL;
 }
 
-const char *slapt_download_pkg(const slapt_rc_config *global_config, slapt_pkg_info_t *pkg, const char *note)
+const char *slapt_download_pkg(const slapt_config_t *global_config, slapt_pkg_t *pkg, const char *note)
 {
     FILE *fh = NULL;
     char *file_name = NULL;

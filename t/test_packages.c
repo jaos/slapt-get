@@ -1,12 +1,12 @@
 #include "test_packages.h"
-extern slapt_pkg_info_t pkg;
+extern slapt_pkg_t pkg;
 
 extern int _progress_cb(void *clientp, double dltotal, double dlnow,
                         double ultotal, double ulnow);
 
 START_TEST(test_struct_pkg)
 {
-    slapt_pkg_info_t *cpy = slapt_init_pkg();
+    slapt_pkg_t *cpy = slapt_pkg_t_init();
     fail_if(cpy == NULL);
 
     cpy = slapt_copy_pkg(cpy, &pkg);
@@ -24,7 +24,7 @@ START_TEST(test_struct_pkg)
         free(cpy_str);
     }
 
-    slapt_free_pkg(cpy);
+    slapt_pkg_t_free(cpy);
 }
 END_TEST
 
@@ -32,7 +32,7 @@ START_TEST(test_pkg_info)
 {
     size_t i = -1;
     char *string = NULL;
-    slapt_rc_config *rc = slapt_read_rc_config("./data/rc1");
+    slapt_config_t *rc = slapt_config_t_read("./data/rc1");
 
     string = slapt_gen_short_pkg_description(&pkg);
     fail_if(string == NULL);
@@ -75,21 +75,21 @@ START_TEST(test_pkg_info)
     string = NULL;
 
     /* retrieve the packages changelog entry, if any.  Returns NULL otherwise */
-    /* char *slapt_get_pkg_changelog(const slapt_pkg_info_t *pkg); */
+    /* char *slapt_get_pkg_changelog(const slapt_pkg_t *pkg); */
 
     /* get the package filelist, returns (char *) on success or NULL on error */
-    /* char *slapt_get_pkg_filelist(const slapt_pkg_info_t *pkg); */
+    /* char *slapt_get_pkg_filelist(const slapt_pkg_t *pkg); */
 
     fail_unless(pkg.priority == SLAPT_PRIORITY_DEFAULT);
     fail_unless(strcmp(slapt_priority_to_str(pkg.priority), gettext("Default")) == 0);
 
-    slapt_free_rc_config(rc);
+    slapt_config_t_free(rc);
 }
 END_TEST
 
 START_TEST(test_pkg_search)
 {
-    slapt_pkg_info_t *p = NULL;
+    slapt_pkg_t *p = NULL;
     slapt_vector_t *l = NULL;
     slapt_vector_t *list = slapt_vector_t_init(NULL);
     slapt_vector_t_add(list, &pkg);
@@ -113,7 +113,7 @@ END_TEST
 
 START_TEST(test_pkgtool)
 {
-    slapt_rc_config *rc = slapt_read_rc_config("./data/rc1");
+    slapt_config_t *rc = slapt_config_t_read("./data/rc1");
     /* disabled... */
     /*
   int r               = -1;
@@ -122,7 +122,7 @@ START_TEST(test_pkgtool)
   r = slapt_remove_pkg(rc, &pkg);
   */
 
-    slapt_free_rc_config(rc);
+    slapt_config_t_free(rc);
 }
 END_TEST
 
@@ -146,7 +146,7 @@ http://software.jaos.org/pipermail/slapt-get-devel/2008-November/000762.html
 */
 START_TEST(test_pkg_version)
 {
-    slapt_pkg_info_t mirror_pkg1 = {
+    slapt_pkg_t mirror_pkg1 = {
         "8598a2a6d683d098b09cdc938de1e3c7",
         "gslapt",
         "0.3.15-i386-1",
@@ -161,7 +161,7 @@ START_TEST(test_pkg_version)
         440,
         SLAPT_PRIORITY_PREFERRED,
         false};
-    slapt_pkg_info_t mirror_pkg2 = {
+    slapt_pkg_t mirror_pkg2 = {
         "8598a2a6d683d098b09cdc938de1e3c7",
         "gslapt",
         "0.3.15-i386-2",
@@ -176,7 +176,7 @@ START_TEST(test_pkg_version)
         440,
         SLAPT_PRIORITY_DEFAULT,
         false};
-    slapt_pkg_info_t installed_pkg = {
+    slapt_pkg_t installed_pkg = {
         "8598a2a6d683d098b09cdc938de1e3c7",
         "gslapt",
         "0.3.15-i386-1",
@@ -255,14 +255,14 @@ START_TEST(test_dependency)
 {
     uint32_t i = 0;
     FILE *fh = NULL;
-    slapt_pkg_info_t *p = NULL;
+    slapt_pkg_t *p = NULL;
     slapt_vector_t *required_by = slapt_vector_t_init(NULL);
     slapt_vector_t *pkgs_to_install = slapt_vector_t_init(NULL);
     slapt_vector_t *pkgs_to_remove = slapt_vector_t_init(NULL);
     slapt_vector_t *conflicts = NULL, *deps = slapt_vector_t_init(NULL);
     slapt_vector_t *conflict = slapt_vector_t_init((slapt_vector_t_free_function)slapt_pkg_err_t_free),
                          *missing = slapt_vector_t_init((slapt_vector_t_free_function)slapt_pkg_err_t_free);
-    slapt_rc_config *rc = slapt_read_rc_config("./data/rc1");
+    slapt_config_t *rc = slapt_config_t_read("./data/rc1");
 
     fh = fopen("data/avail_deps", "r");
     fail_unless(fh != NULL);
@@ -294,7 +294,7 @@ START_TEST(test_dependency)
     conflicts = slapt_get_pkg_conflicts(avail, installed, p);
     fail_unless(conflicts != NULL);
     fail_unless(conflicts->size == 1);
-    fail_unless(strcmp(((slapt_pkg_info_t *)conflicts->items[0])->name, "ibus") == 0);
+    fail_unless(strcmp(((slapt_pkg_t *)conflicts->items[0])->name, "ibus") == 0);
     slapt_vector_t_free(conflicts);
 
     /*
@@ -305,11 +305,11 @@ START_TEST(test_dependency)
     fail_unless(p != NULL);
     required_by = slapt_is_required_by(rc, avail, installed, pkgs_to_install, pkgs_to_remove, p);
     fail_unless(required_by->size == 5);
-    fail_unless(strcmp(((slapt_pkg_info_t *)(required_by->items[0]))->name, "slapt-src") == 0);
-    fail_unless(strcmp(((slapt_pkg_info_t *)(required_by->items[1]))->name, "gslapt") == 0);
-    fail_unless(strcmp(((slapt_pkg_info_t *)(required_by->items[2]))->name, "foo") == 0);
-    fail_unless(strcmp(((slapt_pkg_info_t *)(required_by->items[3]))->name, "boz") == 0);
-    fail_unless(strcmp(((slapt_pkg_info_t *)(required_by->items[4]))->name, "bar") == 0);
+    fail_unless(strcmp(((slapt_pkg_t *)(required_by->items[0]))->name, "slapt-src") == 0);
+    fail_unless(strcmp(((slapt_pkg_t *)(required_by->items[1]))->name, "gslapt") == 0);
+    fail_unless(strcmp(((slapt_pkg_t *)(required_by->items[2]))->name, "foo") == 0);
+    fail_unless(strcmp(((slapt_pkg_t *)(required_by->items[3]))->name, "boz") == 0);
+    fail_unless(strcmp(((slapt_pkg_t *)(required_by->items[4]))->name, "bar") == 0);
     slapt_vector_t_free(required_by);
 
     /* glib reverse dep test */
@@ -317,8 +317,8 @@ START_TEST(test_dependency)
     fail_unless(p != NULL);
     required_by = slapt_is_required_by(rc, avail, installed, pkgs_to_install, pkgs_to_remove, p);
     fail_unless(required_by->size == 2);
-    fail_unless(strcmp(((slapt_pkg_info_t *)(required_by->items[0]))->name, "xmms") == 0);
-    fail_unless(strcmp(((slapt_pkg_info_t *)(required_by->items[1]))->name, "gtk+") == 0);
+    fail_unless(strcmp(((slapt_pkg_t *)(required_by->items[0]))->name, "xmms") == 0);
+    fail_unless(strcmp(((slapt_pkg_t *)(required_by->items[1]))->name, "gtk+") == 0);
     slapt_vector_t_free(required_by);
 
     /* glib2 reverse dep test */
@@ -326,23 +326,23 @@ START_TEST(test_dependency)
     fail_unless(p != NULL);
     required_by = slapt_is_required_by(rc, avail, installed, pkgs_to_install, pkgs_to_remove, p);
     fail_unless(required_by->size == 4);
-    fail_unless(strcmp(((slapt_pkg_info_t *)(required_by->items[0]))->name, "ConsoleKit") == 0);
-    fail_unless(strcmp(((slapt_pkg_info_t *)(required_by->items[1]))->name, "dbus-glib") == 0);
-    fail_unless(strcmp(((slapt_pkg_info_t *)(required_by->items[2]))->name, "gslapt") == 0);
-    fail_unless(strcmp(((slapt_pkg_info_t *)(required_by->items[3]))->name, "scim") == 0);
+    fail_unless(strcmp(((slapt_pkg_t *)(required_by->items[0]))->name, "ConsoleKit") == 0);
+    fail_unless(strcmp(((slapt_pkg_t *)(required_by->items[1]))->name, "dbus-glib") == 0);
+    fail_unless(strcmp(((slapt_pkg_t *)(required_by->items[2]))->name, "gslapt") == 0);
+    fail_unless(strcmp(((slapt_pkg_t *)(required_by->items[3]))->name, "scim") == 0);
     slapt_vector_t_free(required_by);
 
     slapt_vector_t_free(installed);
     slapt_vector_t_free(pkgs_to_install);
     slapt_vector_t_free(pkgs_to_remove);
     slapt_vector_t_free(avail);
-    slapt_free_rc_config(rc);
+    slapt_config_t_free(rc);
 }
 END_TEST
 
 START_TEST(test_cache)
 {
-    slapt_rc_config *rc = slapt_read_rc_config("./data/rc1");
+    slapt_config_t *rc = slapt_config_t_read("./data/rc1");
 
     slapt_clean_pkg_dir(rc->working_dir);
 
@@ -351,14 +351,14 @@ START_TEST(test_cache)
   slapt_purge_old_cached_pkgs(rc, NULL, list);
   */
 
-    slapt_free_rc_config(rc);
+    slapt_config_t_free(rc);
 }
 END_TEST
 
 START_TEST(test_network)
 {
     char *cwd = get_current_dir_name();
-    slapt_rc_config *rc = slapt_read_rc_config("./data/rc1");
+    slapt_config_t *rc = slapt_config_t_read("./data/rc1");
     rc->progress_cb = _progress_cb; /* silence */
 
     /* must chdir to working dir */
@@ -370,20 +370,20 @@ START_TEST(test_network)
   */
 
     /* download the PACKAGES.TXT and CHECKSUMS.md5 files
-  slapt_vector_t *slapt_get_pkg_source_packages (const slapt_rc_config *global_config,
+  slapt_vector_t *slapt_get_pkg_source_packages (const slapt_config_t *global_config,
                                                         const char *url);
-  slapt_vector_t *slapt_get_pkg_source_patches (const slapt_rc_config *global_config,
+  slapt_vector_t *slapt_get_pkg_source_patches (const slapt_config_t *global_config,
                                                        const char *url);
-  FILE *slapt_get_pkg_source_checksums (const slapt_rc_config *global_config,
+  FILE *slapt_get_pkg_source_checksums (const slapt_config_t *global_config,
                                         const char *url);
-  int slapt_get_pkg_source_changelog (const slapt_rc_config *global_config,
+  int slapt_get_pkg_source_changelog (const slapt_config_t *global_config,
                                         const char *url);
   */
 
     fail_unless(slapt_update_pkg_cache(rc) == 0);
 
     fail_unless(chdir(cwd) == 0);
-    slapt_free_rc_config(rc);
+    slapt_config_t_free(rc);
     free(cwd);
 }
 END_TEST
