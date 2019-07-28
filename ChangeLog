@@ -1,4 +1,23 @@
 
+0.11.1 Jul 28, 2019
+ * update naming convention for data structures
+ * update dependencies
+ * small cleanups
+ * tx pull
+ * Makefile: bump to version 0.11.1
+ * rename src/curl.{c,h} to src/slaptcurl.{c,h}
+ * rename src/gpgme.{c,h} to src/slaptgpgme.{c,h}
+ * clang-format
+ * add debug cflag
+ * use slapt_vector instead of other custom list types
+ * make private pkg_compare available as slapt_pkg_info_t_qsort_cmp
+ * remove -ansi CFLAG for unit tests
+ * update unit test test_configuration for new default rc value
+ * add slapt_vector_t
+ * tweak INSTALL
+ * skip installing static library
+ * remove binutils from slack-required
+
 0.11.0 Mar 03, 2019
  * simplify default exclude lists
  * update software.jaos.org source locations (moving package hosting to google storage)
