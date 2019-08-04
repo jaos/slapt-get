@@ -2928,6 +2928,10 @@ slapt_get_obsolete_pkgs(const slapt_config_t *global_config, slapt_vector_t *ava
     slapt_vector_t *to_remove = slapt_vector_t_init(NULL);
 
     slapt_vector_t_foreach (slapt_pkg_t *, p, installed_pkgs) {
+
+        if (slapt_is_excluded(global_config, p))
+            continue;
+
         /* if we can't find the installed package in our available pkg list, it must be obsolete */
         if (slapt_get_newest_pkg(avail_pkgs, p->name) == NULL) {
             /* any packages that require this package we are about to remove should be scheduled to remove as well */

@@ -1,5 +1,6 @@
 
-0.11.1 Jul 28, 2019
+0.11.1 Aug 04, 2019
+ * skip exclusions when removing obsolete packages
  * update naming convention for data structures
  * update dependencies
  * small cleanups
