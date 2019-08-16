@@ -82,7 +82,7 @@ doinstall: libsinstall
 	gzip -f $(DESTDIR)/usr/man/man3/libslapt.3
 	gzip -f $(DESTDIR)/usr/man/ru/man8/$(PACKAGE).8
 	gzip -f $(DESTDIR)/usr/man/uk/man8/$(PACKAGE).8
-	install -d $(DESTDIR)/var/$(PACKAGE)
+	install -d $(DESTDIR)/var/cache/$(PACKAGE)
 	for i in `ls po/*.po | sed 's/.po//' | xargs -n1 basename` ;do if [ ! -d $(DESTDIR)$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES ]; then mkdir -p $(DESTDIR)$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES; fi; msgfmt -o $(DESTDIR)$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES/slapt-get.mo po/$$i.po;done
 	mkdir -p $(DESTDIR)/usr/doc/$(PACKAGE)-$(VERSION)/
 	cp -f default.slapt-getrc.* example.slapt-getrc COPYING ChangeLog INSTALL README FAQ TODO $(DESTDIR)/usr/doc/$(PACKAGE)-$(VERSION)/
@@ -94,7 +94,7 @@ uninstall:
 	-rm /usr/man/man3/libslapt.3.gz
 	-rm /usr/man/ru/man8/$(PACKAGE).8.gz
 	-rm /usr/man/uk/man8/$(PACKAGE).8.gz
-	-@echo leaving /var/$(PACKAGE)
+	-@echo leaving /var/cache/$(PACKAGE)
 	-rm -r /usr/doc/$(PACKAGE)-$(VERSION)
 	-find /usr/share/locale/ -name 'slapt-get.mo' -exec rm {} \;
 	-rm /usr/include/slapt.h
