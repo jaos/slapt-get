@@ -5,7 +5,6 @@ LIBDIR=$(shell dirname $$(gcc -print-file-name=libcrypto.so))
 RELEASE=1
 CC?=gcc
 STRIP?=strip
-AR?=ar
 RANLIB?=ranlib
 CURLFLAGS=`curl-config --libs` -lcrypto
 OBJS=src/common.o src/configuration.o src/package.o src/slaptcurl.o src/transaction.o src/action.o src/main.o
@@ -37,19 +36,9 @@ all: pkg
 $(OBJS): $(LIBHEADERS)
 
 $(PACKAGE): libs
-	$(CC) -o $(PACKAGE) $(OBJS) $(CFLAGS) $(LDFLAGS)
-
-withlibslapt: libs
 	$(CC) -o $(PACKAGE) $(NONLIBOBJS) -L./src -Wl,-R$(LIBDIR) $(CFLAGS) $(LDFLAGS) -lslapt
 
-static: libs
-	$(CC) -o $(PACKAGE) $(OBJS) $(CFLAGS) $(LDFLAGS) -static
-
 install: $(PACKAGE) doinstall
-
-staticinstall: static doinstall
-
-withlibslaptinstall: withlibslapt doinstall
 
 libsinstall: libs
 	if [ ! -d $(DESTDIR)/usr/include ]; then mkdir -p $(DESTDIR)/usr/include;fi
@@ -104,7 +93,6 @@ uninstall:
 clean: testclean
 	-if [ -f $(PACKAGE) ]; then rm $(PACKAGE);fi
 	-rm src/*.o
-	-rm src/*.a
 	-rm src/*.so
 	-rm src/libslapt.so*
 	-rm src/slapt.h
@@ -115,10 +103,6 @@ clean: testclean
 
 .PHONY: pkg dopkg
 pkg: $(PACKAGE) dopkg
-
-staticpkg: static dopkg
-
-withlibslaptpkg: withlibslapt dopkg
 
 dopkg: $(PACKAGE)
 	mkdir -p pkg
@@ -165,10 +149,8 @@ po_file:
 
 libs: $(OBJS)
 	touch libs
-	$(CC) -shared -o src/libslapt.so.$(VERSION) $(LIBOBJS) #-Wl,-soname=libslapt-$(VERSION)
+	$(CC) -shared -o src/libslapt.so.$(VERSION) $(LIBOBJS) -Wl,-soname=libslapt.so.$(VERSION)
 	( cd src; if [ -f libslapt.so ]; then rm libslapt.so;fi; ln -sf libslapt.so.$(VERSION) libslapt.so )
-	$(AR) -r src/libslapt.a $(LIBOBJS)
-	$(RANLIB) src/libslapt.a
 	-@echo "#ifndef LIB_SLAPT" > src/slapt.h
 	-@echo "#define LIB_SLAPT 1" >> src/slapt.h
 	-@cat $(LIBHEADERS) |grep -v '#include \"' >> src/slapt.h
