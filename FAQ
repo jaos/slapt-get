@@ -504,13 +504,11 @@ Frequently Asked Questions:
 
 21. How can I contribute my ideas or code?
 
- Send in ideas or patches to the development list:
+ The easiest is either Github:
+ https://github.com/jaos/slapt-get/issues
 
-   slapt-get-devel at software dot jaos dot org
-
- The user list can be used for questions on slapt-get usage, etc:
-
-   slapt-get-user at software dot jaos dot org
+ Or https://software.jaos.org/git/slapt-get
+ for manual patches/etc.
 
 
 22. How can I get slapt-get to speak in my native tongue?
