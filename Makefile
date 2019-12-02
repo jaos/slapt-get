@@ -143,9 +143,9 @@ dopkg: $(PACKAGE)
 
 po_file:
 	-xgettext -o po/slapt-get.pot.new -sC --no-location src/*.c src/*.h
-	-if [ ! -f po/slapt-get.pot ]; then mv po/slapt-get.pot.new po/slapt-get.pot; else msgmerge -Us po/slapt-get.pot po/slapt-get.pot.new ; fi
+	-if [ ! -f po/slapt-get.pot ]; then mv po/slapt-get.pot.new po/slapt-get.pot; else msgmerge --no-wrap -Us po/slapt-get.pot po/slapt-get.pot.new ; fi
 	-rm po/slapt-get.pot.new
-	-for i in `ls po/*.po`; do msgmerge -UNs $$i po/slapt-get.pot; done
+	-for i in `ls po/*.po`; do msgmerge --no-wrap -UNs $$i po/slapt-get.pot; done
 
 libs: $(OBJS)
 	touch libs
