@@ -11,14 +11,14 @@ EXCLUDE=^kernel-.*,^glibc.*,.*-[0-9]+dl$,^devs$,^udev$
 # http://mirrors.slackware.com/mirrorlist/
 
 # Slackware release base URL (path containing a PACKAGES.TXT)
-# SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware64-14.0/:OFFICIAL
-# SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware64-14.1/:OFFICIAL
-SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware64-14.2/:OFFICIAL
-# SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware64-current/:OFFICIAL
+# SOURCE=https://slackware.osuosl.org/slackware64-14.0/:OFFICIAL
+# SOURCE=https://slackware.osuosl.org/slackware64-14.1/:OFFICIAL
+SOURCE=https://slackware.osuosl.org/slackware64-14.2/:OFFICIAL
+# SOURCE=https://slackware.osuosl.org/slackware64-current/:OFFICIAL
 
 # Other architecture examples
 # 32bit x86
-# SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware-14.2/:OFFICIAL
+# SOURCE=https://slackware.osuosl.org/slackware-14.2/:OFFICIAL
 # 32bit Arm
 # SOURCE=ftp://ftp.arm.slackware.com/slackwarearm/slackwarearm-14.2/:OFFICIAL
 # 64bit Arm
@@ -35,9 +35,9 @@ SOURCE=https://storage.googleapis.com/slackpacks.jaos.org/slackware64-15.0/:OFFI
 # SOURCE=https://storage.googleapis.com/slackpacks.jaos.org/slarm64-15.0/:OFFICIAL
 
 # Sources for the testing, extra, and pasture areas - if you use them.
-# SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware64-14.2/extra/:PREFERRED
-# SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware64-14.2/testing/
-# SOURCE=ftp://ftp.slackware.com/pub/slackware/slackware64-14.2/pasture/
+# SOURCE=https://slackware.osuosl.org/slackware64-14.2/extra/:PREFERRED
+# SOURCE=https://slackware.osuosl.org/slackware64-14.2/testing/
+# SOURCE=https://slackware.osuosl.org/slackware64-14.2/pasture/
 
 # Other unofficial sources using the :PREFERRED and/or :CUSTOM attribute
 # can be defined here
