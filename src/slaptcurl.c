@@ -56,6 +56,8 @@ int slapt_download_data(FILE *fh, const char *url, size_t bytes, long *filetime,
     /* ugh, if someone wants to do this */
     if (getenv(SLAPT_NO_SSL_VERIFYPEER))
         curl_easy_setopt(ch, CURLOPT_SSL_VERIFYPEER, 0);
+    if (getenv("SLAPT_CURL_DEBUG"))
+        curl_easy_setopt(ch, CURLOPT_VERBOSE, 1);
 
     headers = curl_slist_append(headers, "Pragma: "); /* override no-cache */
 
@@ -117,6 +119,7 @@ char *slapt_head_request(const char *url)
     struct curl_slist *headers = NULL;
 
     head_t.data = slapt_malloc(sizeof *head_t.data);
+    head_t.data = '\0';
     head_t.size = 0;
 
     ch = curl_easy_init();
@@ -142,9 +145,12 @@ char *slapt_head_request(const char *url)
     curl_easy_setopt(ch, CURLOPT_FILETIME, 1);
     curl_easy_setopt(ch, CURLOPT_FOLLOWLOCATION, 1);
 
+    if (getenv("SLAPT_CURL_DEBUG"))
+        curl_easy_setopt(ch, CURLOPT_VERBOSE, 1);
+
     headers = curl_slist_append(headers, "Pragma: "); /* override no-cache */
 
-    if ((response = curl_easy_perform(ch)) != 0) {
+    if ((response = curl_easy_perform(ch)) != CURLE_OK) {
         free(head_t.data);
         curl_easy_cleanup(ch);
         curl_slist_free_all(headers);
