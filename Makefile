@@ -115,8 +115,8 @@ dopkg: $(PACKAGE)
 	mkdir -p pkg/usr/man/uk/man8
 	for i in `ls po/ --ignore=slapt-get.pot --ignore='*~*' |sed 's/.po//'` ;do mkdir -p pkg$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES; msgfmt -o pkg$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES/slapt-get.mo po/$$i.po; done
 	cp -f $(PACKAGE) ./pkg/$(SBINDIR)
-	-chown $$(stat --format "%u:%g" /usr/sbin) ./pkg/$(SBINDIR)
-	-chown $$(stat --format "%u:%g" /usr/sbin) ./pkg/$(SBINDIR)/$(PACKAGE)
+	chown $$(stat --format "%u:%g" /usr/sbin) ./pkg/$(SBINDIR)
+	chown $$(stat --format "%u:%g" /usr/sbin) ./pkg/$(SBINDIR)/$(PACKAGE)
 	$(STRIP) ./pkg/$(SBINDIR)/$(PACKAGE)
 	cp -f $(RCSOURCE) pkg/etc/slapt-get/slapt-getrc.new
 	mkdir -p ./pkg/usr/doc/$(PACKAGE)-$(VERSION)/
@@ -139,7 +139,7 @@ dopkg: $(PACKAGE)
 	cp -f src/libslapt.so.$(VERSION) pkg$(LIBDIR)/
 	$(STRIP) pkg$(LIBDIR)/libslapt.so.$(VERSION)
 	( cd pkg$(LIBDIR); ln -sf libslapt.so.$(VERSION) libslapt.so )
-	-( cd pkg; /sbin/makepkg -l y -c n ../$(PACKAGE)-$(VERSION)-$(ARCH)-$(RELEASE).txz )
+	( cd pkg; /sbin/makepkg -l y -c n ../$(PACKAGE)-$(VERSION)-$(ARCH)-$(RELEASE).txz )
 
 po_file:
 	-xgettext -o po/slapt-get.pot.new -sC --no-location src/*.c src/*.h
