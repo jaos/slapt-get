@@ -1,4 +1,5 @@
 aaa_elflibs|curl
+aaa_elflibs|krb5
 aaa_elflibs|libidn2
 aaa_elflibs|libssh2
 aaa_elflibs|openldap-client
