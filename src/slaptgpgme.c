@@ -23,6 +23,7 @@ static gpgme_ctx_t *_slapt_init_gpgme_ctx(void)
     gpgme_error_t e;
     gpgme_ctx_t *ctx = slapt_malloc(sizeof *ctx);
 
+    gpgme_check_version(NULL); /* needed for gpgme_new */
     e = gpgme_new(ctx);
     if (e != GPG_ERR_NO_ERROR) {
         fprintf(stderr, "GPGME: %s\n", gpgme_strerror(e));
