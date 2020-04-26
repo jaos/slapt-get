@@ -118,8 +118,7 @@ char *slapt_head_request(const char *url)
     struct head_data_t head_t;
     struct curl_slist *headers = NULL;
 
-    head_t.data = slapt_malloc(sizeof *head_t.data);
-    head_t.data = '\0';
+    head_t.data = NULL;
     head_t.size = 0;
 
     ch = curl_easy_init();
@@ -167,11 +166,13 @@ const char *slapt_get_mirror_data_from_source(FILE *fh, const slapt_config_t *gl
     int return_code = 0;
     char *url = NULL;
 
-    url = slapt_calloc(strlen(base_url) + strlen(filename) + 1, sizeof *url);
+    size_t url_len = strlen(base_url) + strlen(filename) + 1;
+    url = slapt_calloc(url_len, sizeof *url);
 
-    strcpy(url, base_url);
-    url[strlen(base_url)] = '\0';
-    strcat(url, filename);
+    if (snprintf(url, url_len, "%s%s", base_url, filename) < 1) {
+        fprintf(stderr, "slapt_get_mirror_data_from_source error for %s\n", base_url);
+        exit(EXIT_FAILURE);
+    }
 
     return_code = slapt_download_data(fh, url, 0, NULL, global_config);
 
@@ -394,10 +395,12 @@ char *slapt_gen_head_cache_filename(const char *filename_from_url)
 {
     char *head_filename;
 
-    head_filename = slapt_calloc(strlen(filename_from_url) + strlen(SLAPT_HEAD_FILE_EXT) + 1, sizeof *head_filename);
-    strcpy(head_filename, filename_from_url);
-    strcat(head_filename, SLAPT_HEAD_FILE_EXT);
-
+    size_t head_filename_len = strlen(filename_from_url) + strlen(SLAPT_HEAD_FILE_EXT) + 1;
+    head_filename = slapt_calloc(head_filename_len, sizeof *head_filename);
+    if (snprintf(head_filename, head_filename_len, "%s%s", filename_from_url, SLAPT_HEAD_FILE_EXT) < 1) {
+        fprintf(stderr, "slapt_gen_head_cache_filename error for %s\n", filename_from_url);
+        exit(EXIT_FAILURE);
+    }
     return head_filename;
 }
 
@@ -428,9 +431,12 @@ char *slapt_head_mirror_data(const char *wurl, const char *file)
     char *url;
 
     /* build url */
-    url = slapt_calloc(strlen(wurl) + strlen(file) + 1, sizeof *url);
-    strcpy(url, wurl);
-    strcat(url, file);
+    size_t url_len = strlen(wurl) + strlen(file) + 1;
+    url = slapt_calloc(url_len, sizeof *url);
+    if (snprintf(url, url_len, "%s%s", wurl, file) < 1) {
+        fprintf(stderr, "slapt_head_mirror_data error for %s\n", wurl);
+        exit(EXIT_FAILURE);
+    }
 
     /* retrieve the header info */
     head_data = slapt_head_request(url);

@@ -115,3 +115,5 @@ bool slapt_disk_space_check(const char *path, double space_needed);
 /* utils */
 slapt_vector_t *slapt_parse_delimited_list(char *line, char delim);
 char *slapt_strip_whitespace(const char *s);
+
+size_t slapt_strlcpy(char *, const char *, size_t);
