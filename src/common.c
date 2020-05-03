@@ -570,7 +570,7 @@ size_t slapt_strlcpy(char *dst, const char *src, size_t size)
     size_t src_length = strnlen (src, size);
     if (src_length >= size) {
         if (src_length != size) {
-            fprintf(stderr, "Truncating %s [%ld to %ld]\n", src, size, src_length);
+            fprintf(stderr, "Truncating %s [%zd to %zd]\n", src, size, src_length);
             exit(EXIT_FAILURE);
         }
         memcpy (dst, src, size);
