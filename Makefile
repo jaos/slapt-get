@@ -27,9 +27,9 @@ ifeq ($(HAS_GPGME),1)
 	LDFLAGS+=`gpgme-config --libs`
 endif
 ifeq ($(TESTBUILD),1)
-CFLAGS?=-W -Werror -Wall -Wextra -O2 -pedantic -Wshadow -Wstrict-overflow -fno-strict-aliasing -g -fsanitize=undefined -fsanitize=address -fstack-protector -ggdb -fno-omit-frame-pointer
+CFLAGS?=-W -Werror -Wall -Wextra -O2 -flto -pedantic -Wshadow -Wstrict-overflow -fno-strict-aliasing -g -fsanitize=undefined -fsanitize=address -fstack-protector -ggdb -fno-omit-frame-pointer
 else
-CFLAGS?=-W -Werror -Wall -Wextra -O2 -pedantic -Wshadow -Wstrict-overflow -fno-strict-aliasing -g
+CFLAGS?=-W -Werror -Wall -Wextra -O2 -flto -pedantic -Wshadow -Wstrict-overflow -fno-strict-aliasing -g
 endif
 CFLAGS+=$(DEFINES) -fPIC
 
@@ -40,7 +40,11 @@ all: pkg
 $(OBJS): $(LIBHEADERS)
 
 $(PACKAGE): libs
+ifeq ($(TESTBUILD),1)
+	$(CC) -o $(PACKAGE) $(OBJS) $(CFLAGS) $(LDFLAGS)
+else
 	$(CC) -o $(PACKAGE) $(NONLIBOBJS) -L./src -Wl,-R$(LIBDIR) $(CFLAGS) $(LDFLAGS) -lslapt
+endif
 
 install: $(PACKAGE) doinstall
 
@@ -153,7 +157,7 @@ po_file:
 
 libs: $(OBJS)
 	touch libs
-	$(CC) -shared -o src/libslapt.so.$(VERSION) $(LIBOBJS) -Wl,-soname=libslapt.so.$(VERSION)
+	$(CC) -shared -o src/libslapt.so.$(VERSION) $(LIBOBJS) -Wl,-soname=libslapt.so.$(VERSION) $(CFLAGS) $(LDFLAGS)
 	( cd src; if [ -f libslapt.so ]; then rm libslapt.so;fi; ln -sf libslapt.so.$(VERSION) libslapt.so )
 	-@echo "#ifndef LIB_SLAPT" > src/slapt.h
 	-@echo "#define LIB_SLAPT 1" >> src/slapt.h
