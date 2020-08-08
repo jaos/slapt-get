@@ -434,6 +434,9 @@ slapt_vector_t *slapt_vector_t_init(slapt_vector_t_free_function f)
 
 void slapt_vector_t_free(slapt_vector_t *v)
 {
+    if (!v)
+        return;
+
     if (v->free_function) {
         for (uint32_t i = 0; i < v->size; i++) {
             v->free_function(v->items[i]);
