@@ -86,7 +86,7 @@ int slapt_vector_t_index_of(slapt_vector_t *, slapt_vector_t_cmp, void *);
 slapt_vector_t *slapt_vector_t_search(slapt_vector_t *, slapt_vector_t_cmp, void *);
 #define slapt_vector_t_foreach(type, item, list) \
     type item;                                   \
-    for (uint32_t item##_counter = 0; (item##_counter < list->size) && (item = list->items[item##_counter]); item##_counter++)
+    if (list) for (uint32_t item##__counter__ = 0; (item##__counter__ < list->size) && (item = list->items[item##__counter__]); item##__counter__++)
 
 FILE *slapt_open_file(const char *file_name, const char *mode);
 slapt_regex_t *slapt_regex_t_init(const char *regex_string);
