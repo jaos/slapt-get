@@ -1383,14 +1383,13 @@ static slapt_pkg_t *parse_meta_entry(slapt_vector_t *avail_pkgs, slapt_vector_t 
         }
     }
 
-    slapt_vector_t_foreach (slapt_pkg_t *, installed_pkg, installed_pkgs) {
-        if (strcmp(tmp_pkg_name, installed_pkg->name) != 0)
-            continue;
-
+    slapt_vector_t *matches = slapt_vector_t_search(installed_pkgs, by_details, &(slapt_pkg_t){.name = (char *)tmp_pkg_name});
+    slapt_vector_t_foreach (slapt_pkg_t *, installed_pkg, matches) {
         /* if condition is "=",">=", or "=<" and versions are the same */
         if ((strchr(tmp_pkg_cond, '=') != NULL) && (slapt_cmp_pkg_versions(tmp_pkg_ver, installed_pkg->version) == 0)) {
             free(tmp_pkg_name);
             free(tmp_pkg_ver);
+            slapt_vector_t_free(matches);
             return installed_pkg;
         }
 
@@ -1399,6 +1398,7 @@ static slapt_pkg_t *parse_meta_entry(slapt_vector_t *avail_pkgs, slapt_vector_t 
             if (slapt_cmp_pkg_versions(installed_pkg->version, tmp_pkg_ver) < 0) {
                 free(tmp_pkg_name);
                 free(tmp_pkg_ver);
+                slapt_vector_t_free(matches);
                 return installed_pkg;
             }
         }
@@ -1408,10 +1408,12 @@ static slapt_pkg_t *parse_meta_entry(slapt_vector_t *avail_pkgs, slapt_vector_t 
             if (slapt_cmp_pkg_versions(installed_pkg->version, tmp_pkg_ver) > 0) {
                 free(tmp_pkg_name);
                 free(tmp_pkg_ver);
+                slapt_vector_t_free(matches);
                 return installed_pkg;
             }
         }
     }
+    slapt_vector_t_free(matches);
 
     /* check the newest version of tmp_pkg_name (in newest_avail_pkg) before we try looping through avail_pkgs */
     if (newest_avail_pkg != NULL) {
@@ -1442,14 +1444,13 @@ static slapt_pkg_t *parse_meta_entry(slapt_vector_t *avail_pkgs, slapt_vector_t 
     }
 
     /* loop through avail_pkgs */
-    slapt_vector_t_foreach (slapt_pkg_t *, avail_pkg, avail_pkgs) {
-        if (strcmp(tmp_pkg_name, avail_pkg->name) != 0)
-            continue;
-
+    matches = slapt_vector_t_search(avail_pkgs, by_details, &(slapt_pkg_t){.name = (char *)tmp_pkg_name});
+    slapt_vector_t_foreach (slapt_pkg_t *, avail_pkg, matches) {
         /* if condition is "=",">=", or "=<" and versions are the same */
         if ((strchr(tmp_pkg_cond, '=') != NULL) && (slapt_cmp_pkg_versions(tmp_pkg_ver, avail_pkg->version) == 0)) {
             free(tmp_pkg_name);
             free(tmp_pkg_ver);
+            slapt_vector_t_free(matches);
             return avail_pkg;
         }
 
@@ -1458,6 +1459,7 @@ static slapt_pkg_t *parse_meta_entry(slapt_vector_t *avail_pkgs, slapt_vector_t 
             if (slapt_cmp_pkg_versions(avail_pkg->version, tmp_pkg_ver) < 0) {
                 free(tmp_pkg_name);
                 free(tmp_pkg_ver);
+                slapt_vector_t_free(matches);
                 return avail_pkg;
             }
         }
@@ -1467,10 +1469,12 @@ static slapt_pkg_t *parse_meta_entry(slapt_vector_t *avail_pkgs, slapt_vector_t 
             if (slapt_cmp_pkg_versions(avail_pkg->version, tmp_pkg_ver) > 0) {
                 free(tmp_pkg_name);
                 free(tmp_pkg_ver);
+                slapt_vector_t_free(matches);
                 return avail_pkg;
             }
         }
     }
+    slapt_vector_t_free(matches);
 
     free(tmp_pkg_name);
     free(tmp_pkg_ver);
