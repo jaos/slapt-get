@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2020-06-29 07:44+0000\n"
+"PO-Revision-Date: 2020-07-01 12:45+0000\n"
 "Last-Translator: Panwar108 <caspian7pena@gmail.com>\n"
 "Language-Team: Hindi (India) (http://www.transifex.com/jaos/slapt-get/language/hi_IN/)\n"
 "MIME-Version: 1.0\n"
@@ -38,8 +38,8 @@ msgstr[1] "%d अपग्रेड नहीं हुए।\n"
 #, c-format
 msgid "%d reinstalled, "
 msgid_plural "%d reinstalled, "
-msgstr[0] "%d पुनः इंस्टॉल,"
-msgstr[1] "%d पुनः इंस्टॉल,"
+msgstr[0] "%d पुनः इंस्टॉल हुए,"
+msgstr[1] "%d पुनः इंस्टॉल हुए,"
 
 #, c-format
 msgid "%d to remove, "
@@ -50,8 +50,8 @@ msgstr[1] "%d हटेंगे,"
 #, c-format
 msgid "%d upgraded, "
 msgid_plural "%d upgraded, "
-msgstr[0] "%d अपग्रेड होंगे,"
-msgstr[1] "%d अपग्रेड होंगे,"
+msgstr[0] "%d अपग्रेड हुए,"
+msgstr[1] "%d अपग्रेड हुए,"
 
 #, c-format
 msgid "%s [option(s)] [target]\n"
@@ -71,7 +71,7 @@ msgstr "%sसंस्करण%s\n"
 
 #, c-format
 msgid "%s, which is required by %s, is excluded\n"
-msgstr "%s,  हेतु आवश्यक %s, अपवर्जित है\n"
+msgstr "%s, हेतु आवश्यक %s, अपवर्जित है\n"
 
 #, c-format
 msgid "%s, which is to be installed, conflicts with %s\n"
@@ -215,7 +215,7 @@ msgid "GPG key could not be imported"
 msgstr "जीपीजी कुंजी आयात नहीं हुई"
 
 msgid "GPG key successfully imported"
-msgstr "जीपीजी कुंजी सफलतापूर्वक आयात"
+msgstr "जीपीजी कुंजी सफलतापूर्वक आयातित"
 
 #, c-format
 msgid "Get %s %s %s [%.1f%s]..."
@@ -240,7 +240,7 @@ msgstr "पैकेज-संग्रह से %.1f%s प्राप्त �
 
 #, c-format
 msgid "Need to get %.1f%s/%.1f%s of archives.\n"
-msgstr "पैकेज-संग्रह से %.1f%s/%.1f%sप्राप्त करना आवश्यक है।\n"
+msgstr "पैकेज-संग्रह से %.1f%s/%.1f%s प्राप्त करना आवश्यक है।\n"
 
 msgid "No key for verification"
 msgstr "प्रमाणीकरण हेतु कुंजी नहीं है"
@@ -336,7 +336,7 @@ msgstr "पैकेज आकार : %d K\n"
 
 #, c-format
 msgid "Package Suggests: %s\n"
-msgstr "पैकेज सुझाव : %s\n"
+msgstr "सुझाव पैकेज : %s\n"
 
 #, c-format
 msgid "Package Version: %s\n"
