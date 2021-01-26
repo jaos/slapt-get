@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2017-09-19 14:08+0000\n"
+"PO-Revision-Date: 2021-01-10 21:32+0000\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/jaos/slapt-get/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -47,8 +47,8 @@ msgstr[1] "%d reinstalados,  "
 #, c-format
 msgid "%d to remove, "
 msgid_plural "%d to remove, "
-msgstr[0] "%d a remover"
-msgstr[1] "%d a remover"
+msgstr[0] "%d a remover "
+msgstr[1] "%d a remover "
 
 #, c-format
 msgid "%d upgraded, "
@@ -225,7 +225,7 @@ msgid "Get %s %s %s [%.1f%s]..."
 msgstr "Obter %s %s %s [%.1f%s]..."
 
 msgid "Incomplete download"
-msgstr "Transferência incompleta "
+msgstr "Transferência incompleta"
 
 #, c-format
 msgid "Installed %s conflicts with %s\n"
