@@ -1,0 +1,16 @@
+src/action.c
+src/action.h
+src/common.c
+src/common.h
+src/configuration.c
+src/configuration.h
+src/main.c
+src/main.h
+src/package.c
+src/package.h
+src/slaptcurl.c
+src/slaptcurl.h
+src/slaptgpgme.c
+src/slaptgpgme.h
+src/transaction.c
+src/transaction.h
