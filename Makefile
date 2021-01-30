@@ -17,7 +17,7 @@ PACKAGE_LOCALE_DIR=/usr/share/locale
 SBINDIR=/usr/sbin/
 GETTEXT_PACKAGE=$(PACKAGE)
 DEFINES=-DPACKAGE="\"$(PACKAGE)\"" -DVERSION="\"$(VERSION)\"" -DRC_LOCATION="\"$(RCDEST)\"" -DENABLE_NLS -DPACKAGE_LOCALE_DIR="\"$(PACKAGE_LOCALE_DIR)\"" -DGETTEXT_PACKAGE="\"$(GETTEXT_PACKAGE)\""
-LDFLAGS+=$(CURLFLAGS) -lz -lm
+LDFLAGS+=$(CURLFLAGS) -lz -lm -flto=auto
 HAS_GPGME=$(shell gpgme-config --libs 2>&1 >/dev/null && echo 1)
 ifeq ($(HAS_GPGME),1)
 	DEFINES+=-DSLAPT_HAS_GPGME
@@ -27,9 +27,9 @@ ifeq ($(HAS_GPGME),1)
 	LDFLAGS+=`gpgme-config --libs`
 endif
 ifeq ($(TESTBUILD),1)
-CFLAGS?=-W -Werror -Wall -Wextra -O2 -flto -pedantic -Wshadow -Wstrict-overflow -fno-strict-aliasing -g -fsanitize=undefined -fsanitize=address -fstack-protector -ggdb -fno-omit-frame-pointer
+CFLAGS?=-W -Werror -Wall -Wextra -O2 -flto -ffat-lto-objects -pedantic -Wshadow -Wstrict-overflow -fno-strict-aliasing -g -fsanitize=undefined -fsanitize=address -fstack-protector -ggdb -fno-omit-frame-pointer
 else
-CFLAGS?=-W -Werror -Wall -Wextra -O2 -flto -pedantic -Wshadow -Wstrict-overflow -fno-strict-aliasing -g
+CFLAGS?=-W -Werror -Wall -Wextra -O2 -flto -ffat-lto-objects -pedantic -Wshadow -Wstrict-overflow -fno-strict-aliasing -g
 endif
 CFLAGS+=$(DEFINES) -fPIC
 
