@@ -1,3 +1,5 @@
+0.11.1 Feb 12, 2021
+ * handle new aaa_libraries (renamed from aaa_elflibs) and aaa_glibc-solibs
 
 0.11.1 Aug 04, 2019
  * skip exclusions when removing obsolete packages
