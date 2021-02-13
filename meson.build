@@ -5,7 +5,6 @@ project('slapt-get', 'c',
   default_options: [
     'buildtype=debugoptimized',
     'b_lto=true',
-    'c_std=gnu17',
     'sysconfdir=/etc',
     'warning_level=3',
   ],
