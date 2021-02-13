@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2003-2019 Jason Woodward <woodwardj at jaos dot org>
+ * Copyright (C) 2003-2021 Jason Woodward <woodwardj at jaos dot org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -78,9 +78,7 @@ char *slapt_regex_t_extract_match(const slapt_regex_t *r, const char *src, const
         uint32_t len = m.rm_eo - m.rm_so + 1;
         str = slapt_malloc(sizeof *str * len);
 
-        str = strncpy(str, src + m.rm_so, len);
-        if (len > 0)
-            str[len - 1] = '\0';
+        slapt_strlcpy(str, src + m.rm_so, len);
     }
 
     return str;
@@ -100,7 +98,6 @@ void slapt_gen_md5_sum_of_file(FILE *f, char *result_sum)
     uint32_t md_len = 0;
     ssize_t getline_read;
     size_t getline_size;
-    char *result_sum_tmp = NULL;
     char *getline_buffer = NULL;
 
     md = EVP_md5();
@@ -130,14 +127,10 @@ void slapt_gen_md5_sum_of_file(FILE *f, char *result_sum)
     result_sum[0] = '\0';
 
     for (uint32_t i = 0; i < md_len; ++i) {
-        char *p = slapt_malloc(sizeof *p * 3);
-
-        if (snprintf(p, 3, "%02x", md_value[i]) > 0) {
-            if ((result_sum_tmp = strncat(result_sum, p, 3)) != NULL)
-                result_sum = result_sum_tmp;
+        if (snprintf(result_sum + strlen(result_sum), 3, "%02x", md_value[i]) != 2) {
+            fprintf(stderr, "slapt_gen_md5_sum_of_file failed\n");
+            exit(EXIT_FAILURE);
         }
-
-        free(p);
     }
 }
 
@@ -441,6 +434,9 @@ slapt_vector_t *slapt_vector_t_init(slapt_vector_t_free_function f)
 
 void slapt_vector_t_free(slapt_vector_t *v)
 {
+    if (!v)
+        return;
+
     if (v->free_function) {
         for (uint32_t i = 0; i < v->size; i++) {
             v->free_function(v->items[i]);
@@ -565,4 +561,26 @@ slapt_vector_t *slapt_vector_t_search(slapt_vector_t *v, slapt_vector_t_cmp cmp,
         return NULL;
     }
     return matches;
+}
+
+/* based on https://lwn.net/Articles/612257/ (LGPLv2.1+) */
+size_t slapt_strlcpy(char *dst, const char *src, size_t size)
+{
+    if (size == 0) {
+        return 0;
+    }
+
+    size_t src_length = strnlen (src, size);
+    if (src_length >= size) {
+        if (src_length != size) {
+            fprintf(stderr, "Truncating %s [%zd to %zd]\n", src, size, src_length);
+            exit(EXIT_FAILURE);
+        }
+        memcpy (dst, src, size);
+        dst[size - 1] = '\0';
+        return size - 1;
+    } else {
+        memcpy (dst, src, src_length + 1);
+        return src_length;
+    }
 }

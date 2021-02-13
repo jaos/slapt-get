@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2003-2019 Jason Woodward <woodwardj at jaos dot org>
+ * Copyright (C) 2003-2021 Jason Woodward <woodwardj at jaos dot org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -102,8 +102,8 @@ slapt_config_t *slapt_config_t_read(const char *file_name)
             /* WORKING DIR */
 
             if (strlen(token_ptr) > strlen(SLAPT_WORKINGDIR_TOKEN)) {
-                strncpy(global_config->working_dir, token_ptr + strlen(SLAPT_WORKINGDIR_TOKEN), (strlen(token_ptr) - strlen(SLAPT_WORKINGDIR_TOKEN)));
-                global_config->working_dir[(strlen(token_ptr) - strlen(SLAPT_WORKINGDIR_TOKEN))] = '\0';
+                size_t working_dir_len = (strlen(token_ptr) - strlen(SLAPT_WORKINGDIR_TOKEN)) + 1;
+                slapt_strlcpy(global_config->working_dir, token_ptr + strlen(SLAPT_WORKINGDIR_TOKEN), working_dir_len);
             }
 
         } else if ((token_ptr = strstr(getline_buffer, SLAPT_EXCLUDE_TOKEN)) != NULL) {
@@ -261,22 +261,10 @@ slapt_source_t *slapt_source_t_init(const char *s)
         src->url = strndup(source_string, source_len);
     } else {
         src->url = slapt_malloc(sizeof *src->url * (source_len + 2));
-        src->url[0] = '\0';
-
-        src->url = strncat(src->url, source_string, source_len);
-
-        if (isblank(src->url[source_len - 1]) == 0) {
-            src->url = strcat(src->url, "/");
-        } else {
-            if (src->url[source_len - 2] == '/') {
-                src->url[source_len - 2] = '/';
-                src->url[source_len - 1] = '\0';
-            } else {
-                src->url[source_len - 1] = '/';
-            }
+        if (snprintf(src->url, source_len + 2, "%s/", source_string) != (int)(source_len + 2)) {
+            fprintf(stderr, "slapt_source_t_init error for %s\n", s);
+            exit(EXIT_FAILURE);
         }
-
-        src->url[source_len + 1] = '\0';
     }
 
     free(source_string);

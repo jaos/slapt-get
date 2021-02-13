@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2003-2019 Jason Woodward <woodwardj at jaos dot org>
+ * Copyright (C) 2003-2021 Jason Woodward <woodwardj at jaos dot org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -56,8 +56,6 @@ FILE *slapt_get_pkg_source_checksums_signature(const slapt_config_t *global_conf
     bool interactive = slapt_is_interactive(global_config);
     char *location_uncompressed = SLAPT_CHECKSUM_ASC_FILE;
     char *location_compressed = SLAPT_CHECKSUM_ASC_FILE_GZ;
-    char *filename = NULL;
-    char *local_head = NULL;
     char *location;
 
     if (*compressed) {
@@ -68,28 +66,52 @@ FILE *slapt_get_pkg_source_checksums_signature(const slapt_config_t *global_conf
         *compressed = false;
     }
 
-    filename = slapt_gen_filename_from_url(url, location);
-    local_head = slapt_read_head_cache(filename);
-    checksum_head = slapt_head_mirror_data(url, location);
+    if ((checksum_head = slapt_head_mirror_data(url, location)) != NULL) {
+        char *filename = slapt_gen_filename_from_url(url, location);
+        char *local_head = slapt_read_head_cache(filename);
 
-    if (checksum_head == NULL) {
-        if (interactive)
-            printf(gettext("Not Found\n"));
+        if (local_head != NULL && strcmp(checksum_head, local_head) == 0) {
+            if ((tmp_checksum_f = slapt_open_file(filename, "r")) == NULL)
+                exit(EXIT_FAILURE);
+
+            if (global_config->progress_cb == NULL)
+                printf(gettext("Cached\n"));
+
+        } else {
+            const char *err = NULL;
+
+            if (global_config->dl_stats)
+                printf("\n");
+
+            if ((tmp_checksum_f = slapt_open_file(filename, "w+b")) == NULL)
+                exit(EXIT_FAILURE);
+
+            err = slapt_get_mirror_data_from_source(tmp_checksum_f, global_config, url, location);
+            if (!err) {
+                if (interactive)
+                    printf(gettext("Done\n"));
+
+            } else {
+                fprintf(stderr, gettext("Failed to download: %s\n"), err);
+                slapt_clear_head_cache(filename);
+                fclose(tmp_checksum_f);
+                free(filename);
+                free(local_head);
+                free(checksum_head);
+                return NULL;
+            }
+            /* make sure we are back at the front of the file */
+            rewind(tmp_checksum_f);
+
+            /* if all is good, write it */
+            slapt_write_head_cache(checksum_head, filename);
+        }
+
         free(filename);
         free(local_head);
-        if (checksum_head != NULL)
-            free(checksum_head);
-        return NULL;
-    }
-
-    if (local_head != NULL && strcmp(checksum_head, local_head) == 0) {
-        if ((tmp_checksum_f = slapt_open_file(filename, "r")) == NULL)
-            exit(EXIT_FAILURE);
-
-        if (global_config->progress_cb == NULL)
-            printf(gettext("Cached\n"));
-
+        free(checksum_head);
     } else {
+        char *filename = slapt_gen_filename_from_url(url, location);
         const char *err = NULL;
 
         if (global_config->dl_stats)
@@ -108,23 +130,15 @@ FILE *slapt_get_pkg_source_checksums_signature(const slapt_config_t *global_conf
             slapt_clear_head_cache(filename);
             fclose(tmp_checksum_f);
             free(filename);
-            free(local_head);
-            free(checksum_head);
             return NULL;
         }
         /* make sure we are back at the front of the file */
         rewind(tmp_checksum_f);
 
-        /* if all is good, write it */
-        slapt_write_head_cache(checksum_head, filename);
+        free(filename);
     }
-
-    free(filename);
-    free(local_head);
-
-    free(checksum_head);
-
     return tmp_checksum_f;
+
 }
 
 FILE *slapt_get_pkg_source_gpg_key(const slapt_config_t *global_config, const char *url, bool *compressed)

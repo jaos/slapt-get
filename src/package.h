@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2003-2019 Jason Woodward <woodwardj at jaos dot org>
+ * Copyright (C) 2003-2021 Jason Woodward <woodwardj at jaos dot org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,7 +34,7 @@
 #define SLAPT_PKG_LOG_PATTERN "^(.*{1,})\\-(.*[\\-].*[\\-].*)"
 #define SLAPT_MD5SUM_REGEX "([a-zA-Z0-9]{1,})[ ]{1,}([a-zA-Z0-9\\/._+\\-]{1,})\\/(.*{1,})\\-(.*[\\-].*[\\-].*)\\.[ti]+[gblzkx]+$"
 #define SLAPT_REQUIRED_REGEX "^[ ]{0,}([^ ]{1,})[ ]{0,}([\\<\\=\\>]+){0,}[ ]{0,}([a-zA-Z0-9\\+\\.\\_\\-]+){0,}[ ]{0,}$"
-#define SLAPT_MD5_STR_LEN 33
+#define SLAPT_MD5_STR_LEN 32
 #define SLAPT_PKG_LIST "PACKAGES.TXT"
 #define SLAPT_PKG_LIST_GZ "PACKAGES.TXT.gz"
 #define SLAPT_PKG_LIST_L "package_data"
@@ -53,7 +53,7 @@
 #define SLAPT_MAX_ZLIB_BUFFER 1024
 
 typedef struct {
-    char md5[SLAPT_MD5_STR_LEN];
+    char md5[SLAPT_MD5_STR_LEN + 1];
     char *name;
     char *version;
     char *mirror;

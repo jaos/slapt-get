@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2003-2019 Jason Woodward <woodwardj at jaos dot org>
+ * Copyright (C) 2003-2021 Jason Woodward <woodwardj at jaos dot org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -435,6 +435,27 @@ void slapt_pkg_action_show(const char *pkg_name)
     slapt_regex_t_free(pkg_regex);
 }
 
+struct dist_upgrade_pkg {
+    char *name;
+    char *replaces;
+    bool upgrade_only;
+};
+
+static struct dist_upgrade_pkg const dist_upgrade_pkgs[] = {
+    {.name = "aaa_base",         .upgrade_only = false, .replaces = NULL},
+    {.name = "pkgtools",         .upgrade_only = false, .replaces = NULL},
+    {.name = "aaa_glibc-solibs", .upgrade_only = false, .replaces = "glibc-solibs"},
+    {.name = "glibc-solibs",     .upgrade_only = false, .replaces = NULL},
+    {.name = "aaa_libraries",    .upgrade_only = false, .replaces = "aaa_elflibs"},
+    {.name = "aaa_elflibs",      .upgrade_only = false, .replaces = NULL},
+    {.name = "glibc",            .upgrade_only = true,  .replaces = NULL},
+    {.name = "xz",               .upgrade_only = false, .replaces = NULL},
+    {.name = "sed",              .upgrade_only = false, .replaces = NULL},
+    {.name = "tar",              .upgrade_only = false, .replaces = NULL},
+    {.name = "gzip",             .upgrade_only = false, .replaces = NULL},
+    {NULL, NULL, NULL}
+};
+
 /* upgrade all installed pkgs with available updates */
 void slapt_pkg_action_upgrade_all(const slapt_config_t *global_config)
 {
@@ -456,30 +477,34 @@ void slapt_pkg_action_upgrade_all(const slapt_config_t *global_config)
     tran = slapt_init_transaction();
 
     if (global_config->dist_upgrade) {
-        char *essential[] = {"aaa_base", "pkgtools", "glibc-solibs", "glibc", "aaa_elflibs", "xz", "sed", "tar", "gzip", NULL};
-        int epi = 0;
         slapt_pkg_t *newest_slaptget = NULL;
         slapt_vector_t *matches = slapt_search_pkg_list(avail_pkgs, SLAPT_SLACK_BASE_SET_REGEX);
 
         /* make sure the essential packages are installed/upgraded first */
-        while (essential[epi] != NULL) {
+        for (uint32_t idx = 0; dist_upgrade_pkgs[idx].name != NULL; ++idx) {
             slapt_pkg_t *inst_pkg = NULL;
             slapt_pkg_t *avail_pkg = NULL;
 
-            inst_pkg = slapt_get_newest_pkg(installed_pkgs, essential[epi]);
-            avail_pkg = slapt_get_newest_pkg(avail_pkgs, essential[epi]);
+            struct dist_upgrade_pkg essential = dist_upgrade_pkgs[idx];
+
+            inst_pkg = slapt_get_newest_pkg(installed_pkgs, essential.name);
+            avail_pkg = slapt_get_newest_pkg(avail_pkgs, essential.name);
 
             /* can we upgrade */
-            if (inst_pkg != NULL && avail_pkg != NULL) {
+            if (inst_pkg != NULL && avail_pkg != NULL && essential.upgrade_only == false) {
                 if (slapt_cmp_pkgs(inst_pkg, avail_pkg) < 0) {
                     slapt_add_upgrade_to_transaction(tran, inst_pkg, avail_pkg);
                 }
-                /* if not try to install (unless glibc, then that is upgrade only) */
-            } else if (strcmp(essential[epi], "glibc") != 0 && avail_pkg != NULL) {
+            } else if (avail_pkg != NULL && essential.upgrade_only == true) {
                 slapt_add_install_to_transaction(tran, avail_pkg);
             }
 
-            ++epi;
+            if (avail_pkg != NULL && essential.replaces) {
+                slapt_pkg_t *installed_obsolete = slapt_get_newest_pkg(installed_pkgs, essential.replaces);
+                if (installed_obsolete) {
+                    slapt_add_remove_to_transaction(tran, installed_obsolete);
+                }
+            }
         }
 
         /* loop through SLAPT_SLACK_BASE_SET_REGEX packages */

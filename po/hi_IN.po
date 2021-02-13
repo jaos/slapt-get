@@ -1,0 +1,607 @@
+# slapt-get translation template
+# Copyright (C) 2003-2009
+# This file is distributed under the same license as the slapt-get package.
+# Jason Woodward <woodwardj@jaos.org>
+# 
+# Translators:
+# Panwar108 <caspian7pena@gmail.com>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: slapt-get\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-08-02 14:14+0000\n"
+"PO-Revision-Date: 2020-07-01 12:45+0000\n"
+"Last-Translator: Panwar108 <caspian7pena@gmail.com>\n"
+"Language-Team: Hindi (India) (http://www.transifex.com/jaos/slapt-get/language/hi_IN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hi_IN\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#, c-format
+msgid "  %s: Depends: %s\n"
+msgstr "%s: आश्रित पैकेज :%s\n"
+
+#, c-format
+msgid "%d newly installed, "
+msgid_plural "%d newly installed, "
+msgstr[0] "%d नवीन इंस्टॉल,"
+msgstr[1] "%d नवीन इंस्टॉल,"
+
+#, c-format
+msgid "%d not upgraded.\n"
+msgid_plural "%d not upgraded.\n"
+msgstr[0] "%dअपग्रेड नहीं हुए।\n"
+msgstr[1] "%d अपग्रेड नहीं हुए।\n"
+
+#, c-format
+msgid "%d reinstalled, "
+msgid_plural "%d reinstalled, "
+msgstr[0] "%d पुनः इंस्टॉल हुए,"
+msgstr[1] "%d पुनः इंस्टॉल हुए,"
+
+#, c-format
+msgid "%d to remove, "
+msgid_plural "%d to remove, "
+msgstr[0] "%d हटेंगे,"
+msgstr[1] "%d हटेंगे,"
+
+#, c-format
+msgid "%d upgraded, "
+msgid_plural "%d upgraded, "
+msgstr[0] "%d अपग्रेड हुए,"
+msgstr[1] "%d अपग्रेड हुए,"
+
+#, c-format
+msgid "%s [option(s)] [target]\n"
+msgstr "%s [विकल्प] [लक्षित]\n"
+
+#, c-format
+msgid "%s is not installed.\n"
+msgstr "%s इंस्टॉल नहीं है।\n"
+
+#, c-format
+msgid "%s is up to date.\n"
+msgstr "%s नवीनतम है।\n"
+
+#, c-format
+msgid "%s version %s\n"
+msgstr "%sसंस्करण%s\n"
+
+#, c-format
+msgid "%s, which is required by %s, is excluded\n"
+msgstr "%s, हेतु आवश्यक %s, अपवर्जित है\n"
+
+#, c-format
+msgid "%s, which is to be installed, conflicts with %s\n"
+msgstr "%s, इंस्टॉल होगा, %s के विरुद्ध है\n"
+
+#, c-format
+msgid "%s-%s is to be installed\n"
+msgstr "%s-%sइंस्टॉल होगा\n"
+
+#, c-format
+msgid "%s-%s is to be removed\n"
+msgstr "%s-%s हटेगा\n"
+
+#, c-format
+msgid "%s-%s is to be upgraded to version %s\n"
+msgstr "%s-%s को संस्करण %s में अपग्रेड किया जाएगा\n"
+
+msgid ", but accepted as an exception"
+msgstr ", परंतु अपवाद के रूप में स्वीकृत"
+
+#, c-format
+msgid "Abort.\n"
+msgstr "निरस्त करें।\n"
+
+#, c-format
+msgid "After unpacking %.1f%s disk space will be freed.\n"
+msgstr "%.1f अनपैक होने के उपरांत %s मुक्त डिस्क स्पेस प्राप्त होगा।\n"
+
+#, c-format
+msgid "After unpacking %.1f%s of additional disk space will be used.\n"
+msgstr "%.1f अनपैक होने के उपरांत %s अतिरिक्त डिस्क स्पेस उपयोग होगा।\n"
+
+#, c-format
+msgid "An implementation of the Debian APT system to Slackware\n"
+msgstr "डेबियन APT सिस्टम का स्लैकवेयर हेतु क्रियान्वयन\n"
+
+#, c-format
+msgid "Cached\n"
+msgstr "कैश किया गया\n"
+
+msgid "Checksums not read"
+msgstr "चेकसम रीड नहीं हुए"
+
+msgid "Checksums signature could not be verified"
+msgstr "चेकसम हस्ताक्षर प्रमाणित नहीं हो सका"
+
+msgid "Checksums signature successfully verified"
+msgstr "चेकसम हस्ताक्षर प्रमाणीकरण सफल"
+
+msgid "Custom"
+msgstr "अनुकूलित"
+
+msgid "Custom Patch"
+msgstr "अनुकूलित पैच"
+
+msgid "Default"
+msgstr "डिफ़ॉल्ट"
+
+msgid "Default Patch"
+msgstr "डिफ़ॉल्ट पैच"
+
+#, c-format
+msgid "Delete %s ? [y/N]"
+msgstr "%s हटाएँ? [y/N]"
+
+msgid "Do you want to continue? [y/N] "
+msgstr "जारी रखना चाहते हैं? [y/N]"
+
+#, c-format
+msgid "Done\n"
+msgstr "पूर्ण हुआ\n"
+
+#, c-format
+msgid "Excluding %s, use --ignore-dep to override\n"
+msgstr "%s अपवर्जित, --ignore-dep द्वारा अनदेखा करें\n"
+
+#, c-format
+msgid "Failed to build working directory [%s]\n"
+msgstr "कार्यरत डायरेक्टरी बनाने में विफल [%s]\n"
+
+#, c-format
+msgid "Failed to calloc\n"
+msgstr "calloc करने में विफल\n"
+
+#, c-format
+msgid "Failed to chdir to %s\n"
+msgstr "%s हेतु chdir करने में विफल\n"
+
+#, c-format
+msgid "Failed to chdir: %s\n"
+msgstr "chdir करने में विफल : %s\n"
+
+#, c-format
+msgid "Failed to compile regex\n"
+msgstr "regex संयोजित करने में विफल\n"
+
+#, c-format
+msgid "Failed to download: %s\n"
+msgstr "डाउनलोड विफल : %s\n"
+
+#, c-format
+msgid "Failed to execute command: [%s]\n"
+msgstr "कमांड निष्पादन विफल : [%s]\n"
+
+#, c-format
+msgid "Failed to get cwd\n"
+msgstr "cwd प्राप्त करने में विफल\n"
+
+#, c-format
+msgid "Failed to malloc\n"
+msgstr "malloc करने में विफल\n"
+
+#, c-format
+msgid "Failed to mkdir: %s\n"
+msgstr "mkdir करने में विफल : %s\n"
+
+#, c-format
+msgid "Failed to open %s\n"
+msgstr "%s खोलने में विफल\n"
+
+#, c-format
+msgid "Failed to opendir %s\n"
+msgstr "opendir करने में विफल : %s\n"
+
+#, c-format
+msgid "Failed to parse package data from %s\n"
+msgstr "%s से पैकेज डाटा प्राप्य करने में विफल\n"
+
+#, c-format
+msgid "Failed to realloc %s\n"
+msgstr "%s realloc करने में विफल\n"
+
+#, c-format
+msgid "Failed to unlink %s\n"
+msgstr "%s पृथक करने में विफल\n"
+
+msgid "GPG key already present"
+msgstr "जीपीजी कुंजी पहले से मौजूद"
+
+msgid "GPG key could not be imported"
+msgstr "जीपीजी कुंजी आयात नहीं हुई"
+
+msgid "GPG key successfully imported"
+msgstr "जीपीजी कुंजी सफलतापूर्वक आयातित"
+
+#, c-format
+msgid "Get %s %s %s [%.1f%s]..."
+msgstr "%s %s %s [%.1f%s] प्राप्त करें ..."
+
+msgid "Incomplete download"
+msgstr "अपूर्ण डाउनलोड"
+
+#, c-format
+msgid "Installed %s conflicts with %s\n"
+msgstr "इंस्टॉल हो रखा %s, %s के विरुद्ध है\n"
+
+msgid "MD5 checksum mismatch, override with --no-md5"
+msgstr "एमडी5 चेकसम मेल नहीं खाता, --no-md5 द्वारा अनदेखा करें"
+
+msgid "Missing MD5 checksum, override with --no-md5"
+msgstr "एमडी5 चेकसम अनुपस्थित, --no-md5 द्वारा अनदेखा करें"
+
+#, c-format
+msgid "Need to get %.1f%s of archives.\n"
+msgstr "पैकेज-संग्रह से %.1f%s प्राप्त करना आवश्यक है।\n"
+
+#, c-format
+msgid "Need to get %.1f%s/%.1f%s of archives.\n"
+msgstr "पैकेज-संग्रह से %.1f%s/%.1f%s प्राप्त करना आवश्यक है।\n"
+
+msgid "No key for verification"
+msgstr "प्रमाणीकरण हेतु कुंजी नहीं है"
+
+#, c-format
+msgid "No such package: %s\n"
+msgstr "ऐसा कोई पैकेज नहीं है : %s\n"
+
+#, c-format
+msgid "Not Found\n"
+msgstr "नहीं मिला\n"
+
+msgid "Not Verified: CRL too old"
+msgstr "अप्रमाणित : पुराना CRL"
+
+msgid "Not Verified: bad policy"
+msgstr "अप्रमाणित : गलत नीति"
+
+msgid "Not Verified: key expired"
+msgstr "अप्रमाणित : कुंजी मान्यता समाप्त"
+
+msgid "Not Verified: key revoked"
+msgstr "अप्रमाणित : कुंजी मान्यता रद्द"
+
+msgid "Not Verified: missing CRL"
+msgstr "अप्रमाणित : अनुपस्थित CRL"
+
+msgid "Not Verified: signature expired"
+msgstr "अप्रमाणित : हस्ताक्षर मान्यता समाप्त"
+
+msgid "Not Verified: system error"
+msgstr "अप्रमाणित : सिस्टम त्रुटि"
+
+msgid "Not verified: null context"
+msgstr "अप्रमाणित : संदर्भ रहित"
+
+msgid "Official"
+msgstr "आधिकारिक"
+
+msgid "Official Patch"
+msgstr "आधिकारिक पैच"
+
+#, c-format
+msgid "Options:\n"
+msgstr "विकल्प :\n"
+
+msgid "Package ChangeLog"
+msgstr "पैकेज बदलाव सूची"
+
+#, c-format
+msgid "Package Conflicts: %s\n"
+msgstr "विरुद्ध पैकेज : %s\n"
+
+#, c-format
+msgid "Package Description:\n"
+msgstr "पैकेज विवरण :\n"
+
+#, c-format
+msgid "Package Installed Size: %d K\n"
+msgstr "पैकेज इंस्टॉल आकार : %d K\n"
+
+#, c-format
+msgid "Package Installed: %s\n"
+msgstr "पैकेज इंस्टॉल : %s\n"
+
+#, c-format
+msgid "Package Location: %s\n"
+msgstr "पैकेज स्थान : %s\n"
+
+#, c-format
+msgid "Package MD5 Sum:  %s\n"
+msgstr "पैकेज एमडी5 सम : %s\n"
+
+#, c-format
+msgid "Package Mirror: %s\n"
+msgstr "पैकेज सर्वर-मिरर : %s\n"
+
+#, c-format
+msgid "Package Name: %s\n"
+msgstr "पैकेज नाम : %s\n"
+
+#, c-format
+msgid "Package Priority: %s\n"
+msgstr "पैकेज प्राथमिकता : %s\n"
+
+#, c-format
+msgid "Package Required: %s\n"
+msgstr "आवश्यक पैकेज : %s\n"
+
+#, c-format
+msgid "Package Size: %d K\n"
+msgstr "पैकेज आकार : %d K\n"
+
+#, c-format
+msgid "Package Suggests: %s\n"
+msgstr "सुझाव पैकेज : %s\n"
+
+#, c-format
+msgid "Package Version: %s\n"
+msgstr "पैकेज संस्करण : %s\n"
+
+#, c-format
+msgid "Perhaps you want to run --update?\n"
+msgstr "संभवतः आप --update निष्पादित करना चाहते हैं?\n"
+
+#, c-format
+msgid "Please update permissions on %s or run with appropriate privileges\n"
+msgstr "कृपया %s पर अनुमति अपडेट करें या उचित विशेषाधिकार द्वारा निष्पादित करें\n"
+
+msgid "Preferred"
+msgstr "इच्छित"
+
+msgid "Preferred Patch"
+msgstr "इच्छित पैच"
+
+#, c-format
+msgid "Preparing to install %s-%s\n"
+msgstr "%s-%s इंस्टॉल हेतु तैयारी हो रही है\n"
+
+#, c-format
+msgid "Preparing to replace %s-%s with %s-%s\n"
+msgstr "%s-%s को %s-%s से बदलने हेतु तैयारी हो रही है\n"
+
+#, c-format
+msgid "Reading Package Lists..."
+msgstr "पैकेज सूची रीड हो रही है ..."
+
+#, c-format
+msgid "Regex Error: %s\n"
+msgstr "Regex त्रुटि : %s\n"
+
+#, c-format
+msgid "Retrieving ChangeLog.txt [%s]..."
+msgstr "ChangeLog.txt प्राप्त हो रही है [%s]..."
+
+#, c-format
+msgid "Retrieving GPG key [%s]..."
+msgstr "जीपीजी कुंजी प्राप्त हो रही है [%s]..."
+
+#, c-format
+msgid "Retrieving checksum list [%s]..."
+msgstr "चेकसम सूची प्राप्त हो रही है [%s]..."
+
+#, c-format
+msgid "Retrieving checksum signature [%s]..."
+msgstr "चेकसम हस्ताक्षर प्राप्त हो रहा है [%s]..."
+
+#, c-format
+msgid "Retrieving package data [%s]..."
+msgstr "पैकेज डाटा प्राप्त हो रहा है [%s]..."
+
+#, c-format
+msgid "Retrieving patch list [%s]..."
+msgstr "पैच सूची प्राप्त हो रही है [%s]..."
+
+#, c-format
+msgid "SOURCE directive not set within %s.\n"
+msgstr "%sके अंतर्गत SOURCE निदेश सेट नहीं है।\n"
+
+msgid "Signature not read"
+msgstr "हस्ताक्षर रीड नहीं हो सका"
+
+#, c-format
+msgid "Sources failed to download, correct sources and rerun --update\n"
+msgstr "स्रोत डाउनलोड विफल, स्रोत ठीक कर --update पुनः निष्पादित करें\n"
+
+#, c-format
+msgid "Suggested packages:\n"
+msgstr "पैकेज सुझाव :\n"
+
+#, c-format
+msgid "Targets:\n"
+msgstr "लक्षित :\n"
+
+#, c-format
+msgid "The following NEW packages will be installed:\n"
+msgstr "निम्नलिखित नवीन पैकेज इंस्टॉल होंगे :\n"
+
+#, c-format
+msgid "The following packages have been EXCLUDED:\n"
+msgstr "निम्नलिखित पैकेज अपवर्जित :\n"
+
+#, c-format
+msgid "The following packages have unmet dependencies:\n"
+msgstr "निम्नलिखित पैकेज हेतु आश्रित पैकेज अपूर्ण :\n"
+
+#, c-format
+msgid "The following packages will be REMOVED:\n"
+msgstr "निम्नलिखित पैकेज हटेंगे :\n"
+
+#, c-format
+msgid "The following packages will be reinstalled:\n"
+msgstr "निम्नलिखित पैकेज पुनः इंस्टॉल होंगे :\n"
+
+#, c-format
+msgid "The following packages will be upgraded:\n"
+msgstr "निम्नलिखित पैकेज अपग्रेड होंगे :\n"
+
+msgid "Unknown error"
+msgstr "अज्ञात त्रुटि"
+
+#, c-format
+msgid "Usage:\n"
+msgstr "उपयोग :\n"
+
+msgid "Verified"
+msgstr "प्रमाणित"
+
+#, c-format
+msgid "Verifying checksum signature [%s]..."
+msgstr "चेकसम हस्ताक्षर प्रमाणित हो रहा है [%s]..."
+
+#, c-format
+msgid "WORKINGDIR directive not set within %s.\n"
+msgstr "%sके अंतर्गत WORKINGDIR निदेश सेट नहीं है।\n"
+
+#, c-format
+msgid "You don't have enough free space in %s\n"
+msgstr "%s में पर्याप्त मुक्त स्पेस नहीं है।\n"
+
+msgid "[disk set(s)] - install specified disk set(s)"
+msgstr "[डिस्क सेट] -  निर्दिष्ट डिस्क सेट इंस्टॉल करें"
+
+msgid "[expression] - search available pkgs"
+msgstr "[व्यंजक] - उपलब्ध पैकेज खोजें"
+
+msgid "[pkg name(s)] - install specified pkg(s)"
+msgstr "[पैकेज नाम] - निर्दिष्ट पैकेज इंस्टॉल करें"
+
+msgid "[pkg name(s)] - remove specified pkg(s)"
+msgstr "[पैकेज नाम] - निर्दिष्ट पैकेज हटाएँ"
+
+msgid "[pkg name(s)] - show pkg(s) description"
+msgstr "[पैकेज नाम] - पैकेज विवरण दिखाएँ"
+
+msgid "[pkg name(s)] - show pkg(s) installed files"
+msgstr "[पैकेज नाम] - पैकेज इंस्टॉल फ़ाइल दिखाएँ"
+
+msgid "allow unauthenticated packages"
+msgstr "अप्रमाणित पैकेज स्वीकृत करें"
+
+msgid "always prompt during install/upgrade"
+msgstr "इंस्टॉल/अपग्रेड के दौरान सदैव सूचित करें"
+
+msgid "display this help and exit"
+msgstr "यह सहायता दिखाकर बंद करें"
+
+msgid "do not perform md5 check sum"
+msgstr "एमडी5 चेकसम प्रक्रिया न करें"
+
+msgid "do not prompt during install/upgrade"
+msgstr "इंस्टॉल/अपग्रेड के दौरान सूचित न करें"
+
+#, c-format
+msgid "error attempting to read pkg description\n"
+msgstr "पैकेज विवरण रीड करते समय त्रुटि\n"
+
+#, c-format
+msgid "getline reached EOF attempting to read location\n"
+msgstr "स्थान रीड करने हेतु getline फ़ाइल समापन तक पहुँचा\n"
+
+#, c-format
+msgid "getline reached EOF attempting to read size_c\n"
+msgstr "size_c रीड करने हेतु getline फ़ाइल समापन तक पहुँचा\n"
+
+#, c-format
+msgid "getline reached EOF attempting to read size_u\n"
+msgstr "size_u रीड करने हेतु getline फ़ाइल समापन तक पहुँचा\n"
+
+msgid "ignore dependency failures"
+msgstr "आश्रित पैकेज विफलताएँ अनदेखी करें"
+
+msgid "install package, do not attempt to upgrade"
+msgstr "पैकेज इंस्टॉल करें, अपग्रेड प्रयास न करें"
+
+msgid "install/upgrade excludes"
+msgstr "इंस्टॉल/अपग्रेड से अपवर्जित "
+
+msgid "list available pkgs"
+msgstr "उपलब्ध पैकेज सूचीबद्ध करें"
+
+msgid "list installed pkgs"
+msgstr "इंस्टॉल पैकेज सूचीबद्ध करें"
+
+msgid "list pkgs"
+msgstr "पैकेज सूचीबद्ध करें"
+
+#, c-format
+msgid "md5 sum too long\n"
+msgstr "एमडी5 सम काफ़ी अधिक है\n"
+
+msgid "no"
+msgstr "नहीं"
+
+msgid "only download pkg on install/upgrade"
+msgstr "केवल इंस्टॉल/अपग्रेड हेतु पैकेज डाउनलोड करें"
+
+msgid "only purge cache of older, unreacheable pkgs"
+msgstr "केवल पुराने, अगम्य पैकेज की कैश हटाएँ"
+
+#, c-format
+msgid "pkg conditional too long\n"
+msgstr "पैकेज हेतु शर्तें काफ़ी अधिक है\n"
+
+msgid "print URIs only, do not download"
+msgstr "केवल यूआरआई दिखाएँ, डाउनलोड न करें"
+
+msgid "print version and license info"
+msgstr "संस्करण व लाइसेंस जानकारी दिखाएँ"
+
+msgid "purge cached pkgs"
+msgstr "कैश पैकेज हटाएँ"
+
+#, c-format
+msgid "regex failed on [%s]\n"
+msgstr "[%s] पर regex विफल\n"
+
+#, c-format
+msgid "regexec failed to parse location\n"
+msgstr "regexec स्थान प्राप्यता हेतु विफल\n"
+
+#, c-format
+msgid "regexec failed to parse size_c\n"
+msgstr "regexec size_c प्राप्यता हेतु विफल\n"
+
+#, c-format
+msgid "regexec failed to parse size_u\n"
+msgstr "regexec size_u प्राप्यता हेतु विफल\n"
+
+msgid "reinstall the pkg"
+msgstr "पैकेज पुनः इंस्टॉल करें"
+
+msgid "remove obsolete packages"
+msgstr "निरर्थक पैकेज हटाएँ"
+
+msgid "retrieve GPG keys for sources"
+msgstr "स्रोतों हेतु जीपीजी कुंजियाँ प्राप्त करें"
+
+msgid "retrieve pkg data from MIRROR"
+msgstr "सर्वर-मिरर से पैकेज डाटा प्राप्त करें"
+
+msgid "show download statistics"
+msgstr "डाउनलोड आँकड़ें दिखाएँ"
+
+msgid "show pkgs to be installed/upgraded"
+msgstr "इंस्टॉल/अपग्रेड हेतु पैकेज दिखाएँ"
+
+msgid "skip dependency check"
+msgstr "आश्रित पैकेज हेतु जाँच न करें"
+
+msgid "specify alternate slapt-getrc location"
+msgstr "वैकल्पिक slapt-getrc स्थान निर्दिष्ट करें"
+
+msgid "specify number of download retry attempts"
+msgstr "पुनः डाउनलोड हेतु प्रयास निर्दिष्ट करें"
+
+msgid "upgrade installed pkgs"
+msgstr "इंस्टॉल पैकेज अपग्रेड करें"
+
+msgid "upgrade to newer release"
+msgstr "नए संस्करण में अपग्रेड करें"
+
+msgid "yes"
+msgstr "हाँ"

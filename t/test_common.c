@@ -51,7 +51,7 @@ END_TEST
 START_TEST(test_slapt_gen_md5_sum_of_file)
 {
     const char *file = "data/md5_dummy";
-    char result_sum[SLAPT_MD5_STR_LEN];
+    char result_sum[SLAPT_MD5_STR_LEN + 1];
     FILE *f = fopen(file, "r");
 
     slapt_gen_md5_sum_of_file(f, result_sum);

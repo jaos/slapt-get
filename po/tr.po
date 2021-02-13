@@ -4,14 +4,15 @@
 # Jason Woodward <woodwardj@jaos.org>
 # 
 # Translators:
+# abc Def <hdogan1974@gmail.com>, 2020
 # Bekir SONAT <bekirsonat@kde.org.tr>, 2006
 msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2017-09-19 14:08+0000\n"
-"Last-Translator: Jason Woodward <woodwardj@jaos.org>\n"
+"PO-Revision-Date: 2020-04-15 15:14+0000\n"
+"Last-Translator: abc Def <hdogan1974@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/jaos/slapt-get/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,32 +27,32 @@ msgstr "  %s: Bağımlılıklar: %s\n"
 #, c-format
 msgid "%d newly installed, "
 msgid_plural "%d newly installed, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d yenisi yüklenmiş,"
+msgstr[1] "%d yenisi yüklenmiş,"
 
 #, c-format
 msgid "%d not upgraded.\n"
 msgid_plural "%d not upgraded.\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d yükseltilmedi.\n"
+msgstr[1] "%d yükseltilmedi.\n"
 
 #, c-format
 msgid "%d reinstalled, "
 msgid_plural "%d reinstalled, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d yeniden yüklendi,"
+msgstr[1] "%d yeniden yüklendi,"
 
 #, c-format
 msgid "%d to remove, "
 msgid_plural "%d to remove, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d kaldır"
+msgstr[1] "%d kaldır"
 
 #, c-format
 msgid "%d upgraded, "
 msgid_plural "%d upgraded, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d "
+msgstr[1] "%d yükseltildi,"
 
 #, c-format
 msgid "%s [option(s)] [target]\n"
@@ -90,7 +91,7 @@ msgid "%s-%s is to be upgraded to version %s\n"
 msgstr "%s-%s , %s sürümüne yükseltilecek\n"
 
 msgid ", but accepted as an exception"
-msgstr ""
+msgstr ", ancak istisna olarak kabul edildi"
 
 #, c-format
 msgid "Abort.\n"
@@ -113,7 +114,7 @@ msgid "Cached\n"
 msgstr "Zulalandı\n"
 
 msgid "Checksums not read"
-msgstr ""
+msgstr "Sağlama toplamları okunmadı"
 
 msgid "Checksums signature could not be verified"
 msgstr "Checksums signature could not be verified"
@@ -254,28 +255,28 @@ msgid "Not Found\n"
 msgstr "Not Found\n"
 
 msgid "Not Verified: CRL too old"
-msgstr ""
+msgstr "Doğrulanmadı: CRL çok eski"
 
 msgid "Not Verified: bad policy"
-msgstr ""
+msgstr "Doğrulanmadı: kötü ilke"
 
 msgid "Not Verified: key expired"
-msgstr ""
+msgstr "Doğrulanmadı: anahtarın süresi doldu"
 
 msgid "Not Verified: key revoked"
-msgstr ""
+msgstr "Doğrulanmadı: anahtar iptal edildi"
 
 msgid "Not Verified: missing CRL"
-msgstr ""
+msgstr "Doğrulanmadı: eksik CRL"
 
 msgid "Not Verified: signature expired"
-msgstr ""
+msgstr "Doğrulanmadı: imzanın süresi doldu"
 
 msgid "Not Verified: system error"
-msgstr ""
+msgstr "Doğrulanmadı: sistem hatası"
 
 msgid "Not verified: null context"
-msgstr ""
+msgstr "Doğrulanmadı: boş bağlam"
 
 msgid "Official"
 msgstr "Official"
@@ -401,7 +402,7 @@ msgid "SOURCE directive not set within %s.\n"
 msgstr "SOURCE yönergesi %s içinde tanımlanmamış.\n"
 
 msgid "Signature not read"
-msgstr ""
+msgstr "İmza okunmadı"
 
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
@@ -474,19 +475,19 @@ msgid "[pkg name(s)] - remove specified pkg(s)"
 msgstr "[paket ad(lar)ı] - Belirlenen paket(ler)i kald?r"
 
 msgid "[pkg name(s)] - show pkg(s) description"
-msgstr ""
+msgstr "[pkg name(s)] - paket(ler)in açıklamasını göster"
 
 msgid "[pkg name(s)] - show pkg(s) installed files"
-msgstr ""
+msgstr "[pkg name(s)] - paket(ler)in yüklü dosyalarını göster"
 
 msgid "allow unauthenticated packages"
-msgstr ""
+msgstr "kimliği doğrulanmamış paketlere izin ver"
 
 msgid "always prompt during install/upgrade"
 msgstr "kur/yükselt sırasında herzaman talimat bekle"
 
 msgid "display this help and exit"
-msgstr ""
+msgstr "bu yardımı göster ve çık"
 
 msgid "do not perform md5 check sum"
 msgstr "md5 sağlama denetimi yapma"
@@ -571,7 +572,7 @@ msgid "regexec failed to parse size_u\n"
 msgstr "size_u yorumlanırken regexec başarısız oldu \n"
 
 msgid "reinstall the pkg"
-msgstr ""
+msgstr "paketi tekrar yükle"
 
 msgid "remove obsolete packages"
 msgstr "terkedilmiş paketleri kaldır"
@@ -580,7 +581,7 @@ msgid "retrieve GPG keys for sources"
 msgstr "retrieve GPG keys for sources"
 
 msgid "retrieve pkg data from MIRROR"
-msgstr ""
+msgstr "YANSI'dan paket verilerini al"
 
 msgid "show download statistics"
 msgstr "indirme istatistiklerini göster"

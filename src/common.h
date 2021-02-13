@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2003-2019 Jason Woodward <woodwardj at jaos dot org>
+ * Copyright (C) 2003-2021 Jason Woodward <woodwardj at jaos dot org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -86,7 +86,7 @@ int slapt_vector_t_index_of(slapt_vector_t *, slapt_vector_t_cmp, void *);
 slapt_vector_t *slapt_vector_t_search(slapt_vector_t *, slapt_vector_t_cmp, void *);
 #define slapt_vector_t_foreach(type, item, list) \
     type item;                                   \
-    for (uint32_t item##_counter = 0; (item##_counter < list->size) && (item = list->items[item##_counter]); item##_counter++)
+    if (list) for (uint32_t item##__counter__ = 0; (item##__counter__ < list->size) && (item = list->items[item##__counter__]); item##__counter__++)
 
 FILE *slapt_open_file(const char *file_name, const char *mode);
 slapt_regex_t *slapt_regex_t_init(const char *regex_string);
@@ -115,3 +115,5 @@ bool slapt_disk_space_check(const char *path, double space_needed);
 /* utils */
 slapt_vector_t *slapt_parse_delimited_list(char *line, char delim);
 char *slapt_strip_whitespace(const char *s);
+
+size_t slapt_strlcpy(char *, const char *, size_t);

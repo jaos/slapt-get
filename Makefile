@@ -5,7 +5,6 @@ LIBDIR=$(shell dirname $$(gcc -print-file-name=libcrypto.so))
 RELEASE=1
 CC?=gcc
 STRIP?=strip
-AR?=ar
 RANLIB?=ranlib
 CURLFLAGS=`curl-config --libs` -lcrypto
 OBJS=src/common.o src/configuration.o src/package.o src/slaptcurl.o src/transaction.o src/action.o src/main.o
@@ -18,7 +17,7 @@ PACKAGE_LOCALE_DIR=/usr/share/locale
 SBINDIR=/usr/sbin/
 GETTEXT_PACKAGE=$(PACKAGE)
 DEFINES=-DPACKAGE="\"$(PACKAGE)\"" -DVERSION="\"$(VERSION)\"" -DRC_LOCATION="\"$(RCDEST)\"" -DENABLE_NLS -DPACKAGE_LOCALE_DIR="\"$(PACKAGE_LOCALE_DIR)\"" -DGETTEXT_PACKAGE="\"$(GETTEXT_PACKAGE)\""
-LDFLAGS+=$(CURLFLAGS) -lz -lm
+LDFLAGS+=$(CURLFLAGS) -lz -lm -flto=auto
 HAS_GPGME=$(shell gpgme-config --libs 2>&1 >/dev/null && echo 1)
 ifeq ($(HAS_GPGME),1)
 	DEFINES+=-DSLAPT_HAS_GPGME
@@ -27,7 +26,11 @@ ifeq ($(HAS_GPGME),1)
 	LIBHEADERS+=src/slaptgpgme.h
 	LDFLAGS+=`gpgme-config --libs`
 endif
-CFLAGS?=-W -Werror -Wall -Wextra -O2 -pedantic -Wshadow -Wstrict-overflow -fno-strict-aliasing -g
+ifeq ($(TESTBUILD),1)
+CFLAGS?=-W -Werror -Wall -Wextra -O2 -flto -ffat-lto-objects -pedantic -Wshadow -Wstrict-overflow -fno-strict-aliasing -g -fsanitize=undefined -fsanitize=address -fstack-protector -ggdb -fno-omit-frame-pointer
+else
+CFLAGS?=-W -Werror -Wall -Wextra -O2 -flto -ffat-lto-objects -pedantic -Wshadow -Wstrict-overflow -fno-strict-aliasing -g
+endif
 CFLAGS+=$(DEFINES) -fPIC
 
 default: $(PACKAGE)
@@ -37,19 +40,13 @@ all: pkg
 $(OBJS): $(LIBHEADERS)
 
 $(PACKAGE): libs
+ifeq ($(TESTBUILD),1)
 	$(CC) -o $(PACKAGE) $(OBJS) $(CFLAGS) $(LDFLAGS)
-
-withlibslapt: libs
+else
 	$(CC) -o $(PACKAGE) $(NONLIBOBJS) -L./src -Wl,-R$(LIBDIR) $(CFLAGS) $(LDFLAGS) -lslapt
-
-static: libs
-	$(CC) -o $(PACKAGE) $(OBJS) $(CFLAGS) $(LDFLAGS) -static
+endif
 
 install: $(PACKAGE) doinstall
-
-staticinstall: static doinstall
-
-withlibslaptinstall: withlibslapt doinstall
 
 libsinstall: libs
 	if [ ! -d $(DESTDIR)/usr/include ]; then mkdir -p $(DESTDIR)/usr/include;fi
@@ -82,7 +79,7 @@ doinstall: libsinstall
 	gzip -f $(DESTDIR)/usr/man/man3/libslapt.3
 	gzip -f $(DESTDIR)/usr/man/ru/man8/$(PACKAGE).8
 	gzip -f $(DESTDIR)/usr/man/uk/man8/$(PACKAGE).8
-	install -d $(DESTDIR)/var/$(PACKAGE)
+	install -d $(DESTDIR)/var/cache/$(PACKAGE)
 	for i in `ls po/*.po | sed 's/.po//' | xargs -n1 basename` ;do if [ ! -d $(DESTDIR)$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES ]; then mkdir -p $(DESTDIR)$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES; fi; msgfmt -o $(DESTDIR)$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES/slapt-get.mo po/$$i.po;done
 	mkdir -p $(DESTDIR)/usr/doc/$(PACKAGE)-$(VERSION)/
 	cp -f default.slapt-getrc.* example.slapt-getrc COPYING ChangeLog INSTALL README FAQ TODO $(DESTDIR)/usr/doc/$(PACKAGE)-$(VERSION)/
@@ -94,7 +91,7 @@ uninstall:
 	-rm /usr/man/man3/libslapt.3.gz
 	-rm /usr/man/ru/man8/$(PACKAGE).8.gz
 	-rm /usr/man/uk/man8/$(PACKAGE).8.gz
-	-@echo leaving /var/$(PACKAGE)
+	-@echo leaving /var/cache/$(PACKAGE)
 	-rm -r /usr/doc/$(PACKAGE)-$(VERSION)
 	-find /usr/share/locale/ -name 'slapt-get.mo' -exec rm {} \;
 	-rm /usr/include/slapt.h
@@ -104,7 +101,6 @@ uninstall:
 clean: testclean
 	-if [ -f $(PACKAGE) ]; then rm $(PACKAGE);fi
 	-rm src/*.o
-	-rm src/*.a
 	-rm src/*.so
 	-rm src/libslapt.so*
 	-rm src/slapt.h
@@ -115,10 +111,6 @@ clean: testclean
 
 .PHONY: pkg dopkg
 pkg: $(PACKAGE) dopkg
-
-staticpkg: static dopkg
-
-withlibslaptpkg: withlibslapt dopkg
 
 dopkg: $(PACKAGE)
 	mkdir -p pkg
@@ -131,8 +123,8 @@ dopkg: $(PACKAGE)
 	mkdir -p pkg/usr/man/uk/man8
 	for i in `ls po/ --ignore=slapt-get.pot --ignore='*~*' |sed 's/.po//'` ;do mkdir -p pkg$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES; msgfmt -o pkg$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES/slapt-get.mo po/$$i.po; done
 	cp -f $(PACKAGE) ./pkg/$(SBINDIR)
-	-chown $$(stat --format "%u:%g" /usr/sbin) ./pkg/$(SBINDIR)
-	-chown $$(stat --format "%u:%g" /usr/sbin) ./pkg/$(SBINDIR)/$(PACKAGE)
+	chown $$(stat --format "%u:%g" /usr/sbin) ./pkg/$(SBINDIR)
+	chown $$(stat --format "%u:%g" /usr/sbin) ./pkg/$(SBINDIR)/$(PACKAGE)
 	$(STRIP) ./pkg/$(SBINDIR)/$(PACKAGE)
 	cp -f $(RCSOURCE) pkg/etc/slapt-get/slapt-getrc.new
 	mkdir -p ./pkg/usr/doc/$(PACKAGE)-$(VERSION)/
@@ -155,20 +147,18 @@ dopkg: $(PACKAGE)
 	cp -f src/libslapt.so.$(VERSION) pkg$(LIBDIR)/
 	$(STRIP) pkg$(LIBDIR)/libslapt.so.$(VERSION)
 	( cd pkg$(LIBDIR); ln -sf libslapt.so.$(VERSION) libslapt.so )
-	-( cd pkg; /sbin/makepkg -l y -c n ../$(PACKAGE)-$(VERSION)-$(ARCH)-$(RELEASE).txz )
+	( cd pkg; /sbin/makepkg -l y -c n ../$(PACKAGE)-$(VERSION)-$(ARCH)-$(RELEASE).txz )
 
 po_file:
 	-xgettext -o po/slapt-get.pot.new -sC --no-location src/*.c src/*.h
-	-if [ ! -f po/slapt-get.pot ]; then mv po/slapt-get.pot.new po/slapt-get.pot; else msgmerge -Us po/slapt-get.pot po/slapt-get.pot.new ; fi
+	-if [ ! -f po/slapt-get.pot ]; then mv po/slapt-get.pot.new po/slapt-get.pot; else msgmerge --no-wrap -Us po/slapt-get.pot po/slapt-get.pot.new ; fi
 	-rm po/slapt-get.pot.new
-	-for i in `ls po/*.po`; do msgmerge -UNs $$i po/slapt-get.pot; done
+	-for i in `ls po/*.po`; do msgmerge --no-wrap -UNs $$i po/slapt-get.pot; done
 
 libs: $(OBJS)
 	touch libs
-	$(CC) -shared -o src/libslapt.so.$(VERSION) $(LIBOBJS) #-Wl,-soname=libslapt-$(VERSION)
+	$(CC) -shared -o src/libslapt.so.$(VERSION) $(LIBOBJS) -Wl,-soname=libslapt.so.$(VERSION) $(CFLAGS) $(LDFLAGS)
 	( cd src; if [ -f libslapt.so ]; then rm libslapt.so;fi; ln -sf libslapt.so.$(VERSION) libslapt.so )
-	$(AR) -r src/libslapt.a $(LIBOBJS)
-	$(RANLIB) src/libslapt.a
 	-@echo "#ifndef LIB_SLAPT" > src/slapt.h
 	-@echo "#define LIB_SLAPT 1" >> src/slapt.h
 	-@cat $(LIBHEADERS) |grep -v '#include \"' >> src/slapt.h
