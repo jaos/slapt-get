@@ -113,7 +113,7 @@ const char *slapt_priority_to_str(SLAPT_PRIORITY_T priority);
 bool slapt_disk_space_check(const char *path, double space_needed);
 
 /* utils */
-slapt_vector_t *slapt_parse_delimited_list(char *line, char delim);
+slapt_vector_t *slapt_parse_delimited_list(const char *line, char delim);
 char *slapt_strip_whitespace(const char *s);
 
 size_t slapt_strlcpy(char *, const char *, size_t);

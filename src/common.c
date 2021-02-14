@@ -134,76 +134,61 @@ void slapt_gen_md5_sum_of_file(FILE *f, char *result_sum)
     }
 }
 
-/* recursively create dirs */
+static char *join_path(char **v, size_t start, size_t end, bool absolute) {
+    if (end < start) {
+        fprintf(stderr, "invalid path start/end\n");
+        exit(EXIT_FAILURE);
+    }
+    size_t joined_size = 3 + (end - start); // start (if absolute) + delim + \0
+    for(size_t counter = start; counter <= end; ++counter) {
+        joined_size += strlen(v[counter]);
+    }
+    if (joined_size > PATH_MAX) {
+        fprintf(stderr, "path too large\n");
+        exit(EXIT_FAILURE);
+    }
+
+    char *joined = malloc(sizeof(*joined) * joined_size);
+    if (absolute) {
+        joined[0] = '/';
+        joined[1] = '\0';
+    } else {
+        joined[0] = '\0';
+    }
+    for(size_t counter = start; counter <= end; ++counter) {
+        char *piece = v[counter];
+        size_t piece_size = strlen(piece) + 1;
+        if (counter != 0) {
+            joined = strncat(joined, "/", 2);
+        }
+        joined = strncat(joined, piece, piece_size);
+    }
+    return joined;
+}
+
 void slapt_create_dir_structure(const char *dir_name)
 {
-    char *cwd = NULL;
-    int position = 0, len = 0;
-
-    cwd = getcwd(NULL, 0);
-    if (cwd == NULL) {
-        fprintf(stderr, gettext("Failed to get cwd\n"));
-        return;
+    bool absolute = false;
+    if (dir_name[0] == '/'){
+        absolute = true;
     }
 
-    len = strlen(dir_name);
-    while (position < len) {
-        char *pointer = NULL;
-        char *dir_name_buffer = NULL;
-
-        /* if no more directory delim, then this must be last dir */
-        if (strstr(dir_name + position, "/") == NULL) {
-            dir_name_buffer = strndup(dir_name + position, strlen(dir_name + position));
-
-            if (strcmp(dir_name_buffer, ".") != 0) {
-                if ((mkdir(dir_name_buffer, 0755)) == -1) {
-                    if (errno != EEXIST) {
-                        fprintf(stderr, gettext("Failed to mkdir: %s\n"), dir_name_buffer);
-                        exit(EXIT_FAILURE);
-                    }
-                }
-                if ((chdir(dir_name_buffer)) == -1) {
-                    fprintf(stderr, gettext("Failed to chdir to %s\n"), dir_name_buffer);
+    slapt_vector_t *dir_parts = slapt_parse_delimited_list(dir_name, '/');
+    for(size_t c = 0; c < dir_parts->size; ++c) {
+        char *joined = join_path((char **)dir_parts->items, 0, c, absolute);
+        struct stat stat_buf;
+        if (stat(joined, &stat_buf) != 0) {
+            if (mkdir(joined, 0755) != 0) {
+                if (errno != EEXIST) {
+                    fprintf(stderr, gettext("Failed to mkdir %s: %s\n"), joined, strerror(errno));
                     exit(EXIT_FAILURE);
                 }
-            } /* don't create . */
-
-            free(dir_name_buffer);
-            break;
-        } else {
-            if (dir_name[position] == '/') {
-                /* move on ahead */
-                ++position;
-            } else {
-                /* figure our dir name and mk it */
-                pointer = strchr(dir_name + position, '/');
-                dir_name_buffer = strndup(dir_name + position, strlen(dir_name + position) - strlen(pointer));
-
-                if (strcmp(dir_name_buffer, ".") != 0) {
-                    if ((mkdir(dir_name_buffer, 0755)) == -1) {
-                        if (errno != EEXIST) {
-                            fprintf(stderr, gettext("Failed to mkdir: %s\n"), dir_name_buffer);
-                            exit(EXIT_FAILURE);
-                        }
-                    }
-                    if ((chdir(dir_name_buffer)) == -1) {
-                        fprintf(stderr, gettext("Failed to chdir to %s\n"), dir_name_buffer);
-                        exit(EXIT_FAILURE);
-                    }
-                } /* don't create . */
-
-                free(dir_name_buffer);
-                position += (strlen(dir_name + position) - strlen(pointer));
             }
         }
-    } /* end while */
 
-    if ((chdir(cwd)) == -1) {
-        fprintf(stderr, gettext("Failed to chdir to %s\n"), cwd);
-        return;
+        free(joined);
     }
-
-    free(cwd);
+    slapt_vector_t_free(dir_parts);
 }
 
 int slapt_ask_yes_no(const char *format, ...)
@@ -375,7 +360,7 @@ bool slapt_disk_space_check(const char *path, double space_needed)
     return true;
 }
 
-slapt_vector_t *slapt_parse_delimited_list(char *line, char delim)
+slapt_vector_t *slapt_parse_delimited_list(const char *line, const char delim)
 {
     slapt_vector_t *list = slapt_vector_t_init(free);
     int count = 0, position = 0, len = strlen(line);
@@ -384,7 +369,7 @@ slapt_vector_t *slapt_parse_delimited_list(char *line, char delim)
         ++position;
 
     while (position < len) {
-        char *start = line + position;
+        const char *start = line + position;
         char *end = NULL, *ptr = NULL;
         int start_len = strlen(start), end_len = 0;
 
