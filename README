@@ -83,7 +83,29 @@ Table of Contents:
 
  3. Installation
 
-    See INSTALL.
+    You can install via meson or make (deprecated).
+
+    * Meson
+
+        meson setup build # or any dir of your choosing
+        meson compile -C build # or `ninja -C build` for older meson releases
+        meson install -C build # or `ninja -C build install`  for older meson releases
+
+        Meson/ninja supports `DESTDIR=/path meson install -C build`
+
+        TIP:
+        slapt-get.Slackbuild will create a Slackware package.
+        Run with sudo or as a privileged user.
+
+    * make (deprecated)
+
+        make
+        make install # as privileged user
+
+        The Makefile honors DESTDIR.
+
+        TIP:
+        `make pkg` (as privileged user) will create a Slackware package.
 
 
 
@@ -103,7 +125,7 @@ Table of Contents:
     and CHECKSUMS.md5.  Multiple sources can be defined.
 
       NOTE: It is not recommended to mix 3rd party package sources
-            with the official on production servers.  Sometimes 
+            with the official on production servers.  Sometimes
             third party sources contain the same packages as the
             official mirrors. Third party packages might not be
             as rigorously tested as official packages.
@@ -154,7 +176,7 @@ Table of Contents:
       available on the package sources specified in the slapt-getrc file.
     * --remove-obsolete along with --remove or --dist-upgrade will mark
       all non-downloadable packages for removal.
-      
+
 
 
 
@@ -169,7 +191,7 @@ Table of Contents:
    is good.
 
    Some mirrors are incomplete and the downloaded file is actually HTML
-   specifying the web servers error message.  MD5 checking has been 
+   specifying the web servers error message.  MD5 checking has been
    incorporated in order to alleviate this problem.
 
    Please do not add redundant mirror locations to the same release.  Mirror
@@ -225,7 +247,7 @@ Table of Contents:
 
    Miguel Santinho <info at Simplicidade dot com> authored the Portuguese_Portugal
    translation.
- 
+
    Vu Nguyen (vncasper at yahoo dot com) authored the Vietnamese translation.
 
    publikum at users dot sourceforge dot net authored the Slovenian translation.
