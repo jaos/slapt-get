@@ -261,9 +261,15 @@ slapt_source_t *slapt_source_t_init(const char *s)
         src->url = strndup(source_string, source_len);
     } else {
         src->url = slapt_malloc(sizeof *src->url * (source_len + 2));
-        if (snprintf(src->url, source_len + 2, "%s/", source_string) != (int)(source_len + 2)) {
-            fprintf(stderr, "slapt_source_t_init error for %s\n", s);
-            exit(EXIT_FAILURE);
+        src->url[0] = '\0';
+
+        src->url = strncat(src->url, source_string, source_len);
+
+        if (isblank(src->url[source_len - 1]) != 0) {
+            src->url[source_len - 1] = '/';
+        } else {
+            src->url[source_len] = '/';
+            src->url[source_len + 1] = '\0';
         }
     }
 
