@@ -53,6 +53,7 @@ add_project_link_arguments(cc.get_supported_link_arguments(cflags), language: 'c
 subdir('po')
 subdir('src')
 subdir('doc')
+subdir('t')
 
 datadocs = [
   'COPYING',

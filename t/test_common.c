@@ -5,7 +5,7 @@ START_TEST(test_slapt_open_file)
     const char *file = "./PACKAGES.TXT";
 
     FILE *f = slapt_open_file(file, "w");
-    fail_if(fileno(f) == -1, NULL);
+    fail_if(fileno(f) == -1);
 
     fclose(f);
     unlink(file);
@@ -33,17 +33,13 @@ END_TEST
 START_TEST(test_slapt_create_dir_structure)
 {
     const char *dir_name = "var/cache/slapt-get";
-    DIR *d = NULL;
-
-    slapt_create_dir_structure("var/cache/slapt-get");
-
-    d = opendir(dir_name);
-
+    slapt_create_dir_structure(dir_name);
+    DIR *d = opendir(dir_name);
     fail_if(d == NULL);
-
     closedir(d);
 
-    rmdir(dir_name);
+    rmdir("var/cache/slapt-get");
+    rmdir("var/cache");
     rmdir("var");
 }
 END_TEST
