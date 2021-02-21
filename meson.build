@@ -1,12 +1,13 @@
 project('slapt-get', 'c',
   version: '0.11.2',
   license: 'GPLv2',
-  meson_version: '>= 0.53',
+  meson_version: '>= 0.56',
   default_options: [
     'buildtype=debugoptimized',
     'b_lto=true',
     'sysconfdir=/etc',
     'warning_level=3',
+    'werror=true',
   ],
 )
 package = meson.project_name()
@@ -43,7 +44,7 @@ libm = cc.find_library('m')
 
 deps = [libcurl, zlib, openssl, libm, libgpgme]
 
-cflags = ['-Werror', '-ffat-lto-objects', '-Wshadow', '-Wstrict-overflow', '-fno-strict-aliasing']
+cflags = ['-ffat-lto-objects', '-Wshadow', '-Wstrict-overflow', '-fno-strict-aliasing']
 if get_option('testbuild').enabled()
   cflags += ['-fsanitize=undefined', '-fsanitize=address', '-fstack-protector', '-ggdb', '-fno-omit-frame-pointer']
 endif
