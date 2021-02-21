@@ -29,7 +29,7 @@ main_sources = [
 
 custom_target('slapt.h',
   output: 'slapt.h',
-  command: [find_program('mkslapth.sh'), join_paths(meson.source_root(), 'src'), '@OUTPUT@', lib_headers],
+  command: [find_program('mkslapth.sh'), join_paths(meson.project_source_root(), 'src'), '@OUTPUT@', lib_headers],
   install: true,
   install_dir: get_option('includedir')
 )
