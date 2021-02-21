@@ -1,4 +1,5 @@
-0.11.1 Feb 12, 2021
+0.11.2 Feb 13, 2021
+ * add meson build infrastructure
  * handle new aaa_libraries (renamed from aaa_elflibs) and aaa_glibc-solibs
 
 0.11.1 Aug 04, 2019

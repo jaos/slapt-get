@@ -491,11 +491,11 @@ void slapt_pkg_action_upgrade_all(const slapt_config_t *global_config)
             avail_pkg = slapt_get_newest_pkg(avail_pkgs, essential.name);
 
             /* can we upgrade */
-            if (inst_pkg != NULL && avail_pkg != NULL && essential.upgrade_only == false) {
+            if (inst_pkg != NULL && avail_pkg != NULL) {
                 if (slapt_cmp_pkgs(inst_pkg, avail_pkg) < 0) {
                     slapt_add_upgrade_to_transaction(tran, inst_pkg, avail_pkg);
                 }
-            } else if (avail_pkg != NULL && essential.upgrade_only == true) {
+            } else if (avail_pkg != NULL && essential.upgrade_only == false) {
                 slapt_add_install_to_transaction(tran, avail_pkg);
             }
 
