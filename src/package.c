@@ -1345,7 +1345,7 @@ static slapt_pkg_t *parse_meta_entry(slapt_vector_t *avail_pkgs, slapt_vector_t 
     }
 
     if (tmp_cond_len != 0) {
-        slapt_strlcpy(tmp_pkg_cond, dep_entry + parse_dep_regex->pmatch[2].rm_so, tmp_cond_len);
+        slapt_strlcpy(tmp_pkg_cond, dep_entry + parse_dep_regex->pmatch[2].rm_so, tmp_cond_len + 1);
     }
 
     tmp_pkg_ver = slapt_regex_t_extract_match(parse_dep_regex, dep_entry, 3);
