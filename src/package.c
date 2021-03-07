@@ -3169,3 +3169,81 @@ void slapt_pkg_upgrade_t_free(slapt_pkg_upgrade_t *upgrade)
     slapt_pkg_t_free(upgrade->upgrade);
     free(upgrade);
 }
+
+slapt_dependency_t* slapt_dependency_t_init()
+{
+    slapt_dependency_t *d = malloc(sizeof *d);
+    d->alternatives = NULL;
+    d->name = NULL;
+    d->version = NULL;
+    return d;
+}
+
+void slapt_dependency_t_free(slapt_dependency_t *d)
+{
+    if (d->op != DEP_OP_OR) {
+        free(d->name);
+        free(d->version);
+    } else {
+        slapt_vector_t_free(d->alternatives);
+    }
+    free(d);
+}
+
+slapt_dependency_t *parse_required(const char *required)
+{
+    if (strchr(required, '|') != NULL) {
+        slapt_dependency_t *d = slapt_dependency_t_init();
+        d->op = DEP_OP_OR;
+        d->alternatives = slapt_vector_t_init((slapt_vector_t_free_function)slapt_dependency_t_free);
+        slapt_vector_t *alts = slapt_parse_delimited_list(required, '|');
+        slapt_vector_t_foreach(const char *, alt, alts) {
+            slapt_dependency_t *alt_dep = parse_required(alt);
+            slapt_vector_t_add(d->alternatives, alt_dep);
+        }
+        slapt_vector_t_free(alts);
+        return d;
+    }
+
+    slapt_regex_t *parse_dep_regex = NULL;
+    if ((parse_dep_regex = slapt_regex_t_init(SLAPT_REQUIRED_REGEX)) == NULL) {
+        exit(EXIT_FAILURE);
+    }
+    slapt_regex_t_execute(parse_dep_regex, required);
+    if (parse_dep_regex->reg_return != 0) {
+        slapt_regex_t_free(parse_dep_regex);
+        return NULL;
+    }
+    int tmp_cond_len = parse_dep_regex->pmatch[2].rm_eo - parse_dep_regex->pmatch[2].rm_so;
+    slapt_dependency_t *d = slapt_dependency_t_init();
+    d->op = DEP_OP_ANY;
+    d->name = slapt_regex_t_extract_match(parse_dep_regex, required, 1);
+
+    /* invalid or no op */
+    if (tmp_cond_len == 0 || tmp_cond_len > 3) {
+        slapt_regex_t_free(parse_dep_regex);
+        return d;
+    }
+
+    char tmp_pkg_cond[3] = {0}; /* >=, <=, etc */
+    slapt_strlcpy(tmp_pkg_cond, required + parse_dep_regex->pmatch[2].rm_so, tmp_cond_len + 1);
+    d->version = slapt_regex_t_extract_match(parse_dep_regex, required, 3);
+    slapt_regex_t_free(parse_dep_regex);
+
+    if (strchr(tmp_pkg_cond, '=')) {
+        d->op = DEP_OP_EQ;
+        if (strchr(tmp_pkg_cond, '>')) {
+            d->op = DEP_OP_GTE;
+        }
+        else if (strchr(tmp_pkg_cond, '<')) {
+            d->op = DEP_OP_LTE;
+        }
+    }
+    else if (strchr(tmp_pkg_cond, '>')) {
+        d->op = DEP_OP_GT;
+    }
+    else if (strchr(tmp_pkg_cond, '<')) {
+        d->op = DEP_OP_LT;
+    }
+    return d;
+}

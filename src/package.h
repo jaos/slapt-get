@@ -52,6 +52,32 @@
 #define SLAPT_MAX_MMAP_SIZE 1024
 #define SLAPT_MAX_ZLIB_BUFFER 1024
 
+typedef enum {
+    DEP_OP_ANY = 0,
+    DEP_OP_OR,
+    DEP_OP_EQ,
+    DEP_OP_GTE,
+    DEP_OP_LTE,
+    DEP_OP_GT,
+    DEP_OP_LT,
+} slapt_dependency_op;
+
+typedef struct {
+    slapt_dependency_op op;
+    union {
+        struct {
+            char *name;
+            char *version;
+        };
+        struct {
+            slapt_vector_t* alternatives;
+        };
+    };
+} slapt_dependency_t;
+slapt_dependency_t* slapt_dependency_t_init();
+void slapt_dependency_t_free(slapt_dependency_t *);
+slapt_dependency_t *parse_required(const char *);
+
 typedef struct {
     char md5[SLAPT_MD5_STR_LEN + 1];
     char *name;

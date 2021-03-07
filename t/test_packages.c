@@ -388,6 +388,59 @@ START_TEST(test_network)
 }
 END_TEST
 
+START_TEST(test_slapt_dependency_t)
+{
+    typedef struct {
+        const char *t;
+        slapt_dependency_op op;
+        const char *name;
+        const char *version;
+    } std_test_case;
+
+    const std_test_case tests[8] = {
+        {.t="foo", .op=DEP_OP_ANY, .name="foo", .version=NULL},
+        {.t="foo = 1.4.1", .op=DEP_OP_EQ, .name="foo", .version="1.4.1"},
+        {.t="foo >= 1.4.2", .op=DEP_OP_GTE, .name="foo", .version="1.4.2"},
+        {.t="foo => 1.4.0", .op=DEP_OP_GTE, .name="foo", .version="1.4.0"},
+        {.t="foo > 1.4.0", .op=DEP_OP_GT, .name="foo", .version="1.4.0"},
+        {.t="foo <= 1.5.0", .op=DEP_OP_LTE, .name="foo", .version="1.5.0"},
+        {.t="foo =< 1.5.0", .op=DEP_OP_LTE, .name="foo", .version="1.5.0"},
+        {.t="foo < 1.5.0", .op=DEP_OP_LT, .name="foo", .version="1.5.0"},
+    };
+    for(int i = 0; i < 8; i++) {
+        std_test_case t = tests[i];
+        slapt_dependency_t *dep = parse_required(t.t);
+        fail_unless(dep->op == t.op);
+        fail_unless(strcmp(dep->name, t.name) == 0);
+        if (t.version != NULL)
+            fail_unless(strcmp(dep->version, t.version) == 0);
+        slapt_dependency_t_free(dep);
+    }
+
+    /* alternate dependency op
+        slapt_dependency_t {
+            op DEP_OP_OR,
+            slapt_vector_t alternatives [ slapt_dependency_t, .. ]
+        }
+    */
+    slapt_dependency_t *alt_dep = parse_required("foo|bar >= 1.0");
+    fail_unless(alt_dep->op == DEP_OP_OR);
+
+    /* first altnerative */
+    slapt_dependency_t *first = alt_dep->alternatives->items[0];
+    fail_unless(first->op == DEP_OP_ANY);
+    fail_unless(strcmp(first->name, "foo") == 0);
+    fail_unless(first->version == NULL);
+    /* second altnerative */
+    slapt_dependency_t *second = alt_dep->alternatives->items[1];
+    fail_unless(second->op == DEP_OP_GTE);
+    fail_unless(strcmp(second->name, "bar") == 0);
+    fail_unless(strcmp(second->version, "1.0") == 0);
+
+    slapt_dependency_t_free(alt_dep);
+}
+END_TEST
+
 Suite *packages_test_suite()
 {
     Suite *s = suite_create("Packages");
@@ -402,6 +455,7 @@ Suite *packages_test_suite()
     tcase_add_test(tc, test_dependency);
     tcase_add_test(tc, test_cache);
     tcase_add_test(tc, test_network);
+    tcase_add_test(tc, test_slapt_dependency_t);
 
     suite_add_tcase(s, tc);
     return s;
