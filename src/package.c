@@ -66,7 +66,7 @@ slapt_vector_t *slapt_get_available_pkgs(void)
     /* this is pointless to do if we wrote the data sorted, but this
      ensures upgrades from older, presorting slapt-gets still work
      as expected. */
-    qsort(list->items, list->size, sizeof(list->items[0]), slapt_pkg_t_qsort_cmp);
+    slapt_vector_t_sort(list, slapt_pkg_t_qsort_cmp);
 
     list->sorted = true;
 
@@ -604,7 +604,7 @@ slapt_vector_t *slapt_get_installed_pkgs(void)
     slapt_regex_t_free(compressed_size_reg);
     slapt_regex_t_free(uncompressed_size_reg);
 
-    qsort(list->items, list->size, sizeof(list->items[0]), slapt_pkg_t_qsort_cmp);
+    slapt_vector_t_sort(list, slapt_pkg_t_qsort_cmp);
 
     return list;
 }
@@ -1797,7 +1797,7 @@ int slapt_update_pkg_cache(const slapt_config_t *global_config)
         if ((pkg_list_fh = slapt_open_file(SLAPT_PKG_LIST_L, "w+")) == NULL)
             exit(EXIT_FAILURE);
 
-        qsort(new_pkgs->items, new_pkgs->size, sizeof(new_pkgs->items[0]), slapt_pkg_t_qsort_cmp);
+        slapt_vector_t_sort(new_pkgs, slapt_pkg_t_qsort_cmp);
 
         slapt_write_pkg_data(NULL, pkg_list_fh, new_pkgs);
 
