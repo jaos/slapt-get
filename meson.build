@@ -46,7 +46,7 @@ deps = [libcurl, zlib, openssl, libm, libgpgme]
 
 cflags = ['-ffat-lto-objects', '-Wshadow', '-Wstrict-overflow', '-fno-strict-aliasing']
 if get_option('testbuild').enabled()
-  cflags += ['-fsanitize=undefined', '-fsanitize=address', '-fstack-protector', '-ggdb', '-fno-omit-frame-pointer']
+  cflags += ['-fstack-protector', '-ggdb', '-fno-omit-frame-pointer']
 endif
 add_project_arguments(cc.get_supported_arguments(cflags), language: 'c')
 add_project_link_arguments(cc.get_supported_link_arguments(cflags), language: 'c')

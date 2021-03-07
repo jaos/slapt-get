@@ -28,13 +28,14 @@ main_sources = [
 ]
 
 custom_target('slapt.h',
+  input: lib_headers,
   output: 'slapt.h',
   command: [find_program('mkslapth.sh'), join_paths(meson.project_source_root(), 'src'), '@OUTPUT@', lib_headers],
   install: true,
   install_dir: get_option('includedir')
 )
 
-libslapt = library('slapt', lib_sources, dependencies : deps, install: true, version: version, soversion: 0)
+libslapt = library('libslapt', lib_sources, dependencies : deps, install: true, version: version, soversion: 0)
 
 if get_option('testbuild').enabled()
   executable('slapt-get', main_sources + lib_sources, dependencies : deps, install: true, install_dir: get_option('sbindir'))
