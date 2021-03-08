@@ -264,7 +264,7 @@ void *slapt_calloc(size_t n, size_t s)
     return p;
 }
 
-const char *slapt_strerror(slapt_code_t code)
+const char *slapt_strerror(const slapt_code_t code)
 {
     switch (code) {
     case SLAPT_OK:
@@ -472,7 +472,7 @@ void slapt_vector_t_sort(slapt_vector_t *v, slapt_vector_t_qsort_cmp cmp)
     }
 }
 
-int slapt_vector_t_index_of(slapt_vector_t *v, slapt_vector_t_cmp cmp, void *opt)
+int slapt_vector_t_index_of(const slapt_vector_t *v, slapt_vector_t_cmp cmp, void *opt)
 {
     if (v->sorted) {
         int min = 0, max = v->size - 1;
@@ -499,7 +499,7 @@ int slapt_vector_t_index_of(slapt_vector_t *v, slapt_vector_t_cmp cmp, void *opt
     return -1;
 }
 
-slapt_vector_t *slapt_vector_t_search(slapt_vector_t *v, slapt_vector_t_cmp cmp, void *opt)
+slapt_vector_t *slapt_vector_t_search(const slapt_vector_t *v, slapt_vector_t_cmp cmp, void *opt)
 {
     slapt_vector_t *matches = slapt_vector_t_init(NULL);
 

@@ -122,7 +122,7 @@ void slapt_pkg_t_free(slapt_pkg_t *pkg);
 */
 int slapt_update_pkg_cache(const slapt_config_t *global_config);
 /* write pkg data to disk */
-void slapt_write_pkg_data(const char *source_url, FILE *d_file, slapt_vector_t *pkgs);
+void slapt_write_pkg_data(const char *source_url, FILE *d_file, const slapt_vector_t *pkgs);
 /* parse the PACKAGES.TXT file */
 slapt_vector_t *slapt_parse_packages_txt(FILE *);
 /*
@@ -135,40 +135,40 @@ slapt_vector_t *slapt_get_available_pkgs(void);
 slapt_vector_t *slapt_get_installed_pkgs(void);
 
 /* retrieve the newest package from package list */
-slapt_pkg_t *slapt_get_newest_pkg(slapt_vector_t *, const char *);
+slapt_pkg_t *slapt_get_newest_pkg(const slapt_vector_t *, const char *);
 /* get the exact package */
-slapt_pkg_t *slapt_get_exact_pkg(slapt_vector_t *list, const char *name, const char *version);
+slapt_pkg_t *slapt_get_exact_pkg(const slapt_vector_t *list, const char *name, const char *version);
 /* lookup package by details */
-slapt_pkg_t *slapt_get_pkg_by_details(slapt_vector_t *list, const char *name, const char *version, const char *location);
+slapt_pkg_t *slapt_get_pkg_by_details(const slapt_vector_t *list, const char *name, const char *version, const char *location);
 /* search package list with pattern */
-slapt_vector_t *slapt_search_pkg_list(slapt_vector_t *list, const char *pattern);
+slapt_vector_t *slapt_search_pkg_list(const slapt_vector_t *list, const char *pattern);
 
 /* install package by calling installpkg, returns 0 on success, -1 on error */
-int slapt_install_pkg(const slapt_config_t *, slapt_pkg_t *);
+int slapt_install_pkg(const slapt_config_t *, const slapt_pkg_t *);
 /* upgrade package by calling upgradepkg, returns 0 on success, -1 on error */
-int slapt_upgrade_pkg(const slapt_config_t *global_config, slapt_pkg_t *pkg);
+int slapt_upgrade_pkg(const slapt_config_t *global_config, const slapt_pkg_t *pkg);
 /* remove package by calling removepkg, returns 0 on success, -1 on error */
-int slapt_remove_pkg(const slapt_config_t *, slapt_pkg_t *);
+int slapt_remove_pkg(const slapt_config_t *, const slapt_pkg_t *);
 
 /* get a list of obsolete packages */
-slapt_vector_t *slapt_get_obsolete_pkgs(const slapt_config_t *global_config, slapt_vector_t *avail_pkgs, slapt_vector_t *installed_pkgs);
+slapt_vector_t *slapt_get_obsolete_pkgs(const slapt_config_t *global_config, const slapt_vector_t *avail_pkgs, const slapt_vector_t *installed_pkgs);
 
 /* generate a short description, returns (char *) on success or NULL on error, caller responsible for freeing the returned data */
 char *slapt_gen_short_pkg_description(slapt_pkg_t *);
 /* generate the filename from the url, caller responsible for freeing the returned data */
 char *slapt_gen_filename_from_url(const char *url, const char *file);
 /* generate the package file name, caller responsible for freeing the returned data */
-char *slapt_gen_pkg_file_name(const slapt_config_t *global_config, slapt_pkg_t *pkg);
+char *slapt_gen_pkg_file_name(const slapt_config_t *global_config, const slapt_pkg_t *pkg);
 /* generate the download url for a package, caller responsible for freeing the returned data */
-char *slapt_gen_pkg_url(slapt_pkg_t *pkg);
+char *slapt_gen_pkg_url(const slapt_pkg_t *pkg);
 /* exclude pkg based on pkg name, returns 1 if package is present in the exclude list, 0 if not present */
-bool slapt_is_excluded(const slapt_config_t *, slapt_pkg_t *);
+bool slapt_is_excluded(const slapt_config_t *, const slapt_pkg_t *);
 /* package is already downloaded and cached, md5sum if applicable is ok, returns slapt_code_t.  */
-slapt_code_t slapt_verify_downloaded_pkg(const slapt_config_t *global_config, slapt_pkg_t *pkg);
+slapt_code_t slapt_verify_downloaded_pkg(const slapt_config_t *global_config, const slapt_pkg_t *pkg);
 /* fill in the md5sum of the package */
 void slapt_get_md5sums(slapt_vector_t *pkgs, FILE *checksum_file);
 /* find out the pkg file size (post download) */
-size_t slapt_get_pkg_file_size(const slapt_config_t *global_config, slapt_pkg_t *pkg);
+size_t slapt_get_pkg_file_size(const slapt_config_t *global_config, const slapt_pkg_t *pkg);
 
 /* compare package versions,
   returns just like strcmp,
@@ -177,7 +177,7 @@ size_t slapt_get_pkg_file_size(const slapt_config_t *global_config, slapt_pkg_t 
     0 if a and b are equal
 */
 int slapt_cmp_pkg_versions(const char *a, const char *b);
-int slapt_cmp_pkgs(slapt_pkg_t *a, slapt_pkg_t *b);
+int slapt_cmp_pkgs(const slapt_pkg_t *a, const slapt_pkg_t *b);
 
 /*
   resolve dependencies
@@ -185,18 +185,18 @@ int slapt_cmp_pkgs(slapt_pkg_t *a, slapt_pkg_t *b);
   (usually called with transaction->conflict_err and transaction->missing_err)
 */
 int slapt_get_pkg_dependencies(const slapt_config_t *global_config,
-                               slapt_vector_t *avail_pkgs,
-                               slapt_vector_t *installed_pkgs,
+                               const slapt_vector_t *avail_pkgs,
+                               const slapt_vector_t *installed_pkgs,
                                slapt_pkg_t *pkg,
                                slapt_vector_t *deps,
                                slapt_vector_t *conflict_err,
                                slapt_vector_t *missing_err);
 /* return list of package conflicts */
-slapt_vector_t *slapt_get_pkg_conflicts(slapt_vector_t *avail_pkgs, slapt_vector_t *installed_pkgs, slapt_pkg_t *pkg);
+slapt_vector_t *slapt_get_pkg_conflicts(const slapt_vector_t *avail_pkgs, const slapt_vector_t *installed_pkgs, const slapt_pkg_t *pkg);
 /* return list of packages required by */
 slapt_vector_t *slapt_is_required_by(const slapt_config_t *global_config,
-                                     slapt_vector_t *avail,
-                                     slapt_vector_t *installed_pkgs,
+                                     const slapt_vector_t *avail,
+                                     const slapt_vector_t *installed_pkgs,
                                      slapt_vector_t *pkgs_to_install,
                                      slapt_vector_t *pkgs_to_remove,
                                      slapt_pkg_t *pkg);
@@ -210,7 +210,7 @@ void slapt_clean_pkg_dir(const char *dir_name);
 void slapt_purge_old_cached_pkgs(const slapt_config_t *global_config, const char *dir_name, slapt_vector_t *avail_pkgs);
 
 /* make a copy of a package (needs to be freed with free_pkg) */
-slapt_pkg_t *slapt_copy_pkg(slapt_pkg_t *dst, slapt_pkg_t *src);
+slapt_pkg_t *slapt_copy_pkg(slapt_pkg_t *dst, const slapt_pkg_t *src);
 
 /*
   download the PACKAGES.TXT and CHECKSUMS.md5 files

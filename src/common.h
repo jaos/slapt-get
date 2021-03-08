@@ -82,8 +82,8 @@ void slapt_vector_t_free(slapt_vector_t *);
 void slapt_vector_t_add(slapt_vector_t *, void *);
 void slapt_vector_t_remove(slapt_vector_t *v, void *);
 void slapt_vector_t_sort(slapt_vector_t *, slapt_vector_t_qsort_cmp);
-int slapt_vector_t_index_of(slapt_vector_t *, slapt_vector_t_cmp, void *);
-slapt_vector_t *slapt_vector_t_search(slapt_vector_t *, slapt_vector_t_cmp, void *);
+int slapt_vector_t_index_of(const slapt_vector_t *, slapt_vector_t_cmp, void *);
+slapt_vector_t *slapt_vector_t_search(const slapt_vector_t *, slapt_vector_t_cmp, void *);
 #define slapt_vector_t_foreach(type, item, list) \
     type item;                                   \
     if (list) for (uint32_t item##__counter__ = 0; (item##__counter__ < list->size) && (item = list->items[item##__counter__]); item##__counter__++)
@@ -107,7 +107,7 @@ void *slapt_malloc(size_t s);
 void *slapt_calloc(size_t n, size_t s);
 
 /* return human readable error */
-const char *slapt_strerror(slapt_code_t code);
+const char *slapt_strerror(const slapt_code_t code);
 /* return human readable priority */
 const char *slapt_priority_to_str(SLAPT_PRIORITY_T priority);
 bool slapt_disk_space_check(const char *path, double space_needed);
