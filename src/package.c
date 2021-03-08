@@ -1253,7 +1253,6 @@ int slapt_get_pkg_dependencies(const slapt_config_t *global_config,
     if ((slapt_get_newest_pkg(deps, pkg->name) != NULL)) {
         return 0;
     }
-    slapt_vector_t_add(deps, pkg);
 
     /* don't go any further if the required member is empty or disable_dep_check is set */
     if (global_config->disable_dep_check || pkg->dependencies->size == 0)
@@ -1284,9 +1283,12 @@ int slapt_get_pkg_dependencies(const slapt_config_t *global_config,
                         return -1;
                     }
                     if (!apkg->installed) {
+                        slapt_vector_t_add(deps, apkg);
                         int rv = slapt_get_pkg_dependencies(global_config, avail_pkgs, installed_pkgs, apkg, deps, conflict_err, missing_err);
                         if (rv != 0)
                             return rv;
+                        slapt_vector_t_remove(deps, apkg);
+                        slapt_vector_t_add(deps, apkg);
                     }
                     break;
                 }
@@ -1311,9 +1313,12 @@ int slapt_get_pkg_dependencies(const slapt_config_t *global_config,
                     return -1;
                 }
                 if (!dep_pkg->installed) {
+                    slapt_vector_t_add(deps, dep_pkg);
                     int rv = slapt_get_pkg_dependencies(global_config, avail_pkgs, installed_pkgs, dep_pkg, deps, conflict_err, missing_err);
                     if (rv != 0)
                         return rv;
+                    slapt_vector_t_remove(deps, dep_pkg);
+                    slapt_vector_t_add(deps, dep_pkg);
                 }
                 continue;
             }
@@ -1323,10 +1328,6 @@ int slapt_get_pkg_dependencies(const slapt_config_t *global_config,
             return -1;;
         }
     }
-
-    /* reorder */
-    slapt_vector_t_remove(deps, pkg);
-    slapt_vector_t_add(deps, pkg);
     return 0;
 }
 
