@@ -16,6 +16,7 @@ slapt_pkg_t pkg = {
     "",
     "",
     ".tgz",
+    NULL,
     115,
     440,
     SLAPT_PRIORITY_DEFAULT,

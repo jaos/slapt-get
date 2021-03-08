@@ -89,6 +89,7 @@ typedef struct {
     char *conflicts;
     char *suggests;
     char *file_ext;
+    slapt_vector_t *dependencies;
     uint32_t size_c;
     uint32_t size_u;
     uint32_t priority;
