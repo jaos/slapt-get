@@ -1,3 +1,11 @@
+0.11.3 Mar 08, 2021
+ * update dependency handling, fix dependency condition regression
+ * meson updates
+ * update unit tests
+ * update common directory handling
+ * fix slapt_source_t_init regression
+ * update doc
+
 0.11.2 Feb 13, 2021
  * add meson build infrastructure
  * handle new aaa_libraries (renamed from aaa_elflibs) and aaa_glibc-solibs
