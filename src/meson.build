@@ -35,7 +35,7 @@ custom_target('slapt.h',
   install_dir: get_option('includedir')
 )
 
-libslapt = library('libslapt', lib_sources, dependencies : deps, install: true, version: version, soversion: 0)
+libslapt = library('libslapt', lib_sources, dependencies : deps, install: true, version: version, soversion: 0, name_prefix: '')
 
 if get_option('testbuild').enabled()
   executable('slapt-get', main_sources + lib_sources, dependencies : deps, install: true, install_dir: get_option('sbindir'))
