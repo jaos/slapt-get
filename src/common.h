@@ -117,3 +117,12 @@ slapt_vector_t *slapt_parse_delimited_list(const char *line, char delim);
 char *slapt_strip_whitespace(const char *s);
 
 size_t slapt_strlcpy(char *, const char *, size_t);
+
+/*
+  generate the directory name for the package log directory,
+  considering the root environment variable if set
+  caller responsible for freeing the returned data
+ */
+char *slapt_gen_package_log_dir_name(void);
+/* empty packages from cache dir */
+void slapt_clean_pkg_dir(const char *dir_name);

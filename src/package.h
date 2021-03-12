@@ -116,6 +116,31 @@ void slapt_pkg_err_t_free(slapt_pkg_err_t *);
 slapt_pkg_t *slapt_pkg_t_init(void);
 /* frees the package structure */
 void slapt_pkg_t_free(slapt_pkg_t *pkg);
+/* generate a short description, returns (char *) on success or NULL on error, caller responsible for freeing the returned data */
+char *slapt_pkg_t_short_description(slapt_pkg_t *);
+/* generate the download url for a package, caller responsible for freeing the returned data */
+char *slapt_pkg_t_url(const slapt_pkg_t *pkg);
+/* compare package versions,
+  returns just like strcmp,
+    > 0 if a is greater than b
+    < 0 if a is less than b
+    0 if a and b are equal
+*/
+int slapt_pkg_t_cmp_versions(const char *a, const char *b);
+int slapt_pkg_t_cmp(const slapt_pkg_t *a, const slapt_pkg_t *b);
+/* make a copy of a package (needs to be freed with free_pkg) */
+slapt_pkg_t *slapt_pkg_t_copy(slapt_pkg_t *dst, const slapt_pkg_t *src);
+/* retrieve the packages changelog entry, if any.  Returns NULL otherwise, Must be chdir'd to working_dir.  */
+char *slapt_pkg_t_changelog(const slapt_pkg_t *pkg);
+/* returns a string representation of the package */
+char *slapt_pkg_t_string(const slapt_pkg_t *pkg);
+/*
+  get the package filelist, returns (char *) on success or NULL on error
+  caller responsible for freeing the returned data
+*/
+char *slapt_pkg_t_filelist(const slapt_pkg_t *pkg);
+/* used by qsort */
+int slapt_pkg_t_qsort_cmp(const void *a, const void *b);
 
 /*
   update the local package cache. Must be chdir'd to working_dir.
@@ -153,14 +178,10 @@ int slapt_remove_pkg(const slapt_config_t *, const slapt_pkg_t *);
 /* get a list of obsolete packages */
 slapt_vector_t *slapt_get_obsolete_pkgs(const slapt_config_t *global_config, const slapt_vector_t *avail_pkgs, const slapt_vector_t *installed_pkgs);
 
-/* generate a short description, returns (char *) on success or NULL on error, caller responsible for freeing the returned data */
-char *slapt_gen_short_pkg_description(slapt_pkg_t *);
 /* generate the filename from the url, caller responsible for freeing the returned data */
 char *slapt_gen_filename_from_url(const char *url, const char *file);
 /* generate the package file name, caller responsible for freeing the returned data */
 char *slapt_gen_pkg_file_name(const slapt_config_t *global_config, const slapt_pkg_t *pkg);
-/* generate the download url for a package, caller responsible for freeing the returned data */
-char *slapt_gen_pkg_url(const slapt_pkg_t *pkg);
 /* exclude pkg based on pkg name, returns 1 if package is present in the exclude list, 0 if not present */
 bool slapt_is_excluded(const slapt_config_t *, const slapt_pkg_t *);
 /* package is already downloaded and cached, md5sum if applicable is ok, returns slapt_code_t.  */
@@ -169,15 +190,6 @@ slapt_code_t slapt_verify_downloaded_pkg(const slapt_config_t *global_config, co
 void slapt_get_md5sums(slapt_vector_t *pkgs, FILE *checksum_file);
 /* find out the pkg file size (post download) */
 size_t slapt_get_pkg_file_size(const slapt_config_t *global_config, const slapt_pkg_t *pkg);
-
-/* compare package versions,
-  returns just like strcmp,
-    > 0 if a is greater than b
-    < 0 if a is less than b
-    0 if a and b are equal
-*/
-int slapt_cmp_pkg_versions(const char *a, const char *b);
-int slapt_cmp_pkgs(const slapt_pkg_t *a, const slapt_pkg_t *b);
 
 /*
   resolve dependencies
@@ -201,16 +213,11 @@ slapt_vector_t *slapt_is_required_by(const slapt_config_t *global_config,
                                      slapt_vector_t *pkgs_to_remove,
                                      slapt_pkg_t *pkg);
 
-/* empty packages from cache dir */
-void slapt_clean_pkg_dir(const char *dir_name);
 /*
   clean out old outdated packages in the cache that are no longer available
   in the current source lists (ie are not downloadable)
 */
 void slapt_purge_old_cached_pkgs(const slapt_config_t *global_config, const char *dir_name, slapt_vector_t *avail_pkgs);
-
-/* make a copy of a package (needs to be freed with free_pkg) */
-slapt_pkg_t *slapt_copy_pkg(slapt_pkg_t *dst, const slapt_pkg_t *src);
 
 /*
   download the PACKAGES.TXT and CHECKSUMS.md5 files
@@ -223,25 +230,3 @@ bool slapt_get_pkg_source_changelog(const slapt_config_t *global_config, const c
 
 /* clean package name from package description */
 void slapt_clean_description(char *description, const char *name);
-
-/* retrieve the packages changelog entry, if any.  Returns NULL otherwise, Must be chdir'd to working_dir.  */
-char *slapt_get_pkg_changelog(const slapt_pkg_t *pkg);
-
-/* returns a string representation of the package */
-char *slapt_stringify_pkg(const slapt_pkg_t *pkg);
-
-/*
-  get the package filelist, returns (char *) on success or NULL on error
-  caller responsible for freeing the returned data
-*/
-char *slapt_get_pkg_filelist(const slapt_pkg_t *pkg);
-
-/*
-  generate the directory name for the package log directory,
-  considering the ROOT environment variable if set
-  caller responsible for freeing the returned data
- */
-char *slapt_gen_package_log_dir_name(void);
-
-/* used by qsort */
-int slapt_pkg_t_qsort_cmp(const void *a, const void *b);

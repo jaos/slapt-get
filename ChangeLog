@@ -1,4 +1,5 @@
-0.11.3 Mar 08, 2021
+0.11.3 Mar 12, 2021
+ * misc symbol cleanup
  * update dependency handling, fix dependency condition regression
  * meson updates
  * update unit tests

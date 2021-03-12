@@ -396,7 +396,7 @@ slapt_vector_t *slapt_parse_packages_txt(FILE *pkg_list_fh)
     return list;
 }
 
-char *slapt_gen_short_pkg_description(slapt_pkg_t *pkg)
+char *slapt_pkg_t_short_description(slapt_pkg_t *pkg)
 {
     char *short_description = NULL;
     size_t string_size = 0;
@@ -638,7 +638,7 @@ slapt_pkg_t *slapt_get_newest_pkg(const slapt_vector_t *pkg_list, const char *pk
     slapt_vector_t_foreach (slapt_pkg_t *, pkg, matches) {
         if (strcmp(pkg->name, pkg_name) != 0)
             continue;
-        if ((found == NULL) || (slapt_cmp_pkgs(found, pkg) < 0))
+        if ((found == NULL) || (slapt_pkg_t_cmp(found, pkg) < 0))
             found = pkg;
     }
     slapt_vector_t_free(matches);
@@ -851,7 +851,7 @@ void slapt_get_md5sums(slapt_vector_t *pkgs, FILE *checksum_file)
 
             /* see if we can match up name, version, and location */
             slapt_vector_t_foreach (slapt_pkg_t *, pkg, pkgs) {
-                if ((strcmp(pkg->name, name) == 0) && (slapt_cmp_pkg_versions(pkg->version, version) == 0) && (strcmp(pkg->location, location) == 0)) {
+                if ((strcmp(pkg->name, name) == 0) && (slapt_pkg_t_cmp_versions(pkg->version, version) == 0) && (strcmp(pkg->location, location) == 0)) {
                     slapt_strlcpy(pkg->md5, sum, SLAPT_MD5_STR_LEN + 1);
                     break;
                 }
@@ -882,7 +882,7 @@ static void slapt_pkg_t_free_version_parts(struct slapt_pkg_version_parts *parts
     free(parts);
 }
 
-int slapt_cmp_pkgs(const slapt_pkg_t *a, const slapt_pkg_t *b)
+int slapt_pkg_t_cmp(const slapt_pkg_t *a, const slapt_pkg_t *b)
 {
     int greater = 1, lesser = -1, equal = 0;
 
@@ -897,10 +897,10 @@ int slapt_cmp_pkgs(const slapt_pkg_t *a, const slapt_pkg_t *b)
     else if (a->priority < b->priority)
         return lesser;
 
-    return slapt_cmp_pkg_versions(a->version, b->version);
+    return slapt_pkg_t_cmp_versions(a->version, b->version);
 }
 
-int slapt_cmp_pkg_versions(const char *a, const char *b)
+int slapt_pkg_t_cmp_versions(const char *a, const char *b)
 {
     uint32_t position = 0;
     int greater = 1, lesser = -1, equal = 0;
@@ -1175,7 +1175,7 @@ static slapt_pkg_t *resolve_dep(const slapt_dependency_t *dep_declaration, const
             if (dep_declaration->op == DEP_OP_ANY) {
                 return ipkg;
             }
-            int cmp = slapt_cmp_pkg_versions(ipkg->version, dep_declaration->version);
+            int cmp = slapt_pkg_t_cmp_versions(ipkg->version, dep_declaration->version);
             if ((cmp == 0) && (dep_declaration->op == DEP_OP_EQ || dep_declaration->op == DEP_OP_GTE || dep_declaration->op == DEP_OP_LTE)) {
                 return ipkg;
             }
@@ -1195,7 +1195,7 @@ static slapt_pkg_t *resolve_dep(const slapt_dependency_t *dep_declaration, const
             if (dep_declaration->op == DEP_OP_ANY) {
                 return apkg;
             }
-            int cmp = slapt_cmp_pkg_versions(apkg->version, dep_declaration->version);
+            int cmp = slapt_pkg_t_cmp_versions(apkg->version, dep_declaration->version);
             if ((cmp == 0) && (dep_declaration->op == DEP_OP_EQ || dep_declaration->op == DEP_OP_GTE || dep_declaration->op == DEP_OP_LTE)) {
                 return apkg;
             }
@@ -1213,7 +1213,7 @@ static slapt_pkg_t *resolve_dep(const slapt_dependency_t *dep_declaration, const
                 found = candidate;
                 break;
             }
-            int cmp = slapt_cmp_pkg_versions(candidate->version, dep_declaration->version);
+            int cmp = slapt_pkg_t_cmp_versions(candidate->version, dep_declaration->version);
             if ((cmp == 0) && (dep_declaration->op == DEP_OP_EQ || dep_declaration->op == DEP_OP_GTE || dep_declaration->op == DEP_OP_LTE)) {
                 found = candidate;
                 break;
@@ -1451,7 +1451,7 @@ static slapt_pkg_t *parse_meta_entry(const slapt_vector_t *avail_pkgs, const sla
     */
     if (newest_installed_pkg != NULL) {
         /* if condition is "=",">=", or "=<" and versions are the same */
-        if ((strchr(tmp_pkg_cond, '=') != NULL) && (slapt_cmp_pkg_versions(tmp_pkg_ver, newest_installed_pkg->version) == 0)) {
+        if ((strchr(tmp_pkg_cond, '=') != NULL) && (slapt_pkg_t_cmp_versions(tmp_pkg_ver, newest_installed_pkg->version) == 0)) {
             free(tmp_pkg_name);
             free(tmp_pkg_ver);
             return newest_installed_pkg;
@@ -1459,7 +1459,7 @@ static slapt_pkg_t *parse_meta_entry(const slapt_vector_t *avail_pkgs, const sla
 
         /* if "<" */
         if (strchr(tmp_pkg_cond, '<') != NULL) {
-            if (slapt_cmp_pkg_versions(newest_installed_pkg->version, tmp_pkg_ver) < 0) {
+            if (slapt_pkg_t_cmp_versions(newest_installed_pkg->version, tmp_pkg_ver) < 0) {
                 free(tmp_pkg_name);
                 free(tmp_pkg_ver);
                 return newest_installed_pkg;
@@ -1468,7 +1468,7 @@ static slapt_pkg_t *parse_meta_entry(const slapt_vector_t *avail_pkgs, const sla
 
         /* if ">" */
         if (strchr(tmp_pkg_cond, '>') != NULL) {
-            if (slapt_cmp_pkg_versions(newest_installed_pkg->version, tmp_pkg_ver) > 0) {
+            if (slapt_pkg_t_cmp_versions(newest_installed_pkg->version, tmp_pkg_ver) > 0) {
                 free(tmp_pkg_name);
                 free(tmp_pkg_ver);
                 return newest_installed_pkg;
@@ -1479,7 +1479,7 @@ static slapt_pkg_t *parse_meta_entry(const slapt_vector_t *avail_pkgs, const sla
     slapt_vector_t *matches = slapt_vector_t_search(installed_pkgs, by_details, &(slapt_pkg_t){.name = (char *)tmp_pkg_name});
     slapt_vector_t_foreach (slapt_pkg_t *, installed_pkg, matches) {
         /* if condition is "=",">=", or "=<" and versions are the same */
-        if ((strchr(tmp_pkg_cond, '=') != NULL) && (slapt_cmp_pkg_versions(tmp_pkg_ver, installed_pkg->version) == 0)) {
+        if ((strchr(tmp_pkg_cond, '=') != NULL) && (slapt_pkg_t_cmp_versions(tmp_pkg_ver, installed_pkg->version) == 0)) {
             free(tmp_pkg_name);
             free(tmp_pkg_ver);
             slapt_vector_t_free(matches);
@@ -1488,7 +1488,7 @@ static slapt_pkg_t *parse_meta_entry(const slapt_vector_t *avail_pkgs, const sla
 
         /* if "<" */
         if (strchr(tmp_pkg_cond, '<') != NULL) {
-            if (slapt_cmp_pkg_versions(installed_pkg->version, tmp_pkg_ver) < 0) {
+            if (slapt_pkg_t_cmp_versions(installed_pkg->version, tmp_pkg_ver) < 0) {
                 free(tmp_pkg_name);
                 free(tmp_pkg_ver);
                 slapt_vector_t_free(matches);
@@ -1498,7 +1498,7 @@ static slapt_pkg_t *parse_meta_entry(const slapt_vector_t *avail_pkgs, const sla
 
         /* if ">" */
         if (strchr(tmp_pkg_cond, '>') != NULL) {
-            if (slapt_cmp_pkg_versions(installed_pkg->version, tmp_pkg_ver) > 0) {
+            if (slapt_pkg_t_cmp_versions(installed_pkg->version, tmp_pkg_ver) > 0) {
                 free(tmp_pkg_name);
                 free(tmp_pkg_ver);
                 slapt_vector_t_free(matches);
@@ -1511,7 +1511,7 @@ static slapt_pkg_t *parse_meta_entry(const slapt_vector_t *avail_pkgs, const sla
     /* check the newest version of tmp_pkg_name (in newest_avail_pkg) before we try looping through avail_pkgs */
     if (newest_avail_pkg != NULL) {
         /* if condition is "=",">=", or "=<" and versions are the same */
-        if ((strchr(tmp_pkg_cond, '=') != NULL) && (slapt_cmp_pkg_versions(tmp_pkg_ver, newest_avail_pkg->version) == 0)) {
+        if ((strchr(tmp_pkg_cond, '=') != NULL) && (slapt_pkg_t_cmp_versions(tmp_pkg_ver, newest_avail_pkg->version) == 0)) {
             free(tmp_pkg_name);
             free(tmp_pkg_ver);
             return newest_avail_pkg;
@@ -1519,7 +1519,7 @@ static slapt_pkg_t *parse_meta_entry(const slapt_vector_t *avail_pkgs, const sla
 
         /* if "<" */
         if (strchr(tmp_pkg_cond, '<') != NULL) {
-            if (slapt_cmp_pkg_versions(newest_avail_pkg->version, tmp_pkg_ver) < 0) {
+            if (slapt_pkg_t_cmp_versions(newest_avail_pkg->version, tmp_pkg_ver) < 0) {
                 free(tmp_pkg_name);
                 free(tmp_pkg_ver);
                 return newest_avail_pkg;
@@ -1528,7 +1528,7 @@ static slapt_pkg_t *parse_meta_entry(const slapt_vector_t *avail_pkgs, const sla
 
         /* if ">" */
         if (strchr(tmp_pkg_cond, '>') != NULL) {
-            if (slapt_cmp_pkg_versions(newest_avail_pkg->version, tmp_pkg_ver) > 0) {
+            if (slapt_pkg_t_cmp_versions(newest_avail_pkg->version, tmp_pkg_ver) > 0) {
                 free(tmp_pkg_name);
                 free(tmp_pkg_ver);
                 return newest_avail_pkg;
@@ -1540,7 +1540,7 @@ static slapt_pkg_t *parse_meta_entry(const slapt_vector_t *avail_pkgs, const sla
     matches = slapt_vector_t_search(avail_pkgs, by_details, &(slapt_pkg_t){.name = (char *)tmp_pkg_name});
     slapt_vector_t_foreach (slapt_pkg_t *, avail_pkg, matches) {
         /* if condition is "=",">=", or "=<" and versions are the same */
-        if ((strchr(tmp_pkg_cond, '=') != NULL) && (slapt_cmp_pkg_versions(tmp_pkg_ver, avail_pkg->version) == 0)) {
+        if ((strchr(tmp_pkg_cond, '=') != NULL) && (slapt_pkg_t_cmp_versions(tmp_pkg_ver, avail_pkg->version) == 0)) {
             free(tmp_pkg_name);
             free(tmp_pkg_ver);
             slapt_vector_t_free(matches);
@@ -1549,7 +1549,7 @@ static slapt_pkg_t *parse_meta_entry(const slapt_vector_t *avail_pkgs, const sla
 
         /* if "<" */
         if (strchr(tmp_pkg_cond, '<') != NULL) {
-            if (slapt_cmp_pkg_versions(avail_pkg->version, tmp_pkg_ver) < 0) {
+            if (slapt_pkg_t_cmp_versions(avail_pkg->version, tmp_pkg_ver) < 0) {
                 free(tmp_pkg_name);
                 free(tmp_pkg_ver);
                 slapt_vector_t_free(matches);
@@ -1559,7 +1559,7 @@ static slapt_pkg_t *parse_meta_entry(const slapt_vector_t *avail_pkgs, const sla
 
         /* if ">" */
         if (strchr(tmp_pkg_cond, '>') != NULL) {
-            if (slapt_cmp_pkg_versions(avail_pkg->version, tmp_pkg_ver) > 0) {
+            if (slapt_pkg_t_cmp_versions(avail_pkg->version, tmp_pkg_ver) > 0) {
                 free(tmp_pkg_name);
                 free(tmp_pkg_ver);
                 slapt_vector_t_free(matches);
@@ -1979,19 +1979,19 @@ char *slapt_gen_pkg_file_name(const slapt_config_t *global_config, const slapt_p
 }
 
 /* generate the download url for a package */
-char *slapt_gen_pkg_url(const slapt_pkg_t *pkg)
+char *slapt_pkg_t_url(const slapt_pkg_t *pkg)
 {
     char *url = NULL;
     char *file_name = NULL;
 
     /* build the file name */
-    file_name = slapt_stringify_pkg(pkg);
+    file_name = slapt_pkg_t_string(pkg);
 
     /* build the url */
     size_t url_len = strlen(pkg->mirror) + strlen(pkg->location) + strlen(file_name) + 2;
     url = slapt_calloc(url_len, sizeof *url);
     if (snprintf(url, url_len, "%s%s/%s", pkg->mirror, pkg->location, file_name) != (int)(url_len - 1)) {
-        fprintf(stderr, "slapt_gen_pkg_url error for %s\n", pkg->name);
+        fprintf(stderr, "slapt_pkg_t_url error for %s\n", pkg->name);
         exit(EXIT_FAILURE);
     }
 
@@ -2183,62 +2183,7 @@ void slapt_purge_old_cached_pkgs(const slapt_config_t *global_config, const char
     }
 }
 
-void slapt_clean_pkg_dir(const char *dir_name)
-{
-    DIR *dir;
-    struct dirent *file;
-    struct stat file_stat;
-    slapt_regex_t *cached_pkgs_regex = NULL;
-
-    if ((dir = opendir(dir_name)) == NULL) {
-        fprintf(stderr, gettext("Failed to opendir %s\n"), dir_name);
-        return;
-    }
-
-    if (chdir(dir_name) == -1) {
-        fprintf(stderr, gettext("Failed to chdir: %s\n"), dir_name);
-        closedir(dir);
-        return;
-    }
-
-    if ((cached_pkgs_regex = slapt_regex_t_init(SLAPT_PKG_PARSE_REGEX)) == NULL) {
-        exit(EXIT_FAILURE);
-    }
-
-    while ((file = readdir(dir))) {
-        /* make sure we don't have . or .. */
-        if ((strcmp(file->d_name, "..")) == 0 || (strcmp(file->d_name, ".") == 0))
-            continue;
-
-        if ((lstat(file->d_name, &file_stat)) == -1)
-            continue;
-
-        /* if its a directory, recurse */
-        if (S_ISDIR(file_stat.st_mode)) {
-            slapt_clean_pkg_dir(file->d_name);
-            if ((chdir("..")) == -1) {
-                fprintf(stderr, gettext("Failed to chdir: %s\n"), dir_name);
-                return;
-            }
-            continue;
-        }
-        if (strstr(file->d_name, ".t") != NULL) {
-            slapt_regex_t_execute(cached_pkgs_regex, file->d_name);
-
-            /* if our regex matches */
-            if (cached_pkgs_regex->reg_return == 0) {
-                if (unlink(file->d_name) != 0) {
-                    perror(file->d_name);
-                }
-            }
-        }
-    }
-    closedir(dir);
-
-    slapt_regex_t_free(cached_pkgs_regex);
-}
-
-slapt_pkg_t *slapt_copy_pkg(slapt_pkg_t *dst, const slapt_pkg_t *src)
+slapt_pkg_t *slapt_pkg_t_copy(slapt_pkg_t *dst, const slapt_pkg_t *src)
 {
     if (dst == NULL) {
         dst = slapt_malloc(sizeof *dst);
@@ -2878,7 +2823,7 @@ void slapt_clean_description(char *description, const char *name)
 }
 
 /* retrieve the packages changelog entry, if any.  Returns NULL otherwise */
-char *slapt_get_pkg_changelog(const slapt_pkg_t *pkg)
+char *slapt_pkg_t_changelog(const slapt_pkg_t *pkg)
 {
     char *filename = slapt_gen_filename_from_url(pkg->mirror, SLAPT_CHANGELOG_FILE);
     FILE *working_changelog_f = NULL;
@@ -2926,7 +2871,7 @@ char *slapt_get_pkg_changelog(const slapt_pkg_t *pkg)
     pkg_data[pls - 1] = '\0';
 
     /* search for the entry within the changelog */
-    pkg_name = slapt_stringify_pkg(pkg);
+    pkg_name = slapt_pkg_t_string(pkg);
 
     if ((ptr = strstr(pkg_data, pkg_name)) != NULL) {
         int finished_parsing = 0;
@@ -2980,7 +2925,7 @@ char *slapt_get_pkg_changelog(const slapt_pkg_t *pkg)
     return changelog;
 }
 
-char *slapt_stringify_pkg(const slapt_pkg_t *pkg)
+char *slapt_pkg_t_string(const slapt_pkg_t *pkg)
 {
     char *pkg_str = NULL;
     int pkg_str_len = 0;
@@ -3061,7 +3006,7 @@ int slapt_pkg_t_qsort_cmp(const void *a, const void *b)
     }
 }
 
-char *slapt_get_pkg_filelist(const slapt_pkg_t *pkg)
+char *slapt_pkg_t_filelist(const slapt_pkg_t *pkg)
 {
     FILE *pkg_f = NULL;
     char *pkg_log_dirname = NULL;
@@ -3094,7 +3039,7 @@ char *slapt_get_pkg_filelist(const slapt_pkg_t *pkg)
     size_t pkg_f_name_len = strlen(pkg_log_dirname) + strlen(pkg_name) + 2;
     pkg_f_name = slapt_malloc(sizeof *pkg_f_name * pkg_f_name_len);
     if (snprintf(pkg_f_name, pkg_f_name_len, "%s/%s", pkg_log_dirname, pkg_name) != (int)(pkg_f_name_len - 1)) {
-        fprintf(stderr, "slapt_get_pkg_filelist error for %s\n", pkg_name);
+        fprintf(stderr, "slapt_pkg_t_filelist error for %s\n", pkg_name);
         exit(EXIT_FAILURE);
     }
 
@@ -3184,44 +3129,6 @@ char *slapt_get_pkg_filelist(const slapt_pkg_t *pkg)
     free(pkg_name);
 
     return filelist;
-}
-
-char *slapt_gen_package_log_dir_name(void)
-{
-    char *root_env_entry = NULL;
-    char *pkg_log_dirname = NULL;
-    char *path = NULL;
-    struct stat stat_buf;
-
-    /* Generate package log directory using ROOT env variable if set */
-    if (getenv(SLAPT_ROOT_ENV_NAME) && strlen(getenv(SLAPT_ROOT_ENV_NAME)) < SLAPT_ROOT_ENV_LEN) {
-        root_env_entry = getenv(SLAPT_ROOT_ENV_NAME);
-    }
-
-    if (stat(SLAPT_PKG_LIB_DIR, &stat_buf) == 0) {
-        path = SLAPT_PKG_LIB_DIR;
-    } else if (stat(SLAPT_PKG_LOG_DIR, &stat_buf) == 0) {
-        path = SLAPT_PKG_LOG_DIR;
-    } else {
-        /* this should never happen */
-        exit(EXIT_FAILURE);
-    }
-
-    int written = 0;
-    size_t pkg_log_dirname_len = strlen(path) + (root_env_entry ? strlen(root_env_entry) : 0) + 1;
-    pkg_log_dirname = slapt_calloc(pkg_log_dirname_len, sizeof *pkg_log_dirname);
-    if (root_env_entry) {
-        written = snprintf(pkg_log_dirname, pkg_log_dirname_len, "%s%s", root_env_entry, path);
-    } else {
-        written = snprintf(pkg_log_dirname, pkg_log_dirname_len, "%s", path);
-    }
-
-    if (written != (int)(pkg_log_dirname_len - 1)) {
-        fprintf(stderr, "slapt_gen_package_log_dir_name error\n");
-        exit(EXIT_FAILURE);
-    }
-
-    return pkg_log_dirname;
 }
 
 slapt_pkg_upgrade_t *slapt_pkg_upgrade_t_init(slapt_pkg_t *i, slapt_pkg_t *u)

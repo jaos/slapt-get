@@ -211,7 +211,7 @@ const char *slapt_download_pkg(const slapt_config_t *global_config, slapt_pkg_t 
     slapt_create_dir_structure(pkg->location);
 
     /* build the url, file name, and get the file size if the file is present */
-    url = slapt_gen_pkg_url(pkg);
+    url = slapt_pkg_t_url(pkg);
     file_name = slapt_gen_pkg_file_name(global_config, pkg);
     f_size = slapt_get_pkg_file_size(global_config, pkg);
     dl_total_size = pkg->size_c - (f_size / 1024);

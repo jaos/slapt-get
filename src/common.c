@@ -569,3 +569,96 @@ size_t slapt_strlcpy(char *dst, const char *src, size_t size)
         return src_length;
     }
 }
+
+char *slapt_gen_package_log_dir_name(void)
+{
+    char *root_env_entry = NULL;
+    char *pkg_log_dirname = NULL;
+    char *path = NULL;
+    struct stat stat_buf;
+
+    /* Generate package log directory using ROOT env variable if set */
+    if (getenv(SLAPT_ROOT_ENV_NAME) && strlen(getenv(SLAPT_ROOT_ENV_NAME)) < SLAPT_ROOT_ENV_LEN) {
+        root_env_entry = getenv(SLAPT_ROOT_ENV_NAME);
+    }
+
+    if (stat(SLAPT_PKG_LIB_DIR, &stat_buf) == 0) {
+        path = SLAPT_PKG_LIB_DIR;
+    } else if (stat(SLAPT_PKG_LOG_DIR, &stat_buf) == 0) {
+        path = SLAPT_PKG_LOG_DIR;
+    } else {
+        /* this should never happen */
+        exit(EXIT_FAILURE);
+    }
+
+    int written = 0;
+    size_t pkg_log_dirname_len = strlen(path) + (root_env_entry ? strlen(root_env_entry) : 0) + 1;
+    pkg_log_dirname = slapt_calloc(pkg_log_dirname_len, sizeof *pkg_log_dirname);
+    if (root_env_entry) {
+        written = snprintf(pkg_log_dirname, pkg_log_dirname_len, "%s%s", root_env_entry, path);
+    } else {
+        written = snprintf(pkg_log_dirname, pkg_log_dirname_len, "%s", path);
+    }
+
+    if (written != (int)(pkg_log_dirname_len - 1)) {
+        fprintf(stderr, "slapt_gen_package_log_dir_name error\n");
+        exit(EXIT_FAILURE);
+    }
+
+    return pkg_log_dirname;
+}
+
+void slapt_clean_pkg_dir(const char *dir_name)
+{
+    DIR *dir;
+    struct dirent *file;
+    struct stat file_stat;
+    slapt_regex_t *cached_pkgs_regex = NULL;
+
+    if ((dir = opendir(dir_name)) == NULL) {
+        fprintf(stderr, gettext("Failed to opendir %s\n"), dir_name);
+        return;
+    }
+
+    if (chdir(dir_name) == -1) {
+        fprintf(stderr, gettext("Failed to chdir: %s\n"), dir_name);
+        closedir(dir);
+        return;
+    }
+
+    if ((cached_pkgs_regex = slapt_regex_t_init(SLAPT_PKG_PARSE_REGEX)) == NULL) {
+        exit(EXIT_FAILURE);
+    }
+
+    while ((file = readdir(dir))) {
+        /* make sure we don't have . or .. */
+        if ((strcmp(file->d_name, "..")) == 0 || (strcmp(file->d_name, ".") == 0))
+            continue;
+
+        if ((lstat(file->d_name, &file_stat)) == -1)
+            continue;
+
+        /* if its a directory, recurse */
+        if (S_ISDIR(file_stat.st_mode)) {
+            slapt_clean_pkg_dir(file->d_name);
+            if ((chdir("..")) == -1) {
+                fprintf(stderr, gettext("Failed to chdir: %s\n"), dir_name);
+                return;
+            }
+            continue;
+        }
+        if (strstr(file->d_name, ".t") != NULL) {
+            slapt_regex_t_execute(cached_pkgs_regex, file->d_name);
+
+            /* if our regex matches */
+            if (cached_pkgs_regex->reg_return == 0) {
+                if (unlink(file->d_name) != 0) {
+                    perror(file->d_name);
+                }
+            }
+        }
+    }
+    closedir(dir);
+
+    slapt_regex_t_free(cached_pkgs_regex);
+}

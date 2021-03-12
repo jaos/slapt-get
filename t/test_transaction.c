@@ -3,43 +3,43 @@ extern slapt_pkg_t pkg;
 
 START_TEST(test_transaction)
 {
-    slapt_transaction_t *t = slapt_init_transaction();
+    slapt_transaction_t *t = slapt_transaction_t_init();
     fail_if(t == NULL);
 
-    slapt_add_install_to_transaction(t, &pkg);
+    slapt_transaction_t_add_install(t, &pkg);
     fail_unless(t->install_pkgs->size == 1);
-    fail_unless(slapt_search_transaction(t, "gslapt"));
-    fail_unless(slapt_search_transaction_by_pkg(t, &pkg));
-    t = slapt_remove_from_transaction(t, &pkg);
+    fail_unless(slapt_transaction_t_search(t, "gslapt"));
+    fail_unless(slapt_transaction_t_search_by_pkg(t, &pkg));
+    t = slapt_transaction_t_remove(t, &pkg);
 
-    slapt_add_remove_to_transaction(t, &pkg);
+    slapt_transaction_t_add_remove(t, &pkg);
     fail_unless(t->remove_pkgs->size == 1);
-    fail_unless(slapt_search_transaction(t, "gslapt"));
-    fail_unless(slapt_search_transaction_by_pkg(t, &pkg));
-    t = slapt_remove_from_transaction(t, &pkg);
+    fail_unless(slapt_transaction_t_search(t, "gslapt"));
+    fail_unless(slapt_transaction_t_search_by_pkg(t, &pkg));
+    t = slapt_transaction_t_remove(t, &pkg);
 
-    slapt_add_exclude_to_transaction(t, &pkg);
+    slapt_transaction_t_add_exclude(t, &pkg);
     fail_unless(t->exclude_pkgs->size == 1);
 
-    slapt_add_upgrade_to_transaction(t, &pkg, &pkg);
-    /* fail_unless (slapt_search_upgrade_transaction(t, &pkg)); */
+    slapt_transaction_t_add_upgrade(t, &pkg, &pkg);
+    /* fail_unless (slapt_transaction_t_search_upgrade(t, &pkg)); */
 
-    slapt_free_transaction(t);
+    slapt_transaction_t_free(t);
 }
 END_TEST
 
 START_TEST(test_handle_transaction)
 {
-    slapt_transaction_t *t = slapt_init_transaction();
+    slapt_transaction_t *t = slapt_transaction_t_init();
     slapt_config_t *rc = slapt_config_t_read("./data/rc1");
 
     /*
     download and install/remove/upgrade packages as defined in the transaction
     returns 0 on success
-  int slapt_handle_transaction(const slapt_config_t *,slapt_transaction_t *);
+  int slapt_transaction_t_run(const slapt_config_t *,slapt_transaction_t *);
   */
 
-    slapt_free_transaction(t);
+    slapt_transaction_t_free(t);
     slapt_config_t_free(rc);
 }
 END_TEST
@@ -58,11 +58,11 @@ START_TEST(test_transaction_dependencies)
     slapt_vector_t *installed = slapt_parse_packages_txt(fh);
     fclose(fh);
 
-    slapt_transaction_t *t = slapt_init_transaction();
+    slapt_transaction_t *t = slapt_transaction_t_init();
 
     /*
     add dependencies for package to transaction, returns -1 on error, 0 otherwise
-  int slapt_add_deps_to_trans(const slapt_config_t *global_config,
+  int slapt_transaction_t_add_dependencies(const slapt_config_t *global_config,
                               slapt_transaction_t *tran,
                               struct slapt_pkg_list *avail_pkgs,
                               struct slapt_pkg_list *installed_pkgs, slapt_pkg_t *pkg);
@@ -71,7 +71,7 @@ START_TEST(test_transaction_dependencies)
     /*
     check to see if a package has a conflict already present in the transaction
     returns conflicted package or NULL if none
-  slapt_pkg_t *slapt_is_conflicted(slapt_transaction_t *tran,
+  slapt_pkg_t *slapt_transaction_t_find_conflicts(slapt_transaction_t *tran,
                                         struct slapt_pkg_list *avail_pkgs,
                                         struct slapt_pkg_list *installed_pkgs,
                                         slapt_pkg_t *pkg);
@@ -80,24 +80,24 @@ START_TEST(test_transaction_dependencies)
     /*
     generate a list of suggestions based on the current packages
     in the transaction
-  void slapt_generate_suggestions(slapt_transaction_t *tran);
+  void slapt_transaction_t_suggestions(slapt_transaction_t *tran);
   */
     slapt_pkg_t *p = slapt_get_newest_pkg(avail, "scim");
     slapt_pkg_t *installed_p = slapt_get_newest_pkg(installed, "scim");
     (void)installed_p;
 
-    slapt_vector_t *conflicts = slapt_is_conflicted(t, avail, installed, p);
+    slapt_vector_t *conflicts = slapt_transaction_t_find_conflicts(t, avail, installed, p);
     if (conflicts->size > 0) {
-        slapt_add_install_to_transaction(t, conflicts->items[0]);
-        slapt_add_deps_to_trans(rc, t, avail, installed, conflicts->items[0]);
+        slapt_transaction_t_add_install(t, conflicts->items[0]);
+        slapt_transaction_t_add_dependencies(rc, t, avail, installed, conflicts->items[0]);
     }
 
-    slapt_add_deps_to_trans(rc, t, avail, installed, p);
-    slapt_add_install_to_transaction(t, p);
+    slapt_transaction_t_add_dependencies(rc, t, avail, installed, p);
+    slapt_transaction_t_add_install(t, p);
 
-    slapt_generate_suggestions(t);
+    slapt_transaction_t_suggestions(t);
 
-    slapt_free_transaction(t);
+    slapt_transaction_t_free(t);
     slapt_config_t_free(rc);
 }
 END_TEST

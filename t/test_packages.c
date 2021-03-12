@@ -9,12 +9,12 @@ START_TEST(test_struct_pkg)
     slapt_pkg_t *cpy = slapt_pkg_t_init();
     fail_if(cpy == NULL);
 
-    cpy = slapt_copy_pkg(cpy, &pkg);
+    cpy = slapt_pkg_t_copy(cpy, &pkg);
     fail_if(cpy == NULL);
 
     {
-        char *pkg_str = slapt_stringify_pkg(&pkg);
-        char *cpy_str = slapt_stringify_pkg(cpy);
+        char *pkg_str = slapt_pkg_t_string(&pkg);
+        char *cpy_str = slapt_pkg_t_string(cpy);
 
         fail_if(pkg_str == NULL);
         fail_if(cpy_str == NULL);
@@ -34,7 +34,7 @@ START_TEST(test_pkg_info)
     char *string = NULL;
     slapt_config_t *rc = slapt_config_t_read("./data/rc1");
 
-    string = slapt_gen_short_pkg_description(&pkg);
+    string = slapt_pkg_t_short_description(&pkg);
     fail_if(string == NULL);
     fail_unless(strcmp(string, "gslapt (GTK slapt-get, an APT like system for Slackware)") == 0);
     free(string);
@@ -52,7 +52,7 @@ START_TEST(test_pkg_info)
     free(string);
     string = NULL;
 
-    string = slapt_gen_pkg_url(&pkg);
+    string = slapt_pkg_t_url(&pkg);
     fail_if(string == NULL);
     fail_unless(strcmp(string, "http://software.jaos.org/slackpacks/11.0/./gslapt-0.3.15-i386-1.tgz") == 0);
     free(string);
@@ -75,10 +75,10 @@ START_TEST(test_pkg_info)
     string = NULL;
 
     /* retrieve the packages changelog entry, if any.  Returns NULL otherwise */
-    /* char *slapt_get_pkg_changelog(const slapt_pkg_t *pkg); */
+    /* char *slapt_pkg_t_changelog(const slapt_pkg_t *pkg); */
 
     /* get the package filelist, returns (char *) on success or NULL on error */
-    /* char *slapt_get_pkg_filelist(const slapt_pkg_t *pkg); */
+    /* char *slapt_pkg_t_filelist(const slapt_pkg_t *pkg); */
 
     fail_unless(pkg.priority == SLAPT_PRIORITY_DEFAULT);
     fail_unless(strcmp(slapt_priority_to_str(pkg.priority), gettext("Default")) == 0);
@@ -196,60 +196,60 @@ START_TEST(test_pkg_version)
         true};
 
     /* mirror_pkg1 has a higher priority, and should win */
-    fail_unless(slapt_cmp_pkgs(&mirror_pkg1, &mirror_pkg2) == 1);
+    fail_unless(slapt_pkg_t_cmp(&mirror_pkg1, &mirror_pkg2) == 1);
 
     /* both have the same priority, mirror_pkg2 has a higher version and should win */
     mirror_pkg1.priority = SLAPT_PRIORITY_DEFAULT;
-    fail_unless(slapt_cmp_pkgs(&mirror_pkg1, &mirror_pkg2) == -1);
+    fail_unless(slapt_pkg_t_cmp(&mirror_pkg1, &mirror_pkg2) == -1);
 
     /* installed_pkg and mirror_pkg1 have the exact same version and should be
      equal regardless of priority */
-    fail_unless(slapt_cmp_pkgs(&installed_pkg, &mirror_pkg1) == 0);
+    fail_unless(slapt_pkg_t_cmp(&installed_pkg, &mirror_pkg1) == 0);
 
     /* installed_pkg has a higher priority and should win, regardless of the
      fact that mirror_pkg2 has a higher version */
     installed_pkg.priority = SLAPT_PRIORITY_PREFERRED;
-    fail_unless(slapt_cmp_pkgs(&installed_pkg, &mirror_pkg2) == 1);
+    fail_unless(slapt_pkg_t_cmp(&installed_pkg, &mirror_pkg2) == 1);
 
     /* when the priorities are the same, the package with the higher version
      always wins */
     installed_pkg.priority = SLAPT_PRIORITY_DEFAULT;
-    fail_unless(slapt_cmp_pkgs(&installed_pkg, &mirror_pkg2) == -1);
+    fail_unless(slapt_pkg_t_cmp(&installed_pkg, &mirror_pkg2) == -1);
 }
 END_TEST
 
 START_TEST(test_version)
 {
-    fail_unless(slapt_cmp_pkg_versions("3", "3") == 0);
-    fail_unless(slapt_cmp_pkg_versions("4", "3") > 0);
-    fail_unless(slapt_cmp_pkg_versions("3", "4") < 0);
+    fail_unless(slapt_pkg_t_cmp_versions("3", "3") == 0);
+    fail_unless(slapt_pkg_t_cmp_versions("4", "3") > 0);
+    fail_unless(slapt_pkg_t_cmp_versions("3", "4") < 0);
 
-    fail_unless(slapt_cmp_pkg_versions("3.8.1-i486-1", "3.8.1-i486-1") == 0);
-    fail_unless(slapt_cmp_pkg_versions("3.8.1-i486-1jsw", "3.8.1-i486-1") == 0);
-    fail_unless(slapt_cmp_pkg_versions("3.8.1-i586-1", "3.8.1-i486-1") == 0);
-    fail_unless(slapt_cmp_pkg_versions("3.8.1-i586-1", "3.8.1-i686-1") == 0);
-    fail_unless(slapt_cmp_pkg_versions("3.8.1-i486", "3.8.1-i486") == 0);
-    fail_unless(slapt_cmp_pkg_versions("3.8.1-i486-1", "3.8.1-i486-1") == 0);
+    fail_unless(slapt_pkg_t_cmp_versions("3.8.1-i486-1", "3.8.1-i486-1") == 0);
+    fail_unless(slapt_pkg_t_cmp_versions("3.8.1-i486-1jsw", "3.8.1-i486-1") == 0);
+    fail_unless(slapt_pkg_t_cmp_versions("3.8.1-i586-1", "3.8.1-i486-1") == 0);
+    fail_unless(slapt_pkg_t_cmp_versions("3.8.1-i586-1", "3.8.1-i686-1") == 0);
+    fail_unless(slapt_pkg_t_cmp_versions("3.8.1-i486", "3.8.1-i486") == 0);
+    fail_unless(slapt_pkg_t_cmp_versions("3.8.1-i486-1", "3.8.1-i486-1") == 0);
 
-    fail_unless(slapt_cmp_pkg_versions("3.8.1p1-i486-1", "3.8p1-i486-1") > 0);
-    fail_unless(slapt_cmp_pkg_versions("3.8.1-i486-1", "3.8-i486-1") > 0);
-    fail_unless(slapt_cmp_pkg_versions("3.8.1-i486-1", "3.8-i486-3") > 0);
+    fail_unless(slapt_pkg_t_cmp_versions("3.8.1p1-i486-1", "3.8p1-i486-1") > 0);
+    fail_unless(slapt_pkg_t_cmp_versions("3.8.1-i486-1", "3.8-i486-1") > 0);
+    fail_unless(slapt_pkg_t_cmp_versions("3.8.1-i486-1", "3.8-i486-3") > 0);
 
-    fail_unless(slapt_cmp_pkg_versions("3.8.1_1-i486-1", "3.8.1_2-i486-1") < 0);
+    fail_unless(slapt_pkg_t_cmp_versions("3.8.1_1-i486-1", "3.8.1_2-i486-1") < 0);
 
-    fail_unless(slapt_cmp_pkg_versions("IIIalpha9.8-i486-2", "IIIalpha9.7-i486-3") > 0);
-    fail_unless(slapt_cmp_pkg_versions("4.13b-i386-2", "4.12b-i386-1") > 0);
-    fail_unless(slapt_cmp_pkg_versions("4.13b-i386-2", "4.13a-i386-2") > 0);
-    fail_unless(slapt_cmp_pkg_versions("1.4rc5-i486-2", "1.4rc4-i486-2") > 0);
+    fail_unless(slapt_pkg_t_cmp_versions("IIIalpha9.8-i486-2", "IIIalpha9.7-i486-3") > 0);
+    fail_unless(slapt_pkg_t_cmp_versions("4.13b-i386-2", "4.12b-i386-1") > 0);
+    fail_unless(slapt_pkg_t_cmp_versions("4.13b-i386-2", "4.13a-i386-2") > 0);
+    fail_unless(slapt_pkg_t_cmp_versions("1.4rc5-i486-2", "1.4rc4-i486-2") > 0);
 
-    fail_unless(slapt_cmp_pkg_versions("1.3.35-i486-2_slack10.2", "1.3.35-i486-1") > 0);
+    fail_unless(slapt_pkg_t_cmp_versions("1.3.35-i486-2_slack10.2", "1.3.35-i486-1") > 0);
 
 #if defined(__x86_64__)
-    fail_unless(slapt_cmp_pkg_versions("4.1-x86_64-1", "4.1-i486-1") > 0);
-    fail_unless(slapt_cmp_pkg_versions("4.1-i486-1", "4.1-x86_64-1") < 0);
+    fail_unless(slapt_pkg_t_cmp_versions("4.1-x86_64-1", "4.1-i486-1") > 0);
+    fail_unless(slapt_pkg_t_cmp_versions("4.1-i486-1", "4.1-x86_64-1") < 0);
 #elif defined(__i386__)
-    fail_unless(slapt_cmp_pkg_versions("4.1-i486-1", "4.1-x86_64-1") > 0);
-    fail_unless(slapt_cmp_pkg_versions("4.1-x86_64-1", "4.1-486-1") < 0);
+    fail_unless(slapt_pkg_t_cmp_versions("4.1-i486-1", "4.1-x86_64-1") > 0);
+    fail_unless(slapt_pkg_t_cmp_versions("4.1-x86_64-1", "4.1-486-1") < 0);
 #endif
 }
 END_TEST
