@@ -69,7 +69,7 @@ START_TEST(test_pkg_info)
     fail_if(i < 1);
 
     string = strdup(pkg.description);
-    slapt_clean_description(string, pkg.name);
+    string = slapt_pkg_t_clean_description(&pkg);
     fail_unless(strcmp(string, " gslapt (GTK slapt-get, an APT like system for Slackware)\n") == 0);
     free(string);
     string = NULL;

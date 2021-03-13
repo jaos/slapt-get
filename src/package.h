@@ -118,6 +118,8 @@ slapt_pkg_t *slapt_pkg_t_init(void);
 void slapt_pkg_t_free(slapt_pkg_t *pkg);
 /* generate a short description, returns (char *) on success or NULL on error, caller responsible for freeing the returned data */
 char *slapt_pkg_t_short_description(slapt_pkg_t *);
+/* clean package name from package description */
+char *slapt_pkg_t_clean_description(const slapt_pkg_t *);
 /* generate the download url for a package, caller responsible for freeing the returned data */
 char *slapt_pkg_t_url(const slapt_pkg_t *pkg);
 /* compare package versions,
@@ -227,6 +229,3 @@ slapt_vector_t *slapt_get_pkg_source_packages(const slapt_config_t *global_confi
 slapt_vector_t *slapt_get_pkg_source_patches(const slapt_config_t *global_config, const char *url, bool *compressed);
 FILE *slapt_get_pkg_source_checksums(const slapt_config_t *global_config, const char *url, bool *compressed);
 bool slapt_get_pkg_source_changelog(const slapt_config_t *global_config, const char *url, bool *compressed);
-
-/* clean package name from package description */
-void slapt_clean_description(char *description, const char *name);

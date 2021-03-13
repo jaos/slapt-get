@@ -377,7 +377,7 @@
  * updated Polish translation from Piotr
 
 0.9.11 Dec 2, 2005
- * added slapt_clean_description() to remove the package name from the
+ * added slapt_pkg_t_clean_description() to remove the package name from the
    package description.
  * try to install/upgrade essential packages first
    (glibc-solibs, sed, pkgtools) for dist-upgrade

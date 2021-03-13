@@ -304,10 +304,10 @@ The \fIworking_dir\fP, defined within the \fIslapt_config_t\fP object, caches th
 .fi
 .sp
 .TP
-The \fIslapt_clean_description\fP() function is used to clean the package name from the package description.  This modifies the string in place.  It is best to copy the \fIpkg->description\fP to a new string prior to calling \fIslapt_clean_description\fP().
+The \fIslapt_pkg_t_clean_description\fP() function is used to clean the package name from the package description.
 .sp
 .nf
-.B void slapt_clean_description (char *description, const char *name);
+.B char *slapt_pkg_t_clean_description (const slapt_pkg_t *pkg);
 .fi
 .sp
 .IP \fBDOWNLOADING\fP

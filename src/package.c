@@ -2800,26 +2800,26 @@ bool slapt_get_pkg_source_changelog(const slapt_config_t *global_config, const c
     return true;
 }
 
-void slapt_clean_description(char *description, const char *name)
+char *slapt_pkg_t_clean_description(const slapt_pkg_t *pkg)
 {
     char *p = NULL;
     char *token = NULL;
 
-    if (description == NULL || name == NULL)
-        return;
+    char *description = strdup(pkg->description);
 
-    size_t token_len = strlen(name) + 2;
+    size_t token_len = strlen(pkg->name) + 2;
     token = slapt_calloc(token_len, sizeof *token);
-    if (snprintf(token, token_len, "%s:", name) != (int)(token_len - 1)) {
-        fprintf(stderr, "slapt_clean_description error for %s\n", name);
+    if (snprintf(token, token_len, "%s:", pkg->name) != (int)(token_len - 1)) {
+        fprintf(stderr, "slapt_pkg_t_clean_description error for %s\n", pkg->name);
         exit(EXIT_FAILURE);
     }
 
     while ((p = strstr(description, token)) != NULL) {
         memmove(p, p + strlen(token), strlen(p) - strlen(token) + 1);
     }
-
     free(token);
+
+    return description;
 }
 
 /* retrieve the packages changelog entry, if any.  Returns NULL otherwise */

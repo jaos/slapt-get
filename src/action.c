@@ -396,8 +396,7 @@ void slapt_pkg_action_show(const char *pkg_name)
 
     if (pkg != NULL) {
         char *changelog = slapt_pkg_t_changelog(pkg);
-        char *description = strdup(pkg->description);
-        slapt_clean_description(description, pkg->name);
+        char *description = slapt_pkg_t_clean_description(pkg);
 
         if (slapt_get_exact_pkg(installed_pkgs, pkg->name, pkg->version) != NULL)
             installed = true;
