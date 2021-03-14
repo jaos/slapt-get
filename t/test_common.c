@@ -121,6 +121,40 @@ START_TEST(test_slapt_strip_whitespace)
 }
 END_TEST
 
+START_TEST(test_slapt_parse_delimited_list)
+{
+    slapt_vector_t *foo_v = slapt_vector_t_init(NULL);
+    slapt_vector_t *foo_and_bar_v = slapt_vector_t_init(NULL);
+    slapt_vector_t_add(foo_v, "foo");
+    slapt_vector_t_add(foo_and_bar_v, "foo");
+    slapt_vector_t_add(foo_and_bar_v, "bar");
+
+     typedef struct {
+        char *input;
+        char delim;
+        slapt_vector_t *output;
+    } std_test_case;
+
+    const std_test_case tests[] = {
+        {.input="foo", .delim=',', .output=foo_v},
+        {.input="foo,bar", .delim=',', .output=foo_and_bar_v},
+    };
+    for(uint32_t i = 0; i < (sizeof(tests)/sizeof(std_test_case)); i++) {
+        std_test_case t = tests[i];
+        slapt_vector_t *output = slapt_parse_delimited_list(t.input, t.delim);
+        ck_assert_uint_eq (output->size, t.output->size);
+        for(uint32_t c = 0; c < output->size; c++) {
+            ck_assert_str_eq(output->items[c], t.output->items[c]);
+        }
+        slapt_vector_t_free(output);
+    }
+
+    slapt_vector_t_free(foo_v);
+    slapt_vector_t_free(foo_and_bar_v);
+
+}
+END_TEST
+
 Suite *common_test_suite()
 {
     Suite *s = suite_create("Common");
@@ -133,6 +167,7 @@ Suite *common_test_suite()
     tcase_add_test(tc, test_slapt_str_replace_chr);
     tcase_add_test(tc, test_slapt_vector_t);
     tcase_add_test(tc, test_slapt_strip_whitespace);
+    tcase_add_test(tc, test_slapt_parse_delimited_list);
 
     suite_add_tcase(s, tc);
     return s;
