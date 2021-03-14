@@ -428,7 +428,7 @@ START_TEST(test_slapt_dependency_t)
     };
     for(uint32_t i = 0; i < (sizeof(tests)/sizeof(std_test_case)); i++) {
         std_test_case t = tests[i];
-        slapt_dependency_t *dep = parse_required(t.t);
+        slapt_dependency_t *dep = slapt_dependency_t_parse_required(t.t);
         if (t.not_null) {
             fail_unless(dep->op == t.op);
             fail_unless(strcmp(dep->name, t.name) == 0);
@@ -446,7 +446,7 @@ START_TEST(test_slapt_dependency_t)
             slapt_vector_t alternatives [ slapt_dependency_t, .. ]
         }
     */
-    slapt_dependency_t *alt_dep = parse_required(" foo | bar >= 1.0 ");
+    slapt_dependency_t *alt_dep = slapt_dependency_t_parse_required(" foo | bar >= 1.0 ");
     fail_unless(alt_dep->op == DEP_OP_OR);
 
     /* first alternative */

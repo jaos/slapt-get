@@ -272,7 +272,7 @@ slapt_vector_t *slapt_parse_packages_txt(FILE *pkg_list_fh)
             // parse into tmp_pkg->dependencies
             slapt_vector_t *dep_parts = slapt_parse_delimited_list(tmp_pkg->required, ',');
             slapt_vector_t_foreach(const char *, dep_part, dep_parts) {
-                slapt_dependency_t *dependency_declaration = parse_required(dep_part);
+                slapt_dependency_t *dependency_declaration = slapt_dependency_t_parse_required(dep_part);
                 slapt_vector_t_add(tmp_pkg->dependencies, dependency_declaration);
             }
             slapt_vector_t_free(dep_parts);
@@ -3167,7 +3167,7 @@ void slapt_dependency_t_free(slapt_dependency_t *d)
     free(d);
 }
 
-slapt_dependency_t *parse_required(const char *required)
+slapt_dependency_t *slapt_dependency_t_parse_required(const char *required)
 {
     if (!required) {
         return NULL;
@@ -3183,7 +3183,7 @@ slapt_dependency_t *parse_required(const char *required)
         d->alternatives = slapt_vector_t_init((slapt_vector_t_free_function)slapt_dependency_t_free);
         slapt_vector_t *alts = slapt_parse_delimited_list(required, '|');
         slapt_vector_t_foreach(const char *, alt, alts) {
-            slapt_dependency_t *alt_dep = parse_required(alt);
+            slapt_dependency_t *alt_dep = slapt_dependency_t_parse_required(alt);
             slapt_vector_t_add(d->alternatives, alt_dep);
         }
         slapt_vector_t_free(alts);

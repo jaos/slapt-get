@@ -76,7 +76,7 @@ typedef struct {
 } slapt_dependency_t;
 slapt_dependency_t* slapt_dependency_t_init();
 void slapt_dependency_t_free(slapt_dependency_t *);
-slapt_dependency_t *parse_required(const char *);
+slapt_dependency_t *slapt_dependency_t_parse_required(const char *);
 
 typedef struct {
     char md5[SLAPT_MD5_STR_LEN + 1];
