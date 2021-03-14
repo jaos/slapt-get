@@ -99,6 +99,8 @@ START_TEST(test_transaction_dependencies)
 
     slapt_transaction_t_free(t);
     slapt_config_t_free(rc);
+    slapt_vector_t_free(avail);
+    slapt_vector_t_free(installed);
 }
 END_TEST
 

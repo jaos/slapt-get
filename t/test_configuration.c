@@ -37,6 +37,7 @@ START_TEST(test_working_dir)
     fail_if(d == NULL);
     closedir(d);
     rmdir("data/slapt-get");
+    slapt_config_t_free(rc);
 }
 END_TEST
 

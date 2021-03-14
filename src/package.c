@@ -3169,6 +3169,14 @@ void slapt_dependency_t_free(slapt_dependency_t *d)
 
 slapt_dependency_t *parse_required(const char *required)
 {
+    if (!required) {
+        return NULL;
+    }
+    size_t required_len = strlen(required);
+    if (required_len == 0) {
+        return NULL;
+    }
+
     if (strchr(required, '|') != NULL) {
         slapt_dependency_t *d = slapt_dependency_t_init();
         d->op = DEP_OP_OR;
@@ -3182,45 +3190,41 @@ slapt_dependency_t *parse_required(const char *required)
         return d;
     }
 
-    slapt_regex_t *parse_dep_regex = NULL;
-    if ((parse_dep_regex = slapt_regex_t_init(SLAPT_REQUIRED_REGEX)) == NULL) {
-        exit(EXIT_FAILURE);
-    }
-    slapt_regex_t_execute(parse_dep_regex, required);
-    if (parse_dep_regex->reg_return != 0) {
-        slapt_regex_t_free(parse_dep_regex);
-        return NULL;
-    }
-    int tmp_cond_len = parse_dep_regex->pmatch[2].rm_eo - parse_dep_regex->pmatch[2].rm_so;
     slapt_dependency_t *d = slapt_dependency_t_init();
     d->op = DEP_OP_ANY;
-    d->name = slapt_regex_t_extract_match(parse_dep_regex, required, 1);
 
-    /* invalid or no op */
-    if (tmp_cond_len == 0 || tmp_cond_len > 3) {
-        slapt_regex_t_free(parse_dep_regex);
+    size_t skip_to_name = strspn(required, " ");
+    const char *name = required + skip_to_name;
+    size_t pname_len = strcspn(name, " <=>");
+    d->name = strndup(name, pname_len);
+
+    if (required_len == pname_len) {
         return d;
     }
 
-    char tmp_pkg_cond[3] = {0}; /* >=, <=, etc */
-    slapt_strlcpy(tmp_pkg_cond, required + parse_dep_regex->pmatch[2].rm_so, tmp_cond_len + 1);
-    d->version = slapt_regex_t_extract_match(parse_dep_regex, required, 3);
-    slapt_regex_t_free(parse_dep_regex);
-
-    if (strchr(tmp_pkg_cond, '=')) {
+    if (strchr(required, '=')) {
         d->op = DEP_OP_EQ;
-        if (strchr(tmp_pkg_cond, '>')) {
+        if (strchr(required, '>')) {
             d->op = DEP_OP_GTE;
         }
-        else if (strchr(tmp_pkg_cond, '<')) {
+        else if (strchr(required, '<')) {
             d->op = DEP_OP_LTE;
         }
     }
-    else if (strchr(tmp_pkg_cond, '>')) {
+    else if (strchr(required, '>')) {
         d->op = DEP_OP_GT;
     }
-    else if (strchr(tmp_pkg_cond, '<')) {
+    else if (strchr(required, '<')) {
         d->op = DEP_OP_LT;
     }
+
+    const char *post_name = name + pname_len;
+    size_t skip_to_ver = strspn(post_name, "<=> ");
+    if ((required_len - skip_to_name - pname_len - skip_to_ver) > 0) {
+        const char *remaining = post_name + skip_to_ver;
+        size_t until_spaces = strcspn(remaining, " ");
+        d->version = strndup(remaining, until_spaces);
+    }
+
     return d;
 }

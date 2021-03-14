@@ -100,6 +100,27 @@ START_TEST(test_slapt_vector_t)
 }
 END_TEST
 
+START_TEST(test_slapt_strip_whitespace)
+{
+    typedef struct {
+        char *input;
+        char *output;
+    } std_test_case;
+
+    const std_test_case tests[] = {
+        {.input="foo", .output="foo"},
+        {.input="foo ", .output="foo"},
+        {.input=" foo ", .output="foo"},
+    };
+    for(uint32_t i = 0; i < (sizeof(tests)/sizeof(std_test_case)); i++) {
+        std_test_case t = tests[i];
+        char *output = slapt_strip_whitespace(t.input);
+        fail_unless(strcmp(output, t.output) == 0);
+        free(output);
+    }
+}
+END_TEST
+
 Suite *common_test_suite()
 {
     Suite *s = suite_create("Common");
@@ -111,6 +132,7 @@ Suite *common_test_suite()
     tcase_add_test(tc, test_slapt_gen_md5_sum_of_file);
     tcase_add_test(tc, test_slapt_str_replace_chr);
     tcase_add_test(tc, test_slapt_vector_t);
+    tcase_add_test(tc, test_slapt_strip_whitespace);
 
     suite_add_tcase(s, tc);
     return s;

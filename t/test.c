@@ -33,24 +33,11 @@ int _progress_cb(void *clientp, double dltotal, double dlnow,
     return 0;
 }
 
-Suite *slapt_test_suite()
-{
-    Suite *s = suite_create("Slapt");
-
-    /* generic tests */
-    TCase *tc_packages = tcase_create("Core");
-    /* tcase_add_checked_fixture (tc_packages, setup, teardown); */
-    /* tcase_add_test (tc_packages, test_money_create); */
-    suite_add_tcase(s, tc_packages);
-
-    return s;
-}
-
 int main(void)
 {
     int number_failed;
 
-    Suite *s = slapt_test_suite();
+    Suite *s = suite_create("libslapt");
     SRunner *sr = srunner_create(s);
 
 #ifdef SLAPT_HAS_GPGME

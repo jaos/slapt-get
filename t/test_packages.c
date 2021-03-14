@@ -6,9 +6,7 @@ extern int _progress_cb(void *clientp, double dltotal, double dlnow,
 
 START_TEST(test_struct_pkg)
 {
-    slapt_pkg_t *cpy = slapt_pkg_t_init();
-    fail_if(cpy == NULL);
-
+    slapt_pkg_t *cpy = NULL;
     cpy = slapt_pkg_t_copy(cpy, &pkg);
     fail_if(cpy == NULL);
 
@@ -106,6 +104,7 @@ START_TEST(test_pkg_search)
     l = slapt_search_pkg_list(list, "^gslapt$");
     fail_if(l == NULL);
     fail_unless(l->size == 1);
+    slapt_vector_t_free(l);
 
     slapt_vector_t_free(list);
 }
@@ -259,12 +258,6 @@ START_TEST(test_dependency)
     uint32_t i = 0;
     FILE *fh = NULL;
     slapt_pkg_t *p = NULL;
-    slapt_vector_t *required_by = slapt_vector_t_init(NULL);
-    slapt_vector_t *pkgs_to_install = slapt_vector_t_init(NULL);
-    slapt_vector_t *pkgs_to_remove = slapt_vector_t_init(NULL);
-    slapt_vector_t *conflicts = NULL, *deps = slapt_vector_t_init(NULL);
-    slapt_vector_t *conflict = slapt_vector_t_init((slapt_vector_t_free_function)slapt_pkg_err_t_free),
-                         *missing = slapt_vector_t_init((slapt_vector_t_free_function)slapt_pkg_err_t_free);
     slapt_config_t *rc = slapt_config_t_read("./data/rc1");
 
     fh = fopen("data/avail_deps", "r");
@@ -282,11 +275,19 @@ START_TEST(test_dependency)
   */
     p = slapt_get_newest_pkg(avail, "slapt-src");
     fail_unless(p != NULL);
+    slapt_vector_t *conflict = slapt_vector_t_init(NULL);
+    slapt_vector_t *missing = slapt_vector_t_init(NULL);
+    slapt_vector_t *deps = slapt_vector_t_init(NULL);
     i = slapt_get_pkg_dependencies(rc, avail, installed, p, deps, conflict, missing);
     /* we expect 22 deps to return given our current hardcoded data files */
     fail_unless(i != 22);
     /* we should have slapt-get as a dependency for slapt-src */
-    fail_unless(slapt_search_pkg_list(deps, "slapt-get") != NULL);
+    slapt_vector_t *search_results = slapt_search_pkg_list(deps, "slapt-get");
+    fail_unless(search_results != NULL);
+    slapt_vector_t_free(search_results);
+    slapt_vector_t_free(conflict);
+    slapt_vector_t_free(missing);
+    slapt_vector_t_free(deps);
 
     /*
      conflicts tests
@@ -294,19 +295,21 @@ START_TEST(test_dependency)
     /* scim conflicts with ibus */
     p = slapt_get_newest_pkg(avail, "scim");
     fail_unless(p != NULL);
-    conflicts = slapt_get_pkg_conflicts(avail, installed, p);
-    fail_unless(conflicts != NULL);
-    fail_unless(conflicts->size == 1);
-    fail_unless(strcmp(((slapt_pkg_t *)conflicts->items[0])->name, "ibus") == 0);
-    slapt_vector_t_free(conflicts);
+    slapt_vector_t *pkg_conflicts = slapt_get_pkg_conflicts(avail, installed, p);
+    fail_unless(pkg_conflicts != NULL);
+    fail_unless(pkg_conflicts->size == 1);
+    fail_unless(strcmp(((slapt_pkg_t *)pkg_conflicts->items[0])->name, "ibus") == 0);
+    slapt_vector_t_free(pkg_conflicts);
 
     /*
      required by tests
   */
     /* slapt-get reverse dep test */
+    slapt_vector_t *pkgs_to_install = slapt_vector_t_init(NULL);
+    slapt_vector_t *pkgs_to_remove = slapt_vector_t_init(NULL);
     p = slapt_get_newest_pkg(avail, "slapt-get");
     fail_unless(p != NULL);
-    required_by = slapt_is_required_by(rc, avail, installed, pkgs_to_install, pkgs_to_remove, p);
+    slapt_vector_t *required_by = slapt_is_required_by(rc, avail, installed, pkgs_to_install, pkgs_to_remove, p);
     fail_unless(required_by->size == 5);
     fail_unless(strcmp(((slapt_pkg_t *)(required_by->items[0]))->name, "slapt-src") == 0);
     fail_unless(strcmp(((slapt_pkg_t *)(required_by->items[1]))->name, "gslapt") == 0);
@@ -383,10 +386,11 @@ START_TEST(test_network)
                                         const char *url);
   */
 
-    fail_unless(slapt_update_pkg_cache(rc) == 0);
+    int rv = slapt_update_pkg_cache(rc);
+    slapt_config_t_free(rc);
+    fail_unless(rv == 0);
 
     fail_unless(chdir(cwd) == 0);
-    slapt_config_t_free(rc);
     free(cwd);
 }
 END_TEST
@@ -395,29 +399,45 @@ START_TEST(test_slapt_dependency_t)
 {
     typedef struct {
         const char *t;
+        bool not_null;
         slapt_dependency_op op;
         const char *name;
         const char *version;
     } std_test_case;
 
-    const std_test_case tests[8] = {
-        {.t="foo", .op=DEP_OP_ANY, .name="foo", .version=NULL},
-        {.t="foo = 1.4.1", .op=DEP_OP_EQ, .name="foo", .version="1.4.1"},
-        {.t="foo >= 1.4.2", .op=DEP_OP_GTE, .name="foo", .version="1.4.2"},
-        {.t="foo => 1.4.0", .op=DEP_OP_GTE, .name="foo", .version="1.4.0"},
-        {.t="foo > 1.4.0", .op=DEP_OP_GT, .name="foo", .version="1.4.0"},
-        {.t="foo <= 1.5.0", .op=DEP_OP_LTE, .name="foo", .version="1.5.0"},
-        {.t="foo =< 1.5.0", .op=DEP_OP_LTE, .name="foo", .version="1.5.0"},
-        {.t="foo < 1.5.0", .op=DEP_OP_LT, .name="foo", .version="1.5.0"},
+    const std_test_case tests[] = {
+        {.t=" foo ",          .not_null=true, .op=DEP_OP_ANY, .name="foo", .version=NULL},
+        {.t="foo",          .not_null=true, .op=DEP_OP_ANY, .name="foo", .version=NULL},
+        {.t="foo = 1.4.1",  .not_null=true, .op=DEP_OP_EQ,  .name="foo", .version="1.4.1"},
+        {.t="  foo > 1.0  ",.not_null=true, .op=DEP_OP_GT,  .name="foo", .version="1.0"},
+        {.t="foo=1.4.1",    .not_null=true, .op=DEP_OP_EQ,  .name="foo", .version="1.4.1"},
+        {.t="foo >= 1.4.2", .not_null=true, .op=DEP_OP_GTE, .name="foo", .version="1.4.2"},
+        {.t="foo>=1.4.2",   .not_null=true, .op=DEP_OP_GTE, .name="foo", .version="1.4.2"},
+        {.t="foo => 1.4.0", .not_null=true, .op=DEP_OP_GTE, .name="foo", .version="1.4.0"},
+        {.t="foo=>1.4.0",   .not_null=true, .op=DEP_OP_GTE, .name="foo", .version="1.4.0"},
+        {.t="foo > 1.4.0",  .not_null=true, .op=DEP_OP_GT,  .name="foo", .version="1.4.0"},
+        {.t="foo>1.4.0",    .not_null=true, .op=DEP_OP_GT,  .name="foo", .version="1.4.0"},
+        {.t="foo <= 1.5.0", .not_null=true, .op=DEP_OP_LTE, .name="foo", .version="1.5.0"},
+        {.t="foo<=1.5.0",   .not_null=true, .op=DEP_OP_LTE, .name="foo", .version="1.5.0"},
+        {.t="foo =< 1.5.0", .not_null=true, .op=DEP_OP_LTE, .name="foo", .version="1.5.0"},
+        {.t="foo=<1.5.0",   .not_null=true, .op=DEP_OP_LTE, .name="foo", .version="1.5.0"},
+        {.t="foo < 1.5.0",  .not_null=true, .op=DEP_OP_LT,  .name="foo", .version="1.5.0"},
+        {.t="foo<1.5.0",    .not_null=true, .op=DEP_OP_LT,  .name="foo", .version="1.5.0"},
+        {.t="",             .not_null=false},
+        {.t=NULL,           .not_null=false},
     };
-    for(int i = 0; i < 8; i++) {
+    for(uint32_t i = 0; i < (sizeof(tests)/sizeof(std_test_case)); i++) {
         std_test_case t = tests[i];
         slapt_dependency_t *dep = parse_required(t.t);
-        fail_unless(dep->op == t.op);
-        fail_unless(strcmp(dep->name, t.name) == 0);
-        if (t.version != NULL)
-            fail_unless(strcmp(dep->version, t.version) == 0);
-        slapt_dependency_t_free(dep);
+        if (t.not_null) {
+            fail_unless(dep->op == t.op);
+            fail_unless(strcmp(dep->name, t.name) == 0);
+            if (t.version != NULL)
+                fail_unless(strcmp(dep->version, t.version) == 0);
+            slapt_dependency_t_free(dep);
+        } else {
+            fail_unless(dep == NULL);
+        }
     }
 
     /* alternate dependency op
@@ -426,15 +446,15 @@ START_TEST(test_slapt_dependency_t)
             slapt_vector_t alternatives [ slapt_dependency_t, .. ]
         }
     */
-    slapt_dependency_t *alt_dep = parse_required("foo|bar >= 1.0");
+    slapt_dependency_t *alt_dep = parse_required(" foo | bar >= 1.0 ");
     fail_unless(alt_dep->op == DEP_OP_OR);
 
-    /* first altnerative */
+    /* first alternative */
     slapt_dependency_t *first = alt_dep->alternatives->items[0];
     fail_unless(first->op == DEP_OP_ANY);
     fail_unless(strcmp(first->name, "foo") == 0);
     fail_unless(first->version == NULL);
-    /* second altnerative */
+    /* second alternative */
     slapt_dependency_t *second = alt_dep->alternatives->items[1];
     fail_unless(second->op == DEP_OP_GTE);
     fail_unless(strcmp(second->name, "bar") == 0);
