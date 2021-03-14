@@ -346,6 +346,70 @@ START_TEST(test_dependency)
 }
 END_TEST
 
+START_TEST(test_remove_chain)
+{
+    /* declare dependencies */
+    slapt_dependency_t slapt_get_dep = {.name="slapt-get", .version=NULL, .op=DEP_OP_ANY};
+    slapt_dependency_t gslapt_dep = {.name="gslapt", .version=NULL, .op=DEP_OP_ANY};
+    //slapt_dependency_t slapt_src_dep = {.name="slapt-src", .version=NULL, .op=DEP_OP_ANY};
+    //slapt_dependency_t slapt_update_service_dep = {.name="slapt-update-service", .version=NULL, .op=DEP_OP_ANY};
+
+    /* initialize packages */
+    slapt_pkg_t slapt_get = {.name="slapt-get", .version="0.11.3-x86_64-1", .location="./slapt-get"};
+    slapt_get.dependencies = slapt_vector_t_init(NULL);
+
+    slapt_pkg_t gslapt = {.name="gslapt", .version="0.5.8-x86_64-1", .location="./gslapt", .required="slapt-get"};
+    gslapt.dependencies = slapt_vector_t_init(NULL);
+    slapt_vector_t_add(gslapt.dependencies, &slapt_get_dep);
+
+    slapt_pkg_t slapt_src = {.name="slapt-src", .version="0.3.5-x86_64-1", .location="./slapt-src", .required="slapt-get"};
+    slapt_src.dependencies = slapt_vector_t_init(NULL);
+    slapt_vector_t_add(slapt_src.dependencies, &slapt_get_dep);
+
+    slapt_pkg_t slapt_update_service = {.name="slapt-update-service", .version="0.5.2-x86_64-1", .location="./slapt-update-service", .required="gslapt"};
+    slapt_update_service.dependencies = slapt_vector_t_init(NULL);
+    slapt_vector_t_add(slapt_update_service.dependencies, &gslapt_dep);
+
+    /* initialize installed and available vectors */
+    slapt_vector_t *installed = slapt_vector_t_init(NULL);
+    slapt_vector_t_add(installed, &slapt_get);
+    slapt_vector_t_add(installed, &gslapt);
+    slapt_vector_t_add(installed, &slapt_src);
+    slapt_vector_t_add(installed, &slapt_update_service);
+
+    slapt_vector_t *available = slapt_vector_t_init(NULL);
+    slapt_vector_t_add(available, &slapt_get);
+    slapt_vector_t_add(available, &gslapt);
+    slapt_vector_t_add(available, &slapt_src);
+    slapt_vector_t_add(available, &slapt_update_service);
+
+    /* run the transaction */
+    slapt_config_t *rc = slapt_config_t_init();
+    slapt_transaction_t *t = slapt_transaction_t_init();
+    slapt_transaction_t_add_remove(t, &slapt_get);
+    slapt_vector_t *deps = slapt_is_required_by(rc, available, installed, t->install_pkgs, t->remove_pkgs, &slapt_get);
+    slapt_vector_t_foreach(const slapt_pkg_t *, dep, deps) {
+        slapt_transaction_t_add_remove(t, dep);
+    }
+    slapt_vector_t_free(deps);
+
+    /* should remove slapt-get, gslapt, slapt-src, and slapt-update-service */
+    uint32_t count_to_remove = t->remove_pkgs->size;
+
+    slapt_vector_t_free(slapt_update_service.dependencies);
+    slapt_vector_t_free(slapt_src.dependencies);
+    slapt_vector_t_free(gslapt.dependencies);
+    slapt_vector_t_free(slapt_get.dependencies);
+    slapt_vector_t_free(installed);
+    slapt_vector_t_free(available);
+    slapt_transaction_t_free(t);
+    slapt_config_t_free(rc);
+
+    /* fail unless */
+    ck_assert_uint_eq(count_to_remove, 4);
+}
+END_TEST
+
 START_TEST(test_cache)
 {
     slapt_config_t *rc = slapt_config_t_read("./data/rc1");
@@ -479,6 +543,7 @@ Suite *packages_test_suite()
     tcase_add_test(tc, test_cache);
     tcase_add_test(tc, test_network);
     tcase_add_test(tc, test_slapt_dependency_t);
+    tcase_add_test(tc, test_remove_chain);
 
     suite_add_tcase(s, tc);
     return s;
