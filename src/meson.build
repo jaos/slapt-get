@@ -21,8 +21,6 @@ if libgpgme.found()
 endif
 
 main_sources = [
-  'action.c',
-  'action.h',
   'main.c',
   'main.h',
 ]
