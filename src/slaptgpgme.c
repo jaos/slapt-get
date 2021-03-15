@@ -20,10 +20,9 @@
 
 static gpgme_ctx_t *_slapt_init_gpgme_ctx(void)
 {
-    gpgme_error_t e;
     gpgme_ctx_t *ctx = slapt_malloc(sizeof *ctx);
 
-    e = gpgme_new(ctx);
+    gpgme_error_t e = gpgme_new(ctx);
     if (e != GPG_ERR_NO_ERROR) {
         fprintf(stderr, "GPGME: %s\n", gpgme_strerror(e));
         free(ctx);
@@ -52,12 +51,11 @@ static void _slapt_free_gpgme_ctx(gpgme_ctx_t *ctx)
 FILE *slapt_get_pkg_source_checksums_signature(const slapt_config_t *global_config, const char *url, bool *compressed)
 {
     FILE *tmp_checksum_f = NULL;
-    char *checksum_head = NULL;
     bool interactive = slapt_is_interactive(global_config);
+
     char *location_uncompressed = SLAPT_CHECKSUM_ASC_FILE;
     char *location_compressed = SLAPT_CHECKSUM_ASC_FILE_GZ;
     char *location;
-
     if (*compressed) {
         location = location_compressed;
         *compressed = true;
@@ -66,30 +64,34 @@ FILE *slapt_get_pkg_source_checksums_signature(const slapt_config_t *global_conf
         *compressed = false;
     }
 
-    if ((checksum_head = slapt_head_mirror_data(url, location)) != NULL) {
+    char *checksum_head = slapt_head_mirror_data(url, location);
+    if (checksum_head != NULL) {
         char *filename = slapt_gen_filename_from_url(url, location);
         char *local_head = slapt_read_head_cache(filename);
 
         if (local_head != NULL && strcmp(checksum_head, local_head) == 0) {
-            if ((tmp_checksum_f = slapt_open_file(filename, "r")) == NULL)
+            if ((tmp_checksum_f = slapt_open_file(filename, "r")) == NULL) {
                 exit(EXIT_FAILURE);
+            }
 
-            if (global_config->progress_cb == NULL)
+            if (global_config->progress_cb == NULL) {
                 printf(gettext("Cached\n"));
+            }
 
         } else {
-            const char *err = NULL;
-
-            if (global_config->dl_stats)
+            if (global_config->dl_stats) {
                 printf("\n");
+            }
 
-            if ((tmp_checksum_f = slapt_open_file(filename, "w+b")) == NULL)
+            if ((tmp_checksum_f = slapt_open_file(filename, "w+b")) == NULL) {
                 exit(EXIT_FAILURE);
+            }
 
-            err = slapt_get_mirror_data_from_source(tmp_checksum_f, global_config, url, location);
+            const char *err = slapt_get_mirror_data_from_source(tmp_checksum_f, global_config, url, location);
             if (!err) {
-                if (interactive)
+                if (interactive) {
                     printf(gettext("Done\n"));
+                }
 
             } else {
                 fprintf(stderr, gettext("Failed to download: %s\n"), err);
@@ -112,18 +114,20 @@ FILE *slapt_get_pkg_source_checksums_signature(const slapt_config_t *global_conf
         free(checksum_head);
     } else {
         char *filename = slapt_gen_filename_from_url(url, location);
-        const char *err = NULL;
 
-        if (global_config->dl_stats)
+        if (global_config->dl_stats) {
             printf("\n");
+        }
 
-        if ((tmp_checksum_f = slapt_open_file(filename, "w+b")) == NULL)
+        if ((tmp_checksum_f = slapt_open_file(filename, "w+b")) == NULL) {
             exit(EXIT_FAILURE);
+        }
 
-        err = slapt_get_mirror_data_from_source(tmp_checksum_f, global_config, url, location);
+        const char *err = slapt_get_mirror_data_from_source(tmp_checksum_f, global_config, url, location);
         if (!err) {
-            if (interactive)
+            if (interactive) {
                 printf(gettext("Done\n"));
+            }
 
         } else {
             fprintf(stderr, gettext("Failed to download: %s\n"), err);
@@ -144,42 +148,45 @@ FILE *slapt_get_pkg_source_checksums_signature(const slapt_config_t *global_conf
 FILE *slapt_get_pkg_source_gpg_key(const slapt_config_t *global_config, const char *url, bool *compressed)
 {
     FILE *tmp_key_f = NULL;
-    char *key_head = NULL;
     char *filename = slapt_gen_filename_from_url(url, SLAPT_GPG_KEY);
     char *local_head = slapt_read_head_cache(filename);
     bool interactive = global_config->progress_cb == NULL && !global_config->dl_stats ? true : false;
 
     *compressed = false;
-    key_head = slapt_head_mirror_data(url, SLAPT_GPG_KEY);
+    char *key_head = slapt_head_mirror_data(url, SLAPT_GPG_KEY);
 
     if (key_head == NULL) {
-        if (interactive)
+        if (interactive) {
             printf(gettext("Not Found\n"));
+        }
         free(filename);
         free(local_head);
-        if (key_head != NULL)
+        if (key_head != NULL) {
             free(key_head);
+        }
         return NULL;
     }
 
     if (local_head != NULL && strcmp(key_head, local_head) == 0) {
-        if ((tmp_key_f = slapt_open_file(filename, "r")) == NULL)
+        if ((tmp_key_f = slapt_open_file(filename, "r")) == NULL) {
             exit(EXIT_FAILURE);
+        }
 
-        if (global_config->progress_cb == NULL)
+        if (global_config->progress_cb == NULL) {
             printf(gettext("Cached\n"));
+        }
 
     } else {
-        const char *err = NULL;
-
-        if ((tmp_key_f = slapt_open_file(filename, "w+b")) == NULL)
+        if ((tmp_key_f = slapt_open_file(filename, "w+b")) == NULL) {
             exit(EXIT_FAILURE);
+        }
 
-        err = slapt_get_mirror_data_from_source(tmp_key_f, global_config, url, SLAPT_GPG_KEY);
+        const char *err = slapt_get_mirror_data_from_source(tmp_key_f, global_config, url, SLAPT_GPG_KEY);
 
         if (!err) {
-            if (interactive)
+            if (interactive) {
                 printf(gettext("Done\n"));
+            }
         } else {
             fprintf(stderr, gettext("Failed to download: %s\n"), err);
             slapt_clear_head_cache(filename);
@@ -206,16 +213,15 @@ FILE *slapt_get_pkg_source_gpg_key(const slapt_config_t *global_config, const ch
 
 slapt_code_t slapt_add_pkg_source_gpg_key(FILE *key)
 {
-    gpgme_error_t e;
-    gpgme_ctx_t *ctx = _slapt_init_gpgme_ctx();
-    gpgme_import_result_t import_result;
-    gpgme_data_t key_data;
     slapt_code_t imported = SLAPT_GPG_KEY_NOT_IMPORTED;
 
-    if (ctx == NULL)
+    gpgme_ctx_t *ctx = _slapt_init_gpgme_ctx();
+    if (ctx == NULL) {
         return imported;
+    }
 
-    e = gpgme_data_new_from_stream(&key_data, key);
+    gpgme_data_t key_data;
+    gpgme_error_t e = gpgme_data_new_from_stream(&key_data, key);
     if (e != GPG_ERR_NO_ERROR) {
         fprintf(stderr, "GPGME: %s\n", gpgme_strerror(e));
         _slapt_free_gpgme_ctx(ctx);
@@ -230,12 +236,13 @@ slapt_code_t slapt_add_pkg_source_gpg_key(FILE *key)
         return imported;
     }
 
-    import_result = gpgme_op_import_result(*ctx);
+    gpgme_import_result_t import_result = gpgme_op_import_result(*ctx);
     if (import_result != NULL) {
-        if (import_result->unchanged > 0)
+        if (import_result->unchanged > 0) {
             imported = SLAPT_GPG_KEY_UNCHANGED;
-        else if (import_result->imported > 0)
+        } else if (import_result->imported > 0) {
             imported = SLAPT_GPG_KEY_IMPORTED;
+        }
     }
 
     gpgme_data_release(key_data);
@@ -269,20 +276,21 @@ static slapt_code_t _slapt_gpg_get_gpgme_error(gpgme_sigsum_t sum)
 
 slapt_code_t slapt_gpg_verify_checksums(FILE *checksums, FILE *signature)
 {
-    gpgme_error_t e;
-    gpgme_ctx_t *ctx = _slapt_init_gpgme_ctx();
-    gpgme_data_t chk_data, asc_data;
     slapt_code_t verified = SLAPT_CHECKSUMS_NOT_VERIFIED;
 
-    if (ctx == NULL)
+    gpgme_ctx_t *ctx = _slapt_init_gpgme_ctx();
+    if (ctx == NULL) {
         return SLAPT_CHECKSUMS_NOT_VERIFIED_NULL_CONTEXT;
+    }
 
-    e = gpgme_data_new_from_stream(&chk_data, checksums);
+    gpgme_data_t chk_data;
+    gpgme_error_t e = gpgme_data_new_from_stream(&chk_data, checksums);
     if (e != GPG_ERR_NO_ERROR) {
         _slapt_free_gpgme_ctx(ctx);
         return SLAPT_CHECKSUMS_NOT_VERIFIED_READ_CHECKSUMS;
     }
 
+    gpgme_data_t asc_data;
     e = gpgme_data_new_from_stream(&asc_data, signature);
     if (e != GPG_ERR_NO_ERROR) {
         gpgme_data_release(chk_data);

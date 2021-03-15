@@ -8,15 +8,15 @@ START_TEST(test_struct_pkg)
 {
     slapt_pkg_t *cpy = NULL;
     cpy = slapt_pkg_t_copy(cpy, &pkg);
-    fail_if(cpy == NULL);
+    ck_assert(cpy != NULL);
 
     {
         char *pkg_str = slapt_pkg_t_string(&pkg);
         char *cpy_str = slapt_pkg_t_string(cpy);
 
-        fail_if(pkg_str == NULL);
-        fail_if(cpy_str == NULL);
-        fail_unless(strcmp(pkg_str, cpy_str) == 0);
+        ck_assert(pkg_str != NULL);
+        ck_assert(cpy_str != NULL);
+        ck_assert(strcmp(pkg_str, cpy_str) == 0);
 
         free(pkg_str);
         free(cpy_str);
@@ -33,42 +33,42 @@ START_TEST(test_pkg_info)
     slapt_config_t *rc = slapt_config_t_read("./data/rc1");
 
     string = slapt_pkg_t_short_description(&pkg);
-    fail_if(string == NULL);
-    fail_unless(strcmp(string, "gslapt (GTK slapt-get, an APT like system for Slackware)") == 0);
+    ck_assert(string != NULL);
+    ck_assert(strcmp(string, "gslapt (GTK slapt-get, an APT like system for Slackware)") == 0);
     free(string);
     string = NULL;
 
     string = slapt_gen_filename_from_url("http://software.jaos.org/slackpacks/11.0/", "PACKAGES.TXT");
-    fail_if(string == NULL);
-    fail_unless(strcmp(string, ".http:##software.jaos.org#slackpacks#11.0#PACKAGES.TXT") == 0);
+    ck_assert(string != NULL);
+    ck_assert(strcmp(string, ".http:##software.jaos.org#slackpacks#11.0#PACKAGES.TXT") == 0);
     free(string);
     string = NULL;
 
     string = slapt_gen_head_cache_filename(".http:##software.jaos.org#slackpacks#11.0#PACKAGES.TXT");
-    fail_if(string == NULL);
-    fail_unless(strcmp(string, ".http:##software.jaos.org#slackpacks#11.0#PACKAGES.TXT.head") == 0);
+    ck_assert(string != NULL);
+    ck_assert(strcmp(string, ".http:##software.jaos.org#slackpacks#11.0#PACKAGES.TXT.head") == 0);
     free(string);
     string = NULL;
 
     string = slapt_pkg_t_url(&pkg);
-    fail_if(string == NULL);
-    fail_unless(strcmp(string, "http://software.jaos.org/slackpacks/11.0/./gslapt-0.3.15-i386-1.tgz") == 0);
+    ck_assert(string != NULL);
+    ck_assert(strcmp(string, "http://software.jaos.org/slackpacks/11.0/./gslapt-0.3.15-i386-1.tgz") == 0);
     free(string);
     string = NULL;
 
     slapt_vector_t_add(rc->exclude_list, strdup("^gslapt$"));
-    fail_if(!slapt_is_excluded(rc, &pkg));
+    ck_assert(slapt_is_excluded(rc, &pkg));
     slapt_vector_t_remove(rc->exclude_list, "^gslapt$");
 
-    fail_unless(slapt_download_pkg(rc, &pkg, NULL) == 0);
-    fail_unless(slapt_verify_downloaded_pkg(rc, &pkg) == 0);
+    ck_assert(slapt_download_pkg(rc, &pkg, NULL) == 0);
+    ck_assert(slapt_verify_downloaded_pkg(rc, &pkg) == 0);
 
     i = slapt_get_pkg_file_size(rc, &pkg);
-    fail_if(i < 1);
+    ck_assert_int_gt(i, 1);
 
     string = strdup(pkg.description);
     string = slapt_pkg_t_clean_description(&pkg);
-    fail_unless(strcmp(string, " gslapt (GTK slapt-get, an APT like system for Slackware)\n") == 0);
+    ck_assert(strcmp(string, " gslapt (GTK slapt-get, an APT like system for Slackware)\n") == 0);
     free(string);
     string = NULL;
 
@@ -78,8 +78,8 @@ START_TEST(test_pkg_info)
     /* get the package filelist, returns (char *) on success or NULL on error */
     /* char *slapt_pkg_t_filelist(const slapt_pkg_t *pkg); */
 
-    fail_unless(pkg.priority == SLAPT_PRIORITY_DEFAULT);
-    fail_unless(strcmp(slapt_priority_to_str(pkg.priority), gettext("Default")) == 0);
+    ck_assert(pkg.priority == SLAPT_PRIORITY_DEFAULT);
+    ck_assert(strcmp(slapt_priority_to_str(pkg.priority), gettext("Default")) == 0);
 
     slapt_config_t_free(rc);
 }
@@ -93,17 +93,17 @@ START_TEST(test_pkg_search)
     slapt_vector_t_add(list, &pkg);
 
     p = slapt_get_newest_pkg(list, "gslapt");
-    fail_if(p == NULL);
+    ck_assert(p != NULL);
 
     p = slapt_get_exact_pkg(list, "gslapt", "0.3.15-i386-1");
-    fail_if(p == NULL);
+    ck_assert(p != NULL);
 
     p = slapt_get_pkg_by_details(list, "gslapt", "0.3.15-i386-1", ".");
-    fail_if(p == NULL);
+    ck_assert(p != NULL);
 
     l = slapt_search_pkg_list(list, "^gslapt$");
-    fail_if(l == NULL);
-    fail_unless(l->size == 1);
+    ck_assert(l != NULL);
+    ck_assert(l->size == 1);
     slapt_vector_t_free(l);
 
     slapt_vector_t_free(list);
@@ -195,60 +195,60 @@ START_TEST(test_pkg_version)
         true};
 
     /* mirror_pkg1 has a higher priority, and should win */
-    fail_unless(slapt_pkg_t_cmp(&mirror_pkg1, &mirror_pkg2) == 1);
+    ck_assert(slapt_pkg_t_cmp(&mirror_pkg1, &mirror_pkg2) == 1);
 
     /* both have the same priority, mirror_pkg2 has a higher version and should win */
     mirror_pkg1.priority = SLAPT_PRIORITY_DEFAULT;
-    fail_unless(slapt_pkg_t_cmp(&mirror_pkg1, &mirror_pkg2) == -1);
+    ck_assert(slapt_pkg_t_cmp(&mirror_pkg1, &mirror_pkg2) == -1);
 
     /* installed_pkg and mirror_pkg1 have the exact same version and should be
      equal regardless of priority */
-    fail_unless(slapt_pkg_t_cmp(&installed_pkg, &mirror_pkg1) == 0);
+    ck_assert(slapt_pkg_t_cmp(&installed_pkg, &mirror_pkg1) == 0);
 
     /* installed_pkg has a higher priority and should win, regardless of the
      fact that mirror_pkg2 has a higher version */
     installed_pkg.priority = SLAPT_PRIORITY_PREFERRED;
-    fail_unless(slapt_pkg_t_cmp(&installed_pkg, &mirror_pkg2) == 1);
+    ck_assert(slapt_pkg_t_cmp(&installed_pkg, &mirror_pkg2) == 1);
 
     /* when the priorities are the same, the package with the higher version
      always wins */
     installed_pkg.priority = SLAPT_PRIORITY_DEFAULT;
-    fail_unless(slapt_pkg_t_cmp(&installed_pkg, &mirror_pkg2) == -1);
+    ck_assert(slapt_pkg_t_cmp(&installed_pkg, &mirror_pkg2) == -1);
 }
 END_TEST
 
 START_TEST(test_version)
 {
-    fail_unless(slapt_pkg_t_cmp_versions("3", "3") == 0);
-    fail_unless(slapt_pkg_t_cmp_versions("4", "3") > 0);
-    fail_unless(slapt_pkg_t_cmp_versions("3", "4") < 0);
+    ck_assert(slapt_pkg_t_cmp_versions("3", "3") == 0);
+    ck_assert(slapt_pkg_t_cmp_versions("4", "3") > 0);
+    ck_assert(slapt_pkg_t_cmp_versions("3", "4") < 0);
 
-    fail_unless(slapt_pkg_t_cmp_versions("3.8.1-i486-1", "3.8.1-i486-1") == 0);
-    fail_unless(slapt_pkg_t_cmp_versions("3.8.1-i486-1jsw", "3.8.1-i486-1") == 0);
-    fail_unless(slapt_pkg_t_cmp_versions("3.8.1-i586-1", "3.8.1-i486-1") == 0);
-    fail_unless(slapt_pkg_t_cmp_versions("3.8.1-i586-1", "3.8.1-i686-1") == 0);
-    fail_unless(slapt_pkg_t_cmp_versions("3.8.1-i486", "3.8.1-i486") == 0);
-    fail_unless(slapt_pkg_t_cmp_versions("3.8.1-i486-1", "3.8.1-i486-1") == 0);
+    ck_assert(slapt_pkg_t_cmp_versions("3.8.1-i486-1", "3.8.1-i486-1") == 0);
+    ck_assert(slapt_pkg_t_cmp_versions("3.8.1-i486-1jsw", "3.8.1-i486-1") == 0);
+    ck_assert(slapt_pkg_t_cmp_versions("3.8.1-i586-1", "3.8.1-i486-1") == 0);
+    ck_assert(slapt_pkg_t_cmp_versions("3.8.1-i586-1", "3.8.1-i686-1") == 0);
+    ck_assert(slapt_pkg_t_cmp_versions("3.8.1-i486", "3.8.1-i486") == 0);
+    ck_assert(slapt_pkg_t_cmp_versions("3.8.1-i486-1", "3.8.1-i486-1") == 0);
 
-    fail_unless(slapt_pkg_t_cmp_versions("3.8.1p1-i486-1", "3.8p1-i486-1") > 0);
-    fail_unless(slapt_pkg_t_cmp_versions("3.8.1-i486-1", "3.8-i486-1") > 0);
-    fail_unless(slapt_pkg_t_cmp_versions("3.8.1-i486-1", "3.8-i486-3") > 0);
+    ck_assert(slapt_pkg_t_cmp_versions("3.8.1p1-i486-1", "3.8p1-i486-1") > 0);
+    ck_assert(slapt_pkg_t_cmp_versions("3.8.1-i486-1", "3.8-i486-1") > 0);
+    ck_assert(slapt_pkg_t_cmp_versions("3.8.1-i486-1", "3.8-i486-3") > 0);
 
-    fail_unless(slapt_pkg_t_cmp_versions("3.8.1_1-i486-1", "3.8.1_2-i486-1") < 0);
+    ck_assert(slapt_pkg_t_cmp_versions("3.8.1_1-i486-1", "3.8.1_2-i486-1") < 0);
 
-    fail_unless(slapt_pkg_t_cmp_versions("IIIalpha9.8-i486-2", "IIIalpha9.7-i486-3") > 0);
-    fail_unless(slapt_pkg_t_cmp_versions("4.13b-i386-2", "4.12b-i386-1") > 0);
-    fail_unless(slapt_pkg_t_cmp_versions("4.13b-i386-2", "4.13a-i386-2") > 0);
-    fail_unless(slapt_pkg_t_cmp_versions("1.4rc5-i486-2", "1.4rc4-i486-2") > 0);
+    ck_assert(slapt_pkg_t_cmp_versions("IIIalpha9.8-i486-2", "IIIalpha9.7-i486-3") > 0);
+    ck_assert(slapt_pkg_t_cmp_versions("4.13b-i386-2", "4.12b-i386-1") > 0);
+    ck_assert(slapt_pkg_t_cmp_versions("4.13b-i386-2", "4.13a-i386-2") > 0);
+    ck_assert(slapt_pkg_t_cmp_versions("1.4rc5-i486-2", "1.4rc4-i486-2") > 0);
 
-    fail_unless(slapt_pkg_t_cmp_versions("1.3.35-i486-2_slack10.2", "1.3.35-i486-1") > 0);
+    ck_assert(slapt_pkg_t_cmp_versions("1.3.35-i486-2_slack10.2", "1.3.35-i486-1") > 0);
 
 #if defined(__x86_64__)
-    fail_unless(slapt_pkg_t_cmp_versions("4.1-x86_64-1", "4.1-i486-1") > 0);
-    fail_unless(slapt_pkg_t_cmp_versions("4.1-i486-1", "4.1-x86_64-1") < 0);
+    ck_assert(slapt_pkg_t_cmp_versions("4.1-x86_64-1", "4.1-i486-1") > 0);
+    ck_assert(slapt_pkg_t_cmp_versions("4.1-i486-1", "4.1-x86_64-1") < 0);
 #elif defined(__i386__)
-    fail_unless(slapt_pkg_t_cmp_versions("4.1-i486-1", "4.1-x86_64-1") > 0);
-    fail_unless(slapt_pkg_t_cmp_versions("4.1-x86_64-1", "4.1-486-1") < 0);
+    ck_assert(slapt_pkg_t_cmp_versions("4.1-i486-1", "4.1-x86_64-1") > 0);
+    ck_assert(slapt_pkg_t_cmp_versions("4.1-x86_64-1", "4.1-486-1") < 0);
 #endif
 }
 END_TEST
@@ -261,12 +261,12 @@ START_TEST(test_dependency)
     slapt_config_t *rc = slapt_config_t_read("./data/rc1");
 
     fh = fopen("data/avail_deps", "r");
-    fail_unless(fh != NULL);
+    ck_assert(fh != NULL);
     slapt_vector_t *avail = slapt_parse_packages_txt(fh);
     fclose(fh);
 
     fh = fopen("data/installed_deps", "r");
-    fail_unless(fh != NULL);
+    ck_assert(fh != NULL);
     slapt_vector_t *installed = slapt_parse_packages_txt(fh);
     fclose(fh);
 
@@ -274,16 +274,16 @@ START_TEST(test_dependency)
      dependency tests
   */
     p = slapt_get_newest_pkg(avail, "slapt-src");
-    fail_unless(p != NULL);
+    ck_assert(p != NULL);
     slapt_vector_t *conflict = slapt_vector_t_init(NULL);
     slapt_vector_t *missing = slapt_vector_t_init(NULL);
     slapt_vector_t *deps = slapt_vector_t_init(NULL);
     i = slapt_get_pkg_dependencies(rc, avail, installed, p, deps, conflict, missing);
     /* we expect 22 deps to return given our current hardcoded data files */
-    fail_unless(i != 22);
+    ck_assert(i != 22);
     /* we should have slapt-get as a dependency for slapt-src */
     slapt_vector_t *search_results = slapt_search_pkg_list(deps, "slapt-get");
-    fail_unless(search_results != NULL);
+    ck_assert(search_results != NULL);
     slapt_vector_t_free(search_results);
     slapt_vector_t_free(conflict);
     slapt_vector_t_free(missing);
@@ -294,11 +294,11 @@ START_TEST(test_dependency)
   */
     /* scim conflicts with ibus */
     p = slapt_get_newest_pkg(avail, "scim");
-    fail_unless(p != NULL);
+    ck_assert(p != NULL);
     slapt_vector_t *pkg_conflicts = slapt_get_pkg_conflicts(avail, installed, p);
-    fail_unless(pkg_conflicts != NULL);
-    fail_unless(pkg_conflicts->size == 1);
-    fail_unless(strcmp(((slapt_pkg_t *)pkg_conflicts->items[0])->name, "ibus") == 0);
+    ck_assert(pkg_conflicts != NULL);
+    ck_assert(pkg_conflicts->size == 1);
+    ck_assert(strcmp(((slapt_pkg_t *)pkg_conflicts->items[0])->name, "ibus") == 0);
     slapt_vector_t_free(pkg_conflicts);
 
     /*
@@ -308,34 +308,34 @@ START_TEST(test_dependency)
     slapt_vector_t *pkgs_to_install = slapt_vector_t_init(NULL);
     slapt_vector_t *pkgs_to_remove = slapt_vector_t_init(NULL);
     p = slapt_get_newest_pkg(avail, "slapt-get");
-    fail_unless(p != NULL);
+    ck_assert(p != NULL);
     slapt_vector_t *required_by = slapt_is_required_by(rc, avail, installed, pkgs_to_install, pkgs_to_remove, p);
-    fail_unless(required_by->size == 5);
-    fail_unless(strcmp(((slapt_pkg_t *)(required_by->items[0]))->name, "slapt-src") == 0);
-    fail_unless(strcmp(((slapt_pkg_t *)(required_by->items[1]))->name, "gslapt") == 0);
-    fail_unless(strcmp(((slapt_pkg_t *)(required_by->items[2]))->name, "foo") == 0);
-    fail_unless(strcmp(((slapt_pkg_t *)(required_by->items[3]))->name, "boz") == 0);
-    fail_unless(strcmp(((slapt_pkg_t *)(required_by->items[4]))->name, "bar") == 0);
+    ck_assert(required_by->size == 5);
+    ck_assert(strcmp(((slapt_pkg_t *)(required_by->items[0]))->name, "slapt-src") == 0);
+    ck_assert(strcmp(((slapt_pkg_t *)(required_by->items[1]))->name, "gslapt") == 0);
+    ck_assert(strcmp(((slapt_pkg_t *)(required_by->items[2]))->name, "foo") == 0);
+    ck_assert(strcmp(((slapt_pkg_t *)(required_by->items[3]))->name, "boz") == 0);
+    ck_assert(strcmp(((slapt_pkg_t *)(required_by->items[4]))->name, "bar") == 0);
     slapt_vector_t_free(required_by);
 
     /* glib reverse dep test */
     p = slapt_get_newest_pkg(avail, "glib");
-    fail_unless(p != NULL);
+    ck_assert(p != NULL);
     required_by = slapt_is_required_by(rc, avail, installed, pkgs_to_install, pkgs_to_remove, p);
-    fail_unless(required_by->size == 2);
-    fail_unless(strcmp(((slapt_pkg_t *)(required_by->items[0]))->name, "xmms") == 0);
-    fail_unless(strcmp(((slapt_pkg_t *)(required_by->items[1]))->name, "gtk+") == 0);
+    ck_assert(required_by->size == 2);
+    ck_assert(strcmp(((slapt_pkg_t *)(required_by->items[0]))->name, "xmms") == 0);
+    ck_assert(strcmp(((slapt_pkg_t *)(required_by->items[1]))->name, "gtk+") == 0);
     slapt_vector_t_free(required_by);
 
     /* glib2 reverse dep test */
     p = slapt_get_newest_pkg(avail, "glib2");
-    fail_unless(p != NULL);
+    ck_assert(p != NULL);
     required_by = slapt_is_required_by(rc, avail, installed, pkgs_to_install, pkgs_to_remove, p);
-    fail_unless(required_by->size == 4);
-    fail_unless(strcmp(((slapt_pkg_t *)(required_by->items[0]))->name, "ConsoleKit") == 0);
-    fail_unless(strcmp(((slapt_pkg_t *)(required_by->items[1]))->name, "dbus-glib") == 0);
-    fail_unless(strcmp(((slapt_pkg_t *)(required_by->items[2]))->name, "gslapt") == 0);
-    fail_unless(strcmp(((slapt_pkg_t *)(required_by->items[3]))->name, "scim") == 0);
+    ck_assert(required_by->size == 4);
+    ck_assert(strcmp(((slapt_pkg_t *)(required_by->items[0]))->name, "ConsoleKit") == 0);
+    ck_assert(strcmp(((slapt_pkg_t *)(required_by->items[1]))->name, "dbus-glib") == 0);
+    ck_assert(strcmp(((slapt_pkg_t *)(required_by->items[2]))->name, "gslapt") == 0);
+    ck_assert(strcmp(((slapt_pkg_t *)(required_by->items[3]))->name, "scim") == 0);
     slapt_vector_t_free(required_by);
 
     slapt_vector_t_free(installed);
@@ -432,7 +432,7 @@ START_TEST(test_network)
     rc->progress_cb = _progress_cb; /* silence */
 
     /* must chdir to working dir */
-    fail_unless(chdir(rc->working_dir) == 0);
+    ck_assert(chdir(rc->working_dir) == 0);
 
     /* write pkg data to disk
   void slapt_write_pkg_data(const char *source_url,FILE *d_file,
@@ -452,9 +452,9 @@ START_TEST(test_network)
 
     int rv = slapt_update_pkg_cache(rc);
     slapt_config_t_free(rc);
-    fail_unless(rv == 0);
+    ck_assert(rv == 0);
 
-    fail_unless(chdir(cwd) == 0);
+    ck_assert(chdir(cwd) == 0);
     free(cwd);
 }
 END_TEST
@@ -494,13 +494,13 @@ START_TEST(test_slapt_dependency_t)
         std_test_case t = tests[i];
         slapt_dependency_t *dep = slapt_dependency_t_parse_required(t.t);
         if (t.not_null) {
-            fail_unless(dep->op == t.op);
-            fail_unless(strcmp(dep->name, t.name) == 0);
+            ck_assert(dep->op == t.op);
+            ck_assert(strcmp(dep->name, t.name) == 0);
             if (t.version != NULL)
-                fail_unless(strcmp(dep->version, t.version) == 0);
+                ck_assert(strcmp(dep->version, t.version) == 0);
             slapt_dependency_t_free(dep);
         } else {
-            fail_unless(dep == NULL);
+            ck_assert(dep == NULL);
         }
     }
 
@@ -511,18 +511,18 @@ START_TEST(test_slapt_dependency_t)
         }
     */
     slapt_dependency_t *alt_dep = slapt_dependency_t_parse_required(" foo | bar >= 1.0 ");
-    fail_unless(alt_dep->op == DEP_OP_OR);
+    ck_assert(alt_dep->op == DEP_OP_OR);
 
     /* first alternative */
     slapt_dependency_t *first = alt_dep->alternatives->items[0];
-    fail_unless(first->op == DEP_OP_ANY);
-    fail_unless(strcmp(first->name, "foo") == 0);
-    fail_unless(first->version == NULL);
+    ck_assert(first->op == DEP_OP_ANY);
+    ck_assert(strcmp(first->name, "foo") == 0);
+    ck_assert(first->version == NULL);
     /* second alternative */
     slapt_dependency_t *second = alt_dep->alternatives->items[1];
-    fail_unless(second->op == DEP_OP_GTE);
-    fail_unless(strcmp(second->name, "bar") == 0);
-    fail_unless(strcmp(second->version, "1.0") == 0);
+    ck_assert(second->op == DEP_OP_GTE);
+    ck_assert(strcmp(second->name, "bar") == 0);
+    ck_assert(strcmp(second->version, "1.0") == 0);
 
     slapt_dependency_t_free(alt_dep);
 }

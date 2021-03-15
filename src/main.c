@@ -26,11 +26,7 @@ extern int optind, opterr, optopt;
 int main(int argc, char *argv[])
 {
     slapt_config_t *global_config, *initial_config; /* our config struct */
-    slapt_vector_t *paa = NULL;
 
-    int c = 0;
-    enum slapt_action do_action = SLAPT_ACTION_USAGE;
-    int option_index = 0;
     static struct option long_options[] = {
         {"update", 0, 0, SLAPT_UPDATE_OPT},
         {"u", 0, 0, SLAPT_UPDATE_OPT},
@@ -107,6 +103,9 @@ int main(int argc, char *argv[])
 
     curl_global_init(CURL_GLOBAL_ALL);
 
+    enum slapt_action do_action = SLAPT_ACTION_USAGE;
+    int c = 0;
+    int option_index = 0;
     while ((c = getopt_long_only(argc, argv, "", long_options, &option_index)) != -1) {
         switch (c) {
         case SLAPT_UPDATE_OPT: /* update */
@@ -303,6 +302,7 @@ int main(int argc, char *argv[])
     }
 
     /* create the working directory if needed */
+    slapt_vector_t *paa = NULL;
     slapt_working_dir_init(global_config);
     if ((chdir(global_config->working_dir)) == -1) {
         fprintf(stderr, gettext("Failed to chdir: %s\n"), global_config->working_dir);
@@ -336,7 +336,7 @@ int main(int argc, char *argv[])
             slapt_vector_t *matches = slapt_search_pkg_list(avail_pkgs, search);
             free(search);
 
-            slapt_vector_t_foreach (slapt_pkg_t *, match, matches) {
+            slapt_vector_t_foreach (const slapt_pkg_t *, match, matches) {
                 if (!slapt_is_excluded(global_config, match)) {
                     slapt_vector_t_add(paa, match->name);
                 }

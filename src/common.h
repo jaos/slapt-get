@@ -53,7 +53,7 @@ typedef enum {
     SLAPT_PRIORITY_PREFERRED_PATCH,
     SLAPT_PRIORITY_CUSTOM,
     SLAPT_PRIORITY_CUSTOM_PATCH
-} SLAPT_PRIORITY_T;
+} slapt_priority_t;
 
 #define SLAPT_PRIORITY_DEFAULT_TOKEN "DEFAULT"
 #define SLAPT_PRIORITY_PREFERRED_TOKEN "PREFERRED"
@@ -109,7 +109,7 @@ void *slapt_calloc(size_t n, size_t s);
 /* return human readable error */
 const char *slapt_strerror(const slapt_code_t code);
 /* return human readable priority */
-const char *slapt_priority_to_str(SLAPT_PRIORITY_T priority);
+const char *slapt_priority_to_str(slapt_priority_t priority);
 bool slapt_disk_space_check(const char *path, double space_needed);
 
 /* utils */

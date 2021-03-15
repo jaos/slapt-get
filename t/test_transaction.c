@@ -4,25 +4,25 @@ extern slapt_pkg_t pkg;
 START_TEST(test_transaction)
 {
     slapt_transaction_t *t = slapt_transaction_t_init();
-    fail_if(t == NULL);
+    ck_assert(t != NULL);
 
     slapt_transaction_t_add_install(t, &pkg);
-    fail_unless(t->install_pkgs->size == 1);
-    fail_unless(slapt_transaction_t_search(t, "gslapt"));
-    fail_unless(slapt_transaction_t_search_by_pkg(t, &pkg));
+    ck_assert(t->install_pkgs->size == 1);
+    ck_assert(slapt_transaction_t_search(t, "gslapt"));
+    ck_assert(slapt_transaction_t_search_by_pkg(t, &pkg));
     t = slapt_transaction_t_remove(t, &pkg);
 
     slapt_transaction_t_add_remove(t, &pkg);
-    fail_unless(t->remove_pkgs->size == 1);
-    fail_unless(slapt_transaction_t_search(t, "gslapt"));
-    fail_unless(slapt_transaction_t_search_by_pkg(t, &pkg));
+    ck_assert(t->remove_pkgs->size == 1);
+    ck_assert(slapt_transaction_t_search(t, "gslapt"));
+    ck_assert(slapt_transaction_t_search_by_pkg(t, &pkg));
     t = slapt_transaction_t_remove(t, &pkg);
 
     slapt_transaction_t_add_exclude(t, &pkg);
-    fail_unless(t->exclude_pkgs->size == 1);
+    ck_assert(t->exclude_pkgs->size == 1);
 
     slapt_transaction_t_add_upgrade(t, &pkg, &pkg);
-    /* fail_unless (slapt_transaction_t_search_upgrade(t, &pkg)); */
+    /* ck_assert (slapt_transaction_t_search_upgrade(t, &pkg)); */
 
     slapt_transaction_t_free(t);
 }
@@ -49,12 +49,12 @@ START_TEST(test_transaction_dependencies)
     slapt_config_t *rc = slapt_config_t_read("./data/rc1");
 
     FILE *fh = fopen("data/avail_deps", "r");
-    fail_unless(fh != NULL);
+    ck_assert(fh != NULL);
     slapt_vector_t *avail = slapt_parse_packages_txt(fh);
     fclose(fh);
 
     fh = fopen("data/installed_deps", "r");
-    fail_unless(fh != NULL);
+    ck_assert(fh != NULL);
     slapt_vector_t *installed = slapt_parse_packages_txt(fh);
     fclose(fh);
 

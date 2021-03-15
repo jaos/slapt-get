@@ -25,7 +25,7 @@
 
 typedef struct {
     char *url;
-    SLAPT_PRIORITY_T priority;
+    slapt_priority_t priority;
     bool disabled;
 } slapt_source_t;
 

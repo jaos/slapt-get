@@ -26,14 +26,10 @@ struct head_data_t {
 
 int slapt_download_data(FILE *fh, const char *url, size_t bytes, long *filetime, const slapt_config_t *global_config)
 {
-    CURL *ch = NULL;
-    CURLcode response;
-    int return_code = 0;
-    struct curl_slist *headers = NULL;
     struct slapt_progress_data *cb_data = slapt_init_progress_data();
     cb_data->bytes = bytes;
 
-    ch = curl_easy_init();
+    CURL *ch = curl_easy_init();
     curl_easy_setopt(ch, CURLOPT_URL, url);
     curl_easy_setopt(ch, CURLOPT_WRITEDATA, fh);
     curl_easy_setopt(ch, CURLOPT_NOPROGRESS, 0);
@@ -59,6 +55,7 @@ int slapt_download_data(FILE *fh, const char *url, size_t bytes, long *filetime,
     if (getenv("SLAPT_CURL_DEBUG"))
         curl_easy_setopt(ch, CURLOPT_VERBOSE, 1);
 
+    struct curl_slist *headers = NULL;
     headers = curl_slist_append(headers, "Pragma: "); /* override no-cache */
 
     if (!global_config->dl_stats) {
@@ -76,7 +73,9 @@ int slapt_download_data(FILE *fh, const char *url, size_t bytes, long *filetime,
         curl_easy_setopt(ch, CURLOPT_RESUME_FROM, bytes);
     }
 
-    if ((response = curl_easy_perform(ch)) != CURLE_OK) {
+    int return_code = 0;
+    CURLcode response = curl_easy_perform(ch);
+    if (response != CURLE_OK) {
         return_code = response;
     }
 
@@ -96,11 +95,10 @@ int slapt_download_data(FILE *fh, const char *url, size_t bytes, long *filetime,
 
 static size_t write_header_callback(void *buffer, size_t size, size_t nmemb, void *userp)
 {
-    char *tmp;
     register int a_size = size * nmemb;
     struct head_data_t *head_t = (struct head_data_t *)userp;
 
-    tmp = (char *)realloc(head_t->data, head_t->size + a_size + 1);
+    char *tmp = (char *)realloc(head_t->data, head_t->size + a_size + 1);
     if (tmp != NULL) {
         head_t->data = tmp;
         memcpy(&(head_t->data[head_t->size]), buffer, a_size);
@@ -113,15 +111,11 @@ static size_t write_header_callback(void *buffer, size_t size, size_t nmemb, voi
 
 char *slapt_head_request(const char *url)
 {
-    CURL *ch = NULL;
-    CURLcode response;
     struct head_data_t head_t;
-    struct curl_slist *headers = NULL;
-
     head_t.data = NULL;
     head_t.size = 0;
 
-    ch = curl_easy_init();
+    CURL *ch = curl_easy_init();
     curl_easy_setopt(ch, CURLOPT_URL, url);
     curl_easy_setopt(ch, CURLOPT_WRITEFUNCTION, write_header_callback);
     curl_easy_setopt(ch, CURLOPT_NOPROGRESS, 1);
@@ -147,9 +141,11 @@ char *slapt_head_request(const char *url)
     if (getenv("SLAPT_CURL_DEBUG"))
         curl_easy_setopt(ch, CURLOPT_VERBOSE, 1);
 
+    struct curl_slist *headers = NULL;
     headers = curl_slist_append(headers, "Pragma: "); /* override no-cache */
 
-    if ((response = curl_easy_perform(ch)) != CURLE_OK) {
+    CURLcode response = curl_easy_perform(ch);
+    if (response != CURLE_OK) {
         free(head_t.data);
         curl_easy_cleanup(ch);
         curl_slist_free_all(headers);
@@ -163,18 +159,15 @@ char *slapt_head_request(const char *url)
 
 const char *slapt_get_mirror_data_from_source(FILE *fh, const slapt_config_t *global_config, const char *base_url, const char *filename)
 {
-    int return_code = 0;
-    char *url = NULL;
-
     size_t url_len = strlen(base_url) + strlen(filename) + 1;
-    url = slapt_calloc(url_len, sizeof *url);
+    char *url = slapt_calloc(url_len, sizeof *url);
 
     if (snprintf(url, url_len, "%s%s", base_url, filename) < 1) {
         fprintf(stderr, "slapt_get_mirror_data_from_source error for %s\n", base_url);
         exit(EXIT_FAILURE);
     }
 
-    return_code = slapt_download_data(fh, url, 0, NULL, global_config);
+    int return_code = slapt_download_data(fh, url, 0, NULL, global_config);
 
     free(url);
     /* make sure we are back at the front of the file */
@@ -185,14 +178,8 @@ const char *slapt_get_mirror_data_from_source(FILE *fh, const slapt_config_t *gl
 
 const char *slapt_download_pkg(const slapt_config_t *global_config, slapt_pkg_t *pkg, const char *note)
 {
-    FILE *fh = NULL;
-    char *file_name = NULL;
-    char *url = NULL;
-    size_t f_size = 0;
     slapt_code_t verify = SLAPT_OK;
-    int dl_return = -1, dl_total_size = 0;
     bool is_interactive = slapt_is_interactive(global_config);
-    long filetime = 0;
 
     if (pkg == NULL) {
         fprintf(stderr, "slapt_download_pkg() called without a package!\n");
@@ -211,10 +198,10 @@ const char *slapt_download_pkg(const slapt_config_t *global_config, slapt_pkg_t 
     slapt_create_dir_structure(pkg->location);
 
     /* build the url, file name, and get the file size if the file is present */
-    url = slapt_pkg_t_url(pkg);
-    file_name = slapt_gen_pkg_file_name(global_config, pkg);
-    f_size = slapt_get_pkg_file_size(global_config, pkg);
-    dl_total_size = pkg->size_c - (f_size / 1024);
+    char *url = slapt_pkg_t_url(pkg);
+    char *file_name = slapt_gen_pkg_file_name(global_config, pkg);
+    size_t f_size = slapt_get_pkg_file_size(global_config, pkg);
+    int dl_total_size = pkg->size_c - (f_size / 1024);
 
     /* if file on disk is larger than the supposed size, unlink it */
     if (dl_total_size < 0) {
@@ -243,13 +230,14 @@ const char *slapt_download_pkg(const slapt_config_t *global_config, slapt_pkg_t 
     }
 
     /* open the file to write, append if already present */
-    fh = slapt_open_file(file_name, "a+b");
+    FILE *fh = slapt_open_file(file_name, "a+b");
     if (fh == NULL) {
         exit(EXIT_FAILURE);
     }
 
     /* download the file to our file handle */
-    dl_return = slapt_download_data(fh, url, f_size, &filetime, global_config);
+    long filetime = 0;
+    int dl_return = slapt_download_data(fh, url, f_size, &filetime, global_config);
     if (dl_return == 0) {
         if (is_interactive)
             printf(gettext("Done\n"));
@@ -348,14 +336,13 @@ int slapt_progress_callback(void *clientp, double dltotal, double dlnow, double 
 
 void slapt_write_head_cache(const char *cache, const char *cache_filename)
 {
-    char *head_filename;
-    FILE *tmp;
-
-    head_filename = slapt_gen_head_cache_filename(cache_filename);
+    char *head_filename = slapt_gen_head_cache_filename(cache_filename);
 
     /* store the last modified date */
-    if ((tmp = slapt_open_file(head_filename, "w")) == NULL)
+    FILE *tmp = slapt_open_file(head_filename, "w");
+    if (tmp == NULL) {
         exit(EXIT_FAILURE);
+    }
 
     fprintf(tmp, "%s", cache);
     fclose(tmp);
@@ -365,21 +352,19 @@ void slapt_write_head_cache(const char *cache, const char *cache_filename)
 
 char *slapt_read_head_cache(const char *cache_filename)
 {
-    char *head_filename;
-    FILE *tmp;
-    char *getline_buffer = NULL;
-    size_t gl_n;
-    ssize_t gl_return_size;
+    char *head_filename = slapt_gen_head_cache_filename(cache_filename);
 
-    head_filename = slapt_gen_head_cache_filename(cache_filename);
-
-    tmp = slapt_open_file(head_filename, "a+");
+    FILE *tmp = slapt_open_file(head_filename, "a+");
     free(head_filename);
 
     if (tmp == NULL)
         exit(EXIT_FAILURE);
 
     rewind(tmp);
+
+    char *getline_buffer = NULL;
+    size_t gl_n;
+    ssize_t gl_return_size;
     gl_return_size = getline(&getline_buffer, &gl_n, tmp);
     fclose(tmp);
 
@@ -393,10 +378,8 @@ char *slapt_read_head_cache(const char *cache_filename)
 
 char *slapt_gen_head_cache_filename(const char *filename_from_url)
 {
-    char *head_filename;
-
     size_t head_filename_len = strlen(filename_from_url) + strlen(SLAPT_HEAD_FILE_EXT) + 1;
-    head_filename = slapt_calloc(head_filename_len, sizeof *head_filename);
+    char *head_filename = slapt_calloc(head_filename_len, sizeof *head_filename);
     if (snprintf(head_filename, head_filename_len, "%s%s", filename_from_url, SLAPT_HEAD_FILE_EXT) < 1) {
         fprintf(stderr, "slapt_gen_head_cache_filename error for %s\n", filename_from_url);
         exit(EXIT_FAILURE);
@@ -406,15 +389,13 @@ char *slapt_gen_head_cache_filename(const char *filename_from_url)
 
 void slapt_clear_head_cache(const char *cache_filename)
 {
-    char *head_filename;
-    FILE *tmp;
+    char *head_filename = slapt_gen_head_cache_filename(cache_filename);
 
-    head_filename = slapt_gen_head_cache_filename(cache_filename);
+    FILE *tmp = slapt_open_file(head_filename, "w");
 
-    tmp = slapt_open_file(head_filename, "w");
-
-    if (tmp == NULL)
+    if (tmp == NULL) {
         exit(EXIT_FAILURE);
+    }
 
     fclose(tmp);
     free(head_filename);
@@ -423,30 +404,23 @@ void slapt_clear_head_cache(const char *cache_filename)
 /* do a head request on the mirror data to find out if it's new */
 char *slapt_head_mirror_data(const char *wurl, const char *file)
 {
-    char *request_header = NULL;
-    char *request_header_ptr = NULL;
-    char *delim_ptr = NULL;
-    char *head_data = NULL;
-    int request_header_len = 0;
-    char *url;
-
     /* build url */
     size_t url_len = strlen(wurl) + strlen(file) + 1;
-    url = slapt_calloc(url_len, sizeof *url);
+    char *url = slapt_calloc(url_len, sizeof *url);
     if (snprintf(url, url_len, "%s%s", wurl, file) < 1) {
         fprintf(stderr, "slapt_head_mirror_data error for %s\n", wurl);
         exit(EXIT_FAILURE);
     }
 
     /* retrieve the header info */
-    head_data = slapt_head_request(url);
+    char *head_data = slapt_head_request(url);
     free(url);
     if (head_data == NULL) {
         return NULL;
     }
 
     /* extract the last modified date for storage and later comparison */
-    request_header_ptr = strcasestr(head_data, "Last-Modified");
+    char *request_header_ptr = strcasestr(head_data, "Last-Modified");
     if (request_header_ptr == NULL) {
         /* this is ftp, in which case the Content-Length will have to do */
         request_header_ptr = strcasestr(head_data, "Content-Length");
@@ -455,14 +429,14 @@ char *slapt_head_mirror_data(const char *wurl, const char *file)
             return NULL;
         } /* give up finally */
     }
-    delim_ptr = strpbrk(request_header_ptr, "\r\n");
+    char *delim_ptr = strpbrk(request_header_ptr, "\r\n");
     if (delim_ptr == NULL) {
         free(head_data);
         return NULL;
     }
 
-    request_header_len = strlen(request_header_ptr) - strlen(delim_ptr);
-    request_header = slapt_calloc(request_header_len + 1, sizeof *request_header);
+    int request_header_len = strlen(request_header_ptr) - strlen(delim_ptr);
+    char *request_header = slapt_calloc(request_header_len + 1, sizeof *request_header);
     memcpy(request_header, request_header_ptr, request_header_len);
 
     free(head_data);
