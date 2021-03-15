@@ -1,4 +1,6 @@
-0.11.3 Mar 12, 2021
+0.11.3 Mar 14, 2021
+ * refactoring and optimizing
+ * update conflict and reverse dependency handling
  * misc symbol cleanup
  * update dependency handling, fix dependency condition regression
  * meson updates
