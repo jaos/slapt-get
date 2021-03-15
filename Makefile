@@ -33,9 +33,13 @@ CFLAGS?=-W -Werror -Wall -Wextra -O2 -flto -ffat-lto-objects -pedantic -Wshadow 
 endif
 CFLAGS+=$(DEFINES) -fPIC
 
-default: $(PACKAGE)
+default: deprecated $(PACKAGE)
 
 all: pkg
+
+.PHONY: deprecated
+deprecated:
+	-@echo === WARNING This Makefile is deprecated, prefer to use meson ===
 
 $(OBJS): $(LIBHEADERS)
 
