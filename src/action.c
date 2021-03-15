@@ -228,8 +228,8 @@ void slapt_pkg_action_remove(const slapt_config_t *global_config, const slapt_ve
         exit(EXIT_FAILURE);
     }
 
+    slapt_vector_t *scheduled = slapt_vector_t_init(NULL);
     slapt_vector_t_foreach (char *, arg, action_args) {
-        slapt_vector_t *deps = NULL;
         slapt_pkg_t *pkg = NULL;
 
         /* Use regex to see if they specified a particular version */
@@ -258,18 +258,19 @@ void slapt_pkg_action_remove(const slapt_config_t *global_config, const slapt_ve
             }
         }
 
-        deps = slapt_is_required_by(global_config, avail_pkgs, installed_pkgs, tran->install_pkgs, tran->remove_pkgs, pkg);
-
+        slapt_vector_t_add(scheduled, pkg);
+        slapt_transaction_t_add_remove(tran, pkg);
+    }
+    slapt_vector_t_foreach(slapt_pkg_t *, to_remove, scheduled) {
+        slapt_vector_t *deps = slapt_is_required_by(global_config, avail_pkgs, installed_pkgs, tran->install_pkgs, tran->remove_pkgs, to_remove);
         slapt_vector_t_foreach (slapt_pkg_t *, dep, deps) {
             if (slapt_get_exact_pkg(installed_pkgs, dep->name, dep->version) != NULL) {
                 slapt_transaction_t_add_remove(tran, dep);
             }
         }
-
         slapt_vector_t_free(deps);
-
-        slapt_transaction_t_add_remove(tran, pkg);
     }
+    slapt_vector_t_free(scheduled);
 
     if (global_config->remove_obsolete) {
         slapt_vector_t *obsolete = slapt_get_obsolete_pkgs(global_config, avail_pkgs, installed_pkgs);
