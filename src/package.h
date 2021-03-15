@@ -79,7 +79,6 @@ void slapt_dependency_t_free(slapt_dependency_t *);
 slapt_dependency_t *slapt_dependency_t_parse_required(const char *);
 
 typedef struct {
-    char md5[SLAPT_MD5_STR_LEN + 1];
     char *name;
     char *version;
     char *mirror;
@@ -94,6 +93,7 @@ typedef struct {
     uint32_t size_u;
     uint32_t priority;
     bool installed;
+    char md5[SLAPT_MD5_STR_LEN + 1];
 } slapt_pkg_t;
 
 typedef struct {

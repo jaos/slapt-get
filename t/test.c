@@ -6,21 +6,21 @@
 #include "test_transaction.h"
 
 slapt_pkg_t pkg = {
-    "8598a2a6d683d098b09cdc938de1e3c7",
-    "gslapt",
-    "0.3.15-i386-1",
-    "http://software.jaos.org/slackpacks/11.0/",
-    ".",
-    "gslapt: gslapt (GTK slapt-get, an APT like system for Slackware)\n",
-    "",
-    "",
-    "",
-    ".tgz",
-    NULL,
-    115,
-    440,
-    SLAPT_PRIORITY_DEFAULT,
-    true};
+    .md5="8598a2a6d683d098b09cdc938de1e3c7",
+    .name="gslapt",
+    .version="0.3.15-i386-1",
+    .mirror="http://software.jaos.org/slackpacks/11.0/",
+    .location=".",
+    .description="gslapt: gslapt (GTK slapt-get, an APT like system for Slackware)\n",
+    .required="",
+    .conflicts="",
+    .suggests="",
+    .file_ext=".tgz",
+    .dependencies=NULL,
+    .size_c=115,
+    .size_u=440,
+    .priority=SLAPT_PRIORITY_DEFAULT,
+    .installed=true};
 
 int _progress_cb(void *clientp, double dltotal, double dlnow,
                  double ultotal, double ulnow)
