@@ -100,7 +100,7 @@ slapt_config_t *slapt_config_t_read(const char *file_name)
             /* WORKING DIR */
 
             if (strlen(token_ptr) > strlen(SLAPT_WORKINGDIR_TOKEN)) {
-                size_t working_dir_len = (strlen(token_ptr) - strlen(SLAPT_WORKINGDIR_TOKEN)) + 1;
+                const size_t working_dir_len = (strlen(token_ptr) - strlen(SLAPT_WORKINGDIR_TOKEN)) + 1;
                 slapt_strlcpy(global_config->working_dir, token_ptr + strlen(SLAPT_WORKINGDIR_TOKEN), working_dir_len);
             }
 
@@ -180,13 +180,13 @@ bool slapt_is_interactive(const slapt_config_t *global_config)
 static void slapt_source_parse_attributes(slapt_source_t *s, const char *string)
 {
     int offset = 0;
-    int len = strlen(string);
+    const int len = strlen(string);
 
     while (offset < len) {
         char *token = NULL;
 
         if (strchr(string + offset, ',') != NULL) {
-            size_t token_len = strcspn(string + offset, ",");
+            const size_t token_len = strcspn(string + offset, ",");
             if (token_len > 0) {
                 token = strndup(string + offset, token_len);
                 offset += token_len + 1;
@@ -236,7 +236,7 @@ slapt_source_t *slapt_source_t_init(const char *s)
     if (attribute_regex->reg_return == 0) {
         /* if we find an attribute string, extract it */
         attribute_string = slapt_regex_t_extract_match(attribute_regex, source_string, 1);
-        uint32_t attribute_len = strlen(attribute_string);
+        const uint32_t attribute_len = strlen(attribute_string);
         source_len -= attribute_len;
     }
     slapt_regex_t_free(attribute_regex);

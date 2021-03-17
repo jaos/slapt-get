@@ -80,7 +80,7 @@ void slapt_transaction_t_add_remove(slapt_transaction_t *, const slapt_pkg_t *pk
 /* add package to upgrade to transaction */
 void slapt_transaction_t_add_upgrade(slapt_transaction_t *, const slapt_pkg_t *installed_pkg, const slapt_pkg_t *upgrade_pkg);
 /* add package to reinstall to transaction */
-void slapt_transaction_t_add_reinstall(slapt_transaction_t *, slapt_pkg_t *installed_pkg, slapt_pkg_t *upgrade_pkg);
+void slapt_transaction_t_add_reinstall(slapt_transaction_t *, const slapt_pkg_t *installed_pkg, const slapt_pkg_t *upgrade_pkg);
 /* add package to exclude to transaction */
 void slapt_transaction_t_add_exclude(slapt_transaction_t *, const slapt_pkg_t *pkg);
 /* remove package from transaction, returns modified transaction */

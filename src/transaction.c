@@ -190,8 +190,8 @@ int slapt_transaction_t_run(const slapt_config_t *global_config, slapt_transacti
             slapt_pkg_t *u = upgrade->upgrade;
             slapt_pkg_t *p = upgrade->installed;
 
-            int line_len = len + strlen(u->name) + 1;
-            size_t existing_file_size = slapt_get_pkg_file_size(global_config, u) / 1024;
+            const int line_len = len + strlen(u->name) + 1;
+            const size_t existing_file_size = slapt_get_pkg_file_size(global_config, u) / 1024;
             download_size += u->size_c;
             if (existing_file_size <= u->size_c)
                 already_download_size += existing_file_size;
@@ -218,8 +218,8 @@ int slapt_transaction_t_run(const slapt_config_t *global_config, slapt_transacti
             slapt_pkg_t *u = reinstall_upgrade->upgrade;
             slapt_pkg_t *p = reinstall_upgrade->installed;
 
-            int line_len = len + strlen(u->name) + 1;
-            size_t existing_file_size = slapt_get_pkg_file_size(global_config, u) / 1024;
+            const int line_len = len + strlen(u->name) + 1;
+            const size_t existing_file_size = slapt_get_pkg_file_size(global_config, u) / 1024;
             download_size += u->size_c;
             if (existing_file_size <= u->size_c)
                 already_download_size += existing_file_size;
@@ -362,7 +362,7 @@ int slapt_transaction_t_run(const slapt_config_t *global_config, slapt_transacti
         return 0;
     }
 
-    uint32_t pkg_dl_count = tran->install_pkgs->size + tran->upgrade_pkgs->size + tran->reinstall_pkgs->size;
+    const uint32_t pkg_dl_count = tran->install_pkgs->size + tran->upgrade_pkgs->size + tran->reinstall_pkgs->size;
     uint32_t dl_counter = 0;
 
     /* download pkgs */
@@ -492,7 +492,7 @@ void slapt_transaction_t_add_exclude(slapt_transaction_t *tran, const slapt_pkg_
     slapt_vector_t_add(tran->exclude_pkgs, e);
 }
 
-void slapt_transaction_t_add_reinstall(slapt_transaction_t *tran, slapt_pkg_t *installed_pkg, slapt_pkg_t *slapt_upgrade_pkg)
+void slapt_transaction_t_add_reinstall(slapt_transaction_t *tran, const slapt_pkg_t *installed_pkg, const slapt_pkg_t *slapt_upgrade_pkg)
 {
     /* don't add if already present in the transaction */
     if (slapt_transaction_t_search_by_pkg(tran, slapt_upgrade_pkg))
@@ -652,7 +652,7 @@ int slapt_transaction_t_add_dependencies(const slapt_config_t *global_config,
 
     slapt_vector_t *deps = slapt_vector_t_init(NULL);
 
-    int dep_return = slapt_get_pkg_dependencies(global_config, avail_pkgs, installed_pkgs, pkg, deps, tran->conflict_err, tran->missing_err);
+    const int dep_return = slapt_get_pkg_dependencies(global_config, avail_pkgs, installed_pkgs, pkg, deps, tran->conflict_err, tran->missing_err);
 
     /* check to see if there where issues with dep checking */
     /* exclude the package if dep check barfed */

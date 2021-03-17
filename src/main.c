@@ -34,7 +34,7 @@ static void slapt_pkg_action_add_keys(const slapt_config_t *global_config);
 static void slapt_pkg_action_filelist(const char *pkg_name);
 static int cmp_pkg_arch(const char *a, const char *b);
 
-int main(int argc, char *argv[])
+int main(const int argc, char *argv[])
 {
     slapt_config_t *global_config, *initial_config; /* our config struct */
 
@@ -512,7 +512,7 @@ static void slapt_pkg_action_install(const slapt_config_t *global_config, const 
         exit(EXIT_FAILURE);
     }
 
-    slapt_vector_t_foreach (char *, arg, action_args) {
+    slapt_vector_t_foreach (const char *, arg, action_args) {
         slapt_pkg_t *pkg = NULL;
 
         /* Use regex to see if they specified a particular version */
@@ -632,7 +632,7 @@ static void slapt_pkg_action_list(const int show)
     slapt_vector_t *installed_pkgs = slapt_get_installed_pkgs();
 
     if (show == SLAPT_ACTION_LIST || show == SLAPT_ACTION_AVAILABLE) {
-        slapt_vector_t_foreach (slapt_pkg_t *, pkg, pkgs) {
+        slapt_vector_t_foreach (const slapt_pkg_t *, pkg, pkgs) {
             bool installed = false;
             char *short_description = slapt_pkg_t_short_description(pkg);
 
@@ -652,7 +652,7 @@ static void slapt_pkg_action_list(const int show)
         }
     }
     if (show == SLAPT_ACTION_LIST || show == SLAPT_ACTION_INSTALLED) {
-        slapt_vector_t_foreach (slapt_pkg_t *, pkg, installed_pkgs) {
+        slapt_vector_t_foreach (const slapt_pkg_t *, pkg, installed_pkgs) {
             if (show == SLAPT_ACTION_LIST) {
                 if (slapt_get_exact_pkg(pkgs, pkg->name, pkg->version) != NULL) {
                     continue;
@@ -688,7 +688,7 @@ static void slapt_pkg_action_remove(const slapt_config_t *global_config, const s
     }
 
     slapt_vector_t *scheduled = slapt_vector_t_init(NULL);
-    slapt_vector_t_foreach (char *, arg, action_args) {
+    slapt_vector_t_foreach (const char *, arg, action_args) {
         slapt_pkg_t *pkg = NULL;
 
         /* Use regex to see if they specified a particular version */
@@ -720,9 +720,9 @@ static void slapt_pkg_action_remove(const slapt_config_t *global_config, const s
         slapt_vector_t_add(scheduled, pkg);
         slapt_transaction_t_add_remove(tran, pkg);
     }
-    slapt_vector_t_foreach(slapt_pkg_t *, to_remove, scheduled) {
+    slapt_vector_t_foreach(const slapt_pkg_t *, to_remove, scheduled) {
         slapt_vector_t *deps = slapt_is_required_by(global_config, avail_pkgs, installed_pkgs, tran->install_pkgs, tran->remove_pkgs, to_remove);
-        slapt_vector_t_foreach (slapt_pkg_t *, dep, deps) {
+        slapt_vector_t_foreach (const slapt_pkg_t *, dep, deps) {
             if (slapt_get_exact_pkg(installed_pkgs, dep->name, dep->version) != NULL) {
                 slapt_transaction_t_add_remove(tran, dep);
             }
@@ -734,7 +734,7 @@ static void slapt_pkg_action_remove(const slapt_config_t *global_config, const s
     if (global_config->remove_obsolete) {
         slapt_vector_t *obsolete = slapt_get_obsolete_pkgs(global_config, avail_pkgs, installed_pkgs);
 
-        slapt_vector_t_foreach (slapt_pkg_t *, pkg, obsolete) {
+        slapt_vector_t_foreach (const slapt_pkg_t *, pkg, obsolete) {
             if (slapt_is_excluded(global_config, pkg)) {
                 slapt_transaction_t_add_exclude(tran, pkg);
             } else {
@@ -766,7 +766,7 @@ static void slapt_pkg_action_search(const char *pattern)
     slapt_vector_t *matches = slapt_search_pkg_list(pkgs, pattern);
     slapt_vector_t *i_matches = slapt_search_pkg_list(installed_pkgs, pattern);
 
-    slapt_vector_t_foreach (slapt_pkg_t *, pkg, matches) {
+    slapt_vector_t_foreach (const slapt_pkg_t *, pkg, matches) {
         char *short_description = slapt_pkg_t_short_description(pkg);
         printf("%s-%s [inst=%s]: %s\n",
                pkg->name,
@@ -778,7 +778,7 @@ static void slapt_pkg_action_search(const char *pattern)
         free(short_description);
     }
 
-    slapt_vector_t_foreach (slapt_pkg_t *, installed_pkg, i_matches) {
+    slapt_vector_t_foreach (const slapt_pkg_t *, installed_pkg, i_matches) {
         char *short_description = NULL;
         if (slapt_get_exact_pkg(matches, installed_pkg->name, installed_pkg->version) != NULL) {
             continue;
@@ -821,10 +821,8 @@ static void slapt_pkg_action_show(const char *pkg_name)
 
     /* If so, parse it out and try to get that version only */
     if (pkg_regex->reg_return == 0) {
-        char *p_name, *p_version;
-
-        p_name = slapt_regex_t_extract_match(pkg_regex, pkg_name, 1);
-        p_version = slapt_regex_t_extract_match(pkg_regex, pkg_name, 2);
+        char *p_name = slapt_regex_t_extract_match(pkg_regex, pkg_name, 1);
+        char *p_version = slapt_regex_t_extract_match(pkg_regex, pkg_name, 2);
 
         pkg = slapt_get_exact_pkg(avail_pkgs, p_name, p_version);
         if (pkg == NULL) {
@@ -934,8 +932,8 @@ static void slapt_pkg_action_upgrade_all(const slapt_config_t *global_config)
         for (uint32_t idx = 0; dist_upgrade_pkgs[idx].name != NULL; ++idx) {
             struct dist_upgrade_pkg essential = dist_upgrade_pkgs[idx];
 
-            slapt_pkg_t *inst_pkg = slapt_get_newest_pkg(installed_pkgs, essential.name);
-            slapt_pkg_t *avail_pkg = slapt_get_newest_pkg(avail_pkgs, essential.name);
+            const slapt_pkg_t *inst_pkg = slapt_get_newest_pkg(installed_pkgs, essential.name);
+            const slapt_pkg_t *avail_pkg = slapt_get_newest_pkg(avail_pkgs, essential.name);
 
             /* can we upgrade */
             if (inst_pkg != NULL && avail_pkg != NULL) {
@@ -958,7 +956,7 @@ static void slapt_pkg_action_upgrade_all(const slapt_config_t *global_config)
         slapt_vector_t_foreach (slapt_pkg_t *, pkg, matches) {
             slapt_pkg_t *slapt_upgrade_pkg = NULL;
 
-            slapt_pkg_t *installed_pkg = slapt_get_newest_pkg(installed_pkgs, pkg->name);
+            const slapt_pkg_t *installed_pkg = slapt_get_newest_pkg(installed_pkgs, pkg->name);
             slapt_pkg_t *newer_avail_pkg = slapt_get_newest_pkg(avail_pkgs, pkg->name);
             /* if there is a newer available version (such as from patches/) use it instead */
             if (slapt_pkg_t_cmp(pkg, newer_avail_pkg) < 0) {
@@ -975,7 +973,7 @@ static void slapt_pkg_action_upgrade_all(const slapt_config_t *global_config)
                     slapt_vector_t *conflicts = slapt_transaction_t_find_conflicts(tran, avail_pkgs, installed_pkgs, slapt_upgrade_pkg);
 
                     /* add install if all deps are good and it doesn't have conflicts */
-                    int rc = slapt_transaction_t_add_dependencies(global_config, tran, avail_pkgs, installed_pkgs, slapt_upgrade_pkg);
+                    const int rc = slapt_transaction_t_add_dependencies(global_config, tran, avail_pkgs, installed_pkgs, slapt_upgrade_pkg);
                     if (!rc && !conflicts->size && !global_config->ignore_dep) {
                         slapt_transaction_t_add_install(tran, slapt_upgrade_pkg);
                     } else {
@@ -1037,7 +1035,7 @@ static void slapt_pkg_action_upgrade_all(const slapt_config_t *global_config)
         }
     }
 
-    slapt_vector_t_foreach (slapt_pkg_t *, installed_pkg, installed_pkgs) {
+    slapt_vector_t_foreach (const slapt_pkg_t *, installed_pkg, installed_pkgs) {
         slapt_pkg_t *update_pkg = NULL;
         slapt_pkg_t *newer_installed_pkg = NULL;
 
@@ -1052,7 +1050,7 @@ static void slapt_pkg_action_upgrade_all(const slapt_config_t *global_config)
         update_pkg = slapt_get_newest_pkg(avail_pkgs, installed_pkg->name);
         if (update_pkg != NULL) {
             /* if the update has a newer version, attempt to upgrade */
-            int cmp_r = slapt_pkg_t_cmp(installed_pkg, update_pkg);
+            const int cmp_r = slapt_pkg_t_cmp(installed_pkg, update_pkg);
             if (
                 /* either it's greater, or we want to reinstall */
                 cmp_r < 0 || (global_config->re_install) ||
@@ -1179,10 +1177,8 @@ static void slapt_pkg_action_filelist(const char *pkg_name)
     /* If so, parse it out and try to get that version only */
     slapt_pkg_t *pkg = NULL;
     if (pkg_regex->reg_return == 0) {
-        char *p_name, *p_version;
-
-        p_name = slapt_regex_t_extract_match(pkg_regex, pkg_name, 1);
-        p_version = slapt_regex_t_extract_match(pkg_regex, pkg_name, 2);
+        char *p_name = slapt_regex_t_extract_match(pkg_regex, pkg_name, 1);
+        char *p_version = slapt_regex_t_extract_match(pkg_regex, pkg_name, 2);
 
         pkg = slapt_get_exact_pkg(installed_pkgs, p_name, p_version);
 

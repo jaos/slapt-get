@@ -117,7 +117,7 @@ slapt_pkg_t *slapt_pkg_t_init(void);
 /* frees the package structure */
 void slapt_pkg_t_free(slapt_pkg_t *pkg);
 /* generate a short description, returns (char *) on success or NULL on error, caller responsible for freeing the returned data */
-char *slapt_pkg_t_short_description(slapt_pkg_t *);
+char *slapt_pkg_t_short_description(const slapt_pkg_t *);
 /* clean package name from package description */
 char *slapt_pkg_t_clean_description(const slapt_pkg_t *);
 /* generate the download url for a package, caller responsible for freeing the returned data */
@@ -201,7 +201,7 @@ size_t slapt_get_pkg_file_size(const slapt_config_t *global_config, const slapt_
 int slapt_get_pkg_dependencies(const slapt_config_t *global_config,
                                const slapt_vector_t *avail_pkgs,
                                const slapt_vector_t *installed_pkgs,
-                               slapt_pkg_t *pkg,
+                               const slapt_pkg_t *pkg,
                                slapt_vector_t *deps,
                                slapt_vector_t *conflict_err,
                                slapt_vector_t *missing_err);
@@ -213,7 +213,7 @@ slapt_vector_t *slapt_is_required_by(const slapt_config_t *global_config,
                                      const slapt_vector_t *installed_pkgs,
                                      slapt_vector_t *pkgs_to_install,
                                      slapt_vector_t *pkgs_to_remove,
-                                     slapt_pkg_t *pkg);
+                                     const slapt_pkg_t *pkg);
 
 /*
   clean out old outdated packages in the cache that are no longer available

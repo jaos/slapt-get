@@ -159,7 +159,7 @@ char *slapt_head_request(const char *url)
 
 const char *slapt_get_mirror_data_from_source(FILE *fh, const slapt_config_t *global_config, const char *base_url, const char *filename)
 {
-    size_t url_len = strlen(base_url) + strlen(filename) + 1;
+    const size_t url_len = strlen(base_url) + strlen(filename) + 1;
     char *url = slapt_calloc(url_len, sizeof *url);
 
     if (snprintf(url, url_len, "%s%s", base_url, filename) < 1) {
@@ -167,7 +167,7 @@ const char *slapt_get_mirror_data_from_source(FILE *fh, const slapt_config_t *gl
         exit(EXIT_FAILURE);
     }
 
-    int return_code = slapt_download_data(fh, url, 0, NULL, global_config);
+    const int return_code = slapt_download_data(fh, url, 0, NULL, global_config);
 
     free(url);
     /* make sure we are back at the front of the file */
@@ -176,7 +176,7 @@ const char *slapt_get_mirror_data_from_source(FILE *fh, const slapt_config_t *gl
     return return_code != 0 ? curl_easy_strerror(return_code) : NULL;
 }
 
-const char *slapt_download_pkg(const slapt_config_t *global_config, slapt_pkg_t *pkg, const char *note)
+const char *slapt_download_pkg(const slapt_config_t *global_config, const slapt_pkg_t *pkg, const char *note)
 {
     slapt_code_t verify = SLAPT_OK;
     bool is_interactive = slapt_is_interactive(global_config);
@@ -237,7 +237,7 @@ const char *slapt_download_pkg(const slapt_config_t *global_config, slapt_pkg_t 
 
     /* download the file to our file handle */
     long filetime = 0;
-    int dl_return = slapt_download_data(fh, url, f_size, &filetime, global_config);
+    const int dl_return = slapt_download_data(fh, url, f_size, &filetime, global_config);
     if (dl_return == 0) {
         if (is_interactive)
             printf(gettext("Done\n"));
@@ -321,7 +321,7 @@ int slapt_progress_callback(void *clientp, double dltotal, double dlnow, double 
 {
     size_t percent = 0;
     struct slapt_progress_data *cb_data = (struct slapt_progress_data *)clientp;
-    size_t bytes = cb_data->bytes;
+    const size_t bytes = cb_data->bytes;
     (void)ultotal;
     (void)ulnow;
 
@@ -378,7 +378,7 @@ char *slapt_read_head_cache(const char *cache_filename)
 
 char *slapt_gen_head_cache_filename(const char *filename_from_url)
 {
-    size_t head_filename_len = strlen(filename_from_url) + strlen(SLAPT_HEAD_FILE_EXT) + 1;
+    const size_t head_filename_len = strlen(filename_from_url) + strlen(SLAPT_HEAD_FILE_EXT) + 1;
     char *head_filename = slapt_calloc(head_filename_len, sizeof *head_filename);
     if (snprintf(head_filename, head_filename_len, "%s%s", filename_from_url, SLAPT_HEAD_FILE_EXT) < 1) {
         fprintf(stderr, "slapt_gen_head_cache_filename error for %s\n", filename_from_url);
@@ -405,7 +405,7 @@ void slapt_clear_head_cache(const char *cache_filename)
 char *slapt_head_mirror_data(const char *wurl, const char *file)
 {
     /* build url */
-    size_t url_len = strlen(wurl) + strlen(file) + 1;
+    const size_t url_len = strlen(wurl) + strlen(file) + 1;
     char *url = slapt_calloc(url_len, sizeof *url);
     if (snprintf(url, url_len, "%s%s", wurl, file) < 1) {
         fprintf(stderr, "slapt_head_mirror_data error for %s\n", wurl);
@@ -435,7 +435,7 @@ char *slapt_head_mirror_data(const char *wurl, const char *file)
         return NULL;
     }
 
-    int request_header_len = strlen(request_header_ptr) - strlen(delim_ptr);
+    const int request_header_len = strlen(request_header_ptr) - strlen(delim_ptr);
     char *request_header = slapt_calloc(request_header_len + 1, sizeof *request_header);
     memcpy(request_header, request_header_ptr, request_header_len);
 

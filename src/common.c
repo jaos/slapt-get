@@ -48,7 +48,7 @@ slapt_regex_t *slapt_regex_t_init(const char *regex_string)
     if (r->reg_return != 0) {
         size_t regerror_size;
         char errbuf[1024];
-        size_t errbuf_size = 1024;
+        const size_t errbuf_size = 1024;
         fprintf(stderr, gettext("Failed to compile regex\n"));
 
         if ((regerror_size = regerror(r->reg_return, &r->regex, errbuf, errbuf_size)) != 0) {
@@ -153,7 +153,7 @@ static char *join_path(char **v, size_t start, size_t end, bool absolute) {
     }
     for(size_t counter = start; counter <= end; ++counter) {
         char *piece = v[counter];
-        size_t piece_size = strlen(piece) + 1;
+        const size_t piece_size = strlen(piece) + 1;
         if (counter != 0) {
             joined = strncat(joined, "/", 2);
         }
@@ -562,7 +562,7 @@ size_t slapt_strlcpy(char *dst, const char *src, size_t size)
         return 0;
     }
 
-    size_t src_length = strnlen (src, size);
+    const size_t src_length = strnlen (src, size);
     if (src_length >= size) {
         if (src_length != size) {
             fprintf(stderr, "Truncating %s [%zd to %zd]\n", src, size, src_length);
@@ -597,7 +597,7 @@ char *slapt_gen_package_log_dir_name(void)
     }
 
     int written = 0;
-    size_t pkg_log_dirname_len = strlen(path) + (root_env_entry ? strlen(root_env_entry) : 0) + 1;
+    const size_t pkg_log_dirname_len = strlen(path) + (root_env_entry ? strlen(root_env_entry) : 0) + 1;
     char *pkg_log_dirname = slapt_calloc(pkg_log_dirname_len, sizeof *pkg_log_dirname);
     if (root_env_entry) {
         written = snprintf(pkg_log_dirname, pkg_log_dirname_len, "%s%s", root_env_entry, path);
