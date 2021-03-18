@@ -342,10 +342,14 @@ int main(const int argc, char *argv[])
         slapt_vector_t *avail_pkgs = slapt_get_available_pkgs();
 
         while (optind < argc) {
-            char *search = slapt_malloc(sizeof *search * (strlen(argv[optind]) + 3));
-            snprintf(search, strlen(argv[optind]) + 3, "/%s$", argv[optind]);
+            const int search_len = strlen(argv[optind]) + 3;
+            char search[search_len];
+            const int written = snprintf(search, strlen(argv[optind]) + 3, "/%s$", argv[optind]);
+            if (written != (search_len - 1)) {
+                fprintf(stderr, "search string construction failed\n");
+                exit(EXIT_FAILURE);
+            }
             slapt_vector_t *matches = slapt_search_pkg_list(avail_pkgs, search);
-            free(search);
 
             slapt_vector_t_foreach (const slapt_pkg_t *, match, matches) {
                 if (!slapt_is_excluded(global_config, match)) {
