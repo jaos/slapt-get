@@ -4,13 +4,18 @@ set -euox
 TEST_TMPDIR=$(mktemp -d)
 trap "rm -rf ${TEST_TMPDIR};" err exit
 
+PRIMARY_MIRRORS=" http://www.slackel.gr/repo/x86_64/slackware-current/ https://slackware.uk/slackware/slackware64-current/ https://slackware.osuosl.org/slackware64-current/"
+for MIRROR in ${PRIMARY_MIRRORS}; do
+    curl -s -I ${MIRROR}/GPG-KEY &>/dev/null && break
+done
+
 slaptget="${1}"
 config=${TEST_TMPDIR}/config
 cat > ${config} << EOF
 WORKINGDIR=
 WORKINGDIR=${TEST_TMPDIR}/slapt-get-cache
 EXCLUDE=
-SOURCE=http://www.slackel.gr/repo/x86_64/slackware-current/:OFFICIAL
+SOURCE=${MIRROR}:OFFICIAL
 SOURCE=https://storage.googleapis.com/slackpacks.jaos.org/slackware64-15.0/:OFFICIAL
 EOF
 mkdir -p ${TEST_TMPDIR}/var/lib/pkgtools/packages
@@ -38,8 +43,12 @@ EOF
 ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --add-keys
 ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --update
 ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --upgrade -s
+ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --upgrade --print-uris
 ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --dist-upgrade -s
 ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --remove aaa_base -s
+ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --search slapt
+ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --installed
+ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --available
 ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --remove --remove-obsolete -s
 ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --install-set xap -s
 ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --install aaa_base --reinstall --download-only
