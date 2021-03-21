@@ -1,8 +1,9 @@
 # working directory, local storage/cache
 WORKINGDIR=/var/cache/slapt-get
 
-# exclude package names and expressions
-EXCLUDE=^kernel-.*,^glibc.*,.*-[0-9]+dl$,^devs$,^udev$
+# exclude package names and expressions (comma delimited)
+EXCLUDE=^kernel-(generic|huge|modules|firmware)$
+
 # Architecture specific excludes might include: x86_64, i[3456]86, arm, aarch64
 # To exclude pre and beta packages, add this as an exclude: 
 # [0-9\_\.\-]{1}pre[0-9\-\.\-]{1}
