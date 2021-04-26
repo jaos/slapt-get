@@ -25,7 +25,7 @@
 
 typedef struct {
     char *url;
-    SLAPT_PRIORITY_T priority;
+    slapt_priority_t priority;
     bool disabled;
 } slapt_source_t;
 
@@ -59,6 +59,8 @@ slapt_config_t *slapt_config_t_init(void);
 slapt_config_t *slapt_config_t_read(const char *file_name);
 /* free rc_config structure */
 void slapt_config_t_free(slapt_config_t *global_config);
+int slapt_config_t_write(const slapt_config_t *global_config, const char *location);
+bool slapt_is_interactive(const slapt_config_t *);
 
 /* check that working_dir exists or make it if permissions allow */
 void slapt_working_dir_init(const slapt_config_t *global_config);
@@ -66,7 +68,3 @@ void slapt_working_dir_init(const slapt_config_t *global_config);
 /* create, destroy the source struct */
 slapt_source_t *slapt_source_t_init(const char *s);
 void slapt_source_t_free(slapt_source_t *src);
-
-bool slapt_is_interactive(const slapt_config_t *);
-
-int slapt_config_t_write(const slapt_config_t *global_config, const char *location);

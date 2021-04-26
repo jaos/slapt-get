@@ -1,3 +1,3 @@
 WORKINGDIR=data/slapt-get
-EXCLUDE=^kernel-.*,^alsa-.*,.*-[0-9]+dl$,^devs$,^udev$
-SOURCE=http://software.jaos.org/slackpacks/13.37/
+EXCLUDE=^kernel-(generic|huge|modules|firmware)$,^foo$,^foo(bar|baz)$,.*-[0-9]+_SBo$,.*-[0-9]+_JaosOrg$
+SOURCE=https://storage.googleapis.com/slackpacks.jaos.org/slackware64-15.0/:OFFICIAL

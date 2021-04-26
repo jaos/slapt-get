@@ -53,7 +53,7 @@ typedef enum {
     SLAPT_PRIORITY_PREFERRED_PATCH,
     SLAPT_PRIORITY_CUSTOM,
     SLAPT_PRIORITY_CUSTOM_PATCH
-} SLAPT_PRIORITY_T;
+} slapt_priority_t;
 
 #define SLAPT_PRIORITY_DEFAULT_TOKEN "DEFAULT"
 #define SLAPT_PRIORITY_PREFERRED_TOKEN "PREFERRED"
@@ -82,8 +82,8 @@ void slapt_vector_t_free(slapt_vector_t *);
 void slapt_vector_t_add(slapt_vector_t *, void *);
 void slapt_vector_t_remove(slapt_vector_t *v, void *);
 void slapt_vector_t_sort(slapt_vector_t *, slapt_vector_t_qsort_cmp);
-int slapt_vector_t_index_of(slapt_vector_t *, slapt_vector_t_cmp, void *);
-slapt_vector_t *slapt_vector_t_search(slapt_vector_t *, slapt_vector_t_cmp, void *);
+int slapt_vector_t_index_of(const slapt_vector_t *, slapt_vector_t_cmp, void *);
+slapt_vector_t *slapt_vector_t_search(const slapt_vector_t *, slapt_vector_t_cmp, void *);
 #define slapt_vector_t_foreach(type, item, list) \
     type item;                                   \
     if (list) for (uint32_t item##__counter__ = 0; (item##__counter__ < list->size) && (item = list->items[item##__counter__]); item##__counter__++)
@@ -107,13 +107,22 @@ void *slapt_malloc(size_t s);
 void *slapt_calloc(size_t n, size_t s);
 
 /* return human readable error */
-const char *slapt_strerror(slapt_code_t code);
+const char *slapt_strerror(const slapt_code_t code);
 /* return human readable priority */
-const char *slapt_priority_to_str(SLAPT_PRIORITY_T priority);
+const char *slapt_priority_to_str(slapt_priority_t priority);
 bool slapt_disk_space_check(const char *path, double space_needed);
 
 /* utils */
-slapt_vector_t *slapt_parse_delimited_list(char *line, char delim);
+slapt_vector_t *slapt_parse_delimited_list(const char *line, char delim);
 char *slapt_strip_whitespace(const char *s);
 
 size_t slapt_strlcpy(char *, const char *, size_t);
+
+/*
+  generate the directory name for the package log directory,
+  considering the root environment variable if set
+  caller responsible for freeing the returned data
+ */
+char *slapt_gen_package_log_dir_name(void);
+/* empty packages from cache dir */
+void slapt_clean_pkg_dir(const char *dir_name);

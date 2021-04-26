@@ -20,12 +20,13 @@
 
 FILE *slapt_open_file(const char *file_name, const char *mode)
 {
-    FILE *fh = NULL;
-    if ((fh = fopen(file_name, mode)) == NULL) {
+    FILE *fh = fopen(file_name, mode);
+    if (fh == NULL) {
         fprintf(stderr, gettext("Failed to open %s\n"), file_name);
 
-        if (errno)
+        if (errno) {
             perror(file_name);
+        }
 
         return NULL;
     }
@@ -35,13 +36,10 @@ FILE *slapt_open_file(const char *file_name, const char *mode)
 /* initialize regex structure and compile the regular expression */
 slapt_regex_t *slapt_regex_t_init(const char *regex_string)
 {
-    slapt_regex_t *r;
-
     if (regex_string == NULL)
         return NULL;
 
-    r = slapt_malloc(sizeof *r);
-
+    slapt_regex_t *r = slapt_malloc(sizeof *r);
     r->nmatch = SLAPT_MAX_REGEX_PARTS;
     r->reg_return = -1;
 
@@ -50,7 +48,7 @@ slapt_regex_t *slapt_regex_t_init(const char *regex_string)
     if (r->reg_return != 0) {
         size_t regerror_size;
         char errbuf[1024];
-        size_t errbuf_size = 1024;
+        const size_t errbuf_size = 1024;
         fprintf(stderr, gettext("Failed to compile regex\n"));
 
         if ((regerror_size = regerror(r->reg_return, &r->regex, errbuf, errbuf_size)) != 0) {
@@ -92,26 +90,24 @@ void slapt_regex_t_free(slapt_regex_t *r)
 
 void slapt_gen_md5_sum_of_file(FILE *f, char *result_sum)
 {
-    EVP_MD_CTX *mdctx = NULL;
-    const EVP_MD *md;
     unsigned char md_value[EVP_MAX_MD_SIZE];
     uint32_t md_len = 0;
-    ssize_t getline_read;
-    size_t getline_size;
-    char *getline_buffer = NULL;
 
-    md = EVP_md5();
+    const EVP_MD *md = EVP_md5();
 
 #if OPENSSL_VERSION_NUMBER >= 0x10100000L
-    mdctx = EVP_MD_CTX_new();
+    EVP_MD_CTX *mdctx = EVP_MD_CTX_new();
 #else
-    mdctx = slapt_malloc(sizeof *mdctx);
+    EVP_MD_CTX *mdctx = slapt_malloc(sizeof *mdctx);
     EVP_MD_CTX_init(mdctx);
 #endif
     EVP_DigestInit_ex(mdctx, md, NULL);
 
     rewind(f);
 
+    ssize_t getline_read;
+    size_t getline_size;
+    char *getline_buffer = NULL;
     while ((getline_read = getline(&getline_buffer, &getline_size, f)) != EOF)
         EVP_DigestUpdate(mdctx, getline_buffer, getline_read);
 
@@ -134,76 +130,61 @@ void slapt_gen_md5_sum_of_file(FILE *f, char *result_sum)
     }
 }
 
-/* recursively create dirs */
+static char *join_path(char **v, size_t start, size_t end, bool absolute) {
+    if (end < start) {
+        fprintf(stderr, "invalid path start/end\n");
+        exit(EXIT_FAILURE);
+    }
+    size_t joined_size = 3 + (end - start); // start (if absolute) + delim + \0
+    for(size_t counter = start; counter <= end; ++counter) {
+        joined_size += strlen(v[counter]);
+    }
+    if (joined_size > PATH_MAX) {
+        fprintf(stderr, "path too large\n");
+        exit(EXIT_FAILURE);
+    }
+
+    char *joined = malloc(sizeof(*joined) * joined_size);
+    if (absolute) {
+        joined[0] = '/';
+        joined[1] = '\0';
+    } else {
+        joined[0] = '\0';
+    }
+    for(size_t counter = start; counter <= end; ++counter) {
+        char *piece = v[counter];
+        const size_t piece_size = strlen(piece) + 1;
+        if (counter != 0) {
+            joined = strncat(joined, "/", 2);
+        }
+        joined = strncat(joined, piece, piece_size);
+    }
+    return joined;
+}
+
 void slapt_create_dir_structure(const char *dir_name)
 {
-    char *cwd = NULL;
-    int position = 0, len = 0;
-
-    cwd = getcwd(NULL, 0);
-    if (cwd == NULL) {
-        fprintf(stderr, gettext("Failed to get cwd\n"));
-        return;
+    bool absolute = false;
+    if (dir_name[0] == '/'){
+        absolute = true;
     }
 
-    len = strlen(dir_name);
-    while (position < len) {
-        char *pointer = NULL;
-        char *dir_name_buffer = NULL;
-
-        /* if no more directory delim, then this must be last dir */
-        if (strstr(dir_name + position, "/") == NULL) {
-            dir_name_buffer = strndup(dir_name + position, strlen(dir_name + position));
-
-            if (strcmp(dir_name_buffer, ".") != 0) {
-                if ((mkdir(dir_name_buffer, 0755)) == -1) {
-                    if (errno != EEXIST) {
-                        fprintf(stderr, gettext("Failed to mkdir: %s\n"), dir_name_buffer);
-                        exit(EXIT_FAILURE);
-                    }
-                }
-                if ((chdir(dir_name_buffer)) == -1) {
-                    fprintf(stderr, gettext("Failed to chdir to %s\n"), dir_name_buffer);
+    slapt_vector_t *dir_parts = slapt_parse_delimited_list(dir_name, '/');
+    for(size_t c = 0; c < dir_parts->size; ++c) {
+        char *joined = join_path((char **)dir_parts->items, 0, c, absolute);
+        struct stat stat_buf;
+        if (stat(joined, &stat_buf) != 0) {
+            if (mkdir(joined, 0755) != 0) {
+                if (errno != EEXIST) {
+                    fprintf(stderr, gettext("Failed to mkdir %s: %s\n"), joined, strerror(errno));
                     exit(EXIT_FAILURE);
                 }
-            } /* don't create . */
-
-            free(dir_name_buffer);
-            break;
-        } else {
-            if (dir_name[position] == '/') {
-                /* move on ahead */
-                ++position;
-            } else {
-                /* figure our dir name and mk it */
-                pointer = strchr(dir_name + position, '/');
-                dir_name_buffer = strndup(dir_name + position, strlen(dir_name + position) - strlen(pointer));
-
-                if (strcmp(dir_name_buffer, ".") != 0) {
-                    if ((mkdir(dir_name_buffer, 0755)) == -1) {
-                        if (errno != EEXIST) {
-                            fprintf(stderr, gettext("Failed to mkdir: %s\n"), dir_name_buffer);
-                            exit(EXIT_FAILURE);
-                        }
-                    }
-                    if ((chdir(dir_name_buffer)) == -1) {
-                        fprintf(stderr, gettext("Failed to chdir to %s\n"), dir_name_buffer);
-                        exit(EXIT_FAILURE);
-                    }
-                } /* don't create . */
-
-                free(dir_name_buffer);
-                position += (strlen(dir_name + position) - strlen(pointer));
             }
         }
-    } /* end while */
 
-    if ((chdir(cwd)) == -1) {
-        fprintf(stderr, gettext("Failed to chdir to %s\n"), cwd);
-        return;
+        free(joined);
     }
-
-    free(cwd);
+    slapt_vector_t_free(dir_parts);
 }
 
 int slapt_ask_yes_no(const char *format, ...)
@@ -216,18 +197,22 @@ int slapt_ask_yes_no(const char *format, ...)
     va_end(arg_list);
 
     while ((answer = fgetc(stdin)) != EOF) {
-        if (answer == '\n')
+        if (answer == '\n') {
             break;
+        }
 
-        if (((tolower(answer) == 'y') || (tolower(answer) == 'n')) && parsed_answer == 0)
+        if (((tolower(answer) == 'y') || (tolower(answer) == 'n')) && parsed_answer == 0) {
             parsed_answer = tolower(answer);
+        }
     }
 
-    if (parsed_answer == 'y')
+    if (parsed_answer == 'y') {
         return 1;
+    }
 
-    if (parsed_answer == 'n')
+    if (parsed_answer == 'n') {
         return 0;
+    }
 
     return -1;
 }
@@ -257,8 +242,9 @@ void *slapt_malloc(size_t s)
     if (!(p = malloc(s))) {
         fprintf(stderr, gettext("Failed to malloc\n"));
 
-        if (errno)
+        if (errno) {
             perror("malloc");
+        }
 
         exit(EXIT_FAILURE);
     }
@@ -271,15 +257,16 @@ void *slapt_calloc(size_t n, size_t s)
     if (!(p = calloc(n, s))) {
         fprintf(stderr, gettext("Failed to calloc\n"));
 
-        if (errno)
+        if (errno) {
             perror("calloc");
+        }
 
         exit(EXIT_FAILURE);
     }
     return p;
 }
 
-const char *slapt_strerror(slapt_code_t code)
+const char *slapt_strerror(const slapt_code_t code)
 {
     switch (code) {
     case SLAPT_OK:
@@ -329,7 +316,7 @@ const char *slapt_strerror(slapt_code_t code)
     };
 }
 
-const char *slapt_priority_to_str(SLAPT_PRIORITY_T priority)
+const char *slapt_priority_to_str(slapt_priority_t priority)
 {
     switch (priority) {
     case SLAPT_PRIORITY_DEFAULT:
@@ -357,34 +344,37 @@ bool slapt_disk_space_check(const char *path, double space_needed)
 {
     struct statvfs statvfs_buf;
 
-    if (space_needed < 0)
+    if (space_needed < 0) {
         return true;
+    }
 
     space_needed *= 1024;
 
     if (statvfs(path, &statvfs_buf) != 0) {
-        if (errno)
+        if (errno) {
             perror("statvfs");
-
+        }
         return false;
     } else {
-        if (statvfs_buf.f_bavail < (space_needed / statvfs_buf.f_bsize))
+        if (statvfs_buf.f_bavail < (space_needed / statvfs_buf.f_bsize)) {
             return false;
+        }
     }
 
     return true;
 }
 
-slapt_vector_t *slapt_parse_delimited_list(char *line, char delim)
+slapt_vector_t *slapt_parse_delimited_list(const char *line, const char delim)
 {
     slapt_vector_t *list = slapt_vector_t_init(free);
     int count = 0, position = 0, len = strlen(line);
 
-    while (isspace(line[position]) != 0)
+    while (isspace(line[position]) != 0) {
         ++position;
+    }
 
     while (position < len) {
-        char *start = line + position;
+        const char *start = line + position;
         char *end = NULL, *ptr = NULL;
         int start_len = strlen(start), end_len = 0;
 
@@ -396,8 +386,9 @@ slapt_vector_t *slapt_parse_delimited_list(char *line, char delim)
             end = strchr(start, delim);
         }
 
-        if (end != NULL)
+        if (end != NULL) {
             end_len = strlen(end);
+        }
 
         ptr = strndup(start, start_len - end_len);
 
@@ -434,8 +425,9 @@ slapt_vector_t *slapt_vector_t_init(slapt_vector_t_free_function f)
 
 void slapt_vector_t_free(slapt_vector_t *v)
 {
-    if (!v)
+    if (!v) {
         return;
+    }
 
     if (v->free_function) {
         for (uint32_t i = 0; i < v->size; i++) {
@@ -487,7 +479,7 @@ void slapt_vector_t_sort(slapt_vector_t *v, slapt_vector_t_qsort_cmp cmp)
     }
 }
 
-int slapt_vector_t_index_of(slapt_vector_t *v, slapt_vector_t_cmp cmp, void *opt)
+int slapt_vector_t_index_of(const slapt_vector_t *v, slapt_vector_t_cmp cmp, void *opt)
 {
     if (v->sorted) {
         int min = 0, max = v->size - 1;
@@ -514,7 +506,7 @@ int slapt_vector_t_index_of(slapt_vector_t *v, slapt_vector_t_cmp cmp, void *opt
     return -1;
 }
 
-slapt_vector_t *slapt_vector_t_search(slapt_vector_t *v, slapt_vector_t_cmp cmp, void *opt)
+slapt_vector_t *slapt_vector_t_search(const slapt_vector_t *v, slapt_vector_t_cmp cmp, void *opt)
 {
     slapt_vector_t *matches = slapt_vector_t_init(NULL);
 
@@ -570,7 +562,7 @@ size_t slapt_strlcpy(char *dst, const char *src, size_t size)
         return 0;
     }
 
-    size_t src_length = strnlen (src, size);
+    const size_t src_length = strnlen (src, size);
     if (src_length >= size) {
         if (src_length != size) {
             fprintf(stderr, "Truncating %s [%zd to %zd]\n", src, size, src_length);
@@ -583,4 +575,96 @@ size_t slapt_strlcpy(char *dst, const char *src, size_t size)
         memcpy (dst, src, src_length + 1);
         return src_length;
     }
+}
+
+char *slapt_gen_package_log_dir_name(void)
+{
+    /* Generate package log directory using ROOT env variable if set */
+    char *root_env_entry = NULL;
+    if (getenv(SLAPT_ROOT_ENV_NAME) && strlen(getenv(SLAPT_ROOT_ENV_NAME)) < SLAPT_ROOT_ENV_LEN) {
+        root_env_entry = getenv(SLAPT_ROOT_ENV_NAME);
+    }
+
+    char *path = NULL;
+    struct stat stat_buf;
+    if (stat(SLAPT_PKG_LIB_DIR, &stat_buf) == 0) {
+        path = SLAPT_PKG_LIB_DIR;
+    } else if (stat(SLAPT_PKG_LOG_DIR, &stat_buf) == 0) {
+        path = SLAPT_PKG_LOG_DIR;
+    } else {
+        /* this should never happen */
+        exit(EXIT_FAILURE);
+    }
+
+    int written = 0;
+    const size_t pkg_log_dirname_len = strlen(path) + (root_env_entry ? strlen(root_env_entry) : 0) + 1;
+    char *pkg_log_dirname = slapt_calloc(pkg_log_dirname_len, sizeof *pkg_log_dirname);
+    if (root_env_entry) {
+        written = snprintf(pkg_log_dirname, pkg_log_dirname_len, "%s%s", root_env_entry, path);
+    } else {
+        written = snprintf(pkg_log_dirname, pkg_log_dirname_len, "%s", path);
+    }
+
+    if (written != (int)(pkg_log_dirname_len - 1)) {
+        fprintf(stderr, "slapt_gen_package_log_dir_name error\n");
+        exit(EXIT_FAILURE);
+    }
+
+    return pkg_log_dirname;
+}
+
+void slapt_clean_pkg_dir(const char *dir_name)
+{
+    DIR *dir = opendir(dir_name);
+    if (dir == NULL) {
+        fprintf(stderr, gettext("Failed to opendir %s\n"), dir_name);
+        return;
+    }
+
+    if (chdir(dir_name) == -1) {
+        fprintf(stderr, gettext("Failed to chdir: %s\n"), dir_name);
+        closedir(dir);
+        return;
+    }
+
+    slapt_regex_t *cached_pkgs_regex = slapt_regex_t_init(SLAPT_PKG_PARSE_REGEX);
+    if (cached_pkgs_regex == NULL) {
+        exit(EXIT_FAILURE);
+    }
+
+    struct dirent *file;
+    while ((file = readdir(dir))) {
+        /* make sure we don't have . or .. */
+        if ((strcmp(file->d_name, "..")) == 0 || (strcmp(file->d_name, ".") == 0)) {
+            continue;
+        }
+
+        struct stat file_stat;
+        if ((lstat(file->d_name, &file_stat)) == -1) {
+            continue;
+        }
+
+        /* if its a directory, recurse */
+        if (S_ISDIR(file_stat.st_mode)) {
+            slapt_clean_pkg_dir(file->d_name);
+            if ((chdir("..")) == -1) {
+                fprintf(stderr, gettext("Failed to chdir: %s\n"), dir_name);
+                return;
+            }
+            continue;
+        }
+        if (strstr(file->d_name, ".t") != NULL) {
+            slapt_regex_t_execute(cached_pkgs_regex, file->d_name);
+
+            /* if our regex matches */
+            if (cached_pkgs_regex->reg_return == 0) {
+                if (unlink(file->d_name) != 0) {
+                    perror(file->d_name);
+                }
+            }
+        }
+    }
+    closedir(dir);
+
+    slapt_regex_t_free(cached_pkgs_regex);
 }

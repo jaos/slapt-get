@@ -8,7 +8,7 @@ LDFLAGS=$(CURLFLAGS) $(GPGMEFLAGS) -lz -lm
 CHECKFLAGS=`pkg-config --libs check`
 
 test: $(TESTOBJS)
-	$(CC) -o test $(TESTOBJS) $(CFLAGS) ../src/libslapt.so $(CHECKFLAGS) $(LDFLAGS)
+	$(CC) -o test $(TESTOBJS) $(CFLAGS) -Wl,-rpath,../src/ -L../src/ -lslapt $(CHECKFLAGS) $(LDFLAGS)
 
 runtest: test
 	sed -i.bak -re 's|(WORKINGDIR=)([^\/]+.*)|\1$(shell pwd)/\2|' data/rc1

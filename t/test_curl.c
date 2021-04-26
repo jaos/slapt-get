@@ -19,22 +19,22 @@ START_TEST(test_slapt_get_mirror_data_from_source)
 
     f = slapt_open_file("data/PACKAGES.TXT", "w+b");
     err = slapt_get_mirror_data_from_source(f, rc, url, packages);
-    fail_if(err);
+    ck_assert(!err);
     fclose(f);
 
     f = slapt_open_file("data/PACKAGES.TXT.gz", "w+b");
     err = slapt_get_mirror_data_from_source(f, rc, url, packages_gz);
-    fail_if(err);
+    ck_assert(!err);
     fclose(f);
 
     f = slapt_open_file("data/CHECKSUMS.md5", "w+b");
     err = slapt_get_mirror_data_from_source(f, rc, url, checksums);
-    fail_if(err);
+    ck_assert(!err);
     fclose(f);
 
     f = slapt_open_file("data/CHECKSUMS.md5.gz", "w+b");
     err = slapt_get_mirror_data_from_source(f, rc, url, checksums_gz);
-    fail_if(err);
+    ck_assert(!err);
     fclose(f);
 
     unlink("data/PACKAGES.TXT");
@@ -54,7 +54,7 @@ START_TEST(test_slapt_download_pkg)
     slapt_working_dir_init(rc);
 
     err = slapt_download_pkg(rc, &pkg, NULL);
-    fail_if(err);
+    ck_assert(!err);
 
     slapt_config_t_free(rc);
 }
@@ -63,20 +63,20 @@ END_TEST
 START_TEST(test_head)
 {
     char *head = slapt_head_request("http://www.google.com/");
-    fail_if(head == NULL);
-    fail_if(strstr(head, "Content-Type") == NULL);
+    ck_assert(head != NULL);
+    ck_assert(strstr(head, "Content-Type") != NULL);
 
     slapt_write_head_cache(head, "data/head_request");
     free(head);
     head = NULL;
 
     head = slapt_head_mirror_data("http://www.google.com/", "data/head_request");
-    fail_unless(head == NULL);
+    ck_assert(head == NULL);
     free(head);
     head = NULL;
 
     head = slapt_read_head_cache("data/head_request");
-    fail_if(head == NULL);
+    ck_assert(head != NULL);
     free(head);
 
     slapt_clear_head_cache("data/head_request");
@@ -87,9 +87,9 @@ END_TEST
 START_TEST(test_progress_data)
 {
     struct slapt_progress_data *d = slapt_init_progress_data();
-    fail_if(d == NULL);
-    fail_if(d->bytes != 0);
-    fail_if(d->start == 0);
+    ck_assert(d != NULL);
+    ck_assert_int_eq(d->bytes, 0);
+    ck_assert_int_ne(d->start, 0);
     slapt_free_progress_data(d);
 }
 END_TEST

@@ -4,14 +4,15 @@
 # Jason Woodward <woodwardj@jaos.org>
 # 
 # Translators:
+# Hugo Carvalho <hugokarvalho@hotmail.com>, 2014
 # Sérgio Marques <smarquespt@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2018-01-12 18:17+0000\n"
-"Last-Translator: Jason Woodward <woodwardj@jaos.org>\n"
+"PO-Revision-Date: 2021-02-17 22:24+0000\n"
+"Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese (http://www.transifex.com/jaos/slapt-get/language/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,13 +22,13 @@ msgstr ""
 
 #, c-format
 msgid "  %s: Depends: %s\n"
-msgstr "  %s: depende: %s\n"
+msgstr "  %s: Depende: %s\n"
 
 #, c-format
 msgid "%d newly installed, "
 msgid_plural "%d newly installed, "
 msgstr[0] "%d nova instalação, "
-msgstr[1] "%d novas instalações, "
+msgstr[1] "%d recém instalado, "
 
 #, c-format
 msgid "%d not upgraded.\n"
@@ -44,8 +45,8 @@ msgstr[1] "%d reinstalados,  "
 #, c-format
 msgid "%d to remove, "
 msgid_plural "%d to remove, "
-msgstr[0] "%d a remover"
-msgstr[1] "%d a remover"
+msgstr[0] "%d a remover "
+msgstr[1] "%d a remover "
 
 #, c-format
 msgid "%d upgraded, "
@@ -182,7 +183,7 @@ msgstr "Erro ao obter cwd\n"
 
 #, c-format
 msgid "Failed to malloc\n"
-msgstr "Erro \"malloc\"\n"
+msgstr "Erro a malloc\n"
 
 #, c-format
 msgid "Failed to mkdir: %s\n"
@@ -222,7 +223,7 @@ msgid "Get %s %s %s [%.1f%s]..."
 msgstr "Obter %s %s %s [%.1f%s]..."
 
 msgid "Incomplete download"
-msgstr "Transferência incompleta "
+msgstr "Transferência incompleta"
 
 #, c-format
 msgid "Installed %s conflicts with %s\n"
@@ -556,19 +557,19 @@ msgstr "eliminar pkgs em cache"
 
 #, c-format
 msgid "regex failed on [%s]\n"
-msgstr "erro regex em  [%s]\n"
+msgstr "regex falhou em [%s]\n"
 
 #, c-format
 msgid "regexec failed to parse location\n"
-msgstr "erro regex ao processar localização\n"
+msgstr "regexec falhou ao analisar localização\n"
 
 #, c-format
 msgid "regexec failed to parse size_c\n"
-msgstr "erro regex ao processar size_c\n\n"
+msgstr "regexec errou ao processar size_c\n"
 
 #, c-format
 msgid "regexec failed to parse size_u\n"
-msgstr "erro regex ao processar size_u\n"
+msgstr "regexec falhou ao analisar size_u\n"
 
 msgid "reinstall the pkg"
 msgstr "reinstalar pkg"

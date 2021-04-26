@@ -28,7 +28,7 @@ char *slapt_head_request(const char *url);
 const char *slapt_get_mirror_data_from_source(FILE *fh, const slapt_config_t *global_config, const char *base_url, const char *filename);
 
 /* download pkg, calls download_data.  returns error on failure.  */
-const char *slapt_download_pkg(const slapt_config_t *global_config, slapt_pkg_t *pkg, const char *note);
+const char *slapt_download_pkg(const slapt_config_t *global_config, const slapt_pkg_t *pkg, const char *note);
 
 /* this is the default progress callback if global_config->progress_cb == NULL */
 int slapt_progress_callback(void *clientp, double dltotal, double dlnow, double ultotal, double ulnow);

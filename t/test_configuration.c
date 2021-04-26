@@ -5,18 +5,18 @@ START_TEST(test_struct_config)
     slapt_config_t *rc = NULL;
 
     rc = slapt_config_t_init();
-    fail_if(rc == NULL);
+    ck_assert(rc != NULL);
     slapt_config_t_free(rc);
     rc = NULL;
 
     rc = slapt_config_t_read("./data/rc1");
-    fail_if(rc == NULL);
+    ck_assert(rc != NULL);
     {
         slapt_vector_t *s = rc->sources;
         slapt_vector_t *e = rc->exclude_list;
 
-        fail_if(s->size < 1);
-        fail_if(e->size != 5);
+        ck_assert_int_ge(s->size, 0);
+        ck_assert_int_eq(e->size, 5);
     }
     slapt_config_t_free(rc);
     rc = NULL;
@@ -34,9 +34,10 @@ START_TEST(test_working_dir)
     slapt_working_dir_init(rc);
 
     d = opendir("data/slapt-get");
-    fail_if(d == NULL);
+    ck_assert(d != NULL);
     closedir(d);
     rmdir("data/slapt-get");
+    slapt_config_t_free(rc);
 }
 END_TEST
 
@@ -45,8 +46,8 @@ START_TEST(test_source_trimming)
     slapt_source_t *src1 = slapt_source_t_init("http://www.test.org/dist ");
     slapt_source_t *src2 = slapt_source_t_init("http://www.test.org/dist:PREFERRED ");
 
-    fail_if(strcmp(src1->url, "http://www.test.org/dist/") != 0);
-    fail_if(strcmp(src2->url, "http://www.test.org/dist/") != 0);
+    ck_assert_str_eq(src1->url, "http://www.test.org/dist/");
+    ck_assert_str_eq(src2->url, "http://www.test.org/dist/");
 
     slapt_source_t_free(src1);
     slapt_source_t_free(src2);

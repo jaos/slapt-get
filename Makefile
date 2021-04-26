@@ -1,5 +1,5 @@
 PACKAGE=slapt-get
-VERSION=0.11.2
+VERSION=0.11.3
 ARCH?=$(shell gcc -dumpmachine | cut -f1 -d- | sed -e "s/i[3456]86/i386/")
 LIBDIR=$(shell dirname $$(gcc -print-file-name=libcrypto.so))
 RELEASE=1
@@ -33,9 +33,13 @@ CFLAGS?=-W -Werror -Wall -Wextra -O2 -flto -ffat-lto-objects -pedantic -Wshadow 
 endif
 CFLAGS+=$(DEFINES) -fPIC
 
-default: $(PACKAGE)
+default: deprecated $(PACKAGE)
 
 all: pkg
+
+.PHONY: deprecated
+deprecated:
+	-@echo === WARNING This Makefile is deprecated, prefer to use meson ===
 
 $(OBJS): $(LIBHEADERS)
 
@@ -82,7 +86,7 @@ doinstall: libsinstall
 	install -d $(DESTDIR)/var/cache/$(PACKAGE)
 	for i in `ls po/*.po | sed 's/.po//' | xargs -n1 basename` ;do if [ ! -d $(DESTDIR)$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES ]; then mkdir -p $(DESTDIR)$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES; fi; msgfmt -o $(DESTDIR)$(PACKAGE_LOCALE_DIR)/$$i/LC_MESSAGES/slapt-get.mo po/$$i.po;done
 	mkdir -p $(DESTDIR)/usr/doc/$(PACKAGE)-$(VERSION)/
-	cp -f default.slapt-getrc.* example.slapt-getrc COPYING ChangeLog INSTALL README FAQ TODO $(DESTDIR)/usr/doc/$(PACKAGE)-$(VERSION)/
+	cp -f default.slapt-getrc.* example.slapt-getrc COPYING ChangeLog README FAQ $(DESTDIR)/usr/doc/$(PACKAGE)-$(VERSION)/
 
 uninstall:
 	-rm /$(SBINDIR)/$(PACKAGE)
@@ -128,7 +132,7 @@ dopkg: $(PACKAGE)
 	$(STRIP) ./pkg/$(SBINDIR)/$(PACKAGE)
 	cp -f $(RCSOURCE) pkg/etc/slapt-get/slapt-getrc.new
 	mkdir -p ./pkg/usr/doc/$(PACKAGE)-$(VERSION)/
-	cp -f default.slapt-getrc.* example.slapt-getrc COPYING ChangeLog INSTALL README FAQ TODO ./pkg/usr/doc/$(PACKAGE)-$(VERSION)/
+	cp -f default.slapt-getrc.* example.slapt-getrc COPYING ChangeLog README FAQ ./pkg/usr/doc/$(PACKAGE)-$(VERSION)/
 	echo "if [ ! -d etc/slapt-get ]; then mkdir -p etc/slapt-get; fi; if [ -f etc/slapt-getrc -a ! -f etc/slapt-get/slapt-getrc ]; then mv -f etc/slapt-getrc etc/slapt-get/slapt-getrc; fi; if [ ! -f etc/slapt-get/slapt-getrc ]; then mv -f etc/slapt-get/slapt-getrc.new etc/slapt-get/slapt-getrc; else cmp etc/slapt-get/slapt-getrc etc/slapt-get/slapt-getrc.new >/dev/null 2>&1 && rm etc/slapt-get/slapt-getrc.new; fi;" > pkg/install/doinst.sh
 	cp -f slack-desc pkg/install/
 	cp -f slack-required pkg/install/

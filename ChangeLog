@@ -1,3 +1,14 @@
+0.11.3 Mar 14, 2021
+ * refactoring and optimizing
+ * update conflict and reverse dependency handling
+ * misc symbol cleanup
+ * update dependency handling, fix dependency condition regression
+ * meson updates
+ * update unit tests
+ * update common directory handling
+ * fix slapt_source_t_init regression
+ * update doc
+
 0.11.2 Feb 13, 2021
  * add meson build infrastructure
  * handle new aaa_libraries (renamed from aaa_elflibs) and aaa_glibc-solibs
@@ -368,7 +379,7 @@
  * updated Polish translation from Piotr
 
 0.9.11 Dec 2, 2005
- * added slapt_clean_description() to remove the package name from the
+ * added slapt_pkg_t_clean_description() to remove the package name from the
    package description.
  * try to install/upgrade essential packages first
    (glibc-solibs, sed, pkgtools) for dist-upgrade

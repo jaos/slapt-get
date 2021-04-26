@@ -21,25 +21,24 @@ if libgpgme.found()
 endif
 
 main_sources = [
-  'action.c',
-  'action.h',
   'main.c',
   'main.h',
 ]
 
 custom_target('slapt.h',
+  input: lib_headers,
   output: 'slapt.h',
-  command: [find_program('mkslapth.sh'), join_paths(meson.source_root(), 'src'), '@OUTPUT@', lib_headers],
+  command: [find_program('mkslapth.sh'), join_paths(meson.project_source_root(), 'src'), '@OUTPUT@', lib_headers],
   install: true,
   install_dir: get_option('includedir')
 )
 
-libslapt = library('slapt', lib_sources, dependencies : deps, install: true, version: version, soversion: 0)
+libslapt = library('libslapt', lib_sources, dependencies : deps, install: true, version: version, soversion: 0, name_prefix: '')
 
 if get_option('testbuild').enabled()
-  executable('slapt-get', main_sources + lib_sources, dependencies : deps, install: true, install_dir: get_option('sbindir'))
+  slapt_get = executable('slapt-get', main_sources + lib_sources, dependencies : deps, install: true, install_dir: get_option('sbindir'))
 else
-  executable('slapt-get', main_sources, link_with: libslapt, dependencies : deps, install: true, install_dir: get_option('sbindir'))
+  slapt_get = executable('slapt-get', main_sources, link_with: libslapt, dependencies : deps, install: true, install_dir: get_option('sbindir'))
 endif
 
 pkgconfig = import('pkgconfig')

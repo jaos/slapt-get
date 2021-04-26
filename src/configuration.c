@@ -53,18 +53,16 @@ slapt_config_t *slapt_config_t_init(void)
 
 slapt_config_t *slapt_config_t_read(const char *file_name)
 {
-    FILE *rc = NULL;
+    FILE *rc = slapt_open_file(file_name, "r");
+    if (rc == NULL) {
+        return NULL;
+    }
+
+    slapt_config_t *global_config = slapt_config_t_init();
+
     char *getline_buffer = NULL;
     size_t gb_length = 0;
     ssize_t g_size;
-    slapt_config_t *global_config = NULL;
-
-    rc = slapt_open_file(file_name, "r");
-    if (rc == NULL)
-        return NULL;
-
-    global_config = slapt_config_t_init();
-
     while ((g_size = getline(&getline_buffer, &gb_length, rc)) != EOF) {
         char *token_ptr = NULL;
         getline_buffer[g_size - 1] = '\0';
@@ -102,7 +100,7 @@ slapt_config_t *slapt_config_t_read(const char *file_name)
             /* WORKING DIR */
 
             if (strlen(token_ptr) > strlen(SLAPT_WORKINGDIR_TOKEN)) {
-                size_t working_dir_len = (strlen(token_ptr) - strlen(SLAPT_WORKINGDIR_TOKEN)) + 1;
+                const size_t working_dir_len = (strlen(token_ptr) - strlen(SLAPT_WORKINGDIR_TOKEN)) + 1;
                 slapt_strlcpy(global_config->working_dir, token_ptr + strlen(SLAPT_WORKINGDIR_TOKEN), working_dir_len);
             }
 
@@ -132,33 +130,24 @@ slapt_config_t *slapt_config_t_read(const char *file_name)
 
 void slapt_working_dir_init(const slapt_config_t *global_config)
 {
-    DIR *working_dir;
-    int mode = W_OK, r;
-    char *cwd = NULL;
-
-    if ((working_dir = opendir(global_config->working_dir)) == NULL) {
-        cwd = getcwd(NULL, 0);
-        if (cwd != NULL) {
-            r = chdir("/");
-            if (r == 0)
-                slapt_create_dir_structure(global_config->working_dir);
-            r = chdir(cwd);
-            free(cwd);
-        } else {
-            printf(gettext("Failed to build working directory [%s]\n"), global_config->working_dir);
-            exit(EXIT_FAILURE);
-        }
+    slapt_create_dir_structure(global_config->working_dir);
+    DIR *working_dir = opendir(global_config->working_dir);
+    if (working_dir == NULL) {
+        printf(gettext("Failed to build working directory [%s]\n"), global_config->working_dir);
+        exit(EXIT_FAILURE);
     }
-    if (working_dir != NULL)
-        closedir(working_dir);
+    closedir(working_dir);
 
     /* allow read access if we are simulating */
-    if (global_config->simulate)
+    int mode = W_OK;
+    if (global_config->simulate) {
         mode = R_OK;
+    }
 
     if (access(global_config->working_dir, mode) == -1) {
-        if (errno)
+        if (errno) {
             perror(global_config->working_dir);
+        }
 
         fprintf(stderr, gettext("Please update permissions on %s or run with appropriate privileges\n"), global_config->working_dir);
         exit(EXIT_FAILURE);
@@ -191,13 +180,13 @@ bool slapt_is_interactive(const slapt_config_t *global_config)
 static void slapt_source_parse_attributes(slapt_source_t *s, const char *string)
 {
     int offset = 0;
-    int len = strlen(string);
+    const int len = strlen(string);
 
     while (offset < len) {
         char *token = NULL;
 
         if (strchr(string + offset, ',') != NULL) {
-            size_t token_len = strcspn(string + offset, ",");
+            const size_t token_len = strcspn(string + offset, ",");
             if (token_len > 0) {
                 token = strndup(string + offset, token_len);
                 offset += token_len + 1;
@@ -227,31 +216,27 @@ static void slapt_source_parse_attributes(slapt_source_t *s, const char *string)
 
 slapt_source_t *slapt_source_t_init(const char *s)
 {
-    slapt_source_t *src;
-    uint32_t source_len = 0;
-    uint32_t attribute_len = 0;
-    slapt_regex_t *attribute_regex = NULL;
-    char *source_string = NULL;
-    char *attribute_string = NULL;
-
-    if (s == NULL)
+    if (s == NULL) {
         return NULL;
+    }
 
-    src = slapt_malloc(sizeof *src);
+    slapt_source_t *src = slapt_malloc(sizeof *src);
     src->priority = SLAPT_PRIORITY_DEFAULT;
     src->disabled = false;
-    source_string = slapt_strip_whitespace(s);
-    source_len = strlen(source_string);
+    char *source_string = slapt_strip_whitespace(s);
+    uint32_t source_len = strlen(source_string);
 
     /* parse for :[attr] in the source url */
-    if ((attribute_regex = slapt_regex_t_init(SLAPT_SOURCE_ATTRIBUTE_REGEX)) == NULL) {
+    slapt_regex_t *attribute_regex = slapt_regex_t_init(SLAPT_SOURCE_ATTRIBUTE_REGEX);
+    if (attribute_regex == NULL) {
         exit(EXIT_FAILURE);
     }
     slapt_regex_t_execute(attribute_regex, source_string);
+    char *attribute_string = NULL;
     if (attribute_regex->reg_return == 0) {
         /* if we find an attribute string, extract it */
         attribute_string = slapt_regex_t_extract_match(attribute_regex, source_string, 1);
-        attribute_len = strlen(attribute_string);
+        const uint32_t attribute_len = strlen(attribute_string);
         source_len -= attribute_len;
     }
     slapt_regex_t_free(attribute_regex);
@@ -261,9 +246,15 @@ slapt_source_t *slapt_source_t_init(const char *s)
         src->url = strndup(source_string, source_len);
     } else {
         src->url = slapt_malloc(sizeof *src->url * (source_len + 2));
-        if (snprintf(src->url, source_len + 2, "%s/", source_string) != (int)(source_len + 2)) {
-            fprintf(stderr, "slapt_source_t_init error for %s\n", s);
-            exit(EXIT_FAILURE);
+        src->url[0] = '\0';
+
+        src->url = strncat(src->url, source_string, source_len);
+
+        if (isblank(src->url[source_len - 1]) != 0) {
+            src->url[source_len - 1] = '/';
+        } else {
+            src->url[source_len] = '/';
+            src->url[source_len + 1] = '\0';
         }
     }
 
@@ -286,28 +277,27 @@ void slapt_source_t_free(slapt_source_t *src)
 
 int slapt_config_t_write(const slapt_config_t *global_config, const char *location)
 {
-    uint32_t i = 0;
-    FILE *rc;
-
-    rc = slapt_open_file(location, "w+");
-    if (rc == NULL)
+    FILE *rc = slapt_open_file(location, "w+");
+    if (rc == NULL) {
         return -1;
+    }
 
     fprintf(rc, "%s%s\n", SLAPT_WORKINGDIR_TOKEN, global_config->working_dir);
 
     fprintf(rc, "%s", SLAPT_EXCLUDE_TOKEN);
-    slapt_vector_t_foreach (char *, exclude, global_config->exclude_list) {
-        if (i + 1 == global_config->exclude_list->size) {
+    uint32_t counter = 0;
+    slapt_vector_t_foreach (const char *, exclude, global_config->exclude_list) {
+        if (counter + 1 == global_config->exclude_list->size) {
             fprintf(rc, "%s", exclude);
         } else {
             fprintf(rc, "%s,", exclude);
         }
-        i++;
+        counter++;
     }
     fprintf(rc, "\n");
 
-    slapt_vector_t_foreach (slapt_source_t *, src, global_config->sources) {
-        SLAPT_PRIORITY_T priority = src->priority;
+    slapt_vector_t_foreach (const slapt_source_t *, src, global_config->sources) {
+        slapt_priority_t priority = src->priority;
         const char *token = SLAPT_SOURCE_TOKEN;
 
         if (src->disabled)

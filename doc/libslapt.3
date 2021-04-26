@@ -41,11 +41,11 @@ if (!slapt_is_excluded(config,pkg)) {
 }
 slapt_pkg_t_free(pkg);
 
-if (slapt_cmp_pkgs(pkg_a,pkg_b) = 0) {
+if (slapt_pkg_t_cmp(pkg_a,pkg_b) = 0) {
   fprintf(stderr,"%s is equal to %s\\n",pkg_a->version,pkg_b->version);
-} elsif (slapt_cmp_pkgs(pkg_a,pkg_b) < 0) {
+} elsif (slapt_pkg_t_cmp(pkg_a,pkg_b) < 0) {
   fprintf(stderr,"%s is less than %s\\n",pkg_a->version,pkg_b->version);
-} elsif (slapt_cmp_pkgs(pkg_a,pkg_b) > 0) {
+} elsif (slapt_pkg_t_cmp(pkg_a,pkg_b) > 0) {
   fprintf(stderr,"%s is greater than %s\\n",pkg_a->version,pkg_b->version);
 }
 
@@ -108,7 +108,7 @@ Package sources are represented by the \fIslapt_source_t\fP type.  They are crea
 .nf
   typedef struct {
     char *url;
-    SLAPT_PRIORITY_T priority;
+    slapt_priority_t priority;
     bool disabled;
   } slapt_source_t;
 .sp
@@ -145,12 +145,12 @@ slapt-get stores packages within \fIslapt_pkg_t\fP objects.
 .fi
 .sp
 .TP
-The \fIslapt_pkg_t\fP object is created and freed with \fIslapt_pkg_t_init\fP() and \fIslapt_pkg_t_free\fP().  A \fIslapt_pkg_t\fP can also be copied with \fIslapt_copy_pkg\fP().
+The \fIslapt_pkg_t\fP object is created and freed with \fIslapt_pkg_t_init\fP() and \fIslapt_pkg_t_free\fP().  A \fIslapt_pkg_t\fP can also be copied with \fIslapt_pkg_t_copy\fP().
 .sp
 .nf
 .B "slapt_pkg_t *slapt_pkg_t_init(void);"
 .B "void slapt_pkg_t_free(slapt_pkg_t *pkg);"
-.B "slapt_pkg_t *slapt_copy_pkg(slapt_pkg_t *dst,"
+.B "slapt_pkg_t *slapt_pkg_t_copy(slapt_pkg_t *dst,"
 .B "                                 slapt_pkg_t *src);"
 .fi
 .sp
@@ -194,11 +194,11 @@ Passing a package to \fIinstallpkg\fP, \fIupgradepkg\fP, and \fIremovepkg\fP is 
 .fi
 .sp
 .TP
-Comparing package versions is done with the \fIslapt_cmp_pkgs\fP functions.  It calls \fIslapt_cmp_pkg_versions\fP() which returns just like strcmp, greater than 0 if a is greater than b, less than 0 if a is less than b, or 0 if a and b are equal.
+Comparing package versions is done with the \fIslapt_pkg_t_cmp\fP functions.  It calls \fIslapt_pkg_t_cmp_versions\fP() which returns just like strcmp, greater than 0 if a is greater than b, less than 0 if a is less than b, or 0 if a and b are equal.
 .sp
 .nf
-.B "int slapt_cmp_pkg_versions(const char *a, const char *b);"
-.B "int slapt_cmp_pkgs(slapt_pkg_t *a, slapt_pkg_t *b);"
+.B "int slapt_pkg_t_cmp_versions(const char *a, const char *b);"
+.B "int slapt_pkg_t_cmp(slapt_pkg_t *a, slapt_pkg_t *b);"
 .fi
 .sp
 .TP
@@ -266,24 +266,24 @@ The following functions deal with determining package dependencies and conflicts
 .fi
 .sp
 .TP
-\fIslapt_get_pkg_changelog\fP() returns the package changelog entry, if any.  Otherwise returns NULL.  Assumes already chdir'd to the working directory.
+\fIslapt_pkg_t_changelog\fP() returns the package changelog entry, if any.  Otherwise returns NULL.  Assumes already chdir'd to the working directory.
 .sp
 .nf
-.B "char *slapt_get_pkg_changelog(const slapt_pkg_t *pkg);"
+.B "char *slapt_pkg_t_changelog(const slapt_pkg_t *pkg);"
 .fi
 .sp
 .TP
-\fIslapt_get_pkg_filelist\fP() returns a string representing all of the files installed by the package.  This list is read from the package log file.
+\fIslapt_pkg_t_filelist\fP() returns a string representing all of the files installed by the package.  This list is read from the package log file.
 .sp
 .nf
-.B "char *slapt_get_pkg_filelist(const slapt_pkg_t *pkg);"
+.B "char *slapt_pkg_t_filelist(const slapt_pkg_t *pkg);"
 .fi
 .sp
 .TP
-\fIslapt_stringify_pkg\fP() returns a string representation of the package.
+\fIslapt_pkg_t_string\fP() returns a string representation of the package.
 .sp
 .nf
-.B "char *slapt_stringify_pkg(const slapt_pkg_t *pkg);"
+.B "char *slapt_pkg_t_string(const slapt_pkg_t *pkg);"
 .fi
 .sp
 .TP
@@ -304,10 +304,10 @@ The \fIworking_dir\fP, defined within the \fIslapt_config_t\fP object, caches th
 .fi
 .sp
 .TP
-The \fIslapt_clean_description\fP() function is used to clean the package name from the package description.  This modifies the string in place.  It is best to copy the \fIpkg->description\fP to a new string prior to calling \fIslapt_clean_description\fP().
+The \fIslapt_pkg_t_clean_description\fP() function is used to clean the package name from the package description.
 .sp
 .nf
-.B void slapt_clean_description (char *description, const char *name);
+.B char *slapt_pkg_t_clean_description (const slapt_pkg_t *pkg);
 .fi
 .sp
 .IP \fBDOWNLOADING\fP
@@ -365,7 +365,7 @@ Progress callbacks make use of \fIstruct slapt_progress_data\fP.
 .sp
 .IP \fBTRANSACTIONS\fP
 .TP
-Adding, removing, and upgrading packages can be wrapped in a \fIslapt_transaction_t\fP object.  This structure will make sure that all packages are worked on in the specific order, downloaded, and handed off to the appropriate pkgtools command via the \fIslapt_handle_transaction\fP() function.
+Adding, removing, and upgrading packages can be wrapped in a \fIslapt_transaction_t\fP object.  This structure will make sure that all packages are worked on in the specific order, downloaded, and handed off to the appropriate pkgtools command via the \fIslapt_transaction_t_run\fP() function.
 .sp
 .nf
   enum slapt_action {
@@ -395,49 +395,49 @@ Adding, removing, and upgrading packages can be wrapped in a \fIslapt_transactio
     slapt_vector_t *queue;
   } slapt_transaction_t;
 .sp
-.B "slapt_transaction_t *slapt_init_transaction(void);"
-.B "void slapt_free_transaction(slapt_transaction_t *);"
-.B "int slapt_handle_transaction(const slapt_config_t *,slapt_transaction_t *);"
+.B "slapt_transaction_t *slapt_transaction_t_init(void);"
+.B "void slapt_transaction_t_free(slapt_transaction_t *);"
+.B "int slapt_transaction_t_run(const slapt_config_t *,slapt_transaction_t *);"
 .sp
-.B "void slapt_add_install_to_transaction(slapt_transaction_t *,"
+.B "void slapt_transaction_t_add_install(slapt_transaction_t *,"
 .B "                                      slapt_pkg_t *pkg);"
 .sp
-.B "void slapt_add_remove_to_transaction(slapt_transaction_t *,"
+.B "void slapt_transaction_t_add_remove(slapt_transaction_t *,"
 .B "                                     slapt_pkg_t *pkg);"
 .sp
-.B "void slapt_add_upgrade_to_transaction(slapt_transaction_t *,"
+.B "void slapt_transaction_t_add_upgrade(slapt_transaction_t *,"
 .B "                                      slapt_pkg_t *installed_pkg,"
 .B "                                      slapt_pkg_t *upgrade_pkg);"
 .sp
-.B "void slapt_add_reinstall_to_transaction(slapt_transaction_t *,"
+.B "void slapt_transaction_t_add_reinstall(slapt_transaction_t *,"
 .B "                                      slapt_pkg_t *installed_pkg,"
 .B "                                      slapt_pkg_t *upgrade_pkg);"
 .sp
-.B "void slapt_add_exclude_to_transaction(slapt_transaction_t *,"
+.B "void slapt_transaction_t_add_exclude(slapt_transaction_t *,"
 .B "                                      slapt_pkg_t *pkg);"
 .sp
-.B "slapt_transaction_t *slapt_remove_from_transaction(slapt_transaction_t *tran,"
+.B "slapt_transaction_t *slapt_transaction_t_remove(slapt_transaction_t *tran,"
 .B "                                                   slapt_pkg_t *pkg);"
 .sp
-.B "int slapt_search_transaction(slapt_transaction_t *,char *pkg_name);"
-.B "int slapt_search_transaction_by_pkg(slapt_transaction_t *tran,"
+.B "int slapt_transaction_t_search(slapt_transaction_t *,char *pkg_name);"
+.B "int slapt_transaction_t_search_by_pkg(slapt_transaction_t *tran,"
 .B "                                    slapt_pkg_t *pkg);"
 .sp
-.B "int slapt_search_upgrade_transaction(slapt_transaction_t *tran,"
+.B "int slapt_transaction_t_search_upgrade(slapt_transaction_t *tran,"
 .B "                                     slapt_pkg_t *pkg);"
 .sp
-.B "int slapt_add_deps_to_trans(const slapt_config_t *global_config,"
+.B "int slapt_transaction_t_add_dependencies(const slapt_config_t *global_config,"
 .B "                            slapt_transaction_t *tran,"
 .B "                            slapt_vector_t *avail_pkgs,"
 .B "                            slapt_vector_t *installed_pkgs,"
 .B "                            slapt_pkg_t *pkg);"
 .sp
-.B "slapt_pkg_t *slapt_is_conflicted(slapt_transaction_t *tran,"
+.B "slapt_pkg_t *slapt_transaction_t_find_conflicts(slapt_transaction_t *tran,"
 .B "                                      slapt_vector_t *avail_pkgs,"
 .B "                                      slapt_vector_t *installed_pkgs,"
 .B "                                      slapt_pkg_t *pkg);"
 .sp
-.B "void slapt_generate_suggestions(slapt_transaction_t *tran);"
+.B "void slapt_transaction_t_suggestions(slapt_transaction_t *tran);"
 .fi
 .sp
 .IP \fBGPG\fP
@@ -525,7 +525,7 @@ Miscellaneous functionality within libslapt.
       SLAPT_PRIORITY_OFFICIAL_PATCH,
       SLAPT_PRIORITY_CUSTOM,
       SLAPT_PRIORITY_CUSTOM_PATCH
-  } SLAPT_PRIORITY_T;
+  } slapt_priority_t;
 .sp
 .B #define SLAPT_PRIORITY_DEFAULT_TOKEN "DEFAULT"
 .B #define SLAPT_PRIORITY_PREFERRED_TOKEN "PREFERRED"
@@ -533,7 +533,7 @@ Miscellaneous functionality within libslapt.
 .B #define SLAPT_PRIORITY_CUSTOM_TOKEN "CUSTOM"
 .sp
 .B /* return human readable priority */
-.B const char *slapt_priority_to_str(SLAPT_PRIORITY_T priority);
+.B const char *slapt_priority_to_str(slapt_priority_t priority);
 .sp
 .B bool slapt_disk_space_check (const char *path,double space_needed);
 .sp
