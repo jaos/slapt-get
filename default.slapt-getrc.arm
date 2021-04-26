@@ -14,4 +14,4 @@ SOURCE=http://ftp.arm.slackware.com/slackwarearm/slackwarearm-14.2/:OFFICIAL
 #SOURCE=http://ftp.arm.slackware.com/slackwarearm/slackwarearm-14.0/:OFFICIAL
 
 # Source for slapt-get.
-SOURCE=https://storage.googleapis.com/slackpacks.jaos.org/slackwarearm-15.0/:OFFICIAL
+SOURCE=https://storage.googleapis.com/slackpacks.jaos.org/slackwarearm-14.2/:OFFICIAL

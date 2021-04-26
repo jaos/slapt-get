@@ -16,4 +16,4 @@ SOURCE=https://slackware.osuosl.org/slackware-14.2/:OFFICIAL
 # SOURCE=https://slackware.osuosl.org/slackware-14.2/pasture/
 
 # Source for slapt-get.
-SOURCE=https://storage.googleapis.com/slackpacks.jaos.org/slackware-15.0/:OFFICIAL
+SOURCE=https://storage.googleapis.com/slackpacks.jaos.org/slackware-14.2/:OFFICIAL
