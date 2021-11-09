@@ -1156,10 +1156,10 @@ static slapt_pkg_t *resolve_dep(const slapt_dependency_t *dep_declaration, const
             if ((cmp == 0) && (dep_declaration->op == DEP_OP_EQ || dep_declaration->op == DEP_OP_GTE || dep_declaration->op == DEP_OP_LTE)) {
                 return apkg;
             }
-            if ((cmp > 0) && (dep_declaration->op == DEP_OP_GT)) {
+            if ((cmp > 0) && (dep_declaration->op == DEP_OP_GT || dep_declaration->op == DEP_OP_GTE)) {
                 return apkg;
             }
-            if ((cmp < 0) && (dep_declaration->op == DEP_OP_LT)) {
+            if ((cmp < 0) && (dep_declaration->op == DEP_OP_LT || dep_declaration->op == DEP_OP_LTE)) {
                 return apkg;
             }
         }
@@ -1175,11 +1175,11 @@ static slapt_pkg_t *resolve_dep(const slapt_dependency_t *dep_declaration, const
                 found = candidate;
                 break;
             }
-            if ((cmp > 0) && (dep_declaration->op == DEP_OP_GT)) {
+            if ((cmp > 0) && (dep_declaration->op == DEP_OP_GT || dep_declaration->op == DEP_OP_GTE)) {
                 found = candidate;
                 break;
             }
-            if ((cmp < 0) && (dep_declaration->op == DEP_OP_LT)) {
+            if ((cmp < 0) && (dep_declaration->op == DEP_OP_LT || dep_declaration->op == DEP_OP_LTE)) {
                 found = candidate;
                 break;
             }
@@ -1282,7 +1282,7 @@ int slapt_get_pkg_dependencies(const slapt_config_t *global_config,
 
             slapt_pkg_err_t *err = slapt_pkg_err_t_init(strdup(pkg->name), strdup(dep_declaration->name));
             slapt_vector_t_add(missing_err, err);
-            return -1;;
+            return -1;
         }
     }
     return 0;
