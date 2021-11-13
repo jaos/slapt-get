@@ -502,6 +502,8 @@ slapt_vector_t *slapt_get_installed_pkgs(void)
             double c = strtof(size_c, (char **)NULL);
             if (strcmp(unit, "M") == 0)
                 c *= 1024;
+            else if (strcmp(unit, "G") == 0)
+                c *= 1048576;
             tmp_pkg->size_c = round(c);
             free(size_c);
             free(unit);
@@ -515,6 +517,8 @@ slapt_vector_t *slapt_get_installed_pkgs(void)
             double u = strtof(size_u, (char **)NULL);
             if (strcmp(unit, "M") == 0)
                 u *= 1024;
+            else if (strcmp(unit, "G") == 0)
+                u *= 1048576;
             tmp_pkg->size_u = round(u);
             free(size_u);
             free(unit);

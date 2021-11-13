@@ -1,3 +1,6 @@
+0.11.5 Nov 12, 2021
+ * Fixed installed package size calculation for large packages
+
 0.11.4 Nov  8, 2021
  * Fixed dependency regression for >= or <= (thanks to Dan Church)
 
