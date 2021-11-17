@@ -500,9 +500,9 @@ slapt_vector_t *slapt_get_installed_pkgs(void)
             char *size_c = slapt_regex_t_extract_match(compressed_size_reg, pkg_data, 1);
             char *unit = slapt_regex_t_extract_match(compressed_size_reg, pkg_data, 2);
             double c = strtof(size_c, (char **)NULL);
-            if (strcmp(unit, "M") == 0)
+            if (strcasecmp(unit, "M") == 0)
                 c *= 1024;
-            else if (strcmp(unit, "G") == 0)
+            else if (strcasecmp(unit, "G") == 0)
                 c *= 1048576;
             tmp_pkg->size_c = round(c);
             free(size_c);
@@ -515,9 +515,9 @@ slapt_vector_t *slapt_get_installed_pkgs(void)
             char *size_u = slapt_regex_t_extract_match(uncompressed_size_reg, pkg_data, 1);
             char *unit = slapt_regex_t_extract_match(uncompressed_size_reg, pkg_data, 2);
             double u = strtof(size_u, (char **)NULL);
-            if (strcmp(unit, "M") == 0)
+            if (strcasecmp(unit, "M") == 0)
                 u *= 1024;
-            else if (strcmp(unit, "G") == 0)
+            else if (strcasecmp(unit, "G") == 0)
                 u *= 1048576;
             tmp_pkg->size_u = round(u);
             free(size_u);
