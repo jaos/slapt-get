@@ -5,13 +5,14 @@
 # 
 # Translators:
 # Copyright (C) 2005, 2006-2007
+# Caarmi, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2017-09-19 14:08+0000\n"
-"Last-Translator: Jason Woodward <woodwardj@jaos.org>\n"
+"PO-Revision-Date: 2022-01-16 02:17+0000\n"
+"Last-Translator: Caarmi\n"
 "Language-Team: Russian (http://www.transifex.com/jaos/slapt-get/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -132,16 +133,16 @@ msgid "Checksums signature successfully verified"
 msgstr "Подпись контрольных сумм проверена успешно"
 
 msgid "Custom"
-msgstr "Custom"
+msgstr "Пользовательский"
 
 msgid "Custom Patch"
-msgstr "Custom Patch"
+msgstr "Пользовательский (патчи)"
 
 msgid "Default"
-msgstr "Default"
+msgstr "По умолчанию"
 
 msgid "Default Patch"
-msgstr "Default Patch"
+msgstr "По умолчанию (патчи)"
 
 #, c-format
 msgid "Delete %s ? [y/N]"
@@ -288,17 +289,17 @@ msgid "Not verified: null context"
 msgstr "Проверка не удалась: нулевой контекст"
 
 msgid "Official"
-msgstr "Official"
+msgstr "Официальный"
 
 msgid "Official Patch"
-msgstr "Official Patch"
+msgstr "Официальный (патчи)"
 
 #, c-format
 msgid "Options:\n"
 msgstr "Опции:\n"
 
 msgid "Package ChangeLog"
-msgstr "ChangeLog пакета"
+msgstr "Список изменений пакета"
 
 #, c-format
 msgid "Package Conflicts: %s\n"
@@ -314,7 +315,7 @@ msgstr "Размер установленного пакета: %d K\n"
 
 #, c-format
 msgid "Package Installed: %s\n"
-msgstr "Установленный пакет: %s\n"
+msgstr "Пакет установлен: %s\n"
 
 #, c-format
 msgid "Package Location: %s\n"
@@ -361,10 +362,10 @@ msgid "Please update permissions on %s or run with appropriate privileges\n"
 msgstr "Недостаточно прав доступа к %s \n"
 
 msgid "Preferred"
-msgstr "Preferred"
+msgstr "Предпочитаемый"
 
 msgid "Preferred Patch"
-msgstr "Preferred Patch"
+msgstr "Предпочитаемый (патчи)"
 
 #, c-format
 msgid "Preparing to install %s-%s\n"
@@ -408,7 +409,7 @@ msgstr "Получение списка патчей [%s]..."
 
 #, c-format
 msgid "SOURCE directive not set within %s.\n"
-msgstr "Директива SOURCE не установлена в %s.\n"
+msgstr "Директива SOURCE не задана в %s.\n"
 
 msgid "Signature not read"
 msgstr "Ошибка чтения подписей"
@@ -465,7 +466,7 @@ msgstr "Проверка подписи контрольных сумм [%s]..."
 
 #, c-format
 msgid "WORKINGDIR directive not set within %s.\n"
-msgstr "Директива WORKINGDIR не установлена в %s.\n"
+msgstr "Директива WORKINGDIR не задана в %s.\n"
 
 #, c-format
 msgid "You don't have enough free space in %s\n"
@@ -590,7 +591,7 @@ msgid "retrieve GPG keys for sources"
 msgstr "получить GPG-ключи для источников"
 
 msgid "retrieve pkg data from MIRROR"
-msgstr "получить сведения о пакетах с MIRROR"
+msgstr "получить сведения о пакетах с ЗЕРКАЛА"
 
 msgid "show download statistics"
 msgstr "показать статистику загрузки"
