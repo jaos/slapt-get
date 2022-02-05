@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2003-2021 Jason Woodward <woodwardj at jaos dot org>
+ * Copyright (C) 2003-2022 Jason Woodward <woodwardj at jaos dot org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -500,8 +500,10 @@ slapt_vector_t *slapt_get_installed_pkgs(void)
             char *size_c = slapt_regex_t_extract_match(compressed_size_reg, pkg_data, 1);
             char *unit = slapt_regex_t_extract_match(compressed_size_reg, pkg_data, 2);
             double c = strtof(size_c, (char **)NULL);
-            if (strcmp(unit, "M") == 0)
+            if (strcasecmp(unit, "M") == 0)
                 c *= 1024;
+            else if (strcasecmp(unit, "G") == 0)
+                c *= 1048576;
             tmp_pkg->size_c = round(c);
             free(size_c);
             free(unit);
@@ -513,8 +515,10 @@ slapt_vector_t *slapt_get_installed_pkgs(void)
             char *size_u = slapt_regex_t_extract_match(uncompressed_size_reg, pkg_data, 1);
             char *unit = slapt_regex_t_extract_match(uncompressed_size_reg, pkg_data, 2);
             double u = strtof(size_u, (char **)NULL);
-            if (strcmp(unit, "M") == 0)
+            if (strcasecmp(unit, "M") == 0)
                 u *= 1024;
+            else if (strcasecmp(unit, "G") == 0)
+                u *= 1048576;
             tmp_pkg->size_u = round(u);
             free(size_u);
             free(unit);
@@ -1156,10 +1160,10 @@ static slapt_pkg_t *resolve_dep(const slapt_dependency_t *dep_declaration, const
             if ((cmp == 0) && (dep_declaration->op == DEP_OP_EQ || dep_declaration->op == DEP_OP_GTE || dep_declaration->op == DEP_OP_LTE)) {
                 return apkg;
             }
-            if ((cmp > 0) && (dep_declaration->op == DEP_OP_GT)) {
+            if ((cmp > 0) && (dep_declaration->op == DEP_OP_GT || dep_declaration->op == DEP_OP_GTE)) {
                 return apkg;
             }
-            if ((cmp < 0) && (dep_declaration->op == DEP_OP_LT)) {
+            if ((cmp < 0) && (dep_declaration->op == DEP_OP_LT || dep_declaration->op == DEP_OP_LTE)) {
                 return apkg;
             }
         }
@@ -1175,11 +1179,11 @@ static slapt_pkg_t *resolve_dep(const slapt_dependency_t *dep_declaration, const
                 found = candidate;
                 break;
             }
-            if ((cmp > 0) && (dep_declaration->op == DEP_OP_GT)) {
+            if ((cmp > 0) && (dep_declaration->op == DEP_OP_GT || dep_declaration->op == DEP_OP_GTE)) {
                 found = candidate;
                 break;
             }
-            if ((cmp < 0) && (dep_declaration->op == DEP_OP_LT)) {
+            if ((cmp < 0) && (dep_declaration->op == DEP_OP_LT || dep_declaration->op == DEP_OP_LTE)) {
                 found = candidate;
                 break;
             }
@@ -1282,7 +1286,7 @@ int slapt_get_pkg_dependencies(const slapt_config_t *global_config,
 
             slapt_pkg_err_t *err = slapt_pkg_err_t_init(strdup(pkg->name), strdup(dep_declaration->name));
             slapt_vector_t_add(missing_err, err);
-            return -1;;
+            return -1;
         }
     }
     return 0;

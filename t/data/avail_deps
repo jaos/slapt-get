@@ -706,3 +706,37 @@ libassuan: This is the IPC library used by GnuPG 2.x, GPGME and a few other
 libassuan: packages. 
 libassuan:
 
+PACKAGE NAME:  fronz-2.2.1-x86_64-1.txz
+PACKAGE MIRROR:  file:///tmp/
+PACKAGE PRIORITY:  0
+PACKAGE LOCATION:  ./fronz
+PACKAGE SIZE (compressed):  108 K
+PACKAGE SIZE (uncompressed):  250 K
+PACKAGE REQUIRED:   fronzbar >= 2.2.0
+PACKAGE CONFLICTS:
+PACKAGE SUGGESTS:
+PACKAGE MD5SUM:  372dc5596e501cf9113bbd43142ed474
+PACKAGE DESCRIPTION:
+fronz: fronz test
+fronz:
+fronz: this is a test package
+fronz:
+fronz:
+
+PACKAGE NAME:  fronzbar-2.2.1-x86_64-1.txz
+PACKAGE MIRROR:  file:///tmp/
+PACKAGE PRIORITY:  0
+PACKAGE LOCATION:  ./fronzbar
+PACKAGE SIZE (compressed):  108 K
+PACKAGE SIZE (uncompressed):  250 K
+PACKAGE REQUIRED:
+PACKAGE CONFLICTS:
+PACKAGE SUGGESTS:
+PACKAGE MD5SUM:  ddb77e7203d9a9868c7f77b5647044a6
+PACKAGE DESCRIPTION:
+fronzbar: fronzbar test
+fronzbar:
+fronzbar: this is a test package
+fronzbar:
+fronzbar:
+

@@ -272,7 +272,7 @@ START_TEST(test_dependency)
 
     /*
      dependency tests
-  */
+    */
     p = slapt_get_newest_pkg(avail, "slapt-src");
     ck_assert(p != NULL);
     slapt_vector_t *conflict = slapt_vector_t_init(NULL);
@@ -289,9 +289,27 @@ START_TEST(test_dependency)
     slapt_vector_t_free(missing);
     slapt_vector_t_free(deps);
 
+    /* fronz */
+    p = slapt_get_newest_pkg(avail, "fronz");
+    ck_assert(p != NULL);
+    conflict = slapt_vector_t_init(NULL);
+    missing = slapt_vector_t_init(NULL);
+    deps = slapt_vector_t_init(NULL);
+    i = slapt_get_pkg_dependencies(rc, avail, installed, p, deps, conflict, missing);
+    ck_assert(i == 0);
+    ck_assert(deps->size == 1);
+    search_results = slapt_search_pkg_list(deps, "fronzbar");
+    ck_assert(search_results != NULL);
+    ck_assert(search_results->size == 1);
+    slapt_vector_t_free(search_results);
+    slapt_vector_t_free(conflict);
+    slapt_vector_t_free(missing);
+    slapt_vector_t_free(deps);
+
+
     /*
      conflicts tests
-  */
+    */
     /* scim conflicts with ibus */
     p = slapt_get_newest_pkg(avail, "scim");
     ck_assert(p != NULL);
@@ -303,7 +321,7 @@ START_TEST(test_dependency)
 
     /*
      required by tests
-  */
+    */
     /* slapt-get reverse dep test */
     slapt_vector_t *pkgs_to_install = slapt_vector_t_init(NULL);
     slapt_vector_t *pkgs_to_remove = slapt_vector_t_init(NULL);

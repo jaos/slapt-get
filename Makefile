@@ -1,5 +1,5 @@
 PACKAGE=slapt-get
-VERSION=0.11.3
+VERSION=0.11.5
 ARCH?=$(shell gcc -dumpmachine | cut -f1 -d- | sed -e "s/i[3456]86/i386/")
 LIBDIR=$(shell dirname $$(gcc -print-file-name=libcrypto.so))
 RELEASE=1
@@ -10,7 +10,7 @@ CURLFLAGS=`curl-config --libs` -lcrypto
 OBJS=src/common.o src/configuration.o src/package.o src/slaptcurl.o src/transaction.o src/action.o src/main.o
 LIBOBJS=src/common.o src/configuration.o src/package.o src/slaptcurl.o src/transaction.o
 LIBHEADERS=src/main.h src/common.h src/configuration.h src/package.h src/slaptcurl.h src/transaction.h
-NONLIBOBJS=src/action.o src/main.o
+NONLIBOBJS=src/main.o
 RCDEST=/etc/slapt-get/slapt-getrc
 RCSOURCE=default.slapt-getrc.$(ARCH)
 PACKAGE_LOCALE_DIR=/usr/share/locale
