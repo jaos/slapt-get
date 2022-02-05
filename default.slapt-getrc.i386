@@ -8,12 +8,12 @@ EXCLUDE=^kernel-(generic|huge|modules|firmware)$
 
 # Base url to directory with a PACKAGES.TXT.
 # This can point to any release, ie: 9.0, 10.0, current, etc.
-SOURCE=https://slackware.osuosl.org/slackware-14.2/:OFFICIAL
+SOURCE=https://slackware.osuosl.org/slackware-15.0/:OFFICIAL
 
 # Sources for the testing, extra, and pasture areas - if you use them.
-# SOURCE=https://slackware.osuosl.org/slackware-14.2/extra/:PREFERRED
-# SOURCE=https://slackware.osuosl.org/slackware-14.2/testing/
-# SOURCE=https://slackware.osuosl.org/slackware-14.2/pasture/
+# SOURCE=https://slackware.osuosl.org/slackware-15.0/extra/:PREFERRED
+# SOURCE=https://slackware.osuosl.org/slackware-15.0/testing/
+# SOURCE=https://slackware.osuosl.org/slackware-15.0/pasture/
 
 # Source for slapt-get.
 SOURCE=https://storage.googleapis.com/slackpacks.jaos.org/slackware-15.0/:OFFICIAL

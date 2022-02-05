@@ -1,4 +1,6 @@
-0.11.5 Nov 12, 2021
+0.11.5 Feb 05, 2022
+ * tx pull
+ * Fix case-sensitive unit comparison
  * Fixed installed package size calculation for large packages
 
 0.11.4 Nov  8, 2021
