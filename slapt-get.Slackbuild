@@ -32,13 +32,13 @@ TOP="${PWD}"
 DESTDIR="${TOP}/pkg"
 rm -rf "${DESTDIR}"
 
-meson build --prefix=/usr
-ninja -C build
-DESTDIR="${DESTDIR}" ninja -C build install
+meson build --prefix=/usr --sysconfdir=/etc --mandir=/usr/man --buildtype=debugoptimized
+meson compile -C build
+DESTDIR="$PKG" meson install -C build
 
 find "${DESTDIR}" -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
-if [ -d "${DESTDIR}/usr/man" ]; then find "${DESTDIR}/usr/man" -type f -exec gzip {} \; ;fi || true
-if [ -d "${DESTDIR}/usr/share/man" ]; then find "${DESTDIR}/usr/share/man" -type f -exec gzip {} \; ;fi || true
+
+find "${DESTDIR}/usr/man" -type f -exec gzip -9 {} \+ ;fi || true
 
 mkdir -p "${DESTDIR}/install"
 cat slack-desc > "${DESTDIR}/install/slack-desc"
