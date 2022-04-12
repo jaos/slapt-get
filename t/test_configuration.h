@@ -3,6 +3,6 @@
 #define CONFIGURATION_TEST_SUITE 1
 
 #include "common.h"
-Suite *configuration_test_suite();
+Suite *configuration_test_suite(void);
 
 #endif

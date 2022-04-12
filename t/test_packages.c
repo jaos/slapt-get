@@ -546,7 +546,7 @@ START_TEST(test_slapt_dependency_t)
 }
 END_TEST
 
-Suite *packages_test_suite()
+Suite *packages_test_suite(void)
 {
     Suite *s = suite_create("Packages");
     TCase *tc = tcase_create("Packages");

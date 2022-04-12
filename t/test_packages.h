@@ -3,6 +3,6 @@
 #define PACKAGES_TEST_SUITE 1
 
 #include "common.h"
-Suite *packages_test_suite();
+Suite *packages_test_suite(void);
 
 #endif

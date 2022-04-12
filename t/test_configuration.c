@@ -54,7 +54,7 @@ START_TEST(test_source_trimming)
 }
 END_TEST
 
-Suite *configuration_test_suite()
+Suite *configuration_test_suite(void)
 {
     Suite *s = suite_create("Configuration");
     TCase *tc = tcase_create("Configuration");

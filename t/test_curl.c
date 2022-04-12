@@ -94,7 +94,7 @@ START_TEST(test_progress_data)
 }
 END_TEST
 
-Suite *curl_test_suite()
+Suite *curl_test_suite(void)
 {
     Suite *s = suite_create("Curl");
     TCase *tc = tcase_create("Curl");

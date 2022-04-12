@@ -2851,7 +2851,7 @@ void slapt_pkg_upgrade_t_free(slapt_pkg_upgrade_t *upgrade)
     free(upgrade);
 }
 
-slapt_dependency_t* slapt_dependency_t_init()
+slapt_dependency_t* slapt_dependency_t_init(void)
 {
     slapt_dependency_t *d = malloc(sizeof *d);
     d->alternatives = NULL;

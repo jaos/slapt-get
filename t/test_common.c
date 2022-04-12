@@ -155,7 +155,7 @@ START_TEST(test_slapt_parse_delimited_list)
 }
 END_TEST
 
-Suite *common_test_suite()
+Suite *common_test_suite(void)
 {
     Suite *s = suite_create("Common");
     TCase *tc = tcase_create("Common");

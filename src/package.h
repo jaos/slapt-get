@@ -74,7 +74,7 @@ typedef struct {
         };
     };
 } slapt_dependency_t;
-slapt_dependency_t* slapt_dependency_t_init();
+slapt_dependency_t* slapt_dependency_t_init(void);
 void slapt_dependency_t_free(slapt_dependency_t *);
 slapt_dependency_t *slapt_dependency_t_parse_required(const char *);
 

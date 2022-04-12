@@ -44,7 +44,7 @@ libm = cc.find_library('m')
 
 deps = [libcurl, zlib, openssl, libm, libgpgme]
 
-cflags = ['-ffat-lto-objects', '-Wshadow', '-Wstrict-overflow', '-fno-strict-aliasing']
+cflags = ['-ffat-lto-objects', '-Wshadow', '-Wstrict-overflow', '-fno-strict-aliasing', '-Werror=implicit-function-declaration', '-Werror=implicit-fallthrough=3', '-Werror=maybe-uninitialized', '-Werror=missing-field-initializers', '-Werror=incompatible-pointer-types', '-Werror=int-conversion', '-Werror=redundant-decls', '-Werror=parentheses', '-Wformat-nonliteral', '-Wformat-security', '-Wformat', '-Winit-self', '-Wmaybe-uninitialized', '-Wold-style-definition', '-Wredundant-decls', '-Wstrict-prototypes']
 if get_option('testbuild').enabled()
   cflags += ['-fstack-protector', '-ggdb', '-fno-omit-frame-pointer']
 endif

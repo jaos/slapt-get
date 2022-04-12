@@ -3,6 +3,6 @@
 #define CURL_TEST_SUITE 1
 
 #include "common.h"
-Suite *curl_test_suite();
+Suite *curl_test_suite(void);
 
 #endif

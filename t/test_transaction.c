@@ -104,7 +104,7 @@ START_TEST(test_transaction_dependencies)
 }
 END_TEST
 
-Suite *transaction_test_suite()
+Suite *transaction_test_suite(void)
 {
     Suite *s = suite_create("Transaction");
     TCase *tc = tcase_create("Transaction");

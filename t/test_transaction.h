@@ -3,6 +3,6 @@
 #define TRANSACTION_TEST_SUITE 1
 
 #include "common.h"
-Suite *transaction_test_suite();
+Suite *transaction_test_suite(void);
 
 #endif
