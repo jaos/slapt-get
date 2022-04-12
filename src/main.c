@@ -17,8 +17,8 @@
  */
 
 #include "main.h"
-extern char *optarg;
-extern int optind, opterr, optopt;
+//extern char *optarg;
+//extern int optind, opterr, optopt;
 
 static void usage(void);
 static void version_info(void);
