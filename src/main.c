@@ -548,7 +548,7 @@ static void slapt_pkg_action_install(const slapt_config_t *global_config, const 
         slapt_pkg_t *installed_pkg = slapt_get_newest_pkg(installed_pkgs, pkg->name);
 
         /* if it is not already installed, install it */
-        if (installed_pkg == NULL || global_config->no_upgrade) {
+        if (installed_pkg == NULL) {
             if (slapt_transaction_t_add_dependencies(global_config, tran, avail_pkgs, installed_pkgs, pkg) == 0) {
                 slapt_vector_t *conflicts = slapt_transaction_t_find_conflicts(tran, avail_pkgs, installed_pkgs, pkg);
 
@@ -577,7 +577,7 @@ static void slapt_pkg_action_install(const slapt_config_t *global_config, const 
                 slapt_transaction_t_add_exclude(tran, pkg);
             }
 
-        } else { /* else we upgrade or reinstall */
+        } else if (!global_config->no_upgrade || global_config->re_install) { /* else we upgrade or reinstall */
 
             /* it is already installed, attempt an upgrade */
             if (((slapt_pkg_t_cmp(installed_pkg, pkg)) < 0) || (global_config->re_install)) {
