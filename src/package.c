@@ -1326,6 +1326,7 @@ slapt_vector_t *slapt_get_pkg_conflicts(const slapt_vector_t *avail_pkgs, const 
         }
         slapt_dependency_t_free(conflict_dep);
     }
+    slapt_vector_t_free(conflict_parts);
 
     return conflicts;
 }
