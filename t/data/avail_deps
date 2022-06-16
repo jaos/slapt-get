@@ -712,7 +712,7 @@ PACKAGE PRIORITY:  0
 PACKAGE LOCATION:  ./fronz
 PACKAGE SIZE (compressed):  108 K
 PACKAGE SIZE (uncompressed):  250 K
-PACKAGE REQUIRED:   fronzbar >= 2.2.0
+PACKAGE REQUIRED:   fronzfoo >= 2.2.0
 PACKAGE CONFLICTS:
 PACKAGE SUGGESTS:
 PACKAGE MD5SUM:  372dc5596e501cf9113bbd43142ed474
@@ -722,6 +722,23 @@ fronz:
 fronz: this is a test package
 fronz:
 fronz:
+
+PACKAGE NAME:  fronzfoo-2.2.1-x86_64-1.txz
+PACKAGE MIRROR:  file:///tmp/
+PACKAGE PRIORITY:  0
+PACKAGE LOCATION:  ./fronzfoo
+PACKAGE SIZE (compressed):  108 K
+PACKAGE SIZE (uncompressed):  250 K
+PACKAGE REQUIRED:   fronzbar >= 2.2.0
+PACKAGE CONFLICTS:
+PACKAGE SUGGESTS:
+PACKAGE MD5SUM:  ddb77e7203d9a9868c7f77b5647044a6
+PACKAGE DESCRIPTION:
+fronzfoo: fronzfoo test
+fronzfoo:
+fronzfoo: this is a test package
+fronzfoo:
+fronzfoo:
 
 PACKAGE NAME:  fronzbar-2.2.1-x86_64-1.txz
 PACKAGE MIRROR:  file:///tmp/

@@ -50,7 +50,7 @@ int main(void)
     srunner_add_suite(sr, packages_test_suite());
     srunner_add_suite(sr, transaction_test_suite());
 
-    srunner_run_all(sr, CK_NORMAL);
+    srunner_run_all(sr, CK_VERBOSE);
     number_failed = srunner_ntests_failed(sr);
 
     srunner_free(sr);

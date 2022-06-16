@@ -1211,10 +1211,6 @@ int slapt_get_pkg_dependencies(const slapt_config_t *global_config,
     if (missing_err == NULL)
         missing_err = slapt_vector_t_init((slapt_vector_t_free_function)slapt_pkg_err_t_free);
 
-    if ((slapt_get_newest_pkg(deps, pkg->name) != NULL)) {
-        return 0;
-    }
-
     /* don't go any further if the required member is empty or disable_dep_check is set */
     if (global_config->disable_dep_check || pkg->dependencies->size == 0)
         return 0;
@@ -1243,6 +1239,9 @@ int slapt_get_pkg_dependencies(const slapt_config_t *global_config,
                         slapt_vector_t_add(conflict_err, err);
                         return -1;
                     }
+                    if ((slapt_get_newest_pkg(deps, apkg->name) != NULL))
+                        continue;
+
                     if (!apkg->installed) {
                         slapt_vector_t_add(deps, apkg);
                         const int rv = slapt_get_pkg_dependencies(global_config, avail_pkgs, installed_pkgs, apkg, deps, conflict_err, missing_err);
@@ -1273,6 +1272,9 @@ int slapt_get_pkg_dependencies(const slapt_config_t *global_config,
                     slapt_vector_t_add(conflict_err, err);
                     return -1;
                 }
+                if ((slapt_get_newest_pkg(deps, dep_pkg->name) != NULL))
+                    continue;
+
                 if (!dep_pkg->installed) {
                     slapt_vector_t_add(deps, dep_pkg);
                     const int rv = slapt_get_pkg_dependencies(global_config, avail_pkgs, installed_pkgs, dep_pkg, deps, conflict_err, missing_err);
@@ -1289,6 +1291,7 @@ int slapt_get_pkg_dependencies(const slapt_config_t *global_config,
             return -1;
         }
     }
+
     return 0;
 }
 

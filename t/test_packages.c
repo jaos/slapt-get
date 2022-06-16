@@ -289,7 +289,7 @@ START_TEST(test_dependency)
     slapt_vector_t_free(missing);
     slapt_vector_t_free(deps);
 
-    /* fronz */
+    /* fronz requires fronzfoo and fronzbar */
     p = slapt_get_newest_pkg(avail, "fronz");
     ck_assert(p != NULL);
     conflict = slapt_vector_t_init(NULL);
@@ -297,11 +297,18 @@ START_TEST(test_dependency)
     deps = slapt_vector_t_init(NULL);
     i = slapt_get_pkg_dependencies(rc, avail, installed, p, deps, conflict, missing);
     ck_assert(i == 0);
-    ck_assert(deps->size == 1);
-    search_results = slapt_search_pkg_list(deps, "fronzbar");
-    ck_assert(search_results != NULL);
-    ck_assert(search_results->size == 1);
-    slapt_vector_t_free(search_results);
+    ck_assert(deps->size == 2);
+
+    slapt_vector_t *fronzfoo_search_results = slapt_search_pkg_list(deps, "fronzfoo");
+    ck_assert(fronzfoo_search_results != NULL);
+    ck_assert(fronzfoo_search_results->size == 1);
+    slapt_vector_t_free(fronzfoo_search_results);
+
+    slapt_vector_t *fronzbar_search_results = slapt_search_pkg_list(deps, "fronzbar");
+    ck_assert(fronzbar_search_results != NULL);
+    ck_assert(fronzbar_search_results->size == 1);
+    slapt_vector_t_free(fronzbar_search_results);
+
     slapt_vector_t_free(conflict);
     slapt_vector_t_free(missing);
     slapt_vector_t_free(deps);

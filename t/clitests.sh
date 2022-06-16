@@ -12,7 +12,6 @@ done
 slaptget="${1}"
 config=${TEST_TMPDIR}/config
 cat > ${config} << EOF
-WORKINGDIR=
 WORKINGDIR=${TEST_TMPDIR}/slapt-get-cache
 EXCLUDE=
 SOURCE=${MIRROR}:OFFICIAL
