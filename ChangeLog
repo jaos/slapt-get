@@ -1,3 +1,7 @@
+0.11.6 Jul 09, 2022
+* src/package.c: fix recursive dependency regression from 0.11.3
+* src/main.c: fix no-upgrade regression when installing a package that is installed
+
 0.11.5 Feb 05, 2022
  * tx pull
  * Fix case-sensitive unit comparison
