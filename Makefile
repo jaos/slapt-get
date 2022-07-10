@@ -11,12 +11,13 @@ OBJS=src/common.o src/configuration.o src/package.o src/slaptcurl.o src/transact
 LIBOBJS=src/common.o src/configuration.o src/package.o src/slaptcurl.o src/transaction.o
 LIBHEADERS=src/main.h src/common.h src/configuration.h src/package.h src/slaptcurl.h src/transaction.h
 NONLIBOBJS=src/main.o
-RCDEST=/etc/slapt-get/slapt-getrc
+RCDIR=/etc/slapt-get
+RCDEST=$(RCDIR)/slapt-getrc
 RCSOURCE=default.slapt-getrc.$(ARCH)
 PACKAGE_LOCALE_DIR=/usr/share/locale
 SBINDIR=/usr/sbin/
 GETTEXT_PACKAGE=$(PACKAGE)
-DEFINES=-DPACKAGE="\"$(PACKAGE)\"" -DVERSION="\"$(VERSION)\"" -DRC_LOCATION="\"$(RCDEST)\"" -DENABLE_NLS -DPACKAGE_LOCALE_DIR="\"$(PACKAGE_LOCALE_DIR)\"" -DGETTEXT_PACKAGE="\"$(GETTEXT_PACKAGE)\""
+DEFINES=-DPACKAGE="\"$(PACKAGE)\"" -DVERSION="\"$(VERSION)\"" -DRC_DIR="\"$(RCDIR)\"" -DRC_LOCATION="\"$(RCDEST)\"" -DENABLE_NLS -DPACKAGE_LOCALE_DIR="\"$(PACKAGE_LOCALE_DIR)\"" -DGETTEXT_PACKAGE="\"$(GETTEXT_PACKAGE)\""
 LDFLAGS+=$(CURLFLAGS) -lz -lm -flto=auto
 HAS_GPGME=$(shell gpgme-config --libs 2>&1 >/dev/null && echo 1)
 ifeq ($(HAS_GPGME),1)

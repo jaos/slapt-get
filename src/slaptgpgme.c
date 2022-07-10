@@ -20,9 +20,14 @@
 
 static gpgme_ctx_t *_slapt_init_gpgme_ctx(void)
 {
-    gpgme_ctx_t *ctx = slapt_malloc(sizeof *ctx);
+    gpgme_error_t e = gpgme_set_engine_info(GPGME_PROTOCOL_OpenPGP, NULL, RC_DIR);
+    if (e != GPG_ERR_NO_ERROR) {
+        fprintf(stderr, "GPGME: %s\n", gpgme_strerror(e));
+        return NULL;
+    }
 
-    gpgme_error_t e = gpgme_new(ctx);
+    gpgme_ctx_t *ctx = slapt_malloc(sizeof *ctx);
+    e = gpgme_new(ctx);
     if (e != GPG_ERR_NO_ERROR) {
         fprintf(stderr, "GPGME: %s\n", gpgme_strerror(e));
         free(ctx);

@@ -28,6 +28,7 @@ add_project_arguments('-DPACKAGE="' + package + '"', language: 'c')
 add_project_arguments('-DGETTEXT_PACKAGE="' + package + '"', language: 'c')
 add_project_arguments('-DVERSION="' + version + '"', language: 'c')
 add_project_arguments('-DRC_LOCATION="' + rcpath + '"', language: 'c')
+add_project_arguments('-DRC_DIR="' + rcdir + '"', language: 'c')
 add_project_arguments('-DENABLE_NLS', language: 'c')
 add_project_arguments('-DPACKAGE_LOCALE_DIR="' + localedir + '"', language: 'c')
 

@@ -1,3 +1,8 @@
+0.11.7 Jul 17, 2022
+* use the configuration directory (/etc/slapt-get) for the GPG
+  keyring/trustdb. This will require a rerun of --add-keys after
+  installation.
+
 0.11.6 Jul 09, 2022
 * src/package.c: fix recursive dependency regression from 0.11.3
 * src/main.c: fix no-upgrade regression when installing a package that is installed
