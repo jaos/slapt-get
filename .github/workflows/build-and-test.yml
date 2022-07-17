@@ -27,7 +27,7 @@ jobs:
       run: ~/.local/bin/meson compile -C build
 
     - name: setup test
-      run: sudo mkdir -p /var/lib/pkgtools/packages
+      run: sudo mkdir -p /var/lib/pkgtools/packages /etc/slapt-get
 
     - name: run test
       run: ~/.local/bin/meson test -v -C build
