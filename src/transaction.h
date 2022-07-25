@@ -84,26 +84,27 @@ void slapt_transaction_t_add_reinstall(slapt_transaction_t *, const slapt_pkg_t 
 /* add package to exclude to transaction */
 void slapt_transaction_t_add_exclude(slapt_transaction_t *, const slapt_pkg_t *pkg);
 /* remove package from transaction, returns modified transaction */
-slapt_transaction_t *slapt_transaction_t_remove(slapt_transaction_t *tran, const slapt_pkg_t *pkg);
+slapt_transaction_t *slapt_transaction_t_remove(slapt_transaction_t *trxn, const slapt_pkg_t *pkg);
 
 /* search transaction by package name.  returns true if found, false otherwise */
 bool slapt_transaction_t_search(const slapt_transaction_t *, const char *pkg_name);
 /* search transaction by package attributes, returns true if found, false otherwise */
-bool slapt_transaction_t_search_by_pkg(const slapt_transaction_t *tran, const slapt_pkg_t *pkg);
+bool slapt_transaction_t_search_by_pkg(const slapt_transaction_t *trxn, const slapt_pkg_t *pkg);
 /* searches the upgrade list of the transaction for the present of the package, returns true if found, false if not found */
-bool slapt_transaction_t_search_upgrade(const slapt_transaction_t *tran, const slapt_pkg_t *pkg);
+bool slapt_transaction_t_search_upgrade(const slapt_transaction_t *trxn, const slapt_pkg_t *pkg);
 
 /* add dependencies for package to transaction, returns -1 on error, 0 otherwise */
 int slapt_transaction_t_add_dependencies(const slapt_config_t *global_config,
-                            slapt_transaction_t *tran,
+                            slapt_transaction_t *trxn,
                             const slapt_vector_t *avail_pkgs,
-                            const slapt_vector_t *installed_pkgs, slapt_pkg_t *pkg);
+                            const slapt_vector_t *installed_pkgs,
+                            const slapt_pkg_t *pkg);
 
 /* check to see if a package has a conflict already present in the transaction, returns conflicted package or NULL if none */
-slapt_vector_t *slapt_transaction_t_find_conflicts(const slapt_transaction_t *tran,
+slapt_vector_t *slapt_transaction_t_find_conflicts(const slapt_transaction_t *trxn,
                                     const slapt_vector_t *avail_pkgs,
                                     const slapt_vector_t *installed_pkgs,
                                     const slapt_pkg_t *pkg);
 
 /* generate a list of suggestions based on the current packages in the transaction */
-void slapt_transaction_t_suggestions(slapt_transaction_t *tran);
+void slapt_transaction_t_suggestions(slapt_transaction_t *trxn);

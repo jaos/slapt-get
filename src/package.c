@@ -1052,7 +1052,10 @@ void slapt_write_pkg_data(const char *source_url, FILE *d_file, const slapt_vect
         if (pkg->mirror != NULL && strlen(pkg->mirror) > 0) {
             fprintf(d_file, "PACKAGE MIRROR:  %s\n", pkg->mirror);
         } else {
-            fprintf(d_file, "PACKAGE MIRROR:  %s\n", source_url);
+            if (source_url)
+                fprintf(d_file, "PACKAGE MIRROR:  %s\n", source_url);
+            else
+                fprintf(d_file, "PACKAGE MIRROR:  \n");
         }
         fprintf(d_file, "PACKAGE PRIORITY:  %d\n", pkg->priority);
         fprintf(d_file, "PACKAGE LOCATION:  %s\n", pkg->location);

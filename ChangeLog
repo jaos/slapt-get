@@ -492,7 +492,7 @@
 
 0.9.9l May 29, 2005
  * removed private search_exclude_transaction() in favor of
-   get_exact_pkg(tran->exclude_pkgs,pkg) (libslapt)
+   get_exact_pkg(trxn->exclude_pkgs,pkg) (libslapt)
  * made search_upgrade_transaction() public (libslapt)
  * fixed bug in remove_from_transaction() function (libslapt)
  * updated translations

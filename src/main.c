@@ -509,7 +509,7 @@ static void slapt_pkg_action_install(const slapt_config_t *global_config, const 
 
     printf(gettext("Done\n"));
 
-    slapt_transaction_t *tran = slapt_transaction_t_init();
+    slapt_transaction_t *trxn = slapt_transaction_t_init();
 
     slapt_regex_t *pkg_regex = slapt_regex_t_init(SLAPT_PKG_LOG_PATTERN);
     if (pkg_regex == NULL) {
@@ -549,66 +549,66 @@ static void slapt_pkg_action_install(const slapt_config_t *global_config, const 
 
         /* if it is not already installed, install it */
         if (installed_pkg == NULL) {
-            if (slapt_transaction_t_add_dependencies(global_config, tran, avail_pkgs, installed_pkgs, pkg) == 0) {
-                slapt_vector_t *conflicts = slapt_transaction_t_find_conflicts(tran, avail_pkgs, installed_pkgs, pkg);
+            if (slapt_transaction_t_add_dependencies(global_config, trxn, avail_pkgs, installed_pkgs, pkg) == 0) {
+                slapt_vector_t *conflicts = slapt_transaction_t_find_conflicts(trxn, avail_pkgs, installed_pkgs, pkg);
 
                 /* this comes first so we can pick up that we are installed the package when checking conflicts */
-                slapt_transaction_t_add_install(tran, pkg);
+                slapt_transaction_t_add_install(trxn, pkg);
 
                 /* if there are conflicts, we schedule the conflicts for removal */
                 if (conflicts->size && !global_config->ignore_dep) {
                     slapt_vector_t_foreach (slapt_pkg_t *, conflict, conflicts) {
                         /* make sure to remove the conflict's dependencies as well */
-                        slapt_vector_t *conflict_deps = slapt_is_required_by(global_config, avail_pkgs, installed_pkgs, tran->install_pkgs, tran->remove_pkgs, conflict);
+                        slapt_vector_t *conflict_deps = slapt_is_required_by(global_config, avail_pkgs, installed_pkgs, trxn->install_pkgs, trxn->remove_pkgs, conflict);
                         slapt_vector_t_foreach (slapt_pkg_t *, conflict_dep, conflict_deps) {
                             if (slapt_get_exact_pkg(installed_pkgs, conflict_dep->name, conflict_dep->version) != NULL) {
-                                slapt_transaction_t_add_remove(tran, conflict_dep);
+                                slapt_transaction_t_add_remove(trxn, conflict_dep);
                             }
                         }
                         slapt_vector_t_free(conflict_deps);
 
-                        slapt_transaction_t_add_remove(tran, conflict);
+                        slapt_transaction_t_add_remove(trxn, conflict);
                     }
                 }
                 slapt_vector_t_free(conflicts);
 
             } else {
                 printf(gettext("Excluding %s, use --ignore-dep to override\n"), pkg->name);
-                slapt_transaction_t_add_exclude(tran, pkg);
+                slapt_transaction_t_add_exclude(trxn, pkg);
             }
 
         } else if (!global_config->no_upgrade || global_config->re_install) { /* else we upgrade or reinstall */
 
             /* it is already installed, attempt an upgrade */
             if (((slapt_pkg_t_cmp(installed_pkg, pkg)) < 0) || (global_config->re_install)) {
-                if (slapt_transaction_t_add_dependencies(global_config, tran, avail_pkgs, installed_pkgs, pkg) == 0) {
-                    slapt_vector_t *conflicts = slapt_transaction_t_find_conflicts(tran, avail_pkgs, installed_pkgs, pkg);
+                if (slapt_transaction_t_add_dependencies(global_config, trxn, avail_pkgs, installed_pkgs, pkg) == 0) {
+                    slapt_vector_t *conflicts = slapt_transaction_t_find_conflicts(trxn, avail_pkgs, installed_pkgs, pkg);
                     if (conflicts->size && !global_config->ignore_dep) {
                         slapt_vector_t_foreach (slapt_pkg_t *, conflict, conflicts) {
                             /* make sure to remove the conflict's dependencies as well */
-                            slapt_vector_t *conflict_deps = slapt_is_required_by(global_config, avail_pkgs, installed_pkgs, tran->install_pkgs, tran->remove_pkgs, conflict);
+                            slapt_vector_t *conflict_deps = slapt_is_required_by(global_config, avail_pkgs, installed_pkgs, trxn->install_pkgs, trxn->remove_pkgs, conflict);
                             slapt_vector_t_foreach (slapt_pkg_t *, conflict_dep, conflict_deps) {
                                 if (slapt_get_exact_pkg(installed_pkgs, conflict_dep->name, conflict_dep->version) != NULL) {
-                                    slapt_transaction_t_add_remove(tran, conflict_dep);
+                                    slapt_transaction_t_add_remove(trxn, conflict_dep);
                                 }
                             }
                             slapt_vector_t_free(conflict_deps);
 
-                            slapt_transaction_t_add_remove(tran, conflict);
+                            slapt_transaction_t_add_remove(trxn, conflict);
                         }
                     }
 
                     if (slapt_pkg_t_cmp(installed_pkg, pkg) == 0) {
-                        slapt_transaction_t_add_reinstall(tran, installed_pkg, pkg);
+                        slapt_transaction_t_add_reinstall(trxn, installed_pkg, pkg);
                     } else {
-                        slapt_transaction_t_add_upgrade(tran, installed_pkg, pkg);
+                        slapt_transaction_t_add_upgrade(trxn, installed_pkg, pkg);
                     }
 
                     slapt_vector_t_free(conflicts);
 
                 } else {
                     printf(gettext("Excluding %s, use --ignore-dep to override\n"), pkg->name);
-                    slapt_transaction_t_add_exclude(tran, pkg);
+                    slapt_transaction_t_add_exclude(trxn, pkg);
                 }
 
             } else {
@@ -622,11 +622,11 @@ static void slapt_pkg_action_install(const slapt_config_t *global_config, const 
 
     slapt_regex_t_free(pkg_regex);
 
-    if (slapt_transaction_t_run(global_config, tran) != 0) {
+    if (slapt_transaction_t_run(global_config, trxn) != 0) {
         exit(EXIT_FAILURE);
     }
 
-    slapt_transaction_t_free(tran);
+    slapt_transaction_t_free(trxn);
 }
 
 /* list pkgs */
@@ -685,7 +685,7 @@ static void slapt_pkg_action_remove(const slapt_config_t *global_config, const s
     slapt_vector_t *avail_pkgs = slapt_get_available_pkgs();
     printf(gettext("Done\n"));
 
-    slapt_transaction_t *tran = slapt_transaction_t_init();
+    slapt_transaction_t *trxn = slapt_transaction_t_init();
     slapt_regex_t *pkg_regex = slapt_regex_t_init(SLAPT_PKG_LOG_PATTERN);
     if (pkg_regex == NULL) {
         exit(EXIT_FAILURE);
@@ -722,13 +722,13 @@ static void slapt_pkg_action_remove(const slapt_config_t *global_config, const s
         }
 
         slapt_vector_t_add(scheduled, pkg);
-        slapt_transaction_t_add_remove(tran, pkg);
+        slapt_transaction_t_add_remove(trxn, pkg);
     }
     slapt_vector_t_foreach(const slapt_pkg_t *, to_remove, scheduled) {
-        slapt_vector_t *deps = slapt_is_required_by(global_config, avail_pkgs, installed_pkgs, tran->install_pkgs, tran->remove_pkgs, to_remove);
+        slapt_vector_t *deps = slapt_is_required_by(global_config, avail_pkgs, installed_pkgs, trxn->install_pkgs, trxn->remove_pkgs, to_remove);
         slapt_vector_t_foreach (const slapt_pkg_t *, dep, deps) {
             if (slapt_get_exact_pkg(installed_pkgs, dep->name, dep->version) != NULL) {
-                slapt_transaction_t_add_remove(tran, dep);
+                slapt_transaction_t_add_remove(trxn, dep);
             }
         }
         slapt_vector_t_free(deps);
@@ -740,9 +740,9 @@ static void slapt_pkg_action_remove(const slapt_config_t *global_config, const s
 
         slapt_vector_t_foreach (const slapt_pkg_t *, pkg, obsolete) {
             if (slapt_is_excluded(global_config, pkg)) {
-                slapt_transaction_t_add_exclude(tran, pkg);
+                slapt_transaction_t_add_exclude(trxn, pkg);
             } else {
-                slapt_transaction_t_add_remove(tran, pkg);
+                slapt_transaction_t_add_remove(trxn, pkg);
             }
         }
 
@@ -753,11 +753,11 @@ static void slapt_pkg_action_remove(const slapt_config_t *global_config, const s
     slapt_vector_t_free(avail_pkgs);
     slapt_regex_t_free(pkg_regex);
 
-    if (slapt_transaction_t_run(global_config, tran) != 0) {
+    if (slapt_transaction_t_run(global_config, trxn) != 0) {
         exit(EXIT_FAILURE);
     }
 
-    slapt_transaction_t_free(tran);
+    slapt_transaction_t_free(trxn);
 }
 
 /* search for a pkg (support extended POSIX regex) */
@@ -926,7 +926,7 @@ static void slapt_pkg_action_upgrade_all(const slapt_config_t *global_config)
     }
 
     printf(gettext("Done\n"));
-    slapt_transaction_t *tran = slapt_transaction_t_init();
+    slapt_transaction_t *trxn = slapt_transaction_t_init();
 
     if (global_config->dist_upgrade) {
         slapt_pkg_t *newest_slaptget = NULL;
@@ -942,16 +942,16 @@ static void slapt_pkg_action_upgrade_all(const slapt_config_t *global_config)
             /* can we upgrade */
             if (inst_pkg != NULL && avail_pkg != NULL) {
                 if (slapt_pkg_t_cmp(inst_pkg, avail_pkg) < 0) {
-                    slapt_transaction_t_add_upgrade(tran, inst_pkg, avail_pkg);
+                    slapt_transaction_t_add_upgrade(trxn, inst_pkg, avail_pkg);
                 }
             } else if (avail_pkg != NULL && essential.upgrade_only == false) {
-                slapt_transaction_t_add_install(tran, avail_pkg);
+                slapt_transaction_t_add_install(trxn, avail_pkg);
             }
 
             if (avail_pkg != NULL && essential.replaces) {
                 slapt_pkg_t *installed_obsolete = slapt_get_newest_pkg(installed_pkgs, essential.replaces);
                 if (installed_obsolete) {
-                    slapt_transaction_t_add_remove(tran, installed_obsolete);
+                    slapt_transaction_t_add_remove(trxn, installed_obsolete);
                 }
             }
         }
@@ -972,18 +972,18 @@ static void slapt_pkg_action_upgrade_all(const slapt_config_t *global_config)
             /* add to install list if not already installed */
             if (installed_pkg == NULL) {
                 if (slapt_is_excluded(global_config, slapt_upgrade_pkg)) {
-                    slapt_transaction_t_add_exclude(tran, slapt_upgrade_pkg);
+                    slapt_transaction_t_add_exclude(trxn, slapt_upgrade_pkg);
                 } else {
-                    slapt_vector_t *conflicts = slapt_transaction_t_find_conflicts(tran, avail_pkgs, installed_pkgs, slapt_upgrade_pkg);
+                    slapt_vector_t *conflicts = slapt_transaction_t_find_conflicts(trxn, avail_pkgs, installed_pkgs, slapt_upgrade_pkg);
 
                     /* add install if all deps are good and it doesn't have conflicts */
-                    const int rc = slapt_transaction_t_add_dependencies(global_config, tran, avail_pkgs, installed_pkgs, slapt_upgrade_pkg);
+                    const int rc = slapt_transaction_t_add_dependencies(global_config, trxn, avail_pkgs, installed_pkgs, slapt_upgrade_pkg);
                     if (!rc && !conflicts->size && !global_config->ignore_dep) {
-                        slapt_transaction_t_add_install(tran, slapt_upgrade_pkg);
+                        slapt_transaction_t_add_install(trxn, slapt_upgrade_pkg);
                     } else {
                         /* otherwise exclude */
                         printf(gettext("Excluding %s, use --ignore-dep to override\n"), slapt_upgrade_pkg->name);
-                        slapt_transaction_t_add_exclude(tran, slapt_upgrade_pkg);
+                        slapt_transaction_t_add_exclude(trxn, slapt_upgrade_pkg);
                     }
 
                     slapt_vector_t_free(conflicts);
@@ -993,17 +993,17 @@ static void slapt_pkg_action_upgrade_all(const slapt_config_t *global_config)
                 /* arch is the only thing that changes */
             } else if ((slapt_pkg_t_cmp(installed_pkg, slapt_upgrade_pkg) <= 0) && strcmp(installed_pkg->version, slapt_upgrade_pkg->version) != 0) {
                 if (slapt_is_excluded(global_config, installed_pkg) || slapt_is_excluded(global_config, slapt_upgrade_pkg)) {
-                    slapt_transaction_t_add_exclude(tran, slapt_upgrade_pkg);
+                    slapt_transaction_t_add_exclude(trxn, slapt_upgrade_pkg);
                 } else {
-                    slapt_vector_t *conflicts = slapt_transaction_t_find_conflicts(tran, avail_pkgs, installed_pkgs, slapt_upgrade_pkg);
+                    slapt_vector_t *conflicts = slapt_transaction_t_find_conflicts(trxn, avail_pkgs, installed_pkgs, slapt_upgrade_pkg);
 
                     /* if all deps are added and there is no conflicts, add on */
-                    if ((slapt_transaction_t_add_dependencies(global_config, tran, avail_pkgs, installed_pkgs, slapt_upgrade_pkg) == 0) && (!conflicts->size && !global_config->ignore_dep)) {
-                        slapt_transaction_t_add_upgrade(tran, installed_pkg, slapt_upgrade_pkg);
+                    if ((slapt_transaction_t_add_dependencies(global_config, trxn, avail_pkgs, installed_pkgs, slapt_upgrade_pkg) == 0) && (!conflicts->size && !global_config->ignore_dep)) {
+                        slapt_transaction_t_add_upgrade(trxn, installed_pkg, slapt_upgrade_pkg);
                     } else {
                         /* otherwise exclude */
                         printf(gettext("Excluding %s, use --ignore-dep to override\n"), slapt_upgrade_pkg->name);
-                        slapt_transaction_t_add_exclude(tran, slapt_upgrade_pkg);
+                        slapt_transaction_t_add_exclude(trxn, slapt_upgrade_pkg);
                     }
 
                     slapt_vector_t_free(conflicts);
@@ -1019,9 +1019,9 @@ static void slapt_pkg_action_upgrade_all(const slapt_config_t *global_config)
 
             slapt_vector_t_foreach (const slapt_pkg_t *, obsolete_pkg, obsolete) {
                 if (slapt_is_excluded(global_config, obsolete_pkg)) {
-                    slapt_transaction_t_add_exclude(tran, obsolete_pkg);
+                    slapt_transaction_t_add_exclude(trxn, obsolete_pkg);
                 } else {
-                    slapt_transaction_t_add_remove(tran, obsolete_pkg);
+                    slapt_transaction_t_add_remove(trxn, obsolete_pkg);
                 }
             }
 
@@ -1033,9 +1033,9 @@ static void slapt_pkg_action_upgrade_all(const slapt_config_t *global_config)
         newest_slaptget = slapt_get_newest_pkg(avail_pkgs, "slapt-get");
         if (newest_slaptget != NULL) {
             slapt_pkg_t *installed_slaptget = slapt_get_newest_pkg(installed_pkgs, "slapt-get");
-            slapt_transaction_t_add_dependencies(global_config, tran, avail_pkgs, installed_pkgs, newest_slaptget);
+            slapt_transaction_t_add_dependencies(global_config, trxn, avail_pkgs, installed_pkgs, newest_slaptget);
             if (installed_slaptget != NULL) /* should never be null */
-                slapt_transaction_t_add_reinstall(tran, installed_slaptget, newest_slaptget);
+                slapt_transaction_t_add_reinstall(trxn, installed_slaptget, newest_slaptget);
         }
     }
 
@@ -1061,21 +1061,21 @@ static void slapt_pkg_action_upgrade_all(const slapt_config_t *global_config)
                 /* or this is a dist upgrade and the versions are the save except for the arch */
                 (global_config->dist_upgrade && cmp_r == 0 && cmp_pkg_arch(installed_pkg->version, update_pkg->version) != 0)) {
                 if ((slapt_is_excluded(global_config, update_pkg)) || (slapt_is_excluded(global_config, installed_pkg))) {
-                    slapt_transaction_t_add_exclude(tran, update_pkg);
+                    slapt_transaction_t_add_exclude(trxn, update_pkg);
                 } else {
-                    slapt_vector_t *conflicts = slapt_transaction_t_find_conflicts(tran, avail_pkgs, installed_pkgs, update_pkg);
+                    slapt_vector_t *conflicts = slapt_transaction_t_find_conflicts(trxn, avail_pkgs, installed_pkgs, update_pkg);
 
                     /* if all deps are added and there is no conflicts, add on */
-                    if ((slapt_transaction_t_add_dependencies(global_config, tran, avail_pkgs, installed_pkgs, update_pkg) == 0) && (global_config->ignore_dep || !conflicts->size)) {
+                    if ((slapt_transaction_t_add_dependencies(global_config, trxn, avail_pkgs, installed_pkgs, update_pkg) == 0) && (global_config->ignore_dep || !conflicts->size)) {
                         if (cmp_r == 0)
-                            slapt_transaction_t_add_reinstall(tran, installed_pkg, update_pkg);
+                            slapt_transaction_t_add_reinstall(trxn, installed_pkg, update_pkg);
                         else
-                            slapt_transaction_t_add_upgrade(tran, installed_pkg, update_pkg);
+                            slapt_transaction_t_add_upgrade(trxn, installed_pkg, update_pkg);
 
                     } else {
                         /* otherwise exclude */
                         printf(gettext("Excluding %s, use --ignore-dep to override\n"), update_pkg->name);
-                        slapt_transaction_t_add_exclude(tran, update_pkg);
+                        slapt_transaction_t_add_exclude(trxn, update_pkg);
                     }
 
                     slapt_vector_t_free(conflicts);
@@ -1089,11 +1089,11 @@ static void slapt_pkg_action_upgrade_all(const slapt_config_t *global_config)
     slapt_vector_t_free(installed_pkgs);
     slapt_vector_t_free(avail_pkgs);
 
-    if (slapt_transaction_t_run(global_config, tran) != 0) {
+    if (slapt_transaction_t_run(global_config, trxn) != 0) {
         exit(EXIT_FAILURE);
     }
 
-    slapt_transaction_t_free(tran);
+    slapt_transaction_t_free(trxn);
 }
 
 static int cmp_pkg_arch(const char *a, const char *b)

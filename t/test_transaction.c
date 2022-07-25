@@ -63,7 +63,7 @@ START_TEST(test_transaction_dependencies)
     /*
     add dependencies for package to transaction, returns -1 on error, 0 otherwise
   int slapt_transaction_t_add_dependencies(const slapt_config_t *global_config,
-                              slapt_transaction_t *tran,
+                              slapt_transaction_t *trxn,
                               struct slapt_pkg_list *avail_pkgs,
                               struct slapt_pkg_list *installed_pkgs, slapt_pkg_t *pkg);
   */
@@ -71,7 +71,7 @@ START_TEST(test_transaction_dependencies)
     /*
     check to see if a package has a conflict already present in the transaction
     returns conflicted package or NULL if none
-  slapt_pkg_t *slapt_transaction_t_find_conflicts(slapt_transaction_t *tran,
+  slapt_pkg_t *slapt_transaction_t_find_conflicts(slapt_transaction_t *trxn,
                                         struct slapt_pkg_list *avail_pkgs,
                                         struct slapt_pkg_list *installed_pkgs,
                                         slapt_pkg_t *pkg);
@@ -80,7 +80,7 @@ START_TEST(test_transaction_dependencies)
     /*
     generate a list of suggestions based on the current packages
     in the transaction
-  void slapt_transaction_t_suggestions(slapt_transaction_t *tran);
+  void slapt_transaction_t_suggestions(slapt_transaction_t *trxn);
   */
     slapt_pkg_t *p = slapt_get_newest_pkg(avail, "scim");
     slapt_pkg_t *installed_p = slapt_get_newest_pkg(installed, "scim");
