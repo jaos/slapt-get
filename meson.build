@@ -45,12 +45,56 @@ libm = cc.find_library('m')
 
 deps = [libcurl, zlib, openssl, libm, libgpgme]
 
-cflags = ['-ffat-lto-objects', '-Wshadow', '-Wstrict-overflow', '-fno-strict-aliasing', '-Werror=implicit-function-declaration', '-Werror=implicit-fallthrough=3', '-Werror=maybe-uninitialized', '-Werror=missing-field-initializers', '-Werror=incompatible-pointer-types', '-Werror=int-conversion', '-Werror=redundant-decls', '-Werror=parentheses', '-Wformat-nonliteral', '-Wformat-security', '-Wformat', '-Winit-self', '-Wmaybe-uninitialized', '-Wold-style-definition', '-Wredundant-decls', '-Wstrict-prototypes']
+cflags = [
+  '-ffat-lto-objects',
+  '-fno-strict-aliasing',
+  '-Warith-conversion',
+  '-Warray-bounds=2',
+  '-Wcast-align=strict',
+  '-Wduplicated-cond',
+  '-Wduplicated-branches',
+  '-Wformat-nonliteral',
+  '-Wformat-overflow=2',
+  '-Wformat-security',
+  '-Wformat=2',
+  '-Wimplicit-function-declaration',
+  '-Wimplicit-fallthrough=3',
+  '-Wincompatible-pointer-types',
+  '-Winit-self',
+  '-Wint-conversion',
+  '-Wlogical-op',
+  '-Wmaybe-uninitialized',
+  '-Wmissing-field-initializers',
+  '-Wnull-dereference',
+  '-Wold-style-definition',
+  '-Wparentheses',
+  '-Wredundant-decls',
+  '-Wshadow',
+  '-Wshift-overflow=2',
+  '-Wstrict-overflow',
+  '-Wstrict-prototypes',
+  '-Wstringop-overflow=4',
+  '-Wswitch-default',
+  '-Wtrampolines',
+  '-Wundef',
+]
 if get_option('testbuild').enabled()
-  cflags += ['-fstack-protector', '-ggdb', '-fno-omit-frame-pointer']
+  cflags += [
+    '-D_FORTIFY_SOURCE=2',
+    '-fno-omit-frame-pointer',
+    '-fstack-protector-strong',
+    '-ggdb',
+  ]
 endif
 add_project_arguments(cc.get_supported_arguments(cflags), language: 'c')
 add_project_link_arguments(cc.get_supported_link_arguments(cflags), language: 'c')
+lflags = ['-Wl,-z,defs',
+  '-Wl,-z,noexecstack',
+  '-Wl,-z,now',
+  '-Wl,-z,relro',
+  '-Wl,-z,separate-code',
+]
+add_project_link_arguments(cc.get_supported_link_arguments(lflags), language: 'c')
 
 subdir('po')
 subdir('src')
