@@ -4,9 +4,7 @@ aaa_libraries|krb5
 aaa_libraries|libidn2
 aaa_libraries|libnsl
 aaa_libraries|libpsl
-aaa_libraries|libssh2
 aaa_libraries|libtirpc
-aaa_libraries|openldap
 aaa_libraries|zlib
 aaa_libraries|zstd
 brotli
