@@ -9,5 +9,5 @@ shift
 echo "#ifndef LIB_SLAPT" > "${OUTPUT}"
 echo "#define LIB_SLAPT 1" >> "${OUTPUT}"
 cd "${WORKINGDIR}"
-cat $@ | grep -v '#include \"' >> "${OUTPUT}"
+cat $@ | grep -v '#include "' >> "${OUTPUT}"
 echo "#endif" >> "${OUTPUT}"
