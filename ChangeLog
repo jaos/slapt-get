@@ -1,3 +1,6 @@
+0.11.8 Dec 25, 2022
+* Curl updates
+
 0.11.7 Jul 17, 2022
 * use the configuration directory (/etc/slapt-get) for the GPG
   keyring/trustdb. This will require a rerun of --add-keys after
