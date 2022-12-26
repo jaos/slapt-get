@@ -32,7 +32,7 @@ TOP="${PWD}"
 DESTDIR="${TOP}/pkg"
 rm -rf "${DESTDIR}"
 
-meson build --prefix=/usr --sysconfdir=/etc --mandir=/usr/man --buildtype=debugoptimized
+meson setup build --prefix=/usr --sysconfdir=/etc --mandir=/usr/man --buildtype=debugoptimized
 meson compile -C build
 DESTDIR="${DESTDIR}" meson install -C build
 

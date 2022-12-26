@@ -46,11 +46,15 @@ ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --upgrade --print-uris
 ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --dist-upgrade -s
 ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --remove aaa_base -s
 ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --search slapt
+ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --show aaa_base
+ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --filelist aaa_base
 ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --installed
 ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --available
-ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --remove --remove-obsolete -s
-ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --install-set xap -s
+ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --remove --remove-obsolete -s -y
+ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --install-set xap -s --no-upgrade --retry 3 --no-dep --ignore-dep
 ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --install aaa_base --reinstall --download-only
 ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --autoclean
 ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --clean
+ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --help
+ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --version
 find ${TEST_TMPDIR}
