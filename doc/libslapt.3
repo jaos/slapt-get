@@ -64,7 +64,7 @@ slapt-get stores the configuration information in a \fIslapt_config_t\fP object.
     char working_dir[WORKINGDIR_TOKEN_LEN];
     slapt_vector_t *sources;
     slapt_vector_t *exclude_list;
-    int (*progress_cb) (void *,double,double,double,double);
+    int (*progress_cb) (void *,off_t,off_t,off_t,off_t);
     bool download_only;
     bool dist_upgrade;
     bool simulate;
@@ -100,7 +100,7 @@ The slapt-getrc configuration can be written back out with \fIslapt_config_t_wri
 .B "int slapt_config_t_write(const slapt_config_t *global_config, const char *location);"
 .sp
 .TP
-The progress callback is a function that is called while data is being downloaded.  It is in the format of \fBint slapt_progress_callback(void *clientp, double dltotal, double dlnow, double ultotal, double ulnow);\fP
+The progress callback is a function that is called while data is being downloaded.  It is in the format of \fBint slapt_progress_callback(void *clientp, off_t dltotal, off_t dlnow, off_t ultotal, off_t ulnow);\fP
 .sp
 .TP
 Package sources are represented by the \fIslapt_source_t\fP type.  They are created, destroyed, and interacted with using the following functions:

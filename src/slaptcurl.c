@@ -60,9 +60,9 @@ int slapt_download_data(FILE *fh, const char *url, size_t bytes, long *filetime,
 
     if (!global_config->dl_stats) {
         if (global_config->progress_cb == NULL) {
-            curl_easy_setopt(ch, CURLOPT_PROGRESSFUNCTION, slapt_progress_callback);
+            curl_easy_setopt(ch, CURLOPT_XFERINFOFUNCTION, slapt_progress_callback);
         } else {
-            curl_easy_setopt(ch, CURLOPT_PROGRESSFUNCTION, global_config->progress_cb);
+            curl_easy_setopt(ch, CURLOPT_XFERINFOFUNCTION, global_config->progress_cb);
         }
         curl_easy_setopt(ch, CURLOPT_PROGRESSDATA, cb_data);
     }
@@ -316,7 +316,7 @@ const char *slapt_download_pkg(const slapt_config_t *global_config, const slapt_
     }
 }
 
-int slapt_progress_callback(void *clientp, double dltotal, double dlnow, double ultotal, double ulnow)
+int slapt_progress_callback(void *clientp, off_t dltotal, off_t dlnow, off_t ultotal, off_t ulnow)
 {
     size_t percent = 0;
     struct slapt_progress_data *cb_data = (struct slapt_progress_data *)clientp;
