@@ -33,7 +33,7 @@ typedef struct {
     char working_dir[SLAPT_WORKINGDIR_TOKEN_LEN];
     slapt_vector_t *sources;
     slapt_vector_t *exclude_list;
-    int (*progress_cb)(void *, double, double, double, double);
+    int (*progress_cb)(void *, off_t, off_t, off_t, off_t);
     bool download_only;
     bool dist_upgrade;
     bool simulate;

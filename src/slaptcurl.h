@@ -31,7 +31,7 @@ const char *slapt_get_mirror_data_from_source(FILE *fh, const slapt_config_t *gl
 const char *slapt_download_pkg(const slapt_config_t *global_config, const slapt_pkg_t *pkg, const char *note);
 
 /* this is the default progress callback if global_config->progress_cb == NULL */
-int slapt_progress_callback(void *clientp, double dltotal, double dlnow, double ultotal, double ulnow);
+int slapt_progress_callback(void *clientp, off_t dltotal, off_t dlnow, off_t ultotal, off_t ulnow);
 
 /* generate the head cache filename, caller responsible for freeing the returned data */
 char *slapt_gen_head_cache_filename(const char *filename_from_url);

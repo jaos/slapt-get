@@ -1,8 +1,7 @@
 #include "test_curl.h"
 extern slapt_pkg_t pkg;
 
-extern int _progress_cb(void *clientp, double dltotal, double dlnow,
-                        double ultotal, double ulnow);
+extern int _progress_cb(void *clientp, off_t dltotal, off_t dlnow, off_t ultotal, off_t ulnow);
 
 START_TEST(test_slapt_get_mirror_data_from_source)
 {

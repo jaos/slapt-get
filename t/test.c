@@ -22,8 +22,7 @@ slapt_pkg_t pkg = {
     .priority=SLAPT_PRIORITY_DEFAULT,
     .installed=true};
 
-int _progress_cb(void *clientp, double dltotal, double dlnow,
-                 double ultotal, double ulnow)
+int _progress_cb(void *clientp, off_t dltotal, off_t dlnow, off_t ultotal, off_t ulnow)
 {
     (void)clientp;
     (void)dltotal;
