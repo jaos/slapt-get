@@ -33,3 +33,28 @@ jobs:
 
     - name: run test
       run: ~/.local/bin/meson test -v -C build
+
+  slackware:
+    runs-on: ubuntu-latest
+    container: andy5995/slackware-build-essential:15.0
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Execute Slackbuild
+      run: |
+        ./slapt-get.Slackbuild
+        rm -rf build
+
+    - name: configure
+      run: meson setup build --prefix=/usr --sysconfdir=/etc --mandir=/usr/man --buildtype=debugoptimized -Dtestbuild=enabled
+
+    - name: compile
+      run: meson compile -C build
+
+    - name: setup test
+      run: |
+          sudo mkdir -p /var/lib/pkgtools/packages /etc/slapt-get
+          sudo chown $(id -u) /etc/slapt-get
+
+    - name: run test
+      run: meson test -v -C build
