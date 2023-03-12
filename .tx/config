@@ -1,7 +1,7 @@
 [main]
 host = https://www.transifex.com
 
-[slapt-get.slapt-get]
+[o:jaos:p:slapt-get:r:slapt-get]
 file_filter = po/<lang>.po
 source_file = po/slapt-get.pot
 source_lang = en
