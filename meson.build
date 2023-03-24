@@ -32,18 +32,19 @@ add_project_arguments('-DRC_DIR="' + rcdir + '"', language: 'c')
 add_project_arguments('-DENABLE_NLS', language: 'c')
 add_project_arguments('-DPACKAGE_LOCALE_DIR="' + localedir + '"', language: 'c')
 
+cc = meson.get_compiler('c')
 # compiler based checks
-libcurl = dependency('libcurl')
-zlib = dependency('zlib')
-openssl = dependency('openssl')
+deps = [
+  dependency('libcurl'),
+  dependency('zlib'),
+  dependency('openssl'),
+  cc.find_library('m')
+]
 libgpgme = dependency('gpgme', required: false)
 if libgpgme.found()
   add_project_arguments('-DSLAPT_HAS_GPGME', language: 'c')
+  deps += libgpgme
 endif
-cc = meson.get_compiler('c')
-libm = cc.find_library('m')
-
-deps = [libcurl, zlib, openssl, libm, libgpgme]
 
 cflags = [
   '-ffat-lto-objects',
