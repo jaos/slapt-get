@@ -1684,10 +1684,12 @@ char *slapt_pkg_t_url(const slapt_pkg_t *pkg)
     /* build the file name */
     char *file_name = slapt_pkg_t_string(pkg);
 
+    const char *location = pkg->location + strspn(pkg->location, "./");
+
     /* build the url */
-    const size_t url_len = strlen(pkg->mirror) + strlen(pkg->location) + strlen(file_name) + 2;
+    const size_t url_len = strlen(pkg->mirror) + strlen(location) + strlen(file_name) + 3;
     char *url = slapt_calloc(url_len, sizeof *url);
-    if (snprintf(url, url_len, "%s%s/%s", pkg->mirror, pkg->location, file_name) != (int)(url_len - 1)) {
+    if (snprintf(url, url_len, "%s/%s/%s", pkg->mirror, location, file_name) != (int)(url_len - 1)) {
         fprintf(stderr, "slapt_pkg_t_url error for %s\n", pkg->name);
         exit(EXIT_FAILURE);
     }

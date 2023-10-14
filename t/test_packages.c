@@ -51,7 +51,7 @@ START_TEST(test_pkg_info)
 
     string = slapt_pkg_t_url(&pkg);
     ck_assert(string != NULL);
-    ck_assert(strcmp(string, "http://software.jaos.org/slackpacks/11.0/./gslapt-0.3.15-i386-1.tgz") == 0);
+    ck_assert(strcmp(string, "http://software.jaos.org/slackpacks/11.0//gslapt-0.3.15-i386-1.tgz") == 0);
     free(string);
     string = NULL;
 
