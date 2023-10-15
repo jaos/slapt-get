@@ -545,7 +545,7 @@ static void slapt_pkg_action_install(const slapt_config_t *global_config, const 
             }
         }
 
-        slapt_pkg_t *installed_pkg = slapt_get_newest_pkg(installed_pkgs, pkg->name);
+        const slapt_pkg_t *installed_pkg = slapt_get_newest_pkg(installed_pkgs, pkg->name);
 
         /* if it is not already installed, install it */
         if (installed_pkg == NULL) {
@@ -806,7 +806,6 @@ static void slapt_pkg_action_search(const char *pattern)
 /* show the details for a specific package */
 static void slapt_pkg_action_show(const char *pkg_name)
 {
-    bool installed = false;
     slapt_pkg_t *pkg = NULL;
 
     slapt_vector_t *avail_pkgs = slapt_get_available_pkgs();
@@ -842,7 +841,7 @@ static void slapt_pkg_action_show(const char *pkg_name)
         pkg = slapt_get_newest_pkg(avail_pkgs, pkg_name);
         if (pkg == NULL)
             pkg = installed_pkg;
-        else if (pkg != NULL && installed_pkg != NULL) {
+        else if (installed_pkg != NULL) {
             if (slapt_pkg_t_cmp(installed_pkg, pkg) > 0)
                 pkg = installed_pkg;
         }
@@ -851,6 +850,7 @@ static void slapt_pkg_action_show(const char *pkg_name)
     if (pkg != NULL) {
         char *changelog = slapt_pkg_t_changelog(pkg);
         char *description = slapt_pkg_t_clean_description(pkg);
+        bool installed = false;
 
         if (slapt_get_exact_pkg(installed_pkgs, pkg->name, pkg->version) != NULL) {
             installed = true;
@@ -949,7 +949,7 @@ static void slapt_pkg_action_upgrade_all(const slapt_config_t *global_config)
             }
 
             if (avail_pkg != NULL && essential.replaces) {
-                slapt_pkg_t *installed_obsolete = slapt_get_newest_pkg(installed_pkgs, essential.replaces);
+                const slapt_pkg_t *installed_obsolete = slapt_get_newest_pkg(installed_pkgs, essential.replaces);
                 if (installed_obsolete) {
                     slapt_transaction_t_add_remove(trxn, installed_obsolete);
                 }
@@ -958,32 +958,32 @@ static void slapt_pkg_action_upgrade_all(const slapt_config_t *global_config)
 
         /* loop through SLAPT_SLACK_BASE_SET_REGEX packages */
         slapt_vector_t_foreach (slapt_pkg_t *, pkg, matches) {
-            slapt_pkg_t *slapt_upgrade_pkg = NULL;
+            slapt_pkg_t *upgrade_pkg = NULL;
 
             const slapt_pkg_t *installed_pkg = slapt_get_newest_pkg(installed_pkgs, pkg->name);
             slapt_pkg_t *newer_avail_pkg = slapt_get_newest_pkg(avail_pkgs, pkg->name);
             /* if there is a newer available version (such as from patches/) use it instead */
             if (slapt_pkg_t_cmp(pkg, newer_avail_pkg) < 0) {
-                slapt_upgrade_pkg = newer_avail_pkg;
+                upgrade_pkg = newer_avail_pkg;
             } else {
-                slapt_upgrade_pkg = pkg;
+                upgrade_pkg = pkg;
             }
 
             /* add to install list if not already installed */
             if (installed_pkg == NULL) {
-                if (slapt_is_excluded(global_config, slapt_upgrade_pkg)) {
-                    slapt_transaction_t_add_exclude(trxn, slapt_upgrade_pkg);
+                if (slapt_is_excluded(global_config, upgrade_pkg)) {
+                    slapt_transaction_t_add_exclude(trxn, upgrade_pkg);
                 } else {
-                    slapt_vector_t *conflicts = slapt_transaction_t_find_conflicts(trxn, avail_pkgs, installed_pkgs, slapt_upgrade_pkg);
+                    slapt_vector_t *conflicts = slapt_transaction_t_find_conflicts(trxn, avail_pkgs, installed_pkgs, upgrade_pkg);
 
                     /* add install if all deps are good and it doesn't have conflicts */
-                    const int rc = slapt_transaction_t_add_dependencies(global_config, trxn, avail_pkgs, installed_pkgs, slapt_upgrade_pkg);
+                    const int rc = slapt_transaction_t_add_dependencies(global_config, trxn, avail_pkgs, installed_pkgs, upgrade_pkg);
                     if (!rc && !conflicts->size && !global_config->ignore_dep) {
-                        slapt_transaction_t_add_install(trxn, slapt_upgrade_pkg);
+                        slapt_transaction_t_add_install(trxn, upgrade_pkg);
                     } else {
                         /* otherwise exclude */
-                        printf(gettext("Excluding %s, use --ignore-dep to override\n"), slapt_upgrade_pkg->name);
-                        slapt_transaction_t_add_exclude(trxn, slapt_upgrade_pkg);
+                        printf(gettext("Excluding %s, use --ignore-dep to override\n"), upgrade_pkg->name);
+                        slapt_transaction_t_add_exclude(trxn, upgrade_pkg);
                     }
 
                     slapt_vector_t_free(conflicts);
@@ -991,19 +991,19 @@ static void slapt_pkg_action_upgrade_all(const slapt_config_t *global_config)
                 /* even if it's installed, check to see that the packages are different */
                 /* simply running a version comparison won't do it since sometimes the */
                 /* arch is the only thing that changes */
-            } else if ((slapt_pkg_t_cmp(installed_pkg, slapt_upgrade_pkg) <= 0) && strcmp(installed_pkg->version, slapt_upgrade_pkg->version) != 0) {
-                if (slapt_is_excluded(global_config, installed_pkg) || slapt_is_excluded(global_config, slapt_upgrade_pkg)) {
-                    slapt_transaction_t_add_exclude(trxn, slapt_upgrade_pkg);
+            } else if ((slapt_pkg_t_cmp(installed_pkg, upgrade_pkg) <= 0) && strcmp(installed_pkg->version, upgrade_pkg->version) != 0) {
+                if (slapt_is_excluded(global_config, installed_pkg) || slapt_is_excluded(global_config, upgrade_pkg)) {
+                    slapt_transaction_t_add_exclude(trxn, upgrade_pkg);
                 } else {
-                    slapt_vector_t *conflicts = slapt_transaction_t_find_conflicts(trxn, avail_pkgs, installed_pkgs, slapt_upgrade_pkg);
+                    slapt_vector_t *conflicts = slapt_transaction_t_find_conflicts(trxn, avail_pkgs, installed_pkgs, upgrade_pkg);
 
                     /* if all deps are added and there is no conflicts, add on */
-                    if ((slapt_transaction_t_add_dependencies(global_config, trxn, avail_pkgs, installed_pkgs, slapt_upgrade_pkg) == 0) && (!conflicts->size && !global_config->ignore_dep)) {
-                        slapt_transaction_t_add_upgrade(trxn, installed_pkg, slapt_upgrade_pkg);
+                    if ((slapt_transaction_t_add_dependencies(global_config, trxn, avail_pkgs, installed_pkgs, upgrade_pkg) == 0) && (!conflicts->size && !global_config->ignore_dep)) {
+                        slapt_transaction_t_add_upgrade(trxn, installed_pkg, upgrade_pkg);
                     } else {
                         /* otherwise exclude */
-                        printf(gettext("Excluding %s, use --ignore-dep to override\n"), slapt_upgrade_pkg->name);
-                        slapt_transaction_t_add_exclude(trxn, slapt_upgrade_pkg);
+                        printf(gettext("Excluding %s, use --ignore-dep to override\n"), upgrade_pkg->name);
+                        slapt_transaction_t_add_exclude(trxn, upgrade_pkg);
                     }
 
                     slapt_vector_t_free(conflicts);
@@ -1032,7 +1032,7 @@ static void slapt_pkg_action_upgrade_all(const slapt_config_t *global_config)
         /* insurance so that all of slapt-get's requirements are also installed */
         newest_slaptget = slapt_get_newest_pkg(avail_pkgs, "slapt-get");
         if (newest_slaptget != NULL) {
-            slapt_pkg_t *installed_slaptget = slapt_get_newest_pkg(installed_pkgs, "slapt-get");
+            const slapt_pkg_t *installed_slaptget = slapt_get_newest_pkg(installed_pkgs, "slapt-get");
             slapt_transaction_t_add_dependencies(global_config, trxn, avail_pkgs, installed_pkgs, newest_slaptget);
             if (installed_slaptget != NULL) /* should never be null */
                 slapt_transaction_t_add_reinstall(trxn, installed_slaptget, newest_slaptget);

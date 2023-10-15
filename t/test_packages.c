@@ -27,7 +27,7 @@ END_TEST
 
 START_TEST(test_pkg_info)
 {
-    size_t i = -1;
+    size_t i = 0;
     char *string = NULL;
     slapt_config_t *rc = slapt_config_t_read("./data/rc1");
 
@@ -51,7 +51,7 @@ START_TEST(test_pkg_info)
 
     string = slapt_pkg_t_url(&pkg);
     ck_assert(string != NULL);
-    ck_assert(strcmp(string, "http://software.jaos.org/slackpacks/11.0//gslapt-0.3.15-i386-1.tgz") == 0);
+    ck_assert(strcmp(string, "http://software.jaos.org/slackpacks/11.0///gslapt-0.3.15-i386-1.tgz") == 0);
     free(string);
     string = NULL;
 
@@ -63,9 +63,8 @@ START_TEST(test_pkg_info)
     ck_assert(slapt_verify_downloaded_pkg(rc, &pkg) == 0);
 
     i = slapt_get_pkg_file_size(rc, &pkg);
-    ck_assert_int_gt(i, 1);
+    ck_assert_uint_gt(i, 1);
 
-    string = strdup(pkg.description);
     string = slapt_pkg_t_clean_description(&pkg);
     ck_assert(strcmp(string, " gslapt (GTK slapt-get, an APT like system for Slackware)\n") == 0);
     free(string);
@@ -124,22 +123,22 @@ START_TEST(test_pkgtool)
 }
 END_TEST
 
-/* 
+/*
 http://software.jaos.org/pipermail/slapt-get-devel/2008-November/000762.html
 
 * When comparing two packages on mirrors:
 
   - The package with the highest priority wins, but:
-  - If the priorities tie, then the package with the highest version 
+  - If the priorities tie, then the package with the highest version
   number wins.
 
   * When comparing an installed package with a mirror package:
 
-  - If the two packages have *exactly* the same version string, then they 
+  - If the two packages have *exactly* the same version string, then they
   compare equal, regardless of priorities.
-  - Otherwise, the package with the highest priority wins. (Taking the 
+  - Otherwise, the package with the highest priority wins. (Taking the
       priority of the installed package as zero). But:
-  - If the priorities tie, then the package with the highest version 
+  - If the priorities tie, then the package with the highest version
   number wins.
 */
 START_TEST(test_pkg_version)
@@ -254,7 +253,7 @@ END_TEST
 
 START_TEST(test_dependency)
 {
-    uint32_t i = 0;
+    int32_t i = 0;
     FILE *fh = NULL;
     slapt_pkg_t *p = NULL;
     slapt_config_t *rc = slapt_config_t_read("./data/rc1");

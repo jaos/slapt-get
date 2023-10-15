@@ -60,7 +60,7 @@ typedef enum {
 #define SLAPT_PRIORITY_OFFICIAL_TOKEN "OFFICIAL"
 #define SLAPT_PRIORITY_CUSTOM_TOKEN "CUSTOM"
 
-typedef struct {
+typedef struct slapt_regex {
     regmatch_t pmatch[SLAPT_MAX_REGEX_PARTS];
     regex_t regex;
     size_t nmatch;
@@ -71,16 +71,16 @@ typedef int (*slapt_vector_t_cmp)(const void *, const void *);
 typedef int (*slapt_vector_t_qsort_cmp)(const void *, const void *);
 typedef void (*slapt_vector_t_free_function)(void *);
 typedef struct slapt_vector_t {
+    void **items;
+    slapt_vector_t_free_function free_function;
     uint32_t size;
     uint32_t capacity;
-    slapt_vector_t_free_function free_function;
     bool sorted;
-    void **items;
 } slapt_vector_t;
 slapt_vector_t *slapt_vector_t_init(slapt_vector_t_free_function);
 void slapt_vector_t_free(slapt_vector_t *);
 void slapt_vector_t_add(slapt_vector_t *, void *);
-void slapt_vector_t_remove(slapt_vector_t *v, void *);
+void slapt_vector_t_remove(slapt_vector_t *v, const void *);
 void slapt_vector_t_sort(slapt_vector_t *, slapt_vector_t_qsort_cmp);
 int slapt_vector_t_index_of(const slapt_vector_t *, slapt_vector_t_cmp, void *);
 slapt_vector_t *slapt_vector_t_search(const slapt_vector_t *, slapt_vector_t_cmp, void *);

@@ -166,9 +166,7 @@ FILE *slapt_get_pkg_source_gpg_key(const slapt_config_t *global_config, const ch
         }
         free(filename);
         free(local_head);
-        if (key_head != NULL) {
-            free(key_head);
-        }
+        free(key_head);
         return NULL;
     }
 

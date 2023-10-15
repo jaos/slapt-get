@@ -87,7 +87,7 @@ START_TEST(test_progress_data)
 {
     struct slapt_progress_data *d = slapt_init_progress_data();
     ck_assert(d != NULL);
-    ck_assert_int_eq(d->bytes, 0);
+    ck_assert_uint_eq(d->bytes, 0);
     ck_assert_int_ne(d->start, 0);
     slapt_free_progress_data(d);
 }

@@ -23,17 +23,18 @@
 #define SLAPT_EXCLUDE_TOKEN "EXCLUDE="
 #define SLAPT_SOURCE_ATTRIBUTE_REGEX "(:[A-Z_,]+)$"
 
-typedef struct {
+typedef struct slapt_source {
     char *url;
     slapt_priority_t priority;
     bool disabled;
 } slapt_source_t;
 
-typedef struct {
+typedef struct slapt_config {
     char working_dir[SLAPT_WORKINGDIR_TOKEN_LEN];
     slapt_vector_t *sources;
     slapt_vector_t *exclude_list;
     int (*progress_cb)(void *, off_t, off_t, off_t, off_t);
+    uint32_t retry;
     bool download_only;
     bool dist_upgrade;
     bool simulate;
@@ -48,7 +49,6 @@ typedef struct {
     bool dl_stats;
     bool remove_obsolete;
     bool no_upgrade;
-    uint32_t retry;
     bool use_priority;
     bool gpgme_allow_unauth;
 } slapt_config_t;

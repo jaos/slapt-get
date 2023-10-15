@@ -44,7 +44,7 @@ enum slapt_action {
     SLAPT_ACTION_END
 };
 
-typedef struct {
+typedef struct slapt_queue {
     union {
         slapt_pkg_t *i;
         slapt_pkg_upgrade_t *u;
@@ -54,7 +54,7 @@ typedef struct {
 slapt_queue_i *slapt_queue_i_init(slapt_pkg_t *, slapt_pkg_upgrade_t *);
 void slapt_queue_i_free(slapt_queue_i *);
 
-typedef struct {
+typedef struct slapt_transaction {
     slapt_vector_t *install_pkgs;
     slapt_vector_t *upgrade_pkgs;
     slapt_vector_t *reinstall_pkgs;

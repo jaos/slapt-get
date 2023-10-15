@@ -62,8 +62,7 @@ typedef enum {
     DEP_OP_LT,
 } slapt_dependency_op;
 
-typedef struct {
-    slapt_dependency_op op;
+typedef struct slapt_dependency {
     union {
         struct {
             char *name;
@@ -73,12 +72,13 @@ typedef struct {
             slapt_vector_t* alternatives;
         };
     };
+    slapt_dependency_op op;
 } slapt_dependency_t;
 slapt_dependency_t* slapt_dependency_t_init(void);
 void slapt_dependency_t_free(slapt_dependency_t *);
 slapt_dependency_t *slapt_dependency_t_parse_required(const char *);
 
-typedef struct {
+typedef struct slapt_pkg {
     char *name;
     char *version;
     char *mirror;
@@ -189,7 +189,7 @@ bool slapt_is_excluded(const slapt_config_t *, const slapt_pkg_t *);
 /* package is already downloaded and cached, md5sum if applicable is ok, returns slapt_code_t.  */
 slapt_code_t slapt_verify_downloaded_pkg(const slapt_config_t *global_config, const slapt_pkg_t *pkg);
 /* fill in the md5sum of the package */
-void slapt_get_md5sums(slapt_vector_t *pkgs, FILE *checksum_file);
+void slapt_get_md5sums(const slapt_vector_t *pkgs, FILE *checksum_file);
 /* find out the pkg file size (post download) */
 size_t slapt_get_pkg_file_size(const slapt_config_t *global_config, const slapt_pkg_t *pkg);
 

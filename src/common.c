@@ -22,12 +22,10 @@ FILE *slapt_open_file(const char *file_name, const char *mode)
 {
     FILE *fh = fopen(file_name, mode);
     if (fh == NULL) {
-        fprintf(stderr, gettext("Failed to open %s\n"), file_name);
-
         if (errno) {
             perror(file_name);
         }
-
+        fprintf(stderr, gettext("Failed to open %s\n"), file_name);
         return NULL;
     }
     return fh;
@@ -46,12 +44,11 @@ slapt_regex_t *slapt_regex_t_init(const char *regex_string)
     /* compile our regex */
     r->reg_return = regcomp(&r->regex, regex_string, REG_EXTENDED | REG_NEWLINE | REG_ICASE);
     if (r->reg_return != 0) {
-        size_t regerror_size;
         char errbuf[1024];
         const size_t errbuf_size = 1024;
         fprintf(stderr, gettext("Failed to compile regex\n"));
 
-        if ((regerror_size = regerror(r->reg_return, &r->regex, errbuf, errbuf_size)) != 0) {
+        if (regerror(r->reg_return, &r->regex, errbuf, errbuf_size) != 0) {
             printf(gettext("Regex Error: %s\n"), errbuf);
         }
         free(r);
@@ -152,7 +149,7 @@ static char *join_path(char **v, size_t start, size_t end, bool absolute) {
         joined[0] = '\0';
     }
     for(size_t counter = start; counter <= end; ++counter) {
-        char *piece = v[counter];
+        const char *piece = v[counter];
         const size_t piece_size = strlen(piece) + 1;
         if (counter != 0) {
             joined = strncat(joined, "/", 2);
@@ -193,7 +190,13 @@ int slapt_ask_yes_no(const char *format, ...)
     int answer, parsed_answer = 0;
 
     va_start(arg_list, format);
+# pragma GCC diagnostic push
+# pragma GCC diagnostic ignored "-Wformat"
+# pragma GCC diagnostic ignored "-Wformat-security"
+# pragma GCC diagnostic ignored "-Wstrict-prototypes"
+# pragma GCC diagnostic ignored "-Wformat-nonliteral"
     vprintf(format, arg_list);
+# pragma GCC diagnostic pop
     va_end(arg_list);
 
     while ((answer = fgetc(stdin)) != EOF) {
@@ -240,10 +243,10 @@ void *slapt_malloc(size_t s)
 {
     void *p;
     if (!(p = malloc(s))) {
-        fprintf(stderr, gettext("Failed to malloc\n"));
-
         if (errno) {
             perror("malloc");
+        fprintf(stderr, gettext("Failed to malloc\n"));
+
         }
 
         exit(EXIT_FAILURE);
@@ -255,12 +258,10 @@ void *slapt_calloc(size_t n, size_t s)
 {
     void *p;
     if (!(p = calloc(n, s))) {
-        fprintf(stderr, gettext("Failed to calloc\n"));
-
         if (errno) {
             perror("calloc");
         }
-
+        fprintf(stderr, gettext("Failed to calloc\n"));
         exit(EXIT_FAILURE);
     }
     return p;
@@ -367,7 +368,7 @@ bool slapt_disk_space_check(const char *path, double space_needed)
 slapt_vector_t *slapt_parse_delimited_list(const char *line, const char delim)
 {
     slapt_vector_t *list = slapt_vector_t_init(free);
-    int count = 0, position = 0, len = strlen(line);
+    int position = 0, len = strlen(line);
 
     while (isspace(line[position]) != 0) {
         ++position;
@@ -393,7 +394,6 @@ slapt_vector_t *slapt_parse_delimited_list(const char *line, const char delim)
         ptr = strndup(start, start_len - end_len);
 
         slapt_vector_t_add(list, ptr);
-        ++count;
 
         position += start_len - end_len;
     }
@@ -452,7 +452,7 @@ void slapt_vector_t_add(slapt_vector_t *v, void *a)
     v->sorted = false;
 }
 
-void slapt_vector_t_remove(slapt_vector_t *v, void *j)
+void slapt_vector_t_remove(slapt_vector_t *v, const void *j)
 {
     bool found = false;
     for (uint32_t i = 0; i < v->size; i++) {
@@ -565,7 +565,7 @@ size_t slapt_strlcpy(char *dst, const char *src, size_t size)
     const size_t src_length = strnlen (src, size);
     if (src_length >= size) {
         if (src_length != size) {
-            fprintf(stderr, "Truncating %s [%zd to %zd]\n", src, size, src_length);
+            fprintf(stderr, "Truncating %s [%zu to %zu]\n", src, size, src_length);
             exit(EXIT_FAILURE);
         }
         memcpy (dst, src, size);

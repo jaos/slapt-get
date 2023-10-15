@@ -20,7 +20,7 @@
 
 #define SLAPT_PKG_DL_NOTE_LEN 16
 
-static void add_suggestion(slapt_transaction_t *trxn, slapt_pkg_t *pkg);
+static void add_suggestion(slapt_transaction_t *trxn, const slapt_pkg_t *pkg);
 
 slapt_transaction_t *slapt_transaction_t_init(void)
 {
@@ -370,7 +370,7 @@ int slapt_transaction_t_run(const slapt_config_t *global_config, slapt_transacti
         bool failed = true;
 
         ++dl_counter;
-        snprintf(dl_note, SLAPT_PKG_DL_NOTE_LEN, "%d/%d", dl_counter, pkg_dl_count);
+        snprintf(dl_note, SLAPT_PKG_DL_NOTE_LEN, "%u/%u", dl_counter, pkg_dl_count);
 
         for (uint32_t retry_count = 0; retry_count < global_config->retry; ++retry_count) {
             const char *err = slapt_download_pkg(global_config, pkg, dl_note);
@@ -391,7 +391,7 @@ int slapt_transaction_t_run(const slapt_config_t *global_config, slapt_transacti
         bool failed = true;
 
         ++dl_counter;
-        snprintf(dl_note, SLAPT_PKG_DL_NOTE_LEN, "%d/%d", dl_counter, pkg_dl_count);
+        snprintf(dl_note, SLAPT_PKG_DL_NOTE_LEN, "%u/%u", dl_counter, pkg_dl_count);
 
         for (uint32_t retry_count = 0; retry_count < global_config->retry; ++retry_count) {
             const char *err = slapt_download_pkg(global_config, upgrade->upgrade, dl_note);
@@ -411,7 +411,7 @@ int slapt_transaction_t_run(const slapt_config_t *global_config, slapt_transacti
         bool failed = true;
 
         ++dl_counter;
-        snprintf(dl_note, SLAPT_PKG_DL_NOTE_LEN, "%d/%d", dl_counter, pkg_dl_count);
+        snprintf(dl_note, SLAPT_PKG_DL_NOTE_LEN, "%u/%u", dl_counter, pkg_dl_count);
 
         for (uint32_t retry_count = 0; retry_count < global_config->retry; ++retry_count) {
             const char *err = slapt_download_pkg(global_config, reinstall->upgrade, dl_note);
@@ -609,8 +609,8 @@ slapt_transaction_t *slapt_transaction_t_remove(slapt_transaction_t *trxn, const
     }
 
     slapt_vector_t_foreach (const slapt_pkg_upgrade_t *, upgrade, trxn->upgrade_pkgs) {
-        slapt_pkg_t *u = upgrade->upgrade;
-        slapt_pkg_t *p = upgrade->installed;
+        const slapt_pkg_t *u = upgrade->upgrade;
+        const slapt_pkg_t *p = upgrade->installed;
 
         if (strcmp(pkg->name, u->name) == 0 &&
             strcmp(pkg->version, u->version) == 0 &&
@@ -718,7 +718,7 @@ slapt_vector_t *slapt_transaction_t_find_conflicts(const slapt_transaction_t *tr
     return conflicts_in_transaction;
 }
 
-static void add_suggestion(slapt_transaction_t *trxn, slapt_pkg_t *pkg)
+static void add_suggestion(slapt_transaction_t *trxn, const slapt_pkg_t *pkg)
 {
     if (pkg->suggests == NULL || strlen(pkg->suggests) == 0) {
         return;

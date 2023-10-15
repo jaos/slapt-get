@@ -208,11 +208,9 @@ const char *slapt_download_pkg(const slapt_config_t *global_config, const slapt_
     /* if file on disk is larger than the supposed size, unlink it */
     if (dl_total_size < 0) {
         if (unlink(file_name) == -1) {
-            fprintf(stderr, gettext("Failed to unlink %s\n"), file_name);
-
             if (errno)
                 perror(file_name);
-
+            fprintf(stderr, gettext("Failed to unlink %s\n"), file_name);
             exit(EXIT_FAILURE);
         }
         dl_total_size = pkg->size_c;
@@ -252,11 +250,9 @@ const char *slapt_download_pkg(const slapt_config_t *global_config, const slapt_
         fclose(fh);
 
         if (unlink(file_name) == -1) {
-            fprintf(stderr, gettext("Failed to unlink %s\n"), file_name);
-
             if (errno)
                 perror(file_name);
-
+            fprintf(stderr, gettext("Failed to unlink %s\n"), file_name);
             exit(EXIT_FAILURE);
         }
 
@@ -274,10 +270,10 @@ const char *slapt_download_pkg(const slapt_config_t *global_config, const slapt_
 #if SLAPT_DO_NOT_UNLINK_BAD_FILES == 0
         /* if the d/l fails, unlink the empty file */
         if (unlink(file_name) == -1) {
-            fprintf(stderr, gettext("Failed to unlink %s\n"), file_name);
-
             if (errno)
                 perror(file_name);
+            fprintf(stderr, gettext("Failed to unlink %s\n"), file_name);
+
         }
 #endif
         free(url);
@@ -307,10 +303,9 @@ const char *slapt_download_pkg(const slapt_config_t *global_config, const slapt_
 #if SLAPT_DO_NOT_UNLINK_BAD_FILES == 0
         /* if the checksum fails, unlink the bogus file */
         if (unlink(file_name) == -1) {
-            fprintf(stderr, gettext("Failed to unlink %s\n"), file_name);
-
             if (errno)
                 perror("unlink");
+            fprintf(stderr, gettext("Failed to unlink %s\n"), file_name);
         }
 #endif
 
@@ -322,7 +317,7 @@ const char *slapt_download_pkg(const slapt_config_t *global_config, const slapt_
 int slapt_progress_callback(void *clientp, off_t dltotal, off_t dlnow, off_t ultotal, off_t ulnow)
 {
     size_t percent = 0;
-    struct slapt_progress_data *cb_data = (struct slapt_progress_data *)clientp;
+    const struct slapt_progress_data *cb_data = (struct slapt_progress_data *)clientp;
     const size_t bytes = cb_data->bytes;
     (void)ultotal;
     (void)ulnow;
@@ -431,7 +426,7 @@ char *slapt_head_mirror_data(const char *wurl, const char *file)
             return NULL;
         } /* give up finally */
     }
-    char *delim_ptr = strpbrk(request_header_ptr, "\r\n");
+    const char *delim_ptr = strpbrk(request_header_ptr, "\r\n");
     if (delim_ptr == NULL) {
         free(head_data);
         return NULL;
