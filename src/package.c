@@ -1682,12 +1682,26 @@ char *slapt_pkg_t_url(const slapt_pkg_t *pkg)
 
     const char *location = pkg->location + strspn(pkg->location, "./");
 
+    const size_t mirror_len = strlen(pkg->mirror);
+    const size_t location_len = strlen(location);
+    const size_t file_len = strlen(file_name);
+
     /* build the url */
-    const size_t url_len = strlen(pkg->mirror) + strlen(location) + strlen(file_name) + 3;
-    char *url = slapt_calloc(url_len, sizeof *url);
-    if (snprintf(url, url_len, "%s/%s/%s", pkg->mirror, location, file_name) != (int)(url_len - 1)) {
-        fprintf(stderr, "slapt_pkg_t_url error for %s\n", pkg->name);
-        exit(EXIT_FAILURE);
+    char *url = NULL;
+    if (location_len == 0 || (location_len > 0 && location[location_len-1] == '/')) {
+        const size_t url_len = mirror_len + location_len + file_len + 1;
+        url = slapt_calloc(url_len, sizeof *url);
+        if (snprintf(url, url_len, "%s%s%s", pkg->mirror, location, file_name) != (int)(url_len - 1)) {
+            fprintf(stderr, "slapt_pkg_t_url error for %s\n", pkg->name);
+            exit(EXIT_FAILURE);
+        }
+    } else {
+        const size_t url_len = mirror_len + location_len + file_len + 2;
+        url = slapt_calloc(url_len, sizeof *url);
+        if (snprintf(url, url_len, "%s%s/%s", pkg->mirror, location, file_name) != (int)(url_len - 1)) {
+            fprintf(stderr, "slapt_pkg_t_url error for %s\n", pkg->name);
+            exit(EXIT_FAILURE);
+        }
     }
 
     free(file_name);

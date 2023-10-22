@@ -49,11 +49,49 @@ START_TEST(test_pkg_info)
     free(string);
     string = NULL;
 
-    string = slapt_pkg_t_url(&pkg);
-    ck_assert(string != NULL);
-    ck_assert(strcmp(string, "http://software.jaos.org/slackpacks/11.0///gslapt-0.3.15-i386-1.tgz") == 0);
-    free(string);
-    string = NULL;
+    struct pkg_url_tests {
+        slapt_pkg_t pkg;
+        const char *url;
+    } url_tests[] = {
+        {
+            {.name="gslapt", .version="0.3.15-i386-1", .mirror="http://software.jaos.org/slackpacks/11.0/", .location="", .file_ext=".tgz"},
+            "http://software.jaos.org/slackpacks/11.0/gslapt-0.3.15-i386-1.tgz",
+        },
+        {
+            {.name="gslapt", .version="0.3.15-i386-1", .mirror="http://software.jaos.org/slackpacks/11.0/", .location=".", .file_ext=".tgz"},
+            "http://software.jaos.org/slackpacks/11.0/gslapt-0.3.15-i386-1.tgz",
+        },
+        {
+            {.name="gslapt", .version="0.3.15-i386-1", .mirror="http://software.jaos.org/slackpacks/11.0/", .location="./", .file_ext=".tgz"},
+            "http://software.jaos.org/slackpacks/11.0/gslapt-0.3.15-i386-1.tgz",
+        },
+        {
+            {.name="gslapt", .version="0.3.15-i386-1", .mirror="http://software.jaos.org/slackpacks/11.0/", .location="./gslapt", .file_ext=".tgz"},
+            "http://software.jaos.org/slackpacks/11.0/gslapt/gslapt-0.3.15-i386-1.tgz",
+        },
+        {
+            {.name="gslapt", .version="0.3.15-i386-1", .mirror="http://software.jaos.org/slackpacks/11.0/", .location="./gslapt/", .file_ext=".tgz"},
+            "http://software.jaos.org/slackpacks/11.0/gslapt/gslapt-0.3.15-i386-1.tgz",
+        },
+        {
+            {.name="gslapt", .version="0.3.15-i386-1", .mirror="http://software.jaos.org/slackpacks/11.0/", .location="gslapt/", .file_ext=".tgz"},
+            "http://software.jaos.org/slackpacks/11.0/gslapt/gslapt-0.3.15-i386-1.tgz",
+        },
+        {
+            {.name="gslapt", .version="0.3.15-i386-1", .mirror="http://software.jaos.org/slackpacks/11.0/", .location="gslapt", .file_ext=".tgz"},
+            "http://software.jaos.org/slackpacks/11.0/gslapt/gslapt-0.3.15-i386-1.tgz",
+        },
+    };
+
+    for (size_t idx = 0; idx < sizeof(url_tests)/sizeof(struct pkg_url_tests); idx++) {
+        const slapt_pkg_t *tpkg = &url_tests[idx].pkg;
+        const char *turl = url_tests[idx].url;
+
+        char *url = slapt_pkg_t_url(tpkg);
+        ck_assert(url != NULL);
+        ck_assert_msg(strcmp(url, turl) == 0, "%s != %s\n", url, turl);
+        free(url);
+    }
 
     slapt_vector_t_add(rc->exclude_list, strdup("^gslapt$"));
     ck_assert(slapt_is_excluded(rc, &pkg));
