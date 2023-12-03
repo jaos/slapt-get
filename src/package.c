@@ -131,6 +131,16 @@ slapt_vector_t *slapt_parse_packages_txt(FILE *pkg_list_fh)
 
             if (mirror_regex->reg_return == 0) {
                 tmp_pkg->mirror = slapt_regex_t_extract_match(mirror_regex, getline_buffer, 1);
+                size_t mirror_len = strlen(tmp_pkg->mirror);
+                // make sure we always have a trialing / for URL generation elsewhere
+                if (tmp_pkg->mirror[mirror_len - 1] != '/') {
+                    char *fixed_mirror = slapt_malloc(sizeof *fixed_mirror * (mirror_len + 2));
+                    fixed_mirror = memcpy(fixed_mirror, tmp_pkg->mirror, mirror_len);
+                    fixed_mirror[mirror_len] = '/';
+                    fixed_mirror[mirror_len+1] = '\0';
+                    free(tmp_pkg->mirror);
+                    tmp_pkg->mirror = fixed_mirror;
+                }
             } else {
                 /* mirror isn't provided... rewind one line */
                 fseek(pkg_list_fh, (ftell(pkg_list_fh) - f_pos) * -1, SEEK_CUR);
