@@ -201,7 +201,7 @@ int main(const int argc, char *argv[])
             custom_rc_location = strdup(optarg);
             break;
         case SLAPT_RETRY_OPT: /* set number of retry attempts */
-            initial_config->retry = (atoi(optarg) > 0) ? atoi(optarg) : 1;
+            initial_config->retry = (strtoul(optarg, NULL, 0) > 0) ? (uint32_t)strtoul(optarg, NULL, 0) : 1;
             break;
         case SLAPT_NO_UPGRADE_OPT: /* do not attempt to upgrade */
             initial_config->no_upgrade = true;
@@ -342,10 +342,10 @@ int main(const int argc, char *argv[])
         slapt_vector_t *avail_pkgs = slapt_get_available_pkgs();
 
         while (optind < argc) {
-            const int search_len = strlen(argv[optind]) + 3;
+            const size_t search_len = strlen(argv[optind]) + 3;
             char search[search_len];
             const int written = snprintf(search, strlen(argv[optind]) + 3, "/%s$", argv[optind]);
-            if (written != (search_len - 1)) {
+            if (written <= 0 || (size_t)written != (search_len - 1)) {
                 fprintf(stderr, "search string construction failed\n");
                 exit(EXIT_FAILURE);
             }

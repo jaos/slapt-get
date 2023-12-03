@@ -85,6 +85,7 @@ void slapt_vector_t_sort(slapt_vector_t *, slapt_vector_t_qsort_cmp);
 int slapt_vector_t_index_of(const slapt_vector_t *, slapt_vector_t_cmp, void *);
 slapt_vector_t *slapt_vector_t_search(const slapt_vector_t *, slapt_vector_t_cmp, void *);
 #define slapt_vector_t_foreach(type, item, list) \
+    __extension__ \
     type item;                                   \
     if (list) for (uint32_t item##__counter__ = 0; (item##__counter__ < list->size) && (item = list->items[item##__counter__]); item##__counter__++)
 

@@ -70,10 +70,10 @@ char *slapt_regex_t_extract_match(const slapt_regex_t *r, const char *src, const
     char *str = NULL;
 
     if (m.rm_so != -1) {
-        uint32_t len = m.rm_eo - m.rm_so + 1;
-        str = slapt_malloc(sizeof *str * len);
+        int len = m.rm_eo - m.rm_so + 1;
+        str = slapt_malloc(sizeof *str * (size_t)len);
 
-        slapt_strlcpy(str, src + m.rm_so, len);
+        slapt_strlcpy(str, src + m.rm_so, (size_t)len);
     }
 
     return str;
@@ -106,7 +106,7 @@ void slapt_gen_md5_sum_of_file(FILE *f, char *result_sum)
     size_t getline_size;
     char *getline_buffer = NULL;
     while ((getline_read = getline(&getline_buffer, &getline_size, f)) != EOF)
-        EVP_DigestUpdate(mdctx, getline_buffer, getline_read);
+        EVP_DigestUpdate(mdctx, getline_buffer, (size_t)getline_read);
 
     free(getline_buffer);
 
@@ -222,11 +222,9 @@ int slapt_ask_yes_no(const char *format, ...)
 
 char *slapt_str_replace_chr(const char *string, const char find, const char replace)
 {
-    uint32_t len = 0;
     char *clean = slapt_calloc(strlen(string) + 1, sizeof *clean);
-    ;
 
-    len = strlen(string);
+    size_t len = strlen(string);
     for (uint32_t i = 0; i < len; ++i) {
         if (string[i] == find) {
             clean[i] = replace;
@@ -357,7 +355,7 @@ bool slapt_disk_space_check(const char *path, double space_needed)
         }
         return false;
     } else {
-        if (statvfs_buf.f_bavail < (space_needed / statvfs_buf.f_bsize)) {
+        if ((double)statvfs_buf.f_bavail < (space_needed / (double)statvfs_buf.f_bsize)) {
             return false;
         }
     }
@@ -368,7 +366,7 @@ bool slapt_disk_space_check(const char *path, double space_needed)
 slapt_vector_t *slapt_parse_delimited_list(const char *line, const char delim)
 {
     slapt_vector_t *list = slapt_vector_t_init(free);
-    int position = 0, len = strlen(line);
+    size_t position = 0, len = strlen(line);
 
     while (isspace(line[position]) != 0) {
         ++position;
@@ -377,7 +375,7 @@ slapt_vector_t *slapt_parse_delimited_list(const char *line, const char delim)
     while (position < len) {
         const char *start = line + position;
         char *end = NULL, *ptr = NULL;
-        int start_len = strlen(start), end_len = 0;
+        size_t start_len = strlen(start), end_len = 0;
 
         if (strchr(start, delim) != NULL) {
             if (line[position] == delim || isspace(line[position]) != 0) {
@@ -403,7 +401,7 @@ slapt_vector_t *slapt_parse_delimited_list(const char *line, const char delim)
 
 char *slapt_strip_whitespace(const char *s)
 {
-    int len = strlen(s);
+    size_t len = strlen(s);
     while (isspace(s[len - 1]))
         --len;
     while (*s && isspace(*s))
@@ -482,7 +480,7 @@ void slapt_vector_t_sort(slapt_vector_t *v, slapt_vector_t_qsort_cmp cmp)
 int slapt_vector_t_index_of(const slapt_vector_t *v, slapt_vector_t_cmp cmp, void *opt)
 {
     if (v->sorted) {
-        int min = 0, max = v->size - 1;
+        int min = 0, max = (int)v->size - 1;
 
         while (max >= min) {
             int pivot = (min + max) / 2;
@@ -497,7 +495,7 @@ int slapt_vector_t_index_of(const slapt_vector_t *v, slapt_vector_t_cmp cmp, voi
             }
         }
     } else {
-        for (uint32_t i = 0; i < v->size; i++) {
+        for (int i = 0; i < (int)v->size; i++) {
             if (cmp(v->items[i], opt) == 0) {
                 return i;
             }
@@ -511,14 +509,14 @@ slapt_vector_t *slapt_vector_t_search(const slapt_vector_t *v, slapt_vector_t_cm
     slapt_vector_t *matches = slapt_vector_t_init(NULL);
 
     if (v->sorted) {
-        uint32_t min = 0, max = v->size - 1;
+        int min = 0, max = (int)v->size - 1;
         int idx = slapt_vector_t_index_of(v, cmp, opt);
         if (idx < 0) {
             slapt_vector_t_free(matches);
             return NULL;
         }
 
-        uint32_t start = idx, end = idx;
+        int start = idx, end = idx;
 
         while (start > min) {
             if (cmp(v->items[start - 1], opt) == 0) {
@@ -536,7 +534,7 @@ slapt_vector_t *slapt_vector_t_search(const slapt_vector_t *v, slapt_vector_t_cm
             }
         }
 
-        for (uint32_t i = start; i <= end; i++) {
+        for (int i = start; i <= end; i++) {
             slapt_vector_t_add(matches, v->items[i]);
         }
 

@@ -179,8 +179,8 @@ bool slapt_is_interactive(const slapt_config_t *global_config)
 
 static void slapt_source_parse_attributes(slapt_source_t *s, const char *string)
 {
-    int offset = 0;
-    const int len = strlen(string);
+    size_t offset = 0;
+    const size_t len = strlen(string);
 
     while (offset < len) {
         char *token = NULL;
@@ -224,7 +224,7 @@ slapt_source_t *slapt_source_t_init(const char *s)
     src->priority = SLAPT_PRIORITY_DEFAULT;
     src->disabled = false;
     char *source_string = slapt_strip_whitespace(s);
-    uint32_t source_len = strlen(source_string);
+    size_t source_len = strlen(source_string);
 
     /* parse for :[attr] in the source url */
     slapt_regex_t *attribute_regex = slapt_regex_t_init(SLAPT_SOURCE_ATTRIBUTE_REGEX);
@@ -236,7 +236,7 @@ slapt_source_t *slapt_source_t_init(const char *s)
     if (attribute_regex->reg_return == 0) {
         /* if we find an attribute string, extract it */
         attribute_string = slapt_regex_t_extract_match(attribute_regex, source_string, 1);
-        const uint32_t attribute_len = strlen(attribute_string);
+        const size_t attribute_len = strlen(attribute_string);
         source_len -= attribute_len;
     }
     slapt_regex_t_free(attribute_regex);

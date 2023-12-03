@@ -93,7 +93,7 @@ int slapt_transaction_t_run(const slapt_config_t *global_config, slapt_transacti
         printf(gettext("The following packages have been EXCLUDED:\n"));
         printf("  ");
 
-        uint32_t len = 0;
+        size_t len = 0;
         slapt_vector_t_foreach (const slapt_pkg_t *, e, trxn->exclude_pkgs) {
             if (len + strlen(e->name) + 1 < MAX_LINE_LEN) {
                 printf("%s ", e->name);
@@ -113,7 +113,7 @@ int slapt_transaction_t_run(const slapt_config_t *global_config, slapt_transacti
         printf(gettext("Suggested packages:\n"));
         printf("  ");
 
-        uint32_t len = 0;
+        size_t len = 0;
         slapt_vector_t_foreach (const char *, s, trxn->suggests) {
             /* don't show suggestion for something we already have in the transaction */
             if (slapt_transaction_t_search(trxn, s))
@@ -135,7 +135,7 @@ int slapt_transaction_t_run(const slapt_config_t *global_config, slapt_transacti
         printf(gettext("The following NEW packages will be installed:\n"));
         printf("  ");
 
-        uint32_t len = 0;
+        size_t len = 0;
         slapt_vector_t_foreach (const slapt_pkg_t *, p, trxn->install_pkgs) {
             size_t existing_file_size = 0;
 
@@ -152,7 +152,7 @@ int slapt_transaction_t_run(const slapt_config_t *global_config, slapt_transacti
             download_size += p->size_c;
 
             if (existing_file_size <= p->size_c)
-                already_download_size += existing_file_size;
+                already_download_size += (double)existing_file_size;
 
             uncompressed_size += p->size_u;
         }
@@ -164,7 +164,7 @@ int slapt_transaction_t_run(const slapt_config_t *global_config, slapt_transacti
         printf(gettext("The following packages will be REMOVED:\n"));
         printf("  ");
 
-        uint32_t len = 0;
+        size_t len = 0;
         slapt_vector_t_foreach (const slapt_pkg_t *, r, trxn->remove_pkgs) {
             if (len + strlen(r->name) + 1 < MAX_LINE_LEN) {
                 printf("%s ", r->name);
@@ -185,16 +185,16 @@ int slapt_transaction_t_run(const slapt_config_t *global_config, slapt_transacti
         printf(gettext("The following packages will be upgraded:\n"));
         printf("  ");
 
-        uint32_t len = 0;
+        size_t len = 0;
         slapt_vector_t_foreach (const slapt_pkg_upgrade_t *, upgrade, trxn->upgrade_pkgs) {
             const slapt_pkg_t *u = upgrade->upgrade;
             const slapt_pkg_t *p = upgrade->installed;
 
-            const int line_len = len + strlen(u->name) + 1;
+            const size_t line_len = len + strlen(u->name) + 1;
             const size_t existing_file_size = slapt_get_pkg_file_size(global_config, u) / 1024;
             download_size += u->size_c;
             if (existing_file_size <= u->size_c)
-                already_download_size += existing_file_size;
+                already_download_size += (double)existing_file_size;
             uncompressed_size += u->size_u;
             uncompressed_size -= p->size_u;
 
@@ -213,16 +213,16 @@ int slapt_transaction_t_run(const slapt_config_t *global_config, slapt_transacti
         printf(gettext("The following packages will be reinstalled:\n"));
         printf("  ");
 
-        uint32_t len = 0;
+        size_t len = 0;
         slapt_vector_t_foreach (const slapt_pkg_upgrade_t *, reinstall_upgrade, trxn->reinstall_pkgs) {
             const slapt_pkg_t *u = reinstall_upgrade->upgrade;
             const slapt_pkg_t *p = reinstall_upgrade->installed;
 
-            const int line_len = len + strlen(u->name) + 1;
+            const size_t line_len = len + strlen(u->name) + 1;
             const size_t existing_file_size = slapt_get_pkg_file_size(global_config, u) / 1024;
             download_size += u->size_c;
             if (existing_file_size <= u->size_c)
-                already_download_size += existing_file_size;
+                already_download_size += (double)existing_file_size;
             uncompressed_size += u->size_u;
             uncompressed_size -= p->size_u;
 

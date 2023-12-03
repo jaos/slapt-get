@@ -1,8 +1,9 @@
 project('slapt-get', 'c',
   version: '0.11.10',
   license: 'GPLv2',
-  meson_version: '>= 0.56',
+  meson_version: '>= 0.59.4',
   default_options: [
+    'c_std=gnu2x',
     'buildtype=debugoptimized',
     'b_lto=true',
     'sysconfdir=/etc',
@@ -47,11 +48,23 @@ if libgpgme.found()
 endif
 
 cflags = [
+  '-U_FORTIFY_SOURCE',
+  '-D_FORTIFY_SOURCE=3',
+  '-fcf-protection=full',
+  '-fstack-clash-protection',
+  '-fstack-protector-all',
+  '-ftrivial-auto-var-init=zero',
+  '-ftrapv',
+  '-ggdb3',
+  '-mshstk',
+
   '-ffat-lto-objects',
   '-fno-strict-aliasing',
+  '-fstrict-flex-arrays=3',
   '-Warith-conversion',
   '-Warray-bounds=2',
   '-Wcast-align=strict',
+  '-Wconversion',
   '-Wduplicated-cond',
   '-Wduplicated-branches',
   '-Wformat-nonliteral',
@@ -79,14 +92,6 @@ cflags = [
   '-Wtrampolines',
   '-Wundef',
 ]
-if get_option('testbuild').enabled()
-  cflags += [
-    '-D_FORTIFY_SOURCE=2',
-    '-fno-omit-frame-pointer',
-    '-fstack-protector-strong',
-    '-ggdb',
-  ]
-endif
 add_project_arguments(cc.get_supported_arguments(cflags), language: 'c')
 add_project_link_arguments(cc.get_supported_link_arguments(cflags), language: 'c')
 lflags = ['-Wl,-z,defs',

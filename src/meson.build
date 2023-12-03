@@ -35,11 +35,8 @@ slapt_h = custom_target('slapt.h',
 
 libslapt = library('libslapt', lib_sources, dependencies : deps, install: true, version: version, soversion: 0, name_prefix: '')
 
-if get_option('testbuild').enabled()
-  slapt_get = executable('slapt-get', main_sources + lib_sources, dependencies : deps, install: true, install_dir: get_option('sbindir'))
-else
-  slapt_get = executable('slapt-get', main_sources, link_with: libslapt, dependencies : deps, install: true, install_dir: get_option('sbindir'))
-endif
+# slapt_get = executable('slapt-get', main_sources + lib_sources, dependencies : deps, install: true, install_dir: get_option('sbindir'))
+slapt_get = executable('slapt-get', main_sources, link_with: libslapt, dependencies : deps, install: true, install_dir: get_option('sbindir'))
 
 pkgconfig = import('pkgconfig')
 pkgconfig.generate(libslapt, name: 'libslapt', description: 'Library for slapt-get, an apt like system for Slackware package management.')

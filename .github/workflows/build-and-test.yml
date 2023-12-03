@@ -23,7 +23,7 @@ jobs:
       run: pip3 install --user --upgrade meson
 
     - name: configure
-      run: ~/.local/bin/meson setup build --prefix=/usr --sysconfdir=/etc --mandir=/usr/man --buildtype=debugoptimized -Dtestbuild=enabled
+      run: ~/.local/bin/meson setup build --prefix=/usr --sysconfdir=/etc --mandir=/usr/man --buildtype=debugoptimized -Db_sanitize=address,undefined
 
     - name: compile
       run: ~/.local/bin/meson compile -C build

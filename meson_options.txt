@@ -1,1 +1,0 @@
-option('testbuild', type: 'feature', description: 'Build for testing with sanitize, etc')

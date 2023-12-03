@@ -155,7 +155,7 @@ slapt_vector_t *slapt_parse_packages_txt(FILE *pkg_list_fh)
             if (priority_regex->reg_return == 0) {
                 char *priority_string = slapt_regex_t_extract_match(priority_regex, getline_buffer, 1);
                 if (priority_string != NULL) {
-                    tmp_pkg->priority = atoi(priority_string);
+                    tmp_pkg->priority = (uint32_t)strtoul(priority_string, NULL, 0);
                     free(priority_string);
                 }
             } else {
@@ -220,7 +220,7 @@ slapt_vector_t *slapt_parse_packages_txt(FILE *pkg_list_fh)
 
             if (size_c_regex->reg_return == 0) {
                 size_c = slapt_regex_t_extract_match(size_c_regex, getline_buffer, 1);
-                tmp_pkg->size_c = strtol(size_c, (char **)NULL, 10);
+                tmp_pkg->size_c = (uint32_t)strtoul(size_c, (char **)NULL, 10);
                 free(size_c);
             } else {
                 fprintf(stderr, gettext("regexec failed to parse size_c\n"));
@@ -241,7 +241,7 @@ slapt_vector_t *slapt_parse_packages_txt(FILE *pkg_list_fh)
 
             if (size_u_regex->reg_return == 0) {
                 size_u = slapt_regex_t_extract_match(size_u_regex, getline_buffer, 1);
-                tmp_pkg->size_u = strtol(size_u, (char **)NULL, 10);
+                tmp_pkg->size_u = (uint32_t)strtoul(size_u, (char **)NULL, 10);
                 free(size_u);
             } else {
                 fprintf(stderr, gettext("regexec failed to parse size_u\n"));
@@ -348,12 +348,12 @@ slapt_vector_t *slapt_parse_packages_txt(FILE *pkg_list_fh)
                     break;
                 }
 
-                tmp_desc = realloc(tmp_pkg->description, sizeof *tmp_pkg->description * (strlen(tmp_pkg->description) + bytes_read + 1));
+                tmp_desc = realloc(tmp_pkg->description, sizeof *tmp_pkg->description * (strlen(tmp_pkg->description) + (size_t)bytes_read + 1));
                 if (tmp_desc == NULL) {
                     break;
                 }
                 tmp_pkg->description = tmp_desc;
-                strncat(tmp_pkg->description, getline_buffer, bytes_read);
+                strncat(tmp_pkg->description, getline_buffer, (size_t)bytes_read);
             }
         } else {
             fprintf(stderr, gettext("error attempting to read pkg description\n"));
@@ -454,10 +454,10 @@ slapt_vector_t *slapt_get_installed_pkgs(void)
         tmp_pkg->file_ext[0] = '\0';
 
         /* build the package filename including the package directory */
-        const int pkg_f_name_len = strlen(pkg_log_dirname) + strlen(file->d_name) + 2;
+        const size_t pkg_f_name_len = strlen(pkg_log_dirname) + strlen(file->d_name) + 2;
         char pkg_f_name[pkg_f_name_len];
         const int written = snprintf(pkg_f_name, pkg_f_name_len, "%s/%s", pkg_log_dirname, file->d_name);
-        if (written != (pkg_f_name_len - 1)) {
+        if (written <= 0 || (size_t)written != (pkg_f_name_len - 1)) {
             fprintf(stderr, "slapt_get_installed_pkgs error for %s\n", file->d_name);
             exit(EXIT_FAILURE);
         }
@@ -514,7 +514,7 @@ slapt_vector_t *slapt_get_installed_pkgs(void)
                 c *= 1024;
             else if (strcasecmp(unit, "G") == 0)
                 c *= 1048576;
-            tmp_pkg->size_c = round(c);
+            tmp_pkg->size_c = (uint32_t)lround(c);
             free(size_c);
             free(unit);
         }
@@ -529,7 +529,7 @@ slapt_vector_t *slapt_get_installed_pkgs(void)
                 u *= 1024;
             else if (strcasecmp(unit, "G") == 0)
                 u *= 1048576;
-            tmp_pkg->size_u = round(u);
+            tmp_pkg->size_u = (uint32_t)lround(u);
             free(size_u);
             free(unit);
         }
@@ -652,10 +652,10 @@ int slapt_install_pkg(const slapt_config_t *global_config, const slapt_pkg_t *pk
     char *pkg_file_name = slapt_gen_pkg_file_name(global_config, pkg);
 
     /* build and execute our command */
-    const int command_len = strlen(SLAPT_INSTALL_CMD) + strlen(pkg_file_name) + 1;
+    const size_t command_len = strlen(SLAPT_INSTALL_CMD) + strlen(pkg_file_name) + 1;
     char command[command_len];
     const int written = snprintf(command, command_len, "%s%s", SLAPT_INSTALL_CMD, pkg_file_name);
-    if (written != (command_len - 1)) {
+    if (written <= 0 || (size_t)written != (command_len - 1)) {
         fprintf(stderr, "slapt_install_pkg error for %s\n", pkg_file_name);
         exit(EXIT_FAILURE);
     }
@@ -675,10 +675,10 @@ int slapt_upgrade_pkg(const slapt_config_t *global_config, const slapt_pkg_t *pk
     char *pkg_file_name = slapt_gen_pkg_file_name(global_config, pkg);
 
     /* build and execute our command */
-    const int command_len = strlen(SLAPT_UPGRADE_CMD) + strlen(pkg_file_name) + 1;
+    const size_t command_len = strlen(SLAPT_UPGRADE_CMD) + strlen(pkg_file_name) + 1;
     char command[command_len];
     const int written = snprintf(command, command_len, "%s%s", SLAPT_UPGRADE_CMD, pkg_file_name);
-    if (written != (command_len - 1)) {
+    if (written <= 0 || (size_t)written != (command_len - 1)) {
         fprintf(stderr, "slapt_upgrade_pkg error for %s\n", pkg_file_name);
         exit(EXIT_FAILURE);
     }
@@ -697,10 +697,10 @@ int slapt_remove_pkg(const slapt_config_t *global_config, const slapt_pkg_t *pkg
     (void)global_config;
 
     /* build and execute our command */
-    const int command_len = strlen(SLAPT_REMOVE_CMD) + strlen(pkg->name) + strlen(pkg->version) + 2;
+    const size_t command_len = strlen(SLAPT_REMOVE_CMD) + strlen(pkg->name) + strlen(pkg->version) + 2;
     char command[command_len];
     const int written = snprintf(command, command_len, "%s%s-%s", SLAPT_REMOVE_CMD, pkg->name, pkg->version);
-    if (written != (command_len - 1)) {
+    if (written <= 0 || (size_t)written != (command_len - 1)) {
         fprintf(stderr, "slapt_remove_pkg error for %s\n", pkg->name);
         exit(EXIT_FAILURE);
     }
@@ -991,7 +991,7 @@ static struct slapt_pkg_version_parts *break_down_pkg_version(const char *versio
     pvp->parts = slapt_malloc(sizeof *pvp->parts);
     pvp->count = 0;
 
-    int sv_size = 0;
+    size_t sv_size = 0;
     char *pointer, *short_version;
     /* generate a short version, leave out arch and release */
     if ((pointer = strchr(version, '-')) == NULL) {
@@ -1007,7 +1007,7 @@ static struct slapt_pkg_version_parts *break_down_pkg_version(const char *versio
         pointer = NULL;
     }
 
-    int pos = 0;
+    size_t pos = 0;
     while (pos < (sv_size - 1)) {
         char **tmp;
 
@@ -1020,7 +1020,7 @@ static struct slapt_pkg_version_parts *break_down_pkg_version(const char *versio
 
         /* check for . as a seperator */
         if ((pointer = strchr(short_version + pos, '.')) != NULL) {
-            const int b_count = (strlen(short_version + pos) - strlen(pointer) + 1);
+            const size_t b_count = (strlen(short_version + pos) - strlen(pointer) + 1);
             pvp->parts[pvp->count] = slapt_malloc(sizeof *pvp->parts[pvp->count] * b_count);
 
             memcpy(pvp->parts[pvp->count], short_version + pos, b_count - 1);
@@ -1030,7 +1030,7 @@ static struct slapt_pkg_version_parts *break_down_pkg_version(const char *versio
             pos += b_count;
             /* check for _ as a seperator */
         } else if ((pointer = strchr(short_version + pos, '_')) != NULL) {
-            const int b_count = (strlen(short_version + pos) - strlen(pointer) + 1);
+            const size_t b_count = (strlen(short_version + pos) - strlen(pointer) + 1);
             pvp->parts[pvp->count] = slapt_malloc(sizeof *pvp->parts[pvp->count] * b_count);
 
             memcpy(pvp->parts[pvp->count], short_version + pos, b_count - 1);
@@ -1040,7 +1040,7 @@ static struct slapt_pkg_version_parts *break_down_pkg_version(const char *versio
             pos += b_count;
             /* must be the end of the string */
         } else {
-            const int b_count = (strlen(short_version + pos) + 1);
+            const size_t b_count = (strlen(short_version + pos) + 1);
             pvp->parts[pvp->count] = slapt_malloc(sizeof *pvp->parts[pvp->count] * b_count);
 
             memcpy(pvp->parts[pvp->count], short_version + pos, b_count - 1);
@@ -1541,7 +1541,7 @@ int slapt_update_pkg_cache(const slapt_config_t *global_config)
             slapt_get_md5sums(available_pkgs, tmp_checksum_f);
 
             slapt_vector_t_foreach (slapt_pkg_t *, p, available_pkgs) {
-                int mirror_len = -1;
+                size_t mirror_len = 0;
 
                 /* honor the mirror if it was set in the PACKAGES.TXT */
                 if (p->mirror == NULL || (mirror_len = strlen(p->mirror)) == 0) {
@@ -1561,7 +1561,7 @@ int slapt_update_pkg_cache(const slapt_config_t *global_config)
             if (patch_pkgs) {
                 slapt_get_md5sums(patch_pkgs, tmp_checksum_f);
                 slapt_vector_t_foreach (slapt_pkg_t *, patch_pkg, patch_pkgs) {
-                    int mirror_len = -1;
+                    size_t mirror_len = 0;
 
                     /* honor the mirror if it was set in the PACKAGES.TXT */
                     if (patch_pkg->mirror == NULL || (mirror_len = strlen(patch_pkg->mirror)) == 0) {
@@ -1698,7 +1698,7 @@ char *slapt_pkg_t_url(const slapt_pkg_t *pkg)
 
     /* build the url */
     char *url = NULL;
-    if (location_len == 0 || (location_len > 0 && location[location_len-1] == '/')) {
+    if (location_len == 0 || (location[location_len-1] == '/')) {
         const size_t url_len = mirror_len + location_len + file_len + 1;
         url = slapt_calloc(url_len, sizeof *url);
         if (snprintf(url, url_len, "%s%s%s", pkg->mirror, location, file_name) != (int)(url_len - 1)) {
@@ -1727,7 +1727,7 @@ size_t slapt_get_pkg_file_size(const slapt_config_t *global_config, const slapt_
     struct stat file_stat;
     size_t file_size = 0;
     if (stat(file_name, &file_stat) == 0) {
-        file_size = file_stat.st_size;
+        file_size = (size_t)file_stat.st_size;
     }
     free(file_name);
 
@@ -1787,10 +1787,10 @@ slapt_code_t slapt_verify_downloaded_pkg(const slapt_config_t *global_config, co
 
 char *slapt_gen_filename_from_url(const char *url, const char *file)
 {
-    const int filename_len = strlen(url) + strlen(file) + 2;
+    const size_t filename_len = strlen(url) + strlen(file) + 2;
     char filename[filename_len];
     const int written = snprintf(filename, filename_len, ".%s%s", url, file);
-    if (written != (filename_len - 1)) {
+    if (written <= 0 || (size_t)written != (filename_len - 1)) {
         fprintf(stderr, "slapt_gen_filename_from_url error for %s\n", url);
         exit(EXIT_FAILURE);
     }
@@ -2547,10 +2547,10 @@ bool slapt_get_pkg_source_changelog(const slapt_config_t *global_config, const c
 
 char *slapt_pkg_t_clean_description(const slapt_pkg_t *pkg)
 {
-    const int token_len = strlen(pkg->name) + 2;
+    const size_t token_len = strlen(pkg->name) + 2;
     char token[token_len];
     const int written = snprintf(token, token_len, "%s:", pkg->name);
-    if (written != (token_len - 1)) {
+    if (written <= 0 || (size_t)written != (token_len - 1)) {
         fprintf(stderr, "slapt_pkg_t_clean_description error for %s\n", pkg->name);
         exit(EXIT_FAILURE);
     }
@@ -2620,11 +2620,11 @@ char *slapt_pkg_t_changelog(const slapt_pkg_t *pkg)
         if (ptr[0] == ':')
             ptr++;
 
-        int changelog_len = 0;
+        size_t changelog_len = 0;
         while (finished_parsing != 1) {
             char *newline = strchr(ptr, '\n');
             const char *start_ptr = ptr;
-            int remaining_len = 0;
+            size_t remaining_len = 0;
 
             if (ptr[0] != '\n' && isblank(ptr[0]) == 0)
                 break;
@@ -2669,7 +2669,7 @@ char *slapt_pkg_t_changelog(const slapt_pkg_t *pkg)
 
 char *slapt_pkg_t_string(const slapt_pkg_t *pkg)
 {
-    const int pkg_str_len = strlen(pkg->name) + strlen(pkg->version) + strlen(pkg->file_ext) + 2; /* for the - and \0 */
+    const size_t pkg_str_len = strlen(pkg->name) + strlen(pkg->version) + strlen(pkg->file_ext) + 2; /* for the - and \0 */
 
     char *pkg_str = slapt_malloc(sizeof *pkg_str * pkg_str_len);
 
@@ -2755,18 +2755,18 @@ char *slapt_pkg_t_filelist(const slapt_pkg_t *pkg)
 
     char *pkg_log_dirname = slapt_gen_package_log_dir_name();
 
-    const int pkg_name_len = strlen(pkg->name) + strlen(pkg->version) + 2; /* for the - and \0 */
+    const size_t pkg_name_len = strlen(pkg->name) + strlen(pkg->version) + 2; /* for the - and \0 */
     char pkg_name[pkg_name_len];
     const int pkg_name_written = snprintf(pkg_name, pkg_name_len, "%s-%s", pkg->name, pkg->version);
-    if (pkg_name_written != (pkg_name_len - 1)) {
+    if (pkg_name_written <= 0 || (size_t)pkg_name_written != (pkg_name_len - 1)) {
         return NULL;
     }
 
     /* build the package filename including the package directory */
-    const int pkg_f_name_len = strlen(pkg_log_dirname) + strlen(pkg_name) + 2;
+    const size_t pkg_f_name_len = strlen(pkg_log_dirname) + strlen(pkg_name) + 2;
     char pkg_f_name[pkg_f_name_len];
     const int pkg_f_name_written = snprintf(pkg_f_name, pkg_f_name_len, "%s/%s", pkg_log_dirname, pkg_name);
-    if (pkg_f_name_written != (pkg_f_name_len - 1)) {
+    if (pkg_f_name_written <= 0 || (size_t)pkg_f_name_written != (pkg_f_name_len - 1)) {
         fprintf(stderr, "slapt_pkg_t_filelist error for %s\n", pkg_name);
         exit(EXIT_FAILURE);
     }
@@ -2823,7 +2823,7 @@ char *slapt_pkg_t_filelist(const slapt_pkg_t *pkg)
         while (!finished_parsing) {
             size_t tmp_len = 0;
             if ((nl = strchr(filelist_p, '\n')) != NULL) {
-                tmp_len = nl - filelist_p + 1;
+                tmp_len = (size_t)((nl - filelist_p) + 1);
             } else {
                 tmp_len = strlen(filelist_p) + 1;
                 finished_parsing = 1;
