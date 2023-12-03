@@ -8,12 +8,12 @@ START_TEST(test_slapt_get_mirror_data_from_source)
     FILE *f = NULL;
     const char *err = NULL;
     slapt_config_t *rc = slapt_config_t_read("./data/rc1");
-    slapt_source_t *src = rc->sources->items[0];
+    const slapt_source_t *src = rc->sources->items[0];
     const char *url = src->url;
-    char *packages = "PACKAGES.TXT";
-    char *packages_gz = "PACKAGES.TXT.gz";
-    char *checksums = "CHECKSUMS.md5";
-    char *checksums_gz = "CHECKSUMS.md5.gz";
+    const char *packages = "PACKAGES.TXT";
+    const char *packages_gz = "PACKAGES.TXT.gz";
+    const char *checksums = "CHECKSUMS.md5";
+    const char *checksums_gz = "CHECKSUMS.md5.gz";
     rc->progress_cb = _progress_cb; /* silence */
 
     f = slapt_open_file("data/PACKAGES.TXT", "w+b");

@@ -575,12 +575,12 @@ START_TEST(test_slapt_dependency_t)
     ck_assert(alt_dep->op == DEP_OP_OR);
 
     /* first alternative */
-    slapt_dependency_t *first = alt_dep->alternatives->items[0];
+    const slapt_dependency_t *first = alt_dep->alternatives->items[0];
     ck_assert(first->op == DEP_OP_ANY);
     ck_assert(strcmp(first->name, "foo") == 0);
     ck_assert(first->version == NULL);
     /* second alternative */
-    slapt_dependency_t *second = alt_dep->alternatives->items[1];
+    const slapt_dependency_t *second = alt_dep->alternatives->items[1];
     ck_assert(second->op == DEP_OP_GTE);
     ck_assert(strcmp(second->name, "bar") == 0);
     ck_assert(strcmp(second->version, "1.0") == 0);

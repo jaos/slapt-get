@@ -187,8 +187,8 @@ int slapt_transaction_t_run(const slapt_config_t *global_config, slapt_transacti
 
         uint32_t len = 0;
         slapt_vector_t_foreach (const slapt_pkg_upgrade_t *, upgrade, trxn->upgrade_pkgs) {
-            slapt_pkg_t *u = upgrade->upgrade;
-            slapt_pkg_t *p = upgrade->installed;
+            const slapt_pkg_t *u = upgrade->upgrade;
+            const slapt_pkg_t *p = upgrade->installed;
 
             const int line_len = len + strlen(u->name) + 1;
             const size_t existing_file_size = slapt_get_pkg_file_size(global_config, u) / 1024;
@@ -215,8 +215,8 @@ int slapt_transaction_t_run(const slapt_config_t *global_config, slapt_transacti
 
         uint32_t len = 0;
         slapt_vector_t_foreach (const slapt_pkg_upgrade_t *, reinstall_upgrade, trxn->reinstall_pkgs) {
-            slapt_pkg_t *u = reinstall_upgrade->upgrade;
-            slapt_pkg_t *p = reinstall_upgrade->installed;
+            const slapt_pkg_t *u = reinstall_upgrade->upgrade;
+            const slapt_pkg_t *p = reinstall_upgrade->installed;
 
             const int line_len = len + strlen(u->name) + 1;
             const size_t existing_file_size = slapt_get_pkg_file_size(global_config, u) / 1024;
@@ -575,18 +575,11 @@ void slapt_transaction_t_free(slapt_transaction_t *trxn)
 
 slapt_transaction_t *slapt_transaction_t_remove(slapt_transaction_t *trxn, const slapt_pkg_t *pkg)
 {
-    slapt_transaction_t *new_trxn = NULL;
 
     if (!slapt_transaction_t_search_by_pkg(trxn, pkg))
         return trxn;
 
-    /* since this is a pointer, slapt_malloc before calling init */
-    new_trxn = slapt_malloc(sizeof *new_trxn);
-    new_trxn->install_pkgs = slapt_malloc(sizeof *new_trxn->install_pkgs);
-    new_trxn->remove_pkgs = slapt_malloc(sizeof *new_trxn->remove_pkgs);
-    new_trxn->upgrade_pkgs = slapt_malloc(sizeof *new_trxn->upgrade_pkgs);
-    new_trxn->exclude_pkgs = slapt_malloc(sizeof *new_trxn->exclude_pkgs);
-    new_trxn = slapt_transaction_t_init();
+    slapt_transaction_t *new_trxn = slapt_transaction_t_init();
 
     slapt_vector_t_foreach (const slapt_pkg_t *, installed_pkg, trxn->install_pkgs) {
         if (strcmp(pkg->name, installed_pkg->name) == 0 &&
@@ -631,6 +624,7 @@ slapt_transaction_t *slapt_transaction_t_remove(slapt_transaction_t *trxn, const
         slapt_transaction_t_add_exclude(new_trxn, exclude_pkg);
     }
 
+    slapt_transaction_t_free(trxn);
     return new_trxn;
 }
 
@@ -744,13 +738,13 @@ bool slapt_transaction_t_search_by_pkg(const slapt_transaction_t *trxn, const sl
     }
 
     slapt_vector_t_foreach (const slapt_pkg_upgrade_t *, upgrade, trxn->upgrade_pkgs) {
-        slapt_pkg_t *p = upgrade->upgrade;
+        const slapt_pkg_t *p = upgrade->upgrade;
         if ((strcmp(pkg->name, p->name) == 0) && (strcmp(pkg->version, p->version) == 0))
             return true;
     }
 
     slapt_vector_t_foreach (const slapt_pkg_upgrade_t *, reinstall, trxn->reinstall_pkgs) {
-        slapt_pkg_t *p = reinstall->upgrade;
+        const slapt_pkg_t *p = reinstall->upgrade;
         if ((strcmp(pkg->name, p->name) == 0) && (strcmp(pkg->version, p->version) == 0))
             return true;
     }

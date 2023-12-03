@@ -82,7 +82,7 @@ START_TEST(test_transaction_dependencies)
     in the transaction
   void slapt_transaction_t_suggestions(slapt_transaction_t *trxn);
   */
-    slapt_pkg_t *p = slapt_get_newest_pkg(avail, "scim");
+    const slapt_pkg_t *p = slapt_get_newest_pkg(avail, "scim");
     slapt_pkg_t *installed_p = slapt_get_newest_pkg(installed, "scim");
     (void)installed_p;
 
@@ -91,6 +91,7 @@ START_TEST(test_transaction_dependencies)
         slapt_transaction_t_add_install(t, conflicts->items[0]);
         slapt_transaction_t_add_dependencies(rc, t, avail, installed, conflicts->items[0]);
     }
+    slapt_vector_t_free(conflicts);
 
     slapt_transaction_t_add_dependencies(rc, t, avail, installed, p);
     slapt_transaction_t_add_install(t, p);

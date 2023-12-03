@@ -15,7 +15,7 @@ END_TEST
 START_TEST(test_regex)
 {
     slapt_regex_t *regex = slapt_regex_t_init("^[a-z]+$");
-    slapt_regex_t *invalid_regex = slapt_regex_t_init("^[-");
+    const slapt_regex_t *invalid_regex = slapt_regex_t_init("^[-");
 
     ck_assert(regex != NULL);
     ck_assert(invalid_regex == NULL);
@@ -69,8 +69,8 @@ START_TEST(test_slapt_str_replace_chr)
 END_TEST
 
 int test_cmp_via_strcmp(const void *a, const void *b) {
-    char *sa = *(char **)a;
-    char *sb = *(char **)b;
+    const char *sa = *(char **)a;
+    const char *sb = *(char **)b;
     return strcmp(sa, sb);
 }
 START_TEST(test_slapt_vector_t)
