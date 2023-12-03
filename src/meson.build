@@ -25,7 +25,7 @@ main_sources = [
   'main.h',
 ]
 
-custom_target('slapt.h',
+slapt_h = custom_target('slapt.h',
   input: lib_headers,
   output: 'slapt.h',
   command: [find_program('mkslapth.sh'), join_paths(meson.project_source_root(), 'src'), '@OUTPUT@', lib_headers],
