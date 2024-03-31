@@ -59,10 +59,12 @@ cflags = [
   '-mshstk',
 
   '-ffat-lto-objects',
+  '-fno-extended-identifiers',
   '-fno-strict-aliasing',
   '-fstrict-flex-arrays=3',
   '-Warith-conversion',
   '-Warray-bounds=2',
+  '-Wbidi-chars=any',
   '-Wcast-align=strict',
   '-Wconversion',
   '-Wduplicated-cond',
@@ -70,6 +72,7 @@ cflags = [
   '-Wformat-nonliteral',
   '-Wformat-overflow=2',
   '-Wformat-security',
+  '-Wformat-truncation',
   '-Wformat=2',
   '-Wimplicit-function-declaration',
   '-Wimplicit-fallthrough=3',
@@ -91,6 +94,7 @@ cflags = [
   '-Wswitch-default',
   '-Wtrampolines',
   '-Wundef',
+  '-Wwrite-strings',
 ]
 add_project_arguments(cc.get_supported_arguments(cflags), language: 'c')
 add_project_link_arguments(cc.get_supported_link_arguments(cflags), language: 'c')

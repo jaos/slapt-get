@@ -896,17 +896,17 @@ struct dist_upgrade_pkg {
 };
 
 static struct dist_upgrade_pkg const dist_upgrade_pkgs[] = {
-    {.name = "aaa_base",         .upgrade_only = false, .replaces = NULL},
-    {.name = "pkgtools",         .upgrade_only = false, .replaces = NULL},
-    {.name = "aaa_glibc-solibs", .upgrade_only = false, .replaces = "glibc-solibs"},
-    {.name = "glibc-solibs",     .upgrade_only = false, .replaces = NULL},
-    {.name = "aaa_libraries",    .upgrade_only = false, .replaces = "aaa_elflibs"},
-    {.name = "aaa_elflibs",      .upgrade_only = false, .replaces = NULL},
-    {.name = "glibc",            .upgrade_only = true,  .replaces = NULL},
-    {.name = "xz",               .upgrade_only = false, .replaces = NULL},
-    {.name = "sed",              .upgrade_only = false, .replaces = NULL},
-    {.name = "tar",              .upgrade_only = false, .replaces = NULL},
-    {.name = "gzip",             .upgrade_only = false, .replaces = NULL},
+    {.name = (char *)"aaa_base",         .upgrade_only = false, .replaces = NULL},
+    {.name = (char *)"pkgtools",         .upgrade_only = false, .replaces = NULL},
+    {.name = (char *)"aaa_glibc-solibs", .upgrade_only = false, .replaces = (char *)"glibc-solibs"},
+    {.name = (char *)"glibc-solibs",     .upgrade_only = false, .replaces = NULL},
+    {.name = (char *)"aaa_libraries",    .upgrade_only = false, .replaces = (char *)"aaa_elflibs"},
+    {.name = (char *)"aaa_elflibs",      .upgrade_only = false, .replaces = NULL},
+    {.name = (char *)"glibc",            .upgrade_only = true,  .replaces = NULL},
+    {.name = (char *)"xz",               .upgrade_only = false, .replaces = NULL},
+    {.name = (char *)"sed",              .upgrade_only = false, .replaces = NULL},
+    {.name = (char *)"tar",              .upgrade_only = false, .replaces = NULL},
+    {.name = (char *)"gzip",             .upgrade_only = false, .replaces = NULL},
     {NULL, NULL, NULL}
 };
 

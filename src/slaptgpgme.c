@@ -58,9 +58,9 @@ FILE *slapt_get_pkg_source_checksums_signature(const slapt_config_t *global_conf
     FILE *tmp_checksum_f = NULL;
     bool interactive = slapt_is_interactive(global_config);
 
-    char *location_uncompressed = SLAPT_CHECKSUM_ASC_FILE;
-    char *location_compressed = SLAPT_CHECKSUM_ASC_FILE_GZ;
-    char *location;
+    const char *location_uncompressed = SLAPT_CHECKSUM_ASC_FILE;
+    const char *location_compressed = SLAPT_CHECKSUM_ASC_FILE_GZ;
+    const char *location;
     if (*compressed) {
         location = location_compressed;
         *compressed = true;

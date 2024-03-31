@@ -583,7 +583,7 @@ char *slapt_gen_package_log_dir_name(void)
         root_env_entry = getenv(SLAPT_ROOT_ENV_NAME);
     }
 
-    char *path = NULL;
+    const char *path = NULL;
     struct stat stat_buf;
     if (stat(SLAPT_PKG_LIB_DIR, &stat_buf) == 0) {
         path = SLAPT_PKG_LIB_DIR;

@@ -76,25 +76,25 @@ int test_cmp_via_strcmp(const void *a, const void *b) {
 START_TEST(test_slapt_vector_t)
 {
     slapt_vector_t *v = slapt_vector_t_init(NULL);
-    slapt_vector_t_add(v, "one");
-    slapt_vector_t_add(v, "two");
-    slapt_vector_t_add(v, "three");
-    slapt_vector_t_add(v, "four");
+    slapt_vector_t_add(v, (char *)"one");
+    slapt_vector_t_add(v, (char *)"two");
+    slapt_vector_t_add(v, (char *)"three");
+    slapt_vector_t_add(v, (char *)"four");
 
     ck_assert(v->size == 4);
     ck_assert(v->capacity >= v->size);
 
-    int idx = slapt_vector_t_index_of(v, (slapt_vector_t_cmp)strcmp, "three");
+    int idx = slapt_vector_t_index_of(v, (slapt_vector_t_cmp)strcmp, (char *)"three");
     ck_assert(idx == 2);
 
     slapt_vector_t_remove(v, v->items[idx]);
     ck_assert(v->size == 3);
-    ck_assert(-1 == slapt_vector_t_index_of(v, (slapt_vector_t_cmp)strcmp, "three"));
+    ck_assert(-1 == slapt_vector_t_index_of(v, (slapt_vector_t_cmp)strcmp, (char *)"three"));
 
     slapt_vector_t_sort(v, test_cmp_via_strcmp);
-    ck_assert(0 == slapt_vector_t_index_of(v, (slapt_vector_t_cmp)strcmp, "four"));
-    ck_assert(1 == slapt_vector_t_index_of(v, (slapt_vector_t_cmp)strcmp, "one"));
-    ck_assert(2 == slapt_vector_t_index_of(v, (slapt_vector_t_cmp)strcmp, "two"));
+    ck_assert(0 == slapt_vector_t_index_of(v, (slapt_vector_t_cmp)strcmp, (char *)"four"));
+    ck_assert(1 == slapt_vector_t_index_of(v, (slapt_vector_t_cmp)strcmp, (char *)"one"));
+    ck_assert(2 == slapt_vector_t_index_of(v, (slapt_vector_t_cmp)strcmp, (char *)"two"));
 
     slapt_vector_t_free(v);
 }
@@ -108,9 +108,9 @@ START_TEST(test_slapt_strip_whitespace)
     } std_test_case;
 
     const std_test_case tests[] = {
-        {.input="foo", .output="foo"},
-        {.input="foo ", .output="foo"},
-        {.input=" foo ", .output="foo"},
+        {.input=(char *)"foo", .output=(char *)"foo"},
+        {.input=(char *)"foo ", .output=(char *)"foo"},
+        {.input=(char *)" foo ", .output=(char *)"foo"},
     };
     for(uint32_t i = 0; i < (sizeof(tests)/sizeof(std_test_case)); i++) {
         std_test_case t = tests[i];
@@ -125,9 +125,9 @@ START_TEST(test_slapt_parse_delimited_list)
 {
     slapt_vector_t *foo_v = slapt_vector_t_init(NULL);
     slapt_vector_t *foo_and_bar_v = slapt_vector_t_init(NULL);
-    slapt_vector_t_add(foo_v, "foo");
-    slapt_vector_t_add(foo_and_bar_v, "foo");
-    slapt_vector_t_add(foo_and_bar_v, "bar");
+    slapt_vector_t_add(foo_v, (char *)"foo");
+    slapt_vector_t_add(foo_and_bar_v, (char *)"foo");
+    slapt_vector_t_add(foo_and_bar_v, (char *)"bar");
 
      typedef struct {
         char *input;
@@ -136,8 +136,8 @@ START_TEST(test_slapt_parse_delimited_list)
     } std_test_case;
 
     const std_test_case tests[] = {
-        {.input="foo", .delim=',', .output=foo_v},
-        {.input="foo,bar", .delim=',', .output=foo_and_bar_v},
+        {.input=(char *)"foo", .delim=',', .output=foo_v},
+        {.input=(char *)"foo,bar", .delim=',', .output=foo_and_bar_v},
     };
     for(uint32_t i = 0; i < (sizeof(tests)/sizeof(std_test_case)); i++) {
         std_test_case t = tests[i];

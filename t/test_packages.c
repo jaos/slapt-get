@@ -54,31 +54,31 @@ START_TEST(test_pkg_info)
         const char *url;
     } url_tests[] = {
         {
-            {.name="gslapt", .version="0.3.15-i386-1", .mirror="http://software.jaos.org/slackpacks/11.0/", .location="", .file_ext=".tgz"},
+            {.name=(char *)"gslapt", .version=(char *)"0.3.15-i386-1", .mirror=(char *)"http://software.jaos.org/slackpacks/11.0/", .location=(char *)"", .file_ext=(char *)".tgz"},
             "http://software.jaos.org/slackpacks/11.0/gslapt-0.3.15-i386-1.tgz",
         },
         {
-            {.name="gslapt", .version="0.3.15-i386-1", .mirror="http://software.jaos.org/slackpacks/11.0/", .location=".", .file_ext=".tgz"},
+            {.name=(char *)"gslapt", .version=(char *)"0.3.15-i386-1", .mirror=(char *)"http://software.jaos.org/slackpacks/11.0/", .location=(char *)".", .file_ext=(char *)".tgz"},
             "http://software.jaos.org/slackpacks/11.0/gslapt-0.3.15-i386-1.tgz",
         },
         {
-            {.name="gslapt", .version="0.3.15-i386-1", .mirror="http://software.jaos.org/slackpacks/11.0/", .location="./", .file_ext=".tgz"},
+            {.name=(char *)"gslapt", .version=(char *)"0.3.15-i386-1", .mirror=(char *)"http://software.jaos.org/slackpacks/11.0/", .location=(char *)"./", .file_ext=(char *)".tgz"},
             "http://software.jaos.org/slackpacks/11.0/gslapt-0.3.15-i386-1.tgz",
         },
         {
-            {.name="gslapt", .version="0.3.15-i386-1", .mirror="http://software.jaos.org/slackpacks/11.0/", .location="./gslapt", .file_ext=".tgz"},
+            {.name=(char *)"gslapt", .version=(char *)"0.3.15-i386-1", .mirror=(char *)"http://software.jaos.org/slackpacks/11.0/", .location=(char *)"./gslapt", .file_ext=(char *)".tgz"},
             "http://software.jaos.org/slackpacks/11.0/gslapt/gslapt-0.3.15-i386-1.tgz",
         },
         {
-            {.name="gslapt", .version="0.3.15-i386-1", .mirror="http://software.jaos.org/slackpacks/11.0/", .location="./gslapt/", .file_ext=".tgz"},
+            {.name=(char *)"gslapt", .version=(char *)"0.3.15-i386-1", .mirror=(char *)"http://software.jaos.org/slackpacks/11.0/", .location=(char *)"./gslapt/", .file_ext=(char *)".tgz"},
             "http://software.jaos.org/slackpacks/11.0/gslapt/gslapt-0.3.15-i386-1.tgz",
         },
         {
-            {.name="gslapt", .version="0.3.15-i386-1", .mirror="http://software.jaos.org/slackpacks/11.0/", .location="gslapt/", .file_ext=".tgz"},
+            {.name=(char *)"gslapt", .version=(char *)"0.3.15-i386-1", .mirror=(char *)"http://software.jaos.org/slackpacks/11.0/", .location=(char *)"gslapt/", .file_ext=(char *)".tgz"},
             "http://software.jaos.org/slackpacks/11.0/gslapt/gslapt-0.3.15-i386-1.tgz",
         },
         {
-            {.name="gslapt", .version="0.3.15-i386-1", .mirror="http://software.jaos.org/slackpacks/11.0/", .location="gslapt", .file_ext=".tgz"},
+            {.name=(char *)"gslapt", .version=(char *)"0.3.15-i386-1", .mirror=(char *)"http://software.jaos.org/slackpacks/11.0/", .location=(char *)"gslapt", .file_ext=(char *)".tgz"},
             "http://software.jaos.org/slackpacks/11.0/gslapt/gslapt-0.3.15-i386-1.tgz",
         },
     };
@@ -183,15 +183,15 @@ START_TEST(test_pkg_version)
 {
     slapt_pkg_t mirror_pkg1 = {
         .md5="8598a2a6d683d098b09cdc938de1e3c7",
-        .name="gslapt",
-        .version="0.3.15-i386-1",
-        .mirror="http://software.jaos.org/slackpacks/11.0/",
-        .location=".",
-        .description="gslapt: gslapt (GTK slapt-get, an APT like system for Slackware)\n",
-        .required="",
-        .conflicts="",
-        .suggests="",
-        .file_ext=".tgz",
+        .name=(char *)"gslapt",
+        .version=(char *)"0.3.15-i386-1",
+        .mirror=(char *)"http://software.jaos.org/slackpacks/11.0/",
+        .location=(char *)".",
+        .description=(char *)"gslapt: gslapt (GTK slapt-get, an APT like system for Slackware)\n",
+        .required=(char *)"",
+        .conflicts=(char *)"",
+        .suggests=(char *)"",
+        .file_ext=(char *)".tgz",
         .dependencies=NULL,
         .size_c=115,
         .size_u=440,
@@ -199,15 +199,15 @@ START_TEST(test_pkg_version)
         .installed=false};
     slapt_pkg_t mirror_pkg2 = {
         .md5="8598a2a6d683d098b09cdc938de1e3c7",
-        .name="gslapt",
-        .version="0.3.15-i386-2",
-        .mirror="http://software.jaos.org/slackpacks/11.0/",
-        .location=".",
-        .description="gslapt: gslapt (GTK slapt-get, an APT like system for Slackware)\n",
-        .required="",
-        .conflicts="",
-        .suggests="",
-        .file_ext=".tgz",
+        .name=(char *)"gslapt",
+        .version=(char *)"0.3.15-i386-2",
+        .mirror=(char *)"http://software.jaos.org/slackpacks/11.0/",
+        .location=(char *)".",
+        .description=(char *)"gslapt: gslapt (GTK slapt-get, an APT like system for Slackware)\n",
+        .required=(char *)"",
+        .conflicts=(char *)"",
+        .suggests=(char *)"",
+        .file_ext=(char *)".tgz",
         .dependencies=NULL,
         .size_c=115,
         .size_u=440,
@@ -215,15 +215,15 @@ START_TEST(test_pkg_version)
         .installed=false};
     slapt_pkg_t installed_pkg = {
         .md5="8598a2a6d683d098b09cdc938de1e3c7",
-        .name="gslapt",
-        .version="0.3.15-i386-1",
-        .mirror="http://software.jaos.org/slackpacks/11.0/",
-        .location=".",
-        .description="gslapt: gslapt (GTK slapt-get, an APT like system for Slackware)\n",
-        .required="",
-        .conflicts="",
-        .suggests="",
-        .file_ext=".tgz",
+        .name=(char *)"gslapt",
+        .version=(char *)"0.3.15-i386-1",
+        .mirror=(char *)"http://software.jaos.org/slackpacks/11.0/",
+        .location=(char *)".",
+        .description=(char *)"gslapt: gslapt (GTK slapt-get, an APT like system for Slackware)\n",
+        .required=(char *)"",
+        .conflicts=(char *)"",
+        .suggests=(char *)"",
+        .file_ext=(char *)".tgz",
         .dependencies=NULL,
         .size_c=115,
         .size_u=440,
@@ -410,24 +410,24 @@ END_TEST
 START_TEST(test_remove_chain)
 {
     /* declare dependencies */
-    slapt_dependency_t slapt_get_dep = {.name="slapt-get", .version=NULL, .op=DEP_OP_ANY};
-    slapt_dependency_t gslapt_dep = {.name="gslapt", .version=NULL, .op=DEP_OP_ANY};
+    slapt_dependency_t slapt_get_dep = {.name=(char *)"slapt-get", .version=NULL, .op=DEP_OP_ANY};
+    slapt_dependency_t gslapt_dep = {.name=(char *)"gslapt", .version=NULL, .op=DEP_OP_ANY};
     //slapt_dependency_t slapt_src_dep = {.name="slapt-src", .version=NULL, .op=DEP_OP_ANY};
     //slapt_dependency_t slapt_update_service_dep = {.name="slapt-update-service", .version=NULL, .op=DEP_OP_ANY};
 
     /* initialize packages */
-    slapt_pkg_t slapt_get = {.name="slapt-get", .version="0.11.3-x86_64-1", .location="./slapt-get"};
+    slapt_pkg_t slapt_get = {.name=(char *)"slapt-get", .version=(char *)"0.11.3-x86_64-1", .location=(char *)"./slapt-get"};
     slapt_get.dependencies = slapt_vector_t_init(NULL);
 
-    slapt_pkg_t gslapt = {.name="gslapt", .version="0.5.8-x86_64-1", .location="./gslapt", .required="slapt-get"};
+    slapt_pkg_t gslapt = {.name=(char *)"gslapt", .version=(char *)"0.5.8-x86_64-1", .location=(char *)"./gslapt", .required=(char *)"slapt-get"};
     gslapt.dependencies = slapt_vector_t_init(NULL);
     slapt_vector_t_add(gslapt.dependencies, &slapt_get_dep);
 
-    slapt_pkg_t slapt_src = {.name="slapt-src", .version="0.3.5-x86_64-1", .location="./slapt-src", .required="slapt-get"};
+    slapt_pkg_t slapt_src = {.name=(char *)"slapt-src", .version=(char *)"0.3.5-x86_64-1", .location=(char *)"./slapt-src", .required=(char *)"slapt-get"};
     slapt_src.dependencies = slapt_vector_t_init(NULL);
     slapt_vector_t_add(slapt_src.dependencies, &slapt_get_dep);
 
-    slapt_pkg_t slapt_update_service = {.name="slapt-update-service", .version="0.5.2-x86_64-1", .location="./slapt-update-service", .required="gslapt"};
+    slapt_pkg_t slapt_update_service = {.name=(char *)"slapt-update-service", .version=(char *)"0.5.2-x86_64-1", .location=(char *)"./slapt-update-service", .required=(char *)"gslapt"};
     slapt_update_service.dependencies = slapt_vector_t_init(NULL);
     slapt_vector_t_add(slapt_update_service.dependencies, &gslapt_dep);
 

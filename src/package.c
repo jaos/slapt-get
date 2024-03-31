@@ -2467,9 +2467,9 @@ FILE *slapt_get_pkg_source_checksums(const slapt_config_t *global_config, const 
 
 bool slapt_get_pkg_source_changelog(const slapt_config_t *global_config, const char *url, bool *compressed)
 {
-    char *location_gz = SLAPT_CHANGELOG_FILE_GZ;
-    char *location_uncomp = SLAPT_CHANGELOG_FILE;
-    char *location = location_gz;
+    const char *location_gz = SLAPT_CHANGELOG_FILE_GZ;
+    const char *location_uncomp = SLAPT_CHANGELOG_FILE;
+    const char *location = location_gz;
     bool is_interactive = slapt_is_interactive(global_config);
     *compressed = 0;
 
@@ -2791,7 +2791,7 @@ char *slapt_pkg_t_filelist(const slapt_pkg_t *pkg)
     /* don't mmap empty files */
     if ((int)stat_buf.st_size < 1) {
         fclose(pkg_f);
-        return "";
+        return NULL;
     }
 
     const size_t pls = (size_t)stat_buf.st_size;
