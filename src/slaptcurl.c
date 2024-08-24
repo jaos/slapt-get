@@ -213,7 +213,7 @@ const char *slapt_download_pkg(const slapt_config_t *global_config, const slapt_
             fprintf(stderr, gettext("Failed to unlink %s\n"), file_name);
             exit(EXIT_FAILURE);
         }
-        dl_total_size = pkg->size_c;
+        dl_total_size = (ssize_t)pkg->size_c;
         f_size = 0;
     }
 
