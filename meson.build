@@ -49,7 +49,7 @@ endif
 
 cflags = [
   '-U_FORTIFY_SOURCE',
-  '-D_FORTIFY_SOURCE=3',
+  '-D_FORTIFY_SOURCE=2', # switch to 3 with 15.1+
   '-fcf-protection=full',
   '-fstack-clash-protection',
   '-fstack-protector-all',
@@ -88,7 +88,7 @@ cflags = [
   '-Wredundant-decls',
   '-Wshadow',
   '-Wshift-overflow=2',
-  '-Wstrict-overflow',
+  '-Wstrict-overflow=5',
   '-Wstrict-prototypes',
   '-Wstringop-overflow=4',
   '-Wswitch-default',
