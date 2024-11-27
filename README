@@ -134,8 +134,8 @@ Table of Contents:
     the source URI.  For example:
 
       SOURCE={url}:DEFAULT    is the default, lowest priority
-      SOURCE={url}:PREFERRED  assigns more weight to this source
-      SOURCE={url}:OFFICIAL   even more weight, used to denote official sources
+      SOURCE={url}:OFFICIAL   assigns more weight, used to denote official sources
+      SOURCE={url}:PREFERRED  even more weight to this source
       SOURCE={url}:CUSTOM     highest priority, for your custom package source
 
     See the FAQ for more information.
