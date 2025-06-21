@@ -32,28 +32,28 @@ int slapt_download_data(FILE *fh, const char *url, size_t bytes, SLAPT_DOWNLOAD_
     CURL *ch = curl_easy_init();
     curl_easy_setopt(ch, CURLOPT_URL, url);
     curl_easy_setopt(ch, CURLOPT_WRITEDATA, fh);
-    curl_easy_setopt(ch, CURLOPT_NOPROGRESS, 0);
+    curl_easy_setopt(ch, CURLOPT_NOPROGRESS, 0L);
     curl_easy_setopt(ch, CURLOPT_USERAGENT, PACKAGE);
-    curl_easy_setopt(ch, CURLOPT_FTP_USE_EPSV, 0);
+    curl_easy_setopt(ch, CURLOPT_FTP_USE_EPSV, 0L);
 /* this is a check for slack 9.0's curl libs */
 #ifdef CURLOPT_FTP_USE_EPRT
-    curl_easy_setopt(ch, CURLOPT_FTP_USE_EPRT, 0);
+    curl_easy_setopt(ch, CURLOPT_FTP_USE_EPRT, 0L);
 #endif
-    curl_easy_setopt(ch, CURLOPT_FAILONERROR, 1);
+    curl_easy_setopt(ch, CURLOPT_FAILONERROR, 1L);
 #ifdef CURLOPT_HTTPAUTH
     curl_easy_setopt(ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
 #endif
 #ifdef CURLFTPMETHOD_NOCWD
     curl_easy_setopt(ch, CURLOPT_FTP_FILEMETHOD, CURLFTPMETHOD_NOCWD);
 #endif
-    curl_easy_setopt(ch, CURLOPT_FILETIME, 1);
-    curl_easy_setopt(ch, CURLOPT_FOLLOWLOCATION, 1);
+    curl_easy_setopt(ch, CURLOPT_FILETIME, 1L);
+    curl_easy_setopt(ch, CURLOPT_FOLLOWLOCATION, 1L);
 
     /* ugh, if someone wants to do this */
     if (getenv(SLAPT_NO_SSL_VERIFYPEER))
-        curl_easy_setopt(ch, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_easy_setopt(ch, CURLOPT_SSL_VERIFYPEER, 0L);
     if (getenv("SLAPT_CURL_DEBUG"))
-        curl_easy_setopt(ch, CURLOPT_VERBOSE, 1);
+        curl_easy_setopt(ch, CURLOPT_VERBOSE, 1L);
 
     struct curl_slist *headers = NULL;
     headers = curl_slist_append(headers, "Pragma: "); /* override no-cache */
@@ -121,28 +121,28 @@ char *slapt_head_request(const char *url)
     CURL *ch = curl_easy_init();
     curl_easy_setopt(ch, CURLOPT_URL, url);
     curl_easy_setopt(ch, CURLOPT_WRITEFUNCTION, write_header_callback);
-    curl_easy_setopt(ch, CURLOPT_NOPROGRESS, 1);
+    curl_easy_setopt(ch, CURLOPT_NOPROGRESS, 1L);
     curl_easy_setopt(ch, CURLOPT_USERAGENT, PACKAGE);
     curl_easy_setopt(ch, CURLOPT_FILE, &head_t);
-    curl_easy_setopt(ch, CURLOPT_HEADER, 1);
-    curl_easy_setopt(ch, CURLOPT_NOBODY, 1);
-    curl_easy_setopt(ch, CURLOPT_FTP_USE_EPSV, 0);
+    curl_easy_setopt(ch, CURLOPT_HEADER, 1L);
+    curl_easy_setopt(ch, CURLOPT_NOBODY, 1L);
+    curl_easy_setopt(ch, CURLOPT_FTP_USE_EPSV, 0L);
 /* this is a check for slack 9.0's curl libs */
 #ifdef CURLOPT_FTP_USE_EPRT
-    curl_easy_setopt(ch, CURLOPT_FTP_USE_EPRT, 0);
+    curl_easy_setopt(ch, CURLOPT_FTP_USE_EPRT, 0L);
 #endif
-    curl_easy_setopt(ch, CURLOPT_FAILONERROR, 1);
+    curl_easy_setopt(ch, CURLOPT_FAILONERROR, 1L);
 #ifdef CURLOPT_HTTPAUTH
     curl_easy_setopt(ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
 #endif
 #ifdef CURLFTPMETHOD_NOCWD
     curl_easy_setopt(ch, CURLOPT_FTP_FILEMETHOD, CURLFTPMETHOD_NOCWD);
 #endif
-    curl_easy_setopt(ch, CURLOPT_FILETIME, 1);
-    curl_easy_setopt(ch, CURLOPT_FOLLOWLOCATION, 1);
+    curl_easy_setopt(ch, CURLOPT_FILETIME, 1L);
+    curl_easy_setopt(ch, CURLOPT_FOLLOWLOCATION, 1L);
 
     if (getenv("SLAPT_CURL_DEBUG"))
-        curl_easy_setopt(ch, CURLOPT_VERBOSE, 1);
+        curl_easy_setopt(ch, CURLOPT_VERBOSE, 1L);
 
     struct curl_slist *headers = NULL;
     headers = curl_slist_append(headers, "Pragma: "); /* override no-cache */
