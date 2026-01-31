@@ -82,6 +82,7 @@
 #define SLAPT_AVAILABLE_OPT 'A'
 #define SLAPT_RETRY_OPT 'R'
 #define SLAPT_NO_UPGRADE_OPT 'N'
+#define SLAPT_VERBOSE 'V'
 #ifdef SLAPT_HAS_GPGME
 #define SLAPT_ADD_KEYS_OPT 'k'
 #define SLAPT_ALLOW_UNAUTH 'U'

@@ -170,6 +170,9 @@ slapt_pkg_t *slapt_get_pkg_by_details(const slapt_vector_t *list, const char *na
 /* search package list with pattern */
 slapt_vector_t *slapt_search_pkg_list(const slapt_vector_t *list, const char *pattern);
 
+typedef bool (*slapt_pkg_filter_t)(const void *const, const slapt_pkg_t *);
+slapt_vector_t *slapt_filter_pkg_list(const slapt_vector_t *list, slapt_pkg_filter_t, const void *const);
+
 /* install package by calling installpkg, returns 0 on success, -1 on error */
 int slapt_install_pkg(const slapt_config_t *, const slapt_pkg_t *);
 /* upgrade package by calling upgradepkg, returns 0 on success, -1 on error */
