@@ -131,10 +131,10 @@ START_TEST(test_pkg_search)
     p = slapt_get_newest_pkg(list, "gslapt");
     ck_assert(p != NULL);
 
-    p = slapt_get_exact_pkg(list, "gslapt", "0.3.15-i386-1");
+    p = slapt_get_exact_pkg(list, "gslapt", pkg.version);
     ck_assert(p != NULL);
 
-    p = slapt_get_pkg_by_details(list, "gslapt", "0.3.15-i386-1", ".");
+    p = slapt_get_pkg_by_details(list, "gslapt", pkg.version, ".");
     ck_assert(p != NULL);
 
     l = slapt_search_pkg_list(list, "^gslapt$");

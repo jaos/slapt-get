@@ -158,6 +158,7 @@ int main(const int argc, char *argv[])
             break;
         case SLAPT_VERSION_OPT: /* version */
             version_info();
+            free(custom_rc_location);
             slapt_config_t_free(initial_config);
             curl_global_cleanup();
             exit(EXIT_SUCCESS);
@@ -182,6 +183,7 @@ int main(const int argc, char *argv[])
             break;
         case SLAPT_HELP_OPT: /* help */
             usage();
+            free(custom_rc_location);
             slapt_config_t_free(initial_config);
             curl_global_cleanup();
             exit(EXIT_SUCCESS);
@@ -233,6 +235,7 @@ int main(const int argc, char *argv[])
             break;
         default:
             usage();
+            free(custom_rc_location);
             slapt_config_t_free(initial_config);
             curl_global_cleanup();
             exit(EXIT_FAILURE);

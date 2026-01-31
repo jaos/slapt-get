@@ -6,19 +6,19 @@
 #include "test_transaction.h"
 
 slapt_pkg_t pkg = {
-    .md5="8598a2a6d683d098b09cdc938de1e3c7",
+    .md5="691284bdc8da4365369ce4ba86b88026",
     .name=(char *)"gslapt",
-    .version=(char *)"0.3.15-i386-1",
-    .mirror=(char *)"http://software.jaos.org/slackpacks/11.0/",
+    .version=(char *)"0.5.5-x86_64-1",
+    .mirror=(char *)"https://storage.googleapis.com/slackpacks.jaos.org/slackware64-15.0/gslapt/",
     .location=(char *)".",
     .description=(char *)"gslapt: gslapt (GTK slapt-get, an APT like system for Slackware)\n",
     .required=(char *)"",
     .conflicts=(char *)"",
     .suggests=(char *)"",
-    .file_ext=(char *)".tgz",
+    .file_ext=(char *)".txz",
     .dependencies=NULL,
-    .size_c=115,
-    .size_u=440,
+    .size_c=116,
+    .size_u=880,
     .priority=SLAPT_PRIORITY_DEFAULT,
     .installed=true};
 

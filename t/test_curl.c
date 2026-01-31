@@ -49,10 +49,11 @@ START_TEST(test_slapt_download_pkg)
 {
     const char *err = NULL;
     slapt_config_t *rc = slapt_config_t_read("./data/rc1");
-    rc->progress_cb = _progress_cb; /* silence */
+    //rc->progress_cb = _progress_cb; /* silence */
     slapt_working_dir_init(rc);
 
     err = slapt_download_pkg(rc, &pkg, NULL);
+    fprintf(stderr, "%s\n", err);
     ck_assert(!err);
 
     slapt_config_t_free(rc);
