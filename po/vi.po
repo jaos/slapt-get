@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-10 22:36-0400\n"
+"POT-Creation-Date: 2026-05-30 22:29-0400\n"
 "PO-Revision-Date: 2012-09-17 21:34+0000\n"
 "Last-Translator: Copyright (C) 2004, 2005\n"
 "Language-Team: Vietnamese (http://app.transifex.com/jaos/slapt-get/language/"
@@ -580,6 +580,9 @@ msgstr "thống kê quá trình lấy dữ liệu từ kho lưu trữ"
 
 msgid "show pkgs to be installed/upgraded"
 msgstr "hiển thị danh sách các gói phần mềm được cài đặt/nâng cấp"
+
+msgid "show verbose information in command line output"
+msgstr ""
 
 msgid "skip dependency check"
 msgstr "bỏ qua kiểm tra phụ thuộc"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-10 22:36-0400\n"
+"POT-Creation-Date: 2026-05-30 22:29-0400\n"
 "PO-Revision-Date: 2012-09-17 21:34+0000\n"
 "Last-Translator: Georgi Georgiev (RacerBG) <g.georgiev.shumen@gmail.com>, "
 "2015-2016\n"
@@ -587,6 +587,9 @@ msgstr "показване на статистиката на теглене"
 
 msgid "show pkgs to be installed/upgraded"
 msgstr "показване на пакетите за инсталиране/ъпгрейд"
+
+msgid "show verbose information in command line output"
+msgstr ""
 
 msgid "skip dependency check"
 msgstr "без проверка за зависимости"

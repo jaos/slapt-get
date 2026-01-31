@@ -23,9 +23,9 @@
 static void usage(void);
 static void version_info(void);
 static void slapt_pkg_action_install(const slapt_config_t *global_config, const slapt_vector_t *action_args);
-static void slapt_pkg_action_list(const int show);
+static void slapt_pkg_action_list(const slapt_config_t *, const int show, const bool verbose);
 static void slapt_pkg_action_remove(const slapt_config_t *global_config, const slapt_vector_t *action_args);
-static void slapt_pkg_action_search(const char *pattern);
+static void slapt_pkg_action_search(const slapt_config_t *, const char *pattern, const bool verbose);
 static void slapt_pkg_action_show(const char *pkg_name);
 static void slapt_pkg_action_upgrade_all(const slapt_config_t *global_config);
 #ifdef SLAPT_HAS_GPGME
@@ -55,6 +55,7 @@ int main(const int argc, char *argv[])
         {"simulate", 0, 0, SLAPT_SIMULATE_OPT},
         {"s", 0, 0, SLAPT_SIMULATE_OPT},
         {"version", 0, 0, SLAPT_VERSION_OPT},
+        {"verbose", 0, 0, SLAPT_VERBOSE},
         {"no-prompt", 0, 0, SLAPT_NO_PROMPT_OPT},
         {"y", 0, 0, SLAPT_NO_PROMPT_OPT},
         {"prompt", 0, 0, SLAPT_PROMPT_OPT},
@@ -113,6 +114,8 @@ int main(const int argc, char *argv[])
     }
 
     curl_global_init(CURL_GLOBAL_ALL);
+
+    bool verbose = false;
 
     enum slapt_action do_action = SLAPT_ACTION_USAGE;
     int c = 0;
@@ -232,6 +235,9 @@ int main(const int argc, char *argv[])
         case SLAPT_FILELIST:
             do_action = SLAPT_ACTION_FILELIST;
             initial_config->simulate = true; /* allow read access */
+            break;
+        case SLAPT_VERBOSE:
+            verbose = true;
             break;
         default:
             usage();
@@ -385,17 +391,17 @@ int main(const int argc, char *argv[])
         break;
     case SLAPT_ACTION_SEARCH:
         while (optind < argc) {
-            slapt_pkg_action_search(argv[optind++]);
+            slapt_pkg_action_search(global_config, argv[optind++], verbose);
         }
         break;
     case SLAPT_ACTION_UPGRADE:
         slapt_pkg_action_upgrade_all(global_config);
         break;
     case SLAPT_ACTION_LIST:
-        slapt_pkg_action_list(SLAPT_ACTION_LIST);
+        slapt_pkg_action_list(global_config, SLAPT_ACTION_LIST, verbose);
         break;
     case SLAPT_ACTION_INSTALLED:
-        slapt_pkg_action_list(SLAPT_ACTION_INSTALLED);
+        slapt_pkg_action_list(global_config, SLAPT_ACTION_INSTALLED, verbose);
         break;
     case SLAPT_ACTION_CLEAN:
         /* clean out local cache */
@@ -409,7 +415,7 @@ int main(const int argc, char *argv[])
         slapt_purge_old_cached_pkgs(global_config, NULL, NULL);
         break;
     case SLAPT_ACTION_AVAILABLE:
-        slapt_pkg_action_list(SLAPT_ACTION_AVAILABLE);
+        slapt_pkg_action_list(global_config, SLAPT_ACTION_AVAILABLE, verbose);
         break;
 #ifdef SLAPT_HAS_GPGME
     case SLAPT_ACTION_ADD_KEYS:
@@ -476,6 +482,7 @@ static void usage(void)
     printf("  --remove-obsolete       %s\n", gettext("remove obsolete packages"));
     printf("  --retry []              %s\n", gettext("specify number of download retry attempts"));
     printf("  --no-upgrade            %s\n", gettext("install package, do not attempt to upgrade"));
+    printf("  --verbose               %s\n", gettext("show verbose information in command line output"));
 #ifdef SLAPT_HAS_GPGME
     printf("  --allow-unauthenticated %s\n", gettext("allow unauthenticated packages"));
 #endif
@@ -500,6 +507,13 @@ static void version_info(void)
     printf("Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n");
 }
 
+
+static bool filter_excluded_pkgs(const void *const data, const slapt_pkg_t *pkg)
+{
+    const slapt_config_t *config = (slapt_config_t *)data;
+    return !slapt_is_excluded(config, pkg);
+}
+
 /* install pkg */
 static void slapt_pkg_action_install(const slapt_config_t *global_config, const slapt_vector_t *action_args)
 {
@@ -519,6 +533,12 @@ static void slapt_pkg_action_install(const slapt_config_t *global_config, const 
         exit(EXIT_FAILURE);
     }
 
+    slapt_vector_t *filtered = slapt_filter_pkg_list(avail_pkgs, filter_excluded_pkgs, (void*)global_config);
+    slapt_vector_t *maybe_filtered = avail_pkgs;
+    if (!global_config->ignore_excludes) {
+        maybe_filtered = filtered;
+    }
+
     slapt_vector_t_foreach (const char *, arg, action_args) {
         slapt_pkg_t *pkg = NULL;
 
@@ -531,7 +551,7 @@ static void slapt_pkg_action_install(const slapt_config_t *global_config, const 
 
             pkg_name = slapt_regex_t_extract_match(pkg_regex, arg, 1);
             pkg_version = slapt_regex_t_extract_match(pkg_regex, arg, 2);
-            pkg = slapt_get_exact_pkg(avail_pkgs, pkg_name, pkg_version);
+            pkg = slapt_get_exact_pkg(maybe_filtered, pkg_name, pkg_version);
 
             free(pkg_name);
             free(pkg_version);
@@ -540,7 +560,7 @@ static void slapt_pkg_action_install(const slapt_config_t *global_config, const 
         /* If regex doesnt match */
         if (pkg_regex->reg_return != 0 || pkg == NULL) {
             /* make sure there is a package called arg */
-            pkg = slapt_get_newest_pkg(avail_pkgs, arg);
+            pkg = slapt_get_newest_pkg(maybe_filtered, arg);
 
             if (pkg == NULL) {
                 fprintf(stderr, gettext("No such package: %s\n"), arg);
@@ -620,6 +640,7 @@ static void slapt_pkg_action_install(const slapt_config_t *global_config, const 
         }
     }
 
+    slapt_vector_t_free(filtered);
     slapt_vector_t_free(installed_pkgs);
     slapt_vector_t_free(avail_pkgs);
 
@@ -633,7 +654,7 @@ static void slapt_pkg_action_install(const slapt_config_t *global_config, const 
 }
 
 /* list pkgs */
-static void slapt_pkg_action_list(const int show)
+static void slapt_pkg_action_list(const slapt_config_t *config, const int show, const bool verbose)
 {
     slapt_vector_t *pkgs = slapt_get_available_pkgs();
     slapt_vector_t *installed_pkgs = slapt_get_installed_pkgs();
@@ -648,13 +669,29 @@ static void slapt_pkg_action_list(const int show)
                 installed = true;
             }
 
-            printf("%s-%s [inst=%s]: %s\n",
-                   pkg->name,
-                   pkg->version,
-                   installed
-                       ? gettext("yes")
-                       : gettext("no"),
-                   (short_description == NULL) ? "" : short_description);
+            if (verbose == true) {
+                const bool is_excluded = slapt_is_excluded(config, pkg);
+                printf("name=%s version=%s location=%s mirror=%s inst=%s excluded=%s desc=%s\n",
+                       pkg->name,
+                       pkg->version,
+                       pkg->location,
+                       pkg->mirror,
+                       installed
+                           ? gettext("yes")
+                           : gettext("no"),
+                       is_excluded
+                           ? gettext("yes")
+                           : gettext("no"),
+                       (short_description == NULL) ? "" : short_description);
+            } else {
+                printf("%s-%s [inst=%s]: %s\n",
+                       pkg->name,
+                       pkg->version,
+                       installed
+                           ? gettext("yes")
+                           : gettext("no"),
+                       (short_description == NULL) ? "" : short_description);
+            }
             free(short_description);
         }
     }
@@ -667,11 +704,25 @@ static void slapt_pkg_action_list(const int show)
             }
 
             char *short_description = slapt_pkg_t_short_description(pkg);
-            printf("%s-%s [inst=%s]: %s\n",
-                   pkg->name,
-                   pkg->version,
-                   gettext("yes"),
-                   (short_description == NULL) ? "" : short_description);
+            if (verbose == true) {
+                const bool is_excluded = slapt_is_excluded(config, pkg);
+                printf("name=%s version=%s location=%s mirror=%s inst=%s excluded=%s desc=%s\n",
+                       pkg->name,
+                       pkg->version,
+                       pkg->location,
+                       pkg->mirror,
+                       gettext("yes"),
+                       is_excluded
+                           ? gettext("yes")
+                           : gettext("no"),
+                       (short_description == NULL) ? "" : short_description);
+            } else {
+                printf("%s-%s [inst=%s]: %s\n",
+                       pkg->name,
+                       pkg->version,
+                       gettext("yes"),
+                       (short_description == NULL) ? "" : short_description);
+            }
             free(short_description);
         }
     }
@@ -764,7 +815,7 @@ static void slapt_pkg_action_remove(const slapt_config_t *global_config, const s
 }
 
 /* search for a pkg (support extended POSIX regex) */
-static void slapt_pkg_action_search(const char *pattern)
+static void slapt_pkg_action_search(const slapt_config_t *config, const char *pattern, const bool verbose)
 {
     /* read in pkg data */
     slapt_vector_t *pkgs = slapt_get_available_pkgs();
@@ -775,13 +826,29 @@ static void slapt_pkg_action_search(const char *pattern)
 
     slapt_vector_t_foreach (const slapt_pkg_t *, pkg, matches) {
         char *short_description = slapt_pkg_t_short_description(pkg);
-        printf("%s-%s [inst=%s]: %s\n",
-               pkg->name,
-               pkg->version,
-               (slapt_get_exact_pkg(installed_pkgs, pkg->name, pkg->version) != NULL)
-                   ? gettext("yes")
-                   : gettext("no"),
-               short_description);
+        if (verbose == true) {
+            const bool is_excluded = slapt_is_excluded(config, pkg);
+            printf("name=%s version=%s location=%s mirror=%s inst=%s excluded=%s desc=%s\n",
+                   pkg->name,
+                   pkg->version,
+                   pkg->location,
+                   pkg->mirror,
+                   (slapt_get_exact_pkg(installed_pkgs, pkg->name, pkg->version) != NULL)
+                       ? gettext("yes")
+                       : gettext("no"),
+                   is_excluded
+                       ? gettext("yes")
+                       : gettext("no"),
+                   short_description);
+        } else {
+            printf("%s-%s [inst=%s]: %s\n",
+                   pkg->name,
+                   pkg->version,
+                   (slapt_get_exact_pkg(installed_pkgs, pkg->name, pkg->version) != NULL)
+                       ? gettext("yes")
+                       : gettext("no"),
+                   short_description);
+        }
         free(short_description);
     }
 
@@ -792,11 +859,25 @@ static void slapt_pkg_action_search(const char *pattern)
         }
 
         short_description = slapt_pkg_t_short_description(installed_pkg);
-        printf("%s-%s [inst=%s]: %s\n",
-               installed_pkg->name,
-               installed_pkg->version,
-               gettext("yes"),
-               short_description);
+        if (verbose == true) {
+            const bool is_excluded = slapt_is_excluded(config, installed_pkg);
+            printf("name=%s version=%s location=%s mirror=%s inst=%s excluded=%s desc=%s\n",
+                   installed_pkg->name,
+                   installed_pkg->version,
+                   installed_pkg->location,
+                   installed_pkg->mirror,
+                   gettext("yes"),
+                   is_excluded
+                       ? gettext("yes")
+                       : gettext("no"),
+                   short_description);
+        } else {
+            printf("%s-%s [inst=%s]: %s\n",
+                   installed_pkg->name,
+                   installed_pkg->version,
+                   gettext("yes"),
+                   short_description);
+        }
         free(short_description);
     }
 

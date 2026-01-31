@@ -1138,6 +1138,17 @@ slapt_vector_t *slapt_search_pkg_list(const slapt_vector_t *list, const char *pa
     return matches;
 }
 
+slapt_vector_t *slapt_filter_pkg_list(const slapt_vector_t *list, slapt_pkg_filter_t filter, const void *const data)
+{
+    slapt_vector_t *filtered = slapt_vector_t_init(NULL);
+    slapt_vector_t_foreach (slapt_pkg_t *, pkg, list) {
+        if (filter(data, pkg)) {
+            slapt_vector_t_add(filtered, pkg);
+        }
+    }
+    return filtered;
+}
+
 static slapt_pkg_t *resolve_dep(const slapt_dependency_t *dep_declaration, const slapt_vector_t *installed, const slapt_vector_t *available)
 {
     slapt_pkg_t *found = NULL;

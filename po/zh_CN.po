@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-10 22:36-0400\n"
+"POT-Creation-Date: 2026-05-30 22:29-0400\n"
 "PO-Revision-Date: 2012-09-17 21:34+0000\n"
 "Last-Translator: Yang Jinsong <shannleon@gmail.com>, 2006\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/jaos/slapt-get/"
@@ -576,6 +576,9 @@ msgstr "显示下载状况"
 
 msgid "show pkgs to be installed/upgraded"
 msgstr "显示将要被安装/升级的软件包"
+
+msgid "show verbose information in command line output"
+msgstr ""
 
 msgid "skip dependency check"
 msgstr "跳过依赖检查"
