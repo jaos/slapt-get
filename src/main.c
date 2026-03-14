@@ -159,6 +159,7 @@ int main(const int argc, char *argv[])
         case SLAPT_VERSION_OPT: /* version */
             version_info();
             slapt_config_t_free(initial_config);
+            free(custom_rc_location);
             curl_global_cleanup();
             exit(EXIT_SUCCESS);
         case SLAPT_NO_PROMPT_OPT: /* auto */
@@ -183,6 +184,7 @@ int main(const int argc, char *argv[])
         case SLAPT_HELP_OPT: /* help */
             usage();
             slapt_config_t_free(initial_config);
+            free(custom_rc_location);
             curl_global_cleanup();
             exit(EXIT_SUCCESS);
         case SLAPT_IGNORE_DEP_OPT: /* ignore-dep */
@@ -234,6 +236,7 @@ int main(const int argc, char *argv[])
         default:
             usage();
             slapt_config_t_free(initial_config);
+            free(custom_rc_location);
             curl_global_cleanup();
             exit(EXIT_FAILURE);
         }

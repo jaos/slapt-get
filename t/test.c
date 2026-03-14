@@ -6,21 +6,21 @@
 #include "test_transaction.h"
 
 slapt_pkg_t pkg = {
-    .md5="8598a2a6d683d098b09cdc938de1e3c7",
-    .name=(char *)"gslapt",
-    .version=(char *)"0.3.15-i386-1",
-    .mirror=(char *)"http://software.jaos.org/slackpacks/11.0/",
-    .location=(char *)".",
-    .description=(char *)"gslapt: gslapt (GTK slapt-get, an APT like system for Slackware)\n",
-    .required=(char *)"",
-    .conflicts=(char *)"",
-    .suggests=(char *)"",
-    .file_ext=(char *)".tgz",
-    .dependencies=NULL,
-    .size_c=115,
-    .size_u=440,
-    .priority=SLAPT_PRIORITY_DEFAULT,
-    .installed=true};
+    .md5 = "da018e032b5741ce4c51d8bc4d52a84b",
+    .name = (char *)"slapt-get",
+    .version = (char *)"0.11.11-x86_64-1",
+    .mirror = (char *)"https://storage.googleapis.com/slackpacks.jaos.org/slackware64-15.0/slapt-get/",
+    .location = (char *)".", // NOTE: unusually '.' since we use the subdir in the location above
+    .description = (char *)"slapt-get: slapt-get (an apt-like front-end to Slackware's pkgtools\n",
+    .required = (char *)"",
+    .conflicts = (char *)"",
+    .suggests = (char *)"",
+    .file_ext = (char *)".txz",
+    .dependencies = NULL,
+    .size_c = 160,
+    .size_u = 810,
+    .priority = SLAPT_PRIORITY_DEFAULT,
+    .installed = true};
 
 int _progress_cb(void *clientp, off_t dltotal, off_t dlnow, off_t ultotal, off_t ulnow)
 {

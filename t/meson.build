@@ -13,7 +13,7 @@ test_path = join_paths(meson.project_source_root(), 't')
 check = dependency('check', required: false)
 if check.found()
   testapp = executable('testapp', test_sources + [slapt_h], link_with: libslapt, dependencies: deps + [check], install: false)
-  test('testsuite', testapp, is_parallel: false, workdir: test_path, env: ['ROOT=' + test_path])
+  test('testsuite', testapp, is_parallel: false, workdir: test_path, env: ['ROOT=' + test_path, 'CK_LOG_FILE_NAME=-'])
 endif
 
 test('clitest', find_program('clitests.sh'), depends: slapt_get, args: [slapt_get.full_path()])

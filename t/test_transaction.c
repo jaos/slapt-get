@@ -8,13 +8,13 @@ START_TEST(test_transaction)
 
     slapt_transaction_t_add_install(t, &pkg);
     ck_assert(t->install_pkgs->size == 1);
-    ck_assert(slapt_transaction_t_search(t, "gslapt"));
+    ck_assert(slapt_transaction_t_search(t, "slapt-get"));
     ck_assert(slapt_transaction_t_search_by_pkg(t, &pkg));
     t = slapt_transaction_t_remove(t, &pkg);
 
     slapt_transaction_t_add_remove(t, &pkg);
     ck_assert(t->remove_pkgs->size == 1);
-    ck_assert(slapt_transaction_t_search(t, "gslapt"));
+    ck_assert(slapt_transaction_t_search(t, "slapt-get"));
     ck_assert(slapt_transaction_t_search_by_pkg(t, &pkg));
     t = slapt_transaction_t_remove(t, &pkg);
 
@@ -32,12 +32,6 @@ START_TEST(test_handle_transaction)
 {
     slapt_transaction_t *t = slapt_transaction_t_init();
     slapt_config_t *rc = slapt_config_t_read("./data/rc1");
-
-    /*
-    download and install/remove/upgrade packages as defined in the transaction
-    returns 0 on success
-  int slapt_transaction_t_run(const slapt_config_t *,slapt_transaction_t *);
-  */
 
     slapt_transaction_t_free(t);
     slapt_config_t_free(rc);
@@ -60,31 +54,9 @@ START_TEST(test_transaction_dependencies)
 
     slapt_transaction_t *t = slapt_transaction_t_init();
 
-    /*
-    add dependencies for package to transaction, returns -1 on error, 0 otherwise
-  int slapt_transaction_t_add_dependencies(const slapt_config_t *global_config,
-                              slapt_transaction_t *trxn,
-                              struct slapt_pkg_list *avail_pkgs,
-                              struct slapt_pkg_list *installed_pkgs, slapt_pkg_t *pkg);
-  */
-
-    /*
-    check to see if a package has a conflict already present in the transaction
-    returns conflicted package or NULL if none
-  slapt_pkg_t *slapt_transaction_t_find_conflicts(slapt_transaction_t *trxn,
-                                        struct slapt_pkg_list *avail_pkgs,
-                                        struct slapt_pkg_list *installed_pkgs,
-                                        slapt_pkg_t *pkg);
-  */
-
-    /*
-    generate a list of suggestions based on the current packages
-    in the transaction
-  void slapt_transaction_t_suggestions(slapt_transaction_t *trxn);
-  */
     const slapt_pkg_t *p = slapt_get_newest_pkg(avail, "scim");
     slapt_pkg_t *installed_p = slapt_get_newest_pkg(installed, "scim");
-    (void)installed_p;
+    ck_assert(installed_p == NULL);
 
     slapt_vector_t *conflicts = slapt_transaction_t_find_conflicts(t, avail, installed, p);
     if (conflicts->size > 0) {

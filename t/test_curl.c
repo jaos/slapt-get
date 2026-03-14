@@ -53,7 +53,7 @@ START_TEST(test_slapt_download_pkg)
     slapt_working_dir_init(rc);
 
     err = slapt_download_pkg(rc, &pkg, NULL);
-    ck_assert(!err);
+    ck_assert_msg(!err, "failed: slapt_download_pkg unexpectedly returned %s\n", err);
 
     slapt_config_t_free(rc);
 }
