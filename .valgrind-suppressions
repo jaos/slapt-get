@@ -1,0 +1,75 @@
+{
+   libcrypto
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:CRYPTO_*alloc
+   ...
+}
+
+{
+   libgpgme_engine_init
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   ...
+   fun:_slapt_init_gpgme_ctx
+}
+
+{
+   libgpgme_data_objects
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:gpgme_*et_engine_info
+}
+
+{
+   gpgme_op_verify_ext
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:gpgme_op_verify_ext
+}
+
+{
+   gpgme_data_new_from_stream
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:gpgme_data_new_from_stream
+}
+
+{
+   gpgme_set_locale
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:gpgme_set_locale
+}
+
+{
+   libcurl_global_init
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:curl_global_init
+}
+
+{
+   gnutls_allocation
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:*alloc
+   ...
+   fun:call_init
+}
+
+{
+   gnutls_allocation
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:*alloc
+   ...
+   obj:*libgnutls*
+}
