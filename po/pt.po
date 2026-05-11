@@ -1,8 +1,7 @@
-# slapt-get translation template
-# Copyright (C) 2003-2009
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the slapt-get package.
-# Jason Woodward <woodwardj@jaos.org>
-# 
+#
 # Translators:
 # Hugo Carvalho <hugokarvalho@hotmail.com>, 2014
 # Sérgio Marques <smarquespt@gmail.com>, 2013
@@ -10,15 +9,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2021-02-17 22:24+0000\n"
-"Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
-"Language-Team: Portuguese (http://www.transifex.com/jaos/slapt-get/language/pt/)\n"
+"POT-Creation-Date: 2026-05-10 22:36-0400\n"
+"PO-Revision-Date: 2012-09-17 21:34+0000\n"
+"Last-Translator: Sérgio Marques <smarquespt@gmail.com>, 2013\n"
+"Language-Team: Portuguese (http://app.transifex.com/jaos/slapt-get/language/"
+"pt/)\n"
+"Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pt\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
 
 #, c-format
 msgid "  %s: Depends: %s\n"
@@ -29,30 +30,42 @@ msgid "%d newly installed, "
 msgid_plural "%d newly installed, "
 msgstr[0] "%d nova instalação, "
 msgstr[1] "%d recém instalado, "
+msgstr[2] "%d recém instalado, "
 
 #, c-format
 msgid "%d not upgraded.\n"
 msgid_plural "%d not upgraded.\n"
-msgstr[0] "%d não atualizado.\n\n"
-msgstr[1] "%d não atualizados.\n\n"
+msgstr[0] ""
+"%d não atualizado.\n"
+"\n"
+msgstr[1] ""
+"%d não atualizados.\n"
+"\n"
+msgstr[2] ""
+"%d não atualizados.\n"
+"\n"
 
 #, c-format
 msgid "%d reinstalled, "
 msgid_plural "%d reinstalled, "
 msgstr[0] "%d reinstalado, "
 msgstr[1] "%d reinstalados,  "
+msgstr[2] "%d reinstalados,  "
 
 #, c-format
 msgid "%d to remove, "
 msgid_plural "%d to remove, "
 msgstr[0] "%d a remover "
 msgstr[1] "%d a remover "
+msgstr[2] "%d a remover "
 
+#. print the summary
 #, c-format
 msgid "%d upgraded, "
 msgid_plural "%d upgraded, "
 msgstr[0] "%d atualizado, "
 msgstr[1] "%d atualizados,  "
+msgstr[2] "%d atualizados,  "
 
 #, c-format
 msgid "%s [option(s)] [target]\n"
@@ -76,19 +89,27 @@ msgstr "%s, necessário para %s, está excluído\n"
 
 #, c-format
 msgid "%s, which is to be installed, conflicts with %s\n"
-msgstr "%s, que vai ser instalado, entra em conflito com %s\n\n"
+msgstr ""
+"%s, que vai ser instalado, entra em conflito com %s\n"
+"\n"
 
 #, c-format
 msgid "%s-%s is to be installed\n"
-msgstr "%s-%s vai ser instalado\n\n"
+msgstr ""
+"%s-%s vai ser instalado\n"
+"\n"
 
 #, c-format
 msgid "%s-%s is to be removed\n"
-msgstr "%s-%s vai ser removido\n\n"
+msgstr ""
+"%s-%s vai ser removido\n"
+"\n"
 
 #, c-format
 msgid "%s-%s is to be upgraded to version %s\n"
-msgstr "%s-%s vai ser atualizado para a versão %s\n\n"
+msgstr ""
+"%s-%s vai ser atualizado para a versão %s\n"
+"\n"
 
 msgid ", but accepted as an exception"
 msgstr ", mas foi aceite como exceção"
@@ -99,7 +120,9 @@ msgstr "Abortar\n"
 
 #, c-format
 msgid "After unpacking %.1f%s disk space will be freed.\n"
-msgstr "Depois de desempacotar, será economizado %.1f%s de espaço em disco.\n\n"
+msgstr ""
+"Depois de desempacotar, será economizado %.1f%s de espaço em disco.\n"
+"\n"
 
 #, c-format
 msgid "After unpacking %.1f%s of additional disk space will be used.\n"
@@ -143,8 +166,11 @@ msgstr "Continuar? [y/N] "
 
 #, c-format
 msgid "Done\n"
-msgstr "Terminado\n\n"
+msgstr ""
+"Terminado\n"
+"\n"
 
+#. otherwise exclude
 #, c-format
 msgid "Excluding %s, use --ignore-dep to override\n"
 msgstr "A excluir %s. Utilize --ignore-dep para sobrepor\n"
@@ -156,10 +182,6 @@ msgstr "Erro ao criar o diretório de trabalho [%s]\n"
 #, c-format
 msgid "Failed to calloc\n"
 msgstr "Erro \"calloc\"\n"
-
-#, c-format
-msgid "Failed to chdir to %s\n"
-msgstr "Falha ao alterar para %s\n"
 
 #, c-format
 msgid "Failed to chdir: %s\n"
@@ -178,16 +200,12 @@ msgid "Failed to execute command: [%s]\n"
 msgstr "Erro ao executar comando: [%s]\n"
 
 #, c-format
-msgid "Failed to get cwd\n"
-msgstr "Erro ao obter cwd\n"
-
-#, c-format
 msgid "Failed to malloc\n"
 msgstr "Erro a malloc\n"
 
 #, c-format
-msgid "Failed to mkdir: %s\n"
-msgstr "Erro ao criar diretório: %s\n"
+msgid "Failed to mkdir %s: %s\n"
+msgstr ""
 
 #, c-format
 msgid "Failed to open %s\n"
@@ -237,7 +255,9 @@ msgstr "Verificação MD5 inexistente. Utilize --no-md5"
 
 #, c-format
 msgid "Need to get %.1f%s of archives.\n"
-msgstr "Tem que obter %.1f%s de arquivos.\n\n"
+msgstr ""
+"Tem que obter %.1f%s de arquivos.\n"
+"\n"
 
 #, c-format
 msgid "Need to get %.1f%s/%.1f%s of archives.\n"
@@ -349,7 +369,8 @@ msgstr "Será que quer executar --update?\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr "Atualize as permissões em %s ou execute com as privilégios apropriadas\n"
+msgstr ""
+"Atualize as permissões em %s ou execute com as privilégios apropriadas\n"
 
 msgid "Preferred"
 msgstr "Preferido"
@@ -365,6 +386,7 @@ msgstr "A preparar instalação de %s-%s\n"
 msgid "Preparing to replace %s-%s with %s-%s\n"
 msgstr "A preparar substituição de  %s-%s por %s-%s\n"
 
+#. now map md5 checksums to packages
 #, c-format
 msgid "Reading Package Lists..."
 msgstr "A ler listas de pacote..."
@@ -381,6 +403,7 @@ msgstr "A obter ChangeLog.txt [%s]..."
 msgid "Retrieving GPG key [%s]..."
 msgstr "A obter chave GPG [%s]..."
 
+#. download checksum file
 #, c-format
 msgid "Retrieving checksum list [%s]..."
 msgstr "A obter lista de verificações [%s]..."
@@ -389,10 +412,12 @@ msgstr "A obter lista de verificações [%s]..."
 msgid "Retrieving checksum signature [%s]..."
 msgstr "A obter assinatura de verificações [%s]..."
 
+#. download our SLAPT_PKG_LIST
 #, c-format
 msgid "Retrieving package data [%s]..."
 msgstr "A obter dados do pacote [%s]..."
 
+#. download SLAPT_PATCHES_LIST
 #, c-format
 msgid "Retrieving patch list [%s]..."
 msgstr "A obter lista de correções [%s]..."
@@ -541,10 +566,6 @@ msgstr "transferir apenas pkgs ao instalar e/ou atualizar"
 
 msgid "only purge cache of older, unreacheable pkgs"
 msgstr "apenas eliminar de cache os pkgs mais antigos"
-
-#, c-format
-msgid "pkg conditional too long\n"
-msgstr "condicional pkg muito extensa\n"
 
 msgid "print URIs only, do not download"
 msgstr "mostrar URI e não transferir"

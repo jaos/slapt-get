@@ -1,8 +1,7 @@
-# slapt-get translation template
-# Copyright (C) 2003-2009
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the slapt-get package.
-# Jason Woodward <woodwardj@jaos.org>
-# 
+#
 # Translators:
 # Copyright (C) 2004, 2005
 # gapan <vlahavas@gmail.com>, 2012
@@ -13,14 +12,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2017-09-19 14:08+0000\n"
-"Last-Translator: Jason Woodward <woodwardj@jaos.org>\n"
-"Language-Team: Greek (http://www.transifex.com/jaos/slapt-get/language/el/)\n"
+"POT-Creation-Date: 2026-05-10 22:36-0400\n"
+"PO-Revision-Date: 2012-09-17 21:34+0000\n"
+"Last-Translator: gapan <vlahavas@gmail.com>, 2012\n"
+"Language-Team: Greek (http://app.transifex.com/jaos/slapt-get/language/el/)\n"
+"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, c-format
@@ -51,6 +50,7 @@ msgid_plural "%d to remove, "
 msgstr[0] "το %d είναι προς απομάκρυνση,"
 msgstr[1] "τα %d είναι προς απομάκρυνση,"
 
+#. print the summary
 #, c-format
 msgid "%d upgraded, "
 msgid_plural "%d upgraded, "
@@ -148,6 +148,7 @@ msgstr "Θέλεις να συνεχίσεις? [y/N] "
 msgid "Done\n"
 msgstr "Ολοκληρώθηκε\n"
 
+#. otherwise exclude
 #, c-format
 msgid "Excluding %s, use --ignore-dep to override\n"
 msgstr "Εξαιρείται το %s, χρησιμοποιήστε το --ignore-dep για να το αγνοήσετε\n"
@@ -159,10 +160,6 @@ msgstr "Αποτυχία δημιουργίας φακέλου εργασίας 
 #, c-format
 msgid "Failed to calloc\n"
 msgstr "Αποτυχία calloc\n"
-
-#, c-format
-msgid "Failed to chdir to %s\n"
-msgstr "Αποτυχία chdir στο %s\n"
 
 #, c-format
 msgid "Failed to chdir: %s\n"
@@ -181,16 +178,12 @@ msgid "Failed to execute command: [%s]\n"
 msgstr "Αποτυχία εκτέλεσης εντολής: [%s]\n"
 
 #, c-format
-msgid "Failed to get cwd\n"
-msgstr "Αποτυχία λήψης cwd\n"
-
-#, c-format
 msgid "Failed to malloc\n"
 msgstr "Αποτυχία malloc\n"
 
 #, c-format
-msgid "Failed to mkdir: %s\n"
-msgstr "Αποτυχία mkdir: %s\n"
+msgid "Failed to mkdir %s: %s\n"
+msgstr ""
 
 #, c-format
 msgid "Failed to open %s\n"
@@ -258,7 +251,8 @@ msgid "Not Found\n"
 msgstr "Δεν βρέθηκε\n"
 
 msgid "Not Verified: CRL too old"
-msgstr "Δεν πιστοποιήθηκε: η λίστα ανακληθέντων πιστοποιητικών (CRL) είναι πολύ παλιά"
+msgstr ""
+"Δεν πιστοποιήθηκε: η λίστα ανακληθέντων πιστοποιητικών (CRL) είναι πολύ παλιά"
 
 msgid "Not Verified: bad policy"
 msgstr "Δεν πιστοποιήθηκε: κακή πολιτική"
@@ -352,7 +346,9 @@ msgstr "Πιθανόν να θέλετε να εκτελέσετε --update?\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr "Παρακαλώ αναβαθμίστε τα δικαιώματα στο %s ή εκτελέστε με τα απαραίτητα δικαιώματα\n"
+msgstr ""
+"Παρακαλώ αναβαθμίστε τα δικαιώματα στο %s ή εκτελέστε με τα απαραίτητα "
+"δικαιώματα\n"
 
 msgid "Preferred"
 msgstr "Προτιμώμενο"
@@ -368,6 +364,7 @@ msgstr "Προετοιμασία εγκατάστασης του %s-%s\n"
 msgid "Preparing to replace %s-%s with %s-%s\n"
 msgstr "Προετοιμασία αντικατάστασης του %s-%s με το %s-%s\n"
 
+#. now map md5 checksums to packages
 #, c-format
 msgid "Reading Package Lists..."
 msgstr "Ανάγνωση Λίστας Πακέτων..."
@@ -384,6 +381,7 @@ msgstr "Ανάκτηση του ChangeLog.txt [%s]..."
 msgid "Retrieving GPG key [%s]..."
 msgstr "Ανάκτηση του κλειδιού GPG [%s]..."
 
+#. download checksum file
 #, c-format
 msgid "Retrieving checksum list [%s]..."
 msgstr "Ανάκτηση λίστας checksum [%s]..."
@@ -392,10 +390,12 @@ msgstr "Ανάκτηση λίστας checksum [%s]..."
 msgid "Retrieving checksum signature [%s]..."
 msgstr "Ανάκτηση της υπογραφής αθροισμάτων [%s]..."
 
+#. download our SLAPT_PKG_LIST
 #, c-format
 msgid "Retrieving package data [%s]..."
 msgstr "Ανάκτηση δεδομένων πακέτων [%s]..."
 
+#. download SLAPT_PATCHES_LIST
 #, c-format
 msgid "Retrieving patch list [%s]..."
 msgstr "Ανάκτηση λίστας patch [%s]..."
@@ -409,7 +409,9 @@ msgstr "Δεν έγινε ανάγνωση της υπογραφής"
 
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr "Αποτυχία πηγών για λήψη αρχείων, διορθώστε τις πηγές και επανεκτελέστε το --update\n"
+msgstr ""
+"Αποτυχία πηγών για λήψη αρχείων, διορθώστε τις πηγές και επανεκτελέστε το --"
+"update\n"
 
 #, c-format
 msgid "Suggested packages:\n"
@@ -544,10 +546,6 @@ msgstr "κατέβασμα πακέτου μόνο για εγκατάσταση
 
 msgid "only purge cache of older, unreacheable pkgs"
 msgstr "διαγραφή μόνο των παλιών, μη υπάρχοντων πλέον, πακέτων"
-
-#, c-format
-msgid "pkg conditional too long\n"
-msgstr "μεγάλο μήκος στοιχείων πακέτου\n"
 
 msgid "print URIs only, do not download"
 msgstr "Εκτύπωση μόνο των URIs, χωρίς λήψη αρχείων"

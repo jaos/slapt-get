@@ -1,22 +1,22 @@
-# slapt-get translation template
-# Copyright (C) 2003-2009
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the slapt-get package.
-# Jason Woodward <woodwardj@jaos.org>
-# 
+#
 # Translators:
 # Davidmp <medipas@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2017-09-23 03:02+0000\n"
-"Last-Translator: Davidmp <medipas@gmail.com>\n"
-"Language-Team: Catalan (http://www.transifex.com/jaos/slapt-get/language/ca/)\n"
+"POT-Creation-Date: 2026-05-10 22:36-0400\n"
+"PO-Revision-Date: 2012-09-17 21:34+0000\n"
+"Last-Translator: Davidmp <medipas@gmail.com>, 2016\n"
+"Language-Team: Catalan (http://app.transifex.com/jaos/slapt-get/language/"
+"ca/)\n"
+"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, c-format
@@ -47,6 +47,7 @@ msgid_plural "%d to remove, "
 msgstr[0] "%d per eliminar"
 msgstr[1] "%d per eliminar"
 
+#. print the summary
 #, c-format
 msgid "%d upgraded, "
 msgid_plural "%d upgraded, "
@@ -102,7 +103,8 @@ msgstr "Després de desempaquetar-ho, s'alliberaran %.1f%s d'espai de disc.\n"
 
 #, c-format
 msgid "After unpacking %.1f%s of additional disk space will be used.\n"
-msgstr "Després de desempaquetar-ho, s'usaran %.1f%s d'espai de disc addicional.\n"
+msgstr ""
+"Després de desempaquetar-ho, s'usaran %.1f%s d'espai de disc addicional.\n"
 
 #, c-format
 msgid "An implementation of the Debian APT system to Slackware\n"
@@ -144,6 +146,7 @@ msgstr "Voleu continuar? [s/N]"
 msgid "Done\n"
 msgstr "Fet.\n"
 
+#. otherwise exclude
 #, c-format
 msgid "Excluding %s, use --ignore-dep to override\n"
 msgstr "S'exclou %s, useu \"--ignore-dep\" per passar-ho per alt.\n"
@@ -155,10 +158,6 @@ msgstr "Ha fallat construir el directori de treball [%s]\n"
 #, c-format
 msgid "Failed to calloc\n"
 msgstr "Ha fallat fer calloc\n"
-
-#, c-format
-msgid "Failed to chdir to %s\n"
-msgstr "Ha fallat fer chdir a %s\n"
 
 #, c-format
 msgid "Failed to chdir: %s\n"
@@ -177,16 +176,12 @@ msgid "Failed to execute command: [%s]\n"
 msgstr "Ha fallat executar l'ordre: [%s]\n"
 
 #, c-format
-msgid "Failed to get cwd\n"
-msgstr "Ha fallat obtenir cwd\n"
-
-#, c-format
 msgid "Failed to malloc\n"
 msgstr "Ha fallat fer malloc\n"
 
 #, c-format
-msgid "Failed to mkdir: %s\n"
-msgstr "Ha fallat fer mkdir: %s\n"
+msgid "Failed to mkdir %s: %s\n"
+msgstr ""
 
 #, c-format
 msgid "Failed to open %s\n"
@@ -348,7 +343,9 @@ msgstr "Potser voleu executar \"--update\"?\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr "Si us plau, actualitzeu els permisos a %s o executeu-ho amb els privilegis apropiats.\n"
+msgstr ""
+"Si us plau, actualitzeu els permisos a %s o executeu-ho amb els privilegis "
+"apropiats.\n"
 
 msgid "Preferred"
 msgstr "Preferit"
@@ -364,6 +361,7 @@ msgstr "Preparant per instal·lar %s-%s\n"
 msgid "Preparing to replace %s-%s with %s-%s\n"
 msgstr "Preparant per reemplaçar %s-%s per %s-%s\n"
 
+#. now map md5 checksums to packages
 #, c-format
 msgid "Reading Package Lists..."
 msgstr "Es llegeixen les llistes de paquets..."
@@ -380,6 +378,7 @@ msgstr "Es recupera ChangeLog.txt [%s]..."
 msgid "Retrieving GPG key [%s]..."
 msgstr "Es recupera la clau GPG [%s]..."
 
+#. download checksum file
 #, c-format
 msgid "Retrieving checksum list [%s]..."
 msgstr "Es recupera la llista de sumes de verificació [%s]..."
@@ -388,10 +387,12 @@ msgstr "Es recupera la llista de sumes de verificació [%s]..."
 msgid "Retrieving checksum signature [%s]..."
 msgstr "Es recupera la signatura de la suma de verificació [%s]..."
 
+#. download our SLAPT_PKG_LIST
 #, c-format
 msgid "Retrieving package data [%s]..."
 msgstr "Es recuperen dades de paquets [%s]..."
 
+#. download SLAPT_PATCHES_LIST
 #, c-format
 msgid "Retrieving patch list [%s]..."
 msgstr "Es recupera la llista de pedaços [%s]..."
@@ -405,7 +406,8 @@ msgstr "Signatura no llegida"
 
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr "Ha fallat baixar les fonts, corregiu-les i torneu a executar \"--update\".\n"
+msgstr ""
+"Ha fallat baixar les fonts, corregiu-les i torneu a executar \"--update\".\n"
 
 #, c-format
 msgid "Suggested packages:\n"
@@ -500,15 +502,18 @@ msgstr "error intentant llegir la descripció del paquet\n"
 
 #, c-format
 msgid "getline reached EOF attempting to read location\n"
-msgstr "getline ha arribat al final del fitxer (EOF) intentant llegir la ubicació\n"
+msgstr ""
+"getline ha arribat al final del fitxer (EOF) intentant llegir la ubicació\n"
 
 #, c-format
 msgid "getline reached EOF attempting to read size_c\n"
-msgstr "getline ha arribat al final del fitxer (EOF) intentant llegir la mida_c\n"
+msgstr ""
+"getline ha arribat al final del fitxer (EOF) intentant llegir la mida_c\n"
 
 #, c-format
 msgid "getline reached EOF attempting to read size_u\n"
-msgstr "getline ha arribat al final del fitxer (EOF) intentant llegir la mida_u\n"
+msgstr ""
+"getline ha arribat al final del fitxer (EOF) intentant llegir la mida_u\n"
 
 msgid "ignore dependency failures"
 msgstr "ignora les fallades de dependència"
@@ -540,10 +545,6 @@ msgstr "baixa només els paquets en instal·lar / actualitzar"
 
 msgid "only purge cache of older, unreacheable pkgs"
 msgstr "purga només la cau dels paquets més antics, inabastables"
-
-#, c-format
-msgid "pkg conditional too long\n"
-msgstr "condicional del paquet massa llarg\n"
 
 msgid "print URIs only, do not download"
 msgstr "imprimeix només URIs, no baixis res"

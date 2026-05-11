@@ -1,22 +1,22 @@
-# slapt-get translation template
-# Copyright (C) 2003-2009
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the slapt-get package.
-# Jason Woodward <woodwardj@jaos.org>
-# 
+#
 # Translators:
 # Kemas Antonius <kyantonius@kyantonius.com>, 2005
 msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2017-09-19 14:08+0000\n"
-"Last-Translator: Jason Woodward <woodwardj@jaos.org>\n"
-"Language-Team: Indonesian (http://www.transifex.com/jaos/slapt-get/language/id/)\n"
+"POT-Creation-Date: 2026-05-10 22:36-0400\n"
+"PO-Revision-Date: 2012-09-17 21:34+0000\n"
+"Last-Translator: Kemas Antonius <kyantonius@kyantonius.com>, 2005\n"
+"Language-Team: Indonesian (http://app.transifex.com/jaos/slapt-get/language/"
+"id/)\n"
+"Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: id\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #, c-format
@@ -43,6 +43,7 @@ msgid "%d to remove, "
 msgid_plural "%d to remove, "
 msgstr[0] ""
 
+#. print the summary
 #, c-format
 msgid "%d upgraded, "
 msgid_plural "%d upgraded, "
@@ -139,6 +140,7 @@ msgstr "Apakah anda ingin lanjut ke langkah berikutnya? [y/N] "
 msgid "Done\n"
 msgstr "Selesai\n"
 
+#. otherwise exclude
 #, c-format
 msgid "Excluding %s, use --ignore-dep to override\n"
 msgstr "Excluding %s, use --ignore-dep to override\n"
@@ -150,10 +152,6 @@ msgstr "Gagal membangun direktori kerja [%s]\n"
 #, c-format
 msgid "Failed to calloc\n"
 msgstr "calloc gagal\n"
-
-#, c-format
-msgid "Failed to chdir to %s\n"
-msgstr "Gagal mengganti direktori ke %s\n"
 
 #, c-format
 msgid "Failed to chdir: %s\n"
@@ -172,16 +170,12 @@ msgid "Failed to execute command: [%s]\n"
 msgstr "Gagal mengeksekusi perintah: [%s]\n"
 
 #, c-format
-msgid "Failed to get cwd\n"
-msgstr "Gagal mendapatkan cwd\n"
-
-#, c-format
 msgid "Failed to malloc\n"
 msgstr "malloc gagal\n"
 
 #, c-format
-msgid "Failed to mkdir: %s\n"
-msgstr "Gagal membuat direktori: %s\n"
+msgid "Failed to mkdir %s: %s\n"
+msgstr ""
 
 #, c-format
 msgid "Failed to open %s\n"
@@ -343,7 +337,9 @@ msgstr "Mungkin anda ingin menjalankan --update?\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr "Silakan memperbaiki hak akses %s atau jalankan dengan hak akses yang memadai\n"
+msgstr ""
+"Silakan memperbaiki hak akses %s atau jalankan dengan hak akses yang "
+"memadai\n"
 
 msgid "Preferred"
 msgstr "Preferred"
@@ -359,6 +355,7 @@ msgstr "Persiapan untuk menginstal %s-%s\n"
 msgid "Preparing to replace %s-%s with %s-%s\n"
 msgstr "Persiapan untuk mengganti %s-%s dengan %s-%s\n"
 
+#. now map md5 checksums to packages
 #, c-format
 msgid "Reading Package Lists..."
 msgstr "Membaca daftar paket..."
@@ -375,6 +372,7 @@ msgstr "Retrieving ChangeLog.txt [%s]..."
 msgid "Retrieving GPG key [%s]..."
 msgstr "Retrieving GPG key [%s]..."
 
+#. download checksum file
 #, c-format
 msgid "Retrieving checksum list [%s]..."
 msgstr "Mengambil daftar checksum [%s]..."
@@ -383,10 +381,12 @@ msgstr "Mengambil daftar checksum [%s]..."
 msgid "Retrieving checksum signature [%s]..."
 msgstr "Retrieving checksum signature [%s]..."
 
+#. download our SLAPT_PKG_LIST
 #, c-format
 msgid "Retrieving package data [%s]..."
 msgstr "Mengambil data paket [%s]..."
 
+#. download SLAPT_PATCHES_LIST
 #, c-format
 msgid "Retrieving patch list [%s]..."
 msgstr "Mengambil daftar tambalan [%s]..."
@@ -400,7 +400,9 @@ msgstr ""
 
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr "Gagal men-download dari sumber yang ada, perbaiki sumber dan jalankan kembali --update\n"
+msgstr ""
+"Gagal men-download dari sumber yang ada, perbaiki sumber dan jalankan "
+"kembali --update\n"
 
 #, c-format
 msgid "Suggested packages:\n"
@@ -534,11 +536,9 @@ msgid "only download pkg on install/upgrade"
 msgstr "hanya download pkg sewaktu instalasi/pembaharuan"
 
 msgid "only purge cache of older, unreacheable pkgs"
-msgstr "hanya buang habis data sementara yang tersimpan untuk pkg yang sudah lama dan tidak tesedia lagi"
-
-#, c-format
-msgid "pkg conditional too long\n"
-msgstr "persyaratan pkg terlalu panjang\n"
+msgstr ""
+"hanya buang habis data sementara yang tersimpan untuk pkg yang sudah lama "
+"dan tidak tesedia lagi"
 
 msgid "print URIs only, do not download"
 msgstr "cetak URI saja, jangan download"

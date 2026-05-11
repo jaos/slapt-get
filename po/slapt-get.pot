@@ -1,20 +1,22 @@
-# slapt-get translation template
-# Copyright (C) 2003-2009
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the slapt-get package.
-# Jason Woodward <woodwardj@jaos.org>
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.10.2f\n"
+"Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2010-06-07 21:05+0500\n"
-"Last-Translator: Jason Woodward <woodwardj@jaos.org>\n"
-"Language-Team: Translations (http://www.transifex.com/jaos/slapt-get)\n"
+"POT-Creation-Date: 2026-05-10 22:36-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #, c-format
 msgid "  %s: Depends: %s\n"
@@ -44,6 +46,7 @@ msgid_plural "%d to remove, "
 msgstr[0] ""
 msgstr[1] ""
 
+#. print the summary
 #, c-format
 msgid "%d upgraded, "
 msgid_plural "%d upgraded, "
@@ -141,6 +144,7 @@ msgstr ""
 msgid "Done\n"
 msgstr ""
 
+#. otherwise exclude
 #, c-format
 msgid "Excluding %s, use --ignore-dep to override\n"
 msgstr ""
@@ -151,10 +155,6 @@ msgstr ""
 
 #, c-format
 msgid "Failed to calloc\n"
-msgstr ""
-
-#, c-format
-msgid "Failed to chdir to %s\n"
 msgstr ""
 
 #, c-format
@@ -174,15 +174,11 @@ msgid "Failed to execute command: [%s]\n"
 msgstr ""
 
 #, c-format
-msgid "Failed to get cwd\n"
-msgstr ""
-
-#, c-format
 msgid "Failed to malloc\n"
 msgstr ""
 
 #, c-format
-msgid "Failed to mkdir: %s\n"
+msgid "Failed to mkdir %s: %s\n"
 msgstr ""
 
 #, c-format
@@ -361,6 +357,7 @@ msgstr ""
 msgid "Preparing to replace %s-%s with %s-%s\n"
 msgstr ""
 
+#. now map md5 checksums to packages
 #, c-format
 msgid "Reading Package Lists..."
 msgstr ""
@@ -377,6 +374,7 @@ msgstr ""
 msgid "Retrieving GPG key [%s]..."
 msgstr ""
 
+#. download checksum file
 #, c-format
 msgid "Retrieving checksum list [%s]..."
 msgstr ""
@@ -385,10 +383,12 @@ msgstr ""
 msgid "Retrieving checksum signature [%s]..."
 msgstr ""
 
+#. download our SLAPT_PKG_LIST
 #, c-format
 msgid "Retrieving package data [%s]..."
 msgstr ""
 
+#. download SLAPT_PATCHES_LIST
 #, c-format
 msgid "Retrieving patch list [%s]..."
 msgstr ""
@@ -536,10 +536,6 @@ msgid "only download pkg on install/upgrade"
 msgstr ""
 
 msgid "only purge cache of older, unreacheable pkgs"
-msgstr ""
-
-#, c-format
-msgid "pkg conditional too long\n"
 msgstr ""
 
 msgid "print URIs only, do not download"

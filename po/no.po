@@ -1,8 +1,7 @@
-# slapt-get translation template
-# Copyright (C) 2003-2009
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the slapt-get package.
-# Jason Woodward <woodwardj@jaos.org>
-# 
+#
 # Translators:
 # Copyright (C) 2004, 2005
 # Joran Kvalvaag <jk@nerdworks.org>, 2004-2005
@@ -10,14 +9,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2017-09-19 14:08+0000\n"
-"Last-Translator: Jason Woodward <woodwardj@jaos.org>\n"
-"Language-Team: Norwegian (http://www.transifex.com/jaos/slapt-get/language/no/)\n"
+"POT-Creation-Date: 2026-05-10 22:36-0400\n"
+"PO-Revision-Date: 2012-09-17 21:34+0000\n"
+"Last-Translator: Copyright (C) 2004, 2005\n"
+"Language-Team: Norwegian (http://app.transifex.com/jaos/slapt-get/language/"
+"no/)\n"
+"Language: no\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: no\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, c-format
@@ -48,6 +48,7 @@ msgid_plural "%d to remove, "
 msgstr[0] ""
 msgstr[1] ""
 
+#. print the summary
 #, c-format
 msgid "%d upgraded, "
 msgid_plural "%d upgraded, "
@@ -145,6 +146,7 @@ msgstr "Vil du fortsette? [y/N] "
 msgid "Done\n"
 msgstr "Ferdig\n"
 
+#. otherwise exclude
 #, c-format
 msgid "Excluding %s, use --ignore-dep to override\n"
 msgstr "Excluding %s, use --ignore-dep to override\n"
@@ -156,10 +158,6 @@ msgstr "Klarte ikke å lage arbeidsfolder [%s]\n"
 #, c-format
 msgid "Failed to calloc\n"
 msgstr "Klarte ikke å calloc\n"
-
-#, c-format
-msgid "Failed to chdir to %s\n"
-msgstr "Klarte ikke å chdir til %s\n"
 
 #, c-format
 msgid "Failed to chdir: %s\n"
@@ -178,16 +176,12 @@ msgid "Failed to execute command: [%s]\n"
 msgstr "Feil ved ekskevering av kommando: [%s]\n"
 
 #, c-format
-msgid "Failed to get cwd\n"
-msgstr "Klarte ikke å finne cwd\n"
-
-#, c-format
 msgid "Failed to malloc\n"
 msgstr "Feilet ved malloc\n"
 
 #, c-format
-msgid "Failed to mkdir: %s\n"
-msgstr "Klarte ikke å mkdir: %s\n"
+msgid "Failed to mkdir %s: %s\n"
+msgstr ""
 
 #, c-format
 msgid "Failed to open %s\n"
@@ -349,7 +343,9 @@ msgstr "Kanskje du vil kjøre --update?\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr "Vennligst oppdater tilgang på %s eller bruk programmet med tilstrekkelige privilegier\n"
+msgstr ""
+"Vennligst oppdater tilgang på %s eller bruk programmet med tilstrekkelige "
+"privilegier\n"
 
 msgid "Preferred"
 msgstr "Preferred"
@@ -365,6 +361,7 @@ msgstr "Forbereder installasjon av %s-%s\n"
 msgid "Preparing to replace %s-%s with %s-%s\n"
 msgstr "Forbereder utbytting av %s-%s med %s-%s\n"
 
+#. now map md5 checksums to packages
 #, c-format
 msgid "Reading Package Lists..."
 msgstr "Leser pakkelister..."
@@ -381,6 +378,7 @@ msgstr "Retrieving ChangeLog.txt [%s]..."
 msgid "Retrieving GPG key [%s]..."
 msgstr "Retrieving GPG key [%s]..."
 
+#. download checksum file
 #, c-format
 msgid "Retrieving checksum list [%s]..."
 msgstr "Mottar checksumliste [%s]..."
@@ -389,10 +387,12 @@ msgstr "Mottar checksumliste [%s]..."
 msgid "Retrieving checksum signature [%s]..."
 msgstr "Retrieving checksum signature [%s]..."
 
+#. download our SLAPT_PKG_LIST
 #, c-format
 msgid "Retrieving package data [%s]..."
 msgstr "Mottar pakkedata [%s]..."
 
+#. download SLAPT_PATCHES_LIST
 #, c-format
 msgid "Retrieving patch list [%s]..."
 msgstr "Mottar liste over patcher [%s]..."
@@ -406,7 +406,8 @@ msgstr ""
 
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr "Feil ved nedlasting fra kilde, korriger kilde og kjør --oppdater igjen\n"
+msgstr ""
+"Feil ved nedlasting fra kilde, korriger kilde og kjør --oppdater igjen\n"
 
 #, c-format
 msgid "Suggested packages:\n"
@@ -541,10 +542,6 @@ msgstr "last bare ned pakker ved installer/oppgrader"
 
 msgid "only purge cache of older, unreacheable pkgs"
 msgstr "slett bare mellomlager av eldre utilgjengelige pakker"
-
-#, c-format
-msgid "pkg conditional too long\n"
-msgstr "for lang pakkebetingelse\n"
 
 msgid "print URIs only, do not download"
 msgstr "skriv bare URIs, ikke last ned"

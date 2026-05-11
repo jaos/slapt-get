@@ -1,22 +1,23 @@
-# slapt-get translation template
-# Copyright (C) 2003-2009
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the slapt-get package.
-# Jason Woodward <woodwardj@jaos.org>
-# 
+#
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2017-09-19 14:08+0000\n"
-"Last-Translator: Jason Woodward <woodwardj@jaos.org>\n"
-"Language-Team: Romanian (http://www.transifex.com/jaos/slapt-get/language/ro/)\n"
+"POT-Creation-Date: 2026-05-10 22:36-0400\n"
+"PO-Revision-Date: 2012-09-17 21:34+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Romanian (http://app.transifex.com/jaos/slapt-get/language/"
+"ro/)\n"
+"Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ro\n"
-"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
+"2:1));\n"
 
 #, c-format
 msgid "  %s: Depends: %s\n"
@@ -50,6 +51,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
+#. print the summary
 #, c-format
 msgid "%d upgraded, "
 msgid_plural "%d upgraded, "
@@ -148,6 +150,7 @@ msgstr "Vreti sa continuati? [d/N] "
 msgid "Done\n"
 msgstr "Gata\n"
 
+#. otherwise exclude
 #, c-format
 msgid "Excluding %s, use --ignore-dep to override\n"
 msgstr "Se exclude %s, foloseste --ignore-dep pentru a nu tine cont\n"
@@ -159,10 +162,6 @@ msgstr "Crearea directorului de lucru a esuat [%s]\n"
 #, c-format
 msgid "Failed to calloc\n"
 msgstr "calloc esuat\n"
-
-#, c-format
-msgid "Failed to chdir to %s\n"
-msgstr "Nu am putut schimba directorul in %s\n"
 
 #, c-format
 msgid "Failed to chdir: %s\n"
@@ -181,16 +180,12 @@ msgid "Failed to execute command: [%s]\n"
 msgstr "Esuare in executarea comenzii: [%s]\n"
 
 #, c-format
-msgid "Failed to get cwd\n"
-msgstr "Nu am putut primi cwd\n"
-
-#, c-format
 msgid "Failed to malloc\n"
 msgstr "malloc Esuat\n"
 
 #, c-format
-msgid "Failed to mkdir: %s\n"
-msgstr "Nu am putut crea director: %s\n"
+msgid "Failed to mkdir %s: %s\n"
+msgstr ""
 
 #, c-format
 msgid "Failed to open %s\n"
@@ -352,7 +347,8 @@ msgstr "Probabil ca vrei sa executi --update?\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr "Actualizati permisiunile pentru %s sau executati cu privilegiile corecte\n"
+msgstr ""
+"Actualizati permisiunile pentru %s sau executati cu privilegiile corecte\n"
 
 msgid "Preferred"
 msgstr "Preferred"
@@ -368,6 +364,7 @@ msgstr "Pregatire instalare %s-%s\n"
 msgid "Preparing to replace %s-%s with %s-%s\n"
 msgstr "Pregatire pentru inlocuirea %s-%s cu %s-%s\n"
 
+#. now map md5 checksums to packages
 #, c-format
 msgid "Reading Package Lists..."
 msgstr "Se citesc listele cu pachete..."
@@ -384,6 +381,7 @@ msgstr "Se descarca ChangeLog.txt [%s]..."
 msgid "Retrieving GPG key [%s]..."
 msgstr "Se descarca cheie GPG [%s]..."
 
+#. download checksum file
 #, c-format
 msgid "Retrieving checksum list [%s]..."
 msgstr "Se primeste lista suma de control [%s]..."
@@ -392,10 +390,12 @@ msgstr "Se primeste lista suma de control [%s]..."
 msgid "Retrieving checksum signature [%s]..."
 msgstr "Se descarca semnatura sumei de control [%s]..."
 
+#. download our SLAPT_PKG_LIST
 #, c-format
 msgid "Retrieving package data [%s]..."
 msgstr "Se primesc date despre pachet [%s]..."
 
+#. download SLAPT_PATCHES_LIST
 #, c-format
 msgid "Retrieving patch list [%s]..."
 msgstr "Se primeste lista completari [%s]..."
@@ -504,7 +504,8 @@ msgstr "eroare in timpul citirii descrierii pachetului\n"
 
 #, c-format
 msgid "getline reached EOF attempting to read location\n"
-msgstr "getline a ajuns la sfarsitul fisierului incercand sa citeasca locatia\n"
+msgstr ""
+"getline a ajuns la sfarsitul fisierului incercand sa citeasca locatia\n"
 
 #, c-format
 msgid "getline reached EOF attempting to read size_c\n"
@@ -544,10 +545,6 @@ msgstr "descarca pachet numai la instalare/actualizare"
 
 msgid "only purge cache of older, unreacheable pkgs"
 msgstr "doar sterge memoria pachetelor mai vechi, inaccesibile"
-
-#, c-format
-msgid "pkg conditional too long\n"
-msgstr "Conditie pachet prea lunga\n"
 
 msgid "print URIs only, do not download"
 msgstr "doar afiseaza URIuri, nu descarca"

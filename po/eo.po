@@ -1,8 +1,7 @@
-# slapt-get translation template
-# Copyright (C) 2003-2009
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the slapt-get package.
-# Jason Woodward <woodwardj@jaos.org>
-# 
+#
 # Translators:
 # Reedych <reedych@reedych.pw>, 2017
 # ridiĉ <reedych@ya.ru>, 2017
@@ -10,14 +9,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2017-09-23 13:22+0000\n"
-"Last-Translator: ridiĉ <reedych@ya.ru>\n"
-"Language-Team: Esperanto (http://www.transifex.com/jaos/slapt-get/language/eo/)\n"
+"POT-Creation-Date: 2026-05-10 22:36-0400\n"
+"PO-Revision-Date: 2012-09-17 21:34+0000\n"
+"Last-Translator: ridiĉ <reedych@ya.ru>, 2017\n"
+"Language-Team: Esperanto (http://app.transifex.com/jaos/slapt-get/language/"
+"eo/)\n"
+"Language: eo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: eo\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, c-format
@@ -48,6 +48,7 @@ msgid_plural "%d to remove, "
 msgstr[0] "%d forigodevantas,"
 msgstr[1] "%d forigodevantas,"
 
+#. print the summary
 #, c-format
 msgid "%d upgraded, "
 msgid_plural "%d upgraded, "
@@ -145,6 +146,7 @@ msgstr "Ĉu vi volas daŭrigi? [j/N] "
 msgid "Done\n"
 msgstr "Preta\n"
 
+#. otherwise exclude
 #, c-format
 msgid "Excluding %s, use --ignore-dep to override\n"
 msgstr "Esceptas %s, uzu --ignore-dep por nuligi\n"
@@ -156,10 +158,6 @@ msgstr "Malsukcesis fari labordosierujon [%s]\n"
 #, c-format
 msgid "Failed to calloc\n"
 msgstr "Malsukcesis calloc\n"
-
-#, c-format
-msgid "Failed to chdir to %s\n"
-msgstr "Malsukcesis chdir al %s\n"
 
 #, c-format
 msgid "Failed to chdir: %s\n"
@@ -178,16 +176,12 @@ msgid "Failed to execute command: [%s]\n"
 msgstr "Malsukcesis plenumigi komandon: [%s]\n"
 
 #, c-format
-msgid "Failed to get cwd\n"
-msgstr "Malsukcesis preni nunan labordosierujon\n"
-
-#, c-format
 msgid "Failed to malloc\n"
 msgstr "Malsukcesis malloc\n"
 
 #, c-format
-msgid "Failed to mkdir: %s\n"
-msgstr "Malsukcesis mkdir: %s\n"
+msgid "Failed to mkdir %s: %s\n"
+msgstr ""
 
 #, c-format
 msgid "Failed to open %s\n"
@@ -365,6 +359,7 @@ msgstr ""
 msgid "Preparing to replace %s-%s with %s-%s\n"
 msgstr ""
 
+#. now map md5 checksums to packages
 #, c-format
 msgid "Reading Package Lists..."
 msgstr ""
@@ -381,6 +376,7 @@ msgstr ""
 msgid "Retrieving GPG key [%s]..."
 msgstr ""
 
+#. download checksum file
 #, c-format
 msgid "Retrieving checksum list [%s]..."
 msgstr ""
@@ -389,10 +385,12 @@ msgstr ""
 msgid "Retrieving checksum signature [%s]..."
 msgstr ""
 
+#. download our SLAPT_PKG_LIST
 #, c-format
 msgid "Retrieving package data [%s]..."
 msgstr ""
 
+#. download SLAPT_PATCHES_LIST
 #, c-format
 msgid "Retrieving patch list [%s]..."
 msgstr ""
@@ -540,10 +538,6 @@ msgid "only download pkg on install/upgrade"
 msgstr ""
 
 msgid "only purge cache of older, unreacheable pkgs"
-msgstr ""
-
-#, c-format
-msgid "pkg conditional too long\n"
 msgstr ""
 
 msgid "print URIs only, do not download"

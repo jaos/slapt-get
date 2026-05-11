@@ -1,5 +1,3 @@
-src/action.c
-src/action.h
 src/common.c
 src/common.h
 src/configuration.c

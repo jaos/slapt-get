@@ -1,8 +1,7 @@
-# slapt-get translation template
-# Copyright (C) 2003-2009
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the slapt-get package.
-# Jason Woodward <woodwardj@jaos.org>
-# 
+#
 # Translators:
 # Copyright (C) 2004, 2005
 # Uros Trsavec <utrsav@walla.com>, 2004-2005
@@ -10,15 +9,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2017-09-19 14:08+0000\n"
-"Last-Translator: Jason Woodward <woodwardj@jaos.org>\n"
-"Language-Team: Slovenian (http://www.transifex.com/jaos/slapt-get/language/sl/)\n"
+"POT-Creation-Date: 2026-05-10 22:36-0400\n"
+"PO-Revision-Date: 2012-09-17 21:34+0000\n"
+"Last-Translator: Copyright (C) 2004, 2005\n"
+"Language-Team: Slovenian (http://app.transifex.com/jaos/slapt-get/language/"
+"sl/)\n"
+"Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sl\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+"n%100==4 ? 2 : 3);\n"
 
 #, c-format
 msgid "  %s: Depends: %s\n"
@@ -56,6 +57,7 @@ msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
 
+#. print the summary
 #, c-format
 msgid "%d upgraded, "
 msgid_plural "%d upgraded, "
@@ -155,6 +157,7 @@ msgstr "eli nadaljevati? [y/N] "
 msgid "Done\n"
 msgstr "Narejeno\n"
 
+#. otherwise exclude
 #, c-format
 msgid "Excluding %s, use --ignore-dep to override\n"
 msgstr "Excluding %s, use --ignore-dep to override\n"
@@ -166,10 +169,6 @@ msgstr "Neuspel poskus gradnje delovne mape [%s]\n"
 #, c-format
 msgid "Failed to calloc\n"
 msgstr "Napaka pri calloc\n"
-
-#, c-format
-msgid "Failed to chdir to %s\n"
-msgstr "Napak pri chdir na %s\n"
 
 #, c-format
 msgid "Failed to chdir: %s\n"
@@ -188,16 +187,12 @@ msgid "Failed to execute command: [%s]\n"
 msgstr "Napaka pri izvedbi ukaza: [%s]\n"
 
 #, c-format
-msgid "Failed to get cwd\n"
-msgstr "Napaka pri pridobitvi cwd\n"
-
-#, c-format
 msgid "Failed to malloc\n"
 msgstr "Napaka v malloc\n"
 
 #, c-format
-msgid "Failed to mkdir: %s\n"
-msgstr "Napaka pri mkdir: %s\n"
+msgid "Failed to mkdir %s: %s\n"
+msgstr ""
 
 #, c-format
 msgid "Failed to open %s\n"
@@ -359,7 +354,8 @@ msgstr "Mogoče elite zagnati --update?\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr "Prosim, nadgradite dovoljenja na %s oz poenite s primernimi pravicami\n"
+msgstr ""
+"Prosim, nadgradite dovoljenja na %s oz poenite s primernimi pravicami\n"
 
 msgid "Preferred"
 msgstr "Preferred"
@@ -375,6 +371,7 @@ msgstr "Priprava na namestitev %s-%s\n"
 msgid "Preparing to replace %s-%s with %s-%s\n"
 msgstr "Pripravljam na zamenjavo %s-%s z %s-%s\n"
 
+#. now map md5 checksums to packages
 #, c-format
 msgid "Reading Package Lists..."
 msgstr "Berem seznam paketov..."
@@ -391,6 +388,7 @@ msgstr "Retrieving ChangeLog.txt [%s]..."
 msgid "Retrieving GPG key [%s]..."
 msgstr "Retrieving GPG key [%s]..."
 
+#. download checksum file
 #, c-format
 msgid "Retrieving checksum list [%s]..."
 msgstr "Pridobivam seznam kontrolnih vsot [%s]..."
@@ -399,10 +397,12 @@ msgstr "Pridobivam seznam kontrolnih vsot [%s]..."
 msgid "Retrieving checksum signature [%s]..."
 msgstr "Retrieving checksum signature [%s]..."
 
+#. download our SLAPT_PKG_LIST
 #, c-format
 msgid "Retrieving package data [%s]..."
 msgstr "Pridobivam podatke o paketih [%s]..."
 
+#. download SLAPT_PATCHES_LIST
 #, c-format
 msgid "Retrieving patch list [%s]..."
 msgstr "Pridobivam seznam popravkov [%s]..."
@@ -416,7 +416,8 @@ msgstr ""
 
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr "Izvor se ni mogel naloiti, popravite izvor in ponovno zaenite --update\n"
+msgstr ""
+"Izvor se ni mogel naloiti, popravite izvor in ponovno zaenite --update\n"
 
 #, c-format
 msgid "Suggested packages:\n"
@@ -551,10 +552,6 @@ msgstr "paketke samo naloi ob namestitvi/nadgradnji"
 
 msgid "only purge cache of older, unreacheable pkgs"
 msgstr "počisti samo predpomnilnik stareji, nedosgljivih paketkov"
-
-#, c-format
-msgid "pkg conditional too long\n"
-msgstr "pogoj paketka je predolg\n"
 
 msgid "print URIs only, do not download"
 msgstr "natisni samo URIs, jih ne naloi"

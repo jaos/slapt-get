@@ -1,28 +1,28 @@
-# slapt-get translation template
-# Copyright (C) 2003-2009
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the slapt-get package.
-# Jason Woodward <woodwardj@jaos.org>
-# 
+#
 # Translators:
-# Jiří Vírava <appukonrad@gmail.com>, 2013
+# Appukonrad <appukonrad@gmail.com>, 2013
 # Copyright (C) 2004, 2005
-# Jiří Vírava <appukonrad@gmail.com>, 2013-2014
-# Jiří Vírava <appukonrad@gmail.com>, 2013
+# Appukonrad <appukonrad@gmail.com>, 2013-2014
+# Appukonrad <appukonrad@gmail.com>, 2013
 # Michal Várady <miko.vaji@gmail.com>, 2015
 # Oto Petrik <oto.petrik@centrum.cz>, 2004-2005
 msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2017-09-19 14:08+0000\n"
-"Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
-"Language-Team: Czech (http://www.transifex.com/jaos/slapt-get/language/cs/)\n"
+"POT-Creation-Date: 2026-05-10 22:36-0400\n"
+"PO-Revision-Date: 2012-09-17 21:34+0000\n"
+"Last-Translator: Michal Várady <miko.vaji@gmail.com>, 2015\n"
+"Language-Team: Czech (http://app.transifex.com/jaos/slapt-get/language/cs/)\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: cs\n"
-"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
+"<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
 #, c-format
 msgid "  %s: Depends: %s\n"
@@ -60,6 +60,7 @@ msgstr[1] "%d k odebrání, "
 msgstr[2] "%d k odebrání, "
 msgstr[3] "%d k odebrání, "
 
+#. print the summary
 #, c-format
 msgid "%d upgraded, "
 msgid_plural "%d upgraded, "
@@ -125,7 +126,9 @@ msgstr "Implementace systému Debian APT pro Slackware\n"
 
 #, c-format
 msgid "Cached\n"
-msgstr "V mezipaměti\n\n"
+msgstr ""
+"V mezipaměti\n"
+"\n"
 
 msgid "Checksums not read"
 msgstr "Kontrolní součty nepřečteny"
@@ -159,6 +162,7 @@ msgstr "Chcete pokračovat? [y/N] "
 msgid "Done\n"
 msgstr "Hotovo\n"
 
+#. otherwise exclude
 #, c-format
 msgid "Excluding %s, use --ignore-dep to override\n"
 msgstr "Vylučuje se %s, pro potlačení použijte přepínač --ignore-dep\n"
@@ -172,16 +176,14 @@ msgid "Failed to calloc\n"
 msgstr "Přidělení funkcí calloc se nezdařilo\n"
 
 #, c-format
-msgid "Failed to chdir to %s\n"
-msgstr "Nepodařilo se změnit adresář na: %s\n"
-
-#, c-format
 msgid "Failed to chdir: %s\n"
 msgstr "Nepodařilo se změnit adresář: %s\n"
 
 #, c-format
 msgid "Failed to compile regex\n"
-msgstr "Nepodařilo se zkompilovat regulární výraz\n\n"
+msgstr ""
+"Nepodařilo se zkompilovat regulární výraz\n"
+"\n"
 
 #, c-format
 msgid "Failed to download: %s\n"
@@ -192,16 +194,12 @@ msgid "Failed to execute command: [%s]\n"
 msgstr "Nepodařilo se spustit příkaz: [%s]\n"
 
 #, c-format
-msgid "Failed to get cwd\n"
-msgstr "Nepodařilo se získat současný pracovní adresář\n\n"
-
-#, c-format
 msgid "Failed to malloc\n"
 msgstr "Přidělení funkcí malloc se nezdařilo\n"
 
 #, c-format
-msgid "Failed to mkdir: %s\n"
-msgstr "Nepodařilo se vytvořit adresář: %s\n"
+msgid "Failed to mkdir %s: %s\n"
+msgstr ""
 
 #, c-format
 msgid "Failed to open %s\n"
@@ -244,7 +242,8 @@ msgid "Installed %s conflicts with %s\n"
 msgstr "Nainstalovaný %s koliduje s %s\n"
 
 msgid "MD5 checksum mismatch, override with --no-md5"
-msgstr "Kontrolní součet MD5 se neshoduje, pro potlačení použijte přepínač --no-md5"
+msgstr ""
+"Kontrolní součet MD5 se neshoduje, pro potlačení použijte přepínač --no-md5"
 
 msgid "Missing MD5 checksum, override with --no-md5"
 msgstr "Kontrolní součet MD5 chybí, pro potlačení použijte přepínač --no-md5"
@@ -379,6 +378,7 @@ msgstr "Příprava k instalaci %s-%s\n"
 msgid "Preparing to replace %s-%s with %s-%s\n"
 msgstr "Příprava k nahrazení %s-%s balíčkem %s-%s\n"
 
+#. now map md5 checksums to packages
 #, c-format
 msgid "Reading Package Lists..."
 msgstr "Načítání seznam balíčků..."
@@ -395,6 +395,7 @@ msgstr "Získávání souboru ChangeLog.txt [%s]..."
 msgid "Retrieving GPG key [%s]..."
 msgstr "Získávání klíče GPG [%s]..."
 
+#. download checksum file
 #, c-format
 msgid "Retrieving checksum list [%s]..."
 msgstr "Získávání seznamu kontrolních součtů [%s]..."
@@ -403,10 +404,12 @@ msgstr "Získávání seznamu kontrolních součtů [%s]..."
 msgid "Retrieving checksum signature [%s]..."
 msgstr "Získávání podpisu kontrolních součtů [%s]..."
 
+#. download our SLAPT_PKG_LIST
 #, c-format
 msgid "Retrieving package data [%s]..."
 msgstr "Získávání dat balíčků [%s]..."
 
+#. download SLAPT_PATCHES_LIST
 #, c-format
 msgid "Retrieving patch list [%s]..."
 msgstr "Získávání seznamu patchů [%s]..."
@@ -420,7 +423,9 @@ msgstr "Podpis nebyl přečten"
 
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr "Zdroje se nepodařilo stáhnout, opravte zdroje a spusťte s přepínačem --update\n"
+msgstr ""
+"Zdroje se nepodařilo stáhnout, opravte zdroje a spusťte s přepínačem --"
+"update\n"
 
 #, c-format
 msgid "Suggested packages:\n"
@@ -436,23 +441,33 @@ msgstr "Nainstalovány budou tyto NOVÉ balíčky:\n"
 
 #, c-format
 msgid "The following packages have been EXCLUDED:\n"
-msgstr "Tyto balíčky byly VYLOUČENY:\n\n"
+msgstr ""
+"Tyto balíčky byly VYLOUČENY:\n"
+"\n"
 
 #, c-format
 msgid "The following packages have unmet dependencies:\n"
-msgstr "Tyto balíčky nesplnily závislosti:\n\n"
+msgstr ""
+"Tyto balíčky nesplnily závislosti:\n"
+"\n"
 
 #, c-format
 msgid "The following packages will be REMOVED:\n"
-msgstr "Tyto balíčky budou ODSTRANĚNY:\n\n"
+msgstr ""
+"Tyto balíčky budou ODSTRANĚNY:\n"
+"\n"
 
 #, c-format
 msgid "The following packages will be reinstalled:\n"
-msgstr "Tyto balíčky budou přeinstalovány:\n\n"
+msgstr ""
+"Tyto balíčky budou přeinstalovány:\n"
+"\n"
 
 #, c-format
 msgid "The following packages will be upgraded:\n"
-msgstr "Tyto balíčky budou UPGRADOVÁNY:\n\n"
+msgstr ""
+"Tyto balíčky budou UPGRADOVÁNY:\n"
+"\n"
 
 msgid "Unknown error"
 msgstr "Neznámá chyba"
@@ -470,7 +485,9 @@ msgstr "Ověřování podpisu kontrolních součtů [%s]..."
 
 #, c-format
 msgid "WORKINGDIR directive not set within %s.\n"
-msgstr "Direktiva WORKINGDIR není nastavena v %s.\n\n"
+msgstr ""
+"Direktiva WORKINGDIR není nastavena v %s.\n"
+"\n"
 
 #, c-format
 msgid "You don't have enough free space in %s\n"
@@ -555,10 +572,6 @@ msgstr "pouze stáhnout balíčky pro instalaci/upgrade"
 
 msgid "only purge cache of older, unreacheable pkgs"
 msgstr "vyčistit pouze mezipaměť starých, nedostupných balíčků"
-
-#, c-format
-msgid "pkg conditional too long\n"
-msgstr "podmínka balíčku je příliš dlouhá\n"
 
 msgid "print URIs only, do not download"
 msgstr "pouze vypsat identifikátor URI, nestahovat"

@@ -1,11 +1,10 @@
-# slapt-get translation template
-# Copyright (C) 2003-2009
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the slapt-get package.
-# Jason Woodward <woodwardj@jaos.org>
-# 
+#
 # Translators:
-# ふうせん Fu-sen. | BALLOON a.k.a. Fu-sen., 2016
-# ふうせん Fu-sen. | BALLOON a.k.a. Fu-sen., 2016
+# 🎈 BALLOON | FU-SEN, 2016
+# 🎈 BALLOON | FU-SEN, 2016
 # tsuren <hydrangea_and_snail@hotmail.com>, 2015
 # JW <J_W@somewhere.c0.jp>, 2006
 # S_A <shin1.abe@nifty.com>, 2006
@@ -13,14 +12,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2017-09-19 14:08+0000\n"
-"Last-Translator: ふうせん Fu-sen. | BALLOON a.k.a. Fu-sen.\n"
-"Language-Team: Japanese (http://www.transifex.com/jaos/slapt-get/language/ja/)\n"
+"POT-Creation-Date: 2026-05-10 22:36-0400\n"
+"PO-Revision-Date: 2012-09-17 21:34+0000\n"
+"Last-Translator: 🎈 BALLOON | FU-SEN, 2016\n"
+"Language-Team: Japanese (http://app.transifex.com/jaos/slapt-get/language/"
+"ja/)\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #, c-format
@@ -35,7 +35,9 @@ msgstr[0] "%d 新規インストール、"
 #, c-format
 msgid "%d not upgraded.\n"
 msgid_plural "%d not upgraded.\n"
-msgstr[0] "%d 未更新。\n\n"
+msgstr[0] ""
+"%d 未更新。\n"
+"\n"
 
 #, c-format
 msgid "%d reinstalled, "
@@ -47,6 +49,7 @@ msgid "%d to remove, "
 msgid_plural "%d to remove, "
 msgstr[0] "%d 削除、"
 
+#. print the summary
 #, c-format
 msgid "%d upgraded, "
 msgid_plural "%d upgraded, "
@@ -58,7 +61,9 @@ msgstr "%s [オプション] [対象]\n"
 
 #, c-format
 msgid "%s is not installed.\n"
-msgstr "%s 未インストール\n\n"
+msgstr ""
+"%s 未インストール\n"
+"\n"
 
 #, c-format
 msgid "%s is up to date.\n"
@@ -143,6 +148,7 @@ msgstr "このまま続けますか？ [y/N] "
 msgid "Done\n"
 msgstr "完了\n"
 
+#. otherwise exclude
 #, c-format
 msgid "Excluding %s, use --ignore-dep to override\n"
 msgstr "%s を除外するには、--ignore-dep を使用して上書きします\n"
@@ -154,10 +160,6 @@ msgstr "作業ディレクトリ [%s] のビルドに失敗しました\n"
 #, c-format
 msgid "Failed to calloc\n"
 msgstr "calloc に失敗しました\n"
-
-#, c-format
-msgid "Failed to chdir to %s\n"
-msgstr "%s への chdir に失敗しました\n"
 
 #, c-format
 msgid "Failed to chdir: %s\n"
@@ -176,16 +178,12 @@ msgid "Failed to execute command: [%s]\n"
 msgstr "コマンド実行に失敗しました: [%s]\n"
 
 #, c-format
-msgid "Failed to get cwd\n"
-msgstr "cwd の取得に失敗しました\n"
-
-#, c-format
 msgid "Failed to malloc\n"
 msgstr "malloc に失敗しました\n"
 
 #, c-format
-msgid "Failed to mkdir: %s\n"
-msgstr "ディレクトリ作成に失敗しました: %s\n"
+msgid "Failed to mkdir %s: %s\n"
+msgstr ""
 
 #, c-format
 msgid "Failed to open %s\n"
@@ -347,7 +345,8 @@ msgstr " --update を実行してよろしいですか？\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr "%s のパーミッションを更新するかもしくは適切な権限を与えて実行してください\n"
+msgstr ""
+"%s のパーミッションを更新するかもしくは適切な権限を与えて実行してください\n"
 
 msgid "Preferred"
 msgstr "推奨"
@@ -363,6 +362,7 @@ msgstr "%s-%s のインストール準備中\n"
 msgid "Preparing to replace %s-%s with %s-%s\n"
 msgstr "%s-%s を %s-%s に置き換える準備中\n"
 
+#. now map md5 checksums to packages
 #, c-format
 msgid "Reading Package Lists..."
 msgstr "パッケージリストを読込み中..."
@@ -379,6 +379,7 @@ msgstr "ChangeLog.txt [%s] を取得中..."
 msgid "Retrieving GPG key [%s]..."
 msgstr "GPG キー [%s] を取得中..."
 
+#. download checksum file
 #, c-format
 msgid "Retrieving checksum list [%s]..."
 msgstr "チェックサムリスト [%s]を取得中..."
@@ -387,10 +388,12 @@ msgstr "チェックサムリスト [%s]を取得中..."
 msgid "Retrieving checksum signature [%s]..."
 msgstr "チェックサム署名 [%s] を取得中..."
 
+#. download our SLAPT_PKG_LIST
 #, c-format
 msgid "Retrieving package data [%s]..."
 msgstr "パッケージデータ [%s] を取得中..."
 
+#. download SLAPT_PATCHES_LIST
 #, c-format
 msgid "Retrieving patch list [%s]..."
 msgstr "パッチリスト [%s] を取得中..."
@@ -404,7 +407,9 @@ msgstr "署名が読み取れません"
 
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr "ソースのダウンロードに失敗しました。ソースを修正し --update を再施行してください。\n"
+msgstr ""
+"ソースのダウンロードに失敗しました。ソースを修正し --update を再施行してくだ"
+"さい。\n"
 
 #, c-format
 msgid "Suggested packages:\n"
@@ -539,10 +544,6 @@ msgstr "インストール・アップグレードパッケージのダウンロ
 
 msgid "only purge cache of older, unreacheable pkgs"
 msgstr "古い・到達不可能な pkg のキャッシュを抹消する"
-
-#, c-format
-msgid "pkg conditional too long\n"
-msgstr "pkg の条件が長すぎます\n"
 
 msgid "print URIs only, do not download"
 msgstr "URI のみ表示し、ダウンロードしない"

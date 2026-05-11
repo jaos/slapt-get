@@ -1,8 +1,7 @@
-# slapt-get translation template
-# Copyright (C) 2003-2009
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the slapt-get package.
-# Jason Woodward <woodwardj@jaos.org>
-# 
+#
 # Translators:
 # Henrique Pinto <henrique.pinto@kdemail.net>, 2004
 # Sérgio Surkamp <surkamp@gmail.com>, 2008,2010
@@ -11,15 +10,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-02 14:14+0000\n"
+"POT-Creation-Date: 2026-05-10 22:36-0400\n"
 "PO-Revision-Date: 2012-09-17 21:34+0000\n"
 "Last-Translator: The Cat, 2023\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.com/jaos/slapt-get/language/pt_BR/)\n"
+"Language-Team: Portuguese (Brazil) (http://app.transifex.com/jaos/slapt-get/"
+"language/pt_BR/)\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pt_BR\n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
 
 #, c-format
 msgid "  %s: Depends: %s\n"
@@ -53,6 +54,7 @@ msgstr[0] "%d será removido, "
 msgstr[1] "%d serão removidos, "
 msgstr[2] "%d serão removidos, "
 
+#. print the summary
 #, c-format
 msgid "%d upgraded, "
 msgid_plural "%d upgraded, "
@@ -151,6 +153,7 @@ msgstr "Você deseja continuar? [y/N] "
 msgid "Done\n"
 msgstr "Concluído\n"
 
+#. otherwise exclude
 #, c-format
 msgid "Excluding %s, use --ignore-dep to override\n"
 msgstr "Excluíndo %s, utilize --ignore-dep para ignorar\n"
@@ -162,10 +165,6 @@ msgstr "Falha ao criar diretório de trabalho [%s]\n"
 #, c-format
 msgid "Failed to calloc\n"
 msgstr "Falha na função calloc\n"
-
-#, c-format
-msgid "Failed to chdir to %s\n"
-msgstr "Falha ao entrar no diretório %s\n"
 
 #, c-format
 msgid "Failed to chdir: %s\n"
@@ -184,16 +183,12 @@ msgid "Failed to execute command: [%s]\n"
 msgstr "Falha ao executar comando: [%s]\n"
 
 #, c-format
-msgid "Failed to get cwd\n"
-msgstr "Falha ao pegar o diretório atual de trabalho\n"
-
-#, c-format
 msgid "Failed to malloc\n"
 msgstr "Falha na função malloc\n"
 
 #, c-format
-msgid "Failed to mkdir: %s\n"
-msgstr "Falha ao criar diretório: %s\n"
+msgid "Failed to mkdir %s: %s\n"
+msgstr ""
 
 #, c-format
 msgid "Failed to open %s\n"
@@ -243,11 +238,14 @@ msgstr "Soma MD5 inexistente, utilize --no-md5 para ignorar"
 
 #, c-format
 msgid "Need to get %.1f%s of archives.\n"
-msgstr "É necessário fazer o descarregamento de %.1f%s de arquivos comprimidos.\n"
+msgstr ""
+"É necessário fazer o descarregamento de %.1f%s de arquivos comprimidos.\n"
 
 #, c-format
 msgid "Need to get %.1f%s/%.1f%s of archives.\n"
-msgstr "É necessário fazer o descarregamento de %.1f%s/%.1f%s de arquivos comprimidos.\n"
+msgstr ""
+"É necessário fazer o descarregamento de %.1f%s/%.1f%s de arquivos "
+"comprimidos.\n"
 
 msgid "No key for verification"
 msgstr "Sem chave para verificação"
@@ -355,7 +353,8 @@ msgstr "Talvez você queira rodar --update?\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr "Por favor atualize as permissões em %s ou rode com privilégio apropriado\n"
+msgstr ""
+"Por favor atualize as permissões em %s ou rode com privilégio apropriado\n"
 
 msgid "Preferred"
 msgstr "Preferencial"
@@ -371,6 +370,7 @@ msgstr "Preparando para instalar %s-%s\n"
 msgid "Preparing to replace %s-%s with %s-%s\n"
 msgstr "Preparando para substituir %s-%s por %s-%s\n"
 
+#. now map md5 checksums to packages
 #, c-format
 msgid "Reading Package Lists..."
 msgstr "Lendo Listas de Pacotes..."
@@ -387,6 +387,7 @@ msgstr "Descarregando o ChangeLog.txt [%s]..."
 msgid "Retrieving GPG key [%s]..."
 msgstr "Descarregando a chave GPG [%s]..."
 
+#. download checksum file
 #, c-format
 msgid "Retrieving checksum list [%s]..."
 msgstr "Descarregando a lista de assinaturas por soma [%s]..."
@@ -395,10 +396,12 @@ msgstr "Descarregando a lista de assinaturas por soma [%s]..."
 msgid "Retrieving checksum signature [%s]..."
 msgstr "Descarregando assinaturas por checksum [%s]..."
 
+#. download our SLAPT_PKG_LIST
 #, c-format
 msgid "Retrieving package data [%s]..."
 msgstr "Descarregando as informações de pacotes [%s]..."
 
+#. download SLAPT_PATCHES_LIST
 #, c-format
 msgid "Retrieving patch list [%s]..."
 msgstr "Descarregando a lista de correções [%s]..."
@@ -412,7 +415,8 @@ msgstr "Assinatura não lida"
 
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr "Falha no descarregamento, corrija os fontes e rode novamente o --update\n"
+msgstr ""
+"Falha no descarregamento, corrija os fontes e rode novamente o --update\n"
 
 #, c-format
 msgid "Suggested packages:\n"
@@ -469,7 +473,9 @@ msgid "You don't have enough free space in %s\n"
 msgstr "Você não possui espaço livre suficiente em %s\n"
 
 msgid "[disk set(s)] - install specified disk set(s)"
-msgstr "[conjunto(s) de disco(s)] - instalar o(s) conjunto(s) de disco(s) especificado"
+msgstr ""
+"[conjunto(s) de disco(s)] - instalar o(s) conjunto(s) de disco(s) "
+"especificado"
 
 msgid "[expression] - search available pkgs"
 msgstr "[expressão] - busca por pacotes disponíveis"
@@ -484,7 +490,9 @@ msgid "[pkg name(s)] - show pkg(s) description"
 msgstr "[nome(s) do(s) pacote(s)] - apresenta a descrição do(s) pacote(s)"
 
 msgid "[pkg name(s)] - show pkg(s) installed files"
-msgstr "[nome(s) do(s) pacote(s)] - apresenta os arquivos instalados pelo(s) pacote(s)"
+msgstr ""
+"[nome(s) do(s) pacote(s)] - apresenta os arquivos instalados pelo(s) "
+"pacote(s)"
 
 msgid "allow unauthenticated packages"
 msgstr "permite pacotes sem autenticação"
@@ -547,10 +555,6 @@ msgstr "apenas descarregar o(s) pacote(s) durante instalar/atualizar"
 
 msgid "only purge cache of older, unreacheable pkgs"
 msgstr "remove da cache apenas os pacotes antigos"
-
-#, c-format
-msgid "pkg conditional too long\n"
-msgstr "condicional do pacote muito longa\n"
 
 msgid "print URIs only, do not download"
 msgstr "apenas imprimir URIs, não descarregar"

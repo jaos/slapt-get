@@ -1,22 +1,22 @@
-# slapt-get translation template
-# Copyright (C) 2003-2009
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the slapt-get package.
-# Jason Woodward <woodwardj@jaos.org>
-# 
+#
 # Translators:
 # Yang Jinsong <shannleon@gmail.com>, 2006
 msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2017-09-19 14:08+0000\n"
-"Last-Translator: Jason Woodward <woodwardj@jaos.org>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/jaos/slapt-get/language/zh_CN/)\n"
+"POT-Creation-Date: 2026-05-10 22:36-0400\n"
+"PO-Revision-Date: 2012-09-17 21:34+0000\n"
+"Last-Translator: Yang Jinsong <shannleon@gmail.com>, 2006\n"
+"Language-Team: Chinese (China) (http://app.transifex.com/jaos/slapt-get/"
+"language/zh_CN/)\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #, c-format
@@ -43,6 +43,7 @@ msgid "%d to remove, "
 msgid_plural "%d to remove, "
 msgstr[0] ""
 
+#. print the summary
 #, c-format
 msgid "%d upgraded, "
 msgid_plural "%d upgraded, "
@@ -139,6 +140,7 @@ msgstr "继续吗? [y/N] "
 msgid "Done\n"
 msgstr "完成\n"
 
+#. otherwise exclude
 #, c-format
 msgid "Excluding %s, use --ignore-dep to override\n"
 msgstr "排除 %s, 使用 --ignore-dep 选项覆盖此设置\n"
@@ -150,10 +152,6 @@ msgstr "建立工作目录 [%s] 失败\n"
 #, c-format
 msgid "Failed to calloc\n"
 msgstr "calloc 失败\n"
-
-#, c-format
-msgid "Failed to chdir to %s\n"
-msgstr "进入目录 %s 失败\n"
 
 #, c-format
 msgid "Failed to chdir: %s\n"
@@ -172,16 +170,12 @@ msgid "Failed to execute command: [%s]\n"
 msgstr "执行命令 [%s] 失败\n"
 
 #, c-format
-msgid "Failed to get cwd\n"
-msgstr "无法获得当前工作目录\n"
-
-#, c-format
 msgid "Failed to malloc\n"
 msgstr "malloc 失败\n"
 
 #, c-format
-msgid "Failed to mkdir: %s\n"
-msgstr "建立目录 %s 失败\n"
+msgid "Failed to mkdir %s: %s\n"
+msgstr ""
 
 #, c-format
 msgid "Failed to open %s\n"
@@ -359,6 +353,7 @@ msgstr "准备安装 %s-%s\n"
 msgid "Preparing to replace %s-%s with %s-%s\n"
 msgstr "准备将 %s-%s 替换为 %s-%s\n"
 
+#. now map md5 checksums to packages
 #, c-format
 msgid "Reading Package Lists..."
 msgstr "读取软件包列表..."
@@ -375,6 +370,7 @@ msgstr "Retrieving ChangeLog.txt [%s]..."
 msgid "Retrieving GPG key [%s]..."
 msgstr "Retrieving GPG key [%s]..."
 
+#. download checksum file
 #, c-format
 msgid "Retrieving checksum list [%s]..."
 msgstr "检索校验码列表 [%s]..."
@@ -383,10 +379,12 @@ msgstr "检索校验码列表 [%s]..."
 msgid "Retrieving checksum signature [%s]..."
 msgstr "Retrieving checksum signature [%s]..."
 
+#. download our SLAPT_PKG_LIST
 #, c-format
 msgid "Retrieving package data [%s]..."
 msgstr "检索软件包数据 [%s]..."
 
+#. download SLAPT_PATCHES_LIST
 #, c-format
 msgid "Retrieving patch list [%s]..."
 msgstr "检索补丁包列表 [%s]..."
@@ -535,10 +533,6 @@ msgstr "执行安装/升级时只下载软件包"
 
 msgid "only purge cache of older, unreacheable pkgs"
 msgstr "只清除过时和无法获取的软件包"
-
-#, c-format
-msgid "pkg conditional too long\n"
-msgstr "pkg conditional too long\n"
 
 msgid "print URIs only, do not download"
 msgstr "只显示 URIs ，不下载"

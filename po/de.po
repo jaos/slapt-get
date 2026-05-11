@@ -1,8 +1,7 @@
-# slapt-get translation template
-# Copyright (C) 2003-2009
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the slapt-get package.
-# Jason Woodward <woodwardj@jaos.org>
-# 
+#
 # Translators:
 # Copyright (C) 2004, 2005-2007
 # Manfred Mueller <manfred.mueller@fluxflux.net>, 2018
@@ -12,14 +11,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-02 14:14+0000\n"
-"PO-Revision-Date: 2018-02-28 14:22+0000\n"
-"Last-Translator: Manfred Mueller <manfred.mueller@fluxflux.net>\n"
-"Language-Team: German (http://www.transifex.com/jaos/slapt-get/language/de/)\n"
+"POT-Creation-Date: 2026-05-10 22:36-0400\n"
+"PO-Revision-Date: 2012-09-17 21:34+0000\n"
+"Last-Translator: Manfred Mueller <manfred.mueller@fluxflux.net>, 2018\n"
+"Language-Team: German (http://app.transifex.com/jaos/slapt-get/language/"
+"de/)\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, c-format
@@ -50,6 +50,7 @@ msgid_plural "%d to remove, "
 msgstr[0] "%d zu entfernen, "
 msgstr[1] "%d to remove, "
 
+#. print the summary
 #, c-format
 msgid "%d upgraded, "
 msgid_plural "%d upgraded, "
@@ -105,7 +106,8 @@ msgstr "Nach dem Entpacken wird %.1f%s Plattenspeicher frei.\n"
 
 #, c-format
 msgid "After unpacking %.1f%s of additional disk space will be used.\n"
-msgstr "Nach dem Entpacken wird %.1f%s zusaetzlicher Plattenspeicher verwendet.\n"
+msgstr ""
+"Nach dem Entpacken wird %.1f%s zusaetzlicher Plattenspeicher verwendet.\n"
 
 #, c-format
 msgid "An implementation of the Debian APT system to Slackware\n"
@@ -147,6 +149,7 @@ msgstr "Fortsetzen? [y/N] "
 msgid "Done\n"
 msgstr "Fertig\n"
 
+#. otherwise exclude
 #, c-format
 msgid "Excluding %s, use --ignore-dep to override\n"
 msgstr "Schliesse %s aus, mit --ignore-dep to override ueberschreiben\n"
@@ -158,10 +161,6 @@ msgstr "Konnte Arbeitsverzeichnis [%s] nicht erstellen.\n"
 #, c-format
 msgid "Failed to calloc\n"
 msgstr "Fehler bei calloc\n"
-
-#, c-format
-msgid "Failed to chdir to %s\n"
-msgstr "Konnte nicht nach Verzeichnis %s wechseln\n"
 
 #, c-format
 msgid "Failed to chdir: %s\n"
@@ -180,16 +179,12 @@ msgid "Failed to execute command: [%s]\n"
 msgstr "Konnte Befehl [%s] nicht ausfuehren\n"
 
 #, c-format
-msgid "Failed to get cwd\n"
-msgstr "Konnte aktuelles Arbeitsverzeichnis nicht bestimmen.\n"
-
-#, c-format
 msgid "Failed to malloc\n"
 msgstr "Fehler bei malloc\n"
 
 #, c-format
-msgid "Failed to mkdir: %s\n"
-msgstr "Konnte Verzeichnis %s nicht erstellen\n"
+msgid "Failed to mkdir %s: %s\n"
+msgstr ""
 
 #, c-format
 msgid "Failed to open %s\n"
@@ -351,7 +346,9 @@ msgstr "Moechten sie vielleicht --update aufrufen?\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr "Bitte aendern sie die Berechtigungen von %s oder starten sie slapt-get mit entsprechenden Berechtigungen\n"
+msgstr ""
+"Bitte aendern sie die Berechtigungen von %s oder starten sie slapt-get mit "
+"entsprechenden Berechtigungen\n"
 
 msgid "Preferred"
 msgstr "Bevorzugt"
@@ -367,6 +364,7 @@ msgstr "Bereite Installation von %s-%s vor\n"
 msgid "Preparing to replace %s-%s with %s-%s\n"
 msgstr "Bereite das Ersetzen von %s-%s mit %s-%s vor.\n"
 
+#. now map md5 checksums to packages
 #, c-format
 msgid "Reading Package Lists..."
 msgstr "Lese Paket-Listen... "
@@ -383,6 +381,7 @@ msgstr "Lade Paket-Historie von [%s]... "
 msgid "Retrieving GPG key [%s]..."
 msgstr "Empfange GPG-Schluessel [%s]..."
 
+#. download checksum file
 #, c-format
 msgid "Retrieving checksum list [%s]..."
 msgstr "Rufe Pruefsummen-Liste von [%s] ab... "
@@ -391,10 +390,12 @@ msgstr "Rufe Pruefsummen-Liste von [%s] ab... "
 msgid "Retrieving checksum signature [%s]..."
 msgstr "Empfange Pruefsummen-Signatur [%s]..."
 
+#. download our SLAPT_PKG_LIST
 #, c-format
 msgid "Retrieving package data [%s]..."
 msgstr "Rufe Paket-Daten von [%s] ab... "
 
+#. download SLAPT_PATCHES_LIST
 #, c-format
 msgid "Retrieving patch list [%s]..."
 msgstr "Rufe Patch-Liste von [%s] ab... "
@@ -408,7 +409,9 @@ msgstr "Signatur nicht gelesen"
 
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr "Zugriff auf die Quelle(n) fehlgeschlagen, Quelle(n) korrigieren und slapt-get erneut mit --update starten\n"
+msgstr ""
+"Zugriff auf die Quelle(n) fehlgeschlagen, Quelle(n) korrigieren und slapt-"
+"get erneut mit --update starten\n"
 
 #, c-format
 msgid "Suggested packages:\n"
@@ -503,7 +506,8 @@ msgstr "Fehler beim Lesen der Paketbeschreibung\n"
 
 #, c-format
 msgid "getline reached EOF attempting to read location\n"
-msgstr "getline kam beim Versuch die Ortsangabe einzulesen an das Ende der Datei\n"
+msgstr ""
+"getline kam beim Versuch die Ortsangabe einzulesen an das Ende der Datei\n"
 
 #, c-format
 msgid "getline reached EOF attempting to read size_c\n"
@@ -543,10 +547,6 @@ msgstr "Pakete bei Installation/Aktualisierung nur herunterladen"
 
 msgid "only purge cache of older, unreacheable pkgs"
 msgstr "Nur alte, nicht mehr verfuegbare Pakete aus Zwischenspeicher entfernen"
-
-#, c-format
-msgid "pkg conditional too long\n"
-msgstr "Paket-Bedingungen zu lang\n"
 
 msgid "print URIs only, do not download"
 msgstr "URIs nur ausgeben, nicht herunterladen"
