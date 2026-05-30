@@ -223,6 +223,10 @@ msgstr "Incomplete download"
 msgid "Installed %s conflicts with %s\n"
 msgstr "Geïnstalleerde %s heeft een conflict met %s\n"
 
+#, fuzzy, c-format
+msgid "Invalid package location: %s\n"
+msgstr "Pakket locatie: %s\n"
+
 msgid "MD5 checksum mismatch, override with --no-md5"
 msgstr "MD5 checksum ongelijkheid, negeer met --no-md5"
 

@@ -223,6 +223,10 @@ msgstr "Baixada incompleta"
 msgid "Installed %s conflicts with %s\n"
 msgstr "L'instal·lat %s té conflicte amb %s\n"
 
+#, fuzzy, c-format
+msgid "Invalid package location: %s\n"
+msgstr "Ubicació del paquet: %s\n"
+
 msgid "MD5 checksum mismatch, override with --no-md5"
 msgstr "No hi ha coincidència de sumes MD5, es passa per alt amb \"--no-md5\"."
 

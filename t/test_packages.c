@@ -532,6 +532,50 @@ START_TEST(test_slapt_gen_filename_from_url)
 }
 END_TEST
 
+START_TEST(test_slapt_parse_packages_txt_rejects_dotdot)
+{
+    /* create a temp file with .. in location — should be skipped */
+    char tmpfile[] = "/tmp/slapt_test_dotdot_XXXXXX";
+    int fd = mkstemp(tmpfile);
+    ck_assert(fd >= 0);
+
+    const char *data =
+        "PACKAGE NAME: evil-1.0-x86_64-1.txz\n"
+        "PACKAGE MIRROR: http://example.com/\n"
+        "PACKAGE LOCATION: ../../etc/passwd\n"
+        "PACKAGE SIZE (compressed): 100 K\n"
+        "PACKAGE SIZE (uncompressed): 200 K\n"
+        "PACKAGE DESCRIPTION: evil package\n"
+        "\n"
+        "PACKAGE NAME: good-1.0-x86_64-1.txz\n"
+        "PACKAGE MIRROR: http://example.com/\n"
+        "PACKAGE LOCATION: ./slackware/a\n"
+        "PACKAGE SIZE (compressed): 100 K\n"
+        "PACKAGE SIZE (uncompressed): 200 K\n"
+        "PACKAGE DESCRIPTION: good package\n"
+        "\n";
+    ck_assert((ssize_t)strlen(data) == write(fd, data, strlen(data)));
+    lseek(fd, 0, SEEK_SET);
+
+    FILE *fh = fdopen(fd, "r");
+    ck_assert(fh != NULL);
+
+    slapt_vector_t *pkgs = slapt_parse_packages_txt(fh);
+    fclose(fh);
+    unlink(tmpfile);
+
+    /* should have exactly 1 package (the good one), not the evil one */
+    ck_assert_msg(pkgs != NULL && pkgs->size == 1,
+        "expected 1 package, got %u", pkgs ? pkgs->size : 0);
+
+    slapt_pkg_t *p = pkgs->items[0];
+    ck_assert_msg(strcmp(p->name, "good") == 0,
+        "expected good, got %s", p->name);
+
+    slapt_vector_t_free(pkgs);
+}
+END_TEST
+
 START_TEST(test_slapt_clean_pkg_dir)
 {
     /* create a temp directory structure with nested .t files */
@@ -684,6 +728,7 @@ Suite *packages_test_suite(void)
     tcase_add_test(tc, test_cache);
     tcase_add_test(tc, test_slapt_gen_abs_path);
     tcase_add_test(tc, test_slapt_gen_filename_from_url);
+    tcase_add_test(tc, test_slapt_parse_packages_txt_rejects_dotdot);
     tcase_add_test(tc, test_slapt_clean_pkg_dir);
     tcase_add_test(tc, test_working_dir_absolute);
     tcase_add_test(tc, test_network);

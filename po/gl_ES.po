@@ -222,6 +222,10 @@ msgstr ""
 msgid "Installed %s conflicts with %s\n"
 msgstr ""
 
+#, c-format
+msgid "Invalid package location: %s\n"
+msgstr ""
+
 msgid "MD5 checksum mismatch, override with --no-md5"
 msgstr ""
 

@@ -222,6 +222,10 @@ msgstr "Sikertelen letöltés"
 msgid "Installed %s conflicts with %s\n"
 msgstr "Telepített %s konfliktusban ezzel: %s\n"
 
+#, fuzzy, c-format
+msgid "Invalid package location: %s\n"
+msgstr "Csomag hely: %s\n"
+
 msgid "MD5 checksum mismatch, override with --no-md5"
 msgstr "MD5 ellenőrző összeg eltér, felülbírálás --no-md5"
 

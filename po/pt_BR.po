@@ -230,6 +230,10 @@ msgstr "Descarregamento incompleto"
 msgid "Installed %s conflicts with %s\n"
 msgstr "Instalado %s conflita com %s\n"
 
+#, fuzzy, c-format
+msgid "Invalid package location: %s\n"
+msgstr "Localização do Pacote: %s\n"
+
 msgid "MD5 checksum mismatch, override with --no-md5"
 msgstr "Soma MD5 diferente, utilize --no-md5 para ignorar"
 

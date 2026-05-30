@@ -225,6 +225,10 @@ msgstr "Ημιτελές κατέβασμα αρχείου"
 msgid "Installed %s conflicts with %s\n"
 msgstr "Το εγκατεστημένο %s συγκρούεται με το %s\n"
 
+#, fuzzy, c-format
+msgid "Invalid package location: %s\n"
+msgstr "Τοποθεσία Πακέτου: %s\n"
+
 msgid "MD5 checksum mismatch, override with --no-md5"
 msgstr "Το άθροισμα MD5 δεν ταιριάζει, αγνοήστε το με --no-md5"
 

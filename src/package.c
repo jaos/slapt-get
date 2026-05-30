@@ -173,6 +173,12 @@ slapt_vector_t *slapt_parse_packages_txt(FILE *pkg_list_fh)
             if (location_regex->reg_return == 0) {
                 tmp_pkg->location = slapt_regex_t_extract_match(location_regex, getline_buffer, 1);
 
+                if (strstr(tmp_pkg->location, "..") != NULL) {
+                    fprintf(stderr, gettext("Invalid package location: %s\n"), tmp_pkg->location);
+                    slapt_pkg_t_free(tmp_pkg);
+                    continue;
+                }
+
 #if SLACKWARE_EXTRA_TESTING_PASTURE_WORKAROUND == 1
                 /* extra, testing, and pasture support
                   they add in extraneous /extra/, /testing/, or /pasture/ in the

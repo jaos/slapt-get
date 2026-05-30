@@ -217,6 +217,10 @@ msgstr "Incomplete download"
 msgid "Installed %s conflicts with %s\n"
 msgstr "已安装的 %s 与 %s 有冲突\n"
 
+#, fuzzy, c-format
+msgid "Invalid package location: %s\n"
+msgstr "软件包位置: %s\n"
+
 msgid "MD5 checksum mismatch, override with --no-md5"
 msgstr "MD5 checksum mismatch, override with --no-md5"
 

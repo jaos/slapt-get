@@ -249,6 +249,10 @@ msgstr "Transferência incompleta"
 msgid "Installed %s conflicts with %s\n"
 msgstr "%s entra em conflito com %s\n"
 
+#, fuzzy, c-format
+msgid "Invalid package location: %s\n"
+msgstr "Localização do pacote: %s\n"
+
 msgid "MD5 checksum mismatch, override with --no-md5"
 msgstr "Erro de verificação MD5. Utilize --no-md5"
 

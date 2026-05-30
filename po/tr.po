@@ -224,6 +224,10 @@ msgstr "Incomplete download"
 msgid "Installed %s conflicts with %s\n"
 msgstr "Kurulmuş %s, %s ile çakışıyor\n"
 
+#, fuzzy, c-format
+msgid "Invalid package location: %s\n"
+msgstr "Paket Konumu: %s\n"
+
 msgid "MD5 checksum mismatch, override with --no-md5"
 msgstr "MD5 checksum mismatch, override with --no-md5"
 

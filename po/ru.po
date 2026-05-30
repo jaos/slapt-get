@@ -236,6 +236,10 @@ msgstr "Загрузка не завершена"
 msgid "Installed %s conflicts with %s\n"
 msgstr "Установленный пакет %s конфликтует с %s\n"
 
+#, fuzzy, c-format
+msgid "Invalid package location: %s\n"
+msgstr "Расположение пакета: %s\n"
+
 msgid "MD5 checksum mismatch, override with --no-md5"
 msgstr "MD5-суммы не совпадают, --no-md5 отключает проверку"
 

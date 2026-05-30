@@ -231,6 +231,10 @@ msgstr "Téléchargement incomplet"
 msgid "Installed %s conflicts with %s\n"
 msgstr "Le paquet installé %s rentre en conflit avec %s\n"
 
+#, fuzzy, c-format
+msgid "Invalid package location: %s\n"
+msgstr "Emplacement du paquet : %s\n"
+
 msgid "MD5 checksum mismatch, override with --no-md5"
 msgstr "Somme de contrôle non appariée, outrepassez avec --no-md5"
 

@@ -227,6 +227,10 @@ msgstr "Descarcare incompleta"
 msgid "Installed %s conflicts with %s\n"
 msgstr "Pachetul instalat %s e in conflict cu %s\n"
 
+#, fuzzy, c-format
+msgid "Invalid package location: %s\n"
+msgstr "Locatie pachet: %s\n"
+
 msgid "MD5 checksum mismatch, override with --no-md5"
 msgstr "Suma de control MD5 nu se potriveste, treci peste cu --no-md5"
 

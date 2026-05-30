@@ -235,6 +235,10 @@ msgstr "Завантаження було перервано"
 msgid "Installed %s conflicts with %s\n"
 msgstr "Встановлений %s конфліктує з %s\n"
 
+#, fuzzy, c-format
+msgid "Invalid package location: %s\n"
+msgstr "Розташування пакунку: %s\n"
+
 msgid "MD5 checksum mismatch, override with --no-md5"
 msgstr "Контрольна сума MD5 не співпадає, --no-md5 відключає перевірку"
 

@@ -225,6 +225,10 @@ msgstr "ダウンロードが不完全です"
 msgid "Installed %s conflicts with %s\n"
 msgstr "インストールされた %s は %s と衝突します\n"
 
+#, fuzzy, c-format
+msgid "Invalid package location: %s\n"
+msgstr "パッケージの場所: %s\n"
+
 msgid "MD5 checksum mismatch, override with --no-md5"
 msgstr "MD5 チェックサムが異なっています。 --no-md5 で上書きします"
 

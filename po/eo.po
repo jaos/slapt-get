@@ -223,6 +223,10 @@ msgstr "Malplena elŝuto"
 msgid "Installed %s conflicts with %s\n"
 msgstr ""
 
+#, fuzzy, c-format
+msgid "Invalid package location: %s\n"
+msgstr "Pakaĵversio: %s\n"
+
 msgid "MD5 checksum mismatch, override with --no-md5"
 msgstr ""
 

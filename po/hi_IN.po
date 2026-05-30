@@ -222,6 +222,10 @@ msgstr "अपूर्ण डाउनलोड"
 msgid "Installed %s conflicts with %s\n"
 msgstr "इंस्टॉल हो रखा %s, %s के विरुद्ध है\n"
 
+#, fuzzy, c-format
+msgid "Invalid package location: %s\n"
+msgstr "पैकेज स्थान : %s\n"
+
 msgid "MD5 checksum mismatch, override with --no-md5"
 msgstr "एमडी5 चेकसम मेल नहीं खाता, --no-md5 द्वारा अनदेखा करें"
 

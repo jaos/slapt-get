@@ -241,6 +241,10 @@ msgstr "Neúplné stažení"
 msgid "Installed %s conflicts with %s\n"
 msgstr "Nainstalovaný %s koliduje s %s\n"
 
+#, fuzzy, c-format
+msgid "Invalid package location: %s\n"
+msgstr "Umístění balíčku: %s\n"
+
 msgid "MD5 checksum mismatch, override with --no-md5"
 msgstr ""
 "Kontrolní součet MD5 se neshoduje, pro potlačení použijte přepínač --no-md5"
