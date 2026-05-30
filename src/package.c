@@ -17,6 +17,7 @@
  */
 
 #include "main.h"
+#include <sys/wait.h>
 
 struct slapt_pkg_version_parts {
     char **parts;
@@ -646,49 +647,81 @@ slapt_pkg_t *slapt_get_exact_pkg(const slapt_vector_t *list, const char *name, c
     return NULL;
 }
 
-int slapt_install_pkg(const slapt_config_t *global_config, const slapt_pkg_t *pkg)
+/* execute a package management tool via fork/exec, bypassing the shell */
+static int slapt_exec_pkg_tool(const char *prog, char *const argv[])
 {
-    /* build the file name */
-    char *pkg_file_name = slapt_gen_pkg_file_name(global_config, pkg);
+    pid_t pid = fork();
 
-    /* build and execute our command */
-    const size_t command_len = strlen(SLAPT_INSTALL_CMD) + strlen(pkg_file_name) + 1;
-    char command[command_len];
-    const int written = snprintf(command, command_len, "%s%s", SLAPT_INSTALL_CMD, pkg_file_name);
-    if (written <= 0 || (size_t)written != (command_len - 1)) {
-        fprintf(stderr, "slapt_install_pkg error for %s\n", pkg_file_name);
-        exit(EXIT_FAILURE);
-    }
-
-    const int cmd_return = system(command);
-    free(pkg_file_name);
-    if (cmd_return != 0) {
-        printf(gettext("Failed to execute command: [%s]\n"), command);
+    if (pid < 0) {
+        /* fork failed */
+        fprintf(stderr, "fork failed: %s\n", strerror(errno));
         return -1;
     }
+
+    if (pid == 0) {
+        /* child: exec the tool */
+        execvp(prog, argv);
+        /* execvp only returns on error */
+        fprintf(stderr, "Failed to exec %s: %s\n", prog, strerror(errno));
+        _exit(EXIT_FAILURE);
+    }
+
+    /* parent: wait for child */
+    int status = 0;
+    if (waitpid(pid, &status, 0) == -1) {
+        fprintf(stderr, "waitpid failed: %s\n", strerror(errno));
+        return -1;
+    }
+
+    if (WIFEXITED(status)) {
+        return WEXITSTATUS(status);
+    }
+    return -1;
+}
+
+int slapt_install_pkg(const slapt_config_t *global_config, const slapt_pkg_t *pkg)
+{
+    char *pkg_file_name = slapt_gen_pkg_file_name(global_config, pkg);
+
+    char *const argv[] = {
+        (char *)SLAPT_INSTALL_CMD,
+        pkg_file_name,
+        NULL
+    };
+
+    const int cmd_return = slapt_exec_pkg_tool(SLAPT_INSTALL_CMD, argv);
+    if (cmd_return != 0) {
+        char cmd_str[1024];
+        snprintf(cmd_str, sizeof(cmd_str), "%s %s", SLAPT_INSTALL_CMD, pkg_file_name);
+        printf(gettext("Failed to execute command: [%s]\n"), cmd_str);
+        free(pkg_file_name);
+        return -1;
+    }
+    free(pkg_file_name);
     return 0;
 }
 
 int slapt_upgrade_pkg(const slapt_config_t *global_config, const slapt_pkg_t *pkg)
 {
-    /* build the file name */
     char *pkg_file_name = slapt_gen_pkg_file_name(global_config, pkg);
 
-    /* build and execute our command */
-    const size_t command_len = strlen(SLAPT_UPGRADE_CMD) + strlen(pkg_file_name) + 1;
-    char command[command_len];
-    const int written = snprintf(command, command_len, "%s%s", SLAPT_UPGRADE_CMD, pkg_file_name);
-    if (written <= 0 || (size_t)written != (command_len - 1)) {
-        fprintf(stderr, "slapt_upgrade_pkg error for %s\n", pkg_file_name);
-        exit(EXIT_FAILURE);
-    }
+    char *const argv[] = {
+        (char *)SLAPT_UPGRADE_CMD,
+        (char *)SLAPT_UPGRADE_REINSTALL_ARG,
+        pkg_file_name,
+        NULL
+    };
 
-    const int cmd_return = system(command);
-    free(pkg_file_name);
+    const int cmd_return = slapt_exec_pkg_tool(SLAPT_UPGRADE_CMD, argv);
     if (cmd_return != 0) {
-        printf(gettext("Failed to execute command: [%s]\n"), command);
+        char cmd_str[1024];
+        snprintf(cmd_str, sizeof(cmd_str), "%s %s %s",
+               SLAPT_UPGRADE_CMD, SLAPT_UPGRADE_REINSTALL_ARG, pkg_file_name);
+        printf(gettext("Failed to execute command: [%s]\n"), cmd_str);
+        free(pkg_file_name);
         return -1;
     }
+    free(pkg_file_name);
     return 0;
 }
 
@@ -696,20 +729,25 @@ int slapt_remove_pkg(const slapt_config_t *global_config, const slapt_pkg_t *pkg
 {
     (void)global_config;
 
-    /* build and execute our command */
-    const size_t command_len = strlen(SLAPT_REMOVE_CMD) + strlen(pkg->name) + strlen(pkg->version) + 2;
-    char command[command_len];
-    const int written = snprintf(command, command_len, "%s%s-%s", SLAPT_REMOVE_CMD, pkg->name, pkg->version);
-    if (written <= 0 || (size_t)written != (command_len - 1)) {
-        fprintf(stderr, "slapt_remove_pkg error for %s\n", pkg->name);
-        exit(EXIT_FAILURE);
-    }
+    size_t len = strlen(pkg->name) + strlen(pkg->version) + 2;
+    char *pkg_identifier = slapt_malloc(len);
+    (void)snprintf(pkg_identifier, len, "%s-%s", pkg->name, pkg->version);
 
-    const int cmd_return = system(command);
+    char *const argv[] = {
+        (char *)SLAPT_REMOVE_CMD,
+        pkg_identifier,
+        NULL
+    };
+
+    const int cmd_return = slapt_exec_pkg_tool(SLAPT_REMOVE_CMD, argv);
     if (cmd_return != 0) {
-        printf(gettext("Failed to execute command: [%s]\n"), command);
+        char cmd_str[1024];
+        snprintf(cmd_str, sizeof(cmd_str), "%s %s", SLAPT_REMOVE_CMD, pkg_identifier);
+        printf(gettext("Failed to execute command: [%s]\n"), cmd_str);
+        free(pkg_identifier);
         return -1;
     }
+    free(pkg_identifier);
     return 0;
 }
 
