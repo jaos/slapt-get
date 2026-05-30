@@ -142,7 +142,7 @@ static char *join_path(char **v, size_t start, size_t end, bool absolute) {
         exit(EXIT_FAILURE);
     }
 
-    char *joined = malloc(sizeof(*joined) * joined_size);
+    char *joined = slapt_malloc(sizeof(*joined) * joined_size);
     if (absolute) {
         joined[0] = '/';
         joined[1] = '\0';
@@ -152,7 +152,7 @@ static char *join_path(char **v, size_t start, size_t end, bool absolute) {
     for(size_t counter = start; counter <= end; ++counter) {
         const char *piece = v[counter];
         const size_t piece_size = strlen(piece) + 1;
-        if (counter != 0) {
+        if (counter != start) {
             joined = strncat(joined, "/", 2);
         }
         joined = strncat(joined, piece, piece_size);
