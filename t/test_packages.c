@@ -39,10 +39,14 @@ START_TEST(test_pkg_info)
     free(string);
     string = NULL;
 
-    string = slapt_gen_filename_from_url("https://storage.googleapis.com/slackpacks.jaos.org/slackware64-15.0/", "PACKAGES.TXT");
-    const char *expected_filename = ".https:##storage.googleapis.com#slackpacks.jaos.org#slackware64-15.0#PACKAGES.TXT";
-    ck_assert(string != NULL);
-    ck_assert_msg(strcmp(string, expected_filename) == 0, "failed: %s != %s\n", string, expected_filename);
+    string = slapt_gen_filename_from_url(rc, "https://storage.googleapis.com/slackpacks.jaos.org/slackware64-15.0/", "PACKAGES.TXT");
+    {
+        const size_t expected_len = strlen(rc->working_dir) + strlen("/.https:##storage.googleapis.com#slackpacks.jaos.org#slackware64-15.0#PACKAGES.TXT") + 1;
+        char expected_filename[expected_len];
+        snprintf(expected_filename, expected_len, "%s/.https:##storage.googleapis.com#slackpacks.jaos.org#slackware64-15.0#PACKAGES.TXT", rc->working_dir);
+        ck_assert(string != NULL);
+        ck_assert_msg(strcmp(string, expected_filename) == 0, "failed: %s != %s\n", string, expected_filename);
+    }
     free(string);
     string = NULL;
 
@@ -490,21 +494,109 @@ START_TEST(test_cache)
 }
 END_TEST
 
+START_TEST(test_slapt_gen_abs_path)
+{
+    char *path = NULL;
+
+    /* relative + relative → concatenated */
+    path = slapt_gen_abs_path("/var/cache/slapt-get", "packages/foo.txz");
+    ck_assert_msg(strcmp(path, "/var/cache/slapt-get/packages/foo.txz") == 0,
+        "failed: %s", path);
+    free(path);
+
+    /* absolute input → returned as-is */
+    path = slapt_gen_abs_path("/var/cache/slapt-get", "/tmp/foo.txz");
+    ck_assert_msg(strcmp(path, "/tmp/foo.txz") == 0,
+        "failed: %s", path);
+    free(path);
+
+    /* single component */
+    path = slapt_gen_abs_path("/var/cache/slapt-get", "package_data");
+    ck_assert_msg(strcmp(path, "/var/cache/slapt-get/package_data") == 0,
+        "failed: %s", path);
+    free(path);
+}
+END_TEST
+
+START_TEST(test_slapt_gen_filename_from_url)
+{
+    slapt_config_t cfg = {0};
+    slapt_strlcpy(cfg.working_dir, "/tmp/slapt_test", sizeof(cfg.working_dir));
+
+    char *path = slapt_gen_filename_from_url(&cfg,
+        "https://example.com/slackware/", "/slackware64/a/");
+    ck_assert_msg(path != NULL, "path is NULL");
+    ck_assert_msg(path[0] == '/', "path is not absolute: %s", path);
+    ck_assert_msg(strstr(path, "..") == NULL, "path contains ..: %s", path);
+    free(path);
+}
+END_TEST
+
+START_TEST(test_slapt_clean_pkg_dir)
+{
+    /* create a temp directory structure with nested .t files */
+    char tmpdir[] = "/tmp/slapt_test_clean_XXXXXX";
+    ck_assert(mkdtemp(tmpdir) != NULL);
+
+    char dir1[256], dir2[256], file1[256], file2[256], file3[256];
+    snprintf(dir1, sizeof dir1, "%s/sub1", tmpdir);
+    snprintf(dir2, sizeof dir2, "%s/sub1/sub2", tmpdir);
+    snprintf(file1, sizeof file1, "%s/pkg1-1.0-x86_64-1.txz", tmpdir);
+    snprintf(file2, sizeof file2, "%s/sub1/pkg2-2.0-x86_64-1.txz", tmpdir);
+    snprintf(file3, sizeof file3, "%s/sub1/sub2/pkg3-3.0-x86_64-1.txz", tmpdir);
+
+    /* create directories and files */
+    ck_assert(mkdir(dir1, 0755) == 0);
+    ck_assert(mkdir(dir2, 0755) == 0);
+    FILE *f = NULL;
+    f = fopen(file1, "w"); ck_assert(f); fputs("x", f); fclose(f);
+    f = fopen(file2, "w"); ck_assert(f); fputs("x", f); fclose(f);
+    f = fopen(file3, "w"); ck_assert(f); fputs("x", f); fclose(f);
+
+    /* verify files exist before clean */
+    struct stat st;
+    ck_assert(stat(file1, &st) == 0);
+    ck_assert(stat(file2, &st) == 0);
+    ck_assert(stat(file3, &st) == 0);
+
+    /* clean using absolute path — should remove all .t files recursively */
+    slapt_clean_pkg_dir(tmpdir);
+
+    /* verify all .t files are gone */
+    ck_assert_msg(unlink(file1) == -1 && errno == ENOENT, "file1 not removed");
+    ck_assert_msg(unlink(file2) == -1 && errno == ENOENT, "file2 not removed");
+    ck_assert_msg(unlink(file3) == -1 && errno == ENOENT, "file3 not removed");
+
+    /* clean up empty dirs */
+    rmdir(dir2);
+    rmdir(dir1);
+    rmdir(tmpdir);
+}
+END_TEST
+
+START_TEST(test_working_dir_absolute)
+{
+    slapt_config_t *rc = slapt_config_t_read("./data/rc1");
+    slapt_working_dir_init(rc);
+
+    /* working_dir must start with / after init */
+    ck_assert_msg(rc->working_dir[0] == '/',
+        "working_dir is not absolute: %s", rc->working_dir);
+
+    slapt_config_t_free(rc);
+}
+END_TEST
+
 START_TEST(test_network)
 {
-    char *cwd = get_current_dir_name();
     slapt_config_t *rc = slapt_config_t_read("./data/rc1");
     rc->progress_cb = _progress_cb; /* silence */
 
-    /* must chdir to working dir */
-    ck_assert(chdir(rc->working_dir) == 0);
+    slapt_working_dir_init(rc);
 
     int rv = slapt_update_pkg_cache(rc);
     slapt_config_t_free(rc);
     ck_assert(rv == 0);
-
-    ck_assert(chdir(cwd) == 0);
-    free(cwd);
 }
 END_TEST
 
@@ -590,6 +682,10 @@ Suite *packages_test_suite(void)
     tcase_add_test(tc, test_version);
     tcase_add_test(tc, test_dependency);
     tcase_add_test(tc, test_cache);
+    tcase_add_test(tc, test_slapt_gen_abs_path);
+    tcase_add_test(tc, test_slapt_gen_filename_from_url);
+    tcase_add_test(tc, test_slapt_clean_pkg_dir);
+    tcase_add_test(tc, test_working_dir_absolute);
     tcase_add_test(tc, test_network);
     tcase_add_test(tc, test_slapt_dependency_t);
     tcase_add_test(tc, test_remove_chain);

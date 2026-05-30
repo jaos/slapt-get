@@ -63,7 +63,7 @@ int slapt_config_t_write(const slapt_config_t *global_config, const char *locati
 bool slapt_is_interactive(const slapt_config_t *);
 
 /* check that working_dir exists or make it if permissions allow */
-void slapt_working_dir_init(const slapt_config_t *global_config);
+void slapt_working_dir_init(slapt_config_t *global_config);
 
 /* create, destroy the source struct */
 slapt_source_t *slapt_source_t_init(const char *s);

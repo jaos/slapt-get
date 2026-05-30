@@ -17,6 +17,7 @@
  */
 
 #include "main.h"
+#include <assert.h>
 
 FILE *slapt_open_file(const char *file_name, const char *mode)
 {
@@ -575,6 +576,24 @@ size_t slapt_strlcpy(char *dst, const char *src, size_t size)
     }
 }
 
+char *slapt_gen_abs_path(const char *working_dir, const char *relative_path)
+{
+    assert(working_dir != NULL);
+
+    if (relative_path[0] == '/') {
+        return strdup(relative_path);
+    }
+
+    const size_t abs_len = strlen(working_dir) + strlen(relative_path) + 2;
+    char *abs_path = slapt_calloc(abs_len, sizeof *abs_path);
+    const int written = snprintf(abs_path, abs_len, "%s/%s", working_dir, relative_path);
+    if (written <= 0 || (size_t)written >= abs_len) {
+        fprintf(stderr, "slapt_gen_abs_path error: path too large\n");
+        exit(EXIT_FAILURE);
+    }
+    return abs_path;
+}
+
 char *slapt_gen_package_log_dir_name(void)
 {
     /* Generate package log directory using ROOT env variable if set */
@@ -619,14 +638,9 @@ void slapt_clean_pkg_dir(const char *dir_name)
         return;
     }
 
-    if (chdir(dir_name) == -1) {
-        fprintf(stderr, gettext("Failed to chdir: %s\n"), dir_name);
-        closedir(dir);
-        return;
-    }
-
     slapt_regex_t *cached_pkgs_regex = slapt_regex_t_init(SLAPT_PKG_PARSE_REGEX);
     if (cached_pkgs_regex == NULL) {
+        closedir(dir);
         exit(EXIT_FAILURE);
     }
 
@@ -637,18 +651,17 @@ void slapt_clean_pkg_dir(const char *dir_name)
             continue;
         }
 
+        char *full_path = slapt_gen_abs_path(dir_name, file->d_name);
         struct stat file_stat;
-        if ((lstat(file->d_name, &file_stat)) == -1) {
+        if ((lstat(full_path, &file_stat)) == -1) {
+            free(full_path);
             continue;
         }
 
         /* if its a directory, recurse */
         if (S_ISDIR(file_stat.st_mode)) {
-            slapt_clean_pkg_dir(file->d_name);
-            if ((chdir("..")) == -1) {
-                fprintf(stderr, gettext("Failed to chdir: %s\n"), dir_name);
-                return;
-            }
+            slapt_clean_pkg_dir(full_path);
+            free(full_path);
             continue;
         }
         if (strstr(file->d_name, ".t") != NULL) {
@@ -656,11 +669,12 @@ void slapt_clean_pkg_dir(const char *dir_name)
 
             /* if our regex matches */
             if (cached_pkgs_regex->reg_return == 0) {
-                if (unlink(file->d_name) != 0) {
-                    perror(file->d_name);
+                if (unlink(full_path) != 0) {
+                    perror(full_path);
                 }
             }
         }
+        free(full_path);
     }
     closedir(dir);
 

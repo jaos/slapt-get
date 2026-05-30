@@ -133,8 +133,8 @@ int slapt_pkg_t_cmp_versions(const char *a, const char *b);
 int slapt_pkg_t_cmp(const slapt_pkg_t *a, const slapt_pkg_t *b);
 /* make a copy of a package (needs to be freed with free_pkg) */
 slapt_pkg_t *slapt_pkg_t_copy(slapt_pkg_t *dst, const slapt_pkg_t *src);
-/* retrieve the packages changelog entry, if any.  Returns NULL otherwise, Must be chdir'd to working_dir.  */
-char *slapt_pkg_t_changelog(const slapt_pkg_t *pkg);
+/* retrieve the packages changelog entry, if any.  Returns NULL otherwise.  */
+char *slapt_pkg_t_changelog(const slapt_config_t *, const slapt_pkg_t *pkg);
 /* returns a string representation of the package */
 char *slapt_pkg_t_string(const slapt_pkg_t *pkg);
 /*
@@ -146,7 +146,7 @@ char *slapt_pkg_t_filelist(const slapt_pkg_t *pkg);
 int slapt_pkg_t_qsort_cmp(const void *a, const void *b);
 
 /*
-  update the local package cache. Must be chdir'd to working_dir.
+  update the local package cache.
 */
 int slapt_update_pkg_cache(const slapt_config_t *global_config);
 /* write pkg data to disk */
@@ -154,11 +154,9 @@ void slapt_write_pkg_data(const char *source_url, FILE *d_file, const slapt_vect
 /* parse the PACKAGES.TXT file */
 slapt_vector_t *slapt_parse_packages_txt(FILE *);
 /*
-  return a list of available packages.  Must be chdir'd to
-  rc_config->working_dir.  Otherwise, open a filehandle to the package data
-  and pass it to slapt_parse_packages_txt();
+  return a list of available packages.
 */
-slapt_vector_t *slapt_get_available_pkgs(void);
+slapt_vector_t *slapt_get_available_pkgs(const slapt_config_t *global_config);
 /* retrieve list of installed pkgs */
 slapt_vector_t *slapt_get_installed_pkgs(void);
 
@@ -179,13 +177,13 @@ int slapt_install_pkg(const slapt_config_t *, const slapt_pkg_t *);
 /* upgrade package by calling upgradepkg, returns 0 on success, -1 on error */
 int slapt_upgrade_pkg(const slapt_config_t *global_config, const slapt_pkg_t *pkg);
 /* remove package by calling removepkg, returns 0 on success, -1 on error */
-int slapt_remove_pkg(const slapt_config_t *, const slapt_pkg_t *);
+int slapt_remove_pkg(const slapt_config_t *global_config, const slapt_pkg_t *);
 
 /* get a list of obsolete packages */
 slapt_vector_t *slapt_get_obsolete_pkgs(const slapt_config_t *global_config, const slapt_vector_t *avail_pkgs, const slapt_vector_t *installed_pkgs);
 
 /* generate the filename from the url, caller responsible for freeing the returned data */
-char *slapt_gen_filename_from_url(const char *url, const char *file);
+char *slapt_gen_filename_from_url(const slapt_config_t *global_config, const char *url, const char *file);
 /* generate the package file name, caller responsible for freeing the returned data */
 char *slapt_gen_pkg_file_name(const slapt_config_t *global_config, const slapt_pkg_t *pkg);
 /* exclude pkg based on pkg name, returns 1 if package is present in the exclude list, 0 if not present */

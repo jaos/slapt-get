@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-30 22:29-0400\n"
+"POT-Creation-Date: 2026-05-30 22:41-0400\n"
 "PO-Revision-Date: 2012-09-17 21:34+0000\n"
 "Last-Translator: Jason Woodward <woodwardj@jaos.org>\n"
 "Language-Team: Galician (Spain) (http://www.transifex.com/jaos/slapt-get/"
@@ -159,10 +159,6 @@ msgid "Failed to calloc\n"
 msgstr ""
 
 #, c-format
-msgid "Failed to chdir: %s\n"
-msgstr ""
-
-#, c-format
 msgid "Failed to compile regex\n"
 msgstr ""
 
@@ -196,6 +192,10 @@ msgstr ""
 
 #, c-format
 msgid "Failed to realloc %s\n"
+msgstr ""
+
+#, c-format
+msgid "Failed to resolve working directory [%s]\n"
 msgstr ""
 
 #, c-format

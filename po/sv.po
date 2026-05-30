@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-30 22:29-0400\n"
+"POT-Creation-Date: 2026-05-30 22:41-0400\n"
 "PO-Revision-Date: 2012-09-17 21:34+0000\n"
 "Last-Translator: Ingemar Karlsson <ingemar@ingk.se>, 2012\n"
 "Language-Team: Swedish (http://app.transifex.com/jaos/slapt-get/language/"
@@ -161,10 +161,6 @@ msgid "Failed to calloc\n"
 msgstr "Misslyckades med minnesallokering calloc\n"
 
 #, c-format
-msgid "Failed to chdir: %s\n"
-msgstr "Misslyckades att byta till katalog: %s\n"
-
-#, c-format
 msgid "Failed to compile regex\n"
 msgstr "Misslyckades att kompilera regex\n"
 
@@ -199,6 +195,10 @@ msgstr "Failed to parse package data from %s\n"
 #, c-format
 msgid "Failed to realloc %s\n"
 msgstr "Misslyckades att återallokera minne %s\n"
+
+#, fuzzy, c-format
+msgid "Failed to resolve working directory [%s]\n"
+msgstr "Misslyckades att skapa katalog [%s]\n"
 
 #, c-format
 msgid "Failed to unlink %s\n"
@@ -608,3 +608,7 @@ msgstr "uppgradera till nyare version"
 
 msgid "yes"
 msgstr "ja"
+
+#, c-format
+#~ msgid "Failed to chdir: %s\n"
+#~ msgstr "Misslyckades att byta till katalog: %s\n"

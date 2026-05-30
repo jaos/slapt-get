@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-30 22:29-0400\n"
+"POT-Creation-Date: 2026-05-30 22:41-0400\n"
 "PO-Revision-Date: 2012-09-17 21:34+0000\n"
 "Last-Translator: Copyright (C) 2004, 2005\n"
 "Language-Team: Vietnamese (http://app.transifex.com/jaos/slapt-get/language/"
@@ -155,10 +155,6 @@ msgid "Failed to calloc\n"
 msgstr "Bị lỗi khi cấp phát\n"
 
 #, c-format
-msgid "Failed to chdir: %s\n"
-msgstr "Bị lỗi khi chuyển vào thư mục: %s\n"
-
-#, c-format
 msgid "Failed to compile regex\n"
 msgstr "Bị lỗi khi biên dịch biểu thức\n"
 
@@ -193,6 +189,10 @@ msgstr "Bị lỗi khi chuyển đổi gói dữ liệu từ %s\n"
 #, c-format
 msgid "Failed to realloc %s\n"
 msgstr "Bị lỗi khi cấp phát thêm vùng nhớ %s\n"
+
+#, fuzzy, c-format
+msgid "Failed to resolve working directory [%s]\n"
+msgstr "Bị lỗi trong khi xây dựng thư mục làm việc [%s]\n"
 
 #, c-format
 msgid "Failed to unlink %s\n"
@@ -601,3 +601,7 @@ msgstr "nâng cấp hệ thống lên phiên bản mới hơn"
 
 msgid "yes"
 msgstr "yes"
+
+#, c-format
+#~ msgid "Failed to chdir: %s\n"
+#~ msgstr "Bị lỗi khi chuyển vào thư mục: %s\n"

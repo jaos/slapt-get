@@ -196,12 +196,12 @@ const char *slapt_download_pkg(const slapt_config_t *global_config, const slapt_
         exit(EXIT_FAILURE);
     }
 
-    /* chdir(global_config->working_dir); */ /* just in case */
-    slapt_create_dir_structure(pkg->location);
-
     /* build the url, file name, and get the file size if the file is present */
     char *url = slapt_pkg_t_url(pkg);
     char *file_name = slapt_gen_pkg_file_name(global_config, pkg);
+    char *abs_location = slapt_gen_abs_path(global_config->working_dir, pkg->location);
+    slapt_create_dir_structure(abs_location);
+    free(abs_location);
     size_t f_size = slapt_get_pkg_file_size(global_config, pkg);
     ssize_t dl_total_size = (ssize_t)(pkg->size_c - (f_size / 1024));
 

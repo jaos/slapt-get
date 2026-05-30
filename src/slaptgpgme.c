@@ -71,7 +71,7 @@ FILE *slapt_get_pkg_source_checksums_signature(const slapt_config_t *global_conf
 
     char *checksum_head = slapt_head_mirror_data(url, location);
     if (checksum_head != NULL) {
-        char *filename = slapt_gen_filename_from_url(url, location);
+        char *filename = slapt_gen_filename_from_url(global_config, url, location);
         char *local_head = slapt_read_head_cache(filename);
 
         if (local_head != NULL && strcmp(checksum_head, local_head) == 0) {
@@ -118,7 +118,7 @@ FILE *slapt_get_pkg_source_checksums_signature(const slapt_config_t *global_conf
         free(local_head);
         free(checksum_head);
     } else {
-        char *filename = slapt_gen_filename_from_url(url, location);
+        char *filename = slapt_gen_filename_from_url(global_config, url, location);
 
         if (global_config->dl_stats) {
             printf("\n");
@@ -153,7 +153,7 @@ FILE *slapt_get_pkg_source_checksums_signature(const slapt_config_t *global_conf
 FILE *slapt_get_pkg_source_gpg_key(const slapt_config_t *global_config, const char *url, bool *compressed)
 {
     FILE *tmp_key_f = NULL;
-    char *filename = slapt_gen_filename_from_url(url, SLAPT_GPG_KEY);
+    char *filename = slapt_gen_filename_from_url(global_config, url, SLAPT_GPG_KEY);
     char *local_head = slapt_read_head_cache(filename);
     bool interactive = global_config->progress_cb == NULL && !global_config->dl_stats ? true : false;
 

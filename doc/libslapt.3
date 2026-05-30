@@ -266,7 +266,7 @@ The following functions deal with determining package dependencies and conflicts
 .fi
 .sp
 .TP
-\fIslapt_pkg_t_changelog\fP() returns the package changelog entry, if any.  Otherwise returns NULL.  Assumes already chdir'd to the working directory.
+\fIslapt_pkg_t_changelog\fP() returns the package changelog entry, if any.  Otherwise returns NULL.
 .sp
 .nf
 .B "char *slapt_pkg_t_changelog(const slapt_pkg_t *pkg);"
@@ -312,7 +312,7 @@ The \fIslapt_pkg_t_clean_description\fP() function is used to clean the package 
 .sp
 .IP \fBDOWNLOADING\fP
 .TP
-Downloading packages and the package data from various sources is handled with the following functions.  Functions with integer return types return non-zero on error.  \fIslapt_update_pkg_cache\fP() and \fIslapt_get_available_pkgs\fP() assume to be chdir'd to the working directory.
+Downloading packages and the package data from various sources is handled with the following functions.  Functions with integer return types return non-zero on error.
 .sp
 .nf
 .B "int slapt_download_data(FILE *fh, const char *url, size_t bytes, long *filetime,"

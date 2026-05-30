@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-30 22:29-0400\n"
+"POT-Creation-Date: 2026-05-30 22:41-0400\n"
 "PO-Revision-Date: 2012-09-17 21:34+0000\n"
 "Last-Translator: Yang Jinsong <shannleon@gmail.com>, 2006\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/jaos/slapt-get/"
@@ -154,10 +154,6 @@ msgid "Failed to calloc\n"
 msgstr "calloc 失败\n"
 
 #, c-format
-msgid "Failed to chdir: %s\n"
-msgstr "进入目录 %s 失败\n"
-
-#, c-format
 msgid "Failed to compile regex\n"
 msgstr "Failed to compile regex\n"
 
@@ -192,6 +188,10 @@ msgstr "分析 %s 的软件包数据失败\n"
 #, c-format
 msgid "Failed to realloc %s\n"
 msgstr "Failed to realloc %s\n"
+
+#, fuzzy, c-format
+msgid "Failed to resolve working directory [%s]\n"
+msgstr "建立工作目录 [%s] 失败\n"
 
 #, c-format
 msgid "Failed to unlink %s\n"
@@ -597,3 +597,7 @@ msgstr "升级至更新的 release 版本"
 
 msgid "yes"
 msgstr "是"
+
+#, c-format
+#~ msgid "Failed to chdir: %s\n"
+#~ msgstr "进入目录 %s 失败\n"

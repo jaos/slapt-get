@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-30 22:29-0400\n"
+"POT-Creation-Date: 2026-05-30 22:41-0400\n"
 "PO-Revision-Date: 2012-09-17 21:34+0000\n"
 "Last-Translator: Peter Polonkai <polesz at nedudu dot hu>, 2010\n"
 "Language-Team: Hungarian (http://app.transifex.com/jaos/slapt-get/language/"
@@ -159,10 +159,6 @@ msgid "Failed to calloc\n"
 msgstr "Sikertelen calloc hívás\n"
 
 #, c-format
-msgid "Failed to chdir: %s\n"
-msgstr "Sikertelen chdir ide: %s\n"
-
-#, c-format
 msgid "Failed to compile regex\n"
 msgstr "Hibás fordítási kifejezés\n"
 
@@ -197,6 +193,10 @@ msgstr "Nem sikerült feldolgozni a csomag adatát: %s\n"
 #, c-format
 msgid "Failed to realloc %s\n"
 msgstr "Sikertelen realloc hívás: %s\n"
+
+#, fuzzy, c-format
+msgid "Failed to resolve working directory [%s]\n"
+msgstr "Érvénytelen a munka könyvtár [%s]\n"
 
 #, c-format
 msgid "Failed to unlink %s\n"
@@ -607,3 +607,7 @@ msgstr "frissítés az újabb kiadásra"
 
 msgid "yes"
 msgstr "igen"
+
+#, c-format
+#~ msgid "Failed to chdir: %s\n"
+#~ msgstr "Sikertelen chdir ide: %s\n"

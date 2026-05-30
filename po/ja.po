@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-30 22:29-0400\n"
+"POT-Creation-Date: 2026-05-30 22:41-0400\n"
 "PO-Revision-Date: 2012-09-17 21:34+0000\n"
 "Last-Translator: 🎈 BALLOON | FU-SEN, 2016\n"
 "Language-Team: Japanese (http://app.transifex.com/jaos/slapt-get/language/"
@@ -162,10 +162,6 @@ msgid "Failed to calloc\n"
 msgstr "calloc に失敗しました\n"
 
 #, c-format
-msgid "Failed to chdir: %s\n"
-msgstr "chdir に失敗しました: %s\n"
-
-#, c-format
 msgid "Failed to compile regex\n"
 msgstr "regex のコンパイルに失敗しました\n"
 
@@ -200,6 +196,10 @@ msgstr "%s からのパッケージデータ分析に失敗しました\n"
 #, c-format
 msgid "Failed to realloc %s\n"
 msgstr "realloc %s に失敗しました\n"
+
+#, fuzzy, c-format
+msgid "Failed to resolve working directory [%s]\n"
+msgstr "作業ディレクトリ [%s] のビルドに失敗しました\n"
 
 #, c-format
 msgid "Failed to unlink %s\n"
@@ -608,3 +608,7 @@ msgstr "新しいリリースにアップグレード"
 
 msgid "yes"
 msgstr "はい"
+
+#, c-format
+#~ msgid "Failed to chdir: %s\n"
+#~ msgstr "chdir に失敗しました: %s\n"

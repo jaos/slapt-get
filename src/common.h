@@ -120,6 +120,12 @@ char *slapt_strip_whitespace(const char *s);
 size_t slapt_strlcpy(char *, const char *, size_t);
 
 /*
+  generate an absolute path by joining global_config->working_dir with
+  a relative path; if relative_path is already absolute, return a copy
+  caller responsible for freeing the returned data
+ */
+char *slapt_gen_abs_path(const char *working_dir, const char *relative_path);
+/*
   generate the directory name for the package log directory,
   considering the root environment variable if set
   caller responsible for freeing the returned data

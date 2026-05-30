@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-30 22:29-0400\n"
+"POT-Creation-Date: 2026-05-30 22:41-0400\n"
 "PO-Revision-Date: 2012-09-17 21:34+0000\n"
 "Last-Translator: gapan <vlahavas@gmail.com>, 2012\n"
 "Language-Team: Greek (http://app.transifex.com/jaos/slapt-get/language/el/)\n"
@@ -162,10 +162,6 @@ msgid "Failed to calloc\n"
 msgstr "Αποτυχία calloc\n"
 
 #, c-format
-msgid "Failed to chdir: %s\n"
-msgstr "Αποτυχία chdir: %s\n"
-
-#, c-format
 msgid "Failed to compile regex\n"
 msgstr "Αποτυχία κατά το compile του regex\n"
 
@@ -200,6 +196,10 @@ msgstr "Αδύνατη η λήψη των δεδομένων πακέτων απ
 #, c-format
 msgid "Failed to realloc %s\n"
 msgstr "Αποτυχία realloc %s\n"
+
+#, fuzzy, c-format
+msgid "Failed to resolve working directory [%s]\n"
+msgstr "Αποτυχία δημιουργίας φακέλου εργασίας [%s]\n"
 
 #, c-format
 msgid "Failed to unlink %s\n"
@@ -610,3 +610,7 @@ msgstr "αναβάθμιση σε νεότερη έκδοση"
 
 msgid "yes"
 msgstr "ναι"
+
+#, c-format
+#~ msgid "Failed to chdir: %s\n"
+#~ msgstr "Αποτυχία chdir: %s\n"

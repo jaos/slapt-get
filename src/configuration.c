@@ -128,7 +128,7 @@ slapt_config_t *slapt_config_t_read(const char *file_name)
     return global_config;
 }
 
-void slapt_working_dir_init(const slapt_config_t *global_config)
+void slapt_working_dir_init(slapt_config_t *global_config)
 {
     slapt_create_dir_structure(global_config->working_dir);
     DIR *working_dir = opendir(global_config->working_dir);
@@ -137,6 +137,15 @@ void slapt_working_dir_init(const slapt_config_t *global_config)
         exit(EXIT_FAILURE);
     }
     closedir(working_dir);
+
+    /* resolve working_dir to absolute path */
+    char *abs_working_dir = realpath(global_config->working_dir, NULL);
+    if (abs_working_dir == NULL) {
+        fprintf(stderr, gettext("Failed to resolve working directory [%s]\n"), global_config->working_dir);
+        exit(EXIT_FAILURE);
+    }
+    slapt_strlcpy(global_config->working_dir, abs_working_dir, sizeof(global_config->working_dir));
+    free(abs_working_dir);
 
     /* allow read access if we are simulating */
     int mode = W_OK;

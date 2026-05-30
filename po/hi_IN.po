@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-30 22:29-0400\n"
+"POT-Creation-Date: 2026-05-30 22:41-0400\n"
 "PO-Revision-Date: 2012-09-17 21:34+0000\n"
 "Last-Translator: Panwar108 <caspian7pena@gmail.com>, 2020\n"
 "Language-Team: Hindi (India) (http://app.transifex.com/jaos/slapt-get/"
@@ -159,10 +159,6 @@ msgid "Failed to calloc\n"
 msgstr "calloc करने में विफल\n"
 
 #, c-format
-msgid "Failed to chdir: %s\n"
-msgstr "chdir करने में विफल : %s\n"
-
-#, c-format
 msgid "Failed to compile regex\n"
 msgstr "regex संयोजित करने में विफल\n"
 
@@ -197,6 +193,10 @@ msgstr "%s से पैकेज डाटा प्राप्य करन�
 #, c-format
 msgid "Failed to realloc %s\n"
 msgstr "%s realloc करने में विफल\n"
+
+#, fuzzy, c-format
+msgid "Failed to resolve working directory [%s]\n"
+msgstr "कार्यरत डायरेक्टरी बनाने में विफल [%s]\n"
 
 #, c-format
 msgid "Failed to unlink %s\n"
@@ -602,3 +602,7 @@ msgstr "नए संस्करण में अपग्रेड करे�
 
 msgid "yes"
 msgstr "हाँ"
+
+#, c-format
+#~ msgid "Failed to chdir: %s\n"
+#~ msgstr "chdir करने में विफल : %s\n"

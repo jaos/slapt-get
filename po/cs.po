@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-30 22:29-0400\n"
+"POT-Creation-Date: 2026-05-30 22:41-0400\n"
 "PO-Revision-Date: 2012-09-17 21:34+0000\n"
 "Last-Translator: Michal Várady <miko.vaji@gmail.com>, 2015\n"
 "Language-Team: Czech (http://app.transifex.com/jaos/slapt-get/language/cs/)\n"
@@ -176,10 +176,6 @@ msgid "Failed to calloc\n"
 msgstr "Přidělení funkcí calloc se nezdařilo\n"
 
 #, c-format
-msgid "Failed to chdir: %s\n"
-msgstr "Nepodařilo se změnit adresář: %s\n"
-
-#, c-format
 msgid "Failed to compile regex\n"
 msgstr ""
 "Nepodařilo se zkompilovat regulární výraz\n"
@@ -216,6 +212,10 @@ msgstr "Nepodařilo se analyzovat popisy balíčků z %s\n"
 #, c-format
 msgid "Failed to realloc %s\n"
 msgstr "Nepodařilo se opakovaně přidělit %s\n"
+
+#, fuzzy, c-format
+msgid "Failed to resolve working directory [%s]\n"
+msgstr "Nepodařilo se vytvořit pracovní adresář [%s]\n"
 
 #, c-format
 msgid "Failed to unlink %s\n"
@@ -636,3 +636,7 @@ msgstr "upgradovat na novější vydání"
 
 msgid "yes"
 msgstr "ano"
+
+#, c-format
+#~ msgid "Failed to chdir: %s\n"
+#~ msgstr "Nepodařilo se změnit adresář: %s\n"

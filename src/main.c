@@ -26,7 +26,7 @@ static void slapt_pkg_action_install(const slapt_config_t *global_config, const 
 static void slapt_pkg_action_list(const slapt_config_t *, const int show, const bool verbose);
 static void slapt_pkg_action_remove(const slapt_config_t *global_config, const slapt_vector_t *action_args);
 static void slapt_pkg_action_search(const slapt_config_t *, const char *pattern, const bool verbose);
-static void slapt_pkg_action_show(const char *pkg_name);
+static void slapt_pkg_action_show(const slapt_config_t *global_config, const char *pkg_name);
 static void slapt_pkg_action_upgrade_all(const slapt_config_t *global_config);
 #ifdef SLAPT_HAS_GPGME
 static void slapt_pkg_action_add_keys(const slapt_config_t *global_config);
@@ -324,10 +324,6 @@ int main(const int argc, char *argv[])
     /* create the working directory if needed */
     slapt_vector_t *paa = NULL;
     slapt_working_dir_init(global_config);
-    if ((chdir(global_config->working_dir)) == -1) {
-        fprintf(stderr, gettext("Failed to chdir: %s\n"), global_config->working_dir);
-        exit(EXIT_FAILURE);
-    }
 
     switch (do_action) {
     case SLAPT_ACTION_UPDATE:
@@ -348,7 +344,7 @@ int main(const int argc, char *argv[])
         break;
     case SLAPT_ACTION_INSTALL_DISK_SET: {
         paa = slapt_vector_t_init(NULL);
-        slapt_vector_t *avail_pkgs = slapt_get_available_pkgs();
+        slapt_vector_t *avail_pkgs = slapt_get_available_pkgs(global_config);
 
         while (optind < argc) {
             const size_t search_len = strlen(argv[optind]) + 3;
@@ -386,7 +382,7 @@ int main(const int argc, char *argv[])
         break;
     case SLAPT_ACTION_SHOW:
         while (optind < argc) {
-            slapt_pkg_action_show(argv[optind++]);
+            slapt_pkg_action_show(global_config, argv[optind++]);
         }
         break;
     case SLAPT_ACTION_SEARCH:
@@ -406,10 +402,6 @@ int main(const int argc, char *argv[])
     case SLAPT_ACTION_CLEAN:
         /* clean out local cache */
         slapt_clean_pkg_dir(global_config->working_dir);
-        if ((chdir(global_config->working_dir)) == -1) {
-            fprintf(stderr, gettext("Failed to chdir: %s\n"), global_config->working_dir);
-            exit(EXIT_FAILURE);
-        }
         break;
     case SLAPT_ACTION_AUTOCLEAN:
         slapt_purge_old_cached_pkgs(global_config, NULL, NULL);
@@ -519,7 +511,7 @@ static void slapt_pkg_action_install(const slapt_config_t *global_config, const 
 {
     printf(gettext("Reading Package Lists..."));
     slapt_vector_t *installed_pkgs = slapt_get_installed_pkgs();
-    slapt_vector_t *avail_pkgs = slapt_get_available_pkgs();
+    slapt_vector_t *avail_pkgs = slapt_get_available_pkgs(global_config);
 
     if (avail_pkgs == NULL || !avail_pkgs->size)
         exit(EXIT_FAILURE);
@@ -654,9 +646,9 @@ static void slapt_pkg_action_install(const slapt_config_t *global_config, const 
 }
 
 /* list pkgs */
-static void slapt_pkg_action_list(const slapt_config_t *config, const int show, const bool verbose)
+static void slapt_pkg_action_list(const slapt_config_t *global_config, const int show, const bool verbose)
 {
-    slapt_vector_t *pkgs = slapt_get_available_pkgs();
+    slapt_vector_t *pkgs = slapt_get_available_pkgs(global_config);
     slapt_vector_t *installed_pkgs = slapt_get_installed_pkgs();
 
     if (show == SLAPT_ACTION_LIST || show == SLAPT_ACTION_AVAILABLE) {
@@ -670,7 +662,7 @@ static void slapt_pkg_action_list(const slapt_config_t *config, const int show, 
             }
 
             if (verbose == true) {
-                const bool is_excluded = slapt_is_excluded(config, pkg);
+                const bool is_excluded = slapt_is_excluded(global_config, pkg);
                 printf("name=%s version=%s location=%s mirror=%s inst=%s excluded=%s desc=%s\n",
                        pkg->name,
                        pkg->version,
@@ -705,7 +697,7 @@ static void slapt_pkg_action_list(const slapt_config_t *config, const int show, 
 
             char *short_description = slapt_pkg_t_short_description(pkg);
             if (verbose == true) {
-                const bool is_excluded = slapt_is_excluded(config, pkg);
+                const bool is_excluded = slapt_is_excluded(global_config, pkg);
                 printf("name=%s version=%s location=%s mirror=%s inst=%s excluded=%s desc=%s\n",
                        pkg->name,
                        pkg->version,
@@ -736,7 +728,7 @@ static void slapt_pkg_action_remove(const slapt_config_t *global_config, const s
 {
     printf(gettext("Reading Package Lists..."));
     slapt_vector_t *installed_pkgs = slapt_get_installed_pkgs();
-    slapt_vector_t *avail_pkgs = slapt_get_available_pkgs();
+    slapt_vector_t *avail_pkgs = slapt_get_available_pkgs(global_config);
     printf(gettext("Done\n"));
 
     slapt_transaction_t *trxn = slapt_transaction_t_init();
@@ -815,10 +807,10 @@ static void slapt_pkg_action_remove(const slapt_config_t *global_config, const s
 }
 
 /* search for a pkg (support extended POSIX regex) */
-static void slapt_pkg_action_search(const slapt_config_t *config, const char *pattern, const bool verbose)
+static void slapt_pkg_action_search(const slapt_config_t *global_config, const char *pattern, const bool verbose)
 {
     /* read in pkg data */
-    slapt_vector_t *pkgs = slapt_get_available_pkgs();
+    slapt_vector_t *pkgs = slapt_get_available_pkgs(global_config);
     slapt_vector_t *installed_pkgs = slapt_get_installed_pkgs();
 
     slapt_vector_t *matches = slapt_search_pkg_list(pkgs, pattern);
@@ -827,7 +819,7 @@ static void slapt_pkg_action_search(const slapt_config_t *config, const char *pa
     slapt_vector_t_foreach (const slapt_pkg_t *, pkg, matches) {
         char *short_description = slapt_pkg_t_short_description(pkg);
         if (verbose == true) {
-            const bool is_excluded = slapt_is_excluded(config, pkg);
+            const bool is_excluded = slapt_is_excluded(global_config, pkg);
             printf("name=%s version=%s location=%s mirror=%s inst=%s excluded=%s desc=%s\n",
                    pkg->name,
                    pkg->version,
@@ -860,7 +852,7 @@ static void slapt_pkg_action_search(const slapt_config_t *config, const char *pa
 
         short_description = slapt_pkg_t_short_description(installed_pkg);
         if (verbose == true) {
-            const bool is_excluded = slapt_is_excluded(config, installed_pkg);
+            const bool is_excluded = slapt_is_excluded(global_config, installed_pkg);
             printf("name=%s version=%s location=%s mirror=%s inst=%s excluded=%s desc=%s\n",
                    installed_pkg->name,
                    installed_pkg->version,
@@ -888,11 +880,11 @@ static void slapt_pkg_action_search(const slapt_config_t *config, const char *pa
 }
 
 /* show the details for a specific package */
-static void slapt_pkg_action_show(const char *pkg_name)
+static void slapt_pkg_action_show(const slapt_config_t *global_config, const char *pkg_name)
 {
     slapt_pkg_t *pkg = NULL;
 
-    slapt_vector_t *avail_pkgs = slapt_get_available_pkgs();
+    slapt_vector_t *avail_pkgs = slapt_get_available_pkgs(global_config);
     slapt_vector_t *installed_pkgs = slapt_get_installed_pkgs();
 
     if (avail_pkgs == NULL || installed_pkgs == NULL)
@@ -932,7 +924,7 @@ static void slapt_pkg_action_show(const char *pkg_name)
     }
 
     if (pkg != NULL) {
-        char *changelog = slapt_pkg_t_changelog(pkg);
+        char *changelog = slapt_pkg_t_changelog(global_config, pkg);
         char *description = slapt_pkg_t_clean_description(pkg);
         bool installed = false;
 
@@ -1000,7 +992,7 @@ static void slapt_pkg_action_upgrade_all(const slapt_config_t *global_config)
 
     printf(gettext("Reading Package Lists..."));
     slapt_vector_t *installed_pkgs = slapt_get_installed_pkgs();
-    slapt_vector_t *avail_pkgs = slapt_get_available_pkgs();
+    slapt_vector_t *avail_pkgs = slapt_get_available_pkgs(global_config);
 
     if (avail_pkgs == NULL || installed_pkgs == NULL) {
         exit(EXIT_FAILURE);

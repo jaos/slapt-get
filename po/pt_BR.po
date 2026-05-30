@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-30 22:29-0400\n"
+"POT-Creation-Date: 2026-05-30 22:41-0400\n"
 "PO-Revision-Date: 2012-09-17 21:34+0000\n"
 "Last-Translator: The Cat, 2023\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/jaos/slapt-get/"
@@ -167,10 +167,6 @@ msgid "Failed to calloc\n"
 msgstr "Falha na função calloc\n"
 
 #, c-format
-msgid "Failed to chdir: %s\n"
-msgstr "Falha ao entrar no diretório: %s\n"
-
-#, c-format
 msgid "Failed to compile regex\n"
 msgstr "Falha ao compilar regex\n"
 
@@ -205,6 +201,10 @@ msgstr "Falha ao realizar parse das informações do pacote de %s\n"
 #, c-format
 msgid "Failed to realloc %s\n"
 msgstr "Falha na função realloc %s\n"
+
+#, fuzzy, c-format
+msgid "Failed to resolve working directory [%s]\n"
+msgstr "Falha ao criar diretório de trabalho [%s]\n"
 
 #, c-format
 msgid "Failed to unlink %s\n"
@@ -619,3 +619,7 @@ msgstr "atualiza para uma nova versão do SO"
 
 msgid "yes"
 msgstr "sim"
+
+#, c-format
+#~ msgid "Failed to chdir: %s\n"
+#~ msgstr "Falha ao entrar no diretório: %s\n"

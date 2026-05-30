@@ -44,10 +44,11 @@ bool slapt_pkg_sign_is_unauthenticated(slapt_code_t code);
 #endif
 
 /* parse the PACKAGES.TXT file */
-slapt_vector_t *slapt_get_available_pkgs(void)
+slapt_vector_t *slapt_get_available_pkgs(const slapt_config_t *global_config)
 {
-    /* open pkg list */
-    FILE *pkg_list_fh = slapt_open_file(SLAPT_PKG_LIST_L, "r");
+    char *pkg_list_path = slapt_gen_abs_path(global_config->working_dir, SLAPT_PKG_LIST_L);
+    FILE *pkg_list_fh = slapt_open_file(pkg_list_path, "r");
+    free(pkg_list_path);
     if (pkg_list_fh == NULL) {
         fprintf(stderr, gettext("Perhaps you want to run --update?\n"));
         return slapt_vector_t_init(NULL); /* return an empty list */
@@ -727,6 +728,7 @@ int slapt_upgrade_pkg(const slapt_config_t *global_config, const slapt_pkg_t *pk
 
 int slapt_remove_pkg(const slapt_config_t *global_config, const slapt_pkg_t *pkg)
 {
+    // used for symmetry with other commands and in case we need it in the future
     (void)global_config;
 
     size_t len = strlen(pkg->name) + strlen(pkg->version) + 2;
@@ -1539,7 +1541,7 @@ int slapt_update_pkg_cache(const slapt_config_t *global_config)
 
         /* if we downloaded the compressed checksums, open it raw (w/o gunzipping) */
         if (compressed) {
-            char *filename = slapt_gen_filename_from_url(source_url, SLAPT_CHECKSUM_FILE_GZ);
+            char *filename = slapt_gen_filename_from_url(global_config, source_url, SLAPT_CHECKSUM_FILE_GZ);
             tmp_checksum_to_verify_f = slapt_open_file(filename, "r");
             free(filename);
         } else {
@@ -1644,7 +1646,9 @@ int slapt_update_pkg_cache(const slapt_config_t *global_config)
     if (!source_dl_failed) {
         slapt_vector_t_sort(new_pkgs, slapt_pkg_t_qsort_cmp);
 
-        FILE *pkg_list_fh = slapt_open_file(SLAPT_PKG_LIST_L, "w+");
+        char *pkg_list_path = slapt_gen_abs_path(global_config->working_dir, SLAPT_PKG_LIST_L);
+        FILE *pkg_list_fh = slapt_open_file(pkg_list_path, "w+");
+        free(pkg_list_path);
         if (pkg_list_fh == NULL) {
             exit(EXIT_FAILURE);
         }
@@ -1832,7 +1836,7 @@ slapt_code_t slapt_verify_downloaded_pkg(const slapt_config_t *global_config, co
     return SLAPT_MD5_CHECKSUM_MISMATCH;
 }
 
-char *slapt_gen_filename_from_url(const char *url, const char *file)
+char *slapt_gen_filename_from_url(const slapt_config_t *global_config, const char *url, const char *file)
 {
     const size_t filename_len = strlen(url) + strlen(file) + 2;
     char filename[filename_len];
@@ -1842,7 +1846,9 @@ char *slapt_gen_filename_from_url(const char *url, const char *file)
         exit(EXIT_FAILURE);
     }
     char *cleaned = slapt_str_replace_chr(filename, '/', '#');
-    return cleaned;
+    char *abs_path = slapt_gen_abs_path(global_config->working_dir, cleaned);
+    free(cleaned);
+    return abs_path;
 }
 
 void slapt_purge_old_cached_pkgs(const slapt_config_t *global_config, const char *dir_name, slapt_vector_t *avail_pkgs)
@@ -1854,7 +1860,7 @@ void slapt_purge_old_cached_pkgs(const slapt_config_t *global_config, const char
     }
 
     if (avail_pkgs == NULL) {
-        avail_pkgs = slapt_get_available_pkgs();
+        avail_pkgs = slapt_get_available_pkgs(global_config);
         local_pkg_list = true;
     }
 
@@ -1872,16 +1878,6 @@ void slapt_purge_old_cached_pkgs(const slapt_config_t *global_config, const char
         return;
     }
 
-    if (chdir(dir_name) == -1) {
-        if (errno)
-            perror(dir_name);
-
-        fprintf(stderr, gettext("Failed to chdir: %s\n"), dir_name);
-        closedir(dir);
-        slapt_regex_t_free(cached_pkgs_regex);
-        return;
-    }
-
     struct dirent *file;
     while ((file = readdir(dir))) {
         /* make sure we don't have . or .. */
@@ -1889,18 +1885,17 @@ void slapt_purge_old_cached_pkgs(const slapt_config_t *global_config, const char
             continue;
 
         /* setup file_stat struct */
+        char *full_path = slapt_gen_abs_path(dir_name, file->d_name);
         struct stat file_stat;
-        if ((lstat(file->d_name, &file_stat)) == -1)
+        if ((lstat(full_path, &file_stat)) == -1) {
+            free(full_path);
             continue;
+        }
 
         /* if its a directory, recurse */
         if (S_ISDIR(file_stat.st_mode)) {
-            slapt_purge_old_cached_pkgs(global_config, file->d_name, avail_pkgs);
-            if ((chdir("..")) == -1) {
-                fprintf(stderr, gettext("Failed to chdir: %s\n"), dir_name);
-                slapt_regex_t_free(cached_pkgs_regex);
-                return;
-            }
+            slapt_purge_old_cached_pkgs(global_config, full_path, avail_pkgs);
+            free(full_path);
             continue;
         }
 
@@ -1922,13 +1917,13 @@ void slapt_purge_old_cached_pkgs(const slapt_config_t *global_config, const char
 
                 if (tmp_pkg == NULL) {
                     if (global_config->no_prompt) {
-                        if (unlink(file->d_name) != 0) {
-                            perror(file->d_name);
+                        if (unlink(full_path) != 0) {
+                            perror(full_path);
                         }
                     } else {
                         if (slapt_ask_yes_no(gettext("Delete %s ? [y/N]"), file->d_name) == 1) {
-                            if (unlink(file->d_name) != 0) {
-                                perror(file->d_name);
+                            if (unlink(full_path) != 0) {
+                                perror(full_path);
                             }
                         }
                     }
@@ -1936,6 +1931,7 @@ void slapt_purge_old_cached_pkgs(const slapt_config_t *global_config, const char
                 tmp_pkg = NULL;
             }
         }
+        free(full_path);
     }
     closedir(dir);
 
@@ -2033,7 +2029,7 @@ slapt_vector_t *slapt_get_pkg_source_packages(const slapt_config_t *global_confi
     /* try gzipped package list */
     char *pkg_head = slapt_head_mirror_data(url, SLAPT_PKG_LIST_GZ);
     if (pkg_head != NULL) {
-        char *pkg_filename = slapt_gen_filename_from_url(url, SLAPT_PKG_LIST_GZ);
+        char *pkg_filename = slapt_gen_filename_from_url(global_config, url, SLAPT_PKG_LIST_GZ);
         char *pkg_local_head = slapt_read_head_cache(pkg_filename);
 
         /* is it cached ? */
@@ -2131,7 +2127,7 @@ slapt_vector_t *slapt_get_pkg_source_packages(const slapt_config_t *global_confi
         *compressed = 1;
 
     } else { /* fall back to uncompressed package list */
-        char *pkg_filename = slapt_gen_filename_from_url(url, SLAPT_PKG_LIST);
+        char *pkg_filename = slapt_gen_filename_from_url(global_config, url, SLAPT_PKG_LIST);
         char *pkg_local_head = slapt_read_head_cache(pkg_filename);
         /* we go ahead and run the head request, not caring if it failed.
           If the subsequent download fails as well, it will give a nice
@@ -2232,7 +2228,7 @@ slapt_vector_t *slapt_get_pkg_source_patches(const slapt_config_t *global_config
 
     char *patch_head = slapt_head_mirror_data(url, SLAPT_PATCHES_LIST_GZ);
     if (patch_head != NULL) {
-        char *patch_filename = slapt_gen_filename_from_url(url, SLAPT_PATCHES_LIST_GZ);
+        char *patch_filename = slapt_gen_filename_from_url(global_config, url, SLAPT_PATCHES_LIST_GZ);
         char *patch_local_head = slapt_read_head_cache(patch_filename);
 
         if (patch_local_head != NULL && strcmp(patch_head, patch_local_head) == 0) {
@@ -2300,7 +2296,7 @@ slapt_vector_t *slapt_get_pkg_source_patches(const slapt_config_t *global_config
         *compressed = 1;
 
     } else {
-        char *patch_filename = slapt_gen_filename_from_url(url, SLAPT_PATCHES_LIST);
+        char *patch_filename = slapt_gen_filename_from_url(global_config, url, SLAPT_PATCHES_LIST);
         char *patch_local_head = slapt_read_head_cache(patch_filename);
         /*
         we go ahead and run the head request, not caring if it failed.
@@ -2379,7 +2375,7 @@ FILE *slapt_get_pkg_source_checksums(const slapt_config_t *global_config, const 
 
     char *checksum_head = slapt_head_mirror_data(url, SLAPT_CHECKSUM_FILE_GZ);
     if (checksum_head != NULL) {
-        char *filename = slapt_gen_filename_from_url(url, SLAPT_CHECKSUM_FILE_GZ);
+        char *filename = slapt_gen_filename_from_url(global_config, url, SLAPT_CHECKSUM_FILE_GZ);
         char *local_head = slapt_read_head_cache(filename);
 
         if (local_head != NULL && strcmp(checksum_head, local_head) == 0) {
@@ -2446,7 +2442,7 @@ FILE *slapt_get_pkg_source_checksums(const slapt_config_t *global_config, const 
         *compressed = 1;
 
     } else {
-        char *filename = slapt_gen_filename_from_url(url, SLAPT_CHECKSUM_FILE);
+        char *filename = slapt_gen_filename_from_url(global_config, url, SLAPT_CHECKSUM_FILE);
         char *local_head = slapt_read_head_cache(filename);
         /*
         we go ahead and run the head request, not caring if it failed.
@@ -2537,7 +2533,7 @@ bool slapt_get_pkg_source_changelog(const slapt_config_t *global_config, const c
         return true;
     }
 
-    char *filename = slapt_gen_filename_from_url(url, location);
+    char *filename = slapt_gen_filename_from_url(global_config, url, location);
     char *local_head = slapt_read_head_cache(filename);
 
     if (local_head != NULL && strcmp(changelog_head, local_head) == 0) {
@@ -2569,7 +2565,7 @@ bool slapt_get_pkg_source_changelog(const slapt_config_t *global_config, const c
             fclose(working_changelog_f);
 
             if (strcmp(location, location_gz) == 0) {
-                char *uncomp_filename = slapt_gen_filename_from_url(url, location_uncomp);
+                char *uncomp_filename = slapt_gen_filename_from_url(global_config, url, location_uncomp);
                 FILE *uncomp_f = slapt_open_file(uncomp_filename, "w+b");
                 free(uncomp_filename);
 
@@ -2613,9 +2609,9 @@ char *slapt_pkg_t_clean_description(const slapt_pkg_t *pkg)
 }
 
 /* retrieve the packages changelog entry, if any.  Returns NULL otherwise */
-char *slapt_pkg_t_changelog(const slapt_pkg_t *pkg)
+char *slapt_pkg_t_changelog(const slapt_config_t *global_config, const slapt_pkg_t *pkg)
 {
-    char *filename = slapt_gen_filename_from_url(pkg->mirror, SLAPT_CHANGELOG_FILE);
+    char *filename = slapt_gen_filename_from_url(global_config, pkg->mirror, SLAPT_CHANGELOG_FILE);
 
     FILE *working_changelog_f = fopen(filename, "rb");
     if (working_changelog_f == NULL) {
