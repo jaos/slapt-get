@@ -33,6 +33,23 @@
 }
 
 {
+   gpgme_op_import
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:gpgme_op_import
+}
+
+{
+   dynamic_linker
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:_dl_open
+   fun:do_dlopen
+}
+
+{
    gpgme_data_new_from_stream
    Memcheck:Leak
    match-leak-kinds: reachable
