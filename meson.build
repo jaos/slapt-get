@@ -1,5 +1,5 @@
 project('slapt-get', 'c',
-  version: '0.11.11',
+  version: '0.11.12',
   license: 'GPLv2',
   meson_version: '>= 0.59.4',
   default_options: [
