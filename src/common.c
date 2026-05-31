@@ -597,37 +597,34 @@ char *slapt_gen_abs_path(const char *working_dir, const char *relative_path)
 char *slapt_gen_package_log_dir_name(void)
 {
     /* Generate package log directory using ROOT env variable if set */
-    char *root_env_entry = NULL;
-    if (getenv(SLAPT_ROOT_ENV_NAME) && strlen(getenv(SLAPT_ROOT_ENV_NAME)) < SLAPT_ROOT_ENV_LEN) {
-        root_env_entry = getenv(SLAPT_ROOT_ENV_NAME);
+    char *root_env_entry = getenv(SLAPT_ROOT_ENV_NAME);
+    if (root_env_entry != NULL && strlen(root_env_entry) >= SLAPT_ROOT_ENV_LEN)
+        root_env_entry = NULL;
+
+    /* Build the candidate paths, prepending ROOT if set */
+    char lib_dir[SLAPT_ROOT_ENV_LEN + strlen(SLAPT_PKG_LIB_DIR) + 1];
+    char log_dir[SLAPT_ROOT_ENV_LEN + strlen(SLAPT_PKG_LOG_DIR) + 1];
+
+    if (root_env_entry) {
+        snprintf(lib_dir, sizeof(lib_dir), "%s%s", root_env_entry, SLAPT_PKG_LIB_DIR);
+        snprintf(log_dir, sizeof(log_dir), "%s%s", root_env_entry, SLAPT_PKG_LOG_DIR);
+    } else {
+        slapt_strlcpy(lib_dir, SLAPT_PKG_LIB_DIR, sizeof(lib_dir));
+        slapt_strlcpy(log_dir, SLAPT_PKG_LOG_DIR, sizeof(log_dir));
     }
 
     const char *path = NULL;
     struct stat stat_buf;
-    if (stat(SLAPT_PKG_LIB_DIR, &stat_buf) == 0) {
-        path = SLAPT_PKG_LIB_DIR;
-    } else if (stat(SLAPT_PKG_LOG_DIR, &stat_buf) == 0) {
-        path = SLAPT_PKG_LOG_DIR;
+    if (stat(lib_dir, &stat_buf) == 0) {
+        path = lib_dir;
+    } else if (stat(log_dir, &stat_buf) == 0) {
+        path = log_dir;
     } else {
         /* this should never happen */
         exit(EXIT_FAILURE);
     }
 
-    int written = 0;
-    const size_t pkg_log_dirname_len = strlen(path) + (root_env_entry ? strlen(root_env_entry) : 0) + 1;
-    char *pkg_log_dirname = slapt_calloc(pkg_log_dirname_len, sizeof *pkg_log_dirname);
-    if (root_env_entry) {
-        written = snprintf(pkg_log_dirname, pkg_log_dirname_len, "%s%s", root_env_entry, path);
-    } else {
-        written = snprintf(pkg_log_dirname, pkg_log_dirname_len, "%s", path);
-    }
-
-    if (written != (int)(pkg_log_dirname_len - 1)) {
-        fprintf(stderr, "slapt_gen_package_log_dir_name error\n");
-        exit(EXIT_FAILURE);
-    }
-
-    return pkg_log_dirname;
+    return strdup(path);
 }
 
 void slapt_clean_pkg_dir(const char *dir_name)

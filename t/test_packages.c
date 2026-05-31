@@ -535,7 +535,10 @@ END_TEST
 START_TEST(test_slapt_parse_packages_txt_rejects_dotdot)
 {
     /* create a temp file with .. in location — should be skipped */
-    char tmpfile[] = "/tmp/slapt_test_dotdot_XXXXXX";
+    const char *root = getenv("ROOT");
+    ck_assert(root != NULL);
+    char tmpfile[512];
+    snprintf(tmpfile, sizeof(tmpfile), "%s/slapt_test_dotdot_XXXXXX", root);
     int fd = mkstemp(tmpfile);
     ck_assert(fd >= 0);
 
@@ -579,10 +582,13 @@ END_TEST
 START_TEST(test_slapt_clean_pkg_dir)
 {
     /* create a temp directory structure with nested .t files */
-    char tmpdir[] = "/tmp/slapt_test_clean_XXXXXX";
+    const char *root = getenv("ROOT");
+    ck_assert(root != NULL);
+    char tmpdir[512];
+    snprintf(tmpdir, sizeof(tmpdir), "%s/slapt_test_clean_XXXXXX", root);
     ck_assert(mkdtemp(tmpdir) != NULL);
 
-    char dir1[256], dir2[256], file1[256], file2[256], file3[256];
+    char dir1[1024], dir2[1024], file1[1024], file2[1024], file3[1024];
     snprintf(dir1, sizeof dir1, "%s/sub1", tmpdir);
     snprintf(dir2, sizeof dir2, "%s/sub1/sub2", tmpdir);
     snprintf(file1, sizeof file1, "%s/pkg1-1.0-x86_64-1.txz", tmpdir);

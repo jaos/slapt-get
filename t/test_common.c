@@ -155,6 +155,47 @@ START_TEST(test_slapt_parse_delimited_list)
 }
 END_TEST
 
+START_TEST(test_slapt_gen_package_log_dir_name)
+{
+    /* Save any pre-existing ROOT */
+    char *orig_root = getenv("ROOT");
+    if (orig_root != NULL)
+        unsetenv("ROOT");
+
+    /* Test without ROOT: should return the system path */
+    char *result = slapt_gen_package_log_dir_name();
+    ck_assert(result != NULL);
+    ck_assert(strstr(result, "/var/log/packages") != NULL || strstr(result, "/var/lib/pkgtools/packages") != NULL);
+    free(result);
+
+    /* Test with ROOT: should return ROOT-prefixed path */
+    const char *root_dir = "test_rootfs";
+    mkdir(root_dir, 0755);
+    mkdir("test_rootfs/var", 0755);
+    mkdir("test_rootfs/var/log", 0755);
+    mkdir("test_rootfs/var/log/packages", 0755);
+
+    setenv("ROOT", root_dir, 1);
+    result = slapt_gen_package_log_dir_name();
+    ck_assert(result != NULL);
+    ck_assert(strstr(result, root_dir) != NULL);
+    ck_assert(strstr(result, "/var/log/packages") != NULL);
+    free(result);
+
+    unsetenv("ROOT");
+
+    /* Restore original ROOT */
+    if (orig_root != NULL)
+        setenv("ROOT", orig_root, 1);
+
+    /* Clean up */
+    rmdir("test_rootfs/var/log/packages");
+    rmdir("test_rootfs/var/log");
+    rmdir("test_rootfs/var");
+    rmdir(root_dir);
+}
+END_TEST
+
 Suite *common_test_suite(void)
 {
     Suite *s = suite_create("Common");
@@ -168,6 +209,7 @@ Suite *common_test_suite(void)
     tcase_add_test(tc, test_slapt_vector_t);
     tcase_add_test(tc, test_slapt_strip_whitespace);
     tcase_add_test(tc, test_slapt_parse_delimited_list);
+    tcase_add_test(tc, test_slapt_gen_package_log_dir_name);
 
     suite_add_tcase(s, tc);
     return s;
