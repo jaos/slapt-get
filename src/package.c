@@ -463,17 +463,20 @@ slapt_vector_t *slapt_get_installed_pkgs(void)
 
         /* build the package filename including the package directory */
         const size_t pkg_f_name_len = strlen(pkg_log_dirname) + strlen(file->d_name) + 2;
-        char pkg_f_name[pkg_f_name_len];
+        char *pkg_f_name = slapt_calloc(pkg_f_name_len, sizeof *pkg_f_name);
         const int written = snprintf(pkg_f_name, pkg_f_name_len, "%s/%s", pkg_log_dirname, file->d_name);
         if (written <= 0 || (size_t)written != (pkg_f_name_len - 1)) {
             fprintf(stderr, "slapt_get_installed_pkgs error for %s\n", file->d_name);
+            free(pkg_f_name);
             exit(EXIT_FAILURE);
         }
 
         /* open the package log file so that we can mmap it and parse out the package attributes. */
         FILE *pkg_f = slapt_open_file(pkg_f_name, "r");
-        if (pkg_f == NULL)
+        if (pkg_f == NULL) {
+            free(pkg_f_name);
             exit(EXIT_FAILURE);
+        }
 
         /* used with mmap */
         struct stat stat_buf;
@@ -602,6 +605,7 @@ slapt_vector_t *slapt_get_installed_pkgs(void)
 
         slapt_vector_t_add(list, tmp_pkg);
         tmp_pkg = NULL;
+        free(pkg_f_name);
 
     } /* end while */
     closedir(pkg_log_dir);
@@ -1845,15 +1849,17 @@ slapt_code_t slapt_verify_downloaded_pkg(const slapt_config_t *global_config, co
 char *slapt_gen_filename_from_url(const slapt_config_t *global_config, const char *url, const char *file)
 {
     const size_t filename_len = strlen(url) + strlen(file) + 2;
-    char filename[filename_len];
+    char *filename = slapt_calloc(filename_len, sizeof *filename);
     const int written = snprintf(filename, filename_len, ".%s%s", url, file);
     if (written <= 0 || (size_t)written != (filename_len - 1)) {
         fprintf(stderr, "slapt_gen_filename_from_url error for %s\n", url);
+        free(filename);
         exit(EXIT_FAILURE);
     }
     char *cleaned = slapt_str_replace_chr(filename, '/', '#');
     char *abs_path = slapt_gen_abs_path(global_config->working_dir, cleaned);
     free(cleaned);
+    free(filename);
     return abs_path;
 }
 
@@ -2598,10 +2604,11 @@ bool slapt_get_pkg_source_changelog(const slapt_config_t *global_config, const c
 char *slapt_pkg_t_clean_description(const slapt_pkg_t *pkg)
 {
     const size_t token_len = strlen(pkg->name) + 2;
-    char token[token_len];
+    char *token = slapt_calloc(token_len, sizeof *token);
     const int written = snprintf(token, token_len, "%s:", pkg->name);
     if (written <= 0 || (size_t)written != (token_len - 1)) {
         fprintf(stderr, "slapt_pkg_t_clean_description error for %s\n", pkg->name);
+        free(token);
         exit(EXIT_FAILURE);
     }
 
@@ -2611,6 +2618,7 @@ char *slapt_pkg_t_clean_description(const slapt_pkg_t *pkg)
         memmove(p, p + strlen(token), strlen(p) - strlen(token) + 1);
     }
 
+    free(token);
     return description;
 }
 
@@ -2805,15 +2813,16 @@ char *slapt_pkg_t_filelist(const slapt_pkg_t *pkg)
     char *pkg_log_dirname = slapt_gen_package_log_dir_name();
 
     const size_t pkg_name_len = strlen(pkg->name) + strlen(pkg->version) + 2; /* for the - and \0 */
-    char pkg_name[pkg_name_len];
+    char *pkg_name = slapt_calloc(pkg_name_len, sizeof *pkg_name);
     const int pkg_name_written = snprintf(pkg_name, pkg_name_len, "%s-%s", pkg->name, pkg->version);
     if (pkg_name_written <= 0 || (size_t)pkg_name_written != (pkg_name_len - 1)) {
+        free(pkg_name);
         return NULL;
     }
 
     /* build the package filename including the package directory */
     const size_t pkg_f_name_len = strlen(pkg_log_dirname) + strlen(pkg_name) + 2;
-    char pkg_f_name[pkg_f_name_len];
+    char *pkg_f_name = slapt_calloc(pkg_f_name_len, sizeof *pkg_f_name);
     const int pkg_f_name_written = snprintf(pkg_f_name, pkg_f_name_len, "%s/%s", pkg_log_dirname, pkg_name);
     if (pkg_f_name_written <= 0 || (size_t)pkg_f_name_written != (pkg_f_name_len - 1)) {
         fprintf(stderr, "slapt_pkg_t_filelist error for %s\n", pkg_name);
@@ -2907,6 +2916,8 @@ char *slapt_pkg_t_filelist(const slapt_pkg_t *pkg)
         exit(EXIT_FAILURE);
     }
 
+    free(pkg_f_name);
+    free(pkg_name);
     return filelist;
 }
 

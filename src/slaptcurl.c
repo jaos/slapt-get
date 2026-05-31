@@ -163,10 +163,11 @@ char *slapt_head_request(const char *url)
 const char *slapt_get_mirror_data_from_source(FILE *fh, const slapt_config_t *global_config, const char *base_url, const char *filename)
 {
     const size_t url_len = strlen(base_url) + strlen(filename) + 1;
-    char url[url_len];
+    char *url = slapt_calloc(url_len, sizeof *url);
     const int written = snprintf(url, url_len, "%s%s", base_url, filename);
     if (written <= 0 || (size_t)written != (url_len - 1)) {
         fprintf(stderr, "slapt_get_mirror_data_from_source error for %s\n", base_url);
+        free(url);
         exit(EXIT_FAILURE);
     }
 
@@ -175,6 +176,7 @@ const char *slapt_get_mirror_data_from_source(FILE *fh, const slapt_config_t *gl
     /* make sure we are back at the front of the file */
     /* DISABLED */
     /* rewind(fh); */
+    free(url);
     return return_code != 0 ? curl_easy_strerror((CURLcode)return_code) : NULL;
 }
 
@@ -403,16 +405,18 @@ char *slapt_head_mirror_data(const char *wurl, const char *file)
 {
     /* build url */
     const size_t url_len = strlen(wurl) + strlen(file) + 1;
-    char url[url_len];
+    char *url = slapt_calloc(url_len, sizeof *url);
     const int written = snprintf(url, url_len, "%s%s", wurl, file);
     if (written <= 0 || (size_t)written != (url_len - 1)) {
         fprintf(stderr, "slapt_head_mirror_data error for %s\n", wurl);
+        free(url);
         exit(EXIT_FAILURE);
     }
 
     /* retrieve the header info */
     char *head_data = slapt_head_request(url);
     if (head_data == NULL) {
+        free(url);
         return NULL;
     }
 
@@ -423,12 +427,14 @@ char *slapt_head_mirror_data(const char *wurl, const char *file)
         request_header_ptr = strcasestr(head_data, "Content-Length");
         if (request_header_ptr == NULL || strstr(wurl, "ftp") == NULL) {
             free(head_data);
+            free(url);
             return NULL;
         } /* give up finally */
     }
     const char *delim_ptr = strpbrk(request_header_ptr, "\r\n");
     if (delim_ptr == NULL) {
         free(head_data);
+        free(url);
         return NULL;
     }
 
@@ -437,6 +443,7 @@ char *slapt_head_mirror_data(const char *wurl, const char *file)
     memcpy(request_header, request_header_ptr, request_header_len);
 
     free(head_data);
+    free(url);
     return request_header;
 }
 
