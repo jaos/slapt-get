@@ -497,8 +497,9 @@ slapt_vector_t *slapt_get_installed_pkgs(void)
         } else {
             /* only mmap what we need */
             pls = (size_t)stat_buf.st_size;
-            if (pls > SLAPT_MAX_MMAP_SIZE)
-                pls = SLAPT_MAX_MMAP_SIZE;
+            static const size_t max_mmap_size = 4096;
+            if (pls > max_mmap_size)
+                pls = max_mmap_size;
         }
 
         char *pkg_data = (char *)mmap(0, pls, PROT_READ | PROT_WRITE, MAP_PRIVATE, fileno(pkg_f), 0);
