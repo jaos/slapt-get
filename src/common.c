@@ -620,8 +620,8 @@ char *slapt_gen_package_log_dir_name(void)
     } else if (stat(log_dir, &stat_buf) == 0) {
         path = log_dir;
     } else {
-        /* this should never happen */
-        exit(EXIT_FAILURE);
+        // default to SLAPT_PKG_LIB_DIR since tests might not hae either
+        path = lib_dir;
     }
 
     return strdup(path);
