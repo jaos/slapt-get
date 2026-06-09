@@ -39,7 +39,9 @@ FILE LIST:
 ./
 EOF
 
-ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --add-keys
+if ${slaptget} --help 2>&1 | grep -q add-keys; then
+    ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --add-keys
+fi
 ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --update
 ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --upgrade -s
 ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --upgrade --print-uris
