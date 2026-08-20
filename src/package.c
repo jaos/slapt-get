@@ -967,6 +967,43 @@ static void slapt_pkg_t_free_version_parts(struct slapt_pkg_version_parts *parts
     free(parts);
 }
 
+static int checked_version_cmp(const char *a, const char *b)
+{
+    errno = 0;
+    const unsigned long long a_value = strtoull(a, NULL, 10);
+    const bool a_is_in_range = (errno != ERANGE);
+    errno = 0;
+    const unsigned long long b_value = strtoull(b, NULL, 10);
+    const bool b_is_in_range = (errno != ERANGE);
+
+    if (a_is_in_range && b_is_in_range) {
+        if (a_value < b_value)
+            return -1;
+        if (a_value > b_value)
+            return 1;
+        return 0;
+    }
+
+    /* one or both exceed uint64: compare digit counts, then lexically */
+    while (*a == '0' && isdigit((unsigned char)a[1]))
+        a++;
+    while (*b == '0' && isdigit((unsigned char)b[1]))
+        b++;
+    const char *a_end = a;
+    while (isdigit((unsigned char)*a_end))
+        a_end++;
+    const char *b_end = b;
+    while (isdigit((unsigned char)*b_end))
+        b_end++;
+    const size_t a_digits = (size_t)(a_end - a);
+    const size_t b_digits = (size_t)(b_end - b);
+    if (a_digits < b_digits)
+        return -1;
+    if (a_digits > b_digits)
+        return 1;
+    return strncmp(a, b, a_digits);
+}
+
 int slapt_pkg_t_cmp(const slapt_pkg_t *a, const slapt_pkg_t *b)
 {
     const int greater = 1, lesser = -1, equal = 0;
@@ -1000,8 +1037,10 @@ int slapt_pkg_t_cmp_versions(const char *a, const char *b)
     uint32_t position = 0;
     while (position < a_parts->count && position < b_parts->count) {
         if (strcasecmp(a_parts->parts[position], b_parts->parts[position]) != 0) {
+            const int part_cmp = checked_version_cmp(a_parts->parts[position], b_parts->parts[position]);
+
             /* if the integer value of the version part is the same and the # of version parts is the same (fixes 3.8.1p1-i486-1 to 3.8p1-i486-1) */
-            if ((atoi(a_parts->parts[position]) == atoi(b_parts->parts[position])) && (a_parts->count == b_parts->count)) {
+            if ((part_cmp == 0) && (a_parts->count == b_parts->count)) {
                 if (strverscmp(a_parts->parts[position], b_parts->parts[position]) < 0) {
                     slapt_pkg_t_free_version_parts(a_parts);
                     slapt_pkg_t_free_version_parts(b_parts);
@@ -1014,13 +1053,13 @@ int slapt_pkg_t_cmp_versions(const char *a, const char *b)
                 }
             }
 
-            if (atoi(a_parts->parts[position]) < atoi(b_parts->parts[position])) {
+            if (part_cmp < 0) {
                 slapt_pkg_t_free_version_parts(a_parts);
                 slapt_pkg_t_free_version_parts(b_parts);
                 return lesser;
             }
 
-            if (atoi(a_parts->parts[position]) > atoi(b_parts->parts[position])) {
+            if (part_cmp > 0) {
                 slapt_pkg_t_free_version_parts(a_parts);
                 slapt_pkg_t_free_version_parts(b_parts);
                 return greater;
@@ -1062,9 +1101,9 @@ int slapt_pkg_t_cmp_versions(const char *a, const char *b)
         b_build = rindex(b, '-');
 
         if (a_build != NULL && b_build != NULL) {
-            /* they are equal if the integer values are equal */
+            /* they are equal if the leading integer values are equal */
             /* for instance, "1rob" and "1" will be equal */
-            if (atoi(a_build) == atoi(b_build)) {
+            if (checked_version_cmp(a_build + 1, b_build + 1) == 0) {
 /* prefer our architecture in x86/x86_64 multilib settings */
 #if defined(__x86_64__)
                 if ((strcmp(a_build, b_build) == 0) && (strcmp(a, b) != 0) && (strstr(a, "-x86_64") != NULL && (strstr(b, "-x86_64-") == NULL)))
@@ -1080,10 +1119,10 @@ int slapt_pkg_t_cmp_versions(const char *a, const char *b)
                 return equal;
             }
 
-            if (atoi(a_build) < atoi(b_build))
-                return greater;
+            if (checked_version_cmp(a_build + 1, b_build + 1) < 0)
+                return lesser;
 
-            return lesser;
+            return greater;
         }
     }
 
