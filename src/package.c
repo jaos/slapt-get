@@ -575,11 +575,21 @@ slapt_vector_t *slapt_get_installed_pkgs(void)
             char *size_c = slapt_regex_t_extract_match(compressed_size_reg, pkg_data, 1);
             char *unit = slapt_regex_t_extract_match(compressed_size_reg, pkg_data, 2);
             double c = strtof(size_c, (char **)NULL);
-            if (strcasecmp(unit, "M") == 0)
-                c *= 1024;
-            else if (strcasecmp(unit, "G") == 0)
-                c *= 1048576;
-            tmp_pkg->size_c = (uint32_t)lround(c);
+            if (isfinite(c)) {
+                if (strcasecmp(unit, "M") == 0)
+                    c *= 1024;
+                else if (strcasecmp(unit, "G") == 0)
+                    c *= 1048576;
+            }
+            if (isfinite(c) && c <= UINT32_MAX) {
+                tmp_pkg->size_c = (uint32_t)lround(c);
+            } else {
+                /* invalid size: leave it unset (0) */
+                size_t shown = SIZE_MAX;
+                if (isfinite(c) && c < (double)(SIZE_MAX >> 1))
+                    shown = (size_t)c;
+                fprintf(stderr, "invalid compressed size: %zu\n", shown);
+            }
             free(size_c);
             free(unit);
         }
@@ -590,11 +600,21 @@ slapt_vector_t *slapt_get_installed_pkgs(void)
             char *size_u = slapt_regex_t_extract_match(uncompressed_size_reg, pkg_data, 1);
             char *unit = slapt_regex_t_extract_match(uncompressed_size_reg, pkg_data, 2);
             double u = strtof(size_u, (char **)NULL);
-            if (strcasecmp(unit, "M") == 0)
-                u *= 1024;
-            else if (strcasecmp(unit, "G") == 0)
-                u *= 1048576;
-            tmp_pkg->size_u = (uint32_t)lround(u);
+            if (isfinite(u)) {
+                if (strcasecmp(unit, "M") == 0)
+                    u *= 1024;
+                else if (strcasecmp(unit, "G") == 0)
+                    u *= 1048576;
+            }
+            if (isfinite(u) && u <= UINT32_MAX) {
+                tmp_pkg->size_u = (uint32_t)lround(u);
+            } else {
+                /* invalid size: leave it unset (0) */
+                size_t shown = SIZE_MAX;
+                if (isfinite(u) && u < (double)(SIZE_MAX >> 1))
+                    shown = (size_t)u;
+                fprintf(stderr, "invalid uncompressed size: %zu\n", shown);
+            }
             free(size_u);
             free(unit);
         }
