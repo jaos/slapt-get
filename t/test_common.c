@@ -216,6 +216,21 @@ START_TEST(test_slapt_gen_md5_sum_of_file_binary)
 }
 END_TEST
 
+START_TEST(test_regex_extract_match)
+{
+    slapt_regex_t *regex = slapt_regex_t_init("([a-z]+)");
+    ck_assert(regex != NULL);
+    slapt_regex_t_execute(regex, "abc123");
+    ck_assert(regex->reg_return == 0);
+    char *match = slapt_regex_t_extract_match(regex, "abc123", 1);
+    ck_assert(match != NULL);
+    ck_assert(strcmp(match, "abc") == 0);
+    ck_assert(strlen(match) == 3);
+    free(match);
+    slapt_regex_t_free(regex);
+}
+END_TEST
+
 Suite *common_test_suite(void)
 {
     Suite *s = suite_create("Common");
@@ -230,6 +245,7 @@ Suite *common_test_suite(void)
     tcase_add_test(tc, test_slapt_vector_t);
     tcase_add_test(tc, test_slapt_strip_whitespace);
     tcase_add_test(tc, test_slapt_parse_delimited_list);
+    tcase_add_test(tc, test_regex_extract_match);
     tcase_add_test(tc, test_slapt_gen_package_log_dir_name);
 
     suite_add_tcase(s, tc);

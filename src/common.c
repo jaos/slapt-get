@@ -71,10 +71,11 @@ char *slapt_regex_t_extract_match(const slapt_regex_t *r, const char *src, const
     char *str = NULL;
 
     if (m.rm_so != -1) {
-        int len = m.rm_eo - m.rm_so + 1;
-        str = slapt_malloc(sizeof *str * (size_t)len);
+        int len = m.rm_eo - m.rm_so;
+        if (len <= 0) return NULL;
+        str = slapt_malloc((size_t)len + 1);
 
-        slapt_strlcpy(str, src + m.rm_so, (size_t)len);
+        slapt_strlcpy(str, src + m.rm_so, (size_t)len + 1);
     }
 
     return str;
