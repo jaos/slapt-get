@@ -102,12 +102,14 @@ static size_t write_header_callback(const void *buffer, size_t size, size_t nmem
     struct head_data_t *head_t = (struct head_data_t *)userp;
 
     char *tmp = (char *)realloc(head_t->data, head_t->size + a_size + 1);
-    if (tmp != NULL) {
-        head_t->data = tmp;
-        memcpy(&(head_t->data[head_t->size]), buffer, a_size);
-        head_t->size += a_size;
-        head_t->data[head_t->size] = '\0';
+    if (tmp == NULL) {
+        fprintf(stderr, "write_header_callback: out of memory\n");
+        exit(EXIT_FAILURE);
     }
+    head_t->data = tmp;
+    memcpy(&(head_t->data[head_t->size]), buffer, a_size);
+    head_t->size += a_size;
+    head_t->data[head_t->size] = '\0';
 
     return nmemb;
 }
