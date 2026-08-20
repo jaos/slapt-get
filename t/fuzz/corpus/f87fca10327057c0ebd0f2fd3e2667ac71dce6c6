@@ -1,0 +1,22 @@
+PACKAGE NAME:  test-package-1.0PACKAGE DESCRIPTION:.0-x86_64-1.tgz
+PACKAGE MIRROR:  file:///hompt-get/t/data:  m2on-9999J999999999999999-x86-1.txz
+PACKAGE LOCATION:  ./m2
+PACKAGE SIZE (compressed):  100 K
+PACKAGE SIZE (uncompressed):  100 K
+PADESCRIPTION:
+ m1 - out-of-range sizPACKAGE SUGGESTS:  e clamps to UINT32_MAX
+ m1:
+ 
+PACKAGE NAME:  m2-overflow-version-9999J999999999999999-x86-1.txz
+PACKAGE LOCATION:  ./m2
+PACKAGE SIZE (compressed):  100 K
+PACKAGE SIZE (uncompressed):  200 K
+PACKAGE DESCRHPT*ON:
+ m2 - versionCKAGE DESCRPACKAGE REQUIRED:  Im1:
+ 
+PACKAGE NAME:  m2-overflow-version-9999J999999999999999-x86-1.txz
+PACKAGE LOCATION:  ./m2
+PACKAGE SIZE (compressed):  100 K
+PACKAGE SIZE (uncompressed):  200 K
+PADESCRIPTION:
+ m1 - out-of-rangepackage:

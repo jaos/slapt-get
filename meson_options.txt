@@ -1,0 +1,2 @@
+option('fuzz', type: 'boolean', value: false,
+  description: 'instrument the whole tree (incl. libslapt) with ASan+UBSan and build the libFuzzer target (needs clang; fuzz_runner works without it)')

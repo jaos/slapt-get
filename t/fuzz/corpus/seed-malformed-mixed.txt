@@ -1,0 +1,52 @@
+PACKAGE NAME:  h1-md5-no-colon-1.0-i486-1.txz
+PACKAGE LOCATION:  ./h1
+PACKAGE SIZE (compressed):  100 K
+PACKAGE SIZE (uncompressed):  200 K
+PACKAGE MD5
+PACKAGE DESCRIPTION:
+ h1 - md5 line without a colon
+ h1:
+ 
+PACKAGE NAME:  h2-empty-mirror-1.0-i486-1.txz
+PACKAGE MIRROR: 
+PACKAGE LOCATION:  ./h2
+PACKAGE SIZE (compressed):  100 K
+PACKAGE SIZE (uncompressed):  200 K
+PACKAGE DESCRIPTION:
+ h2 - empty mirror value
+ h2:
+ 
+PACKAGE NAME:  h3-bare-required-1.0-i486-1.txz
+PACKAGE LOCATION:  ./h3
+PACKAGE SIZE (compressed):  100 K
+PACKAGE SIZE (uncompressed):  200 K
+PACKAGE REQUIRED
+PACKAGE DESCRIPTION:
+ h3 - bare required marker
+ h3:
+ 
+PACKAGE NAME:  h4-huge-priority-1.0-i486-1.txz
+PACKAGE PRIORITY:  99999999999999999999
+PACKAGE LOCATION:  ./h4
+PACKAGE SIZE (compressed):  100 K
+PACKAGE SIZE (uncompressed):  200 K
+PACKAGE DESCRIPTION:
+ h4 - out-of-range priority, must be dropped
+ h4:
+ 
+PACKAGE NAME:  m1-huge-size-1.0-i486-1.txz
+PACKAGE LOCATION:  ./m1
+PACKAGE SIZE (compressed):  99999999999999999999 K
+PACKAGE SIZE (uncompressed):  200 K
+PACKAGE DESCRIPTION:
+ m1 - out-of-range size clamps to UINT32_MAX
+ m1:
+ 
+PACKAGE NAME:  m2-overflow-version-99999999999999999999-x86-1.txz
+PACKAGE LOCATION:  ./m2
+PACKAGE SIZE (compressed):  100 K
+PACKAGE SIZE (uncompressed):  200 K
+PACKAGE DESCRIPTION:
+ m2 - version parts overflowing int
+ m2:
+ 

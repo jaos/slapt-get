@@ -54,7 +54,6 @@ cflags = [
   '-fstack-clash-protection',
   '-fstack-protector-all',
   '-ftrivial-auto-var-init=zero',
-  '-ftrapv',
   '-ggdb3',
   '-mshstk',
 
@@ -98,6 +97,21 @@ cflags = [
 ]
 add_project_arguments(cc.get_supported_arguments(cflags), language: 'c')
 add_project_link_arguments(cc.get_supported_link_arguments(cflags), language: 'c')
+
+if get_option('fuzz')
+  if cc.get_id() != 'clang'
+    error('clang is required for LibFuzzer')
+  endif
+  if get_option('default_library') != 'static'
+    error('clang fuzz builds require -Ddefault_library=static')
+  endif
+  add_project_arguments(cc.get_supported_arguments(
+    ['-fsanitize=fuzzer-no-link,address,undefined', '-fno-omit-frame-pointer',
+     '-fno-lto', '-fno-sanitize-recover=all']), language: 'c')
+  add_project_link_arguments(cc.get_supported_link_arguments(
+    ['-fsanitize=address,undefined']), language: 'c')
+endif
+
 lflags = ['-Wl,-z,defs',
   '-Wl,-z,noexecstack',
   '-Wl,-z,now',

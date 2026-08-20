@@ -1,0 +1,7 @@
+PACKAGE NAME: - stupakage-14-1.tgz
+PACKAGE LOCATION:  ./local
+PACKAGE SIZE (compressed):  2 K
+PACKAGE SIZE (uncompressed):  1 K
+PACKAS~  b»c5PACKAGE MD549cf95
+PACKAGE DESCRIPTION:
+teac

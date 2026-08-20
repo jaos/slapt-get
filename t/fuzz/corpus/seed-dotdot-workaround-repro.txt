@@ -1,0 +1,5 @@
+PACKAGE NAME:  --4-.tg
+PACKAGE LOCATION: ./pasture.
+PACKAGE SIZE (compressed): 2 K
+PACKAGE SIZE (uncompressed):  1 K
+PACKAGE DESCRIPTION

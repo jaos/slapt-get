@@ -1,0 +1,11 @@
+PACKAGE NAME:  test-package-1.0.0-x86_64-1.tgz
+PACKAGE MIRROR:  file:///home/jason/projects/slacal/
+PACKAGE PRIORITY:  2
+PACKAGE LOCATION:  ./local
+PACKAGE SIZE (compressed):  1 K
+PACKAGE SIZE (uncompressed):  1 K
+PACKAGE REQUIRED: PACKAGE NAME:    
+PACKAGE CONFLICTS:   
+PACKAGE SUGGESTS:   
+PACKAGE MD5SUM:  R:  f
+PACKtest-pack!ge:

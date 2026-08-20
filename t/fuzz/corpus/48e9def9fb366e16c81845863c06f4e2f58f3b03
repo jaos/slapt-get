@@ -1,0 +1,19 @@
+PA to UINT32_MAX
+ m1:
+ 
+PACKAGE NAME:  m2-overflow-version-9999J999999999999999-x86-1.txz
+PACKAGE LOCATION:  ./m2
+PACKAGE SIZE (compressed):  100 K
+PACKAGE SIZE (uncompressed):  200 K
+PADESCRIPTION:
+ m1 - out-of-range size c to UINT32_MAX
+ m1:
+ 
+PACKAGE NAME:  m2-overflow-version-9999J999999999999999-x86-1.txz
+PACKAGE LOCATION:  ./m2
+PACKAGE SIZE (compressed):  100 K
+PACKAGE SIZE (uncompressed):  200 K
+PACKAGE DESCRHPT*ON:
+ m2 - version p§rts overflowing tin
+ m2:
+ 

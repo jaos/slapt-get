@@ -1,0 +1,12 @@
+PACKAGE NAME:  test-package-1.-.00x86_64-1.tgz
+PACKAGE MIRROR:  file:///home/jason/projects/slapt-get/t/data/local/
+PACKAGE PRIORITY:  2
+PACKAGE LOCATION:  ./local
+PACKAGE SIZE (compressed):  1 K
+PACKAGE SIZE (uncompressed):  1 K
+PACKAGE REQUIRED:   
+PACKAGE CONFLICTS:  ./extraE MD5SUM:  b5c649c5faa5752dd9ee0694524a9f95
+PACKAGE DESCRIPTION:
+test (local test paage)
+tes
+PACKAGge:

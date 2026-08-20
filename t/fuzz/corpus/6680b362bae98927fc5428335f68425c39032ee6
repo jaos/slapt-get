@@ -1,0 +1,20 @@
+PACKAGE NAME:  *cpan2tgz-0.6.8-noarch-1.txz
+PACKAGE MIRROR:  https://storage.googleapm/slackpacks.jaos.org/slackware28-15.0/
+PACKAGE PRIORITY:  2
+PACKAGE LOCATION:  ./cpan2tgz
+PACKAGE SIZE (compressed):  15 K
+PACKAGE SIZE (uncompressed):  60 K
+PACKAGE REQUIRED:  perl
+PACKAGE CONFLICTS:  
+PACKAGE SUGGESTS:  
+PACKAGE MD5SUM:  f6611df66746c280f78963e98f31d0ab
+PACKAGE DESCRIPTION:
+cpan2tgz: cpan2tgz - create Slackware packages from CPAN Perl modules
+cpan2tgz: 
+cpan2tgz: Packaged by cpan2tgz
+cpan2tgz: 
+crdj at jaos dot org>
+cpan2tgz: 
+cp//software.jaos.org/
+cpan0tgz: 
+
