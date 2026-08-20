@@ -455,20 +455,24 @@ slapt_vector_t *slapt_parse_packages_txt(FILE *pkg_list_fh)
 
 char *slapt_pkg_t_short_description(const slapt_pkg_t *pkg)
 {
-    char *short_description = NULL;
     size_t string_size = 0;
+    const char *newline = strchr(pkg->description, '\n');
+    const size_t prefix_len = strlen(pkg->name) + 2;
 
-    if (strchr(pkg->description, '\n') != NULL) {
-        string_size = strlen(pkg->description) - (strlen(pkg->name) + 2) - strlen(strchr(pkg->description, '\n'));
+    if (newline != NULL) {
+        // check our description to make sure it has the package name at least
+        const size_t desc_len = strlen(pkg->description);
+        const size_t tail_len = strlen(newline);
+        if (desc_len >= prefix_len + tail_len) {
+            string_size = desc_len - prefix_len - tail_len;
+        }
     }
 
     /* quit now if the description is going to be empty */
-    if ((int)string_size < 1)
+    if (string_size < 1)
         return NULL;
 
-    short_description = strndup(pkg->description + (strlen(pkg->name) + 2), string_size);
-
-    return short_description;
+    return strndup(pkg->description + prefix_len, string_size);
 }
 
 slapt_vector_t *slapt_get_installed_pkgs(void)

@@ -733,6 +733,44 @@ START_TEST(test_slapt_dependency_t)
 }
 END_TEST
 
+START_TEST(test_pkg_short_description)
+{
+    struct short_desc_tests {
+        const char *name;
+        const char *description;
+        const char *expected; /* NULL: no short description */
+    } tests[] = {
+        // valid cases
+        { "Cython", "Cython: Cython (C bindings for Python)\nCython:\nCython: a language for C extensions\n", "Cython (C bindings for Python)" },
+        { "foo", "foo: x\nfoo:\n", "x" },
+        { "foo", "foo: bar\nfoo: baz\nfoo: qux\n", "bar" },
+        { "foo", "foo: x\n", "x" },
+        // invalid
+        { "foo", "foo: never ends", NULL },
+        { "foo", "foo: \nfoo: detail\n", NULL },
+        { "a-very-long-package-name", "ab\ncd", NULL },
+        { "a-very-long-name", "x: y\nrest", NULL },
+        { "foo", "\nfoo: bar", NULL },
+        { "foo", "", NULL },
+    };
+
+    for (size_t i = 0; i < sizeof(tests) / sizeof(tests[0]); i++) {
+        slapt_pkg_t spkg = {
+            .name = (char *)tests[i].name,
+            .description = (char *)tests[i].description,
+        };
+        char *short_description = slapt_pkg_t_short_description(&spkg);
+        if (tests[i].expected == NULL) {
+            ck_assert_msg(short_description == NULL, "failed: [%zu] expected NULL, got %s\n", i, short_description);
+        } else {
+            ck_assert_msg(short_description != NULL, "failed: [%zu] expected %s, got NULL\n", i, tests[i].expected);
+            ck_assert_msg(strcmp(short_description, tests[i].expected) == 0, "failed: [%zu] %s != %s\n", i, short_description, tests[i].expected);
+        }
+        free(short_description);
+    }
+}
+END_TEST
+
 Suite *packages_test_suite(void)
 {
     Suite *s = suite_create("Packages");
@@ -740,6 +778,7 @@ Suite *packages_test_suite(void)
 
     tcase_add_test(tc, test_struct_pkg);
     tcase_add_test(tc, test_pkg_info);
+    tcase_add_test(tc, test_pkg_short_description);
     tcase_add_test(tc, test_pkg_search);
     tcase_add_test(tc, test_pkgtool);
     tcase_add_test(tc, test_pkg_version);
