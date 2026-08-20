@@ -178,7 +178,14 @@ slapt_vector_t *slapt_parse_packages_txt(FILE *pkg_list_fh)
             if (priority_regex->reg_return == 0) {
                 char *priority_string = slapt_regex_t_extract_match(priority_regex, getline_buffer, 1);
                 if (priority_string != NULL) {
-                    tmp_pkg->priority = (uint32_t)strtoul(priority_string, NULL, 0);
+                    unsigned long value = strtoul(priority_string, NULL, 10);
+                    if (value > SLAPT_PRIORITY_CUSTOM_PATCH) {
+                        fprintf(stderr, gettext("Invalid package priority: %s\n"), priority_string);
+                        free(priority_string);
+                        slapt_pkg_t_free(tmp_pkg);
+                        continue;
+                    }
+                    tmp_pkg->priority = (uint32_t)value;
                     free(priority_string);
                 }
             } else {
