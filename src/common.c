@@ -485,20 +485,18 @@ void slapt_vector_t_add(slapt_vector_t *v, void *a)
 
 void slapt_vector_t_remove(slapt_vector_t *v, const void *j)
 {
-    bool found = false;
-    for (uint32_t i = 0; i < v->size; i++) {
-        if (j == v->items[i]) {
+    for (uint32_t i = 0; i < v->size; ) {
+        if (v->items[i] == j) {
             if (v->free_function) {
                 v->free_function(v->items[i]);
             }
-            found = true;
+            if (v->size - i - 1 > 0) {
+                memmove(&v->items[i], &v->items[i + 1], (v->size - i - 1) * sizeof(void *));
+            }
+            v->size--;
+            continue;
         }
-        if (found && ((i + 1) < v->size)) {
-            v->items[i] = v->items[i + 1];
-        }
-    }
-    if (found) {
-        v->size--;
+        i++;
     }
 }
 

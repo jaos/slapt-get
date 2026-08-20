@@ -245,6 +245,34 @@ START_TEST(test_slapt_parse_delimited_list_empty)
 }
 END_TEST
 
+START_TEST(test_slapt_vector_t_remove_robust)
+{
+    int a=1,b=2,c=3,d=2,e=4;
+    slapt_vector_t *v = slapt_vector_t_init(NULL);
+    slapt_vector_t_add(v, &a);
+    slapt_vector_t_add(v, &b);
+    slapt_vector_t_add(v, &c);
+    slapt_vector_t_add(v, &d);
+    slapt_vector_t_add(v, &e);
+    ck_assert_uint_eq(v->size, 5);
+
+    slapt_vector_t_remove(v, &b);
+    ck_assert_uint_eq(v->size, 4);
+    ck_assert(v->items[0] == &a);
+    ck_assert(v->items[1] == &c);
+    ck_assert(v->items[2] == &d);
+    ck_assert(v->items[3] == &e);
+
+    slapt_vector_t_remove(v, &d);
+    ck_assert_uint_eq(v->size, 3);
+    ck_assert(v->items[0] == &a);
+    ck_assert(v->items[1] == &c);
+    ck_assert(v->items[2] == &e);
+
+    slapt_vector_t_free(v);
+}
+END_TEST
+
 Suite *common_test_suite(void)
 {
     Suite *s = suite_create("Common");
@@ -257,6 +285,7 @@ Suite *common_test_suite(void)
     tcase_add_test(tc, test_slapt_gen_md5_sum_of_file_binary);
     tcase_add_test(tc, test_slapt_str_replace_chr);
     tcase_add_test(tc, test_slapt_vector_t);
+    tcase_add_test(tc, test_slapt_vector_t_remove_robust);
     tcase_add_test(tc, test_slapt_strip_whitespace);
     tcase_add_test(tc, test_slapt_parse_delimited_list);
     tcase_add_test(tc, test_slapt_parse_delimited_list_empty);
