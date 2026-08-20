@@ -103,13 +103,15 @@ void slapt_gen_md5_sum_of_file(FILE *f, char *result_sum)
 
     rewind(f);
 
-    ssize_t getline_read;
-    size_t getline_size;
-    char *getline_buffer = NULL;
-    while ((getline_read = getline(&getline_buffer, &getline_size, f)) != EOF)
-        EVP_DigestUpdate(mdctx, getline_buffer, (size_t)getline_read);
-
-    free(getline_buffer);
+    unsigned char buf[8192];
+    size_t n;
+    while ((n = fread(buf, 1, sizeof(buf), f)) > 0) {
+        EVP_DigestUpdate(mdctx, buf, n);
+    }
+    if (ferror(f)) {
+        fprintf(stderr, "slapt_gen_md5_sum_of_file failed\n");
+        exit(EXIT_FAILURE);
+    }
 
     EVP_DigestFinal_ex(mdctx, md_value, &md_len);
 #if OPENSSL_VERSION_NUMBER >= 0x10100000L

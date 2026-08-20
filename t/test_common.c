@@ -196,6 +196,26 @@ START_TEST(test_slapt_gen_package_log_dir_name)
 }
 END_TEST
 
+START_TEST(test_slapt_gen_md5_sum_of_file_binary)
+{
+    const char *file = "data/md5_binary_test";
+    FILE *f = fopen(file, "wb");
+    ck_assert(f != NULL);
+    unsigned char data[] = {0x00,0x01,0xff,0x02,0x0a,0x03};
+    fwrite(data, 1, sizeof(data), f);
+    fclose(f);
+
+    f = fopen(file, "rb");
+    ck_assert(f != NULL);
+    char result_sum[SLAPT_MD5_STR_LEN + 1];
+    slapt_gen_md5_sum_of_file(f, result_sum);
+    fclose(f);
+    unlink(file);
+
+    ck_assert(strcmp("46f724d944a203f5e2c237c9969f4dc1", result_sum) == 0);
+}
+END_TEST
+
 Suite *common_test_suite(void)
 {
     Suite *s = suite_create("Common");
@@ -205,6 +225,7 @@ Suite *common_test_suite(void)
     tcase_add_test(tc, test_regex);
     tcase_add_test(tc, test_slapt_create_dir_structure);
     tcase_add_test(tc, test_slapt_gen_md5_sum_of_file);
+    tcase_add_test(tc, test_slapt_gen_md5_sum_of_file_binary);
     tcase_add_test(tc, test_slapt_str_replace_chr);
     tcase_add_test(tc, test_slapt_vector_t);
     tcase_add_test(tc, test_slapt_strip_whitespace);

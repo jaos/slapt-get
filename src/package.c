@@ -1837,7 +1837,7 @@ slapt_code_t slapt_verify_downloaded_pkg(const slapt_config_t *global_config, co
     char *file_name = slapt_gen_pkg_file_name(global_config, pkg);
 
     /* return if we can't open the file */
-    FILE *fh_test = fopen(file_name, "r");
+    FILE *fh_test = fopen(file_name, "rb");
     free(file_name);
     if (fh_test == NULL) {
         return SLAPT_DOWNLOAD_INCOMPLETE;
