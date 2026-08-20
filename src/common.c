@@ -409,7 +409,22 @@ slapt_vector_t *slapt_parse_delimited_list(const char *line, const char delim)
 
         ptr = strndup(start, start_len - end_len);
 
-        slapt_vector_t_add(list, ptr);
+        if (ptr) {
+            /* skip empty or whitespace-only tokens */
+            char *s = ptr;
+            while (*s && isspace((unsigned char)*s)) s++;
+            if (*s != '\0') {
+                /* trim trailing whitespace in place */
+                size_t l = strlen(ptr);
+                while (l > 0 && isspace((unsigned char)ptr[l - 1])) {
+                    ptr[l - 1] = '\0';
+                    l--;
+                }
+                slapt_vector_t_add(list, ptr);
+            } else {
+                free(ptr);
+            }
+        }
 
         position += start_len - end_len;
     }

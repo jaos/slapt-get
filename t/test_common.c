@@ -231,6 +231,20 @@ START_TEST(test_regex_extract_match)
 }
 END_TEST
 
+START_TEST(test_slapt_parse_delimited_list_empty)
+{
+    slapt_vector_t *v1 = slapt_parse_delimited_list("a,,b,, ", ',');
+    ck_assert_uint_eq(v1->size, 2);
+    ck_assert_str_eq(v1->items[0], "a");
+    ck_assert_str_eq(v1->items[1], "b");
+    slapt_vector_t_free(v1);
+
+    slapt_vector_t *v2 = slapt_parse_delimited_list(", , , ", ',');
+    ck_assert_uint_eq(v2->size, 0);
+    slapt_vector_t_free(v2);
+}
+END_TEST
+
 Suite *common_test_suite(void)
 {
     Suite *s = suite_create("Common");
@@ -245,6 +259,7 @@ Suite *common_test_suite(void)
     tcase_add_test(tc, test_slapt_vector_t);
     tcase_add_test(tc, test_slapt_strip_whitespace);
     tcase_add_test(tc, test_slapt_parse_delimited_list);
+    tcase_add_test(tc, test_slapt_parse_delimited_list_empty);
     tcase_add_test(tc, test_regex_extract_match);
     tcase_add_test(tc, test_slapt_gen_package_log_dir_name);
 
