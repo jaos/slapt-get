@@ -532,6 +532,20 @@ START_TEST(test_slapt_gen_filename_from_url)
 }
 END_TEST
 
+START_TEST(test_slapt_gen_filename_from_url_safe)
+{
+    slapt_config_t cfg = {0};
+    slapt_strlcpy(cfg.working_dir, "/tmp/slapt_test", sizeof(cfg.working_dir));
+
+    char *path = slapt_gen_filename_from_url(&cfg,
+        "https://example.com/slackware/", "./slackware64/a/");
+    ck_assert_msg(path != NULL, "path is NULL");
+    ck_assert_msg(path[0] == '/', "path is not absolute: %s", path);
+    ck_assert_msg(strstr(path, "..") == NULL, "path contains ..: %s", path);
+    free(path);
+}
+END_TEST
+
 START_TEST(test_slapt_parse_packages_txt_rejects_dotdot)
 {
     /* create a temp file with .. in location — should be skipped */
@@ -734,6 +748,7 @@ Suite *packages_test_suite(void)
     tcase_add_test(tc, test_cache);
     tcase_add_test(tc, test_slapt_gen_abs_path);
     tcase_add_test(tc, test_slapt_gen_filename_from_url);
+    tcase_add_test(tc, test_slapt_gen_filename_from_url_safe);
     tcase_add_test(tc, test_slapt_parse_packages_txt_rejects_dotdot);
     tcase_add_test(tc, test_slapt_clean_pkg_dir);
     tcase_add_test(tc, test_working_dir_absolute);

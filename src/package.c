@@ -1866,6 +1866,31 @@ char *slapt_gen_filename_from_url(const slapt_config_t *global_config, const cha
         exit(EXIT_FAILURE);
     }
     char *cleaned = slapt_str_replace_chr(filename, '/', '#');
+
+    /* reject path traversal components */
+    char *dup = strdup(cleaned);
+    if (!dup) {
+        fprintf(stderr, "slapt_gen_filename_from_url strdup failed\n");
+        exit(EXIT_FAILURE);
+    }
+
+    char *saveptr = NULL;
+    const char *tok = strtok_r(dup, "#", &saveptr);
+    bool bad = false;
+    while (tok) {
+        if (strcmp(tok, "..") == 0) {
+            bad = true;
+            break;
+        }
+        tok = strtok_r(NULL, "#", &saveptr);
+    }
+    free(dup);
+
+    if (bad) {
+        fprintf(stderr, "slapt_gen_filename_from_url rejected path traversal in %s\n", url);
+        exit(EXIT_FAILURE);
+    }
+
     char *abs_path = slapt_gen_abs_path(global_config->working_dir, cleaned);
     free(cleaned);
     free(filename);
