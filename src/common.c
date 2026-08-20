@@ -136,10 +136,12 @@ static char *join_path(char **v, size_t start, size_t end, bool absolute) {
         fprintf(stderr, "invalid path start/end\n");
         exit(EXIT_FAILURE);
     }
+
     size_t joined_size = 3 + (end - start); // start (if absolute) + delim + \0
     for(size_t counter = start; counter <= end; ++counter) {
         joined_size += strlen(v[counter]);
     }
+
     if (joined_size > PATH_MAX) {
         fprintf(stderr, "path too large\n");
         exit(EXIT_FAILURE);
@@ -152,14 +154,26 @@ static char *join_path(char **v, size_t start, size_t end, bool absolute) {
     } else {
         joined[0] = '\0';
     }
+
+    size_t used = absolute ? 1 : 0;
     for(size_t counter = start; counter <= end; ++counter) {
         const char *piece = v[counter];
-        const size_t piece_size = strlen(piece) + 1;
         if (counter != start) {
-            joined = strncat(joined, "/", 2);
+            if (used + 1 < joined_size) {
+                joined[used] = '/';
+                used++;
+                joined[used] = '\0';
+            }
         }
-        joined = strncat(joined, piece, piece_size);
+
+        size_t piece_len = strlen(piece);
+        if (used + piece_len < joined_size) {
+            memcpy(joined + used, piece, piece_len);
+            used += piece_len;
+            joined[used] = '\0';
+        }
     }
+
     return joined;
 }
 
@@ -228,8 +242,8 @@ char *slapt_str_replace_chr(const char *string, const char find, const char repl
 {
     char *clean = slapt_calloc(strlen(string) + 1, sizeof *clean);
 
-    size_t len = strlen(string);
-    for (uint32_t i = 0; i < len; ++i) {
+    const size_t len = strlen(string);
+    for (size_t i = 0; i < len; ++i) {
         if (string[i] == find) {
             clean[i] = replace;
         } else {
@@ -406,9 +420,9 @@ slapt_vector_t *slapt_parse_delimited_list(const char *line, const char delim)
 char *slapt_strip_whitespace(const char *s)
 {
     size_t len = strlen(s);
-    while (isspace(s[len - 1]))
+    while (len > 0 && isspace(s[len - 1]))
         --len;
-    while (*s && isspace(*s))
+    while (len > 0 && isspace(*s))
         ++s, --len;
     return strndup(s, len);
 }
