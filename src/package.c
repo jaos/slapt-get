@@ -92,17 +92,30 @@ slapt_vector_t *slapt_parse_packages_txt(FILE *pkg_list_fh)
     if (size_u_regex == NULL) {
         exit(EXIT_FAILURE);
     }
+    slapt_regex_t *required_regex = slapt_regex_t_init(SLAPT_PKG_REQUIRED_PATTERN);
+    if (required_regex == NULL) {
+        exit(EXIT_FAILURE);
+    }
+    slapt_regex_t *conflicts_regex = slapt_regex_t_init(SLAPT_PKG_CONFLICTS_PATTERN);
+    if (conflicts_regex == NULL) {
+        exit(EXIT_FAILURE);
+    }
+    slapt_regex_t *suggests_regex = slapt_regex_t_init(SLAPT_PKG_SUGGESTS_PATTERN);
+    if (suggests_regex == NULL) {
+        exit(EXIT_FAILURE);
+    }
 
     slapt_vector_t *list = slapt_vector_t_init((slapt_vector_t_free_function)slapt_pkg_t_free);
 
     ssize_t bytes_read;
     size_t getline_len = 0;
     char *getline_buffer = NULL;
-    char *char_pointer = NULL;
     while ((bytes_read = getline(&getline_buffer, &getline_len, pkg_list_fh)) != EOF) {
         slapt_pkg_t *tmp_pkg;
 
-        getline_buffer[bytes_read - 1] = '\0';
+        /* strip the trailing newline */
+        if (bytes_read > 0 && getline_buffer[bytes_read - 1] == '\n')
+            getline_buffer[bytes_read - 1] = '\0';
 
         /* pull out package data */
         if (strstr(getline_buffer, "PACKAGE NAME") == NULL)
@@ -126,6 +139,12 @@ slapt_vector_t *slapt_parse_packages_txt(FILE *pkg_list_fh)
         /* file extension */
         tmp_pkg->file_ext = slapt_regex_t_extract_match(name_regex, getline_buffer, 3);
 
+        if (tmp_pkg->name == NULL) {
+            fprintf(stderr, gettext("regex failed to parse name from [%s]\n"), getline_buffer);
+            slapt_pkg_t_free(tmp_pkg);
+            continue;
+        }
+
         /* mirror */
         long f_pos = ftell(pkg_list_fh);
         if (getline(&getline_buffer, &getline_len, pkg_list_fh) != EOF) {
@@ -133,15 +152,17 @@ slapt_vector_t *slapt_parse_packages_txt(FILE *pkg_list_fh)
 
             if (mirror_regex->reg_return == 0) {
                 tmp_pkg->mirror = slapt_regex_t_extract_match(mirror_regex, getline_buffer, 1);
-                size_t mirror_len = strlen(tmp_pkg->mirror);
-                // make sure we always have a trialing / for URL generation elsewhere
-                if (tmp_pkg->mirror[mirror_len - 1] != '/') {
-                    char *fixed_mirror = slapt_malloc(sizeof *fixed_mirror * (mirror_len + 2));
-                    fixed_mirror = memcpy(fixed_mirror, tmp_pkg->mirror, mirror_len);
-                    fixed_mirror[mirror_len] = '/';
-                    fixed_mirror[mirror_len + 1] = '\0';
-                    free(tmp_pkg->mirror);
-                    tmp_pkg->mirror = fixed_mirror;
+                if (tmp_pkg->mirror != NULL) {
+                    size_t mirror_len = strlen(tmp_pkg->mirror);
+                    // make sure we always have a trialing / for URL generation elsewhere
+                    if (tmp_pkg->mirror[mirror_len - 1] != '/') {
+                        char *fixed_mirror = slapt_malloc(sizeof *fixed_mirror * (mirror_len + 2));
+                        fixed_mirror = memcpy(fixed_mirror, tmp_pkg->mirror, mirror_len);
+                        fixed_mirror[mirror_len] = '/';
+                        fixed_mirror[mirror_len + 1] = '\0';
+                        free(tmp_pkg->mirror);
+                        tmp_pkg->mirror = fixed_mirror;
+                    }
                 }
             } else {
                 /* mirror isn't provided... rewind one line */
@@ -172,9 +193,8 @@ slapt_vector_t *slapt_parse_packages_txt(FILE *pkg_list_fh)
 
             if (location_regex->reg_return == 0) {
                 tmp_pkg->location = slapt_regex_t_extract_match(location_regex, getline_buffer, 1);
-
-                if (strstr(tmp_pkg->location, "..") != NULL) {
-                    fprintf(stderr, gettext("Invalid package location: %s\n"), tmp_pkg->location);
+                if (tmp_pkg->location == NULL) {
+                    fprintf(stderr, gettext("regexec failed to parse location\n"));
                     slapt_pkg_t_free(tmp_pkg);
                     continue;
                 }
@@ -208,6 +228,15 @@ slapt_vector_t *slapt_parse_packages_txt(FILE *pkg_list_fh)
                     tmp_pkg->location = tmp_location;
                 }
 #endif
+
+                /* checked after the workaround rewrite above, because the
+                 * rewrite can re-introduce ".." (e.g. "./pasture." -> "..");
+                 * locations are used to build download paths */
+                if (strstr(tmp_pkg->location, "..") != NULL) {
+                    fprintf(stderr, gettext("Invalid package location: %s\n"), tmp_pkg->location);
+                    slapt_pkg_t_free(tmp_pkg);
+                    continue;
+                }
 
             } else {
                 fprintf(stderr, gettext("regexec failed to parse location\n"));
@@ -264,80 +293,94 @@ slapt_vector_t *slapt_parse_packages_txt(FILE *pkg_list_fh)
 
         /* required, if provided */
         f_pos = ftell(pkg_list_fh);
-        if (((bytes_read = getline(&getline_buffer, &getline_len, pkg_list_fh)) != EOF) && ((char_pointer = strstr(getline_buffer, "PACKAGE REQUIRED")) != NULL)) {
-            const size_t req_len = 18; /* "PACKAGE REQUIRED" + 2 */
-            getline_buffer[bytes_read - 1] = '\0';
+        if (getline(&getline_buffer, &getline_len, pkg_list_fh) != EOF) {
+            slapt_regex_t_execute(required_regex, getline_buffer);
 
-            const size_t substr_len = strlen(char_pointer + req_len) + 1;
-            char *tmp_realloc = realloc(tmp_pkg->required, sizeof *tmp_pkg->required * substr_len);
-            if (tmp_realloc != NULL) {
-                tmp_pkg->required = tmp_realloc;
-                slapt_strlcpy(tmp_pkg->required, char_pointer + req_len, substr_len);
-            }
+            if (required_regex->reg_return == 0) {
+                char *required_string = slapt_regex_t_extract_match(required_regex, getline_buffer, 1);
+                if (required_string != NULL) {
+                    free(tmp_pkg->required);
+                    tmp_pkg->required = required_string;
 
-            // parse into tmp_pkg->dependencies
-            slapt_vector_t *dep_parts = slapt_parse_delimited_list(tmp_pkg->required, ',');
-            slapt_vector_t_foreach (const char *, dep_part, dep_parts) {
-                slapt_dependency_t *dependency_declaration = slapt_dependency_t_parse_required(dep_part);
-                slapt_vector_t_add(tmp_pkg->dependencies, dependency_declaration);
+                    // parse into tmp_pkg->dependencies
+                    slapt_vector_t *dep_parts = slapt_parse_delimited_list(tmp_pkg->required, ',');
+                    slapt_vector_t_foreach (const char *, dep_part, dep_parts) {
+                        slapt_dependency_t *dependency_declaration = slapt_dependency_t_parse_required(dep_part);
+                        slapt_vector_t_add(tmp_pkg->dependencies, dependency_declaration);
+                    }
+                    slapt_vector_t_free(dep_parts);
+                }
+            } else if (strncmp(getline_buffer, "PACKAGE REQUIRED", sizeof "PACKAGE REQUIRED" - 1) != 0) {
+                /* required isn't provided... rewind one line */
+                fseek(pkg_list_fh, (ftell(pkg_list_fh) - f_pos) * -1, SEEK_CUR);
             }
-            slapt_vector_t_free(dep_parts);
-        } else {
-            /* required isn't provided... rewind one line */
-            fseek(pkg_list_fh, (ftell(pkg_list_fh) - f_pos) * -1, SEEK_CUR);
+            /* a malformed "PACKAGE REQUIRED" line (no value) is consumed;
+             * the field keeps its initialized value */
         }
 
         /* conflicts, if provided */
         f_pos = ftell(pkg_list_fh);
-        if (((bytes_read = getline(&getline_buffer, &getline_len, pkg_list_fh)) != EOF) && ((char_pointer = strstr(getline_buffer, "PACKAGE CONFLICTS")) != NULL)) {
-            const size_t req_len = 19; /* "PACKAGE CONFLICTS" + 2 */
-            getline_buffer[bytes_read - 1] = '\0';
+        if (getline(&getline_buffer, &getline_len, pkg_list_fh) != EOF) {
+            slapt_regex_t_execute(conflicts_regex, getline_buffer);
 
-            const size_t substr_len = strlen(char_pointer + req_len) + 1;
-            char *tmp_realloc = realloc(tmp_pkg->conflicts, sizeof *tmp_pkg->conflicts * substr_len);
-            if (tmp_realloc != NULL) {
-                tmp_pkg->conflicts = tmp_realloc;
-                slapt_strlcpy(tmp_pkg->conflicts, char_pointer + req_len, substr_len);
+            if (conflicts_regex->reg_return == 0) {
+                char *conflicts_string = slapt_regex_t_extract_match(conflicts_regex, getline_buffer, 1);
+                if (conflicts_string != NULL) {
+                    free(tmp_pkg->conflicts);
+                    tmp_pkg->conflicts = conflicts_string;
+                }
+            } else if (strncmp(getline_buffer, "PACKAGE CONFLICTS", sizeof "PACKAGE CONFLICTS" - 1) != 0) {
+                /* conflicts isn't provided... rewind one line */
+                fseek(pkg_list_fh, (ftell(pkg_list_fh) - f_pos) * -1, SEEK_CUR);
             }
-        } else {
-            /* conflicts isn't provided... rewind one line */
-            fseek(pkg_list_fh, (ftell(pkg_list_fh) - f_pos) * -1, SEEK_CUR);
+            /* a malformed "PACKAGE CONFLICTS" line (no value) is consumed;
+             * the field keeps its initialized value */
         }
 
         /* suggests, if provided */
         f_pos = ftell(pkg_list_fh);
-        if (((bytes_read = getline(&getline_buffer, &getline_len, pkg_list_fh)) != EOF) && ((char_pointer = strstr(getline_buffer, "PACKAGE SUGGESTS")) != NULL)) {
-            const size_t req_len = 18; /* "PACKAGE SUGGESTS" + 2 */
-            getline_buffer[bytes_read - 1] = '\0';
+        if (getline(&getline_buffer, &getline_len, pkg_list_fh) != EOF) {
+            slapt_regex_t_execute(suggests_regex, getline_buffer);
 
-            const size_t substr_len = strlen(char_pointer + req_len) + 1;
-            char *tmp_realloc = realloc(tmp_pkg->suggests, sizeof *tmp_pkg->suggests * substr_len);
-            if (tmp_realloc != NULL) {
-                tmp_pkg->suggests = tmp_realloc;
-                slapt_strlcpy(tmp_pkg->suggests, char_pointer + req_len, substr_len);
+            if (suggests_regex->reg_return == 0) {
+                char *suggests_string = slapt_regex_t_extract_match(suggests_regex, getline_buffer, 1);
+                if (suggests_string != NULL) {
+                    free(tmp_pkg->suggests);
+                    tmp_pkg->suggests = suggests_string;
+                }
+            } else if (strncmp(getline_buffer, "PACKAGE SUGGESTS", sizeof "PACKAGE SUGGESTS" - 1) != 0) {
+                /* suggests isn't provided... rewind one line */
+                fseek(pkg_list_fh, (ftell(pkg_list_fh) - f_pos) * -1, SEEK_CUR);
             }
-        } else {
-            /* suggests isn't provided... rewind one line */
-            fseek(pkg_list_fh, (ftell(pkg_list_fh) - f_pos) * -1, SEEK_CUR);
+            /* a malformed "PACKAGE SUGGESTS" line (no value) is consumed;
+             * the field keeps its initialized value */
         }
 
         /* md5 checksum */
         f_pos = ftell(pkg_list_fh);
         if (((bytes_read = getline(&getline_buffer, &getline_len, pkg_list_fh)) != EOF) && (strstr(getline_buffer, "PACKAGE MD5") != NULL)) {
             char *md5sum;
-            getline_buffer[bytes_read - 1] = '\0';
-            md5sum = (char *)strpbrk(getline_buffer, ":") + 1;
-            while (*md5sum != 0 && isspace(*md5sum)) {
-                md5sum++;
-            }
-            /* don't overflow the buffer */
-            if (strlen(md5sum) > SLAPT_MD5_STR_LEN) {
-                fprintf(stderr, gettext("md5 sum too long\n"));
-                slapt_pkg_t_free(tmp_pkg);
-                continue;
-            }
+            char *colon;
+            if (bytes_read > 0 && getline_buffer[bytes_read - 1] == '\n')
+                getline_buffer[bytes_read - 1] = '\0';
+            colon = strpbrk(getline_buffer, ":");
+            if (colon != NULL) {
+                md5sum = colon + 1;
+                while (*md5sum != 0 && isspace(*md5sum)) {
+                    md5sum++;
+                }
+                /* don't overflow the buffer */
+                if (strlen(md5sum) > SLAPT_MD5_STR_LEN) {
+                    fprintf(stderr, gettext("md5 sum too long\n"));
+                    slapt_pkg_t_free(tmp_pkg);
+                    continue;
+                }
 
-            slapt_strlcpy(tmp_pkg->md5, md5sum, SLAPT_MD5_STR_LEN + 1);
+                slapt_strlcpy(tmp_pkg->md5, md5sum, SLAPT_MD5_STR_LEN + 1);
+            }
+            /* a "PACKAGE MD5" line without a colon is malformed; the line
+             * is consumed (md5 stays unset) so the description slot below
+             * still reads the description */
         } else {
             /* md5 sum isn't provided... rewind one line */
             fseek(pkg_list_fh, (ftell(pkg_list_fh) - f_pos) * -1, SEEK_CUR);
@@ -396,6 +439,9 @@ slapt_vector_t *slapt_parse_packages_txt(FILE *pkg_list_fh)
     slapt_regex_t_free(location_regex);
     slapt_regex_t_free(size_c_regex);
     slapt_regex_t_free(size_u_regex);
+    slapt_regex_t_free(required_regex);
+    slapt_regex_t_free(conflicts_regex);
+    slapt_regex_t_free(suggests_regex);
 
     return list;
 }
