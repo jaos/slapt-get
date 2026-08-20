@@ -614,8 +614,8 @@ char *slapt_gen_abs_path(const char *working_dir, const char *relative_path)
 char *slapt_gen_package_log_dir_name(void)
 {
     /* Generate package log directory using ROOT env variable if set */
-    char *root_env_entry = getenv(SLAPT_ROOT_ENV_NAME);
-    if (root_env_entry != NULL && strlen(root_env_entry) >= SLAPT_ROOT_ENV_LEN)
+    const char *root_env_entry = getenv(SLAPT_ROOT_ENV_NAME);
+    if (!root_env_entry || strlen(root_env_entry) >= SLAPT_ROOT_ENV_LEN)
         root_env_entry = NULL;
 
     /* Build the candidate paths, prepending ROOT if set */
