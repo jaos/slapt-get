@@ -2982,13 +2982,15 @@ slapt_dependency_t *slapt_dependency_t_init(void)
 
 void slapt_dependency_t_free(slapt_dependency_t *d)
 {
-    if (d->op != DEP_OP_OR) {
-        free(d->name);
-        free(d->version);
-    } else {
-        slapt_vector_t_free(d->alternatives);
+    if (d) {
+        if (d->op != DEP_OP_OR) {
+            if (d->name) free(d->name);
+            if (d->version) free(d->version);
+        } else {
+            if (d->alternatives) slapt_vector_t_free(d->alternatives);
+        }
+        free(d);
     }
-    free(d);
 }
 
 slapt_dependency_t *slapt_dependency_t_parse_required(const char *required)
