@@ -3052,7 +3052,11 @@ char *slapt_pkg_t_filelist(const slapt_pkg_t *pkg)
                 }
             }
 
-            filelist_p = nl + 1;
+            if (nl != NULL) {
+                filelist_p = nl + 1;
+            } else {
+                filelist_p = NULL; /* last line consumed; loop exits */
+            }
         }
     }
 
