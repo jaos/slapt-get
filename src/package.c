@@ -1169,7 +1169,8 @@ static struct slapt_pkg_version_parts *break_down_pkg_version(const char *versio
     pvp->count = 0;
 
     size_t sv_size = 0;
-    char *pointer, *short_version;
+    const char *pointer;
+    char *short_version;
     /* generate a short version, leave out arch and release */
     if ((pointer = strchr(version, '-')) == NULL) {
         sv_size = strlen(version) + 1;

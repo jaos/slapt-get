@@ -386,17 +386,18 @@ slapt_vector_t *slapt_parse_delimited_list(const char *line, const char delim)
     slapt_vector_t *list = slapt_vector_t_init(free);
     size_t position = 0, len = strlen(line);
 
-    while (isspace(line[position]) != 0) {
+    while (isspace((unsigned char)line[position]) != 0) {
         ++position;
     }
 
     while (position < len) {
         const char *start = line + position;
-        char *end = NULL, *ptr = NULL;
+        const char *end = NULL;
+        char *ptr = NULL;
         size_t start_len = strlen(start), end_len = 0;
 
         if (strchr(start, delim) != NULL) {
-            if (line[position] == delim || isspace(line[position]) != 0) {
+            if (line[position] == delim || isspace((unsigned char)line[position]) != 0) {
                 ++position;
                 continue;
             }
@@ -435,9 +436,9 @@ slapt_vector_t *slapt_parse_delimited_list(const char *line, const char delim)
 char *slapt_strip_whitespace(const char *s)
 {
     size_t len = strlen(s);
-    while (len > 0 && isspace(s[len - 1]))
+    while (len > 0 && isspace((unsigned char)s[len - 1]))
         --len;
-    while (len > 0 && isspace(*s))
+    while (len > 0 && isspace((unsigned char)*s))
         ++s, --len;
     return strndup(s, len);
 }
@@ -511,24 +512,24 @@ void slapt_vector_t_sort(slapt_vector_t *v, slapt_vector_t_qsort_cmp cmp)
 int slapt_vector_t_index_of(const slapt_vector_t *v, slapt_vector_t_cmp cmp, void *opt)
 {
     if (v->sorted) {
-        int min = 0, max = (int)v->size - 1;
+        size_t low = 0, high = v->size;
 
-        while (max >= min) {
-            int pivot = (min + max) / 2;
+        while (low < high) {
+            size_t pivot = low + (high - low) / 2;
             int cmpv = cmp(v->items[pivot], opt);
             if (cmpv == 0) {
-                return pivot;
+                return (int) pivot;
+            }
+            if (cmpv < 0) {
+                low = pivot + 1;
             } else {
-                if (cmpv < 0)
-                    min = pivot + 1;
-                else
-                    max = pivot - 1;
+                high = pivot;
             }
         }
     } else {
-        for (int i = 0; i < (int)v->size; i++) {
+        for (size_t i = 0; i < v->size; i++) {
             if (cmp(v->items[i], opt) == 0) {
-                return i;
+                return (int) i;
             }
         }
     }
@@ -632,8 +633,8 @@ char *slapt_gen_package_log_dir_name(void)
         root_env_entry = NULL;
 
     /* Build the candidate paths, prepending ROOT if set */
-    char lib_dir[SLAPT_ROOT_ENV_LEN + strlen(SLAPT_PKG_LIB_DIR) + 1];
-    char log_dir[SLAPT_ROOT_ENV_LEN + strlen(SLAPT_PKG_LOG_DIR) + 1];
+    char lib_dir[SLAPT_ROOT_ENV_LEN + sizeof(SLAPT_PKG_LIB_DIR)];
+    char log_dir[SLAPT_ROOT_ENV_LEN + sizeof(SLAPT_PKG_LOG_DIR)];
 
     if (root_env_entry) {
         snprintf(lib_dir, sizeof(lib_dir), "%s%s", root_env_entry, SLAPT_PKG_LIB_DIR);
