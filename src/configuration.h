@@ -67,4 +67,4 @@ void slapt_working_dir_init(slapt_config_t *global_config);
 
 /* create, destroy the source struct */
 slapt_source_t *slapt_source_t_init(const char *s);
-void slapt_source_t_free(slapt_source_t *src);
+void slapt_source_t_free(void *src);

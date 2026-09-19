@@ -43,7 +43,7 @@ slapt_config_t *slapt_config_t_init(void)
     global_config->progress_cb = NULL;
     global_config->gpgme_allow_unauth = false; /* even without GPGME */
 
-    global_config->sources = slapt_vector_t_init((slapt_vector_t_free_function)slapt_source_t_free);
+    global_config->sources = slapt_vector_t_init(slapt_source_t_free);
     global_config->exclude_list = slapt_vector_t_init(free);
 
     global_config->retry = 1;
@@ -278,8 +278,10 @@ slapt_source_t *slapt_source_t_init(const char *s)
     return src;
 }
 
-void slapt_source_t_free(slapt_source_t *src)
+void slapt_source_t_free(void *p)
 {
+    slapt_source_t *src = p;
+
     free(src->url);
     free(src);
 }

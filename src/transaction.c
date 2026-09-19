@@ -26,21 +26,21 @@ slapt_transaction_t *slapt_transaction_t_init(void)
 {
     slapt_transaction_t *trxn = slapt_malloc(sizeof *trxn);
 
-    trxn->install_pkgs = slapt_vector_t_init((slapt_vector_t_free_function)slapt_pkg_t_free);
+    trxn->install_pkgs = slapt_vector_t_init(slapt_pkg_t_free);
 
-    trxn->remove_pkgs = slapt_vector_t_init((slapt_vector_t_free_function)slapt_pkg_t_free);
+    trxn->remove_pkgs = slapt_vector_t_init(slapt_pkg_t_free);
 
-    trxn->exclude_pkgs = slapt_vector_t_init((slapt_vector_t_free_function)slapt_pkg_t_free);
+    trxn->exclude_pkgs = slapt_vector_t_init(slapt_pkg_t_free);
 
-    trxn->upgrade_pkgs = slapt_vector_t_init((slapt_vector_t_free_function)slapt_pkg_upgrade_t_free);
-    trxn->reinstall_pkgs = slapt_vector_t_init((slapt_vector_t_free_function)slapt_pkg_upgrade_t_free);
+    trxn->upgrade_pkgs = slapt_vector_t_init(slapt_pkg_upgrade_t_free);
+    trxn->reinstall_pkgs = slapt_vector_t_init(slapt_pkg_upgrade_t_free);
 
     trxn->suggests = slapt_vector_t_init(NULL);
 
-    trxn->queue = slapt_vector_t_init((slapt_vector_t_free_function)slapt_queue_i_free);
+    trxn->queue = slapt_vector_t_init(slapt_queue_i_free);
 
-    trxn->conflict_err = slapt_vector_t_init((slapt_vector_t_free_function)slapt_pkg_err_t_free);
-    trxn->missing_err = slapt_vector_t_init((slapt_vector_t_free_function)slapt_pkg_err_t_free);
+    trxn->conflict_err = slapt_vector_t_init(slapt_pkg_err_t_free);
+    trxn->missing_err = slapt_vector_t_init(slapt_pkg_err_t_free);
 
     return trxn;
 }
@@ -61,7 +61,7 @@ slapt_queue_i *slapt_queue_i_init(slapt_pkg_t *i, slapt_pkg_upgrade_t *u)
     return qi;
 }
 
-void slapt_queue_i_free(slapt_queue_i *qi)
+void slapt_queue_i_free(void *qi)
 {
     free(qi);
 }

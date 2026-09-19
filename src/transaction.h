@@ -52,7 +52,7 @@ typedef struct slapt_queue {
     enum slapt_action type;
 } slapt_queue_i;
 slapt_queue_i *slapt_queue_i_init(slapt_pkg_t *, slapt_pkg_upgrade_t *);
-void slapt_queue_i_free(slapt_queue_i *);
+void slapt_queue_i_free(void *);
 
 typedef struct slapt_transaction {
     slapt_vector_t *install_pkgs;

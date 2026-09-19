@@ -78,7 +78,7 @@ typedef struct slapt_dependency {
     slapt_dependency_op op;
 } slapt_dependency_t;
 slapt_dependency_t* slapt_dependency_t_init(void);
-void slapt_dependency_t_free(slapt_dependency_t *);
+void slapt_dependency_t_free(void *);
 slapt_dependency_t *slapt_dependency_t_parse_required(const char *);
 
 typedef struct slapt_pkg {
@@ -105,7 +105,7 @@ typedef struct {
 } slapt_pkg_upgrade_t;
 
 slapt_pkg_upgrade_t *slapt_pkg_upgrade_t_init(slapt_pkg_t *, slapt_pkg_t *);
-void slapt_pkg_upgrade_t_free(slapt_pkg_upgrade_t *);
+void slapt_pkg_upgrade_t_free(void *);
 
 typedef struct {
     char *pkg;
@@ -113,12 +113,12 @@ typedef struct {
 } slapt_pkg_err_t;
 
 slapt_pkg_err_t *slapt_pkg_err_t_init(char *, char *);
-void slapt_pkg_err_t_free(slapt_pkg_err_t *);
+void slapt_pkg_err_t_free(void *);
 
 /* returns an empty package structure */
 slapt_pkg_t *slapt_pkg_t_init(void);
 /* frees the package structure */
-void slapt_pkg_t_free(slapt_pkg_t *pkg);
+void slapt_pkg_t_free(void *pkg);
 /* generate a short description, returns (char *) on success or NULL on error, caller responsible for freeing the returned data */
 char *slapt_pkg_t_short_description(const slapt_pkg_t *);
 /* clean package name from package description */

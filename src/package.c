@@ -105,7 +105,7 @@ slapt_vector_t *slapt_parse_packages_txt(FILE *pkg_list_fh)
         exit(EXIT_FAILURE);
     }
 
-    slapt_vector_t *list = slapt_vector_t_init((slapt_vector_t_free_function)slapt_pkg_t_free);
+    slapt_vector_t *list = slapt_vector_t_init(slapt_pkg_t_free);
 
     ssize_t bytes_read;
     size_t getline_len = 0;
@@ -477,7 +477,7 @@ char *slapt_pkg_t_short_description(const slapt_pkg_t *pkg)
 
 slapt_vector_t *slapt_get_installed_pkgs(void)
 {
-    slapt_vector_t *list = slapt_vector_t_init((slapt_vector_t_free_function)slapt_pkg_t_free);
+    slapt_vector_t *list = slapt_vector_t_init(slapt_pkg_t_free);
 
     DIR *pkg_log_dir;
     char *pkg_log_dirname = slapt_gen_package_log_dir_name();
@@ -849,8 +849,10 @@ int slapt_remove_pkg(const slapt_config_t *global_config, const slapt_pkg_t *pkg
     return 0;
 }
 
-void slapt_pkg_t_free(slapt_pkg_t *pkg)
+void slapt_pkg_t_free(void *p)
 {
+    slapt_pkg_t *pkg = p;
+
     if (pkg->required != NULL)
         free(pkg->required);
 
@@ -1404,10 +1406,10 @@ int slapt_get_pkg_dependencies(const slapt_config_t *global_config,
         deps = slapt_vector_t_init(NULL);
 
     if (conflict_err == NULL)
-        conflict_err = slapt_vector_t_init((slapt_vector_t_free_function)slapt_pkg_err_t_free);
+        conflict_err = slapt_vector_t_init(slapt_pkg_err_t_free);
 
     if (missing_err == NULL)
-        missing_err = slapt_vector_t_init((slapt_vector_t_free_function)slapt_pkg_err_t_free);
+        missing_err = slapt_vector_t_init(slapt_pkg_err_t_free);
 
     /* don't go any further if the required member is empty or disable_dep_check is set */
     if (global_config->disable_dep_check || pkg->dependencies->size == 0)
@@ -1640,7 +1642,7 @@ slapt_pkg_t *slapt_get_pkg_by_details(const slapt_vector_t *list, const char *na
 int slapt_update_pkg_cache(const slapt_config_t *global_config)
 {
     bool source_dl_failed = false;
-    slapt_vector_t *new_pkgs = slapt_vector_t_init((slapt_vector_t_free_function)slapt_pkg_t_free);
+    slapt_vector_t *new_pkgs = slapt_vector_t_init(slapt_pkg_t_free);
 
     /* go through each package source and download the meta data */
     slapt_vector_t_foreach (const slapt_source_t *, source, global_config->sources) {
@@ -1851,7 +1853,7 @@ slapt_pkg_t *slapt_pkg_t_init(void)
 
     pkg->installed = false;
 
-    pkg->dependencies = slapt_vector_t_init((slapt_vector_t_free_function)slapt_dependency_t_free);
+    pkg->dependencies = slapt_vector_t_init(slapt_dependency_t_free);
 
     return pkg;
 }
@@ -2137,7 +2139,7 @@ slapt_pkg_t *slapt_pkg_t_copy(slapt_pkg_t *dst, const slapt_pkg_t *src)
     if (src->required != NULL)
         dst->required = strndup(src->required, strlen(src->required));
 
-    dst->dependencies = slapt_vector_t_init((slapt_vector_t_free_function)slapt_dependency_t_free);
+    dst->dependencies = slapt_vector_t_init(slapt_dependency_t_free);
 
     return dst;
 }
@@ -2150,8 +2152,10 @@ slapt_pkg_err_t *slapt_pkg_err_t_init(char *pkg, char *err)
     return e;
 }
 
-void slapt_pkg_err_t_free(slapt_pkg_err_t *e)
+void slapt_pkg_err_t_free(void *p)
 {
+    slapt_pkg_err_t *e = p;
+
     free(e->pkg);
     free(e->error);
     free(e);
@@ -3084,8 +3088,10 @@ slapt_pkg_upgrade_t *slapt_pkg_upgrade_t_init(slapt_pkg_t *i, slapt_pkg_t *u)
     return upgrade;
 }
 
-void slapt_pkg_upgrade_t_free(slapt_pkg_upgrade_t *upgrade)
+void slapt_pkg_upgrade_t_free(void *p)
 {
+    slapt_pkg_upgrade_t *upgrade = p;
+
     slapt_pkg_t_free(upgrade->installed);
     slapt_pkg_t_free(upgrade->upgrade);
     free(upgrade);
@@ -3100,8 +3106,10 @@ slapt_dependency_t *slapt_dependency_t_init(void)
     return d;
 }
 
-void slapt_dependency_t_free(slapt_dependency_t *d)
+void slapt_dependency_t_free(void *p)
 {
+    slapt_dependency_t *d = p;
+
     if (d) {
         if (d->op != DEP_OP_OR) {
             if (d->name) free(d->name);
@@ -3126,7 +3134,7 @@ slapt_dependency_t *slapt_dependency_t_parse_required(const char *required)
     if (strchr(required, '|') != NULL) {
         slapt_dependency_t *d = slapt_dependency_t_init();
         d->op = DEP_OP_OR;
-        d->alternatives = slapt_vector_t_init((slapt_vector_t_free_function)slapt_dependency_t_free);
+        d->alternatives = slapt_vector_t_init(slapt_dependency_t_free);
         slapt_vector_t *alts = slapt_parse_delimited_list(required, '|');
         slapt_vector_t_foreach (const char *, alt, alts) {
             slapt_dependency_t *alt_dep = slapt_dependency_t_parse_required(alt);
