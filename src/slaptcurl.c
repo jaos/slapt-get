@@ -49,6 +49,14 @@ int slapt_download_data(FILE *fh, const char *url, size_t bytes, SLAPT_DOWNLOAD_
     curl_easy_setopt(ch, CURLOPT_FILETIME, 1L);
     curl_easy_setopt(ch, CURLOPT_FOLLOWLOCATION, 1L);
 
+    /* connection limits */
+    curl_easy_setopt(ch, CURLOPT_CONNECTTIMEOUT, 30L);
+    curl_easy_setopt(ch, CURLOPT_LOW_SPEED_LIMIT, 100L);
+    curl_easy_setopt(ch, CURLOPT_LOW_SPEED_TIME, 60L);
+    curl_easy_setopt(ch, CURLOPT_TCP_KEEPALIVE, 1L);
+    curl_easy_setopt(ch, CURLOPT_TCP_KEEPIDLE, 60L);
+    curl_easy_setopt(ch, CURLOPT_TCP_KEEPINTVL, 15L);
+
     /* ugh, if someone wants to do this */
     if (getenv(SLAPT_NO_SSL_VERIFYPEER))
         curl_easy_setopt(ch, CURLOPT_SSL_VERIFYPEER, 0L);
@@ -142,6 +150,15 @@ char *slapt_head_request(const char *url)
 #endif
     curl_easy_setopt(ch, CURLOPT_FILETIME, 1L);
     curl_easy_setopt(ch, CURLOPT_FOLLOWLOCATION, 1L);
+
+    /* connection limits */
+    curl_easy_setopt(ch, CURLOPT_CONNECTTIMEOUT, 30L);
+    curl_easy_setopt(ch, CURLOPT_LOW_SPEED_LIMIT, 100L);
+    curl_easy_setopt(ch, CURLOPT_LOW_SPEED_TIME, 60L);
+    curl_easy_setopt(ch, CURLOPT_TCP_KEEPALIVE, 1L);
+    curl_easy_setopt(ch, CURLOPT_TCP_KEEPIDLE, 60L);
+    curl_easy_setopt(ch, CURLOPT_TCP_KEEPINTVL, 15L);
+    curl_easy_setopt(ch, CURLOPT_SERVER_RESPONSE_TIMEOUT_MS, 30000L);
 
     if (getenv("SLAPT_CURL_DEBUG"))
         curl_easy_setopt(ch, CURLOPT_VERBOSE, 1L);
