@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-30 22:41-0400\n"
+"POT-Creation-Date: 2026-09-25 23:11-0400\n"
 "PO-Revision-Date: 2012-09-17 21:34+0000\n"
 "Last-Translator: Georgi Georgiev (RacerBG) <g.georgiev.shumen@gmail.com>, "
 "2015-2016\n"
@@ -22,20 +22,517 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, c-format
+msgid "Failed to open %s\n"
+msgstr "Неуспех при отваряне на %s\n"
+
+#, c-format
+msgid "Failed to compile regex\n"
+msgstr "Failed to compile regex\n"
+
+#, c-format
+msgid "Regex Error: %s\n"
+msgstr "Regex Error: %s\n"
+
+#, c-format
+msgid "Failed to mkdir %s: %s\n"
+msgstr ""
+
+#, c-format
+msgid "Failed to malloc\n"
+msgstr "Failed to malloc\n"
+
+#, c-format
+msgid "Failed to calloc\n"
+msgstr "Failed to calloc\n"
+
+msgid "MD5 checksum mismatch, override with --no-md5"
+msgstr "MD5 checksum mismatch, override with --no-md5"
+
+msgid "Missing MD5 checksum, override with --no-md5"
+msgstr "Missing MD5 checksum, override with --no-md5"
+
+msgid "Incomplete download"
+msgstr "Incomplete download"
+
+msgid "GPG key successfully imported"
+msgstr "GPG key successfully imported"
+
+msgid "GPG key could not be imported"
+msgstr "GPG key could not be imported"
+
+msgid "GPG key already present"
+msgstr "GPG key already present"
+
+msgid "Checksums signature successfully verified"
+msgstr "Потвърждаването на MD5 ключ е успешно"
+
+msgid "Not verified: null context"
+msgstr "Не е проверено: невалиден контекст"
+
+msgid "Checksums not read"
+msgstr "MD5 ключ не се чете"
+
+msgid "Signature not read"
+msgstr "Подписа не се чете"
+
+msgid "Not Verified: key revoked"
+msgstr "Не е проверено: ключа е отменен"
+
+msgid "Not Verified: key expired"
+msgstr "Не е проверено: ключа е остарял"
+
+msgid "Not Verified: signature expired"
+msgstr "Не е проверено: подписа е остарял"
+
+msgid "Not Verified: missing CRL"
+msgstr "Не е проверено: липсва CRL"
+
+msgid "Not Verified: CRL too old"
+msgstr "Не е проверено: CRL е твърде стар"
+
+msgid "Not Verified: bad policy"
+msgstr "Не е проверено: лоша политика"
+
+msgid "Not Verified: system error"
+msgstr "Не е проверено: системна грешка"
+
+msgid "Checksums signature could not be verified"
+msgstr "Потвърждаването на MD5 ключ се провали"
+
+msgid "No key for verification"
+msgstr "No key for verification"
+
+msgid "Unknown error"
+msgstr "Unknown error"
+
+msgid "Default"
+msgstr "Подразбиране"
+
+msgid "Default Patch"
+msgstr "Стандартен пач"
+
+msgid "Preferred"
+msgstr "Preferred"
+
+msgid "Preferred Patch"
+msgstr "Preferred Patch"
+
+msgid "Official"
+msgstr "Official"
+
+msgid "Official Patch"
+msgstr "Official Patch"
+
+msgid "Custom"
+msgstr "По избор"
+
+msgid "Custom Patch"
+msgstr "Избираем пач"
+
+#, c-format
+msgid "Failed to opendir %s\n"
+msgstr "Failed to opendir %s\n"
+
+#, c-format
+msgid "WORKINGDIR directive not set within %s.\n"
+msgstr "WORKINGDIR directive not set within %s.\n"
+
+#, c-format
+msgid "SOURCE directive not set within %s.\n"
+msgstr "SOURCE directive not set within %s.\n"
+
+#, c-format
+msgid "Failed to build working directory [%s]\n"
+msgstr "Неуспех при създаването на работна директория [%s]\n"
+
+#, fuzzy, c-format
+msgid "Failed to resolve working directory [%s]\n"
+msgstr "Неуспех при създаването на работна директория [%s]\n"
+
+#, c-format
+msgid "Please update permissions on %s or run with appropriate privileges\n"
+msgstr "Please update permissions on %s or run with appropriate privileges\n"
+
+#, c-format
+msgid "An implementation of the Debian APT system to Slackware\n"
+msgstr "Подобна на Debian APT пакетна система за Slackware\n"
+
+#, c-format
+msgid "Usage:\n"
+msgstr "Употреба:\n"
+
+#, c-format
+msgid "%s [option(s)] [target]\n"
+msgstr "%s [опция(и)] [цел]\n"
+
+#, c-format
+msgid "Targets:\n"
+msgstr "Действия:\n"
+
+msgid "retrieve pkg data from MIRROR"
+msgstr "изтегли данни за пакета от ОГЛЕДАЛОТО"
+
+msgid "upgrade installed pkgs"
+msgstr "обновяване на инсталираните пакети"
+
+msgid "upgrade to newer release"
+msgstr "обновяване до по-нова версия на дистрибуцията"
+
+msgid "[pkg name(s)] - install specified pkg(s)"
+msgstr "[име на пакет] - инсталиране на избран пакет"
+
+msgid "[disk set(s)] - install specified disk set(s)"
+msgstr "[директория] - инсталиране на цели директории от сървър"
+
+msgid "[pkg name(s)] - remove specified pkg(s)"
+msgstr "[име на пакет] - премахване на избран пакет"
+
+msgid "[pkg name(s)] - show pkg(s) description"
+msgstr "[име на пакет(и)] - покажи описанието на пакет(и)"
+
+msgid "[pkg name(s)] - show pkg(s) installed files"
+msgstr "[име на пакет(и)] - покажи инсталираните файлове на пакет(и)"
+
+msgid "[expression] - search available pkgs"
+msgstr "[описание] - търсене за конкретен пакет"
+
+msgid "list pkgs"
+msgstr "показване на всички пакети"
+
+msgid "list available pkgs"
+msgstr "показване на наличните, но неинсталирани пакети"
+
+msgid "list installed pkgs"
+msgstr "показване на инсталираните пакети"
+
+msgid "purge cached pkgs"
+msgstr "изчитване на кеширани пакети"
+
+msgid "only purge cache of older, unreacheable pkgs"
+msgstr "изчистване на кеширани стари и неизползваеми пакети"
+
+msgid "retrieve GPG keys for sources"
+msgstr "retrieve GPG keys for sources"
+
+msgid "display this help and exit"
+msgstr "покажи помощта и излез"
+
+msgid "print version and license info"
+msgstr "показване на версията и лицензната информация"
+
+#, c-format
+msgid "Options:\n"
+msgstr "Опции:\n"
+
+msgid "only download pkg on install/upgrade"
+msgstr "само изтегляне на пакетите при инсталиране/обновяване"
+
+msgid "show pkgs to be installed/upgraded"
+msgstr "показване на пакетите за инсталиране/ъпгрейд"
+
+msgid "do not prompt during install/upgrade"
+msgstr "без искане на потвърждение при инсталиране/обновяване"
+
+msgid "always prompt during install/upgrade"
+msgstr "искане на потвърждение при инсталиране/обновяване"
+
+msgid "reinstall the pkg"
+msgstr "преинсталирай пакета"
+
+msgid "install/upgrade excludes"
+msgstr "инсталиране/обновяване на изключените"
+
+msgid "do not perform md5 check sum"
+msgstr "без проверка на md5 сумите"
+
+msgid "skip dependency check"
+msgstr "без проверка за зависимости"
+
+msgid "ignore dependency failures"
+msgstr "игноринане на грешките от зависимости"
+
+msgid "print URIs only, do not download"
+msgstr "показване само на линковете, без изтегляне"
+
+msgid "show download statistics"
+msgstr "показване на статистиката на теглене"
+
+msgid "specify alternate slapt-getrc location"
+msgstr "посочване на алтернативен slapt-getrc файл"
+
+msgid "remove obsolete packages"
+msgstr "премахване на остарели пакети (само при dist-upgrade)"
+
+msgid "specify number of download retry attempts"
+msgstr "посочване на броя опити изтегляне"
+
+msgid "install package, do not attempt to upgrade"
+msgstr "инсталиране на пакет, без опит за обновяване"
+
+msgid "show verbose information in command line output"
+msgstr ""
+
+msgid "allow unauthenticated packages"
+msgstr "разреши неудостоверени пакети"
+
+#, c-format
+msgid "%s version %s\n"
+msgstr "%s версия %s\n"
+
+#, c-format
+msgid "Reading Package Lists..."
+msgstr "Прочитане на списъците с пакети..."
+
+#, c-format
+msgid "Done\n"
+msgstr "Готово\n"
+
+#, c-format
+msgid "No such package: %s\n"
+msgstr "Няма такъв пакет: %s\n"
+
+#, c-format
+msgid "Excluding %s, use --ignore-dep to override\n"
+msgstr "%s се изключва, използвайте --ignore-dep\n"
+
+#, c-format
+msgid "%s is up to date.\n"
+msgstr "%s е актуален.\n"
+
+msgid "yes"
+msgstr "да"
+
+msgid "no"
+msgstr "не"
+
+#, c-format
+msgid "%s is not installed.\n"
+msgstr "%s не е инсталиран.\n"
+
+#, c-format
+msgid "Package Name: %s\n"
+msgstr "Име на пакет: %s\n"
+
+#, c-format
+msgid "Package Mirror: %s\n"
+msgstr "Package Mirror: %s\n"
+
+#, c-format
+msgid "Package Priority: %s\n"
+msgstr "Package Priority: %s\n"
+
+#, c-format
+msgid "Package Location: %s\n"
+msgstr "Местоположение на пакет: %s\n"
+
+#, c-format
+msgid "Package Version: %s\n"
+msgstr "Версия на пакет: %s\n"
+
+#, c-format
+msgid "Package Size: %d K\n"
+msgstr "Обем на пакет: %d K\n"
+
+#, c-format
+msgid "Package Installed Size: %d K\n"
+msgstr "Обем на инсталиран пакет: %d K\n"
+
+#, c-format
+msgid "Package Required: %s\n"
+msgstr "Package Required: %s\n"
+
+#, c-format
+msgid "Package Conflicts: %s\n"
+msgstr "Package Conflicts: %s\n"
+
+#, c-format
+msgid "Package Suggests: %s\n"
+msgstr "Package Suggests: %s\n"
+
+#, c-format
+msgid "Package MD5 Sum:  %s\n"
+msgstr "MD5 сума на пакета:  %s\n"
+
+#, c-format
+msgid "Package Description:\n"
+msgstr "Описание на пакет:\n"
+
+msgid "Package ChangeLog"
+msgstr "Лог на промените"
+
+#, c-format
+msgid "Package Installed: %s\n"
+msgstr "Инсталиран пакет: %s\n"
+
+#, c-format
+msgid "Retrieving GPG key [%s]..."
+msgstr "Retrieving GPG key [%s]..."
+
+#, c-format
+msgid "Perhaps you want to run --update?\n"
+msgstr "Може би желаете да стартирате --update?\n"
+
+#, c-format
+msgid "regex failed on [%s]\n"
+msgstr "regex failed on [%s]\n"
+
+#, fuzzy, c-format
+msgid "regex failed to parse name from [%s]\n"
+msgstr "regex failed on [%s]\n"
+
+#, fuzzy, c-format
+msgid "Invalid package priority: %s\n"
+msgstr "Местоположение на пакет: %s\n"
+
+#, c-format
+msgid "regexec failed to parse location\n"
+msgstr "regexec failed to parse location\n"
+
+#, fuzzy, c-format
+msgid "Invalid package location: %s\n"
+msgstr "Местоположение на пакет: %s\n"
+
+#, c-format
+msgid "getline reached EOF attempting to read location\n"
+msgstr "getline reached EOF attempting to read location\n"
+
+#, c-format
+msgid "regexec failed to parse size_c\n"
+msgstr "regexec failed to parse size_c\n"
+
+#, c-format
+msgid "getline reached EOF attempting to read size_c\n"
+msgstr "getline reached EOF attempting to read size_c\n"
+
+#, c-format
+msgid "regexec failed to parse size_u\n"
+msgstr "regexec failed to parse size_u\n"
+
+#, c-format
+msgid "getline reached EOF attempting to read size_u\n"
+msgstr "getline reached EOF attempting to read size_u\n"
+
+#, c-format
+msgid "md5 sum too long\n"
+msgstr "md5 сумата е твърде дълга\n"
+
+#, c-format
+msgid "error attempting to read pkg description\n"
+msgstr "грешка при опит за прочитане на описанието на пакета\n"
+
+#, c-format
+msgid "Failed to execute command: [%s]\n"
+msgstr "Неуспех при изпълнението на команда: [%s]\n"
+
+#, c-format
+msgid "Failed to realloc %s\n"
+msgstr "Failed to realloc %s\n"
+
+#, c-format
+msgid "Retrieving package data [%s]..."
+msgstr "Получаване на информация за пакетите [%s]..."
+
+#, c-format
+msgid "Retrieving patch list [%s]..."
+msgstr "Получаване на списък с ъпдейти [%s]..."
+
+#, c-format
+msgid "Retrieving checksum list [%s]..."
+msgstr "Получаване на списък с MD5 суми [%s]..."
+
+#, c-format
+msgid "Retrieving checksum signature [%s]..."
+msgstr "Retrieving checksum signature [%s]..."
+
+#, c-format
+msgid "Verifying checksum signature [%s]..."
+msgstr "Verifying checksum signature [%s]..."
+
+msgid "Verified"
+msgstr "Verified"
+
+msgid ", but accepted as an exception"
+msgstr ", но приет като изключение"
+
+#, c-format
+msgid "Retrieving ChangeLog.txt [%s]..."
+msgstr "Получаване на ChangeLog.txt [%s]..."
+
+#, c-format
+msgid "Sources failed to download, correct sources and rerun --update\n"
+msgstr ""
+"Неуспех при изтеглянето на източниците, поправете източниците и стартирайте "
+"отново --update\n"
+
+#, c-format
+msgid "Delete %s ? [y/N]"
+msgstr "Изтрий %s ? [y/N]"
+
+#, c-format
+msgid "Failed to parse package data from %s\n"
+msgstr "Failed to parse package data from %s\n"
+
+#, c-format
+msgid "Cached\n"
+msgstr "Кеширан\n"
+
+#, c-format
+msgid "Failed to download: %s\n"
+msgstr "Неуспех при изтегляне: %s\n"
+
+#, c-format
+msgid "Failed to unlink %s\n"
+msgstr "Failed to unlink %s\n"
+
+#, c-format
+msgid "Get %s %s %s [%.1f%s]..."
+msgstr "Get %s %s %s [%.1f%s]..."
+
+#, c-format
+msgid "Not Found\n"
+msgstr "Not Found\n"
+
+#, c-format
+msgid "The following packages have unmet dependencies:\n"
+msgstr "Следните пакети имат неудовлетворени зависимости:\n"
+
+#, c-format
 msgid "  %s: Depends: %s\n"
 msgstr "  %s: Зависимости: %s\n"
 
 #, c-format
-msgid "%d newly installed, "
-msgid_plural "%d newly installed, "
-msgstr[0] "%d новоинсталиран,"
-msgstr[1] "%d новоинсталиран,"
+msgid "%s, which is required by %s, is excluded\n"
+msgstr "%s, който се изисква от %s, е изключен\n"
 
 #, c-format
-msgid "%d not upgraded.\n"
-msgid_plural "%d not upgraded.\n"
-msgstr[0] "%d не е обновен.\n"
-msgstr[1] "%d не е обновен.\n"
+msgid "The following packages have been EXCLUDED:\n"
+msgstr "Следните пакети бяха ИЗКЛЮЧЕНИ:\n"
+
+#, c-format
+msgid "Suggested packages:\n"
+msgstr "Предложени пакети:\n"
+
+#, c-format
+msgid "The following NEW packages will be installed:\n"
+msgstr "Следните НОВИ пакети ще бъдат инсталирани:\n"
+
+#, c-format
+msgid "The following packages will be REMOVED:\n"
+msgstr "Следните пакети ще бъдат ПРЕМАХНАТИ:\n"
+
+#, c-format
+msgid "The following packages will be upgraded:\n"
+msgstr "Следните пакети ще бъдат обновени:\n"
+
+#, c-format
+msgid "The following packages will be reinstalled:\n"
+msgstr "The following packages will be reinstalled:\n"
+
+#, c-format
+msgid "%d upgraded, "
+msgid_plural "%d upgraded, "
+msgstr[0] "%d обновен, "
+msgstr[1] "%d обновен, "
 
 #, c-format
 msgid "%d reinstalled, "
@@ -44,60 +541,34 @@ msgstr[0] "%d преинсталиран,"
 msgstr[1] "%d преинсталиран,"
 
 #, c-format
+msgid "%d newly installed, "
+msgid_plural "%d newly installed, "
+msgstr[0] "%d новоинсталиран,"
+msgstr[1] "%d новоинсталиран,"
+
+#, c-format
 msgid "%d to remove, "
 msgid_plural "%d to remove, "
 msgstr[0] "%d за премахване,"
 msgstr[1] "%d за премахване,"
 
-#. print the summary
 #, c-format
-msgid "%d upgraded, "
-msgid_plural "%d upgraded, "
-msgstr[0] "%d обновен, "
-msgstr[1] "%d обновен, "
+msgid "%d not upgraded.\n"
+msgid_plural "%d not upgraded.\n"
+msgstr[0] "%d не е обновен.\n"
+msgstr[1] "%d не е обновен.\n"
 
 #, c-format
-msgid "%s [option(s)] [target]\n"
-msgstr "%s [опция(и)] [цел]\n"
+msgid "Need to get %.1f%s/%.1f%s of archives.\n"
+msgstr "Необходимо е да се изтеглят %.1f%s/%.1f%s архиви.\n"
 
 #, c-format
-msgid "%s is not installed.\n"
-msgstr "%s не е инсталиран.\n"
+msgid "Need to get %.1f%s of archives.\n"
+msgstr "Необходимо е да се изтеглят %.1f%s архиви.\n"
 
 #, c-format
-msgid "%s is up to date.\n"
-msgstr "%s е актуален.\n"
-
-#, c-format
-msgid "%s version %s\n"
-msgstr "%s версия %s\n"
-
-#, c-format
-msgid "%s, which is required by %s, is excluded\n"
-msgstr "%s, който се изисква от %s, е изключен\n"
-
-#, c-format
-msgid "%s, which is to be installed, conflicts with %s\n"
-msgstr "%s, който ще бъде инсталиран, е в конфликт с %s\n"
-
-#, c-format
-msgid "%s-%s is to be installed\n"
-msgstr "%s-%s ще бъде инсталиран\n"
-
-#, c-format
-msgid "%s-%s is to be removed\n"
-msgstr "%s-%s ще бъде премахнат\n"
-
-#, c-format
-msgid "%s-%s is to be upgraded to version %s\n"
-msgstr "%s-%s ще бъде обновен до версия %s\n"
-
-msgid ", but accepted as an exception"
-msgstr ", но приет като изключение"
-
-#, c-format
-msgid "Abort.\n"
-msgstr "Прекъсване.\n"
+msgid "You don't have enough free space in %s\n"
+msgstr "Няма достатъчно свободно място в %s\n"
 
 #, c-format
 msgid "After unpacking %.1f%s disk space will be freed.\n"
@@ -109,254 +580,24 @@ msgid "After unpacking %.1f%s of additional disk space will be used.\n"
 msgstr ""
 "След разархивиране %.1f%s от дисковото пространство ще бъде използвано.\n"
 
-#, c-format
-msgid "An implementation of the Debian APT system to Slackware\n"
-msgstr "Подобна на Debian APT пакетна система за Slackware\n"
-
-#, c-format
-msgid "Cached\n"
-msgstr "Кеширан\n"
-
-msgid "Checksums not read"
-msgstr "MD5 ключ не се чете"
-
-msgid "Checksums signature could not be verified"
-msgstr "Потвърждаването на MD5 ключ се провали"
-
-msgid "Checksums signature successfully verified"
-msgstr "Потвърждаването на MD5 ключ е успешно"
-
-msgid "Custom"
-msgstr "По избор"
-
-msgid "Custom Patch"
-msgstr "Избираем пач"
-
-msgid "Default"
-msgstr "Подразбиране"
-
-msgid "Default Patch"
-msgstr "Стандартен пач"
-
-#, c-format
-msgid "Delete %s ? [y/N]"
-msgstr "Изтрий %s ? [y/N]"
-
 msgid "Do you want to continue? [y/N] "
 msgstr "Желаете ли да продължите? [y(да)/N(НЕ)] "
 
 #, c-format
-msgid "Done\n"
-msgstr "Готово\n"
-
-#. otherwise exclude
-#, c-format
-msgid "Excluding %s, use --ignore-dep to override\n"
-msgstr "%s се изключва, използвайте --ignore-dep\n"
+msgid "Abort.\n"
+msgstr "Прекъсване.\n"
 
 #, c-format
-msgid "Failed to build working directory [%s]\n"
-msgstr "Неуспех при създаването на работна директория [%s]\n"
+msgid "%s-%s is to be removed\n"
+msgstr "%s-%s ще бъде премахнат\n"
 
 #, c-format
-msgid "Failed to calloc\n"
-msgstr "Failed to calloc\n"
+msgid "%s-%s is to be installed\n"
+msgstr "%s-%s ще бъде инсталиран\n"
 
 #, c-format
-msgid "Failed to compile regex\n"
-msgstr "Failed to compile regex\n"
-
-#, c-format
-msgid "Failed to download: %s\n"
-msgstr "Неуспех при изтегляне: %s\n"
-
-#, c-format
-msgid "Failed to execute command: [%s]\n"
-msgstr "Неуспех при изпълнението на команда: [%s]\n"
-
-#, c-format
-msgid "Failed to malloc\n"
-msgstr "Failed to malloc\n"
-
-#, c-format
-msgid "Failed to mkdir %s: %s\n"
-msgstr ""
-
-#, c-format
-msgid "Failed to open %s\n"
-msgstr "Неуспех при отваряне на %s\n"
-
-#, c-format
-msgid "Failed to opendir %s\n"
-msgstr "Failed to opendir %s\n"
-
-#, c-format
-msgid "Failed to parse package data from %s\n"
-msgstr "Failed to parse package data from %s\n"
-
-#, c-format
-msgid "Failed to realloc %s\n"
-msgstr "Failed to realloc %s\n"
-
-#, fuzzy, c-format
-msgid "Failed to resolve working directory [%s]\n"
-msgstr "Неуспех при създаването на работна директория [%s]\n"
-
-#, c-format
-msgid "Failed to unlink %s\n"
-msgstr "Failed to unlink %s\n"
-
-msgid "GPG key already present"
-msgstr "GPG key already present"
-
-msgid "GPG key could not be imported"
-msgstr "GPG key could not be imported"
-
-msgid "GPG key successfully imported"
-msgstr "GPG key successfully imported"
-
-#, c-format
-msgid "Get %s %s %s [%.1f%s]..."
-msgstr "Get %s %s %s [%.1f%s]..."
-
-msgid "Incomplete download"
-msgstr "Incomplete download"
-
-#, c-format
-msgid "Installed %s conflicts with %s\n"
-msgstr "Инсталираният %s е в конфликт с %s\n"
-
-#, fuzzy, c-format
-msgid "Invalid package location: %s\n"
-msgstr "Местоположение на пакет: %s\n"
-
-msgid "MD5 checksum mismatch, override with --no-md5"
-msgstr "MD5 checksum mismatch, override with --no-md5"
-
-msgid "Missing MD5 checksum, override with --no-md5"
-msgstr "Missing MD5 checksum, override with --no-md5"
-
-#, c-format
-msgid "Need to get %.1f%s of archives.\n"
-msgstr "Необходимо е да се изтеглят %.1f%s архиви.\n"
-
-#, c-format
-msgid "Need to get %.1f%s/%.1f%s of archives.\n"
-msgstr "Необходимо е да се изтеглят %.1f%s/%.1f%s архиви.\n"
-
-msgid "No key for verification"
-msgstr "No key for verification"
-
-#, c-format
-msgid "No such package: %s\n"
-msgstr "Няма такъв пакет: %s\n"
-
-#, c-format
-msgid "Not Found\n"
-msgstr "Not Found\n"
-
-msgid "Not Verified: CRL too old"
-msgstr "Не е проверено: CRL е твърде стар"
-
-msgid "Not Verified: bad policy"
-msgstr "Не е проверено: лоша политика"
-
-msgid "Not Verified: key expired"
-msgstr "Не е проверено: ключа е остарял"
-
-msgid "Not Verified: key revoked"
-msgstr "Не е проверено: ключа е отменен"
-
-msgid "Not Verified: missing CRL"
-msgstr "Не е проверено: липсва CRL"
-
-msgid "Not Verified: signature expired"
-msgstr "Не е проверено: подписа е остарял"
-
-msgid "Not Verified: system error"
-msgstr "Не е проверено: системна грешка"
-
-msgid "Not verified: null context"
-msgstr "Не е проверено: невалиден контекст"
-
-msgid "Official"
-msgstr "Official"
-
-msgid "Official Patch"
-msgstr "Official Patch"
-
-#, c-format
-msgid "Options:\n"
-msgstr "Опции:\n"
-
-msgid "Package ChangeLog"
-msgstr "Лог на промените"
-
-#, c-format
-msgid "Package Conflicts: %s\n"
-msgstr "Package Conflicts: %s\n"
-
-#, c-format
-msgid "Package Description:\n"
-msgstr "Описание на пакет:\n"
-
-#, c-format
-msgid "Package Installed Size: %d K\n"
-msgstr "Обем на инсталиран пакет: %d K\n"
-
-#, c-format
-msgid "Package Installed: %s\n"
-msgstr "Инсталиран пакет: %s\n"
-
-#, c-format
-msgid "Package Location: %s\n"
-msgstr "Местоположение на пакет: %s\n"
-
-#, c-format
-msgid "Package MD5 Sum:  %s\n"
-msgstr "MD5 сума на пакета:  %s\n"
-
-#, c-format
-msgid "Package Mirror: %s\n"
-msgstr "Package Mirror: %s\n"
-
-#, c-format
-msgid "Package Name: %s\n"
-msgstr "Име на пакет: %s\n"
-
-#, c-format
-msgid "Package Priority: %s\n"
-msgstr "Package Priority: %s\n"
-
-#, c-format
-msgid "Package Required: %s\n"
-msgstr "Package Required: %s\n"
-
-#, c-format
-msgid "Package Size: %d K\n"
-msgstr "Обем на пакет: %d K\n"
-
-#, c-format
-msgid "Package Suggests: %s\n"
-msgstr "Package Suggests: %s\n"
-
-#, c-format
-msgid "Package Version: %s\n"
-msgstr "Версия на пакет: %s\n"
-
-#, c-format
-msgid "Perhaps you want to run --update?\n"
-msgstr "Може би желаете да стартирате --update?\n"
-
-#, c-format
-msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr "Please update permissions on %s or run with appropriate privileges\n"
-
-msgid "Preferred"
-msgstr "Preferred"
-
-msgid "Preferred Patch"
-msgstr "Preferred Patch"
+msgid "%s-%s is to be upgraded to version %s\n"
+msgstr "%s-%s ще бъде обновен до версия %s\n"
 
 #, c-format
 msgid "Preparing to install %s-%s\n"
@@ -366,252 +607,13 @@ msgstr "Подготовка за инсталиране на %s-%s\n"
 msgid "Preparing to replace %s-%s with %s-%s\n"
 msgstr "Подготовка за заместване на %s-%s с %s-%s\n"
 
-#. now map md5 checksums to packages
 #, c-format
-msgid "Reading Package Lists..."
-msgstr "Прочитане на списъците с пакети..."
-
-#, c-format
-msgid "Regex Error: %s\n"
-msgstr "Regex Error: %s\n"
+msgid "%s, which is to be installed, conflicts with %s\n"
+msgstr "%s, който ще бъде инсталиран, е в конфликт с %s\n"
 
 #, c-format
-msgid "Retrieving ChangeLog.txt [%s]..."
-msgstr "Получаване на ChangeLog.txt [%s]..."
-
-#, c-format
-msgid "Retrieving GPG key [%s]..."
-msgstr "Retrieving GPG key [%s]..."
-
-#. download checksum file
-#, c-format
-msgid "Retrieving checksum list [%s]..."
-msgstr "Получаване на списък с MD5 суми [%s]..."
-
-#, c-format
-msgid "Retrieving checksum signature [%s]..."
-msgstr "Retrieving checksum signature [%s]..."
-
-#. download our SLAPT_PKG_LIST
-#, c-format
-msgid "Retrieving package data [%s]..."
-msgstr "Получаване на информация за пакетите [%s]..."
-
-#. download SLAPT_PATCHES_LIST
-#, c-format
-msgid "Retrieving patch list [%s]..."
-msgstr "Получаване на списък с ъпдейти [%s]..."
-
-#, c-format
-msgid "SOURCE directive not set within %s.\n"
-msgstr "SOURCE directive not set within %s.\n"
-
-msgid "Signature not read"
-msgstr "Подписа не се чете"
-
-#, c-format
-msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr ""
-"Неуспех при изтеглянето на източниците, поправете източниците и стартирайте "
-"отново --update\n"
-
-#, c-format
-msgid "Suggested packages:\n"
-msgstr "Предложени пакети:\n"
-
-#, c-format
-msgid "Targets:\n"
-msgstr "Действия:\n"
-
-#, c-format
-msgid "The following NEW packages will be installed:\n"
-msgstr "Следните НОВИ пакети ще бъдат инсталирани:\n"
-
-#, c-format
-msgid "The following packages have been EXCLUDED:\n"
-msgstr "Следните пакети бяха ИЗКЛЮЧЕНИ:\n"
-
-#, c-format
-msgid "The following packages have unmet dependencies:\n"
-msgstr "Следните пакети имат неудовлетворени зависимости:\n"
-
-#, c-format
-msgid "The following packages will be REMOVED:\n"
-msgstr "Следните пакети ще бъдат ПРЕМАХНАТИ:\n"
-
-#, c-format
-msgid "The following packages will be reinstalled:\n"
-msgstr "The following packages will be reinstalled:\n"
-
-#, c-format
-msgid "The following packages will be upgraded:\n"
-msgstr "Следните пакети ще бъдат обновени:\n"
-
-msgid "Unknown error"
-msgstr "Unknown error"
-
-#, c-format
-msgid "Usage:\n"
-msgstr "Употреба:\n"
-
-msgid "Verified"
-msgstr "Verified"
-
-#, c-format
-msgid "Verifying checksum signature [%s]..."
-msgstr "Verifying checksum signature [%s]..."
-
-#, c-format
-msgid "WORKINGDIR directive not set within %s.\n"
-msgstr "WORKINGDIR directive not set within %s.\n"
-
-#, c-format
-msgid "You don't have enough free space in %s\n"
-msgstr "Няма достатъчно свободно място в %s\n"
-
-msgid "[disk set(s)] - install specified disk set(s)"
-msgstr "[директория] - инсталиране на цели директории от сървър"
-
-msgid "[expression] - search available pkgs"
-msgstr "[описание] - търсене за конкретен пакет"
-
-msgid "[pkg name(s)] - install specified pkg(s)"
-msgstr "[име на пакет] - инсталиране на избран пакет"
-
-msgid "[pkg name(s)] - remove specified pkg(s)"
-msgstr "[име на пакет] - премахване на избран пакет"
-
-msgid "[pkg name(s)] - show pkg(s) description"
-msgstr "[име на пакет(и)] - покажи описанието на пакет(и)"
-
-msgid "[pkg name(s)] - show pkg(s) installed files"
-msgstr "[име на пакет(и)] - покажи инсталираните файлове на пакет(и)"
-
-msgid "allow unauthenticated packages"
-msgstr "разреши неудостоверени пакети"
-
-msgid "always prompt during install/upgrade"
-msgstr "искане на потвърждение при инсталиране/обновяване"
-
-msgid "display this help and exit"
-msgstr "покажи помощта и излез"
-
-msgid "do not perform md5 check sum"
-msgstr "без проверка на md5 сумите"
-
-msgid "do not prompt during install/upgrade"
-msgstr "без искане на потвърждение при инсталиране/обновяване"
-
-#, c-format
-msgid "error attempting to read pkg description\n"
-msgstr "грешка при опит за прочитане на описанието на пакета\n"
-
-#, c-format
-msgid "getline reached EOF attempting to read location\n"
-msgstr "getline reached EOF attempting to read location\n"
-
-#, c-format
-msgid "getline reached EOF attempting to read size_c\n"
-msgstr "getline reached EOF attempting to read size_c\n"
-
-#, c-format
-msgid "getline reached EOF attempting to read size_u\n"
-msgstr "getline reached EOF attempting to read size_u\n"
-
-msgid "ignore dependency failures"
-msgstr "игноринане на грешките от зависимости"
-
-msgid "install package, do not attempt to upgrade"
-msgstr "инсталиране на пакет, без опит за обновяване"
-
-msgid "install/upgrade excludes"
-msgstr "инсталиране/обновяване на изключените"
-
-msgid "list available pkgs"
-msgstr "показване на наличните, но неинсталирани пакети"
-
-msgid "list installed pkgs"
-msgstr "показване на инсталираните пакети"
-
-msgid "list pkgs"
-msgstr "показване на всички пакети"
-
-#, c-format
-msgid "md5 sum too long\n"
-msgstr "md5 сумата е твърде дълга\n"
-
-msgid "no"
-msgstr "не"
-
-msgid "only download pkg on install/upgrade"
-msgstr "само изтегляне на пакетите при инсталиране/обновяване"
-
-msgid "only purge cache of older, unreacheable pkgs"
-msgstr "изчистване на кеширани стари и неизползваеми пакети"
-
-msgid "print URIs only, do not download"
-msgstr "показване само на линковете, без изтегляне"
-
-msgid "print version and license info"
-msgstr "показване на версията и лицензната информация"
-
-msgid "purge cached pkgs"
-msgstr "изчитване на кеширани пакети"
-
-#, c-format
-msgid "regex failed on [%s]\n"
-msgstr "regex failed on [%s]\n"
-
-#, c-format
-msgid "regexec failed to parse location\n"
-msgstr "regexec failed to parse location\n"
-
-#, c-format
-msgid "regexec failed to parse size_c\n"
-msgstr "regexec failed to parse size_c\n"
-
-#, c-format
-msgid "regexec failed to parse size_u\n"
-msgstr "regexec failed to parse size_u\n"
-
-msgid "reinstall the pkg"
-msgstr "преинсталирай пакета"
-
-msgid "remove obsolete packages"
-msgstr "премахване на остарели пакети (само при dist-upgrade)"
-
-msgid "retrieve GPG keys for sources"
-msgstr "retrieve GPG keys for sources"
-
-msgid "retrieve pkg data from MIRROR"
-msgstr "изтегли данни за пакета от ОГЛЕДАЛОТО"
-
-msgid "show download statistics"
-msgstr "показване на статистиката на теглене"
-
-msgid "show pkgs to be installed/upgraded"
-msgstr "показване на пакетите за инсталиране/ъпгрейд"
-
-msgid "show verbose information in command line output"
-msgstr ""
-
-msgid "skip dependency check"
-msgstr "без проверка за зависимости"
-
-msgid "specify alternate slapt-getrc location"
-msgstr "посочване на алтернативен slapt-getrc файл"
-
-msgid "specify number of download retry attempts"
-msgstr "посочване на броя опити изтегляне"
-
-msgid "upgrade installed pkgs"
-msgstr "обновяване на инсталираните пакети"
-
-msgid "upgrade to newer release"
-msgstr "обновяване до по-нова версия на дистрибуцията"
-
-msgid "yes"
-msgstr "да"
+msgid "Installed %s conflicts with %s\n"
+msgstr "Инсталираният %s е в конфликт с %s\n"
 
 #, c-format
 #~ msgid "Failed to chdir: %s\n"

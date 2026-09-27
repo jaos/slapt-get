@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-30 22:41-0400\n"
+"POT-Creation-Date: 2026-09-25 23:11-0400\n"
 "PO-Revision-Date: 2012-09-17 21:34+0000\n"
 "Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>, 2012\n"
 "Language-Team: Ukrainian (http://app.transifex.com/jaos/slapt-get/language/"
@@ -23,221 +23,28 @@ msgstr ""
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
 #, c-format
-msgid "  %s: Depends: %s\n"
-msgstr " %s: Потребує: %s\n"
-
-#, c-format
-msgid "%d newly installed, "
-msgid_plural "%d newly installed, "
-msgstr[0] "%d щойно встановлений, "
-msgstr[1] "%d щойно встановлено,"
-msgstr[2] "%d щойно встановлено,"
-msgstr[3] "%d щойно встановлено,"
-
-#, c-format
-msgid "%d not upgraded.\n"
-msgid_plural "%d not upgraded.\n"
-msgstr[0] "%d не оновлено.\n"
-msgstr[1] "%d не оновлено.\n"
-msgstr[2] "%d не оновлено.\n"
-msgstr[3] "%d не оновлено.\n"
-
-#, c-format
-msgid "%d reinstalled, "
-msgid_plural "%d reinstalled, "
-msgstr[0] "%d перевстановлено, "
-msgstr[1] "%d перевстановлено,"
-msgstr[2] "%d перевстановлено,"
-msgstr[3] "%d перевстановлено,"
-
-#, c-format
-msgid "%d to remove, "
-msgid_plural "%d to remove, "
-msgstr[0] "%d для видалення, "
-msgstr[1] "%d для видалення,"
-msgstr[2] "%d для видалення,"
-msgstr[3] "%d для видалення,"
-
-#. print the summary
-#, c-format
-msgid "%d upgraded, "
-msgid_plural "%d upgraded, "
-msgstr[0] "%d оновлено, "
-msgstr[1] "%d оновлено,"
-msgstr[2] "%d оновлено,"
-msgstr[3] "%d оновлено,"
-
-#, c-format
-msgid "%s [option(s)] [target]\n"
-msgstr "%s [опції] [ціль]\n"
-
-#, c-format
-msgid "%s is not installed.\n"
-msgstr "%s не встановлено.\n"
-
-#, c-format
-msgid "%s is up to date.\n"
-msgstr "%s не потребує оновлення.\n"
-
-#, c-format
-msgid "%s version %s\n"
-msgstr "%s версія %s\n"
-
-#, c-format
-msgid "%s, which is required by %s, is excluded\n"
-msgstr "%s, необхідний для %s, пропущено\n"
-
-#, c-format
-msgid "%s, which is to be installed, conflicts with %s\n"
-msgstr "%s, призначений для встановлення, конфліктує з %s\n"
-
-#, c-format
-msgid "%s-%s is to be installed\n"
-msgstr "%s-%s буде встановлено\n"
-
-#, c-format
-msgid "%s-%s is to be removed\n"
-msgstr "%s-%s буде видалено.\n"
-
-#, c-format
-msgid "%s-%s is to be upgraded to version %s\n"
-msgstr "%s-%s буде оновлено до версії %s\n"
-
-msgid ", but accepted as an exception"
-msgstr ", але прийнято як виняток"
-
-#, c-format
-msgid "Abort.\n"
-msgstr "Перервати.\n"
-
-#, c-format
-msgid "After unpacking %.1f%s disk space will be freed.\n"
-msgstr "Після розпакування буде звільнено %.1f%s дискового простору.\n"
-
-#, c-format
-msgid "After unpacking %.1f%s of additional disk space will be used.\n"
-msgstr "Після розпакування буде зайнято додатково %.1f%s на диску.\n"
-
-#, c-format
-msgid "An implementation of the Debian APT system to Slackware\n"
-msgstr "Реалізація системи APT з Debian для Slackware\n"
-
-#, c-format
-msgid "Cached\n"
-msgstr "Збережено\n"
-
-msgid "Checksums not read"
-msgstr "Контрольна сума не прочитана"
-
-msgid "Checksums signature could not be verified"
-msgstr "Неможливо перевірити контрольну суму"
-
-msgid "Checksums signature successfully verified"
-msgstr "Контрольна сума перевірена успішно"
-
-msgid "Custom"
-msgstr "Custom"
-
-msgid "Custom Patch"
-msgstr "Custom Patch"
-
-msgid "Default"
-msgstr "Default"
-
-msgid "Default Patch"
-msgstr "Default Patch"
-
-#, c-format
-msgid "Delete %s ? [y/N]"
-msgstr "Delete %s ? [y/N]"
-
-msgid "Do you want to continue? [y/N] "
-msgstr "Продовжити? [y/N] "
-
-#, c-format
-msgid "Done\n"
-msgstr "Готово\n"
-
-#. otherwise exclude
-#, c-format
-msgid "Excluding %s, use --ignore-dep to override\n"
-msgstr "Виключено %s, вкажiть --ignore-dep, щоб встановлювався\n"
-
-#, c-format
-msgid "Failed to build working directory [%s]\n"
-msgstr "Не можу створити робочий каталог [%s]\n"
-
-#, c-format
-msgid "Failed to calloc\n"
-msgstr "Невдалий calloc\n"
+msgid "Failed to open %s\n"
+msgstr "Не можу відкрити %s.\n"
 
 #, c-format
 msgid "Failed to compile regex\n"
 msgstr "Помилка компіляції regex\n"
 
 #, c-format
-msgid "Failed to download: %s\n"
-msgstr "Не можу завантажити: %s\n"
-
-#, c-format
-msgid "Failed to execute command: [%s]\n"
-msgstr "Не можу виконати команду: [%s]\n"
-
-#, c-format
-msgid "Failed to malloc\n"
-msgstr "Невдалий malloc\n"
+msgid "Regex Error: %s\n"
+msgstr "Помилка regex: %s\n"
 
 #, c-format
 msgid "Failed to mkdir %s: %s\n"
 msgstr ""
 
 #, c-format
-msgid "Failed to open %s\n"
-msgstr "Не можу відкрити %s.\n"
+msgid "Failed to malloc\n"
+msgstr "Невдалий malloc\n"
 
 #, c-format
-msgid "Failed to opendir %s\n"
-msgstr "Не можу відкрити каталог %s\n"
-
-#, c-format
-msgid "Failed to parse package data from %s\n"
-msgstr "Не можу обробити дані пакунку %s\n"
-
-#, c-format
-msgid "Failed to realloc %s\n"
-msgstr "Невдалий realloc %s\n"
-
-#, fuzzy, c-format
-msgid "Failed to resolve working directory [%s]\n"
-msgstr "Не можу створити робочий каталог [%s]\n"
-
-#, c-format
-msgid "Failed to unlink %s\n"
-msgstr "Не можу видалити посилання %s\n"
-
-msgid "GPG key already present"
-msgstr "Ключ GPG вже присутній"
-
-msgid "GPG key could not be imported"
-msgstr "Не вдалося імпортувати ключ GPG"
-
-msgid "GPG key successfully imported"
-msgstr "Ключ GPG успішно імпортовано"
-
-#, c-format
-msgid "Get %s %s %s [%.1f%s]..."
-msgstr "Одержання %s %s %s [%.1f%s]..."
-
-msgid "Incomplete download"
-msgstr "Завантаження було перервано"
-
-#, c-format
-msgid "Installed %s conflicts with %s\n"
-msgstr "Встановлений %s конфліктує з %s\n"
-
-#, fuzzy, c-format
-msgid "Invalid package location: %s\n"
-msgstr "Розташування пакунку: %s\n"
+msgid "Failed to calloc\n"
+msgstr "Невдалий calloc\n"
 
 msgid "MD5 checksum mismatch, override with --no-md5"
 msgstr "Контрольна сума MD5 не співпадає, --no-md5 відключає перевірку"
@@ -245,24 +52,41 @@ msgstr "Контрольна сума MD5 не співпадає, --no-md5 ві
 msgid "Missing MD5 checksum, override with --no-md5"
 msgstr "Контрольна сума MD5 відсутня, --no-md5 відключає перевірку"
 
-#, c-format
-msgid "Need to get %.1f%s of archives.\n"
-msgstr "До одержання: %.1f%s з архивів.\n"
+msgid "Incomplete download"
+msgstr "Завантаження було перервано"
 
-#, c-format
-msgid "Need to get %.1f%s/%.1f%s of archives.\n"
-msgstr "До одержання: %.1f%s/%.1f%s з архивів.\n"
+msgid "GPG key successfully imported"
+msgstr "Ключ GPG успішно імпортовано"
 
-msgid "No key for verification"
-msgstr "Відсутній ключ для перевірки"
+msgid "GPG key could not be imported"
+msgstr "Не вдалося імпортувати ключ GPG"
 
-#, c-format
-msgid "No such package: %s\n"
-msgstr "Немає такого пакунку: %s\n"
+msgid "GPG key already present"
+msgstr "Ключ GPG вже присутній"
 
-#, c-format
-msgid "Not Found\n"
-msgstr "Not Found\n"
+msgid "Checksums signature successfully verified"
+msgstr "Контрольна сума перевірена успішно"
+
+msgid "Not verified: null context"
+msgstr "Не перевірено: нульовий вміст"
+
+msgid "Checksums not read"
+msgstr "Контрольна сума не прочитана"
+
+msgid "Signature not read"
+msgstr "Підпис не прочитано"
+
+msgid "Not Verified: key revoked"
+msgstr "Не перевірено: ключ скасовано"
+
+msgid "Not Verified: key expired"
+msgstr "Не перевірено: ключ застарілий"
+
+msgid "Not Verified: signature expired"
+msgstr "Не перевірено: підпис застарілий"
+
+msgid "Not Verified: missing CRL"
+msgstr "Не перевірено: пропущено CRL"
 
 msgid "Not Verified: CRL too old"
 msgstr "Не перевірено: CRL застарілий"
@@ -270,96 +94,23 @@ msgstr "Не перевірено: CRL застарілий"
 msgid "Not Verified: bad policy"
 msgstr "Не перевірено: поганий поліс"
 
-msgid "Not Verified: key expired"
-msgstr "Не перевірено: ключ застарілий"
-
-msgid "Not Verified: key revoked"
-msgstr "Не перевірено: ключ скасовано"
-
-msgid "Not Verified: missing CRL"
-msgstr "Не перевірено: пропущено CRL"
-
-msgid "Not Verified: signature expired"
-msgstr "Не перевірено: підпис застарілий"
-
 msgid "Not Verified: system error"
 msgstr "Не перевірено: системна помилка"
 
-msgid "Not verified: null context"
-msgstr "Не перевірено: нульовий вміст"
+msgid "Checksums signature could not be verified"
+msgstr "Неможливо перевірити контрольну суму"
 
-msgid "Official"
-msgstr "Official"
+msgid "No key for verification"
+msgstr "Відсутній ключ для перевірки"
 
-msgid "Official Patch"
-msgstr "Official Patch"
+msgid "Unknown error"
+msgstr "Unknown error"
 
-#, c-format
-msgid "Options:\n"
-msgstr "Опції:\n"
+msgid "Default"
+msgstr "Default"
 
-msgid "Package ChangeLog"
-msgstr "ChangeLog пакунку"
-
-#, c-format
-msgid "Package Conflicts: %s\n"
-msgstr "Конфлікт пакунку: %s\n"
-
-#, c-format
-msgid "Package Description:\n"
-msgstr "Опис пакунку:\n"
-
-#, c-format
-msgid "Package Installed Size: %d K\n"
-msgstr "Розмір встановленого пакунку: %d K\n"
-
-#, c-format
-msgid "Package Installed: %s\n"
-msgstr "Встановлений пакунок: %s\n"
-
-#, c-format
-msgid "Package Location: %s\n"
-msgstr "Розташування пакунку: %s\n"
-
-#, c-format
-msgid "Package MD5 Sum:  %s\n"
-msgstr "MD5-сума пакунку: %s\n"
-
-#, c-format
-msgid "Package Mirror: %s\n"
-msgstr "Дзеркало пакунку: %s\n"
-
-#, c-format
-msgid "Package Name: %s\n"
-msgstr "Ім'я пакунку: %s\n"
-
-#, c-format
-msgid "Package Priority: %s\n"
-msgstr "Package Priority: %s\n"
-
-#, c-format
-msgid "Package Required: %s\n"
-msgstr "Пакунок потребує: %s\n"
-
-#, c-format
-msgid "Package Size: %d K\n"
-msgstr "Розмір пакунку: %d K\n"
-
-#, c-format
-msgid "Package Suggests: %s\n"
-msgstr "Пакет очікує: %s\n"
-
-#, c-format
-msgid "Package Version: %s\n"
-msgstr "Версія пакунку: %s\n"
-
-#, c-format
-msgid "Perhaps you want to run --update?\n"
-msgstr "Можливо, вам потрібна опція --update?\n"
-
-#, c-format
-msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr "Недостатньо прав доступу до %s \n"
+msgid "Default Patch"
+msgstr "Default Patch"
 
 msgid "Preferred"
 msgstr "Preferred"
@@ -367,124 +118,72 @@ msgstr "Preferred"
 msgid "Preferred Patch"
 msgstr "Preferred Patch"
 
-#, c-format
-msgid "Preparing to install %s-%s\n"
-msgstr "Підготовка до встановлення %s-%s\n"
+msgid "Official"
+msgstr "Official"
+
+msgid "Official Patch"
+msgstr "Official Patch"
+
+msgid "Custom"
+msgstr "Custom"
+
+msgid "Custom Patch"
+msgstr "Custom Patch"
 
 #, c-format
-msgid "Preparing to replace %s-%s with %s-%s\n"
-msgstr "Підготовка до заміни %s-%s на %s-%s\n"
-
-#. now map md5 checksums to packages
-#, c-format
-msgid "Reading Package Lists..."
-msgstr "Читаю переліки пакунків..."
-
-#, c-format
-msgid "Regex Error: %s\n"
-msgstr "Помилка regex: %s\n"
-
-#, c-format
-msgid "Retrieving ChangeLog.txt [%s]..."
-msgstr "Отримання ChangeLog.txt [%s]..."
-
-#, c-format
-msgid "Retrieving GPG key [%s]..."
-msgstr "Отримання ключа GPG [%s]..."
-
-#. download checksum file
-#, c-format
-msgid "Retrieving checksum list [%s]..."
-msgstr "Одержання контрольної суми [%s]..."
-
-#, c-format
-msgid "Retrieving checksum signature [%s]..."
-msgstr "Отримання контрольної суми [%s]..."
-
-#. download our SLAPT_PKG_LIST
-#, c-format
-msgid "Retrieving package data [%s]..."
-msgstr "Одержання даних пакунку [%s]..."
-
-#. download SLAPT_PATCHES_LIST
-#, c-format
-msgid "Retrieving patch list [%s]..."
-msgstr "Одержання переліку патчів [%s]..."
-
-#, c-format
-msgid "SOURCE directive not set within %s.\n"
-msgstr "Директива SOURCE не встановлена у %s.\n"
-
-msgid "Signature not read"
-msgstr "Підпис не прочитано"
-
-#, c-format
-msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr ""
-"Помилка завантаження з адреси, виправте адресу та перезапустіть --update\n"
-
-#, c-format
-msgid "Suggested packages:\n"
-msgstr "Запропоновані пакунки:\n"
-
-#, c-format
-msgid "Targets:\n"
-msgstr "Цілі:\n"
-
-#, c-format
-msgid "The following NEW packages will be installed:\n"
-msgstr "Наступні НОВІ пакунки будуть встановлені:\n"
-
-#, c-format
-msgid "The following packages have been EXCLUDED:\n"
-msgstr "Наступні пакунки ПРОПУЩЕНО:\n"
-
-#, c-format
-msgid "The following packages have unmet dependencies:\n"
-msgstr "Незадоволені залежності у пакунках:\n"
-
-#, c-format
-msgid "The following packages will be REMOVED:\n"
-msgstr "Наступні пакунки будуть ВИДАЛЕНІ:\n"
-
-#, c-format
-msgid "The following packages will be reinstalled:\n"
-msgstr "The following packages will be reinstalled:\n"
-
-#, c-format
-msgid "The following packages will be upgraded:\n"
-msgstr "Наступні пакунки будуть оновлені:\n"
-
-msgid "Unknown error"
-msgstr "Unknown error"
-
-#, c-format
-msgid "Usage:\n"
-msgstr "Використання:\n"
-
-msgid "Verified"
-msgstr "Перевірено"
-
-#, c-format
-msgid "Verifying checksum signature [%s]..."
-msgstr "Verifying checksum signature [%s]..."
+msgid "Failed to opendir %s\n"
+msgstr "Не можу відкрити каталог %s\n"
 
 #, c-format
 msgid "WORKINGDIR directive not set within %s.\n"
 msgstr "Директива WORKINGDIR не встановлена у %s.\n"
 
 #, c-format
-msgid "You don't have enough free space in %s\n"
-msgstr "Недостатньо місця на %s\n"
+msgid "SOURCE directive not set within %s.\n"
+msgstr "Директива SOURCE не встановлена у %s.\n"
 
-msgid "[disk set(s)] - install specified disk set(s)"
-msgstr "[дисковий набір(набори)] - встановити вказаний дисковий набір(набори)"
+#, c-format
+msgid "Failed to build working directory [%s]\n"
+msgstr "Не можу створити робочий каталог [%s]\n"
 
-msgid "[expression] - search available pkgs"
-msgstr "[вираз] - шукати доступні пакунки"
+#, fuzzy, c-format
+msgid "Failed to resolve working directory [%s]\n"
+msgstr "Не можу створити робочий каталог [%s]\n"
+
+#, c-format
+msgid "Please update permissions on %s or run with appropriate privileges\n"
+msgstr "Недостатньо прав доступу до %s \n"
+
+#, c-format
+msgid "An implementation of the Debian APT system to Slackware\n"
+msgstr "Реалізація системи APT з Debian для Slackware\n"
+
+#, c-format
+msgid "Usage:\n"
+msgstr "Використання:\n"
+
+#, c-format
+msgid "%s [option(s)] [target]\n"
+msgstr "%s [опції] [ціль]\n"
+
+#, c-format
+msgid "Targets:\n"
+msgstr "Цілі:\n"
+
+msgid "retrieve pkg data from MIRROR"
+msgstr "отримати дані пакунка з MIRROR"
+
+msgid "upgrade installed pkgs"
+msgstr "оновити встановлені пакунки"
+
+msgid "upgrade to newer release"
+msgstr "оновити до більш свіжої версії"
 
 msgid "[pkg name(s)] - install specified pkg(s)"
 msgstr "[ім'я пакунку] - встановити вказані пакунки"
+
+msgid "[disk set(s)] - install specified disk set(s)"
+msgstr "[дисковий набір(набори)] - встановити вказаний дисковий набір(набори)"
 
 msgid "[pkg name(s)] - remove specified pkg(s)"
 msgstr "[ім'я пакунку] - видалити вказані пакунки"
@@ -495,45 +194,11 @@ msgstr "[назва пакунка(ів)] - показати опис пакун
 msgid "[pkg name(s)] - show pkg(s) installed files"
 msgstr "[назва пакунка(ів)] - показати файли встановленого пакунка(ів)"
 
-msgid "allow unauthenticated packages"
-msgstr "дозволити непідписані пакунки"
+msgid "[expression] - search available pkgs"
+msgstr "[вираз] - шукати доступні пакунки"
 
-msgid "always prompt during install/upgrade"
-msgstr "завжди питати при встановленні/поновленні"
-
-msgid "display this help and exit"
-msgstr "показати цю допомогу і вийти"
-
-msgid "do not perform md5 check sum"
-msgstr "не перевіряти контрольну суму md5"
-
-msgid "do not prompt during install/upgrade"
-msgstr "не перепитувати під час всстановлення/оновлення"
-
-#, c-format
-msgid "error attempting to read pkg description\n"
-msgstr "не можу прочитати опис пакунку\n"
-
-#, c-format
-msgid "getline reached EOF attempting to read location\n"
-msgstr "getline досяг EOF, читаючи адресу\n"
-
-#, c-format
-msgid "getline reached EOF attempting to read size_c\n"
-msgstr "getline досяг EOF, читаючи size_c\n"
-
-#, c-format
-msgid "getline reached EOF attempting to read size_u\n"
-msgstr "getline досяг EOF, читаючи size_u\n"
-
-msgid "ignore dependency failures"
-msgstr "ігнорувати залежності"
-
-msgid "install package, do not attempt to upgrade"
-msgstr "встановити пакунок, не намагатися оновлювати"
-
-msgid "install/upgrade excludes"
-msgstr "виключення встановлення/оновлення"
+msgid "list pkgs"
+msgstr "список пакунків"
 
 msgid "list available pkgs"
 msgstr "список доступних пакунків"
@@ -541,85 +206,422 @@ msgstr "список доступних пакунків"
 msgid "list installed pkgs"
 msgstr "список встановлених пакунків"
 
-msgid "list pkgs"
-msgstr "список пакунків"
-
-#, c-format
-msgid "md5 sum too long\n"
-msgstr "Сума md5 завелика\n"
-
-msgid "no"
-msgstr "ні"
-
-msgid "only download pkg on install/upgrade"
-msgstr "тільки завантажити пакунки для встановлення/оновлення"
+msgid "purge cached pkgs"
+msgstr "очистити кеш пакунків"
 
 msgid "only purge cache of older, unreacheable pkgs"
 msgstr "тільки очистка кеша старих, недосяжних пакунків"
 
-msgid "print URIs only, do not download"
-msgstr "Тільки показати URI, не завантажувати"
+msgid "retrieve GPG keys for sources"
+msgstr "отримати ключі GPG для джерел"
+
+msgid "display this help and exit"
+msgstr "показати цю допомогу і вийти"
 
 msgid "print version and license info"
 msgstr "показати версію та ліцензію"
 
-msgid "purge cached pkgs"
-msgstr "очистити кеш пакунків"
+#, c-format
+msgid "Options:\n"
+msgstr "Опції:\n"
+
+msgid "only download pkg on install/upgrade"
+msgstr "тільки завантажити пакунки для встановлення/оновлення"
+
+msgid "show pkgs to be installed/upgraded"
+msgstr "показати пакунки для встановлення/оновлення"
+
+msgid "do not prompt during install/upgrade"
+msgstr "не перепитувати під час всстановлення/оновлення"
+
+msgid "always prompt during install/upgrade"
+msgstr "завжди питати при встановленні/поновленні"
+
+msgid "reinstall the pkg"
+msgstr "перевстановити пакунок"
+
+msgid "install/upgrade excludes"
+msgstr "виключення встановлення/оновлення"
+
+msgid "do not perform md5 check sum"
+msgstr "не перевіряти контрольну суму md5"
+
+msgid "skip dependency check"
+msgstr "пропуск перевірки залежностей"
+
+msgid "ignore dependency failures"
+msgstr "ігнорувати залежності"
+
+msgid "print URIs only, do not download"
+msgstr "Тільки показати URI, не завантажувати"
+
+msgid "show download statistics"
+msgstr "показати статистику завантаження"
+
+msgid "specify alternate slapt-getrc location"
+msgstr "вказати альтернативний slapt-getrc"
+
+msgid "remove obsolete packages"
+msgstr "видалити застарілі пакун"
+
+msgid "specify number of download retry attempts"
+msgstr "вкажіть кількість повторних спроб завантаження"
+
+msgid "install package, do not attempt to upgrade"
+msgstr "встановити пакунок, не намагатися оновлювати"
+
+msgid "show verbose information in command line output"
+msgstr ""
+
+msgid "allow unauthenticated packages"
+msgstr "дозволити непідписані пакунки"
+
+#, c-format
+msgid "%s version %s\n"
+msgstr "%s версія %s\n"
+
+#, c-format
+msgid "Reading Package Lists..."
+msgstr "Читаю переліки пакунків..."
+
+#, c-format
+msgid "Done\n"
+msgstr "Готово\n"
+
+#, c-format
+msgid "No such package: %s\n"
+msgstr "Немає такого пакунку: %s\n"
+
+#, c-format
+msgid "Excluding %s, use --ignore-dep to override\n"
+msgstr "Виключено %s, вкажiть --ignore-dep, щоб встановлювався\n"
+
+#, c-format
+msgid "%s is up to date.\n"
+msgstr "%s не потребує оновлення.\n"
+
+msgid "yes"
+msgstr "так"
+
+msgid "no"
+msgstr "ні"
+
+#, c-format
+msgid "%s is not installed.\n"
+msgstr "%s не встановлено.\n"
+
+#, c-format
+msgid "Package Name: %s\n"
+msgstr "Ім'я пакунку: %s\n"
+
+#, c-format
+msgid "Package Mirror: %s\n"
+msgstr "Дзеркало пакунку: %s\n"
+
+#, c-format
+msgid "Package Priority: %s\n"
+msgstr "Package Priority: %s\n"
+
+#, c-format
+msgid "Package Location: %s\n"
+msgstr "Розташування пакунку: %s\n"
+
+#, c-format
+msgid "Package Version: %s\n"
+msgstr "Версія пакунку: %s\n"
+
+#, c-format
+msgid "Package Size: %d K\n"
+msgstr "Розмір пакунку: %d K\n"
+
+#, c-format
+msgid "Package Installed Size: %d K\n"
+msgstr "Розмір встановленого пакунку: %d K\n"
+
+#, c-format
+msgid "Package Required: %s\n"
+msgstr "Пакунок потребує: %s\n"
+
+#, c-format
+msgid "Package Conflicts: %s\n"
+msgstr "Конфлікт пакунку: %s\n"
+
+#, c-format
+msgid "Package Suggests: %s\n"
+msgstr "Пакет очікує: %s\n"
+
+#, c-format
+msgid "Package MD5 Sum:  %s\n"
+msgstr "MD5-сума пакунку: %s\n"
+
+#, c-format
+msgid "Package Description:\n"
+msgstr "Опис пакунку:\n"
+
+msgid "Package ChangeLog"
+msgstr "ChangeLog пакунку"
+
+#, c-format
+msgid "Package Installed: %s\n"
+msgstr "Встановлений пакунок: %s\n"
+
+#, c-format
+msgid "Retrieving GPG key [%s]..."
+msgstr "Отримання ключа GPG [%s]..."
+
+#, c-format
+msgid "Perhaps you want to run --update?\n"
+msgstr "Можливо, вам потрібна опція --update?\n"
 
 #, c-format
 msgid "regex failed on [%s]\n"
 msgstr "помилка regex на [%s]\n"
 
+#, fuzzy, c-format
+msgid "regex failed to parse name from [%s]\n"
+msgstr "помилка regex на [%s]\n"
+
+#, fuzzy, c-format
+msgid "Invalid package priority: %s\n"
+msgstr "Розташування пакунку: %s\n"
+
 #, c-format
 msgid "regexec failed to parse location\n"
 msgstr "regexec не може обробити адресу\n"
+
+#, fuzzy, c-format
+msgid "Invalid package location: %s\n"
+msgstr "Розташування пакунку: %s\n"
+
+#, c-format
+msgid "getline reached EOF attempting to read location\n"
+msgstr "getline досяг EOF, читаючи адресу\n"
 
 #, c-format
 msgid "regexec failed to parse size_c\n"
 msgstr "regexec не може обробити size_c\n"
 
 #, c-format
+msgid "getline reached EOF attempting to read size_c\n"
+msgstr "getline досяг EOF, читаючи size_c\n"
+
+#, c-format
 msgid "regexec failed to parse size_u\n"
 msgstr "regexec не може обробити size_u\n"
 
-msgid "reinstall the pkg"
-msgstr "перевстановити пакунок"
+#, c-format
+msgid "getline reached EOF attempting to read size_u\n"
+msgstr "getline досяг EOF, читаючи size_u\n"
 
-msgid "remove obsolete packages"
-msgstr "видалити застарілі пакун"
+#, c-format
+msgid "md5 sum too long\n"
+msgstr "Сума md5 завелика\n"
 
-msgid "retrieve GPG keys for sources"
-msgstr "отримати ключі GPG для джерел"
+#, c-format
+msgid "error attempting to read pkg description\n"
+msgstr "не можу прочитати опис пакунку\n"
 
-msgid "retrieve pkg data from MIRROR"
-msgstr "отримати дані пакунка з MIRROR"
+#, c-format
+msgid "Failed to execute command: [%s]\n"
+msgstr "Не можу виконати команду: [%s]\n"
 
-msgid "show download statistics"
-msgstr "показати статистику завантаження"
+#, c-format
+msgid "Failed to realloc %s\n"
+msgstr "Невдалий realloc %s\n"
 
-msgid "show pkgs to be installed/upgraded"
-msgstr "показати пакунки для встановлення/оновлення"
+#, c-format
+msgid "Retrieving package data [%s]..."
+msgstr "Одержання даних пакунку [%s]..."
 
-msgid "show verbose information in command line output"
+#, c-format
+msgid "Retrieving patch list [%s]..."
+msgstr "Одержання переліку патчів [%s]..."
+
+#, c-format
+msgid "Retrieving checksum list [%s]..."
+msgstr "Одержання контрольної суми [%s]..."
+
+#, c-format
+msgid "Retrieving checksum signature [%s]..."
+msgstr "Отримання контрольної суми [%s]..."
+
+#, c-format
+msgid "Verifying checksum signature [%s]..."
+msgstr "Verifying checksum signature [%s]..."
+
+msgid "Verified"
+msgstr "Перевірено"
+
+msgid ", but accepted as an exception"
+msgstr ", але прийнято як виняток"
+
+#, c-format
+msgid "Retrieving ChangeLog.txt [%s]..."
+msgstr "Отримання ChangeLog.txt [%s]..."
+
+#, c-format
+msgid "Sources failed to download, correct sources and rerun --update\n"
 msgstr ""
+"Помилка завантаження з адреси, виправте адресу та перезапустіть --update\n"
 
-msgid "skip dependency check"
-msgstr "пропуск перевірки залежностей"
+#, c-format
+msgid "Delete %s ? [y/N]"
+msgstr "Delete %s ? [y/N]"
 
-msgid "specify alternate slapt-getrc location"
-msgstr "вказати альтернативний slapt-getrc"
+#, c-format
+msgid "Failed to parse package data from %s\n"
+msgstr "Не можу обробити дані пакунку %s\n"
 
-msgid "specify number of download retry attempts"
-msgstr "вкажіть кількість повторних спроб завантаження"
+#, c-format
+msgid "Cached\n"
+msgstr "Збережено\n"
 
-msgid "upgrade installed pkgs"
-msgstr "оновити встановлені пакунки"
+#, c-format
+msgid "Failed to download: %s\n"
+msgstr "Не можу завантажити: %s\n"
 
-msgid "upgrade to newer release"
-msgstr "оновити до більш свіжої версії"
+#, c-format
+msgid "Failed to unlink %s\n"
+msgstr "Не можу видалити посилання %s\n"
 
-msgid "yes"
-msgstr "так"
+#, c-format
+msgid "Get %s %s %s [%.1f%s]..."
+msgstr "Одержання %s %s %s [%.1f%s]..."
+
+#, c-format
+msgid "Not Found\n"
+msgstr "Not Found\n"
+
+#, c-format
+msgid "The following packages have unmet dependencies:\n"
+msgstr "Незадоволені залежності у пакунках:\n"
+
+#, c-format
+msgid "  %s: Depends: %s\n"
+msgstr " %s: Потребує: %s\n"
+
+#, c-format
+msgid "%s, which is required by %s, is excluded\n"
+msgstr "%s, необхідний для %s, пропущено\n"
+
+#, c-format
+msgid "The following packages have been EXCLUDED:\n"
+msgstr "Наступні пакунки ПРОПУЩЕНО:\n"
+
+#, c-format
+msgid "Suggested packages:\n"
+msgstr "Запропоновані пакунки:\n"
+
+#, c-format
+msgid "The following NEW packages will be installed:\n"
+msgstr "Наступні НОВІ пакунки будуть встановлені:\n"
+
+#, c-format
+msgid "The following packages will be REMOVED:\n"
+msgstr "Наступні пакунки будуть ВИДАЛЕНІ:\n"
+
+#, c-format
+msgid "The following packages will be upgraded:\n"
+msgstr "Наступні пакунки будуть оновлені:\n"
+
+#, c-format
+msgid "The following packages will be reinstalled:\n"
+msgstr "The following packages will be reinstalled:\n"
+
+#, c-format
+msgid "%d upgraded, "
+msgid_plural "%d upgraded, "
+msgstr[0] "%d оновлено, "
+msgstr[1] "%d оновлено,"
+msgstr[2] "%d оновлено,"
+msgstr[3] "%d оновлено,"
+
+#, c-format
+msgid "%d reinstalled, "
+msgid_plural "%d reinstalled, "
+msgstr[0] "%d перевстановлено, "
+msgstr[1] "%d перевстановлено,"
+msgstr[2] "%d перевстановлено,"
+msgstr[3] "%d перевстановлено,"
+
+#, c-format
+msgid "%d newly installed, "
+msgid_plural "%d newly installed, "
+msgstr[0] "%d щойно встановлений, "
+msgstr[1] "%d щойно встановлено,"
+msgstr[2] "%d щойно встановлено,"
+msgstr[3] "%d щойно встановлено,"
+
+#, c-format
+msgid "%d to remove, "
+msgid_plural "%d to remove, "
+msgstr[0] "%d для видалення, "
+msgstr[1] "%d для видалення,"
+msgstr[2] "%d для видалення,"
+msgstr[3] "%d для видалення,"
+
+#, c-format
+msgid "%d not upgraded.\n"
+msgid_plural "%d not upgraded.\n"
+msgstr[0] "%d не оновлено.\n"
+msgstr[1] "%d не оновлено.\n"
+msgstr[2] "%d не оновлено.\n"
+msgstr[3] "%d не оновлено.\n"
+
+#, c-format
+msgid "Need to get %.1f%s/%.1f%s of archives.\n"
+msgstr "До одержання: %.1f%s/%.1f%s з архивів.\n"
+
+#, c-format
+msgid "Need to get %.1f%s of archives.\n"
+msgstr "До одержання: %.1f%s з архивів.\n"
+
+#, c-format
+msgid "You don't have enough free space in %s\n"
+msgstr "Недостатньо місця на %s\n"
+
+#, c-format
+msgid "After unpacking %.1f%s disk space will be freed.\n"
+msgstr "Після розпакування буде звільнено %.1f%s дискового простору.\n"
+
+#, c-format
+msgid "After unpacking %.1f%s of additional disk space will be used.\n"
+msgstr "Після розпакування буде зайнято додатково %.1f%s на диску.\n"
+
+msgid "Do you want to continue? [y/N] "
+msgstr "Продовжити? [y/N] "
+
+#, c-format
+msgid "Abort.\n"
+msgstr "Перервати.\n"
+
+#, c-format
+msgid "%s-%s is to be removed\n"
+msgstr "%s-%s буде видалено.\n"
+
+#, c-format
+msgid "%s-%s is to be installed\n"
+msgstr "%s-%s буде встановлено\n"
+
+#, c-format
+msgid "%s-%s is to be upgraded to version %s\n"
+msgstr "%s-%s буде оновлено до версії %s\n"
+
+#, c-format
+msgid "Preparing to install %s-%s\n"
+msgstr "Підготовка до встановлення %s-%s\n"
+
+#, c-format
+msgid "Preparing to replace %s-%s with %s-%s\n"
+msgstr "Підготовка до заміни %s-%s на %s-%s\n"
+
+#, c-format
+msgid "%s, which is to be installed, conflicts with %s\n"
+msgstr "%s, призначений для встановлення, конфліктує з %s\n"
+
+#, c-format
+msgid "Installed %s conflicts with %s\n"
+msgstr "Встановлений %s конфліктує з %s\n"
 
 #, c-format
 #~ msgid "Failed to chdir: %s\n"

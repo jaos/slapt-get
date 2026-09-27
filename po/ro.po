@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-30 22:41-0400\n"
+"POT-Creation-Date: 2026-09-25 23:11-0400\n"
 "PO-Revision-Date: 2012-09-17 21:34+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Romanian (http://app.transifex.com/jaos/slapt-get/language/"
@@ -20,19 +20,515 @@ msgstr ""
 "2:1));\n"
 
 #, c-format
+msgid "Failed to open %s\n"
+msgstr "Nu am putut deschide %s\n"
+
+#, c-format
+msgid "Failed to compile regex\n"
+msgstr "Esuare la compilarea regex\n"
+
+#, c-format
+msgid "Regex Error: %s\n"
+msgstr "Eroare Regex: %s\n"
+
+#, c-format
+msgid "Failed to mkdir %s: %s\n"
+msgstr ""
+
+#, c-format
+msgid "Failed to malloc\n"
+msgstr "malloc Esuat\n"
+
+#, c-format
+msgid "Failed to calloc\n"
+msgstr "calloc esuat\n"
+
+msgid "MD5 checksum mismatch, override with --no-md5"
+msgstr "Suma de control MD5 nu se potriveste, treci peste cu --no-md5"
+
+msgid "Missing MD5 checksum, override with --no-md5"
+msgstr "Lipsa suma de control MD5, treci peste cu --no-md5"
+
+msgid "Incomplete download"
+msgstr "Descarcare incompleta"
+
+msgid "GPG key successfully imported"
+msgstr "Cheie GPG importata cu succes"
+
+msgid "GPG key could not be imported"
+msgstr "Cheia GPG nu a putut fi importata"
+
+msgid "GPG key already present"
+msgstr "Cheia GPG este deja prezenta"
+
+msgid "Checksums signature successfully verified"
+msgstr "Semnatura sumelor de control a fost verificata cu succes"
+
+msgid "Not verified: null context"
+msgstr ""
+
+msgid "Checksums not read"
+msgstr ""
+
+msgid "Signature not read"
+msgstr ""
+
+msgid "Not Verified: key revoked"
+msgstr ""
+
+msgid "Not Verified: key expired"
+msgstr ""
+
+msgid "Not Verified: signature expired"
+msgstr ""
+
+msgid "Not Verified: missing CRL"
+msgstr ""
+
+msgid "Not Verified: CRL too old"
+msgstr ""
+
+msgid "Not Verified: bad policy"
+msgstr ""
+
+msgid "Not Verified: system error"
+msgstr ""
+
+msgid "Checksums signature could not be verified"
+msgstr "Semnatura sumelor de control nu a putut fi verificata"
+
+msgid "No key for verification"
+msgstr "Nu exista cheie pentru verificare"
+
+msgid "Unknown error"
+msgstr "Eroare necunoscuta"
+
+msgid "Default"
+msgstr "Default"
+
+msgid "Default Patch"
+msgstr "Default Patch"
+
+msgid "Preferred"
+msgstr "Preferred"
+
+msgid "Preferred Patch"
+msgstr "Preferred Patch"
+
+msgid "Official"
+msgstr "Official"
+
+msgid "Official Patch"
+msgstr "Official Patch"
+
+msgid "Custom"
+msgstr "Custom"
+
+msgid "Custom Patch"
+msgstr "Custom Patch"
+
+#, c-format
+msgid "Failed to opendir %s\n"
+msgstr "Nu am putut deschide directorul %s\n"
+
+#, c-format
+msgid "WORKINGDIR directive not set within %s.\n"
+msgstr "Directiva WORKINGDIR nu este setata in %s.\n"
+
+#, c-format
+msgid "SOURCE directive not set within %s.\n"
+msgstr "Directiva SOURCE nu este setata in %s.\n"
+
+#, c-format
+msgid "Failed to build working directory [%s]\n"
+msgstr "Crearea directorului de lucru a esuat [%s]\n"
+
+#, fuzzy, c-format
+msgid "Failed to resolve working directory [%s]\n"
+msgstr "Crearea directorului de lucru a esuat [%s]\n"
+
+#, c-format
+msgid "Please update permissions on %s or run with appropriate privileges\n"
+msgstr ""
+"Actualizati permisiunile pentru %s sau executati cu privilegiile corecte\n"
+
+#, c-format
+msgid "An implementation of the Debian APT system to Slackware\n"
+msgstr "O implementare a sistemului Debian APT pentru Slackware\n"
+
+#, c-format
+msgid "Usage:\n"
+msgstr "Mod de folosire:\n"
+
+#, c-format
+msgid "%s [option(s)] [target]\n"
+msgstr "%s [optiune(i)] [tinta]\n"
+
+#, c-format
+msgid "Targets:\n"
+msgstr "Tinte:\n"
+
+msgid "retrieve pkg data from MIRROR"
+msgstr ""
+
+msgid "upgrade installed pkgs"
+msgstr "actualizeaza pachete instalate"
+
+msgid "upgrade to newer release"
+msgstr "actualizare la ultima varianta"
+
+msgid "[pkg name(s)] - install specified pkg(s)"
+msgstr "[nume pachet(e)] - instaleaza pachetul(ele) specificat(e)"
+
+msgid "[disk set(s)] - install specified disk set(s)"
+msgstr "[set(uri) disc] - instaleaza setul(seturile) disc"
+
+msgid "[pkg name(s)] - remove specified pkg(s)"
+msgstr "[nume pachet(e)] - dezinstaleaza pachetul(ele) specificat(e)"
+
+msgid "[pkg name(s)] - show pkg(s) description"
+msgstr ""
+
+msgid "[pkg name(s)] - show pkg(s) installed files"
+msgstr ""
+
+msgid "[expression] - search available pkgs"
+msgstr "[expresie] - cauta pachete disponibile"
+
+msgid "list pkgs"
+msgstr "listare pachete"
+
+msgid "list available pkgs"
+msgstr "listare pachete disponibile"
+
+msgid "list installed pkgs"
+msgstr "listare pachete instalate"
+
+msgid "purge cached pkgs"
+msgstr "sterge pachetele memorate"
+
+msgid "only purge cache of older, unreacheable pkgs"
+msgstr "doar sterge memoria pachetelor mai vechi, inaccesibile"
+
+msgid "retrieve GPG keys for sources"
+msgstr "descarca chei GPG pentru surse"
+
+msgid "display this help and exit"
+msgstr ""
+
+msgid "print version and license info"
+msgstr "afisare versiune si info licenta"
+
+#, c-format
+msgid "Options:\n"
+msgstr "Optiuni:\n"
+
+msgid "only download pkg on install/upgrade"
+msgstr "descarca pachet numai la instalare/actualizare"
+
+msgid "show pkgs to be installed/upgraded"
+msgstr "afiseaza pachete de instalat/actualizat"
+
+msgid "do not prompt during install/upgrade"
+msgstr "nu intreba in timpul instalarii/actualizarii"
+
+msgid "always prompt during install/upgrade"
+msgstr "intreaba intotdeauna in timpul instalarii/actualizarii"
+
+msgid "reinstall the pkg"
+msgstr ""
+
+msgid "install/upgrade excludes"
+msgstr "instaleaza/actualizeaza excluderi"
+
+msgid "do not perform md5 check sum"
+msgstr "nu executa verificare suma md5"
+
+msgid "skip dependency check"
+msgstr "nu verifica dependinte"
+
+msgid "ignore dependency failures"
+msgstr "ignora erori dependinte"
+
+msgid "print URIs only, do not download"
+msgstr "doar afiseaza URIuri, nu descarca"
+
+msgid "show download statistics"
+msgstr "afiseaza statistici descarcare"
+
+msgid "specify alternate slapt-getrc location"
+msgstr "specificati locatie alternativa in slapt-getrc"
+
+msgid "remove obsolete packages"
+msgstr "elimina pachete expirate"
+
+msgid "specify number of download retry attempts"
+msgstr "specificati numarul de incercari descarcare"
+
+msgid "install package, do not attempt to upgrade"
+msgstr "instaleaza pachet, nu incerca actualizare"
+
+msgid "show verbose information in command line output"
+msgstr ""
+
+msgid "allow unauthenticated packages"
+msgstr ""
+
+#, c-format
+msgid "%s version %s\n"
+msgstr "%s versiune %s\n"
+
+#, c-format
+msgid "Reading Package Lists..."
+msgstr "Se citesc listele cu pachete..."
+
+#, c-format
+msgid "Done\n"
+msgstr "Gata\n"
+
+#, c-format
+msgid "No such package: %s\n"
+msgstr "Nu exista pachetul: %s\n"
+
+#, c-format
+msgid "Excluding %s, use --ignore-dep to override\n"
+msgstr "Se exclude %s, foloseste --ignore-dep pentru a nu tine cont\n"
+
+#, c-format
+msgid "%s is up to date.\n"
+msgstr "%s este actualizat deja.\n"
+
+msgid "yes"
+msgstr "da"
+
+msgid "no"
+msgstr "nu"
+
+#, c-format
+msgid "%s is not installed.\n"
+msgstr "%s nu este instalat.\n"
+
+#, c-format
+msgid "Package Name: %s\n"
+msgstr "Nume pachet: %s\n"
+
+#, c-format
+msgid "Package Mirror: %s\n"
+msgstr "Sursa alternativa pachet: %s\n"
+
+#, c-format
+msgid "Package Priority: %s\n"
+msgstr "Package Priority: %s\n"
+
+#, c-format
+msgid "Package Location: %s\n"
+msgstr "Locatie pachet: %s\n"
+
+#, c-format
+msgid "Package Version: %s\n"
+msgstr "Versiune pachet: %s\n"
+
+#, c-format
+msgid "Package Size: %d K\n"
+msgstr "Dimensiune pachet: %d K\n"
+
+#, c-format
+msgid "Package Installed Size: %d K\n"
+msgstr "Dimensiune pachet instalat: %d K\n"
+
+#, c-format
+msgid "Package Required: %s\n"
+msgstr "Pachet cerut: %s\n"
+
+#, c-format
+msgid "Package Conflicts: %s\n"
+msgstr "Conflicte pachet(e): %s\n"
+
+#, c-format
+msgid "Package Suggests: %s\n"
+msgstr "Sugestii pachete: %s\n"
+
+#, c-format
+msgid "Package MD5 Sum:  %s\n"
+msgstr "Suma MD5 pachet: %s\n"
+
+#, c-format
+msgid "Package Description:\n"
+msgstr "Descriere pachet:\n"
+
+msgid "Package ChangeLog"
+msgstr "Jurnal schimbari pachet"
+
+#, c-format
+msgid "Package Installed: %s\n"
+msgstr "Pachet instalat: %s\n"
+
+#, c-format
+msgid "Retrieving GPG key [%s]..."
+msgstr "Se descarca cheie GPG [%s]..."
+
+#, c-format
+msgid "Perhaps you want to run --update?\n"
+msgstr "Probabil ca vrei sa executi --update?\n"
+
+#, c-format
+msgid "regex failed on [%s]\n"
+msgstr "regex esuat in [%s]\n"
+
+#, fuzzy, c-format
+msgid "regex failed to parse name from [%s]\n"
+msgstr "regex esuat in [%s]\n"
+
+#, fuzzy, c-format
+msgid "Invalid package priority: %s\n"
+msgstr "Locatie pachet: %s\n"
+
+#, c-format
+msgid "regexec failed to parse location\n"
+msgstr "regexec a esuat in parcurgerea locatiei\n"
+
+#, fuzzy, c-format
+msgid "Invalid package location: %s\n"
+msgstr "Locatie pachet: %s\n"
+
+#, c-format
+msgid "getline reached EOF attempting to read location\n"
+msgstr ""
+"getline a ajuns la sfarsitul fisierului incercand sa citeasca locatia\n"
+
+#, c-format
+msgid "regexec failed to parse size_c\n"
+msgstr "regexec esuat in parcurgerea size_c\n"
+
+#, c-format
+msgid "getline reached EOF attempting to read size_c\n"
+msgstr "getline a ajuns la sfarsitul fisierului incercand sa citeasca size_c\n"
+
+#, c-format
+msgid "regexec failed to parse size_u\n"
+msgstr "regexec esuat in parcurgerea size_u\n"
+
+#, c-format
+msgid "getline reached EOF attempting to read size_u\n"
+msgstr "getline a ajuns la sfarsitul fisierului incercand sa citeasca size_u\n"
+
+#, c-format
+msgid "md5 sum too long\n"
+msgstr "suma md5 prea lunga\n"
+
+#, c-format
+msgid "error attempting to read pkg description\n"
+msgstr "eroare in timpul citirii descrierii pachetului\n"
+
+#, c-format
+msgid "Failed to execute command: [%s]\n"
+msgstr "Esuare in executarea comenzii: [%s]\n"
+
+#, c-format
+msgid "Failed to realloc %s\n"
+msgstr "Esuare la realloc %s\n"
+
+#, c-format
+msgid "Retrieving package data [%s]..."
+msgstr "Se primesc date despre pachet [%s]..."
+
+#, c-format
+msgid "Retrieving patch list [%s]..."
+msgstr "Se primeste lista completari [%s]..."
+
+#, c-format
+msgid "Retrieving checksum list [%s]..."
+msgstr "Se primeste lista suma de control [%s]..."
+
+#, c-format
+msgid "Retrieving checksum signature [%s]..."
+msgstr "Se descarca semnatura sumei de control [%s]..."
+
+#, c-format
+msgid "Verifying checksum signature [%s]..."
+msgstr "Verificare semnatura suma de control [%s]..."
+
+msgid "Verified"
+msgstr "Verificat"
+
+msgid ", but accepted as an exception"
+msgstr ""
+
+#, c-format
+msgid "Retrieving ChangeLog.txt [%s]..."
+msgstr "Se descarca ChangeLog.txt [%s]..."
+
+#, c-format
+msgid "Sources failed to download, correct sources and rerun --update\n"
+msgstr "Sursele au esuat la descarcare, corectati sursele si rulati --update\n"
+
+#, c-format
+msgid "Delete %s ? [y/N]"
+msgstr "Delete %s ? [y/N]"
+
+#, c-format
+msgid "Failed to parse package data from %s\n"
+msgstr "Esuare in parcurgerea datelor din %s\n"
+
+#, c-format
+msgid "Cached\n"
+msgstr "Memorat\n"
+
+#, c-format
+msgid "Failed to download: %s\n"
+msgstr "Descarcare esuata: %s\n"
+
+#, c-format
+msgid "Failed to unlink %s\n"
+msgstr "Nu am putut desface legatura %s\n"
+
+#, c-format
+msgid "Get %s %s %s [%.1f%s]..."
+msgstr "Descarca %s %s %s [%.1f%s]..."
+
+#, c-format
+msgid "Not Found\n"
+msgstr "Nu a fost gasit\n"
+
+#, c-format
+msgid "The following packages have unmet dependencies:\n"
+msgstr "Urmatoarele pachete au dependinte nesatisfacute:\n"
+
+#, c-format
 msgid "  %s: Depends: %s\n"
 msgstr "  %s: Depinde de: %s\n"
 
 #, c-format
-msgid "%d newly installed, "
-msgid_plural "%d newly installed, "
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgid "%s, which is required by %s, is excluded\n"
+msgstr "%s, ce este cerut de catre %s, este exclus\n"
 
 #, c-format
-msgid "%d not upgraded.\n"
-msgid_plural "%d not upgraded.\n"
+msgid "The following packages have been EXCLUDED:\n"
+msgstr "Urmatoarele pachete au fost EXCLUSE:\n"
+
+#, c-format
+msgid "Suggested packages:\n"
+msgstr "Pachete sugerate:\n"
+
+#, c-format
+msgid "The following NEW packages will be installed:\n"
+msgstr "Urmatoarele pachete NOI vor fi instalate:\n"
+
+#, c-format
+msgid "The following packages will be REMOVED:\n"
+msgstr "Urmatoarele pachete vor fi ELIMINATE:\n"
+
+#, c-format
+msgid "The following packages will be upgraded:\n"
+msgstr "Urmatoarele pachete vor fi actualizate:\n"
+
+#, c-format
+msgid "The following packages will be reinstalled:\n"
+msgstr "The following packages will be reinstalled:\n"
+
+#, c-format
+msgid "%d upgraded, "
+msgid_plural "%d upgraded, "
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
@@ -45,62 +541,37 @@ msgstr[1] ""
 msgstr[2] ""
 
 #, c-format
+msgid "%d newly installed, "
+msgid_plural "%d newly installed, "
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#, c-format
 msgid "%d to remove, "
 msgid_plural "%d to remove, "
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#. print the summary
 #, c-format
-msgid "%d upgraded, "
-msgid_plural "%d upgraded, "
+msgid "%d not upgraded.\n"
+msgid_plural "%d not upgraded.\n"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
 #, c-format
-msgid "%s [option(s)] [target]\n"
-msgstr "%s [optiune(i)] [tinta]\n"
+msgid "Need to get %.1f%s/%.1f%s of archives.\n"
+msgstr "Trebuie sa descarc %.1f%s/%.1f%s de arhive.\n"
 
 #, c-format
-msgid "%s is not installed.\n"
-msgstr "%s nu este instalat.\n"
+msgid "Need to get %.1f%s of archives.\n"
+msgstr "Trebuie sa descarc %.1f%s de arhive.\n"
 
 #, c-format
-msgid "%s is up to date.\n"
-msgstr "%s este actualizat deja.\n"
-
-#, c-format
-msgid "%s version %s\n"
-msgstr "%s versiune %s\n"
-
-#, c-format
-msgid "%s, which is required by %s, is excluded\n"
-msgstr "%s, ce este cerut de catre %s, este exclus\n"
-
-#, c-format
-msgid "%s, which is to be installed, conflicts with %s\n"
-msgstr "%s, ce va fi instalat, e in conflict cu %s\n"
-
-#, c-format
-msgid "%s-%s is to be installed\n"
-msgstr "%s-%s se va instala\n"
-
-#, c-format
-msgid "%s-%s is to be removed\n"
-msgstr "%s-%s va fi eliminat\n"
-
-#, c-format
-msgid "%s-%s is to be upgraded to version %s\n"
-msgstr "%s-%s va fi actualizat la versiunea %s\n"
-
-msgid ", but accepted as an exception"
-msgstr ""
-
-#, c-format
-msgid "Abort.\n"
-msgstr "Abandonare.\n"
+msgid "You don't have enough free space in %s\n"
+msgstr "Nu ai destul spatiu pe disc in %s\n"
 
 #, c-format
 msgid "After unpacking %.1f%s disk space will be freed.\n"
@@ -110,255 +581,24 @@ msgstr "Dupa despachetare va fi eliberat spatiu pe disc de %.1f%s.\n"
 msgid "After unpacking %.1f%s of additional disk space will be used.\n"
 msgstr "Dupa despachetare %.1f%s de spatiu suplimentar vor fi folositi.\n"
 
-#, c-format
-msgid "An implementation of the Debian APT system to Slackware\n"
-msgstr "O implementare a sistemului Debian APT pentru Slackware\n"
-
-#, c-format
-msgid "Cached\n"
-msgstr "Memorat\n"
-
-msgid "Checksums not read"
-msgstr ""
-
-msgid "Checksums signature could not be verified"
-msgstr "Semnatura sumelor de control nu a putut fi verificata"
-
-msgid "Checksums signature successfully verified"
-msgstr "Semnatura sumelor de control a fost verificata cu succes"
-
-msgid "Custom"
-msgstr "Custom"
-
-msgid "Custom Patch"
-msgstr "Custom Patch"
-
-msgid "Default"
-msgstr "Default"
-
-msgid "Default Patch"
-msgstr "Default Patch"
-
-#, c-format
-msgid "Delete %s ? [y/N]"
-msgstr "Delete %s ? [y/N]"
-
 msgid "Do you want to continue? [y/N] "
 msgstr "Vreti sa continuati? [d/N] "
 
 #, c-format
-msgid "Done\n"
-msgstr "Gata\n"
-
-#. otherwise exclude
-#, c-format
-msgid "Excluding %s, use --ignore-dep to override\n"
-msgstr "Se exclude %s, foloseste --ignore-dep pentru a nu tine cont\n"
+msgid "Abort.\n"
+msgstr "Abandonare.\n"
 
 #, c-format
-msgid "Failed to build working directory [%s]\n"
-msgstr "Crearea directorului de lucru a esuat [%s]\n"
+msgid "%s-%s is to be removed\n"
+msgstr "%s-%s va fi eliminat\n"
 
 #, c-format
-msgid "Failed to calloc\n"
-msgstr "calloc esuat\n"
+msgid "%s-%s is to be installed\n"
+msgstr "%s-%s se va instala\n"
 
 #, c-format
-msgid "Failed to compile regex\n"
-msgstr "Esuare la compilarea regex\n"
-
-#, c-format
-msgid "Failed to download: %s\n"
-msgstr "Descarcare esuata: %s\n"
-
-#, c-format
-msgid "Failed to execute command: [%s]\n"
-msgstr "Esuare in executarea comenzii: [%s]\n"
-
-#, c-format
-msgid "Failed to malloc\n"
-msgstr "malloc Esuat\n"
-
-#, c-format
-msgid "Failed to mkdir %s: %s\n"
-msgstr ""
-
-#, c-format
-msgid "Failed to open %s\n"
-msgstr "Nu am putut deschide %s\n"
-
-#, c-format
-msgid "Failed to opendir %s\n"
-msgstr "Nu am putut deschide directorul %s\n"
-
-#, c-format
-msgid "Failed to parse package data from %s\n"
-msgstr "Esuare in parcurgerea datelor din %s\n"
-
-#, c-format
-msgid "Failed to realloc %s\n"
-msgstr "Esuare la realloc %s\n"
-
-#, fuzzy, c-format
-msgid "Failed to resolve working directory [%s]\n"
-msgstr "Crearea directorului de lucru a esuat [%s]\n"
-
-#, c-format
-msgid "Failed to unlink %s\n"
-msgstr "Nu am putut desface legatura %s\n"
-
-msgid "GPG key already present"
-msgstr "Cheia GPG este deja prezenta"
-
-msgid "GPG key could not be imported"
-msgstr "Cheia GPG nu a putut fi importata"
-
-msgid "GPG key successfully imported"
-msgstr "Cheie GPG importata cu succes"
-
-#, c-format
-msgid "Get %s %s %s [%.1f%s]..."
-msgstr "Descarca %s %s %s [%.1f%s]..."
-
-msgid "Incomplete download"
-msgstr "Descarcare incompleta"
-
-#, c-format
-msgid "Installed %s conflicts with %s\n"
-msgstr "Pachetul instalat %s e in conflict cu %s\n"
-
-#, fuzzy, c-format
-msgid "Invalid package location: %s\n"
-msgstr "Locatie pachet: %s\n"
-
-msgid "MD5 checksum mismatch, override with --no-md5"
-msgstr "Suma de control MD5 nu se potriveste, treci peste cu --no-md5"
-
-msgid "Missing MD5 checksum, override with --no-md5"
-msgstr "Lipsa suma de control MD5, treci peste cu --no-md5"
-
-#, c-format
-msgid "Need to get %.1f%s of archives.\n"
-msgstr "Trebuie sa descarc %.1f%s de arhive.\n"
-
-#, c-format
-msgid "Need to get %.1f%s/%.1f%s of archives.\n"
-msgstr "Trebuie sa descarc %.1f%s/%.1f%s de arhive.\n"
-
-msgid "No key for verification"
-msgstr "Nu exista cheie pentru verificare"
-
-#, c-format
-msgid "No such package: %s\n"
-msgstr "Nu exista pachetul: %s\n"
-
-#, c-format
-msgid "Not Found\n"
-msgstr "Nu a fost gasit\n"
-
-msgid "Not Verified: CRL too old"
-msgstr ""
-
-msgid "Not Verified: bad policy"
-msgstr ""
-
-msgid "Not Verified: key expired"
-msgstr ""
-
-msgid "Not Verified: key revoked"
-msgstr ""
-
-msgid "Not Verified: missing CRL"
-msgstr ""
-
-msgid "Not Verified: signature expired"
-msgstr ""
-
-msgid "Not Verified: system error"
-msgstr ""
-
-msgid "Not verified: null context"
-msgstr ""
-
-msgid "Official"
-msgstr "Official"
-
-msgid "Official Patch"
-msgstr "Official Patch"
-
-#, c-format
-msgid "Options:\n"
-msgstr "Optiuni:\n"
-
-msgid "Package ChangeLog"
-msgstr "Jurnal schimbari pachet"
-
-#, c-format
-msgid "Package Conflicts: %s\n"
-msgstr "Conflicte pachet(e): %s\n"
-
-#, c-format
-msgid "Package Description:\n"
-msgstr "Descriere pachet:\n"
-
-#, c-format
-msgid "Package Installed Size: %d K\n"
-msgstr "Dimensiune pachet instalat: %d K\n"
-
-#, c-format
-msgid "Package Installed: %s\n"
-msgstr "Pachet instalat: %s\n"
-
-#, c-format
-msgid "Package Location: %s\n"
-msgstr "Locatie pachet: %s\n"
-
-#, c-format
-msgid "Package MD5 Sum:  %s\n"
-msgstr "Suma MD5 pachet: %s\n"
-
-#, c-format
-msgid "Package Mirror: %s\n"
-msgstr "Sursa alternativa pachet: %s\n"
-
-#, c-format
-msgid "Package Name: %s\n"
-msgstr "Nume pachet: %s\n"
-
-#, c-format
-msgid "Package Priority: %s\n"
-msgstr "Package Priority: %s\n"
-
-#, c-format
-msgid "Package Required: %s\n"
-msgstr "Pachet cerut: %s\n"
-
-#, c-format
-msgid "Package Size: %d K\n"
-msgstr "Dimensiune pachet: %d K\n"
-
-#, c-format
-msgid "Package Suggests: %s\n"
-msgstr "Sugestii pachete: %s\n"
-
-#, c-format
-msgid "Package Version: %s\n"
-msgstr "Versiune pachet: %s\n"
-
-#, c-format
-msgid "Perhaps you want to run --update?\n"
-msgstr "Probabil ca vrei sa executi --update?\n"
-
-#, c-format
-msgid "Please update permissions on %s or run with appropriate privileges\n"
-msgstr ""
-"Actualizati permisiunile pentru %s sau executati cu privilegiile corecte\n"
-
-msgid "Preferred"
-msgstr "Preferred"
-
-msgid "Preferred Patch"
-msgstr "Preferred Patch"
+msgid "%s-%s is to be upgraded to version %s\n"
+msgstr "%s-%s va fi actualizat la versiunea %s\n"
 
 #, c-format
 msgid "Preparing to install %s-%s\n"
@@ -368,251 +608,13 @@ msgstr "Pregatire instalare %s-%s\n"
 msgid "Preparing to replace %s-%s with %s-%s\n"
 msgstr "Pregatire pentru inlocuirea %s-%s cu %s-%s\n"
 
-#. now map md5 checksums to packages
 #, c-format
-msgid "Reading Package Lists..."
-msgstr "Se citesc listele cu pachete..."
-
-#, c-format
-msgid "Regex Error: %s\n"
-msgstr "Eroare Regex: %s\n"
+msgid "%s, which is to be installed, conflicts with %s\n"
+msgstr "%s, ce va fi instalat, e in conflict cu %s\n"
 
 #, c-format
-msgid "Retrieving ChangeLog.txt [%s]..."
-msgstr "Se descarca ChangeLog.txt [%s]..."
-
-#, c-format
-msgid "Retrieving GPG key [%s]..."
-msgstr "Se descarca cheie GPG [%s]..."
-
-#. download checksum file
-#, c-format
-msgid "Retrieving checksum list [%s]..."
-msgstr "Se primeste lista suma de control [%s]..."
-
-#, c-format
-msgid "Retrieving checksum signature [%s]..."
-msgstr "Se descarca semnatura sumei de control [%s]..."
-
-#. download our SLAPT_PKG_LIST
-#, c-format
-msgid "Retrieving package data [%s]..."
-msgstr "Se primesc date despre pachet [%s]..."
-
-#. download SLAPT_PATCHES_LIST
-#, c-format
-msgid "Retrieving patch list [%s]..."
-msgstr "Se primeste lista completari [%s]..."
-
-#, c-format
-msgid "SOURCE directive not set within %s.\n"
-msgstr "Directiva SOURCE nu este setata in %s.\n"
-
-msgid "Signature not read"
-msgstr ""
-
-#, c-format
-msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr "Sursele au esuat la descarcare, corectati sursele si rulati --update\n"
-
-#, c-format
-msgid "Suggested packages:\n"
-msgstr "Pachete sugerate:\n"
-
-#, c-format
-msgid "Targets:\n"
-msgstr "Tinte:\n"
-
-#, c-format
-msgid "The following NEW packages will be installed:\n"
-msgstr "Urmatoarele pachete NOI vor fi instalate:\n"
-
-#, c-format
-msgid "The following packages have been EXCLUDED:\n"
-msgstr "Urmatoarele pachete au fost EXCLUSE:\n"
-
-#, c-format
-msgid "The following packages have unmet dependencies:\n"
-msgstr "Urmatoarele pachete au dependinte nesatisfacute:\n"
-
-#, c-format
-msgid "The following packages will be REMOVED:\n"
-msgstr "Urmatoarele pachete vor fi ELIMINATE:\n"
-
-#, c-format
-msgid "The following packages will be reinstalled:\n"
-msgstr "The following packages will be reinstalled:\n"
-
-#, c-format
-msgid "The following packages will be upgraded:\n"
-msgstr "Urmatoarele pachete vor fi actualizate:\n"
-
-msgid "Unknown error"
-msgstr "Eroare necunoscuta"
-
-#, c-format
-msgid "Usage:\n"
-msgstr "Mod de folosire:\n"
-
-msgid "Verified"
-msgstr "Verificat"
-
-#, c-format
-msgid "Verifying checksum signature [%s]..."
-msgstr "Verificare semnatura suma de control [%s]..."
-
-#, c-format
-msgid "WORKINGDIR directive not set within %s.\n"
-msgstr "Directiva WORKINGDIR nu este setata in %s.\n"
-
-#, c-format
-msgid "You don't have enough free space in %s\n"
-msgstr "Nu ai destul spatiu pe disc in %s\n"
-
-msgid "[disk set(s)] - install specified disk set(s)"
-msgstr "[set(uri) disc] - instaleaza setul(seturile) disc"
-
-msgid "[expression] - search available pkgs"
-msgstr "[expresie] - cauta pachete disponibile"
-
-msgid "[pkg name(s)] - install specified pkg(s)"
-msgstr "[nume pachet(e)] - instaleaza pachetul(ele) specificat(e)"
-
-msgid "[pkg name(s)] - remove specified pkg(s)"
-msgstr "[nume pachet(e)] - dezinstaleaza pachetul(ele) specificat(e)"
-
-msgid "[pkg name(s)] - show pkg(s) description"
-msgstr ""
-
-msgid "[pkg name(s)] - show pkg(s) installed files"
-msgstr ""
-
-msgid "allow unauthenticated packages"
-msgstr ""
-
-msgid "always prompt during install/upgrade"
-msgstr "intreaba intotdeauna in timpul instalarii/actualizarii"
-
-msgid "display this help and exit"
-msgstr ""
-
-msgid "do not perform md5 check sum"
-msgstr "nu executa verificare suma md5"
-
-msgid "do not prompt during install/upgrade"
-msgstr "nu intreba in timpul instalarii/actualizarii"
-
-#, c-format
-msgid "error attempting to read pkg description\n"
-msgstr "eroare in timpul citirii descrierii pachetului\n"
-
-#, c-format
-msgid "getline reached EOF attempting to read location\n"
-msgstr ""
-"getline a ajuns la sfarsitul fisierului incercand sa citeasca locatia\n"
-
-#, c-format
-msgid "getline reached EOF attempting to read size_c\n"
-msgstr "getline a ajuns la sfarsitul fisierului incercand sa citeasca size_c\n"
-
-#, c-format
-msgid "getline reached EOF attempting to read size_u\n"
-msgstr "getline a ajuns la sfarsitul fisierului incercand sa citeasca size_u\n"
-
-msgid "ignore dependency failures"
-msgstr "ignora erori dependinte"
-
-msgid "install package, do not attempt to upgrade"
-msgstr "instaleaza pachet, nu incerca actualizare"
-
-msgid "install/upgrade excludes"
-msgstr "instaleaza/actualizeaza excluderi"
-
-msgid "list available pkgs"
-msgstr "listare pachete disponibile"
-
-msgid "list installed pkgs"
-msgstr "listare pachete instalate"
-
-msgid "list pkgs"
-msgstr "listare pachete"
-
-#, c-format
-msgid "md5 sum too long\n"
-msgstr "suma md5 prea lunga\n"
-
-msgid "no"
-msgstr "nu"
-
-msgid "only download pkg on install/upgrade"
-msgstr "descarca pachet numai la instalare/actualizare"
-
-msgid "only purge cache of older, unreacheable pkgs"
-msgstr "doar sterge memoria pachetelor mai vechi, inaccesibile"
-
-msgid "print URIs only, do not download"
-msgstr "doar afiseaza URIuri, nu descarca"
-
-msgid "print version and license info"
-msgstr "afisare versiune si info licenta"
-
-msgid "purge cached pkgs"
-msgstr "sterge pachetele memorate"
-
-#, c-format
-msgid "regex failed on [%s]\n"
-msgstr "regex esuat in [%s]\n"
-
-#, c-format
-msgid "regexec failed to parse location\n"
-msgstr "regexec a esuat in parcurgerea locatiei\n"
-
-#, c-format
-msgid "regexec failed to parse size_c\n"
-msgstr "regexec esuat in parcurgerea size_c\n"
-
-#, c-format
-msgid "regexec failed to parse size_u\n"
-msgstr "regexec esuat in parcurgerea size_u\n"
-
-msgid "reinstall the pkg"
-msgstr ""
-
-msgid "remove obsolete packages"
-msgstr "elimina pachete expirate"
-
-msgid "retrieve GPG keys for sources"
-msgstr "descarca chei GPG pentru surse"
-
-msgid "retrieve pkg data from MIRROR"
-msgstr ""
-
-msgid "show download statistics"
-msgstr "afiseaza statistici descarcare"
-
-msgid "show pkgs to be installed/upgraded"
-msgstr "afiseaza pachete de instalat/actualizat"
-
-msgid "show verbose information in command line output"
-msgstr ""
-
-msgid "skip dependency check"
-msgstr "nu verifica dependinte"
-
-msgid "specify alternate slapt-getrc location"
-msgstr "specificati locatie alternativa in slapt-getrc"
-
-msgid "specify number of download retry attempts"
-msgstr "specificati numarul de incercari descarcare"
-
-msgid "upgrade installed pkgs"
-msgstr "actualizeaza pachete instalate"
-
-msgid "upgrade to newer release"
-msgstr "actualizare la ultima varianta"
-
-msgid "yes"
-msgstr "da"
+msgid "Installed %s conflicts with %s\n"
+msgstr "Pachetul instalat %s e in conflict cu %s\n"
 
 #, c-format
 #~ msgid "Failed to chdir: %s\n"
