@@ -20,7 +20,9 @@
 
 static gpgme_ctx_t *_slapt_init_gpgme_ctx(void)
 {
-    gpgme_error_t e = gpgme_set_engine_info(GPGME_PROTOCOL_OpenPGP, NULL, RC_DIR);
+    const char *env_gpg_home = getenv(SLAPT_GPG_HOME_ENV);
+    const char *gpg_working_dir = env_gpg_home ? env_gpg_home : RC_DIR;
+    gpgme_error_t e = gpgme_set_engine_info(GPGME_PROTOCOL_OpenPGP, NULL, gpg_working_dir);
     if (e != GPG_ERR_NO_ERROR) {
         fprintf(stderr, "GPGME: %s\n", gpgme_strerror(e));
         return NULL;

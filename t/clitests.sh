@@ -41,7 +41,7 @@ FILE LIST:
 EOF
 
 if ${slaptget} --help 2>&1 | grep -q add-keys; then
-    ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --add-keys
+    SLAPT_GPG_HOME=${TEST_TMPDIR} ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --add-keys
 fi
 ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --update
 ROOT=${TEST_TMPDIR} ${slaptget} --config "${config}" --upgrade -s

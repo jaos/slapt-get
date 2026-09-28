@@ -25,6 +25,7 @@
 #define SLAPT_GPG_KEY "GPG-KEY"
 #define SLAPT_CHECKSUM_ASC_FILE "CHECKSUMS.md5.asc"
 #define SLAPT_CHECKSUM_ASC_FILE_GZ "CHECKSUMS.md5.gz.asc"
+#define SLAPT_GPG_HOME_ENV "SLAPT_GPG_HOME"
 
 /* retrieve the signature of the CHECKSUMS.md5 file */
 FILE *slapt_get_pkg_source_checksums_signature(const slapt_config_t *global_config, const char *url, bool *compressed);
