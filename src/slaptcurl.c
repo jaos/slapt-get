@@ -158,7 +158,11 @@ char *slapt_head_request(const char *url)
     curl_easy_setopt(ch, CURLOPT_TCP_KEEPALIVE, 1L);
     curl_easy_setopt(ch, CURLOPT_TCP_KEEPIDLE, 60L);
     curl_easy_setopt(ch, CURLOPT_TCP_KEEPINTVL, 15L);
+#if LIBCURL_VERSION_NUM >= 0x080600L
     curl_easy_setopt(ch, CURLOPT_SERVER_RESPONSE_TIMEOUT_MS, 30000L);
+#else
+    curl_easy_setopt(ch, CURLOPT_SERVER_RESPONSE_TIMEOUT, 30L);
+#endif
 
     if (getenv("SLAPT_CURL_DEBUG"))
         curl_easy_setopt(ch, CURLOPT_VERBOSE, 1L);
