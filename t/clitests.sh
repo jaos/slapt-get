@@ -7,7 +7,7 @@ trap 'rm -rf ${TEST_TMPDIR};' exit
 
 PRIMARY_MIRRORS=" http://www.slackel.gr/repo/x86_64/slackware-current/ https://slackware.uk/slackware/slackware64-current/ https://slackware.osuosl.org/slackware64-current/"
 for MIRROR in ${PRIMARY_MIRRORS}; do
-    curl -s -I "${MIRROR}/GPG-KEY" &>/dev/null && break
+    curl --silent --head --fail "${MIRROR}/PACKAGES.TXT" &>/dev/null && break
 done
 
 slaptget="${1}"
