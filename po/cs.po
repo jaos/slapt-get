@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the slapt-get package.
-# 
+#
 # Translators:
 # Appukonrad <appukonrad@gmail.com>, 2013
 # Appukonrad <appukonrad@gmail.com>, 2013
@@ -14,15 +14,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-25 23:11-0400\n"
+"POT-Creation-Date: 2026-10-18 22:38-0400\n"
 "PO-Revision-Date: 2012-09-17 21:34+0000\n"
 "Last-Translator: Michal Várady <miko.vaji@gmail.com>, 2015,2026\n"
 "Language-Team: Czech (http://app.transifex.com/jaos/slapt-get/language/cs/)\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: cs\n"
-"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
+"<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
 #, c-format
 msgid "Failed to open %s\n"
@@ -30,7 +31,9 @@ msgstr "Nepodařilo se otevřít %s\n"
 
 #, c-format
 msgid "Failed to compile regex\n"
-msgstr "Nepodařilo se zkompilovat regulární výraz\n\n"
+msgstr ""
+"Nepodařilo se zkompilovat regulární výraz\n"
+"\n"
 
 #, c-format
 msgid "Regex Error: %s\n"
@@ -49,7 +52,8 @@ msgid "Failed to calloc\n"
 msgstr "Přidělení funkcí calloc se nezdařilo\n"
 
 msgid "MD5 checksum mismatch, override with --no-md5"
-msgstr "Kontrolní součet MD5 se neshoduje, pro potlačení použijte přepínač --no-md5"
+msgstr ""
+"Kontrolní součet MD5 se neshoduje, pro potlačení použijte přepínač --no-md5"
 
 msgid "Missing MD5 checksum, override with --no-md5"
 msgstr "Kontrolní součet MD5 chybí, pro potlačení použijte přepínač --no-md5"
@@ -138,7 +142,9 @@ msgstr "Nepodařilo se otevřít adresář %s\n"
 
 #, c-format
 msgid "WORKINGDIR directive not set within %s.\n"
-msgstr "Direktiva WORKINGDIR není nastavena v %s.\n\n"
+msgstr ""
+"Direktiva WORKINGDIR není nastavena v %s.\n"
+"\n"
 
 #, c-format
 msgid "SOURCE directive not set within %s.\n"
@@ -463,7 +469,9 @@ msgstr "Získávání souboru ChangeLog.txt [%s]..."
 
 #, c-format
 msgid "Sources failed to download, correct sources and rerun --update\n"
-msgstr "Zdroje se nepodařilo stáhnout, opravte zdroje a spusťte s přepínačem --update\n"
+msgstr ""
+"Zdroje se nepodařilo stáhnout, opravte zdroje a spusťte s přepínačem --"
+"update\n"
 
 #, c-format
 msgid "Delete %s ? [y/N]"
@@ -475,7 +483,9 @@ msgstr "Nepodařilo se analyzovat popisy balíčků z %s\n"
 
 #, c-format
 msgid "Cached\n"
-msgstr "V mezipaměti\n\n"
+msgstr ""
+"V mezipaměti\n"
+"\n"
 
 #, c-format
 msgid "Failed to download: %s\n"
@@ -495,7 +505,9 @@ msgstr "Nenalezeno\n"
 
 #, c-format
 msgid "The following packages have unmet dependencies:\n"
-msgstr "Tyto balíčky nesplnily závislosti:\n\n"
+msgstr ""
+"Tyto balíčky nesplnily závislosti:\n"
+"\n"
 
 #, c-format
 msgid "  %s: Depends: %s\n"
@@ -507,7 +519,9 @@ msgstr "%s, který je vyžadován pro %s, je vyloučen\n"
 
 #, c-format
 msgid "The following packages have been EXCLUDED:\n"
-msgstr "Tyto balíčky byly VYLOUČENY:\n\n"
+msgstr ""
+"Tyto balíčky byly VYLOUČENY:\n"
+"\n"
 
 #, c-format
 msgid "Suggested packages:\n"
@@ -519,15 +533,21 @@ msgstr "Nainstalovány budou tyto NOVÉ balíčky:\n"
 
 #, c-format
 msgid "The following packages will be REMOVED:\n"
-msgstr "Tyto balíčky budou ODSTRANĚNY:\n\n"
+msgstr ""
+"Tyto balíčky budou ODSTRANĚNY:\n"
+"\n"
 
 #, c-format
 msgid "The following packages will be upgraded:\n"
-msgstr "Tyto balíčky budou UPGRADOVÁNY:\n\n"
+msgstr ""
+"Tyto balíčky budou UPGRADOVÁNY:\n"
+"\n"
 
 #, c-format
 msgid "The following packages will be reinstalled:\n"
-msgstr "Tyto balíčky budou přeinstalovány:\n\n"
+msgstr ""
+"Tyto balíčky budou přeinstalovány:\n"
+"\n"
 
 #, c-format
 msgid "%d upgraded, "

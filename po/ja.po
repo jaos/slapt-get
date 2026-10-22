@@ -5,16 +5,18 @@
 # Translators:
 # 🎈 BALLOON | FU-SEN, 2016
 # 🎈 BALLOON | FU-SEN, 2016
+# 🎈 BALLOON | FU-SEN, 2016
 # tsuren <hydrangea_and_snail@hotmail.com>, 2015
 # JW <J_W@somewhere.c0.jp>, 2006
 # S_A <shin1.abe@nifty.com>, 2006
+# tsuren <hydrangea_and_snail@hotmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-25 23:11-0400\n"
+"POT-Creation-Date: 2026-10-18 22:38-0400\n"
 "PO-Revision-Date: 2012-09-17 21:34+0000\n"
-"Last-Translator: 🎈 BALLOON | FU-SEN, 2016\n"
+"Last-Translator: S_A <shin1.abe@nifty.com>, 2006\n"
 "Language-Team: Japanese (http://app.transifex.com/jaos/slapt-get/language/"
 "ja/)\n"
 "Language: ja\n"
@@ -147,9 +149,9 @@ msgstr "%s にソースが指定されていません\n"
 msgid "Failed to build working directory [%s]\n"
 msgstr "作業ディレクトリ [%s] のビルドに失敗しました\n"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to resolve working directory [%s]\n"
-msgstr "作業ディレクトリ [%s] のビルドに失敗しました\n"
+msgstr ""
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
@@ -381,21 +383,21 @@ msgstr " --update を実行してよろしいですか？\n"
 msgid "regex failed on [%s]\n"
 msgstr "regex が [%s] で失敗しました\n"
 
-#, fuzzy, c-format
+#, c-format
 msgid "regex failed to parse name from [%s]\n"
-msgstr "regex が [%s] で失敗しました\n"
+msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid package priority: %s\n"
-msgstr "パッケージの場所: %s\n"
+msgstr ""
 
 #, c-format
 msgid "regexec failed to parse location\n"
 msgstr "regexec が場所を解析できませんでした\n"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid package location: %s\n"
-msgstr "パッケージの場所: %s\n"
+msgstr ""
 
 #, c-format
 msgid "getline reached EOF attempting to read location\n"
@@ -614,7 +616,3 @@ msgstr "インストールしようとしている %s は %s と衝突します\
 #, c-format
 msgid "Installed %s conflicts with %s\n"
 msgstr "インストールされた %s は %s と衝突します\n"
-
-#, c-format
-#~ msgid "Failed to chdir: %s\n"
-#~ msgstr "chdir に失敗しました: %s\n"

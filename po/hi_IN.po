@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-25 23:11-0400\n"
+"POT-Creation-Date: 2026-10-18 22:38-0400\n"
 "PO-Revision-Date: 2012-09-17 21:34+0000\n"
 "Last-Translator: Panwar108 <caspian7pena@gmail.com>, 2020\n"
 "Language-Team: Hindi (India) (http://app.transifex.com/jaos/slapt-get/"
@@ -143,9 +143,9 @@ msgstr "%sके अंतर्गत SOURCE निदेश सेट नह�
 msgid "Failed to build working directory [%s]\n"
 msgstr "कार्यरत डायरेक्टरी बनाने में विफल [%s]\n"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to resolve working directory [%s]\n"
-msgstr "कार्यरत डायरेक्टरी बनाने में विफल [%s]\n"
+msgstr ""
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
@@ -374,21 +374,21 @@ msgstr "संभवतः आप --update निष्पादित करन
 msgid "regex failed on [%s]\n"
 msgstr "[%s] पर regex विफल\n"
 
-#, fuzzy, c-format
+#, c-format
 msgid "regex failed to parse name from [%s]\n"
-msgstr "[%s] पर regex विफल\n"
+msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid package priority: %s\n"
-msgstr "पैकेज स्थान : %s\n"
+msgstr ""
 
 #, c-format
 msgid "regexec failed to parse location\n"
 msgstr "regexec स्थान प्राप्यता हेतु विफल\n"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid package location: %s\n"
-msgstr "पैकेज स्थान : %s\n"
+msgstr ""
 
 #, c-format
 msgid "getline reached EOF attempting to read location\n"
@@ -608,7 +608,3 @@ msgstr "%s, इंस्टॉल होगा, %s के विरुद्ध 
 #, c-format
 msgid "Installed %s conflicts with %s\n"
 msgstr "इंस्टॉल हो रखा %s, %s के विरुद्ध है\n"
-
-#, c-format
-#~ msgid "Failed to chdir: %s\n"
-#~ msgstr "chdir करने में विफल : %s\n"

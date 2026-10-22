@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the slapt-get package.
 #
 # Translators:
+# Caarmi, 2022
 # Copyright (C) 2005, 2006-2007
 # Caarmi, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-25 23:11-0400\n"
+"POT-Creation-Date: 2026-10-18 22:38-0400\n"
 "PO-Revision-Date: 2012-09-17 21:34+0000\n"
 "Last-Translator: Caarmi, 2022\n"
 "Language-Team: Russian (http://app.transifex.com/jaos/slapt-get/language/"
@@ -146,9 +147,9 @@ msgstr "Директива SOURCE не задана в %s.\n"
 msgid "Failed to build working directory [%s]\n"
 msgstr "Не удалось создать рабочий каталог [%s]\n"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to resolve working directory [%s]\n"
-msgstr "Не удалось создать рабочий каталог [%s]\n"
+msgstr ""
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
@@ -378,21 +379,21 @@ msgstr "Возможно, вам нужна опция --update?\n"
 msgid "regex failed on [%s]\n"
 msgstr "ошибка regex на [%s]\n"
 
-#, fuzzy, c-format
+#, c-format
 msgid "regex failed to parse name from [%s]\n"
-msgstr "ошибка regex на [%s]\n"
+msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid package priority: %s\n"
-msgstr "Расположение пакета: %s\n"
+msgstr ""
 
 #, c-format
 msgid "regexec failed to parse location\n"
 msgstr "regexec не может обработать адрес\n"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid package location: %s\n"
-msgstr "Расположение пакета: %s\n"
+msgstr ""
 
 #, c-format
 msgid "getline reached EOF attempting to read location\n"
@@ -622,7 +623,3 @@ msgstr "%s, назначенный для установки, конфликту
 #, c-format
 msgid "Installed %s conflicts with %s\n"
 msgstr "Установленный пакет %s конфликтует с %s\n"
-
-#, c-format
-#~ msgid "Failed to chdir: %s\n"
-#~ msgstr "Не удалось перейти в каталог: %s\n"

@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the slapt-get package.
 #
 # Translators:
+# Ansa89, 2011
 # Antonio Sardei <laplume@libero.it>, 2016
 # Francesco Gigli <jaramir@slack.it>, 2004
 # Ansa89, 2011
@@ -10,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-25 23:11-0400\n"
+"POT-Creation-Date: 2026-10-18 22:38-0400\n"
 "PO-Revision-Date: 2012-09-17 21:34+0000\n"
-"Last-Translator: Antonio Sardei <laplume@libero.it>, 2016\n"
+"Last-Translator: Ansa89, 2011\n"
 "Language-Team: Italian (http://app.transifex.com/jaos/slapt-get/language/"
 "it/)\n"
 "Language: it\n"
@@ -146,9 +147,9 @@ msgstr "Direttiva SOURCE non impostata in %s.\n"
 msgid "Failed to build working directory [%s]\n"
 msgstr "Errore nella creazione della cartella di lavoro [%s]\n"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to resolve working directory [%s]\n"
-msgstr "Errore nella creazione della cartella di lavoro [%s]\n"
+msgstr ""
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
@@ -377,21 +378,21 @@ msgstr "Forse vuoi eseguire --update?\n"
 msgid "regex failed on [%s]\n"
 msgstr "regex fallita in [%s]\n"
 
-#, fuzzy, c-format
+#, c-format
 msgid "regex failed to parse name from [%s]\n"
-msgstr "regex fallita in [%s]\n"
+msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid package priority: %s\n"
-msgstr "Posizione del pacchetto: %s\n"
+msgstr ""
 
 #, c-format
 msgid "regexec failed to parse location\n"
 msgstr "regexec non riesce ad analizzare la posizione\n"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid package location: %s\n"
-msgstr "Posizione del pacchetto: %s\n"
+msgstr ""
 
 #, c-format
 msgid "getline reached EOF attempting to read location\n"
@@ -618,7 +619,3 @@ msgstr "%s, il quale è da installare, è in conflitto con %s\n"
 #, c-format
 msgid "Installed %s conflicts with %s\n"
 msgstr "Il pacchetto installato %s è in conflitto con %s\n"
-
-#, c-format
-#~ msgid "Failed to chdir: %s\n"
-#~ msgstr "Errore in chdir: %s\n"

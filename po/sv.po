@@ -4,15 +4,15 @@
 #
 # Translators:
 # Copyright (C) 2004, 2005
-# Ingemar Karlsson <ingemar@ingk.se>, 2012
+# Ingemar Karlsson <ingemar@ingk.se>, 2012,2026
 # Joel Bjurman <ypolt@lediga.st>, 2004-2005
 msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-25 23:11-0400\n"
+"POT-Creation-Date: 2026-10-18 22:38-0400\n"
 "PO-Revision-Date: 2012-09-17 21:34+0000\n"
-"Last-Translator: Ingemar Karlsson <ingemar@ingk.se>, 2012\n"
+"Last-Translator: Ingemar Karlsson <ingemar@ingk.se>, 2012,2026\n"
 "Language-Team: Swedish (http://app.transifex.com/jaos/slapt-get/language/"
 "sv/)\n"
 "Language: sv\n"
@@ -35,7 +35,7 @@ msgstr "Regex Fel: %s\n"
 
 #, c-format
 msgid "Failed to mkdir %s: %s\n"
-msgstr ""
+msgstr "Misslyckades att skapa katalog %s : %s\n"
 
 #, c-format
 msgid "Failed to malloc\n"
@@ -145,9 +145,9 @@ msgstr "SOURCE direktivet ej satt inom %s.\n"
 msgid "Failed to build working directory [%s]\n"
 msgstr "Misslyckades att skapa katalog [%s]\n"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to resolve working directory [%s]\n"
-msgstr "Misslyckades att skapa katalog [%s]\n"
+msgstr "Det gick inte att hitta arbetskatalogen [%s]\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
@@ -272,7 +272,7 @@ msgid "install package, do not attempt to upgrade"
 msgstr "install package, do not attempt to upgrade"
 
 msgid "show verbose information in command line output"
-msgstr ""
+msgstr "visa detaljerad information i kommandoradens utdata"
 
 msgid "allow unauthenticated packages"
 msgstr "tillåt icke autentiserade paket"
@@ -378,21 +378,21 @@ msgstr "Du kanske vill köra --update?\n"
 msgid "regex failed on [%s]\n"
 msgstr "regex misslyckades på [%s]\n"
 
-#, fuzzy, c-format
+#, c-format
 msgid "regex failed to parse name from [%s]\n"
-msgstr "regex misslyckades på [%s]\n"
+msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid package priority: %s\n"
-msgstr "Paketets sökväg: %s\n"
+msgstr ""
 
 #, c-format
 msgid "regexec failed to parse location\n"
 msgstr "regexec misslyckade att tolka sökväg\n"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid package location: %s\n"
-msgstr "Paketets sökväg: %s\n"
+msgstr "Ogiltig paketplats: %s\n"
 
 #, c-format
 msgid "getline reached EOF attempting to read location\n"
@@ -614,7 +614,3 @@ msgstr "%s, som skall till att installeras, krockar med %s\n"
 #, c-format
 msgid "Installed %s conflicts with %s\n"
 msgstr "Installerade %s krockar med %s\n"
-
-#, c-format
-#~ msgid "Failed to chdir: %s\n"
-#~ msgstr "Misslyckades att byta till katalog: %s\n"

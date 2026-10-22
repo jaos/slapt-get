@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-25 23:11-0400\n"
+"POT-Creation-Date: 2026-10-18 22:38-0400\n"
 "PO-Revision-Date: 2012-09-17 21:34+0000\n"
 "Last-Translator: Yang Jinsong <shannleon@gmail.com>, 2006\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/jaos/slapt-get/"
@@ -143,9 +143,9 @@ msgstr "%s 中没有设置 SOURCE 关键字.\n"
 msgid "Failed to build working directory [%s]\n"
 msgstr "建立工作目录 [%s] 失败\n"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to resolve working directory [%s]\n"
-msgstr "建立工作目录 [%s] 失败\n"
+msgstr ""
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
@@ -374,21 +374,21 @@ msgstr "可能你需要运行 --update?\n"
 msgid "regex failed on [%s]\n"
 msgstr "regex failed on [%s]\n"
 
-#, fuzzy, c-format
+#, c-format
 msgid "regex failed to parse name from [%s]\n"
-msgstr "regex failed on [%s]\n"
+msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid package priority: %s\n"
-msgstr "软件包位置: %s\n"
+msgstr ""
 
 #, c-format
 msgid "regexec failed to parse location\n"
 msgstr "regexec failed to parse location\n"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid package location: %s\n"
-msgstr "软件包位置: %s\n"
+msgstr ""
 
 #, c-format
 msgid "getline reached EOF attempting to read location\n"
@@ -603,7 +603,3 @@ msgstr "将要被安装的 %s 与 %s 有冲突\n"
 #, c-format
 msgid "Installed %s conflicts with %s\n"
 msgstr "已安装的 %s 与 %s 有冲突\n"
-
-#, c-format
-#~ msgid "Failed to chdir: %s\n"
-#~ msgstr "进入目录 %s 失败\n"

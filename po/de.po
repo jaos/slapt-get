@@ -7,13 +7,14 @@
 # Manfred Mueller <manfred.mueller@fluxflux.net>, 2018
 # Niklas Volbers <mithrandir42@web.de>, 2004-2005
 # Thorsten, 2014
+# Thorsten, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-25 23:11-0400\n"
+"POT-Creation-Date: 2026-10-18 22:38-0400\n"
 "PO-Revision-Date: 2012-09-17 21:34+0000\n"
-"Last-Translator: Manfred Mueller <manfred.mueller@fluxflux.net>, 2018\n"
+"Last-Translator: Thorsten, 2014\n"
 "Language-Team: German (http://app.transifex.com/jaos/slapt-get/language/"
 "de/)\n"
 "Language: de\n"
@@ -146,9 +147,9 @@ msgstr "SOURCE Anweisung (Quelle) ist in %s nicht angegeben.\n"
 msgid "Failed to build working directory [%s]\n"
 msgstr "Konnte Arbeitsverzeichnis [%s] nicht erstellen.\n"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to resolve working directory [%s]\n"
-msgstr "Konnte Arbeitsverzeichnis [%s] nicht erstellen.\n"
+msgstr ""
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
@@ -379,21 +380,21 @@ msgstr "Moechten sie vielleicht --update aufrufen?\n"
 msgid "regex failed on [%s]\n"
 msgstr "Regulaerer Ausdruck scheiterte an [ %s]\n"
 
-#, fuzzy, c-format
+#, c-format
 msgid "regex failed to parse name from [%s]\n"
-msgstr "Regulaerer Ausdruck scheiterte an [ %s]\n"
+msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid package priority: %s\n"
-msgstr "Paket-Ort: %s\n"
+msgstr ""
 
 #, c-format
 msgid "regexec failed to parse location\n"
 msgstr "regexec konnte Ortsangabe nicht bestimmen\n"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid package location: %s\n"
-msgstr "Paket-Ort: %s\n"
+msgstr ""
 
 #, c-format
 msgid "getline reached EOF attempting to read location\n"
@@ -617,7 +618,3 @@ msgstr "Zu installierendes Paket %s steht im Konflikt mit %s\n"
 #, c-format
 msgid "Installed %s conflicts with %s\n"
 msgstr "Installiertes Paket %s steht im Konflikt mit %s\n"
-
-#, c-format
-#~ msgid "Failed to chdir: %s\n"
-#~ msgstr "Konnte nicht in Verzeichnis %s wechseln\n"

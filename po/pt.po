@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the slapt-get package.
 #
 # Translators:
-# Hugo Carvalho <hugokarvalho@hotmail.com>, 2014
+# Hugo Carvalho <hugokarvalho@hotmail.com>, 2014,2026
 # Sérgio Marques <smarquespt@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-25 23:11-0400\n"
+"POT-Creation-Date: 2026-10-18 22:38-0400\n"
 "PO-Revision-Date: 2012-09-17 21:34+0000\n"
-"Last-Translator: Sérgio Marques <smarquespt@gmail.com>, 2013\n"
+"Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>, 2014,2026\n"
 "Language-Team: Portuguese (http://app.transifex.com/jaos/slapt-get/language/"
 "pt/)\n"
 "Language: pt\n"
@@ -35,15 +35,15 @@ msgstr "Erro regex: %s\n"
 
 #, c-format
 msgid "Failed to mkdir %s: %s\n"
-msgstr ""
+msgstr "Erro ao mkdir %s: %s\n"
 
 #, c-format
 msgid "Failed to malloc\n"
-msgstr "Erro a malloc\n"
+msgstr "Erro ao malloc\n"
 
 #, c-format
 msgid "Failed to calloc\n"
-msgstr "Erro \"calloc\"\n"
+msgstr "Erro ao calloc\n"
 
 msgid "MD5 checksum mismatch, override with --no-md5"
 msgstr "Erro de verificação MD5. Utilize --no-md5"
@@ -106,10 +106,10 @@ msgid "Unknown error"
 msgstr "Erro desconhecido"
 
 msgid "Default"
-msgstr "Pré-definido"
+msgstr "Predefinido"
 
 msgid "Default Patch"
-msgstr "Correção padrão"
+msgstr "Correção predefinida"
 
 msgid "Preferred"
 msgstr "Preferido"
@@ -145,9 +145,9 @@ msgstr "Diretiva SOURCE não definida em %s.\n"
 msgid "Failed to build working directory [%s]\n"
 msgstr "Erro ao criar o diretório de trabalho [%s]\n"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to resolve working directory [%s]\n"
-msgstr "Erro ao criar o diretório de trabalho [%s]\n"
+msgstr "Erro ao resolver o diretório de trabalho [%s]\n"
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
@@ -271,7 +271,7 @@ msgid "install package, do not attempt to upgrade"
 msgstr "instalar pacote e não tentar atualizar"
 
 msgid "show verbose information in command line output"
-msgstr ""
+msgstr "mostrar informações detalhadas no resultado da linha de comandos"
 
 msgid "allow unauthenticated packages"
 msgstr "permite pacotes sem autenticação"
@@ -287,7 +287,7 @@ msgstr "A ler listas de pacote..."
 #, c-format
 msgid "Done\n"
 msgstr ""
-"Terminado\n"
+"Concluído\n"
 "\n"
 
 #, c-format
@@ -296,7 +296,7 @@ msgstr "Pacote inexistente: %s\n"
 
 #, c-format
 msgid "Excluding %s, use --ignore-dep to override\n"
-msgstr "A excluir %s. Utilize --ignore-dep para sobrepor\n"
+msgstr "A excluir %s. Utilizar --ignore-dep para sobrepor\n"
 
 #, c-format
 msgid "%s is up to date.\n"
@@ -379,21 +379,21 @@ msgstr "Será que quer executar --update?\n"
 msgid "regex failed on [%s]\n"
 msgstr "regex falhou em [%s]\n"
 
-#, fuzzy, c-format
+#, c-format
 msgid "regex failed to parse name from [%s]\n"
-msgstr "regex falhou em [%s]\n"
+msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid package priority: %s\n"
-msgstr "Localização do pacote: %s\n"
+msgstr ""
 
 #, c-format
 msgid "regexec failed to parse location\n"
 msgstr "regexec falhou ao analisar localização\n"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid package location: %s\n"
-msgstr "Localização do pacote: %s\n"
+msgstr "Localização inválida do pacote: %s\n"
 
 #, c-format
 msgid "getline reached EOF attempting to read location\n"
@@ -636,7 +636,3 @@ msgstr ""
 #, c-format
 msgid "Installed %s conflicts with %s\n"
 msgstr "%s entra em conflito com %s\n"
-
-#, c-format
-#~ msgid "Failed to chdir: %s\n"
-#~ msgstr "Erro ao alterar diretório: %s\n"

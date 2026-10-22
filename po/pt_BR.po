@@ -6,11 +6,12 @@
 # Henrique Pinto <henrique.pinto@kdemail.net>, 2004
 # Sérgio Surkamp <surkamp@gmail.com>, 2008,2010
 # The Cat, 2023
+# The Cat, 2023
 msgid ""
 msgstr ""
 "Project-Id-Version: slapt-get\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-25 23:11-0400\n"
+"POT-Creation-Date: 2026-10-18 22:38-0400\n"
 "PO-Revision-Date: 2012-09-17 21:34+0000\n"
 "Last-Translator: The Cat, 2023\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/jaos/slapt-get/"
@@ -146,9 +147,9 @@ msgstr "Diretiva SOURCE não configurada em %s.\n"
 msgid "Failed to build working directory [%s]\n"
 msgstr "Falha ao criar diretório de trabalho [%s]\n"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to resolve working directory [%s]\n"
-msgstr "Falha ao criar diretório de trabalho [%s]\n"
+msgstr ""
 
 #, c-format
 msgid "Please update permissions on %s or run with appropriate privileges\n"
@@ -382,21 +383,21 @@ msgstr "Talvez você queira rodar --update?\n"
 msgid "regex failed on [%s]\n"
 msgstr "regex falhou em [%s]\n"
 
-#, fuzzy, c-format
+#, c-format
 msgid "regex failed to parse name from [%s]\n"
-msgstr "regex falhou em [%s]\n"
+msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid package priority: %s\n"
-msgstr "Localização do Pacote: %s\n"
+msgstr ""
 
 #, c-format
 msgid "regexec failed to parse location\n"
 msgstr "regexec falhou ao realizar parse da localização\n"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid package location: %s\n"
-msgstr "Localização do Pacote: %s\n"
+msgstr ""
 
 #, c-format
 msgid "getline reached EOF attempting to read location\n"
@@ -625,7 +626,3 @@ msgstr "%s, que está para ser instalado, conflita com %s\n"
 #, c-format
 msgid "Installed %s conflicts with %s\n"
 msgstr "Instalado %s conflita com %s\n"
-
-#, c-format
-#~ msgid "Failed to chdir: %s\n"
-#~ msgstr "Falha ao entrar no diretório: %s\n"
