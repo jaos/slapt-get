@@ -34,4 +34,4 @@ jobs:
           sudo chown $(id -u) /etc/slapt-get
 
     - name: run test
-      run: ~/.local/bin/meson test -v -C build
+      run: ~/.local/bin/meson test -vvv -C build
