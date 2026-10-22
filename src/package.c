@@ -1767,7 +1767,6 @@ int slapt_update_pkg_cache(const slapt_config_t *global_config)
                     slapt_vector_t_add(new_pkgs, patch_pkg);
                 }
                 patch_pkgs->free_function = NULL;
-                slapt_vector_t_free(patch_pkgs);
             }
 
             printf(gettext("Done\n"));
@@ -1778,6 +1777,7 @@ int slapt_update_pkg_cache(const slapt_config_t *global_config)
         }
 
         slapt_vector_t_free(available_pkgs);
+        slapt_vector_t_free(patch_pkgs);
     } /* end for loop */
 
     /* if all our downloads where a success, write to SLAPT_PKG_LIST_L */

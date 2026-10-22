@@ -494,6 +494,81 @@ START_TEST(test_cache)
 }
 END_TEST
 
+/*
+ * Fixture mirrors under t/data are served with file:// so the update runs
+ * without a network.  A source that has no CHECKSUMS.md5 leaves its patch
+ * packages unmerged, and the vector that parsed them has to release them.
+ */
+static slapt_config_t *mirror_config(const char *mirror_name)
+{
+    char mirror_dir[1024];
+    snprintf(mirror_dir, sizeof mirror_dir, "data/%s", mirror_name);
+
+    char *mirror_path = realpath(mirror_dir, NULL);
+    ck_assert_msg(mirror_path != NULL, "fixture mirror missing: %s", mirror_dir);
+
+    slapt_config_t *rc = slapt_config_t_init();
+
+    char url[1024];
+    snprintf(url, sizeof url, "file://%s/", mirror_path);
+    slapt_vector_t_add(rc->sources, slapt_source_t_init(url));
+
+    snprintf(rc->working_dir, sizeof rc->working_dir, "/tmp/slapt-pkg-cache-%s", mirror_name);
+    slapt_working_dir_init(rc);
+
+    free(mirror_path);
+    return rc;
+}
+
+static int cached_pkg_data_has(const slapt_config_t *rc, const char *name)
+{
+    char *pkg_list_path = slapt_gen_abs_path(rc->working_dir, SLAPT_PKG_LIST_L);
+    FILE *pkg_list = fopen(pkg_list_path, "r");
+    free(pkg_list_path);
+    if (pkg_list == NULL) {
+        return 0;
+    }
+
+    int found = 0;
+    char line[1024];
+    while (fgets(line, sizeof line, pkg_list) != NULL) {
+        if (strstr(line, name) != NULL) {
+            found = 1;
+            break;
+        }
+    }
+    fclose(pkg_list);
+    return found;
+}
+
+START_TEST(test_pkg_cache_missing_checksums)
+{
+    slapt_config_t *rc = mirror_config("mirror-no-checksums");
+
+    ck_assert_msg(slapt_update_pkg_cache(rc) != 0,
+        "update reported success with no CHECKSUMS.md5");
+    ck_assert_msg(cached_pkg_data_has(rc, "widget-1.1-x86_64-1.txz") == 0,
+        "patch package cached without a checksum list");
+
+    slapt_config_t_free(rc);
+}
+END_TEST
+
+START_TEST(test_pkg_cache_with_checksums)
+{
+    slapt_config_t *rc = mirror_config("mirror-with-checksums");
+
+    ck_assert_msg(slapt_update_pkg_cache(rc) == 0,
+        "update failed on a complete mirror");
+    ck_assert_msg(cached_pkg_data_has(rc, "widget-1.0-x86_64-1.txz") == 1,
+        "base package missing from package_data");
+    ck_assert_msg(cached_pkg_data_has(rc, "widget-1.1-x86_64-1.txz") == 1,
+        "patch package missing from package_data");
+
+    slapt_config_t_free(rc);
+}
+END_TEST
+
 START_TEST(test_slapt_gen_abs_path)
 {
     char *path = NULL;
@@ -785,6 +860,8 @@ Suite *packages_test_suite(void)
     tcase_add_test(tc, test_version);
     tcase_add_test(tc, test_dependency);
     tcase_add_test(tc, test_cache);
+    tcase_add_test(tc, test_pkg_cache_missing_checksums);
+    tcase_add_test(tc, test_pkg_cache_with_checksums);
     tcase_add_test(tc, test_slapt_gen_abs_path);
     tcase_add_test(tc, test_slapt_gen_filename_from_url);
     tcase_add_test(tc, test_slapt_gen_filename_from_url_safe);

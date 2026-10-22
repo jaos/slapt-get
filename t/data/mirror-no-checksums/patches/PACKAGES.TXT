@@ -1,0 +1,15 @@
+Total Packages: 1
+Total Download Size: 1 K
+Total Installed Size: 2 K
+
+PACKAGE NAME:  widget-1.1-x86_64-1.txz
+PACKAGE LOCATION: ./patches
+PACKAGE SIZE (compressed): 1 K
+PACKAGE SIZE (uncompressed): 2 K
+PACKAGE REQUIRED:
+PACKAGE CONFLICTS:
+PACKAGE SUGGESTS:
+PACKAGE MD5: 33333333333333333333333333333333
+PACKAGE DESCRIPTION:
+widget
+  patched widget package
