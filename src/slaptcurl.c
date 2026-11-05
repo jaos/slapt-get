@@ -53,6 +53,7 @@ int slapt_download_data(FILE *fh, const char *url, size_t bytes, SLAPT_DOWNLOAD_
 #endif
     curl_easy_setopt(ch, CURLOPT_FILETIME, 1L);
     curl_easy_setopt(ch, CURLOPT_FOLLOWLOCATION, 1L);
+    curl_easy_setopt(ch, CURLOPT_MAXREDIRS, 2L);
 
     /* connection limits */
     curl_easy_setopt(ch, CURLOPT_CONNECTTIMEOUT, 30L);
@@ -155,6 +156,7 @@ char *slapt_head_request(const char *url)
 #endif
     curl_easy_setopt(ch, CURLOPT_FILETIME, 1L);
     curl_easy_setopt(ch, CURLOPT_FOLLOWLOCATION, 1L);
+    curl_easy_setopt(ch, CURLOPT_MAXREDIRS, 2L);
 
     /* connection limits */
     curl_easy_setopt(ch, CURLOPT_CONNECTTIMEOUT, 30L);
