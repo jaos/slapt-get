@@ -520,6 +520,19 @@ static slapt_config_t *mirror_config(const char *mirror_name)
     return rc;
 }
 
+static void make_cached_pkg_file(const char *file_name, size_t bytes)
+{
+    FILE *f = fopen(file_name, "wb");
+    ck_assert_msg(f != NULL, "cannot create %s", file_name);
+
+    if (bytes > 0) {
+        ck_assert(fseek(f, (long)bytes - 1, SEEK_SET) == 0);
+        ck_assert(fputc('\0', f) != EOF);
+    }
+
+    ck_assert(fclose(f) == 0);
+}
+
 static int cached_pkg_data_has(const slapt_config_t *rc, const char *name)
 {
     char *pkg_list_path = slapt_gen_abs_path(rc->working_dir, SLAPT_PKG_LIST_L);
@@ -565,6 +578,48 @@ START_TEST(test_pkg_cache_with_checksums)
     ck_assert_msg(cached_pkg_data_has(rc, "widget-1.1-x86_64-1.txz") == 1,
         "patch package missing from package_data");
 
+    slapt_config_t_free(rc);
+}
+END_TEST
+
+START_TEST(test_verify_downloaded_pkg_no_md5)
+{
+    slapt_pkg_t target = {
+        .name = (char *)"widget",
+        .version = (char *)"1.0-x86_64-1",
+        .mirror = (char *)"file://unused/",
+        .location = (char *)".",
+        .file_ext = (char *)".txz",
+        .size_c = 4};
+
+    slapt_config_t *rc = mirror_config("mirror-with-checksums");
+    rc->no_md5_check = true;
+
+    char *file_name = slapt_gen_pkg_file_name(rc, &target);
+
+    /* never downloaded at all */
+    unlink(file_name);
+    ck_assert_msg(slapt_verify_downloaded_pkg(rc, &target) == SLAPT_DOWNLOAD_INCOMPLETE,
+        "missing package accepted as verified with --no-md5");
+
+    /* interrupted before a byte arrived */
+    make_cached_pkg_file(file_name, 0);
+    ck_assert_msg(slapt_verify_downloaded_pkg(rc, &target) == SLAPT_DOWNLOAD_INCOMPLETE,
+        "empty package accepted as verified with --no-md5");
+
+    /* --no-md5 asks for no verification, so the declared size is not consulted */
+    make_cached_pkg_file(file_name, 100 * 1024);
+    ck_assert_msg(slapt_verify_downloaded_pkg(rc, &target) == SLAPT_OK,
+        "cached package rejected with --no-md5");
+
+    /* with the checksum enabled, no md5 on record is its own error */
+    rc->no_md5_check = false;
+    make_cached_pkg_file(file_name, 4096);
+    ck_assert_msg(slapt_verify_downloaded_pkg(rc, &target) == SLAPT_MD5_CHECKSUM_MISSING,
+        "missing checksum accepted as verified");
+
+    unlink(file_name);
+    free(file_name);
     slapt_config_t_free(rc);
 }
 END_TEST
@@ -862,6 +917,7 @@ Suite *packages_test_suite(void)
     tcase_add_test(tc, test_cache);
     tcase_add_test(tc, test_pkg_cache_missing_checksums);
     tcase_add_test(tc, test_pkg_cache_with_checksums);
+    tcase_add_test(tc, test_verify_downloaded_pkg_no_md5);
     tcase_add_test(tc, test_slapt_gen_abs_path);
     tcase_add_test(tc, test_slapt_gen_filename_from_url);
     tcase_add_test(tc, test_slapt_gen_filename_from_url_safe);

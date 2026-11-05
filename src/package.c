@@ -1943,9 +1943,13 @@ slapt_code_t slapt_verify_downloaded_pkg(const slapt_config_t *global_config, co
     }
     */
 
-    /* if not checking the md5 checksum and the sizes match, assume its good */
-    if (global_config->no_md5_check)
+    /* if not checking the md5 checksum and the size is non-zero, assume its good */
+    if (global_config->no_md5_check) {
+        if (slapt_get_pkg_file_size(global_config, pkg) == 0) {
+            return SLAPT_DOWNLOAD_INCOMPLETE;
+        }
         return SLAPT_OK;
+    }
 
     /* check to see that we actually have an md5 checksum */
     if (strcmp(pkg->md5, "") == 0) {
