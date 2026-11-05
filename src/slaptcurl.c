@@ -30,6 +30,11 @@ int slapt_download_data(FILE *fh, const char *url, size_t bytes, SLAPT_DOWNLOAD_
     cb_data->bytes = bytes;
 
     CURL *ch = curl_easy_init();
+    if (ch == NULL) {
+        slapt_free_progress_data(cb_data);
+        return (int)CURLE_OUT_OF_MEMORY;
+    }
+
     curl_easy_setopt(ch, CURLOPT_URL, url);
     curl_easy_setopt(ch, CURLOPT_WRITEDATA, fh);
     curl_easy_setopt(ch, CURLOPT_NOPROGRESS, 0L);
@@ -125,6 +130,10 @@ char *slapt_head_request(const char *url)
     head_t.size = 0;
 
     CURL *ch = curl_easy_init();
+    if (ch == NULL) {
+        return NULL;
+    }
+
     curl_easy_setopt(ch, CURLOPT_URL, url);
     curl_easy_setopt(ch, CURLOPT_WRITEFUNCTION, write_header_callback);
     curl_easy_setopt(ch, CURLOPT_NOPROGRESS, 1L);
