@@ -81,7 +81,7 @@ int slapt_download_data(FILE *fh, const char *url, size_t bytes, SLAPT_DOWNLOAD_
     /* resume */
     if (bytes > 0) {
         fseek(fh, 0, SEEK_END);
-        curl_easy_setopt(ch, CURLOPT_RESUME_FROM, bytes);
+        curl_easy_setopt(ch, CURLOPT_RESUME_FROM_LARGE, (curl_off_t)bytes);
     }
 
     int return_code = 0;
@@ -139,7 +139,7 @@ char *slapt_head_request(const char *url)
     curl_easy_setopt(ch, CURLOPT_WRITEFUNCTION, write_header_callback);
     curl_easy_setopt(ch, CURLOPT_NOPROGRESS, 1L);
     curl_easy_setopt(ch, CURLOPT_USERAGENT, PACKAGE);
-    curl_easy_setopt(ch, CURLOPT_FILE, &head_t);
+    curl_easy_setopt(ch, CURLOPT_WRITEDATA, &head_t);
     curl_easy_setopt(ch, CURLOPT_HEADER, 1L);
     curl_easy_setopt(ch, CURLOPT_NOBODY, 1L);
     curl_easy_setopt(ch, CURLOPT_FTP_USE_EPSV, 0L);
