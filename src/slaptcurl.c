@@ -63,9 +63,6 @@ int slapt_download_data(FILE *fh, const char *url, size_t bytes, SLAPT_DOWNLOAD_
     if (getenv("SLAPT_CURL_DEBUG"))
         curl_easy_setopt(ch, CURLOPT_VERBOSE, 1L);
 
-    struct curl_slist *headers = NULL;
-    headers = curl_slist_append(headers, "Pragma: "); /* override no-cache */
-
     if (!global_config->dl_stats) {
         if (global_config->progress_cb == NULL) {
             curl_easy_setopt(ch, CURLOPT_XFERINFOFUNCTION, slapt_progress_callback);
@@ -98,7 +95,6 @@ int slapt_download_data(FILE *fh, const char *url, size_t bytes, SLAPT_DOWNLOAD_
     curl_easy_cleanup(ch);
     /* can't do a curl_free() after curl_easy_cleanup() */
     /* curl_free(ch); */
-    curl_slist_free_all(headers);
     slapt_free_progress_data(cb_data);
 
     return return_code;
@@ -167,19 +163,14 @@ char *slapt_head_request(const char *url)
     if (getenv("SLAPT_CURL_DEBUG"))
         curl_easy_setopt(ch, CURLOPT_VERBOSE, 1L);
 
-    struct curl_slist *headers = NULL;
-    headers = curl_slist_append(headers, "Pragma: "); /* override no-cache */
-
     CURLcode response = curl_easy_perform(ch);
     if (response != CURLE_OK) {
         free(head_t.data);
         curl_easy_cleanup(ch);
-        curl_slist_free_all(headers);
         return NULL;
     }
 
     curl_easy_cleanup(ch);
-    curl_slist_free_all(headers);
     return head_t.data;
 }
 
