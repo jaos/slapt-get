@@ -270,7 +270,6 @@ const char *slapt_download_pkg(const slapt_config_t *global_config, const slapt_
     } else if (dl_return == CURLE_HTTP_RANGE_ERROR ||
                dl_return == CURLE_FTP_BAD_DOWNLOAD_RESUME ||
                dl_return == CURLE_PARTIAL_FILE) {
-        /* this is for errors trying to resume.  unlink the file and try again. */
         printf("\r");
         fclose(fh);
 
@@ -284,11 +283,7 @@ const char *slapt_download_pkg(const slapt_config_t *global_config, const slapt_
         free(file_name);
         free(url);
 
-        /* if we set retry, make sure this counts as a retry */
-        if (global_config->retry > 1)
-            return curl_easy_strerror((CURLcode)dl_return);
-        else
-            return slapt_download_pkg(global_config, pkg, note);
+        return curl_easy_strerror((CURLcode)dl_return);
 
     } else {
         fclose(fh);
